@@ -73,11 +73,11 @@ class Db{
         }
         
         if($userId === null){
-          $sql2 = "select m.name as m_name, m.id, m.translation from 
+          $sql2 = "select m.name as m_name, m.id, m.translation, core from 
           ".DB_PREF."module m where m.group_id = '".$lock['id']."' ".$managedSql."
            order by row_number";
         }else{    
-          $sql2 = "select m.name as m_name, m.id, m.translation from 
+          $sql2 = "select m.name as m_name, m.id, m.translation, core from 
           ".DB_PREF."user_to_mod um,".DB_PREF."module m where
           um.user_id = '".mysql_real_escape_string($userId)."' and um.module_id = m.id and 
           m.group_id = '".$lock['id']."' ".$managedSql." order by row_number";
@@ -86,6 +86,7 @@ class Db{
         if($rs2){
           while($lock2 = mysql_fetch_assoc($rs2)){
             $lock2['g_name'] =  $lock['g_name'];
+            $lock2['g_id'] =  $lock['id'];
             $groups[$lock['translation']][] = $lock2;
           }
           if(sizeof($groups[$lock['translation']]) == 0)

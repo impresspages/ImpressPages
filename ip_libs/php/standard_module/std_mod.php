@@ -248,7 +248,7 @@ class StandardModule{
   			break;
       case 'delete':
       {
-				if($this->allow_delete($this->current_area, $_REQUEST['key_id'])){
+				if($this->allow_delete($this->current_area, $_REQUEST['key_id'], $this->current_area, $_REQUEST['key_id'])){
 					$this->delete($this->current_area, $_REQUEST['key_id']);
 					echo "delete_row(".$_POST['key_id'].")";
 				}
@@ -824,12 +824,12 @@ class StandardModule{
     return $answer;
   }
 
-  function allow_delete($area, $id){
+  function allow_delete($area, $id, $deletingArea, $deletingId){
     global $parametersMod;
     
     $allow_delete = true;
     if(method_exists($area, 'allow_delete')){
-      $allow_delete = $area->allow_delete($id);
+      $allow_delete = $area->allow_delete($id, $deletingArea, $deletingId);
       if(!$allow_delete){
         if(method_exists($area, 'last_error'))
           echo "alert('".addslashes($area->last_error('delete'))."');";
@@ -849,15 +849,9 @@ class StandardModule{
         for($i=0; $i<$limit; $i++){
           $lock = mysql_fetch_assoc($rs);
           
-          if(method_exists($child, 'allow_delete')){
-            $allow_delete = $child->allow_delete($lock['key']);
-            if(!$allow_delete){
-              if(method_exists($child, 'last_error'))
-                echo "alert('".addslashes($child->last_error('delete'))."');";
-              else
-                echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
-              return false;
-            }
+          $allow_delete = $this->allow_delete($child, $lock['key'], $deletingArea, $deletingId);
+          if(!$allow_delete){
+            return false;
           }
         }
       }else trigger_error("Can't get children ".$sql);

@@ -98,6 +98,12 @@ class ParametersRefractor {
     $this->addStringParameter($group['id'], 'Error update required', 'error_update_required', 'This module requires another module to be updated: ', 1);    
     $this->addStringParameter($group['id'], 'Plugin ini file does not exist', 'error_ini_file_doesnt_exist', 'Plugin ini file does not exist ', 1);    
         
+    if(!$this->getParametersGroup($moduleId, 'admin_translations')){
+      $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+      $this->addStringParameter($groupId, 'Error: can\'t delete core module', 'error_cant_delete_core_module', 'Can\'t delete core module: ', 1);
+      $this->addStringParameter($groupId, 'Error: delete required module', 'error_delete_required_module', 'This module is used by another module: ', 1);
+    }
+    
     
     //add widgets titles
     $configurationModuleId = $this->getModuleId('standard', 'content_management');
@@ -285,6 +291,8 @@ class ParametersRefractor {
     
     $group = $this->getParametersGroup($moduleId, 'widget_video'); 
     $this->addStringParameter($group['id'], 'Layout default', 'layout_default', 'Default', 1);
+    
+    
     
 
 

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
   `type` varchar(255) NOT NULL DEFAULT 'default',
   `redirect_url` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=78 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Table structure
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_element_to_modules` (
   `instance_id` int(11) NOT NULL DEFAULT '0',
   `preview` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_module` (
   `translation` varchar(255) NOT NULL,
   `version` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=515 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_module_group` (
   `row_number` int(11) NOT NULL DEFAULT '0',
   `translation` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=505 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `url` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=389 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
   `value_int` int(11) DEFAULT NULL,
   `value_float` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_contact_form` (
   `button` varchar(255) NOT NULL DEFAULT '',
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_contact_form_field` (
   `required` int(1) NOT NULL DEFAULT '0',
   `contact_form` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=95 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_file` (
   `photo` mediumtext NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_html_code` (
   `text` mediumtext NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_rich_text` (
   `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_video` (
   `photo` mediumtext NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_faq` (
   `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_logo_gallery` (
   `blank` char(1) NOT NULL DEFAULT '',
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_logo_gallery_logo` (
   `logo_gallery` int(11) NOT NULL DEFAULT '0',
   `row_number` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo` (
   `photo_big` mediumtext NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo_gallery` (
   `blank` char(1) NOT NULL DEFAULT '',
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo_gallery_photo` (
   `photo_gallery` int(11) NOT NULL DEFAULT '0',
   `row_number` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_separator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `layout` varchar(255) NOT NULL DEFAULT 'line',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -314,7 +314,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text` (
   `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -331,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_photo` (
   `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'left',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_title` (
   `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_title` (
   `level` int(11) NOT NULL DEFAULT '1',
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module` (
   `version` decimal(10,2) NOT NULL,
   `core` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=437 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module_group` (
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   `translation` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=391 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -409,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module_permission` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `value` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=323 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -434,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
   `file_names` mediumtext,
   `file_mime_types` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -450,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_rss` (
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `rss` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=802 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -464,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_community_newsletter` (
   `text` mediumtext,
   `language_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10893 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -480,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_community_newsletter_subscribers` (
   `verification_code` varchar(32) DEFAULT NULL,
   `language_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -499,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_parameter` (
   `comment` varchar(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1536 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -515,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_parameter_group` (
   `row_number` int(11) NOT NULL DEFAULT '0',
   `translation` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=601 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -528,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_bool` (
   `value` tinyint(1) DEFAULT NULL,
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=428 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -541,7 +541,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_integer` (
   `value` int(11) DEFAULT NULL,
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=491 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -555,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_lang` (
   `language_id` int(11) DEFAULT NULL,
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4669 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -568,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
   `value` mediumtext NOT NULL,
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1130 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -585,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_user` (
   `e_mail` varchar(255) NOT NULL DEFAULT '',
   `row_number` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=337 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -598,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_user_to_mod` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `module_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=531 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_variables` (
   `value` text,
   `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -629,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
   `associated_group` varchar(255) DEFAULT NULL,
   `associated_module` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=110 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -647,7 +647,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
   `language_id` int(11) DEFAULT NULL,
   `translation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=629 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -661,5 +661,5 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_content` (
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `element_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='tells how mutch elements have language' AUTO_INCREMENT=173 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='tells how mutch elements have language' ;
 

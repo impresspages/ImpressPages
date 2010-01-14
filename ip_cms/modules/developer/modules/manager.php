@@ -16,19 +16,65 @@ require_once (__DIR__.'/installation.php');
 class ModulesArea extends \Library\Php\StandardModule\Area{
 
 
+  var $lastError;
+  
+  function last_error($action){
+    return $this->lastError;
+  }
+  
   function after_delete($id){
     Db::deletePermissions($id);
-
+    
   }
 
-  function allow_delete($id){
+  function allow_delete($id, $deletingArea, $deletingId){
+    global $parametersMod;
+    
     $module = \Db::getModule($id);
+    
+    $ignoreGroupId = null;
+    if($deletingArea->db_table == 'module_group'){
+      $ignoreGroupId = $deletingId;
+    }
+
+    $error = $this->getDeleteError($module['g_name'], $module['m_name'], $ignoreGroupId);
+    
+    if($error){
+      $this->lastError = $error;  
+      return false;
+    }
     if ($module['core']) {
+      $this->lastError = $parametersMod->getValue('developer', 'modules', 'admin_translations', 'error_cant_delete_core_module').' '.$module['g_name'].'/'.$module['m_name'];
       return false;
     } else {
       return true;
     }
   }
+  
+  
+  public function getDeleteError($moduleGroupKey, $moduleKey, $ignoreGroupId = null){
+    global $parametersMod;
+    
+    $moduleGroups = \Backend\Db::modules();
+    foreach($moduleGroups as $group){
+      foreach($group as $module){
+        if($module['g_id'] != $ignoreGroupId){
+          if(!$module['core']){
+            $configuration = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/install/plugin.ini');
+            if($configuration){
+              foreach($configuration->getRequiredModules() as $requiredModule){
+                if($requiredModule['module_group_key'] == $moduleGroupKey && $requiredModule['module_key'] == $moduleKey){
+                  $error = $parametersMod->getValue('developer', 'modules', 'admin_translations', 'error_delete_required_module').' '.$module['g_name'].'/'.$module['m_name'];
+                  return $error;
+                }
+              }          
+            }
+            
+          }
+        }
+      }
+    }
+  }  
 
   function before_delete($id){
     $module = \Db::getModule($id);

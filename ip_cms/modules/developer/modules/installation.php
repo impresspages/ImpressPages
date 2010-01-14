@@ -41,10 +41,11 @@ class ModulesInstallation{
     } else {
       $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_ini_file_doesnt_exist').PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini';
     }
-    /*end read configuration*/
     
     return $errors;
   }  
+  
+
   
   private function install($moduleGroupKey, $moduleKey){
     $config = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini');
