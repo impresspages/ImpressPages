@@ -248,21 +248,11 @@ class StandardModule{
   			break;
       case 'delete':
       {
-				$allow_delete = true;
-				if(method_exists($this->current_area, 'allow_delete')){
-					$allow_delete = $this->current_area->allow_delete($_REQUEST['key_id']);
-					if(!$allow_delete){
-						if(method_exists($this->current_area, 'last_error'))
-							echo "alert('".addslashes($this->current_area->last_error('delete'))."');";
-						else
-							echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
-						return;
-					}
-				}
-				if($allow_delete){
+				if($this->allow_delete($this->current_area, $_REQUEST['key_id'])){
 					$this->delete($this->current_area, $_REQUEST['key_id']);
+					echo "delete_row(".$_POST['key_id'].")";
 				}
-			  echo "delete_row(".$_POST['key_id'].")";
+			  
         \Db::disconnect();
         exit;     			
 			}
@@ -521,6 +511,8 @@ class StandardModule{
 		}
 	}
 
+	
+	
   function manage(){
     global $std_mod_db;
     $std_mod_db = new std_mod_db();
@@ -805,7 +797,7 @@ class StandardModule{
           break;
         case 'insert':
 
-break;
+          break;
         case 'update':
           break;
       }
@@ -832,7 +824,51 @@ break;
     return $answer;
   }
 
+  function allow_delete($area, $id){
+    global $parametersMod;
+    
+    $allow_delete = true;
+    if(method_exists($area, 'allow_delete')){
+      $allow_delete = $area->allow_delete($id);
+      if(!$allow_delete){
+        if(method_exists($area, 'last_error'))
+          echo "alert('".addslashes($area->last_error('delete'))."');";
+        else
+          echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
+        return false;
+      }
+    }
+    
+    //check subareas does they allow to delete
+    $child = $area->get_area();
+    if ($child != null){
+      $sql = " select ".$child->get_db_key()." as 'key' from ".DB_PREF."".$child->get_db_table()." where ".$child->get_db_reference()." = '".$id."' ";
+      $rs = mysql_query($sql);
+      if ($rs){
+        $limit = mysql_num_rows($rs);
+        for($i=0; $i<$limit; $i++){
+          $lock = mysql_fetch_assoc($rs);
+          
+          if(method_exists($child, 'allow_delete')){
+            $allow_delete = $child->allow_delete($lock['key']);
+            if(!$allow_delete){
+              if(method_exists($child, 'last_error'))
+                echo "alert('".addslashes($child->last_error('delete'))."');";
+              else
+                echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
+              return false;
+            }
+          }
+        }
+      }else trigger_error("Can't get children ".$sql);
+    }
+    return $allow_delete;
+    
+  }
+  
   function delete(&$current_area, $id){
+    
+    
 		if(method_exists($current_area, 'before_delete')){
 			$current_area->before_delete($id);
 		}
@@ -1216,7 +1252,7 @@ break;
         
         if ($this->current_area->sortable && $this->current_area->get_sort_field() != null){
 					if($this->current_area->sort_type == 'numbers')
-						$answer .= '<td ><form action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generate_url_level($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->current_area->db_key].'&amp;new_row_number=\' + encodeURIComponent(this.value))" style="width:30px;" name="sort_field_'.$lock[$this->current_area->get_db_key()].'" value="'.$lock[$this->current_area->get_sort_field()].'" /></form></td>';
+						$answer .= '<td ><form action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generate_url_level($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->current_area->db_key].'&amp;new_row_number=\' + escape(this.value))" style="width:30px;" name="sort_field_'.$lock[$this->current_area->get_db_key()].'" value="'.$lock[$this->current_area->get_sort_field()].'" /></form></td>';
 					if($this->current_area->sort_type == 'pointers')
 						$answer .= '<td >
 						<a class="move_down" 

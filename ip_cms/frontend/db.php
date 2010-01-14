@@ -84,9 +84,13 @@ class Db{
    *   
    * @return array all visible website languages      
    */
-  public static function getLanguages(){
+  public static function getLanguages($includeHidden = false){
     $answer = array();
-    $sql = "select * from `".DB_PREF."language` where visible order by row_number";
+    if($includeHidden){
+      $sql = "select * from `".DB_PREF."language` where 1 order by row_number";
+    }else{
+      $sql = "select * from `".DB_PREF."language` where visible order by row_number";
+    } 
     $rs = mysql_query($sql);
     if($rs){
       while($lock = mysql_fetch_assoc($rs))

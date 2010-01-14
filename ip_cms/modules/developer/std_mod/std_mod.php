@@ -326,21 +326,10 @@ class StandardModule{
           break;
         case 'delete':
           {
-            $allowDelete = true;
-            if(method_exists($this->currentArea, 'allowDelete')){
-              $allowDelete = $this->currentArea->allowDelete($_REQUEST['key_id']);
-              if(!$allowDelete){
-                if(method_exists($this->currentArea, 'lastError'))
-                echo "alert('".addslashes($this->currentArea->lastError('delete'))."');";
-                else
-                echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
-                return;
-              }
-            }
-            if($allowDelete){
+            if($this->allowDelete($this->currentArea, $_REQUEST['key_id'])){
               $this->delete($this->currentArea, $_REQUEST['key_id']);
+              echo "delete_row(".$_POST['key_id'].")";
             }
-            echo "delete_row(".$_POST['key_id'].")";
             \Db::disconnect();
             exit;
           }
@@ -927,6 +916,41 @@ class StandardModule{
     return $answer;
   }
 
+  
+  function allowDelete($area, $id){
+    global $parametersMod;
+    $allowDelete = true;
+    if(method_exists($area, 'allowDelete')){
+      $allowDelete = $area->allowDelete($id);
+      if(!$allowDelete){
+        if(method_exists($area, 'lastError')){
+          echo "alert('".addslashes($area->lastError('delete'))."');";
+        }else{
+          echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
+        }
+        return false;
+      }
+      
+      $child = $area->getArea();
+      if ($child != null){
+        $sql = " select `".mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".mysql_real_escape_string($child->dbReference)."` = '".mysql_real_escape_string($id)."' ";
+        $rs = mysql_query($sql);
+        if ($rs){
+          $limit = mysql_num_rows($rs);
+          for($i=0; $i<$limit; $i++){
+            $lock = mysql_fetch_assoc($rs);
+            $allowDelete = $this->allowDelete($child, $lock['key']);
+            if(!$allowDelete){
+              return false;
+            }
+          }
+        }else trigger_error("Can't get children ".$sql);
+      }
+    }
+    return $allowDelete;
+  }
+  
+  
   function delete(&$currentArea, $id){
     if(method_exists($currentArea, 'beforeDelete')){
       $currentArea->beforeDelete($id);
