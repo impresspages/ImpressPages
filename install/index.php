@@ -1,0 +1,191 @@
+<?php	
+/**
+ * @package		ImpressPages
+ * @copyright	Copyright (C) 2009 JSC Apro media.
+ * @license		GNU/GPL, see ip_license.html
+ */
+define('INSTALL', 'true');
+
+//$_SESSION['step'] - stores the value of completed steps
+
+
+function install_available(){
+	if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
+		return true;
+	else
+		return false;
+}
+
+
+
+
+	
+function output($html){
+	echo 
+	'
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>'.IP_INSTALLATION.'</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="robots" content="NOINDEX,NOFOLLOW">	
+  <link href="design/style.css" rel="stylesheet" type="text/css" />  
+  <link rel="SHORTCUT ICON" href="favicon.ico" />
+</head>   
+<body>
+
+  <div class="container">
+    <img id="logo" src="design/cms_logo.gif" alt="ImpressPages CMS" />
+    <div class="clear"></div>
+    <div id="wrapper">
+      <p id="installationNotice">'.IP_INSTALLATION.' <span>'.IP_VERSION.'</span></p>
+      <div class="clear"></div>
+      <img class="border" src="design/cms_main_top.gif" alt="Design" />
+      <div id="main">
+        <div id="menu">
+'.gen_menu().'
+        </div>
+        <div id="content">
+'.$html.'
+        </div>
+        <div class="clear"></div>
+      </div>
+      <img class="border" src="design/cms_main_bottom.gif" alt="Design" />
+      <div class="clear"></div>
+    </div>
+    <div class="footer">Copyright 2007-'.date("Y").' by <a href="http://www.aproweb.eu">JSC Apro Media</a></div>
+  </div>
+
+	<script type="text/javascript">
+	<!--
+	if (document.images)
+	{
+		preload_image = new Image(); 
+		preload_image.src="design/cms_button_hover.gif"; 
+	}
+	//-->
+	</script>
+  	
+</body>';
+}	
+	
+	
+function gen_menu(){
+	global $cur_step;
+	$steps = array();
+  $steps[] = IP_STEP_LANGUAGE;
+	$steps[] = IP_STEP_CHECK;
+	$steps[] = IP_STEP_LICENSE;
+	$steps[] = IP_STEP_DB;
+	$steps[] = IP_STEP_CONFIGURATION;
+	$steps[] = IP_STEP_COMPLETED;
+
+	$answer = '
+	<ul>	
+	';
+
+	foreach($steps as $key => $step){
+		$class = "";
+		if($_SESSION['step'] >= $key)
+			$class="completed";
+		else
+			$class="incompleted";			
+		if($key == $cur_step)
+			$class="current";
+		if($key < $cur_step)
+			$answer .= '<li onclick="document.location=\'index.php?step='.($key).'\'" class="'.$class.'"><a href="index.php?step='.($key).'">'.$step.'</a></li>';
+		else
+			$answer .= '<li class="'.$class.'"><a>'.$step.'</a></li>';
+		
+	}
+	
+	$answer .= '
+	</ul>
+	';
+	
+	return $answer;
+}	
+	
+function complete_step($step){
+	//if($_SESSION['step'] < $step)
+		$_SESSION['step'] = $step;
+}	
+	
+	
+function gen_table($table){
+	$answer = '';
+	
+	$answer .= '<table>';
+	$i = 0;
+	while(sizeof($table) > ($i + 1)){
+		$answer .= '<tr><td class="label">'.$table[$i].'</td><td class="value">'.$table[$i+1].'</td></tr>';
+		$i += 2;
+	}
+	
+	$answer .= '</table>';
+	return $answer;
+}	
+
+session_start();
+
+
+
+if(isset($_GET['lang']) && file_exists('translations/'.$_GET['lang'].'.php')){
+  $_SESSION['installation_language'] = $_GET['lang'];
+  require_once('translations/'.$_GET['lang'].'.php');
+} else {
+  if(isset($_SESSION['installation_language'])){
+    require_once('translations/'.$_SESSION['installation_language'].'.php');
+  } else {
+    require_once('translations/en.php');
+  }
+}
+
+
+if(!isset($_SESSION['step']))
+	$_SESSION['step'] = 0;
+
+$cur_step = $_SESSION['step'];
+
+	
+	
+if(isset($_GET['step'])){
+	switch($_GET['step']){
+    case 0:
+      $cur_step = 0;
+      break;
+	  case 1:
+			$cur_step = 1;
+			break;
+		case 2:
+			$cur_step = 2;
+			break;
+		case 3:
+			$cur_step = 3;
+			break;
+		case 4:
+			$cur_step = 4;
+			break;
+		case 5:
+			$cur_step = 5;
+			break;
+	}
+
+	
+}
+if($cur_step > $_SESSION['step']+1){
+	$cur_step = $_SESSION['step']+1;
+}
+
+if(!install_available()){
+	$_SESSION['step'] = 5;
+	$cur_step = 5;
+}
+
+
+
+require('install_'.$cur_step.'.php');			
+
+
+
+?>

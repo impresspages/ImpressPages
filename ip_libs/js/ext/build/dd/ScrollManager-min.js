@@ -1,0 +1,10 @@
+/*
+ * Ext JS Library 1.1
+ * Copyright(c) 2006-2007, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://www.extjs.com/license
+ */
+
+
+Ext.dd.ScrollManager=function(){var _1=Ext.dd.DragDropMgr;var _2={};var _3=null;var _4={};var _5=function(e){_3=null;_7();};var _8=function(){if(_1.dragCurrent){_1.refreshCache(_1.dragCurrent.groups);}};var _9=function(){if(_1.dragCurrent){var _a=Ext.dd.ScrollManager;if(!_a.animate){if(_4.el.scroll(_4.dir,_a.increment)){_8();}}else{_4.el.scroll(_4.dir,_a.increment,true,_a.animDuration,_8);}}};var _7=function(){if(_4.id){clearInterval(_4.id);}_4.id=0;_4.el=null;_4.dir="";};var _b=function(el,_d){_7();_4.el=el;_4.dir=_d;_4.id=setInterval(_9,Ext.dd.ScrollManager.frequency);};var _e=function(e,_10){if(_10||!_1.dragCurrent){return;}var dds=Ext.dd.ScrollManager;if(!_3||_3!=_1.dragCurrent){_3=_1.dragCurrent;dds.refreshCache();}var xy=Ext.lib.Event.getXY(e);var pt=new Ext.lib.Point(xy[0],xy[1]);for(var id in _2){var el=_2[id],r=el._region;if(r&&r.contains(pt)&&el.isScrollable()){if(r.bottom-pt.y<=dds.thresh){if(_4.el!=el){_b(el,"down");}return;}else{if(r.right-pt.x<=dds.thresh){if(_4.el!=el){_b(el,"left");}return;}else{if(pt.y-r.top<=dds.thresh){if(_4.el!=el){_b(el,"up");}return;}else{if(pt.x-r.left<=dds.thresh){if(_4.el!=el){_b(el,"right");}return;}}}}}}_7();};_1.fireEvents=_1.fireEvents.createSequence(_e,_1);_1.stopDrag=_1.stopDrag.createSequence(_5,_1);return{register:function(el){if(el instanceof Array){for(var i=0,len=el.length;i<len;i++){this.register(el[i]);}}else{el=Ext.get(el);_2[el.id]=el;}},unregister:function(el){if(el instanceof Array){for(var i=0,len=el.length;i<len;i++){this.unregister(el[i]);}}else{el=Ext.get(el);delete _2[el.id];}},thresh:25,increment:100,frequency:500,animate:true,animDuration:0.4,refreshCache:function(){for(var id in _2){if(typeof _2[id]=="object"){_2[id]._region=_2[id].getRegion();}}}};}();

@@ -1,0 +1,741 @@
+
+#modules{
+	float: left;
+	width: 100%;
+}
+
+/*Head*/
+#manHead{
+	width: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  height:85px;
+  background-color: #fbfcfc;
+  z-index: 10;
+}
+
+#manHead div.ipCmsModuleGroups{
+	width: 55px;
+	height: 70px;
+	float: left;
+	padding: 7px 13px 8px 9px;
+	vertical-align: middle;
+}
+
+#manHead div.ipCmsModuleGroups img{
+	float: left;
+	cursor: pointer;
+}
+
+#manHead div.ipCmsDots1{
+	margin-top: 17px;
+	float: left;
+	height: 28px;
+}
+
+#manHead div.ipCmsDots2{
+	margin-top: 12px;
+	float: left;
+	height: 32px;
+}
+
+#manHead div.ipCmsDots3{
+	margin-top: 8px;
+	float: left;
+	height: 38px;
+}
+
+#manHead div.ipCmsDots4{
+	margin-top: 4px;
+	float: left;
+	height: 41px;
+}
+
+#manHead div.ipCmsDots5{
+	margin-top: 0px;
+	float: left;
+	height: 47px;
+}
+
+
+#manHead img.ipCmsDot{
+	margin-top: 4px;
+	margin-left: 25px;
+	display: block;
+}
+
+
+#manHead div.ipCmsAttributes{
+	width: 100%;
+	height: 26px;
+	padding-top: 4px;
+  background-color: #f2f2f2;
+  z-index: 10;
+  position: fixed;
+  top: 85px;
+  left: 0;
+	border-top: #dedfe1 1px solid;
+	border-bottom: #79797b 1px solid;
+}
+
+#manHead div.ipCmsModuleDrag{
+  width: 73px;
+  height: 75px;
+  float: left;
+	margin-top: 5px;
+	cursor: pointer;
+}
+#manHead div.ipCmsDragable{
+	width: 73px;
+	height: 75px;
+	display: inline;
+	background-color: green;
+	position: absolute;
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 11px;
+	color: #505050;
+	text-align: center;
+	cursor: pointer;
+}
+
+#manHead div.ipCmsDragable *{
+	cursor: pointer;
+}
+
+
+#manHead span.ipCmsTitle{
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: #505050;
+	margin-left: 12px;
+	text-decoration: none;
+	cursor: default;
+}
+
+#manHead a.ipCmsButton{
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: #212023;
+	cursor: pointer;
+	border: 1px solid #a7a7aa;
+	padding: 0 4px 1px 24px;
+	font-weight: bold;
+	display: inline-block;	
+}
+
+#manHead a.ipCmsAdvancedButton{
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: #3c64c8;
+	cursor: pointer;
+}
+
+#manHead a.ipCmsAdvancedButton:hover{
+  text-decoration: underline;
+}
+
+#manHead span.ipCmsButtonBg{
+  background: transparent url(button_bg.gif) scroll repeat-x;
+  margin-left: 6px;
+}
+
+#manHead a.ipCmsButton:hover{
+  border-color: #8ebdf1;
+  background-color: #e8eaec;
+}
+
+#manHead a.ipCmsButtonOk{
+  background: transparent url(icon_ok.gif) scroll no-repeat 3px 3px;	
+}
+
+#manHead a.ipCmsButtonPreview{
+  background: transparent url(icon_mode.gif) scroll no-repeat 3px 3px;	
+}
+
+#manHead span.ipCmsControllButtons:hover{
+  text-decoration: none;
+  border: none;  
+}
+
+#manHead span.ipCmsButton{
+	float: right;
+}
+
+#manHead div.display_no{
+  display: none;
+}
+
+#manHead input{
+	border: #C0C0C0 1px solid;
+	width: 300px;
+	margin: 0 4px; 
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 14px;
+	color: black;
+} 
+
+#manHead form{
+	float: left;
+}
+
+#manHead span.ipCmsControllButtons{
+	margin-right: 3px;
+	float: right;
+}
+
+#manHead span.ipCmsControllButtons span{
+	float: right;
+}
+
+#manHead span.ipCmsControllButtons img{
+	margin: 0 4px;
+	float: right;
+}
+
+/*eof head*/
+
+/*content*/
+#modules .contentMod { /* event empty widgets in admin sould be visible */
+  min-height: 4px;  
+}
+
+#modules div.ipCmsModule{
+	margin-bottom: 10px;
+}
+
+#modules div.ipCmsModuleManagement a img{
+	border: none;
+}
+
+#modules div.ipCmsModuleManagement .hidden{
+  display: none;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsModNav{
+	position: absolute;
+	z-index: 3;	
+	display: none;
+	padding: 3px;
+	margin-left: -3px;
+	margin-top: -3px;
+	border: 1px #8ebdf1 dashed;
+	min-height: 21px;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsModNav div.ipCmsButtons{
+	background-image: url(mod_nav_bg.png);
+	padding: 2px 2px 2px 0;
+	float: left;
+	margin-left: -2px;
+	margin-top: -2px;
+	z-index: 3;	
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsNewParagraph{
+	height: 10px;
+	border:1px #e73031 dashed;
+	display: none;
+	margin-bottom: 10px;
+}
+
+#modules div.ipCmsModNav img{
+	float: left;
+	border: #acc3dd 1px solid;
+	margin-left: 2px;
+}
+
+#modules div.ipCmsModNav img:hover{
+	border: #8ebdf1 1px solid;
+}
+
+#modules div.ipCmsModuleBorder{
+	border: #c1c3c6 1px solid;
+}
+
+
+#modules  div.ipCmsModuleManagement div.ipCmsManagementPhoto{
+	text-align: left;
+}
+
+
+
+#modules div.ipCmsModuleManagement textarea.ipCmsHtmlCode{
+	margin-bottom: 3px;
+	width: 100%; 
+	height: 300px;
+	border: 1px #c0c0c0 solid;
+}
+
+#modules  div.ipCmsModuleManagement table.ipCmsColumns{
+	width: 100%;
+}
+
+#modules  div.ipCmsModuleManagement table.ipCmsColumns td.ipCmsManagement{
+	padding: 5px 5px 1px 5px;	/*1px is litle hack to show input fields nicely*/
+	background-color: #f5f5f5;
+	text-align: left;
+}
+
+#modules  div.ipCmsModuleManagement table.ipCmsColumns td.ipCmsLeft{
+	width: 220px;
+	border-right: 1px #d6d7d7 solid;
+	background: #f5f5f5 url(module_management_bg.gif) repeat-x left bottom;
+	padding: 5px 5px 1px 5px;	/*1px is litle hack to show input fields nicely*/
+	text-align: left;
+	vertical-align: top;
+}
+
+#modules div.ipCmsManagement{
+	background: #f5f5f5 url(module_management_bg.gif) repeat-x left bottom;
+	padding: 5px 5px 1px 5px;	/*1px is litle hack to show input fields nicely*/
+	text-align: left;
+}
+
+#modules div.ipCmsError{
+	background-color: #fff5e1;
+	padding: 8px 5px 7px 5px;
+	text-align: left;
+	font-family: Verdana, Tahoma, Arial;
+	color: #e73031;
+	font-weight: bold;
+	font-size: 12px;	
+	border-bottom: 1px solid #efa6a7;
+	display: none;
+}
+
+
+#modules div.ipCmsManagement2{
+	background-color: #f5f5f5;
+	padding: 5px 5px 1px 5px;	/*1px is litle hack to show input fields nicely*/
+	text-align: left;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsInput input, #modules div.ipCmsModuleManagement div.ipCmsInput select{ 
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: black;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	/*border: none; don't work on ie7 under Vista*/
+	border: 0px #ffffff solid;  
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsInput{
+	padding: 0 2px;
+	border: #c0c0c0 1px solid;
+	margin-bottom: 5px;
+	background-color: white;
+}
+
+
+#modules div.ipCmsModuleManagement div.ipCmsInputFile{
+	padding: 0 2px;
+	border: transparent 1px solid;
+	margin-bottom: 5px;
+	background-color: transparent;
+	float: left;
+}
+
+
+#modules div.ipCmsModuleManagement label.ipCmsModuleName{
+	font-family: Verdana, Arial, Helvetica; 	
+	font-size: 12px;
+	color: #797979;
+	font-weight: bold;
+	margin-bottom: 7px;
+	float: left;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsModuleSeparator{
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  border-bottom: 1px solid #C1C3C6;
+  margin-bottom: 5px;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsModuleLayout{
+  float: right;
+  margin-top: -2px;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsModuleLayout label.ipCmsTitle{
+  display: inline;
+}
+
+#modules div.ipCmsModuleManagement label.ipCmsTitle{
+	font-family: Verdana, Arial, Helvetica; 	
+	font-size: 12px;
+	color: #797979;
+	margin-bottom: 5px;
+	display: block;
+	font-weight: normal;
+}
+
+#modules  div.ipCmsModuleManagement div.ipCmsSeparator{
+	height: 1px;
+	background-color: #dbdcdd;
+	overflow: hidden;
+}
+
+
+#modules div.ipCmsModuleControlButtons{
+	background-color: #f5f5f5;
+	padding: 5px;	
+}
+
+#modules div.ipCmsModuleManagement a.ipCmsButton{
+	color: #264971;
+	font-family: Verdana, Arial, Helvetica;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 1px 10px;
+	margin-right: 7px;
+	border: #ffbb44 1px solid;
+	float: left;
+	background: url(button.gif);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#modules div.ipCmsModuleManagement a.ipCmsButton:hover{
+ background-image: none;
+ background-color: #f6e0b5;
+}
+
+
+#modules div.ipCmsModuleManagement a.ipCmsButton2{
+	color: #3b5390;
+	text-decoration: none;
+}
+
+#modules div.ipCmsModuleManagement a.ipCmsButton2:hover{
+	text-decoration: underline;
+}
+
+#modules  div.ipCmsModuleManagement div.ipCmsClear{
+	clear: both;
+}
+
+/*photo gallery*/
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto{
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	width: auto;
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto input{
+	max-width: 200px; /*prevent 100% width under ie7*/
+}
+
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto img.ipCmsPhotoSmall{
+	border: 1px #dbdcde solid;
+}
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto img.ipCmsPhotoSmall:hover{
+	border: 1px #8ebdf1 solid;
+}
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto div.ipCmsNav{
+	background-image: url(mod_nav_bg.png);
+	padding: 2px 2px 2px 0;
+	float: right;
+	position: absolute;
+	z-index: 3;	
+}
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto div.ipCmsNav img{
+	float: left;
+	border: #acc3dd 1px solid;
+	margin-left: 2px;
+}
+#modules div.ipCmsModuleManagement div.ipCmsGalleryPhoto div.ipCmsNav img:hover{	
+	border: #8ebdf1 1px solid;
+}
+
+/*eof photo gallery*/
+#modules div.ipCmsModuleManagement table.ipCmsContactForm{
+	width: 100%;
+	max-width: 800px;
+}
+
+#modules div.ipCmsModuleManagement table.ipCmsContactForm td{
+	padding-right: 10px;
+	text-align: left;
+}
+
+#modules .ipCmsIcon{
+  cursor: pointer;	
+}
+
+
+/*contact Form*/
+
+/*eof contact form*/
+
+/*eof content*/
+
+
+/*tinyMCE*/
+
+
+#modules .defaultSkin table.mceLayout {
+border-color:-moz-use-text-color #CCCCCC;
+border-style:none solid;
+border-width:0 0;
+clear: both;
+}
+
+#modules .defaultSkin table.mceLayout tr.mceFirst td {
+border-top: 0 solid #CCCCCC;
+}
+/*
+#modules td.mceStatusbar{
+	display: none;
+}
+*/
+#modules .defaultSkin .mceIframeContainer {
+border-bottom:0 solid #CCCCCC;
+border-top:0 solid #CCCCCC;
+}
+/*eof tinyMCE*/
+
+
+
+
+
+/*popup*/
+#main_fields_popup{
+	z-index: 20;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-image: url(popup_bg.png);
+}
+
+
+
+#main_fields_popup div.ipCmsBorder{
+	width: 700px;
+	border: 1px solid #a0a2a5;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	background-color: white;
+}
+
+#main_fields_popup div.ipCmsManagement{
+	height: 320px;
+	overflow: auto;
+}
+
+
+#main_fields_popup div.ipCmsHead{
+	font-family: Verdana, Arial, Tahoma;
+	font-weight: bold;
+	font-size: 12px;
+	color: #505050;
+	padding: 7px;
+	background: #ffffff url(popup_head_bg.gif);
+	border-bottom: 1px solid #dedfe1;
+}
+
+#main_fields_popup p.ipCmsError {
+  background-color:#FFF5E1;
+  border:1px solid #EFA6A7;
+  color:#E73031;
+  margin:3px 0;
+  padding:4px;
+  display: none;
+}
+
+#main_fields_popup div.ipCmsManagement{
+background:#F5F5F5 url(module_management_bg.gif) repeat-x scroll left bottom;
+padding:17px 17px 13px;
+text-align:left;
+}
+
+#main_fields_popup div.ipCmsModuleControlButtons{
+	background-color: #f5f5f5;
+	padding: 5px;	
+}
+
+#main_fields_popup a.ipCmsButton{
+	color: #264971;
+	font-family: Verdana, Arial, Helvetica;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 1px 10px;
+	margin-right: 7px;
+	border: #ffbb44 1px solid;
+	float: left;
+	background: url(button.gif);
+	text-decoration: none;
+  cursor: pointer;
+}
+
+#main_fields_popup a.ipCmsButton:hover{
+ background-image: none;
+ background-color: #f6e0b5;
+}
+
+#main_fields_popup div.ipCmsInput input, #main_fields_popup div.ipCmsInput select{ 
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: black;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	/*border: none; don't work on ie7 under Vista*/
+	border: 0px #ffffff solid;  
+}
+
+#main_fields_popup div.ipCmsInput{
+	padding: 0 2px;
+	border: #c0c0c0 1px solid;
+	margin-bottom: 5px;
+	background-color: white;
+}
+
+#main_fields_popup textarea{
+	margin-bottom: 3px;
+	width: 100%; 
+	height: 70px;
+	border: 1px #c0c0c0 solid;
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: black;	
+}
+
+#main_fields_popup label.ipCmsTitle{
+	font-family: Verdana, Arial, Helvetica; 	
+	font-size: 12px;
+	color: #797979;
+	margin-bottom: 5px;
+	display: block;
+	font-weight: normal;
+}
+
+/*eof popup*/
+
+
+/*edit content management parameter popup*/
+#mod_content_management_popup_parameter{
+	z-index: 20;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-image: url(popup_bg.png);
+	display: none;
+}
+
+#mod_content_management_popup_parameter div.ipCmsBorder{
+	width: 700px;
+	border: 1px solid #a0a2a5;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	background-color: white;
+}
+
+#mod_content_management_popup_parameter div.ipCmsHead{
+	font-family: Verdana, Arial, Tahoma;
+	font-weight: bold;
+	font-size: 12px;
+	color: #505050;
+	padding: 7px;
+	background: #ffffff url(popup_head_bg.gif);
+	border-bottom: 1px solid #dedfe1;
+}
+
+#mod_content_management_popup_parameter div.ipCmsManagement{
+background:#F5F5F5 url(module_management_bg.gif) repeat-x scroll left bottom;
+padding:17px 17px 13px;
+text-align:left;
+}
+
+#mod_content_management_popup_parameter div.ipCmsModuleControlButtons{
+	background-color: #f5f5f5;
+	padding: 5px;	
+}
+
+#mod_content_management_popup_parameter a.ipCmsButton{
+	color: #264971;
+	font-family: Verdana, Arial, Helvetica;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 1px 10px;
+	margin-right: 7px;
+	border: #ffbb44 1px solid;
+	float: left;
+	background: url(button.gif);
+	text-decoration: none;
+  cursor:pointer;
+}
+
+#mod_content_management_popup_parameter a.ipCmsButton:hover{
+ background-image: none;
+ background-color: #f6e0b5;
+}
+
+#mod_content_management_popup_parameter div.ipCmsInput input, #mod_content_management_popup_parameter div.ipCmsInput select{ 
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: black;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	/*border: none; don't work on ie7 under Vista*/
+	border: 0px #ffffff solid;  
+}
+
+#mod_content_management_popup_parameter div.ipCmsInput{
+	padding: 0 2px;
+	border: #c0c0c0 1px solid;
+	margin-bottom: 5px;
+	background-color: white;
+}
+
+#mod_content_management_popup_parameter textarea{
+	margin-bottom: 3px;
+	width: 100%; 
+	height: 70px;
+	border: 1px #c0c0c0 solid;
+	font-family: Verdana, Arial, Helvetica;
+	font-size: 12px;
+	color: black;	
+}
+
+#mod_content_management_popup_parameter label.ipCmsTitle{
+	font-family: Verdana, Arial, Helvetica; 	
+	font-size: 12px;
+	color: #797979;
+	margin-bottom: 5px;
+	display: block;
+	font-weight: normal;
+}
+
+
+span.mod_content_management_parameter_buttons{
+  position: absolute;
+  z-index: 5;
+	background-image: url(mod_nav_bg.png);
+	padding: 2px 2px 2px 0;
+	float: left;
+	margin-left: -2px;
+	margin-top: -2px;
+	display: none;
+}
+
+span.mod_content_management_parameter_buttons img{
+	float: left;
+	border: #acc3dd 1px solid;
+	margin-left: 2px;
+}
+
+/*eof edit content management parameter popup*/

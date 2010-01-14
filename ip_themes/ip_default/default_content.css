@@ -1,0 +1,445 @@
+/* global */
+.ipContent .clear {
+  clear: both;
+  font-size: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+/* /global */
+
+/* content styles */
+/* main content styles in dynamically generated content area */
+.ipContent p,
+.mceContentBody p { 
+  text-align: left;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4b4a4a;
+  margin: 0;
+}
+
+.ipContent a,
+.mceContentBody a {
+  text-align: left;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1e8de5;
+  text-decoration: underline;
+}
+
+.ipContent a:visited,
+.mceContentBody a:visited {
+  color: #6a78b4;
+}
+
+.ipContent a:hover,
+.mceContentBody a:hover {
+  color: #f59a25;
+}
+
+.ipContent ol,
+.mceContentBody ol {
+  margin: 10px 0 10px 15px;
+}
+
+.ipContent ol li,
+.mceContentBody ol li {
+  text-align: left;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4b4a4a;
+  text-decoration: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+.ipContent ul,
+.mceContentBody ul {
+  margin: 10px 0 10px 15px;
+  list-style: none;
+  padding: 0;
+}
+
+.ipContent ul li,
+.mceContentBody ul li {
+  text-align: left;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4b4a4a;
+  text-decoration: none;
+  background: transparent url(images/list.gif) no-repeat scroll 6px 9px;
+  padding: 0 0 0 18px;
+  margin: 0;
+}
+
+.ipContent .caption,
+.mceContentBody .caption { /* predefined style in wysiwyg */
+  font-weight: bold;
+}
+
+.ipContent .signature,
+.mceContentBody .signature { /* predefined style in wysiwyg */
+  text-align: right;
+  font-style: italic;
+}
+.ipContent .note,
+.mceContentBody .note { /* predefined style in wysiwyg */
+  padding: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #c0c0c0;
+  display: block;
+}
+/* /content styles */
+
+/* TinyMCE styles */
+/* repairing broken styles */
+.ipContent a.mceText {
+  color: #000000;
+  font-size: 12px;
+  font-family: Verdana;
+}
+
+.ipContent .mceStatusbar div {
+  display: none;
+}
+
+/* place here rules that need to repair other broken TinyMCE elements if new CSS rules collide with them. */
+
+/* /TinyMCE styles */
+
+/* content modules */
+
+.ipContent .ipWidget { /* by default all content modules have the same margin */
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.ipContent .ipWidgetText {  }
+
+.ipContent .ipWidgetTitle {  }
+
+.ipContent h1.ipWidgetTitleHeading {
+  text-align: left;
+  font-family: "Trebuchet MS", Verdana, Arial;
+  font-size: 28px;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+  color: #00a8da;
+}
+
+.ipContent h2.ipWidgetTitleHeading {
+  text-align: left;
+  font-family: Arial, Verdana, "Trebuchet MS";
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  color: #83b51e;
+}
+
+.ipContent h3.ipWidgetTitleHeading {
+  text-align: left;
+  font-family: "Trebuchet MS", Verdana, Arial;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #83b51e;
+}
+
+.ipContent .ipWidgetTextPhoto {  }
+
+.ipContent .ipWidgetTextPhotoImageLeft {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetTextPhotoImageLeft:hover {
+  border: 1px solid #999999;
+}
+
+.ipContent .ipWidgetTextPhotoImageLeft img {
+  float: left;
+  border: none;
+}
+
+.ipContent .ipWidgetTextPhotoText {  }
+
+.ipContent .ipWidgetPhoto {  }
+
+.ipContent .ipWidgetPhotoImage {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 0;
+  display: block;
+  padding: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetSeparatorLine {
+  height: 1px;
+  border-top: 1px dotted #cccccc;
+}
+
+.ipContent .ipWidgetPhotoGallery {  }
+
+.ipContent .ipWidgetPhotoGalleryWrapper {
+  margin-top: -10px;
+  margin-left: -10px;
+  float: left;
+}
+
+.ipContent .ipWidgetPhotoGalleryImage {
+  float: left;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetPhotoGalleryImage:hover {
+  border: 1px solid #999999;
+}
+
+.ipContent .ipWidgetPhotoGalleryImage img {
+  float: left;
+  border: none;
+}
+
+.ipContent .ipWidgetLogoGallery {  }
+
+.ipContent .ipWidgetLogoGalleryWrapper {
+  margin-top: -24px;
+  margin-left: -24px;
+  float: left;
+}
+
+.ipContent .ipWidgetLogoGalleryLogo {
+  float: left;
+  margin-left: 24px;
+  margin-top: 24px;
+  vertical-align: middle;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+}
+
+.ipContent .ipWidgetVideo {
+  text-align: left;
+}
+
+.ipContent .ipWidgetFaq {  }
+
+.ipContent .ipWidgetFaqQuestion {
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Verdana;
+  color: #4b4a4a;
+}
+
+.ipContent .ipWidgetFaqAnswer {
+  display: none;
+}
+
+.ipContent .ipWidgetFile {  }
+
+.ipContent .ipWidgetFileLink {
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ipContent .ipWidgetHtmlCode {  }
+
+.ipContent .ipWidgetContactForm {
+  border: 1px solid #cecece;
+  padding: 17px; 
+}
+
+/* /content modules */
+
+/* forms */
+
+.ipContent .libPhpFormField,
+.ipContent .libPhpFormFieldError {
+  padding-bottom: 17px;
+}
+
+.ipContent .libPhpFormButtons {
+  padding-left: 160px;
+}
+
+.ipContent .libPhpFormSubmit {
+  background-color: #ffffff;
+  border:1px solid #00A8DA;
+  color: #00A8DA;
+  cursor:pointer;
+  font-family:Arial,Verdana,Tahoma;
+  font-size:12px;
+  font-weight:bold;
+  height:24px;
+  padding:2px 5px 2px 4px;
+  cursor: pointer;
+}
+
+.ipContent .libPhpFormSubmit:hover {
+  background-color: #00A8DA;
+  color: white;
+}
+
+.ipContent .libPhpFormCaption {
+  display: block;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 14px;
+  font-weight: bold;
+  color: #4b4a4a;
+  text-align: left;
+  padding-top: 3px;
+  padding-right: 10px;
+  float: left;
+  width: 150px;
+}
+
+.ipContent .libPhpFormFieldError .libPhpFormCaption {  }
+
+.ipContent .libPhpFormInput {
+  float: left;
+  width: 215px;
+  text-align: left;
+  padding-right: 10px;
+}
+
+.ipContent .libPhpFormInput input,
+.ipContent .libPhpFormInput textarea {
+  width:215px;
+  border: 1px solid #cecece;
+  padding: 1px;
+  color: #3c3c3c;
+}
+
+.ipContent .libPhpFormFieldError .libPhpFormInput input,
+.ipContent .libPhpFormFieldError .libPhpFormInput textarea {
+  border: 1px solid #e53031;
+  padding: 1px;
+  color: #3c3c3c;
+}
+
+.ipContent .libPhpFormInput textarea {
+  width: 215px;
+  height: 125px;
+  color: #3c3c3c;
+  padding: 1px;
+  overflow: auto;
+}
+
+.ipContent .libPhpFormInput select {
+  width:215px;
+  color: #3c3c3c;
+  padding: 1px;
+}
+
+.ipContent .libPhpFormHint {
+  float: left;
+  display: none;
+  background: transparent url(images/hint_cursor.gif) no-repeat scroll top left;
+  width: 10px;
+  height: 17px;
+}
+
+.ipContent .libPhpFormHint div {
+  float: left;
+  width:225px;
+  z-index: 3;
+  position: absolute;
+  background-color: #f4f6f7;
+  padding: 8px;
+  margin-left: 10px;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 12px;
+  color: #00a8da;
+  line-height: 17px;
+}
+
+.ipContent .libPhpFormError {
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 12px;
+  color: #e53031;
+  float: left;
+  clear: both;
+  display: none;
+}
+
+.ipContent .libPhpFormGlobalError {
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 12px;
+  color: #e53031;
+  clear: both;
+  display: none;
+  clear: both;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.ipContent .libPhpFormNote {
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 12px;
+  color: #4b4a4a;
+  float: left;
+  clear: both;
+}
+
+.ipContent .libPhpFormInput input.checkbox {
+  border: none;
+  width: auto;
+}
+
+.ipContent  .libPhpFormFieldError .libPhpFormInput input.checkbox {
+  outline: #e53031 solid 1px;
+}
+
+/* /forms */
+
+/*ip 1.0.3 beta update*/
+    
+.ipContent .ipWidgetSeparatorSpace {
+  height: 10px;
+}
+
+.ipContent .ipWidgetTextPhotoImageRight {
+  float: right;
+  margin: 0 0 10px 10px;
+  padding: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetTextPhotoImageRight:hover {
+  border: 1px solid #999999;
+}
+
+.ipContent .ipWidgetTextPhotoImageRight img {
+  float: right;
+  border: none;
+}
+
+.ipContent .ipWidgetTextPhotoImageSmallLeft{
+  float: left;
+  margin: 0 10px 10px 0;
+  width: 100px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetTextPhotoImageSmallRight{
+  float: right;
+  margin: 0 0 10px 10px;
+  width: 100px;
+  border: 1px solid #cccccc;
+}    

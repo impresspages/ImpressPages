@@ -1,0 +1,17 @@
+Version 2.0.2 (2008-07-09)
+	Fixed bug where IE would load the files twice.
+	Reduced the overall script size since it's now using the markDone method.
+Version 2.0.1 (2008-03-12)
+	Fixed bug where Firefox 3 wasn't loading the contents correctly.
+Version 2.0 (2008-01-30)
+	Final version of the 2.x branch released.
+Version 2.0rc1 (2008-01-14)
+	Moved package from beta to release candidate.
+Version 2.0b2 (2007-11-21)
+	Fixed typo of que to queue so it compatible with TinyMCE 3.0b1.
+Version 2.0b1 (2007-11-15)
+	Fixed bug with IE6 casting an error on async property.
+Version 2.0a2 (2007-11-xx)
+	Fixed bug where on demand loading didn't work correctly in IE and Safari.
+Version 2.0a1 (2007-11-01)
+	Rewritten compressor for TinyMCE 3.x has on demand and progressive loading features.

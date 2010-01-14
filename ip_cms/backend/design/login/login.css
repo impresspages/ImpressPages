@@ -1,0 +1,125 @@
+body, html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #fbfcfc url(bg.png) repeat-x fixed left bottom;
+}
+
+.wrapper {
+  background: transparent url(bg_image.png) no-repeat scroll right top;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+}
+
+img.logo {
+  float: left;
+  margin-top: 25px;
+  margin-left: 29px;
+  border: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.image {
+  margin: 0 auto 30px auto;
+  width: 936px;
+/* height: 524px; 721- 197 */
+  padding-top: 117px;
+}
+
+.box {
+  margin-left: auto;
+  margin-right: auto;
+  width: 315px;
+}
+
+.boxTop {
+  width: 315px;
+  height: 24px;
+  background-image: url(box_top.png);
+}
+
+.boxBottom {
+  width: 315px;
+  height: 24px;
+  background-image: url(box_bottom.png);
+}
+
+.boxContent {
+  width: 183px; /* 315 - 66*2 */
+  background-image: url(box_bg.png);
+  padding: 35px 66px;
+}
+
+div.clear {
+  clear: both;  
+}
+
+.footer {
+  font-family: "Trebuchet MS", Verdana, Arial;
+  font-size: 12px;
+  color: #707070;
+  width: 100%;
+  text-align: center;
+  padding-top: 4px;
+  position: absolute;
+  bottom: 0px;
+  border-top: 1px solid #bbbcbc;
+  background-color: #F2F4F5;
+  clear: both;
+}
+
+.footer a {
+  color: #029cca;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+div.input {
+  width: 179px;
+}
+
+label {
+  display: block;
+  font-family: "Trebuchet MS", Verdana, Arial;
+  color: #212023;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+label.error {
+  color: red;
+}
+
+div.input input, div.input select {
+  width: 100%;
+  border: 1px solid #6d6b70;
+  background-color: #e3e3e3;
+  margin-bottom: 17px;
+  font-family: "Trebuchet MS", Verdana, Arial;
+  font-size: 14px;
+}
+
+input.submit {
+  border: 1px solid #a7a7aa;
+  padding: 10px 15px;
+  font-family: Verdana, Tahoma, Arial;
+  color: #212023;
+  font-size: 14px;
+  float: right;
+  font-weight: bold;
+  background-color: #e8eaec;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+input.submit:hover {
+  background-image: url(login_bg.gif);
+}
