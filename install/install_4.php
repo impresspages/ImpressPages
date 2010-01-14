@@ -107,7 +107,7 @@ function execute_ajax(){
 	var email = document.getElementById(\'config_email\').value;
 	var timezone = document.getElementById(\'config_timezone\').value;
 	{
-		url = \'action=config&install_login=\' + escape(login) + \'&install_pass=\' + escape(pass) + \'&email=\' + escape(email) + \'&timezone=\' + escape(timezone) +\'&site_name=\' + escape(site_name) + \'&site_email=\' + escape(site_email); 
+		url = \'action=config&install_login=\' + encodeURIComponent(login) + \'&install_pass=\' + encodeURIComponent(pass) + \'&email=\' + encodeURIComponent(email) + \'&timezone=\' + encodeURIComponent(timezone) +\'&site_name=\' + encodeURIComponent(site_name) + \'&site_email=\' + encodeURIComponent(site_email); 
 		ajaxMessage(\'worker.php\', url);
 	}
 }

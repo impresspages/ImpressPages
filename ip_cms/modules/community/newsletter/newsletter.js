@@ -1,7 +1,7 @@
 ModCommunityNewsletter = {
 
   subscribe : function (newsletterUrl, email){
-  	LibDefault.ajaxMessage(newsletterUrl, 'action=subscribe&email=' + escape(email), ModCommunityNewsletter.subscribeAnswer);
+  	LibDefault.ajaxMessage(newsletterUrl, 'action=subscribe&email=' + encodeURIComponent(email), ModCommunityNewsletter.subscribeAnswer);
   	return false;
   },
 
@@ -15,7 +15,7 @@ ModCommunityNewsletter = {
 	},
 
 	unsubscribe : function(newsletterUrl, email){ 
-  	LibDefault.ajaxMessage(newsletterUrl, 'action=unsubscribe&email=' + escape(email), ModCommunityNewsletter.unsubscribeAnswer);
+  	LibDefault.ajaxMessage(newsletterUrl, 'action=unsubscribe&email=' + encodeURIComponent(email), ModCommunityNewsletter.unsubscribeAnswer);
   	return false;
 	},
 	

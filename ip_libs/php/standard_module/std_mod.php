@@ -1216,7 +1216,7 @@ break;
         
         if ($this->current_area->sortable && $this->current_area->get_sort_field() != null){
 					if($this->current_area->sort_type == 'numbers')
-						$answer .= '<td ><form action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generate_url_level($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->current_area->db_key].'&amp;new_row_number=\' + escape(this.value))" style="width:30px;" name="sort_field_'.$lock[$this->current_area->get_db_key()].'" value="'.$lock[$this->current_area->get_sort_field()].'" /></form></td>';
+						$answer .= '<td ><form action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generate_url_level($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->current_area->db_key].'&amp;new_row_number=\' + encodeURIComponent(this.value))" style="width:30px;" name="sort_field_'.$lock[$this->current_area->get_db_key()].'" value="'.$lock[$this->current_area->get_sort_field()].'" /></form></td>';
 					if($this->current_area->sort_type == 'pointers')
 						$answer .= '<td >
 						<a class="move_down" 

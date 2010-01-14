@@ -107,7 +107,7 @@ function execute_ajax(){
 	if(server == \'\' ||  user == \'\' || db == \'\' || prefix == \'\'){
 		document.getElementById(\'errorAllFields\').style.display = \'block\';
 	}else{
-		url = \'action=create_database&server=\' + escape(server) + \'&db_user=\' + escape(user) + \'&db_pass=\' + escape(pass) + \'&db=\' + escape(db) + \'&prefix=\' + escape(prefix); 
+		url = \'action=create_database&server=\' + encodeURIComponent(server) + \'&db_user=\' + encodeURIComponent(user) + \'&db_pass=\' + encodeURIComponent(pass) + \'&db=\' + encodeURIComponent(db) + \'&prefix=\' + encodeURIComponent(prefix); 
 		ajaxMessage(\'worker.php\', url);
 	}
 }

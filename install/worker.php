@@ -17,8 +17,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 	if(!$conn) {
 		echo "ERROR_CONNECT";
 	} else {
-		if(mysql_select_db($_POST['db'], $conn)){
-			mysql_query("SET NAMES utf8 COLLATE utf8_general_ci", $conn);
+		if(mysql_select_db($_POST['db'], $conn)){		  
 			mysql_query("SET CHARACTER SET utf8", $conn);
 			/*structure*/
 			$sqlFile = "sql/structure.sql";
@@ -216,8 +215,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 		die("ERROR_CONNECT");
 	} else {
 		if(mysql_select_db($_SESSION['db_db'], $conn)){
-			mysql_query("SET NAMES utf8 COLLATE utf8_general_ci", $conn);
-			mysql_query("SET CHARACTER SET utf8", $conn);
+		  mysql_query("SET CHARACTER SET utf8", $conn);
 	
 	
 	    //login and password
@@ -255,7 +253,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 	if ($_SESSION['step'] < 4) {
 		$_SESSION['step'] = 4;
   }
-
+  exit;
 }
 
 
