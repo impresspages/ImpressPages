@@ -253,7 +253,7 @@ class Manager{
                   $admin = $parameterGroupAdmin[$groupName][$moduleName][$parameterGroupName];
                 else
                   $admin = 1;
-                $tmpParameterGroup = Db::createParameterGroup($tmpModule['id'], $parameterGroupName, $parameterGroupName, $admin);
+                $tmpParameterGroup['id'] = Db::createParameterGroup($tmpModule['id'], $parameterGroupName, $parameterGroupName, $admin);
               }            
   
               foreach($parameterGroup as $parameterName => $value){
