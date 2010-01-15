@@ -87,16 +87,16 @@ class ParametersRefractor {
     
     //new std_mod parameter
     $moduleId = $this->getModuleId('developer', 'std_mod');
-    $group = $this->getParametersGroup($moduleId, 'widget_contact_form'); 
+    $group = $this->getParametersGroup($moduleId, 'admin_translations'); 
     $this->addStringParameter($group['id'], 'Passwords do not match', 'passwords_do_not_match', 'Passwords do not match', 1);    
 
     
     //new modules install parameters
     $moduleId = $this->getModuleId('developer', 'modules');
     $group = $this->getParametersGroup($moduleId, 'admin_translations_install'); 
-    $this->addStringParameter($group['id'], 'Error incorrect ini file ', 'error_incorrect_ini_file', 'Incorrect plugin.ini file: ', 1);    
-    $this->addStringParameter($group['id'], 'Error update required', 'error_update_required', 'This module requires another module to be updated: ', 1);    
-    $this->addStringParameter($group['id'], 'Plugin ini file does not exist', 'error_ini_file_doesnt_exist', 'Ini file does not exist: ', 1);    
+    $this->addStringParameter($group['id'], 'Error: incorrect ini file ', 'error_incorrect_ini_file', 'Incorrect plugin.ini file: ', 1);    
+    $this->addStringParameter($group['id'], 'Error: update required', 'error_update_required', 'This module requires another module to be updated: ', 1);    
+    $this->addStringParameter($group['id'], 'Error: ini file does not exist', 'error_ini_file_doesnt_exist', 'Ini file does not exist: ', 1);    
         
     if(!$this->getParametersGroup($moduleId, 'admin_translations')){
       $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);

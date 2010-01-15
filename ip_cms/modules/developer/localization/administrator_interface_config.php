@@ -63,6 +63,7 @@ $parameterGroupTitle["developer"]["config_exp_imp"]["admin_translations"] = "Adm
 $parameterGroupTitle["developer"]["widgets"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["localization"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["modules"]["admin_translations_install"] = "Admin translations - install";
+$parameterGroupTitle["developer"]["modules"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["modules_configuration"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["std_mod"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["std_mod"]["parameters"] = "Parameters";
@@ -338,14 +339,29 @@ $parameter["parameterValue/developer/localization/admin_translations/preview"] =
 $parameter["parameterTitle/developer/localization/admin_translations/public_interface"] = "Public interface";
 $parameter["parameterValue/developer/localization/admin_translations/public_interface"] = "Public interface";
 
+$parameter["parameterTitle/developer/modules/admin_translations/error_cant_delete_core_module"] = "Error: can't delete core module";
+$parameter["parameterValue/developer/modules/admin_translations/error_cant_delete_core_module"] = "Can\'t delete core module: ";
+
+$parameter["parameterTitle/developer/modules/admin_translations/error_delete_required_module"] = "Error: delete required module";
+$parameter["parameterValue/developer/modules/admin_translations/error_delete_required_module"] = "This module is used by another module: ";
+
 $parameter["parameterTitle/developer/modules/admin_translations_install/error_already_exist"] = "Error module already exist";
 $parameter["parameterValue/developer/modules/admin_translations_install/error_already_exist"] = "This module already exist";
+
+$parameter["parameterTitle/developer/modules/admin_translations_install/error_incorrect_ini_file"] = "Error: incorrect ini file ";
+$parameter["parameterValue/developer/modules/admin_translations_install/error_incorrect_ini_file"] = "Incorrect plugin.ini file: ";
+
+$parameter["parameterTitle/developer/modules/admin_translations_install/error_ini_file_doesnt_exist"] = "Error: ini file does not exist";
+$parameter["parameterValue/developer/modules/admin_translations_install/error_ini_file_doesnt_exist"] = "Ini file does not exist: ";
 
 $parameter["parameterTitle/developer/modules/admin_translations_install/error_move_module"] = "Error move module";
 $parameter["parameterValue/developer/modules/admin_translations_install/error_move_module"] = "Incorrect folder. This module should be moved to: ";
 
 $parameter["parameterTitle/developer/modules/admin_translations_install/error_required_module"] = "Error required module";
 $parameter["parameterValue/developer/modules/admin_translations_install/error_required_module"] = "This module requires another module to be installed first: ";
+
+$parameter["parameterTitle/developer/modules/admin_translations_install/error_update_required"] = "Error: update required";
+$parameter["parameterValue/developer/modules/admin_translations_install/error_update_required"] = "This module requires another module to be updated: ";
 
 $parameter["parameterTitle/developer/modules/admin_translations_install/new_module_detected"] = "New module detected";
 $parameter["parameterValue/developer/modules/admin_translations_install/new_module_detected"] = "New module detected ";
@@ -508,6 +524,9 @@ $parameter["parameterTitle/developer/std_mod/parameters/link_reg_expression"] = 
 $parameter["parameterTitle/developer/std_mod/parameters/number_real_reg_expression"] = "Number real reg expression";
 
 $parameter["parameterTitle/developer/std_mod/parameters/number_reg_expression"] = "Number reg expression";
+
+$parameter["parameterTitle/developer/std_mod/admin_translations/passwords_do_not_match"] = "Passwords do not match";
+$parameter["parameterValue/developer/std_mod/admin_translations/passwords_do_not_match"] = "Passwords do not match";
 
 $parameter["parameterTitle/developer/zones/admin_translations/associated_group"] = "Associated module group";
 $parameter["parameterValue/developer/zones/admin_translations/associated_group"] = "Associated module group";
@@ -707,6 +726,18 @@ $parameter["parameterTitle/standard/content_management/widget_text_photo/quality
 
 $parameter["parameterTitle/standard/content_management/widget_text_photo/width"] = "Photo width";
 
+$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_left"] = "Layout left";
+$parameter["parameterValue/standard/content_management/widget_text_photo/layout_left"] = "Left";
+
+$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_right"] = "Layout right";
+$parameter["parameterValue/standard/content_management/widget_text_photo/layout_right"] = "Right";
+
+$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_small_left"] = "Layout small left";
+$parameter["parameterValue/standard/content_management/widget_text_photo/layout_small_left"] = "Small left";
+
+$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_small_right"] = "Layout small right";
+$parameter["parameterValue/standard/content_management/widget_text_photo/layout_small_right"] = "Small right";
+
 $parameter["parameterTitle/standard/content_management/widget_contact_form/button"] = "Button caption";
 $parameter["parameterValue/standard/content_management/widget_contact_form/button"] = "Button caption";
 
@@ -724,6 +755,9 @@ $parameter["parameterValue/standard/content_management/widget_contact_form/email
 
 $parameter["parameterTitle/standard/content_management/widget_contact_form/file"] = "File";
 $parameter["parameterValue/standard/content_management/widget_contact_form/file"] = "File";
+
+$parameter["parameterTitle/standard/content_management/widget_contact_form/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_contact_form/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/content_management/widget_contact_form/name"] = "Name";
 $parameter["parameterValue/standard/content_management/widget_contact_form/name"] = "Name";
@@ -758,6 +792,9 @@ $parameter["parameterValue/standard/content_management/widget_faq/error_empty_qu
 $parameter["parameterTitle/standard/content_management/widget_faq/faq"] = "FAQ";
 $parameter["parameterValue/standard/content_management/widget_faq/faq"] = "FAQ";
 
+$parameter["parameterTitle/standard/content_management/widget_faq/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_faq/layout_default"] = "Default";
+
 $parameter["parameterTitle/standard/content_management/widget_faq/text"] = "Text";
 $parameter["parameterValue/standard/content_management/widget_faq/text"] = "Text";
 
@@ -775,6 +812,9 @@ $parameter["parameterValue/standard/content_management/widget_file/current_file"
 
 $parameter["parameterTitle/standard/content_management/widget_file/file"] = "File";
 $parameter["parameterValue/standard/content_management/widget_file/file"] = "File";
+
+$parameter["parameterTitle/standard/content_management/widget_file/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_file/layout_default"] = "Defaultefault";
 
 $parameter["parameterTitle/standard/content_management/widget_file/new_file"] = "New file";
 $parameter["parameterValue/standard/content_management/widget_file/new_file"] = "New file";
@@ -800,11 +840,17 @@ $parameter["parameterValue/standard/content_management/widget_file/widget_title"
 $parameter["parameterTitle/standard/content_management/widget_html_code/html_code"] = "HTML code";
 $parameter["parameterValue/standard/content_management/widget_html_code/html_code"] = "HTML code";
 
+$parameter["parameterTitle/standard/content_management/widget_html_code/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_html_code/layout_default"] = "Default";
+
 $parameter["parameterTitle/standard/content_management/widget_html_code/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_html_code/widget_title"] = "HTML code";
 
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/bad_type"] = "Incorrect file";
 $parameter["parameterValue/standard/content_management/widget_logo_gallery/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+
+$parameter["parameterTitle/standard/content_management/widget_logo_gallery/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_logo_gallery/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/delete_confirm"] = "Delete the logo?";
 $parameter["parameterValue/standard/content_management/widget_logo_gallery/delete_confirm"] = "Delete the logo?";
@@ -842,6 +888,9 @@ $parameter["parameterValue/standard/content_management/widget_photo/bad_type"] =
 $parameter["parameterTitle/standard/content_management/widget_photo/current_photo"] = "Current photo";
 $parameter["parameterValue/standard/content_management/widget_photo/current_photo"] = "Current photo";
 
+$parameter["parameterTitle/standard/content_management/widget_photo/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_photo/layout_default"] = "Default";
+
 $parameter["parameterTitle/standard/content_management/widget_photo/new_photo"] = "New photo";
 $parameter["parameterValue/standard/content_management/widget_photo/new_photo"] = "New photo";
 
@@ -868,6 +917,9 @@ $parameter["parameterValue/standard/content_management/widget_photo/widget_title
 
 $parameter["parameterTitle/standard/content_management/widget_photo_gallery/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
 $parameter["parameterValue/standard/content_management/widget_photo_gallery/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+
+$parameter["parameterTitle/standard/content_management/widget_photo_gallery/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_photo_gallery/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/content_management/widget_photo_gallery/delete_confirm"] = "Delete the photo?";
 $parameter["parameterValue/standard/content_management/widget_photo_gallery/delete_confirm"] = "Delete the photo?";
@@ -899,11 +951,23 @@ $parameter["parameterValue/standard/content_management/widget_photo_gallery/uplo
 $parameter["parameterTitle/standard/content_management/widget_photo_gallery/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_photo_gallery/widget_title"] = "Photo gallery";
 
+$parameter["parameterTitle/standard/content_management/widget_rich_text/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_rich_text/layout_default"] = "Default";
+
 $parameter["parameterTitle/standard/content_management/widget_rich_text/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_rich_text/widget_title"] = "Rich text";
 
+$parameter["parameterTitle/standard/content_management/widget_separator/layout_line"] = "Layout line";
+$parameter["parameterValue/standard/content_management/widget_separator/layout_line"] = "Line";
+
+$parameter["parameterTitle/standard/content_management/widget_separator/layout_space"] = "Layout space";
+$parameter["parameterValue/standard/content_management/widget_separator/layout_space"] = "Space";
+
 $parameter["parameterTitle/standard/content_management/widget_separator/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_separator/widget_title"] = "Separator";
+
+$parameter["parameterTitle/standard/content_management/widget_text/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_text/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/content_management/widget_text/menu_mod_text"] = "Text";
 $parameter["parameterValue/standard/content_management/widget_text/menu_mod_text"] = "Text";
@@ -950,11 +1014,17 @@ $parameter["parameterValue/standard/content_management/widget_text_title/title"]
 $parameter["parameterTitle/standard/content_management/widget_text_title/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_text_title/widget_title"] = "Text/title";
 
+$parameter["parameterTitle/standard/content_management/widget_text_title/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_text_title/layout_default"] = "Default";
+
 $parameter["parameterTitle/standard/content_management/widget_title/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_title/title"] = "Title";
 
 $parameter["parameterTitle/standard/content_management/widget_title/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_title/widget_title"] = "Title";
+
+$parameter["parameterTitle/standard/content_management/widget_title/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_title/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/content_management/widget_video/bad_type"] = "Bad type";
 $parameter["parameterValue/standard/content_management/widget_video/bad_type"] = "Incorrect file type. Acceptable file type: FLV";
@@ -982,6 +1052,9 @@ $parameter["parameterValue/standard/content_management/widget_video/video"] = "V
 
 $parameter["parameterTitle/standard/content_management/widget_video/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_video/widget_title"] = "Video";
+
+$parameter["parameterTitle/standard/content_management/widget_video/layout_default"] = "Layout default";
+$parameter["parameterValue/standard/content_management/widget_video/layout_default"] = "Default";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last langauge";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
