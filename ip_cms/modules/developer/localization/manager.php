@@ -149,7 +149,7 @@ class Manager{
               $answer .= HtmlOutput::footer(); 
             }else{
               header("Content-type: application/octet-stream");
-              header("Content-Disposition: attachment; filename=\"administrator_interface_".$parametersMod->getValue('standard', 'configuration','advanced_options','administrator_interface_language').".php\"");
+              header("Content-Disposition: attachment; filename=\"public_interface_".$parametersMod->getValue('standard', 'configuration','advanced_options','administrator_interface_language').".php\"");
               $answer = $this->generatePublicInterfaceLanguageFile($_REQUEST['language']);
             }
 
