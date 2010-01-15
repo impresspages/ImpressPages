@@ -231,15 +231,19 @@ class ModulesInstallation{
 
     foreach($newModuleGroups as $newModuleGroupKey => $newModuleGroup){
       foreach($newModuleGroup as $newModuleKey => $newModule){
-        $currentModule = \Db::getModule(null, $newModuleGroupKey, $newModuleKey);        
-        $configuration = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$newModuleGroupKey.'/'.$newModuleKey.'/install/plugin.ini');
-        if(!$currentModule){
-          $newModules[] = array('action'=>'insert', 'configuration' => $configuration, 'dependend'=> false);
+        $currentModule = \Db::getModule(null, $newModuleGroupKey, $newModuleKey);
+        if(file_exists(BASE_DIR.PLUGIN_DIR.$newModuleGroupKey.'/'.$newModuleKey.'/install/plugin.ini')){
+          $configuration = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$newModuleGroupKey.'/'.$newModuleKey.'/install/plugin.ini');
+          if(!$currentModule){
+            $newModules[] = array('action'=>'insert', 'configuration' => $configuration, 'dependend'=> false);
+          } else {
+            if ((double)$currentModule['version'] < (double)$configuration->getModuleVersion()){
+              $newModules[] = array('action'=>'update', 'configuration' => $configuration, 'dependend'=>false);
+            }         
+          }
         } else {
-          if ((double)$currentModule['version'] < (double)$configuration->getModuleVersion()){
-            $newModules[] = array('action'=>'update', 'configuration' => $configuration, 'dependend'=>false);
-          }         
-        }
+          $answer .= $parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'error_ini_file_doesnt_exist').'<b>'.$newModuleGroupKey.'/'.$newModuleKey.'/install/plugin.ini</b>';
+        }        
       }
     }
 

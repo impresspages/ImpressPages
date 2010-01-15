@@ -69,8 +69,7 @@ class ConfigurationFile{
           $requiredModule['module_key'] = $module;
           $requiredModule['version'] = (double)$version;
           if($moduleGroup == '' || $module == '' || $version == 0){
-            //$this->setError($parametersMod->getValue('developer', 'modules', 'admin_translations', 'error_incorrect_ini_file'));
-            $this->setError("Incorrect configuration file ".$moduleGroup." ".$module." ".$version); 
+            $this->setError($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'error_incorrect_ini_file'));
           }          
           $this->requiredModules[] = $requiredModule;          
         break;
@@ -78,7 +77,7 @@ class ConfigurationFile{
     }
 
     if($this->moduleKey== null || $this->moduleGroupKey== null || $this->moduleVersion== null || $this->moduleManaged == null){
-      $this->setError($parametersMod->getValue('developer', 'modules', 'admin_translations', 'error_incorrect_ini_file')); 
+      $this->setError($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'error_incorrect_ini_file')); 
     }
 
     if(!$this->moduleGroupTitle){
@@ -133,12 +132,18 @@ class ConfigurationFile{
   
   private function getInitVariables($file){
     $answer = array();
-    $config = file($file);
-    foreach($config as $key => $configRow){
-      $configName = substr($configRow, 0, strpos($configRow, ':'));
-      $value = substr($configRow, strpos($configRow, ':') + 1);
-      $value = str_replace("\n", "", str_replace("\r", "", $value));
-      $answer[] = array('name'=>$configName, 'value' => $value);
+    
+    if(file_exists($file)){
+      $config = file($file);
+      foreach($config as $key => $configRow){
+        $configName = substr($configRow, 0, strpos($configRow, ':'));
+        $value = substr($configRow, strpos($configRow, ':') + 1);
+        $value = str_replace("\n", "", str_replace("\r", "", $value));
+        $answer[] = array('name'=>$configName, 'value' => $value);
+      }
+    } else {
+      global $parametersMod;
+      trigger_error($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'error_ini_file_doesnt_exist').' '.$file);      
     }
     return $answer;
   }

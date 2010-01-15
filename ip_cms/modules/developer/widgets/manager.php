@@ -248,7 +248,7 @@ class Manager{
       \Db::disconnect();
       exit;
     }else{
-      $this->standard_module->before_content = $this->find_new_modules();
+      //$this->standard_module->before_content = $this->find_new_modules();  widgets installation disabled
       return $this->standard_module->manage();
     }
    }

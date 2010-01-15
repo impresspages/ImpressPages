@@ -689,13 +689,14 @@ $ids_array[] = "hackDrag";
       //]]>    
       </script>';
 
-		$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce_gzip.js"></script>';
-		$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>';
+		//$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce_gzip.js"></script>';
+    $answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>';
+		//$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>';
 
 		$answer .= '
 		<script type="text/javascript">
         //<![CDATA[
-      tinyMCE_GZ.init({ //tinyMCE dont work propertly if is not initialized directly
+      tinyMCE.init({ //tinyMCE dont work propertly if is not initialized directly
         mode: "exact",
         theme : "advanced",
 				elements : "tmp,parameters",
@@ -713,9 +714,10 @@ $ids_array[] = "hackDrag";
 				document_base_url : "'.BASE_URL.'",				
 				relative_urls : false,
 				forced_root_block : "p"
+       });	
 
-       });		
-      //]]>
+       
+       //]]>     
 		</script>
 		'; 
     $answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/positioning.js"></script>';

@@ -618,9 +618,9 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1493, 'error_type_url_empty', 1, 17, '', 478, 'Error type url empty', NULL, 'string'),
 (1494, 'administrator_interface_language', 1, 0, '', 522, 'Backend language', NULL, 'string'),
 (1495, 'passwords_do_not_match', 1, 0, '', 0, 'Passwords do not match', NULL, 'string'),
-(1496, 'error_incorrect_ini_file incorrect', 1, 0, '', 531, 'Error incorrect ini file ', NULL, 'string'),
+(1496, 'error_incorrect_ini_file', 1, 0, '', 531, 'Error incorrect ini file ', NULL, 'string'),
 (1497, 'error_update_required', 1, 0, '', 531, 'Error update required', NULL, 'string'),
-(1498, 'error_ini_file_doesnt_exist', 1, 0, '', 531, 'Plugin ini file does not exist', NULL, 'string'),
+(1498, 'error_ini_file_doesnt_exist', 1, 0, '', 531, 'Ini file does not exist: ', NULL, 'string'),
 (1499, 'error_cant_delete_core_module', 1, 0, '', 598, 'Error: can''t delete core module', NULL, 'string'),
 (1500, 'error_delete_required_module', 1, 0, '', 598, 'Error: delete required module', NULL, 'string'),
 (1501, 'widget_title', 1, 0, '', 599, 'Widget title', NULL, 'string'),
@@ -1208,18 +1208,18 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`, `translation`) VALUES
-(627, '', '', '', 'newsletter', 109, 344, NULL),
-(626, '', '', '', 'sitemap', 108, 384, NULL),
-(625, '', '', '', 'sitemap', 108, 344, NULL),
-(624, '', '', '', 'rss', 100, 384, NULL),
-(623, '', '', '', 'rss', 100, 344, NULL),
-(622, '', '', '', 'search', 93, 384, NULL),
-(621, '', '', '', 'search', 93, 344, NULL),
+(627, '', '', 'Newsletter', 'newsletter', 109, 344, NULL),
+(626, '', '', 'Sitemap', 'sitemap', 108, 384, NULL),
+(625, '', '', 'Sitemap', 'sitemap', 108, 344, NULL),
+(624, '', '', 'RSS', 'rss', 100, 384, NULL),
+(623, '', '', 'RSS', 'rss', 100, 344, NULL),
+(622, '', '', 'Search', 'search', 93, 384, NULL),
+(621, '', '', 'Search', 'search', 93, 344, NULL),
 (620, '', '', 'Left', 'left', 106, 384, NULL),
 (619, '', '', 'Left', 'left', 106, 344, NULL),
 (618, '', '', 'Top', 'top', 105, 384, NULL),
 (617, '', '', 'Top', 'top', 105, 344, NULL),
-(628, '', '', '', 'newsletter', 109, 384, NULL);
+(628, '', '', 'Newsletter', 'newsletter', 109, 384, NULL);
 
 -- Dumping data for table--
 

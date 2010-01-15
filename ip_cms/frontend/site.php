@@ -199,8 +199,9 @@ class Site{
    */
   public function getZones(){
     $answer = array();
-    foreach($this->zones as $key => $zone)
-    $answer[] = $this->getZone($zone['name']);
+    foreach($this->zones as $key => $zone){
+      $answer[] = $this->getZone($zone['name']);
+    }
     return $answer;
   }
 

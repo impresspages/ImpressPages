@@ -94,9 +94,9 @@ class ParametersRefractor {
     //new modules install parameters
     $moduleId = $this->getModuleId('developer', 'modules');
     $group = $this->getParametersGroup($moduleId, 'admin_translations_install'); 
-    $this->addStringParameter($group['id'], 'Error incorrect ini file ', 'error_incorrect_ini_file incorrect', 'Incorrect plugin.ini file: ', 1);    
+    $this->addStringParameter($group['id'], 'Error incorrect ini file ', 'error_incorrect_ini_file', 'Incorrect plugin.ini file: ', 1);    
     $this->addStringParameter($group['id'], 'Error update required', 'error_update_required', 'This module requires another module to be updated: ', 1);    
-    $this->addStringParameter($group['id'], 'Plugin ini file does not exist', 'error_ini_file_doesnt_exist', 'Plugin ini file does not exist ', 1);    
+    $this->addStringParameter($group['id'], 'Plugin ini file does not exist', 'error_ini_file_doesnt_exist', 'Ini file does not exist: ', 1);    
         
     if(!$this->getParametersGroup($moduleId, 'admin_translations')){
       $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
@@ -294,8 +294,18 @@ class ParametersRefractor {
     
     
     
-
-
+    //titles in seo module where zone title is empty
+    $this->addTitles();
+   
+  }
+  
+  private function addTitles(){
+    $sql = "update `".DB_PREF."zone_parameter`
+    set `title` = CONCAT( UPPER( SUBSTRING( `url`, 1, 1 ) ) , SUBSTRING( `url`, 2 ) ) where `title` = ''";
+    $rs = mysql_query($sql);
+    if(!$rs){
+      trigger_error($sql." ".mysql_error());
+    }
     
   }
   
