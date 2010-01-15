@@ -110,7 +110,7 @@ function content_mod_faq() {
 					theme : "advanced",
 					mode : "exact",
 					elements : "management_" + this.collection_number + "_text",
-					plugins : "paste,inlinepopups",
+					plugins : "paste,inlinepopups,iplink",
 					theme_advanced_buttons1 : "pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
 					theme_advanced_buttons2 : "bold,italic,underline,styleselect",
 					theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
