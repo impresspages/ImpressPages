@@ -44,7 +44,7 @@ define('IP_DB_ERROR_CONNECT', 'Kan geen contact met de Database maken');
 define('IP_DB_ERROR_DB', 'De gespecificeerde database bestaat niet');
 define('IP_DB_ERROR_QUERY', 'Onbekende SQL foutmelding');
 define('IP_DB_ERROR_LONG_PREFIX', 'Prefix mag niet langer zijn dan 7 tekens');
-define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefix should sart with letter');
+define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefix can\'t contain any special characters and should sart with letter');
 define('IP_DB_ERROR_EMAIL', 'Ongeldig e-mailadres'); 
 define('IP_CONFIG_ERROR_CONFIG', 'Kan het volgende bestand niet overschrijven "/ip_config.php"');
 define('IP_CONFIG_ERROR_ROBOTS', 'Kan het volgende bestand niet overschrijven "/robots.txt"');

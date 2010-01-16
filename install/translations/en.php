@@ -46,7 +46,7 @@ define('IP_DB_ERROR_CONNECT', 'Can\'t connect to database');
 define('IP_DB_ERROR_DB', 'Specified database does not exists');
 define('IP_DB_ERROR_QUERY', 'Unknown SQL error');
 define('IP_DB_ERROR_LONG_PREFIX', 'Prefix can\'t be longer than 7 symbols');
-define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefix should sart with letter');
+define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefix can\'t contain any special characters and should sart with letter');
 define('IP_DB_ERROR_EMAIL', 'Incorrect e-mail address'); 
 define('IP_CONFIG_ERROR_CONFIG', 'Can\'t write configuration "/ip_config.php"');
 define('IP_CONFIG_ERROR_ROBOTS', 'Can\'t write "/robots.txt"');

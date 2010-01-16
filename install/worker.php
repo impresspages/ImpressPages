@@ -14,7 +14,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     exit;
   }
   
-  if (strlen($_POST['prefix']) > 0 && !preg_match('/[A-Za-z_]/', substr($_POST['prefix'], 0, 1))) {
+  if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $_POST['prefix'])) {
     echo '{errorCode:"ERROR_INCORRECT_PREFIX", error:""}';
     exit;
   }
