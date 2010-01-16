@@ -74,6 +74,9 @@ function ajaxMessage(url, parameters){
 					case \'ERROR_LONG_PREFIX\':
 						document.getElementById(\'errorLongPrefix\').style.display = \'block\';
 					break;
+          case \'ERROR_INCORRECT_PREFIX\':
+            document.getElementById(\'errorIncorrectPrefix\').style.display = \'block\';
+          break;
 					default:
 						document.getElementById(\'errorQuery\').style.display = \'block\';
 					break;
@@ -95,11 +98,12 @@ function ajaxMessage(url, parameters){
 
 function execute_ajax(){
 	document.getElementById(\'errorAllFields\').style.display = \'none\';
-			document.getElementById(\'errorConnect\').style.display = \'none\';
-			document.getElementById(\'errorDb\').style.display = \'none\';
-			document.getElementById(\'errorQuery\').style.display = \'none\';
-			document.getElementById(\'errorLongPrefix\').style.display = \'none\';
-
+	document.getElementById(\'errorConnect\').style.display = \'none\';
+	document.getElementById(\'errorDb\').style.display = \'none\';
+	document.getElementById(\'errorQuery\').style.display = \'none\';
+	document.getElementById(\'errorLongPrefix\').style.display = \'none\';
+  document.getElementById(\'errorIncorrectPrefix\').style.display = \'none\';
+	
 
 	var url = \'\';
 	var server = document.getElementById(\'db_server\').value;
@@ -123,6 +127,7 @@ function execute_ajax(){
 <div id="errorDb" class="noDisplay"><p class="error">'.IP_DB_ERROR_DB.'</p></div>
 <div id="errorQuery" class="noDisplay"><p class="error">'.IP_DB_ERROR_QUERY.'</p></div>
 <div id="errorLongPrefix" class="noDisplay"><p class="error">'.IP_DB_ERROR_LONG_PREFIX.'</p></div>
+<div id="errorIncorrectPrefix" class="noDisplay"><p class="error">'.IP_DB_ERROR_INCORRECT_PREFIX.'</p></div>
 <form onsubmit="return false">
 	<p><strong>'.IP_DB_SERVER.'</strong><input id="db_server" type="text" name="server" value="'.$_SESSION['db_server'].'"></p>
 	<p><strong>'.IP_DB_USER.'</strong><input id="db_user" type="text" name="db_user" value="'.$_SESSION['db_user'].'"></p>

@@ -13,6 +13,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
   	echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
     exit;
   }
+  
+  if (strlen($_POST['prefix']) > 0 && !preg_match('/[A-Za-z_]/', substr($_POST['prefix'], 0, 1))) {
+    echo '{errorCode:"ERROR_INCORRECT_PREFIX", error:""}';
+    exit;
+  }
+  
 	$conn = mysql_connect($_POST['server'], $_POST['db_user'], $_POST['db_pass']);
 	if(!$conn) {
   	echo '{errorCode:"ERROR_CONNECT", error:""}';
