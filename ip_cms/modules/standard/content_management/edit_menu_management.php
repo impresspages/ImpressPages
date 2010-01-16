@@ -732,7 +732,7 @@ $ids_array[] = "hackDrag";
       //]]>
       </script>';
 
-    $sql = "select translation_key from ".DB_PREF."module where type_menu order by row_number";
+    $sql = "select translation_key from `".DB_PREF."module` where type_menu order by row_number";
     $rs = mysql_query($sql);
     $modules = $this->db_module->menuModules();
     

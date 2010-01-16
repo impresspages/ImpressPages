@@ -37,7 +37,7 @@ class element_bool extends Element{ //data element in area
     $value = null;
  
     if ($area){ 
-       $sql = "select t.".$this->get_db_field()." from ".DB_PREF."".$area->get_db_table()." t where ".$area->get_db_key()." = '".$parent_id."' ";
+       $sql = "select t.".$this->get_db_field()." from `".DB_PREF."".$area->get_db_table()."` t where ".$area->get_db_key()." = '".$parent_id."' ";
        $rs = mysql_query($sql);
        if (!$rs)
           trigger_error("Can not get bool field data. ".$sql);

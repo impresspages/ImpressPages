@@ -661,7 +661,7 @@ class StandardModule{
     	
     $answer = '';
 
-    $sql = " select * from ".mysql_real_escape_string(DB_PREF.$area->dbTable)." where 1 ";
+    $sql = " select * from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where 1 ";
     if ($parentId)
       $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
     if($area->whereCondition)
@@ -971,7 +971,7 @@ class StandardModule{
     }
     foreach($currentArea->elements as $key => $element)
     $new_parameter = $element->processDelete($currentArea, $id);
-    $sql = "delete from ".mysql_real_escape_string(DB_PREF.$currentArea->dbTable)." where `".mysql_real_escape_string($currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($id)."' ";
+    $sql = "delete from `".mysql_real_escape_string(DB_PREF.$currentArea->dbTable)."` where `".mysql_real_escape_string($currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($id)."' ";
     $rs = mysql_query($sql);
     if (!$rs)
     trigger_error("Unable to delete ".$sql);

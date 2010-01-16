@@ -186,13 +186,6 @@ class Manager{
 		 $element->sortable = false;
      $elements[] = $element;
 
-/*     $element = new \Library\Php\StandardModule\element_text("text");
-     $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','template');
-     $element->db_field = "template";
-     $element->show_on_list = true;
-		 $element->required = true;
-		 $element->sortable = false;
-     $elements[] = $element;*/
      
      $element = new \Library\Php\StandardModule\element_select("select");
      $element->set_name($parametersMod->getValue('developer', 'zones','admin_translations','template'));
@@ -212,56 +205,13 @@ class Manager{
      
      $element->set_values($values);
      
-/*     $code='
-        global $cms;
-        
-       $sql = " select translation from ".DB_PREF."module where id = \'".$value."\' ";
-       $rs = mysql_query($sql);
-       if ($rs && $lock = mysql_fetch_assoc($rs)){
-          $value = htmlspecialchars(stripslashes($lock[\'translation\']));
-       }else
-        $value = \'\';
-       
-       if(!$rs)
-        trigger_error("Can\'t get field value translation ".$sql); 
-     ';
-     $element->set_php_code_for_preview($code);*/
+
 
      $element->set_show_on_list(true);
      $elements[] = $element;     
      
 
 
-
-/*     $element = new \Library\Php\StandardModule\element_text("text");
-     $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','depth');
-     $element->db_field = "depth";
-     $element->show_on_list = false;
-     $element->default_value = 10;     
-		 $element->required = true;
-		 $element->sortable = false;
-     $elements[] = $element;
-
-
-     $element = new \Library\Php\StandardModule\element_text("text");
-     $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','inactive_depth');
-     $element->db_field = "inactive_depth";
-     $element->show_on_list = false;
-     $element->default_value = 0;     
-		 $element->required = true;
-		 $element->sortable = false;
-     $elements[] = $element;
-
-
-     $element = new \Library\Php\StandardModule\element_bool("text");
-     $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','inactive_if_parent');
-     $element->db_field = "inactive_if_parent";
-     $element->show_on_list = false;
-     $element->default_value = 0;     
-		 $element->required = true;
-		 $element->sortable = false;
-     $elements[] = $element;
-*/
 		 
 
      $element = new \Library\Php\StandardModule\element_text("text");
@@ -290,9 +240,6 @@ class Manager{
 		 $area0->order_by = "row_number";
 		 $area0->new_record_position = "bottom";
      $area0->sortable = true; 
-
-
-
 
 
      

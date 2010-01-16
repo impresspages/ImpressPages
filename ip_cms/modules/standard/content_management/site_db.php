@@ -16,7 +16,7 @@ class DbFrontend{
 
   
   public static function getElementByUrl($url, $parent){
-    $sql = "select * from ".DB_PREF."content_element where  url = '".mysql_real_escape_string($url)."' and parent = '".mysql_real_escape_string($parent)."' limit 1";
+    $sql = "select * from `".DB_PREF."content_element` where  url = '".mysql_real_escape_string($url)."' and parent = '".mysql_real_escape_string($parent)."' limit 1";
     $rs = mysql_query($sql);
     if($rs){
       $answer = mysql_fetch_assoc($rs);
@@ -27,7 +27,7 @@ class DbFrontend{
 
 
   public static function getFirstElement($parent){
-    $sql = "select  *  from ".DB_PREF."content_element where visible and parent = '".mysql_real_escape_string($parent)."' order by row_number limit 1";
+    $sql = "select  *  from `".DB_PREF."content_element` where visible and parent = '".mysql_real_escape_string($parent)."' order by row_number limit 1";
     $rs = mysql_query($sql);
     if($rs){
       $answer = mysql_fetch_assoc($rs);
@@ -52,7 +52,7 @@ class DbFrontend{
   }
   
   public static function languageByRootElement($element_id){ //returns root element of menu
-    $sql = "select mte.language_id from ".DB_PREF."zone_to_content mte where  mte.element_id = '".(int)$element_id."'";
+    $sql = "select mte.language_id from `".DB_PREF."zone_to_content` mte where  mte.element_id = '".(int)$element_id."'";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs)){
@@ -89,7 +89,7 @@ class DbFrontend{
 
  
   public static function getElement($id){ //return element
-    $sql = "select  *  from ".DB_PREF."content_element where id = '".$id."' ";
+    $sql = "select  *  from `".DB_PREF."content_element` where id = '".$id."' ";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs)){

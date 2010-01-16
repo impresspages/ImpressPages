@@ -13,7 +13,7 @@ require_once (__DIR__.'/element_administrators.php');
 
 class mod_administrator_area extends \Library\Php\StandardModule\Area{
   public function after_delete($id){
-    $sql = "delete from ".DB_PREF."user_to_mod where user_id = ".(int)$id."";
+    $sql = "delete from `".DB_PREF."user_to_mod` where `user_id` = ".(int)$id."";
     $rs = mysql_query($sql);
     if(!$rs)
       trigger_error($sql);
@@ -72,7 +72,7 @@ class Manager{
      $code='
         global $cms;
         
-       $sql = " select translation from ".DB_PREF."module where id = \'".$value."\' ";
+       $sql = " select translation from ".DB_PREF."module where `id` = \'".$value."\' ";
        $rs = mysql_query($sql);
        if ($rs && $lock = mysql_fetch_assoc($rs)){
           $value = htmlspecialchars($lock[\'translation\']);

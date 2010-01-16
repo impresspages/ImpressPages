@@ -15,7 +15,7 @@ class FieldLanguages extends \Library\Php\Form\Field{
 
     $answer = '';
 
-    $rs = mysql_query("select * from ".DB_PREF."language where 1 order by row_number");
+    $rs = mysql_query("select * from `".DB_PREF."language` where 1 order by row_number");
     if($rs){
       $first = true;
       while($lock = mysql_fetch_assoc($rs)){

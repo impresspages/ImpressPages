@@ -32,7 +32,7 @@ class Element{ //data element in area
       switch($this->get_type()){
         case 'text': 
             if ($area){
-               $sql = "select t.".$this->get_db_field()." from ".DB_PREF."".$area->get_db_table()." t where ".$area->get_db_key()." = '".$area->get_db_reference()."' ";
+               $sql = "select t.".$this->get_db_field()." from `".DB_PREF."".$area->get_db_table()."` t where ".$area->get_db_key()." = '".$area->get_db_reference()."' ";
                $rs = mysql_query($sql);
                if (!$rs)
                   trigger_error("Can not get text field data. ".$sql);

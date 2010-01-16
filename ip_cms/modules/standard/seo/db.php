@@ -57,31 +57,10 @@ class Db{
  
   }
   
-/*  public static function insertEmptyParameter($languageId){
-    $zones =  Db::getMenu();
-    foreach($zones as $zone){
-      $sql = "insert into `".DB_PREF."zone_parameter` set 
-      url = '".mysql_real_escape_string(Db::newUrl($languageId, ''))."',
-      description = '".mysql_real_escape_string('')."',
-      title = '".mysql_real_escape_string('')."',
-      keywords = '".mysql_real_escape_string('')."',
-      zone_id = '".mysql_real_escape_string($zone['id'])."',
-      language_id = '".mysql_real_escape_string($languageId)."'
-      
-      ";
-      
-      $rs = mysql_query($sql);
-      if(!$rs)
-        trigger_error($sql." ".mysql_error());
-            
-    }
- 
-  }
-    
-  */
+
   
   public static function newUrl($language, $url){
-    $sql = "select url from ".DB_PREF."zone_parameter where language_id = '".mysql_real_escape_string($language)."' ";
+    $sql = "select url from `".DB_PREF."zone_parameter` where language_id = '".mysql_real_escape_string($language)."' ";
     $rs = mysql_query($sql);
     //require_once(BACKEND_DIR."cms.php");
     if($rs){
@@ -118,7 +97,7 @@ class Db{
   
     public static function siteLanguages(){
       $answer = array();
-      $sql = "select id, d_long, d_short from ".DB_PREF."language where visible order by row_number  ";
+      $sql = "select id, d_long, d_short from `".DB_PREF."language` where visible order by row_number  ";
       $rs = mysql_query($sql);
       if($rs){
         while($lock = mysql_fetch_assoc($rs))

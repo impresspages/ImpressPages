@@ -51,7 +51,7 @@ class element_text_lang extends Element{ //data element in area
     global $std_mod_db;
  
     $answer = '';
-    $sql2 = "select t.translation, l.d_short, t.id as t_id, l.id as l_id from ".DB_PREF."translation t, ".DB_PREF."language l where t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
+    $sql2 = "select t.translation, l.d_short, t.id as t_id, l.id as l_id from `".DB_PREF."translation` t, `".DB_PREF."language` l where t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
     $rs2 = mysql_query($sql2);
     if (!$rs2)
       trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -67,7 +67,7 @@ class element_text_lang extends Element{ //data element in area
 
 
       foreach($languages as $key => $language){
-        $sql3 = "select t.translation from ".DB_PREF."translation t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
+        $sql3 = "select t.translation from `".DB_PREF."translation` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
         $rs3 = mysql_query($sql3);
         $value='';
         if($rs3){
@@ -94,7 +94,7 @@ class element_text_lang extends Element{ //data element in area
     $languages = $std_mod_db->languages();
     $answer='';
     foreach($languages as $key => $language){
-      $sql3 = "select t.translation from ".DB_PREF."translation t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.".$this->translation_field." = '".$value."' ";
+      $sql3 = "select t.translation from `".DB_PREF."translation` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.".$this->translation_field." = '".$value."' ";
       $rs3 = mysql_query($sql3);
       if($rs3){
         if($lock3 = mysql_fetch_assoc($rs3))
@@ -112,11 +112,11 @@ class element_text_lang extends Element{ //data element in area
     global $std_mod_db;  
     $languages = $std_mod_db->languages();
     
-    $sql2 = "delete from ".DB_PREF."translation where ".$this->translation_field." = '".$last_insert_id."' ";
+    $sql2 = "delete from `".DB_PREF."translation` where ".$this->translation_field." = '".$last_insert_id."' ";
     $rs2 = mysql_query($sql2);
     if($rs2){
       foreach($languages as $key => $language){
-        $sql3 = "insert into ".DB_PREF."translation set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', ".$this->translation_field." = '".$last_insert_id."' ";
+        $sql3 = "insert into `".DB_PREF."translation` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', ".$this->translation_field." = '".$last_insert_id."' ";
         $rs3 = mysql_query($sql3);
         if(!$rs3)
           trigger_error("Can't insert language field values ".$sql3." ".mysql_error());            
@@ -128,11 +128,11 @@ class element_text_lang extends Element{ //data element in area
     global $std_mod_db;  
     $languages = $std_mod_db->languages();
     
-    $sql2 = "delete from ".DB_PREF."translation where ".$this->translation_field." = '".$row_id."' ";
+    $sql2 = "delete from `".DB_PREF."translation` where ".$this->translation_field." = '".$row_id."' ";
     $rs2 = mysql_query($sql2);
     if($rs2){
       foreach($languages as $key => $language){
-        $sql3 = "insert into ".DB_PREF."translation set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', ".$this->translation_field." = '".$row_id."' ";
+        $sql3 = "insert into `".DB_PREF."translation` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', ".$this->translation_field." = '".$row_id."' ";
         $rs3 = mysql_query($sql3);
         if(!$rs3)
           trigger_error("Can't update language field values ".$sql3." ".mysql_error());            
@@ -141,7 +141,7 @@ class element_text_lang extends Element{ //data element in area
       trigger_error("Can't update parameter ".$sql2." ".mysql_error());            
   }
   function process_delete($area, $key){
-    $sql2 = "delete from ".DB_PREF."translation where ".$this->translation_field." = '".$key."' ";
+    $sql2 = "delete from `".DB_PREF."translation` where ".$this->translation_field." = '".$key."' ";
     $rs2 = mysql_query($sql2);
     if(!$rs2)
       trigger_error("Can't delete language field values ".$sql2." ".mysql_error());            

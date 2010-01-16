@@ -115,14 +115,14 @@ class element_parameter extends Element{ //data element in area
     $html = new std_mod_html_output();
     global $std_mod_db;
     $value = $this->default_value;
-    $sql = "select * from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$parent_id."' ";
+    $sql = "select * from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$parent_id."' ";
     $rs = mysql_query($sql);
     if (!$rs)
       trigger_error("Can not get text field data. ".$sql." ".mysql_error());
     if ($lock = mysql_fetch_assoc($rs)){
 
       if($lock['type'] == 'string_wysiwyg'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get text field data. ".$sql." ".mysql_error());
@@ -135,7 +135,7 @@ class element_parameter extends Element{ //data element in area
         $html->wysiwyg($prefix.'_string', $value);
       }
       if($lock['type'] == 'string'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get text field data. ".$sql." ".mysql_error());
@@ -149,7 +149,7 @@ class element_parameter extends Element{ //data element in area
       }
 			
       if($lock['type'] == 'integer'){
-        $sql = "select value from ".DB_PREF."par_integer where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
@@ -164,7 +164,7 @@ class element_parameter extends Element{ //data element in area
 	
 
       if($lock['type'] == 'bool'){
-        $sql = "select value from ".DB_PREF."par_bool where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
@@ -178,7 +178,7 @@ class element_parameter extends Element{ //data element in area
       }
 			
       if($lock['type'] == 'textarea'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get text field data. ".$sql." ".mysql_error());
@@ -192,7 +192,7 @@ class element_parameter extends Element{ //data element in area
       }
       if($lock['type'] == 'lang'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -206,7 +206,7 @@ class element_parameter extends Element{ //data element in area
           
           $answer .= '';
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -223,7 +223,7 @@ class element_parameter extends Element{ //data element in area
 
       if($lock['type'] == 'lang_textarea'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -240,7 +240,7 @@ class element_parameter extends Element{ //data element in area
 					
           $answer .= '';
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -261,7 +261,7 @@ class element_parameter extends Element{ //data element in area
 			
       if($lock['type'] == 'lang_wysiwyg'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -278,7 +278,7 @@ class element_parameter extends Element{ //data element in area
 					
           $answer .= '';
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -307,14 +307,14 @@ class element_parameter extends Element{ //data element in area
   function preview_value($value, $parent_id = null, $area = null){
     global $std_mod_db;
   
-    $sql = "select * from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$value."' ";
+    $sql = "select * from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$value."' ";
     $rs = mysql_query($sql);
     if (!$rs)
       trigger_error("Can not get text field data. ".$sql." ".mysql_error());
     if ($lock = mysql_fetch_assoc($rs)){
 
       if($lock['type'] == 'string_wysiwyg'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get text field data. ".$sql." ".mysql_error());
@@ -326,7 +326,7 @@ class element_parameter extends Element{ //data element in area
         }
       }
       if($lock['type'] == 'string'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get text field data. ".$sql." ".mysql_error());
@@ -339,7 +339,7 @@ class element_parameter extends Element{ //data element in area
       }
 
       if($lock['type'] == 'integer'){
-        $sql = "select value from ".DB_PREF."par_integer where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
@@ -352,7 +352,7 @@ class element_parameter extends Element{ //data element in area
       }
 
       if($lock['type'] == 'bool'){
-        $sql = "select value from ".DB_PREF."par_bool where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
@@ -368,7 +368,7 @@ class element_parameter extends Element{ //data element in area
       }
 
       if($lock['type'] == 'textarea'){
-        $sql = "select value from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+        $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
           trigger_error("Can not get textarea field data. ".$sql." ".mysql_error());
@@ -382,7 +382,7 @@ class element_parameter extends Element{ //data element in area
 
       if($lock['type'] == 'lang'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -395,7 +395,7 @@ class element_parameter extends Element{ //data element in area
           $languages = $std_mod_db->languages();
           
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -410,7 +410,7 @@ class element_parameter extends Element{ //data element in area
       
       if($lock['type'] == 'lang_textarea'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -423,7 +423,7 @@ class element_parameter extends Element{ //data element in area
           $languages = $std_mod_db->languages();
           
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -438,7 +438,7 @@ class element_parameter extends Element{ //data element in area
       
       if($lock['type'] == 'lang_wysiwyg'){
         $answer = '';
-        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from ".DB_PREF."par_lang t, ".DB_PREF."language l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+        $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2)
           trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -451,7 +451,7 @@ class element_parameter extends Element{ //data element in area
           $languages = $std_mod_db->languages();
           
           foreach($languages as $key => $language){
-            $sql3 = "select t.translation from ".DB_PREF."par_lang t, ".DB_PREF."language l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
             $rs3 = mysql_query($sql3);
             $value='';
             if($rs3){
@@ -488,13 +488,13 @@ class element_parameter extends Element{ //data element in area
     global $std_mod_db;
     switch($_REQUEST[''.$prefix]){
       case "string_wysiwyg":
-        $sql = "insert into ".DB_PREF."par_string set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_wysiwyg'])."', parameter_id = ".$last_insert_id."";
+        $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_wysiwyg'])."', parameter_id = ".$last_insert_id."";
         $rs = mysql_query($sql);
         if(!$rs)
           trigger_error("Can't insert parameter ".$sql." ".mysql_error());
 			break;    
       case "string":
-        $sql = "insert into ".DB_PREF."par_string set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_string'])."', parameter_id = ".$last_insert_id."";
+        $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_string'])."', parameter_id = ".$last_insert_id."";
         $rs = mysql_query($sql);
         if(!$rs)
           trigger_error("Can't insert parameter ".$sql." ".mysql_error());
@@ -505,7 +505,7 @@ class element_parameter extends Element{ //data element in area
 				else
 					$value = " '".mysql_real_escape_string($_REQUEST[$prefix.'_integer'])."' ";
 				
-        $sql = "insert into ".DB_PREF."par_integer set value = ".$value.", parameter_id = ".$last_insert_id."";
+        $sql = "insert into `".DB_PREF."par_integer` set value = ".$value.", parameter_id = ".$last_insert_id."";
         $rs = mysql_query($sql);
         if(!$rs)
           trigger_error("Can't insert parameter ".$sql." ".mysql_error());
@@ -516,13 +516,13 @@ class element_parameter extends Element{ //data element in area
 				else
 					$value = " 0 ";
 				
-        $sql = "insert into ".DB_PREF."par_bool set value = ".$value.", parameter_id = ".$last_insert_id."";
+        $sql = "insert into `".DB_PREF."par_bool` set value = ".$value.", parameter_id = ".$last_insert_id."";
         $rs = mysql_query($sql);
         if(!$rs)
           trigger_error("Can't insert parameter ".$sql." ".mysql_error());
       break;    
       case "textarea":
-        $sql = "insert into ".DB_PREF."par_string set value = '".mysql_real_escape_string(str_replace("\r", '', $_REQUEST[$prefix.'_textarea']))."', parameter_id = ".$last_insert_id."";
+        $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string(str_replace("\r", '', $_REQUEST[$prefix.'_textarea']))."', parameter_id = ".$last_insert_id."";
         $rs = mysql_query($sql);
         if(!$rs)
           trigger_error("Can't insert parameter ".$sql." ".mysql_error());
@@ -531,7 +531,7 @@ class element_parameter extends Element{ //data element in area
       case "lang":
 				$languages = $std_mod_db->languages();
 				foreach($languages as $key => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -540,7 +540,7 @@ class element_parameter extends Element{ //data element in area
       case "lang_textarea":
 				$languages = $std_mod_db->languages();
 				foreach($languages as $key => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_textarea_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_textarea_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -549,7 +549,7 @@ class element_parameter extends Element{ //data element in area
       case "lang_wysiwyg":
 				$languages = $std_mod_db->languages();
 				foreach($languages as $key => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_wysiwyg_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_wysiwyg_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -562,13 +562,13 @@ class element_parameter extends Element{ //data element in area
   
 
 		if($_REQUEST[''.$prefix] == 'string_wysiwyg'){
-			$sql = "update ".DB_PREF."par_string set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
+			$sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error("Can't update parameter ".$sql." ".mysql_error());
 		}
 		if($_REQUEST[''.$prefix] == 'string'){
-			$sql = "update ".DB_PREF."par_string set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
+			$sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error("Can't update parameter ".$sql." ".mysql_error());
@@ -576,9 +576,9 @@ class element_parameter extends Element{ //data element in area
 
 		if($_REQUEST[''.$prefix] == 'integer'){
 			if($_REQUEST[''.$prefix.'_integer'] != '')
-				$sql = "update ".DB_PREF."par_integer set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_integer'])."' where parameter_id = '".$key."' ";
+				$sql = "update `".DB_PREF."par_integer` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_integer'])."' where parameter_id = '".$key."' ";
 			else
-				$sql = "update ".DB_PREF."par_integer set value=NULL where parameter_id = '".$key."' ";
+				$sql = "update `".DB_PREF."par_integer` set value=NULL where parameter_id = '".$key."' ";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error("Can't update parameter ".$sql." ".mysql_error());
@@ -590,14 +590,14 @@ class element_parameter extends Element{ //data element in area
 			else
 				$value = " 0 ";
 		
-			$sql = "update ".DB_PREF."par_bool set value=".$value." where parameter_id = '".$key."' ";
+			$sql = "update `".DB_PREF."par_bool` set value=".$value." where parameter_id = '".$key."' ";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error("Can't update parameter ".$sql." ".mysql_error());
 		}
 		
 		if($_REQUEST[''.$prefix] == 'textarea'){
-			$sql = "update ".DB_PREF."par_string set value='".mysql_real_escape_string(str_replace("\r", "", $_REQUEST[''.$prefix.'_string']))."' where parameter_id = '".$key."' ";
+			$sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string(str_replace("\r", "", $_REQUEST[''.$prefix.'_string']))."' where parameter_id = '".$key."' ";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error("Can't update parameter ".$sql." ".mysql_error());
@@ -607,11 +607,11 @@ class element_parameter extends Element{ //data element in area
 		if($_REQUEST[''.$prefix] == 'lang'){
 			$languages = $std_mod_db->languages();
 			
-			$sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$key."' ";
+			$sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
 			$rs2 = mysql_query($sql2);
 			if($rs2){
 				foreach($languages as $key2 => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."',  parameter_id = ".$key." ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."',  parameter_id = ".$key." ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -626,11 +626,11 @@ class element_parameter extends Element{ //data element in area
 		if($_REQUEST[''.$prefix] == 'lang_textarea'){
 			$languages = $std_mod_db->languages();
 			
-			$sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$key."' ";
+			$sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
 			$rs2 = mysql_query($sql2);
 			if($rs2){
 				foreach($languages as $key2 => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -642,11 +642,11 @@ class element_parameter extends Element{ //data element in area
 		if($_REQUEST[''.$prefix] == 'lang_wysiwyg'){
 			$languages = $std_mod_db->languages();
 			
-			$sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$key."' ";
+			$sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
 			$rs2 = mysql_query($sql2);
 			if($rs2){
 				foreach($languages as $key2 => $language){
-					$sql3 = "insert into ".DB_PREF."par_lang set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
+					$sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
 					$rs3 = mysql_query($sql3);
 					if(!$rs3)
 						trigger_error("Can't update parameter ".$sql3." ".mysql_error());            
@@ -659,19 +659,19 @@ class element_parameter extends Element{ //data element in area
   }
   function process_delete($area, $key){
     global $std_mod_db;
-    $sql = "select * from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$key."' ";
+    $sql = "select * from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$key."' ";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs)){
 
         if($lock['type'] == 'string_wysiwyg'){
-          $sql = "delete from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+          $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
           $rs = mysql_query($sql);
           if(!$rs)
             trigger_error("Can't delete parameter ".$sql." ".mysql_error());
         }
         if($lock['type'] == 'string'){
-          $sql = "delete from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+          $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
           $rs = mysql_query($sql);
           if(!$rs)
             trigger_error("Can't delete parameter ".$sql." ".mysql_error());
@@ -679,20 +679,20 @@ class element_parameter extends Element{ //data element in area
 
 
         if($lock['type'] == 'textarea'){
-          $sql = "delete from ".DB_PREF."par_string where parameter_id = '".$lock['id']."' ";
+          $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
           $rs = mysql_query($sql);
           if(!$rs)
             trigger_error("Can't delete parameter ".$sql." ".mysql_error());
         }
         if($lock['type'] == 'bool'){
-          $sql = "delete from ".DB_PREF."par_bool where parameter_id = '".$lock['id']."' ";
+          $sql = "delete from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
           $rs = mysql_query($sql);
           if(!$rs)
             trigger_error("Can't delete parameter ".$sql." ".mysql_error());
         }
 
         if($lock['type'] == 'integer'){
-          $sql = "delete from ".DB_PREF."par_integer where parameter_id = '".$lock['id']."' ";
+          $sql = "delete from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
           $rs = mysql_query($sql);
           if(!$rs)
             trigger_error("Can't delete parameter ".$sql." ".mysql_error());
@@ -700,7 +700,7 @@ class element_parameter extends Element{ //data element in area
         if($lock['type'] == 'lang'){
           $languages = $std_mod_db->languages();
           
-          $sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$lock['id']."' ";
+          $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
           $rs2 = mysql_query($sql2);
           if(!$rs2)
             trigger_error("Can't delete parameter ".$sql2." ".mysql_error());            
@@ -710,7 +710,7 @@ class element_parameter extends Element{ //data element in area
         if($lock['type'] == 'lang_textarea'){
           $languages = $std_mod_db->languages();
           
-          $sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$lock['id']."' ";
+          $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
           $rs2 = mysql_query($sql2);
           if(!$rs2)
             trigger_error("Can't delete parameter ".$sql2." ".mysql_error());            
@@ -720,7 +720,7 @@ class element_parameter extends Element{ //data element in area
         if($lock['type'] == 'lang_wysiwyg'){
           $languages = $std_mod_db->languages();
           
-          $sql2 = "delete from ".DB_PREF."par_lang where parameter_id = '".$lock['id']."' ";
+          $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
           $rs2 = mysql_query($sql2);
           if(!$rs2)
             trigger_error("Can't delete parameter ".$sql2." ".mysql_error());            

@@ -22,7 +22,7 @@ class Db{
 		else
 			$value_float = "'".mysql_real_escape_string($value_float)."'";
 
-		$sql = "insert into ".DB_PREF."log set module = '".mysql_real_escape_string($module)."', name = '".mysql_real_escape_string($name)."', value_str='".mysql_real_escape_string($value_str)."', value_int=".$value_int.", value_float=".$value_float."  ";
+		$sql = "insert into `".DB_PREF."log` set `module` = '".mysql_real_escape_string($module)."', `name` = '".mysql_real_escape_string($name)."', value_str='".mysql_real_escape_string($value_str)."', value_int=".$value_int.", value_float=".$value_float."  ";
 		$rs = mysql_query($sql);
 		if(!$rs)
 			echo $sql." ".mysql_error(); //can't use standard error handling because of infinite loop danger
@@ -40,7 +40,7 @@ class Db{
     else
       $nameSql = '';
 
-		$sql = "select count(*) as log_count from ".DB_PREF."log where ".$moduleSql." ".$nameSql." ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`time`,NOW())  ";
+		$sql = "select count(*) as log_count from `".DB_PREF."log` where ".$moduleSql." ".$nameSql." ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`time`,NOW())  ";
 
 		$rs = mysql_query($sql);
 		if($rs){
@@ -52,7 +52,7 @@ class Db{
 
 
 	public static function deleteOldLogs($days){
-		$sql = "delete from ".DB_PREF."log where  (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(`time`)) > ".($days*24*60*60)."";
+		$sql = "delete from `".DB_PREF."log` where  (UNIX_TIMESTAMP() - UNIX_TIMESTAMP(`time`)) > ".($days*24*60*60)."";
 		$rs = mysql_query($sql);
 		if(!$rs)
 			trigger_error($sql." ".mysql_error());

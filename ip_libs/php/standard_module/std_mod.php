@@ -572,7 +572,7 @@ class StandardModule{
 			
 		$answer = '';
 		
-		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from ".DB_PREF."".$area->get_db_table()." where 1 ";
+		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from `".DB_PREF."".$area->get_db_table()."` where 1 ";
 		if ($parent_id)
 			 $sql .= " and ".$area->get_db_reference()." = '".$parent_id."' ";
 		if($area->get_where_condition())    
@@ -627,7 +627,7 @@ class StandardModule{
 			
 		$answer = '';
 		
-		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from ".DB_PREF."".$area->get_db_table()." where 1 ";
+		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from `".DB_PREF."".$area->get_db_table()."` where 1 ";
 		if ($parent_id)
 			 $sql .= " and ".$area->get_db_reference()." = '".$parent_id."' ";
 		if($area->get_where_condition())    
@@ -842,7 +842,7 @@ class StandardModule{
     //check subareas does they allow to delete
     $child = $area->get_area();
     if ($child != null){
-      $sql = " select ".$child->get_db_key()." as 'key' from ".DB_PREF."".$child->get_db_table()." where ".$child->get_db_reference()." = '".$id."' ";
+      $sql = " select ".$child->get_db_key()." as 'key' from `".DB_PREF."".$child->get_db_table()."` where `".$child->get_db_reference()."` = '".$id."' ";
       $rs = mysql_query($sql);
       if ($rs){
         $limit = mysql_num_rows($rs);
@@ -870,7 +870,7 @@ class StandardModule{
 
       $child =& $current_area->get_area();
       if ($child != null){
-        $sql = " select ".$child->get_db_key()." as 'key' from ".DB_PREF."".$child->get_db_table()." where ".$child->get_db_reference()." = '".$id."' ";
+        $sql = " select ".$child->get_db_key()." as 'key' from `".DB_PREF."".$child->get_db_table()."` where `".$child->get_db_reference()."` = '".$id."' ";
         $rs = mysql_query($sql);
         if ($rs){
           $limit = mysql_num_rows($rs);
@@ -882,7 +882,7 @@ class StandardModule{
       }
       foreach($current_area->get_elements() as $key => $element)
         $new_parameter = $element->process_delete($current_area, $id);
-      $sql = "delete from ".DB_PREF."".$current_area->get_db_table()." where ".$current_area->get_db_key()." = '".$id."' ";          
+      $sql = "delete from `".DB_PREF."".$current_area->get_db_table()."` where `".$current_area->get_db_key()."` = '".$id."' ";          
       $rs = mysql_query($sql);
       if (!$rs)
         trigger_error("Unable to delete ".$sql);
@@ -1291,7 +1291,7 @@ class StandardModule{
 
 			
 			
-		$sql_pages = " select * from ".DB_PREF."".$this->current_area->get_db_table()." where 1 ";
+		$sql_pages = " select * from `".DB_PREF."".$this->current_area->get_db_table()."` where 1 ";
 		if (($this->level > 0))
 			 $sql_pages .= " and ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' ";
 		if($this->current_area->get_where_condition())    

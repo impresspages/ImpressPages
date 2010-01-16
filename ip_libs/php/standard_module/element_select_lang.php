@@ -68,7 +68,7 @@ class element_select_lang extends element_text_lang{ //data element in area
 
     $answer = '';
 
-    $sql2 = "select t.translation, l.d_short, t.id as t_id, l.id as l_id from ".DB_PREF."translation t, ".DB_PREF."language l where t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
+    $sql2 = "select t.translation, l.d_short, t.id as t_id, l.id as l_id from `".DB_PREF."translation` t, `".DB_PREF."language` l where t.language_id = l.id and t.".$this->translation_field." = '".$parent_id."' ";
     $rs2 = mysql_query($sql2);
     if (!$rs2)
       trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -121,11 +121,11 @@ class element_select_lang extends element_text_lang{ //data element in area
     $languages = $std_mod_db->languages();
 
     
-    $sql2 = "delete from ".DB_PREF."translation where ".$this->translation_field." = '".$last_insert_id."' ";
+    $sql2 = "delete from `".DB_PREF."translation` where ".$this->translation_field." = '".$last_insert_id."' ";
     $rs2 = mysql_query($sql2);
     if($rs2){
       foreach($languages as $key => $language){
-        $sql3 = "insert into ".DB_PREF."translation set translation = '".$this->values[$_REQUEST[$prefix.'_tmp']][$language['id']][0]."', language_id = '".$language['id']."', ".$this->translation_field." = '".$last_insert_id."' ";
+        $sql3 = "insert into `".DB_PREF."translation` set translation = '".$this->values[$_REQUEST[$prefix.'_tmp']][$language['id']][0]."', language_id = '".$language['id']."', ".$this->translation_field." = '".$last_insert_id."' ";
         $rs3 = mysql_query($sql3);
         if(!$rs3)
           trigger_error("Can't insert language field values ".$sql3." ".mysql_error());            
@@ -141,11 +141,11 @@ class element_select_lang extends element_text_lang{ //data element in area
     if($_REQUEST[$prefix.'_tmp'] == sizeof($this->values)){         
       return; //the value is not changed and dont match any of list.
     }
-    $sql2 = "delete from ".DB_PREF."translation where ".$this->translation_field." = '".$row_id."' ";
+    $sql2 = "delete from `".DB_PREF."translation` where ".$this->translation_field." = '".$row_id."' ";
     $rs2 = mysql_query($sql2);
     if($rs2){
       foreach($languages as $key => $language){
-        $sql3 = "insert into ".DB_PREF."translation set translation = '".$this->values[$_REQUEST[$prefix.'_tmp']][$language['id']][0]."', language_id = '".$language['id']."', ".$this->translation_field." = '".$row_id."' ";
+        $sql3 = "insert into `".DB_PREF."translation` set translation = '".$this->values[$_REQUEST[$prefix.'_tmp']][$language['id']][0]."', language_id = '".$language['id']."', ".$this->translation_field." = '".$row_id."' ";
         $rs3 = mysql_query($sql3);
         if(!$rs3)
           trigger_error("Can't update language field values ".$sql3." ".mysql_error());            

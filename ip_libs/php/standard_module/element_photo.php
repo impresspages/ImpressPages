@@ -36,7 +36,7 @@ class element_photo extends Element{ //data element in area
     $value = null;
  
     if ($area){
-       $sql = "select t.".$this->get_db_field()." from ".DB_PREF."".$area->get_db_table()." t where ".$area->get_db_key()." = '".$parent_id."' ";
+       $sql = "select t.".$this->get_db_field()." from `".DB_PREF."".$area->get_db_table()."` t where ".$area->get_db_key()." = '".$parent_id."' ";
        $rs = mysql_query($sql);
        if (!$rs)
           trigger_error("Can not get photo field data. ".$sql);
@@ -141,7 +141,7 @@ class element_photo extends Element{ //data element in area
       foreach($this->copies as $key => $copy){
         $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_images[$key], $copy['dest_dir']);
         if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
-           $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$copy['db_field']."` = '".mysql_real_escape_string($new_name)."' where ".$area->get_db_key()." = '".$id."' ";
+           $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".mysql_real_escape_string($new_name)."' where ".$area->get_db_key()." = '".$id."' ";
            $rs = mysql_query($sql);
            if (!$rs)
              trigger_error("Can't update photo field ".$sql);
@@ -166,7 +166,7 @@ class element_photo extends Element{ //data element in area
     if(isset($_POST[$prefix.'_delete']) && !$this->required ){
     
       foreach($this->copies as $key => $copy){
-        $sql = "select `".$copy['db_field']."` as existing_photo from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$id."' ";
+        $sql = "select `".$copy['db_field']."` as existing_photo from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$id."' ";
         $rs = mysql_query($sql); 
         if ($rs){
            if ($lock = mysql_fetch_assoc($rs)){
@@ -183,7 +183,7 @@ class element_photo extends Element{ //data element in area
       
       foreach($this->copies as $key => $copy){
         
-         $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$copy['db_field']."` = NULL where ".$area->get_db_key()." = '".$id."' ";
+         $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = NULL where ".$area->get_db_key()." = '".$id."' ";
          $rs = mysql_query($sql);
          if (!$rs)
            trigger_error("Can't update photo field ".$sql);
@@ -199,7 +199,7 @@ class element_photo extends Element{ //data element in area
       foreach($this->copies as $key => $copy){
         $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_images[$key], $copy['dest_dir']);
         if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
-           $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$copy['db_field']."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
+           $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
            $rs = mysql_query($sql);
            if (!$rs)
              trigger_error("Can't update photo field ".$sql);
@@ -223,7 +223,7 @@ class element_photo extends Element{ //data element in area
     
     
       foreach($this->copies as $key => $copy){
-          $sql = "select `".$copy['db_field']."` as existing_photo from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$id."' ";
+          $sql = "select `".$copy['db_field']."` as existing_photo from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$id."' ";
           $rs = mysql_query($sql); 
           if ($rs){
              if ($lock = mysql_fetch_assoc($rs)){
@@ -235,7 +235,7 @@ class element_photo extends Element{ //data element in area
             return;
           }
         
-         $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$copy['db_field']."` = NULL where ".$area->get_db_key()." = '".$id."' ";
+         $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = NULL where ".$area->get_db_key()." = '".$id."' ";
          $rs = mysql_query($sql);
          if (!$rs)
            trigger_error("Can't update photo field ".$sql);

@@ -45,7 +45,7 @@ class Db{
   	else
   	 $valueFloat = "'".mysql_real_escape_string($valueFloat)."'";
   	 
-  	$sql = "insert into ".DB_PREF."log set module = '".mysql_real_escape_string($module)."', name = '".mysql_real_escape_string($name)."', value_str='".mysql_real_escape_string($valueStr)."', value_int=".(int)$valueInt.", value_float='".mysql_real_escape_string($valueFloat)."'  ";
+  	$sql = "insert into `".DB_PREF."log` set `module` = '".mysql_real_escape_string($module)."', `name` = '".mysql_real_escape_string($name)."', `value_str`='".mysql_real_escape_string($valueStr)."', `value_int`=".(int)$valueInt.", `value_float`='".mysql_real_escape_string($valueFloat)."'  ";
   	$rs = mysql_query($sql);
   	if(!$rs)
   	  echo $sql." ".mysql_error(); //can't use standard error handling because of infinite loop danger
@@ -55,7 +55,7 @@ class Db{
   public static function modules($managed = null, $userId = null){
     global $cms;
     $groups = array();
-    $sql = "select g.name as g_name, g.id, g.translation from ".DB_PREF."module_group g
+    $sql = "select g.name as g_name, g.id, g.translation from `".DB_PREF."module_group` g
   	where 1 order by row_number";
     $rs = mysql_query($sql);
     if($rs){
@@ -74,11 +74,11 @@ class Db{
         
         if($userId === null){
           $sql2 = "select m.name as m_name, m.id, m.translation, core from 
-          ".DB_PREF."module m where m.group_id = '".$lock['id']."' ".$managedSql."
+          `".DB_PREF."module` m where m.group_id = '".$lock['id']."' ".$managedSql."
            order by row_number";
         }else{    
           $sql2 = "select m.name as m_name, m.id, m.translation, core from 
-          ".DB_PREF."user_to_mod um,".DB_PREF."module m where
+          `".DB_PREF."user_to_mod` um,`".DB_PREF."module` m where
           um.user_id = '".mysql_real_escape_string($userId)."' and um.module_id = m.id and 
           m.group_id = '".$lock['id']."' ".$managedSql." order by row_number";
         }
@@ -99,7 +99,7 @@ class Db{
 		
     //return true if user have permission to use the module
   public static function allowedModule($moduleId, $userId){
-    $sql = "select * from ".DB_PREF."user_to_mod where user_id='".mysql_real_escape_string($userId)."' and module_id='".mysql_real_escape_string($moduleId)."' ";
+    $sql = "select * from `".DB_PREF."user_to_mod` where `user_id`='".mysql_real_escape_string($userId)."' and `module_id`='".mysql_real_escape_string($moduleId)."' ";
   	$rs = mysql_query($sql);
   	if($rs){
   	  if(mysql_num_rows($rs) > 0)
@@ -113,7 +113,7 @@ class Db{
   }
 		
   public static function firstAllowedModule($userId){
-    $sql = "select m.id, g.name as g_name, m.name as m_name, m.core  from ".DB_PREF."user_to_mod utm, ".DB_PREF."module m, ".DB_PREF."module_group g
+    $sql = "select m.id, g.name as g_name, m.name as m_name, m.core  from `".DB_PREF."user_to_mod` utm, `".DB_PREF."module` m, `".DB_PREF."module_group` g
   	where m.id = utm.module_id and m.group_id = g.id and utm.user_id='".mysql_real_escape_string($userId)."' 
   	order by g.row_number asc, m.row_number asc";
   	$rs = mysql_query($sql);
@@ -129,7 +129,7 @@ class Db{
 		
   public static  function userId($name, $pass){
     $answer = false;
-    $sql = "select id from ".DB_PREF."user where name = '".mysql_real_escape_string($name)."' and pass='".md5($pass)."' and not blocked ";
+    $sql = "select id from `".DB_PREF."user` where `name` = '".mysql_real_escape_string($name)."' and `pass`='".md5($pass)."' and not blocked ";
     $rs = mysql_query($sql);
     if($rs){        
       if($lock = mysql_fetch_assoc($rs))

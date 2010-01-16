@@ -160,7 +160,7 @@ class ElementImage extends Element{ //data element in area
         foreach($this->copies as $key => $copy){
           $new_name = \Library\Php\File\Functions::genUnocupiedName($this->memImages[$key], $copy['destDir']);
           if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-             $sql = "update ".DB_PREF."".$area->dbTable." set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where ".$area->dbPrimaryKey." = '".$id."' ";
+             $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
              $rs = mysql_query($sql);
              if (!$rs)
                trigger_error("Can't update photo field ".$sql);
@@ -184,7 +184,7 @@ class ElementImage extends Element{ //data element in area
       if(isset($_POST[$prefix.'_delete']) && !$this->required ){
       
         foreach($this->copies as $key => $copy){
-          $sql = "select `".$copy['dbField']."` as existing_photo from ".DB_PREF."".$area->dbTable." where ".$area->dbPrimaryKey." = '".$id."' ";
+          $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
           $rs = mysql_query($sql); 
           if ($rs){
              if ($lock = mysql_fetch_assoc($rs)){
@@ -201,7 +201,7 @@ class ElementImage extends Element{ //data element in area
         
         foreach($this->copies as $key => $copy){
           
-           $sql = "update ".DB_PREF."".$area->dbTable." set `".$copy['dbField']."` = NULL where ".$area->dbPrimaryKey." = '".$id."' ";
+           $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
            $rs = mysql_query($sql);
            if (!$rs)
              trigger_error("Can't update photo field ".$sql);
@@ -217,7 +217,7 @@ class ElementImage extends Element{ //data element in area
         foreach($this->copies as $key => $copy){
           $new_name = \Library\Php\File\Functions::genUnocupiedName($this->memImages[$key], $copy['destDir']);
           if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-             $sql = "update ".DB_PREF."".$area->dbTable." set `".$copy['dbField']."` = '".$new_name."' where ".$area->dbPrimaryKey." = '".$id."' ";
+             $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$new_name."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
              $rs = mysql_query($sql);
              if (!$rs)
                trigger_error("Can't update photo field ".$sql);
@@ -236,7 +236,7 @@ class ElementImage extends Element{ //data element in area
     
     
       foreach($this->copies as $key => $copy){
-          $sql = "select `".$copy['dbField']."` as existing_photo from ".DB_PREF."".$area->dbTable." where ".$area->dbPrimaryKey." = '".$id."' ";
+          $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
           $rs = mysql_query($sql); 
           if ($rs){
              if ($lock = mysql_fetch_assoc($rs)){
@@ -248,7 +248,7 @@ class ElementImage extends Element{ //data element in area
             return;
           }
         
-         $sql = "update ".DB_PREF."".$area->dbTable." set `".$copy['dbField']."` = NULL where ".$area->dbPrimaryKey." = '".$id."' ";
+         $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
          $rs = mysql_query($sql);
          if (!$rs)
            trigger_error("Can't update photo field ".$sql);

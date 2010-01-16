@@ -64,7 +64,7 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function getLayout($id){
-    $sql = "select * from ".DB_PREF."mc_misc_video where id = '".(int)$id."'";
+    $sql = "select * from `".DB_PREF."mc_misc_video` where id = '".(int)$id."'";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs)){
@@ -82,7 +82,7 @@ class Module extends \Modules\standard\content_management\Widget{
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
     $answer = "";
-    $sql = "select title, photo from ".DB_PREF."mc_misc_video where id = '".(int)$module_id."' ";
+    $sql = "select title, photo from `".DB_PREF."mc_misc_video` where id = '".(int)$module_id."' ";
     $rs = mysql_query($sql);
     if (!$rs || !$lock = mysql_fetch_assoc($rs))
     trigger_error("Can't get module information ".$sql);
@@ -130,18 +130,18 @@ class Module extends \Modules\standard\content_management\Widget{
       copy(TMP_VIDEO_DIR.$values['new_photo'], VIDEO_DIR.$new_name);
     }
     if (true){
-      $sql = "insert into ".DB_PREF."mc_misc_video set layout= '".mysql_real_escape_string($values['layout'])."',title = '".mysql_real_escape_string($values['title'])."', photo = '".mysql_real_escape_string($new_name)."' ";
+      $sql = "insert into `".DB_PREF."mc_misc_video` set layout= '".mysql_real_escape_string($values['layout'])."',title = '".mysql_real_escape_string($values['title'])."', photo = '".mysql_real_escape_string($new_name)."' ";
       $rs = mysql_query($sql);
       if(!$rs){
         return "Can't insert new module. ".$sql;
       }else{
-        $sql = "select max(id) as max_id from ".DB_PREF."mc_misc_video where 1";
+        $sql = "select max(id) as max_id from `".DB_PREF."mc_misc_video` where 1";
         $rs = mysql_query($sql);
         if (!$rs)
         $this->set_error("Can't get last inserted id ".$sql);
         else{
           $lock = mysql_fetch_assoc($rs);
-          $sql = "insert into ".DB_PREF."content_element_to_modules set".
+          $sql = "insert into `".DB_PREF."content_element_to_modules` set".
                 " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
                 ", group_key='misc', module_key='video', module_id = '".(int)$lock['max_id']."'".
                 ", visible= '".(int)$values['visible']."' ";
@@ -193,11 +193,11 @@ class Module extends \Modules\standard\content_management\Widget{
     }
 
 
-    $sql = "update ".DB_PREF."content_element_to_modules set visible='".(int)$values['visible']."',row_number = '".(int)$values['row_number']."' where module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
+    $sql = "update `".DB_PREF."content_element_to_modules` set visible='".(int)$values['visible']."',row_number = '".(int)$values['row_number']."' where module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
     if (!mysql_query($sql))
     return("Can't update module row number".$sql);
     else{
-      $sql = "update ".DB_PREF."mc_misc_video set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', photo = '".mysql_real_escape_string($new_name)."' where id = '".(int)$values['id']."' ";
+      $sql = "update `".DB_PREF."mc_misc_video` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', photo = '".mysql_real_escape_string($new_name)."' where id = '".(int)$values['id']."' ";
       if (!mysql_query($sql))
       $this->set_error("Can't update module ".$sql);
     }
@@ -214,11 +214,11 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
 
-    $sql = "delete from ".DB_PREF."content_element_to_modules where module_id = '".(int)$values['id']."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
+    $sql = "delete from `".DB_PREF."content_element_to_modules` where module_id = '".(int)$values['id']."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
     if (!mysql_query($sql))
     $this->set_error("Can't delete element to module association ".$sql);
     else{
-      $sql = "delete from ".DB_PREF."mc_misc_video where id = '".(int)$values['id']."' ";
+      $sql = "delete from `".DB_PREF."mc_misc_video` where id = '".(int)$values['id']."' ";
       if (!mysql_query($sql))
       $this->set_error("Can't delete module ".$sql);
     }
@@ -228,7 +228,7 @@ class Module extends \Modules\standard\content_management\Widget{
 
   function delete_by_id($id){
 
-    $sql = "select photo from ".DB_PREF."mc_misc_video where id = '".(int)$id."'";
+    $sql = "select photo from `".DB_PREF."mc_misc_video` where id = '".(int)$id."'";
     $rs = mysql_query($sql);
     if ($rs && $lock = mysql_fetch_assoc($rs)){
 
@@ -238,11 +238,11 @@ class Module extends \Modules\standard\content_management\Widget{
       }
 
 
-      $sql = "delete from ".DB_PREF."content_element_to_modules where module_id = '".(int)$id."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
+      $sql = "delete from `".DB_PREF."content_element_to_modules` where module_id = '".(int)$id."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
       if (!mysql_query($sql))
       $this->set_error("Can't delete element to module association ".$sql);
       else{
-        $sql = "delete from ".DB_PREF."mc_misc_video where id = '".$id."' ";
+        $sql = "delete from `".DB_PREF."mc_misc_video` where id = '".$id."' ";
         if (!mysql_query($sql))
         $this->set_error("Can't delete module ".$sql);
       }
@@ -263,7 +263,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $layout = $this->getLayout($id);
 
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
-    $sql = "select title, photo from ".DB_PREF."mc_misc_video where id = '".(int)$id."' ";
+    $sql = "select title, photo from `".DB_PREF."mc_misc_video` where id = '".(int)$id."' ";
     $rs = mysql_query($sql);
     if ($rs){
       if ($lock = mysql_fetch_assoc($rs)){

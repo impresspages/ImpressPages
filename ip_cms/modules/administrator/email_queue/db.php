@@ -10,7 +10,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Db{
 
   public static function getEmail($id){
-		$sql = "SELECT * FROM ".DB_PREF."m_administrator_email_queue 
+		$sql = "SELECT * FROM `".DB_PREF."m_administrator_email_queue` 
 		WHERE `id` = ".(int)$id." limit 1";
 		$rs = mysql_query($sql);
 		if ($rs) {
@@ -30,7 +30,7 @@ class Db{
 		else 
 			$immediate = 0;
 
-		$sql = "insert into ".DB_PREF."m_administrator_email_queue set 
+		$sql = "insert into `".DB_PREF."m_administrator_email_queue` set 
 		`from` = '".mysql_real_escape_string($from)."', `from_name` = '".mysql_real_escape_string($fromName)."', `to` = '".mysql_real_escape_string($to)."',
      `to_name` = '".mysql_real_escape_string($toName)."', `subject` = '".mysql_real_escape_string($subject)."', 
      `email` = '".mysql_real_escape_string($email)."', `immediate` = ".$immediate.", `html` = ".$html.",
@@ -44,7 +44,7 @@ class Db{
 	}
   
 	public static function lock($count, $key){
-		$sql = "update ".DB_PREF."m_administrator_email_queue set 
+		$sql = "update `".DB_PREF."m_administrator_email_queue` set 
 		`lock` = '".mysql_real_escape_string($key)."', `locked_on` = NOW() 
 		where `lock` is NULL and send is NULL order by
 		immediate desc, id asc limit ".$count;
@@ -57,7 +57,7 @@ class Db{
 	}
 
 	public static function lockOnlyImmediate($count, $key){
-		$sql = "update ".DB_PREF."m_administrator_email_queue set 
+		$sql = "update `".DB_PREF."m_administrator_email_queue` set 
 		`lock` = '".mysql_real_escape_string($key)."', `locked_on` = NOW() 
 		where `immediate` and `lock` is NULL and `send` is NULL order by
 		`id` asc limit ".$count;
@@ -70,7 +70,7 @@ class Db{
 	}
 	
 	public static function unlock($key){
-		$sql = "update ".DB_PREF."m_administrator_email_queue set 
+		$sql = "update `".DB_PREF."m_administrator_email_queue` set 
 		`send` = NOW(), `lock` = NULL, `locked_on` = NULL 
 		where `lock` = '".mysql_real_escape_string($key)."'";
 		$rs = mysql_query($sql);
@@ -82,7 +82,7 @@ class Db{
 	}
 
 	public static function getLocked($key){
-		$sql = "select * from ".DB_PREF."m_administrator_email_queue  
+		$sql = "select * from `".DB_PREF."m_administrator_email_queue`  
 		where `lock` = '".mysql_real_escape_string($key)."'";
 		$rs = mysql_query($sql);
 		if(!$rs){
@@ -98,7 +98,7 @@ class Db{
 	}
 
 	public static function markSend($key){
-		$sql = "update ".DB_PREF."m_administrator_email_queue set 
+		$sql = "update `".DB_PREF."m_administrator_email_queue` set 
 		`send` = NOW() where `lock` = '".mysql_real_escape_string($key)."'";
 		$rs = mysql_query($sql);
 		if(!$rs){
@@ -110,7 +110,7 @@ class Db{
   
 	
 	public static function delteOldSent($hours){
-		$sql = "delete from ".DB_PREF."m_administrator_email_queue where 
+		$sql = "delete from `".DB_PREF."m_administrator_email_queue` where 
 		`send` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`,NOW())";
 		$rs = mysql_query($sql);
 		if(!$rs){
@@ -123,7 +123,7 @@ class Db{
 	
 	/*apparently there were some errors if exists old locked records. */
 	public static function deleteOld($hours){
-		$sql = "delete from ".DB_PREF."m_administrator_email_queue where 
+		$sql = "delete from `".DB_PREF."m_administrator_email_queue` where 
 		(`lock` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`locked_on`,NOW()))
 		or
 		(`send` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`,NOW()))
@@ -138,7 +138,7 @@ class Db{
 	}
 	
 	public static function sentOrLockedCount($minutes){
-		$sql = "select count(*) as `sent` from ".DB_PREF."m_administrator_email_queue where 
+		$sql = "select count(*) as `sent` from `".DB_PREF."m_administrator_email_queue` where 
 		(`send` is not NULL and ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
 		or
 		(`lock` is not NULL and send is null) ";

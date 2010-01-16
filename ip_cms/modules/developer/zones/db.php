@@ -26,7 +26,7 @@ class Db{
   }  
   
   public static function getZone($zoneId){
-    $sql = "select * from ".DB_PREF."zone where id = '".$zoneId."'";
+    $sql = "select * from `".DB_PREF."zone` where id = '".$zoneId."'";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs))
@@ -42,7 +42,7 @@ class Db{
   }
   
   public static function deleteParameters($zoneId){
-    $sql = "delete from ".DB_PREF."zone_parameter where zone_id = '".$zoneId."'";
+    $sql = "delete from `".DB_PREF."zone_parameter` where `zone_id` = '".$zoneId."'";
     $rs = mysql_query($sql);
     if($rs){
     }else{
@@ -56,21 +56,21 @@ class Db{
     $zone = Db::getZone($zoneId);
     
     foreach($languages as $key => $language){
-      $sql = "insert into ".DB_PREF."content_element set visible = 1";
+      $sql = "insert into `".DB_PREF."content_element` set `visible` = 1";
       $rs = mysql_query($sql);
       if($rs){
-        $sql2 = "insert into ".DB_PREF."zone_to_content set 
-        language_id = '".mysql_real_escape_string($language['id'])."',
-        zone_id = '".mysql_real_escape_string($zoneId)."',
-        element_id = '".mysql_insert_id()."'";
+        $sql2 = "insert into `".DB_PREF."zone_to_content` set 
+        `language_id` = '".mysql_real_escape_string($language['id'])."',
+        `zone_id` = '".mysql_real_escape_string($zoneId)."',
+        `element_id` = '".mysql_insert_id()."'";
         $rs2 = mysql_query($sql2);
         if(!$rs2)
           trigger_error($sql2." ".mysql_error());
           
-        $sql2 = "insert into ".DB_PREF."zone_parameter set 
-        language_id = '".mysql_real_escape_string($language['id'])."',
-        zone_id = '".$zoneId."',
-        url = '".mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";
+        $sql2 = "insert into `".DB_PREF."zone_parameter` set 
+        `language_id` = '".mysql_real_escape_string($language['id'])."',
+        `zone_id` = '".$zoneId."',
+        `url` = '".mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";
         $rs2 = mysql_query($sql2);
         if(!$rs2)
           trigger_error($sql2." ".mysql_error());          
@@ -109,7 +109,7 @@ class Db{
     $url = str_replace("~", "-", $url);  
   
   
-    $sql = "select url from ".DB_PREF."zone_parameter where language_id = '".mysql_real_escape_string($language)."' ";
+    $sql = "select url from `".DB_PREF."zone_parameter` where `language_id` = '".mysql_real_escape_string($language)."' ";
     $rs = mysql_query($sql);
     if($rs){
       $urls = array();

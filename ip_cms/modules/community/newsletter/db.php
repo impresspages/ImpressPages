@@ -10,7 +10,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 	class Db{
 	
 		public static function getSubscriber($id){
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where id  = ".mysql_real_escape_string($id)." ";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where id  = ".mysql_real_escape_string($id)." ";
 			$rs = mysql_query($sql);
 			if($rs){
 				if($lock = mysql_fetch_assoc($rs))
@@ -24,7 +24,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		}	
 	
 		public static function getRecord($id){
-			$sql = "select * from ".DB_PREF."m_community_newsletter where id  = ".mysql_real_escape_string($id)." ";
+			$sql = "select * from `".DB_PREF."m_community_newsletter` where id  = ".mysql_real_escape_string($id)." ";
 			$rs = mysql_query($sql);
 			if($rs){
 				if($lock = mysql_fetch_assoc($rs))
@@ -39,7 +39,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		
 		
 		public static function getSubscriberByEmail($email, $languageId){
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where language_id = ".mysql_real_escape_string($languageId)." and  email  = '".mysql_real_escape_string($email)."' ";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where language_id = ".mysql_real_escape_string($languageId)." and  email  = '".mysql_real_escape_string($email)."' ";
 			$rs = mysql_query($sql);
 			if($rs){
 				if($lock = mysql_fetch_assoc($rs))
@@ -54,7 +54,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 		
 		public static function getSubscribers($languageId){
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where language_id  = ".mysql_real_escape_string($languageId)." and `verified`";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where language_id  = ".mysql_real_escape_string($languageId)." and `verified`";
 			$rs = mysql_query($sql);
 			if($rs){
 				$answer = array();
@@ -69,7 +69,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		
 		
 		public static function getParLang($moduleId, $languageId, $gname, $pname){
-      $sql = "select g.name as g_name, p.name as p_name, w.translation from ".DB_PREF."parameter_group g, ".DB_PREF."parameter p, ".DB_PREF."par_lang_wysiwyg w where
+      $sql = "select g.name as g_name, p.name as p_name, w.translation from `".DB_PREF."parameter_group` g, `".DB_PREF."parameter` p, `".DB_PREF."par_lang_wysiwyg` w where
       g.name = '".mysql_real_escape_string($gname)."' and p.name = '".mysql_real_escape_string($pname)."' and 
 			g.module_id = '".$moduleId."' and p.group_id = g.id and w.parameter_id = p.id and w.language_id =  '".$languageId."'
        ";
@@ -89,7 +89,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		
 		
 		public static function subscribed($email, $languageId){
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where language_id = ".mysql_real_escape_string($languageId)." and email = '".mysql_real_escape_string($email)."' and verified";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `language_id` = ".mysql_real_escape_string($languageId)." and `email` = '".mysql_real_escape_string($email)."' and `verified`";
 			$rs = mysql_query($sql);
 			if($rs){
 				if(mysql_num_rows($rs) > 0)
@@ -101,7 +101,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		}
 		
 		public static function registeredAndNotActivated($email, $languageId){
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where language_id = ".mysql_real_escape_string($languageId)." and email = '".mysql_real_escape_string($email)."' and not verified";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `language_id` = ".mysql_real_escape_string($languageId)." and `email` = '".mysql_real_escape_string($email)."' and not `verified`";
 			$rs = mysql_query($sql);
 			if($rs){
 				if(mysql_num_rows($rs) > 0)
@@ -122,7 +122,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		    $tmpWhere .= ' and `verification_code` = \''.mysql_real_escape_string($code).'\' ';
 		  }
 		  
-			$sql = "delete from ".DB_PREF."m_community_newsletter_subscribers where language_id = ".mysql_real_escape_string($languageId)." and email = '".mysql_real_escape_string($email)."' ".$tmpWhere."";
+			$sql = "delete from `".DB_PREF."m_community_newsletter_subscribers` where `language_id` = ".mysql_real_escape_string($languageId)." and `email` = '".mysql_real_escape_string($email)."' ".$tmpWhere."";
 			$rs = mysql_query($sql);
 			if($rs){
 				return true;
@@ -134,7 +134,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		
 		public static function subscribe($email, $languageId){
 			$code = md5(uniqid(rand(), true));
-			$sql = "insert into ".DB_PREF."m_community_newsletter_subscribers set `language_id` = ".mysql_real_escape_string($languageId).", `email` = '".mysql_real_escape_string($email)."', `verification_code` = '".mysql_real_escape_string($code)."'";
+			$sql = "insert into `".DB_PREF."m_community_newsletter_subscribers` set `language_id` = ".mysql_real_escape_string($languageId).", `email` = '".mysql_real_escape_string($email)."', `verification_code` = '".mysql_real_escape_string($code)."'";
 			$rs = mysql_query($sql);
 			if(!$rs)
 				trigger_error($sql." ".mysql_error());
@@ -142,7 +142,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 		}
 		
 		public static function confirm($id,  $code, $languageId){
-			$sql = "update ".DB_PREF."m_community_newsletter_subscribers set `verified` = 1 where `language_id` = ".mysql_real_escape_string($languageId)." and `id` = ".mysql_real_escape_string($id)." and `verification_code` = '".mysql_real_escape_string($code)."'";
+			$sql = "update `".DB_PREF."m_community_newsletter_subscribers` set `verified` = 1 where `language_id` = ".mysql_real_escape_string($languageId)." and `id` = ".mysql_real_escape_string($id)." and `verification_code` = '".mysql_real_escape_string($code)."'";
 			$rs = mysql_query($sql);
 			if($rs){
 				if(mysql_affected_rows() == 1)
@@ -153,7 +153,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 				trigger_error($sql." ".mysql_error());
 			
       
-			$sql = "select * from ".DB_PREF."m_community_newsletter_subscribers where `language_id` = ".mysql_real_escape_string($languageId)." and `id` = ".mysql_real_escape_string($id)." and `verification_code` = '".mysql_real_escape_string($code)."'";
+			$sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `language_id` = ".mysql_real_escape_string($languageId)." and `id` = ".mysql_real_escape_string($id)." and `verification_code` = '".mysql_real_escape_string($code)."'";
 			$rs = mysql_query($sql);
 			if($rs){
         if(mysql_num_rows($rs) == 1)

@@ -13,7 +13,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Cron{
 	
 	function execute(){
-		$sql = "update ".DB_PREF."content_element set 
+		$sql = "update `".DB_PREF."content_element` set 
 		modify_track3 = modify_track2,
 		modify_track2 = modify_track1,
 		modify_track1 = last_modified,
@@ -29,7 +29,7 @@ class Cron{
 			trigger_error($sql." ".mysql_error());
 			
 			
-		$sql = "update ".DB_PREF."content_element set 
+		$sql = "update `".DB_PREF."content_element` set 
 		modify_track3 = modify_track2,
 		modify_track2 = modify_track1,
 		modify_track1 = last_modified,

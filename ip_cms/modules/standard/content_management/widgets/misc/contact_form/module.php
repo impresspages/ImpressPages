@@ -60,7 +60,7 @@ class Module extends \Modules\standard\content_management\Widget{
   }
    
   function getLayout($id){
-    $sql = "select * from ".DB_PREF."mc_misc_contact_form where id = '".(int)$id."'";
+    $sql = "select * from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$id."'";
     $rs = mysql_query($sql);
     if($rs){
       if($lock = mysql_fetch_assoc($rs)){
@@ -78,7 +78,7 @@ class Module extends \Modules\standard\content_management\Widget{
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
      
-    $sql = "select button, thank_you, email_to, email_subject from ".DB_PREF."mc_misc_contact_form where id = '".(int)$module_id."' ";
+    $sql = "select button, thank_you, email_to, email_subject from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$module_id."' ";
     $rs = mysql_query($sql);
     if (!$rs || !$lock = mysql_fetch_assoc($rs))
     trigger_error("Can't get module information ".$sql);
@@ -98,7 +98,7 @@ class Module extends \Modules\standard\content_management\Widget{
       $answer .= "  new_module.fields = new Array();";
 
       $fields = array();
-      $sql = "select * from ".DB_PREF."mc_misc_contact_form_field where contact_form = '".(int)$module_id."' order by id asc";
+      $sql = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$module_id."' order by id asc";
       $rs = mysql_query($sql);
       if(!$rs)
       $this->set_error("Can't get form fields ".$sql);
@@ -163,7 +163,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $site->requireTemplate('standard/content_management/widgets/misc/contact_form/template.php');
      
      
-    $sql = "select * from ".DB_PREF."mc_misc_contact_form_field where `contact_form` = '".mysql_real_escape_string($_REQUEST['spec_id'])."' order by id";
+    $sql = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".mysql_real_escape_string($_REQUEST['spec_id'])."' order by id";
     $rs = mysql_query($sql);
     $fields = array();
     if(!$rs)
@@ -200,7 +200,7 @@ class Module extends \Modules\standard\content_management\Widget{
 
     }else{
 
-      $sql = "select * from ".DB_PREF."mc_misc_contact_form where `id` = '".mysql_real_escape_string($_REQUEST['spec_id'])."' limit 1";
+      $sql = "select * from `".DB_PREF."mc_misc_contact_form` where `id` = '".mysql_real_escape_string($_REQUEST['spec_id'])."' limit 1";
       $rs = mysql_query($sql);
       if(!$rs)
       trigger_error("Can't get contact form ".$sql);
@@ -253,13 +253,13 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function create_new_instance($values){
-    $sql = "insert into ".DB_PREF."mc_misc_contact_form set layout= '".mysql_real_escape_string($values['layout'])."', button='".mysql_real_escape_string($values['button'])."', thank_you = '".mysql_real_escape_string($values['thank_you'])."', email_to = '".mysql_real_escape_string($values['email_to'])."' ,email_subject = '".mysql_real_escape_string($values['email_subject'])."'  ";
+    $sql = "insert into `".DB_PREF."mc_misc_contact_form` set layout= '".mysql_real_escape_string($values['layout'])."', button='".mysql_real_escape_string($values['button'])."', thank_you = '".mysql_real_escape_string($values['thank_you'])."', email_to = '".mysql_real_escape_string($values['email_to'])."' ,email_subject = '".mysql_real_escape_string($values['email_subject'])."'  ";
     $rs = mysql_query($sql);
     if(!$rs){
       $this->set_error("Can't insert new module. ".$sql);
     }else{
       $max_id = mysql_insert_id();
-      $sql = "insert into ".DB_PREF."content_element_to_modules set".
+      $sql = "insert into `".DB_PREF."content_element_to_modules` set".
         " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
         ", group_key='misc', module_key='contact_form', module_id = '".(int)$max_id."'".
         ", visible= '".(int)$values['visible']."' ";
@@ -270,7 +270,7 @@ class Module extends \Modules\standard\content_management\Widget{
       }
       $i = 0;
       while(isset($values['field_'.$i.'_name'])){
-        $sql = "insert into ".DB_PREF."mc_misc_contact_form_field set".
+        $sql = "insert into `".DB_PREF."mc_misc_contact_form_field` set".
           " name = '".mysql_real_escape_string($values['field_'.$i.'_name'])."', 
           type = '".mysql_real_escape_string($values['field_'.$i.'_type'])."',
           required = '".mysql_real_escape_string($values['field_'.$i.'_required'])."',
@@ -288,25 +288,25 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function update($values){
-    $sql = "update ".DB_PREF."content_element_to_modules set visible='".(int)$values['visible']."', row_number = '".(int)$values['row_number']."' where module_id = '".(int)$values['id']."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
+    $sql = "update `".DB_PREF."content_element_to_modules` set `visible`='".(int)$values['visible']."', `row_number` = '".(int)$values['row_number']."' where `module_id` = '".(int)$values['id']."'  and `group_key` = '".mysql_real_escape_string(GROUP_KEY)."' and `module_key` = '".mysql_real_escape_string(MODULE_KEY)."'   ";
     if (!mysql_query($sql))
     return("Can't update module row number".$sql);
     else{
-      $sql = "update ".DB_PREF."mc_misc_contact_form set layout= '".mysql_real_escape_string($values['layout'])."' , button='".mysql_real_escape_string($values['button'])."', thank_you = '".mysql_real_escape_string($values['thank_you'])."', email_to = '".mysql_real_escape_string($values['email_to'])."' ,email_subject = '".mysql_real_escape_string($values['email_subject'])."'  where id = '".(int)$values['id']."' ";
+      $sql = "update `".DB_PREF."mc_misc_contact_form` set `layout`= '".mysql_real_escape_string($values['layout'])."' , `button`='".mysql_real_escape_string($values['button'])."', `thank_you` = '".mysql_real_escape_string($values['thank_you'])."', `email_to` = '".mysql_real_escape_string($values['email_to'])."' ,`email_subject` = '".mysql_real_escape_string($values['email_subject'])."'  where `id` = '".(int)$values['id']."' ";
       if (!mysql_query($sql))
       $this->set_error("Can't update module ".$sql);
 
-      $sql = "delete from ".DB_PREF."mc_misc_contact_form_field where contact_form = '".(int)$values['id']."'";
+      $sql = "delete from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$values['id']."'";
       $rs = mysql_query($sql);
       if (!mysql_query($sql))
       $this->set_error("Can't delete old fields ".$sql);
       $i = 0;
       while(isset($values['field_'.$i.'_name'])){
-        $sql = "insert into ".DB_PREF."mc_misc_contact_form_field set".
-          " name = '".mysql_real_escape_string($values['field_'.$i.'_name'])."', 
-          type = '".mysql_real_escape_string($values['field_'.$i.'_type'])."',
-          required = '".mysql_real_escape_string($values['field_'.$i.'_required'])."',
-          contact_form = '".(int)$values['id']."'";
+        $sql = "insert into `".DB_PREF."mc_misc_contact_form_field` set".
+          " `name` = '".mysql_real_escape_string($values['field_'.$i.'_name'])."', 
+          `type` = '".mysql_real_escape_string($values['field_'.$i.'_type'])."',
+          `required` = '".mysql_real_escape_string($values['field_'.$i.'_required'])."',
+          `contact_form` = '".(int)$values['id']."'";
         $rs = mysql_query($sql);
         if (!$rs)
         $this->set_error("Can't insert field ".$sql);
@@ -318,15 +318,15 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function delete($values){
-    $sql = "delete from ".DB_PREF."mc_misc_contact_form_field where contact_form = '".(int)$values['id']."'";
+    $sql = "delete from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$values['id']."'";
     if(!mysql_query($sql)){
       trigger_error("Can't delete contact form fields ".$sql);
     }else{
-      $sql = "delete from ".DB_PREF."content_element_to_modules where module_id = '".(int)$values['id']."'  and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
+      $sql = "delete from `".DB_PREF."content_element_to_modules` where `module_id` = '".(int)$values['id']."'  and `group_key` = '".mysql_real_escape_string(GROUP_KEY)."' and `module_key` = '".mysql_real_escape_string(MODULE_KEY)."'";
       if (!mysql_query($sql))
       $this->set_error("Can't delete element to module association ".$sql);
       else{
-        $sql = "delete from ".DB_PREF."mc_misc_contact_form where id = '".(int)$values['id']."' ";
+        $sql = "delete from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$values['id']."' ";
         if (!mysql_query($sql))
         $this->set_error("Can't delete module ".$sql);
       }
@@ -335,15 +335,15 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
   function delete_by_id($id){
-    $sql = "delete from ".DB_PREF."mc_misc_contact_form_field where contact_form = '".(int)$id."'";
+    $sql = "delete from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$id."'";
     if(!mysql_query($sql)){
       trigger_error("Can't delete contact form fields ".$sql);
     }else{
-      $sql = "delete from ".DB_PREF."content_element_to_modules where module_id = '".(int)$id."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'";
+      $sql = "delete from `".DB_PREF."content_element_to_modules` where `module_id` = '".(int)$id."' and `group_key` = '".mysql_real_escape_string(GROUP_KEY)."' and `module_key` = '".mysql_real_escape_string(MODULE_KEY)."'";
       if (!mysql_query($sql))
       trigger_error("Can't delete element to module association ".$sql);
       else{
-        $sql = "delete from ".DB_PREF."mc_misc_contact_form where id = '".$id."' ";
+        $sql = "delete from `".DB_PREF."mc_misc_contact_form` where `id` = '".$id."' ";
         if (!mysql_query($sql))
         trigger_error("Can't delete module ".$sql);
       }
@@ -357,7 +357,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $site->requireTemplate('standard/content_management/widgets/misc/contact_form/template.php');
      
     $fields = array();
-    $sql = "select * from ".DB_PREF."mc_misc_contact_form_field where contact_form = '".(int)$id."' order by id asc";
+    $sql = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$id."' order by id asc";
     $rs = mysql_query($sql);
     if(!$rs)
     $this->set_error("Can't get form fields ".$sql);
@@ -388,7 +388,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $layout = $this->getLayout($id);
 
      
-    $sql = "select thank_you, email_to, button, email_subject from ".DB_PREF."mc_misc_contact_form where id = '".(int)$id."' ";
+    $sql = "select thank_you, email_to, button, email_subject from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$id."' ";
     $rs = mysql_query($sql);
     if ($rs){
       if ($lock = mysql_fetch_assoc($rs)){

@@ -52,7 +52,7 @@ class element_administrators extends \Library\Php\StandardModule\Element{ //data
     $answer = '';
    
     if ($area){
-       $sql = "select * from ".DB_PREF."user_to_mod utm where user_id = '".$parent_id."' ";
+       $sql = "select * from `".DB_PREF."user_to_mod` utm where user_id = '".$parent_id."' ";
        $rs = mysql_query($sql);
        if (!$rs)
           trigger_error("Can not get text field data. ".$sql);

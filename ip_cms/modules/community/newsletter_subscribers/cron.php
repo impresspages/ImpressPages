@@ -17,7 +17,7 @@ class Cron{
 	
 	function execute($options){
 		if($options->firstTimeThisMonth){
-			$sql = "delete from ".DB_PREF."m_community_newsletter_subscribers where 
+			$sql = "delete from `".DB_PREF."m_community_newsletter_subscribers` where 
 			not `verified` and 1 < TIMESTAMPDIFF(MONTH,`created_on`,NOW())";
 			$rs = mysql_query($sql);
 			if(!$rs)
