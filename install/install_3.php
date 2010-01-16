@@ -54,11 +54,10 @@ function ajaxMessage(url, parameters){
 	{
 		
 		if(xmlHttp.readyState==4){
-			var response = xmlHttp.responseText;
-			
-			
+			var response = xmlHttp.responseText;			
 			if(response != \'\'){
-				switch(response){
+  			var responseObject = eval(\'(\' + response + \')\');
+				switch(responseObject.errorCode){
 					case \'ERROR_CONNECT\':
 						document.getElementById(\'errorConnect\').style.display = \'block\';
 					break;
@@ -66,6 +65,10 @@ function ajaxMessage(url, parameters){
 						document.getElementById(\'errorDb\').style.display = \'block\';
 					break;
 					case \'ERROR_QUERY\':
+            var textNode = document.createTextNode(responseObject.error);
+            document.getElementById(\'errorQuery\').innerHTML = \'\';
+            document.getElementById(\'errorQuery\').appendChild(textNode);
+            document.getElementById(\'errorQuery\').innerHTML = \'<p class="error">\' + document.getElementById(\'errorQuery\').innerHTML + \'</p>\';
 						document.getElementById(\'errorQuery\').style.display = \'block\';
 					break;
 					case \'ERROR_LONG_PREFIX\':

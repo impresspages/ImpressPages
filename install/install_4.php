@@ -32,47 +32,55 @@ function ajaxMessage(url, parameters){
 	{
 		
 		if(xmlHttp.readyState==4){
-			var responseString = xmlHttp.responseText;
-			var responseArray = responseString.split(\' \');
+			var response = xmlHttp.responseText;			
+			if(response != \'\'){
+  			var responseObject = eval(\'(\' + response + \')\');
+  			var responseString = responseObject.errorCode;
+  			var responseArray = responseString.split(\' \');
 			
-			for (var i in responseArray) {
-			 var response = responseArray[i];
-				switch(response){
-					case \'ERROR_SITE_NAME\':
-						document.getElementById(\'errorSiteName\').style.display = \'block\';
-					break;
-					case \'ERROR_SITE_EMAIL\':
-						document.getElementById(\'errorSiteEmail\').style.display = \'block\';
-					break;
-					case \'ERROR_EMAIL\':
-						document.getElementById(\'errorEmail\').style.display = \'block\';
-					break;
-					case \'ERROR_CONFIG\':
-						document.getElementById(\'errorConfig\').style.display = \'block\';
-					break;
-					case \'ERROR_ROBOTS\':
-						document.getElementById(\'errorRobots\').style.display = \'block\';
-					break;
-					case \'ERROR_CONNECT\':
-						document.getElementById(\'errorConnect\').style.display = \'block\';
-					break;
-					case \'ERROR_DB\':
-						document.getElementById(\'errorDb\').style.display = \'block\';
-					break;
-					case \'ERROR_QUERY\':
-						document.getElementById(\'errorQuery\').style.display = \'block\';
-					break;
-					case \'ERROR_LOGIN\':
-						document.getElementById(\'errorLogin\').style.display = \'block\';
-					break;
-					case \'ERROR_TIME_ZONE\':
-						document.getElementById(\'errorTimeZone\').style.display = \'block\';						
-					break;
-				}
+  			for (var i in responseArray) {
+  			 var response = responseArray[i];
+  				switch(response){
+  					case \'ERROR_SITE_NAME\':
+  						document.getElementById(\'errorSiteName\').style.display = \'block\';
+  					break;
+  					case \'ERROR_SITE_EMAIL\':
+  						document.getElementById(\'errorSiteEmail\').style.display = \'block\';
+  					break;
+  					case \'ERROR_EMAIL\':
+  						document.getElementById(\'errorEmail\').style.display = \'block\';
+  					break;
+  					case \'ERROR_CONFIG\':
+  						document.getElementById(\'errorConfig\').style.display = \'block\';
+  					break;
+  					case \'ERROR_ROBOTS\':
+  						document.getElementById(\'errorRobots\').style.display = \'block\';
+  					break;
+  					case \'ERROR_CONNECT\':
+  						document.getElementById(\'errorConnect\').style.display = \'block\';
+  					break;
+  					case \'ERROR_DB\':
+  						document.getElementById(\'errorDb\').style.display = \'block\';
+  					break;
+  					case \'ERROR_QUERY\':
+              var textNode = document.createTextNode(responseObject.error);
+              document.getElementById(\'errorQuery\').innerHTML = \'\';
+              document.getElementById(\'errorQuery\').appendChild(textNode);
+              document.getElementById(\'errorQuery\').innerHTML = \'<p class="error">\' + document.getElementById(\'errorQuery\').innerHTML + \'</p>\';
+  						document.getElementById(\'errorQuery\').style.display = \'block\';
+  					break;
+  					case \'ERROR_LOGIN\':
+  						document.getElementById(\'errorLogin\').style.display = \'block\';
+  					break;
+  					case \'ERROR_TIME_ZONE\':
+  						document.getElementById(\'errorTimeZone\').style.display = \'block\';						
+  					break;
+  				}
+  			
+  			}			
+      }  			
 			
-			}
-      
-      if (responseString == \'\') {
+      if (response == \'\') {
 				document.location= \'index.php?step=5\';
 		  }
 		}
