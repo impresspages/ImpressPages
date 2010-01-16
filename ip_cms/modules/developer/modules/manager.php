@@ -355,7 +355,7 @@ class Manager{
         }else{
           $installation->recursiveInstall($_REQUEST['module_group'], $_REQUEST['module']);
           $answer .= '
-                  window.location = \''.$cms->generateUrl().'\';
+            window.location = \''.$cms->generateUrl().'\';
           ';
         }
       }

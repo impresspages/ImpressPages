@@ -150,7 +150,7 @@ class Module{
 
 					$mail->AddAddress($email['to'], $email['to_name']);
 					if(!$mail->Send()){
-						trigger_error($email['to']." ".$email['email']);
+						trigger_error("Can't send email ".$email['to']." ".$email['email']);
 						$errors = true;
 					}
 					
