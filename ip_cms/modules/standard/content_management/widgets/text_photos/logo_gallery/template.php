@@ -20,8 +20,13 @@ class Template {
         <div class="ipWidget ipWidgetLogoGallery"><div class="ipWidgetLogoGalleryWrapper">
 ';
         foreach($photos as $key => $lock){
-          if($lock['link'] != '' && strpos($lock['link'], "http://") === false)
+          if($lock['link'] != '' && strpos($lock['link'], "http://") !== 0)
             $lock['link'] = 'http://'.$lock['link'];
+            
+          $lock['link'] = str_replace('<', '', $lock['link']);  
+          $lock['link'] = str_replace('>', '', $lock['link']);  
+          $lock['link'] = str_replace('"', '\"', $lock['link']);  
+          
           if($lock['link'])
             $answer .= '<a rel="nofollow" href="'.$lock['link'].'"><span class="ipWidgetLogoGalleryLogo" style="background: url('.$lock['logo'].') no-repeat scroll center center;"></span></a>'."\n";
           else

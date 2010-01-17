@@ -128,10 +128,6 @@ class Module extends \Modules\standard\content_management\Widget{
         return("Can't update module row number".$sql);
       else{
         $text = $values['text'];
-        /*$text = str_replace('"'.BASE_URL.'files/repository/', '"/files/repository/', $text);   
-        $text = str_replace('"'.BASE_URL.'images/repository/', '"/images/repository/', $text);   
-        $text = str_replace('"'.BASE_URL.'video/repository/', '"/video/repository/', $text);*/   
-        //$sql = "update ".DB_PREF."mc_misc_rich_text set text = '".mysql_real_escape_string($text)."' where id = '".$values['id']."' ";
         $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = REPLACE('".mysql_real_escape_string($text)."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".(int)$values['id']."'  ";
         if (!mysql_query($sql))
           set_error("Can't update module ".$sql);

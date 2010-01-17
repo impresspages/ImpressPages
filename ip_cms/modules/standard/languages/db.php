@@ -110,7 +110,7 @@ class Db{
 					while($lock = mysql_fetch_assoc($rs))
 						$translations[] = $lock;
 					foreach($translations as $key => $lock){
-						$sql2 = "insert into ".DB_PREF."".$table." set language_id = '".$language."', parameter_id = '".$lock['parameter_id']."', translation = '".mysql_real_escape_string($lock['translation'])."'";
+						$sql2 = "insert into `".DB_PREF."".$table."` set language_id = '".$language."', parameter_id = '".$lock['parameter_id']."', translation = '".mysql_real_escape_string($lock['translation'])."'";
 						$rs2 = mysql_query($sql2);
 						if(!$rs2)
 							trigger_error($sql2);

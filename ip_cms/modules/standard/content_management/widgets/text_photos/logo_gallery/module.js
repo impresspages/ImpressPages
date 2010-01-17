@@ -251,6 +251,12 @@ function content_mod_logo_gallery() {
 
 	function upload_new_photo() {
 		document.getElementById('loading').style.display = 'inline';
+
+		for ( var i = 0; i < this.backup_photos.length; i++) {
+			this.backup_photos[i].save_title('mod' + this.collection_number
+					+ '' + i + '_photo_management');
+		}
+		
 		this.new_photo = new logo_gallery_photo();
 		this.new_photo.init();
 		this.new_photo.title = document

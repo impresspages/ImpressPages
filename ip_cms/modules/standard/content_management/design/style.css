@@ -196,8 +196,8 @@
 /*eof head*/
 
 /*content*/
-#modules .contentMod { /* event empty widgets in admin sould be visible */
-  min-height: 4px;  
+#modules .ipWidget { /* event empty widgets in admin sould be visible */
+  min-height: 10px;  
 }
 
 #modules div.ipCmsModule{

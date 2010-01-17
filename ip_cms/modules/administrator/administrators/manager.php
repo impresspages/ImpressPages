@@ -72,7 +72,7 @@ class Manager{
      $code='
         global $cms;
         
-       $sql = " select translation from ".DB_PREF."module where `id` = \'".$value."\' ";
+       $sql = " select translation from `".DB_PREF."module` where `id` = \'".$value."\' ";
        $rs = mysql_query($sql);
        if ($rs && $lock = mysql_fetch_assoc($rs)){
           $value = htmlspecialchars($lock[\'translation\']);

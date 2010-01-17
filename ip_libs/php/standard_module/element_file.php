@@ -148,7 +148,7 @@ class element_file extends Element{ //data element in area
       require_once(LIBRARY_DIR.'php/file/functions.php');
       $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_file, $this->dest_dir);
       if(copy(TMP_FILE_DIR.$this->mem_file,$this->dest_dir.$new_name)){
-         $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
+         $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
          $rs = mysql_query($sql);
          if (!$rs)
            trigger_error("Can't update photo field ".$sql);
@@ -158,7 +158,7 @@ class element_file extends Element{ //data element in area
   }
   function process_update($prefix, $area, $id){
     if(isset($_POST[$prefix.'_delete']) && !$this->required || isset($this->mem_file) && $this->mem_file != ''){
-      $sql = "select `".$this->db_field."` as existing_file from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$id."' ";
+      $sql = "select `".$this->db_field."` as existing_file from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$id."' ";
       $rs = mysql_query($sql); 
       if ($rs){
          if ($lock = mysql_fetch_assoc($rs)){
@@ -173,7 +173,7 @@ class element_file extends Element{ //data element in area
 
     // delete file selected    
     if(isset($_POST[$prefix.'_delete']) && !$this->required){ 
-     $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$this->db_field."` = NULL where ".$area->get_db_key()." = '".$id."' ";
+     $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = NULL where ".$area->get_db_key()." = '".$id."' ";
      $rs = mysql_query($sql);
      if (!$rs)
        trigger_error("Can't update photo field ".$sql);
@@ -184,7 +184,7 @@ class element_file extends Element{ //data element in area
       require_once(LIBRARY_DIR.'php/file/functions.php');
         $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_file, $this->dest_dir);
         if(copy(TMP_FILE_DIR.$this->mem_file,$this->dest_dir.$new_name)){
-           $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
+           $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
            $rs = mysql_query($sql);
            if (!$rs)
              trigger_error("Can't update photo field ".$sql);
@@ -197,7 +197,7 @@ class element_file extends Element{ //data element in area
     // delete photo selected
     
     
-          $sql = "select `".$this->db_field."` as existing_file from ".DB_PREF."".$area->get_db_table()." where ".$area->get_db_key()." = '".$id."' ";
+          $sql = "select `".$this->db_field."` as existing_file from `".DB_PREF."".$area->get_db_table()."` where ".$area->get_db_key()." = '".$id."' ";
           $rs = mysql_query($sql); 
           if ($rs){
              if ($lock = mysql_fetch_assoc($rs)){
@@ -209,7 +209,7 @@ class element_file extends Element{ //data element in area
             return;
           }
         
-         $sql = "update ".DB_PREF."".$area->get_db_table()." set `".$this->db_field."` = NULL where ".$area->get_db_key()." = '".$id."' ";
+         $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = NULL where ".$area->get_db_key()." = '".$id."' ";
          $rs = mysql_query($sql);
          if (!$rs)
            trigger_error("Can't update photo field ".$sql);

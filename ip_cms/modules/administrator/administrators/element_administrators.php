@@ -83,7 +83,7 @@ class element_administrators extends \Library\Php\StandardModule\Element{ //data
   function process_insert( $prefix, $area,$id){
     
     foreach($_REQUEST[$prefix] as $key => $value){
-      $sql = "insert into ".DB_PREF."user_to_mod set user_id = ".(int)$id.", module_id = ".(int)$key." ";
+      $sql = "insert into `".DB_PREF."user_to_mod` set user_id = ".(int)$id.", module_id = ".(int)$key." ";
       $rs = mysql_query($sql);
       if(!$rs)
         trigger_error($sql." ".mysql_error());
@@ -95,13 +95,13 @@ class element_administrators extends \Library\Php\StandardModule\Element{ //data
 
 
   function process_update( $prefix, $area,$id){
-    $sql = "delete from ".DB_PREF."user_to_mod where user_id = ".(int)$id."";
+    $sql = "delete from `".DB_PREF."user_to_mod` where user_id = ".(int)$id."";
     $rs = mysql_query($sql);
     if(!$rs)
       trigger_error($sql);
       
     foreach($_REQUEST[$prefix] as $key => $value){
-      $sql = "insert into ".DB_PREF."user_to_mod set user_id = ".(int)$id.", module_id = ".(int)$key." ";
+      $sql = "insert into `".DB_PREF."user_to_mod` set user_id = ".(int)$id.", module_id = ".(int)$key." ";
       $rs = mysql_query($sql);
       if(!$rs)
         trigger_error($sql." ".mysql_error());

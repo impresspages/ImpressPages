@@ -184,7 +184,7 @@ class Db{
      */
     public static function  getParLang($groupId, $types, $languageId){
       $answer = array();
-      $sql = "select p.*, t.translation as 'value' from `".DB_PREF."parameter` p, ".DB_PREF."par_lang t where
+      $sql = "select p.*, t.translation as 'value' from `".DB_PREF."parameter` p, `".DB_PREF."par_lang` t where
       p.group_id = ".(int)$groupId." and t.parameter_id = p.id and t.language_id =  '".$languageId."'";
       $rs = mysql_query($sql);
       if($rs){

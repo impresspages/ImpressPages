@@ -338,8 +338,8 @@
       var main_div = document.createElement("div");
       main_div.setAttribute('id', 'mod_collection_' + collection_number);
 //      main_div.setAttribute(document.all ? "className" : "class", 'contentMod');
-      main_div.setAttribute("className", 'contentMod');
-      main_div.setAttribute("class", 'contentMod');
+      main_div.setAttribute("className", 'ipWidget');
+      main_div.setAttribute("class", 'ipWidget');
 			
 			/*main_div.onclick = function(){				
 				if(!mod_management.modules[this.id.substring(15)].managed)

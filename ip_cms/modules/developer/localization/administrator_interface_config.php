@@ -189,6 +189,12 @@ $parameter["parameterTitle/administrator/sitemap/options/include_zone_title"] = 
 
 $parameter["parameterTitle/administrator/sitemap/translations/sitemap"] = "Sitemap";
 
+$parameter["parameterTitle/administrator/system/admin_translations/cache_comments"] = "Cache";
+$parameter["parameterValue/administrator/system/admin_translations/cache_comments"] = "<p>Some modules use cache. If you move your site to another location (domain, folder, etc.), you need to clear cache.</p>";
+
+$parameter["parameterTitle/administrator/system/admin_translations/cache_cleared"] = "Cache cleared";
+$parameter["parameterValue/administrator/system/admin_translations/cache_cleared"] = "Cache was cleared.";
+
 $parameter["parameterTitle/administrator/system/admin_translations/cache"] = "Cache";
 $parameter["parameterValue/administrator/system/admin_translations/cache"] = "Cache";
 

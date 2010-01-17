@@ -557,7 +557,7 @@ CREATE TABLE `".DB_PREF."mc_text_photos_separator` (
  
   private function getModules($groupId){
     $answer = array();
-    $sql = "select * from ".DB_PREF."module where `group_id` = ".(int)$groupId." ";
+    $sql = "select * from `".DB_PREF."module` where `group_id` = ".(int)$groupId." ";
     $rs = mysql_query($sql);
     if($rs){
       while($lock = mysql_fetch_assoc($rs)){

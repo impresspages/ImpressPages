@@ -103,7 +103,7 @@ class Module extends \Modules\standard\content_management\Widget{
       while ($lock = mysql_fetch_assoc($rs)){
         $answer .= "var new_photo = new gallery_photo();";
         $answer .= "new_photo.init();";
-        $answer .= "new_photo.set_title('".$lock['title']."');";
+        $answer .= "new_photo.set_title('".addslashes($lock['title'])."');";
         $answer .= "new_photo.set_existing_photo('".$lock['photo']."');";
         $answer .= "new_photo.set_existing_bigphoto('".$lock['photo_big']."');";
         $answer .= "new_photo.set_photo_id(".$lock['id']."); ";

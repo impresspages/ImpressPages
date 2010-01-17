@@ -49,7 +49,7 @@
       }
 
        var answer = '' + 
-			 '<label class="ipCmsTitle">' + widget_logo_gallery_logo_gallery + '</label>'+
+			 '<label class="ipCmsTitle">' + widget_logo_gallery_link + '</label>'+
        '<div class="ipCmsInput"><input type="text" id="' + prefix + '_title" value="' + this.title.replace(/"/g, "&quot;") + '" /></div>' +
 				 '<div class="ipCmsNav">' +
 		       '<img border="0" onclick="' + move_left_script + '" src="' + global_config_modules_url + 'standard/content_management/design/icon_left.gif" />'+

@@ -14,8 +14,10 @@ class Template {
     switch($layout){
       default:
       case "default": 
-        $info = getimagesize($photo);    
-        return '<div class="ipWidget ipWidgetPhoto"><img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" /></div>';
+        if($photo){
+          $info = getimagesize($photo);
+          return '<div class="ipWidget ipWidgetPhoto"><img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" /></div>';
+        }    
         break;
     }
   }
