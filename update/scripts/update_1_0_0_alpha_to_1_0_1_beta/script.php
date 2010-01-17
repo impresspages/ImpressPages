@@ -425,7 +425,7 @@ class Script {
     
     if ($this->curStep == $this->stepCount) {
       header("location: ".$navigation->generateLink($navigation->curStep() + 1));
-    } else {
+    } else {                                                                                               
       header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
     }
     

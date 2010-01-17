@@ -4,7 +4,6 @@
  * @copyright	Copyright (C) 2009 JSC Apro media.
  * @license		GNU/GPL, see ip_license.html
  */
-
 namespace update_1_0_1_beta_to_1_0_2_beta;
 
 if (!defined('CMS')) exit;
@@ -222,7 +221,9 @@ class Script {
     
     $answer = '';
     if (\Db_100::getSystemVariable('version') != '1.0.2 Beta') {
-      \Db_100::setSystemVariable('version','1.0.2 Beta');
+      if ($this->curStep == $this->stepCount){
+        \Db_100::setSystemVariable('version','1.0.2 Beta');
+      }
     }
     
     if ($this->curStep == $this->stepCount) {

@@ -69,7 +69,6 @@ class Update {
       $script = $navigation->curScript();
       $action = $navigation->curAction();
       $breadcrumb = $scripts->getScripts($this->getCurrentVersion());
-
       if (sizeof($breadcrumb) == 0) {
         $answer = IP_ERROR_NO_INFORMATION;
       } else {
@@ -160,7 +159,11 @@ class Update {
     if(file_exists('../includes/config.php')) {
       require_once('../includes/config.php');
     } else {
-      require_once('../ip_config.php');
+      if(file_exists('../config.php')){
+        require_once('../config.php');
+      } else {
+        require_once('../ip_config.php');
+      }                                        
     }
   }
 
