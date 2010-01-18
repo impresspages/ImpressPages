@@ -17,7 +17,7 @@ $languages = array();
 $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
 $languages['lt'] = 'Lietuvių';
-
+$languages['pl'] = 'Polski';
 
 foreach($languages as $key => $language){
   $answer .= '<a href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
