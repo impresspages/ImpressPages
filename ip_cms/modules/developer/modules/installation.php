@@ -20,12 +20,12 @@ class ModulesInstallation{
     global $parametersMod;
     $errors = array();
     
-    if(file_exists(PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini')){
+    if(file_exists(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini')){
       $configuration = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini');
       if($configuration->getError()){
         $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_incorrect_ini_file').PLUGIN_DIR.$configuration->getModuleGroupKey()."/".$configuration->getModuleKey().'/install/plugin.ini';
       } else {
-        if($requiredVersion && $configuration->getModuleVersion() < $requiredVersion){
+        if($requiredVersion && (double)$configuration->getModuleVersion() < (double)$requiredVersion){
           $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_update_required').$moduleGroupKey.'/'.$moduleKey.' '.$requiredVersion;
         }
         
@@ -39,7 +39,11 @@ class ModulesInstallation{
         }
       }
     } else {
-      $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_ini_file_doesnt_exist').PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini';
+      if(is_dir(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey)){
+        $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_ini_file_doesnt_exist').PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini';
+      } else {
+        $errors[] = $parametersMod->getValue('developer','modules','admin_translations_install','error_required_module').' '.$moduleGroupKey.'/'.$moduleKey.': '.$requiredVersion;
+      }
     }
     
     return $errors;
@@ -209,7 +213,7 @@ class ModulesInstallation{
       $this->recursiveInstall($dependendModule['module_group_key'], $dependendModule['module_key']);
     }
     if($module){ //if module exists - update
-      if($configuration->getModuleVersion() > $module['version']){
+      if((double)$configuration->getModuleVersion() > (double)$module['version']){
         $this->update($moduleGroupKey, $moduleKey);
       }
     } else {

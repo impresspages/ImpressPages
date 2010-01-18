@@ -63,11 +63,11 @@ class ConfigurationFile{
           $moduleGroup = substr($value, 0, strpos($value, '/'));
           $value = substr($value, strpos($value, '/')+1);
           $module = substr($value, 0, strpos($value, '/'));
-          $version = (double)substr($value, strpos($value, '/')+1);
+          $version = substr($value, strpos($value, '/')+1);
           $requiredModule = array();
           $requiredModule['module_group_key'] = $moduleGroup;
           $requiredModule['module_key'] = $module;
-          $requiredModule['version'] = (double)$version;
+          $requiredModule['version'] = $version;
           if($moduleGroup == '' || $module == '' || $version == 0){
             $this->setError($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'error_incorrect_ini_file'));
           }          
