@@ -14,6 +14,8 @@ require_once (__dir__.'/std_mod_db.php');
 require_once (__dir__.'/std_mod_html_output.php');
 require_once (__dir__.'/std_mod_area.php');
 require_once (__dir__.'/elements/element.php');
+require_once (__dir__.'/elements/element_date_time.php');
+require_once (__dir__.'/elements/element_date.php');
 require_once (__dir__.'/elements/element_text.php');
 require_once (__dir__.'/elements/element_bool.php');
 require_once (__dir__.'/elements/element_bool_lang.php');

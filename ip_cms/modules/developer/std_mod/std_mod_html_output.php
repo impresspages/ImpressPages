@@ -205,6 +205,34 @@ class stdModHtmlOutput{
     $this->html .= '<input autocomplete="off" '.$maxLengthStr.'  '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" value="'.htmlspecialchars($value).'"/>' ;
   }
   
+  function dateTime($name, $value = '', $disabled = false){
+    if($name == '')
+      $this->html .= $this->error("Input without name ");
+    if($disabled)
+      $disabledStr = ' disabled ';
+    else
+      $disabledStr = ' ';
+      
+    $this->html .= '<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/datetimepicker_css.js"></script>' ;
+    $this->html .= '<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/datetimepicker_css.js"></script>' ;
+    $this->html .= '<input id="'.htmlspecialchars($name).'" autocomplete="off" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" value="'.htmlspecialchars($value).'"/>
+    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',true,24,false)"><img src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/images/cal.gif"" border="0"/></a>' ;
+  }
+    
+  function date($name, $value = '', $disabled = false){
+    if($name == '')
+      $this->html .= $this->error("Input without name ");
+    if($disabled)
+      $disabledStr = ' disabled ';
+    else
+      $disabledStr = ' ';
+      
+    $this->html .= '<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/datetimepicker_css.js"></script>' ;
+    $this->html .= '<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/datetimepicker_css.js"></script>' ;
+    $this->html .= '<input id="'.htmlspecialchars($name).'" autocomplete="off" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" value="'.htmlspecialchars($value).'"/>
+    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',false,24,false)"><img src="'.BASE_URL.MODULE_DIR.'developer/std_mod/calendar/images/cal.gif"" border="0"/></a>' ;
+  }  
+  
   function textarea($name, $value = '', $disabled = false){
     if($name == '')
       $this->html .= $this->error("Input without name ");

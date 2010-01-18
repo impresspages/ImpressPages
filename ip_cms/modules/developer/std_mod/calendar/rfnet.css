@@ -1,0 +1,372 @@
+body
+{
+	background-color: #959A8E;
+}
+
+table
+{
+	background-color: white;
+}
+
+h1
+{
+	font: bold 12pt/15pt Georgia,Verdana, Arial, Helvetica, sans-serif;
+	text-transform: capitalize;
+	color: #cc0033;
+	text-decoration: none;
+}
+
+.descriptions
+{
+	font: 11pt/16pt Georgia, Verdana, Arial;
+	text-transform: none;
+	color: #000000;
+	letter-spacing: normal;
+	text-decoration: none;
+}
+.copyright
+{
+	font: 8pt/8pt Verdana, Arial, Helvetica, sans-serif;
+	color: #6666ff;
+}
+.itemdesc
+{
+	font: bold 8pt/15pt Verdana, Arial, Helvetica, sans-serif;
+	text-transform: capitalize;
+	color: #0066ff;
+	text-decoration: none;
+}
+.title
+{
+	font: bold 12pt/15pt Verdana, Arial, Helvetica, sans-serif;
+	text-transform: capitalize;
+	color: #cc0033;
+	text-decoration: none;
+}
+.subtitle
+{
+	border-bottom-width: thin;
+	font: bold 10pt/20pt Georgia, Verdana, Arial;
+	text-transform: none;
+	color: #005151;
+	background-color: #F9FF9B;
+	text-decoration: none;
+}
+.bottomtext
+{
+	font-weight: bold;
+	font-size: 8pt;
+	color: #6666ff;
+	line-height: 15pt;
+	font-style: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+.bottomtext img
+{
+  border:none;
+}
+
+A{text-decoration: none;} 
+A:link
+{
+	color: #3399cc;
+}
+A:visited{color: #3399cc;}
+A:hover
+{
+	color: #cc0033;
+}
+A img
+{
+  border:none;
+}
+
+.lineItem
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: teal;
+	font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.newsheader
+{
+	font: bold 10pt/19pt Georgia, Verdana;
+	text-transform: capitalize;
+	color: #336699;
+	background-color: transparent;
+}
+.boldtext
+{
+	font: bold 10pt/16pt Verdana, Arial, Helvetica, sans-serif;
+	text-transform: none;
+	color: #000000;
+	text-decoration: none;
+}
+.subdesc
+{
+	font: 8pt/10pt Verdana, Arial, Helvetica, sans-serif;
+	text-transform: none;
+	color: red;
+	text-decoration: none;
+}
+.code
+{
+	font: 10pt/10pt 'Courier New' , Verdana, Arial, Helvetica, sans-serif;
+	text-transform: none;
+	color: black;
+	background-color: #ccff66;
+	text-decoration: none;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.highlight
+{
+	font-weight: bold;
+	font-size: 11pt;
+	color: red;
+	font-style: normal;
+	font-family: Verdana, Arial;
+	background-color: transparent;
+	font-variant: small-caps;
+}
+.navigatemenu
+{
+	font-weight: bold;
+	font-size: 9pt;
+	text-transform: capitalize;
+	color: dodgerblue;
+	font-family: Arial;
+}
+.comment
+{
+	font-size: 10pt;
+	color: forestgreen;
+	font-style: italic;
+	font-family: Verdana, Arial;
+}
+.newstext
+{
+	font-size: 9pt;
+	color: black;
+	font-family: 'Courier New';
+	text-align: left;
+}
+.nospam
+{
+	font-size: 10pt;
+	text-transform: uppercase;
+	color: darkgray;
+	font-family: Verdana;
+}
+.article_title
+{
+	font-weight: bold;
+	font-size: 11pt;
+	color: teal;
+	font-family: Georgia, Sans-Serif;
+}
+.article_summary
+{
+	font-size: 10pt;
+	color: gray;
+	font-family: Georgia, Sans-Serif;
+	background-color: palegoldenrod;
+}
+.article_header
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: #990033;
+	font-family: Georgia;
+	text-align: left;
+	text-decoration: none;
+}
+.email
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #006666;
+	font-family: Georgia;
+}
+.etitle
+{
+	font-weight: bold;
+	font-size: 15pt;
+	color: #339933;
+	font-family: Arial, Verdana;
+}
+.eheading
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: #3300cc;
+	font-family: Georgia;
+}
+.staticbox
+{
+	border-left-color: #99cc00;
+	border-bottom-color: #99cc00;
+	margin: 2px;
+	border-top-style: solid;
+	border-top-color: #99cc00;
+	border-right-style: solid;
+	border-left-style: solid;
+	background-color: #ffff99;
+	text-align: center;
+	border-right-color: #99cc00;
+	border-bottom-style: solid;
+}
+.greeting_message
+{
+	font-size: 10pt;
+	color: blue;
+	font-family: Verdana;
+}
+.button
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #ffff66;
+	font-family: Verdana;
+	background-color: darkseagreen;
+}
+.grid
+{
+	border-right: #6600cc thin solid;
+	border-top: #6600cc thin solid;
+	font-size: 10pt;
+	border-left: #6600cc thin solid;
+	border-bottom: #6600cc thin solid;
+	font-family: Verdana;
+	background-color: #ccffff;
+}
+.grid_header
+{
+	border-right: #6600cc thin solid;
+	border-top: #6600cc thin solid;
+	font-weight: bold;
+	font-size: 10pt;
+	border-left: #6600cc thin solid;
+	color: white;
+	border-bottom: #6600cc thin solid;
+	font-family: Verdana;
+	background-color: #006633;
+}
+.field_label
+{
+	font-size: 10pt;
+	font-family: Verdana;
+}
+.ealert
+{
+	font-size: 10pt;
+	color: #ff0066;
+	font-family: Verdana;
+}
+.list_row1
+{
+	font-size: 10pt;
+	font-family: Verdana;
+	background-color: #ffff99;
+}
+.list_row2
+{
+	font-size: 10pt;
+	font-family: Verdana;
+	background-color: #ffffff;
+}
+.yiyu_bigtitle
+{
+	font-weight: bold;
+	font-size: 30pt;
+	vertical-align: baseline;
+	color: #ff0066;
+	font-family: Georgia, 'Cordia New' , Verdana;
+	letter-spacing: normal;
+}
+
+.center 
+{
+	text-align: center;
+}
+.center table {
+	margin: auto;
+}
+.left
+{
+	text-align: left;
+}
+.left table {
+	margin-left: 0px; margin-right: auto;
+}
+
+
+.red
+{
+	color: red;
+}
+
+.justify
+{
+	text-align: justify;
+}
+
+.descriptions img
+{border:none;}
+
+hr 
+{
+  width: 100%;
+}
+
+.row_w50
+{width:50%;}
+.row_w33
+{width:33%;}
+.row_w250px
+{width:250px;}
+
+
+.row_h80
+{height:80%}
+.row_h40
+{height:40%}
+.row_h18
+{height:18%}
+
+
+
+STRONG
+{
+	font-weight: bold;
+	font-size: 11pt;
+	color: firebrick;
+	font-family: Georgia, Arial, 'Courier New';
+}
+
+
+TABLE .parameter
+{
+	border-right: #009966 thin solid;
+	border-top: #009966 thin solid;
+	margin: 5px;
+	border-left: #009966 thin solid;
+	border-bottom: #009966 thin solid;
+	border-collapse: collapse;
+	font-family: 'Courier New';
+	font-size: 10pt;
+	table-layout: auto;
+}
+
+
+.parameter_header
+{
+	font-family: 'Courier New';
+	background-color: gold;
+	font-weight: bold;
+	font-size: 10pt;
+}

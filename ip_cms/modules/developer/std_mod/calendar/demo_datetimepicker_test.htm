@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"        
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta name="generator" content="HTML Tidy for Windows (vers 15 August 2007), see www.w3.org">
+    <title>Javascript Date Time Picker Demo Page</title>
+    <meta name="verify-v1" content="fYhUzv9EA8aOlwi4eEvYbKAUa5JyJUidPLliEeXOdp8=">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta content="Ng Teng-Yong" name="author">
+    <meta content="Demo Javascript Date Time Picker" name="desription">
+    <meta content="Ng Teng Yong, Ng Teng-Yong, Software, Software developer, freeware, javascript Calendar Date Time picker, photograph gallery, rainforestnet, viam@il, viamail, send files, via email, email, smtp, automated, schedule, receive email, POP3, automatically, unattended, inbound engine, outbound engine, rules based, route email, attachment, message body, file transport, exchange, interchange, tool, crexport, crystal report exporter, export, unattended, email crystal report, task scheduler, schduler tasks"
+        name="keywords">
+    <link href="rfnet.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+  
+      <!-- -->           
+    </style>
+
+    <script type="text/javascript" src="datetimepicker_css.js"></script>
+
+</head>
+<body>
+    <div class="center">
+        <table width="750" cellspacing="0" border="0" cellpadding="5">
+            <tbody>
+                <!-- Banner -->
+                                            <tr>
+                                                <td>
+                                                    <table width="700">
+                                                        <tr>
+                                                            <td align="left">
+                                                                <h1>
+                                                                    Javascript Date Time Picker 2 Demo
+                                                                </h1>
+                                                            </td>
+                                                            <td>
+                                                                <img src="images/rfnetlogo.gif" alt="rainforestnet" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                <!-- Content of Demo Page-->
+                <tr>
+                    <td>
+                        <table width="700" cellspacing="0" cellpadding="2">
+                            <tbody>
+
+
+                                <!--Date Only-->
+                                <tr>
+                                    <td align="left">
+                                        <table width="700" border="1" class="parameter" cellpadding="4">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="subtitle">
+                                                        DropDown Month Selector</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date Only</div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:dd-MM-yyyy)-->
+                                            <tr>
+                                                <td width="200">
+                                                    <span class="descriptions">Format (date:dd-MM-yyyy)</span><br>
+                                                    <input type="Text" id="demo1" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo1','ddmmyyyy')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td width="400">
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo1','ddmmyyyy')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:dd-MMM-yyyy)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy)</span><br>
+                                                    <input type="Text" id="demo2" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo2','ddmmmyyyy')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo2','ddmmmyyyy')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:yyyy-MM-dd)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd)</span>
+                                                    <br>
+                                                    <input type="Text" id="demo3" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo3','yyyymmdd')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo3','yyyymmdd')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:yyyy-MMM-dd) -->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd)</span><br>
+                                                    <input type="Text" id="demo4" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo4','yyyymmmdd')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo4','yyyymmmdd')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                        <!--Format (date:yy-MM-dd)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yy-MM-dd)</span>
+                                                    <br>
+                                                    <input type="Text" id="demo400" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo400','yymmdd')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo400','yymmdd')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:yy-MMM-dd) -->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yy-MMM-dd)</span><br>
+                                                    <input type="Text" id="demo401" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo401','yymmmdd')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo401','yymmmdd')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>                                            
+                                            
+                                            
+                                            <!-- Format (date:MM-dd-yyyy) -->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy)</span><br>
+                                                    <input type="Text" id="demo5" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo5','mmddyyyy')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo5','mmddyyyy')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy)</span><br>
+                                                    <input type="Text" id="demo6" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo6','mmmddyyyy')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo6','mmmddyyyy')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date And Time without seconds</div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:dd-MM-yyyy time:24hr)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format(date:dd-MM-yyyy time:24hr)</span><br>
+                                                    <input type="Text" id="demo11" maxlength="25" size="25" name="demo11">
+                                                     <a href="javascript:NewCssCal('demo11','ddmmyyyy','dropdown',true)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo11','ddmmyyyy','dropdown',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo12" maxlength="25" size="25" name="demo12"> <a href="javascript:NewCssCal('demo12','ddmmmyyyy','dropdown',true)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo12','ddmmmyyyy','dropdown',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd time:24hr)</span>
+                                                    <input type="Text" id="demo13" maxlength="25" size="25" name="demo13">
+                                                     <a href="javascript: NewCssCal('demo13','yyyymmdd','dropdown',true)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo13','yyyymmdd','dropdown',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd time:12hr)</span>
+                                                    <input type="Text" id="demo14" maxlength="25" size="25" name="demo14"> <a href="javascript: NewCssCal('demo14','yyyymmmdd','dropdown',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo14','yyyymmmdd','dropdown',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo15" maxlength="25" size="25" name="demo15"> <a href="javascript: NewCssCal('demo15','mmddyyyy','dropdown',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo15','mmddyyyy','dropdown',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo16" maxlength="25" size="25" name="demo16"> <a href="javascript:NewCssCal('demo16','mmmddyyyy','dropdown',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo16','mmmddyyyy','dropdown',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date And Time with seconds</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo21" maxlength="25" size="25" name="demo21"> <a href="javascript: NewCssCal('demo21','ddmmyyyy','dropdown',true,24,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo21','ddmmyyyy','dropdown',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo22" maxlength="25" size="25" name="demo22"> <a href="javascript: NewCssCal('demo22','ddmmmyyyy','dropdown',true,24,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo22','ddmmmyyyy','dropdown',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd time:24hr)</span>
+                                                    <input type="Text" id="demo23" maxlength="25" size="25" name="demo23">
+                                                     <a href="javascript:NewCssCal('demo23','yyyymmdd','dropdown',true,24,false)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo23','yyyymmdd','dropdown',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd time:12hr)</span>
+                                                    <input type="Text" id="demo24" maxlength="25" size="25" name="demo24"> <a href="javascript: NewCssCal('demo24','yyyymmdd','dropdown',true,12,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo24','yyyymmdd','dropdown',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo25" maxlength="25" size="25" name="demo25"> <a href="javascript: NewCssCal('demo25','mmddyyyy','dropdown', true,12,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo25','mmddyyyy','dropdown',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo26" maxlength="25" size="25" name="demo26">
+                                                     <a href="javascript: NewCssCal('demo26','mmmddyyyy','dropdown',true,12,false)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo26','mmmddyyyy','dropdown',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="subtitle">
+                                                        Arrow Month-Year Selector</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date Only</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200">
+                                                    <span class="descriptions">Format (date:dd-MM-yyyy)</span><br>
+                                                    <input type="Text" id="demo31" maxlength="25" size="25"> <a href="javascript:NewCssCal('demo31','ddmmyyyy','arrow')"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td width="400">
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo31','ddmmyyyy','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:dd-MMM-yyyy)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy)</span><br>
+                                                    <input type="Text" id="demo32" maxlength="25" size="25">
+                                                     <a href="javascript:NewCssCal('demo32','ddmmmyyyy','arrow')">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo32','ddmmmyyyy','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:yyyy-MM-dd)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd)</span>
+                                                    <br>
+                                                    <input type="Text" id="demo33" maxlength="25" size="25">
+                                                     <a href="javascript:NewCssCal('demo33','yyyymmdd','arrow')">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo33','yyyymmdd','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:yyyy-MMM-dd) -->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd)</span><br>
+                                                    <input type="Text" id="demo34" maxlength="25" size="25">
+                                                     <a href="javascript:NewCssCal('demo34','yyyymmmdd','arrow')">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo34','yyyymmmdd','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Format (date:MM-dd-yyyy) -->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy)</span><br>
+                                                    <input type="Text" id="demo35" maxlength="25" size="25">
+                                                     <a href="javascript:NewCssCal('demo35','mmddyyyy','arrow')">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript:NewCssCal('demo35','mmddyyyy','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy)</span><br>
+                                                    <input type="Text" id="demo36" maxlength="25" size="25">
+                                                     <a href="javascript: NewCssCal('demo36','mmmddyyyy','arrow')">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo36','mmmddyyyy','arrow')"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date And Time without seconds</div>
+                                                </td>
+                                            </tr>
+                                            <!--Format (date:dd-MM-yyyy time:24hr)-->
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format(date:dd-MM-yyyy time:24hr)</span><br>
+                                                    <input type="Text" id="demo41" maxlength="25" size="25" name="demo41">
+                                                     <a href="javascript:NewCssCal('demo41','ddmmyyyy','arrow',true)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo41','ddmmyyyy','arrow',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo42" maxlength="25" size="25" name="demo42"> <a href="javascript:NewCssCal('demo42','ddmmmyyyy','arrow',true)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo42','ddmmmyyyy','arrow',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd time:24hr)</span>
+                                                    <input type="Text" id="demo43" maxlength="25" size="25" name="demo43">
+                                                     <a href="javascript: NewCssCal('demo43','yyyymmdd','arrow',true)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo43','yyyymmdd','arrow',true)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd time:12hr)</span>
+                                                    <input type="Text" id="demo44" maxlength="25" size="25" name="demo44"> <a href="javascript: NewCssCal('demo44','yyyymmmdd','arrow',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo44','yyyymmmdd','arrow',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo45" maxlength="25" size="25" name="demo45"> <a href="javascript: NewCssCal('demo45','mmddyyyy','arrow',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo45','mmddyyyy','arrow',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo46" maxlength="25" size="25" name="demo46"> <a href="javascript:NewCssCal('demo46','mmmddyyyy','arrow',true,12)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo46','mmmddyyyy','arrow',true,12)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="lineItem">
+                                                        Date And Time with seconds</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo51" maxlength="25" size="25" name="demo51"> <a href="javascript: NewCssCal('demo51','ddmmyyyy','arrow',true,24,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo51','ddmmyyyy','arrow',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:dd-MMM-yyyy time:24hr)</span>
+                                                    <input type="Text" id="demo52" maxlength="25" size="25" name="demo52"> <a href="javascript: NewCssCal('demo52','ddmmmyyyy','arrow',true,24,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo52','ddmmmyyyy','arrow',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MM-dd time:24hr)</span>
+                                                    <input type="Text" id="demo53" maxlength="25" size="25" name="demo53">
+                                                     <a href="javascript:NewCssCal('demo53','yyyymmdd','arrow',true,24,false)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo53','yyyymmdd','arrow',true,24,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:yyyy-MMM-dd time:12hr)</span>
+                                                    <input type="Text" id="demo54" maxlength="25" size="25" name="demo54"> <a href="javascript: NewCssCal('demo54','yyyymmdd','arrow',true,12,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo54','yyyymmdd','arrow',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo55" maxlength="25" size="25" name="demo55"> <a href="javascript: NewCssCal('demo55','mmddyyyy','arrow', true,12,false)"><img
+                                                        src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo55','mmddyyyy','arrow',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span class="descriptions">Format (date:MMM-dd-yyyy time:12hr)</span>
+                                                    <input type="Text" id="demo56" maxlength="25" size="25" name="demo56">
+                                                     <a href="javascript: NewCssCal('demo56','mmmddyyyy','arrow',true,12,false)">
+                                                        <img src="images/cal.gif" width="16" height="16" alt="Pick a date"></a>
+                                                </td>
+                                                <td>
+                                                    <div class="code">
+                                                        &lt;a href="javascript: NewCssCal('demo56','mmmddyyyy','arrow',true,12,false)"&gt;
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <!-- Content of Demo Page-->
+               </tbody>
+        </table>
+    </div>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+
+    <script type="text/javascript">_uacct = "UA-292947-1"; urchinTracker(); </script>
+
+</body>
+</html>
