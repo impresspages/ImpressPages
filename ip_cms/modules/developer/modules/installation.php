@@ -82,12 +82,12 @@ class ModulesInstallation{
     
   }
   
-  private function update($moduleGroupKey, $moduleKey){
+  private function update($moduleGroupKey, $moduleKey, $currentVersion){
     $config = new ConfigurationFile(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/plugin.ini');
       
     if(file_exists(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/update/script.php')){
       require_once(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/update/script.php');
-      eval('$updateObject = new \\Modules\\'.$moduleGroupKey.'\\'.$moduleKey.'\\Update();');
+      eval('$updateObject = new \\Modules\\'.$moduleGroupKey.'\\'.$moduleKey.'\\Update('.$currentVersion.');');
       $updateObject->execute();        
     }
     Db::updateModuleVersion($moduleGroupKey, $moduleKey, $config->getModuleVersion());
@@ -214,7 +214,7 @@ class ModulesInstallation{
     }
     if($module){ //if module exists - update
       if((double)$configuration->getModuleVersion() > (double)$module['version']){
-        $this->update($moduleGroupKey, $moduleKey);
+        $this->update($moduleGroupKey, $moduleKey, $currentVersion);
       }
     } else {
       $this->install($moduleGroupKey,  $moduleKey);
