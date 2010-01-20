@@ -17,9 +17,14 @@ class element_newsletter_email extends \Library\Php\StandardModule\Element_text{
 
   function check_field($prefix, $action){
     global $parametersMod;
-    $sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `email` = '".mysql_real_escape_string($_POST[$prefix])."' and `language_id` = '".mysql_real_escape_string($_GET['road'][0])."' and `verified` ";
+    if($action == 'update'){
+      $sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `id` <> ".((int)$_REQUEST['road'][1])." and `email` = '".mysql_real_escape_string($_POST[$prefix])."' and `language_id` = '".mysql_real_escape_string($_GET['road'][0])."' and `verified` ";
+    } else {
+      $sql = "select * from `".DB_PREF."m_community_newsletter_subscribers` where `email` = '".mysql_real_escape_string($_POST[$prefix])."' and `language_id` = '".mysql_real_escape_string($_GET['road'][0])."' and `verified` ";
+    }
+    
     global $log;
-    $log->log("sql", $sql);
+    $log->log('sql2', $sql);
     $rs = mysql_query($sql);
     if ($rs) {
       if (mysql_num_rows($rs) > 0) {
