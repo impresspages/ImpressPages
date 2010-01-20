@@ -41,6 +41,7 @@ class Manager{
      $area0->db_key = "id";
      $area0->elements = $elements; 
      $area0->sort_field = "row_number";
+     $area0->order_by = "row_number";
 		 $area0->name_element = $tmp_element;
 		 
 		 
