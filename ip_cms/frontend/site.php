@@ -191,7 +191,16 @@ class Site{
     }
   }
 
-
+  /**
+   *
+   * return current zone object
+   * @param object Zone
+   */
+  public function getCurrentZone(){
+    return $this->getZone($this->currentZone);
+  }
+  
+  
   /**
    *
    * return all registered zones
@@ -648,4 +657,15 @@ class Site{
   }
 
 
+  public function getBreadcrumb(){
+    $zone = $this->getCurrentZone();
+    return $zone->getBreadcrumb();
+  }
+  
+  
+  public function getCurrentElement(){
+    $zone = $this->getCurrentZone();
+    return $zone->getCurrentElement(); 
+  }
+  
 }

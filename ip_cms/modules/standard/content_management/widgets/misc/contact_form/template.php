@@ -52,7 +52,7 @@ class Template {
         
         $answer .= $html_form->generateForm($button);
         
-        return '<div class="contentMod contentModContactForm">'.$answer.'</div>';
+        return '<div class="ipWidget ipWidgetContactForm">'.$answer.'</div>';
     }
   }
   

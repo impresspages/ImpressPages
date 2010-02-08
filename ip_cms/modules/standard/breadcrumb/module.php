@@ -23,8 +23,7 @@ class Module{
     global $site;
     global $parametersMod;
 		
-    $zone = $site->getZone($site->currentZone);
-    $breadCrumb = $zone->getBreadcrumb();
+    $breadCrumb = $site->getBreadcrumb();
 		
 			
     $site->requireTemplate('standard/breadcrumb/template.php');
