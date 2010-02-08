@@ -189,39 +189,7 @@ class sitemap{
   }
   
   
-  /**
-   * @param array &$pages elements with aditional values for sitemap
-   * @param array $elements standard website zone elements array
-   * @param int $maxDepth maximal elements tree depth
-   * @param int $inactiveDepth depth of inactive elements
-   * @param bool $inactiveIfParent element is inactive if have a children
-   * @param int $depth current depth in recursion                
-   * @return array    
-   */  	 
-  /*function getElements(&$pages, $elements, $maxDepth, $inactiveDepth, $inactiveIfParent, $depth = 1){
-    if($depth <= $maxDepth){
-  	if(is_array($elements)){
-  		foreach($elements as $key => $element){
-  			if($depth > $inactiveDepth &&
-  				(!($inactiveIfParent && sizeof($element['childs'])>0))
-  			){
-  			
-  				$sitemap_encode1 = array("&", "'", '"', '>', '<');
-  				$sitemap_encode2   = array("&amp;", "&apos;", "&quot;", "&gt;", "&lt;");
-  				$pages[]['link'] = str_replace($sitemap_encode1, $sitemap_encode2, ($element['link']));
-  				$pages[(sizeof($pages) - 1)]['last_modified'] = $element['last_modified'];
-  				$pages[(sizeof($pages) - 1)]['modify_frequency'] = $element['modify_frequency'];
-  				$pages[(sizeof($pages) - 1)]['priority'] = $element['priority'];
-  			}
-  			if($maxDepth > $depth && sizeof($element['childs']) > 0 ){
-  				$this->getElements($pages, $element['childs'], $maxDepth, $inactiveDepth, $inactiveIfParent, $depth+1);
-  			}
-  		}
-  	}
-    
-    }
-    return $pages;
-  }*/
+
   
   	 
   /**
@@ -280,32 +248,6 @@ class sitemap{
   
   
   
-  /**
-   * @param array $elements standard website zone elements array
-   * @param int $maxDepth maximal elements tree depth
-   * @param int $inactiveDepth depth of inactive elements
-   * @param bool $inactiveIfParent element is inactive if have a children
-   * @param int $depth current depth in recursion         
-   * @return int active and visible pages count from given elements
-   */  	  
-  /*function getElementsCount($elements, $maxDepth, $inactiveDepth, $inactiveIfParent, $depth = 1){
-    $count = 0;
-    if($depth <= $maxDepth){
-  	if(is_array($elements)){
-  		if($depth > $inactiveDepth)
-  			$count = $count + count($elements);
-  		foreach($elements as $key => $element){
-  			if($maxDepth > $depth && isset($element['childs']) && sizeof($element['childs']) > 0 ){
-  				if($inactiveIfParent && $depth > $inactiveDepth)
-  					$count--;
-  				$count = $count + $this->getElementsCount($element['childs'], $maxDepth, $inactiveDepth, $inactiveIfParent, $depth+1);
-  			}
-  		}
-  	}
-    
-    }
-    return $count;
-  }*/
 
 }
 

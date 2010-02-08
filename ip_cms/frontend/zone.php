@@ -44,7 +44,7 @@ abstract class Zone{
    * Find elements of this zone.      
    * @return array Element   
    */
-  public abstract function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $reverseOrder = false);
+  public abstract function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
   
 
   /**

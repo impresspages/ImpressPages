@@ -63,7 +63,7 @@ class DbFrontend{
   }
   
   
-  public static function getVisibleElements($zoneName, $parent, $language, $currentElement, $selectedElement, $order = 'asc', $startFrom = 0, $limit = null){
+  public static function getElements($zoneName, $parent, $language, $currentElement, $selectedElement, $order = 'asc', $startFrom = 0, $limit = null, $includeHidden = false){
     $answer = array();
     
     if($parent == null)
@@ -71,10 +71,18 @@ class DbFrontend{
       $parent = DbFrontend::getRootElementId($zoneName, $language);
     } 
 
-    if($limit === null)
-      $sql = "select * from `".DB_PREF."content_element` where `parent` = ".(int)$parent." and `visible` order by `row_number` ".$order." ";
-    else
-      $sql = "select * from `".DB_PREF."content_element` where `parent` = ".(int)$parent." and `visible` order by `row_number` ".$order." limit ".(int)$startFrom.", ".(int)$limit;
+    $sql = "select * from `".DB_PREF."content_element` where `parent` = ".(int)$parent."";
+    
+    if(!$includeHidden){
+      $sql .= " and `visible` ";
+    }
+    
+    $sql .= " order by `row_number` ".$order." ";
+    
+    if($limit !== null){
+      $sql .= " limit ".(int)$startFrom.", ".(int)$limit;
+    }
+      
     
     $rs = mysql_query($sql);
     if($rs){

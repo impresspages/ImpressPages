@@ -65,6 +65,8 @@ class Element{
 
   /** @var String zone name of element*/
   protected $zoneName;
+  /** @var Boolean*/
+  protected $visible;
   
   
   public function generateContent () {
@@ -185,4 +187,7 @@ class Element{
 
   public function getRedirectUrl(){return $this->redirectUrl;}
   public function setRedirectUrl($redirectUrl){$this->redirectUrl=$redirectUrl;}
+
+  public function getVisible(){return $this->visible;}
+  public function setVisible($visible){$this->visible=$visible;}
 }

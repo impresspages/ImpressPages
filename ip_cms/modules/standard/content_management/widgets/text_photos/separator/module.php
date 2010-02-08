@@ -145,7 +145,7 @@ class Module extends \Modules\standard\content_management\Widget{
     if (!mysql_query($sql))
     trigger_error("Can't delete element to module association ".$sql);
     else{
-      $sql = "delete from `".DB_PREF."mc_text_photos_separator`  where id = '".(int)$values['id']."' ";
+      $sql = "delete from `".DB_PREF."mc_text_photos_separator`  where id = '".(int)$id."' ";
       if (!mysql_query($sql))
       set_error("Can't delete module ".$sql);
 

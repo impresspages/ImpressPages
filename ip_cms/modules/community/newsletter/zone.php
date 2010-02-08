@@ -25,7 +25,7 @@ class Zone extends \Frontend\Zone{
    * Finds all pages of current zone      
    * @return array elements   
    */  
-  public function getElements($language = null, $parentElementId = null, $startFrom = 1, $limit = null, $reverseOrder = null){
+  public function getElements($language = null, $parentElementId = null, $startFrom = 1, $limit = null, $includeHidden = false, $reverseOrder = null){
     return array();
   }
   

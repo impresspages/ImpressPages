@@ -25,7 +25,7 @@ class Zone extends \Frontend\Zone{
   
 	
 
-	function getElements($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $reverseOrder = false){
+	function getElements($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
 		global $site;
 
 		
@@ -48,9 +48,9 @@ class Zone extends \Frontend\Zone{
 			$selectedId = null;
 		
 		if($reverseOrder)
-			$dbElements = $this->db->getVisibleElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'desc', $startFrom, $limit);
+			$dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
 		else
-			$dbElements = $this->db->getVisibleElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'asc', $startFrom, $limit);
+			$dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
 		$elements = array();
 		foreach($dbElements as $key => $dbElement){
 		  $newElement = $this->makeElementFromDb($dbElement, sizeof($urlVars) == 1);
@@ -94,7 +94,7 @@ class Zone extends \Frontend\Zone{
 	function getFirstElement($parentId, $level){
 	  global $site;
 	  
-	  $elements = $this->db->getVisibleElements($this->getName(), $parentId, $site->currentLanguage['id'], null, null, 'asc', 0, null);
+	  $elements = $this->db->getElements($this->getName(), $parentId, $site->currentLanguage['id'], null, null, 'asc', 0, null);
 	  foreach($elements as $key => $element){
       switch($element['type']){        
         case 'inactive':
