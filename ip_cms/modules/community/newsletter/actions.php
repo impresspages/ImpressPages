@@ -35,7 +35,7 @@ require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
     					$status = 'incorrect_email';
     					$url = $site->generateUrl(null, $zoneName, array("incorrect_email"));
             }else{
-              require_once(__DIR__.'/template.php');
+              $site->requireTemplate('community/newsletter/template.php');
             
     					if($_REQUEST['email'] && !Db::registeredAndNotActivated($_REQUEST['email'], $site->currentLanguage['id']))
     						Db::subscribe($_REQUEST['email'], $site->currentLanguage['id']);
@@ -47,10 +47,10 @@ require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
     					$link = $site->generateUrl(null, $newsletterZone->getName(), array(), array("action" => "conf", "id" => $subscriber['id'], "code" => $subscriber['verification_code']));
               $emailHtml = Template::subscribeConfirmation($link); 
     					$emailQueue->addEmail(
-    						$parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
-    						$parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), 
-    						$_REQUEST['email'],
-    						$_REQUEST['email'],
+    					  $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
+                $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), 
+    					  $_REQUEST['email'],
+    						'',
     						$parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'subject_confirmation'),
     						$emailHtml,
     						true, true, null);

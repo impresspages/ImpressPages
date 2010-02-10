@@ -627,7 +627,19 @@ class Site{
     if (file_exists(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file)) {
       require_once(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file);
     } else {
-      require_once(BASE_DIR.MODULE_DIR.$file);
+      if(file_exists(BASE_DIR.MODULE_DIR.$file)){
+        require_once(BASE_DIR.MODULE_DIR.$file);        
+      } else {
+        if(file_exists(BASE_DIR.PLUGIN_DIR.$file)){
+          require_once(BASE_DIR.PLUGIN_DIR.$file);  
+        } else {
+          $backtrace = debug_backtrace();
+          if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
+            trigger_error('Required template does not exist '.$file.'. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
+          else
+            trigger_error('Required template does not exist '.$file.'.');
+        }     
+      }
     }
   }
 

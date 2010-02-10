@@ -75,7 +75,7 @@ class Element{
   public function generateManagement () {
   }
 
-  public function __construct($id, $zoneName){
+  public function __construct($id, $zoneName){    
     $this->id = $id;
     $this->zoneName = $zoneName;
   }

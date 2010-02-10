@@ -28,6 +28,11 @@ class Element extends \Frontend\Element{
     return 1;
   } 
   
+  public function getButtonTitle(){
+    global $parametersMod;
+    return $parametersMod->getValue('administrator', 'search', 'translations', 'search');
+  }
+  
   
   public static function compareRank($element1, $element2){
     if($element1->searchRank > $element2->searchRank)

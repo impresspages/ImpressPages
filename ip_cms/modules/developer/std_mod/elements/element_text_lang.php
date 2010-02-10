@@ -151,6 +151,9 @@ class ElementTextLang extends Element{ //data element in area
 
   function previewValue($record, $area){
     global $stdModDb;
+    
+    require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+    
 
     $answer='';
     $values = array();
@@ -174,6 +177,8 @@ class ElementTextLang extends Element{ //data element in area
       $answer .= '/'.$value;            
     }
       
+    $answer = \Library\Php\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
+    
     return htmlspecialchars(mb_substr($answer, 0, $this->previewLength));
   }
 

@@ -21,7 +21,7 @@ class Element extends \Frontend\Element{
 
   public function getLink(){
     global $site;
-    return $site->generateUrl(null, $this->zoneName);
+    return $site->generateUrl(null, $this->zoneName, array($this->getId()));
   }
   
   public function getDepth(){
@@ -29,16 +29,16 @@ class Element extends \Frontend\Element{
   } 
   
   
-
-  
+  public function getButtonTitle(){
+    global $parametersMod;
+    return $parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'newsletter');
+  }
+    
 	public function generateContent(){
 		global $site;
 		global $parametersMod;
 		
-		global $site;
-		global $parametersMod;
 		$text = '';
-		
 		switch($this->getId()){
 			case 'email_confirmation':
 				$text = $parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'text_confirmation');
@@ -64,7 +64,7 @@ class Element extends \Frontend\Element{
 		}
 		
 		
-		require_once(__DIR__.'/template.php');
+		$site->requireTemplate('community/newsletter/template.php');
 		$template = new Template();		
 		$answer = $template->textPage($text);
 		return $answer;    

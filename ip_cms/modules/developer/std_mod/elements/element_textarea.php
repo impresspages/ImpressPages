@@ -89,7 +89,9 @@ class ElementTextarea extends Element{ //data element in area
 
 
   function previewValue($record, $area){
-    return htmlspecialchars(wordwrap(mb_substr($record[$this->dbField], 0, $this->previewLength), 10, "&#x200B;", 1));
+    require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+    
+    return htmlspecialchars(\Library\Php\Text\String::mb_wordwrap(mb_substr($record[$this->dbField], 0, $this->previewLength), 10, "&#x200B;", 1));
   }
 
   function checkField($prefix, $action, $area){

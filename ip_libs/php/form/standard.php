@@ -116,17 +116,26 @@ class Standard{
     
     $answer .= 
       '
-      <form id="'.$uniqueName.'" target="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
+      <form id="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
         '.$this->templateObject->generateForm($button, $action, $uniqueName, $this->fields).'
 
         <div>
           '.$hiddenFields.'
           <input type="hidden" name="spec_security_code" value="'.md5(date("Y-m-d")).'" />
           <input type="hidden" name="spec_rand_name" value="'.$uniqueName.'" />
-           <iframe onload="if(window.'.$uniqueName.'_answer)'.$uniqueName.'_answer();" name="'.$uniqueName.'" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
+          <script type="text/javascript">
+            //<![CDATA[ 
+           document.write(\'<iframe onload="if(window.'.$uniqueName.'_answer)'.$uniqueName.'_answer();" name="'.$uniqueName.'" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>\');
+            //]]>
+          </script>
           <div class="clear"></div>
         </div>        
       </form>      
+      <script type="text/javascript">
+        //<![CDATA[ 
+       document.getElementById(\''.$uniqueName.'\').target = \''.$uniqueName.'\';
+        //]]>
+      </script>
       ';
     
     return $answer;

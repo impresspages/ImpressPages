@@ -75,7 +75,7 @@ class Template{
     foreach ($elements as $key => $element) {
 		  $answer .= '<li>';
       $tmpTitle = $element->getPageTitle();
-      if($tmpTitle == 0)
+      if($tmpTitle == '')
         $tmpTitle = $element->getButtonTitle(); 
 			$answer .= '<a class="modAdministratorSearchLink" href="'.$element->getLink().'">'.htmlspecialchars($tmpTitle).'</a>';
 			if($parametersMod->getValue('administrator', 'search', 'options', 'show_description'))

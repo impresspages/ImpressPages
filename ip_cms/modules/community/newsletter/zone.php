@@ -35,6 +35,15 @@ class Zone extends \Frontend\Zone{
    * @return array element   
    */
 	public  function getElement($elementId){
+    switch($elementId){
+      case 'email_confirmation':
+      case 'incorrect_email':
+      case 'subscribed':
+      case 'unsubscribed':
+      case 'error_confirmation':
+      case 'unsubscribe':
+       return new Element($elementId, $this->name); //default zone return element with all url and get variable combinations
+    }
 	  return false;
 	}
 	
@@ -54,7 +63,7 @@ class Zone extends \Frontend\Zone{
   public function findElement($urlVars, $getVars){
 	 /*this zone never returns error404 and in reality have no pages (elements)*/
 	  global $site;
-    if(isset($site->urlVars[0]))	  
+    if(isset($site->urlVars[0])){	  
 			switch($site->urlVars[0]){
 				case 'email_confirmation':
 				case 'incorrect_email':
@@ -64,6 +73,7 @@ class Zone extends \Frontend\Zone{
 				case 'unsubscribe':
       	 return new Element($site->urlVars[0], $this->zoneName);
       }
+    }
     return (new Element(null, $this->zoneName));
   }
   

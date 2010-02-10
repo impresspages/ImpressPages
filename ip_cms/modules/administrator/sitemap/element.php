@@ -28,6 +28,12 @@ class Element extends \Frontend\Element{
     return 1;
   } 
   
+  public function getButtonTitle(){
+    global $parametersMod;
+    return $parametersMod->getValue('administrator', 'sitemap', 'translations', 'sitemap');
+  }
+  
+  
   
 	function generateContent(){
 		global $site;

@@ -100,10 +100,11 @@ class ElementFile extends Element{ //data element in area
 
 
   function previewValue($record, $area){
-    if($record[$this->dbField])
-    return '<a target="_blank" href="'.FILE_DIR.$record[$this->dbField].'" >'.htmlspecialchars(mb_substr(basename($record[$this->dbField]), 0, $this->previewLength)).'</a>';
-    else
-    return '';
+    if($record[$this->dbField]){
+      return '<a target="_blank" href="'.FILE_DIR.$record[$this->dbField].'" >'.htmlspecialchars(mb_substr(basename($record[$this->dbField]), 0, $this->previewLength)).'</a>';
+    }else{
+      return '';
+    }
   }
 
 
