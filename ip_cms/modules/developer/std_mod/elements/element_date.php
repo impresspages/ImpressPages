@@ -59,7 +59,7 @@ class ElementDate extends Element{ //data element in area
   function printFieldUpdate($prefix, $record, $area){
     $value = null;
 
-    $value = $record[$this->dbField];
+    $value = substr($record[$this->dbField], 0, 10);
 
     $html = new StdModHtmlOutput();
     $html->date($prefix, $value, $this->disabledOnUpdate);
@@ -83,9 +83,7 @@ class ElementDate extends Element{ //data element in area
 
 
   function previewValue($record, $area){
-    $answer = mb_substr($record[$this->dbField], 0, $this->previewLength);
-    $answer = htmlspecialchars($answer);
-    $answer = wordwrap($answer, 10, "&#x200B;", 1);    
+    $answer = htmlspecialchars(substr($record[$this->dbField], 0, 10));
     return $answer;
 
   }

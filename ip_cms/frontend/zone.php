@@ -79,7 +79,7 @@ abstract class Zone{
     if($element){
       $elements[] = $element;		
       $parentElementId = $element->getParentId();
-      while($parentElementId){
+      while($parentElementId !== null && $parentElementId !== false){
         $parentElement = $this->getElement($parentElementId); 
         $elements[] = $parentElement;
         $parentElementId = $parentElement->getParentId();

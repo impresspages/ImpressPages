@@ -15,7 +15,7 @@ class Template{
     foreach ($breadCrumb as $key => $element) {
       if($answer != '')
         $answer .= $separator;
-      $answer .= '<a href="'.$element->getLink().'" title="'.htmlspecialchars($element->getPageTitle()).'">'.$element->getButtonTitle().'</a>';
+      $answer .= '<a href="'.$element->getLink().'" title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>';
     }
     return $answer;
   }   

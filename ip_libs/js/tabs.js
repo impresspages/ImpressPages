@@ -30,7 +30,7 @@
 				if(this.elem[i] == element_id && 
 					(!this.allow_hide || document.getElementById(this.links[i]).className != this.visible)
 					){
-          document.getElementById(this.elem[i]).style.display = 'inline';
+          document.getElementById(this.elem[i]).style.display = '';
           document.getElementById(this.links[i]).className =  this.visible;
         }else{ 
           document.getElementById(this.elem[i]).style.display = 'none';
@@ -39,6 +39,7 @@
       i++;
             
      }
+     return false;
   }
 
   function switchFirst(){

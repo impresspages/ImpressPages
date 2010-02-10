@@ -49,9 +49,11 @@ class Zone extends \Frontend\Zone{
   
   public function makeActions(){
 		global $site;
+		global $log;
 
 	  $searchZone = $site->getZone($this->name);
 		if(isset($_POST['action']) && $_POST['action'] == 'search'){
+		  $log->log('administrator/search', 'search', $_POST['q']);
 			header("location: ".str_replace('&amp;', '&', $site->generateUrl(null, $searchZone->getName(), null, array("q" => $_POST['q']))));
 		}
   }

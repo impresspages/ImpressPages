@@ -82,9 +82,6 @@ class Template {
     
       break;      
       case "right_small":
-    
-        if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-          $text = "<p>".$text."</p>";
         $text = str_replace('<br>', '<br />', $text);
         
         

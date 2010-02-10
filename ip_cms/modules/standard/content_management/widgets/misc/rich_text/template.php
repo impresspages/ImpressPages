@@ -12,8 +12,6 @@ class Template {
 
   public static function generateHtml($text, $layout = null){
     $text = $text;
-    if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-      $text = "<p>".$text."</p>";
     $text = str_replace('<br>', '<br />', $text);
     $text = str_replace('</object>', '<param name="wmode" value="opaque"></object>', $text);
 

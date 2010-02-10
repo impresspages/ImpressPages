@@ -11,8 +11,6 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Template {
 
   public static function generateHtml($text, $layout = null){
-    if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-      $text = "<p>".$text."</p>";
     $text = str_replace('<br>', '<br />', $text);
 
     switch($layout){

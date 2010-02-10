@@ -50,14 +50,16 @@ class Manager{
      $element->reg_expression = $parametersMod->getValue('developer', 'std_mod','parameters','email_reg_expression');
      $element->reg_expression_for_user = $parametersMod->getValue('community', 'newsletter_subscribers','admin_translations','error_email');
      $element->searchable = true;
+     $element->sortable = true;
      $elements[] = $element;
-
+     
      $element = new \Library\Php\StandardModule\element_bool("text");
      $element->name = $parametersMod->getValue('community', 'newsletter_subscribers','admin_translations','verified');
      $element->db_field = "verified";
      $element->show_on_list = true;
      $element->default_value = true;
-     $element->searchable = false;
+     $element->searchable = true;
+     $element->sortable = true;
      $elements[] = $element;
 
      $element = new \Library\Php\StandardModule\element_hidden();

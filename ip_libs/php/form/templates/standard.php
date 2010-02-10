@@ -20,9 +20,36 @@ class Standard{
     $answer = '';
       
     $answer .= '
-  
         <script type="text/javascript">
           //<![CDATA[
+          /* Get the TOP position of a given element. */
+          function '.$uniqueName.'GetPositionTop(element){
+              var offset = 0;
+              while(element) {
+                  offset += element["offsetTop"];
+                  element = element.offsetParent;
+              }
+              return offset;
+          }
+          
+          /* Is a given element visible or not? */
+          function '.$uniqueName.'IsElementVisible(eltId) {
+              var elt = document.getElementById(eltId);
+              if (!elt) {
+                  // Element not found.
+                  return false;
+              }
+              // Get the top and bottom position of the given element.
+              var posTop = '.$uniqueName.'GetPositionTop(elt);
+              var posBottom = posTop + elt.offsetHeight;
+              // Get the top and bottom position of the *visible* part of the window.
+              var visibleTop = document.documentElement.scrollTop;
+              var visibleBottom = visibleTop + document.documentElement.offsetHeight;
+              return ((posBottom >= visibleTop) && (posTop <= visibleBottom));
+          } 
+
+
+          
           function '.$uniqueName.'_reset(field_name){
             //document.getElementById(\''.$uniqueName.'_field_\' + field_name).setAttribute("class", "libPhpFormField");
             //document.getElementById(\''.$uniqueName.'_field_\' + field_name).setAttribute("className", "libPhpFormField");
@@ -41,7 +68,7 @@ class Standard{
               document.getElementById(\''.$uniqueName.'_field_\' + field_name + \'_error\').style.display = \'block\';
             }
             
-            if(first){
+            if(first && !'.$uniqueName.'IsElementVisible(\''.$uniqueName.'_field_\' + field_name)){
               document.location = \'#'.$uniqueName.'_field_\' + field_name + \'_error_anchor\';
             }
           }
@@ -49,7 +76,7 @@ class Standard{
           function '.$uniqueName.'_set_global_error(error, first){
             document.getElementById(\''.$uniqueName.'_global_error\').innerHTML = error;
             document.getElementById(\''.$uniqueName.'_global_error\').style.display = \'block\';
-            if(first){
+            if(first && !'.$uniqueName.'IsElementVisible(\''.$uniqueName.'_global_error\')){
               document.location = \'#'.$uniqueName.'_global_error_anchor\';
             }
             

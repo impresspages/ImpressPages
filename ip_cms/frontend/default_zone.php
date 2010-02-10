@@ -24,8 +24,12 @@ class DefaultZone extends Zone{
    */
   public function getElements($language = null, $parentElementId = null, $startFrom = 1, $limit = null, $includeHidden = false, $reverseOrder = null){
     $answer = array();
-    $answer[] = new Element(null, $this->name);
-    return $answer;
+    if($parentElementId == null){
+      $answer[] = new Element(1, $this->name);
+      return $answer;
+    } 
+    
+    return false;
   }
   
 
@@ -34,8 +38,10 @@ class DefaultZone extends Zone{
    * @return Element   
    */
 	public function getElement($elementId){
-    return new Element(null, $this->name); //default zone return element with all url and get variable combinations
-	}
+	    if($elementId == 1){
+      return new Element(1, $this->name); //default zone return element with all url and get variable combinations
+    }
+  }
 	
 	
   /**
@@ -44,7 +50,7 @@ class DefaultZone extends Zone{
    * @return Element or false if page does not exist   
    */	
   public function findElement($urlVars, $getVars){
-    return new Element(null, $this->name); //default zone return element with all url and get variable combinations
+    return new Element(1, $this->name); //default zone return element with all url and get variable combinations
   }
   
 

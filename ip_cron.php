@@ -13,6 +13,7 @@
 /** @private */
 define('CMS', true); // make sure other files are accessed through this file.
 define('FRONTEND', true); // make sure other files are accessed through this file.
+define('BACKEND', true); // make sure other files are accessed through this file.
 define('CRON', true); // make sure other files are accessed through this file.
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
@@ -65,24 +66,32 @@ class Cron{
   /**
    * Executes required maintenance in global and modules scope.
    */
-	function execute(){
-		global $log;
-		$sql = 'select m.name as m_name, mg.name as mg_name from `'.DB_PREF.'module_group` mg, `'.DB_PREF.'module` m where m.group_id = mg.id';
-		$rs = mysql_query($sql);
-		if($rs){
-			while($lock = mysql_fetch_assoc($rs)){
-				if(file_exists(MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php')){
-					require(MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php');					
-					eval('$tmpCron = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\Cron();');
-					$tmpCron->execute($this->information);
-				}
-			}
-		}
-		$log->log('system/cron', 'executed');
-	
-	
-		
-	}
+  function execute(){
+    global $log;
+    
+    ignore_user_abort(true);
+    
+    $sql = 'select m.core, m.name as m_name, mg.name as mg_name from `'.DB_PREF.'module_group` mg, `'.DB_PREF.'module` m where m.group_id = mg.id';
+    $rs = mysql_query($sql);
+    if($rs){
+      while($lock = mysql_fetch_assoc($rs)){
+        if($lock['core']){
+          $file = MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+        } else {
+          $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+        }
+        if(file_exists($file)){
+          require($file);         
+          eval('$tmpCron = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\Cron();');
+          $tmpCron->execute($this->information);
+        }
+      }
+    }
+    $log->log('system/cron', 'executed');
+  
+  
+    
+  }
 }
 
 /**
@@ -139,7 +148,7 @@ class cronInformation{
 		";
 		$rs = mysql_query($sql);
 		if($rs){		
-			if(false && $lock = mysql_fetch_assoc($rs)){
+			if($lock = mysql_fetch_assoc($rs) && !isset($_GET['test'])){
 				if($lock['same_year'])
 					$this->firstTimeThisYear = false; 
 				if($lock['same_year'] && $lock['same_month'])

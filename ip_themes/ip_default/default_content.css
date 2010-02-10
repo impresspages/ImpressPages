@@ -171,6 +171,36 @@
   border: none;
 }
 
+.ipContent .ipWidgetTextPhotoImageRight {
+  float: right;
+  margin: 0 0 10px 10px;
+  padding: 3px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetTextPhotoImageRight:hover {
+  border: 1px solid #999999;
+}
+
+.ipContent .ipWidgetTextPhotoImageRight img {
+  float: right;
+  border: none;
+}
+
+.ipContent .ipWidgetTextPhotoImageSmallLeft{
+  float: left;
+  margin: 0 10px 10px 0;
+  width: 100px;
+  border: 1px solid #cccccc;
+}
+
+.ipContent .ipWidgetTextPhotoImageSmallRight{
+  float: right;
+  margin: 0 0 10px 10px;
+  width: 100px;
+  border: 1px solid #cccccc;
+}    
+
 .ipContent .ipWidgetTextPhotoText {  }
 
 .ipContent .ipWidgetPhoto {  }
@@ -188,6 +218,10 @@
 .ipContent .ipWidgetSeparatorLine {
   height: 1px;
   border-top: 1px dotted #cccccc;
+}
+
+.ipContent .ipWidgetSeparatorSpace {
+  height: 10px;
 }
 
 .ipContent .ipWidgetPhotoGallery {  }
@@ -407,39 +441,3 @@
 }
 
 /* /forms */
-
-/*ip 1.0.3 beta update*/
-    
-.ipContent .ipWidgetSeparatorSpace {
-  height: 10px;
-}
-
-.ipContent .ipWidgetTextPhotoImageRight {
-  float: right;
-  margin: 0 0 10px 10px;
-  padding: 3px;
-  border: 1px solid #cccccc;
-}
-
-.ipContent .ipWidgetTextPhotoImageRight:hover {
-  border: 1px solid #999999;
-}
-
-.ipContent .ipWidgetTextPhotoImageRight img {
-  float: right;
-  border: none;
-}
-
-.ipContent .ipWidgetTextPhotoImageSmallLeft{
-  float: left;
-  margin: 0 10px 10px 0;
-  width: 100px;
-  border: 1px solid #cccccc;
-}
-
-.ipContent .ipWidgetTextPhotoImageSmallRight{
-  float: right;
-  margin: 0 0 10px 10px;
-  width: 100px;
-  border: 1px solid #cccccc;
-}    

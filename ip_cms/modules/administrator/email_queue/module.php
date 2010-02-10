@@ -97,6 +97,11 @@ class Module{
 
 					
 				$errors = false;
+
+				if(sizeof($emails) > 5){
+          set_time_limit(sizeof($emails)*10);
+        }				
+				
 				foreach($emails as $key => $email){
 					$mail = new \PHPMailer();
 /*          $mail->Sender = $email['from'];	
@@ -120,8 +125,6 @@ class Module{
 					$file_mime_types = explode("\n", $email['file_mime_types']);
 					for($i =0; $i<sizeof($files) && $i<sizeof($file_names)&& $i<sizeof($file_mime_types); $i++){
 					 if($files[$i] != ''){
-					   global $log;
-					   $log->log('', '', $file_names[$i]);
 					   
   					 if($file_mime_types[$i] == '')
       				$answer = $mail->AddAttachment($files[$i], $file_names[$i]);
