@@ -41,9 +41,12 @@ if(\Db::connect()){
 
   $site = new \Frontend\Site(); /*to generate links to site and get other data about frontend*/
 	$site->configZones();
+	
   
 
   $cms = new Cms();
+  
+  $cms->makeActions();
   
   $cms->manage();
       

@@ -64,6 +64,7 @@ class Db{
         $sql2 = "insert into `".DB_PREF."zone_parameter` set 
         language_id = '".mysql_real_escape_string($language)."',
         zone_id = '".$zone['id']."',
+        title = '".mysql_real_escape_string(Db::newUrl($language, $zone['title']))."',
         url = '".mysql_real_escape_string(Db::newUrl($language, $zone['url']))."'";
         $rs2 = mysql_query($sql2);
         if(!$rs2)

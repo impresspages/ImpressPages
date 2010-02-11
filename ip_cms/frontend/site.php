@@ -179,7 +179,7 @@ class Site{
     		  //end initialize zone object
       }
       return $this->zones[$zoneName]['object'];
-    }{
+    }else{
       //error
       $backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -679,6 +679,23 @@ class Site{
   public function getCurrentElement(){
     $zone = $this->getCurrentZone();
     return $zone->getCurrentElement(); 
+  }
+  
+  
+  public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
+    $sql = "select m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
+    $rs = mysql_query($sql);
+    if($rs){
+      while($lock = mysql_fetch_assoc($rs)){
+        if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
+          require(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
+          eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
+          if(method_exists($moduleSystem, 'catchEvent')){
+            $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
+          }
+        }
+      }
+    }        
   }
   
 }

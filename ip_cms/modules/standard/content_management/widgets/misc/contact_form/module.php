@@ -225,7 +225,7 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
         $email_queue = new \Modules\administrator\email_queue\Module();
-        $email_queue->addEmail($from, $from, $lock['email_to'], $lock['email_to'],  $lock['email_subject'], $email, false, true, $files);
+        $email_queue->addEmail($from, $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $lock['email_to'], '',  $lock['email_subject'], $email, false, true, $files);
 
 
       }else{

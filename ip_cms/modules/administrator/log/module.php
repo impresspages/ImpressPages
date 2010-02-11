@@ -48,6 +48,15 @@ class Module{
 		return Db::lastLogsCount($minutes, $module, $name);
 	}
 
+  /**
+   * @param int $minutes
+   * @param string $module
+   * @return int count of logs, made by specified module in last $minutes      
+   */     
+  public static function lastLogs($minutes, $module = null, $name = null){
+    return Db::lastLogs($minutes, $module, $name);
+  } 	
+	
 }
 
 

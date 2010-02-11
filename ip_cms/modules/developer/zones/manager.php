@@ -114,6 +114,7 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
 
   function before_delete($id){
     global $parametersMod;
+
     $zone = Db::getZone($id);
     //if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
       $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
@@ -129,7 +130,7 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
     $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones',  $newZonesStr);
       
       
-      Db::deleteParameters($id);
+    Db::deleteParameters($id);
   }
   
   

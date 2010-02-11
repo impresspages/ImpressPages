@@ -29,6 +29,32 @@ class Db{
   }
 
 
+  public static function lastLogs($minutes, $module = null, $name = null){
+    if ($module)
+      $moduleSql = "`module` = '".mysql_real_escape_string($module)."' and ";
+    else
+      $moduleSql = '';
+
+    if ($name)
+      $nameSql = "`name` = '".mysql_real_escape_string($name)."' and ";
+    else
+      $nameSql = '';
+
+    $sql = "select * from `".DB_PREF."log` where ".$moduleSql." ".$nameSql." ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`time`,NOW())  ";
+
+    $rs = mysql_query($sql);
+    $answer = array();
+    if($rs){
+      while($lock = mysql_fetch_assoc($rs)){
+        $answer[] = $lock;
+      }
+      return $answer;
+    } else {
+      trigger_error($sql." ".mysql_error());   
+      return false;
+    }
+  }  
+  
 	public static function lastLogsCount($minutes, $module = null, $name = null){
 		if ($module)
 		  $moduleSql = "`module` = '".mysql_real_escape_string($module)."' and ";

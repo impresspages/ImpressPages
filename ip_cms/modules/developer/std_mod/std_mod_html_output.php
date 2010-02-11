@@ -106,6 +106,7 @@ class stdModHtmlOutput{
         $cms->tinyMce = true;
         $this->html .= '
           <script src="'.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
+          <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>
           <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>
 
           
@@ -130,7 +131,7 @@ class stdModHtmlOutput{
             theme : "advanced",
             mode: "specific_textareas",
             editor_selector : "mceEditor",
-            plugins : "paste,simplebrowser,advlink,advimage,inlinepopups",
+            plugins : "paste,simplebrowser,advlink,advimage,inlinepopups,iplink",
             theme_advanced_buttons1 : "cut,copy,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
             theme_advanced_buttons2 : "bold,italic,underline,styleselect,image",
             theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup,code",

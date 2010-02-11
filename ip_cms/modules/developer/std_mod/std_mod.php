@@ -345,6 +345,46 @@ class StandardModule{
               $this->errors[$key] = $new_error;
             }
             if (sizeof($this->errors) == 0){
+              
+              //allow insert
+              if(method_exists($this->currentArea, 'allowInsert')){
+                $allowInsert = $this->currentArea->allowInsert($this->currentArea->currentId);
+                if(!$allowInsert){
+                  if(method_exists($this->currentArea, 'lastError')){
+                    echo "
+              <html>
+                <head>
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                </head>
+                <body>
+                  <script type=\"text/javascript\">                  
+                    alert('".addslashes($this->currentArea->lastError('insert'))."');
+                  </script>
+                 </body>
+               </html>
+                    ";
+                  }else{
+                    echo "
+              <html>
+                <head>
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                </head>
+                <body>
+                  <script type=\"text/javascript\">                  
+                    alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_insert'))."');
+                  </script>
+                 </body>
+               </html>
+                    
+                    ";
+                  }
+                  return false;
+                }
+              }
+              //allow insert
+              
+              
+              
               if(method_exists($this->currentArea, 'beforeInsert')){
                 $this->currentArea->beforeInsert();
               }
@@ -383,7 +423,7 @@ class StandardModule{
                 $lastInsertId = mysql_insert_id();
   
                 /* update sort field value */
-                if($this->currentArea->sortField && $this->currentArea->newRecordPosition == 'top'){
+                if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'top'){
                   /* increase all sort field numbers */
                   $sql = "update `".mysql_real_escape_string(DB_PREF."".$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1";
                   $rs = mysql_query($sql);
@@ -406,7 +446,7 @@ class StandardModule{
                   }
                   else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
                 }
-                if($this->currentArea->sortField && $this->currentArea->newRecordPosition == 'bottom'){
+                if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'bottom'){
                   /* find biggest walue */
                   if (($this->level > 0))
                   $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
@@ -497,6 +537,45 @@ class StandardModule{
             $this->errors[$key] = $new_error;
           }
           if (sizeof($this->errors) == 0){
+
+            
+            if(method_exists($this->currentArea, 'allowUpdate')){
+              $allowUpdate = $this->currentArea->allowUpdate($this->currentArea->currentId);
+              if(!$allowUpdate){
+                if(method_exists($this->currentArea, 'lastError')){
+                  echo "
+            <html>
+              <head>
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+              </head>
+              <body>
+                <script type=\"text/javascript\">                  
+                  alert('".addslashes($this->currentArea->lastError('update'))."');
+                </script>
+               </body>
+             </html>
+                  ";
+                }else{
+                  echo "
+            <html>
+              <head>
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+              </head>
+              <body>
+                <script type=\"text/javascript\">                  
+                  alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_update'))."');
+                </script>
+               </body>
+             </html>
+                  
+                  ";
+                }
+                return false;
+              }
+            }
+            
+            
+            
             if(method_exists($this->currentArea, 'beforeUpdate')){
               $this->currentArea->beforeUpdate($this->currentArea->currentId);
             }
