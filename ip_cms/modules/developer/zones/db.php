@@ -51,7 +51,7 @@ class Db{
     }
   }
   
-  public static function createRootzonesElement($zoneId){
+  public static function createRootzonesElement($zoneId, $translation = ''){
     $languages = Db::getLanguages();
     $zone = Db::getZone($zoneId);
     
@@ -68,6 +68,7 @@ class Db{
           trigger_error($sql2." ".mysql_error());
           
         $sql2 = "insert into `".DB_PREF."zone_parameter` set 
+        `title` = '".mysql_real_escape_string($translation)."',
         `language_id` = '".mysql_real_escape_string($language['id'])."',
         `zone_id` = '".$zoneId."',
         `url` = '".mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";

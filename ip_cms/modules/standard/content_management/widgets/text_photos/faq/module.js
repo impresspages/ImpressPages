@@ -200,9 +200,7 @@ function content_mod_faq() {
 
 		//      this.text = tinyMCE.getContent();//document.getElementById('management_' + this.collection_number + '_text').value;
 		this.text = tinyMCE.get(
-				'management_' + this.collection_number + '_text').getContent( {
-			format : 'raw'
-		});// or or tinyMCE.activeEditor.getContent()
+				'management_' + this.collection_number + '_text').getContent();// or or tinyMCE.activeEditor.getContent()
 
 		this.menu_management
 				.module_preview_save_response(this.collection_number);

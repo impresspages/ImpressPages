@@ -413,6 +413,12 @@ class StandardModule{
                $this->errors[$key] = $new_error;
           }          
           if (sizeof($this->errors) == 0){
+            
+            if(method_exists($this->up_area, 'before_update')){
+              $this->up_area->before_update($this->up_area->parent_id);
+            }             
+            
+            
             foreach($this->up_area->get_elements() as $key => $element){
               $new_parameter = $element->get_parameters("update", "i_".$key); 
               if ($new_parameter)

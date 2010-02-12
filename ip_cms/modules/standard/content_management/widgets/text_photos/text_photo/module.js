@@ -288,9 +288,7 @@ function content_mod_text_photo() {
 		tinyMCE.execCommand('mceFocus', false,
 				'management_' + this.collection_number + '_text');
 		this.text = tinyMCE.get(
-				'management_' + this.collection_number + '_text').getContent( {
-			format : 'raw'
-		});// or or tinyMCE.activeEditor.getContent()
+				'management_' + this.collection_number + '_text').getContent();// or or tinyMCE.activeEditor.getContent()
 		this.title = document
 				.getElementById('management_' + this.collection_number + '_title').value;
 

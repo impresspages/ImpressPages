@@ -185,9 +185,7 @@ function content_mod_rich_text() {
 		tinyMCE.execCommand('mceFocus', false,
 				'management_' + this.collection_number + '_text');
 		this.text = tinyMCE.get(
-				'management_' + this.collection_number + '_text').getContent();// or
-																				// or
-																				// tinyMCE.activeEditor.getContent()
+				'management_' + this.collection_number + '_text').getContent();// or tinyMCE.activeEditor.getContent()
 		this.text = this.text.replace(/[\r\n]+/g, "");
 		this.menu_management
 				.module_preview_save_response(this.collection_number);

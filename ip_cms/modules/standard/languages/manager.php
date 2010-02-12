@@ -21,22 +21,26 @@ class LanguagesArea extends \Library\Php\StandardModule\Area{
     Db::createRootZoneElement($id);
     Db::createEmptyTranslations($id,'par_lang');
     
-    $site->dispatchEvent('standard', 'languages', 'language_created', array('langauge_id'=>$id));
+    $site->dispatchEvent('standard', 'languages', 'language_created', array('language_id'=>$id));
   }
   
   function after_delete($id){
     global $site;
+
     
     Db::deleteRootZoneElement($id);
     Db::deleteTranslations($id, 'par_lang');
+
+    $site->dispatchEvent('standard', 'languages', 'language_deleted', array('language_id'=>$id));    
     
-    $site->dispatchEvent('standard', 'languages', 'language_updated', array('langauge_id'=>$id));    
   }  
+  
+
   
   function after_update($id){
     global $site;
     
-    $site->dispatchEvent('standard', 'languages', 'language_deleted', array('langauge_id'=>$id));    
+    $site->dispatchEvent('standard', 'languages', 'language_updated', array('language_id'=>$id));    
   }    
   
   function allow_delete($id){

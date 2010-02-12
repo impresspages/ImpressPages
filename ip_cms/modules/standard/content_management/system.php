@@ -39,6 +39,51 @@ class System{
     }
 	}
 	
+  public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
+    
+    if($moduleGroup == 'developer' && $moduleName == 'zones' && $event == 'zone_deleted'){
+      require_once(__DIR__.'/backend_worker.php');
+      
+      $backendWorker = new BackendWorker();
+      
+      $languages = Db::languages();
+      foreach($languages as $key => $language){
+        $rootElement = Db::rootMenuElement($parameters['zone_id'], $language['id']);
+         global $log;
+         $log->log('test','root element', serialize($rootElement));
+        $elements = Db::menuElementChildren($rootElement);
+        foreach($elements as $key => $element){
+         $log->log('test','element', serialize($element));
+          $backendWorker->remove_element($element['id']);
+        }
+        
+        Db::removeZoneToContent($parameters['zone_id'], $language['id']);
+      }
 
+    } 
+
+    if($moduleGroup == 'standard' && $moduleName == 'languages' && $event == 'language_deleted'){
+      require_once(__DIR__.'/backend_worker.php');
+      
+      $backendWorker = new BackendWorker();
+      
+      $zones = \Frontend\Db::getZones($parameters['language_id']);
+      foreach($zones as $key => $zone){
+        $rootElement = Db::rootMenuElement($zone['id'], $parameters['language_id']);
+         global $log;
+         $log->log('test','root element', serialize($rootElement));
+        $elements = Db::menuElementChildren($rootElement);
+        foreach($elements as $key => $element){
+         $log->log('test','element', serialize($element));
+          $backendWorker->remove_element($element['id']);
+        }
+        
+        Db::removeZoneToContent($parameters['language_id'], $zone['id']);
+      }
+
+    } 
+    
+  
+  }
 	
 }

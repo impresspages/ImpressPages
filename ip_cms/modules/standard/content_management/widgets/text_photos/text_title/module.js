@@ -237,9 +237,7 @@ function content_mod_text_title() {
 					.getElementById('management_' + this.collection_number + '_text_title').value;
 
 		this.text = tinyMCE.get(
-				'management_' + this.collection_number + '_text').getContent( {
-			format : 'raw'
-		});// or or tinyMCE.activeEditor.getContent()
+				'management_' + this.collection_number + '_text').getContent();// or or tinyMCE.activeEditor.getContent()
 
 		this.level = this.tmpLevel;
 		

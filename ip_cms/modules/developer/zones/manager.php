@@ -18,8 +18,13 @@ require_once (__DIR__.'/db.php');
 class ZonesArea extends \Library\Php\StandardModule\Area{
   function after_insert($id){
     global $parametersMod;
-    Db::createRootZonesElement($id);
+    global $site;
+    
+    
     $zone = Db::getZone($id);
+    
+    Db::createRootZonesElement($id, $zone['translation']);
+    
     if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
       /* add menu management associated zones */
       $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
@@ -33,6 +38,9 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
     }
     $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $zone['name']);
     $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones', $newZonesStr);
+    
+    $site->dispatchEvent('developer', 'zones', 'zone_created', array('zone_id'=>$id));    
+    
   }
   
   function addToAssociatedZones($currentValue, $newZone, $depth = null){
@@ -68,7 +76,7 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
   }
 
 
-  function update_associated_zones($currentValue, $deletedZone, $oldName, $newName, $newDepth){
+  function update_associated_zones($currentValue, $deletedZone, $newName){
     $associatedZones = explode("\n", $currentValue);
     $newStr = '';
     foreach($associatedZones as $key => $value){
@@ -79,7 +87,7 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
       }else{
         if($newStr != '')
           $newStr .= "\n";
-        $newStr .= $this->makeZoneStr($newName, $newDepth);
+        $newStr .= $this->makeZoneStr($newName, $this->get_module_depth($value));
       }
     }
     return $newStr;
@@ -114,7 +122,9 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
 
   function before_delete($id){
     global $parametersMod;
-
+    global $site;
+    $site->dispatchEvent('developer', 'zones', 'zone_deleted', array('zone_id'=>$id));
+    
     $zone = Db::getZone($id);
     //if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
       $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
@@ -131,12 +141,17 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
       
       
     Db::deleteParameters($id);
+    
   }
   
+      
+    
   
   function before_update($id){
     global $parametersMod;
     $this->tmp_zone = Db::getZone($id);
+    global $log;
+    $log->log('----', '----');
   }
 
   function after_update($id){
@@ -150,10 +165,10 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
     $newZonesStr = $this->update_associated_zones($parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'), $this->tmp_zone['name'], $zone['name']);
     $parametersMod->setValue('administrator', 'search', 'options', 'searchable_zones', $newZonesStr);
     
-    $newZonesStr = $this->update_associated_zones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $this->tmp_zone['name'], $zone['name'], $zone['depth']);
+    $newZonesStr = $this->update_associated_zones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $this->tmp_zone['name'], $zone['name']);
     $parametersMod->setValue('administrator', 'sitemap', 'options', 'associated_zones', $newZonesStr);
     
-    $newZonesStr = $this->update_associated_zones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $this->tmp_zone['name'], $zone['name'], $zone['depth']);
+    $newZonesStr = $this->update_associated_zones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $this->tmp_zone['name'], $zone['name']);
     $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones', $newZonesStr);
         
 

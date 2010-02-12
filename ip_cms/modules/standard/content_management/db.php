@@ -81,7 +81,7 @@ class Db{
   }
 
   
-  public static function urlsByrootMenuElement($rootEelement){ 
+  public static function urlsByRootMenuElement($rootEelement){ 
     $sql = "select l.url as lang_url, mp.url as zone_url from 
     `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l, `".DB_PREF."zone` m, `".DB_PREF."zone_parameter` mp 
     where l.id = mp.language_id and mp.language_id = mte.language_id and 
@@ -218,7 +218,7 @@ class Db{
 			$globalWorker->set_error("Can't rename element ".$sql." ".mysql_error());
   }	
 	
-  public static function hideMenuelement($id){    
+  public static function hideMenuElement($id){    
     global $globalWorker;
     $sql = "update `".DB_PREF."content_element` set visible = 0 where id = '".$id."' ";
     $rs = mysql_query($sql);
@@ -372,5 +372,13 @@ class Db{
       trigger_error($sql." ".mysql_error());    
 		return false;  
   }  
+  
+  public static function removeZoneToContent($zoneId, $languageId){
+    $sql = "delete from ".DB_PREF."zone_to_content where `language_id` = '".(int)$languageId."' and `zone_id` = '".(int)$zoneId."' ";
+    $rs = mysql_query($sql);
+    if(!$rs){
+      trigger_error($sql.' '.mysql_error());
+    }
+  }
 }
    
