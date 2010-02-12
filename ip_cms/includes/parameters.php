@@ -353,8 +353,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 
         $answer .= '
-          <span class="mod_content_management_parameter_buttons" id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'">
-            <img border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event);" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
+            <img class="mod_content_management_parameter_buttons"  id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'" border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event); return false;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
 ';        
 
         
@@ -391,7 +390,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
         </script>";
         
         $answer .=
-         ' </span>        
+         '         
         '.$tmp_value_preview.'
         ';
         

@@ -90,7 +90,9 @@ class ParametersRefractor {
     $group = $this->getParametersGroup($moduleId, 'admin_translations'); 
     $this->addStringParameter($group['id'], 'Passwords do not match', 'passwords_do_not_match', 'Passwords do not match', 1);
     $this->addStringParameter($group['id'], 'Incorrect date format', 'incorrect_date_format', 'Incorrect date format', 1);
-        
+    $this->addStringParameter($group['id'], 'Can\'t insert', 'cant_insert', 'Impossible to insert the record', 1);
+    $this->addStringParameter($group['id'], 'Can\'t update', 'cant_update', 'Impossible to update the record', 1);
+    
 
     
     //new modules install parameters

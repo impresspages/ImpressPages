@@ -94,7 +94,6 @@
   </div>
 
   <div class="ipContent">		
-
 <?php echo $site->generateContent(); ?>
  
     <div class="clear"><!-- --></div>
