@@ -308,25 +308,25 @@ class ParametersRefractor {
   }
   
   private function deleteMessedUpItems(){
-    $sql = "delete from test_zone_to_content z left JOIN test_language l on z.language_id = l.id where l.id is null";
+    $sql = "delete z from `".DB_PREF."zone_to_content` z left JOIN `".DB_PREF."language` l on z.language_id = l.id where l.id is null";
     $rs = mysql_query($sql);
     if(!$rs){
       trigger_error($sql." ".mysql_error());
     }
 
-    $sql = "delete from test_zone_to_content zt left JOIN test_zone z on zt.zone_id = z.id where z.id is null";
+    $sql = "delete zt from `".DB_PREF."zone_to_content` zt left JOIN `".DB_PREF."zone` z on zt.zone_id = z.id where z.id is null";
     $rs = mysql_query($sql);
     if(!$rs){
       trigger_error($sql." ".mysql_error());
     }
     
-    $sql = "delete from test_zone_to_content zt left JOIN test_content_element e on zt.element_id = e.id where e.id is null";
+    $sql = "delete zt from `".DB_PREF."zone_to_content` zt left JOIN `".DB_PREF."content_element` e on zt.element_id = e.id where e.id is null";
     $rs = mysql_query($sql);
     if(!$rs){
       trigger_error($sql." ".mysql_error());
     }
     
-    $sql = "delete from test_content_element e left JOIN test_zone_to_content zt on e.id = zt.element_id where zt.id is null  and e.parent is null";
+    $sql = "delete e from `".DB_PREF."content_element` e left JOIN `".DB_PREF."zone_to_content` zt on e.id = zt.element_id where zt.id is null  and e.parent is null";
     $rs = mysql_query($sql);
     if(!$rs){
       trigger_error($sql." ".mysql_error());

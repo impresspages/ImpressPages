@@ -11,7 +11,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Template {
 
   public static function generateHtml($title, $photo, $photo_big, $text, $layout=null){
-		
+		$localPhoto = str_replace(BASE_URL, BASE_DIR, $photo);   //getImageSize may not work with URL in some configurations
     switch($layout){
       default:
       case "default":
@@ -22,7 +22,7 @@ class Template {
         
         
         if ($photo){
-          $info = getimagesize($photo);
+          $info = getimagesize($localPhoto);
           $image = '<a class="ipWidgetTextPhotoImageLeft" href="'.$photo_big.'" rel="lightbox[ipWidget]" title="'.htmlspecialchars($title).'"><img width="'.$info[0].'" height="'.$info[1].'" src="'.$photo.'" alt="'.htmlspecialchars($title).'" /></a>';
         }else{
           $image = '';
@@ -45,7 +45,7 @@ class Template {
         
         
         if ($photo){
-          $info = getimagesize($photo);
+          $info = getimagesize($localPhoto);
           $image = '<a class="ipWidgetTextPhotoImageRight" href="'.$photo_big.'" rel="lightbox[ipWidget]" title="'.htmlspecialchars($title).'"><img width="'.$info[0].'" height="'.$info[1].'" src="'.$photo.'" alt="'.htmlspecialchars($title).'" /></a>';
         }else{
           $image = '';

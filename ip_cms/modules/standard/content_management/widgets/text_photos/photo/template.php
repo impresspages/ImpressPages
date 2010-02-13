@@ -11,11 +11,12 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Template {
 
   public static function generateHtml($title, $photo, $layout = null){
+    $localPhoto = str_replace(BASE_URL, BASE_DIR, $photo);   //getImageSize may not work with URL in some configurations
     switch($layout){
       default:
       case "default": 
         if($photo){
-          $info = getimagesize($photo);
+          $info = getimagesize($localPhoto);
           return '<div class="ipWidget ipWidgetPhoto"><img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" /></div>';
         }    
         break;
