@@ -4,7 +4,7 @@
 <head> 
   <title><?php echo htmlspecialchars($site->getTitle()); ?></title>
   <?php
-      echo '<link href="'.BASE_URL.THEME_DIR.THEME.'/default_content.css" rel="stylesheet" type="text/css" />';
+      echo '<link href="'.BASE_URL.THEME_DIR.THEME.'/ip_content.css" rel="stylesheet" type="text/css" />';
       echo '<link href="'.BASE_URL.THEME_DIR.THEME.'/site.css" rel="stylesheet" type="text/css" />';
   ?>  
   <link rel="shortcut icon" href="<?php echo BASE_URL; ?>favicon.ico" />
