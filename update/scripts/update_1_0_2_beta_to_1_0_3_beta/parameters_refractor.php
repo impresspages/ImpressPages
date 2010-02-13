@@ -85,6 +85,12 @@ class ParametersRefractor {
     $this->renameTable("cm_text_photos_text_title", "w_text_title");    
     $this->renameTable("cm_text_photos_title", "w_title");    */
     
+    //new developer/modules parameter
+    $moduleId = $this->getModuleId('developer', 'modules_configuration');
+    $group = $this->getParametersGroup($moduleId, 'admin_translations'); 
+    $this->addStringParameter($group['id'], 'Version', 'version', 'Version', 1);
+    
+    
     //new std_mod parameter
     $moduleId = $this->getModuleId('developer', 'std_mod');
     $group = $this->getParametersGroup($moduleId, 'admin_translations'); 

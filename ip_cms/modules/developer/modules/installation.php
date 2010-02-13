@@ -214,7 +214,7 @@ class ModulesInstallation{
     }
     if($module){ //if module exists - update
       if((double)$configuration->getModuleVersion() > (double)$module['version']){
-        $this->update($moduleGroupKey, $moduleKey, $currentVersion);
+        $this->update($moduleGroupKey, $moduleKey, (double)$module['version']);
       }
     } else {
       $this->install($moduleGroupKey,  $moduleKey);

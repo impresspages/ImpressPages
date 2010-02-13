@@ -191,7 +191,15 @@ class Manager{
     // $element->searchable = true;
     $elements[] = $element;
 
-
+    $element = new \Library\Php\StandardModule\element_text();
+    $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','version');
+    $element->db_field = "version";
+    $element->reg_expression = $parametersMod->getValue('developer', 'std_mod','parameters','number_real_reg_expression');
+    $element->reg_expression_for_user = '';
+    $element->show_on_list = true;
+    // $element->searchable = true;
+    $elements[] = $element;
+    
 
     $area1 = new ModulesArea();
     $area1->db_table = "module";

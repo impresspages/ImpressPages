@@ -385,6 +385,9 @@ $parameter["parameterValue/developer/modules_configuration/admin_translations/co
 $parameter["parameterTitle/developer/modules_configuration/admin_translations/error_incorrect_name"] = "Error incorrect name";
 $parameter["parameterValue/developer/modules_configuration/admin_translations/error_incorrect_name"] = "Key must contain only letters (a-z), numbers (0-9), dash ("-") and underscore (\"_\")";
 
+$parameter["parameterTitle/developer/modules_configuration/admin_translations/version"] = "Version";
+$parameter["parameterValue/developer/modules_configuration/admin_translations/version"] = "Version";
+
 $parameter["parameterTitle/developer/modules_configuration/admin_translations/key"] = "Key";
 $parameter["parameterValue/developer/modules_configuration/admin_translations/key"] = "Key";
 
@@ -416,7 +419,13 @@ $parameter["parameterTitle/developer/std_mod/admin_translations/cancel"] = "Canc
 $parameter["parameterValue/developer/std_mod/admin_translations/cancel"] = "Cancel";
 
 $parameter["parameterTitle/developer/std_mod/admin_translations/cant_delete"] = "Can't delete";
-$parameter["parameterValue/developer/std_mod/admin_translations/cant_delete"] = "Unpossible to delete the record";
+$parameter["parameterValue/developer/std_mod/admin_translations/cant_delete"] = "Impossible to delete the record";
+
+$parameter["parameterTitle/developer/std_mod/admin_translations/cant_insert"] = "Can't insert";
+$parameter["parameterValue/developer/std_mod/admin_translations/cant_insert"] = "Impossible to insert the record";
+
+$parameter["parameterTitle/developer/std_mod/admin_translations/cant_update"] = "Can't update";
+$parameter["parameterValue/developer/std_mod/admin_translations/cant_update"] = "Impossible to update the record";
 
 $parameter["parameterTitle/developer/std_mod/admin_translations/delete"] = "Delete";
 $parameter["parameterValue/developer/std_mod/admin_translations/delete"] = "Delete";
@@ -1064,6 +1073,7 @@ $parameter["parameterValue/standard/content_management/widget_video/layout_defau
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last langauge";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
+
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_not_empty_language"] = "Can't delete not empty language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_not_empty_language"] = "Please delete all pages in this language and then try again.";
