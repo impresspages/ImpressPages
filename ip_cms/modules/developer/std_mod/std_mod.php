@@ -132,7 +132,7 @@ class StandardModule{
           $this->road .= '<span> -> </span>';
 
         if(isset($_GET['title'][$i]) && $_GET['title'][$i] != ''){
-          $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.htmlspecialchars($_GET['title'][$i])."</a>";
+          $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.$_GET['title'][$i]."</a>";
         } else {
           if($i < sizeof($_GET['road']) - 1){
             $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.htmlspecialchars($this->upArea->title)."</a>";
@@ -1694,7 +1694,7 @@ class StandardModule{
         $tmp_url.='&amp;';
         $tmp_url.='road[]='.$_GET['road'][$i];
         $tmp_url.='&amp;';
-        $tmp_url.='title[]='.$_GET['title'][$i];
+        $tmp_url.='title[]='.urlencode($_GET['title'][$i]);
       }
 
       if($i == $max_level && $ignore != 'sort'){

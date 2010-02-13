@@ -177,9 +177,10 @@ class ElementTextLang extends Element{ //data element in area
       $answer .= '/'.$value;            
     }
       
+    $answer = htmlspecialchars(mb_substr($answer, 0, $this->previewLength)); 
     $answer = \Library\Php\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
     
-    return htmlspecialchars(mb_substr($answer, 0, $this->previewLength));
+    return $answer;
   }
 
   function checkField($prefix, $action, $area){
