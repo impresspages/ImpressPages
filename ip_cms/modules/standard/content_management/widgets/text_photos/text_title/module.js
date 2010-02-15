@@ -160,7 +160,7 @@ function content_mod_text_title() {
 					height : this.auto_size(this.text),
 					content_css : global_config_base_url
 							+ global_config_template_url
-							+ global_config_template + "/default_content.css",
+							+ global_config_template + "/ip_content.css",
 					theme_advanced_styles : global_config_tiny_mce_styles,
 					forced_root_block : "p",
 

@@ -118,7 +118,7 @@ function content_mod_rich_text() {
 					height : "300",
 					content_css : global_config_base_url
 							+ global_config_template_url
-							+ global_config_template + "/default_content.css",
+							+ global_config_template + "/ip_content.css",
 					theme_advanced_styles : global_config_tiny_mce_styles,
 					forced_root_block : "p",
 

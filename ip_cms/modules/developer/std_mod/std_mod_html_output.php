@@ -140,7 +140,7 @@ class stdModHtmlOutput{
             theme_advanced_resizing : true,            
             theme_advanced_path_location : "bottom",
             extended_valid_elements : "style",
-            content_css : "'.BASE_URL.THEME_DIR.THEME.'/default_content.css",
+            content_css : "'.BASE_URL.THEME_DIR.THEME.'/ip_content.css",
             theme_advanced_styles : "'.$tinyMceStylesStr.'",
 
            
