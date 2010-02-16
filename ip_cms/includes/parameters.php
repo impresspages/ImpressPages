@@ -342,7 +342,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
         /*<span id="mod_content_management_parameter_span'.$tmpParameter['id'].'" onclick="">
         </span>*/
 
-        if($this->getType($modGroup, $module, $parGroup, $parameter) != 'wysiwyg' && $this->getType($modGroup, $module, $parGroup, $parameter) != 'lang_wysiwyg'){
+        if($tmpType != 'wysiwyg'){
           $tmp_value = htmlspecialchars($tmp_value);
         }
 
@@ -353,7 +353,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 
         $answer .= '
-            <img class="mod_content_management_parameter_buttons"  id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'" border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event); return false;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
+            <img style="display: none;" class="mod_content_management_parameter_buttons"  id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'" border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event); return false;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
 ';        
 
         
@@ -379,7 +379,9 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
           mod_content_management_parameters_".$tmpParameter['id']."[3] = false; //changed = false
           mod_content_management_parameters.push(mod_content_management_parameters_".$tmpParameter['id'].");        
           function mod_content_management_parameter_mouseover_".$tmpParameter['id']."(){
-            document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'block';
+            if(menu_saver){
+              document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'block';
+            }
           }
           function mod_content_management_parameter_mouseout_".$tmpParameter['id']."(){
             document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'none';
@@ -397,7 +399,7 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
         return $answer;
       }else{
         $tmpType = $this->getType($modGroup, $module, $parGroup, $parameter);
-        if($tmpType != 'wysiwyg' && $tmpType != 'lang_wysiwyg')
+        if($tmpType != 'string_wysiwyg' && $tmpType != 'lang_wysiwyg')
           return htmlspecialchars($this->getValue($modGroup, $module, $parGroup, $parameter));
         else
           return $this->getValue($modGroup, $module, $parGroup, $parameter);        
