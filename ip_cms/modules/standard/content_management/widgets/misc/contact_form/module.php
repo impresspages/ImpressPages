@@ -424,7 +424,8 @@ class Module extends \Modules\standard\content_management\Widget{
       $fields[] = $field;
       $i++;
     }
-    return Template::generateHtml($fields, $_REQUEST['thank_you'], $_REQUEST['email_to'], $_REQUEST['button'], $_REQUEST['email_subject'], 'col_'.$_REQUEST['collection_number'],  $_REQUEST['layout']);
+    $answer = Template::generateHtml($fields, $_REQUEST['thank_you'], $_REQUEST['email_to'], $_REQUEST['button'], $_REQUEST['email_subject'], 'col_'.$_REQUEST['collection_number'],  $_REQUEST['layout']); 
+    return str_replace('document.write', '//document.write', $answer);
   }
    
   function is_dynamic(){
