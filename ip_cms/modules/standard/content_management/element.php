@@ -152,7 +152,18 @@ class Element extends \Frontend\Element{
           $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist 
 		  break;
 		  case 'redirect':
-        $this->link = $this->redirectUrl;
+		    if($site->managementState()){
+		      if(strpos($this->redirectUrl, BASE_URL) === 0){
+		        if(strpos($this->redirectUrl, 'cms_action=manage') === false){
+		          if(strpos($this->redirectUrl, '?') === false){
+		            $this->redirectUrl .= '?cms_action=manage';
+		          } else {
+		            $this->redirectUrl .= '&cms_action=manage';
+		          }
+		        }
+		      }
+		    }
+		    $this->link = $this->redirectUrl;
 		  break;
 		  case 'default':
 		  default:
