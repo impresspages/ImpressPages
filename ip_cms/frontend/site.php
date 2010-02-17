@@ -203,6 +203,16 @@ class Site{
   
   /**
    *
+   * return String current zone name
+   * @param String
+   */
+  public function getCurrentZoneName(){
+    return $this->currentZone;
+  }
+    
+  
+  /**
+   *
    * return all registered zones
    * @param array Zone
    */

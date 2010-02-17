@@ -396,6 +396,12 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
         '.$tmp_value_preview.'
         ';
         
+        if($tmpType == 'wysiwyg'){
+          $answer = '<div>'.$answer.'</div>';
+        } else {
+          $answer = '<span>'.$answer.'</span>';
+        }
+        
         return $answer;
       }else{
         $tmpType = $this->getType($modGroup, $module, $parGroup, $parameter);
