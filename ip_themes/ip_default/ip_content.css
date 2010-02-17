@@ -183,7 +183,7 @@
 }
 
 .ipContent .ipWidgetTextPhotoImageRight img {
-  float: right;
+  float: left;
   border: none;
 }
 
