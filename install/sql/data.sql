@@ -1230,7 +1230,7 @@ INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `
 -- Dumping data for table--
 
 
-INSERT INTO `test_zone_to_content` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
+INSERT INTO `ip_cms_zone_to_content` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
 (163, 344, 105, 1),
 (164, 384, 105, 2),
 (165, 344, 106, 3),
