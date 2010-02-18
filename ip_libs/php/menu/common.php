@@ -159,7 +159,7 @@ class Common{
         if ($tmpLink) {
           $html .= '<li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>\n";
         } else {
-  				$html .= '<li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle()).$subHtml."</a></li>\n";
+  				$html .= '<li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle())."</a>".$subHtml."</li>\n";
   			}
   				
   			

@@ -236,7 +236,10 @@ class Script {
       foreach ($cssFiles as $key => $file) {
         $this->prepareCss($file);
       }
-      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
+      
+      rename('../'.THEME_DIR.'default_content.css', '../'.THEME_DIR.'ip_content.css');
+              
+      //header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
     } else {
       $answer .= MAKE_TEMPLATE_WRITEABLE;
       $answer .= "<br/>";
@@ -246,6 +249,8 @@ class Script {
       $answer .= "<br/>";
       $answer .= $htmlOutput->button(IP_NEXT, $navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction()));
     }
+    
+    
 
     return $answer;   
   }
@@ -256,7 +261,10 @@ class Script {
     $template = str_replace('.contentModTextPhotoImage', '.ipWidgetTextPhotoImageLeft', $template);
     $template = str_replace('contentModSeparator', 'ipWidgetSeparatorLine', $template);
     $template = str_replace('contentMod', 'ipWidget', $template);
-
+    $template = str_replace('standard/content_management/modules/', 'standard/content_management/widgets/', $template);
+    $template = str_replace('\\Modules\\standard\\content_management\\Modules\\', '\\Modules\\standard\\content_management\\Widgets\\', $template);
+    $template = str_replace('default_content.css', 'ip_content.css', $template);
+    
     file_put_contents($file, $template);    
   }
     
