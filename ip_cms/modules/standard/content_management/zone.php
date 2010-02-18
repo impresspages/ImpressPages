@@ -100,7 +100,7 @@ class Zone extends \Frontend\Zone{
         case 'inactive':
         case 'subpage':
         case 'redirect':          
-          $subElement = $this->getFirstElement($element->getId(), $level+1);
+          $subElement = $this->getFirstElement($element['id'], $level+1);
           if($subElement)
             return $this->makeElementFromDb($subElement, $level == 1);
         break;

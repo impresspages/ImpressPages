@@ -235,11 +235,18 @@ class Script {
       $cssFiles = $this->getFiles('../'.THEME_DIR, 'css');
       foreach ($cssFiles as $key => $file) {
         $this->prepareCss($file);
+        if(substr($file, -20) == '/default_content.css'){
+          $newFile = str_replace('/default_content.css', '/ip_content.css', $file);
+          rename($file, $newFile);
+        }
+        
+        
       }
       
-      rename('../'.THEME_DIR.'default_content.css', '../'.THEME_DIR.'ip_content.css');
+      
+      
               
-      //header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
+      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
     } else {
       $answer .= MAKE_TEMPLATE_WRITEABLE;
       $answer .= "<br/>";
