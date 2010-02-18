@@ -229,6 +229,7 @@ class Script {
       
     if ($this->directoryIsWriteable('../'.THEME_DIR)) {
       $phpFiles = $this->getFiles('../'.THEME_DIR, 'php');
+
       foreach ($phpFiles as $key => $file) {
         $this->prepareTemplate($file);
       }
@@ -246,7 +247,7 @@ class Script {
       
       
               
-      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
+     header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
     } else {
       $answer .= MAKE_TEMPLATE_WRITEABLE;
       $answer .= "<br/>";
@@ -397,7 +398,7 @@ class Script {
     if ($handle = opendir($dir)) { 
       while (false !== ($file = readdir($handle))) {
         if(is_dir($dir.$file) && $file != ".." && $file != ".") {
-          $answer = array_merge($answer, $this->getFiles($dir.$file, $extension));
+          $answer = array_merge($answer, $this->getFiles($dir.$file.'/', $extension));
         } else {
           if($file != ".." && $file != "."){
             if (strtolower(substr($file, -(strlen($extension)+1))) == '.'.$extension){
@@ -408,7 +409,6 @@ class Script {
       }
       closedir($handle);
     } 
-  
     return $answer;
   }
   
