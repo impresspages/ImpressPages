@@ -111,7 +111,7 @@ INSERT INTO `ip_cms_language` (`id`, `d_short`, `d_long`, `row_number`, `visible
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_mc_misc_contact_form` (`id`, `thank_you`, `email_to`, `email_subject`, `button`, `layout`) VALUES
-(2, 'Thank you', 'mangirdas@apro.lt', 'Email from my website.', 'Send', 'default');
+(2, 'Thank you', 'name@yousite.com', 'Email from my website.', 'Send', 'default');
 
 -- Dumping data for table--
 
