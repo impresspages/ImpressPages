@@ -42,10 +42,12 @@ class Manager{
     
     $answer .= HtmlOutput::header();
     $answer .= '<div class="content">'; 
+    $answer .= '<h1>ImperssPages CMS '.htmlspecialchars(\DbSystem::getSystemVariable('version')).'</h1>';
+    $answer .= '</div>';     
+    $answer .= '<div class="content">'; 
     $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache')).'</h1>';
     $answer .= $parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_comments');            
     $answer .= '<a href="'.$cms->generateUrl($cms->curModId, 'action=cache_clear').'" class="button">'.htmlspecialchars($parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_clear')).'</a><br/><br/><br/>';            
-
     $answer .= '</div>';     
     $answer .= HtmlOutput::footer();
     

@@ -652,8 +652,12 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1538, 'layout_small_right', 1, 0, '', 446, 'Layout small right', NULL, 'string'),
 (1539, 'layout_default', 1, 0, '', 450, 'Layout default', NULL, 'string'),
 (1540, 'layout_default', 1, 0, '', 521, 'Layout default', NULL, 'string'),
-(1541, 'layout_default', 1, 0, '', 461, 'Layout default', NULL, 'string');
-
+(1541, 'layout_default', 1, 0, '', 461, 'Layout default', NULL, 'string'),
+(1542, 'email_queue', 1, 0, '', 502, 'Email queue', NULL, 'string'),
+(1543, 'updated_module_detected', 1, 0, '', 531, 'Updated module detected', NULL, 'string'),
+(1544, 'install', 1, 0, '', 531, 'Install', NULL, 'string'),
+(1545, 'update', 1, 0, '', 531, 'Update', NULL, 'string'),
+(1546, 'save', 1, 0, '', 478, 'Save', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -1163,8 +1167,12 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1132, 'Small right', 1538),
 (1133, 'Default', 1539),
 (1134, 'Default', 1540),
-(1135, 'Default', 1541);
-
+(1135, 'Default', 1541),
+(1136, 'Email queue', 1542),
+(1137, 'New version detected', 1543),
+(1138, 'Install', 1544),
+(1139, 'Update', 1545),
+(1140, 'Save', 1546);
 
 -- Dumping data for table--
 

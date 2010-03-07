@@ -219,7 +219,7 @@ class Db_100 {
     }    
 
     
-    private function addStringParameter($groupId, $translation, $name, $value, $admin){
+    public static function addStringParameter($groupId, $translation, $name, $value, $admin){
       $sql = "INSERT INTO `".DB_PREF."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
       VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'string')";
       $rs = mysql_query($sql);
