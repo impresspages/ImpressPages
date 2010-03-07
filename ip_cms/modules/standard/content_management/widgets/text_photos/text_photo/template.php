@@ -28,7 +28,7 @@ class Template {
           $image = '';
         }
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto">
+          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeft">
             '.$image.'
             <div class="ipWidgetTextPhotoText">'.$text.'</div> 
             <div class="clear"><!-- --></div>
@@ -51,7 +51,7 @@ class Template {
           $image = '';
         }
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto">
+          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRight">
             '.$image.'
             <div class="ipWidgetTextPhotoText">'.$text.'</div> 
             <div class="clear"><!-- --></div>
@@ -72,7 +72,7 @@ class Template {
         else
           $image = '';
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto">
+          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeftSmall">
             '.$image.'
             <div class="ipWidgetTextPhotoText">'.$text.'</div> 
             <div class="clear"><!-- --></div>
@@ -90,7 +90,7 @@ class Template {
         else
           $image = '';
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto">
+          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRightSmall">
             '.$image.'
             <div class="ipWidgetTextPhotoText">'.$text.'</div> 
             <div class="clear"><!-- --></div>

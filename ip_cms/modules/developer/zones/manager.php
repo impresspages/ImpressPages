@@ -116,7 +116,7 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
 	  if($begin !== false && $end === strlen($str) - 1)
 	   return substr($str, $begin + 1, - 1);
 	  else
-	   return -1;
+	   return null;
   
   }
 

@@ -46,7 +46,8 @@ class Element extends \Frontend\Element{
 	public function generateContent(){
 		global $site;
 		global $parametersMod;
-		
+
+    $site->requireTemplate('administrator/search/template.php');
 
 		if($this->getId() == null)
       return Template::noSearchString($parametersMod->getValue('administrator', 'search', 'translations', 'search'), $parametersMod->getValue('administrator', 'search', 'translations', 'no_search_word'));

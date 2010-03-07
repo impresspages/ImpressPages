@@ -79,7 +79,7 @@ class Manager{
             $answer = $standardForm->generateErrorAnswer($errors);
           else{
             $fileUpload = new \Library\Php\File\UploadFile();
-            $fileUpload->allowOnly(array("php", "conf"));
+            $fileUpload->allowOnly(array("php", "conf", "txt"));
             $file = $fileUpload->upload('config', TMP_FILE_DIR); 
             if($file == UPLOAD_ERR_OK){
               $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;

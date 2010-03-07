@@ -206,6 +206,7 @@ function content_mod_title() {
 		if (level == '')
 			level = 1;
 		this.level = level;
-
+		this.tmpLevel = level;
 	}
+	
 }

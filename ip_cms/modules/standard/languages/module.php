@@ -29,6 +29,12 @@ class Module{
 			return;
 			
     $site->requireTemplate('standard/languages/template.php');
-    return Template::languages($site->languages);
+    $languages = array();
+    foreach($site->languages as $language){
+      if($language['visible']){
+        $languages[] = $language;
+      }
+    }
+    return Template::languages($languages);
   }
 }

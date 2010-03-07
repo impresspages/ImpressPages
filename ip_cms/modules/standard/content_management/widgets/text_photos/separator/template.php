@@ -14,10 +14,10 @@ class Template {
     switch($layout){
       default:
       case "line":     
-        return '<div class="ipWidget ipWidgetSeparatorLine"></div>';
+        return '<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorLine"></div>';
       break;
       case "space":     
-        return '<div class="ipWidget ipWidgetSeparatorSpace"></div>';
+        return '<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorSpace"></div>';
       break;
     }    
   }

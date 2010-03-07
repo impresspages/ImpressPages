@@ -16,27 +16,30 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
  * @package ImpressPages 
  */
 class Db{
-
+    private static $connection;
+  
     /**
      * Connect to database.
-     */
+     */  
     public static function connect(){
-      $conn = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD); 
-      if(!$conn) {
-				trigger_error('Can\'t connect to database.');
+      self::$connection = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+      if(!self::$connection) {
+            trigger_error('Can\'t connect to database.');
         return false;
       }else{
         mysql_select_db(DB_DATABASE);
         mysql_query("SET CHARACTER SET ".MYSQL_CHARSET);
         return true;
       }
-    } 
+    }
+  
+
 
     /**
      * Disconnect from database.
      */
     public static function disconnect(){
-     mysql_close();    
+     mysql_close(self::$connection);  
     }
     
 

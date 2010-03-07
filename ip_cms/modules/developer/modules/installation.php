@@ -68,14 +68,14 @@ class ModulesInstallation{
       if($module !== false){
         ModulesArea::after_insert($module['id']);      
       }
+
+      $this->importConfig($moduleGroupKey, $moduleKey);
       
       if(file_exists(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/script.php')){
         require_once(BASE_DIR.PLUGIN_DIR.$moduleGroupKey.'/'.$moduleKey.'/install/script.php');
         eval('$installObject = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\Install();');
         $installObject->execute();        
       }
-
-      $this->importConfig($moduleGroupKey, $moduleKey);
 
     }
       
@@ -310,18 +310,18 @@ class ModulesInstallation{
       $answer .= '
         <div class="newModule">      
           <p>'.$parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'new_module_detected').' <b>'.htmlspecialchars($moduleName).'</b></p>
-          <a onclick="LibDefault.ajaxMessage(\''.$cms->generateUrl().'\', \'type=ajax&action=install&module_group='.$newModule['configuration']->getModuleGroupKey().'&module='.$newModule['configuration']->getModuleKey().'\')" class="button">Install</a>
+          <a onclick="LibDefault.ajaxMessage(\''.$cms->generateUrl().'\', \'type=ajax&action=install&module_group='.$newModule['configuration']->getModuleGroupKey().'&module='.$newModule['configuration']->getModuleKey().'\')" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'install')).'</a>
           '.$tmpHtml.'
           <div class="clear"></div>
         </div>
         
         ';
-    } else {
+    } else { //update
       $moduleName = $newModule['configuration']->getModuleGroupKey().'/'.$newModule['configuration']->getModuleKey().':'.$newModule['configuration']->getModuleVersion();
       $answer .= '
         <div class="newModule">      
-          <p>'.$parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'new_module_detected').' <b>'.htmlspecialchars($moduleName).'</b></p>
-          <a onclick="LibDefault.ajaxMessage(\''.$cms->generateUrl().'\', \'type=ajax&action=install&module_group='.$newModule['configuration']->getModuleGroupKey().'&module='.$newModule['configuration']->getModuleKey().'\')" class="button">Install</a>
+          <p>'.$parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'updated_module_detected').' <b>'.htmlspecialchars($moduleName).'</b></p>
+          <a onclick="LibDefault.ajaxMessage(\''.$cms->generateUrl().'\', \'type=ajax&action=install&module_group='.$newModule['configuration']->getModuleGroupKey().'&module='.$newModule['configuration']->getModuleKey().'\')" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'modules', 'admin_translations_install', 'update')).'</a>
           '.$tmpHtml.'
           <div class="clear"></div>
         </div>

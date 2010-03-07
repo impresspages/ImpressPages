@@ -148,7 +148,7 @@ class cronInformation{
 		";
 		$rs = mysql_query($sql);
 		if($rs){		
-			if($lock = mysql_fetch_assoc($rs) && !isset($_GET['test'])){
+			if(($lock = mysql_fetch_assoc($rs)) && !isset($_GET['test'])){
 				if($lock['same_year'])
 					$this->firstTimeThisYear = false; 
 				if($lock['same_year'] && $lock['same_month'])
@@ -161,9 +161,9 @@ class cronInformation{
 					$this->firstTimeThisWeek = false;
 				$this->last_time_before = $lock['time'];
 			}
-		}else
+		}else{
 			trigger_error($sql.' '.mysql_error());
-		
+		}
 	
 	}
 }

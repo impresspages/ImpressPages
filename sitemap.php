@@ -176,12 +176,14 @@ class sitemap{
   	$pages = array();
   	if ($curDepth <= $maxDepth) {
     	foreach($site->languages as $key => $language){
-    	  $tmpElements = $zone->getElements($language['id'], $parentId);
-    	  foreach ($tmpElements as $key => $element) {
-    	    if ($element->getType() == 'default') {
-    	      $pages[] = $element;
-    	    }
-    	    $pages = array_merge($pages, $this->getPages($zone, $maxDepth, $element->getId(), $curDepth+1));
+    	  if($language['visible']){
+          $tmpElements = $zone->getElements($language['id'], $parentId);
+          foreach ($tmpElements as $key => $element) {
+            if ($element->getType() == 'default') {
+              $pages[] = $element;
+            }
+            $pages = array_merge($pages, $this->getPages($zone, $maxDepth, $element->getId(), $curDepth+1));
+          }
     	  }
     	}
   	}
@@ -234,12 +236,14 @@ class sitemap{
   	$count = 0;
   	if ($curDepth <= $maxDepth) {
     	foreach($site->languages as $key => $language){
-    	  $tmpElements = $zone->getElements($language['id'], $parentId);
-    	  foreach ($tmpElements as $key => $element) {
-    	    if ($element->getType() == 'default') {
-    	      $count++;
-    	    }
-    	    $count += $this->getPagesCount($zone, $maxDepth, $element->getId(), $curDepth+1);
+    	  if($language['visible']){
+          $tmpElements = $zone->getElements($language['id'], $parentId);
+          foreach ($tmpElements as $key => $element) {
+            if ($element->getType() == 'default') {
+              $count++;
+            }
+            $count += $this->getPagesCount($zone, $maxDepth, $element->getId(), $curDepth+1);
+          }
     	  }
     	}
   	}

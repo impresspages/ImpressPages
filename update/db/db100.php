@@ -218,6 +218,28 @@ class Db_100 {
       }
     }    
 
+    
+    private function addStringParameter($groupId, $translation, $name, $value, $admin){
+      $sql = "INSERT INTO `".DB_PREF."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
+      VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'string')";
+      $rs = mysql_query($sql);
+      if($rs){
+        $sql2 = "INSERT INTO `".DB_PREF."par_string` (`value`, `parameter_id`)
+        VALUES ('".mysql_real_escape_string($value)."', ".mysql_insert_id().");";
+        $rs2 = mysql_query($sql2);
+        if($rs2) {
+            return true;
+        } else {
+          trigger_error($sql2." ".mysql_error());  
+          return false;    
+        }
+      } else {
+        trigger_error($sql." ".mysql_error());  
+        return false;    
+      }
+      
+    }    
+      
 
     /**
      * @access private

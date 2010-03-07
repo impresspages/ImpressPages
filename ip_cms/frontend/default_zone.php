@@ -29,7 +29,7 @@ class DefaultZone extends Zone{
       return $answer;
     } 
     
-    return false;
+    return array();
   }
   
 

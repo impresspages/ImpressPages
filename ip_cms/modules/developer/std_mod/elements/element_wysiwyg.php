@@ -90,7 +90,7 @@ class ElementWysiwyg extends Element{ //data element in area
   function previewValue($record, $area){
     require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
     
-    return htmlspecialchars(\Library\Php\Text\String::mb_wrap(mb_substr($record[$this->dbField], 0, $this->previewLength), 10, "&#x200B;", 1));
+    return htmlspecialchars(\Library\Php\Text\String::mb_wordwrap(mb_substr($record[$this->dbField], 0, $this->previewLength), 10, "&#x200B;", 1));
   }
 
   function checkField($prefix, $action, $area){

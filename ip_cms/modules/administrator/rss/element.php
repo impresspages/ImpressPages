@@ -148,8 +148,10 @@ class Element extends \Frontend\Element{
 		$zone = $site->getZone($zoneName);
 		$pages = $zone->getElements($site->currentLanguage['id'], $parentId);
     if($depth < $maxDepth){
-      foreach($pages as $key => $page){
-        $pages = array_merge($pages, $this->getPages($zoneName, $page->id));
+      if(is_array($pages)){
+        foreach($pages as $key => $page){
+          $pages = array_merge($pages, $this->getPages($zoneName, $page->id));
+        }
       }
 		}
 		return $pages;

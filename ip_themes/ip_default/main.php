@@ -104,7 +104,7 @@
 
 <div class="footer">
   <p class="copyright"><?php echo $parametersMod->generateManagement('standard', 'configuration', 'translations', 'copyright'); ?></p>
-  <p class="poweredBy">Powered by <a href="http://www.impresspages.org">Impress Pages CMS</a></p>
+  <p class="poweredBy">Powered by <a href="http://www.impresspages.org">ImpressPages CMS</a></p>
   <div class="clear"><!-- --></div>
 </div>
 

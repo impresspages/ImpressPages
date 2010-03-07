@@ -178,7 +178,6 @@ class Manager{
     //require_once(MODULE_DIR."standard/seo/db.php");
     global $parametersMod;
     global $site;
-    
     require($file);
     $answer = '';
     
@@ -275,9 +274,12 @@ class Manager{
                   else
                     $parameter['type'] = 'string';
                     
-                  $parameter['value'] = $value;
+                  $parameter['value'] = str_replace("\r\n", "\n", $value); //user can edit parameters file and change line endings. So, we convert them back
+                  $parameter['value'] = str_replace("\r", "\n", $parameter['value']);
                   Db::insertParameter($tmpParameterGroup['id'], $parameter);
                 } else {
+                  $value = str_replace("\r\n", "\n", $value); //user can edit parameters file and change line endings. So, we convert them back
+                  $value = str_replace("\r", "\n", $value);
                   $parametersMod->setValue($groupName, $moduleName, $parameterGroupName, $parameterName, $value, $languageId);
                 }
               }

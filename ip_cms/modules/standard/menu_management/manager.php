@@ -153,7 +153,7 @@ class Manager{
           <p style="display: none;" id="property_description_error" class="error"></p>
           <textarea class="stdMod" name="property_description" ></textarea><br><br>
 
-          <input  style="cursor: pointer;" class="knob bolder" value="Save" type="submit"><br/><br/>
+          <input  style="cursor: pointer;" class="knob bolder" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" type="submit"><br/><br/>
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'url')).'</span><br>
           <p style="display: none;" id="property_url_error" class="error"></p>
@@ -185,7 +185,7 @@ class Manager{
           <input autocomplete="off" class="stdMod" name="property_last_modified" value=""><br><br>
 
 
-          <input style="cursor: pointer;" class="knob bolder" value="Save" type="submit">
+          <input style="cursor: pointer;" class="knob bolder" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" type="submit">
 				</div>
       </form>
           

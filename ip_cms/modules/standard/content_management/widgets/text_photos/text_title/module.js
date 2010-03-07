@@ -308,6 +308,7 @@ function content_mod_text_title() {
 		if (level == '')
 			level = 1;
 		this.level = level;
+		this.tmpLevel = level;
 
 	}
 

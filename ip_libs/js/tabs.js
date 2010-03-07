@@ -21,7 +21,7 @@
   function addTab(link_id, element_id){
     this.elem.push(element_id);
     this.links.push(link_id);
-    eval('document.getElementById(\'' + link_id + '\').onclick = function(){' + this.my_name + '.switchTab(\'' + element_id + '\');};');
+    eval('document.getElementById(\'' + link_id + '\').onclick = function(){' + this.my_name + '.switchTab(\'' + element_id + '\'); return false;};');
   }
 
   function switchTab(element_id){

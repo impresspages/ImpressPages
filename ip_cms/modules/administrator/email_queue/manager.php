@@ -99,7 +99,7 @@ class Manager{
 		 
      $area0 = new \Library\Php\StandardModule\Area();
      $area0->db_table = "m_administrator_email_queue";
-     $area0->name = "Email queue";
+     $area0->name = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'email_queue');
      $area0->db_key = "id";
      $area0->elements = $elements; 
      $area0->searchable = true;

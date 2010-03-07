@@ -121,6 +121,9 @@ $parameter["parameterValue/administrator/email_queue/admin_translations/attachme
 $parameter["parameterTitle/administrator/email_queue/admin_translations/email"] = "Email";
 $parameter["parameterValue/administrator/email_queue/admin_translations/email"] = "Email";
 
+$parameter["parameterTitle/administrator/email_queue/admin_translations/email_queue"] = "Email queue";
+$parameter["parameterValue/administrator/email_queue/admin_translations/email_queue"] = "Email queue";
+
 $parameter["parameterTitle/administrator/email_queue/admin_translations/from"] = "From";
 $parameter["parameterValue/administrator/email_queue/admin_translations/from"] = "From";
 
@@ -363,14 +366,23 @@ $parameter["parameterValue/developer/modules/admin_translations_install/error_in
 $parameter["parameterTitle/developer/modules/admin_translations_install/error_move_module"] = "Error move module";
 $parameter["parameterValue/developer/modules/admin_translations_install/error_move_module"] = "Incorrect folder. This module should be moved to: ";
 
-$parameter["parameterTitle/developer/modules/admin_translations_install/error_required_module"] = "Error required module";
-$parameter["parameterValue/developer/modules/admin_translations_install/error_required_module"] = "This module requires another module to be installed first: ";
+$parameter["parameterTitle/developer/modules/admin_translations_install/error_required_module"] = "New version detected";
+$parameter["parameterValue/developer/modules/admin_translations_install/error_required_module"] = "New version detected: ";
 
 $parameter["parameterTitle/developer/modules/admin_translations_install/error_update_required"] = "Error: update required";
 $parameter["parameterValue/developer/modules/admin_translations_install/error_update_required"] = "This module requires another module to be updated: ";
 
+$parameter["parameterTitle/developer/modules/admin_translations_install/install"] = "Install";
+$parameter["parameterValue/developer/modules/admin_translations_install/install"] = "Install";
+
 $parameter["parameterTitle/developer/modules/admin_translations_install/new_module_detected"] = "New module detected";
 $parameter["parameterValue/developer/modules/admin_translations_install/new_module_detected"] = "New module detected ";
+
+$parameter["parameterTitle/developer/modules/admin_translations_install/update"] = "Update";
+$parameter["parameterValue/developer/modules/admin_translations_install/update"] = "Update";
+
+$parameter["parameterTitle/developer/modules/admin_translations_install/updated_module_detected"] = "New module detected";
+$parameter["parameterValue/developer/modules/admin_translations_install/updated_module_detected"] = "New module detected ";
 
 $parameter["parameterTitle/developer/modules_configuration/admin_translations/admin"] = "Admin";
 $parameter["parameterValue/developer/modules_configuration/admin_translations/admin"] = "Admin";
@@ -1147,6 +1159,9 @@ $parameter["parameterValue/standard/menu_management/admin_translations/page_prop
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/page_title"] = "Page title";
 $parameter["parameterValue/standard/menu_management/admin_translations/page_title"] = "Meta title";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/save"] = "Save";
+$parameter["parameterValue/standard/menu_management/admin_translations/save"] = "Save";
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/question_delete"] = "Are you realy wish to delete?";
 $parameter["parameterValue/standard/menu_management/admin_translations/question_delete"] = "Are you realy wish to delete?";

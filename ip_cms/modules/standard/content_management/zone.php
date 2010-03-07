@@ -101,8 +101,9 @@ class Zone extends \Frontend\Zone{
         case 'subpage':
         case 'redirect':          
           $subElement = $this->getFirstElement($element['id'], $level+1);
-          if($subElement)
-            return $this->makeElementFromDb($subElement, $level == 1);
+          if($subElement){
+            return $subEleent;
+          }
         break;
         case 'default':
         default:

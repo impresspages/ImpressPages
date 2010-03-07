@@ -439,7 +439,6 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (850, 'parameter_string_lang', 1, 0, '', 352, 'String languages', '', 'string'),
 (851, 'parameter_wysiwyg_lang', 1, 0, '', 352, 'Wysiwyg languages', '', 'string'),
 (852, 'parameter_integer', 1, 0, '', 352, 'Integer', '', 'string'),
-(858, 'error_required', 1, 0, '', 352, 'Required field', '', 'string'),
 (860, 'error_number_small', 1, 0, '', 352, 'Smallest allowed number: ', '', 'string'),
 (861, 'log_size_in_days', 1, 0, '', 492, 'Log zise in days', 'The number describes how long old logs will be stored', 'integer'),
 (862, 'comment', 1, 0, '', 357, 'Comment', '', 'string'),
@@ -996,7 +995,6 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (662, 'String languages', 850),
 (663, 'Wysiwyg languages', 851),
 (664, 'Integer', 852),
-(669, 'Required field', 858),
 (671, 'Smallest allowed number: ', 860),
 (672, 'Comment', 862),
 (673, 'Automaticaly add new pages to news feed', 863),
@@ -1198,7 +1196,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '1.0.3 Beta', '2010-01-13 21:38:44'),
+(40, 'version', '1.0.4', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--

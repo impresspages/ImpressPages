@@ -76,7 +76,8 @@ class EditMenuManagement{
 		
 			if(mod_management.changed == true){				
 				evt.returnValue = \''.$parametersMod->getValue('standard', 'content_management','admin_translations','warning_save').'\';
-				return false;
+				return \''.$parametersMod->getValue('standard', 'content_management','admin_translations','warning_save').'\';
+				//return false;
 			}
 
     }

@@ -49,13 +49,13 @@ class Site{
   public function __construct(){
     if (defined('BACKEND') || defined('CRON')) {
       $this->parseUrl();
-      $this->languages = \Frontend\Db::getLanguages();
+      $this->languages = \Frontend\Db::getLanguages(true);
       if(sizeof($this->languages) > 0)
       $this->currentLanguage = reset($this->languages);
     } else {
       $this->parseUrl();
 
-      $this->languages = \Frontend\Db::getLanguages();
+      $this->languages = \Frontend\Db::getLanguages(true);
       if(sizeof($this->languages) == 0){
         trigger_error('All website languages are hidden.');
         exit;
@@ -375,8 +375,9 @@ class Site{
 
     if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
       $answer = BASE_URL.urlencode($this->languages[$languageId]['url']).'/';
-    }else
-    $answer = BASE_URL;
+    }else{
+      $answer = BASE_URL;
+    }
 
     if($zoneName != null){
       if($languageId == $this->currentLanguage['id']){ //current language
