@@ -269,8 +269,19 @@ class ElementWysiwygLang extends Element{ //data element in area
         `".mysql_real_escape_string($this->recordIdField)."` = '".(int)$rowId."' and `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']." '
         ";
         $rs3 = mysql_query($sql3);
-        if(!$rs3)
-          trigger_error("Can't update language field values ".$sql3." ".mysql_error());
+          if ($rs3){
+            if($stdModDb->updatedRowsCount() == 0){
+              $sql4 = "insert into `".DB_PREF.mysql_real_escape_string($this->translationTable)."`   
+              set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."',
+              `".mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."', `".mysql_real_escape_string($this->recordIdField)."` = '".$rowId."' ";
+              $rs4 = mysql_query($sql4);
+              if(!$rs4)
+                trigger_error($sql4." ".mysql_error());
+              
+            }        
+          }else{                
+            trigger_error("Can't update language field values ".$sql3." ".mysql_error());
+          }
       }
     }            
   }
