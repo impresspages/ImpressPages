@@ -699,7 +699,7 @@ class Site{
     if($rs){
       while($lock = mysql_fetch_assoc($rs)){
         if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-          require(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
+          require_once(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
           eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
           if(method_exists($moduleSystem, 'catchEvent')){
             $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
