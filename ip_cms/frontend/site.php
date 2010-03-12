@@ -694,12 +694,17 @@ class Site{
   
   
   public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
-    $sql = "select m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
+    $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
     $rs = mysql_query($sql);
     if($rs){
       while($lock = mysql_fetch_assoc($rs)){
-        if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-          require_once(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
+        if($lock['m_core']){
+          $dir = BASE_DIR.MODULE_DIR;
+        } else {
+          $dir = BASE_DIR.PLUGIN_DIR;
+        }
+        if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
+          require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
           eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
           if(method_exists($moduleSystem, 'catchEvent')){
             $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
