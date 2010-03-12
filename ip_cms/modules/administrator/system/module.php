@@ -19,6 +19,7 @@ class Module{
   function clearCache(){
     global $cms;
     global $parametersMod;
+    global $site;
     
 
 
@@ -41,7 +42,8 @@ class Module{
       
           
     }         
-  
+    $site->dispatchEvent('administrator', 'system', 'cache_cleared', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
+    
    
   }
 }

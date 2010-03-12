@@ -57,10 +57,13 @@ class Db{
     $groups = array();
     $sql = "select g.name as g_name, g.id, g.translation from `".DB_PREF."module_group` g
   	where 1 order by row_number";
+
     $rs = mysql_query($sql);
     if($rs){
       while($lock = mysql_fetch_assoc($rs)){
-        $groups[$lock['translation']] = array();    
+        if(!isset($groups[$lock['translation']])){ //if exist two groups with the same translation this array can be identified already
+          $groups[$lock['translation']] = array();  
+        }  
         
         if ($managed === null) {
           $managedSql = ''; 
@@ -89,8 +92,9 @@ class Db{
             $lock2['g_id'] =  $lock['id'];
             $groups[$lock['translation']][] = $lock2;
           }
-          if(sizeof($groups[$lock['translation']]) == 0)
+          if(sizeof($groups[$lock['translation']]) == 0){
             unset($groups[$lock['translation']]);
+          }
         }else trigger_error($sql." ".mysql_error());
       }
     }else trigger_error($sql." ".mysql_error());

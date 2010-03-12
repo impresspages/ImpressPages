@@ -175,12 +175,14 @@ class HtmlOutput{
   function modules($groups){
     global $cms;
 		$groupsHtml = "";
+				
     if($groups !== null){
 
 		
 		
       $i=0;
       foreach($groups as $key => $modules){
+      
         if($modules !== null)
           $groupsHtml .= '<span id="moduleGroupLink'.$i.'" class="left knob opened" >'.$key.'</span>';
         $i++;
