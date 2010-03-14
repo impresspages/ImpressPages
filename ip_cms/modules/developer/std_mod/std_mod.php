@@ -483,8 +483,12 @@ class StandardModule{
               <body>
                 <script type=\"text/javascript\">
                   //parent.window.location.reload(true); throws browser alert to post data again if there was a search before insert.
-                  parent.window.location.href = parent.window.location.href;
-                
+                  
+                  //parent.window.location.href = parent.window.location.href; don't work with #xxx
+                  
+                  var ipUrl = parent.window.location.href.split('#');
+                  parent.window.location.href = ipUrl[0];
+                  
                 </script>
               </body></html>
           ";              

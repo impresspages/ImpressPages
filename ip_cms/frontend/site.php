@@ -703,6 +703,7 @@ class Site{
         } else {
           $dir = BASE_DIR.PLUGIN_DIR;
         }
+        
         if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
           require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
           eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');

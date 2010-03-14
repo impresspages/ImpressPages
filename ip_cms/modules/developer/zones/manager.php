@@ -150,8 +150,6 @@ class ZonesArea extends \Library\Php\StandardModule\Area{
   function before_update($id){
     global $parametersMod;
     $this->tmp_zone = Db::getZone($id);
-    global $log;
-    $log->log('----', '----');
   }
 
   function after_update($id){

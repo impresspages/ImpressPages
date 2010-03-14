@@ -94,7 +94,7 @@ class HtmlOutput{
     function session_ping(){
       LibDefault.ajaxMessage(\''.$cms->generateActionUrl('ping').'\', \'\', pingResponse);
     }
-    iii = setInterval(session_ping, 30000);
+    iii = setInterval(session_ping, 120000);
     
     function pingResponse(response){
       if(response != \'\'){
