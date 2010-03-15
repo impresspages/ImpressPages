@@ -485,10 +485,10 @@ class StandardModule{
                   //parent.window.location.reload(true); throws browser alert to post data again if there was a search before insert.
                   
                   //parent.window.location.href = parent.window.location.href; don't work with #xxx
-                  
+                                   
                   var ipUrl = parent.window.location.href.split('#');
                   parent.window.location.href = ipUrl[0];
-                  
+                
                 </script>
               </body></html>
           ";              
@@ -1562,7 +1562,7 @@ class StandardModule{
 
     $answer .= '<ul>';
 
-    if($this->currentArea->allowDelete)
+    if($this->currentArea->allowInsert)
     $answer .= '
 			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
 
