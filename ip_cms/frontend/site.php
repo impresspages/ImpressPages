@@ -181,12 +181,12 @@ class Site{
       return $this->zones[$zoneName]['object'];
     }else{
       //error
-      $backtrace = debug_backtrace();
+      /*$backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
       trigger_error('Requested zone "'.htmlspecialchars($zoneName).'" does not exist. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
       else
       trigger_error('Requested zone "'.htmlspecialchars($zoneName).'" does not exist.');
-
+*/
       return false;
     }
   }
