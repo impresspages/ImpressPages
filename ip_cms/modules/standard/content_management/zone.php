@@ -85,7 +85,7 @@ class Zone extends \Frontend\Zone{
 		  $element = $this->makeElementFromDb($dbElement, $dbParentElement['parent'] == null);
       return $element;
 		} else {
-      return false;
+		  return false;
 		}
 	}
 
@@ -163,7 +163,6 @@ class Zone extends \Frontend\Zone{
 	  $newElement->setType($dbElement['type']);
 	  $newElement->setRedirectUrl($dbElement['redirect_url']);
 	  $newElement->setDynamicModules($dbElement['dynamic_modules']);
-
     return $newElement;
   }
   

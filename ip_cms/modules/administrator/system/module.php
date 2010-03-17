@@ -22,14 +22,18 @@ class Module{
     global $site;
     
 
-
+    
     $cachedUrl = \DbSystem::getSystemVariable('cached_base_url'); // get system variable
+
+    $site->dispatchEvent('administrator', 'system', 'clear_cache', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
+    
+    
     $sql = "select m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
     $rs = mysql_query($sql);
     if($rs){
       while($lock = mysql_fetch_assoc($rs)){
         if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-          require(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
+          require_once(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");         
           eval('$module_system = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
           if(method_exists($module_system, 'clearCache')){
             $module_system->clearCache($cachedUrl);

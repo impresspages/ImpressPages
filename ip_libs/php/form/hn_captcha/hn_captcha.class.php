@@ -1,4 +1,7 @@
 <?php
+
+namespace Library\Php\Form;  
+
 /**
   * PHP-Class hn_captcha Version 1.5.1, released 28-Jan-2008
   *
@@ -475,14 +478,14 @@ class hn_captcha
                              'refreshbuttontext'=>'new ID'
                             ),
                 'de'=>array(
-                            'msg1'=>'Bitte tragen Sie die <b>'.$this->chars.' Zeichen</b> in das Feld ein. Zeichen von <b>0..9</b> und <b>'.$usedchars.'</b> sind möglich.',
+                            'msg1'=>'Bitte tragen Sie die <b>'.$this->chars.' Zeichen</b> in das Feld ein. Zeichen von <b>0..9</b> und <b>'.$usedchars.'</b> sind mï¿½glich.',
                             'msg2'=>'Die Zeichen im Bild sind unleserlich. Generiere eine ',
                             'buttontext'=>'abschicken',
                             'refreshbuttontext'=>'neue ID'
                             ),
                 'fr'=>array(
-                            'msg1'=>'Vous devez lire et saisir les <b>'.$this->chars.' caratères</b> présent dans l\'image ci-dessus (<b>0..9</b> et <b>'.$usedchars.'</b>), dans le champ ci-dessous <br> et valider le formulaire.',
-                            'msg2'=>'Les caractères sont illisibles, merci de générer une nouvelle image.',
+                            'msg1'=>'Vous devez lire et saisir les <b>'.$this->chars.' caratï¿½res</b> prï¿½sent dans l\'image ci-dessus (<b>0..9</b> et <b>'.$usedchars.'</b>), dans le champ ci-dessous <br> et valider le formulaire.',
+                            'msg2'=>'Les caractï¿½res sont illisibles, merci de gï¿½nï¿½rer une nouvelle image.',
                             'buttontext'=>'valider',
                             'refreshbuttontext'=>'nouvelle ID'
                             ),
@@ -493,9 +496,9 @@ class hn_captcha
                             'refreshbuttontext'=>'nuovo ID'
                             ),
                 'fi'=>array(
-                            'msg1'=>'Kirjoita laatikossa lukeva varmistuskoodi (<b>'.$this->chars.' merkkiä</b>). Koodi sisältää merkkejä <b>0..9</b> ja <b>'.$usedchars.'</b>.',
+                            'msg1'=>'Kirjoita laatikossa lukeva varmistuskoodi (<b>'.$this->chars.' merkkiï¿½</b>). Koodi sisï¿½ltï¿½ï¿½ merkkejï¿½ <b>0..9</b> ja <b>'.$usedchars.'</b>.',
                             'msg2'=>'En pysty lukemaan tuota. Generoi uusi ',
-                            'buttontext'=>'Lähetä',
+                            'buttontext'=>'Lï¿½hetï¿½',
                             'refreshbuttontext'=>'uusi ID'
                              ),
                 'nl'=>array(
@@ -1037,7 +1040,7 @@ class hn_captcha
         public function get_filename_url($public='')
         {
             if($public==='') $public = $this->public_key;
-            return str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->tempfolder).$public.'.jpg';
+            return str_replace(BASE_DIR, '', $this->tempfolder).$public.'.jpg';
         }
 
         /** @private **/
@@ -1151,12 +1154,12 @@ class hn_captcha
             if($this->lang == "de" && $this->current_try >= 2) return $this->sanitized_output('Die Eingabe war nicht korrekt. Bitte noch einmal versuchen:<br>&nbsp;');
 
             // invalid try's: fr
-            if($this->lang == "fr" && $this->current_try > 2 && $this->refreshlink) return $this->sanitized_output('Saisie non valide. Veuillez essayer à nouveau:<br>Astuce: Si vous ne parvenez pas à lire les caractères, vous pouvez générer une nouvelle image!');
-            if($this->lang == "fr" && $this->current_try >= 2) return $this->sanitized_output('Saisie non valide. Veuillez essayer à nouveau:<br>&nbsp;');
+            if($this->lang == "fr" && $this->current_try > 2 && $this->refreshlink) return $this->sanitized_output('Saisie non valide. Veuillez essayer ï¿½ nouveau:<br>Astuce: Si vous ne parvenez pas ï¿½ lire les caractï¿½res, vous pouvez gï¿½nï¿½rer une nouvelle image!');
+            if($this->lang == "fr" && $this->current_try >= 2) return $this->sanitized_output('Saisie non valide. Veuillez essayer ï¿½ nouveau:<br>&nbsp;');
 
             // invalid try's: fi
-            if($this->lang == "fi" && $this->current_try > 2 && $this->refreshlink) return $this->sanitized_output('Epäkelpo syöte. Yritä uudestaan:<br>Vihje: Jos et saa merkeistä selvää, generoi uusi koodi!');
-            if($this->lang == "fi" && $this->current_try >= 2) return $this->sanitized_output('Epäkelpo syöte. Yritä uudestaan:<br>&nbsp;');
+            if($this->lang == "fi" && $this->current_try > 2 && $this->refreshlink) return $this->sanitized_output('Epï¿½kelpo syï¿½te. Yritï¿½ uudestaan:<br>Vihje: Jos et saa merkeistï¿½ selvï¿½ï¿½, generoi uusi koodi!');
+            if($this->lang == "fi" && $this->current_try >= 2) return $this->sanitized_output('Epï¿½kelpo syï¿½te. Yritï¿½ uudestaan:<br>&nbsp;');
 
             // invalid try's: nl
             if($this->lang == "nl" && $this->current_try > 2 && $this->refreshlink) return $this->sanitized_output('De ingevoerde code was onjuist. Probeer aub opnieuw:<br>Tip: Wanneer u de tekens niet kan lezen, kan u een nieuwe afbeelding genereren!');

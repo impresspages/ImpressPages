@@ -306,14 +306,16 @@ class FieldWysiwyg extends Field{
 class FieldCaptcha extends Field{
   var $captcha_init;
 
+  
   function __construct(){
+    
     $this->captcha_init = array(
 
       // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-      'tempfolder'     => $_SERVER['DOCUMENT_ROOT'].'/images/tmp/',
+      'tempfolder'     => BASE_DIR.TMP_IMAGE_DIR,
 
       // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-      'TTF_folder'     => LIBRARY_DIR.'php/form/hn_captcha/fonts/',
+      'TTF_folder'     => BASE_DIR.LIBRARY_DIR.'php/form/hn_captcha/fonts/',
 
       // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
       // Attention, the names have to be written casesensitive!
@@ -342,14 +344,13 @@ class FieldCaptcha extends Field{
   }
 
   function genHtml($class, $id){
-    
+    require_once(__DIR__.'/hn_captcha/hn_captcha.class.php');
     $captcha = new hn_captcha($this->captcha_init, TRUE);
       
     $captcha->make_captcha();
     
     $_SESSION['library']['php']['form']['standard']['captcha'][$this->name]['public_key'] = $captcha->public_key;
-    
-    return '<img src="'.BASE_URL.substr($captcha->get_filename_url(), 1).'" alt="Captcha"/><br />
+    return '<img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
     <input id="'.$id.'" type="text" name="'.$this->name.'" />';
     //<input type="hidden" name="'.$this->name.'_captcha_key" value="'.$captcha->public_key.'" />';
 
@@ -357,6 +358,7 @@ class FieldCaptcha extends Field{
   
   
   function getError(){
+    require_once(__DIR__.'/hn_captcha/hn_captcha.class.php');
     $error = false;
     if($this->required && (!isset($_POST[$this->name]) || $_POST[$this->name] == '')){
       $error = true;
