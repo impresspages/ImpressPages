@@ -14,12 +14,18 @@ class ElementDateTime extends Element{ //data element in area
 
   function __construct($variables){
     global $parametersMod;
-    $this->order = true;
     
     $this->regExpression = '/^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/';
     $this->regExpressionError = $parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'incorrect_date_format');
+
+    if(!isset($variables['order'])){
+      $variables['order'] = true;
+    }
+      
     
     parent::__construct($variables);
+
+    
     
     if(!isset($variables['dbField']) || $variables['dbField'] == ''){
       $backtrace = debug_backtrace();

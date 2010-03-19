@@ -102,7 +102,7 @@ class Zone extends \Frontend\Zone{
         case 'redirect':          
           $subElement = $this->getFirstElement($element['id'], $level+1);
           if($subElement){
-            return $subEleent;
+            return $subElement;
           }
         break;
         case 'default':

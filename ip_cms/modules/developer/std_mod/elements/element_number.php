@@ -17,9 +17,13 @@ class ElementNumber extends Element{ //data element in area
 	var $minVal;
 	
   function __construct($variables){    
-    $this->order = true;
+    if(!isset($variables['order'])){
+      $variables['order'] = true;
+    }
+      
     
     parent::__construct($variables);
+    
     
     if(!isset($variables['dbField']) || $variables['dbField'] == ''){
       $backtrace = debug_backtrace();

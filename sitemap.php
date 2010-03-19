@@ -15,10 +15,11 @@
 /** @private */
 
 
-define('SITEMAP_MAX_LENGTH', 600);
+define('SITEMAP_MAX_LENGTH', 50000);
 
 define('CMS', true);
 define('FRONTEND', true);
+define('SITEMAP', true);
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 
@@ -46,8 +47,8 @@ if(\Db::connect()){
 
   $sitemap = new Sitemap();  
     
-  if(isset($_GET['nr']) && isset($_GET['zone'])){
-    echo $sitemap->getSitemap($_GET['zone'], $_GET['nr']);
+  if(isset($_GET['nr']) && isset($_GET['lang']) && isset($_GET['zone'])){
+    echo $sitemap->getSitemap($_GET['zone'], $_GET['lang'], $_GET['nr']);
   }else{
     echo $sitemap->getSitemapIndex();  
   }
@@ -90,7 +91,7 @@ class sitemap{
    * @param int $nr Number of sitemap. Big sites are split into several sitemaps. Begining from 0.
    * @return string Sitemap XML      
    */
-  function getSitemap($zone,$nr){
+  function getSitemap($zone, $languageId, $nr){
     global $parametersMod;
     global $site;
 
@@ -114,10 +115,10 @@ class sitemap{
   	
   	
   	if($this->mappedZones[$zone] == -1) //unlimited depth
-  	 $pages = $this->getPages($site->getZone($zone));
+  	 $pages = $this->getPages($site->getZone($zone), $languageId);
   	else
-  	 $pages = $this->getPages($site->getZone($zone), $this->mappedZones[$zone]);
-  	
+  	 $pages = $this->getPages($site->getZone($zone), $languageId, $this->mappedZones[$zone]);
+  	//var_dump($pages);
   	
   	for($i=$nr*SITEMAP_MAX_LENGTH; $i<($nr+1)*SITEMAP_MAX_LENGTH; $i++){
   		if(isset($pages[$i])){
@@ -171,23 +172,19 @@ class sitemap{
    * Generates array of all website pages    
    * @return array ('link', 'last_modified', 'modify_frequency', 'priority')    
    */  	 
-  function getPages($zone, $maxDepth = 1000, $parentId = null, $curDepth = 1){
+  function getPages($zone, $languageId, $maxDepth = 1000, $parentId = null, $curDepth = 1){
   	global $site;
   	$pages = array();
-  	if ($curDepth <= $maxDepth) {
-    	foreach($site->languages as $key => $language){
-    	  if($language['visible']){
-          $tmpElements = $zone->getElements($language['id'], $parentId);
-          foreach ($tmpElements as $key => $element) {
-            if ($element->getType() == 'default') {
-              $pages[] = $element;
-            }
-            $pages = array_merge($pages, $this->getPages($zone, $maxDepth, $element->getId(), $curDepth+1));
-          }
-    	  }
-    	}
+  	if ($curDepth <= $maxDepth) {  	  
+      $tmpElements = $zone->getElements($languageId, $parentId);
+      foreach ($tmpElements as $key => $element) {
+        if ($element->getType() == 'default') {
+          $pages[] = $element;
+        }
+        $pages = array_merge($pages, $this->getPages($zone, $languageId, $maxDepth, $element->getId(), $curDepth+1));
+      }
   	}
-    return $pages;
+  	return $pages;
   }
   
   
@@ -208,7 +205,8 @@ class sitemap{
   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
   
     foreach($this->mappedZones as $curZone => $curDepth){
-      if($curDepth == -1) //unlimited depth
+      //count all page is to expensive operation. 
+      /*if($curDepth == -1) //unlimited depth
         $count = $this->getPagesCount($site->getZone($curZone));
       else
         $count = $this->getPagesCount($site->getZone($curZone), $curDepth);
@@ -218,7 +216,15 @@ class sitemap{
           <loc>'.BASE_URL.'sitemap.php?zone='.$curZone.'&amp;nr='.$i.'</loc>	  
        </sitemap>
         ';  
-      
+      }*/
+      foreach($site->languages as $key => $language){
+        if($language['visible']){
+           $answer .= '
+           <sitemap>
+              <loc>'.BASE_URL.'sitemap.php?zone='.$curZone.'&amp;lang='.$language['id'].'&amp;nr=0</loc>    
+           </sitemap>
+           ';  
+        }
       }
     }     
     

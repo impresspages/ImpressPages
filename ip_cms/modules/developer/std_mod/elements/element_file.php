@@ -17,8 +17,15 @@ class ElementFile extends Element{ //data element in area
   var $destDir;
 
   function __construct($variables){
+    if(!isset($variables['order'])){
+      $variables['order'] = true;
+    }
+      
+    
     parent::__construct($variables);
 
+    
+    
     if(!isset($variables['dbField']) || $variables['dbField'] == ''){
       $backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])

@@ -638,8 +638,8 @@ class StandardModule{
                 <script type=\"text/javascript\">
                 //parent.window.location.reload(true);
                 //parent.window.location.href = parent.window.location.href;
-                parent.window.location.href = '".str_replace('&amp;', '&',$this->generateUrlBack())."';
-                
+                //parent.window.location.href = '".str_replace('&amp;', '&',$this->generateUrlBack())."';
+                parent.window.location.href = '".str_replace('&amp;', '&',$_POST['back_url'])."';
                 </script>
               </body></html>
             ";		          
@@ -1099,6 +1099,7 @@ class StandardModule{
     $answer .= '<form class="stdMod" target="std_mod_update_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
     $answer .= '<div class="search">';
     $answer .= '<input type="hidden" name="type" value="ajax"/>';
+    $answer .= '<input type="hidden" name="back_url" value="'.$this->generateUrlBack().'"/>';
     $answer .= '<input type="hidden" name="action" value="update"/>';
     foreach($area->elements as $key => $value){
       if ($this->errors != null && isset($this->errors[$key]))

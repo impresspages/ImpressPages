@@ -10,10 +10,14 @@ if (!defined('BACKEND')) exit;
 
 class ElementBool extends Element{ //data element in area
   
-  function __construct($variables){    
-    parent::__construct($variables);
+  function __construct($variables){
+
+    if(!isset($variables['order'])){
+      $variables['order'] = true;
+    }
+      
     
-    $this->order = true;
+    parent::__construct($variables);
     
     if(!isset($variables['dbField']) || $variables['dbField'] == ''){
       $backtrace = debug_backtrace();

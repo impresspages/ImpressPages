@@ -195,7 +195,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $htmlForm = new \Library\Php\Form\Standard($fields);
     $errors = $htmlForm->getErrors();
     $answer = '';
-    if(sizeof($errors) > 0){
+    if(sizeof($errors) > 0 || $htmlForm->detectSpam()){
       $answer = $htmlForm->generateErrorAnswer($errors);
 
     }else{

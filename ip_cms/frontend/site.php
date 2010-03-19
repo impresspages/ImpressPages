@@ -47,7 +47,7 @@ class Site{
 
 
   public function __construct(){
-    if (defined('BACKEND') || defined('CRON')) {
+    if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
       $this->parseUrl();
       $this->languages = \Frontend\Db::getLanguages(true);
       if(sizeof($this->languages) > 0)
@@ -334,7 +334,11 @@ class Site{
    * @return string URL
    */
   public function generateCurrentUrl(){
-    $pageURL = 'http://';
+    $pageURL = 'http';
+    if ($_SERVER["HTTPS"] == "on"){
+      $pageURL .= "s";
+    }
+    $pageURL .= '://';
     if ($_SERVER["SERVER_PORT"] != "80") {
       $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
     } else {
@@ -670,10 +674,16 @@ class Site{
 
     $systemDirs = array();
 
-    $systemDirs['coredir'] = 1;
+    $systemDirs[PLUGIN_DIR] = 1;
+    $systemDirs[CONFIG_DIR] = 1;
+    $systemDirs[THEME_DIR] = 1;
+    $systemDirs[LIBRARY_DIR] = 1;
     $systemDirs[FILE_DIR] = 1;
     $systemDirs[IMAGE_DIR] = 1;
     $systemDirs[VIDEO_DIR] = 1;
+    $systemDirs[AUDIO_DIR] = 1;
+    $systemDirs['install'] = 1;
+    $systemDirs['update'] = 1;
     if(isset($systemDirs[$url]))
     return true;
     else
