@@ -23,6 +23,7 @@ require_once (__dir__.'/elements/element_text_lang.php');
 require_once (__dir__.'/elements/element_number.php');
 require_once (__dir__.'/elements/element_pswd.php');
 require_once (__dir__.'/elements/element_select.php');
+require_once (__dir__.'/elements/element_select_lang.php');
 require_once (__dir__.'/elements/element_image.php');
 require_once (__dir__.'/elements/element_file.php');
 require_once (__dir__.'/elements/element_wysiwyg.php');
