@@ -156,7 +156,11 @@ class Cms{
       if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())){
         $this->curModId = $_GET['module_id'];
         $newModule = \Db::getModule($_GET['module_id']);
-        require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+        if(file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php')){
+          require_once(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+        } else {
+          require_once(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+        }
         eval('$globalWorker = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\BackendWorker();');
         $globalWorker->work();          
       }        
