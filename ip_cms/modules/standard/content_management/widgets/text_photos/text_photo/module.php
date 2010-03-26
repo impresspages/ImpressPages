@@ -102,7 +102,7 @@ class Module extends \Modules\standard\content_management\Widget{
       $answer .= "  var new_module = new content_mod_text_photo();";
       $answer .= "  var new_module_name = '".$mod_management_name.".' + ".$mod_management_name.".get_modules_array_name() + '[".$collection_number."]';";
       $answer .= "  new_module.init(".$collection_number.", ".$module_id.", ".$visible.", new_module_name, ".$mod_management_name.");";
-      $answer .= "  new_module.preview_html = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($lock['title'], $preview_photo, $preview_photo_big, $lock['text'], $this->getLayout($module_id)))))."';";
+      $answer .= "  new_module.preview_html = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($lock['title'], $preview_photo, $preview_photo_big, $lock['text'], $this->getLayout($module_id))))))."';";
       $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
       $answer .= "  new_module.set_title('".addslashes($lock['title'])."');";
       $answer .= "  new_module.set_text('".addslashes(str_replace("\r", " ",str_replace("\n", " ",$lock['text'])))."');";
@@ -331,8 +331,8 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
   function set_error($error){
-    global $global_worker;
-    $global_worker->set_error($error);
+    global $globalWorker;
+    $globalWorker->set_error($error);
   }
   function clearCache() {
     $sql = "update `".DB_PREF."mc_text_photos_text_photo` set `text` = REPLACE(`text`, `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where base_url <> '".mysql_real_escape_string(BASE_URL)."' ";

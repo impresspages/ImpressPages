@@ -14,15 +14,14 @@ class Template{
   public static function searchForm($caption, $value, $button, $url){
     global $parametersMod;
     return '
-
-			<form id="modAdministratorSearchForm" method="post" action="'.$url.'"> 
-				<div>
-  				<input type="hidden" name="action" value="search" />
-  				<input type="text" name="q" value="'.htmlspecialchars($value).'" class="modAdministratorSearchInput" /> 
-					<a title="'.htmlspecialchars($parametersMod->getValue('administrator', 'search', 'translations', 'search')).'" href="#" class="modAdministratorSearchButton" onclick="document.getElementById(\'modAdministratorSearchForm\').submit(); return false;"></a>
-				</div>
-			</form>    
-    ';    
+<form id="modAdministratorSearchForm" method="post" action="'.$url.'"> 
+  <div>
+    <input type="hidden" name="action" value="search" />
+    <input type="text" name="q" value="'.htmlspecialchars($value).'" class="modAdministratorSearchInput" /> 
+    <a title="'.htmlspecialchars($parametersMod->getValue('administrator', 'search', 'translations', 'search')).'" href="#" class="modAdministratorSearchButton" onclick="document.getElementById(\'modAdministratorSearchForm\').submit(); return false;"></a>
+  </div>
+</form>    
+';    
   }
   
   public static function noSearchString($title, $text){
@@ -70,19 +69,21 @@ class Template{
   
   public static function elementsList($elements){
     global $parametersMod;
-    $answer = '';
-    $answer .= '<ul class="modAdministratorSearchList">';
+    $answer = "\n";
+    $answer .= '<ul class="modAdministratorSearchList">'."\n";
     foreach ($elements as $key => $element) {
-		  $answer .= '<li>';
+		  $answer .= '  <li>'."\n";
       $tmpTitle = $element->getPageTitle();
-      if($tmpTitle == '')
-        $tmpTitle = $element->getButtonTitle(); 
-			$answer .= '<a class="modAdministratorSearchLink" href="'.$element->getLink().'">'.htmlspecialchars($tmpTitle).'</a>';
-			if($parametersMod->getValue('administrator', 'search', 'options', 'show_description'))
-				$answer .= '<p class="modAdministratorSearchDescription">'.htmlspecialchars($element->getDescription()).'</p>';
-      $answer .= '</li>'."\n";
+      if($tmpTitle == ''){
+        $tmpTitle = $element->getButtonTitle();
+      } 
+			$answer .= '    <a class="modAdministratorSearchLink" href="'.$element->getLink().'">'.htmlspecialchars($tmpTitle).'</a>'."\n";
+			if($parametersMod->getValue('administrator', 'search', 'options', 'show_description')){
+				$answer .= '    <p class="modAdministratorSearchDescription">'.htmlspecialchars($element->getDescription()).'</p>'."\n";
+			}
+      $answer .= '  </li>'."\n";
     }
-    $answer .= '</ul>';
+    $answer .= '</ul>'."\n";
     return $answer;
   }
 

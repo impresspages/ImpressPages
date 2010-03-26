@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\misc\html_code;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($text, $manager = false, $layout=null){
@@ -33,7 +33,11 @@ class Template {
     switch($layout){
       default:
       case "default":  			
-        return '<div class="ipWidget ipWidgetHtmlCode">'.$answer.'</div>';
+        return '
+<div class="ipWidget ipWidgetHtmlCode">
+  '.$answer.'
+</div>
+';
       break;
     }
   }

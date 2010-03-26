@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\logo_gallery;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
 class Template {
 
@@ -16,9 +16,7 @@ class Template {
     switch($layout){
       default:
       case "default":  
-        $answer = '
-        <div class="ipWidget ipWidgetLogoGallery"><div class="ipWidgetLogoGalleryWrapper">
-';
+        $galleryHtml = '';
         foreach($photos as $key => $lock){
           if($lock['link'] != '' && strpos($lock['link'], "http://") !== 0)
             $lock['link'] = 'http://'.$lock['link'];
@@ -28,11 +26,19 @@ class Template {
           $lock['link'] = str_replace('"', '\"', $lock['link']);  
           
           if($lock['link'])
-            $answer .= '<a rel="nofollow" href="'.$lock['link'].'"><span class="ipWidgetLogoGalleryLogo" style="background: url('.$lock['logo'].') no-repeat scroll center center;"></span></a>'."\n";
+            $galleryHtml .= '    <a rel="nofollow" href="'.$lock['link'].'"><span class="ipWidgetLogoGalleryLogo" style="background: url('.$lock['logo'].') no-repeat scroll center center;"></span></a>'."\n";
           else
-            $answer .= '<span class="ipWidgetLogoGalleryLogo" style="background: url('.$lock['logo'].') no-repeat scroll center center;"></span>'."\n";
+            $galleryHtml .= '    <span class="ipWidgetLogoGalleryLogo" style="background: url('.$lock['logo'].') no-repeat scroll center center;"></span>'."\n";
         }
-        $answer .= '</div><div class="clear"><!-- --></div></div>'."\n";
+        
+        $answer = '
+<div class="ipWidget ipWidgetLogoGallery">
+  <div class="ipWidgetLogoGalleryWrapper">
+    '.$galleryHtml.'
+  </div>  
+  <div class="clear"><!-- --></div>
+</div>
+';
         return $answer;
       break;
     }

@@ -23,20 +23,20 @@ class Template{
 		}
 		
 		return '
-		<script src="'.BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js" type="text/javascript"></script>
-		<span class="label">'.$parametersMod->generateManagement('community', 'newsletter', 'subscription_translations', 'newsletter').'</span>
-		<span id="modCommunityNewsletterError" class="error">'.strip_tags($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'text_incorrect_email')).'</span>
-		<form id="modCommunityNewsletterRegister" onsubmit="ModCommunityNewsletter.subscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;" method="post" action=""> 
-			<div>
-				<input type="text" name="email" class="input" /> 
-				<input type="hidden" name="action" value="subscribe" />
-			</div>
-			<div>
-    		<a href="#" class="subscribe" onclick="ModCommunityNewsletter.subscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'subscribe')).'</a>
-    		'.$unsubscribtionButtonHtml.'
-    		<div class="clear"><!-- --></div>
-      </div> 
-		</form>
+<script src="'.BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js" type="text/javascript"></script>
+<span class="label">'.$parametersMod->generateManagement('community', 'newsletter', 'subscription_translations', 'newsletter').'</span>
+<span id="modCommunityNewsletterError" class="error">'.strip_tags($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'text_incorrect_email')).'</span>
+<form id="modCommunityNewsletterRegister" onsubmit="ModCommunityNewsletter.subscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;" method="post" action=""> 
+  <div>
+    <input type="text" name="email" class="input" /> 
+    <input type="hidden" name="action" value="subscribe" />
+  </div>
+  <div>
+    <a href="#" class="subscribe" onclick="ModCommunityNewsletter.subscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'subscribe')).'</a>
+    '.$unsubscribtionButtonHtml.'
+    <div class="clear"><!-- --></div>
+  </div> 
+</form>
 		';
 	}	
 
@@ -60,7 +60,7 @@ class Template{
 
 	  global $parametersMod;
 
-    $unsubscribeHtml = '<a href="'.$unsubscribeLink.'">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'unsubscribe')).'</a>';
+    $unsubscribeHtml = "\n".'<a href="'.$unsubscribeLink.'">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'unsubscribe')).'</a>'."\n";
 
 		$email = $parametersMod->getValue('standard','configuration','main_parameters','email_template', $languageId);
 		$email = str_replace('[[content]]', $text, $email);
@@ -69,12 +69,13 @@ class Template{
     $email = \Library\Php\Text\SystemVariables::clear($email);
 
 		$email = '
-		<html>
-			<head></head>
-			<body>
-				'.$email.'
-			</body>
-		</html>';
+<html>
+  <head></head>
+	<body>
+    '.$email.'
+  </body>
+</html>
+';
 	  return $email;
 	}
 	

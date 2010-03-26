@@ -54,9 +54,9 @@ class FieldText extends Field{
   function genHtml($class, $id){
     $answer = '';
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
     else      
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
   }
   function getError(){
     $error = false;
@@ -74,9 +74,9 @@ class FieldCheckbox extends Field{
   function genHtml($class, $id){
     $answer = '';
     if(isset($_POST[$this->name]) || $this->value)
-      return '<input id="'.$id.'" checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'" value="1"/>';
+      return '<input id="'.$id.'" checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'" value="1"/>'."\n";
     else      
-      return '<input id="'.$id.'" class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'"/>';
+      return '<input id="'.$id.'" class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'"/>'."\n";
   }
   function getError(){
     $error = false;
@@ -101,9 +101,9 @@ class FieldPassword extends Field{
   function genHtml($class, $id){
     $answer = '';
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>."\n"';
     else      
-      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
   }
   function getError(){
     $error = false;
@@ -120,9 +120,9 @@ class FieldPassword extends Field{
 class FieldTextarea extends Field{
   function genHtml($class, $id){
     if(isset($_POST[$this->name]))
-      return '<textarea id="'.$id.'" cols="25" rows="5"  class="'.$class.'" name="'.$this->name.'" >'.$_POST[$this->name].'</textarea>';
+      return '<textarea id="'.$id.'" cols="25" rows="5"  class="'.$class.'" name="'.$this->name.'" >'.$_POST[$this->name].'</textarea>'."\n";
     else      
-      return '<textarea id="'.$id.'" cols="25" rows="5" class="'.$class.'" name="'.$this->name.'" >'.htmlspecialchars($this->value).'</textarea>';
+      return '<textarea id="'.$id.'" cols="25" rows="5" class="'.$class.'" name="'.$this->name.'" >'.htmlspecialchars($this->value).'</textarea>'."\n";
   }
   function getError(){
     $error = false;
@@ -138,8 +138,7 @@ class FieldTextarea extends Field{
  */  
 class FieldFile extends Field{
   function genHtml($class, $id){
-      return '<input id="'.$id.'" class="'.$class.'" type="file" name="'.$this->name.'" />
-         ';
+      return '<input id="'.$id.'" class="'.$class.'" type="file" name="'.$this->name.'" />."\n"';
   }
   function getError(){
     $error = false;
@@ -160,7 +159,7 @@ class FieldFile extends Field{
  */  
 class FieldHidden extends Field{
   function genHtml($class, $id){
-      return '<input id="'.$id.'" class="'.$class.'" type="hidden" name="'.$this->name.'" value="'.$this->value.'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="hidden" name="'.$this->name.'" value="'.$this->value.'"/>'."\n";
   }
   function getError(){
     $error = false;
@@ -177,16 +176,16 @@ class FieldHidden extends Field{
 class FieldSelect extends Field{
   var $values;  
   function genHtml($class, $id){
-    $answer = '<select id="'.$id.'" class="'.$class.'" name="'.$this->name.'">
-    ';
+    $answer = '
+<select id="'.$id.'" class="'.$class.'" name="'.$this->name.'">'."\n";
     foreach($this->values as $key => $value){
       if($this->value == $value[0])
-        $answer .= '<option selected value="'.$value[0].'">'.htmlspecialchars($value[1]).'</option>';
+        $answer .= '  <option selected value="'.$value[0].'">'.htmlspecialchars($value[1]).'</option>'."\n";
       else
-        $answer .= '<option value="'.$value[0].'">'.htmlspecialchars($value[1]).'</option>';
+        $answer .= '  <option value="'.$value[0].'">'.htmlspecialchars($value[1]).'</option>'."\n";
     }
     $answer .= '
-    </select>';
+</select>'."\n";
     return $answer;
   }
   function getError(){
@@ -213,9 +212,9 @@ class FieldSelect extends Field{
 class FieldEmail extends Field{
   function genHtml($class, $id){
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
     else      
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>';
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
   }
   function getError(){
     $error = false;
@@ -238,53 +237,49 @@ class FieldEmail extends Field{
 class FieldWysiwyg extends Field{
   function genHtml($class, $id){
     $answer = '
-    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>          
-   
-    <script type="text/javascript">
-    //<![CDATA[ 
-      tinyMCE.init({
-        theme : "advanced",
-        mode: "exact",
-				elements: "'.$id.'",
-				plugins: "paste,inlinepopups", 
-				theme_advanced_buttons1 : "cut,copy,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
-				theme_advanced_buttons2 : "bold,italic,underline,styleselect",
-				theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
-				theme_advanced_toolbar_location : "top",
-				theme_advanced_toolbar_align : "left",	
-//	theme_advanced_resizing  : true,
-//	theme_advanced_resize_horizontal : true,
-				theme_advanced_path_location : "none",
-				content_css : "design/style.css",	
-				extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-				height : "300",
-				content_css : "'.BASE_URL.THEME_DIR.THEME.'/" + "ip_content.css",
-				theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
-				forced_root_block : "p",
-				
-        paste_auto_cleanup_on_paste : true,
-        paste_retain_style_properties: false,
-        paste_strip_class_attributes: true,
-        paste_remove_spans: true,
-        paste_remove_styles: true,
-        paste_convert_middot_lists: true,
-        
-        paste_preprocess : ip_paste_preprocess_function				
-       });
-       tinyMCE.execCommand("mceAddControl", true, "'.$this->name.'");
+<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>          
 
-
-
-
-       //]]>    
-       </script>
+<script type="text/javascript">
+//<![CDATA[ 
+  tinyMCE.init({
+    theme : "advanced",
+    mode: "exact",
+  	elements: "'.$id.'",
+  	plugins: "paste,inlinepopups", 
+  	theme_advanced_buttons1 : "cut,copy,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
+  	theme_advanced_buttons2 : "bold,italic,underline,styleselect",
+  	theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
+  	theme_advanced_toolbar_location : "top",
+  	theme_advanced_toolbar_align : "left",	
+    //	theme_advanced_resizing  : true,
+    //	theme_advanced_resize_horizontal : true,
+  	theme_advanced_path_location : "none",
+  	content_css : "design/style.css",	
+  	extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+  	height : "300",
+  	content_css : "'.BASE_URL.THEME_DIR.THEME.'/" + "ip_content.css",
+  	theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
+  	forced_root_block : "p",
+  	
+    paste_auto_cleanup_on_paste : true,
+    paste_retain_style_properties: false,
+    paste_strip_class_attributes: true,
+    paste_remove_spans: true,
+    paste_remove_styles: true,
+    paste_convert_middot_lists: true,
+    
+    paste_preprocess : ip_paste_preprocess_function				
+  });
+  tinyMCE.execCommand("mceAddControl", true, "'.$this->name.'");
+//]]>    
+</script>
     ';
     
     if(isset($_POST[$this->name]))
-      $answer .= '<textarea id="'.$id.'"  name="'.$this->name.'">'.$_POST[$this->name].'</textarea>';
+      $answer .= '<textarea id="'.$id.'"  name="'.$this->name.'">'.$_POST[$this->name].'</textarea>'."\n";
     else      
-      $answer .= '<textarea id="'.$id.'"  name="'.$this->name.'">'.$this->value.'</textarea>';
+      $answer .= '<textarea id="'.$id.'"  name="'.$this->name.'">'.$this->value.'</textarea>'."\n";
     return $answer;
   }
   
@@ -350,8 +345,10 @@ class FieldCaptcha extends Field{
     $captcha->make_captcha();
     
     $_SESSION['library']['php']['form']['standard']['captcha'][$this->name]['public_key'] = $captcha->public_key;
-    return '<img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
-    <input id="'.$id.'" type="text" name="'.$this->name.'" />';
+    return '
+<img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
+<input id="'.$id.'" type="text" name="'.$this->name.'" />
+';
     //<input type="hidden" name="'.$this->name.'_captcha_key" value="'.$captcha->public_key.'" />';
 
   }

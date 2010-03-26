@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\text_photo;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($title, $photo, $photo_big, $text, $layout=null){
@@ -16,8 +16,6 @@ class Template {
       default:
       case "default":
     
-        if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-          $text = "<p>".$text."</p>";
         $text = str_replace('<br>', '<br />', $text);
         
         
@@ -28,19 +26,18 @@ class Template {
           $image = '';
         }
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeft">
-            '.$image.'
-            <div class="ipWidgetTextPhotoText">'.$text.'</div> 
-            <div class="clear"><!-- --></div>
-          </div>
-        
-        ';
+<div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeft">
+  '.$image.'
+  <div class="ipWidgetTextPhotoText">
+    '.$text.'
+  </div> 
+  <div class="clear"><!-- --></div>
+</div>
+';
     
       break;
       case "right":
     
-        if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-          $text = "<p>".$text."</p>";
         $text = str_replace('<br>', '<br />', $text);
         
         
@@ -51,19 +48,18 @@ class Template {
           $image = '';
         }
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRight">
-            '.$image.'
-            <div class="ipWidgetTextPhotoText">'.$text.'</div> 
-            <div class="clear"><!-- --></div>
-          </div>
-        
-        ';
+<div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRight">
+  '.$image.'
+  <div class="ipWidgetTextPhotoText">
+    '.$text.'
+  </div> 
+  <div class="clear"><!-- --></div>
+</div>
+';
     
       break;
       case "left_small":
     
-        if (strpos($text, '<p') > 10 || strpos($text, '<p') === false)
-          $text = "<p>".$text."</p>";
         $text = str_replace('<br>', '<br />', $text);
         
         
@@ -71,14 +67,15 @@ class Template {
           $image = '<img class="ipWidgetTextPhotoImageSmallLeft" src="'.$photo.'" alt="'.htmlspecialchars($title).'" />';
         else
           $image = '';
-        return ' 
-          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeftSmall">
-            '.$image.'
-            <div class="ipWidgetTextPhotoText">'.$text.'</div> 
-            <div class="clear"><!-- --></div>
-          </div>
-        
-        ';
+        return '
+<div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoLeftSmall">
+  '.$image.'
+  <div class="ipWidgetTextPhotoText">
+    '.$text.'
+  </div> 
+  <div class="clear"><!-- --></div>
+</div>
+';
     
       break;      
       case "right_small":
@@ -90,13 +87,14 @@ class Template {
         else
           $image = '';
         return ' 
-          <div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRightSmall">
-            '.$image.'
-            <div class="ipWidgetTextPhotoText">'.$text.'</div> 
-            <div class="clear"><!-- --></div>
-          </div>
-        
-        ';
+<div class="ipWidget ipWidgetTextPhoto ipWidgetTextPhotoRightSmall">
+  '.$image.'
+  <div class="ipWidgetTextPhotoText">
+    '.$text.'
+  </div> 
+  <div class="clear"><!-- --></div>
+</div>
+';
     
       break;
     }

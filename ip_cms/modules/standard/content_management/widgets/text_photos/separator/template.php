@@ -7,17 +7,17 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\separator;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($layout=null){
     switch($layout){
       default:
       case "line":     
-        return '<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorLine"></div>';
+        return "\n".'<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorLine"></div>'."\n";
       break;
       case "space":     
-        return '<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorSpace"></div>';
+        return "\n".'<div class="ipWidget ipWidgetSeparator ipWidgetSeparatorSpace"></div>'."\n";
       break;
     }    
   }

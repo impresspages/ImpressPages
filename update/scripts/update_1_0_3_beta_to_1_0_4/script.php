@@ -241,6 +241,17 @@ class Script {
       $group = \Db_100::getParameterGroup($module['id'], 'admin_translations'); 
       \Db_100::addStringParameter($group['id'], 'Save', 'save', 'Save', 1);      
       
+
+      $module = \Db_100::getModule(null, 'community', 'newsletter');
+      $group = \Db_100::getParameterGroup($module['id'], 'admin_translations'); 
+      \Db_100::addStringParameter($group['id'], 'Where to send?', 'where_to_send', 'Send test email to: ', 1);      
+      
+      $sql = "update `".DB_PREF."parameter` set `name` = 'was_sent' where `name` = 'was_send' ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+      
       
       //delete duplicated parameter
       $module = \Db_100::getModule(null, 'developer', 'std_mod');

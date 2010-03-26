@@ -113,7 +113,7 @@ class Module extends \Modules\standard\content_management\Widget{
         $photos[] = $lock;
       }
 
-      $answer .= "  new_module.preview_html = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($photos, $this->getLayout($module_id)))))."';";
+      $answer .= "  new_module.preview_html = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($photos, $this->getLayout($module_id))))))."';";
       $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
        
 
@@ -335,8 +335,8 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function set_error($error){
-    global $global_worker;
-    $global_worker->set_error($error);
+    global $globalWorker;
+    $globalWorker->set_error($error);
   }
 }
 

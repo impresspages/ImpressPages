@@ -225,8 +225,11 @@ $parameter["parameterValue/community/newsletter/admin_translations/test_email_se
 $parameter["parameterTitle/community/newsletter/admin_translations/text"] = "Text";
 $parameter["parameterValue/community/newsletter/admin_translations/text"] = "Text";
 
-$parameter["parameterTitle/community/newsletter/admin_translations/was_send"] = "Was send";
-$parameter["parameterValue/community/newsletter/admin_translations/was_send"] = "Newsletter was sent successfully";
+$parameter["parameterTitle/community/newsletter/admin_translations/was_sent"] = "Was sent";
+$parameter["parameterValue/community/newsletter/admin_translations/was_sent"] = "Newsletter was sent successfully";
+
+$parameter["parameterTitle/community/newsletter/admin_translations/where_to_send"] = "Where to send?";
+$parameter["parameterValue/community/newsletter/admin_translations/where_to_send"] = "Send test email to: ";
 
 $parameter["parameterTitle/community/newsletter/options/show_unsubscribtion_button"] = "Show unsubscribtion button";
 

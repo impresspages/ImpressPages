@@ -72,71 +72,69 @@ class Standard{
     }        
 
     $answer .='
-      <script type="text/javascript">
-      //<![CDATA[ 
-        function '.$uniqueName.'_answer(){
+<script type="text/javascript">
+//<![CDATA[ 
+  function '.$uniqueName.'_answer(){
+    if(window.frames[\''.$uniqueName.'\'].new_fields){
+      var new_fields = window.frames[\''.$uniqueName.'\'].new_fields;
+      for(var i=0; i<new_fields.length; i++){
+        '.$uniqueName.'_replace_input(new_fields[i][0], new_fields[i][1]);
+      }
+    }
   
-        
-          if(window.frames[\''.$uniqueName.'\'].new_fields){
-            var new_fields = window.frames[\''.$uniqueName.'\'].new_fields;
-            for(var i=0; i<new_fields.length; i++){
-              '.$uniqueName.'_replace_input(new_fields[i][0], new_fields[i][1]);
-            }
-          }
-        
-          var first = true;
-        
-          '.$resetStr.'
-          if(window.frames[\''.$uniqueName.'\'].global_error){
-            '.$uniqueName.'_set_global_error(window.frames[\''.$uniqueName.'\'].global_error, first);
-            first = false;  
-          }
+    var first = true;
   
-          if(window.frames[\''.$uniqueName.'\'].errors){
-            var errors = window.frames[\''.$uniqueName.'\'].errors;
-            for(var i=0; i<errors.length; i++){
-              '.$uniqueName.'_set_error(errors[i][0], errors[i][1], first);
-              first = false;
-            }
-          }
-          
-          if(window.frames[\''.$uniqueName.'\'].script){
-            eval(window.frames[\''.$uniqueName.'\'].script);
-          }
-        }      
-        //]]>    
-      </script>  ';      
+    '.$resetStr.'
+    if(window.frames[\''.$uniqueName.'\'].global_error){
+      '.$uniqueName.'_set_global_error(window.frames[\''.$uniqueName.'\'].global_error, first);
+      first = false;  
+    }
+
+    if(window.frames[\''.$uniqueName.'\'].errors){
+      var errors = window.frames[\''.$uniqueName.'\'].errors;
+      for(var i=0; i<errors.length; i++){
+        '.$uniqueName.'_set_error(errors[i][0], errors[i][1], first);
+        first = false;
+      }
+    }
+    
+    if(window.frames[\''.$uniqueName.'\'].script){
+      eval(window.frames[\''.$uniqueName.'\'].script);
+    }
+  }      
+  //]]>    
+</script>
+';      
     
     
     $hiddenFields = '';        
     foreach($this->hiddenFields as $key => $field)
       if (get_class($field) == 'Library\Php\Form\FieldHidden') {
-        $hiddenFields .= ''.$field->genHtml('', $uniqueName.'_field_'.$field->name).'';
+        $hiddenFields .= $field->genHtml('', $uniqueName.'_field_'.$field->name);
       }
     
-    $answer .= 
-      '
-      <form id="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
-        '.$this->templateObject->generateForm($button, $action, $uniqueName, $this->fields).'
+    $answer .= '
+<form id="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
+  '.$this->templateObject->generateForm($button, $action, $uniqueName, $this->fields).'
 
-        <div>
-          '.$hiddenFields.'
-          <input type="hidden" name="spec_security_code" value="'.md5(date("Y-m-d")).'" />
-          <input type="hidden" name="spec_rand_name" value="'.$uniqueName.'" />
-          <script type="text/javascript">
-            //<![CDATA[ 
-           document.write(\'<iframe onload="if(window.'.$uniqueName.'_answer)'.$uniqueName.'_answer();" name="'.$uniqueName.'" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>\');
-            //]]>
-          </script>
-          <div class="clear"></div>
-        </div>        
-      </form>      
-      <script type="text/javascript">
-        //<![CDATA[ 
-       document.getElementById(\''.$uniqueName.'\').target = \''.$uniqueName.'\';
-        //]]>
-      </script>
-      ';
+  <div>
+'.$hiddenFields.'
+    <input type="hidden" name="spec_security_code" value="'.md5(date("Y-m-d")).'" />
+    <input type="hidden" name="spec_rand_name" value="'.$uniqueName.'" />
+    <script type="text/javascript">
+      //<![CDATA[ 
+      document.write(\'<iframe onload="if(window.'.$uniqueName.'_answer)'.$uniqueName.'_answer();" name="'.$uniqueName.'" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>\');
+      //]]>
+    </script>
+    <div class="clear"></div>
+  </div>        
+</form>      
+<script type="text/javascript">
+//<![CDATA[ 
+ document.getElementById(\''.$uniqueName.'\').target = \''.$uniqueName.'\';
+//]]>
+</script>
+';
     
     return $answer;
   }
@@ -276,41 +274,44 @@ class Standard{
    */        
   function generateErrorAnswer($errors, $globalError = null){
     $answer = "
-      <html>
-        <head>
-          <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
-        </head>
-        <body>
-          <script type=\"text/javascript\">
-            var errors = new Array();
-            var new_fields = new Array();
-            ";
-        
-          foreach($errors as $key => $error){
-            
-            $answer .= "
-             var error = ['".addslashes($key)."', '".addslashes($error)."'];
-             errors.push(error);
-             ";
-          }
-          
-          foreach($this->fields as $key => $field){
-            if($field->renewRequired())
-              $answer .= "
-             var new_field = ['".addslashes($field->name)."', '".
-             str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$field->genHtml())))
-             ."'];
-             new_fields.push(new_field);
-              ";
-          }
-          
-          if($globalError !== null){
-            $answer .= " var global_error =  '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$globalError)))."'; ";
-          }
+<html>
+  <head>
+    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+  </head>
+  <body>
+    <script type=\"text/javascript\">
+      //<![CDATA[
+      var errors = new Array();
+      var new_fields = new Array();
+      ";
+  
+    foreach($errors as $key => $error){
       
-          $answer .=  "
-        </script>
-        </body></html>
+      $answer .= "
+       var error = ['".addslashes($key)."', '".addslashes($error)."'];
+       errors.push(error);
+       ";
+    }
+    
+    foreach($this->fields as $key => $field){
+      if($field->renewRequired())
+        $answer .= "
+       var new_field = ['".addslashes($field->name)."', '".
+       str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$field->genHtml())))
+       ."'];
+       new_fields.push(new_field);
+        ";
+    }
+    
+    if($globalError !== null){
+      $answer .= " var global_error =  '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$globalError)))."'; ";
+    }
+
+    $answer .=  "
+      //]]>
+    </script>
+  </body>
+</html>
     ";
     return $answer;
   }

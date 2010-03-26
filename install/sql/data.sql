@@ -111,7 +111,7 @@ INSERT INTO `ip_cms_language` (`id`, `d_short`, `d_long`, `row_number`, `visible
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_mc_misc_contact_form` (`id`, `thank_you`, `email_to`, `email_subject`, `button`, `layout`) VALUES
-(2, 'Thank you', 'name@yousite.com', 'Email from my website.', 'Send', 'default');
+(2, 'Thank you', '[[[[site_email]]]]', 'Email from my website.', 'Send', 'default');
 
 -- Dumping data for table--
 
@@ -476,7 +476,7 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (907, 'send', 1, 0, '', 498, 'Send', '', 'string'),
 (909, 'emails_per_hour', 1, 0, '', 499, 'Emails per hour', '', 'integer'),
 (910, 'preview', 1, 0, '', 498, 'Preview', '', 'string'),
-(911, 'was_send', 1, 0, '', 498, 'Was send', '', 'string'),
+(911, 'was_sent', 1, 0, '', 498, 'Was sent', '', 'string'),
 (912, 'test_email_send', 1, 0, '', 498, 'Test email send', '', 'string'),
 (913, 'send_or_not_question', 1, 0, '', 498, 'Send or not question.', '', 'string'),
 (1527, 'layout_default', 1, 0, '', 489, 'Layout default', NULL, 'string'),
@@ -657,7 +657,8 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1543, 'updated_module_detected', 1, 0, '', 531, 'Updated module detected', NULL, 'string'),
 (1544, 'install', 1, 0, '', 531, 'Install', NULL, 'string'),
 (1545, 'update', 1, 0, '', 531, 'Update', NULL, 'string'),
-(1546, 'save', 1, 0, '', 478, 'Save', NULL, 'string');
+(1546, 'save', 1, 0, '', 478, 'Save', NULL, 'string'),
+(1547, 'where_to_send', 1, 0, '', 498, 'Where to send?', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -1172,7 +1173,8 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1137, 'New version detected', 1543),
 (1138, 'Install', 1544),
 (1139, 'Update', 1545),
-(1140, 'Save', 1546);
+(1140, 'Save', 1546),
+(1141, 'Send test email to: ', 1547);
 
 -- Dumping data for table--
 

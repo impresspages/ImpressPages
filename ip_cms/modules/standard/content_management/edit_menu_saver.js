@@ -29,7 +29,7 @@
 	    this.saving = false;
       this.modules = modules; //this is a pointer to modules, that are managed by menu_management.js
       var answer = '<div style="display: none;" id="worker"><form action="' + worker + '?module_id=' + this.module_id + '&security_token=' + global_config_security_token + '" method="post" id="worker_form" target="worker_frame"></form></div>';
-      answer = answer + '<iframe style="width: 0px; height: 0px; border: 0;" onload="' + this.my_name + '.worker_frame_loaded()" name="worker_frame" width="400" height="100"></iframe>';
+      answer = answer + '<iframe scrolling="no" style="width: 0px; height: 0px; border: none;" onload="' + this.my_name + '.worker_frame_loaded()" name="worker_frame" width="0" height="0"></iframe>';
       this.progress = 0;
       return answer;
     } 

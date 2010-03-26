@@ -11,10 +11,10 @@ class Template{
     
   static function languages($languages) {
     global $site;
-    $answer = '<ul class="languages">'."\n";
+    $answer = "\n".'<ul class="languages">'."\n";
     foreach ($languages as $key => $language) {
       $actClass = ($language['id'] == $site->currentLanguage['id']) ? ' class="act"' : '';
-      $answer .= '<li'.$actClass.'><a title="'.htmlspecialchars($language['d_long']).'" href="'.$site->generateUrl($language['id']).'">'.htmlspecialchars($language['d_short']).'</a></li>'."\n";
+      $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language['d_long']).'" href="'.$site->generateUrl($language['id']).'">'.htmlspecialchars($language['d_short']).'</a></li>'."\n";
     }
     $answer .= '</ul>'."\n";
     return $answer;

@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\faq;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($id, $title, $text, $layout = null){
@@ -20,27 +20,31 @@ class Template {
       default:
       case "default":  
         return '
-        <div class="ipWidget ipWidgetFaq">
-          <a href="#" onclick="ipWidgetFaqShow('.$id.'); return false;" class="ipWidgetFaqQuestion">'.htmlspecialchars($title).'</a>
-          <div id="ipWidgetFaqAnswer-'.$id.'" class="ipWidgetFaqAnswer">'.$text.'</div>            
-        </div>';
+<div class="ipWidget ipWidgetFaq">
+  <a href="#" onclick="ipWidgetFaqShow('.$id.'); return false;" class="ipWidgetFaqQuestion">'.htmlspecialchars($title).'</a>
+  <div id="ipWidgetFaqAnswer-'.$id.'" class="ipWidgetFaqAnswer">
+    '.$text.'
+  </div>            
+</div>
+';
       break;
     }
   }
 	 
   public static function initHtml(){
     return '
-      <script type="text/javascript">
-         function ipWidgetFaqShow(id){
-           element = document.getElementById("ipWidgetFaqAnswer-" + id);
-           if (element.style.display != "block")
-              element.style.display = "block";
-           else
-              element.style.display = "none";
-         }
-         //]]>
-      </script>
-    ';
+<script type="text/javascript">
+  //<![CDATA[
+  function ipWidgetFaqShow(id){
+    element = document.getElementById("ipWidgetFaqAnswer-" + id);
+    if (element.style.display != "block")
+      element.style.display = "block";
+    else
+      element.style.display = "none";
+  }
+  //]]>
+</script>
+';
   }	 
 }
 

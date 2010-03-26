@@ -134,8 +134,8 @@ class Common{
    */        
   static function addElements($elements, $zoneName, $depth, $curDepth){
 		global $site;
-		$html = '';
-		$html .= "<ul class=\"level".$curDepth."\">\n";
+		$html = "\n";
+		$html .= "<ul class=\"level".$curDepth."\">"."\n";
 		  
 			foreach($elements as $key => $element){		
   			$subHtml = '';
@@ -157,14 +157,14 @@ class Common{
   
         $tmpLink = $element->getLink();
         if ($tmpLink) {
-          $html .= '<li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>\n";
+          $html .= '  <li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
         } else {
-  				$html .= '<li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle())."</a>".$subHtml."</li>\n";
+  				$html .= '  <li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle())."</a>\n".$subHtml."\n  </li>\n";
   			}
   				
   			
 			}
-		$html .= "</ul>\n";
+		$html .= "</ul>"."\n";
 		return $html;
   }
   

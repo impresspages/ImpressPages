@@ -47,11 +47,11 @@ if(\Db::connect()){
 
 
   /*detect browser language*/
-  if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->generateCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser'])){
+  if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->generateCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
     require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
     $tmpLangArray = Library\Php\BrowserDetection\Language::getLanguages();
     $tmpBrowserLanguageId = null;
-    foreach($tmpLangarray as $key => $lang){
+    foreach($tmpLangArray as $key => $lang){
       foreach($site->languages as $key2 => $siteLang){
         if($siteLang['code'] == $lang && $tmpBrowserLanguageId == null){
           $tmpBrowserLanguageId = $siteLang['id'];

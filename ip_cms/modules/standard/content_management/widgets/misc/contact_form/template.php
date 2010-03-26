@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\misc\contact_form;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
 require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard.php');
 
@@ -62,7 +62,11 @@ class Template {
         
         $answer .= $html_form->generateForm($button);
         
-        return '<div class="ipWidget ipWidgetContactForm">'.$answer.'</div>';
+        return '
+<div class="ipWidget ipWidgetContactForm">
+  '.$answer.'
+</div>
+';
     }
   }
   
@@ -74,10 +78,10 @@ class Template {
       if (get_class($fields[$i]) != 'Library\\Php\\Form\\FieldHidden') {
         switch (get_class($fields[$i])) {
           case 'Library\\Php\\Form\\FieldEmail':
-            $content .= '<b>'.htmlspecialchars($fields[$i]->caption).' :</b> <a href="mailto:'.nl2br(htmlspecialchars($fields[$i]->postedValue())).'">'.nl2br(htmlspecialchars($fields[$i]->postedValue())).'</a><br>';
+            $content .= '<b>'.htmlspecialchars($fields[$i]->caption).' :</b> <a href="mailto:'.nl2br(htmlspecialchars($fields[$i]->postedValue())).'">'.nl2br(htmlspecialchars($fields[$i]->postedValue())).'</a><br>'."\n";
           break;
           default:
-            $content .= '<b>'.htmlspecialchars($fields[$i]->caption).' :</b> '.nl2br(htmlspecialchars($fields[$i]->postedValue())).'<br>';
+            $content .= '<b>'.htmlspecialchars($fields[$i]->caption).' :</b> '.nl2br(htmlspecialchars($fields[$i]->postedValue())).'<br>'."\n";
           break;
         }
       }
@@ -90,12 +94,13 @@ class Template {
     $email = \Library\Php\Text\SystemVariables::clear($email);
 
 		$email = '
-		<html>
-			<head></head>
-			<body>
-				'.$email.'
-			</body>
-		</html>';
+<html>
+	<head></head>
+	<body>
+		'.$email.'
+	</body>
+</html>
+';
     
     return $email;
   

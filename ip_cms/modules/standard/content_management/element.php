@@ -46,33 +46,60 @@ class Element extends \Frontend\Element{
     
     require_once (__DIR__.'/db.php');
     
-        $moduleUrl = 'modules/standard/menu_management/';
-        /* required by content modules */     
-        $answer = "";
-        $answer .= $this->getHtml();
+    switch($this->type){
+      case 'subpage':
+        $tmpChildren = $site->getZone($this->zoneName)->getElements(null, $this->id, 0, $limit = 1);
+        if(sizeof($tmpChildren) == 1){
+          return '
+          <script type="text/javascript">
+          //<![CDATA[
+            document.location = \''.$tmpChildren[0]->getLink().'\';
+          //]]>  
+          </script>
+            ';
+        }
+      break;
+      case 'redirect':
+        return '
+        <script type="text/javascript">
+        //<![CDATA[
+          document.location = \''.$this->redirectUrl.'\';
+        //]]>  
+        </script>
+          ';
         
-        if ($this->getDynamicModules() != ""){
-          $dynamicModules = unserialize($this->getDynamicModules());
-          $answerHtml = explode("<dynamic_module/>", $answer);
-          $answer = "";
-          foreach($answerHtml as $key => $html){
-            if (isset($dynamicModules[$key])){
-            
-              require_once (__DIR__.'/widgets/widget.php');
-              require_once (__DIR__.'/widgets/'.$dynamicModules[$key]['module_group'].'/'.$dynamicModules[$key]['module_name'].'/module.php');
-              
-              eval('$module = new \\Modules\\standard\\content_management\\Widgets\\'.$dynamicModules[$key]['module_group'].'\\'.$dynamicModules[$key]['module_name'].'\\Module(\''.$dynamicModules[$key]['module_name'].'\');');
-                                        //widgets\standard\content_management\Widgets\misc\contact_form
-              $tmpHtml = '';
-              eval('$tmpHtml = $module->make_html('.$dynamicModules[$key]['id'].');');
-              $answer .= $html.$tmpHtml;
-            }else
-              $answer .= $html;
-          }
-        return $answer;
-      
+      break;
+    }    
+    
+    //if no redirect, put the content
+    $moduleUrl = 'modules/standard/menu_management/';
+    /* required by content modules */     
+    $answer = "";
+    $answer .= $this->getHtml();
+    
+    if ($this->getDynamicModules() != ""){
+      $dynamicModules = unserialize($this->getDynamicModules());
+      $answerHtml = explode("<dynamic_module/>", $answer);
+      $answer = "";
+      foreach($answerHtml as $key => $html){
+        if (isset($dynamicModules[$key])){
+        
+          require_once (__DIR__.'/widgets/widget.php');
+          require_once (__DIR__.'/widgets/'.$dynamicModules[$key]['module_group'].'/'.$dynamicModules[$key]['module_name'].'/module.php');
+          
+          eval('$module = new \\Modules\\standard\\content_management\\Widgets\\'.$dynamicModules[$key]['module_group'].'\\'.$dynamicModules[$key]['module_name'].'\\Module(\''.$dynamicModules[$key]['module_name'].'\');');
+                                    //widgets\standard\content_management\Widgets\misc\contact_form
+          $tmpHtml = '';
+          eval('$tmpHtml = $module->make_html('.$dynamicModules[$key]['id'].');');
+          $answer .= $html.$tmpHtml;
         }else
-          return $answer;         
+          $answer .= $html;
+      }
+      return $answer;
+  
+    }else{
+      return $answer;
+    }         
         
 	  
   }

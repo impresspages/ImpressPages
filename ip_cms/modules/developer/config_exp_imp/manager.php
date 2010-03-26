@@ -135,7 +135,7 @@ class Manager{
                 <div class="content">
                   <h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'parameters_imported')).'</h1>
                   <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'continue')).'</a>
-                  <div class="clear"></div>
+                  <div class="clear"><!-- --></div>
                 </div>
               ';
               $answer .= HtmlOutput::footer(); 
@@ -145,13 +145,13 @@ class Manager{
               //$config_import = new mod_developer_config_exp_imp_parameters();
               //$config_import->save_parameters();
               \Modules\developer\localization\Manager::saveParameters($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
-              $answer .= '
-                <div class="content">
-                  <h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'parameters_imported')).'</h1>
-                  <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'continue')).'</a>
-                  <div class="clear"></div>
-                </div>
-              ';
+              $answer .=  '
+              <div class="content">
+                <h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'parameters_imported')).'</h1>
+                <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'continue')).'</a>
+                <div class="clear">&nbsp;<!-- --></div>
+              </div>
+                ';
               $answer .= HtmlOutput::footer(); 
               
             }

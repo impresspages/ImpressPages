@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\text;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($text, $layout = null){
@@ -16,7 +16,7 @@ class Template {
     switch($layout){
       default:
       case "default":     
-        return '<div class="ipWidget ipWidgetText">'.$text.'</div>';
+        return "\n".'<div class="ipWidget ipWidgetText">'."\n  ".$text."\n".'</div>'."\n";
       break;
     }
   }

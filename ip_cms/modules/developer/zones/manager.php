@@ -208,6 +208,7 @@ class Manager{
 
  
      $templates = $this->getAvailableTemplates();
+     sort($templates);
      $values = array();
      $values[] = array("", "");
      foreach($templates as $key => $template){

@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\misc\file;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($title, $file, $layout = null){
@@ -17,7 +17,11 @@ class Template {
       case "default":      
         if($title == '')
     			$title = basename($file);
-      	return '<div class="ipWidget ipWidgetFile"><a class="ipWidgetFileLink" href="'.$file.'">'.htmlspecialchars($title).'</a></div>';
+      	return '
+<div class="ipWidget ipWidgetFile">
+  <a class="ipWidgetFileLink" href="'.$file.'">'.htmlspecialchars($title).'</a>
+</div>
+';
       break;
     }
   }

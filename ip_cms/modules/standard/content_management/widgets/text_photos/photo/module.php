@@ -98,7 +98,7 @@ class Module extends \Modules\standard\content_management\Widget{
       $answer .= "  var new_module = new content_mod_photo();";
       $answer .= "  var new_module_name = '".$mod_management_name.".' + ".$mod_management_name.".get_modules_array_name() + '[".$collection_number."]';";
       $answer .= "  new_module.init(".$collection_number.", ".$module_id.", ".$visible.", new_module_name, ".$mod_management_name.");";
-      $answer .= "  new_module.preview_html = '".str_replace("'", "\\'", Template::generateHtml($lock['title'], $preview_photo, $this->getLayout($module_id)))."';";
+      $answer .= "  new_module.preview_html = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($lock['title'], $preview_photo, $this->getLayout($module_id))))))."';";
       $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
       $answer .= "  new_module.set_title('".$lock['title']."');";
       $answer .= "  new_module.set_existing_photo('".$lock['photo']."');";
@@ -324,8 +324,8 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function set_error($error){
-    global $global_workerv;
-    $global_workerv->set_error($error);
+    global $globalWorker;
+    $globalWorker->set_error($error);
   }
 
 }

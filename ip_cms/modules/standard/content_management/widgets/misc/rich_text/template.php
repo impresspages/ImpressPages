@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\misc\rich_text;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($text, $layout = null){
@@ -23,7 +23,12 @@ class Template {
     switch($layout){
       default:
       case "default":
-        return '<div class="ipWidget ipWidgetText">'.$text.'<div class="clear"><!-- --></div></div>';
+        return '
+<div class="ipWidget ipWidgetText">
+  '.$text.'
+  <div class="clear"><!-- --></div>
+</div>
+';
       break;
     }
   }

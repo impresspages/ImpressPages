@@ -3,12 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->currentLanguage['code']; ?>" lang="<?php echo $site->currentLanguage['code']; ?>">
 <head> 
   <title><?php echo htmlspecialchars($site->getTitle()); ?></title>
-  <?php
-      echo '<link href="'.BASE_URL.THEME_DIR.THEME.'/ip_content.css" rel="stylesheet" type="text/css" />';
-      echo '<link href="'.BASE_URL.THEME_DIR.THEME.'/site.css" rel="stylesheet" type="text/css" />';
-  ?>  
+  <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/ip_content.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/site.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="<?php echo BASE_URL; ?>favicon.ico" />
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
+  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
   <meta name="keywords" content="<?php echo htmlspecialchars($site->getKeywords()); ?>" />
   <meta name="description" content="<?php echo htmlspecialchars($site->getDescription()); ?>" />
   <meta name="generator" content="ImpressPages CMS 1.0 under GNU GPL license" />
@@ -63,9 +61,9 @@
 <?php
 			echo $site->getZone('newsletter')->generateRegistrationBox();
 			
-			echo '<div class="separator"></div>';
+			echo "\n".'      <div class="separator"></div>'."\n";
 
-			echo '<a class="rss" href="'.$site->getZone('rss')->generateRssLink().'">'.$parametersMod->getValue('administrator', 'rss', 'translations', 'rss').'</a>';
+			echo "\n".'      <a class="rss" href="'.$site->getZone('rss')->generateRssLink().'">'.$parametersMod->getValue('administrator', 'rss', 'translations', 'rss').'</a>'."\n";
 ?>
       <div class="clear"><!-- --></div>
     </div>
@@ -77,8 +75,8 @@
     require_once (BASE_DIR.MODULE_DIR.'standard/breadcrumb/module.php');
     
     
-    echo '<a href="'.$site->generateUrl().'" title="home"><img src="'.BASE_URL.THEME_DIR.THEME.'/images/icon_home.gif" alt="home"/></a>';
-    echo \Modules\standard\breadcrumb\Module::generateBreadcrumb(' <span>&#0187;</span> ');
+    echo '<a href="'.$site->generateUrl().'" title="home"><img src="'.BASE_URL.THEME_DIR.THEME.'/images/icon_home.gif" alt="home"/></a>'."\n";
+    echo \Modules\standard\breadcrumb\Module::generateBreadcrumb('<span>&#0187;</span>');
 ?>
   </div>
 
@@ -109,20 +107,20 @@
 </div>
 
 
-  <!-- popups -->  
-  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/prototype.js"></script>
-  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
-  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/lightbox.js"></script>
-  <script type="text/javascript">
-    // <![CDATA[
-    LightboxOptions.fileLoadingImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/loading.gif';
-    LightboxOptions.fileBottomNavCloseImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/closelabel.gif';
-    //]]>             
-  </script>
-  <!-- eof popups -->
-  
+<!-- popups -->  
+<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/prototype.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/lightbox.js"></script>
+<script type="text/javascript">
+  // <![CDATA[
+  LightboxOptions.fileLoadingImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/loading.gif';
+  LightboxOptions.fileBottomNavCloseImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/closelabel.gif';
+  //]]>             
+</script>
+<!-- eof popups -->
 
-  <!-- insert your statistics script here -->
+
+<!-- insert your statistics script here -->
 
 </body>
 </html>

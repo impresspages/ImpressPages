@@ -7,7 +7,7 @@
 
 namespace Modules\standard\content_management\Widgets\text_photos\photo;   
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 class Template {
 
   public static function generateHtml($title, $photo, $layout = null){
@@ -17,7 +17,11 @@ class Template {
       case "default": 
         if($photo){
           $info = getimagesize($localPhoto);
-          return '<div class="ipWidget ipWidgetPhoto"><img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" /></div>';
+          return '
+<div class="ipWidget ipWidgetPhoto">
+  <img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" />
+</div>
+';
         }    
         break;
     }
