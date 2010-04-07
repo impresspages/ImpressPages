@@ -268,7 +268,7 @@ class Standard{
   }
   
   /**
-   * Here is shosen post method instead of ajax. So, this function generates javascript code, that loaded into iframe, marks incorrect fields.
+   * Here is shoosen post method instead of ajax. So, this function generates javascript code, that loaded into iframe, marks incorrect fields.
    * @param array errors in submited form. This array can be returned by function $this->getErrors() and updated or appended by specific code.
    * @return string html/javascript   
    */        
@@ -297,7 +297,7 @@ class Standard{
       if($field->renewRequired())
         $answer .= "
        var new_field = ['".addslashes($field->name)."', '".
-       str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$field->genHtml())))
+       str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", $field->genHtml('', $_REQUEST['spec_rand_name'].'_field_'.$field->name))))
        ."'];
        new_fields.push(new_field);
         ";
