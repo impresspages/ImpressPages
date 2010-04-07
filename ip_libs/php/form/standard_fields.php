@@ -101,7 +101,7 @@ class FieldPassword extends Field{
   function genHtml($class, $id){
     $answer = '';
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>."\n"';
+      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
     else      
       return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
   }
@@ -138,7 +138,7 @@ class FieldTextarea extends Field{
  */  
 class FieldFile extends Field{
   function genHtml($class, $id){
-      return '<input id="'.$id.'" class="'.$class.'" type="file" name="'.$this->name.'" />."\n"';
+      return '<input id="'.$id.'" class="'.$class.'" type="file" name="'.$this->name.'" />'."\n";
   }
   function getError(){
     $error = false;
