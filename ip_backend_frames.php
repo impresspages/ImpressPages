@@ -40,7 +40,7 @@ if(\Db::connect()){
   $log = new \Modules\Administrator\Log\Module();
 
   $site = new \Frontend\Site(); /*to generate links to site and get other data about frontend*/
-  $site->configZones();
+  $site->init();
   
 
   $cms = new Cms();

@@ -39,15 +39,10 @@ if(\Db::connect()){
 
 	$site = new Frontend\Site();
 
-	$site->configZones();
-
-
-	$site->makeActions(); /*all posts are handled by "site" and redirected to defined module actions.php before any output.*/
-
-
+	$site->init();
 
   /*detect browser language*/
-  if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->generateCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
+  if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
     require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
     $tmpLangArray = Library\Php\BrowserDetection\Language::getLanguages();
     $tmpBrowserLanguageId = null;
@@ -87,7 +82,7 @@ if(\Db::connect()){
   /*eof check if the website is closed*/
 
 
-	require(BASE_DIR.THEME_DIR.THEME.'/'.$site->choseTemplate());
+	require(BASE_DIR.THEME_DIR.THEME.'/'.$site->getLayout());
 
   /* 
     Automatic execution of cron. 

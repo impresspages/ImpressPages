@@ -40,7 +40,7 @@ if($db->connect()){
 	$session = new Frontend\Session();
 
 	$site = new \Frontend\Site();
-	$site->configZones();
+	$site->init();
 
 	$cron = new Cron();
 	$cron->execute();

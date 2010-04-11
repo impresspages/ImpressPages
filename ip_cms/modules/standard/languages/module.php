@@ -17,9 +17,20 @@ require_once (__DIR__.'/db.php');
  * @package ImpressPages
  */   
 class Module{
+
+  
+  public static function generateLanguageList(){
+    global $site;
+    $site->requireTemplate('standard/languages/template_list.php');
+    return TemplateList::languages($site->getLanguages());
+  }
+  
   
   /**
+   * 
+   * @deprecated Use generateLanguageList() instead. 
    * @return string HTML with links to website languages
+   * 
    */     
   public static function generatehtml(){ 
     global $site;
@@ -37,4 +48,5 @@ class Module{
     }
     return Template::languages($languages);
   }
+  
 }

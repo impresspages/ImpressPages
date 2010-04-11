@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * ImpressPages CMS main frontend file
  *
  * @package		ImpressPages
@@ -9,49 +9,72 @@
 
 namespace Frontend;
 
-
-
 if (!defined('CMS')) exit;
 
-/** @private */
 require_once (__DIR__.'/zone.php');
 require_once (__DIR__.'/db.php');
-require_once (__DIR__.'/db.php');
+require_once (__DIR__.'/language.php');
 
 /**
- * Main frontend class. Manage zones, pages, modules, generate and parse urls.
- * @package ImpressPages
+ * 
+ * Main frontend class. Each time the page is loaded, is created a global instance of this class called $site;
+ * 
+ * Acess it anywhere by using:
+ * 
+ * global $site;
+ * 
+ * Use it to get information about the website:
+ * 
+ * current language
+ * 
+ * current zone
+ * 
+ * current page
+ * 
+ * current url
+ * 
+ * ...
+ * 
+ * 
  */
 class Site{
-  /** @var array variables in url. Before GET */
+  
+  /** array of variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum') */
   public $urlVars;
-  /** @var array variables in GET */
+  
+  /** array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility. */
   public $getVars;
-  /** @var string zone URL */
+  
+  /** @deprecated use getCurrentZone()->getUrl() instead */
   public $zoneUrl;
-  /** @var string language url (if the site is multilingual) */
+  
+  /** @deprecated use getCurrentLanguage->getUrl() insead */
   public $languageUrl; //
-  /** @var string current zone name */
+  
+  /** @deprecated use getCurrentZone()->getName() instead */
   public $currentZone;
-  /** @var array all registered languages */
+  
+  /** @deprecated use getLanguages() instead */
   public $languages;
-  /** @var array current language */
+  
+  /** @deprecated use getCurrentLanguage() instead */
   public $currentLanguage;
-  /** @var bool true if page does not exists */
-  public $error404;
+  
+  /** bool true if page does not exists */  
+  private $error404;
 
-  /** private @var array all site zones */
-  protected $zones; //
-  /** private @var array zones joined by language*/
-  protected $otherZones; //
+  protected $zones; 
+  protected $otherZones; 
 
 
   public function __construct(){
     if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
       $this->parseUrl();
       $this->languages = \Frontend\Db::getLanguages(true);
-      if(sizeof($this->languages) > 0)
-      $this->currentLanguage = reset($this->languages);
+      
+      if(sizeof($this->languages) > 0){
+        $this->currentLanguage = reset($this->languages);
+      }
     } else {
       $this->parseUrl();
 
@@ -76,15 +99,82 @@ class Site{
 
       setlocale(LC_ALL, $this->currentLanguage['code']);
     }
+    
   }
 
+  /**
+   * 
+   * @return array of variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum');
+   * 
+   */
+  public function getUrlVars(){
+    return $this->urlVars;
+  }
+  
+  
+  /**
+   * 
+   * @return array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility.
+   * 
+   */
+  public function getGetVars(){
+    return $this->getVars;
+  }
+  
+  /**
+   * 
+   * @param data array from database
+   * @return Language
+   * 
+   * 
+   */
+  private function createLanguage($data){
+    $language = new Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short']);
+    return $language;
+  }
+  
+  /**
+   * 
+   * @return array - all website langauges. Each element object class: Language
+   * 
+   */
+  public function getLanguages(){
+    $languages = array();
+    foreach($this->languages as $key => $data){
+      $languages[] = $this->createLanguage($data);
+    }
+    return $languages;
+  }
 
   /**
-   * @private
-   * Prepares main website parameters (current language, current zone and so on)
-   * @return void
+   * 
+   * return Language current language 
+   * 
    */
-  public function configZones(){
+  public function getCurrentLanguage(){
+    return $this->createLanguage($this->currentLanguage);
+  }
+  
+  /**
+   * 
+   * Initialize required components. Executed once at startup.
+   * 
+   */
+  public function init(){
+    $this->configZones();
+    
+    if(!defined('BACKEND')){
+      $this->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+      $this->makeRedirect(); //if required;
+    }
+  }
+
+  /**
+   * 
+   * Prepare main website parameters (current zone and so on). Executed once at startup.
+   * 
+   */
+  private function configZones(){
     if (defined('BACKEND')) {
       $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
       foreach ($zones as $key => $zone) {
@@ -140,11 +230,12 @@ class Site{
     }
 
   }
-
+  
   /**
    *
-   * return \Frontend\Zone object
-   * @param string $zoneName
+   * @param $zoneName Name of zone you wish to get
+   * @return Zone
+   * 
    */
   public function getZone($zoneName){
     if(isset($this->zones[$zoneName]))
@@ -163,10 +254,10 @@ class Site{
         } else {
           require_once(FRONTEND_DIR.'default_zone.php');
           $tmpZoneObject = new \Frontend\DefaultZone($tmpZone['name']);
-    		  }
+    		}
 
     		  $tmpZoneObject->setName($tmpZone['name']);
-    		  $tmpZoneObject->setTemplate($tmpZone['template']);
+    		  $tmpZoneObject->setLayout($tmpZone['template']);
     		  $tmpZoneObject->setTitle($tmpZone['title']);
     		  $tmpZoneObject->setUrl($tmpZone['url']);
     		  $tmpZoneObject->setKeywords($tmpZone['keywords']);
@@ -180,41 +271,32 @@ class Site{
       }
       return $this->zones[$zoneName]['object'];
     }else{
-      //error
-      /*$backtrace = debug_backtrace();
-      if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-      trigger_error('Requested zone "'.htmlspecialchars($zoneName).'" does not exist. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-      else
-      trigger_error('Requested zone "'.htmlspecialchars($zoneName).'" does not exist.');
-*/
       return false;
     }
   }
 
   /**
    *
-   * return current zone object
-   * @param object Zone
+   * @return Zone Current zone object
+   * 
    */
   public function getCurrentZone(){
     return $this->getZone($this->currentZone);
   }
   
-  
   /**
    *
-   * return String current zone name
-   * @param String
+   * @return String Current zone name
+   * 
    */
   public function getCurrentZoneName(){
     return $this->currentZone;
   }
     
-  
   /**
    *
-   * return all registered zones
-   * @param array Zone
+   * @return array All registered zones. Use with caution. On big websites it can be expensive operation because it requires all zone objects to be created.
+   * 
    */
   public function getZones(){
     $answer = array();
@@ -225,13 +307,13 @@ class Site{
   }
 
   /**
-   * Finds website zone by module group and name.
-   * @param string $group module group key
-   * @param string $name module key
-   * @return array
+   * Find website zone by module group and name.
+   * @param $group Module group name (string)
+   * @param $module Module name (string)
+   * @return Zone
    */
   public function getZoneByModule($group, $module){
-    $answer = null;
+    $answer = false;
     foreach($this->zones as $key => $zone){
       if ($zone['associated_group'] == $group && $zone['associated_module'] == $module) {
         $answer = $this->getZone($zone['name']);
@@ -240,19 +322,29 @@ class Site{
     return $answer;
   }
 
-
   /**
    * Parse url and detect language url, zone url, url variables, get variables
-   * @private
+   * 
+   * <b>Example URL</b>
+   * 
+   * www.example.com/lt/left-menu/var1/var2/?mod=123
+   * 
+   * <b>Result:</b>
+   * 
+   * languageUrl - 'lt'
+   * 
+   * zoneUrl - 'left-menu'
+   * 
+   * urlVars - array(var1, var2)
+   * 
+   * getVars - array("mod"=>"123")   
+   *  
+   * @return void
+   * 
    */
-  public function parseUrl(){
+  private function parseUrl(){
     global $parametersMod;
-    // example www.example.com/lt/left-menu/var1/var2/?mod=123
-    // result:
-    //  languageUrl - 'lt';
-    //  zoneUrl - 'left-menu';
-    //	urlVars - array(var1, var2)
-    //	getVars - array("mod"=>"123")
+
     	
     //$urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
     $scriptPath = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1 );
@@ -288,23 +380,24 @@ class Site{
 
   /*
    * Redirect to another page if required
-   * @private
    * @return null
+   * 
    */
-  public function makeRedirect(){
-    $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
+  private function makeRedirect(){
+    $curEl =  $this->getCurrentElement();
     if($curEl){ //if page exist.
       switch($curEl->getType()){
         case 'subpage':
         case 'redirect':
-          $currentUrl = $this->generateCurrentUrl();
+          $currentUrl = $this->getCurrentUrl();
           if(isset($_SESSION['frontend']['redirects'][$currentUrl])){
-            unset($_SESSION['frontend']['redirects']);         
+            unset($_SESSION['frontend']['redirects']);   
             return;//infinite redirect loop. Stop redirecting;
           } else {
             $_SESSION['frontend']['redirects'][$currentUrl] = 1; //to detect infinite loop
             header('HTTP/1.1 301 Moved Permanently');
             header('Location: '.$curEl->getLink());
+            
             \Db::disconnect();
             exit();
           }
@@ -313,27 +406,26 @@ class Site{
     }
     unset($_SESSION['frontend']['redirects']);  
   }  
-  
   /**
-   * Detects which template to use by current page (URL)
-   * @private
-   * @return string
+   * 
+   * @return string Current layout file
+   * 
    */
-
-  public function choseTemplate(){
+  public function getLayout(){
     global $parametersMod;
     if($this->error404 && $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template') != '')
     return $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template');
 
-    if(isset($this->currentZone))
-    return($this->zones[$this->currentZone]['template']);
+    if(isset($this->currentZone)){
+      return($this->getCurrentZone()->getLayout());
+    }
   }
 
   /**
-   * Generates current URL. Used for logging, links to the same page and so on.
-   * @return string URL
+   * Get current URL.
+   * @return string Current URL
    */
-  public function generateCurrentUrl(){
+  public function getCurrentUrl(){
     $pageURL = 'http';
     if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on"){
       $pageURL .= "s";
@@ -347,19 +439,29 @@ class Site{
     return $pageURL;
   }
 
-
-
-
-
-
+  /**
+   * @deprecated Use getCurrentUrl() instead;
+   * 
+   * @return string - Current URL
+   */
+  public function generateCurrentUrl(){
+    $this->getCurrentUrl();
+  }
 
   /**
-   * Generates link to page.
-   * @param int $languageId id of language
-   * @param string $zoneKey key of zone at whish the link should be generated.
-   * @param array $urlVars array of additional url variables
-   * @param array $getVars array of additional get variables
-   * @return link to fist page of currentLanguage
+   * Generate link to website. Use it with no arguments to get link to main page of current language.
+   * 
+   * Don't use it to generate link to existing page. To get link to existing page, use method getLink() on Element object. 
+   * 
+   * @param $languageId
+   *   Id of language
+   * @param $zoneName
+   *   Zone name.
+   * @param $urlVars
+   *   Array of additional url variables. Eg. array('var1', 'var2');
+   * @param $getVars
+   *   Array of additional get variables. Eg. array('var1'='val1', 'val2'='val2');
+   * @return requested link or link to fist page of currentLanguage if all parameters are null. 
    */
   public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null){
     global $parametersMod;
@@ -433,23 +535,7 @@ class Site{
   }
 
   /**
-   * Generates link to first page of current language.
-   * @param string $zone_key key of zone at whish the link should be generated.
-   * @param array $urlVars array of additional url variables
-   * @param array $getVars array of additional get variables
-   * @return string link to fist page of defined language
-   */
-  public function generateLanguageUrl($langUrl){
-    $answer = BASE_URL.urlencode($langUrl);
-    // get parameter for cms management
-    if(isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage')
-    $answer .= '/?cms_action=manage';
-    // get parameter for cms management
-    return $answer;
-  }
-
-  /**
-   * Finds the reason why the user come to unexisting URL
+   * Find the reason why the user come to unexisting URL
    * @return string error message
    */
   public function error404Message(){
@@ -468,13 +554,12 @@ class Site{
     return $message;
   }
 
-
   /**
-   * Finds the reason why the user come to unexisting URL
-   * Depending on configuraition, redirects to first page or returns error message.
-   * @return string error message
+   * 
+   * Report error, set header.
+   * 
    */
-  public function error404(){
+  private function error404(){
     require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
     global $parametersMod;
     $this->error404 = true;
@@ -488,18 +573,18 @@ class Site{
     if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
       if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_mistyped_urls', $this->currentLanguage['id']))
         $message = $this->error404Message().'
-             Link: '.$this->generateCurrentUrl().'
+             Link: '.$this->getCurrentUrl().'
              Http referer: '.$_SERVER['HTTP_REFERER'];
     }else{
       if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
         if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_inside_link', $this->currentLanguage['id']))
           $message = $this->error404Message().'
-             Link: '.$this->generateCurrentUrl().'
+             Link: '.$this->getCurrentUrl().'
              Http referer: '.$_SERVER['HTTP_REFERER'];
       }if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) === false){
         if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_outside_link', $this->currentLanguage['id']))
         $message = $this->error404Message().'
-             Link: '.$this->generateCurrentUrl().'
+             Link: '.$this->getCurrentUrl().'
              Http referer: '.$_SERVER['HTTP_REFERER'];
       }
       	
@@ -527,12 +612,17 @@ class Site{
 
   /**
    * Some modules need to make some actions before any output.
+   * 
    * This function detects such requirements and executes specified module.
+   * 
    * If you need to use this feature, simply POST (or GET) two variables:
-   * @private
-   * $_REQUEST['module_gorup']
+   * 
+   * $_REQUEST['module_group']
+   * 
    * $_REQUEST['module_name']
+   * 
    * This function will include file actions.php on specified module directory and axecute method "make_actions()" on class actions_REQUEST['module_gorup']_REQUEST['module_name']
+   * 
    */
   public function makeActions(){
     if(sizeof($_REQUEST) > 0){
@@ -558,10 +648,13 @@ class Site{
     }
     
     $this->getZone($this->currentZone)->makeActions();
+    
   }
 
   /**
-   * @return string title of current active page
+   * 
+   * @return string title of current page
+   * 
    */
   public function getTitle(){
     $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
@@ -570,8 +663,11 @@ class Site{
     else
     return $this->zones[$this->currentZone]['title'];
   }
+  
   /**
-   * @return string description of current active page
+   * 
+   * @return string description of current page
+   * 
    */
   public function getDescription(){
     $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
@@ -580,8 +676,11 @@ class Site{
     else
     return $this->zones[$this->currentZone]['description'];
   }
+  
   /**
-   * @return string url of current active page
+   * 
+   * @return string url of current page. This is not a complete URL. It is only url parameter of current page.
+   * 
    */
   public function getUrl(){
     $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
@@ -590,8 +689,11 @@ class Site{
     else
     return $this->zones[$this->currentZone]['url'];
   }
+  
   /**
-   * @return string keywords of current active page
+   * 
+   * @return string keywords of current page
+   * 
    */
   public function getKeywords(){
     $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
@@ -601,17 +703,19 @@ class Site{
     return $this->zones[$this->currentZone]['keywords'];
   }
 
-
   /**
+   * 
    * @return bool true if the system is in management state
+   * 
    */
   public function managementState(){
     return (isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
   }
 
   /**
-   * Print out the content or management tools of current page.
-   * @return void
+   * 
+   * @return string The content (if in management state - management tools) of current page.
+   * 
    */
   public function generateContent(){
     $answer = '';
@@ -619,7 +723,7 @@ class Site{
       if($this->error404){
         $answer .= $this->error404Message();
         global $log;
-        $log->log("system", "error404", $this->generateCurrentUrl()." ".$this->error404Message());
+        $log->log("system", "error404", $this->getCurrentUrl()." ".$this->error404Message());
       }else{
         if($this->managementState()){
 
@@ -637,7 +741,21 @@ class Site{
     return $answer;
   }
 
-
+  /**
+   * 
+   * Import required template file or modified version of it from current theme directory.
+   * 
+   * @param $file File name of template that need to be required relative to MODULE_DIR folder. 
+   * 
+   * <b>Example:</b>
+   * 
+   * requireTemplate('group/module/template.php');
+   * this line will try to require such files:
+   * BASE_DIR.THEME_DIR.THEME.'/modules/'.'group/module/template.php'; //customized template file in current theme
+   * BASE_DIR.MODULE_DIR.'group/module/template.php';  //original template in module directory
+   * BASE_DIR.PLUGIN_DIR.'group/module/template.php';  //original template in plugin directory
+   * 
+   */
   public function requireTemplate($file){
     if (file_exists(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file)) {
       require_once(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file);
@@ -658,7 +776,22 @@ class Site{
     }
   }
 
-  public function requireConfig($file){
+  /**
+   * 
+   * Import required config file or modified version of it from COFIG_DIR directory.
+   * 
+   * @param $file File name of config that need to be required relative to MODULE_DIR folder. 
+   * 
+   * <b>Example:</b>
+   * 
+   * requireConfig('group/module/config.php');
+   * this line will try to require such files:
+   * BASE_DIR.CONFIG_DIR.'group/module/config.php'; //customized config file in config directory
+   * BASE_DIR.MODULE_DIR.'group/module/config.php'; //original module config file
+   * BASE_DIR.PLUGIN_DIR.'group/module/config.php'; //original plugin config file
+   * 
+   */
+    public function requireConfig($file){
     if (file_exists(BASE_DIR.CONFIG_DIR.$file)) {
       require_once(BASE_DIR.CONFIG_DIR.$file);
     } else {
@@ -670,7 +803,15 @@ class Site{
     }
   }
 
-  public function usedUrl($url){
+  /**
+   * 
+   * Page URL begining might conflict with CMS folders. This function check if the folder is available to use in url beginning. 
+   * 
+   * @param $folderName
+   * @return bool true if URL is reserved for CMS core
+   * 
+   */
+  public function usedUrl($folderName){
 
     $systemDirs = array();
 
@@ -684,25 +825,68 @@ class Site{
     $systemDirs[AUDIO_DIR] = 1;
     $systemDirs['install'] = 1;
     $systemDirs['update'] = 1;
-    if(isset($systemDirs[$url]))
-    return true;
-    else
-    return false;
+    if(isset($systemDirs[$folderName])){
+      return true;
+    } else {
+      return false;
+    }
   }
 
-
+  /**
+   *   
+   * @return array Each element in array is an Element
+   * 
+   */
   public function getBreadcrumb(){
     $zone = $this->getCurrentZone();
     return $zone->getBreadcrumb();
   }
   
-  
+  /**
+   *   
+   * @return Element - Current page
+   * 
+   */  
   public function getCurrentElement(){
     $zone = $this->getCurrentZone();
     return $zone->getCurrentElement(); 
   }
   
-  
+  /**
+   * 
+   * Dispatch any event to system. Any module can catch this event. 
+   * 
+   * 
+   * @param $moduleGroup group name of module whish throws the event
+   * @param $moduleName name of module whish throws the event
+   * @param $event event name
+   * @param $parameters array of parameters. You decide what to pass here.
+   * 
+   * To catch the event, create "system.php" file in your plugin (module) directory with content:
+   * 
+   * <?php
+   * 
+   * namespace Modules\your_plugin_group\your_plugin_name;  
+   *  
+   * if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+   *  
+   * class System{
+   * 
+   *   public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
+   *   
+   *       //your actions
+   *       
+   *   }
+   *   
+   * }
+   * 
+   *  ?>
+   * 
+   * 
+   * 
+   * 
+   * 
+   */  
   public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
     $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
     $rs = mysql_query($sql);

@@ -117,7 +117,7 @@ class Element extends \Frontend\Element{
 		<lastBuildDate>'.date("D, d M Y H:i:s").' GMT</lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 		<generator>ImpressPages CMS</generator>
-		<atom:link href="'.$site->generateCurrentUrl().'" rel="self" type="application/rss+xml" />';
+		<atom:link href="'.$site->getCurrentUrl().'" rel="self" type="application/rss+xml" />';
 
 		for($i=0; isset($rssPages[$i]) && $i<$parametersMod->getValue('administrator', 'rss', 'options', 'size'); $i++){
 			$page = $rssPages[$i];

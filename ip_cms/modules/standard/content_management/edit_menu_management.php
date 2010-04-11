@@ -641,7 +641,7 @@ $ids_array[] = "hackDrag";
 		global $site;
     $answer = "";
     $answer .= '
-    <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" onclick="window.open(\''.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->generateCurrentUrl())).'\',\'mywindow\',\'width=600,height=450,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes\')">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
+    <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" onclick="window.open(\''.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->getCurrentUrl())).'\',\'mywindow\',\'width=600,height=450,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes\')">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
     <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonOk" onclick="mod_management.changed = false; menu_saver.save_to_db()">'.$parametersMod->getValue('standard', 'content_management','admin_translations','man_save').'</a></span>
     <script type="text/javascript">
         //<![CDATA[

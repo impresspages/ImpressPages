@@ -42,7 +42,7 @@ if(\Db::connect()){
   
   
   $site = new \Frontend\Site();
-  $site->configZones();
+  $site->init();
 
 
   $sitemap = new Sitemap();  

@@ -46,7 +46,8 @@ class Element extends \Frontend\Element{
     
     require_once (__DIR__.'/db.php');
     
-    switch($this->type){
+    //redirects are made automatically by site class.
+/*    switch($this->type){
       case 'subpage':
         $tmpChildren = $site->getZone($this->zoneName)->getElements(null, $this->id, 0, $limit = 1);
         if(sizeof($tmpChildren) == 1){
@@ -69,7 +70,7 @@ class Element extends \Frontend\Element{
           ';
         
       break;
-    }    
+    }    */
     
     //if no redirect, put the content
     $moduleUrl = 'modules/standard/menu_management/';

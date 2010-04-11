@@ -36,7 +36,7 @@ if(\Db::connect()){
 	$log = new \Modules\administrator\log\Module();
 
   $site = new \Frontend\Site(); /*to generate links to site and get other data about frontend*/
-	$site->configZones();
+	$site->init();
 
   $cms = new \Backend\Cms();
   $cms->worker();
