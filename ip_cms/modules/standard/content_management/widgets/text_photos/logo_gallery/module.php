@@ -14,7 +14,7 @@ const MODULE_KEY = 'logo_gallery';
 
 
 
-
+require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 
 class Module extends \Modules\standard\content_management\Widget{
   var $parameters;
@@ -131,15 +131,7 @@ class Module extends \Modules\standard\content_management\Widget{
   function insert_photo($gallery_id, $number, $values){
     $new_name = $values['new_photo'.$number];
     if ($new_name != ""){
-      $new_name = substr($new_name, 0, strrpos($new_name, ".") );
-      if (file_exists(IMAGE_DIR.$new_name.'.jpg')){
-        $i = 1;
-        while(file_exists(IMAGE_DIR.$new_name.'_'.$i.'.jpg')){
-          $i++;
-        }
-        $new_name .= '_'.$i;
-      }
-      $new_name .= ".jpg";
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
     }
 
 
@@ -154,8 +146,11 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function update_photo($photo_id, $number, $values){
-    if (isset($values['new_photo'.$number]) && $values['new_photo'.$number] != null)
-    copy(TMP_IMAGE_DIR.$values['new_photo'.$number], IMAGE_DIR.$values['existing_photo'.$number]);
+    $new_name = $values['new_photo'.$number];
+    if (isset($values['new_photo'.$number]) && $values['new_photo'.$number] != null){
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
+      copy(TMP_IMAGE_DIR.$values['new_photo'.$number], IMAGE_DIR.$new_name);
+    }
 
     $sql = "update `".DB_PREF."mc_text_photos_logo_gallery_logo` set link = '".mysql_real_escape_string($values['title'.$number])."', row_number = '".(int)$number."' where id = '".(int)$photo_id."'";
     $rs = mysql_query($sql);
@@ -165,7 +160,9 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
   function delete_photo($photo_id, $number, $values){
-    unlink(IMAGE_DIR.$values['existing_photo'.$number.'_del']);
+    if($values['existing_photo'.$number.'_del'] != '' && file_exists(IMAGE_DIR.$values['existing_photo'.$number.'_del']) ){
+      unlink(IMAGE_DIR.$values['existing_photo'.$number.'_del']);
+    }
     $sql = "delete from `".DB_PREF."mc_text_photos_logo_gallery_logo` where id = '".(int)$photo_id."' ";
     $rs = mysql_query($sql);
     if (!$rs)
@@ -248,8 +245,10 @@ class Module extends \Modules\standard\content_management\Widget{
     $rs = mysql_query($sql);
     while($lock = mysql_fetch_assoc($rs)){
       if($lock['logo'] != null)
-      if (!unlink(IMAGE_DIR.$lock['logo'])){
-        $this->set_error("Can't delete logo.");
+      if ($lock['logo'] != '' && file_exists(IMAGE_DIR.$lock['logo'])){
+        if(!unlink(IMAGE_DIR.$lock['logo'])){
+          $this->set_error("Can't delete logo.");
+        }
       }
 
     }
@@ -276,8 +275,10 @@ class Module extends \Modules\standard\content_management\Widget{
     $rs = mysql_query($sql);
     while($lock = mysql_fetch_assoc($rs)){
       if($lock['logo'] != null)
-      if (!unlink(IMAGE_DIR.$lock['logo'])){
-        $this->set_error("Can't delete logo.");
+      if ($lock['logo'] != '' && file_exists($lock['logo'])){
+        if(!unlink(IMAGE_DIR.$lock['logo'])){
+          $this->set_error("Can't delete logo.");
+        }
       }
 
     }

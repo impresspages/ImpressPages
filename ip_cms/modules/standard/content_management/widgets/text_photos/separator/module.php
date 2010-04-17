@@ -102,12 +102,7 @@ class Module extends \Modules\standard\content_management\Widget{
         ", visible= '".(int)$values['visible']."' ";
 
       $rs = mysql_query($sql);
-      if (!$rs)
-      $this->set_error("Can't associate element to module ".$sql);
-      else{
-        $sql = "update `".DB_PREF."content_element_to_modules` set module_id = id where id = ".mysql_insert_id();
-        $rs = mysql_query($sql);
-        if (!$rs)
+      if (!$rs){
         $this->set_error("Can't associate element to module ".$sql);
       }
 

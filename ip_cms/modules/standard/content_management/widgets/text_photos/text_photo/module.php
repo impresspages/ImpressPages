@@ -13,7 +13,7 @@ const GROUP_KEY = 'text_photos';
 const MODULE_KEY = 'text_photo';
 
 
-
+require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 
 class Module extends \Modules\standard\content_management\Widget{
 
@@ -122,28 +122,12 @@ class Module extends \Modules\standard\content_management\Widget{
   function create_new_instance($values){
     $new_name = $values['new_photo'];
     if ($new_name != ""){
-      $new_name = substr($new_name, 0, strrpos($new_name, ".") );
-      if (file_exists(IMAGE_DIR.$new_name.'.jpg')){
-        $i = 1;
-        while(file_exists(IMAGE_DIR.$new_name.'_'.$i.'.jpg')){
-          $i++;
-        }
-        $new_name .= '_'.$i;
-      }
-      $new_name .= ".jpg";
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, IMAGE_DIR.IMAGE_DIR);
     }
 
     $new_bigname = $values['new_bigphoto'];
     if ($new_bigname != ""){
-      $new_bigname = substr($new_bigname, 0, strrpos($new_bigname, ".") );
-      if (file_exists(IMAGE_DIR.$new_bigname.'.jpg') || $new_bigname.".jpg" == $new_name){
-        $i = 1;
-        while(file_exists(IMAGE_DIR.$new_bigname.'_'.$i.'.jpg') ||  $new_bigname.'_'.$i.'.jpg' == $new_name){
-          $i++;
-        }
-        $new_bigname .= '_'.$i;
-      }
-      $new_bigname .= ".jpg";
+      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, IMAGE_DIR.IMAGE_DIR);
     }
 
 
@@ -179,7 +163,7 @@ class Module extends \Modules\standard\content_management\Widget{
   function update($values){
     if(isset($values['new_photo']) && $values['new_photo'] != null){
       if (isset($values['existing_photo']) && $values['existing_photo'] != null){
-        if (file_exists(IMAGE_DIR.$values['existing_photo'])){
+        if ($values['existing_photo'] != '' && file_exists(IMAGE_DIR.$values['existing_photo'])){
           if (!unlink(IMAGE_DIR.$values['existing_photo'])){
             $this->set_error("Can't delete old photo.");
           }
@@ -187,7 +171,7 @@ class Module extends \Modules\standard\content_management\Widget{
       }
 
       if (isset($values['existing_bigphoto']) && $values['existing_bigphoto'] != null){
-        if (file_exists(IMAGE_DIR.$values['existing_bigphoto'])){
+        if ($values['existing_bigphoto'] != '' && file_exists(IMAGE_DIR.$values['existing_bigphoto'])){
           if (!unlink(IMAGE_DIR.$values['existing_bigphoto'])){
             $this->set_error("Can't delete old photo.");
           }
@@ -196,29 +180,13 @@ class Module extends \Modules\standard\content_management\Widget{
 
       $new_name = $values['new_photo'];
       if ($new_name != ""){
-        $new_name = substr($new_name, 0, strrpos($new_name, ".") );
-        if (file_exists(IMAGE_DIR.$new_name.'.jpg')){
-          $i = 1;
-          while(file_exists(IMAGE_DIR.$new_name.'_'.$i.'.jpg')){
-            $i++;
-          }
-          $new_name.'_'.$i;
-        }
-        $new_name .= '.jpg';
-        copy(TMP_IMAGE_DIR.$values['new_photo'], IMAGE_DIR.$new_name);
+        $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
       }
 
       $new_bigname = $values['new_bigphoto'];
       if ($new_bigname != ""){
-        $new_bigname = substr($new_bigname, 0, strrpos($new_bigname, ".") );
-        if (file_exists(IMAGE_DIR.$new_bigname.'.jpg') || $new_bigname.".jpg" == $new_name){
-          $i = 1;
-          while(file_exists(IMAGE_DIR.$new_bigname.'_'.$i.'.jpg') ||  $new_bigname.'_'.$i.'.jpg' == $new_name){
-            $i++;
-          }
-          $new_bigname .= '_'.$i;
-        }
-        $new_bigname .= ".jpg";
+        $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, BASE_DIR.IMAGE_DIR);
+        
         copy(TMP_IMAGE_DIR.$values['new_bigphoto'], IMAGE_DIR.$new_bigname);
       }
 
@@ -242,13 +210,13 @@ class Module extends \Modules\standard\content_management\Widget{
 
   function delete($values){
 
-    if (isset($values['existing_photo']) && $values['existing_photo'] != null && file_exists(IMAGE_DIR.$values['existing_photo'])){
+    if (isset($values['existing_photo']) && $values['existing_photo'] != '' && file_exists(IMAGE_DIR.$values['existing_photo'])){      
       if (!unlink(IMAGE_DIR.$values['existing_photo'])){
         $this->set_error("Can't delete photo.");
       }
     }
 
-    if (isset($values['existing_bigphoto']) && $values['existing_bigphoto'] != null && file_exists(IMAGE_DIR.$values['existing_bigphoto'])){
+    if (isset($values['existing_bigphoto']) && $values['existing_bigphoto'] != '' && file_exists(IMAGE_DIR.$values['existing_bigphoto'])){
       if (!unlink(IMAGE_DIR.$values['existing_bigphoto'])){
         $this->set_error("Can't delete photo.");
       }
@@ -274,12 +242,16 @@ class Module extends \Modules\standard\content_management\Widget{
     if ($rs && $lock = mysql_fetch_assoc($rs)){
 
 
-      if (!unlink(IMAGE_DIR.$lock['photo'])){
-        $this->set_error("Can't delete photo.");
+      if($lock['photo'] != '' && file_exists(IMAGE_DIR.$lock['photo'])){
+        if (!unlink(IMAGE_DIR.$lock['photo'])){
+          $this->set_error("Can't delete photo.");
+        }
       }
 
-      if (!unlink(IMAGE_DIR.$lock['photo_big'])){
-        $this->set_error("Can't delete photo.");
+      if($lock['photo_big'] != '' && file_exists(IMAGE_DIR.$lock['photo_big'])){
+        if (!unlink(IMAGE_DIR.$lock['photo_big'])){
+          $this->set_error("Can't delete photo.");
+        }
       }
 
 

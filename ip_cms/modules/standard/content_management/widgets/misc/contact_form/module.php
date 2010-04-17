@@ -432,8 +432,8 @@ class Module extends \Modules\standard\content_management\Widget{
     return true;
   }
   function set_error($error){
-    global $worer;
-    $worker->set_error($error);
+    global $globalWorker;
+    $globalWorker->set_error($error);
   }
 }
 
