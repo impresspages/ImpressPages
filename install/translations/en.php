@@ -63,7 +63,7 @@ define('IP_CONFIG_EMAIL', 'E-mail for error reporting (optional)');
 define('IP_CONFIG_LOGIN', 'Administrator login');
 define('IP_CONFIG_PASS', 'Administrator password');
 define('IP_CONFIG_TIMEZONE', 'Website time zone');
-define('IP_CONFIG_SELECT_TIMEZONE', 'Please chose website time zone');
+define('IP_CONFIG_SELECT_TIMEZONE', 'Please choose website time zone');
 
 define('IP_FINISH_MESSAGE', '
 <p>Please delete directories "install", "update" and cancel write permissions for these files:</p>
