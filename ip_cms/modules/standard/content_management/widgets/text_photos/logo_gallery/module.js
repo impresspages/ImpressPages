@@ -271,6 +271,9 @@ function content_mod_logo_gallery() {
 	}
 
 	function save() {
+		this.layout = document.getElementById('mod_' + this.collection_number + '_layout').layout.value;
+
+		
 		for ( var i = 0; i < this.backup_photos.length; i++) {
 			this.backup_photos[i].save_title('mod' + this.collection_number
 					+ '' + i + '_photo_management');
