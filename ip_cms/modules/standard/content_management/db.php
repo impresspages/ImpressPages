@@ -171,7 +171,7 @@ class Db{
 	
 	
 	
-  public static function insertMenuElement($parent, $row_number, $button_title, $page_title = '', $keywords = '', $description = '', $url = '', $rss=0){
+  public static function insertMenuElement($parent, $row_number, $button_title, $page_title = '', $keywords = '', $description = '', $url = '', $rss=0, $visible = null){
     global $parametersMod;
     global $globalWorker;
 		if($page_title == '')
@@ -180,10 +180,12 @@ class Db{
     if (!mysql_query($sql))
       $globalWorker->set_error("Cant update row number ".$sql);
 
+    if($visible === null){      
       if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'))
         $visible = '0';
       else
         $visible = '1';
+    }
     $sql = "insert into `".DB_PREF."content_element` set last_modified= CURRENT_TIMESTAMP, parent = '".$parent."',row_number = '".$row_number."', button_title='".mysql_real_escape_string($button_title)."', page_title='".mysql_real_escape_string($page_title)."', keywords='', description='', url='".mysql_real_escape_string(Db::makeUrl($page_title))."', rss='".mysql_real_escape_string($rss)."', visible='".$visible."'";
     if (!mysql_query($sql))
       trigger_error("Can't insert new page ".$sql." ".mysql_error());

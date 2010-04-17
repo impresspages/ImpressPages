@@ -170,7 +170,7 @@ class Manager{
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'</span><br><p style="display: none;" id="std_mod_update_f_error_i_n_2" class="error"></p>
           <p style="display: none;" id="property_visible_error" class="error"></p>
-          <input checked="checked" class="stdModBox" name="property_visible" type="checkbox"><br><br>
+          <input checked="'.($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages')?'':'checked').'" class="stdModBox" name="property_visible" type="checkbox"><br><br>
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'rss')).'</span><br><p style="display: none;" id="std_mod_update_f_error_i_n_2" class="error"></p>
           <p style="display: none;" id="property_rss_error" class="error"></p>

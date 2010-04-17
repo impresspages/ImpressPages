@@ -110,10 +110,11 @@ class BackendWorker{
       $_POST['last_modified'] = date("Y-m-d", strtotime($_POST['last_modified']));
       $newNodeIndex = sizeof(\Modules\standard\content_management\Db::menuElementChildren($_POST['parent_id']));
 
-      if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'))
+      $visible = $_POST['visible'];
+      /*if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'))
         $visible = '0';
       else
-        $visible = '1';    
+        $visible = '1';*/
 
   	  $newNodeId = Db::insertContentElement($_POST['parent_id'], $newNodeIndex, $visible, $_POST);
   	  
