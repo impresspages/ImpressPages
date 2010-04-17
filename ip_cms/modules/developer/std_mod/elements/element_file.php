@@ -249,7 +249,7 @@ class ElementFile extends Element{ //data element in area
   }
 
   function getFilterOption($value, $area){
-    return " ".$this->dbField." like '%".mysql_real_escape_string($value)."%' ";
+    return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
   }
 
 

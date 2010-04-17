@@ -112,9 +112,9 @@ class ElementBool extends Element{ //data element in area
 
   function getFilterOption($value, $area){
 		if($value)
-			return " ".$this->dbField." = 1 ";
+			return " `".$this->dbField."` = 1 ";
 		else
-			return " ".$this->dbField." = 0 ";
+			return " `".$this->dbField."` = 0 ";
   }
 	
 	

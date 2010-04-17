@@ -111,7 +111,7 @@ class element_text extends Element{ //data element in area
   }
 
   function get_filter_option($value){
-    return " ".$this->db_field." like '%".mysql_real_escape_string($value)."%' ";
+    return " `".$this->db_field."` like '%".mysql_real_escape_string($value)."%' ";
   }
 
   function set_default_value($default_value){

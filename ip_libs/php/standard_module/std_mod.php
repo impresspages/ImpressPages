@@ -1299,7 +1299,7 @@ class StandardModule{
 			
 		$sql_pages = " select * from `".DB_PREF."".$this->current_area->get_db_table()."` where 1 ";
 		if (($this->level > 0))
-			 $sql_pages .= " and ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' ";
+			 $sql_pages .= " and `".$this->current_area->get_db_reference()."` = '".$this->up_area->get_parent_id()."' ";
 		if($this->current_area->get_where_condition())    
 			 $sql_pages .= " and ".$this->current_area->get_where_condition();  //extra condition to sql where part
 		foreach($this->current_area->get_elements() as $key => $value){

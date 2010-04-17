@@ -271,7 +271,7 @@ class ElementImage extends Element{ //data element in area
     foreach($this->copies as $copy){
       if($answer != '')
         $answer .= ' or ';
-      $answer .= " ".mysql_real_escape_string($copy['dbField'])." like '%".mysql_real_escape_string($value)."%' ";
+      $answer .= " `".mysql_real_escape_string($copy['dbField'])."` like '%".mysql_real_escape_string($value)."%' ";
     }
     $answer = ' ( '.$answer.' ) ';
     return $answer;
