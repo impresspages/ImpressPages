@@ -251,8 +251,7 @@ class Script {
       if(!$rs){
         trigger_error($sql.' '.mysql_error());
       }
-      
-      
+
       //delete duplicated parameter
       $module = \Db_100::getModule(null, 'developer', 'std_mod');
       $group = \Db_100::getParameterGroup($module['id'], 'admin_translations'); 
@@ -275,7 +274,47 @@ class Script {
         
       }
       //end delete duplicated parameter
+
+      //fix logo galery layout field
+      $sql = "update `".DB_PREF."mc_text_photos_logo_gallery` set `layout` = 'default' where `layout` = 'undefined' ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
       
+      
+      //correct separator module_id field
+      $sql = "select * from `".DB_PREF."content_element_to_modules` where `group_key` = 'text_photos' and `module_key` = 'separator' ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+      $contentToModule = array();
+      while($lock = mysql_fetch_assoc($rs)){
+        $contentToModule[] = $lock;
+      }
+      
+      $sql = "select * from `".DB_PREF."text_photos_separator` where 1 ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+      $separators = array();
+      while($lock = mysql_fetch_assoc($rs)){
+        $separators[] = $lock;
+      }
+      foreach($contentToModule as $key => $module){
+        if(isset($separators[$key])){
+          $sql = "update `".DB_PREF."content_element_to_modules` set `module_id` = ".(int)$separators[$key]['id']." where `id` = ".(int)$module['id']." ";
+          $rs = mysql_query($sql);
+          if(!$rs){
+            trigger_error($sql.' '.mysql_error());
+          }
+          
+        }
+      }
+      
+      //end correct separator module_id  field
       
       if ($this->curStep == $this->stepCount){
         \Db_100::setSystemVariable('version','1.0.4');
