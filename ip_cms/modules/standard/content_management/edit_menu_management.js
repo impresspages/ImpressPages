@@ -80,8 +80,9 @@
     function module_control_buttons(collection_number, visible){
       var div = document.createElement('div');
       //div.setAttribute('name', 'moduleControlButtons');
-      div.setAttribute("className", 'ipCmsButtons');			
-      div.setAttribute("class", 'ipCmsButtons');			
+      //div.setAttribute("className", 'ipCmsButtons');			
+      //div.setAttribute("class", 'ipCmsButtons');
+      div.className = 'ipCmsButtons';
       div.setAttribute('id', 'ipCmsModuleControlButtons');
       
       var image_visibility;
@@ -115,8 +116,9 @@
       var div = document.createElement('div');
 //      div.setAttribute('name', 'module_control_buttons');
 //      div.setAttribute(document.all ? "className" : "class", 'moduleControlButtons');
-      div.setAttribute("className", 'ipCmsModuleControlButtons');
-      div.setAttribute("class", 'ipCmsModuleControlButtons');
+//      div.setAttribute("className", 'ipCmsModuleControlButtons');
+//      div.setAttribute("class", 'ipCmsModuleControlButtons');
+      div.className = 'ipCmsModuleControlButtons';
       div.innerHTML = ''+
          ' <a class="ipCmsButton" onclick="' + this.this_object + '.module_preview_save(' + collection_number + ')" href="javascript:void(0)">' + translation_edit_menu_man_paragraph_confirm + '</a>'+
          ' <a class="ipCmsButton" onclick="' + this.this_object + '.module_preview_cancel(' + collection_number + ')" href="javascript:void(0)">' + translation_edit_menu_man_paragraph_cancel + '</a> '+
@@ -139,8 +141,9 @@
 
 			var tmp_div = document.createElement("div");
 //			tmp_div.setAttribute(document.all ? "className" : "class", 'moduleManagement moduleBorder');
-			tmp_div.setAttribute("className", 'ipCmsModuleManagement ipCmsModuleBorder');
-			tmp_div.setAttribute("class", 'ipCmsModuleManagement ipCmsModuleBorder');
+//			tmp_div.setAttribute("className", 'ipCmsModuleManagement ipCmsModuleBorder');
+//			tmp_div.setAttribute("class", 'ipCmsModuleManagement ipCmsModuleBorder');
+			tmp_div.className = 'ipCmsModuleManagement ipCmsModuleBorder';
 			tmp_div.appendChild(new_module.manage(this.modules.length-1));
 			tmp_div.appendChild(this.module_control_buttons_management(this.modules.length-1));
 			var table = this.make_module_div_table(this.modules.length-1, tmp_div, false);
@@ -169,14 +172,17 @@
         this.modules[collection_number].managed = true;
 
         var mod_div = document.getElementById('mod_collection_' + collection_number);
+        mod_div.className = 'ipWidget ipCmsModuleManagement';
+
         mod_div.onmouseover = '';
         mod_div.onmouseout = '';
         mod_div.innerHTML = '';
 				
 				var tmp_div = document.createElement('div');
 //				tmp_div.setAttribute(document.all ? "className" : "class", 'moduleManagement moduleBorder');
-				tmp_div.setAttribute("className", 'ipCmsModuleManagement ipCmsModuleBorder');
-				tmp_div.setAttribute("class", 'ipCmsModuleManagement ipCmsModuleBorder');
+//				tmp_div.setAttribute("className", 'ipCmsModuleManagement ipCmsModuleBorder');
+//				tmp_div.setAttribute("class", 'ipCmsModuleManagement ipCmsModuleBorder');
+				tmp_div.className = 'ipCmsModuleManagement ipCmsModuleBorder';
 				
         tmp_div.appendChild(this.modules[collection_number].manage(collection_number));
         tmp_div.appendChild(this.module_control_buttons_management(collection_number));
@@ -338,8 +344,8 @@
       var main_div = document.createElement("div");
       main_div.setAttribute('id', 'mod_collection_' + collection_number);
 //      main_div.setAttribute(document.all ? "className" : "class", 'contentMod');
-      main_div.setAttribute("className", 'ipWidget');
-      main_div.setAttribute("class", 'ipWidget');
+//      main_div.setAttribute("className", 'ipWidget');
+//      main_div.setAttribute("class", 'ipWidget'); //maskas
 			
 			/*main_div.onclick = function(){				
 				if(!mod_management.modules[this.id.substring(15)].managed)
@@ -396,21 +402,24 @@
 			}
       mod_nav.setAttribute('id', 'mod_collection_nav_' + collection_number);
 //      mod_nav.setAttribute(document.all ? "className" : "class", "modNav");
-      mod_nav.setAttribute("className", "ipCmsModNav");
-      mod_nav.setAttribute("class", "ipCmsModNav");
+//      mod_nav.setAttribute("className", "ipCmsModNav");
+//      mod_nav.setAttribute("class", "ipCmsModNav");
+      mod_nav.className = "ipCmsModNav";
 
 
 
       var new_paragraph = document.createElement("div");
 //      new_paragraph.setAttribute(document.all ? "className" : "class", "newParagraph");
-      new_paragraph.setAttribute("className", "ipCmsNewParagraph");
-      new_paragraph.setAttribute("class", "ipCmsNewParagraph");
+//      new_paragraph.setAttribute("className", "ipCmsNewParagraph");
+//      new_paragraph.setAttribute("class", "ipCmsNewParagraph");
+      new_paragraph.className = "ipCmsNewParagraph";
       new_paragraph.setAttribute('id', 'new_paragraph_' + collection_number);
 
       var separator = document.createElement("div");
 //      separator.setAttribute(document.all ? "className" : "class", 'paragraphSeparator');
-      separator.setAttribute("className", 'ipCmsParagraphSeparator');
-      separator.setAttribute("class", 'ipCmsParagraphSeparator');
+//      separator.setAttribute("className", 'ipCmsParagraphSeparator');
+//      separator.setAttribute("class", 'ipCmsParagraphSeparator');
+      separator.className = 'ipCmsParagraphSeparator';
       separator.style.width = '100%';
       separator.style.backgroundColor = 'darkred';
       if(this.mode = 'no_separators')
@@ -426,8 +435,17 @@
       manage_div.appendChild(separator);
       manage_div.appendChild(new_paragraph);
 //      manage_div.setAttribute(document.all ? "className" : "class", 'moduleManagement');
-      manage_div.setAttribute("className", 'ipCmsModuleManagement');
-      manage_div.setAttribute("class", 'ipCmsModuleManagement');
+//      manage_div.setAttribute("className", 'ipCmsModuleManagement');
+//		manage_div.setAttribute("class", 'ipCmsModuleManagement');
+      
+      manage_div.className = 'ipCmsModuleManagement';
+      
+/*      var clearElement = document.createElement('div');
+      clearElement.className = 'clear';
+      manage_div.appendChild(clearElement);
+*/      
+      
+      
 			main_div.appendChild(manage_div);
       main_div.appendChild(obj3);
 			
