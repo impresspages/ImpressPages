@@ -234,7 +234,7 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (358, 323, 0, 'sitemap', 0, 'Sitemap', 0, '1.00', 1),
 (361, 336, 8, 'config_exp_imp', 1, 'Modules exp/imp', 1, '1.00', 1),
 (436, 336, 9, 'localization', 1, 'Localization', 1, '1.00', 1),
-(424, 323, 4, 'system', 0, 'System', 1, '1.00', 1),
+(424, 323, 4, 'system', 1, 'System', 1, '1.00', 1),
 (435, 324, 7, 'breadcrumb', 1, 'Breadcrumb', 0, '1.00', 1);
 
 -- Dumping data for table--
