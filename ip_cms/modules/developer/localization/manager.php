@@ -118,7 +118,7 @@ class Manager{
               <div class="content">
                 <h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'parameters_imported')).'</h1>
                 <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'continue')).'</a>
-                <div class="clear"></div>
+                <div class="clear">&nbsp;<!-- --></div>
               </div>
             ';
             $answer .= HtmlOutput::footer(); 
