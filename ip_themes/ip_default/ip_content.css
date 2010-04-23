@@ -17,6 +17,32 @@
   text-align: left;
 }
 
+.ipContent table,
+.mceContentBody table {
+  border-collapse: collapse;
+}
+
+.ipContent td, .ipContent th,
+.mceContentBody td, .mceContentBody th {
+  border-bottom: 1px solid #cccccc;
+  font-family: Arial, Verdana, Tahoma;
+  font-size: 12px;
+  padding: 10px;
+  vertical-align: top;
+}
+
+.ipContent td p, .ipContent th p,
+.mceContentBody td p, .mceContentBody th p {
+  line-height: 14px;
+}
+
+.ipContent thead td, .ipContent th,
+.mceContentBody thead td, .mceContentBody th {
+  background-color: #cccccc;
+  color: #ffffff;
+  font-weight: bold;
+}
+
 .ipContent p,
 .mceContentBody p {
   line-height: 20px;
