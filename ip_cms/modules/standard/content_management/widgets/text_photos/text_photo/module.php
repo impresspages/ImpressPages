@@ -181,12 +181,12 @@ class Module extends \Modules\standard\content_management\Widget{
       $new_name = $values['new_photo'];
       if ($new_name != ""){
         $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
+        copy(TMP_IMAGE_DIR.$values['new_photo'], IMAGE_DIR.$new_name);
       }
 
       $new_bigname = $values['new_bigphoto'];
       if ($new_bigname != ""){
         $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, BASE_DIR.IMAGE_DIR);
-        
         copy(TMP_IMAGE_DIR.$values['new_bigphoto'], IMAGE_DIR.$new_bigname);
       }
 
@@ -198,12 +198,13 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
     $sql = "update `".DB_PREF."content_element_to_modules` set visible='".(int)$values['visible']."', row_number = '".(int)$values['row_number']."' where module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
-    if (!mysql_query($sql))
-    return("Can't update module row number".$sql);
-    else{
+    if (!mysql_query($sql)){
+      return("Can't update module row number".$sql);
+    }else{
       $sql = "update `".DB_PREF."mc_text_photos_text_photo` set layout = '".mysql_real_escape_string($values['layout'])."', `text` = REPLACE('".mysql_real_escape_string($values['text'])."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), photo = '".mysql_real_escape_string($new_name)."', photo_big = '".mysql_real_escape_string($new_bigname)."', `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".(int)$values['id']."'  ";
-      if (!mysql_query($sql))
-      $this->set_error("Can't update module ".$sql);
+      if (!mysql_query($sql)){
+        $this->set_error("Can't update module ".$sql);
+      }
     }
     return;
   }

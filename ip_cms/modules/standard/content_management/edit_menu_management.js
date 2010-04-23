@@ -136,6 +136,8 @@
 			eval ('new_module.init(' + this.modules.length + ', null, 1, \'' + this.this_object + '.' + this.get_modules_array_name() + '[' + this.modules.length + ']\', ' + this.this_object + ');');
 			div.setAttribute('name', 'mod_collection_' + this.modules.length);
 			div.setAttribute('id', 'mod_collection_' + this.modules.length);
+	        div.className = 'ipWidget ipCmsModuleManagement';
+
 
 			this.modules.push(new_module);
 

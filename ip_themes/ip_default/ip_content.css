@@ -267,10 +267,19 @@
 .ipContent .ipWidgetFile {}
 
 .ipContent .ipWidgetFileLink {
-  cursor: pointer;
+  color: #1e8de5;
   font-weight: bold;
-  text-decoration: none;
+  text-decoration: none;	
 }
+
+.ipContent .ipWidgetFileLink:visited {
+  color: #6a78b4;
+}
+
+.ipContent .ipWidgetFileLink:hover {
+  color: #f59a25;
+}
+
 
 .ipContent .ipWidgetHtmlCode {}
 

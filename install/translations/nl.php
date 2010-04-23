@@ -6,7 +6,7 @@ define('IP_MOD_REWRITE', 'Apache module "mod_rewrite"');
 
 define('IP_OK', 'Ja');
 define('IP_ERROR', 'Nee');
-define('IP_WRITEABLE', 'overschrijfbaar');
+define('IP_WRITABLE', 'overschrijfbaar');
 define('IP_CHECK_AGAIN', 'Opnieuw controleren');
 define('IP_BACK', 'Vorige');
 define('IP_NEXT', 'Volgende');

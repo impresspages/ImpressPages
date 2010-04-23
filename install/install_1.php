@@ -8,7 +8,7 @@ if (INSTALL!="true") exit;
  
 complete_step(1); 
  
-function directory_is_writeable($dir){
+function directory_is_writable($dir){
 	$answer = true;
 	if(!is_writable($dir)){
 		$answer = false;
@@ -64,79 +64,53 @@ $table[] = '';
 $table[] = '';
 
 
-$table[] = '<b>/audio/</b> '.IP_WRITEABLE.' '.IP_SUBDIRECTORIES;
-if(!directory_is_writeable(dirname(__FILE__).'/../audio')){
+$table[] = '<b>/audio/</b> '.IP_WRITABLE.' '.IP_SUBDIRECTORIES;
+if(!directory_is_writable(dirname(__FILE__).'/../audio')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_audio'] = 1;
+	$error['writable_audio'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';
 
 
-$table[] = '<b>/file/</b> '.IP_WRITEABLE.' '.IP_SUBDIRECTORIES;
-if(!directory_is_writeable(dirname(__FILE__).'/../file')){
+$table[] = '<b>/file/</b> '.IP_WRITABLE.' '.IP_SUBDIRECTORIES;
+if(!directory_is_writable(dirname(__FILE__).'/../file')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_file'] = 1;
+	$error['writable_file'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';	
 	
 
-$table[] = '<b>/image/</b> '.IP_WRITEABLE.' '.IP_SUBDIRECTORIES;
-if(!directory_is_writeable(dirname(__FILE__).'/../image')){
+$table[] = '<b>/image/</b> '.IP_WRITABLE.' '.IP_SUBDIRECTORIES;
+if(!directory_is_writable(dirname(__FILE__).'/../image')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_image'] = 1;
+	$error['writable_image'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';	
 
-$table[] = '<b>/video/</b> '.IP_WRITEABLE.' '.IP_SUBDIRECTORIES;
-if(!directory_is_writeable(dirname(__FILE__).'/../video')){
+$table[] = '<b>/video/</b> '.IP_WRITABLE.' '.IP_SUBDIRECTORIES;
+if(!directory_is_writable(dirname(__FILE__).'/../video')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_video'] = 1;
+	$error['writable_video'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';	
 
 
-$table[] = '<b>/ip_config.php</b> '.IP_WRITEABLE;
-if(!is_writeable(dirname(__FILE__).'/../ip_config.php')){
+$table[] = '<b>/ip_config.php</b> '.IP_WRITABLE;
+if(!is_writable(dirname(__FILE__).'/../ip_config.php')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_config'] = 1;
+	$error['writable_config'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';
 
 
-$table[] = '<b>/robots.txt</b> '.IP_WRITEABLE;
-if(!is_writeable(dirname(__FILE__).'/../robots.txt')){
+$table[] = '<b>/robots.txt</b> '.IP_WRITABLE;
+if(!is_writable(dirname(__FILE__).'/../robots.txt')){
 	$table[] = '<span class="error">'.IP_ERROR."</span>";
-	$error['writeable_robots'] = 1;
+	$error['writable_robots'] = 1;
 }else
 	$table[] = '<span class="correct">'.IP_OK.'</span>';	
 
 
-
-/*$table[] = '<b>/library/js/tiny_mce/plugins/simplebrowser/assets/file</b> '.IP_WRITEABLE;
-if(!directory_is_writeable(dirname(__FILE__).'/../library/js/tiny_mce/plugins/simplebrowser/assets/file')){
-	$table[] = '<span class="error">'.IP_ERROR."</span>";
-}else
-	$table[] = '<span class="correct">'.IP_OK.'</span>';	
-
-	$table[] = '<b>/library/js/tiny_mce/plugins/simplebrowser/assets/flash</b> '.IP_WRITEABLE;
-if(!directory_is_writeable(dirname(__FILE__).'/../library/js/tiny_mce/plugins/simplebrowser/assets/flash')){
-	$table[] = '<span class="error">'.IP_ERROR."</span>";
-}else
-	$table[] = '<span class="correct">'.IP_OK.'</span>';	
-
-	
-$table[] = '<b>/library/js/tiny_mce/plugins/simplebrowser/assets/image</b> '.IP_WRITEABLE;
-if(!directory_is_writeable(dirname(__FILE__).'/../library/js/tiny_mce/plugins/simplebrowser/assets/image')){
-	$table[] = '<span class="error">'.IP_ERROR."</span>";
-}else
-	$table[] = '<span class="correct">'.IP_OK.'</span>';	
-
-	$table[] = '<b>/library/js/tiny_mce/plugins/simplebrowser/assets/media</b> '.IP_WRITEABLE;
-if(!directory_is_writeable(dirname(__FILE__).'/../library/js/tiny_mce/plugins/simplebrowser/assets/media')){
-	$table[] = '<span class="error">'.IP_ERROR."</span>";
-}else
-	$table[] = '<span class="correct">'.IP_OK.'</span>';	
-*/
 
 	
 $answer .= gen_table($table);
