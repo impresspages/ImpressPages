@@ -12,7 +12,8 @@ if (!defined('CMS')) exit;
 const GROUP_KEY = 'misc';
 const MODULE_KEY = 'rich_text';
 
-require_once (__DIR__.'/template.php');
+global $site;
+$site->requireTemplate('standard/content_management/widgets/misc/rich_text/template.php');
 
 class Module extends \Modules\standard\content_management\Widget{
 

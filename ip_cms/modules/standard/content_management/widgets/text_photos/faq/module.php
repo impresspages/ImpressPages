@@ -12,7 +12,8 @@ if (!defined('CMS')) exit;
 const GROUP_KEY = 'text_photos';
 const MODULE_KEY = 'faq';
 
-require_once (__DIR__.'/template.php');
+global $site;
+$site->requireTemplate('standard/content_management/widgets/text_photos/faq/template.php');
 
 class Module extends \Modules\standard\content_management\Widget{
 
