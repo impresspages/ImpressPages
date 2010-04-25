@@ -4,8 +4,9 @@
  * @copyright	Copyright (C) 2009 JSC Apro media.
  * @license		GNU/GPL, see ip_license.html
  */
- 
+
 namespace Frontend;
+ 
  
 if (!defined('CMS')) exit;  
 
@@ -19,55 +20,57 @@ if (!defined('CMS')) exit;
  *   
  */ 
 class Element{
-  /** int unique number of element in that zone. */
+  /** int - unique number of element in that zone. */
   protected $id;
-  /** string that should be placed in menu on the link to this page */
+  /** string - title that will be placed in menu on the link to this page */
   protected $buttonTitle;
-  /** string meta tag title */
+  /** string - meta tag title */
   protected $pageTitle;
-  /** string meta tag keywords */
+  /** string - meta tag keywords */
   protected $keywords;
-  /** string meta tag description */
+  /** string - meta tag description */
   protected $description;
-  /** string html version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
+  /** string - html version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
   protected $html;
-  /** string text version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
+  /** string - text version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
   protected $text;
-  /** string date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** string - date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   protected $lastModified;
-  /** string page creation date. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** string - page creation date in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   protected $createdOn;
-  /** integer that represents average amount of days between changes */
+  /** integer - average amount of days between changes */
   protected $modifyFrequency;
-  /** boolean true if page should be placed on rss feed and false if not */
+  /** bool - true if page should be placed on rss feed and false if not */
   protected $rss;
-  /** float value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
+  /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
   protected $priority;
-  /** int id of parent or null. Parents can be only elements from the same zone*/
+  /** int - id of parent Element or null. Parents can be only elements from the same zone*/
   protected $parentId;
-  /** string url (including http://) to this page. It chould be generated with global variable $site->generateUrl(...); */
+  /** string - url (including http://) to this page. */
   protected $link;
-  /** string part of link. Identifies actual page; */
+  /** string - part of link. Identifies actual page */
   protected $url;
-  /** bool true if this element is current active page of the website */
+  /** bool - true if this element is currently active page */
   protected $current;
-  /** bool true if this element is part of current breadcrumb */
+  /** bool - true if this element is part of current breadcrumb */
   protected $selected;
-  /** int depth of element. Start at 1 */
+  /** int - depth of the element (starts at 1) */
   protected $depth;
-  /** string element type:<br/>
+  /** string - element type<br/>
+   * <br/>
+   * Available values:<br/>
    * default - show content<br/>
    * inactive - without link on it<br/>
    * subpage - redirect to first subpage<br/>
    * redirect - redirect to external page<br/>
    */
   protected $type;
-  /** string redirect URL if element type is "redirect" */
+  /** string - redirect URL if element type is "redirect" */
   protected $redirectUrl;
 
-  /** string zone name of element */
+  /** string - zone name of element */
   protected $zoneName;
-  /** Boolean */
+  /** bool */
   protected $visible;
   
   
@@ -79,7 +82,7 @@ class Element{
   
   /**
    * 
-   * This function should return the content of page. Typically you should use $this->getId() to know whish content to output.
+   * This function returns the content of page. Typically you should use $this->getId() to know which content to output.
    * 
    * Override this function to place your code.
    * 
@@ -91,10 +94,10 @@ class Element{
 
   /**
    * 
-   * This function should return the content of page. Typically you should use $this->getId() to know whish content to output.
+   * This function returns the content of page. Typically you should use $this->getId() to know whish content to output.
    * 
    * The difference of this function from generateContent is that generateManagement() is thrown when website is in management state.
-   * So, you can add some management tools. Eg. delete functionallity for comments Zone. 
+   * So, you can add some management tools. Eg. delete functionality for comments. 
    * 
    * @return string - page content.
    * 
@@ -130,7 +133,7 @@ class Element{
   
   /**
    * 
-   * @return Element - object or false if next element does't exist
+   * @return Element or false if next element does't exist
    * 
    */
   public function getNextElement(){
@@ -143,7 +146,7 @@ class Element{
   
   /**
    * 
-   * @return Element - object or false if previous element does't exist
+   * @return Element or false if previous element does't exist
    * 
    */
   public function getPreviousElement(){
@@ -189,17 +192,17 @@ class Element{
   /** @param $text string */
   public function setText($text){$this->text=$text;}
 
-  /** @return string MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   public function getLastModified(){return $this->lastModified;}
-  /** @param $lastModified string MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   public function setLastModified($lastModified){$this->lastModified=$lastModified;}
 
-  /** @return string MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   public function getCreatedOn(){return $this->createdOn;}
-  /** @param $createdOn MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+  /** @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
   public function setCreatedOn($createdOn){$this->createdOn=$createdOn;}
 
-  /** @return int represents average amount of days between changes */
+  /** @return int - average amount of days between changes */
   public function getModifyFrequency(){return $this->modifyFrequency;}
   /** @param $modifyFrequency int represents average amount of days between changes */
   public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}

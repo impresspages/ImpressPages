@@ -533,7 +533,7 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (979, 'error_page_template', 1, 0, '', 495, 'Error_page_template', '', 'string'),
 (982, 'cant_delete_not_empty_language', 1, 0, '', 376, 'Can''t delete not empty language', '', 'string'),
 (983, 'are_you_sure_you_wish_to_delete', 1, 0, '', 352, 'Are you sure you wish to delete?', '', 'string'),
-(985, 'cant_delete_last_language', 1, 0, '', 376, 'Can''t delete last langauge', '', 'string'),
+(985, 'cant_delete_last_language', 1, 0, '', 376, 'Can''t delete last language', '', 'string'),
 (1525, 'layout_default', 1, 0, '', 449, 'Layout default', NULL, 'string'),
 (987, 'loading', 0, 0, '', 496, 'Loading', '', 'string'),
 (988, 'login_name', 0, 0, '', 496, 'Login name', '', 'string'),

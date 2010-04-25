@@ -22,7 +22,7 @@ class Language{
   public $longDescription;
   /** string */
   public $url;  
-  /** string RFC 4646 code. Eg. en, en-us */
+  /** string - RFC 4646 code. Eg. en, en-us */
   public $code;  
   /** bool */
   public $visible;

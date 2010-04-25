@@ -263,7 +263,7 @@ class Cms{
    * This function detects such requirements and executes specified module.
    * If you need to use this feature, simply POST (or GET) two variables:
    * @private
-   * $_REQUEST['module_gorup']
+   * $_REQUEST['module_group']
    * $_REQUEST['module_name']
    * This function will include file actions.php on specified module directory and axecute method "make_actions()" on class actions_REQUEST['module_gorup']_REQUEST['module_name']
    */

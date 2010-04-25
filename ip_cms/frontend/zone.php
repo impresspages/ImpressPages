@@ -14,13 +14,13 @@ require_once (__DIR__.'/element.php');
 
 /**
  *   
- *  ImpressPages system doesn't manage separate pages by itself.
- *  For this task special modules are created that is called "zones".
- *  Each zone may have any number of pages with any content. The pages are the objects, that extends base class Element.
- *  CMS only finds currently required zone (by specified url) and asks its to supply current Element and put the content.
+ *  ImpressPages system doesn't manage separate pages by itself.  
+ *  For this task special modules called "zones" are created.  
+ *  Each zone can have any number of pages with any content. Pages are the objects that extend class Element.
+ *  CMS only finds currently required zone (by specified url), asks to supply current Element and displays the content.
  *  
  *  If you wish to create your own zone of website, extend this class. Overwrite abstract methods and you are done.
- *  Now you have full controll of what is the tree of pages in this zone and how to display the content.
+ *  Now you have full control of all pages in this zone. It’s up to you how to display the content.
  *  
  *  
  *
@@ -67,16 +67,16 @@ abstract class Zone{
 
   /**
    * 
-   * Find elements of this zone. This function should return only one level of menu tree.
+   * Finds elements of this zone. This function returns only one level of menu tree.
    * If $parentElementId is null, then function returns the first level of elements. 
-   * Contrarily - child elements of specified parent Element.
+   * Otherwise, if you specify $parentElementId, then child elements of specified parent Element is returned.
    * 
    * @param $language Language id. If not set, current website language is used.
-   * @param $parentElementId if set, return only childs of specified parent
+   * @param $parentElementId if set, function returns only children
    * @param $startFrom MySql syntax to limit returning elements count.
-   * @param $limit MySql syntax to limit returning elements count.
+   * @param $limit MySQL syntax to limit the number of elements to return.
    * @param $includeHidden set to false if you need only visible elements (some elements might be temporary hidden).
-   * @param $reverseOrder return elements in reverse order. Might be usefull when floating elements to right.
+   * @param $reverseOrder set to true to return elements in reverse order.
    * @return array Element
    * 
    */
@@ -85,7 +85,7 @@ abstract class Zone{
 
   /**
    * 
-   * Return element by specified id.
+   * Returns Element by specified id.
    * 
    * @param $elementId int       
    * @return Element by specified id.
@@ -96,9 +96,9 @@ abstract class Zone{
 	
   /**
    * 
-   * Find element by URL and GET variables. This function is used to find current Element (page) of requested URL.
+   * Finds element by URL and GET variables. This function is used to find current Element (page) of requested URL.
    * 
-   * If requested url is http://yuorsite.com/en/zone_url/var1/var2/?page=2
+   * If requested url is http://yoursite.com/en/zone_url/var1/var2/?page=2
    * 
    * then
    * 
@@ -120,8 +120,7 @@ abstract class Zone{
   
 	/**
 	 * 
-	 * Get breadcrumb from root to required Element. This function should work by default if you override abstract methods.
-	 * You don't need to override it, except in case if you need to change something in it.
+	 * Get breadcrumb from root to required Element.
 	 * 
 	 * @param $elementId
 	 * @return array of elements - breadcrumb from root to required Element
@@ -153,10 +152,7 @@ abstract class Zone{
    * 
    * Finds current (active) page of this zone. Calculated value is cached.
    * 
-   * This function should work by default if you override abstract methods.
-   * You don't need to override it, except in case if you need to change something in it.
-   *   
-   * @return Element - element, that represents current requested page.
+   * @return Element - element that represents current requested page.
    *    
    */
 	public function getCurrentElement(){
@@ -177,9 +173,6 @@ abstract class Zone{
    * 
    * Finds and returns all elements of that zone
    * 
-   * This function should work by default if you override abstract methods.
-   * You don't need to override it, except in case if you need to change something in it.
-   *    
    * @return array Element
    *    
    */	
@@ -195,9 +188,8 @@ abstract class Zone{
 
   /**
    * 
-   * Get breadcrumb to current element. This function should work by default if you override abstract methods.
-   * You don't need to override it, except in case if you need to change something in it.   *
-   * @return string
+   * Get breadcrumb to current element.
+   * @return array
    *  
    */
 	
@@ -221,7 +213,7 @@ abstract class Zone{
   /**
    * 
    * If you need to do some actions before any output, extend this class.
-   * This function is executed by the system allways, when this zone is active (current page depends to this zone).
+   * This function is always executed by the system when this zone is active (current page belongs to the zone).
    * 
    * Also this function is executed if two reserved GET parameters are passed (module_group, module_name) and they are equal to current zone group and name.  
    *  

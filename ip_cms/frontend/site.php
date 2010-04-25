@@ -17,9 +17,9 @@ require_once (__DIR__.'/language.php');
 
 /**
  * 
- * Main frontend class. Each time the page is loaded, is created a global instance of this class called $site;
+ * Main frontend class. Each time the page is loaded the global instance of this class called $site is created.
  * 
- * Acess it anywhere by using:
+ * Access it anywhere by using:
  * 
  * global $site;
  * 
@@ -104,7 +104,7 @@ class Site{
 
   /**
    * 
-   * @return array of variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum');
+   * @return array - all variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum');
    * 
    */
   public function getUrlVars(){
@@ -114,7 +114,7 @@ class Site{
   
   /**
    * 
-   * @return array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility.
+   * @return array - all GET variables. Use this function instead of direcly accessing $_GET array for code flexibility.
    * 
    */
   public function getGetVars(){
@@ -135,7 +135,7 @@ class Site{
   
   /**
    * 
-   * @return array - all website langauges. Each element object class: Language
+   * @return array - all website languages. Each element is an object Language
    * 
    */
   public function getLanguages(){
@@ -148,7 +148,7 @@ class Site{
 
   /**
    * 
-   * return Language current language 
+   * @return Language - current language 
    * 
    */
   public function getCurrentLanguage(){
@@ -295,7 +295,7 @@ class Site{
     
   /**
    *
-   * @return array All registered zones. Use with caution. On big websites it can be expensive operation because it requires all zone objects to be created.
+   * @return array All registered zones. Use with caution. On big websites it can be very resource demanding operation because it requires all zone objects to be created.
    * 
    */
   public function getZones(){
@@ -456,12 +456,12 @@ class Site{
    * @param $languageId
    *   Id of language
    * @param $zoneName
-   *   Zone name.
+   *   Zone name
    * @param $urlVars
-   *   Array of additional url variables. Eg. array('var1', 'var2');
+   *   Array of additional url variables. Eg. array('var1', 'var2')
    * @param $getVars
-   *   Array of additional get variables. Eg. array('var1'='val1', 'val2'='val2');
-   * @return requested link or link to fist page of currentLanguage if all parameters are null. 
+   *   Array of additional get variables. Eg. array('var1'='val1', 'val2'='val2')
+   * @return string - requested link or link to first page of current language if all parameters are not specified or null
    */
   public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null){
     global $parametersMod;
@@ -535,7 +535,7 @@ class Site{
   }
 
   /**
-   * Find the reason why the user come to unexisting URL
+   * Find the reason why the user come to non-existent URL
    * @return string error message
    */
   public function error404Message(){
@@ -621,7 +621,7 @@ class Site{
    * 
    * $_REQUEST['module_name']
    * 
-   * This function will include file actions.php on specified module directory and axecute method "make_actions()" on class actions_REQUEST['module_gorup']_REQUEST['module_name']
+   * This function will include file actions.php on specified module directory and execute method "make_actions()" on class actions_REQUEST['module_group']_REQUEST['module_name']
    * 
    */
   public function makeActions(){
@@ -714,7 +714,7 @@ class Site{
 
   /**
    * 
-   * @return string The content (if in management state - management tools) of current page.
+   * @return string - The content of current page (in management state management tools are automatically added).
    * 
    */
   public function generateContent(){
@@ -778,16 +778,20 @@ class Site{
 
   /**
    * 
-   * Import required config file or modified version of it from COFIG_DIR directory.
+   * Import required configuration file or modified version of it from CONFIG_DIR directory.
    * 
-   * @param $file File name of config that need to be required relative to MODULE_DIR folder. 
+   * @param $file File name of configuration file that needs to be required (relative to MODULE_DIR folder). 
    * 
    * <b>Example:</b>
    * 
    * requireConfig('group/module/config.php');
+   * 
    * this line will try to require such files:
+   * 
    * BASE_DIR.CONFIG_DIR.'group/module/config.php'; //customized config file in config directory
+   * 
    * BASE_DIR.MODULE_DIR.'group/module/config.php'; //original module config file
+   * 
    * BASE_DIR.PLUGIN_DIR.'group/module/config.php'; //original plugin config file
    * 
    */
@@ -805,7 +809,7 @@ class Site{
 
   /**
    * 
-   * Page URL begining might conflict with CMS folders. This function check if the folder is available to use in url beginning. 
+   * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning. 
    * 
    * @param $folderName
    * @return bool true if URL is reserved for CMS core
@@ -860,7 +864,7 @@ class Site{
    * @param $moduleGroup group name of module whish throws the event
    * @param $moduleName name of module whish throws the event
    * @param $event event name
-   * @param $parameters array of parameters. You decide what to pass here.
+   * @param $parameters array of parameters. You can decide what to pass here.
    * 
    * To catch the event, create "system.php" file in your plugin (module) directory with content:
    * 

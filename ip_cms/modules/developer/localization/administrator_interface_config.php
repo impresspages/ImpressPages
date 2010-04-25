@@ -1086,7 +1086,7 @@ $parameter["parameterValue/standard/content_management/widget_video/widget_title
 $parameter["parameterTitle/standard/content_management/widget_video/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_video/layout_default"] = "Default";
 
-$parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last langauge";
+$parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
 
 
