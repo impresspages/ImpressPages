@@ -858,8 +858,8 @@ $parameter["parameterValue/standard/content_management/widget_file/partial"] = "
 $parameter["parameterTitle/standard/content_management/widget_file/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_file/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_file/to_big"] = "The file is to big";
-$parameter["parameterValue/standard/content_management/widget_file/to_big"] = "The file is to big";
+$parameter["parameterTitle/standard/content_management/widget_file/too_big"] = "The file is too big";
+$parameter["parameterValue/standard/content_management/widget_file/too_big"] = "The file is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_file/unknown"] = "Unknown error. Check server configuration or contact administrator.";
 $parameter["parameterValue/standard/content_management/widget_file/unknown"] = "Unknown error. Check server configuration or contact administrator.";
@@ -900,8 +900,8 @@ $parameter["parameterValue/standard/content_management/widget_logo_gallery/no_fi
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/partial"] = "Transfer failed. Try again.";
 $parameter["parameterValue/standard/content_management/widget_logo_gallery/partial"] = "Transfer failed. Try again.";
 
-$parameter["parameterTitle/standard/content_management/widget_logo_gallery/to_big"] = "The photo is to big.";
-$parameter["parameterValue/standard/content_management/widget_logo_gallery/to_big"] = "The photo is to big";
+$parameter["parameterTitle/standard/content_management/widget_logo_gallery/too_big"] = "The photo is too big.";
+$parameter["parameterValue/standard/content_management/widget_logo_gallery/too_big"] = "The photo is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/unknown"] = "Unknown error.";
 $parameter["parameterValue/standard/content_management/widget_logo_gallery/unknown"] = "Unknown error. Check server configuration or contact administrator.";
@@ -936,8 +936,8 @@ $parameter["parameterValue/standard/content_management/widget_photo/photo"] = "P
 $parameter["parameterTitle/standard/content_management/widget_photo/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_photo/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_photo/to_big"] = "The photo is to big";
-$parameter["parameterValue/standard/content_management/widget_photo/to_big"] = "The photo is to big";
+$parameter["parameterTitle/standard/content_management/widget_photo/too_big"] = "The photo is too big";
+$parameter["parameterValue/standard/content_management/widget_photo/too_big"] = "The photo is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_photo/unknown"] = "Unknown";
 $parameter["parameterValue/standard/content_management/widget_photo/unknown"] = "Unkown error. Please contact administrator.";
@@ -969,8 +969,8 @@ $parameter["parameterValue/standard/content_management/widget_photo_gallery/part
 $parameter["parameterTitle/standard/content_management/widget_photo_gallery/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_photo_gallery/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_photo_gallery/to_big"] = "The photo is to big";
-$parameter["parameterValue/standard/content_management/widget_photo_gallery/to_big"] = "The photo is to big";
+$parameter["parameterTitle/standard/content_management/widget_photo_gallery/too_big"] = "The photo is too big";
+$parameter["parameterValue/standard/content_management/widget_photo_gallery/too_big"] = "The photo is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_photo_gallery/unknown"] = "Unknown error. Check server configuration or contact administrator.";
 $parameter["parameterValue/standard/content_management/widget_photo_gallery/unknown"] = "Unknown error. Check server configuration or contact administrator.";
@@ -1026,8 +1026,8 @@ $parameter["parameterValue/standard/content_management/widget_text_photo/text_ph
 $parameter["parameterTitle/standard/content_management/widget_text_photo/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_text_photo/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/to_big"] = "The photo is to big";
-$parameter["parameterValue/standard/content_management/widget_text_photo/to_big"] = "The photo is to big";
+$parameter["parameterTitle/standard/content_management/widget_text_photo/too_big"] = "The photo is too big";
+$parameter["parameterValue/standard/content_management/widget_text_photo/too_big"] = "The photo is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_text_photo/unknown"] = "Unknown error. Check server configuration or contact administrator.";
 $parameter["parameterValue/standard/content_management/widget_text_photo/unknown"] = "Unknown error. Check server configuration or contact administrator.";
@@ -1071,8 +1071,8 @@ $parameter["parameterValue/standard/content_management/widget_video/partial"] = 
 $parameter["parameterTitle/standard/content_management/widget_video/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_video/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_video/to_big"] = "File is to big";
-$parameter["parameterValue/standard/content_management/widget_video/to_big"] = "File is to big";
+$parameter["parameterTitle/standard/content_management/widget_video/too_big"] = "File is too big";
+$parameter["parameterValue/standard/content_management/widget_video/too_big"] = "File is too big";
 
 $parameter["parameterTitle/standard/content_management/widget_video/unknown"] = "Unknown error. Check server configuration or contact administrator. ";
 $parameter["parameterValue/standard/content_management/widget_video/unknown"] = "Unknown error. Check server configuration or contact administrator. ";
