@@ -202,7 +202,7 @@ function content_mod_file() {
 				switch (errors[0]) {
 				case '1':
 				case '2':
-					answer = widget_file_to_big;
+					answer = widget_file_too_big;
 					break;
 				case '3':
 					answer = widget_file_partial;

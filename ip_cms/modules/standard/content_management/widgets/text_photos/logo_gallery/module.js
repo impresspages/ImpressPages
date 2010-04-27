@@ -321,7 +321,7 @@ function content_mod_logo_gallery() {
 				switch (errors[0]) {
 				case '1':
 				case '2':
-					answer = widget_logo_gallery_to_big;
+					answer = widget_logo_gallery_too_big;
 					break;
 				case '3':
 					answer = widget_logo_gallery_partial;

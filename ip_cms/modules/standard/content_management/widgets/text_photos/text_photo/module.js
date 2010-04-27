@@ -340,7 +340,7 @@ function content_mod_text_photo() {
 				switch (errors[0]) {
 				case '1':
 				case '2':
-					answer = widget_text_photo_to_big;
+					answer = widget_text_photo_too_big;
 					break;
 				case '3':
 					answer = widget_text_photo_partial;

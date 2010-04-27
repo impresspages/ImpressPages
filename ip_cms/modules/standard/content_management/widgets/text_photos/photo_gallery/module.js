@@ -355,7 +355,7 @@ function content_mod_photo_gallery() {
 				switch (errors[0]) {
 				case '1':
 				case '2':
-					answer = widget_photo_gallery_to_big;
+					answer = widget_photo_gallery_too_big;
 					break;
 				case '3':
 					answer = widget_photo_gallery_partial;

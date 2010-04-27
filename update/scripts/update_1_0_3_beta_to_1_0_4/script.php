@@ -316,6 +316,15 @@ class Script {
       
       //end correct separator module_id  field
       
+      
+      //fix to_big to too_big
+      $sql = "update `".DB_PREF."parameter` set `name` = 'too_big' where `name` = 'to_big' ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+            
+      
       if ($this->curStep == $this->stepCount){
         \Db_100::setSystemVariable('version','1.0.4');
       }      
