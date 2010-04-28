@@ -272,6 +272,11 @@
   width: 100%;
 }
 
+#modules  div.ipCmsModuleManagement table.ipCmsColumns td{
+  padding: 0;
+}
+
+
 #modules  div.ipCmsModuleManagement table.ipCmsColumns td.ipCmsManagement{
   padding: 5px 5px 1px 5px; /*1px is litle hack to show input fields nicely*/
   background-color: #f5f5f5;

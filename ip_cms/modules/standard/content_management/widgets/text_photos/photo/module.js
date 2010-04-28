@@ -191,17 +191,22 @@ function content_mod_photo() {
 
 			errors = window.frames['mod_photo_iframe'].errors;
 			if (errors.length == 0 || errors[0] == 4 || forced) {
-				this.new_photo = window.frames['mod_photo_iframe'].variables[0];
-				this.new_bigphoto = window.frames['mod_photo_iframe'].variables[1];
-				this.menu_management
-						.module_preview_save_response(this.collection_number);
+				if(errors.length == 0) {
+					this.new_photo = window.frames['mod_photo_iframe'].variables[0];
+					this.new_bigphoto = window.frames['mod_photo_iframe'].variables[1];
+				}
+				
+
+				this.menu_management.module_preview_save_response(this.collection_number);					
+
+
 			} else {
 				var answer = '';
 
 				switch (errors[0]) {
 				case '1':
 				case '2':
-					answer = widget_photo_to_big;
+					answer = widget_photo_too_big;
 					break;
 				case '3':
 					answer = widget_photo_partial;
