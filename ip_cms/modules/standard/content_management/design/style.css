@@ -274,6 +274,7 @@
 
 #modules  div.ipCmsModuleManagement table.ipCmsColumns td{
   padding: 0;
+	border: none;
 }
 
 
@@ -468,8 +469,9 @@
 }
 
 #modules div.ipCmsModuleManagement table.ipCmsContactForm td{
-  padding-right: 10px;
+  padding: 0 10px 0 0;
   text-align: left;
+	border: none;
 }
 
 #modules .ipCmsIcon{

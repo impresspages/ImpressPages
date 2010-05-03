@@ -11,7 +11,7 @@
  */
 
 /** Make sure files are accessed through index. */
-
+       
 
 define('CMS', true); // make sure other files are accessed through this file.
 define('FRONTEND', true); // make sure other files are accessed through this file.
@@ -105,4 +105,4 @@ if(\Db::connect()){
   
 
 }else   trigger_error("Database access");
- 
+             

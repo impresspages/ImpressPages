@@ -294,7 +294,7 @@ class Script {
         $contentToModule[] = $lock;
       }
       
-      $sql = "select * from `".DB_PREF."text_photos_separator` where 1 ";
+      $sql = "select * from `".DB_PREF."mc_text_photos_separator` where 1 ";
       $rs = mysql_query($sql);
       if(!$rs){
         trigger_error($sql.' '.mysql_error());
