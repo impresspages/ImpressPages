@@ -61,8 +61,11 @@ class StandardModule{
 
 		//order
 
-			if(isset($_GET['sort_field'][$this->level]))
-				$this->current_area->order_by = $_GET['sort_field'][$this->level];
+			if(isset($_GET['sort_field'][$this->level])){
+			  $sortField = $_GET['sort_field'][$this->level];
+			  $sortField = str_replace('`','',$sortField);
+				$this->current_area->order_by = $sortField;				
+			}
 				
 			if(isset($_GET['sort_dir'][$this->level]) && strtolower($_GET['sort_dir'][$this->level]) == "asc")
 				$this->current_area->order_by_dir = "asc";
@@ -98,7 +101,7 @@ class StandardModule{
 		}
 		
     if ($this->up_area && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!=''){
-      $this->up_area->set_parent_id($_GET['road'][(sizeof($_GET['road'])-1)]);
+      $this->up_area->set_parent_id(str_replace('`', '', $_GET['road'][(sizeof($_GET['road'])-1)]));
     } 
 
     //end find up_area	  
@@ -116,7 +119,7 @@ class StandardModule{
 		  switch($_POST['action']){
 			case 'new_row_number':
 			
-				$sql = "update `".DB_PREF.$this->current_area->db_table."` set `".$this->current_area->sort_field."` = '".mysql_real_escape_string($_POST['new_row_number'])."'
+				$sql = "update `".DB_PREF.$this->current_area->db_table."` set `".mysql_real_escape_string($this->current_area->sort_field)."` = '".mysql_real_escape_string($_POST['new_row_number'])."'
 				where `".$this->current_area->db_key."` = '".mysql_real_escape_string($_POST['key_id'])."'";
 				$rs  = mysql_query($sql);
 				if(!$rs)
@@ -125,22 +128,22 @@ class StandardModule{
         exit;               					
 				break;
 			case 'row_number_increase':{
-				$sql_current = "select `".$this->current_area->db_key."`, `".$this->current_area->sort_field."` from `".DB_PREF.$this->current_area->db_table."` where `".$this->current_area->db_key."` = '".mysql_real_escape_string($_POST['key_id'])."'";
+				$sql_current = "select `".$this->current_area->db_key."`, `".mysql_real_escape_string($this->current_area->sort_field)."` from `".DB_PREF.$this->current_area->db_table."` where `".$this->current_area->db_key."` = '".mysql_real_escape_string($_POST['key_id'])."'";
 				$rs_current  = mysql_query($sql_current);
 				if($rs_current)
 					if($lock_current = mysql_fetch_assoc($rs_current)){ //current record (need to be moved up)
 						/*searching upper record*/
 						
             if (($this->level > 0))
-              $sql_add = " and ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' ";
+              $sql_add = " and ".$this->current_area->get_db_reference()." = '".mysql_real_escape_string($this->up_area->get_parent_id())."' ";
 						else
 						  $sql_add = '';
 						
-						$sql_upper = "select `".$this->current_area->db_key."`, `".$this->current_area->sort_field."` 
+						$sql_upper = "select `".$this->current_area->db_key."`, `".mysql_real_escape_string($this->current_area->sort_field)."` 
 						from `".DB_PREF.$this->current_area->db_table."` 
-						where `".$this->current_area->sort_field."` >= '".mysql_real_escape_string($lock_current[$this->current_area->sort_field])."' 
+						where `".mysql_real_escape_string($this->current_area->sort_field)."` >= '".mysql_real_escape_string($lock_current[$this->current_area->sort_field])."' 
 						and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."' ".$sql_add."
-						order by `".$this->current_area->sort_field."` asc limit 1";
+						order by `".mysql_real_escape_string($this->current_area->sort_field)."` asc limit 1";
 
 						
 						$rs_upper  = mysql_query($sql_upper);
@@ -149,8 +152,8 @@ class StandardModule{
 								if($lock_upper[$this->current_area->sort_field] == $lock_current[$this->current_area->sort_field]){
 									
 									$sql_update = "update `".DB_PREF.$this->current_area->db_table."` 
-									set `".$this->current_area->sort_field."` = `".$this->current_area->sort_field."` - 1 
-									where `".$this->current_area->sort_field."` <= ".mysql_real_escape_string($lock_upper[$this->current_area->sort_field])." and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."' ".$sql_add." ";
+									set `".mysql_real_escape_string($this->current_area->sort_field)."` = `".mysql_real_escape_string($this->current_area->sort_field)."` - 1 
+									where `".mysql_real_escape_string($this->current_area->sort_field)."` <= ".mysql_real_escape_string($lock_upper[$this->current_area->sort_field])." and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."' ".$sql_add." ";
 									$rs_update = mysql_query($sql_update);
 									if(!$rs_update)
 										trigger_error($sql." ".mysql_error());
@@ -158,7 +161,7 @@ class StandardModule{
 								}else{
 									
 									$sql_update = "update `".DB_PREF.$this->current_area->db_table."` 
-									set `".$this->current_area->sort_field."` = ".$lock_current[$this->current_area->sort_field]."
+									set `".mysql_real_escape_string($this->current_area->sort_field)."` = ".mysql_real_escape_string($lock_current[$this->current_area->sort_field])."
 									where `".$this->current_area->db_key."` = '".mysql_real_escape_string($lock_upper[$this->current_area->db_key])."' ".$sql_add." limit 1";
 
 									$rs_update = mysql_query($sql_update);
@@ -166,7 +169,7 @@ class StandardModule{
 										trigger_error($sql_update." ".mysql_error());
 									
 									$sql_update = "update `".DB_PREF.$this->current_area->db_table."`
-									set `".$this->current_area->sort_field."` = ".$lock_upper[$this->current_area->sort_field]." 
+									set `".mysql_real_escape_string($this->current_area->sort_field)."` = ".mysql_real_escape_string($lock_upper[$this->current_area->sort_field])." 
 									where `".$this->current_area->db_key."` = '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."' ".$sql_add." limit 1";
 
 									$rs_update = mysql_query($sql_update);
@@ -187,7 +190,7 @@ class StandardModule{
       case 'row_number_decrease':
         {
   				
-  				$sql_current = "select `".$this->current_area->db_key."`, `".$this->current_area->sort_field."` 
+  				$sql_current = "select `".$this->current_area->db_key."`, `".mysql_real_escape_string($this->current_area->sort_field)."` 
   				from `".DB_PREF.$this->current_area->db_table."` 
   				where `".$this->current_area->db_key."` = '".mysql_real_escape_string($_POST['key_id'])."'";
   				
@@ -197,16 +200,16 @@ class StandardModule{
   						/*searching under record*/
   						
             if (($this->level > 0))
-              $sql_add = " and ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' ";
+              $sql_add = " and ".$this->current_area->get_db_reference()." = '".mysql_real_escape_string($this->up_area->get_parent_id())."' ";
 						else
 						  $sql_add = '';
   						
   						
-  						$sql_under = "select `".$this->current_area->db_key."`, `".$this->current_area->sort_field."`
+  						$sql_under = "select `".$this->current_area->db_key."`, `".mysql_real_escape_string($this->current_area->sort_field)."`
   						from `".DB_PREF.$this->current_area->db_table."` 
-  						where `".$this->current_area->sort_field."` <= '".mysql_real_escape_string($lock_current[$this->current_area->sort_field])."' ".$sql_add."
+  						where `".mysql_real_escape_string($this->current_area->sort_field)."` <= '".mysql_real_escape_string($lock_current[$this->current_area->sort_field])."' ".$sql_add."
   						and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."'
-  						order by `".$this->current_area->sort_field."` desc limit 1";
+  						order by `".mysql_real_escape_string($this->current_area->sort_field)."` desc limit 1";
   						
   						$rs_under  = mysql_query($sql_under);
   						if($rs_under)
@@ -214,8 +217,8 @@ class StandardModule{
   								if($lock_under[$this->current_area->sort_field] == $lock_current[$this->current_area->sort_field]){
   									
   									$sql_update = "update `".DB_PREF.$this->current_area->db_table."` 
-  									set `".$this->current_area->sort_field."` = `".$this->current_area->sort_field."` + 1
-  									where `".$this->current_area->sort_field."` >= ".mysql_real_escape_string($lock_under[$this->current_area->sort_field])." and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."'  ".$sql_add."";
+  									set `".mysql_real_escape_string($this->current_area->sort_field)."` = `".mysql_real_escape_string($this->current_area->sort_field)."` + 1
+  									where `".mysql_real_escape_string($this->current_area->sort_field)."` >= ".mysql_real_escape_string($lock_under[$this->current_area->sort_field])." and `".$this->current_area->db_key."` <> '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."'  ".$sql_add."";
   									
   									$rs_update = mysql_query($sql_update);
   									if(!$rs_update)
@@ -223,7 +226,7 @@ class StandardModule{
   								}else{
   									
   									$sql_update = "update `".DB_PREF.$this->current_area->db_table."` 
-  									set `".$this->current_area->sort_field."` = ".$lock_current[$this->current_area->sort_field]." 
+  									set `".mysql_real_escape_string($this->current_area->sort_field)."` = ".$lock_current[$this->current_area->sort_field]." 
   									where `".$this->current_area->db_key."` = '".mysql_real_escape_string($lock_under[$this->current_area->db_key])."' ".$sql_add." limit 1";
   									
   									$rs_update = mysql_query($sql_update);
@@ -231,7 +234,7 @@ class StandardModule{
   										trigger_error($sql_update." ".mysql_error());
   									
   									$sql_update = "update `".DB_PREF.$this->current_area->db_table."` 
-  									set `".$this->current_area->sort_field."` = ".$lock_under[$this->current_area->sort_field]." 
+  									set `".mysql_real_escape_string($this->current_area->sort_field)."` = ".$lock_under[$this->current_area->sort_field]." 
   									where `".$this->current_area->db_key."` = '".mysql_real_escape_string($lock_current[$this->current_area->db_key])."'  ".$sql_add." limit 1";
   									
   									$rs_update = mysql_query($sql_update);
@@ -275,7 +278,7 @@ class StandardModule{
             $sql = "insert into `".DB_PREF."".$this->current_area->get_db_table()."` set  `".$this->current_area->db_key."`= DEFAULT ";
             $need_comma = true;
             if ($this->level > 0){
-               $sql .= ", `".$this->current_area->get_db_reference()."` = '".$this->up_area->parent_id."' ";
+               $sql .= ", `".$this->current_area->get_db_reference()."` = '".mysql_real_escape_string($this->up_area->parent_id)."' ";
                $need_comma = true;
             }    
             foreach($parameters as $key => $parameter){
@@ -296,20 +299,20 @@ class StandardModule{
               /* update sort field value */
               if($this->current_area->sort_field && $this->current_area->new_record_position == 'top'){
                 /* increase all sort field numbers */
-                $sql = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".$this->current_area->sort_field."` = `".$this->current_area->sort_field."` + 1";
+                $sql = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".mysql_real_escape_string($this->current_area->sort_field)."` = `".mysql_real_escape_string($this->current_area->sort_field)."` + 1";
                 $rs = mysql_query($sql);
                 if(!$rs) trigger_error("Can't change sort numbers ".$sql." ".mysql_error());
                 
                 /* find lowest walue */
                 if (($this->level > 0))
-                  $sql = "select min(`".$this->current_area->sort_field."`) as 'min_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' and `".$this->current_area->db_key."` <> ".(int)$last_insert_id." ";
+                  $sql = "select min(`".mysql_real_escape_string($this->current_area->sort_field)."`) as 'min_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where ".$this->current_area->get_db_reference()." = '".mysql_real_escape_string($this->up_area->get_parent_id())."' and `".$this->current_area->db_key."` <> ".(int)$last_insert_id." ";
             		else
-                  $sql = "select min(`".$this->current_area->sort_field."`) as 'min_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where `".$this->current_area->db_key."` <> ".(int)$last_insert_id." ";
+                  $sql = "select min(`".mysql_real_escape_string($this->current_area->sort_field)."`) as 'min_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where `".$this->current_area->db_key."` <> ".(int)$last_insert_id." ";
                 $rs = mysql_query($sql);
                 if($rs){
                   if($lock = mysql_fetch_assoc($rs)){
                     /* update inserted record to have the smallest sort field number*/
-                    $sql2 = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".$this->current_area->sort_field."` = (".$lock['min_value']." - 1) where `".$this->current_area->db_key."` = ".$last_insert_id." ";
+                    $sql2 = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".mysql_real_escape_string($this->current_area->sort_field)."` = (".$lock['min_value']." - 1) where `".$this->current_area->db_key."` = ".$last_insert_id." ";
                     $rs = mysql_query($sql2);
                     if(!$rs)
                       trigger_error($sql." ".mysql_error());
@@ -320,14 +323,14 @@ class StandardModule{
               if($this->current_area->sort_field && $this->current_area->new_record_position == 'bottom'){
                 /* find biggest walue */
                 if (($this->level > 0))
-                  $sql = "select max(`".$this->current_area->sort_field."`) as 'max_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where ".$this->current_area->get_db_reference()." = '".$this->up_area->get_parent_id()."' and `".$this->current_area->db_key."` <> ".(int)$last_insert_id."";
+                  $sql = "select max(`".mysql_real_escape_string($this->current_area->sort_field)."`) as 'max_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where ".$this->current_area->get_db_reference()." = '".mysql_real_escape_string($this->up_area->get_parent_id())."' and `".$this->current_area->db_key."` <> ".(int)$last_insert_id."";
                 else
-                  $sql = "select max(`".$this->current_area->sort_field."`) as 'max_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where `".$this->current_area->db_key."` <> ".(int)$last_insert_id."";
+                  $sql = "select max(`".mysql_real_escape_string($this->current_area->sort_field)."`) as 'max_value' from `".DB_PREF."".$this->current_area->get_db_table()."` where `".$this->current_area->db_key."` <> ".(int)$last_insert_id."";
                 $rs = mysql_query($sql);
                 if($rs){
                   if($lock = mysql_fetch_assoc($rs)){
                     /* update inserted record to have the smallest sort field number*/
-                    $sql2 = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".$this->current_area->sort_field."` = (".$lock['max_value']." + 1) where `".$this->current_area->db_key."` = ".$last_insert_id." ";
+                    $sql2 = "update `".DB_PREF."".$this->current_area->get_db_table()."` set `".mysql_real_escape_string($this->current_area->sort_field)."` = (".$lock['max_value']." + 1) where `".$this->current_area->db_key."` = ".$last_insert_id." ";
                     $rs = mysql_query($sql2);
                     if(!$rs)
                       trigger_error($sql." ".mysql_error());
@@ -415,7 +418,7 @@ class StandardModule{
           if (sizeof($this->errors) == 0){
             
             if(method_exists($this->up_area, 'before_update')){
-              $this->up_area->before_update($this->up_area->parent_id);
+              $this->up_area->before_update(mysql_real_ecape_string($this->up_area->parent_id));
             }             
             
             
@@ -439,7 +442,7 @@ class StandardModule{
                   $need_comma = true;
                 }
               }            
-              $sql .= " where `".$this->up_area->get_db_key()."` = '".$this->up_area->parent_id."' ";
+              $sql .= " where `".$this->up_area->get_db_key()."` = '".mysql_real_escape_string($this->up_area->parent_id)."' ";
               $rs = mysql_query($sql);
               if (!$rs){
                 trigger_error("Impossible to update ".$sql);                
@@ -450,11 +453,11 @@ class StandardModule{
 
             if($main_update){
                 foreach($this->up_area->get_elements() as $key => $element)
-                  $new_parameter = $element->process_update("i_".$key, $this->up_area, $this->up_area->parent_id);              
+                  $new_parameter = $element->process_update("i_".$key, $this->up_area, mysql_real_escape_string($this->up_area->parent_id));              
             }
             
             if(method_exists($this->up_area, 'after_update')){
-              $this->up_area->after_update($this->up_area->parent_id);
+              $this->up_area->after_update(mysql_real_escape_string($this->up_area->parent_id));
             }             
             
             $elements = &$this->up_area->get_elements();
@@ -550,10 +553,10 @@ class StandardModule{
 		
 		//pages    
 		if (isset($_GET['page'][$this->level]) && $_GET['page'][$this->level] != null)
-			$this->current_area->current_page = $_GET['page'][$this->level];       
+			$this->current_area->current_page = (int)$_GET['page'][$this->level];       
 			
 		if (isset($_GET['page_size'][$this->level]) && $_GET['page_size'][$this->level] != null){
-			$this->current_area->rows_per_page = $_GET['page_size'][$this->level];       
+			$this->current_area->rows_per_page = (int)$_GET['page_size'][$this->level];       
 		}
 			
 		//pages 
@@ -580,12 +583,12 @@ class StandardModule{
 		
 		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from `".DB_PREF."".$area->get_db_table()."` where 1 ";
 		if ($parent_id)
-			 $sql .= " and ".$area->get_db_reference()." = '".$parent_id."' ";
+			 $sql .= " and ".$area->get_db_reference()." = '".mysql_real_escape_string($parent_id)."' ";
 		if($area->get_where_condition())    
 			 $sql .= " and ".$this->current_area->get_where_condition();  //extra condition to sql where part
 		
 		if ($this->current_area->order_by != ""){
-			$sql .= " order by ".$this->current_area->order_by." ";
+			$sql .= " order by `".mysql_real_escape_string($this->current_area->order_by)."` ";
 			if($this->current_area->order_by_dir != "")
 				$sql .= " ".$this->current_area->order_by_dir." ";
 		}
@@ -635,12 +638,12 @@ class StandardModule{
 		
 		$sql = " select `".$area->db_key."` as current_id, `".$area->name_element->db_field."` as name_value from `".DB_PREF."".$area->get_db_table()."` where 1 ";
 		if ($parent_id)
-			 $sql .= " and ".$area->get_db_reference()." = '".$parent_id."' ";
+			 $sql .= " and ".$area->get_db_reference()." = '".mysql_real_escape_string($parent_id)."' ";
 		if($area->get_where_condition())    
 			 $sql .= " and ".$area->get_where_condition();  //extra condition to sql where part
 		
 		if ($area->order_by != ""){
-			$sql .= " order by ".$area->order_by." ";
+			$sql .= " order by ".mysql_real_escape_string($area->order_by)." ";
 			if($area->order_by_dir != "")
 				$sql .= " ".$area->order_by_dir." ";
 		}
@@ -793,7 +796,7 @@ class StandardModule{
           if (isset($_REQUEST['sort_field']) && $_REQUEST['sort_field'] != null){
              foreach($_REQUEST['sort_field'] as $key => $field_number){                
                 if(isset($_REQUEST['sort_field_'.$field_number]) && $_REQUEST['sort_field_'.$field_number] != null && is_numeric($_REQUEST['sort_field_'.$field_number])){
-                   $sql = " update `".DB_PREF."".$this->current_area->get_db_table()."` set `".$this->current_area->get_sort_field()."` = '".$_REQUEST['sort_field_'.$field_number]."' where ".$this->current_area->get_db_key()." = '".$field_number."'";
+                   $sql = " update `".DB_PREF."".$this->current_area->get_db_table()."` set `".mysql_real_escape_string($this->current_area->get_sort_field())."` = '".mysql_real_escape_string($_REQUEST['sort_field_'.$field_number])."' where ".$this->current_area->get_db_key()." = '".$field_number."'";
                    $rs = mysql_query($sql);
                    if (!$rs)     
                       trigger_error("Can't change sort order ".$sql);
@@ -925,9 +928,9 @@ class StandardModule{
 				else
 					$tmp_error = '';
 				if($value->visible)
-					$answer .= '<span class="label bolder">'.$value->name.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmp_error.$value->print_field_update('i_'.$key, $area->get_parent_id(), $area)."<br /><br />";
+					$answer .= '<span class="label bolder">'.$value->name.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmp_error.$value->print_field_update('i_'.$key, mysql_real_escape_string($area->get_parent_id()), $area)."<br /><br />";
 				else
-					$answer .= $tmp_error.$value->print_field_update('i_'.$key, $area->get_parent_id(), $area);
+					$answer .= $tmp_error.$value->print_field_update('i_'.$key, mysql_real_escape_string($area->get_parent_id()), $area);
     }
     $answer .= '
         <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'"/>
@@ -1001,9 +1004,9 @@ class StandardModule{
           if(get_class($element) != "element_time")
 					
 				if($element->visible)
-					$answer .= '<span class="label bolder">'.$element->name.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmp_error.$element->print_field_new('i_n_'.$key,$this->up_area->get_parent_id(), $this->current_area)."<br /><br />";
+					$answer .= '<span class="label bolder">'.$element->name.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmp_error.$element->print_field_new('i_n_'.$key,mysql_real_escape_string($this->up_area->get_parent_id()), $this->current_area)."<br /><br />";
 				else
-					$answer .= $tmp_error.$element->print_field_new('i_n_'.$key,$this->up_area->get_parent_id(), $this->current_area);
+					$answer .= $tmp_error.$element->print_field_new('i_n_'.$key,mysql_real_escape_string($this->up_area->get_parent_id()), $this->current_area);
       }
     }
     $answer .= '
@@ -1271,7 +1274,7 @@ class StandardModule{
         
         foreach($this->current_area->get_elements() as $key => $value){
           if($value->get_show_on_list()){
-            $answer .= '<td >'.$value->preview_value($lock[''.$value->get_db_field()], $this->current_area->get_parent_id(), $this->current_area).'&nbsp;</td>';
+            $answer .= '<td >'.$value->preview_value($lock[''.$value->get_db_field()], mysql_real_escape_string($this->current_area->get_parent_id()), $this->current_area).'&nbsp;</td>';
           }          
         }
                
@@ -1299,7 +1302,7 @@ class StandardModule{
 			
 		$sql_pages = " select * from `".DB_PREF."".$this->current_area->get_db_table()."` where 1 ";
 		if (($this->level > 0))
-			 $sql_pages .= " and `".$this->current_area->get_db_reference()."` = '".$this->up_area->get_parent_id()."' ";
+			 $sql_pages .= " and `".$this->current_area->get_db_reference()."` = '".mysql_real_escape_string($this->up_area->get_parent_id())."' ";
 		if($this->current_area->get_where_condition())    
 			 $sql_pages .= " and ".$this->current_area->get_where_condition();  //extra condition to sql where part
 		foreach($this->current_area->get_elements() as $key => $value){
@@ -1311,10 +1314,10 @@ class StandardModule{
 	
 		$sql = $sql_pages;    
 		if(isset($_GET['sort_field'][$this->level]) && isset($_GET['sort_dir'][$this->level]) && ($_GET['sort_dir'][$this->level] == "desc" || $_GET['sort_dir'][$this->level] == "asc"))
-			 $sql .= " order by `".mysql_real_escape_string($_GET['sort_field'][$this->level])."` ".mysql_real_escape_string($_GET['sort_dir'][$this->level])." ";
+			 $sql .= " order by `".mysql_real_escape_string(str_replace('`', '', $_GET['sort_field'][$this->level]))."` ".mysql_real_escape_string($_GET['sort_dir'][$this->level])." ";
 		else{
 			if ($this->current_area->order_by != ""){
-				$sql .= " order by ".$this->current_area->order_by." ";
+				$sql .= " order by `".mysql_real_escape_string($this->current_area->order_by)."` ";
 				if($this->current_area->order_by_dir != "")
 					$sql .= " ".$this->current_area->order_by_dir." ";
 			}
@@ -1508,9 +1511,9 @@ class StandardModule{
 	      
 	      if($i == $max_level && $ignore != 'page'){
 	        if(isset($_GET['page'][$i]))
-	          $tmp_url.='&amp;page['.$i.']='.$_GET['page'][$i];
+	          $tmp_url.='&amp;page['.$i.']='.((int)$_GET['page'][$i]);
 	        if(isset($_GET['page_size'][$i]))
-	          $tmp_url.='&amp;page_size['.$i.']='.$_GET['page_size'][$i];
+	          $tmp_url.='&amp;page_size['.$i.']='.((int)$_GET['page_size'][$i]);
 						
 			  }
 			  

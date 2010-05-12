@@ -64,11 +64,11 @@ class StandardModule{
       if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-2)]) && $_GET['road'][(sizeof($_GET['road'])-2)]!=''){
         $this->currentArea->parentId = $_GET['road'][(sizeof($_GET['road'])-2)];
       }
-      
+
       if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!=''){
         $this->currentArea->currentId = $_GET['road'][(sizeof($_GET['road'])-1)];
       }
-      
+
     } else {
       for($i=0; $i<sizeof($_GET['road']); $i++){
         $this->currentArea =& $this->currentArea->getArea();
@@ -76,10 +76,10 @@ class StandardModule{
       if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!=''){
         $this->currentArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
       }
-      
+
     }
-    
-    
+
+
     //end find current area
 
     //order
@@ -112,7 +112,7 @@ class StandardModule{
         $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-2)];
       }
 
-      
+
     } else {
       for($i=0; $i<(sizeof($_GET['road'])-1); $i++){
         if ($this->upArea) $this->upArea =& $this->upArea->getArea();
@@ -121,19 +121,19 @@ class StandardModule{
         $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
       }
 
-      
-      
+
+
     }
-    
+
 
     if(isset($_GET['road'])&& is_array($_GET['road']))
     for($i=0; $i<(sizeof($_GET['road'])); $i++){
       if($i+1 >= $treeDepth){
         if($this->road != '')
-          $this->road .= '<span> -> </span>';
+        $this->road .= '<span> -> </span>';
 
         if(isset($_GET['title'][$i]) && $_GET['title'][$i] != ''){
-          $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.$_GET['title'][$i]."</a>";
+          $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.htmlspecialchars($_GET['title'][$i])."</a>";
         } else {
           if($i < sizeof($_GET['road']) - 1){
             $this->road .= '<a href="'.$this->generateUrlLevel(($i+1)).'" class="navigation">'.htmlspecialchars($this->upArea->title)."</a>";
@@ -142,16 +142,16 @@ class StandardModule{
       }
     }
 
-/*    if(isset($_GET['road'])&&$this->currentArea){
-      if($this->road != '')
-        $this->road .= '<a> / </a>';
-        
-      if(isset($_GET['title'][sizeof($_GET['road'])-1]) && $_GET['title'][sizeof($_GET['road'])-1] != ''){
-        $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($_GET['title'][sizeof($_GET['road'])-1]).'c</a>';
-      } else {
-        $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($this->currentArea->title).'c</a>';
-      }
-    }*/
+    /*    if(isset($_GET['road'])&&$this->currentArea){
+     if($this->road != '')
+     $this->road .= '<a> / </a>';
+
+     if(isset($_GET['title'][sizeof($_GET['road'])-1]) && $_GET['title'][sizeof($_GET['road'])-1] != ''){
+     $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($_GET['title'][sizeof($_GET['road'])-1]).'c</a>';
+     } else {
+     $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($this->currentArea->title).'c</a>';
+     }
+     }*/
 
     //end find upArea
 
@@ -170,26 +170,26 @@ class StandardModule{
           if(method_exists($this->currentArea, 'beforeSort')){
             $this->currentArea->beforeSort();
           }
-          
+
           $sql = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = '".mysql_real_escape_string($_POST['new_row_number'])."'
 				where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
           $rs  = mysql_query($sql);
           if(!$rs)
-            trigger_error($sql." ".mysql_error());
-            
+          trigger_error($sql." ".mysql_error());
+
           if(method_exists($this->currentArea, 'afterSort')){
             $this->currentArea->afterSort();
           }
-            
+
           \Db::disconnect();
           exit;
-        break;
+          break;
         case 'row_number_increase':{
-          
+
           if(method_exists($this->currentArea, 'beforeSort')){
             $this->currentArea->beforeSort();
           }
-          
+
           $sql_current = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."` from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
           $rs_current  = mysql_query($sql_current);
           if($rs_current)
@@ -197,7 +197,7 @@ class StandardModule{
             /*searching upper record*/
 
             if (($this->level > 0))
-            $sql_add = " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".$this->upArea->parentId."' ";
+            $sql_add = " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
             else
             $sql_add = '';
 
@@ -212,7 +212,7 @@ class StandardModule{
             if($rs_upper)
             if($lock_upper = mysql_fetch_assoc($rs_upper)){ //upper record (need to be moved down)
               if($lock_upper[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]){
-                	
+                 
                 $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
 									set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` - 1
 									where `".mysql_real_escape_string($this->currentArea->sortField)."` <= ".mysql_real_escape_string($lock_upper[$this->currentArea->sortField])." and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." ";
@@ -221,20 +221,20 @@ class StandardModule{
                 trigger_error($sql." ".mysql_error());
 
               }else{
-                	
+                 
                 $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
 									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
 									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_upper[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
 
-                	
+                 
                 $rs_update = mysql_query($sql_update);
                 if(!$rs_update)
                 trigger_error($sql_update." ".mysql_error());
-                	
+                 
                 $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
 									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_upper[$this->currentArea->sortField]."
 									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
-                	
+                 
                 $rs_update = mysql_query($sql_update);
                 if(!$rs_update)
                 trigger_error($sql." ".mysql_error());
@@ -249,8 +249,8 @@ class StandardModule{
           if(method_exists($this->currentArea, 'afterSort')){
             $this->currentArea->afterSort();
           }
-          
-          
+
+
           \Db::disconnect();
           exit;
         }
@@ -260,7 +260,7 @@ class StandardModule{
             if(method_exists($this->currentArea, 'beforeSort')){
               $this->currentArea->beforeSort();
             }
-            
+
             $sql_current = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
   				from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
   				where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
@@ -286,29 +286,29 @@ class StandardModule{
               if($rs_under)
               if($lock_under = mysql_fetch_assoc($rs_under)){ //under record (need to be moved up)
                 if($lock_under[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]){
-                  	
+                   
                   $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
   									set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1
   									where `".mysql_real_escape_string($this->currentArea->sortField)."` >= ".mysql_real_escape_string($lock_under[$this->currentArea->sortField])." 
   									and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add."";
-                  	
+                   
                   $rs_update = mysql_query($sql_update);
                   if(!$rs_update)
                   trigger_error($sql_update." ".mysql_error());
                 }else{
-                  	
+                   
                   $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
   									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
   									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_under[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
-                  	
+                   
                   $rs_update = mysql_query($sql_update);
                   if(!$rs_update)
                   trigger_error($sql_update." ".mysql_error());
-                  	
+                   
                   $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
   									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_under[$this->currentArea->sortField]."
   									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add." limit 1";
-                  	
+                   
                   $rs_update = mysql_query($sql_update);
                   if(!$rs_update)
                   trigger_error($sql_update." ".mysql_error());
@@ -317,12 +317,12 @@ class StandardModule{
               }
             }else trigger_error($sql." Element does not exist");
             echo "document.location = document.location;";
-            
+
             if(method_exists($this->currentArea, 'afterSort')){
               $this->currentArea->afterSort();
             }
-            
-            
+
+
             \Db::disconnect();
             exit;
           }
@@ -339,20 +339,20 @@ class StandardModule{
           break;
         case 'insert':
           $allowInsert = true;
-            $parameters = array();  //parameters for main sql for current area table.
-            foreach($this->currentArea->elements as $key => $element){
-              $new_error = $element->checkField("i_n_".$key, "insert", $this->currentArea);
-              if ($new_error != null)
-              $this->errors[$key] = $new_error;
-            }
-            if (sizeof($this->errors) == 0){
-              
-              //allow insert
-              if(method_exists($this->currentArea, 'allowInsert')){
-                $allowInsert = $this->currentArea->allowInsert($this->currentArea->currentId);
-                if(!$allowInsert){
-                  if(method_exists($this->currentArea, 'lastError')){
-                    echo "
+          $parameters = array();  //parameters for main sql for current area table.
+          foreach($this->currentArea->elements as $key => $element){
+            $new_error = $element->checkField("i_n_".$key, "insert", $this->currentArea);
+            if ($new_error != null)
+            $this->errors[$key] = $new_error;
+          }
+          if (sizeof($this->errors) == 0){
+
+            //allow insert
+            if(method_exists($this->currentArea, 'allowInsert')){
+              $allowInsert = $this->currentArea->allowInsert($this->currentArea->currentId);
+              if(!$allowInsert){
+                if(method_exists($this->currentArea, 'lastError')){
+                  echo "
               <html>
                 <head>
                   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
@@ -364,8 +364,8 @@ class StandardModule{
                  </body>
                </html>
                     ";
-                  }else{
-                    echo "
+                }else{
+                  echo "
               <html>
                 <head>
                   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
@@ -378,105 +378,105 @@ class StandardModule{
                </html>
                     
                     ";
-                  }
-                  return false;
                 }
+                return false;
               }
-              //allow insert
-              
-              
-              
-              if(method_exists($this->currentArea, 'beforeInsert')){
-                $this->currentArea->beforeInsert();
-              }
-              
-              
-              foreach($this->currentArea->elements as $key => $element){
-                $new_parameter = $element->getParameters("insert", "i_n_".$key, $this->currentArea);
-                if ($new_parameter)
-                $parameters[] = $new_parameter;
-  
-              }
-              $sql = "insert into `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set  `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`= DEFAULT ";
+            }
+            //allow insert
+
+
+
+            if(method_exists($this->currentArea, 'beforeInsert')){
+              $this->currentArea->beforeInsert();
+            }
+
+
+            foreach($this->currentArea->elements as $key => $element){
+              $new_parameter = $element->getParameters("insert", "i_n_".$key, $this->currentArea);
+              if ($new_parameter)
+              $parameters[] = $new_parameter;
+
+            }
+            $sql = "insert into `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set  `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`= DEFAULT ";
+            $need_comma = true;
+            if ($this->level > 0){
+              $sql .= ", `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
               $need_comma = true;
-              if ($this->level > 0){
-                $sql .= ", `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
+            }
+            foreach($parameters as $key => $parameter){
+              if($parameter['value'] === null)
+              $value =  " NULL ";
+              else
+              $value =  "'".mysql_real_escape_string($parameter['value'])."'";
+
+
+              if ($need_comma)
+              $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+              else{
+                $sql .= " `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                 $need_comma = true;
               }
-              foreach($parameters as $key => $parameter){
-                if($parameter['value'] === null)
-                  $value =  " NULL ";
+            }
+            $rs = mysql_query($sql);
+            if (!$rs)
+            trigger_error("Impossible to insert new data ".$sql);
+            else{
+              $lastInsertId = mysql_insert_id();
+
+              /* update sort field value */
+              if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'top'){
+                /* increase all sort field numbers */
+                $sql = "update `".mysql_real_escape_string(DB_PREF."".$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1";
+                $rs = mysql_query($sql);
+                if(!$rs) trigger_error("Can't change sort numbers ".$sql." ".mysql_error());
+
+                /* find lowest walue */
+                if (($this->level > 0))
+                $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
                 else
-                  $value =  "'".mysql_real_escape_string($parameter['value'])."'";
-                
-                
-                if ($need_comma)
-                $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
-                else{
-                  $sql .= " `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
-                  $need_comma = true;
-                }
-              }
-              $rs = mysql_query($sql);
-              if (!$rs)
-              trigger_error("Impossible to insert new data ".$sql);
-              else{
-                $lastInsertId = mysql_insert_id();
-  
-                /* update sort field value */
-                if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'top'){
-                  /* increase all sort field numbers */
-                  $sql = "update `".mysql_real_escape_string(DB_PREF."".$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1";
-                  $rs = mysql_query($sql);
-                  if(!$rs) trigger_error("Can't change sort numbers ".$sql." ".mysql_error());
-  
-                  /* find lowest walue */
-                  if (($this->level > 0))
-                  $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
-                  else
-                  $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
-                  $rs = mysql_query($sql);
-                  if($rs){
-                    if($lock = mysql_fetch_assoc($rs)){
-                      /* update inserted record to have the smallest sort field number*/
-                      $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['min_value']." - 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
-                      $rs = mysql_query($sql2);
-                      if(!$rs)
-                      trigger_error($sql." ".mysql_error());
-                    }
+                $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
+                $rs = mysql_query($sql);
+                if($rs){
+                  if($lock = mysql_fetch_assoc($rs)){
+                    /* update inserted record to have the smallest sort field number*/
+                    $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['min_value']." - 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
+                    $rs = mysql_query($sql2);
+                    if(!$rs)
+                    trigger_error($sql." ".mysql_error());
                   }
-                  else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
                 }
-                if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'bottom'){
-                  /* find biggest walue */
-                  if (($this->level > 0))
-                  $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
-                  else
-                  $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
-                  $rs = mysql_query($sql);
-                  if($rs){
-                    if($lock = mysql_fetch_assoc($rs)){
-                      /* update inserted record to have the smallest sort field number*/
-                      $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['max_value']." + 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
-                      $rs = mysql_query($sql2);
-                      if(!$rs)
-                      trigger_error($sql." ".mysql_error());
-                    }
-                  }
-                  else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
-                }
-  
-                foreach($this->currentArea->elements as $key => $element){
-                  $new_parameter = $element->processInsert("i_n_".$key, $lastInsertId, $this->currentArea);
-                }
-                if(method_exists($this->currentArea, 'afterInsert')){
-                  $this->currentArea->afterInsert($lastInsertId);
-                  //$this->upArea->afterInsert($lastInsertId);
-                }
-  
+                else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
               }
-  
-              $answer = "
+              if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'bottom'){
+                /* find biggest walue */
+                if (($this->level > 0))
+                $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
+                else
+                $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
+                $rs = mysql_query($sql);
+                if($rs){
+                  if($lock = mysql_fetch_assoc($rs)){
+                    /* update inserted record to have the smallest sort field number*/
+                    $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['max_value']." + 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
+                    $rs = mysql_query($sql2);
+                    if(!$rs)
+                    trigger_error($sql." ".mysql_error());
+                  }
+                }
+                else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
+              }
+
+              foreach($this->currentArea->elements as $key => $element){
+                $new_parameter = $element->processInsert("i_n_".$key, $lastInsertId, $this->currentArea);
+              }
+              if(method_exists($this->currentArea, 'afterInsert')){
+                $this->currentArea->afterInsert($lastInsertId);
+                //$this->upArea->afterInsert($lastInsertId);
+              }
+
+            }
+
+            $answer = "
             <html>
               <head>
                 <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
@@ -493,10 +493,10 @@ class StandardModule{
                 </script>
               </body></html>
           ";              
-              echo $answer;
-            
-          
-          
+            echo $answer;
+
+
+
             \Db::disconnect();
             exit;
           }else{
@@ -543,7 +543,7 @@ class StandardModule{
           }
           if (sizeof($this->errors) == 0){
 
-            
+
             if(method_exists($this->currentArea, 'allowUpdate')){
               $allowUpdate = $this->currentArea->allowUpdate($this->currentArea->currentId);
               if(!$allowUpdate){
@@ -578,9 +578,9 @@ class StandardModule{
                 return false;
               }
             }
-            
-            
-            
+
+
+
             if(method_exists($this->currentArea, 'beforeUpdate')){
               $this->currentArea->beforeUpdate($this->currentArea->currentId);
             }
@@ -605,7 +605,7 @@ class StandardModule{
                 $value =  "'".mysql_real_escape_string($parameter['value'])."'";
 
                 if ($need_comma)
-                  $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+                $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                 else{
                   $sql .= " `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                   $need_comma = true;
@@ -690,12 +690,12 @@ class StandardModule{
     global $stdModDb;
     $stdModDb = new StdModDb();
 
-    
+
     if(isset($_REQUEST['type']) && $_REQUEST['type'] == 'ajax'){
       $answer = $this->ajaxAction($this->currentArea, $this->upArea);
       return $answer;
     }
-    
+
     if (isset($_REQUEST['action']) && $_REQUEST['action'] != null)
     $this->makeActions();
 
@@ -714,15 +714,15 @@ class StandardModule{
     }
     //eof sort
 
-    
+
     //pages
     if (isset($_GET['page'][$this->level]) && $_GET['page'][$this->level] != null)
-    $this->currentArea->currentPage = $_GET['page'][$this->level];
-    	
+    $this->currentArea->currentPage = (int)$_GET['page'][$this->level];
+     
     if (isset($_GET['pageSize'][$this->level]) && $_GET['pageSize'][$this->level] != null){
-      $this->currentArea->rowsPerPage = $_GET['pageSize'][$this->level];
+      $this->currentArea->rowsPerPage = (int)$_GET['pageSize'][$this->level];
     }
-    	
+     
     //pages
 
     if($this->treeDepth > 0 && !isset($_GET['road']) || isset($_GET['road']) && $this->treeDepth > sizeof($_GET['road'])){
@@ -730,9 +730,9 @@ class StandardModule{
       header("location:".str_replace("&amp;", "&", $this->linkToFirstTreeNode($this->childArea)));
     }
 
-    
+
     $answer = $this->makeHtml();
-    
+
     return $answer;
   }
 
@@ -744,14 +744,14 @@ class StandardModule{
     if($this->treeDepth <= $depth){
       return;
     }
-    	
+     
     $answer = '';
 
     $sql = " select * from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where 1 ";
     if ($parentId)
-      $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
+    $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
     if($area->whereCondition)
-      $sql .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
+    $sql .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
 
     if ($this->currentArea->orderBy != ""){
       $sql .= " order by `".mysql_real_escape_string($this->currentArea->orderBy)."` ";
@@ -793,21 +793,21 @@ class StandardModule{
   }
 
   function printTreeNode($area, $depth = 0, $parentId = null, $url = '', $parent_selected = true){
-    
+
     if(!$area->nameElement){
       return;
     }
     if($this->treeDepth <= $depth)
     return;
-    	
+     
     $answer = '';
 
-    $sql = " select * 
+    $sql = " select *
     from `".mysql_real_escape_string(DB_PREF.mysql_real_escape_string($area->dbTable))."` where 1 ";
     if ($parentId)
-      $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
+    $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
     if($area->whereCondition)
-      $sql .= " and ".$area->whereCondition;  //extra condition to sql where part
+    $sql .= " and ".$area->whereCondition;  //extra condition to sql where part
 
     if ($area->orderBy != ""){
       $sql .= " order by `".mysql_real_escape_string($area->orderBy)."` ";
@@ -826,10 +826,10 @@ class StandardModule{
         }
 
         if($subnodes != '')
-          $leafClass = 'class="menu_tree_parent"';
+        $leafClass = 'class="menu_tree_parent"';
         else
-          $leafClass='';
-        	
+        $leafClass='';
+         
         if($this->treeDepth == $depth+1){
           if($thisSelected)
           $nodeClass = 'class="menu_tree menu_tree_selected"';
@@ -837,7 +837,7 @@ class StandardModule{
           $nodeClass = 'class="menu_tree menu_tree_leaf"';
         }else
         $nodeClass = 'class="menu_tree menu_tree_parent"';
-        	
+         
         if($subnodes != '')
         $answer .= '<div '.$nodeClass.' style="padding-left:'.($depth*15).'px;"><div '.$leafClass.'><a>'.$area->nameElement->previewValue($lock, $area).'</a></div></div>';
         else
@@ -900,7 +900,7 @@ class StandardModule{
 		
 		';
 
-    
+
     if($this->level < $this->treeDepth){
       $content = '';
     }elseif(isset($_GET['road_edit'])){
@@ -908,12 +908,12 @@ class StandardModule{
     }else{
       $content = $this->printData();
     }
-    
+
     $answer .= '
 		
 		 <div class="all" onmousemove="setPos(event)" onmouseup="mouseButtonPos=\'up\'">';
     $answer .= '<script type="text/javascript">LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
-    	
+     
     if($this->treeDepth > 0){
       $answer .= $this->printTree();
     }
@@ -1002,7 +1002,7 @@ class StandardModule{
     return $answer;
   }
 
-  
+
   function allowDelete($area, $id){
     global $parametersMod;
     $allowDelete = true;
@@ -1016,7 +1016,7 @@ class StandardModule{
         }
         return false;
       }
-      
+
       $child = $area->getArea();
       if ($child != null){
         $sql = " select `".mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".mysql_real_escape_string($child->dbReference)."` = '".mysql_real_escape_string($id)."' ";
@@ -1035,8 +1035,8 @@ class StandardModule{
     }
     return $allowDelete;
   }
-  
-  
+
+
   function delete(&$currentArea, $id){
     if(method_exists($currentArea, 'beforeDelete')){
       $currentArea->beforeDelete($id);
@@ -1094,8 +1094,8 @@ class StandardModule{
     } else {
       trigger_error($sql.' '.mysql_error());
     }
-              
-    
+
+
     $answer = '';
     $answer .= '<form class="stdMod" target="std_mod_update_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
     $answer .= '<div class="search">';
@@ -1108,9 +1108,9 @@ class StandardModule{
       else
       $tmpError = '';
       if($value->visibleOnUpdate)
-        $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br /><br />";
+      $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br /><br />";
       /*else
-        $answer .= $tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area);*/
+       $answer .= $tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area);*/
     }
     $answer .= '
         <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'"/>
@@ -1118,7 +1118,7 @@ class StandardModule{
       </form>
 			<div class="separator"></div>
 			';
-    	
+     
     $resetStr = '';
     foreach($area->elements as $key => $element){
       if($element->visibleOnUpdate){
@@ -1130,8 +1130,8 @@ class StandardModule{
         }
       }
     }
-    	
-    	
+     
+     
     $answer .='
           <iframe onload="std_mod_update_f_answer()" name="std_mod_update_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
           <script type="text/javascript">
@@ -1160,7 +1160,7 @@ class StandardModule{
             //]]>    
           </script>          
           ';      
-    	
+     
     return $answer;
   }
 
@@ -1186,7 +1186,7 @@ class StandardModule{
         $tmpError = '<p class="error">'.$this->errors[$key].'</p>';
         else
         $tmpError = '';
-        	
+         
         if($element->visibleOnInsert)
         $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$element->title.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea)."<br /><br />";
         else
@@ -1266,7 +1266,7 @@ class StandardModule{
       $this->pagesCount = ceil($count/$this->currentArea->rowsPerPage);
       if($this->pagesCount < 1)
       $this->pagesCount = 1;
-      	
+       
       if($this->currentArea->currentPage > $this->pagesCount - 1)
       $this->currentArea->currentPage = $this->pagesCount -1;
 
@@ -1322,7 +1322,7 @@ class StandardModule{
 			
 			';
 
-    
+
     return $answer;
 
     $pages = "";
@@ -1352,8 +1352,8 @@ class StandardModule{
     $answer = '';
     $pages = $this->printPages();
 
-    
-    
+
+
     $answer .= '
 		<div id="sheet1div">
 			<div class="tabs">
@@ -1376,7 +1376,7 @@ class StandardModule{
 
       //column names
       $answer .= '<tr>';
-      	
+       
       if($this->currentArea->allowUpdate)
       $answer .= '<th>&nbsp;</th>';
       if($this->currentArea->childArea !=  null && $this->currentArea->childArea->visible)
@@ -1394,7 +1394,7 @@ class StandardModule{
           }
 
         }
-        	
+         
         if($this->currentArea->sortType == 'numbers')
         $answer .= '<th class="header"><a class="'.$class.'" href="'.$this->generateUrlSort($this->currentArea->sortField, $tmpSortDir).'"><b>'.$parametersMod->getValue('developer', 'std_mod','admin_translations','sort_field').'</b></a></th>';
         if($this->currentArea->sortType == 'pointers')
@@ -1438,16 +1438,16 @@ class StandardModule{
           $tmpTitle = $this->currentArea->nameElement->previewValue($lock, $this->currentArea);
         } else {
           if(isset($this->currentArea->childArea))
-            $tmpTitle = $this->currentArea->childArea->title;
+          $tmpTitle = $this->currentArea->childArea->title;
           else
-            $tmpTitle = '';
+          $tmpTitle = '';
         }
-        
-        
+
+
         if($this->currentArea->allowUpdate )
-          $answer .= '<td><a class="edit" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'&amp;road_edit=1" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','edit').'">&nbsp;</a></td>';
+        $answer .= '<td><a class="edit" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'&amp;road_edit=1" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','edit').'">&nbsp;</a></td>';
         if($this->currentArea->childArea !=  null && $this->currentArea->childArea->visible)
-          $answer .= '<td><a class="goIn" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','go_in').'">&nbsp;</a></td>';
+        $answer .= '<td><a class="goIn" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','go_in').'">&nbsp;</a></td>';
 
 
         if ($this->currentArea->sortable && $this->currentArea->sortField != null){
@@ -1495,13 +1495,13 @@ class StandardModule{
     if (!$this->currentArea)
     return;
 
-    	
-    	
+     
+     
     $sql_pages = " select * from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where 1 ";
     if (($this->level > 0))
     $sql_pages .= " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
     if($this->currentArea->whereCondition)
-      $sql_pages .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
+    $sql_pages .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
     foreach($this->currentArea->elements as $key => $value){
       if ($value->searchable && isset($_REQUEST['search'][$this->level][$key]) && $_REQUEST['search'][$this->level][$key] != null && $_REQUEST['search'][$this->level][$key] != ''){
         $filterOption = $value->getFilterOption($_REQUEST['search'][$this->level][$key], $this->currentArea);
@@ -1509,11 +1509,11 @@ class StandardModule{
           $sql_pages .= " and ".$value->getFilterOption($_REQUEST['search'][$this->level][$key], $this->currentArea);
         }
       }
-      
+
     }
 
     $this->calculatePages($sql_pages);
-    
+
     $sql = $sql_pages;
     if(isset($_GET['sortField'][$this->level]) && isset($_GET['sortDir'][$this->level]) && ($_GET['sortDir'][$this->level] == "desc" || $_GET['sortDir'][$this->level] == "asc"))
     $sql .= " order by `".mysql_real_escape_string($_GET['sortField'][$this->level])."` ".mysql_real_escape_string($_GET['sortDir'][$this->level])." ";
@@ -1527,8 +1527,8 @@ class StandardModule{
     if($this->currentArea->rowsPerPage != '' && $this->currentArea->rowsPerPage!= 0){
       $sql .= " limit ".(int)$this->currentArea->rowsPerPage*$this->currentArea->currentPage.", ".(int)$this->currentArea->rowsPerPage." ";
     }
-    	
-    	
+     
+     
     $answer = '';
 
     $answer .= '
@@ -1548,9 +1548,9 @@ class StandardModule{
     </script> 		
 		';
 
-    
+
     $answer .= $this->printTable($sql);
-    
+
     return $answer;
 
   }
@@ -1570,7 +1570,7 @@ class StandardModule{
 
     if($this->currentArea->searchable)
     $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
-    	
+     
 
     $answer .= '</ul>';
 
@@ -1719,7 +1719,7 @@ class StandardModule{
         $tmp_url.='&amp;pageSize['.$i.']='.$_GET['pageSize'][$i];
 
       }
-      	
+       
       if(isset($_REQUEST['search'][$i]) && is_array($_REQUEST['search'][$i])){
         foreach($_REQUEST['search'][$i] as $key => $value){
           if(is_array($value)){
