@@ -156,7 +156,7 @@ class Standard{
         }
       }
 
-      foreach($this->hidden_fields as $key => $field){
+      foreach($this->hiddenFields as $key => $field){
         if($field->dbField){
           if(!$first)
             $sql .= ', ';
@@ -208,7 +208,7 @@ class Standard{
         }
       }
       
-      foreach($this->hidden_fields as $key => $field){
+      foreach($this->hiddenFields as $key => $field){
         if($field->dbField){
           if(!$first)
             $sql .= ', ';

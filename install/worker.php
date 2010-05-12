@@ -107,7 +107,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 		$errors[] = 'ERROR_LOGIN';
 
 	if(isset($_POST['timezone'])&& $_POST['timezone'] != '')
-		$timezone = 'date_default_timezone_set(\''.$_POST['timezone'].'\');';
+		$timezone = 'date_default_timezone_set(\''.$_POST['timezone'].'\')';
 	else
 		$errors[] = 'ERROR_TIME_ZONE';
 
