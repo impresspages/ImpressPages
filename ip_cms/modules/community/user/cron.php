@@ -30,6 +30,7 @@ class Cron {
         $deleted = Db::deleteOutdatedUsers($parametersMod->getValue('community', 'user', 'options', 'outdated_within'));
 
         foreach($deleted as $key => $user) {
+          $site->dispatchEvent('community', 'user', 'deleted_outdated_user', array('data'=>$user));
           $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
           $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'user_deleted_text'), $emailTemplate);
           $email = str_replace('[[date]]', substr($user['last_login'], 0, 10), $email);
@@ -41,6 +42,7 @@ class Cron {
         $setWarned = array();
 
         foreach($soonOutdated as $key => $user) {
+          $site->dispatchEvent('community', 'user', 'warn_inactive_user', array('data'=>$user));
           $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
           $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'outdated_warning_text'), $emailTemplate);
           $email = str_replace('[[date]]', substr($user['valid_until'], 0, 10), $email);
