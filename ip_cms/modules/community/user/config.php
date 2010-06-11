@@ -18,7 +18,7 @@ require_once(__DIR__."/db.php");
 
 class Config{
 	/** @var password hash salt*/
-	public static $hashSalt = '';
+  public static $hashSalt = '';
 	
 
   public static $urlPasswordReset = 'password-reset';
