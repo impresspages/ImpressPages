@@ -18,4 +18,12 @@ class Config // extends MimeType
     $layouts[] = array('translation'=>$parametersMod->getValue('standard', 'content_management', 'widget_text', 'layout_default'), 'name'=>'default');
     return $layouts;
   }
+
+
+  static function getMceInit(){
+    global $site;
+    $site->requireConfig('standard/content_management/config.php');
+    return \Modules\standard\content_management\Config::getMceInit();
+  }
+
 }

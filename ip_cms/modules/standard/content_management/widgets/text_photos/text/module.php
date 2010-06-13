@@ -40,13 +40,15 @@ class Module extends \Modules\standard\content_management\Widget{
       $script = '<div class="ipCmsModuleLayout"><label class="ipCmsTitle">Layout: </label><select name="layout">'.$script.'</select></div>';
         
 
-    $answer .= '
-    <script type="text/javascript" >
+    $answer .= "
+    <script type=\"text/javascript\" >
     //<![CDATA[
-    mod_text_layout = \''.$script.'\';
+      mod_text_layout = '".$script."';
+      configWidgetTextPhotosTextMceInit = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",Config::getMceInit()))))."';
+        alert(configWidgetTextPhotosTextMceInit );
      //]]>
     </script>
-    ';
+    ";
      
     return $answer;
   }

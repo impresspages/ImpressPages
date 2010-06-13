@@ -23,25 +23,34 @@ class Config // extends MimeType
   }
 
 
-  static function getMceInit($collectionNumber){
+  static function getMceInit(){
     //tinymce styles
     $tinyMceStylesStr = '';
+    $classesArray = '';
     foreach(self::getMceStyles() as $style){
       if($tinyMceStylesStr != ''){
         $tinyMceStylesStr .= ';';
       }
       $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
+
+      if($style['css_style'] != ''){
+        if($classesArray != ''){
+          $classesArray .= ',';
+        }
+        $classesArray .= '"'.$style['css_style'].'"';
+      }
+
     }
     //end tinymce styles
 
 
+
     return '
 
-    tinyMCE
-    .init( {
+    tinyMCE.init( {
       theme : "advanced",
       mode : "exact",
-      elements : "management_'.$collectionNumber.'_text",
+      elements : "management_" + collection_number + "_text",
       plugins : "paste,inlinepopups,iplink",
       theme_advanced_buttons1 : "pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
       theme_advanced_buttons2 : "bold,italic,underline,styleselect",
@@ -51,9 +60,9 @@ class Config // extends MimeType
       theme_advanced_statusbar_location : "bottom",
       theme_advanced_resizing : true,
       theme_advanced_resize_horizontal : false,
-      valid_elements : "sup[class],sub[class],p[class],b,u,i,a[name|href|target|title|class],ul[class],ol[class],li[class]",
+      valid_elements : "@[class|style],sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
       height : 300,
-      content_css : "'.BASE_URL.TEMPLATE_DIR.TEMPLATE.'/ip_content.css",
+      content_css : "'.BASE_URL.THEME_DIR.THEME.'/ip_content.css",
       theme_advanced_styles : "'.$tinyMceStylesStr.'",
       forced_root_block : "p",
 
@@ -72,10 +81,57 @@ class Config // extends MimeType
       paste_preprocess : function(pl, o) {
         o.content = o.content.stripScripts();
         var tmpContent = o.content;
+        var classesArray = new Array ('.$classesArray.');
+       
 
-        tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>");
-        tmpContent = tmpContent.replace(/(<\/strong>)/ig, "</b>");
+        tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
+        tmpContent = tmpContent.replace(/(<\\\/strong>)/ig, "</b>");
+
+        /* remove unknown classes */
+        var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /class="[^"]+"/gi;  /* find class name */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown classes */
+            var classExist = false;
+            for(var classKey = 0; classKey < classesArray.length; classKey ++){
+              if(\'class="\' + classesArray[classKey] + \'"\' == matches2[i2]){
+                classExist = true;
+              }
+            }
+
+            if(!classExist){
+              tmpContent = tmpContent.replace(matches2[i2], "");
+            }
+          }
+        }
+
+
+        /* remove unknown inline styles */
+        var styles = new Array("text-align: right;", "text-align: left;", "text-align: justify;");
+        var pattern = /<[^<>]+style="[^"]+"[^<>]*>/gi; /* find all tags containing inline styles */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /style="[^"]+"/gi;  /* find style */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown inline styles */
+            var styleExist = false;
+            for(var styleKey = 0; styleKey < styles.length; styleKey ++){
+              if(\'style="\' + styles[styleKey] + \'"\' == matches2[i2]){
+                styleExist = true;
+              }
+            }
+            alert(styleExist + \' \' + matches2[i2]);
+
+            if(!styleExist){
+              tmpContent = tmpContent.replace(matches2[i2], ""); alert(\'replace\');
+            }
+          }
+        }
+
         o.content = tmpContent;
+
       },
       paste_postprocess : function(pl, o) {
       }
