@@ -99,7 +99,7 @@ foreach($tmpModules as $groupKey => $group)
     public function getPagesList($language, $zone, $parentElementId = null){
       $answer = '';
       $pages = $zone->getElements($language['id'], $parentElementId, $startFrom = 0, $limit = null, $includeHidden = true, $reverseOrder = false);
-      if(sizeof($pages) > 0){
+      if($pages && sizeof($pages) > 0){
         $answer .= '<ul>'."\n";
         foreach($pages as $key => $page){
           $answer .= '<li><a href="'.$page->getLink().'">'.$page->getButtonTitle().'</a>';

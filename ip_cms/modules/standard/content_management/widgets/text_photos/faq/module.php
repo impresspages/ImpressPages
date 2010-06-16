@@ -15,10 +15,12 @@ const MODULE_KEY = 'faq';
 global $site;
 $site->requireTemplate('standard/content_management/widgets/text_photos/faq/template.php');
 
-class Module extends \Modules\standard\content_management\Widget{
+class Module extends \Modules\standard\content_management\Widget {
 
-  function init(){
-    global $site;    
+  function init() {
+    require_once(BASE_DIR.LIBRARY_DIR.'php/js/functions.php');
+    global $site;
+
     $answer = '';
     $answer .= ' <script  type="text/javascript" src="'.BASE_URL.CONTENT_MODULE_URL.'text_photos/faq/module.js"></script>';
 
@@ -42,37 +44,38 @@ class Module extends \Modules\standard\content_management\Widget{
     $site->requireConfig('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/config.php');
     $layouts = Config::getLayouts();
     $script = '';
-    if(!isset($layouts) || sizeof($layouts) == 0){
+    if(!isset($layouts) || sizeof($layouts) == 0) {
       $layouts = array();
       $layouts[] = array('translation'=>'', 'name'=>'default');
     }
-    
-    foreach($layouts as $key => $layout){
+
+    foreach($layouts as $key => $layout) {
       $script .= '<option value="'.addslashes($layout['name']).'" >'.addslashes($layout['translation']).'</option>';
     }
-    
+
     if(sizeof($layouts) <=1)
       $script = '<div class="ipCmsModuleLayout hidden"><label class="ipCmsTitle">Layout: </label><select name="layout">'.$script.'</select></div>';
     else
       $script = '<div class="ipCmsModuleLayout"><label class="ipCmsTitle">Layout: </label><select name="layout">'.$script.'</select></div>';
-        
-    $answer .= '
-    <script type="text/javascript" >
+
+    $answer .= "
+    <script type=\"text/javascript\" >
     //<![CDATA[
-    mod_faq_layout = \''.$script.'\';
+      mod_faq_layout = '".$script."';
+      configWidgetTextPhotosFaqMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
      //]]>
     </script>
-    ';
+    ";
 
 
     return $answer;
   }
 
-  function getLayout($id){
+  function getLayout($id) {
     $sql = "select * from `".DB_PREF."mc_text_photos_faq` where id = '".(int)$id."'";
     $rs = mysql_query($sql);
-    if($rs){
-      if($lock = mysql_fetch_assoc($rs)){
+    if($rs) {
+      if($lock = mysql_fetch_assoc($rs)) {
         $layout = $lock['layout'];
         return $layout;
       }
@@ -83,16 +86,16 @@ class Module extends \Modules\standard\content_management\Widget{
   }
 
 
-  function add_to_modules($mod_management_name, $collection_number, $module_id, $visible){ //add existing module from database to javascript array
+  function add_to_modules($mod_management_name, $collection_number, $module_id, $visible) { //add existing module from database to javascript array
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
-     
-     
+
+
     $sql = "select id, title, text from `".DB_PREF."mc_text_photos_faq` where id = '".(int)$module_id."' ";
     $rs = mysql_query($sql);
     if (!$rs || !$lock = mysql_fetch_assoc($rs))
-    trigger_error("Can't get module information ".$sql);
-    else{
+      trigger_error("Can't get module information ".$sql);
+    else {
       $answer = "";
       $answer .= '<script type="text/javascript">
                   //<![CDATA[
@@ -114,94 +117,94 @@ class Module extends \Modules\standard\content_management\Widget{
     return $answer;
   }
 
-  function create_new_instance($values){
+  function create_new_instance($values) {
     $sql = "insert into `".DB_PREF."mc_text_photos_faq` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', text = '".mysql_real_escape_string($values['text'])."' ";
     $rs = mysql_query($sql);
-    if(!$rs){
+    if(!$rs) {
       return "Can't insert new module. ".$sql;
-    }else{
+    }else {
       $sql = "select max(id) as max_id from `".DB_PREF."mc_text_photos_faq` where 1";
       $rs = mysql_query($sql);
       if (!$rs)
-      return "Can't get last inserted id ".$sql;
-      else{
+        return "Can't get last inserted id ".$sql;
+      else {
         $lock = mysql_fetch_assoc($rs);
         $sql = "insert into `".DB_PREF."content_element_to_modules` set".
-            " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
-            ", group_key='text_photos', module_key='faq', module_id = '".(int)$lock['max_id']."'".
-            ", visible= '".(int)$values['visible']."' ";
+                " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
+                ", group_key='text_photos', module_key='faq', module_id = '".(int)$lock['max_id']."'".
+                ", visible= '".(int)$values['visible']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
-        $this->set_error("Can't asociate element to module ".$sql);
+          $this->set_error("Can't asociate element to module ".$sql);
 
       }
     }
   }
 
-  function update($values){
+  function update($values) {
     $sql = "update `".DB_PREF."content_element_to_modules` set visible='".(int)$values['visible']."',row_number = '".(int)$values['row_number']."' where  module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
     if (!mysql_query($sql))
-    return("Can't update module row number".$sql);
-    else{
+      return("Can't update module row number".$sql);
+    else {
       $sql = "update `".DB_PREF."mc_text_photos_faq` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', `text` = REPLACE('".mysql_real_escape_string($values['text'])."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".$values['id']."'  ";
       if (!mysql_query($sql))
-      $this->set_error("Can't update module ".$sql);
-       
+        $this->set_error("Can't update module ".$sql);
+
     }
 
   }
 
-  function delete($values){
+  function delete($values) {
     $sql = "delete from `".DB_PREF."content_element_to_modules` where module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."' ";
     if (!mysql_query($sql))
-    return("Can't delete element to module association ".$sql);
-    else{
+      return("Can't delete element to module association ".$sql);
+    else {
       $sql = "delete from `".DB_PREF."mc_text_photos_faq` where id = '".(int)$values['id']."' ";
       if (!mysql_query($sql))
-      $this->set_error("Can't delete module ".$sql);
-       
+        $this->set_error("Can't delete module ".$sql);
+
     }
   }
 
-  function delete_by_id($id){
+  function delete_by_id($id) {
     $sql = "delete from `".DB_PREF."content_element_to_modules` where module_id = '".(int)$id."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."' ";
     if (!mysql_query($sql))
-    trigger_error("Can't delete element to module association ".$sql);
-    else{
+      trigger_error("Can't delete element to module association ".$sql);
+    else {
       $sql = "delete from `".DB_PREF."mc_text_photos_faq` where id = '".(int)$id."' ";
       if (!mysql_query($sql))
-      trigger_error("Can't delete module ".$sql);
+        trigger_error("Can't delete module ".$sql);
     }
   }
 
 
 
-  function make_html($id){
+  function make_html($id) {
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
 
     $layout = $this->getLayout($id);
-     
+
     $sql = "select id, title, text from `".DB_PREF."mc_text_photos_faq` where id = '".(int)$id."' ";
     $rs = mysql_query($sql);
-    if ($rs){
-      if ($lock = mysql_fetch_assoc($rs)){
+    if ($rs) {
+      if ($lock = mysql_fetch_assoc($rs)) {
         return Template::generateHtml($lock['id'], $lock['title'], $lock['text'], $layout);
       }
     }else
-    trigger_error("Can't get text to create HTML ".$sql);
+      trigger_error("Can't get text to create HTML ".$sql);
   }
-   
-  function manager_preview(){
+
+  function manager_preview() {
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
 
     return Template::generateHtml($_REQUEST['id'], $_REQUEST['title'], $_REQUEST['text'], $_REQUEST['layout']);
   }
-   
 
 
-  function set_error($error){
+
+  function set_error($error) {
     global $globalWorker;
     $globalWorker->set_error($error);
   }

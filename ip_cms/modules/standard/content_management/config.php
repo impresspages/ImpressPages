@@ -73,9 +73,9 @@ class Config // extends MimeType
 
       paste_auto_cleanup_on_paste : true,
       paste_retain_style_properties : false,
-      paste_strip_class_attributes : true,
-      paste_remove_spans : true,
-      paste_remove_styles : true,
+      paste_strip_class_attributes : false,
+      paste_remove_spans : false,
+      paste_remove_styles : false,
       paste_convert_middot_lists : true,
 
       paste_preprocess : function(pl, o) {
@@ -85,7 +85,7 @@ class Config // extends MimeType
        
 
         tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
-        tmpContent = tmpContent.replace(/(<\\\/strong>)/ig, "</b>");
+        tmpContent = tmpContent.replace(/(<\\/strong>)/ig, "</b>");
 
         /* remove unknown classes */
         var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
@@ -122,10 +122,9 @@ class Config // extends MimeType
                 styleExist = true;
               }
             }
-            alert(styleExist + \' \' + matches2[i2]);
 
             if(!styleExist){
-              tmpContent = tmpContent.replace(matches2[i2], ""); alert(\'replace\');
+              tmpContent = tmpContent.replace(matches2[i2], "");
             }
           }
         }

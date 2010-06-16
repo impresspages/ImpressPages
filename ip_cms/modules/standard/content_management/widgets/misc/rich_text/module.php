@@ -19,7 +19,8 @@ class Module extends \Modules\standard\content_management\Widget{
 
  
   function init(){
-    global $site;    
+    global $site;
+    require_once(BASE_DIR.LIBRARY_DIR.'php/js/functions.php');
     $answer = '';
     $answer .= ' <script type="text/javascript"  src="'.BASE_URL.CONTENT_MODULE_URL.'misc/rich_text/module.js"></script>';
 
@@ -43,13 +44,14 @@ class Module extends \Modules\standard\content_management\Widget{
       $script = '<div class="ipCmsModuleLayout"><label class="ipCmsTitle">Layout: </label><select name="layout">'.$script.'</select></div>';
         
     
-    $answer .= '
-    <script type="text/javascript" >
+    $answer .= "
+    <script type=\"text/javascript\" >
     //<![CDATA[
-    mod_rich_text_layout = \''.$script.'\';
+      mod_rich_text_layout = '".$script."';
+      configWidgetMiscRichTextMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
      //]]>
     </script>
-    ';
+    ";
     
       		 
     return $answer;

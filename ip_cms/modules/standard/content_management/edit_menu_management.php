@@ -7,33 +7,33 @@
 namespace Modules\standard\content_management;  
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit; 
- 
+
 
 require_once (__DIR__.'/db.php');
 
 define('CONTENT_MODULE_URL', MODULE_DIR.'standard/content_management/widgets/');
 
 
-class EditMenuManagement{
+class EditMenuManagement {
   var $current_element;
   var $modules;
   var $db_module;
   var $mod_group; //to find module id and send to worker
-  var $mod_name; //to find module id and send to worker  
-  function __construct($current_element){
-    
-    
-    
-    $this->db_module = new Db();  
+  var $mod_name; //to find module id and send to worker
+  function __construct($current_element) {
+
+
+
+    $this->db_module = new Db();
     $this->current_element = $current_element;
-		$this->mod_group = "standard";
-		$this->mod_name = "content_management";
-		$this->module_url = MODULE_DIR.'standard/content_management/';
+    $this->mod_group = "standard";
+    $this->mod_name = "content_management";
+    $this->module_url = MODULE_DIR.'standard/content_management/';
   }
 
-  function manageElement(){
-		global $parametersMod;
-		global $site;
+  function manageElement() {
+    global $parametersMod;
+    global $site;
 
     $answer = '';
     $answer = '<link href="'.BASE_URL.$this->module_url.'design/style.css" rel="stylesheet" type="text/css" />';
@@ -51,10 +51,10 @@ class EditMenuManagement{
     </script> 
     ';
 
-	$tmp_module = \Db::getModule('', $this->mod_group, $this->mod_name);
+    $tmp_module = \Db::getModule('', $this->mod_group, $this->mod_name);
     $answer .= $this->tep_modules_init($this->modules);
-        $answer .= '<script  type="text/javascript" src="'.BASE_URL.$this->module_url.'edit_menu_saver.js"></script>';       
-          $answer .= '<script type="text/javascript">
+    $answer .= '<script  type="text/javascript" src="'.BASE_URL.$this->module_url.'edit_menu_saver.js"></script>';
+    $answer .= '<script type="text/javascript">
              //<![CDATA[
              var menu_saver = new edit_menu_saver();
              document.write(menu_saver.init(document.getElementById(\'modules\'), '.$this->current_element.', mod_management.get_modules(),\'page_title\', \'menu_saver\', \''.BASE_URL.BACKEND_WORKER_FILE.'\', '.$tmp_module['id'].'));
@@ -63,8 +63,8 @@ class EditMenuManagement{
           ';   
 
 
-    
-		$answer .= '
+
+    $answer .= '
 		<script type="text/javascript">
              //<![CDATA[
 		LibDefault.addEvent(window, \'beforeunload\', close_check);
@@ -85,13 +85,13 @@ class EditMenuManagement{
 		</script>
 		';
 
-		$cur_url = $site->generateUrl(null, $site->currentZone);
-		if(strpos($cur_url, "?") !== false)
-		  $cur_url = substr($cur_url, 0, strpos($cur_url, "?"));
-		
-		$tmpModule = \Db::getModule('', 'standard', 'content_management');	
-		$workerUrl = BASE_URL.BACKEND_WORKER_FILE."?module_id=".$tmpModule['id'].'&security_token='.$_SESSION['backend_session']['security_token']; 
-		
+    $cur_url = $site->generateUrl(null, $site->currentZone);
+    if(strpos($cur_url, "?") !== false)
+      $cur_url = substr($cur_url, 0, strpos($cur_url, "?"));
+
+    $tmpModule = \Db::getModule('', 'standard', 'content_management');
+    $workerUrl = BASE_URL.BACKEND_WORKER_FILE."?module_id=".$tmpModule['id'].'&security_token='.$_SESSION['backend_session']['security_token'];
+
     $answer .= '
     
   <script type="text/javascript">
@@ -391,21 +391,21 @@ class EditMenuManagement{
           					
 					<!-- eof parameters edit popup -->
     ';     
-    
 
 
 
-     return $answer;
+
+    return $answer;
   }
-  function tep_modules(){
+  function tep_modules() {
     global $parametersMod;
     $answer = '';
     $answer .= '
 		<div class="ipCmsModuleGroups"><img alt="Up" onclick="switch_group(get_group()-1)" onmouseout="this.src=\''.BASE_URL.$this->module_url.'design/group_up.gif\'" onmouseover="this.src=\''.BASE_URL.$this->module_url.'design/group_up_act.gif\'" src="'.BASE_URL.$this->module_url.'design/group_up.gif"/><div class="ipCmsDots'.sizeof($this->modules).'">
     ';
     $i = 0;
-		
-    foreach($this->modules as $group_translation => $group){
+
+    foreach($this->modules as $group_translation => $group) {
       $answer .= '
       <img  id="manHeadDot'.$i.'" class="ipCmsDot" onclick="switch_group('.$i.')" src="'.BASE_URL.$this->module_url.'design/group_dot.gif" alt="'.htmlspecialchars($group_translation).'" />
       ';
@@ -425,12 +425,12 @@ class EditMenuManagement{
         
     ';
     $i = 0;
-    foreach($this->modules as $group_translation => $group){
+    foreach($this->modules as $group_translation => $group) {
       $answer .= '
           var menuModulesGroup = new Array();
               
       ';
-      foreach($group as $key => $module){        
+      foreach($group as $key => $module) {
         $answer .= '
           var module = new Array();
           module[0] = \''.addslashes($module['module_name']).'\';          
@@ -438,7 +438,7 @@ class EditMenuManagement{
           module[2] = \''.addslashes($module['group_name']).'\';
           menuModulesGroup['.$key.'] = module;
           ';
-      } 
+      }
       $answer .= ' menuModules.push(menuModulesGroup);';
       $i++;
     }
@@ -521,15 +521,15 @@ class EditMenuManagement{
     ';
 
 
-    
-    
-      for($i = 0; $i<12; $i++){ 
-        $answer .= '
+
+
+    for($i = 0; $i<12; $i++) {
+      $answer .= '
 				<div class="ipCmsModuleDrag">
         <div class="ipCmsDragable" id="menuModButtonNew'.$i.'"></div>
 				</div>
         ';
-      }
+    }
 
     $answer .= '
       <script type="text/javascript">
@@ -539,25 +539,25 @@ class EditMenuManagement{
       </script>
     ';
 
-    
-    $answer .= $this->init_draging();
-    
-    return $answer;
-  }          
 
-  function init_draging(){
+    $answer .= $this->init_draging();
+
+    return $answer;
+  }
+
+  function init_draging() {
     $answer = '';
     $ids_array = array();
     $i = 0;
     $init_names = '';
-$ids_array[] = "hackDrag";
-    for($i=0; $i<12; $i++){
-     $ids_array[] = 'menuModButtonNew'.$i;
+    $ids_array[] = "hackDrag";
+    for($i=0; $i<12; $i++) {
+      $ids_array[] = 'menuModButtonNew'.$i;
     }
 //     $init_names .= ' document.getElementById(\'menuModButtonNew'.$i.'\').new_paragraph_name = \''.$module['module_name'].'\';';
 
     $init_string = '';
-    foreach($ids_array as $key => $module){
+    foreach($ids_array as $key => $module) {
       if($init_string != '')
         $init_string .= ', "'.$module.'"+TRANSPARENT';
       else
@@ -632,13 +632,13 @@ $ids_array[] = "hackDrag";
       //]]>
       </script>
       ';
-    
+
     return $answer;
   }
 
-  function tep_preview_save_cancel_buttons(){
+  function tep_preview_save_cancel_buttons() {
     global $parametersMod;
-		global $site;
+    global $site;
     $answer = "";
     $answer .= '
     <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" onclick="window.open(\''.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->getCurrentUrl())).'\',\'mywindow\',\'width=600,height=450,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes\')">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
@@ -672,54 +672,40 @@ $ids_array[] = "hackDrag";
     return $answer;
   }
 
-  function tep_modules_init(&$modules){
+  function tep_modules_init(&$modules) {
     global $parametersMod;
     global $site;
+
+    $site->requireConfig('developer/std_mod/config.php');
+
     $answer = '';
     $answer .= '<script type="text/javascript">
         //<![CDATA[
     ';
-    
+
     $translations = $parametersMod->getGroups('standard', 'content_management');
-    foreach($translations as $key => $translation_group){
-      foreach($translation_group as $key2 => $translation){
-       $answer .= "var translation_edit_menu_$key2 = '".addslashes($translation->value)."'; ";
+    foreach($translations as $key => $translation_group) {
+      foreach($translation_group as $key2 => $translation) {
+        $answer .= "var translation_edit_menu_$key2 = '".addslashes($translation->value)."'; ";
       }
     }
     $answer .= '
       //]]>    
       </script>';
 
-		//$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce_gzip.js"></script>';
+    //$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce_gzip.js"></script>';
     $answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>';
-		//$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>';
+    //$answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>';
 
-		$answer .= '
-		<script type="text/javascript">
-        //<![CDATA[
-      tinyMCE.init({ //tinyMCE dont work propertly if is not initialized directly
-        mode: "exact",
-        theme : "advanced",
-				elements : "tmp,parameters",
-				plugins : "iplink,paste,simplebrowser,safari,spellchecker,pagebreak,style,layer,table,advhr,advimage,advlink,emotions,iespell,inlinepopups,media,contextmenu,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template", 
-				theme_advanced_buttons1 : "cut,copy,pastetext,separator,undo,redo,separator",
-				theme_advanced_buttons2 : "bold,italic,underline,styleselect",
-				theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
-				theme_advanced_toolbar_location : "top",
-				theme_advanced_toolbar_align : "left",	
-				theme_advanced_path_location : "none",
-				extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-				height : "300",
-				width : "100%",
-				theme_advanced_styles : "Text=;Caption=caption;Signature=signature",
-				document_base_url : "'.BASE_URL.'",				
-				relative_urls : false,
-				forced_root_block : "p"
-       });	
+    $answer .= '
+<script type="text/javascript">
+//<![CDATA[
+  '.\Modules\developer\std_mod\Config::getMceInit('mode: "exact"', 'elements : "tmp,parameters"', 'frontend').'
+
 
        
-       //]]>     
-		</script>
+//]]>     
+</script>
 		'; 
     $answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/positioning.js"></script>';
     $answer .= '<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/mouse.js"></script>';
@@ -736,21 +722,21 @@ $ids_array[] = "hackDrag";
     $sql = "select translation_key from `".DB_PREF."module` where type_menu order by row_number";
     $rs = mysql_query($sql);
     $modules = $this->db_module->menuModules();
-    
-    
+
+
     //tinymce styles
     $site->requireConfig('standard/content_management/config.php');
     $tinyMceStylesStr = '';
-    foreach(Config::getMceStyles() as $style){
-      if($tinyMceStylesStr != ''){
+    foreach(Config::getMceStyles() as $style) {
+      if($tinyMceStylesStr != '') {
         $tinyMceStylesStr .= ';';
       }
       $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
     }
     //end tinymce styles
-    
-    
-     $answer .= '<script type="text/javascript"> 
+
+
+    $answer .= '<script type="text/javascript">
         //<![CDATA[
         var global_config_modules_url = \''.str_replace('/', '\\/', BASE_URL.MODULE_DIR).'\';
         var global_config_image_url = \''.str_replace('/', '\\/', BASE_URL.IMAGE_DIR).'\';
@@ -769,50 +755,50 @@ $ids_array[] = "hackDrag";
         //]]>
       </script>';      
 
-    if ($modules){
+    if ($modules) {
       require_once(CONTENT_MODULE_URL."widget.php");
-      foreach($modules as $key => $group){
-        foreach($group as $key2 => $module){
+      foreach($modules as $key => $group) {
+        foreach($group as $key2 => $module) {
           eval(" require_once('".CONTENT_MODULE_URL.$module['group_name']."/".$module['module_name']."/module.php'); ");
           eval(' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$module['group_name'].'\\'.$module['module_name'].'\\Module(); ');
 
 
-          $answer .= $new_module->init();         
-          $answer .= '<script type="text/javascript">        
+          $answer .= $new_module->init();
+          $answer .= '<script type="text/javascript">
               //<![CDATA[
               all_modules.push(\''. $module['module_name'] .'\');
               all_modules_translations.push(\''.$module['module_translation'].'\'); 
             ';
-            
+
           $answer .= "
             //]]>
           </script>";  
         }
       }
-      
-      $answer .= '<script type="text/javascript">        
+
+      $answer .= '<script type="text/javascript">
           //<![CDATA[
           ';
       //$menu_mod_parameters = new standard_menu_management_parameter($this->db_module);
       //$menu_mod_parameters = $menu_mod_parameters->load_menu_mod_parameters($module['group_name'], $module['module_name']);
       $menu_mod_parameters = $parametersMod->getGroups('standard', 'content_management');
-      foreach($menu_mod_parameters as $key3 => $parameter_g){
-        foreach($parameter_g as $key4 => $parameter){
+      foreach($menu_mod_parameters as $key3 => $parameter_g) {
+        foreach($parameter_g as $key4 => $parameter) {
           $answer .= " var ".$key3."_".$key4." = '".addslashes($parameter->value)."'; " ;
         }
       }
-       
+
       $answer .= "
         //]]>
       </script>";  
-  
-      
+
+
     }
- 
+
     $answer .= '<div id="modules"></div>';
 
 
-	$tmp_module = \Db::getModule('', $this->mod_group, $this->mod_name);	
+    $tmp_module = \Db::getModule('', $this->mod_group, $this->mod_name);
     $answer .= '
       <script type="text/javascript">
         //<![CDATA[
@@ -821,46 +807,46 @@ $ids_array[] = "hackDrag";
       //]]>
       </script>';
 
-    $modules_in_page = $this->db_module->pageModules($this->current_element);    
-    if ($modules_in_page){
-      foreach ($modules_in_page as $key => $module){
+    $modules_in_page = $this->db_module->pageModules($this->current_element);
+    if ($modules_in_page) {
+      foreach ($modules_in_page as $key => $module) {
         //$menu_mod_parameters = new standard_menu_management_parameter($this->db_module);
         //$menu_mod_parameters = $menu_mod_parameters->load_menu_mod_parameters($module['group_name'], $module['module_name']);
         eval(' $tmp_module = new \\Modules\\standard\\content_management\\Widgets\\'.$module['group_name'].'\\'.$module['module_name'].'\\Module(); ');
         $answer .= $tmp_module->add_to_modules('mod_management', $key, $module['instance_id'], $module['visible']);
       }
     }
-    
+
     $answer .= '
         <script type="text/javascript">
           //<![CDATA[
           mod_management.print();
           //]]>
         </script>';
-    
+
     return $answer;
   }
- 
 
 
-  function tep_title_input(){
+
+  function tep_title_input() {
     global $parametersMod;
     global $cms;
-  
-    $lock = $this->db_module->menuElement($this->current_element);
-		
-		$tmp_module = \Db::getModule('', 'standard', 'content_management');	
-		
-		if($lock['rss'] == 1)
-			$rss = '1';
-		else
-			$rss = '0';
 
-		if($lock['visible'] == 1)
-			$visible = '1';
-		else
-			$visible = '0';
-		
+    $lock = $this->db_module->menuElement($this->current_element);
+
+    $tmp_module = \Db::getModule('', 'standard', 'content_management');
+
+    if($lock['rss'] == 1)
+      $rss = '1';
+    else
+      $rss = '0';
+
+    if($lock['visible'] == 1)
+      $visible = '1';
+    else
+      $visible = '0';
+
     $answer = '
           <form onsubmit="mod_management.changed = false; menu_saver.save_to_db(); return false;" id="f_main_fields" action="'.BASE_URL.BACKEND_WORKER_FILE."?module_id=".$tmp_module['id'].'&security_token='.$_SESSION['backend_session']['security_token'].'" method="post" enctype="multipart/form-data">  
             <span class="ipCmsTitle">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_aditional_button_title').'</span>

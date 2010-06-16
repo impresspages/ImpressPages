@@ -18,6 +18,7 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
   function init(){
+    require_once(BASE_DIR.LIBRARY_DIR.'php/js/functions.php');
     global $site;    
     $answer = '';
     $answer .= ' <script type="text/javascript"  src="'.BASE_URL.CONTENT_MODULE_URL.'text_photos/text/module.js"></script>';
@@ -44,8 +45,7 @@ class Module extends \Modules\standard\content_management\Widget{
     <script type=\"text/javascript\" >
     //<![CDATA[
       mod_text_layout = '".$script."';
-      configWidgetTextPhotosTextMceInit = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",Config::getMceInit()))))."';
-        alert(configWidgetTextPhotosTextMceInit );
+      configWidgetTextPhotosTextMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
      //]]>
     </script>
     ";

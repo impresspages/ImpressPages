@@ -19,6 +19,7 @@ class Module extends \Modules\standard\content_management\Widget{
 
 
   function init(){
+    require_once(BASE_DIR.LIBRARY_DIR.'php/js/functions.php');
     global $site;    
     $answer =
      '<script type="text/javascript"  src="'.BASE_URL.CONTENT_MODULE_URL.'text_photos/text_photo/module.js"></script>
@@ -50,13 +51,14 @@ class Module extends \Modules\standard\content_management\Widget{
       $script = '<div class="ipCmsModuleLayout"><label class="ipCmsTitle">Layout: </label><select name="layout">'.$script.'</select></div>';
         
 
-    $answer .= '
-    <script type="text/javascript" >
+    $answer .= "
+    <script type=\"text/javascript\" >
     //<![CDATA[
-    mod_text_photo_layout = \''.$script.'\';
+      mod_text_photo_layout = '".$script."';
+      configWidgetTextPhotosTextPhotoMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
      //]]>
     </script>
-    ';
+    ";
 
 
     return $answer;

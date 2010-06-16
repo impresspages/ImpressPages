@@ -21,4 +21,10 @@ class Config // extends MimeType
     $layouts[] = array('translation'=>$parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'layout_small_right'), 'name'=>'right_small');
     return $layouts;
   }
+
+  static function getMceInit(){
+    global $site;
+    $site->requireConfig('standard/content_management/config.php');
+    return \Modules\standard\content_management\Config::getMceInit();
+  }
 }
