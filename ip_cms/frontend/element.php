@@ -72,7 +72,11 @@ class Element{
   protected $zoneName;
   /** bool */
   protected $visible;
-  
+
+  /** Element - next sibling element */
+  protected $nextElement;
+  /** Element - previous sibling element */
+  protected $previousElement;
   
   public function __construct($id, $zoneName){    
     $this->id = $id;

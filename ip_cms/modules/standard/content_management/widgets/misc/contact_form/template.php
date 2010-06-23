@@ -47,11 +47,6 @@ class Template {
         $fields[] = $field;         
         
         $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'action';
-        $field->value = 'contact_form';
-        $fields[] = $field;     
-        
-        $field = new \Library\Php\Form\FieldHidden();
         $field->name = 'spec_id';
         $field->value = $id;
         $fields[] = $field;  

@@ -12,7 +12,7 @@
  
 namespace Library\Php\Menu;  
   
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit; 
+if (!defined('CMS')) exit;
  
  
 class Common{

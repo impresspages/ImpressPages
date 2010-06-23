@@ -6,7 +6,7 @@
  */
 
 namespace Library\Php\File;  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
 
 

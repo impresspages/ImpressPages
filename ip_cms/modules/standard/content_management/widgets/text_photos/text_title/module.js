@@ -174,8 +174,7 @@ function content_mod_text_title() {
 
     this.level = this.tmpLevel;
 		
-    this.menu_management
-    .module_preview_save_response(this.collection_number);
+    this.menu_management.module_preview_save_response(this.collection_number);
   }
 
   function get_answer(notes) {
@@ -197,7 +196,7 @@ function content_mod_text_title() {
         fields.push( [ 'group_key', 'text_photos' ]);
         fields.push( [ 'module_key', 'text_title' ]);
         fields.push( [ 'layout', this.layout ]);
-        fields.push( [ 'title', this.title ]);
+        fields.push( [ 'title', this.title]);
         fields.push( [ 'text', this.text ]);
         fields.push( [ 'level', this.level ]);
         fields.push( [ 'content_element_id', menu_element_id ]);
@@ -205,7 +204,8 @@ function content_mod_text_title() {
         fields.push( [ 'visible', this.visible ]);
         return fields;
       } else {
-    }
+        return [];
+      }
     } else {
       if (this.deleted == 0) {
         var fields = [];
@@ -230,7 +230,6 @@ function content_mod_text_title() {
         return fields;
       }
     }
-    document.getElementById(worker_form).submit();
   }
 
   function set_title(title) {

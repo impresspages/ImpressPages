@@ -11,10 +11,10 @@ ModuleStandardMenuManagement = {
   save : function (){
     var form;
     form = document.getElementById('property_form');
-    
     if (form.action.value == 'new') {
       document.getElementById('loading').style.display = 'block';
       var params = 'action=new_page&parent_id=' + encodeURI(form.property_id.value);
+      params = params + '&zone_name=' + encodeURI(form.property_zone_name.value);
       params = params + '&button_title=' + encodeURI(form.property_button_title.value);
       params = params + '&page_title=' + encodeURI(form.property_page_title.value);
       params = params + '&keywords=' + encodeURI(form.property_keywords.value);
@@ -47,6 +47,7 @@ ModuleStandardMenuManagement = {
     if (form.action.value == 'update') {
       document.getElementById('loading').style.display = 'block';
       var params = 'action=update_page&page_id=' + form.property_id.value;
+      params = params + '&zone_name=' + encodeURI(form.property_zone_name.value);
       params = params + '&button_title=' + encodeURI(form.property_button_title.value);
       params = params + '&page_title=' + encodeURI(form.property_page_title.value);
       params = params + '&keywords=' + encodeURI(form.property_keywords.value);

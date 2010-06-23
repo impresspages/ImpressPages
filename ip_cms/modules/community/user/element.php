@@ -19,6 +19,13 @@ if (!defined('CMS')) exit;
 
 class Element extends \Frontend\Element {
 
+  public function __construct($id, $zoneName){
+    parent::__construct($id, $zoneName);
+    $this->buttonTitle = $id;
+    $this->zoneName = $zoneName;
+  }
+
+
   public function getLink() {
     global $site;
     return $site->generateUrl(null, $this->zoneName);
@@ -47,19 +54,19 @@ class Element extends \Frontend\Element {
           else
             $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
         }else {
-          if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow')) {
+          if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
             $answer .= Template::passwordReset($user->generatePasswordReset());
           }else
             $answer = '';
         }
         break;
       case 'password_reset_sent_text':
-        if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow')) {
+        if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
           $answer .= Template::passwordResetSentText();
         }
         break;
       case 'password_reset_verified':
-        if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow')) {
+        if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
           if($session->loggedIn()) {
             if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
               $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
@@ -72,7 +79,7 @@ class Element extends \Frontend\Element {
         break;
 
       case 'password_reset_verification_error':
-        if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow')) {
+        if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
           $answer .= Template::passwordResetVerificationError();
         }
         break;
@@ -114,12 +121,12 @@ class Element extends \Frontend\Element {
           else
             $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
         }else {
-          if($parametersMod->getValue('community','user','options','password_reset_allow'))
+          if($parametersMod->getValue('community','user','options','allow_password_reset'))
             $resetLink = $user->getLinkPasswordReset();
           else
             $resetLink = '';
 
-          if($parametersMod->getValue('community','user','options','registration_on_login_page') && !$parametersMod->getValue('community','user','options','registration_disabled'))
+          if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration'))
             $registrationLink = $user->getLinkRegistration();
           else
             $registrationLink = '';
@@ -131,7 +138,7 @@ class Element extends \Frontend\Element {
         $answer .= Template::profile($user->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
         break;
       case 'registration':
-        if(!$parametersMod->getValue('community','user','options','registration_disabled')) {
+        if($parametersMod->getValue('community','user','options','enable_registration')) {
           $answer .= Template::registration($user->generateRegistration());
         }else {
           $answer .= Template::registrationDisabledError();

@@ -393,8 +393,9 @@ class StandardModule{
 
             foreach($this->currentArea->elements as $key => $element){
               $new_parameter = $element->getParameters("insert", "i_n_".$key, $this->currentArea);
-              if ($new_parameter)
-              $parameters[] = $new_parameter;
+              if ($new_parameter){
+                $parameters[] = $new_parameter;
+              }
 
             }
             $sql = "insert into `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set  `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`= DEFAULT ";

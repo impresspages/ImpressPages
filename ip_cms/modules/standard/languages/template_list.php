@@ -14,8 +14,10 @@ class TemplateList{
     global $site;
     $answer = "\n".'<ul class="languages">'."\n";
     foreach ($languages as $key => $language) {
-      $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="act"' : '';
-      $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language->getLongDescription()).'" href="'.$site->generateUrl($language->getId()).'">'.htmlspecialchars($language->getShortDescription()).'</a></li>'."\n";
+      if($language->getVisible()){
+        $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="act"' : '';
+        $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language->getLongDescription()).'" href="'.$site->generateUrl($language->getId()).'">'.htmlspecialchars($language->getShortDescription()).'</a></li>'."\n";
+      }
     }
     $answer .= '</ul>'."\n";
     return $answer;

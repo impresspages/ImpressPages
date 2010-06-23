@@ -4,10 +4,15 @@
  * @copyright	Copyright (C) 2009 JSC Apro media.
  * @license		GNU/GPL, see license.html
  */
-namespace Modules\developer\std_mod;
+namespace Modules\standard\seo;
+
 
 if (!defined('BACKEND')) exit;
-class ElementTextLang extends Element { //data element in area
+
+require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod.php');
+require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_html_output.php');
+
+class ElementSeo extends \Modules\developer\std_mod\Element { //data element in area
   var $translationField;
   var $translationTable;
   var $recordIdField;
@@ -26,7 +31,7 @@ class ElementTextLang extends Element { //data element in area
     $this->previewLength = 60;
 
     require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_db.php');
-    $stdModDb = new StdModDb();
+    $stdModDb = new \Modules\developer\std_mod\StdModDb();
 
     $languages = $stdModDb->languages();
     $this->defaultValues = array();
@@ -91,7 +96,7 @@ class ElementTextLang extends Element { //data element in area
   }
 
   function printFieldNew($prefix, $id = null, $area = null) {
-    $html = new StdModHtmlOutput();
+    $html = new \Modules\developer\std_mod\StdModHtmlOutput();
     global $stdModDb;
 
     $languages = $stdModDb->languages();
@@ -112,7 +117,7 @@ class ElementTextLang extends Element { //data element in area
 
 
   function printFieldUpdate($prefix, $record, $area) {
-    $html = new StdModHtmlOutput();
+    $html = new \Modules\developer\std_mod\StdModHtmlOutput();
     global $stdModDb;
 
     $answer = '';
@@ -265,8 +270,8 @@ class ElementTextLang extends Element { //data element in area
 
       foreach($languages as $key => $language) {
         $sql3 = "update `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-        set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."' 
-        where 
+        set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."'
+        where
         `".mysql_real_escape_string($this->recordIdField)."` = '".(int)$rowId."' and `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']." '
         ";
         $rs3 = mysql_query($sql3);
@@ -326,4 +331,6 @@ class ElementTextLang extends Element { //data element in area
 
 
 
+
 }
+

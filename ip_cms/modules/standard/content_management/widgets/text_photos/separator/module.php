@@ -82,6 +82,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $answer .= "  new_module.init(".$collection_number.", ".$module_id.", ".$visible.", new_module_name, ".$mod_management_name.");";
     $answer .= "  new_module.preview_html = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($this->getLayout($module_id))))))."';";
     $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
+    $answer .= "  new_module.isEmpty = false;";
     $answer .= "  ".$mod_management_name.".get_modules().push(new_module);";
     $answer .= "  ";
     $answer .= "  ";

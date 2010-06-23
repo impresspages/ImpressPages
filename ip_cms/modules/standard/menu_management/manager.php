@@ -134,6 +134,7 @@ class Manager{
       
 			<form class="stdMod" id="property_form" onsubmit="ModuleStandardMenuManagement.save(); return false;">
         <div class="search">
+          <input name="property_zone_name" value="'.htmlspecialchars($this->tree->currentZone['name']).'" type="hidden" />
           <input name="property_id" value="" type="hidden" />
           <input name="action" value="" type="hidden" />
           

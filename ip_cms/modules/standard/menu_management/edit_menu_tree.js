@@ -49,6 +49,7 @@ iTree = function(){
               var worker_form = document.getElementById("worker_form");
               worker_form.innerHTML = ''+
               '<input type="hidden" name="action" value="menu_move" />'+
+              '<input type="hidden" name="zone_name" value="'+ zoneName +'" />'+
               '<input type="hidden" name="node" value="'+ node.id +'" />'+
               '<input type="hidden" name="new_index" value="'+ index +'" />'+
               '<input type="hidden" name="old_index" value="'+ oldParent.indexOf(node) +'" />'+
@@ -275,144 +276,7 @@ function renameNodePromted(btn, text){
    }        
 }
 
-/*function newNodePromted(btn, text){
-  if(text != "" && btn != 'cancel'){
-     var node;
-     node = iTree.getTree().getSelectionModel().getSelectedNode();
-     var parent;
-     parent = node.parentNode;
-     
-      var worker_form = document.getElementById("worker_form");
-      worker_form.innerHTML = ''+
-      '<input type="hidden" name="action" value="menu_new_page" />'+
-      '<input type="hidden" name="answer_function" value="tree_add_node" />'+
-      '<textarea name="title">' + text + '</textarea>'+
-      '<input type="hidden" name="index" value="' + node.parentNode.indexOf(node) + '" />'+
-      '<input type="hidden" name="node" value="' + node.id + '" />'+
-      '<input type="hidden" name="parent" value="'+ node.parentNode.id +'" />'+
-      '<input type="hidden" name="rss" value="'+ current_menu_auto_rss +'" />';
 
-      worker_form.submit();
-   }        
-}*/
-
-
-
-/*function newSubNodePromted(btn, text){
-  if(text != "" && btn != 'cancel'){
-       var node;
-       node = iTree.getTree().getSelectionModel().getSelectedNode();
-       //var parent;
-       //parent = node.parentNode;
-          var worker_form = document.getElementById("worker_form");
-          worker_form.innerHTML = ''+
-          '<input type="hidden" name="action" value="menu_new_sub_page" />'+
-          '<input type="hidden" name="answer_function" value="tree_add_sub_node" />'+
-      '<textarea name="title">' + text + '</textarea>'+
-          '<input type="hidden" name="node" value="'+ node.id +'" />'+
-          '<input type="hidden" name="rss" value="'+ current_menu_auto_rss +'" />';
-          worker_form.submit();
-   }          
-
-}*/
-
-/*function tree_add_node(notes, errors, variables){
-   var new_node;
-   var menu_max_node_id = variables[0];
-   var menu_title = variables[1];
-   var parent_node_id = variables[2];
-   var node_id = variables[3];
-   var visible = variables[4];
-
-   var allowDrop;
-
-   var parent = iTree.getTree().getNodeById(parent_node_id);
-
-   if(parent.getDepth() >= iTree.depth - 1)
-    allowDrop = false;
-   else
-    allowDrop = true; 
-    
-    if(visible == '1')
-      hidden = false;
-    else
-      hidden = true;
-
-   new_node = new Ext.tree.TreeNode({
-     "text" : menu_title,
-     "leaf" : false,
-     "id" : menu_max_node_id,
-     "disabled" : hidden,
-     "allowDrop" : allowDrop
-     });
-   //parent.appendChild(new_node);
-   var node = iTree.getTree().getNodeById(node_id);
-  parent.insertBefore(new_node, node);
- // new_node.disable();
-  new_node.allowDrag = true;
-  new_node.allowDrop = true;
-  new_node.leaf = false;
-  //alert(new_node.id);
-
-
-
-}*/
-   
-
-/*function tree_rename_node(notes, errors, variables){
-  node = iTree.getTree().getSelectionModel().getSelectedNode();
-	if(errors[0])
-		alert(errors[0]);
-	if(notes[0])
-		alert(notes[0]);
-	node.setText(variables[0]);
-}*/
-
-/*function tree_add_sub_node(notes, errors, variables){
-   var new_node;
-   var menu_max_node_id = variables[0];
-   var menu_title = variables[1];
-   var parent_node_id = variables[2]
-   var visible = variables[3];
-   
-   var parent = iTree.getTree().getNodeById(parent_node_id);
-
-   var allowDrop;
-   if(parent.getDepth() >= iTree.depth - 1)
-    allowDrop = false;
-   else
-    allowDrop = true;
-  
-    if(visible == '1')
-      hidden = false;
-    else
-      hidden = true;
-
-   new_node = new Ext.tree.TreeNode({
-     "text" : menu_title,
-     "leaf" : false,
-     "id" : menu_max_node_id,
-     "disabled" : hidden,
-     "allowDrop" : allowDrop
-     });
-
-
- 
-   //parent.appendChild(new_node);
-   //parent.insertBefore(new_node, parent.firstChild);
-   parent.appendChild(new_node);
-   parent.leaf = false;
-   parent.toggle();
-   parent.expand();
- // new_node.disable();
-
-
-
-   //new_node.leaf = false;	 
-
-	 
-	 
-}*/
    
    
 function manage_element(notes, errors, variables){

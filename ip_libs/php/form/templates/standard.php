@@ -7,7 +7,7 @@
  
 namespace Library\Php\Form\Templates;  
  
- if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+ if (!defined('CMS')) exit;
 
 require_once (__DIR__.'/../standard_fields.php');
 

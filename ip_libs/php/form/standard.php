@@ -8,7 +8,7 @@
 namespace Library\Php\Form; 
  
  
- if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+ if (!defined('CMS')) exit;
 
 /** @private */  
 require_once (LIBRARY_DIR.'php/form/hn_captcha/hn_captcha.class.php');

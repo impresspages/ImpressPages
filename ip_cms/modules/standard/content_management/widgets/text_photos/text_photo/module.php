@@ -124,12 +124,12 @@ class Module extends \Modules\standard\content_management\Widget{
   function create_new_instance($values){
     $new_name = $values['new_photo'];
     if ($new_name != ""){
-      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, IMAGE_DIR.IMAGE_DIR);
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
     }
 
     $new_bigname = $values['new_bigphoto'];
     if ($new_bigname != ""){
-      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, IMAGE_DIR.IMAGE_DIR);
+      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, BASE_DIR.IMAGE_DIR);
     }
 
 
@@ -203,7 +203,7 @@ class Module extends \Modules\standard\content_management\Widget{
     if (!mysql_query($sql)){
       return("Can't update module row number".$sql);
     }else{
-      $sql = "update `".DB_PREF."mc_text_photos_text_photo` set layout = '".mysql_real_escape_string($values['layout'])."', `text` = REPLACE('".mysql_real_escape_string($values['text'])."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), photo = '".mysql_real_escape_string($new_name)."', photo_big = '".mysql_real_escape_string($new_bigname)."', `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".(int)$values['id']."'  ";
+      $sql = "update `".DB_PREF."mc_text_photos_text_photo` set layout = '".mysql_real_escape_string($values['layout'])."', `text` = '".mysql_real_escape_string($values['text'])."', photo = '".mysql_real_escape_string($new_name)."', photo_big = '".mysql_real_escape_string($new_bigname)."' where id = '".(int)$values['id']."'  ";
       if (!mysql_query($sql)){
         $this->set_error("Can't update module ".$sql);
       }
@@ -309,8 +309,17 @@ class Module extends \Modules\standard\content_management\Widget{
     global $globalWorker;
     $globalWorker->set_error($error);
   }
-  function clearCache() {
-    $sql = "update `".DB_PREF."mc_text_photos_text_photo` set `text` = REPLACE(`text`, `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where base_url <> '".mysql_real_escape_string(BASE_URL)."' ";
+  function clearCache($cachedBaseUrl) {
+    $sql = "update `".DB_PREF."mc_text_photos_text_photo` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."'  where 1 ";
+    $rs = mysql_query($sql);
+    if (!$rs) {
+      trigger_error($sql." ".mysql_error());
+    }
+  }
+
+
+  function updateLinks($oldUrl, $newUrl) {
+    $sql = "update `".DB_PREF."mc_text_photos_text_photo` set `text` = REPLACE(`text`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1 ";
     $rs = mysql_query($sql);
     if (!$rs) {
       trigger_error($sql." ".mysql_error());

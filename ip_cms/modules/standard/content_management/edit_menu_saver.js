@@ -115,6 +115,10 @@
         input.setAttribute("name", 'action');
         form.appendChild(input); 
         var input = document.createElement('input');
+        input.value = current_zone;        
+        input.setAttribute("name", 'zone_name');
+        form.appendChild(input);
+        var input = document.createElement('input');
         input.value = document.getElementById('f_main_fields').page_page_title.value;
         input.setAttribute("name", 'page_page_title');
         form.appendChild(input); 

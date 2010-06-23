@@ -418,7 +418,7 @@ class StandardModule{
           if (sizeof($this->errors) == 0){
             
             if(method_exists($this->up_area, 'before_update')){
-              $this->up_area->before_update(mysql_real_ecape_string($this->up_area->parent_id));
+              $this->up_area->before_update(mysql_real_escape_string($this->up_area->parent_id));
             }             
             
             

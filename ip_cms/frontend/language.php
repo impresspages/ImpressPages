@@ -40,12 +40,13 @@ class Language{
    * @return Language
    *  
    */
-  public function __construct($id, $code, $url, $longDescription, $shortDescription){
+  public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible){
     $this->id = $id;
     $this->code = $code;
     $this->url = $url;
     $this->longDescription = $longDescription;
     $this->shortDescription = $shortDescription;
+    $this->visible = $visible;
   }
 
   /**
@@ -94,5 +95,13 @@ class Language{
     return $this->url;
   }
   
+  /**
+   *
+   * @return bool
+   *
+   */
+  public function getVisible(){
+    return $this->visible;
+  }
   
 }

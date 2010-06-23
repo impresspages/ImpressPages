@@ -7,7 +7,7 @@
  
 namespace Library\Php\Form;  
  
- if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+ if (!defined('CMS')) exit;
  /**
  * General class of form fields.
  * @package Library 

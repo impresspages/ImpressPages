@@ -22,19 +22,19 @@ class Cron {
     global $log;
     global $site;
     if($options->firstTimeThisMonth) {
-      if($parametersMod->getValue('community', 'user', 'options', 'delete_outdated_users')) {
-        $soonOutdated = Db::getUsersToWarn($parametersMod->getValue('community', 'user', 'options', 'outdated_within'), $parametersMod->getValue('community', 'user', 'options', 'warn_before'), $parametersMod->getValue('community', 'user', 'options', 'warn_every'));
+      if($parametersMod->getValue('community', 'user', 'options', 'delete_expired_users')) {
+        $soonOutdated = Db::getUsersToWarn($parametersMod->getValue('community', 'user', 'options', 'expires_in'), $parametersMod->getValue('community', 'user', 'options', 'warn_before'), $parametersMod->getValue('community', 'user', 'options', 'warn_every'));
 
         $queue = new \Modules\administrator\email_queue\Module();
 
-        $deleted = Db::deleteOutdatedUsers($parametersMod->getValue('community', 'user', 'options', 'outdated_within'));
+        $deleted = Db::deleteOutdatedUsers($parametersMod->getValue('community', 'user', 'options', 'expires_in'));
 
         foreach($deleted as $key => $user) {
           $site->dispatchEvent('community', 'user', 'deleted_outdated_user', array('data'=>$user));
           $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
-          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'user_deleted_text'), $emailTemplate);
+          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_user_deleted'), $emailTemplate);
           $email = str_replace('[[date]]', substr($user['last_login'], 0, 10), $email);
-          $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $user['email'], '', $parametersMod->getValue('community', 'user', 'email_messages', 'user_deleted_subject'), $email, false, true);
+          $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $user['email'], '', $parametersMod->getValue('community', 'user', 'email_messages', 'subject_user_deleted'), $email, false, true);
           $log->log('community/user', 'deleted account', 'Account information: '.implode(', ',$user));
         }
 
@@ -44,11 +44,11 @@ class Cron {
         foreach($soonOutdated as $key => $user) {
           $site->dispatchEvent('community', 'user', 'warn_inactive_user', array('data'=>$user));
           $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
-          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'outdated_warning_text'), $emailTemplate);
+          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_accont_will_expire'), $emailTemplate);
           $email = str_replace('[[date]]', substr($user['valid_until'], 0, 10), $email);
           $link = $site->generateUrl($user['language_id'], null, null, array("module_group"=>"community","module_name"=>"user", "action"=>"renew_registration", "id"=>$user['id']));
           $email = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $email);
-          $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $user['email'], '', $parametersMod->getValue('community', 'user', 'email_messages', 'outdated_warning_subject'), $email, false, true);
+          $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $user['email'], '', $parametersMod->getValue('community', 'user', 'email_messages', 'subject_account_will_expire'), $email, false, true);
           $setWarned[] = $user['id'];
           $log->log('community/user', 'account warned', 'Account information: '.implode(', ',$user));
         }

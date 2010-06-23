@@ -36,7 +36,7 @@ class Actions {
 
           $tmpUser = Db::userByEmail($_POST['email']);
           if(!$tmpUser)
-            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_dont_exist');
+            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_doesnt_exist');
 
           if(!isset($_POST['password']) || $_POST['password'] == '' || $_POST['password'] != $_POST['confirm_password']) {
             $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
@@ -94,7 +94,7 @@ class Actions {
           exit;
           break;
         case 'register':
-          if($parametersMod->getValue('community','user','options','registration_disabled')) {
+          if(!$parametersMod->getValue('community','user','options','enable_registration')) {
             \Db::disconnect();
             exit;
           }
@@ -124,7 +124,7 @@ class Actions {
             $html = $standardForm->generateErrorAnswer($errors);
           else {
             $tmp_code = md5(uniqid(rand(), true));
-            if($parametersMod->getValue('community', 'user', 'options', 'use_password_hash')) {
+            if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
               $password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
             } else {
               $password = $_POST['password'];
@@ -184,7 +184,7 @@ class Actions {
                 }
 
                 if(isset($_POST['password']) && $_POST['password'] != '') {
-                  if($parametersMod->getValue('community', 'user', 'options', 'use_password_hash')) {
+                  if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
                     $additionalFields['password'] =  md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
                   }else $additionalFields['password'] =  md5($_POST['password']);
                 }
@@ -234,7 +234,7 @@ class Actions {
           else
             $tmpUser = Db::userByEmail($_POST['email']);
 
-          if($parametersMod->getValue('community', 'user', 'options', 'use_password_hash')) {
+          if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
             $tmp_password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
           }else $tmp_password = $_POST['password'];
 
@@ -391,7 +391,7 @@ class Actions {
     global $site;
 
     $emailQueue = new \Modules\administrator\email_queue\Module();
-    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'password_reset_text'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
+    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
     $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "password_reset_verification", "id" => $userId, "code" => $code));
     $emailHtml = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $emailHtml);
 
@@ -404,7 +404,7 @@ class Actions {
             $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
             $email,
             '',
-            $parametersMod->getValue('community', 'user', 'email_messages', 'password_reset_subject'),
+            $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset'),
             $emailHtml,
             true, true, null);
     $emailQueue->send();
@@ -417,7 +417,7 @@ class Actions {
     global $site;
 
     $emailQueue = new \Modules\administrator\email_queue\Module();
-    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'verify_registration_text'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
+    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
     $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "registration_verification", "id" => $userId, "code" => $code));
     $emailHtml = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $emailHtml);
 
@@ -429,7 +429,7 @@ class Actions {
             $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
             $email,
             '',
-            $parametersMod->getValue('community', 'user', 'email_messages', 'verify_registration_subject'),
+            $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_registration'),
             $emailHtml,
             true, true, null);
     $emailQueue->send();
@@ -442,7 +442,7 @@ class Actions {
     global $site;
 
     $emailQueue = new \Modules\administrator\email_queue\Module();
-    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'verify_new_email_text'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
+    $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
     $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "new_email_verification", "id" => $userId, "code" => $code));
     $emailHtml = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $emailHtml);
 
@@ -454,7 +454,7 @@ class Actions {
             $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
             $email,
             '',
-            $parametersMod->getValue('community', 'user', 'email_messages', 'verify_new_email_subject'),
+            $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email'),
             $emailHtml,
             true, true, null);
     $emailQueue->send();

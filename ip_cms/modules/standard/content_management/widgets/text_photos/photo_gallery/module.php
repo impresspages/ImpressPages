@@ -135,12 +135,12 @@ class Module extends \Modules\standard\content_management\Widget{
   function insert_photo($gallery_id, $number, $values){
     $new_name = $values['new_photo'.$number];
     if ($new_name != ""){
-      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, IMAGE_DIR.IMAGE_DIR);
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
     }
 
     $new_bigname = $values['new_bigphoto'.$number];
     if ($new_bigname != ""){
-      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, IMAGE_DIR.IMAGE_DIR);
+      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, BASE_DIR.IMAGE_DIR);
     }
 
 
@@ -158,12 +158,12 @@ class Module extends \Modules\standard\content_management\Widget{
   function update_photo($photo_id, $number, $values){
     $new_name = $values['existing_photo'.$number];
     if (isset($values['new_photo'.$number]) && $values['new_photo'.$number] != null) {
-      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, IMAGE_DIR.IMAGE_DIR);
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
       copy(TMP_IMAGE_DIR.$values['new_photo'.$number], IMAGE_DIR.$new_name);
     }
     $new_bigname = $values['existing_bigphoto'.$number];
     if (isset($values['new_photo'.$number]) && $values['new_bigphoto'.$number] != null) {
-      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, IMAGE_DIR.IMAGE_DIR);
+      $new_bigname = \Library\Php\File\Functions::genUnocupiedName($new_bigname, BASE_DIR.IMAGE_DIR);
       copy(TMP_IMAGE_DIR.$values['new_bigphoto'.$number], IMAGE_DIR.$new_bigname);
     }
 

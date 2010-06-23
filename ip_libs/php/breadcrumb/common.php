@@ -12,7 +12,7 @@
 
 namespace Library\Php\Breadcrumb;  
  
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit; 
+if (!defined('CMS')) exit;
  
 class Common{
   public static function generate($separator = null){

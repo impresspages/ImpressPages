@@ -101,7 +101,7 @@ class Module extends \Modules\standard\content_management\Widget{
    }
 
    function create_new_instance($values){
-      $sql = "insert into `".DB_PREF."mc_misc_rich_text` set layout= '".mysql_real_escape_string($values['layout'])."',base_url = '".mysql_real_escape_string(BASE_URL)."', text = '".mysql_real_escape_string($values['text'])."' ";
+      $sql = "insert into `".DB_PREF."mc_misc_rich_text` set layout= '".mysql_real_escape_string($values['layout'])."', text = '".mysql_real_escape_string($values['text'])."' ";
       $rs = mysql_query($sql);
       if(!$rs){
          return "Can't insert new module. ".$sql;
@@ -131,7 +131,7 @@ class Module extends \Modules\standard\content_management\Widget{
         return("Can't update module row number".$sql);
       else{
         $text = $values['text'];
-        $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = REPLACE('".mysql_real_escape_string($text)."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".(int)$values['id']."'  ";
+        $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = '".mysql_real_escape_string($text)."' where id = '".(int)$values['id']."'  ";
         if (!mysql_query($sql))
           set_error("Can't update module ".$sql);
        
@@ -167,7 +167,7 @@ class Module extends \Modules\standard\content_management\Widget{
    function make_html($id){
      global $site;
      
-$layout = $this->getLayout($id);     
+     $layout = $this->getLayout($id);
           
      $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
       $sql = "select text from `".DB_PREF."mc_misc_rich_text` where id = '".(int)$id."' ";
@@ -186,13 +186,22 @@ $layout = $this->getLayout($id);
      return Template::generateHtml($_REQUEST['text'], $_REQUEST['layout']); 
    }
    
-   function clearCache() {
-     $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = REPLACE(`text`, `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where base_url <> '".mysql_real_escape_string(BASE_URL)."' ";
+   function clearCache($cachedBaseUrl) {
+     $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."'  where 1 ";
      $rs = mysql_query($sql);
      if (!$rs) {
        trigger_error($sql." ".mysql_error());
      }
    }
-   
+
+  function updateLinks($oldUrl, $newUrl) {
+    $sql = "update `".DB_PREF."mc_misc_rich_text` set `text` = REPLACE(`text`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1 ";
+    $rs = mysql_query($sql);
+    if (!$rs) {
+      trigger_error($sql." ".mysql_error());
+    }
+  }
+
+
 }
 

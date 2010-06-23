@@ -129,7 +129,7 @@ class Site{
    * 
    */
   private function createLanguage($data){
-    $language = new Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short']);
+    $language = new Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible']);
     return $language;
   }
   
@@ -144,6 +144,36 @@ class Site{
       $languages[] = $this->createLanguage($data);
     }
     return $languages;
+  }
+
+  /**
+   *
+   * @return Language
+   *
+   */
+  public function getLanguageById($id){
+    $answer = false;
+    foreach($this->languages as $key => $data){
+      if($data['id'] == $id){
+        $answer = $this->createLanguage($data);
+      }
+    }
+    return $answer;
+  }
+
+  /**
+   *
+   * @return Language
+   *
+   */
+  public function getLanguageByUrl($url){
+    $answer = false;
+    foreach($this->languages as $key => $data){
+      if($data['url'] == $url){
+        $answer = $this->createLanguage($data);
+      }
+    }
+    return $answer;
   }
 
   /**
@@ -466,8 +496,9 @@ class Site{
   public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null){
     global $parametersMod;
     	
-    if($languageId == null)
-    $languageId = $this->currentLanguage['id'];
+    if($languageId == null){
+      $languageId = $this->currentLanguage['id'];
+    }
     	
     /*generates link to first page of current language*/
     // get parameter for cms management

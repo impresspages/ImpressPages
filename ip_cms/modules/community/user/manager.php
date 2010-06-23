@@ -65,9 +65,9 @@ class Manager {
     $element = new \Library\Php\StandardModule\element_pass();
     $element->name = $parametersMod->getValue('community', 'user', 'admin_translations', 'password');
     $element->db_field = "password";
-    $element->use_hash = $parametersMod->getValue('community', 'user', 'options', 'use_password_hash');
+    $element->use_hash = $parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords');
     $element->hash_salt = Config::$hashSalt;
-    if(!$parametersMod->getValue('community', 'user', 'options', 'use_password_hash'))
+    if(!$parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords'))
       $element->show_on_list = true;
     $elements[] = $element;
 

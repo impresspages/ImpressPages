@@ -95,7 +95,7 @@ class Module extends \Modules\standard\content_management\Widget{
       $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
        
       $answer .= "
-			 new_module.set_text('".str_replace('script',"scr' + 'ipt", str_replace("\r", " ",str_replace("\n", " ", addslashes($lock['text']))))."');
+			 new_module.set_text('".str_replace('script',"scr' + 'ipt", str_replace("\r", " ",str_replace("\n", "\\n", addslashes($lock['text']))))."');
 			 ";
       	
       $answer .= "  ".$mod_management_name.".get_modules().push(new_module);";
@@ -189,6 +189,23 @@ class Module extends \Modules\standard\content_management\Widget{
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
     return Template::generateHtml($_REQUEST['text'], true, $_REQUEST['layout']);
+  }
+
+   function clearCache($cachedBaseUrl) {
+     $sql = "update `".DB_PREF."mc_misc_html_code` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."') where 1 ";
+     $rs = mysql_query($sql);
+     if (!$rs) {
+       trigger_error($sql." ".mysql_error());
+     }
+   }
+
+
+  function updateLinks($oldUrl, $newUrl) {
+    $sql = "update `".DB_PREF."mc_misc_html_code` set `text` = REPLACE(`text`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1 ";
+    $rs = mysql_query($sql);
+    if (!$rs) {
+      trigger_error($sql." ".mysql_error());
+    }
   }
 
 

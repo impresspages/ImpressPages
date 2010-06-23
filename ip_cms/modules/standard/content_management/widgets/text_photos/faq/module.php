@@ -146,7 +146,7 @@ class Module extends \Modules\standard\content_management\Widget {
     if (!mysql_query($sql))
       return("Can't update module row number".$sql);
     else {
-      $sql = "update `".DB_PREF."mc_text_photos_faq` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', `text` = REPLACE('".mysql_real_escape_string($values['text'])."', `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where id = '".$values['id']."'  ";
+      $sql = "update `".DB_PREF."mc_text_photos_faq` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', `text` = '".mysql_real_escape_string($values['text'])."' where id = '".$values['id']."'  ";
       if (!mysql_query($sql))
         $this->set_error("Can't update module ".$sql);
 
@@ -209,8 +209,17 @@ class Module extends \Modules\standard\content_management\Widget {
     $globalWorker->set_error($error);
   }
 
-  function clearCache() {
-    $sql = "update `".DB_PREF."mc_text_photos_faq` set `text` = REPLACE(`text`, `base_url`, '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."' where base_url <> '".mysql_real_escape_string(BASE_URL)."' ";
+  function clearCache($cachedBaseUrl) {
+    $sql = "update `".DB_PREF."mc_text_photos_faq` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."'  where 1 ";
+    $rs = mysql_query($sql);
+    if (!$rs) {
+      trigger_error($sql." ".mysql_error());
+    }
+  }
+
+
+  function updateLinks($oldUrl, $newUrl) {
+    $sql = "update `".DB_PREF."mc_text_photos_faq` set `text` = REPLACE(`text`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1 ";
     $rs = mysql_query($sql);
     if (!$rs) {
       trigger_error($sql." ".mysql_error());

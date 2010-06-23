@@ -268,10 +268,11 @@ class Module extends \Modules\standard\content_management\Widget{
   function manager_preview(){
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
-    if(isset($_REQUEST['new_photo']) && $_REQUEST['new_photo'] != null)
-    return Template::generateHtml($_REQUEST['title'], BASE_URL.TMP_FILE_DIR.urlencode($_REQUEST['new_photo']));
-    else
-    return Template::generateHtml($_REQUEST['title'], BASE_URL.FILE_DIR.urlencode($_REQUEST['new_photo']), $_REQUEST['layout']);
+    if(isset($_REQUEST['new_photo']) && $_REQUEST['new_photo'] != null){
+      return Template::generateHtml($_REQUEST['title'], BASE_URL.TMP_FILE_DIR.urlencode($_REQUEST['new_photo']));
+    } else {
+      return Template::generateHtml($_REQUEST['title'], BASE_URL.FILE_DIR.urlencode($_REQUEST['existing_photo']), $_REQUEST['layout']);
+    }
   }
   function set_error($error){
     global $globalWorker;

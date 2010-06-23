@@ -35,7 +35,7 @@ class Zone extends \Frontend\Zone {
   public function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
     if($parentElementId == null) {
       $elements = array();
-
+/*
       $elements[] = new Element('password_reset', $this->name);
       $elements[] = new Element('password_reset_verified', $this->name);
       $elements[] = new Element('password_reset_verification_error', $this->name);
@@ -54,6 +54,8 @@ class Zone extends \Frontend\Zone {
       $elements[] = new Element('verification_error_user_exist', $this->name);
       $elements[] = new Element('verification_error_email_exist', $this->name);
       $elements[] = new Element('login', $this->name);
+
+ */
       return $elements;
     } else {
       return false;
@@ -90,19 +92,19 @@ class Zone extends \Frontend\Zone {
     if(sizeof($urlVars)> 0) {
       switch($urlVars[0]) {
         case Config::$urlPasswordReset:
-          if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow'))
+          if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
             return new Element('password_reset', $this->name);
           break;
         case Config::$urlPasswordResetVerified:
-          if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow'))
+          if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
             return new Element('password_reset_verified', $this->name);
           break;
         case Config::$urlPasswordResetVerificationError:
-          if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow'))
+          if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
             return new Element('password_reset_verification_error', $this->name);
           break;
         case Config::$urlPasswordResetSentText:
-          if($parametersMod->getValue('community', 'user', 'options', 'password_reset_allow')) {
+          if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
             return new Element('password_reset_sent_text', $this->name);
           }
           break;
