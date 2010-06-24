@@ -6,10 +6,10 @@
  */
 namespace Modules\community\user;
 
-if (!defined('BACKEND')&& !defined('FRONTEND')) exit;  
+if (!defined('CMS')) exit;
 
 require_once(LIBRARY_DIR.'php/form/standard.php');
-require_once(__DIR__."/db.php");
+require_once(BASE_DIR.MODULE_DIR."community/user/db.php");
 
 /**
  * User area (registration) configuration.

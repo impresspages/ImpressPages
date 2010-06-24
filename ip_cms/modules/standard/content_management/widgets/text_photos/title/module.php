@@ -137,12 +137,14 @@ class Module extends \Modules\standard\content_management\Widget{
 
   function update($values){
     $sql = "update `".DB_PREF."content_element_to_modules` set visible='".(int)$values['visible']."', row_number = '".(int)$values['row_number']."' where module_id = '".(int)$values['id']."' and group_key = '".mysql_real_escape_string(GROUP_KEY)."' and module_key = '".mysql_real_escape_string(MODULE_KEY)."'   ";
-    if (!mysql_query($sql))
-    return("Can't update module row number".$sql);
-    else{
+    if (!mysql_query($sql)){
+      return("Can't update module row number".$sql);
+    } else {
       $sql = "update `".DB_PREF."mc_text_photos_title` set layout = '".mysql_real_escape_string($values['layout'])."', title = '".mysql_real_escape_string($values['title'])."', level = '".mysql_real_escape_string($values['level'])."'  where id = '".(int)$values['id']."' ";
-      if (!mysql_query($sql))
-      $this->set_error("Can't update module ".$sql);
+
+      if (!mysql_query($sql)){
+        $this->set_error("Can't update module ".$sql);
+      }
 
     }
   }

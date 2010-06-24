@@ -8,7 +8,7 @@ $languageUrl = "en";
 
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["user"] = "User";
-  
+
   $parameterGroupTitle["community"]["user"]["admin_translations"] = "Admin translations";
   $parameterGroupAdmin["community"]["user"]["admin_translations"] = "1";
 
@@ -56,7 +56,7 @@ $moduleTitle["community"]["user"] = "User";
     $parameterValue["community"]["user"]["admin_translations"]["error_email"] = "Incorrect email address";
     $parameterAdmin["community"]["user"]["admin_translations"]["error_email"] = "0";
     $parameterType["community"]["user"]["admin_translations"]["error_email"] = "string";
-  
+
   $parameterGroupTitle["community"]["user"]["email_messages"] = "E-mail messages";
   $parameterGroupAdmin["community"]["user"]["email_messages"] = "0";
 
@@ -150,7 +150,7 @@ $moduleTitle["community"]["user"] = "User";
     $parameterValue["community"]["user"]["errors"]["incorrect_login_data"] = "Incorrect user name or password";
     $parameterAdmin["community"]["user"]["errors"]["incorrect_login_data"] = "0";
     $parameterType["community"]["user"]["errors"]["incorrect_login_data"] = "lang";
-  
+
   $parameterGroupTitle["community"]["user"]["options"] = "Options";
   $parameterGroupAdmin["community"]["user"]["options"] = "0";
 
@@ -208,7 +208,7 @@ $moduleTitle["community"]["user"] = "User";
     $parameterValue["community"]["user"]["options"]["encrypt_passwords"] = "1";
     $parameterAdmin["community"]["user"]["options"]["encrypt_passwords"] = "0";
     $parameterType["community"]["user"]["options"]["encrypt_passwords"] = "bool";
-  
+
   $parameterGroupTitle["community"]["user"]["translations"] = "Translations";
   $parameterGroupAdmin["community"]["user"]["translations"] = "0";
 

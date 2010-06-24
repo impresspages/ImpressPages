@@ -20,15 +20,94 @@ if (!defined('CMS')) exit;
 class Element extends \Frontend\Element {
 
   public function __construct($id, $zoneName){
+    global $parametersMod;
     parent::__construct($id, $zoneName);
+
     $this->buttonTitle = $id;
+
+    switch($id){
+      case 'password_reset':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        break;
+      case 'password_reset_verified':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        break;
+      case 'password_reset_verification_error':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        break;
+      case 'password_reset_sent_text':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+        break;
+      case 'registration_verification_required':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'new_email_verification_required':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+
+
+
+      case 'registration_verified':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'new_email_verified':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+        break;
+      case 'registration_verification_error':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'new_email_verification_error':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_new_email_verification_error');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_new_email_verification_error');
+        break;
+
+
+      case 'login':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_login');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_login');
+        break;
+      case 'profile':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+        break;
+      case 'registration':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'renewed_registration':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'renew_registration_error':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'verification_error_user_exist':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+      case 'verification_error_email_exist':
+        $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+        break;
+    }
+
     $this->zoneName = $zoneName;
   }
 
 
   public function getLink() {
     global $site;
-    return $site->generateUrl(null, $this->zoneName);
+    return $site->generateUrl(null, $this->zoneName, array($this->id));
   }
 
   public function getDepth() {

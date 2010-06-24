@@ -45,7 +45,7 @@ class Db {
     else
       $valueFloat = "'".mysql_real_escape_string($valueFloat)."'";
 
-    $sql = "insert into `".DB_PREF."log` set `module` = '".mysql_real_escape_string($module)."', `name` = '".mysql_real_escape_string($name)."', `value_str`='".mysql_real_escape_string($valueStr)."', `value_int`=".$valueInt.", `value_float`='".$valueFloat."'  ";
+    $sql = "insert into `".DB_PREF."log` set `module` = '".mysql_real_escape_string($module)."', `name` = '".mysql_real_escape_string($name)."', `value_str`='".mysql_real_escape_string($valueStr)."', `value_int`=".$valueInt.", `value_float`=".$valueFloat."  ";
     $rs = mysql_query($sql);
     if(!$rs) {
       echo $sql." ".mysql_error(); //can't use standard error handling because of infinite loop danger

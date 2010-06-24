@@ -4,7 +4,7 @@
  * @copyright Copyright (C) 2009 JSC Apro media.
  * @license   GNU/GPL, see ip_license.html
  */
-namespace update_1_0_3_beta_to_1_0_4;
+namespace update_1_0_4_beta_to_1_0_5;
 
 if (!defined('CMS')) exit;
 
@@ -221,6 +221,7 @@ class Script {
     global $navigation;
     global $htmlOutput;
     require_once('db/db100.php');
+    require_once('parameters_manager.php');
     
     $answer = '';
     if (\Db_100::getSystemVariable('version') != '1.0.4') {
@@ -255,7 +256,7 @@ class Script {
       $sql = "
       CREATE TABLE IF NOT EXISTS `".DB_PREF."m_community_user` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
-        `login` varchar(255) NOT NULL,
+        `login` varchar(255) NULL,
         `language_id` int(11) NOT NULL,
         `email` varchar(255) NOT NULL,
         `password` varchar(32) NOT NULL,
@@ -276,19 +277,65 @@ class Script {
         trigger_error($sql.' '.mysql_error());
       }
       
-      
+
+      \Modules\developer\localization\Manager::saveParameters(__DIR__.'/community_user_parameters.php');
+
+      \Modules\developer\localization\Manager::saveParameters(__DIR__.'/standard_languages_parameters.php');
       //end community/user module
       
       if ($this->curStep == $this->stepCount){
-        \Db_100::setSystemVariable('version','1.0.4');
+      //  \Db_100::setSystemVariable('version','1.0.5');
+
+
+      //drop additional field in widget tables
+        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text_title` DROP `base_url` ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+
+        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text_photo` DROP `base_url`  ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+
+        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text` DROP `base_url`  ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+
+        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_faq` DROP `base_url`  ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+
+        $sql = " ALTER TABLE `".DB_PREF."mc_misc_rich_text` DROP `base_url`  ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+
+
+
+
+
+
+
+
+      //
+
+
       }      
     }
     
-    if ($this->curStep == $this->stepCount) {
+    /*if ($this->curStep == $this->stepCount) {
       header("location: ".$navigation->generateLink($navigation->curStep() + 1));
     } else {
       header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
-    }
+    }*/
       
     return $answer;
   }

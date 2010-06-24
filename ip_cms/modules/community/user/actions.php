@@ -38,7 +38,7 @@ class Actions {
           if(!$tmpUser)
             $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_doesnt_exist');
 
-          if(!isset($_POST['password']) || $_POST['password'] == '' || $_POST['password'] != $_POST['confirm_password']) {
+          if(!isset($_POST['password']) || $_POST['password'] == '' || $parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
             $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
             $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
           }
@@ -48,7 +48,11 @@ class Actions {
             $html = $standardForm->generateErrorAnswer($errors);
           } else {
             $tmp_code = md5(uniqid(rand(), true));
-            $additionalFields['new_password'] = md5($_POST['password']);
+            if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+              $additionalFields['new_password'] = md5($_POST['password']);
+            } else {
+              $additionalFields['new_password'] = $_POST['password'];
+            }
             $additionalFields['verification_code'] = $tmp_code;
 
             $standardForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], $additionalFields);
@@ -186,7 +190,9 @@ class Actions {
                 if(isset($_POST['password']) && $_POST['password'] != '') {
                   if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
                     $additionalFields['password'] =  md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
-                  }else $additionalFields['password'] =  md5($_POST['password']);
+                  } else {
+                    $additionalFields['password'] =  $_POST['password'];
+                  }
                 }
 
 

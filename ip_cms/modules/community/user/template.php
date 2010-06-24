@@ -73,7 +73,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset'), $level = 1, $layout = null);
 
-    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'password_reset_sent_text').'</p>';
+    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'text_password_reset_sent').'</p>';
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -89,7 +89,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset'), $level = 1, $layout = null);
 
-    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'password_reset_verified').'</p>';
+    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'text_password_verified').'</p>';
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     $answer .= '
@@ -112,7 +112,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset'), $level = 1, $layout = null);
 
-    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'password_reset_verification_error').'</p>';
+    $text = '<p>'.$parametersMod->getValue('community', 'user', 'translations', 'text_password_verification_error').'</p>';
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -162,7 +162,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'registration_successfull_text');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_successfull');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     $answer .= '
@@ -197,7 +197,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration_verification_error'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'registration_verification_error_user_exist');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_user_exist_error');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -212,7 +212,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration_verification_error'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'registration_verification_error_email_exist');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_email_exist_error');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -227,7 +227,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_new_email_verification_error'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'new_email_verification_error_text');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_new_email_verification_error');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -282,9 +282,9 @@ class Template {
 
     $answer = '';
 
-    $answer .= Modules\standard\content_management\Widgets\text_photos\title::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
+    $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'registration_disabled_error');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_disabled_registration_error');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -300,7 +300,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community','user','translations','renew_registration_text');
+    $text = $parametersMod->getValue('community','user','translations','text_account_renewed');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;
@@ -315,7 +315,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community','user','translations','renew_registration_error');
+    $text = $parametersMod->getValue('community','user','translations','text_account_renewal_error');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     return $answer;

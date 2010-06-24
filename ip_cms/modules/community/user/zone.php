@@ -35,27 +35,26 @@ class Zone extends \Frontend\Zone {
   public function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
     if($parentElementId == null) {
       $elements = array();
-/*
+
       $elements[] = new Element('password_reset', $this->name);
-      $elements[] = new Element('password_reset_verified', $this->name);
-      $elements[] = new Element('password_reset_verification_error', $this->name);
-      $elements[] = new Element('password_reset_sent_text', $this->name);
-      $elements[] = new Element('registration_verification_required', $this->name);
-      $elements[] = new Element('new_email_verification_required', $this->name);
-      $elements[] = new Element('registration_verified', $this->name);
-      $elements[] = new Element('new_email_verified', $this->name);
-      $elements[] = new Element('registration_verification_error', $this->name);
-      $elements[] = new Element('new_email_verification_error', $this->name);
+      //$elements[] = new Element('password_reset_verified', $this->name);
+      //$elements[] = new Element('password_reset_verification_error', $this->name);
+      //$elements[] = new Element('password_reset_sent_text', $this->name);
+      //$elements[] = new Element('registration_verification_required', $this->name);
+      //$elements[] = new Element('new_email_verification_required', $this->name);
+      //$elements[] = new Element('registration_verified', $this->name);
+      //$elements[] = new Element('new_email_verified', $this->name);
+      //$elements[] = new Element('registration_verification_error', $this->name);
+      //$elements[] = new Element('new_email_verification_error', $this->name);
       $elements[] = new Element('login', $this->name);
       $elements[] = new Element('profile', $this->name);
       $elements[] = new Element('registration', $this->name);
-      $elements[] = new Element('renewed_registration', $this->name);
-      $elements[] = new Element('renew_registration_error', $this->name);
-      $elements[] = new Element('verification_error_user_exist', $this->name);
-      $elements[] = new Element('verification_error_email_exist', $this->name);
-      $elements[] = new Element('login', $this->name);
+      //$elements[] = new Element('renewed_registration', $this->name);
+      //$elements[] = new Element('renew_registration_error', $this->name);
+      //$elements[] = new Element('verification_error_user_exist', $this->name);
+      //$elements[] = new Element('verification_error_email_exist', $this->name);
 
- */
+ 
       return $elements;
     } else {
       return false;
