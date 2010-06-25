@@ -245,16 +245,18 @@ class Script {
           VALUES (".(int)$module['group_id'].", ".($maxRowNumber+1).", 'user', 1, 'User', 1, '1.00', 1);
         ";
 
-        $users = $this->getUsers();
-        foreach($users as $user){
-          $this->addPermissions(mysql_insert_id(), $user['id']);
-        }
-
-
         $rs = mysql_query($sqlUser);
-        if(!$rs){
+        if($rs){
+          $userModuleId = mysql_insert_id();
+                                echo 'Id '.$userModuleId;
+          $users = $this->getUsers();
+          foreach($users as $user){
+            $this->addPermissions($userModuleId, $user['id']);
+          }
+        } else {
           trigger_error($sqlUser.' '.mysql_error());
         }
+
         
       } else {
         trigger_error($sql.' '.mysql_error());
@@ -367,14 +369,14 @@ class Script {
 
 
       if ($this->curStep == $this->stepCount){
-        //\Db_100::setSystemVariable('version','1.0.5');
+        \Db_100::setSystemVariable('version','1.0.5');
       }      
     }
     
     if ($this->curStep == $this->stepCount) {
-      //header("location: ".$navigation->generateLink($navigation->curStep() + 1));
+      header("location: ".$navigation->generateLink($navigation->curStep() + 1));
     } else {
-      //header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
+      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
     }
       
     return $answer;

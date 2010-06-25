@@ -846,7 +846,10 @@ INSERT INTO `ip_cms_par_integer` (`id`, `value`, `parameter_id`) VALUES
 (400, 150, 956),
 (401, 1, 347),
 (402, 1, 347),
-(403, 1, 347);
+(403, 1, 347),
+(404, 24, 1574),
+(405, 30, 1575),
+(406, 9, 1576);
 
 -- Dumping data for table--
 
@@ -1386,7 +1389,8 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 (511, 8, 332),
 (510, 8, 333),
 (509, 8, 347),
-(508, 8, 327);
+(508, 8, 327),
+(531, 8, 437);
 
 -- Dumping data for table--
 

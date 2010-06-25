@@ -199,19 +199,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 
 	
 	$robots = 
-	'User-Agent: *
-	Disallow: /ip_cms/
-	Disallow: /ip_configs/
-	Disallow: /update/
-	Disallow: /install/
-  Disallow: admin.php
-	Disallow: ip_backend_frames.php
-  Disallow: ip_backend_worker.php
-	Disallow: ip_config.php
-  Disallow: ip_cron.php
-	Disallow: ip_license.html
-  Disallow: readme.txt
-	Sitemap: '.get_parent_url().'sitemap.php';
+'User-Agent: *
+Disallow: /ip_cms/
+Disallow: /ip_configs/
+Disallow: /update/
+Disallow: /install/
+Disallow: /admin.php
+Disallow: /ip_backend_frames.php
+Disallow: /ip_backend_worker.php
+Disallow: /ip_config.php
+Disallow: /ip_cron.php
+Disallow: /ip_license.html
+Disallow: /readme.txt
+Sitemap: '.get_parent_url().'sitemap.php';
 
 	$myFile = "../robots.txt";
 	$fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_ROBOTS", error:""}');

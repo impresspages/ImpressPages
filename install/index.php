@@ -9,6 +9,9 @@ define('INSTALL', 'true');
 //$_SESSION['step'] - stores the value of completed steps
 
 
+date_default_timezone_set('Europe/Vilnius'); //PHP 5 requires timezone to be set.
+
+
 function install_available(){
 	if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
 		return true;
