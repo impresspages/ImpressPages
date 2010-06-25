@@ -12,14 +12,14 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 
 class Template{
-	static function registration($newsletterUrl, $unsubscribtionButton){
+	static function registration($newsletterUrl, $unsubscriptionButton){
 		global $site;
 		global $parametersMod;
 		
-		if ($unsubscribtionButton) {
-  		$unsubscribtionButtonHtml = '<a href="#" class="unsubscribe" onclick="ModCommunityNewsletter.unsubscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'unsubscribe')).'</a>';
+		if ($unsubscriptionButton) {
+  		$unsubscriptionButtonHtml = '<a href="#" class="unsubscribe" onclick="ModCommunityNewsletter.unsubscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'unsubscribe')).'</a>';
 		} else {
-		  $unsubscribtionButtonHtml = '';
+		  $unsubscriptionButtonHtml = '';
 		}
 		
 		return '
@@ -33,7 +33,7 @@ class Template{
   </div>
   <div>
     <a href="#" class="subscribe" onclick="ModCommunityNewsletter.subscribe(\''.$newsletterUrl.'\', document.getElementById(\'modCommunityNewsletterRegister\').email.value); return false;">'.htmlspecialchars($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'subscribe')).'</a>
-    '.$unsubscribtionButtonHtml.'
+    '.$unsubscriptionButtonHtml.'
     <div class="clear"><!-- --></div>
   </div> 
 </form>

@@ -314,16 +314,60 @@ class Script {
         }
       }
 
-      //
+
+      $replaceParameters = array();
+      $replaceParameters[] = array('from' => 'show_unsubscribtion_button', 'to' => 'show_unsubscribe_button');
+      $replaceParameters[] = array('from' => 'man_aditional_add_rss', 'to' => 'man_additional_add_rss');
+      $replaceParameters[] = array('from' => 'man_aditional_button_title', 'to' => 'man_additional_button_title');
+      $replaceParameters[] = array('from' => 'man_aditional_created_on', 'to' => 'man_additional_created_on');
+      $replaceParameters[] = array('from' => 'man_aditional_description', 'to' => 'man_additional_description');
+      $replaceParameters[] = array('from' => 'man_aditional_error_date_format', 'to' => 'man_additional_error_date_format');
+      $replaceParameters[] = array('from' => 'man_aditional_inactive', 'to' => 'man_additional_inactive');
+      $replaceParameters[] = array('from' => 'man_aditional_info', 'to' => 'man_additional_info');
+      $replaceParameters[] = array('from' => 'man_aditional_keywords', 'to' => 'man_additional_keywords');
+      $replaceParameters[] = array('from' => 'man_aditional_no_redirect', 'to' => 'man_additional_no_redirect');
+      $replaceParameters[] = array('from' => 'man_aditional_page_properties', 'to' => 'man_additional_page_properties');
+      $replaceParameters[] = array('from' => 'man_aditional_page_title', 'to' => 'man_additional_page_title');
+      $replaceParameters[] = array('from' => 'man_aditional_redirect', 'to' => 'man_additional_redirect');
+      $replaceParameters[] = array('from' => 'man_aditional_subpage', 'to' => 'man_additional_subpage');
+      $replaceParameters[] = array('from' => 'man_aditional_type', 'to' => 'man_additional_type');
+      $replaceParameters[] = array('from' => 'man_aditional_url', 'to' => 'man_additional_url');
+      $replaceParameters[] = array('from' => 'man_aditional_visible', 'to' => 'man_additional_visible');
+
+
+      foreach($replaceParameters as $parameter){
+        $sql = " update `".DB_PREF."parameter` set `name` = '".mysql_real_escape_string($to)."' where `name` = '".mysql_real_escape_string($to)."' ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+      }
+
+      $replaceParameters = array();
+      $replaceParameters[] = array('from' => 'Log zise in days', 'to' => 'Log size in days');
+      $replaceParameters[] = array('from' => 'Field fonfiguration file', 'to' => 'Field configuration file');
+      $replaceParameters[] = array('from' => 'Unpossible to delete the record', 'to' => 'Impossible to delete the record');
+
+
+      foreach($replaceParameters as $parameter){
+        $sql = " update `".DB_PREF."parameter` set `translation` = '".mysql_real_escape_string($to)."' where `translation` = '".mysql_real_escape_string($to)."' ";
+        $rs = mysql_query($sql);
+        if(!$rs){
+          trigger_error($sql.' '.mysql_error());
+        }
+      }
+
+
+
       if ($this->curStep == $this->stepCount){
-       // \Db_100::setSystemVariable('version','1.0.5');
+        \Db_100::setSystemVariable('version','1.0.5');
       }      
     }
     
     if ($this->curStep == $this->stepCount) {
-    //  header("location: ".$navigation->generateLink($navigation->curStep() + 1));
+      header("location: ".$navigation->generateLink($navigation->curStep() + 1));
     } else {
-    //  header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
+      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
     }
       
     return $answer;

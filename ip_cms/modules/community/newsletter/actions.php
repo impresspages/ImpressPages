@@ -73,8 +73,8 @@ require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
             \Db::disconnect();
             exit;            
           break;
-          case 'unsubscribe': //unsubscribtion through website
-            if ($parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribtion_button')) { //if unsubscribtion through webpage is allowed
+          case 'unsubscribe': //unsubscribe through website
+            if ($parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribe_button')) { //if unsubscribe through webpage is allowed
       				Db::unsubscribe($_REQUEST['email'], $site->currentLanguage['id']);
     					echo '
               {
@@ -82,16 +82,16 @@ require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
               "url":"'.$site->generateUrl(null, $zoneName, array("unsubscribed")).'"
               }';
               
-              $log->log('community/newsletter', 'Unsubscribtion from website', $_REQUEST['email']);
+              $log->log('community/newsletter', 'Unsubscribe (website form)', $_REQUEST['email']);
               
               \Db::disconnect();
               exit;            
             }
           break;
-          case 'cancel': //unsubscribtion through e-mail link
+          case 'cancel': //unsubscribe through e-mail link
             if (isset($_REQUEST['id']) && isset($_REQUEST['code'])) {
       				$record = DB::getSubscriber($_REQUEST['id']);
-              $log->log('community/newsletter', 'Unsubscribtion from email', $record['email']);
+              $log->log('community/newsletter', 'Unsubscribe (e-mail link)', $record['email']);
     					
       				Db::unsubscribe($_REQUEST['email'], $site->currentLanguage['id'], $_REQUEST['id'], $_REQUEST['code']);
     					header('location: '.$site->generateUrl(null, $newsletterZone->getName(), array("unsubscribed"), array()));

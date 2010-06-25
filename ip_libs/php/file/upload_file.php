@@ -57,7 +57,7 @@ class UploadFile{
 	/**
 	 * @param array additional forbidden extensions. Specified extensions are added to already existing extensions.
 	 */   	
-	function disalow($extensions){ //disalow aditional extensions. $extensions - array of extensions without dots.
+	function disalow($extensions){ //disalow additional extensions. $extensions - array of extensions without dots.
 		if(is_array($extensions))
 			$this->$disallow = array_merge($this->disallow, $extensions);	
 		else

@@ -162,7 +162,7 @@ $parameter["parameterValue/administrator/log/admin_translations/value_int"] = "V
 $parameter["parameterTitle/administrator/log/admin_translations/value_str"] = "Value string";
 $parameter["parameterValue/administrator/log/admin_translations/value_str"] = "Value string";
 
-$parameter["parameterTitle/administrator/log/parameters/log_size_in_days"] = "Log zise in days";
+$parameter["parameterTitle/administrator/log/parameters/log_size_in_days"] = "Log size in days";
 
 $parameter["parameterTitle/administrator/rss/options/description"] = "Description";
 
@@ -231,7 +231,7 @@ $parameter["parameterValue/community/newsletter/admin_translations/was_sent"] = 
 $parameter["parameterTitle/community/newsletter/admin_translations/where_to_send"] = "Where to send?";
 $parameter["parameterValue/community/newsletter/admin_translations/where_to_send"] = "Send test email to: ";
 
-$parameter["parameterTitle/community/newsletter/options/show_unsubscribtion_button"] = "Show unsubscribtion button";
+$parameter["parameterTitle/community/newsletter/options/show_unsubscribe_button"] = "Show unsubscribe button";
 
 $parameter["parameterTitle/community/newsletter_subscribers/admin_translations/email"] = "Email";
 $parameter["parameterValue/community/newsletter_subscribers/admin_translations/email"] = "Email";
@@ -270,7 +270,7 @@ $parameter["parameterTitle/community/newsletter/subscription_translations/text_u
 
 $parameter["parameterTitle/community/newsletter/subscription_translations/unsubscribe"] = "Unsubscribe";
 
-$parameter["parameterTitle/developer/config_exp_imp/admin_translations/config_file"] = "Field fonfiguration file";
+$parameter["parameterTitle/developer/config_exp_imp/admin_translations/config_file"] = "Field configuration file";
 $parameter["parameterValue/developer/config_exp_imp/admin_translations/config_file"] = "Configuration file";
 
 $parameter["parameterTitle/developer/config_exp_imp/admin_translations/continue"] = "Continue";
@@ -632,53 +632,53 @@ $parameter["parameterValue/standard/configuration/system_translations/logout"] =
 $parameter["parameterTitle/standard/content_management/admin_translations/advanced"] = "Advanced";
 $parameter["parameterValue/standard/content_management/admin_translations/advanced"] = "Advanced";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_add_rss"] = "Add to RSS";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_add_rss"] = "Add to RSS";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_add_rss"] = "Add to RSS";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_add_rss"] = "Add to RSS";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_button_title"] = "Button title";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_button_title"] = "Button title";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_button_title"] = "Button title";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_button_title"] = "Button title";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_created_on"] = "Created on";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_created_on"] = "Created on";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_created_on"] = "Created on";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_created_on"] = "Created on";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_description"] = "Description";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_description"] = "Description";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_description"] = "Description";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_description"] = "Description";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_error_date_format"] = "Error date format";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_error_date_format"] = "Incorrect date format. Example: ";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_error_date_format"] = "Error date format";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_error_date_format"] = "Incorrect date format. Example: ";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_inactive"] = "Inactive";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_inactive"] = "Inactive (without link on it)";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_inactive"] = "Inactive";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_inactive"] = "Inactive (without link on it)";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_info"] = "Aditional info";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_info"] = "Aditional info";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_info"] = "Additional info";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_info"] = "Additional info";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_keywords"] = "Keywords";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_keywords"] = "Keywords";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_keywords"] = "Keywords";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_keywords"] = "Keywords";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_no_redirect"] = "No redirect";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_no_redirect"] = "Display page content";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_no_redirect"] = "No redirect";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_no_redirect"] = "Display page content";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_page_properties"] = "Page properties";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_page_properties"] = "Page properties";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_page_properties"] = "Page properties";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_page_properties"] = "Page properties";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_page_title"] = "Page title";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_page_title"] = "Page title";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_page_title"] = "Page title";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_page_title"] = "Page title";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_redirect"] = "Redirect to external page";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_redirect"] = "Redirect to external page";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_redirect"] = "Redirect to external page";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_redirect"] = "Redirect to external page";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_subpage"] = "Redirect to sub-page";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_subpage"] = "Redirect to first sub-page";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_subpage"] = "Redirect to sub-page";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_subpage"] = "Redirect to first sub-page";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_type"] = "Type";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_type"] = "Type";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_type"] = "Type";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_type"] = "Type";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_url"] = "URL";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_url"] = "URL";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_url"] = "URL";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_url"] = "URL";
 
-$parameter["parameterTitle/standard/content_management/admin_translations/man_aditional_visible"] = "Visible";
-$parameter["parameterValue/standard/content_management/admin_translations/man_aditional_visible"] = "Visible";
+$parameter["parameterTitle/standard/content_management/admin_translations/man_additional_visible"] = "Visible";
+$parameter["parameterValue/standard/content_management/admin_translations/man_additional_visible"] = "Visible";
 
 $parameter["parameterTitle/standard/content_management/admin_translations/man_paragraph_cancel"] = "Cancel";
 $parameter["parameterValue/standard/content_management/admin_translations/man_paragraph_cancel"] = "Cancel";

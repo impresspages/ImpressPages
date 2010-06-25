@@ -106,14 +106,14 @@ $moduleTitle["community"]["user"] = "User";
     $parameterAdmin["community"]["user"]["email_messages"]["text_user_deleted"] = "0";
     $parameterType["community"]["user"]["email_messages"]["text_user_deleted"] = "lang_wysiwyg";
 
-    $parameterTitle["community"]["user"]["email_messages"]["text_accont_will_expire"] = "Text - account will expire";
-    $parameterValue["community"]["user"]["email_messages"]["text_accont_will_expire"] = "<p>Your account is due to expire at [[date]].</p>
+    $parameterTitle["community"]["user"]["email_messages"]["text_account_will_expire"] = "Text - account will expire";
+    $parameterValue["community"]["user"]["email_messages"]["text_account_will_expire"] = "<p>Your account is due to expire at [[date]].</p>
 <p>Plese visit the website and log in or click the link bellow to renew your account:</p>
 <p>[[link]]</p>
 <p>&nbsp;</p>
 <p>If you take no action until [[date]] your account will be deleted.</p>"; /* changed */
-    $parameterAdmin["community"]["user"]["email_messages"]["text_accont_will_expire"] = "0";
-    $parameterType["community"]["user"]["email_messages"]["text_accont_will_expire"] = "lang_wysiwyg";
+    $parameterAdmin["community"]["user"]["email_messages"]["text_account_will_expire"] = "0";
+    $parameterType["community"]["user"]["email_messages"]["text_account_will_expire"] = "lang_wysiwyg";
 
     $parameterTitle["community"]["user"]["email_messages"]["text_password_reset"] = "Text - password reset confirm";
     $parameterValue["community"]["user"]["email_messages"]["text_password_reset"] = "<p>You asked to reset your password. Please press the link bellow to confirm this action:</p>
@@ -352,10 +352,10 @@ $moduleTitle["community"]["user"] = "User";
     $parameterAdmin["community"]["user"]["translations"]["text_password_verified"] = "0";
     $parameterType["community"]["user"]["translations"]["text_password_verified"] = "lang";
 
-    $parameterTitle["community"]["user"]["translations"]["text_registration_successfull"] = "Text - registraton successfull";
-    $parameterValue["community"]["user"]["translations"]["text_registration_successfull"] = "<p>Your registration was completed successfully. You can login now.</p>";
-    $parameterAdmin["community"]["user"]["translations"]["text_registration_successfull"] = "0";
-    $parameterType["community"]["user"]["translations"]["text_registration_successfull"] = "lang_wysiwyg";
+    $parameterTitle["community"]["user"]["translations"]["text_registration_successful"] = "Text - registraton successful";
+    $parameterValue["community"]["user"]["translations"]["text_registration_successful"] = "<p>Your registration was completed successfully. You can login now.</p>";
+    $parameterAdmin["community"]["user"]["translations"]["text_registration_successful"] = "0";
+    $parameterType["community"]["user"]["translations"]["text_registration_successful"] = "lang_wysiwyg";
 
 
     $parameterTitle["community"]["user"]["translations"]["text_password_reset_sent"] = "Text - password reset instructions was sent";

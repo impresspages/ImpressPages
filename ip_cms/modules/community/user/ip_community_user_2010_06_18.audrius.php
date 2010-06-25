@@ -370,10 +370,10 @@ $moduleTitle["community"]["user"] = "User";
     $parameterAdmin["community"]["user"]["translations"]["renew_registration_error"] = "0";
     $parameterType["community"]["user"]["translations"]["renew_registration_error"] = "lang_wysiwyg";
 
-    $parameterTitle["community"]["user"]["translations"]["registration_successfull_text"] = "Registraton successfull text";
-    $parameterValue["community"]["user"]["translations"]["registration_successfull_text"] = "<p>Your registration was completed successfully. You can login now.</p>";
-    $parameterAdmin["community"]["user"]["translations"]["registration_successfull_text"] = "0";
-    $parameterType["community"]["user"]["translations"]["registration_successfull_text"] = "lang_wysiwyg";
+    $parameterTitle["community"]["user"]["translations"]["registration_successful_text"] = "Registraton successful text";
+    $parameterValue["community"]["user"]["translations"]["registration_successful_text"] = "<p>Your registration was completed successfully. You can login now.</p>";
+    $parameterAdmin["community"]["user"]["translations"]["registration_successful_text"] = "0";
+    $parameterType["community"]["user"]["translations"]["registration_successful_text"] = "lang_wysiwyg";
 
     $parameterTitle["community"]["user"]["translations"]["password_reset_text"] = "Password reset text";
     $parameterValue["community"]["user"]["translations"]["password_reset_text"] = "<p>Please enter your e-mail address and new password.</p>";

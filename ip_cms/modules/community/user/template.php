@@ -162,7 +162,7 @@ class Template {
 
     $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration'), $level = 1, $layout = null);
 
-    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_successfull');
+    $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_successful');
     $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text, $layout = null);
 
     $answer .= '

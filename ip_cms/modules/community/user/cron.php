@@ -44,7 +44,7 @@ class Cron {
         foreach($soonOutdated as $key => $user) {
           $site->dispatchEvent('community', 'user', 'warn_inactive_user', array('data'=>$user));
           $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
-          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_accont_will_expire'), $emailTemplate);
+          $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_account_will_expire'), $emailTemplate);
           $email = str_replace('[[date]]', substr($user['valid_until'], 0, 10), $email);
           $link = $site->generateUrl($user['language_id'], null, null, array("module_group"=>"community","module_name"=>"user", "action"=>"renew_registration", "id"=>$user['id']));
           $email = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $email);

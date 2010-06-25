@@ -113,44 +113,44 @@ class EditMenuManagement {
     onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close_hover.gif\'"
     onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close.gif\'"
     onclick="f_main_fields_popup_close()" style="cursor: pointer; float: right;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close.gif"/>
-    '.$parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_page_properties').'
+    '.$parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_page_properties').'
     </div>
     <div class="ipCmsManagement" >
     <form  id="f_main_fields_popup" action="" onsubmit="f_main_fields_popup_save(); return false;">
     <div>
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_button_title')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_button_title')).'</label>
     <div class="ipCmsInput"><input name="page_button_title"  value="" /></div><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_page_title')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_page_title')).'</label>
     <div class="ipCmsInput"><input name="page_page_title"  value="" /></div><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_keywords')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_keywords')).'</label>
     <div class="ipCmsInput"><input name="keywords"  value=""/></div><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_description')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_description')).'</label>
     <textarea rows="5" cols="30" name="description"></textarea><br/><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_url')).' '.$cur_url.'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_url')).' '.$cur_url.'</label>
     <div style="width: " class="ipCmsInput"><input name="url" value=""/></div><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_type')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_type')).'</label>
     <div>
-    <label class="ipCmsTitle"><input id="f_main_fields_type_default" name="type" type="radio" value="default" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_no_redirect')).'</label>
-    <label class="ipCmsTitle"><input id="f_main_fields_type_inactive" name="type" type="radio" value="inactive" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_inactive')).'</label>
-    <label class="ipCmsTitle"><input id="f_main_fields_type_subpage" name="type" type="radio" value="subpage" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_subpage')).'</label>
-    <label class="ipCmsTitle"><input id="f_main_fields_type_redirect" name="type" type="radio" value="redirect" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_redirect')).'</label>
+    <label class="ipCmsTitle"><input id="f_main_fields_type_default" name="type" type="radio" value="default" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_no_redirect')).'</label>
+    <label class="ipCmsTitle"><input id="f_main_fields_type_inactive" name="type" type="radio" value="inactive" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_inactive')).'</label>
+    <label class="ipCmsTitle"><input id="f_main_fields_type_subpage" name="type" type="radio" value="subpage" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_subpage')).'</label>
+    <label class="ipCmsTitle"><input id="f_main_fields_type_redirect" name="type" type="radio" value="redirect" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_redirect')).'</label>
     <p id="f_main_fields_redirect_error" class="ipCmsError">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty')).'</p>
     <div class="ipCmsInput"><input name="redirect_url" value=""/></div>
     </div><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_visible')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_visible')).'</label>
     <input type="checkbox" name="visible" /><br/><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_add_rss')).'</label>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_add_rss')).'</label>
     <input type="checkbox" name="rss" /><br/><br/>
 
-    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_aditional_created_on')).'</label>
-    <p id="f_main_fields_created_on_error" class="ipCmsError">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_aditional_error_date_format')).' '.date("Y-m-d").'</p>
+    <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_created_on')).'</label>
+    <p id="f_main_fields_created_on_error" class="ipCmsError">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_error_date_format')).' '.date("Y-m-d").'</p>
     <div class="ipCmsInput"><input name="created_on"  value="" /></div>
 
     <input type="submit" style="width:0px; height: 0px; overflow: hidden; border: 0pt none;" />
@@ -850,7 +850,7 @@ class EditMenuManagement {
 
     $answer = '
           <form onsubmit="mod_management.changed = false; menu_saver.save_to_db(); return false;" id="f_main_fields" action="'.BASE_URL.BACKEND_WORKER_FILE."?module_id=".$tmp_module['id'].'&security_token='.$_SESSION['backend_session']['security_token'].'" method="post" enctype="multipart/form-data">  
-            <span class="ipCmsTitle">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_aditional_button_title').'</span>
+            <span class="ipCmsTitle">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_button_title').'</span>
             <input name="page_button_title" type="text" value="'.htmlspecialchars($lock['button_title']).'" />
             <a class="ipCmsAdvancedButton" onclick="f_main_fields_popup_show();">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations','advanced').'</a>  
 						

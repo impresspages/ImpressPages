@@ -82,7 +82,7 @@ class Zone extends \Frontend\Zone{
     global $parametersMod;
     
     $site->requireTemplate('community/newsletter/template.php');  
-    return Template::registration($site->generateUrl(null, $this->zoneName), $parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribtion_button'));
+    return Template::registration($site->generateUrl(null, $this->zoneName), $parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribe_button'));
   }
   
   public function makeActions(){
