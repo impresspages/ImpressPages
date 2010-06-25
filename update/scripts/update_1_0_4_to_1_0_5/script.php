@@ -244,7 +244,13 @@ class Script {
           INSERT INTO `".DB_PREF."module` (`group_id`, `row_number`, `name`, `admin`, `translation`, `managed`, `version`, `core`) 
           VALUES (".(int)$module['group_id'].", ".($maxRowNumber+1).", 'user', 1, 'User', 1, '1.00', 1);
         ";
-        
+
+        $users = $this->getUsers();
+        foreach($users as $user){
+          $this->addPermissions(mysql_insert_id(), $user['id']);
+        }
+
+
         $rs = mysql_query($sqlUser);
         if(!$rs){
           trigger_error($sqlUser.' '.mysql_error());
@@ -336,7 +342,7 @@ class Script {
 
 
       foreach($replaceParameters as $parameter){
-        $sql = " update `".DB_PREF."parameter` set `name` = '".mysql_real_escape_string($to)."' where `name` = '".mysql_real_escape_string($to)."' ";
+        $sql = " update `".DB_PREF."parameter` set `name` = '".mysql_real_escape_string($parameter['to'])."' where `name` = '".mysql_real_escape_string($parameter['from'])."' ";
         $rs = mysql_query($sql);
         if(!$rs){
           trigger_error($sql.' '.mysql_error());
@@ -347,10 +353,11 @@ class Script {
       $replaceParameters[] = array('from' => 'Log zise in days', 'to' => 'Log size in days');
       $replaceParameters[] = array('from' => 'Field fonfiguration file', 'to' => 'Field configuration file');
       $replaceParameters[] = array('from' => 'Unpossible to delete the record', 'to' => 'Impossible to delete the record');
+      $replaceParameters[] = array('from' => 'Aditional info', 'to' => 'Additional info');
 
 
       foreach($replaceParameters as $parameter){
-        $sql = " update `".DB_PREF."parameter` set `translation` = '".mysql_real_escape_string($to)."' where `translation` = '".mysql_real_escape_string($to)."' ";
+        $sql = " update `".DB_PREF."parameter` set `translation` = '".mysql_real_escape_string($parameter['to'])."' where `translation` = '".mysql_real_escape_string($parameter['from'])."' ";
         $rs = mysql_query($sql);
         if(!$rs){
           trigger_error($sql.' '.mysql_error());
@@ -360,14 +367,14 @@ class Script {
 
 
       if ($this->curStep == $this->stepCount){
-        \Db_100::setSystemVariable('version','1.0.5');
+        //\Db_100::setSystemVariable('version','1.0.5');
       }      
     }
     
     if ($this->curStep == $this->stepCount) {
-      header("location: ".$navigation->generateLink($navigation->curStep() + 1));
+      //header("location: ".$navigation->generateLink($navigation->curStep() + 1));
     } else {
-      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
+      //header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
     }
       
     return $answer;
@@ -376,6 +383,38 @@ class Script {
 
 
 
+  private function getUsers(){
+    $answer = array();
+    $sql = "select * from `".DB_PREF."user` where 1";
+    $rs = mysql_query($sql);
+    if($rs){
+      while($lock = mysql_fetch_assoc($rs)){
+        $answer[] = $lock;
+      }
+      return $answer;
+    } else {
+      trigger_error($sql." ".mysql_error());
+      return false;
+    }
+
+  }
+
+
+  private function addPermissions($moduleId, $userId){
+    $sql = "insert into `".DB_PREF."user_to_mod`
+    set
+    module_id = '".(int)$moduleId."',
+    user_id = '".(int)$userId."'
+
+    ";
+    $rs = mysql_query($sql);
+    if($rs){
+      return mysql_insert_id();
+    } else {
+      trigger_error($sql." ".mysql_error());
+      return false;
+    }
+  }
   
     
   

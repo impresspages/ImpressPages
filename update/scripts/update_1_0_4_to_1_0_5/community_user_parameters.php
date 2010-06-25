@@ -108,7 +108,7 @@ $moduleTitle["community"]["user"] = "User";
 
     $parameterTitle["community"]["user"]["email_messages"]["text_account_will_expire"] = "Text - account will expire";
     $parameterValue["community"]["user"]["email_messages"]["text_account_will_expire"] = "<p>Your account is due to expire at [[date]].</p>
-<p>Plese visit the website and log in or click the link bellow to renew your account:</p>
+<p>Please visit the website and log in or click the link bellow to renew your account:</p>
 <p>[[link]]</p>
 <p>&nbsp;</p>
 <p>If you take no action until [[date]] your account will be deleted.</p>"; /* changed */
@@ -375,7 +375,7 @@ $moduleTitle["community"]["user"] = "User";
 
 
     $parameterTitle["community"]["user"]["translations"]["text_account_renewal_error"] = "Text - account renewal error";
-    $parameterValue["community"]["user"]["translations"]["text_account_renewal_error"] = "<p>Error occured while renewing your account. Try to renew your account by logging in and out. If you can't do so, your account may be already deleted.</p>"; /* changed */
+    $parameterValue["community"]["user"]["translations"]["text_account_renewal_error"] = "<p>Error occurred while renewing your account. Try to renew your account by logging in and out. If you can't do so, your account may be already deleted.</p>"; /* changed */
     $parameterAdmin["community"]["user"]["translations"]["text_account_renewal_error"] = "0";
     $parameterType["community"]["user"]["translations"]["text_account_renewal_error"] = "lang_wysiwyg";
 
