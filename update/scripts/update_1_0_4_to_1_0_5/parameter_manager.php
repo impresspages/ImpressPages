@@ -8,9 +8,8 @@
 
 namespace Modules\developer\localization;
 
-if (!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
-require_once (__DIR__.'/db.php');
 require_once (__DIR__.'/parameter_db.php');
 
 
@@ -19,7 +18,6 @@ class Manager{
 
 
   public static function saveParameters($file, $ignoreLanguage = false){
-    require_once(MODULE_DIR.'standard/languages/db.php');
 
     //require_once(MODULE_DIR."standard/seo/db.php");
     global $site;
@@ -27,7 +25,7 @@ class Manager{
     $answer = '';
 
     //get languageId
-    $langauges = \Db_100::getLanguages();
+    $languages = \Db_100::getLanguages();
     $languageId = $languages[0];
 
 
@@ -35,7 +33,7 @@ class Manager{
       foreach($parameterGroupTitle as $groupName => $group){
         foreach($group as $moduleName => $module){
           foreach($module as $parameterGroupName => $value){
-            $tmpModule = Db::getModule(null, $groupName, $moduleName);
+            $tmpModule = Db::getModule($groupName, $moduleName);
             if($tmpModule){
               $tmpParameterGroup = Db::getParameterGroup($tmpModule['id'], $parameterGroupName);
               if($tmpParameterGroup) {
@@ -53,11 +51,10 @@ class Manager{
       }
     }
 
-
     if(isset($parameterValue)){
       foreach($parameterValue as $groupName => $moduleGroup){
         foreach($moduleGroup as $moduleName => $module){
-          $tmpModule = Db::getModule(null, $groupName, $moduleName);
+          $tmpModule = Db::getModule($groupName, $moduleName);
           if($tmpModule){
             foreach($module as $parameterGroupName => $parameterGroup){
               $tmpParameterGroup = Db::getParameterGroup($tmpModule['id'], $parameterGroupName);
@@ -70,7 +67,7 @@ class Manager{
               }
 
               foreach($parameterGroup as $parameterName => $value){
-                if(!$this->exist($groupName, $moduleName, $parameterGroupName, $parameterName)){
+                if(!self::exist($groupName, $moduleName, $parameterGroupName, $parameterName)){
                   $parameter = array();
                   $parameter['name'] = $parameterName;
                   if(isset($parameterAdmin[$groupName][$moduleName][$parameterGroupName][$parameterName]))
@@ -139,20 +136,13 @@ class Manager{
 
 
 
-  function exist($modGroup, $module, $parGroup, $parameter) {
-    $tmpModule = \Db::getModule(null, $modGroup, $module);
-    if($tmpModule) {
-      $parameter = \Db::getParameter($tmpModule['id'], 'module_id', $parGroup, $parameter);
-      if($parameter) {
-        return true;
-      } else {
-        return false;
-      }
-
+  private static function exist($modGroup, $module, $parGroup, $parameter) {
+    $parameter = Db::getParameter($modGroup, $module, $parGroup, $parameter);
+    if($parameter) {
+      return true;
     } else {
       return false;
     }
-
   }
 
 

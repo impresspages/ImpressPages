@@ -10,22 +10,7 @@ namespace Modules\developer\localization;
 if (!defined('CMS')) exit;
 class Db{
 
-    /**
-     * @access private
-     */
-    public static function getParameter($id, $reference, $par_group, $parameter){
-      $sql = "select p.* from `".DB_PREF."parameter` p,  `".DB_PREF."parameter_group` pg where pg.name = '".mysql_real_escape_string($par_group)."' and p.name = '".mysql_real_escape_string($parameter)."' and p.group_id = pg.id and pg.`".$reference."` = '".$id."'";
-      $rs = mysql_query($sql);
-      if($rs){
-        if($lock = mysql_fetch_assoc($rs))
-          return $lock;
-        else
-          return false;
-      }else{
-        trigger_error($sql." ".mysql_error());
-        return false;
-      }
-    }
+
 
   public static function getModule($groupName, $moduleName){
     $sql = "select m.* from `".DB_PREF."module` m, `".DB_PREF."module_group` g
@@ -42,6 +27,8 @@ class Db{
       return false;
     }
   }
+
+
 
   public static function getModuleGroup($name){
     $sql = "select * from `".DB_PREF."module_group` where `name` = '".mysql_real_escape_string($name)."'";
@@ -58,21 +45,7 @@ class Db{
     }
   }
 
-  public static function getModule($groupName, $moduleName){
-    $sql = "select m.* from `".DB_PREF."module` m, `".DB_PREF."module_group` g
-    where m.group_id = g.id and m.name = '".mysql_real_escape_string($moduleName)."' and g.name = '".mysql_real_escape_string($groupName)."' ";
-    $rs = mysql_query($sql);
-    if($rs){
-      if($lock = mysql_fetch_assoc($rs)){
-        return $lock;
-      } else {
-        return false;
-      }
-    }else{
-      trigger_error($sql." ".mysql_error());
-      return false;
-    }
-  }
+
 
   public static function getParameterGroup($moduleId, $groupName){
     $sql = "select * from `".DB_PREF."parameter_group` where `module_id` = '".(int)$moduleId."' and `name` = '".mysql_real_escape_string($groupName)."'";
@@ -253,7 +226,7 @@ class Db{
           break;
 
           case "lang":
-            $languages = \Frontend\Db::getLanguages();
+            $languages = \Db_100::getLanguages();
             foreach($languages as $key => $language){
               $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
               $rs3 = mysql_query($sql3);
@@ -262,7 +235,7 @@ class Db{
             }
           break;
           case "lang_textarea":
-            $languages = \Frontend\Db::getLanguages();
+            $languages = \Db_100::getLanguages();
             foreach($languages as $key => $language){
               $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
               $rs3 = mysql_query($sql3);
@@ -271,7 +244,7 @@ class Db{
             }
           break;
           case "lang_wysiwyg":
-            $languages = \Frontend\Db::getLanguages();
+            $languages = \Db_100::getLanguages();
             foreach($languages as $key => $language){
               $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
               $rs3 = mysql_query($sql3);

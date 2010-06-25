@@ -184,7 +184,6 @@ DROP TABLE IF EXISTS `ip_cms_mc_misc_rich_text`;
 CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_rich_text` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` mediumtext NOT NULL,
-  `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -213,7 +212,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_faq` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` mediumtext NOT NULL,
   `text` mediumtext NOT NULL,
-  `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -311,7 +309,6 @@ DROP TABLE IF EXISTS `ip_cms_mc_text_photos_text`;
 CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` mediumtext NOT NULL,
-  `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -328,7 +325,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_photo` (
   `photo` mediumtext NOT NULL,
   `photo_big` mediumtext NOT NULL,
   `text` mediumtext NOT NULL,
-  `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'left',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -344,7 +340,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_title` (
   `title` mediumtext NOT NULL,
   `text` mediumtext NOT NULL,
   `level` int(11) NOT NULL DEFAULT '1',
-  `base_url` varchar(255) NOT NULL,
   `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -481,6 +476,29 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_community_newsletter_subscribers` (
   `language_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_m_community_user`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_community_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(255) DEFAULT NULL,
+  `language_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `verified` tinyint(1) NOT NULL DEFAULT '0',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `verification_code` varchar(32) NOT NULL,
+  `new_email` varchar(255) DEFAULT NULL,
+  `new_password` varchar(32) DEFAULT NULL,
+  `warned_on` timestamp NULL DEFAULT NULL,
+  `valid_until` timestamp NULL DEFAULT NULL COMMENT 'required for maintenance. Real date should be calculated in real time by last_login field.',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- Table structure
 

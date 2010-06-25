@@ -4,7 +4,7 @@
  * @copyright Copyright (C) 2009 JSC Apro media.
  * @license   GNU/GPL, see ip_license.html
  */
-namespace update_1_0_4_beta_to_1_0_5;
+namespace update_1_0_4_to_1_0_5;
 
 if (!defined('CMS')) exit;
 
@@ -221,16 +221,17 @@ class Script {
     global $navigation;
     global $htmlOutput;
     require_once('db/db100.php');
-    require_once('parameters_manager.php');
-    
+    require_once(__DIR__.'/parameter_manager.php');
+    require_once (__DIR__.'/parameter_db.php');
+         
     $answer = '';
-    if (\Db_100::getSystemVariable('version') != '1.0.4') {
+    if (\Db_100::getSystemVariable('version') != '1.0.5') {
       
-      $newsletterModule = \Db_100::getModule(null, 'community', 'newsletter');
+      $module = \Modules\developer\localization\Db::getModule('community', 'newsletter');
       
       
       //community/user module
-      $sql = "select max(`row_number`) as 'max_row_number' from `".DB_PREF."module` where `group_id` = '".(int)$newsletterModule['group_id']."' ";
+      $sql = "select max(`row_number`) as 'max_row_number' from `".DB_PREF."module` where `group_id` = '".(int)$module['group_id']."' ";
       $rs = mysql_query($sql);
       if($rs){
         if($lock = mysql_fetch_assoc($rs)){
@@ -241,7 +242,7 @@ class Script {
         
         $sqlUser = "
           INSERT INTO `".DB_PREF."module` (`group_id`, `row_number`, `name`, `admin`, `translation`, `managed`, `version`, `core`) 
-          VALUES (".(int)$newsletterModule['group_id'].", ".($maxRowNumber+1).", 'user', 1, 'User', 1, '1.00', 1);
+          VALUES (".(int)$module['group_id'].", ".($maxRowNumber+1).", 'user', 1, 'User', 1, '1.00', 1);
         ";
         
         $rs = mysql_query($sqlUser);
@@ -283,59 +284,47 @@ class Script {
       \Modules\developer\localization\Manager::saveParameters(__DIR__.'/standard_languages_parameters.php');
       //end community/user module
       
-      if ($this->curStep == $this->stepCount){
-      //  \Db_100::setSystemVariable('version','1.0.5');
 
 
       //drop additional field in widget tables
-        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text_title` DROP `base_url` ";
-        $rs = mysql_query($sql);
-        if(!$rs){
+      $tablesWithBaseUrl = array();
+      $tablesWithBaseUrl[] = DB_PREF.'mc_text_photos_text_title';
+      $tablesWithBaseUrl[] = DB_PREF.'mc_text_photos_text_photo';
+      $tablesWithBaseUrl[] = DB_PREF.'mc_text_photos_text';
+      $tablesWithBaseUrl[] = DB_PREF.'mc_text_photos_faq';
+      $tablesWithBaseUrl[] = DB_PREF.'mc_misc_rich_text';
+      
+      foreach($tablesWithBaseUrl as $table){
+        $sqlColumns = "show columns from `".$table."`";
+        $rsColumns = mysql_query($sqlColumns);
+        if($rsColumns){
+          $columns = array();
+          while($lockColumn = mysql_fetch_assoc($rsColumns)){
+            $columns[$lockColumn['Field']] = 1;
+          }       
+          if(isset($columns['base_url'])){
+            $sql = " alter table `".$table."` drop `base_url` ";
+            $rs = mysql_query($sql);
+            if(!$rs){
+              trigger_error($sql.' '.mysql_error());
+            }
+          }
+        } else {
           trigger_error($sql.' '.mysql_error());
         }
-
-        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text_photo` DROP `base_url`  ";
-        $rs = mysql_query($sql);
-        if(!$rs){
-          trigger_error($sql.' '.mysql_error());
-        }
-
-        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_text` DROP `base_url`  ";
-        $rs = mysql_query($sql);
-        if(!$rs){
-          trigger_error($sql.' '.mysql_error());
-        }
-
-        $sql = " ALTER TABLE `".DB_PREF."mc_text_photos_faq` DROP `base_url`  ";
-        $rs = mysql_query($sql);
-        if(!$rs){
-          trigger_error($sql.' '.mysql_error());
-        }
-
-        $sql = " ALTER TABLE `".DB_PREF."mc_misc_rich_text` DROP `base_url`  ";
-        $rs = mysql_query($sql);
-        if(!$rs){
-          trigger_error($sql.' '.mysql_error());
-        }
-
-
-
-
-
-
-
+      }
 
       //
-
-
+      if ($this->curStep == $this->stepCount){
+       // \Db_100::setSystemVariable('version','1.0.5');
       }      
     }
     
-    /*if ($this->curStep == $this->stepCount) {
-      header("location: ".$navigation->generateLink($navigation->curStep() + 1));
+    if ($this->curStep == $this->stepCount) {
+    //  header("location: ".$navigation->generateLink($navigation->curStep() + 1));
     } else {
-      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
-    }*/
+    //  header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript() + 1));
+    }
       
     return $answer;
   }
