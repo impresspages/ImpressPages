@@ -46,10 +46,10 @@ class ElementPswd extends Element{ //data element in area
           $this->dbField = $value;
         break;      
         case 'hashSalt': 
-          $this->dbField = $value;
+          $this->hashSalt = $value;
         break;      
         case 'useHash': 
-          $this->dbField = $value;
+          $this->useHash = $value;
         break;      
       }
    }

@@ -117,7 +117,7 @@ class Module extends \Modules\standard\content_management\Widget{
   function create_new_instance($values){
     $new_name = $values['new_photo'];
     if ($new_name != ""){
-      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.FILE_DIR);
+      $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, BASE_DIR.IMAGE_DIR);
     }
 
     $new_bigname = $values['new_bigphoto'];

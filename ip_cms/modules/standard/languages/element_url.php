@@ -15,7 +15,6 @@ class ElementUrl extends \Modules\developer\std_mod\ElementText{
   function checkField($prefix, $action, $area){
     global $parametersMod;
 
-    parent::checkField($prefix, $action, $area);
 
     switch ($action){
       case 'insert':
@@ -33,7 +32,7 @@ class ElementUrl extends \Modules\developer\std_mod\ElementText{
         break;
     }
 
-    return null;
+    return parent::checkField($prefix, $action, $area);
   }
 
 

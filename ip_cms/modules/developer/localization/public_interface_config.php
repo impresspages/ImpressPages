@@ -91,3 +91,156 @@ $parameter["parameterValue/standard/configuration/main_parameters/email_template
 </table>";
 
 $parameter["parameterValue/standard/configuration/translations/copyright"] = "Copyright [dates] by [author/owner]";
+
+
+$parameter["parameterTitle/community/user/email_messages/subject_verify_new_email"] = "Subject - verify new email";
+$parameter["parameterValue/community/user/email_messages/subject_verify_new_email"] = "Updated profile verification";
+
+$parameter["parameterTitle/community/user/email_messages/subject_verify_registration"] = "Subject - verify registration";
+$parameter["parameterValue/community/user/email_messages/subject_verify_registration"] = "Registration";
+
+$parameter["parameterTitle/community/user/email_messages/subject_user_deleted"] = "Subject - user deleted";
+$parameter["parameterValue/community/user/email_messages/subject_user_deleted"] = "User deleted";
+
+$parameter["parameterTitle/community/user/email_messages/subject_password_reset"] = "Subject - password reset";
+$parameter["parameterValue/community/user/email_messages/subject_password_reset"] = "Password reset instructions";
+
+$parameter["parameterTitle/community/user/email_messages/subject_account_will_expire"] = "Subject - account will expire";
+$parameter["parameterValue/community/user/email_messages/subject_account_will_expire"] = "Account information renewal";
+
+$parameter["parameterTitle/community/user/email_messages/text_verify_registration"] = "Text - verify registration";
+$parameter["parameterValue/community/user/email_messages/text_verify_registration"] = "<p><strong>Thank you for registering!</strong></p>
+<p>To complete your registration you need to confirm that you have received this email by clicking on the link below:</p>
+<p>[[link]]</p>
+<p>If the link does not work, just copy and paste the entire link into your browser.</p>";
+
+$parameter["parameterTitle/community/user/email_messages/text_verify_new_email"] = "Text - verify new email";
+$parameter["parameterValue/community/user/email_messages/text_verify_new_email"] = "<p>Your email has been changed. To complete the update process of your profile you need to confirm that you have received this email by clicking on the link below:</p>
+<p>[[link]]</p>
+<p>If the link does not work, just copy and paste the entire link into your browser.</p>";
+
+$parameter["parameterTitle/community/user/email_messages/text_user_deleted"] = "Text - user deleted";
+$parameter["parameterValue/community/user/email_messages/text_user_deleted"] = "<p>Your account has been deleted.</p>";
+
+$parameter["parameterTitle/community/user/email_messages/text_account_will_expire"] = "Text - account will expire";
+$parameter["parameterValue/community/user/email_messages/text_account_will_expire"] = "<p>Your account is due to expire at [[date]].</p>
+<p>Please visit the website and log in or click the link bellow to renew your account:</p>
+<p>[[link]]</p>
+<p>&nbsp;</p>
+<p>If you take no action until [[date]] your account will be deleted.</p>";
+
+$parameter["parameterTitle/community/user/email_messages/text_password_reset"] = "Text - password reset confirm";
+$parameter["parameterValue/community/user/email_messages/text_password_reset"] = "<p>You asked to reset your password. Please press the link bellow to confirm this action:</p>
+<p>[[link]]</p>
+<p>If the link does not work, just copy and paste the entire link into your browser.</p>";
+
+
+$parameter["parameterTitle/community/user/errors/already_registered"] = "Already registered";
+$parameter["parameterValue/community/user/errors/already_registered"] = "Already registered";
+
+$parameter["parameterTitle/community/user/errors/passwords_dont_match"] = "Passwords don't match";
+$parameter["parameterValue/community/user/errors/passwords_dont_match"] = "Passwords don't match";
+
+$parameter["parameterTitle/community/user/errors/email_doesnt_exist"] = "Email doesn't exist";
+$parameter["parameterValue/community/user/errors/email_doesnt_exist"] = "Specified e-mail address doesn't exist.";
+
+$parameter["parameterTitle/community/user/errors/incorrect_email_data"] = "Incorrect e-mail data";
+$parameter["parameterValue/community/user/errors/incorrect_email_data"] = "Incorrect e-mail address or password";
+
+$parameter["parameterTitle/community/user/errors/incorrect_login_data"] = "Incorrect login data";
+$parameter["parameterValue/community/user/errors/incorrect_login_data"] = "Incorrect user name or password";
+
+
+$parameter["parameterTitle/community/user/translations/field_email"] = "Field - e-mail";
+$parameter["parameterValue/community/user/translations/field_email"] = "E-mail";
+
+$parameter["parameterTitle/community/user/translations/field_password"] = "Field - password";
+$parameter["parameterValue/community/user/translations/field_password"] = "Password";
+
+$parameter["parameterTitle/community/user/translations/field_confirm_password"] = "Field - confirm password";
+$parameter["parameterValue/community/user/translations/field_confirm_password"] = "Confirm Password";
+
+$parameter["parameterTitle/community/user/translations/field_login"] = "Field - login";
+$parameter["parameterValue/community/user/translations/field_login"] = "User name";
+
+$parameter["parameterTitle/community/user/translations/button_register"] = "Button - registration";
+$parameter["parameterValue/community/user/translations/button_register"] = "Register";
+
+$parameter["parameterTitle/community/user/translations/button_password_reset"] = "Button - password reset";
+$parameter["parameterValue/community/user/translations/button_password_reset"] = "Submit";
+
+$parameter["parameterTitle/community/user/translations/button_update"] = "Button - update";
+$parameter["parameterValue/community/user/translations/button_update"] = "Update";
+
+$parameter["parameterTitle/community/user/translations/button_login"] = "Button - login";
+$parameter["parameterValue/community/user/translations/button_login"] = "Login";
+
+$parameter["parameterTitle/community/user/translations/title_registration"] = "Title - registration";
+$parameter["parameterValue/community/user/translations/title_registration"] = "Registration";
+
+$parameter["parameterTitle/community/user/translations/title_profile"] = "Title - profile";
+$parameter["parameterValue/community/user/translations/title_profile"] = "User profile";
+
+$parameter["parameterTitle/community/user/translations/title_login"] = "Title - login";
+$parameter["parameterValue/community/user/translations/title_login"] = "Login";
+
+$parameter["parameterTitle/community/user/translations/title_password_reset"] = "Title - password reset";
+$parameter["parameterValue/community/user/translations/title_password_reset"] = "Password reset";
+
+$parameter["parameterTitle/community/user/translations/profile_updated"] = "Profile updated";
+$parameter["parameterValue/community/user/translations/profile_updated"] = "<p>Your profile has been updated.</p>";
+
+$parameter["parameterTitle/community/user/translations/logout"] = "Logout";
+$parameter["parameterValue/community/user/translations/logout"] = "Logout";
+
+$parameter["parameterTitle/community/user/translations/password_reset"] = "Password reset hint";
+$parameter["parameterValue/community/user/translations/password_reset"] = "Forgot password?";
+
+$parameter["parameterTitle/community/user/translations/title_registration_verification_error"] = "Title - registration verification error";
+$parameter["parameterValue/community/user/translations/title_registration_verification_error"] = "Email verification error";
+
+$parameter["parameterTitle/community/user/translations/title_new_email_verification_error"] = "Title - new email verification error";
+$parameter["parameterValue/community/user/translations/title_new_email_verification_error"] = "E-mail verification error";
+
+$parameter["parameterTitle/community/user/translations/text_registration_verification_error"] = "Text - registration verification error";
+$parameter["parameterValue/community/user/translations/text_registration_verification_error"] = "<p>Incorrect confirmation link.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_registration_verification_required"] = "Text - registration verification required";
+$parameter["parameterValue/community/user/translations/text_registration_verification_required"] = "<p>Thank you for your registration.</p>
+<p>The confirmation e-mail has been sent to your e-mail address. Please confirm the registration by clicking on the link in the email.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_new_email_verification_required"] = "Text - new email verification required";
+$parameter["parameterValue/community/user/translations/text_new_email_verification_required"] = "<p>To update the e-mail a confirmation link has been sent to your new e-mail address. Please confirm new data by clicking on the link in the e-mail.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_new_email_verification_error"] = "Text - new e-mail verification error";
+$parameter["parameterValue/community/user/translations/text_new_email_verification_error"] = "<p>Verification link is incorrect or requested e-mail address was taken during confirmation time.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_account_renewed"] = "Text - account renewed";
+$parameter["parameterValue/community/user/translations/text_account_renewed"] = "<p>Your account has been renewed successfully.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_user_exist_error"] = "Text - user exist error";
+$parameter["parameterValue/community/user/translations/text_user_exist_error"] = "<p>Requested login name is unavailable.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_email_exist_error"] = "Text - email exist error";
+$parameter["parameterValue/community/user/translations/text_email_exist_error"] = "<p>E-mail address is already in use.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_password_reset"] = "Password reset text";
+$parameter["parameterValue/community/user/translations/text_password_reset"] = "<p>Please enter your e-mail address and new password.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_password_verified"] = "Text - password verified";
+$parameter["parameterValue/community/user/translations/text_password_verified"] = "Password was updated successfully. You can login now.";
+
+$parameter["parameterTitle/community/user/translations/text_registration_successful"] = "Text - registraton successful";
+$parameter["parameterValue/community/user/translations/text_registration_successful"] = "<p>Your registration was completed successfully. You can login now.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_password_reset_sent"] = "Text - password reset instructions was sent";
+$parameter["parameterValue/community/user/translations/text_password_reset_sent"] = "<p>Password reset instructions was sent to your e-mail address.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_disabled_registration_error"] = "Text - disabled registration error";
+$parameter["parameterValue/community/user/translations/text_disabled_registration_error"] = "<p>Registration is disabled. Please contact website administrator.</p>";
+
+$parameter["parameterTitle/community/user/translations/text_password_verification_error"] = "Text - password reset verification error";
+$parameter["parameterValue/community/user/translations/text_password_verification_error"] = "Verification of new password has failed.";
+
+$parameter["parameterTitle/community/user/translations/text_account_renewal_error"] = "Text - account renewal error";
+$parameter["parameterValue/community/user/translations/text_account_renewal_error"] = "<p>Error occurred while renewing your account. Try to renew your account by logging in and out. If you can't do so, your account may be already deleted.</p>";

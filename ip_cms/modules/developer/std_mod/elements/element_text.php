@@ -14,7 +14,9 @@ class ElementText extends Element{ //data element in area
   var $maxLength;
 
   function __construct($variables){
-    $this->order = true;
+    if(!isset($variables['order'])){
+      $variables['order'] = true;
+    }
     
     parent::__construct($variables);
     

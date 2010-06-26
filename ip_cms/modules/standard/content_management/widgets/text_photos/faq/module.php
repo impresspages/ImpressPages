@@ -210,7 +210,7 @@ class Module extends \Modules\standard\content_management\Widget {
   }
 
   function clearCache($cachedBaseUrl) {
-    $sql = "update `".DB_PREF."mc_text_photos_faq` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."'), `base_url` = '".mysql_real_escape_string(BASE_URL)."'  where 1 ";
+    $sql = "update `".DB_PREF."mc_text_photos_faq` set `text` = REPLACE(`text`, '".mysql_real_escape_string($cachedBaseUrl)."', '".mysql_real_escape_string(BASE_URL)."')  where 1 ";
     $rs = mysql_query($sql);
     if (!$rs) {
       trigger_error($sql." ".mysql_error());

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * @package   ImpressPages
@@ -41,6 +41,7 @@ $moduleTitle["developer"]["config_exp_imp"] = "Modules exp/imp";
 $moduleTitle["developer"]["localization"] = "Localization";
 $moduleTitle["community"]["newsletter"] = "Newsletter";
 $moduleTitle["community"]["newsletter_subscribers"] = "Newsletter subscribers";
+$moduleTitle["community"]["user"] = "User";
 
 
 $parameterGroupTitle["administrator"]["administrators"]["admin_translations"] = "Admin translations";
@@ -59,6 +60,11 @@ $parameterGroupTitle["community"]["newsletter"]["admin_translations"] = "Admin t
 $parameterGroupTitle["community"]["newsletter"]["options"] = "Options";
 $parameterGroupTitle["community"]["newsletter"]["subscription_translations"] = "Translations";
 $parameterGroupTitle["community"]["newsletter_subscribers"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["community"]["user"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["community"]["user"]["email_messages"] = "E-mail messages";
+$parameterGroupTitle["community"]["user"]["errors"] = "Errors";
+$parameterGroupTitle["community"]["user"]["options"] = "Options";
+$parameterGroupTitle["community"]["user"]["translations"] = "Translations";
 $parameterGroupTitle["developer"]["config_exp_imp"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["widgets"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["localization"]["admin_translations"] = "Admin translations";
@@ -1089,12 +1095,17 @@ $parameter["parameterValue/standard/content_management/widget_video/layout_defau
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
 
-
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_not_empty_language"] = "Can't delete not empty language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_not_empty_language"] = "Please delete all pages in this language and then try again.";
 
 $parameter["parameterTitle/standard/languages/admin_translations/code"] = "Code";
 $parameter["parameterValue/standard/languages/admin_translations/code"] = "RFC 4646 code";
+
+$parameter["parameterTitle/standard/languages/admin_translations/error_duplicate_url"] = "Error - duplicate URL";
+$parameter["parameterValue/standard/languages/admin_translations/error_duplicate_url"] = "Duplicate URL";
+
+$parameter["parameterTitle/standard/languages/admin_translations/error_incorrect_url"] = "Error - incorrect URL";
+$parameter["parameterValue/standard/languages/admin_translations/error_incorrect_url"] = "Incorrect URL. You can't use slash in URL.";
 
 $parameter["parameterTitle/standard/languages/admin_translations/languages"] = "Languages";
 $parameter["parameterValue/standard/languages/admin_translations/languages"] = "Languages";
@@ -1213,4 +1224,65 @@ $parameter["parameterValue/standard/seo/admin_translations/title"] = "Title";
 
 $parameter["parameterTitle/standard/seo/admin_translations/url"] = "URL";
 $parameter["parameterValue/standard/seo/admin_translations/url"] = "URL";
+
+$parameter["parameterTitle/community/user/admin_translations/login"] = "Login";
+$parameter["parameterValue/community/user/admin_translations/login"] = "Login";
+
+$parameter["parameterTitle/community/user/admin_translations/email"] = "E-mail";
+$parameter["parameterValue/community/user/admin_translations/email"] = "E-mail";
+
+$parameter["parameterTitle/community/user/admin_translations/password"] = "Password";
+$parameter["parameterValue/community/user/admin_translations/password"] = "Password";
+
+$parameter["parameterTitle/community/user/admin_translations/verified"] = "Verified";
+$parameter["parameterValue/community/user/admin_translations/verified"] = "Verified";
+
+$parameter["parameterTitle/community/user/admin_translations/created_on"] = "Created on";
+$parameter["parameterValue/community/user/admin_translations/created_on"] = "Created on";
+
+$parameter["parameterTitle/community/user/admin_translations/warned_on"] = "Warned on";
+$parameter["parameterValue/community/user/admin_translations/warned_on"] = "Warned on";
+
+$parameter["parameterTitle/community/user/admin_translations/last_login"] = "Last login";
+$parameter["parameterValue/community/user/admin_translations/last_login"] = "Last login";
+
+$parameter["parameterTitle/community/user/admin_translations/user"] = "User";
+$parameter["parameterValue/community/user/admin_translations/user"] = "User";
+
+$parameter["parameterTitle/community/user/admin_translations/error_email"] = "Error email";
+$parameter["parameterValue/community/user/admin_translations/error_email"] = "Incorrect email address";
+
+$parameter["parameterTitle/community/user/options/login_type"] = "Login type (login, email)";
+$parameter["parameterValue/community/user/options/login_type"] = "login";
+
+$parameter["parameterTitle/community/user/options/zone_after_login"] = "Redirect to zone after login (enter zone name)";
+$parameter["parameterValue/community/user/options/zone_after_login"] = "";
+
+$parameter["parameterTitle/community/user/options/expires_in"] = "User account expires in (months)";
+$parameter["parameterValue/community/user/options/expires_in"] = "24";
+
+$parameter["parameterTitle/community/user/options/warn_before"] = "Warn user about deletion before (days)";
+$parameter["parameterValue/community/user/options/warn_before"] = "30";
+
+$parameter["parameterTitle/community/user/options/warn_every"] = "Warn user about deletion every (days)";
+$parameter["parameterValue/community/user/options/warn_every"] = "9";
+
+$parameter["parameterTitle/community/user/options/delete_expired_users"] = "Delete expired user";
+$parameter["parameterValue/community/user/options/delete_expired_users"] = "1";
+
+$parameter["parameterTitle/community/user/options/type_password_twice"] = "Type password twice";
+$parameter["parameterValue/community/user/options/type_password_twice"] = "1";
+
+$parameter["parameterTitle/community/user/options/registration_on_login_page"] = "Registration link on login page";
+$parameter["parameterValue/community/user/options/registration_on_login_page"] = "1";
+
+$parameter["parameterTitle/community/user/options/allow_password_reset"] = "Allow password reset";
+$parameter["parameterValue/community/user/options/allow_password_reset"] = "1";
+
+$parameter["parameterTitle/community/user/options/enable_registration"] = "Enable registration";
+$parameter["parameterValue/community/user/options/enable_registration"] = "1";
+
+$parameter["parameterTitle/community/user/options/encrypt_passwords"] = "Encrypt passwords";
+$parameter["parameterValue/community/user/options/encrypt_passwords"] = "0";
+
 

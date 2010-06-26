@@ -131,7 +131,7 @@ class Db{
     }
     
     
-    $sql = "insert into `".DB_PREF."module_group` set `row_number` = ".(int)$maxRowNumber.", `translation`='".mysql_real_escape_string($moduleGroupName)."',`name`='".mysql_real_escape_string($moduleGroupKey)."',`admin`='".mysql_real_escape_string($moduleGroupAdmin)."'  ";
+    $sql = "insert into `".DB_PREF."module_group` set `row_number` = ".(int)$maxRowNumber.", `translation`='".mysql_real_escape_string($moduleGroupName)."',`name`='".mysql_real_escape_string($moduleGroupKey)."',`admin`='".(int)$moduleGroupAdmin."'  ";
     $rs = mysql_query($sql);
     if($rs){
       return mysql_insert_id();
@@ -143,7 +143,7 @@ class Db{
   }
 
   public static function insertModule($moduleName, $moduleKey, $moduleAdmin, $moduleManaged, $groupId, $version){
-    $sql = "insert into `".DB_PREF."module` set `translation`='".mysql_real_escape_string($moduleName)."',`name`='".mysql_real_escape_string($moduleKey)."',`admin`='".mysql_real_escape_string($moduleAdmin)."',`managed`='".mysql_real_escape_string($moduleManaged)."', `group_id` = ".(int)$groupId.", `version` = '".mysql_real_escape_string($version)."'  ";
+    $sql = "insert into `".DB_PREF."module` set `translation`='".mysql_real_escape_string($moduleName)."',`name`='".mysql_real_escape_string($moduleKey)."',`admin`='".(int)$moduleAdmin."',`managed`='".(int)$moduleManaged."', `group_id` = ".(int)$groupId.", `version` = '".mysql_real_escape_string($version)."', `core` = 0  ";
     $rs = mysql_query($sql);
     if($rs){
       return mysql_insert_id();
