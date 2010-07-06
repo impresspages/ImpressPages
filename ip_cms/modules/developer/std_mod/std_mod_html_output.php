@@ -133,7 +133,7 @@ class stdModHtmlOutput{
         $this->html .= '
 <script type="text/javascript">
   //<![CDATA[
-  '.Config::getMceInit('mode: "specific_textareas"', 'editor_selector : "mceEditor"').'
+  '.Config::getMceInit('mode: "specific_textareas"', 'editor_selector : "mceEditor"', 'backend').'
   //]]>
 </script>
 ';
