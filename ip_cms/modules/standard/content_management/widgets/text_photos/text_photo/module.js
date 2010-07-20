@@ -92,7 +92,7 @@ function content_mod_text_photo() {
     document.getElementById(worker_form).submit();
 
   }
-  ;
+  
 
   function manage() {
     var div = document.createElement('div');
@@ -191,7 +191,7 @@ function content_mod_text_photo() {
 
     return div;
   }
-  ;
+  
 
   function manage_init() {
 
@@ -302,10 +302,6 @@ function content_mod_text_photo() {
   }
 
   function get_answer(notes) { // answer after save_to_db
-    /*
-		 * for(var i=0; i<notes.length; i++) alert(notes[i]);
-		 */
-
     return false;
   }
 

@@ -71,9 +71,10 @@ function content_mod_text_title() {
     document.getElementById(worker_form).submit();
 
   }
-  ;
+  
 
   function manage() {
+    //alert('manage');
     var div = document.createElement('div');
     div.setAttribute("className", 'ipCmsManagement');
     div.setAttribute("class", 'ipCmsManagement');
@@ -129,7 +130,7 @@ function content_mod_text_title() {
 
     return div;
   }
-  ;
+  
 
   function manage_init() {
 
@@ -140,7 +141,6 @@ function content_mod_text_title() {
     }
 		
     menu_mod_text_title_select_level(this.collection_number, this.level);
-
     eval(configWidgetTextPhotosTextTitleMceInit);
 
 
@@ -164,13 +164,10 @@ function content_mod_text_title() {
   function save() {
     this.layout = document.getElementById('mod_' + this.collection_number + '_layout').layout.value;
 		
-    if (document
-      .getElementById('management_' + this.collection_number + '_text_title'))
-      this.title = document
-      .getElementById('management_' + this.collection_number + '_text_title').value;
+    if (document.getElementById('management_' + this.collection_number + '_text_title'))
+      this.title = document.getElementById('management_' + this.collection_number + '_text_title').value;
 
-    this.text = tinyMCE.get(
-      'management_' + this.collection_number + '_text').getContent();// or or tinyMCE.activeEditor.getContent()
+    this.text = tinyMCE.get('management_' + this.collection_number + '_text').getContent();// or or tinyMCE.activeEditor.getContent()
 
     this.level = this.tmpLevel;
 		
@@ -178,14 +175,12 @@ function content_mod_text_title() {
   }
 
   function get_answer(notes) {
-    /*
-		 * for(var i=0; i<notes.length; i++) alert(notes[i]);
-		 */
     return false;
   }
 
   function close() {
-
+    tinyMCE.execCommand('mceRemoveControl', true,
+      'management_' + this.collection_number + '_text');
   }
 
   function store_to_db_fields(row_number, menu_element_id) {
