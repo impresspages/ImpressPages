@@ -3,6 +3,7 @@
 
 define('IP_PHP_VERSION', 'PHP versija >= 5.3');
 define('IP_MOD_REWRITE', 'Apache modulis "mod_rewrite"');
+define('IP_MAGIC_QUOTES', '"Magic quotes" išjungta');
 
 define('IP_OK', 'Taip');
 define('IP_ERROR', 'Ne');
@@ -12,7 +13,7 @@ define('IP_BACK', 'Atgal');
 define('IP_NEXT', 'Toliau');
 define('IP_ACCEPT', 'Sutinku');
 define('IP_INSTALLATION', 'ImpressPages TVS diegimo vedlys');
-define('IP_VERSION', 'Versija 1.0.5');
+define('IP_VERSION', 'Versija 1.0.6');
 define('IP_SUBDIRECTORIES', '(įskaitant pakatalogius ir failus)');
 define('IP_OPTIONAL', '(pasirinktinai)');
 
@@ -79,5 +80,3 @@ define('IP_FINISH_MESSAGE', '
 Jei norite pakartoti diegimo procesą, prašome ištrinti konfigūracijos failo "ip_config.php" turinį.
 </p>
 ');
-
-?>

@@ -10,6 +10,8 @@ if (!defined('CMS')) exit;
 
 
 class Update {
+  private static $connection;
+
   public function execute() {
     global $navigation;
     global $htmlOutput;
@@ -140,11 +142,11 @@ class Update {
 
   private function dbConnect() {
     //db connect
-    $conn = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
-    if(!$conn) {
-			trigger_error('Can\'t connect to database.');
-			return false;
-    }else{
+    self::$connection = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    if(!self::$connection) {
+      trigger_error('Can\'t connect to database.');
+      return false;
+    }else {
       mysql_select_db(DB_DATABASE);
       mysql_query("SET CHARACTER SET ".MYSQL_CHARSET);
     }
@@ -152,18 +154,18 @@ class Update {
   }
 
   private function dbDisconnect() {
-    mysql_close();
+    mysql_close(self::$connection);
   }
 
   private function includeConfig() {
     if(file_exists('../includes/config.php')) {
       require_once('../includes/config.php');
     } else {
-      if(file_exists('../config.php')){
+      if(file_exists('../config.php')) {
         require_once('../config.php');
       } else {
         require_once('../ip_config.php');
-      }                                        
+      }
     }
   }
 
@@ -174,14 +176,14 @@ class Update {
     $answer = \Db_100::getSystemVariable('version');
 
     if ($answer == "1.0.0 Alpha") {
-      if(file_exists('../includes/config.php') && !file_exists('../ip_config.php')){
-        if(defined('TMP_IMAGE_DIR')){
+      if(file_exists('../includes/config.php') && !file_exists('../ip_config.php')) {
+        if(defined('TMP_IMAGE_DIR')) {
           $fileName = '../'.TMP_IMAGE_DIR."100alpha";
           $fileHandle = fopen($fileName, 'w');
           fclose($fileHandle);
         }
       }
-      if(defined('TMP_IMAGE_DIR') && !file_exists('../'.TMP_IMAGE_DIR.'100alpha')){
+      if(defined('TMP_IMAGE_DIR') && !file_exists('../'.TMP_IMAGE_DIR.'100alpha')) {
         $answer = "1.0.1 Beta";
       }
 

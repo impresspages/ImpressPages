@@ -3,6 +3,7 @@
 
 define('IP_PHP_VERSION', 'PHP versie >= 5.3');
 define('IP_MOD_REWRITE', 'Apache module "mod_rewrite"');
+define('IP_MAGIC_QUOTES', 'Magic quotes off');
 
 define('IP_OK', 'Ja');
 define('IP_ERROR', 'Nee');
@@ -12,7 +13,7 @@ define('IP_BACK', 'Vorige');
 define('IP_NEXT', 'Volgende');
 define('IP_ACCEPT', 'Accepteren');
 define('IP_INSTALLATION', 'ImpressPages CMS installatie wizard');
-define('IP_VERSION', 'Versie 1.0.5');
+define('IP_VERSION', 'Versie 1.0.6');
 define('IP_SUBDIRECTORIES', '(inclusief submappen en bestanden)');
 define('IP_OPTIONAL', '(optie)');
 
