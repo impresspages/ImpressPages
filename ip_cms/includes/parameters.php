@@ -157,16 +157,16 @@ class ParametersMod {
       else {
         $backtrace = debug_backtrace();
         if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-          trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
+          trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
         else
-          trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
+          trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
       }
     }else {
       $backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-        trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
+        trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
       else
-        trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
+        trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
     }
   }
 
@@ -195,16 +195,16 @@ class ParametersMod {
       else {
         $backtrace = debug_backtrace();
         if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-          trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
+          trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
         else
-          trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
+          trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
       }
     }else {
       $backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-        trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
+        trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
       else
-        trigger_error("Parameter does't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
+        trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
     }
   }
 
@@ -230,7 +230,7 @@ class ParametersMod {
       if(isset($this->parameters[$languageId][$modGroup][$module]))
         return($this->parameters[$languageId][$modGroup][$module]);
       else
-        trigger_error("Parameter does't exists ".$modGroup." ".$module." ".$parGroup." ".$parameter);
+        trigger_error("Parameter doesn't exists ".$modGroup." ".$module." ".$parGroup." ".$parameter);
     }
   }
 

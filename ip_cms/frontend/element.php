@@ -137,7 +137,7 @@ class Element{
   
   /**
    * 
-   * @return Element or false if next element does't exist
+   * @return Element or false if next element doesn't exist
    * 
    */
   public function getNextElement(){
@@ -150,7 +150,7 @@ class Element{
   
   /**
    * 
-   * @return Element or false if previous element does't exist
+   * @return Element or false if previous element doesn't exist
    * 
    */
   public function getPreviousElement(){
