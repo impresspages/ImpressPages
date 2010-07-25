@@ -221,8 +221,6 @@ class Script {
     global $navigation;
     global $htmlOutput;
     require_once('db/db100.php');
-    require_once(__DIR__.'/parameter_manager.php');
-    require_once (__DIR__.'/parameter_db.php');
 
     $answer = '';
     if (\Db_100::getSystemVariable('version') != '1.0.6') {

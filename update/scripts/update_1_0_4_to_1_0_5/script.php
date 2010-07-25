@@ -248,7 +248,6 @@ class Script {
         $rs = mysql_query($sqlUser);
         if($rs){
           $userModuleId = mysql_insert_id();
-                                echo 'Id '.$userModuleId;
           $users = $this->getUsers();
           foreach($users as $user){
             $this->addPermissions($userModuleId, $user['id']);
