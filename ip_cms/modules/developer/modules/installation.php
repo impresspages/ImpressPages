@@ -302,7 +302,7 @@ class ModulesInstallation{
     }
      
     if($tmpHtml != ''){
-      $tmpHtml = '<br/><br/>'.$tmpHtml;
+      $tmpHtml = '<br /><br />'.$tmpHtml;
     }
 
     if($newModule['action'] == 'insert'){

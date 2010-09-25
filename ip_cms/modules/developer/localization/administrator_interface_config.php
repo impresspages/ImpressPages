@@ -140,7 +140,7 @@ $parameter["parameterTitle/administrator/email_queue/admin_translations/preview"
 $parameter["parameterValue/administrator/email_queue/admin_translations/preview"] = "Preview";
 
 $parameter["parameterTitle/administrator/email_queue/admin_translations/send"] = "Send";
-$parameter["parameterValue/administrator/email_queue/admin_translations/send"] = "Send on";
+$parameter["parameterValue/administrator/email_queue/admin_translations/send"] = "Sent on";
 
 $parameter["parameterTitle/administrator/email_queue/admin_translations/subject"] = "Subject";
 $parameter["parameterValue/administrator/email_queue/admin_translations/subject"] = "Subject";

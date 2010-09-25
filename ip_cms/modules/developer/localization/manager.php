@@ -102,9 +102,9 @@ class Manager{
         case 'import_uploaded':
               $answer .= HtmlOutput::header();
               $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'preview')).'</h1>';
-              $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br/><br/><br/>';            
+              $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br /><br /><br />';
               $answer .= $this->previewParameters($_SESSION['backend_modules']['developer']['localization']['uploaded_file']);
-              $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br/><br/>';            
+              $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br /><br />';
               $answer .= HtmlOutput::footer(); 
         break;
         case 'import_confirmed':

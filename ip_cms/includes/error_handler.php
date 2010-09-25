@@ -53,7 +53,7 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
   }
   
   
-  $message = '<b>'.$message.'</b> '.htmlspecialchars($errstr).'<br/> in '.$errfile.' on line '.$errline.'';
+  $message = '<b>'.$message.'</b> '.htmlspecialchars($errstr).'<br /> in '.$errfile.' on line '.$errline.'';
   if($log) //if log module not initialized yet, it will only throw new one error. So, use it only if it is initialized
 	 $log->log('system', 'error', $message);
   if(ERRORS_SHOW && !defined('WORKER')){

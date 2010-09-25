@@ -56,13 +56,13 @@ class Element{
   protected $selected;
   /** int - depth of the element (starts at 1) */
   protected $depth;
-  /** string - element type<br/>
-   * <br/>
-   * Available values:<br/>
-   * default - show content<br/>
-   * inactive - without link on it<br/>
-   * subpage - redirect to first subpage<br/>
-   * redirect - redirect to external page<br/>
+  /** string - element type<br />
+   * <br />
+   * Available values:<br />
+   * default - show content<br />
+   * inactive - without link on it<br />
+   * subpage - redirect to first subpage<br />
+   * redirect - redirect to external page<br />
    */
   protected $type;
   /** string - redirect URL if element type is "redirect" */

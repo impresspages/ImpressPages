@@ -329,7 +329,7 @@ class ElementSelectLang extends Element{ //data element in area
     $answer = '';
     
     $sql = "select `".mysql_real_escape_string($this->recordIdField)."` as 'id' from `".DB_PREF.mysql_real_escape_string($this->translationTable)."`   
-    where `".mysql_real_escape_string($this->translationField)."` like '%".mysql_real_escape_string($value)."%'";
+    where `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."'";
     $rs = mysql_query($sql);
     if ($rs){
       $ids = array();

@@ -119,19 +119,19 @@ class EditMenuManagement {
     <form  id="f_main_fields_popup" action="" onsubmit="f_main_fields_popup_save(); return false;">
     <div>
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_button_title')).'</label>
-    <div class="ipCmsInput"><input name="page_button_title"  value="" /></div><br/>
+    <div class="ipCmsInput"><input name="page_button_title"  value="" /></div><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_page_title')).'</label>
-    <div class="ipCmsInput"><input name="page_page_title"  value="" /></div><br/>
+    <div class="ipCmsInput"><input name="page_page_title"  value="" /></div><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_keywords')).'</label>
-    <div class="ipCmsInput"><input name="keywords"  value=""/></div><br/>
+    <div class="ipCmsInput"><input name="keywords"  value=""/></div><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_description')).'</label>
-    <textarea rows="5" cols="30" name="description"></textarea><br/><br/>
+    <textarea rows="5" cols="30" name="description"></textarea><br /><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_url')).' '.$cur_url.'</label>
-    <div style="width: " class="ipCmsInput"><input name="url" value=""/></div><br/>
+    <div style="width: " class="ipCmsInput"><input name="url" value=""/></div><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_type')).'</label>
     <div>
@@ -141,13 +141,13 @@ class EditMenuManagement {
     <label class="ipCmsTitle"><input id="f_main_fields_type_redirect" name="type" type="radio" value="redirect" />&nbsp;'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_redirect')).'</label>
     <p id="f_main_fields_redirect_error" class="ipCmsError">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty')).'</p>
     <div class="ipCmsInput"><input name="redirect_url" value=""/></div>
-    </div><br/>
+    </div><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_visible')).'</label>
-    <input type="checkbox" name="visible" /><br/><br/>
+    <input type="checkbox" name="visible" /><br /><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_add_rss')).'</label>
-    <input type="checkbox" name="rss" /><br/><br/>
+    <input type="checkbox" name="rss" /><br /><br />
 
     <label class="ipCmsTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations','man_additional_created_on')).'</label>
     <p id="f_main_fields_created_on_error" class="ipCmsError">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_error_date_format')).' '.date("Y-m-d").'</p>

@@ -32,7 +32,6 @@ class Template {
           if($manager){
             return '
 <div class="ipWidget ipWidgetVideo">
- <table align="left" cellspacing="0" cellpaddding="0"><tr><td>
   <object align="left" class="block" scale="noscale" salign="tl" width="'.$width.'" height="'.$height.'">
   <param name="movie" value="'.BASE_URL.$file.'">
   <param name="scale" value="noscale">
@@ -43,7 +42,6 @@ class Template {
     wmode="transparent">
   </embed>
   </object>
-</td></tr></table>
 <div class="clear"><!-- --></div>
 </div>
 ';    

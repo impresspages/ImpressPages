@@ -154,20 +154,20 @@ class Manager{
           <p style="display: none;" id="property_description_error" class="error"></p>
           <textarea class="stdMod" name="property_description" ></textarea><br><br>
 
-          <input  style="cursor: pointer;" class="knob bolder" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" type="submit"><br/><br/>
+          <input  style="cursor: pointer;" class="knob bolder" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" type="submit"><br /><br />
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'url')).'</span><br>
           <p style="display: none;" id="property_url_error" class="error"></p>
           <span id="url_prefix" class="label"></span><span style="margin-left: -7px;" id="url_suffix" class="label"></span><br>
-          <input onKeyUp="ModuleStandardMenuManagement.setUrlSuffix(this.value);" onChange="ModuleStandardMenuManagement.setUrlSuffix(this.value);" autocomplete="off" class="stdMod" name="property_url" value="admin_translations"><br><br/>
+          <input onKeyUp="ModuleStandardMenuManagement.setUrlSuffix(this.value);" onChange="ModuleStandardMenuManagement.setUrlSuffix(this.value);" autocomplete="off" class="stdMod" name="property_url" value="admin_translations"><br /><br />
   
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'type')).'</span><br>
-          <input id="property_type_default" name="property_type" value="default" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</span><br/>
-          <input id="property_type_inactive" name="property_type" value="inactive" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</span><br/>
-          <input id="property_type_subpage" name="property_type" value="subpage" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</span><br/>
-          <input id="property_type_redirect" name="property_type" value="redirect" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</span><br/>
+          <input id="property_type_default" name="property_type" value="default" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</span><br />
+          <input id="property_type_inactive" name="property_type" value="inactive" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</span><br />
+          <input id="property_type_subpage" name="property_type" value="subpage" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</span><br />
+          <input id="property_type_redirect" name="property_type" value="redirect" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</span><br />
           <p style="display: none;" id="property_type_error" class="error">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty')).'</p>
-          <input autocomplete="off" class="stdMod" name="property_redirect_url" value=""><br/><br/>
+          <input autocomplete="off" class="stdMod" name="property_redirect_url" value=""><br /><br />
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'</span><br><p style="display: none;" id="std_mod_update_f_error_i_n_2" class="error"></p>
           <p style="display: none;" id="property_visible_error" class="error"></p>

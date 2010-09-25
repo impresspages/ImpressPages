@@ -293,8 +293,9 @@ class StandardModule{
   									and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add."";
                    
                   $rs_update = mysql_query($sql_update);
-                  if(!$rs_update)
-                  trigger_error($sql_update." ".mysql_error());
+                  if(!$rs_update){
+                    trigger_error($sql_update." ".mysql_error());
+                  }
                 }else{
                    
                   $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
@@ -419,9 +420,9 @@ class StandardModule{
               }
             }
             $rs = mysql_query($sql);
-            if (!$rs)
-            trigger_error("Impossible to insert new data ".$sql);
-            else{
+            if (!$rs){
+              trigger_error("Impossible to insert new data ".$sql." ".mysql_error());
+            }else{
               $lastInsertId = mysql_insert_id();
 
               /* update sort field value */
@@ -968,8 +969,9 @@ class StandardModule{
               if(isset($_REQUEST['sortField_'.$field_number]) && $_REQUEST['sortField_'.$field_number] != null && is_numeric($_REQUEST['sortField_'.$field_number])){
                 $sql = " update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->getSortField)."` = '".(int)$_REQUEST['sortField_'.$field_number]."' where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($field_number)."'";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can't change sort order ".$sql);
+                if (!$rs){
+                  trigger_error("Can't change sort order ".$sql." ".mysql_error());
+                }
               }
             }
           }
@@ -1031,7 +1033,9 @@ class StandardModule{
               return false;
             }
           }
-        }else trigger_error("Can't get children ".$sql);
+        }else{
+          trigger_error("Can't get children ".$sql." ".mysql_error());
+        }
       }
     }
     return $allowDelete;
@@ -1054,14 +1058,17 @@ class StandardModule{
           $lock = mysql_fetch_assoc($rs);
           $this->delete($child, $lock['key']);
         }
-      }else trigger_error("Can't get children ".$sql);
+      }else{
+        trigger_error("Can't get children ".$sql." ".mysql_error());
+      }
     }
     foreach($currentArea->elements as $key => $element)
     $new_parameter = $element->processDelete($currentArea, $id);
     $sql = "delete from `".mysql_real_escape_string(DB_PREF.$currentArea->dbTable)."` where `".mysql_real_escape_string($currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($id)."' ";
     $rs = mysql_query($sql);
-    if (!$rs)
-    trigger_error("Unable to delete ".$sql);
+    if (!$rs){
+      trigger_error("Unable to delete ".$sql." ".mysql_error());
+    }
 
     if(method_exists($currentArea, 'afterDelete')){
       $currentArea->afterDelete($id);
@@ -1482,7 +1489,9 @@ class StandardModule{
         $answer .='
           </tr>';
       }
-    }else trigger_error("Area not found. ".$sql);
+    }else{
+      trigger_error("Area not found. ".$sql." ".mysql_error());
+    }
 
     $answer .= '</table>
 		</div>

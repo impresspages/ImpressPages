@@ -83,7 +83,7 @@
   <div class="menuSub">
 <?php
 
-  //thrid level menu generation example
+  //third level menu generation example
 	require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
 	$menuLeft = new \Library\Php\Menu\Common();
 	echo $menuLeft->generate('left', 3, 1);

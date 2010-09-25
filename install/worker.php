@@ -167,7 +167,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 	  define('INCLUDE_DIR', 'ip_cms/includes/'); //system directory
 	  define('BACKEND_DIR', 'ip_cms/backend/'); //system directory
 	  define('FRONTEND_DIR', 'ip_cms/frontend/'); //system directory
-	  define('LIBRARY_DIR', 'ip_libs/'); //general classes and thrid party libraries
+	  define('LIBRARY_DIR', 'ip_libs/'); //general classes and third party libraries
 	  define('MODULE_DIR', 'ip_cms/modules/'); //system modules directory
 	  define('CONFIG_DIR', 'ip_configs/'); //modules configuration directory
 	  define('PLUGIN_DIR', 'ip_plugins/'); //plugins directory

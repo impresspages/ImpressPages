@@ -28,7 +28,7 @@ class stdModHtmlOutput{
 
 
   function fieldName($title){
-    $this->html .= '<b>'.$title.'</b><br/>';
+    $this->html .= '<b>'.$title.'</b><br />';
   
   }
   

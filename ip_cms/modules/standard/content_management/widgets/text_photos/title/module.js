@@ -156,7 +156,7 @@ function content_mod_title() {
         fields.push( [ 'group_key', 'text_photos' ]);
         fields.push( [ 'module_key', 'title' ]);
         fields.push( [ 'layout', this.layout ]);
-        fields.push( [ 'title', this.title.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") ]);
+        fields.push( [ 'title', this.title]);
         fields.push( [ 'level', this.level ]);
         fields.push( [ 'content_element_id', menu_element_id ]);
         fields.push( [ 'row_number', row_number ]);
@@ -173,10 +173,7 @@ function content_mod_title() {
         fields.push( [ 'group_key', 'text_photos' ]);
         fields.push( [ 'module_key', 'title' ]);
         fields.push( [ 'layout', this.layout ]);
-        fields.push( [
-          'title',
-          this.title.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;") ]);
+        fields.push( [ 'title', this.title ]);
         fields.push( [ 'level', this.level ]);
         fields.push( [ 'id', this.id ]);
         fields.push( [ 'row_number', row_number ]);

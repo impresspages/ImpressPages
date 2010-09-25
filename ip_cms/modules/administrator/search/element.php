@@ -121,27 +121,27 @@ class Element extends \Frontend\Element{
 	  $keywordsRank = 1;
 	  $descriptionRank = 1;
 		foreach($searchWords as $key => $searchWord){
-			$position = stripos($element->getText(), $searchWord);
+			$position = mb_stripos($element->getText(), $searchWord);
 			if( $position === false) {
 				$textRank = 0;	
 			}
 			
-			$position = stripos($element->getButtonTitle(), $searchWord);
+			$position = mb_stripos($element->getButtonTitle(), $searchWord);
 			if($position === false) {
 				$buttonTitleRank = 0;
 			 }	
 			
-			$position = stripos($element->getPageTitle(), $searchWord);
+			$position = mb_stripos($element->getPageTitle(), $searchWord);
 			if($position === false) {
 				$pageTitleRank = 0;
 			}
 
-			$position = stripos($element->getKeywords(), $searchWord);
+			$position = mb_stripos($element->getKeywords(), $searchWord);
 			if($position === false) {
 				$keywordsRank = 0;
 			}
 
-			$position = stripos($element->getDescription(), $searchWord);
+			$position = mb_stripos($element->getDescription(), $searchWord);
 			if($position === false) {
 				$descriptionRank = 0;
 			}

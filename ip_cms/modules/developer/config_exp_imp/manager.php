@@ -108,16 +108,16 @@ class Manager{
             $answer .= HtmlOutput::header();
             $config = unserialize(file_get_contents($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
             $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_title_preview')).'</h1>';
-            $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br/><br/><br/>';            
+            $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br /><br /><br />';
             $answer .= $config->previewParameters();
-            $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br/><br/>';            
+            $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br /><br />';
             $answer .= HtmlOutput::footer(); 
           } else {
             $answer .= HtmlOutput::header();
             $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_title_preview')).'</h1>';
-            $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br/><br/><br/>';            
+            $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br /><br /><br />';
             $answer .= \Modules\developer\localization\Manager::previewParameters($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
-            $answer .= '<br/><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br/><br/>';            
+            $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'config_exp_imp', 'admin_translations', 'import_button_preview')).'</a><br /><br />';
             $answer .= HtmlOutput::footer(); 
             $answer .= HtmlOutput::header();
           }

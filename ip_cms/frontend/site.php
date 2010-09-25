@@ -572,6 +572,7 @@ class Site{
   public function error404Message(){
     global $parametersMod;
     //find reason
+    $message = '';
     if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
       $message = $parametersMod->getValue('standard','configuration','error_404', 'error_mistyped_url', $this->currentLanguage['id']);
     }else{
@@ -752,7 +753,8 @@ class Site{
     $answer = '';
     if($this->currentZone){
       if($this->error404){
-        $answer .= $this->error404Message();
+        $this->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
+        $answer .= \Modules\standard\content_management\widgets\text_photos\text\Template::generateHtml($this->error404Message());
         global $log;
         $log->log("system", "error404", $this->getCurrentUrl()." ".$this->error404Message());
       }else{

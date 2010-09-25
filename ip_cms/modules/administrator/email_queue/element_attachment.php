@@ -59,7 +59,7 @@ class element_attachment extends \Library\Php\StandardModule\Element{ //data ele
   	if (sizeof($files) > 0) {
   		for($i =0; $i<sizeof($files) && $i<sizeof($file_names)&& $i<sizeof($file_mime_types); $i++){
   		  if ($answer != '') {
-  		    $answer .= '<br/>';
+  		    $answer .= '<br />';
   		  }
   		   
         $answer .= '<a target="_blank" href="'.$cms->generateWorkerUrl($cms->curModId, 'action=get_file&file_number='.$i.'&record_id='.$value).'">'.htmlspecialchars($file_names[$i]).'</a>';

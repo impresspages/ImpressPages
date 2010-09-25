@@ -85,7 +85,7 @@ class ElementFile extends Element{ //data element in area
     $html = new StdModHtmlOutput();
 
     if($value)
-      $html->html('<span class="label"><a target="_blank" href="'.$file.'" >'.htmlspecialchars(basename($file)).'</a></span><br/>');
+      $html->html('<span class="label"><a target="_blank" href="'.$file.'" >'.htmlspecialchars(basename($file)).'</a></span><br />');
     
     $html->inputFile($prefix, $this->disabledOnUpdate);
     if($value){

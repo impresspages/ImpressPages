@@ -291,7 +291,7 @@ class ElementBoolLang extends Element{ //data element in area
       <span class="label">'.htmlspecialchars($language['d_short']).'</span> <br />
       <span class="label"><input class="stdModRadio" type="radio" '.$checked1.' name="search['.$level.']['.$key.']['.$language['id'].']" value="1" />'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'yes').'</span>
       <span class="label"><input  class="stdModRadio" type="radio" '.$checked2.' name="search['.$level.']['.$key.']['.$language['id'].']" value="0" />'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'no').'</span>
-      <br/>
+      <br />
       ';
             
     }

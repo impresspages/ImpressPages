@@ -73,7 +73,7 @@ class ElementImage extends Element{ //data element in area
       
     $html = new StdModHtmlOutput();
       if($value)
-        $html->html('<span class="label"><img width="200" src="'.$image.'"/></span><br/>');
+        $html->html('<span class="label"><img width="200" src="'.$image.'"/></span><br />');
       $html->inputFile($prefix, $this->disabledOnUpdate);
       if($value){
         $html->html('<span class="label"><input  class="stdModBox" type="checkbox" name="'.$prefix.'_delete"></span>');

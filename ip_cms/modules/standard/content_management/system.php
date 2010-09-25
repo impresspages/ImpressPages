@@ -106,7 +106,17 @@ class System {
         $tmpWorker->make_html();
       }
 
-
+      //update text parameters
+      $sql = "update `".DB_PREF."par_string` set `value` = REPLACE(`value`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['old_url'])."') where 1 ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+      $sql = "update `".DB_PREF."par_lang` set `translation` = REPLACE(`translation`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['old_url'])."') where 1 ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
     }
 
 

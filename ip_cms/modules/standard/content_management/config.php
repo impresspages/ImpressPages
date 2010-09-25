@@ -60,7 +60,7 @@ class Config // extends MimeType
       theme_advanced_statusbar_location : "bottom",
       theme_advanced_resizing : true,
       theme_advanced_resize_horizontal : false,
-      valid_elements : "@[class|style],br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
+      valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
       height : 300,
       content_css : "'.BASE_URL.THEME_DIR.THEME.'/ip_content.css",
       theme_advanced_styles : "'.$tinyMceStylesStr.'",

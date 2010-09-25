@@ -150,7 +150,7 @@ class ElementSelect extends Element{ //data element in area
   }
 
   function getFilterOption($value, $area){
-    return " `".mysql_real_escape_string($this->dbField)."` like '%".mysql_real_escape_string($value)."%' ";
+    return " `".mysql_real_escape_string($this->dbField)."` = '".mysql_real_escape_string($value)."' ";
   }
   
   

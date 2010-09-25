@@ -24,7 +24,7 @@ class element_administrators extends \Library\Php\StandardModule\Element{ //data
     $answer .= '';
     if (isset($this->values) != null && sizeof($this->values) > 0)
     foreach($this->values as $key => $group){
-      $answer .= '<br/><span class="label"><b>&nbsp;&nbsp;&nbsp;'.htmlspecialchars($group['title']).'</b></span><br/>';
+      $answer .= '<br /><span class="label"><b>&nbsp;&nbsp;&nbsp;'.htmlspecialchars($group['title']).'</b></span><br />';
       foreach($group['values'] as $key_value => $current_value){
         if ($current_value[0] == $this->default_value || $current_value[0] == $value)
            $selected = ' checked="yes" ';
@@ -65,7 +65,7 @@ class element_administrators extends \Library\Php\StandardModule\Element{ //data
     $value_exists = false;
     if (isset($this->values) != null && sizeof($this->values) > 0)
     foreach($this->values as $key => $group){
-      $answer .= '<br/><span class="label"><b>&nbsp;&nbsp;&nbsp;'.htmlspecialchars($group['title']).'</b></span><br/>';
+      $answer .= '<br /><span class="label"><b>&nbsp;&nbsp;&nbsp;'.htmlspecialchars($group['title']).'</b></span><br />';
       foreach($group['values'] as $key_value => $current_value){
         if (isset($values[$current_value[0]])){
            $selected = ' checked="yes" ';
