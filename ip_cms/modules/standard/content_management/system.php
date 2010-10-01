@@ -83,6 +83,8 @@ class System {
 
     if($moduleGroup == 'administrator' && $moduleName == 'system' && $event == 'url_change') {
 
+      global $log;
+
       $tmpModules = Db::menuModules();
 
       require_once (__DIR__.'/widgets/widget.php');
@@ -107,16 +109,24 @@ class System {
       }
 
       //update text parameters
-      $sql = "update `".DB_PREF."par_string` set `value` = REPLACE(`value`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['old_url'])."') where 1 ";
+   /*   $sql = "update `".DB_PREF."par_string` set `value` = REPLACE(`value`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['new_url'])."') where 1 ";
       $rs = mysql_query($sql);
       if(!$rs){
         trigger_error($sql.' '.mysql_error());
       }
-      $sql = "update `".DB_PREF."par_lang` set `translation` = REPLACE(`translation`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['old_url'])."') where 1 ";
+      $sql = "update `".DB_PREF."par_lang` set `translation` = REPLACE(`translation`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['new_url'])."') where 1 ";
       $rs = mysql_query($sql);
       if(!$rs){
         trigger_error($sql.' '.mysql_error());
       }
+
+      $sql = "update `".DB_PREF."content_element` set `redirect_url` = REPLACE(`redirect_url`, '".mysql_real_escape_string($parameters['old_url'])."', '".mysql_real_escape_string($parameters['new_url'])."') where 1 ";
+      $rs = mysql_query($sql);
+      if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+      }
+*/
+
     }
 
 

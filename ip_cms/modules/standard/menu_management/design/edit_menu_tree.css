@@ -73,7 +73,12 @@ html{
 	font-size: 12px;
 	text-decoration: none;
 }
- 
+
+img.linkList{
+  cursor: pointer;
+  margin-bottom: -4px;
+
+}
 /*
 body {
 	font-family:verdana,tahoma,helvetica;

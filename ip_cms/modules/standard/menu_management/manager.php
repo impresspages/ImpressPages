@@ -8,55 +8,48 @@ namespace Modules\standard\menu_management;
 
 
 if (!defined('BACKEND')) exit;
- 
+
 require_once (__DIR__.'/edit_menu_tree.php');
 
 
-class Manager{
-	var $tree;
-	var $management;
-	var $currentElement;
-	var $currentMenu;
-	var $currentLanguage;
-   
-  function __construct(){
-    
-		$this->tree = new EditMenuTree();
-		if ($this->currentLanguage != null){
-			$this->tree->setCurrentLanguage($this->currentLanguage);
-    }
-		if ($this->currentMenu != null)
-			$this->tree->setCurrentMenu($this->currentMenu);
-		$this->management = null;
-		$this->currentElement = null;
-  }
-   
+class Manager {
+  var $tree;
+  var $management;
+  var $currentElement;
+  var $currentMenu;
+  var $currentLanguage;
 
-	function manage(){
+  function __construct() {
+
+    $this->tree = new EditMenuTree();
+    if ($this->currentLanguage != null) {
+      $this->tree->setCurrentLanguage($this->currentLanguage);
+    }
+    if ($this->currentMenu != null)
+      $this->tree->setCurrentMenu($this->currentMenu);
+    $this->management = null;
+    $this->currentElement = null;
+  }
+
+
+  function manage() {
     global $cms;
     return $this->makeHtml();
     return $cms->html->headerModule().$this->makeHtml().$cms->html->footer();
-   }
-   
-	function makeHtml(){
-	  global $cms;
-	  
-    $answer = '';	   
-	/*	$answer .= '
-		<div class="search" style="background-color: #eeeeee;">
-		<div id="modMenuManagementLeft">
-		'.$this->tree->manageMenu().'
-		</div>
-		</div>
-		';*/
-		
+  }
+
+  function makeHtml() {
+    global $cms;
+
+    $answer = '';
+
     global $std_mod_db;
     global $parametersMod;
     global $cms;
 
-		$answer = '';
-		
-		$answer .= '
+    $answer = '';
+
+    $answer .= '
 		
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -98,14 +91,14 @@ class Manager{
 		<script type="text/javascript" src="'.LIBRARY_DIR.'js/default.js" ></script>
 		
 		';
-		
 
-		$answer .= '
+
+    $answer .= '
 		
 		 <div class="all" onmousemove="setPos(event)" onmouseup="mouseButtonPos=\'up\'">';
-				$answer .= '<script type="text/javascript">LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
-			
-		$answer .= '
+    $answer .= '<script type="text/javascript">LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
+
+    $answer .= '
         <div id="treeView">
          
       		'.$this->tree->manageMenu().'
@@ -117,9 +110,9 @@ class Manager{
     ';
 
 
-		  $answer .= '<div id="bodyView">';
-			 
-		 $answer .= '  <div style="display: none;" id="content">	 
+    $answer .= '<div id="bodyView">';
+
+    $answer .= '  <div style="display: none;" id="content">
 			
 			
 			<!-- content -->
@@ -167,7 +160,10 @@ class Manager{
           <input id="property_type_subpage" name="property_type" value="subpage" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</span><br />
           <input id="property_type_redirect" name="property_type" value="redirect" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</span><br />
           <p style="display: none;" id="property_type_error" class="error">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty')).'</p>
-          <input autocomplete="off" class="stdMod" name="property_redirect_url" value=""><br /><br />
+          <input id="property_type_redirect_input" autocomplete="off" class="stdMod" name="property_redirect_url" value=""><img class="linkList" onclick="LibDefault.ajaxMessage(\''.BASE_URL.'\', \'module_group=standard&module_name=content_management&action=sitemap_list&current_href=\', ModuleStandardMenuManagement.updateIPlinks)" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/design/list.gif">
+          <div style="display: none; overflow: none;" class="stdMod" id="ipbrowsercontainer"><!-- --></div>
+          <br /><br />
+
 
           <span class="label bolder">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'</span><br><p style="display: none;" id="std_mod_update_f_error_i_n_2" class="error"></p>
           <p style="display: none;" id="property_visible_error" class="error"></p>
@@ -203,9 +199,9 @@ class Manager{
 			
 		   </div><!-- class="content" -->
 		  </div><!-- id="bodyView" -->';
-		  
-		  $answer .= 
-			'<div class="clear">
+
+    $answer .=
+            '<div class="clear">
 		  </div>
 		 </div><!-- class="all" -->
 		 
@@ -213,16 +209,16 @@ class Manager{
       </html>   
 		 ';
 
- 
-     
-	return $answer;		
-		
-		
-		return $answer;
-	}
-  
 
- 
+
+    return $answer;
+
+
+    return $answer;
+  }
+
+
+
 
 }
 

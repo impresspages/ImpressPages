@@ -127,5 +127,67 @@ ModuleStandardMenuManagement = {
   setUrlSuffix : function (value) {
     var suffixSpan = document.getElementById('url_suffix');
     suffixSpan.innerHTML = value.replace("/", "-");
+  },
+
+  updateIPlinks : function(content) {
+    if (content.indexOf("ipSitemap")!=-1) {
+      // ok
+      var html = '';
+      html += '<div>';
+      html += content;
+      html += '</div>';
+      document.getElementById('ipbrowsercontainer').innerHTML = html;
+      document.getElementById('ipbrowsercontainer').style.display = '';
+      ModuleStandardMenuManagement.sitemapFunctions("ipSitemap");
+      ModuleStandardMenuManagement.sitemapStyler("ipSitemap");
+    } else {
+      // rezultatas nedave listo
+      document.getElementById('ipbrowsercontainer').innerHTML = 'Something bad happened.';
+      alert(content);
+    }
+  },
+
+  sitemapFunctions : function (objID) {
+    var sitemap = document.getElementById(objID);
+    if(sitemap){
+
+      var anchors = sitemap.getElementsByTagName("a");
+      for(var i=0;i<anchors.length;i++){
+        anchors[i].onclick = function(){
+          document.getElementById('property_type_redirect_input').value = this.href;
+          return false;
+        }
+      }
+
+    }
+  },
+
+  sitemapStyler : function(objID) {
+    // Author: Alen Grakalic
+
+    var sitemap = document.getElementById(objID);
+    if(sitemap){
+
+      this.listItem = function(li){
+        if(li.getElementsByTagName("ul").length > 0){
+          var ul = li.getElementsByTagName("ul")[0];
+          ul.style.display = "none";
+          var span = document.createElement("span");
+          span.className = "collapsed";
+          span.onclick = function(){
+            ul.style.display = (ul.style.display == "none") ? "block" : "none";
+            this.className = (ul.style.display == "none") ? "collapsed" : "expanded";
+          }
+          li.appendChild(span);
+        }
+      }
+
+      var items = sitemap.getElementsByTagName("li");
+      for(var i=0;i<items.length;i++){
+        this.listItem(items[i]);
+      }
+
+    }
   }
+
 }

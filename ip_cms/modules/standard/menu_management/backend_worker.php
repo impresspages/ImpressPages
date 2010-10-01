@@ -250,6 +250,7 @@ class BackendWorker {
       $id = $_REQUEST['id'];
       $zoneName = $_REQUEST['zone_name'];
       $page = \Modules\standard\content_management\Db::menuElement($id);
+      $pageElement = $site->getZone($zoneName)->getElement($page['id']);
       $tmpZone = $site->getZone($zoneName);
       $parentElement = $tmpZone->getElement($page['parent']);
 
@@ -281,7 +282,7 @@ class BackendWorker {
       form.property_rss.checked = '.\Library\Php\Js\Functions::htmlToString(($page['rss'])? 'true' : 'false').';
       document.getElementById(\'property_type_'.$page['type'].'\').checked = true;
       form.property_redirect_url.value = \''.\Library\Php\Js\Functions::htmlToString($page['redirect_url']).'\';
-      document.getElementById(\'url_prefix\').innerHTML = \''.\Library\Php\Js\Functions::htmlToString($parentElement->getLink()).'\';
+      document.getElementById(\'url_prefix\').innerHTML = \''.\Library\Php\Js\Functions::htmlToString(substr($pageElement->getLink(), 0, strlen($pageElement->getLink()) - strlen($page['url']) -1 )).'\';
       document.getElementById(\'url_suffix\').innerHTML = \''.\Library\Php\Js\Functions::htmlToString($page['url']).'\';
       document.getElementById(\'content\').style.display = \'block\';
       
