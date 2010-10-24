@@ -51,7 +51,14 @@ class Template {
         $field->value = $id;
         $fields[] = $field;  
         
-        
+        $field = new \Library\Php\Form\FieldHidden();
+        $field->name = 'spec_url';
+        $field->caption = 'URL';
+        $field->value = $site->getCurrentUrl();
+        $field->visible = false;
+        $field->display = false;
+        $fields[] = $field;
+
         $html_form = new \Library\Php\Form\Standard($fields);
         
         
@@ -81,6 +88,11 @@ class Template {
         }
       }
     }
+
+    if(isset($_POST['spec_url'])){
+      $content .= '<b>URL :</b> <a href="'.nl2br($_POST['spec_url']).'">'.nl2br(htmlspecialchars($_POST['spec_url'])).'</a><br>'."\n";
+    }
+
 
     $email = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template');
     $email = str_replace('[[content]]', $content, $email);

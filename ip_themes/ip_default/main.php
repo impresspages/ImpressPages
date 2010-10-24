@@ -15,7 +15,6 @@
   <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/default.js"></script>
 </head>   
 <body>
-
 <div class="main">
 
   <div class="pageHead">

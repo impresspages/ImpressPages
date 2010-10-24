@@ -285,7 +285,7 @@ class EditMenuManagement {
 
 
     <div id="mod_content_management_popup_parameter" onclick="mod_content_management_parameter_cancel();">
-        <div onclick="LibDefault.cancelBubbling(event)" class="ipCmsBorder" style="margin-top: 137px;">
+        <div onclick="LibDefault.cancelBubbling(event)" class="ipCmsBorder" style="margin-top: 37px;">
           <div class="ipCmsHead">
                   <img onclick="mod_content_management_parameter_cancel();" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="f_main_fields_popup_close()" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/popup_close_hover.gif\'" alt="Close"/>
                   Page properties

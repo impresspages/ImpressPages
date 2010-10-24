@@ -66,7 +66,7 @@ class Config // extends MimeType
       theme_advanced_toolbar_align : "left",
       theme_advanced_statusbar_location : "bottom",
       theme_advanced_resizing : true,
-      extended_valid_elements : "style",
+      valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
       file_browser_callback : "simplebrowser_browse",
       width: "100%",
       height: "300px",
@@ -79,29 +79,70 @@ class Config // extends MimeType
       relative_urls : false,
       convert_urls : false,
 
+
       paste_auto_cleanup_on_paste : true,
-      paste_retain_style_properties: false,
-      paste_strip_class_attributes: true,
-      paste_remove_spans: true,
-      paste_remove_styles: true,
-      paste_convert_middot_lists: true,
+      paste_retain_style_properties : false,
+      paste_strip_class_attributes : false,
+      paste_remove_spans : false,
+      paste_remove_styles : false,
+      paste_convert_middot_lists : true,
 
       paste_preprocess : function(pl, o) {
         o.content = o.content.stripScripts();
         var tmpContent = o.content;
-        tmpContent = tmpContent.replace(new RegExp(\'<!(?:--[\\s\\S]*?--\s*)?>\', \'g\'), \'\') //remove comments
-        tmpContent = tmpContent.replace(/(<([^>]+)>)/ig,"</p><p>");
-        tmpContent = tmpContent.replace(/\n/ig," "); //remove newlines
-        tmpContent = tmpContent.replace(/\r/ig," "); //remove newlines
-        tmpContent = tmpContent.replace(/[\t]+/ig," "); //remove tabs
-        tmpContent = tmpContent.replace(/[ ]+/ig," ");  //remove multiple spaces
-        tmpContent = tmpContent.replace(/(<\/p><p>([ ]*(<\/p><p>)*[ ]*)*<\/p><p>)/ig, "</p><p>"); //remove multiple paragraphs
+        var classesArray = new Array ('.$classesArray.');
+
+
+        tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
+        tmpContent = tmpContent.replace(/(<\\/strong>)/ig, "</b>");
+
+        /* remove unknown classes */
+        var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /class="[^"]+"/gi;  /* find class name */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown classes */
+            var classExist = false;
+            for(var classKey = 0; classKey < classesArray.length; classKey ++){
+              if(\'class="\' + classesArray[classKey] + \'"\' == matches2[i2]){
+                classExist = true;
+              }
+            }
+
+            if(!classExist){
+              tmpContent = tmpContent.replace(matches2[i2], "");
+            }
+          }
+        }
+
+
+        /* remove unknown inline styles */
+        var styles = new Array("text-align: right;", "text-align: left;", "text-align: justify;");
+        var pattern = /<[^<>]+style="[^"]+"[^<>]*>/gi; /* find all tags containing inline styles */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /style="[^"]+"/gi;  /* find style */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown inline styles */
+            var styleExist = false;
+            for(var styleKey = 0; styleKey < styles.length; styleKey ++){
+              if(\'style="\' + styles[styleKey] + \'"\' == matches2[i2]){
+                styleExist = true;
+              }
+            }
+
+            if(!styleExist){
+              tmpContent = tmpContent.replace(matches2[i2], "");
+            }
+          }
+        }
+
         o.content = tmpContent;
+
       },
       paste_postprocess : function(pl, o) {
-
       }
-
     });
 ';
 
@@ -142,7 +183,7 @@ class Config // extends MimeType
       theme_advanced_toolbar_align : "left",
       theme_advanced_statusbar_location : "bottom",
       theme_advanced_resizing : true,
-      extended_valid_elements : "style",
+      valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
       file_browser_callback : "simplebrowser_browse",
       width: "500px",
       height: "300px",
@@ -155,29 +196,69 @@ class Config // extends MimeType
       relative_urls : false,
       convert_urls : false,
 
+
       paste_auto_cleanup_on_paste : true,
-      paste_retain_style_properties: false,
-      paste_strip_class_attributes: true,
-      paste_remove_spans: true,
-      paste_remove_styles: true,
-      paste_convert_middot_lists: true,
+      paste_retain_style_properties : false,
+      paste_strip_class_attributes : false,
+      paste_remove_spans : false,
+      paste_remove_styles : false,
+      paste_convert_middot_lists : true,
 
       paste_preprocess : function(pl, o) {
         o.content = o.content.stripScripts();
         var tmpContent = o.content;
+        var classesArray = new Array ('.$classesArray.');
 
-        tmpContent = tmpContent.replace(new RegExp(\'<!(?:--[\\s\\S]*?--\s*)?>\', \'g\'), \'\') //remove comments
-        tmpContent = tmpContent.replace(/(<([^>]+)>)/ig,"</p><p>");
-        tmpContent = tmpContent.replace(/\n/ig," "); //remove newlines
-        tmpContent = tmpContent.replace(/\r/ig," "); //remove newlines
-        tmpContent = tmpContent.replace(/[\t]+/ig," "); //remove tabs
-        tmpContent = tmpContent.replace(/[ ]+/ig," ");  //remove multiple spaces
-        tmpContent = tmpContent.replace(/(<\/p><p>([ ]*(<\/p><p>)*[ ]*)*<\/p><p>)/ig, "</p><p>"); //remove multiple paragraphs
+
+        tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
+        tmpContent = tmpContent.replace(/(<\\/strong>)/ig, "</b>");
+
+        /* remove unknown classes */
+        var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /class="[^"]+"/gi;  /* find class name */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown classes */
+            var classExist = false;
+            for(var classKey = 0; classKey < classesArray.length; classKey ++){
+              if(\'class="\' + classesArray[classKey] + \'"\' == matches2[i2]){
+                classExist = true;
+              }
+            }
+
+            if(!classExist){
+              tmpContent = tmpContent.replace(matches2[i2], "");
+            }
+          }
+        }
+
+
+        /* remove unknown inline styles */
+        var styles = new Array("text-align: right;", "text-align: left;", "text-align: justify;");
+        var pattern = /<[^<>]+style="[^"]+"[^<>]*>/gi; /* find all tags containing inline styles */
+        var matches = tmpContent.match(pattern);
+        for(var i =0; matches && i < matches.length; i++){ /* loop through found tags */
+          var pattern2 = /style="[^"]+"/gi;  /* find style */
+          var matches2 = matches[i].match(pattern2);
+          for(var i2 = 0; matches2 && i2 < matches2.length; i2++){ /* throw away unknown inline styles */
+            var styleExist = false;
+            for(var styleKey = 0; styleKey < styles.length; styleKey ++){
+              if(\'style="\' + styles[styleKey] + \'"\' == matches2[i2]){
+                styleExist = true;
+              }
+            }
+
+            if(!styleExist){
+              tmpContent = tmpContent.replace(matches2[i2], "");
+            }
+          }
+        }
 
         o.content = tmpContent;
+
       },
       paste_postprocess : function(pl, o) {
-
       }
 
     });

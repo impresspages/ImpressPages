@@ -91,7 +91,7 @@ class Standard{
 
     $tmp_html = '';
     foreach($fields as $key => $field){
-      $tmp_html .= Standard::generateField($field, $uniqueName);
+      $tmp_html .= self::generateField($field, $uniqueName);
     }
     
     

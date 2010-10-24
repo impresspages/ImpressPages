@@ -1473,7 +1473,7 @@ class StandardModule {
 
         if ($this->currentArea->sortable && $this->currentArea->sortField != null) {
           if($this->currentArea->sortType == 'numbers')
-            $answer .= '<td ><form action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'&amp;new_row_number=\' + encodeURIComponent(this.value))" style="width:30px;" name="sortField_'.$lock[$this->currentArea->dbPrimaryKey].'" value="'.$lock[$this->currentArea->sortField].'" /></form></td>';
+            $answer .= '<td ><form onSubmit="return false;" action=""><input onblur="LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=new_row_number&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'&amp;new_row_number=\' + encodeURIComponent(this.value))" style="width:30px;" name="sortField_'.$lock[$this->currentArea->dbPrimaryKey].'" value="'.$lock[$this->currentArea->sortField].'" /></form></td>';
           if($this->currentArea->sortType == 'pointers')
             $answer .= '<td >
                         <a class="move_down"

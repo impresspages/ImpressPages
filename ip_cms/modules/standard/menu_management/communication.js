@@ -155,6 +155,8 @@ ModuleStandardMenuManagement = {
       for(var i=0;i<anchors.length;i++){
         anchors[i].onclick = function(){
           document.getElementById('property_type_redirect_input').value = this.href;
+          document.getElementById('property_type_redirect').checked = true;
+
           return false;
         }
       }

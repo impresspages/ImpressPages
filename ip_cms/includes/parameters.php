@@ -17,7 +17,7 @@ class ParInteger {
   var $value = '';
   var $type = '';
 
-  function ParInteger($value, $type) {
+  function __construct($value, $type) {
     $this->value = $value;
     $this->type = $type;
   }
@@ -33,7 +33,7 @@ class ParString {
   var $value = '';
   var $type = '';
 
-  function ParString($value, $type) {
+  function __construct($value, $type) {
     $this->value = $value;
     $this->type = $type;
   }
@@ -48,7 +48,7 @@ class ParLangWord {
   var $value = '';
   var $type = '';
 
-  function ParLangWord($value, $type) {
+  function __construct($value, $type) {
     $this->value = $value;
     $this->type = $type;
   }

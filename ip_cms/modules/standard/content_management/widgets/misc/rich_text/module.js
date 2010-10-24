@@ -103,13 +103,11 @@ function content_mod_rich_text() {
   function save() {
     this.layout = document.getElementById('mod_' + this.collection_number + '_layout').layout.value;
 		
-    tinyMCE.execCommand('mceFocus', false,
-      'management_' + this.collection_number + '_text');
-    this.text = tinyMCE.get(
-      'management_' + this.collection_number + '_text').getContent();// or tinyMCE.activeEditor.getContent()
+    tinyMCE.execCommand('mceFocus', false, 'management_' + this.collection_number + '_text');
+    this.text = tinyMCE.get('management_' + this.collection_number + '_text').getContent();// or tinyMCE.activeEditor.getContent()
     this.text = this.text.replace(/[\r\n]+/g, "");
-    this.menu_management
-    .module_preview_save_response(this.collection_number);
+
+    this.menu_management.module_preview_save_response(this.collection_number);
   }
 
   function get_answer(notes) {

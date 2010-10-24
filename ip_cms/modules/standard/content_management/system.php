@@ -68,11 +68,8 @@ class System {
       $zones = \Frontend\Db::getZones($parameters['language_id']);
       foreach($zones as $key => $zone) {
         $rootElement = Db::rootMenuElement($zone['id'], $parameters['language_id']);
-        global $log;
-        $log->log('test','root element', serialize($rootElement));
         $elements = Db::menuElementChildren($rootElement);
         foreach($elements as $key => $element) {
-          $log->log('test','element', serialize($element));
           $backendWorker->remove_element($element['id']);
         }
 

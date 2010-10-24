@@ -375,3 +375,37 @@ class FieldCaptcha extends Field{
   }
 }
 
+
+/**
+ * @package Library 
+ */  
+class FieldRadio extends Field{
+  function genHtml($class, $id){
+    $answer = '';
+    if(isset($_POST[$this->name]) == $this->value)
+      return '<input id="'.$id.'" value="'.addslashes($this->value).'" checked class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'" value="1"/>'."\n";
+    else
+      return '<input id="'.$id.'" value="'.addslashes($this->value).'" class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'"/>'."\n";
+  }
+  
+  function getError(){
+    $error = false;
+    if($this->required && (!isset($_POST[$this->name]) || $_POST[$this->name] == '' )){
+      $error = true;
+    }
+    return $error;
+  }
+  function postedValue(){
+    if(isset($_POST[$this->name]))
+      return 1;
+    else
+      return 0;
+  }
+
+  function getName($str){
+    $underscorePos = strpos($str, '_');
+    if($underscorePos !== false){
+      return substr($str, 0, $underscorePos);
+    }
+  }
+}

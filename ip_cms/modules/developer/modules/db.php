@@ -100,6 +100,22 @@ class Db{
   }
   
 
+  public static function getGroups(){
+    $sql = "select * from `".DB_PREF."module_group` where 1";
+    $rs = mysql_query($sql);
+    $answer = array();
+    if($rs){
+      while($lock = mysql_fetch_assoc($rs)){
+        $answer[$lock['name']] = $lock;
+      }
+      return $answer;
+    }else{
+      trigger_error($sql." ".mysql_error());
+      return false;
+    }
+  }
+
+
   
   public static function getModules($groupId){
     $sql = "select name, version from `".DB_PREF."module` where `group_id` = ".(int)$groupId."";
@@ -143,7 +159,7 @@ class Db{
   }
 
   public static function insertModule($moduleName, $moduleKey, $moduleAdmin, $moduleManaged, $groupId, $version){
-    $sql = "insert into `".DB_PREF."module` set `translation`='".mysql_real_escape_string($moduleName)."',`name`='".mysql_real_escape_string($moduleKey)."',`admin`='".(int)$moduleAdmin."',`managed`='".(int)$moduleManaged."', `group_id` = ".(int)$groupId.", `version` = '".mysql_real_escape_string($version)."', `core` = 0  ";
+    $sql = "insert into `".DB_PREF."module` set `translation`='".mysql_real_escape_string($moduleName)."',`name`='".mysql_real_escape_string($moduleKey)."',`admin`='".(int)$moduleAdmin."',`managed`='".(int)$moduleManaged."', `group_id` = ".(int)$groupId.", `version` = '".mysql_real_escape_string((double)$version)."', `core` = 0  ";
     $rs = mysql_query($sql);
     if($rs){
       return mysql_insert_id();

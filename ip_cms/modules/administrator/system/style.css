@@ -73,3 +73,11 @@ div.parameterValue{
   width: 500px;
   float: left;
 }
+
+#systemInfo div{
+  margin-bottom: 10px;
+}
+
+#systemInfo {
+  padding-bottom: 0px;
+}

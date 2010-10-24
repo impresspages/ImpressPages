@@ -189,8 +189,6 @@ class Module extends \Modules\standard\content_management\Widget{
                 " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
                 ", group_key='text_photos', module_key='logo_gallery', module_id = '".(int)$lock['max_id']."'".
                 ", visible= '".(int)$values['visible']."' ";
-          global $log;
-          $log->log('logas', 'insert', $sql);
           $rs = mysql_query($sql);
           if (!$rs)
           $this->set_error("Can't asociate element to module ".$sql);
