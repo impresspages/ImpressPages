@@ -215,7 +215,6 @@ class EditMenuTree {
 
 
         $answer .= '
-  <link href="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/plugins/iplink/css/iplink.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" type="text/css" href="'.BASE_URL.LIBRARY_DIR.'js/ext/resources/css/ext-all.css" />
 
   <!-- GC --> <!-- LIBS -->     <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/yui/yui-utilities.js"></script>

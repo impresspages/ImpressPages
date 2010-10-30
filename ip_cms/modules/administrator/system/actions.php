@@ -32,7 +32,7 @@ class Actions {
             foreach($groups as $groupKey => $group){
               $modules = \Modules\developer\modules\Db::getModules($group['id']);
               foreach($modules as $moduleKey => $module){
-                $postFields .= '&modules[\''.$group['name'].'\'][\''.$module['name'].'\']='.$module['version'];
+                $postFields .= '&modules['.$group['name'].']['.$module['name'].']='.$module['version'];
               }
             }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);

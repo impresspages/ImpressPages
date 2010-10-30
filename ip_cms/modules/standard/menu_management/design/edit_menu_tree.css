@@ -1,47 +1,47 @@
 html{
-	overflow: hidden;
+  overflow: hidden;
 }
 
 
 
 #modMenuManagementLeft{
-	width: 200px;
-	float: left;
-	overflow: auto;
-	padding: 5px;
-	border-right: 1px solid #79797b;
-	
+  width: 200px;
+  float: left;
+  overflow: auto;
+  padding: 5px;
+  border-right: 1px solid #79797b;
+
 }
 
 #modMenuManagementPreview{
-	float: right;
-	height: 500px;
-	width: 500px;
+  float: right;
+  height: 500px;
+  width: 500px;
 }
- 
+
 #modMenuManagementPreview iframe{
-	margin-left: auto;
-	margin-right: auto;
-	border: none;
-	width: 100%;
-	height: 100%;
-	float: right;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  width: 100%;
+  height: 100%;
+  float: right;
 }
 
 #languages{
-	margin: 8px 0;
-	padding: 0 8px;
+  margin: 8px 0;
+  padding: 0 8px;
 }
 
 #languages a{
-	margin-right: 5px;
-	padding: 1px 4px 3px 4px;
-	border: 1px solid #dfe1e2;
-	font-family: Verdana, Helvetica, Arial;
-	font-size: 12px;
-	color: #797979;
-	text-decoration: none;
-	font-weight: bold;
+  margin-right: 5px;
+  padding: 1px 4px 3px 4px;
+  border: 1px solid #dfe1e2;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 12px;
+  color: #797979;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 #languages a.selected{
@@ -49,29 +49,29 @@ html{
 }
 
 #languages a:hover{
-	background-color: #8ebdf1;
+  background-color: #8ebdf1;
 }
- 
+
 #menus{
-	margin-bottom: 8px;
-	padding: 0 8px;
+  margin-bottom: 8px;
+  padding: 0 8px;
 } 
 
 
 #tree-div{
-	padding: 8px;
-	overflow: auto;
+  padding: 8px;
+  overflow: auto;
 }
 
 #tree-div div.button{
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 #tree-div div.button a{
-	color: #3c64c8;
-	font-family: Verdana, Helvetica, Arial;
-	font-size: 12px;
-	text-decoration: none;
+  color: #3c64c8;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 img.linkList{
@@ -124,3 +124,96 @@ pre.code{
     z-index:20000;
 }
 */
+
+
+/* direct inline linking */
+
+.mceActionPanel {
+  margin-top: 7px;
+}
+.panel_wrapper div.current { 
+  height: 320px;
+}
+#title, #href {
+  width: 280px;
+}
+#classlist, #targetlist {
+  width: 286px;
+}
+.panel_wrapper {
+  margin-bottom: 7px;
+}
+#ipbrowsercontainer {
+
+  padding: 2px;
+  background-color: #ffffff;
+  border: 1px solid #C0C0C0;
+}
+#ipbrowsercontainer a {
+  text-decoration: none;
+}
+#ipSitemap, #ipSitemap ul, #ipSitemap li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#ipSitemap {
+  background: transparent url(line1.gif) repeat-y scroll -5px 0px;
+}
+#ipSitemap li {
+  line-height: 15px;
+  margin-top: 1px;
+  position: relative;
+  width: 100%;
+}
+/* IE leaves a blank space where span is added so this is to avoid that */
+* html #ipSitemap li {
+  float: left;
+  display: inline;
+}
+#ipSitemap li a {
+  margin-left: 20px;
+}
+#ipSitemap li span {
+  float: left;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+  font-size: 0;
+}
+#ipSitemap li span, #ipSitemap li span.collapsed {
+  background: #ffffff url(collapsed.gif) no-repeat scroll 0 0;
+}
+#ipSitemap li span.expanded {
+  background: #ffffff url(expanded.gif) no-repeat scroll 0 0;
+}
+#ipSitemap li span.collapsed:hover {
+  background-color: #eeeeee;
+}
+#ipSitemap li span.expanded:hover {
+  background-color: #eeeeee;
+}
+#ipSitemap li ul {
+  margin-left: 15px;
+  background: transparent url(line1.gif) repeat-y scroll -5px 0;
+}
+#ipSitemap li li {
+  background: transparent url(line2.gif) no-repeat scroll -5px -2px;
+}
+/* float fix */
+#ipSitemap:after, #ipSitemap ul:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+#ipSitemap, #ipSitemap ul{ display: block; }
+/*  \*/
+#ipSitemap, #ipSitemap ul{ min-height: 1%; }
+* html #ipSitemap, * html #ipSitemap ul { height: 1%; }
+/*  */
+#ipSitemap ul{ display: none; }
