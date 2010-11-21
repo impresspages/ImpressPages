@@ -158,9 +158,10 @@ class Manager {
           <input id="property_type_default" name="property_type" value="default" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</span><br />
           <input id="property_type_inactive" name="property_type" value="inactive" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</span><br />
           <input id="property_type_subpage" name="property_type" value="subpage" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</span><br />
-          <input id="property_type_redirect" name="property_type" value="redirect" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</span><br />
+          <input id="property_type_redirect" name="property_type" value="redirect" class="stdModBox" type="radio" /><span class="label">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</span>
+          <img class="linkList" onclick="ModuleStandardMenuManagement.openInternalLinkingTree();" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/design/list.gif"><br />
           <p style="display: none;" id="property_type_error" class="error">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty')).'</p>
-          <input id="property_type_redirect_input" autocomplete="off" class="stdMod" name="property_redirect_url" value=""><img class="linkList" onclick="LibDefault.ajaxMessage(\''.BASE_URL.'\', \'module_group=standard&module_name=content_management&action=sitemap_list&current_href=\', ModuleStandardMenuManagement.updateIPlinks)" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/design/list.gif">
+          <input id="property_type_redirect_input" autocomplete="off" class="stdMod" name="property_redirect_url" value="">
           <div style="display: none; overflow: none;" class="stdMod" id="ipbrowsercontainer"><!-- --></div>
           <br /><br />
 

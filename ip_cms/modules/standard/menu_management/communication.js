@@ -127,6 +127,13 @@ ModuleStandardMenuManagement = {
   setUrlSuffix : function (value) {
     var suffixSpan = document.getElementById('url_suffix');
     suffixSpan.innerHTML = value.replace("/", "-");
+    document.getElementById('property_type_default').checked= true;
+    var redirectInput = document.getElementById('property_type_redirect_input');
+
+    if(redirectInput.value == 'http://')
+    {
+       redirectInput.value = '';
+    }
   },
 
   updateIPlinks : function(content) {
@@ -190,6 +197,17 @@ ModuleStandardMenuManagement = {
       }
 
     }
+  },
+
+
+  openInternalLinkingTree : function(){
+     LibDefault.ajaxMessage(document.location, 'module_group=standard&module_name=content_management&action=sitemap_list&current_href=', ModuleStandardMenuManagement.updateIPlinks);
+     document.getElementById('property_type_redirect').checked= true;
+     var redirectInput = document.getElementById('property_type_redirect_input');
+     if(redirectInput.value == '')
+     {
+        redirectInput.value = 'http://';
+     }
   }
 
 }

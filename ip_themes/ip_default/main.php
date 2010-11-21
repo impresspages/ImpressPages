@@ -119,7 +119,7 @@
 <!-- eof popups -->
 
 
-<!-- insert your statistics script here -->
+
 
 </body>
 </html>

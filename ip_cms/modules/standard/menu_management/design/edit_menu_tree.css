@@ -2,7 +2,9 @@ html{
   overflow: hidden;
 }
 
-
+#content{
+  position: relative;
+}
 
 #modMenuManagementLeft{
   width: 200px;

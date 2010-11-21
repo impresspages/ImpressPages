@@ -575,7 +575,10 @@ $chars =
 ð = "d"
 Ð = "D"
 þ = "th"
-Þ = "TH"';
+Þ = "TH"
+— = "-"
+– = "-"';
+
 
     $char_pairs = explode("\n", $chars);
     

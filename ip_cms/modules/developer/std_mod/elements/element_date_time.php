@@ -11,12 +11,14 @@ if (!defined('BACKEND')) exit;
 class ElementDateTime extends Element{ //data element in area
   var $regExpression;
   var $regExpressionError;
+  var $type; // (mysql/unix) 'mysql' data type or 'unix' data type - integer in database
 
   function __construct($variables){
     global $parametersMod;
     
     $this->regExpression = '/^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/';
     $this->regExpressionError = $parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'incorrect_date_format');
+    $this->type = 'mysql';
 
     if(!isset($variables['order'])){
       $variables['order'] = true;
@@ -40,6 +42,9 @@ class ElementDateTime extends Element{ //data element in area
       switch ($name){
         case 'regExpressionError':
           $this->regExpressionError = $value;
+          break;
+        case 'type':
+          $this->type = $value;
           break;
         case 'dbField':
           $this->dbField = $value;
@@ -65,31 +70,66 @@ class ElementDateTime extends Element{ //data element in area
   function printFieldUpdate($prefix, $record, $area){
     $value = null;
 
-    $value = $record[$this->dbField];
-
     $html = new StdModHtmlOutput();
+
+    if($this->type == 'unix')
+    {
+      $value = date("Y-m-d h:i:s", $record[$this->dbField]);
+    }
+    else
+    {
+      $value = substr($record[$this->dbField], 0, 10);
+    }
+
+
     $html->dateTime($prefix, $value, $this->disabledOnUpdate);
     return $html->html;
   }
 
   function getParameters($action, $prefix, $area){
+
+    if(isset($_REQUEST[''.$prefix]))
+    {
+      if($this->type == 'unix')
+      {
+        $requestValue = strtotime($_REQUEST[''.$prefix]);
+      }
+      else
+      {
+        $requestValue = $_REQUEST[''.$prefix];
+      }
+    }
+    else
+    {
+      $requestValue = null;
+    }
+
+
+
     if($action == 'insert'){
       if($this->visibleOnInsert && !$this->disabledOnInsert && $action == 'insert'){
-        return array("name"=>$this->dbField, "value"=>$_REQUEST[''.$prefix]);
+        return array("name"=>$this->dbField, "value"=>$requestValue);
       }else{
         return array("name"=>$this->dbField, "value"=>$this->defaultValue);
       }
     }
     if($action == 'update'){
       if($this->visibleOnUpdate && !$this->disabledOnUpdate && $action == 'update'){
-        return array("name"=>$this->dbField, "value"=>$_REQUEST[''.$prefix]);
+        return array("name"=>$this->dbField, "value"=>$requestValue);
       }
     }  
   }
 
 
   function previewValue($record, $area){
-    $answer = htmlspecialchars($record[$this->dbField]);
+    if($this->type == 'unix')
+    {
+      $answer = htmlspecialchars(date("Y-m-d h:m:s", $record[$this->dbField]));
+    }
+    else
+    {
+      $answer = htmlspecialchars($record[$this->dbField]);
+    }
     return $answer;
 
   }
@@ -121,14 +161,49 @@ class ElementDateTime extends Element{ //data element in area
 
 
   function printSearchField($level, $key, $area){
-    if (isset($_REQUEST['search'][$level][$key]))
-    $value = $_REQUEST['search'][$level][$key];
+
+    if (isset($_REQUEST['search'][$level][$key]['from']))
+      $valueFrom = $_REQUEST['search'][$level][$key]['from'];
     else
-    $value = '';
-    return '<input name="search['.$level.']['.$key.']" value="'.htmlspecialchars($value).'" />';
+      $valueFrom = '';
+    if (isset($_REQUEST['search'][$level][$key]['till']))
+      $valueTill = $_REQUEST['search'][$level][$key]['till'];
+    else
+      $valueTill = '';
+    $html = new StdModHtmlOutput();
+    $html->html('<span class="label">From</span>');
+    $html->dateTime('search['.$level.']['.$key.'][from]', $valueFrom);
+    $html->html('<br /><span class="label">Till</span>');
+    $html->dateTime('search['.$level.']['.$key.'][till]', $valueTill);
+    return $html->html;
   }
 
   function getFilterOption($value, $area){
+    if($this->type == 'unix')
+    {
+      $from = strtotime($value['from']);
+      $till = strtotime($value['till']);
+    }
+    else
+    {
+      $from = $value['from'];
+      $till = $value['till'];
+    }
+
+    $answer = '';
+    if($from != '')
+    {
+      $answer .= " `".$this->dbField."` >= '".mysql_real_escape_string($from)."' ";
+    }
+    if(isset($value['till']) && $value['till'] != '')
+    {
+      if($answer != '')
+      {
+        $answer .= " AND ";
+      }
+      $answer .= " `".$this->dbField."` <= '".mysql_real_escape_string($till)."' ";
+    }
+    return $answer;
     return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
   }
 

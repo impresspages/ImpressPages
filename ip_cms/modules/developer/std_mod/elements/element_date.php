@@ -11,17 +11,19 @@ if (!defined('BACKEND')) exit;
 class ElementDate extends Element{ //data element in area
   var $regExpression;
   var $regExpressionError;
+  var $type; // (mysql/unix) 'mysql' data type or 'unix' data type - integer in database
 
   function __construct($variables){
     global $parametersMod;
     
     $this->regExpression = '/^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])$/';
     $this->regExpressionError = $parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'incorrect_date_format');
+    $this->type = 'mysql';
 
     if(!isset($variables['order'])){
       $variables['order'] = true;
     }
-      
+
     
     parent::__construct($variables);
     
@@ -39,6 +41,9 @@ class ElementDate extends Element{ //data element in area
       switch ($name){
         case 'regExpressionError':
           $this->regExpressionError = $value;
+          break;
+        case 'type':
+          $this->type = $value;
           break;
         case 'dbField':
           $this->dbField = $value;
@@ -64,7 +69,14 @@ class ElementDate extends Element{ //data element in area
   function printFieldUpdate($prefix, $record, $area){
     $value = null;
 
-    $value = substr($record[$this->dbField], 0, 10);
+    if($this->type == 'unix')
+    {
+      $value = date("Y-m-d", $record[$this->dbField]);
+    }
+    else
+    {
+      $value = substr($record[$this->dbField], 0, 10);
+    }
 
     $html = new StdModHtmlOutput();
     $html->date($prefix, $value, $this->disabledOnUpdate);
@@ -72,23 +84,48 @@ class ElementDate extends Element{ //data element in area
   }
 
   function getParameters($action, $prefix, $area){
+
+
+    if(isset($_REQUEST[''.$prefix]))
+    {
+      if($this->type == 'unix')
+      {
+        $requestValue = strtotime($_REQUEST[''.$prefix]);
+      }
+      else
+      {
+        $requestValue = $_REQUEST[''.$prefix];
+      }
+    }
+    else
+    {
+      $requestValue = null;
+    }
+
     if($action == 'insert'){
       if($this->visibleOnInsert && !$this->disabledOnInsert && $action == 'insert'){
-        return array("name"=>$this->dbField, "value"=>$_REQUEST[''.$prefix]);
+        return array("name"=>$this->dbField, "value"=>$requestValue);
       }else{
         return array("name"=>$this->dbField, "value"=>$this->defaultValue);
       }
     }
     if($action == 'update'){
       if($this->visibleOnUpdate && !$this->disabledOnUpdate && $action == 'update'){
-        return array("name"=>$this->dbField, "value"=>$_REQUEST[''.$prefix]);
+        return array("name"=>$this->dbField, "value"=>$requestValue);
       }
     }  
   }
 
 
   function previewValue($record, $area){
-    $answer = htmlspecialchars(substr($record[$this->dbField], 0, 10));
+    if($this->type == 'unix')
+    {
+      $answer = htmlspecialchars(date("Y-m-d", $record[$this->dbField]));
+    }
+    else
+    {
+      $answer = htmlspecialchars(substr($record[$this->dbField], 0, 10));
+    }
     return $answer;
 
   }
@@ -120,15 +157,50 @@ class ElementDate extends Element{ //data element in area
 
 
   function printSearchField($level, $key, $area){
-    if (isset($_REQUEST['search'][$level][$key]))
-    $value = $_REQUEST['search'][$level][$key];
+    if (isset($_REQUEST['search'][$level][$key]['from']))
+      $valueFrom = $_REQUEST['search'][$level][$key]['from'];
     else
-    $value = '';
-    return '<input name="search['.$level.']['.$key.']" value="'.htmlspecialchars($value).'" />';
+      $valueFrom = '';
+    if (isset($_REQUEST['search'][$level][$key]['till']))
+      $valueTill = $_REQUEST['search'][$level][$key]['till'];
+    else
+      $valueTill = '';
+    $html = new StdModHtmlOutput();
+    $html->html('<span class="label">From</span>');
+    $html->date('search['.$level.']['.$key.'][from]', $valueFrom);
+    $html->html('<br /><span class="label">Till</span>');
+    $html->date('search['.$level.']['.$key.'][till]', $valueTill);
+    return $html->html;
+
   }
 
   function getFilterOption($value, $area){
-    return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
+    if($this->type == 'unix')
+    {
+      $from = strtotime($value['from']);
+      $till = strtotime($value['till']);
+    }
+    else
+    {
+      $from = $value['from'];
+      $till = $value['till'];
+    }
+
+    $answer = '';
+    if($from != '')
+    {
+      $answer .= " `".$this->dbField."` >= '".mysql_real_escape_string($from)."' ";
+    }
+    if(isset($value['till']) && $value['till'] != '')
+    {
+      if($answer != '')
+      {
+        $answer .= " AND ";
+      }
+      $answer .= " `".$this->dbField."` <= '".mysql_real_escape_string($till)."' ";
+    }
+    return $answer;
+    
   }
 
 

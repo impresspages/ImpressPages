@@ -1,7 +1,7 @@
 /**
  *
  * ImpressPages CMS update script
- * Upgrade from any version to 1.0.2 Beta
+ * Upgrade from any version to 1.0.7
  *
  *
  * @package		ImpressPages
@@ -12,6 +12,6 @@
  UPDATE
 
 1 Backup all your files and database before starting the update process
-2 Upload "update" folder to website root directory
+2 Upload "update" folder to website root directory. Delete old update directory.
 3 Point your browser to "update" directory
 4 Follow the instructions

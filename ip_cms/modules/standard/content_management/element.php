@@ -21,13 +21,22 @@ require_once (__DIR__.'/site_db.php');
 class Element extends \Frontend\Element {
   protected $dynamicModules;
 
-  public function getLink() {
+  public function getLink($ignoreRedirect = false) {
     if($this->link == null) {
       $this->generateDepthAndLink();
     }
 
-    return $this->link;
+    if($ignoreRedirect)
+    {
+      return $this->linkIgnoreRedirect;
+    }
+    else
+    {
+      return $this->link;
+    }
   }
+
+
 
   public function getDepth() {
     if($this->depth == null)
@@ -201,7 +210,11 @@ class Element extends \Frontend\Element {
         break;
     }
 
+    $this->linkIgnoreRedirect = $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);
   }
+
+
+
 }
 
 
