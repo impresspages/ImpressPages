@@ -35,8 +35,7 @@ class Actions {
                 $postFields .= '&modules['.$group['name'].']['.$module['name'].']='.$module['version'];
               }
             }
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);            
             curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);

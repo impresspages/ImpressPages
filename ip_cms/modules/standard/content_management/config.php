@@ -69,7 +69,7 @@ class Config // extends MimeType
       document_base_url : "'.BASE_URL.'",
       remove_script_host : false,
       relative_urls : false,
-      convert_urls : false,
+      convert_urls : true,
 
       paste_auto_cleanup_on_paste : true,
       paste_retain_style_properties : false,
@@ -86,6 +86,10 @@ class Config // extends MimeType
 
         tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
         tmpContent = tmpContent.replace(/(<\\/strong>)/ig, "</b>");
+
+
+
+
 
         /* remove unknown classes */
         var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
@@ -128,6 +132,8 @@ class Config // extends MimeType
             }
           }
         }
+
+        
 
         o.content = tmpContent;
 

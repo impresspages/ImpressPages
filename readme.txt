@@ -3,7 +3,7 @@
  * ImpressPages CMS
  * 
  * @package		ImpressPages
- * @copyright	Copyright (C) 2009 JSC Apro media.
+ * @copyright	Copyright (C) 2010 JSC Apro media.
  * @license		GNU/GPL, see ip_license.html
  */
 

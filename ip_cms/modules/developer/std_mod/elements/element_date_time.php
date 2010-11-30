@@ -78,7 +78,7 @@ class ElementDateTime extends Element{ //data element in area
     }
     else
     {
-      $value = substr($record[$this->dbField], 0, 10);
+      $value = $record[$this->dbField];
     }
 
 
