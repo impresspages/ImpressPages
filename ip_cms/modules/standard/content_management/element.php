@@ -210,7 +210,7 @@ class Element extends \Frontend\Element {
         break;
     }
 
-    $this->linkIgnoreRedirect = $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);
+    $this->linkIgnoreRedirect = $site->generateUrl($languageId, $this->zoneName, $urlVars);
   }
 
 

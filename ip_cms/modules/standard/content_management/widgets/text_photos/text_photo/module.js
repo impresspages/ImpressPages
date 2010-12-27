@@ -177,7 +177,7 @@ function content_mod_text_photo() {
     + widget_text_photo_big_height + '"/>'
     + '<input type="hidden" name="photo_quality[]" value="'
     + widget_text_photo_big_quality + '"/>'
-    + '<input type="hidden" name="photo_method[]" value="width"/>'
+    + '<input type="hidden" name="photo_method[]" value="fit"/>'
     + '<input type="hidden" name="photo_forced[]" value="0"/>'
     + '<label class="ipCmsTitle">' + widget_text_photo_title
     + '</label>' + '<div class="ipCmsInput"><input id="management_'
