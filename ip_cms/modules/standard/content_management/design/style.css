@@ -742,3 +742,122 @@ img.mod_content_management_parameter_buttons{
 }
 
 /*eof edit content management parameter popup*/
+
+
+
+/*contact form values popup*/
+#ip_cms_contact_form_values{
+  z-index: 20;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(popup_bg.png);
+}
+
+
+
+#ip_cms_contact_form_values div.ipCmsBorder{
+  width: 700px;
+  border: 1px solid #a0a2a5;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  background-color: white;
+}
+
+#ip_cms_contact_form_values div.ipCmsManagement{
+  height: 230px;
+  overflow: auto;
+}
+
+
+#ip_cms_contact_form_values div.ipCmsHead{
+  font-family: Verdana, Arial, Tahoma;
+  font-weight: bold;
+  font-size: 12px;
+  color: #505050;
+  padding: 7px;
+  background: #ffffff url(popup_head_bg.gif);
+  border-bottom: 1px solid #dedfe1;
+}
+
+#ip_cms_contact_form_values p.ipCmsError {
+  background-color: #FFF5E1;
+  border: 1px solid #EFA6A7;
+  color: #E73031;
+  margin: 3px 0;
+  padding: 4px;
+  display: none;
+}
+
+#ip_cms_contact_form_values div.ipCmsManagement{
+background:#F5F5F5 url(module_management_bg.gif) repeat-x scroll left bottom;
+padding:17px 17px 13px;
+text-align:left;
+}
+
+#ip_cms_contact_form_values div.ipCmsModuleControlButtons{
+  background-color: #f5f5f5;
+  padding: 5px;
+}
+
+#ip_cms_contact_form_values a.ipCmsButton{
+  color: #264971;
+  font-family: Verdana, Arial, Helvetica;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 1px 10px;
+  margin-right: 7px;
+  border: 1px solid #ffbb44;
+  float: left;
+  background: url(button.gif);
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 20px;
+}
+
+#ip_cms_contact_form_values a.ipCmsButton:hover{
+ background-image: none;
+ background-color: #f6e0b5;
+}
+
+#ip_cms_contact_form_values div.ipCmsInput input, #main_fields_popup div.ipCmsInput select{
+  font-family: Verdana, Arial, Helvetica;
+  font-size: 12px;
+  color: black;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  /*border: none; don't work on ie7 under Vista*/
+  border: 0px solid #ffffff;
+}
+
+#ip_cms_contact_form_values div.ipCmsInput{
+  padding: 0 2px;
+  border: 1px solid #c0c0c0;
+  margin-bottom: 5px;
+  background-color: white;
+}
+
+#ip_cms_contact_form_values textarea{
+  margin-bottom: 3px;
+  width: 100%;
+  height: 200px;
+  border: 1px solid #c0c0c0;
+  font-family: Verdana, Arial, Helvetica;
+  font-size: 12px;
+  color: black;
+}
+
+#ip_cms_contact_form_values label.ipCmsTitle{
+  font-family: Verdana, Arial, Helvetica;
+  font-size: 12px;
+  color: #797979;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: normal;
+}
+
+/*eof popup*/

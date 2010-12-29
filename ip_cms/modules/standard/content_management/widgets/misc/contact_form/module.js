@@ -27,6 +27,10 @@ function content_mod_contact_form() {
   this.management_contact_form_add_field = management_contact_form_add_field;
   this.management_contact_form_remove_field = management_contact_form_remove_field;
 
+  this.values_show = values_show;
+  this.values_close = values_close;
+  this.values_save = values_save;
+
   var collection_number;
   var id;
   var visible;
@@ -85,7 +89,7 @@ function content_mod_contact_form() {
     document.getElementById(worker_form).submit();
 
   }
-  ;
+  
 
   function manage() {
     this.field_count = this.fields.length;
@@ -93,6 +97,39 @@ function content_mod_contact_form() {
     var div = document.createElement('div');
 
     var html = ''
+
+    + '<div id="ip_cms_contact_form_values" style="display: none;">'
+    + '<div  onclick="LibDefault.cancelBubbling(event)" id="ip_cms_contact_form_values_border" class="ipCmsBorder">'
+    + '<div class="ipCmsHead">'
+    + '<img '
+    + 'alt="Close"'
+    + 'onmouseover="this.src=\'' + global_config_modules_url + 'standard/content_management/design/popup_close_hover.gif\'"'
+    + 'onmouseout="this.src=\'' + global_config_modules_url + 'standard/content_management/design/popup_close.gif\'"'
+    + 'onclick="' + this.my_name + '.values_close();" style="cursor: pointer; float: right;" src="' + global_config_modules_url + 'standard/content_management/design/popup_close.gif"/>'
+    + '' + widget_contact_form_values_popup_title + ''
+    + '</div>'
+    + '<div class="ipCmsManagement" >'
+    + '<form  id="f_contact_form_values" action="" onsubmit="content_mod_contact_form.values_save(); return false;">'
+    + '<div>'
+    + '<label class="ipCmsTitle">' + widget_contact_form_values_field_title + '</label>'
+    + '<input type="hidden" name="field_number"  value="" />'
+    + '<textarea id="" name="values"  value=""></textarea>'
+
+
+    + '<input type="submit" style="width:0px; height: 0px; overflow: hidden; border: 0pt none;" />'
+    + '</div>'
+    + '</form>'
+    + '</div>'
+    + '<div class="ipCmsModuleControlButtons">'
+    + '<a onclick="' + this.my_name + '.values_save();" class="ipCmsButton">Confirm</a>'
+    + '<a onclick="' + this.my_name + '.values_close();"class="ipCmsButton">Cancel</a>'
+    + '<div style="clear: both;"></div>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+
+
+
     + '<div class="ipCmsError" id="management_'
     + this.collection_number
     + '_error"></div>'
@@ -108,155 +145,130 @@ function content_mod_contact_form() {
 
     if (this.fields.length == 0) {
       html = html
-      + '<tr id="management_'
-      + this.collection_number
-      + '_field_0">'
-      + '<td >'
-      + '<label class="ipCmsTitle">'
-      + widget_contact_form_name
-      + '</label>'
-      + '<div class="ipCmsInput"><input id="management_'
-      + this.collection_number
-      + '_field_0_name" value=""></div>'
-      + '</td>'
-      + '<td >'
-      + '<label class="ipCmsTitle">'
-      + widget_contact_form_type
-      + '</label>'
-      + '<div class="ipCmsInput"><select id="management_'
-      + this.collection_number
-      + '_field_0_type" value="">'
-      + '<option value="text">'
-      + widget_contact_form_text_row
-      + '</option>'
-      + '<option value="email">'
-      + widget_contact_form_email
-      + '</option>'
-      + '<option value="textarea">'
-      + widget_contact_form_text_field
-      + '</option>'
-      + '<option value="file">'
-      + widget_contact_form_file
-      + '</option>'
-      + '</select></div>'
-      + '</td>'
-      + '<td >'
-      + '<label class="ipCmsTitle">'
-      + widget_contact_form_required
-      + '</label><input type="checkbox" id="management_'
-      + this.collection_number
-      + '_field_0_required" value="">'
-      + '</td>'
-      + '<td >'
-      + '<label class="ipCmsTitle">&nbsp;</label>'
-      + '<a><img class="ipCmsIcon" onclick="'
-      + this.my_name
-      + '.management_contact_form_remove_field(0)" src="'
-      + global_config_modules_url
-      + 'standard/content_management/design/icon_delete_tr.gif" /></a>'
-      + '</td>' + '</tr>';
+      + '<tr id="management_' + this.collection_number + '_field_0">'
+          + '<td >'
+              + '<label class="ipCmsTitle">' + widget_contact_form_name + '</label>'
+              + '<div class="ipCmsInput"><input id="management_' + this.collection_number + '_field_0_name" value=""></div>'
+          + '</td>'
+          + '<td>'
+              + '<label class="ipCmsTitle">&nbsp;</label>'
+              + '<a href="#" onclick="' + this.my_name + '.values_show(0); return false;" style="display: none;">'
+              + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
+              + '</a>'
+              + '<input type="hidden"  id="management_' + this.collection_number + '_field_0_values" />'
+          + '</td>'
+          + '<td >'
+              + '<label class="ipCmsTitle">' + widget_contact_form_type + '</label>'
+              + '<div class="ipCmsInput">'
+                  + '<select id="management_' + this.collection_number + '_field_0_type" value="">'
+                      + '<option value="text">' + widget_contact_form_text_row + '</option>'
+                      + '<option value="text_multiline">' + widget_contact_form_text_multiline + '</option>'
+                      + '<option value="email">' + widget_contact_form_email + '</option>'
+                      + '<option value="file">' + widget_contact_form_file + '</option>'
+                      + '<option value="select">' + widget_contact_form_select + '</option>'
+                      + '<option value="checkbox">' + widget_contact_form_checkbox + '</option>'
+                      + '<option value="radio">' + widget_contact_form_radio + '</option>'
+                  + '</select>'
+              + '</div>'
+          + '</td>'
+          + '<td >'
+              + '<label class="ipCmsTitle">' + widget_contact_form_required + '</label>'
+              + '<input type="checkbox" id="management_' + this.collection_number + '_field_0_required" value="">'
+          + '</td>'
+          + '<td >'
+              + '<label class="ipCmsTitle">&nbsp;</label>'
+              + '<a><img class="ipCmsIcon" onclick="' + this.my_name + '.management_contact_form_remove_field(0)" src="' + global_config_modules_url + 'standard/content_management/design/icon_delete_tr.gif" /></a>'
+          + '</td>'
+      + '</tr>';
     } else {
       var i = 0;
       while (i < this.fields.length) {
         var name = '';
+        var values = '';
         var type = '';
         var required = '';
         var del = '';
         if (i == 0) {
-          var name = '<label class="ipCmsTitle">' + widget_contact_form_name + '</label>';
-          var type = '<label class="ipCmsTitle">' + widget_contact_form_type + '</label>';
-          var required = '<label class="ipCmsTitle">' + widget_contact_form_required + '</label>';
-          var del = '<label class="ipCmsTitle">&nbsp;</label>';
+          name = '<label class="ipCmsTitle">' + widget_contact_form_name + '</label>';
+          values = '<label class="ipCmsTitle">&nbsp;</label>';
+          type = '<label class="ipCmsTitle">' + widget_contact_form_type + '</label>';
+          required = '<label class="ipCmsTitle">' + widget_contact_form_required + '</label>';
+          del = '<label class="ipCmsTitle">&nbsp;</label>';
         }
         var checked = '';
         if (this.fields[i][2])
           checked = ' checked ';
 
         var type_text = '';
+        var type_text_multiline = '';
         var type_email = '';
-        var type_textarea = '';
         var type_file = '';
+        var type_select = '';
+        var type_checkbox = '';
+        var type_radio = '';
+
+        var display_list = 'none'; //by default don't show values select icon
 
         if (this.fields[i][1] == 'text')
           type_text = ' selected ';
+
+        if (this.fields[i][1] == 'text_multiline')
+          type_text_multiline = ' selected ';
+
         if (this.fields[i][1] == 'email')
           type_email = ' selected ';
-        if (this.fields[i][1] == 'textarea')
-          type_textarea = ' selected ';
+
         if (this.fields[i][1] == 'file')
           type_file = ' selected ';
 
-        html = html
-        + '<tr id="management_'
-        + this.collection_number
-        + '_field_'
-        + i
-        + '">'
-        + '<td >'
-        +
+        if (this.fields[i][1] == 'select'){
+          type_select = ' selected ';
+          display_list = ''; //display values insert icon
+        }
 
-        ''
-        + name
-        + '<div class="ipCmsInput"><input id="management_'
-        + this.collection_number
-        + '_field_'
-        + i
-        + '_name" value="'
-        + this.fields[i][0].replace(/"/g, "&quot;")
-        + '"></div>'
+        if (this.fields[i][1] == 'checkbox'){
+          type_checkbox = ' selected ';
+        }
+
+        if (this.fields[i][1] == 'radio'){
+          type_radio = ' selected ';
+          display_list = ''; //display values insert icon
+        }
+
+        html = html
+        + '<tr id="management_' + this.collection_number + '_field_' + i + '">'
+        + '<td >'
+            + name
+            + '<div class="ipCmsInput">'
+            + '<input id="management_' + this.collection_number + '_field_' + i + '_name" value="' + this.fields[i][0].replace(/"/g, "&quot;") + '">'
+            + '</div>'
         + '</td>'
         + '<td >'
-        + ''
-        + type
-        + '<div class="ipCmsInput"><select id="management_'
-        + this.collection_number
-        + '_field_'
-        + i
-        + '_type" value="'
-        + this.fields[i][1].replace(/"/g, "&quot;")
-        + '">'
-        + '<option value="text" '
-        + type_text
-        + '>'
-        + widget_contact_form_text_row
-        + '</option>'
-        + '<option value="email" '
-        + type_email
-        + '>'
-        + widget_contact_form_email
-        + '</option>'
-        + '<option value="textarea" '
-        + type_textarea
-        + '>'
-        + widget_contact_form_text_field
-        + '</option>'
-        + '<option value="file" '
-        + type_file
-        + '>'
-        + widget_contact_form_file
-        + '</option>'
-        + '</select></div>'
+          + values
+          + '<a href="#" onclick="' + this.my_name + '.values_show(' + i + '); return false;" style="display: ' + display_list + '">'
+          + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
+          + '</a>'
+          + '<input type="hidden"  id="management_' + this.collection_number + '_field_' + i + '_values" />'
         + '</td>'
         + '<td >'
-        + ''
-        + required
-        + '<input  type="checkbox" '
-        + checked
-        + 'id="management_'
-        + this.collection_number
-        + '_field_'
-        + i
-        + '_required" >'
+            + type
+            + '<div class="ipCmsInput"><select id="management_' + this.collection_number + '_field_' + i + '_type" value="' + this.fields[i][1].replace(/"/g, "&quot;") + '">'
+            + '<option value="text" ' + type_text + '>' + widget_contact_form_text + '</option>'
+            + '<option value="text_multiline" ' + type_text_multiline + '>' + widget_contact_form_text_multiline + '</option>'
+            + '<option value="email" ' + type_email + '>' + widget_contact_form_email + '</option>'
+            + '<option value="file" ' + type_file + '>' + widget_contact_form_file + '</option>'
+            + '<option value="select" ' + type_select + '>' + widget_contact_form_select + '</option>'
+            + '<option value="checkbox" ' + type_checkbox + '>' + widget_contact_form_checkbox + '</option>'
+            + '<option value="radio" ' + type_radio + '>' + widget_contact_form_radio + '</option>'
+            + '</select></div>'
         + '</td>'
         + '<td >'
-        + del
-        + '<a><img class="ipCmsIcon" onclick="'
-        + this.my_name
-        + '.management_contact_form_remove_field('
-        + i
-        + ')" src="'
-        + global_config_modules_url
-        + 'standard/content_management/design/icon_delete_tr.gif" /></a>'
+            + required
+            + '<input  type="checkbox" ' + checked + 'id="management_' + this.collection_number + '_field_' + i + '_required" >'
+        + '</td>'
+        + '<td >'
+            + del
+            + '<a><img class="ipCmsIcon" onclick="' + this.my_name + '.management_contact_form_remove_field(' + i + ')" src="' + global_config_modules_url + 'standard/content_management/design/icon_delete_tr.gif" /></a>'
         + '</td>' + '</tr>';
         i++;
       }
@@ -317,7 +329,35 @@ function content_mod_contact_form() {
     div.innerHTML = html;
     return div;
   }
-  ;
+  
+
+
+  function values_show(field_number) {
+    var form = document.getElementById(('f_contact_form_values'));
+//    var form_popup = document.getElementById(('ip_cms_contact_form_values'));
+
+//    form_popup.values.value = 'test';
+    form.field_number.value = field_number;
+
+    var popup = document.getElementById('ip_cms_contact_form_values');
+    var border = document.getElementById('ip_cms_contact_form_values_border');
+
+    popup.style.display = 'block';
+    form.values.focus();
+    border.style.marginTop = Math.abs((LibWindow.getWindowHeight() - border.offsetHeight)/2) + 'px';
+
+    form.values.value = document.getElementById('management_' + this.collection_number + '_field_' + field_number + '_values').value;
+  }
+  function values_close(){
+    document.getElementById('ip_cms_contact_form_values').style.display = 'none';
+  }
+
+  function values_save() {
+    var form = document.getElementById('f_contact_form_values');
+    var values = form.values.value;
+    document.getElementById('management_' + this.collection_number + '_field_' + form.field_number.value + '_values').value = values;
+    values_close();
+  }
 
   function manage_init() {
     var LayoutSelect = document.getElementById('mod_' + this.collection_number + '_layout').layout;
@@ -492,6 +532,7 @@ function content_mod_contact_form() {
       + '_field_' + fields_table.childNodes.length);
 
     var td1 = document.createElement('td');
+    var td1_1 = document.createElement('td');
     var td2 = document.createElement('td');
     var td3 = document.createElement('td');
     var td4 = document.createElement('td');
@@ -504,30 +545,51 @@ function content_mod_contact_form() {
     + '_field_'
     + fields_table.childNodes.length + '_name" value=""></div>';
 
+
+    td1_1.innerHTML = ''
+        + '<td >'
+          + '<a href="#" onclick="' + this.my_name + '.values_show(' + fields_table.childNodes.length + '); return false;">'
+          + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
+          + '</a>'
+          + '<input type="hidden"  id="management_' + this.collection_number + '_field_' + fields_table.childNodes.length + '_values" />'
+        + '</td>';
+
+
+
+
     var option = document.createElement('option');
     option.setAttribute('value', 'text');
-    option.appendChild(document
-      .createTextNode(widget_contact_form_text_row));
-
+    option.appendChild(document.createTextNode(widget_contact_form_text));
     select.appendChild(option);
 
-    var option = document.createElement('option');
+    option = document.createElement('option');
+    option.setAttribute('value', 'text_multiline');
+    option.appendChild(document.createTextNode(widget_contact_form_text_multiline));
+    select.appendChild(option);
+
+    option = document.createElement('option');
     option.setAttribute('value', 'email');
     option.appendChild(document.createTextNode(widget_contact_form_email));
-
     select.appendChild(option);
 
-    var option = document.createElement('option');
-    option.setAttribute('value', 'textarea');
-    option.appendChild(document
-      .createTextNode(widget_contact_form_text_field));
-
-    select.appendChild(option);
-
-    var option = document.createElement('option');
+    option = document.createElement('option');
     option.setAttribute('value', 'file');
     option.appendChild(document.createTextNode(widget_contact_form_file));
+    select.appendChild(option);
 
+    option = document.createElement('option');
+    option.setAttribute('value', 'select');
+    option.appendChild(document.createTextNode(widget_contact_form_select));
+    select.appendChild(option);
+
+    option = document.createElement('option');
+    option.setAttribute('value', 'checkbox');
+    option.appendChild(document.createTextNode(widget_contact_form_checkbox));
+    select.appendChild(option);
+
+    option = document.createElement('option');
+    option.setAttribute('value', 'radio');
+    option.appendChild(document.createTextNode(widget_contact_form_radio));
     select.appendChild(option);
 
     var tmp_div = document.createElement("div");
@@ -548,6 +610,7 @@ function content_mod_contact_form() {
     + 'standard/content_management/design/icon_delete_tr.gif" /></a>';
 
     tr.appendChild(td1);
+    tr.appendChild(td1_1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
