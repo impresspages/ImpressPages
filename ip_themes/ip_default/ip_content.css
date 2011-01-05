@@ -431,13 +431,19 @@
   font-size: 12px;
 }
 
-.ipContent .libPhpFormInput input.checkbox {
+.ipContent .libPhpFormInput input.checkbox,
+.ipContent .libPhpFormInput input.radio{
   border: none;
   width: auto;
 }
 
 .ipContent  .libPhpFormFieldError .libPhpFormInput input.checkbox {
   outline: #e53031 solid 1px;
+}
+
+.ipContent .libPhpFormFieldRow {
+    margin-bottom: 5px;
+    font-size: 13px;
 }
 
 /* /forms */

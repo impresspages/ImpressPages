@@ -48,7 +48,7 @@ class Module extends \Modules\standard\content_management\Widget{
     <script type=\"text/javascript\" >
     //<![CDATA[
       mod_rich_text_layout = '".$script."';
-      configWidgetMiscRichTextMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
+      configWidgetMiscRichTextMceInit = '".\Library\Php\Js\Functions::htmlToString(Config::getMceInit())."';
      //]]>
     </script>
     ";

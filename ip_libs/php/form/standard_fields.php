@@ -380,12 +380,31 @@ class FieldCaptcha extends Field{
  * @package Library 
  */  
 class FieldRadio extends Field{
+  var $values;
+
+  public function __construct() {
+      $this->value = null;
+  }
+
   function genHtml($class, $id){
     $answer = '';
-    if(isset($_POST[$this->name]) == $this->value)
-      return '<input id="'.$id.'" value="'.addslashes($this->value).'" checked class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'" value="1"/>'."\n";
-    else
-      return '<input id="'.$id.'" value="'.addslashes($this->value).'" class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'"/>'."\n";
+
+    if($this->value && empty($values)) { //old approach
+        if(isset($_POST[$this->name]))
+          return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
+        else
+          return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
+    } else { //new approach
+        foreach ($this->values as $key => $value) {
+            $answer .= '<div class="libPhpFormFieldRow">';
+            if(isset($_POST[$this->name]) && $_POST[$this->name] == $this->value || $this->value === null && $key == 0)
+              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" checked class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'" value="1"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
+            else
+              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
+            $answer .= '</div>';
+        }
+    }
+    return $answer;
   }
   
   function getError(){

@@ -12,7 +12,7 @@ if (!defined('CMS')) exit;
 const GROUP_KEY = 'misc';
 const MODULE_KEY = 'contact_form';
 
-
+require_once(\BASE_DIR.\LIBRARY_DIR.'php/js/functions.php');
 
 class Module extends \Modules\standard\content_management\Widget{
 
@@ -108,6 +108,15 @@ class Module extends \Modules\standard\content_management\Widget{
           $answer .= "  field[0] = '".addslashes($lock['name'])."';";
           $answer .= "  field[1] = '".addslashes($lock['type'])."';";
           $answer .= "  field[2] = ".addslashes($lock['required']).";";
+          $fieldValues = json_decode($lock['values']);
+          if($fieldValues){
+              $fieldValues = \Library\Php\Js\Functions::htmlToString(implode("\n", $fieldValues));
+          }
+          else
+          {
+              $fieldValues = '';
+          }
+          $answer .= "  field[3] = '".$fieldValues."';";
           $answer .= "  new_module.fields.push(field);";
           $answer .= "  ";
            
@@ -116,7 +125,7 @@ class Module extends \Modules\standard\content_management\Widget{
             case 'text':
               $field = new \Library\Php\Form\FieldText();
               break;
-            case 'textarea':
+            case 'text_multiline':
               $field = new \Library\Php\Form\FieldTextarea();
               break;
             case 'file':
@@ -125,6 +134,17 @@ class Module extends \Modules\standard\content_management\Widget{
             case 'email':
               $field = new \Library\Php\Form\FieldEmail();
               break;
+            case 'select':
+                $field = new \Library\Php\Form\FieldSelect();
+                $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
+                break;
+            case 'checkbox':
+                $field = new \Library\Php\Form\FieldCheckbox();
+                break;
+            case 'radio':
+                $field = new \Library\Php\Form\FieldRadio();
+                $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
+                break;
           }
           $field->caption = $lock['name'];
           $field->name = 'field_'.(sizeof($fields) + 1);
@@ -174,7 +194,7 @@ class Module extends \Modules\standard\content_management\Widget{
           case 'text':
             $field = new \Library\Php\Form\FieldText();
             break;
-          case 'textarea':
+          case 'text_multiline':
             $field = new \Library\Php\Form\FieldTextarea();
             break;
           case 'file':
@@ -182,6 +202,17 @@ class Module extends \Modules\standard\content_management\Widget{
             break;
           case 'email':
             $field = new \Library\Php\Form\FieldEmail();
+            break;
+          case 'select':
+            $field = new \Library\Php\Form\FieldSelect();
+            $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
+            break;
+          case 'checkbox':
+            $field = new \Library\Php\Form\FieldCheckbox();
+            break;
+          case 'radio':
+            $field = new \Library\Php\Form\FieldRadio();
+            $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
             break;
         }
         $field->caption = $lock['name'];
@@ -270,9 +301,13 @@ class Module extends \Modules\standard\content_management\Widget{
       }
       $i = 0;
       while(isset($values['field_'.$i.'_name'])){
+
+        $values_array = $this->values_to_array($values['field_'.$i.'_values']);
+
         $sql = "insert into `".DB_PREF."mc_misc_contact_form_field` set".
           " name = '".mysql_real_escape_string($values['field_'.$i.'_name'])."', 
           type = '".mysql_real_escape_string($values['field_'.$i.'_type'])."',
+          `values` = '".mysql_real_escape_string(json_encode($values_array))."',
           required = '".mysql_real_escape_string($values['field_'.$i.'_required'])."',
           contact_form = '".$max_id."'";
         $rs = mysql_query($sql);
@@ -302,9 +337,14 @@ class Module extends \Modules\standard\content_management\Widget{
       $this->set_error("Can't delete old fields ".$sql);
       $i = 0;
       while(isset($values['field_'.$i.'_name'])){
+
+        $values_array = $this->values_to_array($values['field_'.$i.'_values']);
+
+
         $sql = "insert into `".DB_PREF."mc_misc_contact_form_field` set".
           " `name` = '".mysql_real_escape_string($values['field_'.$i.'_name'])."', 
           `type` = '".mysql_real_escape_string($values['field_'.$i.'_type'])."',
+          `values` = '".mysql_real_escape_string(json_encode($values_array))."',
           `required` = '".mysql_real_escape_string($values['field_'.$i.'_required'])."',
           `contact_form` = '".(int)$values['id']."'";
         $rs = mysql_query($sql);
@@ -367,7 +407,7 @@ class Module extends \Modules\standard\content_management\Widget{
           case 'text':
             $field = new \Library\Php\Form\FieldText();
             break;
-          case 'textarea':
+          case 'text_multiline':
             $field = new \Library\Php\Form\FieldTextarea();
             break;
           case 'file':
@@ -375,6 +415,17 @@ class Module extends \Modules\standard\content_management\Widget{
             break;
           case 'email':
             $field = new \Library\Php\Form\FieldEmail();
+            break;
+          case 'select':
+            $field = new \Library\Php\Form\FieldSelect();
+            $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
+            break;
+          case 'checkbox':
+            $field = new \Library\Php\Form\FieldCheckbox();
+            break;
+          case 'radio':
+            $field = new \Library\Php\Form\FieldRadio();
+            $field->values = $this->prepare_for_select($this->db_values_to_array($lock['values']));
             break;
         }
         $field->caption = $lock['name'];
@@ -400,15 +451,17 @@ class Module extends \Modules\standard\content_management\Widget{
   function manager_preview(){
     global $site;
     $site->requireTemplate('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/template.php');
-     
     $fields = array();
     $i=0;
+
+
     while(isset($_REQUEST['field_'.$i.'_name'])){
+
       switch($_REQUEST['field_'.$i.'_type']){
         case 'text':
           $field = new \Library\Php\Form\FieldText();
           break;
-        case 'textarea':
+        case 'text_multiline':
           $field = new \Library\Php\Form\FieldTextarea();
           break;
         case 'file':
@@ -416,6 +469,20 @@ class Module extends \Modules\standard\content_management\Widget{
           break;
         case 'email':
           $field = new \Library\Php\Form\FieldEmail();
+          break;
+        case 'select':
+          $field = new \Library\Php\Form\FieldSelect();
+          $field->values = $this->prepare_for_select($this->values_to_array($_REQUEST['field_'.$i.'_values']));
+          break;
+        case 'checkbox':
+          $field = new \Library\Php\Form\FieldCheckbox();
+          break;
+        case 'radio':
+          $field = new \Library\Php\Form\FieldRadio();
+          $field->values = $this->prepare_for_select($this->values_to_array($_REQUEST['field_'.$i.'_values']));
+          break;
+        default:
+          trigger_error('Unknown type');
           break;
       }
       $field->caption = $_REQUEST['field_'.$i.'_name'];
@@ -435,5 +502,37 @@ class Module extends \Modules\standard\content_management\Widget{
     global $globalWorker;
     $globalWorker->set_error($error);
   }
+
+
+  private function db_values_to_array($json_values)
+  {
+      if($json_values == ''){
+          return array();
+      } else {
+          return json_decode($json_values);
+      }
+  }
+
+
+  private function prepare_for_select($values)
+  {
+      $answer = array();
+      foreach ($values as $key => $value) {
+          $answer[] = array($value, $value);
+      }
+      return $answer;
+
+  }
+
+
+  private function values_to_array($txt_values)
+  {
+        $values['values'] = str_replace(array("\r\n"), "\n", $txt_values);
+        $values['values'] = str_replace(array("\r"), "\n", $values['values']);
+        $values_array = explode("\n", $values['values']);
+        return $values_array;
+  }
+
+
 }
 

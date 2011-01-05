@@ -45,7 +45,7 @@ class Module extends \Modules\standard\content_management\Widget{
     <script type=\"text/javascript\" >
     //<![CDATA[
       mod_text_layout = '".$script."';
-      configWidgetTextPhotosTextMceInit = '".\Library\Php\Js\Functions::htmlToString(str_replace("\\", "\\\\",Config::getMceInit()))."';
+      configWidgetTextPhotosTextMceInit = '".\Library\Php\Js\Functions::htmlToString(Config::getMceInit())."';
      //]]>
     </script>
     ";

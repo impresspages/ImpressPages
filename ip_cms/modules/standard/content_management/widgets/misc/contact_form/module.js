@@ -30,6 +30,7 @@ function content_mod_contact_form() {
   this.values_show = values_show;
   this.values_close = values_close;
   this.values_save = values_save;
+  this.change_type = change_type;
 
   var collection_number;
   var id;
@@ -60,12 +61,10 @@ function content_mod_contact_form() {
     var fields_string = '';
     var i = 0;
     while (i < this.fields.length) {
-      fields_string = fields_string + ' <textarea name="field_' + i
-      + '_name" />' + this.fields[i][0] + '</textarea> ';
-      fields_string = fields_string + ' <textarea name="field_' + i
-      + '_type" />' + this.fields[i][1] + '</textarea> ';
-      fields_string = fields_string + ' <textarea name="field_' + i
-      + '_required" />' + this.fields[i][2] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_name" />' + this.fields[i][0] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_type" />' + this.fields[i][1] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_required" />' + this.fields[i][2] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_values" />' + this.fields[i][3] + '</textarea> ';
       i++;
     }
 
@@ -152,16 +151,16 @@ function content_mod_contact_form() {
           + '</td>'
           + '<td>'
               + '<label class="ipCmsTitle">&nbsp;</label>'
-              + '<a href="#" onclick="' + this.my_name + '.values_show(0); return false;" style="display: none;">'
+              + '<a id="management_' + this.collection_number + '_field_0_list" href="#" onclick="' + this.my_name + '.values_show(0); return false;" style="display: none;">'
               + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
               + '</a>'
-              + '<input type="hidden"  id="management_' + this.collection_number + '_field_0_values" />'
+              + '<div style="float: left; width: 0; height: 0; overflow: hidden;"><textarea id="management_' + this.collection_number + '_field_0_values" ></textarea></div>'
           + '</td>'
           + '<td >'
               + '<label class="ipCmsTitle">' + widget_contact_form_type + '</label>'
               + '<div class="ipCmsInput">'
-                  + '<select id="management_' + this.collection_number + '_field_0_type" value="">'
-                      + '<option value="text">' + widget_contact_form_text_row + '</option>'
+                  + '<select onchange="' + this.my_name + '.change_type(this, 0, ' + this.collection_number + ');" id="management_' + this.collection_number + '_field_0_type" value="">'
+                      + '<option value="text">' + widget_contact_form_text + '</option>'
                       + '<option value="text_multiline">' + widget_contact_form_text_multiline + '</option>'
                       + '<option value="email">' + widget_contact_form_email + '</option>'
                       + '<option value="file">' + widget_contact_form_file + '</option>'
@@ -245,14 +244,14 @@ function content_mod_contact_form() {
         + '</td>'
         + '<td >'
           + values
-          + '<a href="#" onclick="' + this.my_name + '.values_show(' + i + '); return false;" style="display: ' + display_list + '">'
+          + '<a  id="management_' + this.collection_number + '_field_' + i + '_list" href="#" onclick="' + this.my_name + '.values_show(' + i + '); return false;" style="display: ' + display_list + '">'
           + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
           + '</a>'
-          + '<input type="hidden"  id="management_' + this.collection_number + '_field_' + i + '_values" />'
+          + '<div style="float: left; width: 0; height: 0; overflow: hidden;"><textarea id="management_' + this.collection_number + '_field_' + i + '_values" >' + this.fields[i][3] + '</textarea></div>'
         + '</td>'
         + '<td >'
             + type
-            + '<div class="ipCmsInput"><select id="management_' + this.collection_number + '_field_' + i + '_type" value="' + this.fields[i][1].replace(/"/g, "&quot;") + '">'
+            + '<div class="ipCmsInput"><select onchange="' + this.my_name + '.change_type(this, ' + i + ', ' + this.collection_number + ');" id="management_' + this.collection_number + '_field_' + i + '_type" value="' + this.fields[i][1].replace(/"/g, "&quot;") + '">'
             + '<option value="text" ' + type_text + '>' + widget_contact_form_text + '</option>'
             + '<option value="text_multiline" ' + type_text_multiline + '>' + widget_contact_form_text_multiline + '</option>'
             + '<option value="email" ' + type_email + '>' + widget_contact_form_email + '</option>'
@@ -347,6 +346,7 @@ function content_mod_contact_form() {
     border.style.marginTop = Math.abs((LibWindow.getWindowHeight() - border.offsetHeight)/2) + 'px';
 
     form.values.value = document.getElementById('management_' + this.collection_number + '_field_' + field_number + '_values').value;
+    //form.values.value = this.fields[field_number][3];
   }
   function values_close(){
     document.getElementById('ip_cms_contact_form_values').style.display = 'none';
@@ -355,8 +355,22 @@ function content_mod_contact_form() {
   function values_save() {
     var form = document.getElementById('f_contact_form_values');
     var values = form.values.value;
-    document.getElementById('management_' + this.collection_number + '_field_' + form.field_number.value + '_values').value = values;
+    //this.fields[form.field_number.value][3] = values;
+    document.getElementById('management_' + this.collection_number + '_field_' + form.field_number.value + '_values').value = values
     values_close();
+  }
+
+/* In some situations we can't get collection_number using this */
+  function change_type(select, field_number, collection_number) {
+      switch(select.options[select.selectedIndex].value){
+          case 'select':
+          case 'radio':
+             document.getElementById('management_' + collection_number + '_field_' + field_number + '_list').style.display = '';
+          break;
+          default:
+             document.getElementById('management_' + collection_number + '_field_' + field_number + '_list').style.display = 'none';
+          break;
+      }
   }
 
   function manage_init() {
@@ -372,18 +386,17 @@ function content_mod_contact_form() {
 		
     var i = 0;
     this.fields = new Array();
-    while (document.getElementById('management_' + this.collection_number
-      + '_field_' + i + '_name')) {
+    while (document.getElementById('management_' + this.collection_number + '_field_' + i + '_name')) {
       var field = new Array();
-      field[0] = document.getElementById('management_'
-        + this.collection_number + '_field_' + i + '_name').value;
-      field[1] = document.getElementById('management_'
-        + this.collection_number + '_field_' + i + '_type').value;
+      field[0] = document.getElementById('management_' + this.collection_number + '_field_' + i + '_name').value;
+      field[1] = document.getElementById('management_' + this.collection_number + '_field_' + i + '_type').value;
       if (document.getElementById('management_' + this.collection_number
         + '_field_' + i + '_required').checked)
         field[2] = 1;
       else
         field[2] = 0;
+      field[3] = document.getElementById('management_' + this.collection_number + '_field_' + i + '_values').value;
+
       if (field[0] != '') {
         this.fields.push(field);
       }
@@ -416,8 +429,8 @@ function content_mod_contact_form() {
 
   function get_answer(notes) {
     /*
-		 * for(var i=0; i<notes.length; i++) alert(notes[i]);
-		 */
+    * for(var i=0; i<notes.length; i++) alert(notes[i]);
+    */
     return false;
   }
 
@@ -439,7 +452,10 @@ function content_mod_contact_form() {
             fields.push( [ 'field_' + i + '_required', 1 ]);
           else
             fields.push( [ 'field_' + i + '_required', 0 ]);
+          fields.push( [ 'field_' + i + '_values', this.fields[i][3] ]);
+
           i++;
+
         }
 
         fields.push( [ 'action', 'new_module' ]);
@@ -471,7 +487,12 @@ function content_mod_contact_form() {
             fields.push( [ 'field_' + i + '_required', 1 ]);
           else
             fields.push( [ 'field_' + i + '_required', 0 ]);
+          fields.push( [ 'field_' + i + '_values', this.fields[i][3] ]);
+
+          fields.push( [ 'field_' + i + '_values', this.fields[i][3] ]);
+
           i++;
+
         }
 
         fields.push( [ 'action', 'update_module' ]);
@@ -524,6 +545,11 @@ function content_mod_contact_form() {
       this.management_contact_form_add_field();
   }
 
+  function addChange(el, n, collection_number)
+  {
+    el.onchange = function() {change_type(el, n, collection_number);};
+  }
+
   function management_contact_form_add_field() {
     var fields_table = document
     .getElementById('management_' + this.collection_number + '_fields').childNodes[0];
@@ -539,7 +565,7 @@ function content_mod_contact_form() {
     var select = document.createElement('select');
     select.setAttribute('id', 'management_' + this.collection_number
       + '_field_' + fields_table.childNodes.length + '_type');
-
+    addChange(select, fields_table.childNodes.length, this.collection_number);
     td1.innerHTML = '<div class="ipCmsInput"><input style="width: 99%;" id="management_'
     + this.collection_number
     + '_field_'
@@ -548,10 +574,10 @@ function content_mod_contact_form() {
 
     td1_1.innerHTML = ''
         + '<td >'
-          + '<a href="#" onclick="' + this.my_name + '.values_show(' + fields_table.childNodes.length + '); return false;">'
+          + '<a style="display: none;" id="management_' + this.collection_number + '_field_' + fields_table.childNodes.length + '_list" href="#" onclick="' + this.my_name + '.values_show(' + fields_table.childNodes.length + '); return false;">'
           + ' <img border="0" src="' + global_config_modules_url + 'standard/content_management/widgets/misc/contact_form/design/list.gif" alt="' + widget_contact_form_values_popup_title + '" title="' + widget_contact_form_values_popup_title + '" />'
           + '</a>'
-          + '<input type="hidden"  id="management_' + this.collection_number + '_field_' + fields_table.childNodes.length + '_values" />'
+          + '<div style="float: left; width: 0; height: 0; overflow: hidden;"><textarea style="visible: none"  id="management_' + this.collection_number + '_field_' + fields_table.childNodes.length + '_values" ></textarea></div>'
         + '</td>';
 
 
