@@ -122,10 +122,9 @@ class Config // extends MimeType
                 styleExist = true;
               }
             }
-            alert(styleExist + \' \' + matches2[i2]);
 
             if(!styleExist){
-              tmpContent = tmpContent.replace(matches2[i2], ""); alert(\'replace\');
+              tmpContent = tmpContent.replace(matches2[i2], ""); 
             }
           }
         }
