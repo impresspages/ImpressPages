@@ -75,7 +75,7 @@ class Config // extends MimeType
       forced_root_block : "p",
 
       document_base_url : "'.BASE_URL.'",
-      remove_script_host : true,
+      remove_script_host : false,
       relative_urls : false,
       convert_urls : true,
 
@@ -192,7 +192,7 @@ class Config // extends MimeType
       forced_root_block : "p",
 
       document_base_url : "'.BASE_URL.'",
-      remove_script_host : true,
+      remove_script_host : false,
       relative_urls : false,
       convert_urls : true,
 

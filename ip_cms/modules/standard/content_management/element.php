@@ -20,9 +20,10 @@ require_once (__DIR__.'/site_db.php');
 
 class Element extends \Frontend\Element {
   protected $dynamicModules;
+  protected $linkIgnoreRedirect;
 
   public function getLink($ignoreRedirect = false) {
-    if($this->link == null) {
+    if($this->link == null || $this->linkIgnoreRedirect == null) {
       $this->generateDepthAndLink();
     }
 

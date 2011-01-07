@@ -197,7 +197,7 @@ class BackendWorker {
       if($page['url'] != $_POST['url']){
         $elementZone = $site->getZone($_POST['zone_name']);
         $element = $elementZone->getElement($_POST['page_id']);
-        $oldUrl = $element->getLink();
+        $oldUrl = $element->getLink(true);
       }
       //end report about changed URL
 
@@ -206,7 +206,7 @@ class BackendWorker {
       if($page['url'] != $_POST['url']){
         $elementZone = $site->getZone($_POST['zone_name']);
         $element = $elementZone->getElement($_POST['page_id']);
-        $newUrl = $element->getLink();
+        $newUrl = $element->getLink(true);
         $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
       }
 

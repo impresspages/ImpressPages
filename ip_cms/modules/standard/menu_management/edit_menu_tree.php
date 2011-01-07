@@ -29,12 +29,26 @@ class EditMenuTree {
     $this->zones = Db::zones();
     $this->currentZone = reset($this->zones);
 
-    if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'navigate') {
-      if(isset($_REQUEST['menu_name']))
-        $this->currentZone = $this->zones[$_REQUEST['menu_name']];
 
-      if(isset($_REQUEST['language_id']))
+    if(isset($_SESSION['backend_modules']['standard']['menu_management']['menu_name'])) {
+        $this->currentZone = $_SESSION['backend_modules']['standard']['menu_management']['menu_name'];
+    }
+
+    if(isset($_SESSION['backend_modules']['standard']['menu_management']['language_id'])) {
+        $this->currentLanguage = $_SESSION['backend_modules']['standard']['menu_management']['language_id'];
+    }
+
+
+    if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'navigate') {
+      if(isset($_REQUEST['menu_name'])) {
+        $this->currentZone = $this->zones[$_REQUEST['menu_name']];
+        $_SESSION['backend_modules']['standard']['menu_management']['menu_name'] = $this->currentZone;
+      }
+
+      if(isset($_REQUEST['language_id'])) {
         $this->currentLanguage = $this->languages[$_REQUEST['language_id']];
+        $_SESSION['backend_modules']['standard']['menu_management']['language_id'] = $this->currentLanguage;
+      }
     }
     $this->mode = "default";
   }
