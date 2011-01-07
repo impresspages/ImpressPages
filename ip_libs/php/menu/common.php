@@ -146,7 +146,7 @@ class Common {
       $class = '';
       if($element->getCurrent())
         $class .= 'current';
-      elseif($element->getSelected() || strpos($site->getCurrentUrl(), $element->getLink()) === 0 || $element->getLink().'/?cms_action=manage' == $site->getCurrentUrl())
+      elseif($element->getSelected() || $element->getLink() != '' && strpos($site->getCurrentUrl(), $element->getLink()) === 0 || $element->getLink().'/?cms_action=manage' == $site->getCurrentUrl())
         $class .= $class == '' ? 'selected' : 'Selected';
 
       if($curDepth < $depth && sizeof($children) > 0)

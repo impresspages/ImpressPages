@@ -181,9 +181,6 @@ class Element extends \Frontend\Element {
     $this->depth = sizeof($urlVars);
 
     switch($this->type) {
-      case 'inactive':
-        $this->link = '';
-        break;
       case 'subpage':
         $tmpChildren = $site->getZone($this->zoneName)->getElements($languageId, $this->id, 0, $limit = 1);
         if(sizeof($tmpChildren) == 1)
@@ -205,6 +202,7 @@ class Element extends \Frontend\Element {
         }
         $this->link = $this->redirectUrl;
         break;
+      case 'inactive':
       case 'default':
       default:
         $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);
