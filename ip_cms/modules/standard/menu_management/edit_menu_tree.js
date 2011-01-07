@@ -124,8 +124,8 @@ iTree = function(){
           document.getElementById('backgrace_path_update').style.display = 'block'; 
           document.getElementById('backgrace_path_new').style.display = 'none'; 
           
-                    
-        },        
+
+        },
 
     
         newSubNode : function(arg){                  
@@ -177,7 +177,9 @@ iTree = function(){
           document.getElementById('url_prefix').innerHTML = zoneLink;
           document.getElementById('url_suffix').innerHTML = '';      
           document.getElementById('content').style.display = 'block';
-           
+
+
+          form.property_button_title.focus();
           //promt(translation_title, translation_please_enter_title, newSubNodePromted);
         },            
   

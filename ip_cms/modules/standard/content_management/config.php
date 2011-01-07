@@ -87,9 +87,8 @@ class Config // extends MimeType
         tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>"); /*replace strong with bold*/
         tmpContent = tmpContent.replace(/(<\\/strong>)/ig, "</b>");
 
-
-
-
+        tmpContent = tmpContent.replace(/(<(\\ )*h[123][^<>]*>)/ig, "<b>"); /*replace h1 h2 h3 with bold*/
+        tmpContent = tmpContent.replace(/(<(\\ )*\\/h[123](\\ )*>)/ig, "</b>");
 
         /* remove unknown classes */
         var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
