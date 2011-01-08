@@ -1,11 +1,11 @@
 <?php
 /**
- * @package		ImpressPages
- * @copyright	Copyright (C) 2011 JSC Apro media.
- * @license		GNU/GPL, see ip_license.html
+ * @package   ImpressPages
+ * @copyright Copyright (C) 2011 JSC Apro media.
+ * @license   GNU/GPL, see ip_license.html
  */
 
-namespace update_1_0_2_beta_to_1_0_3_beta;
+namespace update_1_0_7_beta_to_1_0_8;
 
 define ('REMOVE_DIRECTORIES','<p><b>Please remove following directories:</b></p>');
 define ('REMOVE_FILES','<p><b>Please remove following files:</b></p>');

@@ -2,7 +2,7 @@
  * $Id: editor_plugin_src.js 1 2009.12.18 20:56:59 Audrius $
  *
  * @author Apro Media
- * @copyright Copyright © 2009, Apro Media , All rights reserved.
+ * @copyright Copyright © 2011 JSC Apro media , All rights reserved.
  */
 
 (function() {

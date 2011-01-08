@@ -4,7 +4,7 @@
  * @copyright Copyright (C) 2011 JSC Apro media.
  * @license   GNU/GPL, see ip_license.html
  */
-namespace update_1_0_5_to_1_0_6;
+namespace update_1_0_7_to_1_0_8;
 
 if (!defined('CMS')) exit;
 
@@ -223,12 +223,16 @@ class Script {
     require_once('db/db100.php');
 
     $answer = '';
-    if (\Db_100::getSystemVariable('version') != '1.0.6') {
+    if (\Db_100::getSystemVariable('version') != '1.0.8') {
 
       if ($this->curStep == $this->stepCount){
-        \Db_100::setSystemVariable('version','1.0.6');
+        \Db_100::setSystemVariable('version','1.0.8');
       }
     }
+
+
+    
+
 
     if ($this->curStep == $this->stepCount) {
       header("location: ".$navigation->generateLink($navigation->curStep() + 1));

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   ImpressPages
- * @copyright Copyright (C) 2009 JSC Apro media.
+ * @copyright Copyright (C) 2011 JSC Apro media.
  * @license   GNU/GPL, see license.html
  */
 namespace Modules\standard\languages;

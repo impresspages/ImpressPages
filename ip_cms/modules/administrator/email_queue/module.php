@@ -7,7 +7,7 @@
  * If required amount of emails is bigger than this parameter, part of messages will wait until next hour.
  * 
  * @package		ImpressPages
- * @copyright	Copyright (C) 2009 JSC Apro media.
+ * @copyright	Copyright (C) 2011 JSC Apro media.
  * @license		GNU/GPL, see ip_license.html
  */
 
