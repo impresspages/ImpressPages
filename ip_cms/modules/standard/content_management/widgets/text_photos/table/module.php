@@ -73,7 +73,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $sql = "select text from `".DB_PREF."mc_text_photos_table` where id = '".(int)$module_id."' ";
     $rs = mysql_query($sql);
     if (!$rs || !$lock = mysql_fetch_assoc($rs))
-    trigger_error("Can't get module information ".$sql);
+        trigger_error("Can't get module information ".$sql);
     else{
       $answer = "";
       $answer .= '<script type="text/javascript">
@@ -109,7 +109,7 @@ class Module extends \Modules\standard\content_management\Widget{
         $lock = mysql_fetch_assoc($rs);
         $sql = "insert into `".DB_PREF."content_element_to_modules` set".
             " row_number = '".(int)$values['row_number']."', element_id = '".(int)$values['content_element_id']."' ".
-            ", group_key='text_photos', module_key='text', module_id = '".(int)$lock['max_id']."'".
+            ", group_key='text_photos', module_key='table', module_id = '".(int)$lock['max_id']."'".
             ", visible= '".(int)$values['visible']."' ";
         $rs = mysql_query($sql);
         if (!$rs)
