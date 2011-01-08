@@ -364,7 +364,7 @@ function execute_ajax(){
 			<option value="Antarctica/Vostok">Antarctica/Vostok</option>
 		</optgroup>
 		<optgroup label="Arctic">
-			<option value="Arctic/Longyearbyen		">Arctic/Longyearbyen		</option>
+			<option value="Arctic/Longyearbyen">Arctic/Longyearbyen</option>
 		</optgroup>
 		<optgroup label="Asia">
 			<option value="Asia/Aden">Asia/Aden</option>

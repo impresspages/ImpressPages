@@ -20,7 +20,12 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 
 
-require (__DIR__.'/ip_config.php');
+if(is_file(__DIR__.'/ip_config.php')) {
+  require (__DIR__.'/ip_config.php');
+} else {
+  require (__DIR__.'/../ip_config.php');
+}
+
 require (BASE_DIR.INCLUDE_DIR.'parameters.php');
 require (BASE_DIR.INCLUDE_DIR.'db.php');
 require (BASE_DIR.FRONTEND_DIR.'site.php');

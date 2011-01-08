@@ -23,7 +23,12 @@ define('SITEMAP', true);
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 
-require ('ip_config.php');
+if(is_file(__DIR__.'/ip_config.php')) {
+  require (__DIR__.'/ip_config.php');
+} else {
+  require (__DIR__.'/../ip_config.php');
+}
+
 require (INCLUDE_DIR.'parameters.php');
 require (INCLUDE_DIR.'db.php');
 

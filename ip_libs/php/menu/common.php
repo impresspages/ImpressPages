@@ -154,7 +154,11 @@ class Common {
 
       $tmpLink = $element->getLink();
       if ($tmpLink) {
-        $html .= '  <li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
+        if($element->getType() == 'inactive') {
+            $html .= '  <li class="'.$class.'"><a class="'.$class.'" title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
+        } else {
+            $html .= '  <li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
+        }
       } else {
         $html .= '  <li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle())."</a>\n".$subHtml."\n  </li>\n";
       }
