@@ -221,6 +221,8 @@ class Script {
     global $navigation;
     global $htmlOutput;
     require_once('db/db100.php');
+    require_once(__DIR__.'/db.php');
+    require_once(__DIR__.'/../update__1_0_2_beta_to_1_0_3_beta/parameters_refractor.php');
 
     $answer = '';
     if (\Db_100::getSystemVariable('version') != '1.0.8') {
@@ -230,8 +232,36 @@ class Script {
       }
     }
 
+    //add table widget
+    $widgetGroup = Db::getWidgetGroup('text_photos');
+    $newWidget = array(
+        'name' => 'table',
+        'group_id' => $widgetGroup['id'],
+        'dynamic' => 0,
+        'translation' => 'Table',
+        'version' => '1.00',
+        'row_number' => Db::getMaxWidgetGroupRow($widgetGroup['id']) + 1
+    );
 
-    
+    Db::createTableWidgetTables();
+
+    //upate contact form widget
+    Db::createTableWidgetTables();
+
+
+    //update contact form widget parameters
+    \update_1_0_2_beta_to_1_0_3_beta::deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_field');
+    \update_1_0_2_beta_to_1_0_3_beta::deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_row');
+    $group = Db_100::getModule($id, 'standard', 'content_management');
+    Db_100::addStringParameter($group['id'], 'Text', 'text', 'Text', 1);
+    Db_100::addStringParameter($group['id'], 'Text (multiline)', 'text_multiline', 'Text (multiline)', 1);
+    Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
+    Db_100::addStringParameter($group['id'], 'Checkbox', 'text_multiline', 'Text (multiline)', 1);
+    Db_100::addStringParameter($group['id'], 'Radio', 'text_multiline', 'Text (multiline)', 1);
+    Db_100::addStringParameter($group['id'], 'Values popup title', 'values_popup_title', 'Values', 1);
+    Db_100::addStringParameter($group['id'], 'Values field title', 'values_field_title', 'Enter available values. Each value on a new line.', 1);
+
+
 
 
     if ($this->curStep == $this->stepCount) {

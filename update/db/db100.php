@@ -128,24 +128,24 @@ class Db_100 {
     }    
 
 
-
-
-    /**
-     * @access private
-     */
-    public static function getParameter($id, $reference, $par_group, $parameter){
-      $sql = "select p.* from `".DB_PREF."parameter` p,  `".DB_PREF."parameter_group` pg where pg.name = '".mysql_real_escape_string($par_group)."' and p.name = '".mysql_real_escape_string($parameter)."' and p.group_id = pg.id and pg.`".$reference."` = '".$id."'";
+    public static function getParameter($moduleGroupName, $moduleName, $parameterGroupName, $parameterName) {
+      $sql = "select * from `".DB_PREF."module_group` mg, `".DB_PREF."module` m, `".DB_PREF."parameter_group` pg, `".DB_PREF."parameter` p
+      where p.group_id = pg.id and pg.module_id = m.id and m.group_id = mg.id
+      and mg.name = '".mysql_real_escape_string($moduleGroupName)."' and m.name = '".mysql_real_escape_string($moduleName)."' and pg.name = '".mysql_real_escape_string($parameterGroupName)."' and p.name = '".mysql_real_escape_string($parameterName)."'";
       $rs = mysql_query($sql);
-      if($rs){
-        if($lock = mysql_fetch_assoc($rs))
+      if ($rs) {
+        if($lock = mysql_fetch_assoc($rs)) {
           return $lock;
-        else
+        } else {
           return false;
-      }else{
+        }
+      } else {
         trigger_error($sql." ".mysql_error());
         return false;
       }
-    }
+
+    }    
+
     
     /**
      * @access private
