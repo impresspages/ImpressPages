@@ -26,6 +26,7 @@ class Script {
     $this->deleteFolders[] = 'ip_cms';
     $this->deleteFolders[] = 'ip_libs';
 
+
     $this->deleteFiles = array();
     $this->deleteFiles[] = 'admin.php';
     $this->deleteFiles[] = 'index.php';
@@ -223,10 +224,10 @@ class Script {
     require_once('db/db100.php');
 
     $answer = '';
-    if (\Db_100::getSystemVariable('version') != '1.0.7') {
+    if (\Db_100::getSystemVariable('version') != '1.0.8') {
 
       if ($this->curStep == $this->stepCount){
-        \Db_100::setSystemVariable('version','1.0.7');
+        \Db_100::setSystemVariable('version','1.0.8');
       }
     }
 

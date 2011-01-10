@@ -405,7 +405,7 @@ CREATE TABLE `".DB_PREF."mc_text_photos_separator` (
       trigger_error($sql." ".mysql_error());*/
   }
   
-  private function deleteParameter($moduleGroup, $module, $parameterGroup, $parameterName){
+  public function deleteParameter($moduleGroup, $module, $parameterGroup, $parameterName){
     $moduleId = $this->getModuleId($moduleGroup, $module);
     $parameterGroup = $this->getParametersGroup($moduleId, $parameterGroup);
     $parameter = $this->getParameter($parameterGroup['id'], $parameterName);
@@ -712,7 +712,7 @@ CREATE TABLE `".DB_PREF."mc_text_photos_separator` (
     }
   }  
 
-  private function addParameterGroup($moduleId, $name, $translation, $admin){
+  public function addParameterGroup($moduleId, $name, $translation, $admin){
     $sql = "insert into `".DB_PREF."parameter_group` 
     set 
     `name` = '".mysql_real_escape_string($name)."',
@@ -827,7 +827,7 @@ CREATE TABLE `".DB_PREF."mc_text_photos_separator` (
     }
   }
 
-  private function getParametersGroup($moduleId, $name){
+  public function getParametersGroup($moduleId, $name){
     $sql = "select * from `".DB_PREF."parameter_group` where `module_id` = '".mysql_real_escape_string($moduleId)."' and `name` = '".mysql_real_escape_string($name)."' ";
     $rs = mysql_query($sql);
     if($rs){

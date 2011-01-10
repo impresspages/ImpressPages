@@ -14,7 +14,7 @@ if (!defined('CMS')) exit;
 class Db {
 
 
-  public static function createTableWidgetTables() {
+  public static function updateContactFormWidget() {
     $sql = "
       ALTER TABLE `".DB_PREF."mc_misc_contact_form_field` ADD `values` TEXT NULL COMMENT 'json array'
     ";
@@ -23,7 +23,8 @@ class Db {
     if($rs) {
       return true;
     } else {
-      trigger_error($sql.' '.mysql_error());
+      //trigger_error($sql.' '.mysql_error());
+      return false;
     }
   }
 
@@ -53,15 +54,21 @@ class Db {
       return false;
     }
 
-    if ( self::getWidgetByGroupAndName($groupId, $data['name']) ) {
-      trigger_error("Widget already exists.");
+    if( !isset($data['group_id']) ) {
+      trigger_error("No group_id specified.");
       return false;
     }
 
-    $sql = "insert into `".DB_PREF."_content_module` set ";
+
+    if ( self::getWidgetByGroupAndName($data['group_id'], $data['name']) ) {
+      //trigger_error("Widget already exists.");
+      return false;
+    }
+
+    $sql = "insert into `".DB_PREF."content_module` set ";
     $first = true;
     foreach ($data as $dataKey => $dataVal) {
-      if ($first) {
+      if (!$first) {
         $sql .= ', ';
       }
       $sql .= " `".$dataKey."` = '".mysql_real_escape_string($dataVal)."' ";
@@ -77,7 +84,7 @@ class Db {
   }
   
   public static function getWidgetByGroupAndName($groupId, $widgetName) {
-    $sql = "select * from `".DB_PREF."content_module` where `name` = '".mysql_real_escape_string($groupName)."' and `module_group` = '".(int)$groupId."' ";
+    $sql = "select * from `".DB_PREF."content_module` where `name` = '".mysql_real_escape_string($widgetName)."' and `group_id` = '".(int)$groupId."' ";
     $rs = mysql_query($sql);
     if($rs) {
       if ($lock = mysql_fetch_assoc($rs)) {
@@ -91,7 +98,7 @@ class Db {
   }
 
   public static function getMaxWidgetGroupRow($groupId) {
-    $sql = "select max(row_number as 'max' from `".DB_PREF."content_module` where `group_id` = '".(int)$groupId."' ";
+    $sql = "select max(row_number) as 'max' from `".DB_PREF."content_module` where `group_id` = '".(int)$groupId."' ";
     $rs = mysql_query($sql);
     if($rs) {
       if ($lock = mysql_fetch_assoc($rs)) {

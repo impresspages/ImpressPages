@@ -145,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_contact_form_field` (
   `type` varchar(255) NOT NULL DEFAULT '',
   `required` int(1) NOT NULL DEFAULT '0',
   `contact_form` int(11) NOT NULL DEFAULT '0',
+  `values` text COMMENT 'json array',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
@@ -297,6 +298,19 @@ DROP TABLE IF EXISTS `ip_cms_mc_text_photos_separator`;
 CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_separator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `layout` varchar(255) NOT NULL DEFAULT 'line',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_mc_text_photos_table`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_table` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` mediumtext NOT NULL,
+  `layout` varchar(255) NOT NULL DEFAULT 'default',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

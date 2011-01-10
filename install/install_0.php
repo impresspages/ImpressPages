@@ -18,6 +18,7 @@ $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
 $languages['lt'] = 'Lietuvių';
 $languages['pl'] = 'Polski';
+$languages['ro'] = 'Română';
 
 foreach($languages as $key => $language){
   $answer .= '<a href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';

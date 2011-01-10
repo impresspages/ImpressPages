@@ -27,7 +27,7 @@ if(!isset($_SESSION['db_db']))
 		$_SESSION['db_db'] = '';
 
 if(!isset($_SESSION['db_prefix']))
-		$_SESSION['db_prefix'] = 'ip_cms_';
+		$_SESSION['db_prefix'] = 'ip_';
 
 	
 output('

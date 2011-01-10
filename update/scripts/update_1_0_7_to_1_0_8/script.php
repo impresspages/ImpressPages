@@ -25,6 +25,8 @@ class Script {
     $this->deleteFolders = array();
     $this->deleteFolders[] = 'ip_cms';
     $this->deleteFolders[] = 'ip_libs';
+    $this->deleteFolders[] = 'nbproject';
+
 
     $this->deleteFiles = array();
     $this->deleteFiles[] = 'admin.php';
@@ -222,44 +224,83 @@ class Script {
     global $htmlOutput;
     require_once('db/db100.php');
     require_once(__DIR__.'/db.php');
-    require_once(__DIR__.'/../update__1_0_2_beta_to_1_0_3_beta/parameters_refractor.php');
+    require_once(__DIR__.'/../update_1_0_2_beta_to_1_0_3_beta/parameters_refractor.php');
 
     $answer = '';
     if (\Db_100::getSystemVariable('version') != '1.0.8') {
+
+
+      $parametersRefractor = new \update_1_0_2_beta_to_1_0_3_beta\ParametersRefractor();
+
+
+      //add table widget
+      $widgetGroup = Db::getWidgetGroup('text_photos');
+      $newWidget = array(
+          'name' => 'table',
+          'group_id' => $widgetGroup['id'],
+          'dynamic' => 0,
+          'translation' => 'Table',
+          'version' => '1.00',
+          'row_number' => Db::getMaxWidgetGroupRow($widgetGroup['id']) + 1
+      );
+
+      Db::addWidget($widgetGroup['id'], $newWidget);
+
+      //add parameters group
+      $module = \Db_100::getModule(null, 'standard', 'content_management');
+      $parameterGroup = $parametersRefractor->getParametersGroup($module['id'], 'widget_table');
+      if ($parameterGroup) {
+        $parameterGroupId = $parameterGroup['id'];
+      } else {
+        $parameterGroupId = $parametersRefractor->addParameterGroup($module['id'], 'widget_table', 'Widget table', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_table', 'widget_title')) {
+        \Db_100::addStringParameter($parameterGroupId, 'Widget title', 'widget_title', 'Table', 1);
+      }
+
+
+
+
+
+      Db::createTableWidgetTables();
+
+      //upate contact form widget
+      Db::updateContactFormWidget();
+
+
+      //update contact form widget parameters
+      $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_field');
+      $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_row');
+      $module = \Db_100::getModule(null, 'standard', 'content_management');
+      $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_contact_form');
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text')) {
+        \Db_100::addStringParameter($group['id'], 'Text', 'text', 'Text', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text_multiline')) {
+        \Db_100::addStringParameter($group['id'], 'Text (multiline)', 'text_multiline', 'Text (multiline)', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'select')) {
+        \Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'checkbox')) {
+        \Db_100::addStringParameter($group['id'], 'Checkbox', 'checkbox', 'Checbox', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'radio')) {
+        \Db_100::addStringParameter($group['id'], 'Radio', 'radio', 'Radio', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_popup_title')) {
+        \Db_100::addStringParameter($group['id'], 'Values popup title', 'values_popup_title', 'Values', 1);
+      }
+      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_field_title')) {
+        \Db_100::addStringParameter($group['id'], 'Values field title', 'values_field_title', 'Enter available values. Each value on a new line.', 1);
+      }
+
+
 
       if ($this->curStep == $this->stepCount){
         \Db_100::setSystemVariable('version','1.0.8');
       }
     }
-
-    //add table widget
-    $widgetGroup = Db::getWidgetGroup('text_photos');
-    $newWidget = array(
-        'name' => 'table',
-        'group_id' => $widgetGroup['id'],
-        'dynamic' => 0,
-        'translation' => 'Table',
-        'version' => '1.00',
-        'row_number' => Db::getMaxWidgetGroupRow($widgetGroup['id']) + 1
-    );
-
-    Db::createTableWidgetTables();
-
-    //upate contact form widget
-    Db::createTableWidgetTables();
-
-
-    //update contact form widget parameters
-    \update_1_0_2_beta_to_1_0_3_beta::deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_field');
-    \update_1_0_2_beta_to_1_0_3_beta::deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_row');
-    $group = Db_100::getModule($id, 'standard', 'content_management');
-    Db_100::addStringParameter($group['id'], 'Text', 'text', 'Text', 1);
-    Db_100::addStringParameter($group['id'], 'Text (multiline)', 'text_multiline', 'Text (multiline)', 1);
-    Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
-    Db_100::addStringParameter($group['id'], 'Checkbox', 'text_multiline', 'Text (multiline)', 1);
-    Db_100::addStringParameter($group['id'], 'Radio', 'text_multiline', 'Text (multiline)', 1);
-    Db_100::addStringParameter($group['id'], 'Values popup title', 'values_popup_title', 'Values', 1);
-    Db_100::addStringParameter($group['id'], 'Values field title', 'values_field_title', 'Enter available values. Each value on a new line.', 1);
 
 
 

@@ -95,7 +95,8 @@ INSERT INTO `ip_cms_content_module` (`id`, `group_id`, `row_number`, `name`, `dy
 (508, 501, 2, 'video', 0, 'Video', '1.00'),
 (509, 501, 3, 'contact_form', 0, 'Contact form', '1.00'),
 (510, 501, 4, 'html_code', 0, 'HTML code', '1.00'),
-(513, 501, 0, 'rich_text', 0, 'Rich text', '1.00');
+(513, 501, 0, 'rich_text', 0, 'Rich text', '1.00'),
+(515, 500, 6, 'table', 0, 'Table', '1.00');
 
 -- Dumping data for table--
 INSERT INTO `ip_cms_content_module_group` (`id`, `name`, `row_number`, `translation`) VALUES
@@ -323,8 +324,8 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (489, 'new_file', 1, 0, '', 461, 'Upload video', '', 'string'),
 (490, 'save', 1, 0, '', 457, 'Save', '', 'string'),
 (498, 'type', 1, 0, '', 463, 'Type', '', 'string'),
-(499, 'text_row', 1, 0, '', 463, 'Text row', '', 'string'),
-(500, 'text_field', 1, 0, '', 463, 'Text field', '', 'string'),
+(1617, 'text', 1, 0, '', 463, 'Text', NULL, 'string'),
+(1618, 'text_multiline', 1, 0, '', 463, 'Text (multiline)', NULL, 'string'),
 (501, 'file', 1, 0, '', 463, 'File', '', 'string'),
 (502, 'new_field', 1, 0, '', 463, 'New field', '', 'string'),
 (504, 'required', 1, 0, '', 463, 'Required', '', 'string'),
@@ -727,7 +728,13 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1612, 'text_password_verification_error', 0, 0, '', 606, 'Text - password reset verification error', NULL, 'lang'),
 (1613, 'text_account_renewal_error', 0, 0, '', 606, 'Text - account renewal error', NULL, 'lang_wysiwyg'),
 (1614, 'error_duplicate_url', 1, 0, '', 376, 'Error - duplicate URL', NULL, 'string'),
-(1615, 'error_incorrect_url', 1, 0, '', 376, 'Error - incorrect URL', NULL, 'string');
+(1615, 'error_incorrect_url', 1, 0, '', 376, 'Error - incorrect URL', NULL, 'string'),
+(1616, 'widget_title', 1, 0, '', 607, 'Widget title', NULL, 'string'),
+(1619, 'select', 1, 0, '', 463, 'Select', NULL, 'string'),
+(1620, 'checkbox', 1, 0, '', 463, 'Checkbox', NULL, 'string'),
+(1621, 'radio', 1, 0, '', 463, 'Radio', NULL, 'string'),
+(1622, 'values_popup_title', 1, 0, '', 463, 'Values popup title', NULL, 'string'),
+(1623, 'values_field_title', 1, 0, '', 463, 'Values field title', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -788,7 +795,8 @@ INSERT INTO `ip_cms_parameter_group` (`id`, `name`, `module_id`, `admin`, `row_n
 (603, 'email_messages', 437, 0, 0, 'E-mail messages'),
 (604, 'errors', 437, 0, 0, 'Errors'),
 (605, 'options', 437, 0, 0, 'Options'),
-(606, 'translations', 437, 0, 0, 'Translations');
+(606, 'translations', 437, 0, 0, 'Translations'),
+(607, 'widget_table', 327, 1, 0, 'Widget table');
 
 -- Dumping data for table--
 
@@ -1069,8 +1077,7 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (547, 'Upload video', 489),
 (548, 'Save', 490),
 (549, 'Type', 498),
-(550, 'Text row', 499),
-(551, 'Text field', 500),
+(1156, 'Text', 1617),
 (552, 'File', 501),
 (553, 'New field', 502),
 (554, 'Required', 504),
@@ -1362,7 +1369,15 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1151, 'login', 1572),
 (1152, '', 1573),
 (1153, 'Duplicate URL', 1614),
-(1154, 'Incorrect URL. You can''t use slash in URL.', 1615);
+(1154, 'Incorrect URL. You can''t use slash in URL.', 1615),
+(1155, 'Table', 1616),
+(1157, 'Text (multiline)', 1618),
+(1158, 'Select', 1619),
+(1159, 'Checbox', 1620),
+(1160, 'Radio', 1621),
+(1161, 'Values', 1622),
+(1162, 'Enter available values. Each value on a new line.', 1623);
+
 
 -- Dumping data for table--
 
@@ -1395,7 +1410,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '1.0.7', '2010-01-13 21:38:44'),
+(40, 'version', '1.0.8', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--
