@@ -45,7 +45,7 @@ class Module extends \Modules\standard\content_management\Widget{
     <script type=\"text/javascript\" >
     //<![CDATA[
       mod_table_layout = '".$script."';
-      configWidgetTextPhotosTextMceInit = '".\Library\Php\Js\Functions::htmlToString(Config::getMceInit())."';
+      configWidgetTextPhotosTableMceInit = '".\Library\Php\Js\Functions::htmlToString(Config::getMceInit())."';
      //]]>
     </script>
     ";
