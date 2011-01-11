@@ -247,7 +247,7 @@ class FieldWysiwyg extends Field{
     mode: "exact",
   	elements: "'.$id.'",
   	plugins: "paste,inlinepopups", 
-  	theme_advanced_buttons1 : "cut,copy,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
+  	theme_advanced_buttons1 : "copy,paste,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
   	theme_advanced_buttons2 : "bold,italic,underline,styleselect",
   	theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
   	theme_advanced_toolbar_location : "top",
