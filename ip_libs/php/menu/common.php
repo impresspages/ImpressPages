@@ -60,7 +60,8 @@ class Common {
       if(isset($elements) && sizeof($elements) > 0) {
         $curDepth = $elements[0]->getDepth();
         $maxDepth = $curDepth + $depthLimit - 1;
-        $html = self::addElements($elements, $zoneName, $maxDepth, $curDepth);
+        $subElementsData = self::getSubElementsData($elements, $zoneName, $maxDepth, $curDepth);
+        $html = $subElementsData['html'];
         $answer .= $html;
       }
     }else {
@@ -104,7 +105,8 @@ class Common {
       if($elements && sizeof($elements) > 0) {
         $curDepth = $elements[0]->getDepth();
         $maxDepth = $curDepth + $depthLimit - 1;
-        $html = self::addElements($elements, $zoneName, $maxDepth, $curDepth);
+        $subElementsData = self::getSubElementsData($elements, $zoneName, $maxDepth, $curDepth);
+        $html = $subElementsData['html'];
         $answer .= $html;
       }
     }else {
@@ -129,25 +131,34 @@ class Common {
    * @param int $curDepth used for recursion
    * @return string html of menu
    */
-  static function addElements($elements, $zoneName, $depth, $curDepth) {
+  static function getSubElementsData($elements, $zoneName, $depth, $curDepth) {
     global $site;
     $html = "\n";
     $html .= "<ul class=\"level".$curDepth."\">"."\n";
 
+    $selected = false;
     foreach($elements as $key => $element) {
       $subHtml = '';
+      $subSelected = false;
       if($curDepth < $depth) {
         $menu = $site->getZone($zoneName);
         $children = $menu->getElements(null, $element->getId());
-        if(sizeof($children) > 0)
-          $subHtml = self::addElements($children, $zoneName, $depth, $curDepth+1);
+        if(sizeof($children) > 0) {
+          $subElementsData = self::getSubElementsData($children, $zoneName, $depth, $curDepth+1);
+          $subHtml = $subElementsData['html'];
+          $subSelected = $subElementsData['selected'];
+        }
       }
 
       $class = '';
-      if($element->getCurrent())
+      if($element->getCurrent()  || $element->getType() == 'redirect' && $element->getLink() == $site->getCurrentUrl()) {
         $class .= 'current';
-      elseif($element->getSelected() || $element->getLink() != '' && strpos($site->getCurrentUrl(), $element->getLink()) === 0 || $element->getLink().'/?cms_action=manage' == $site->getCurrentUrl())
+        $selected = true;
+      } elseif($element->getSelected() || $subSelected || $element->getType() == 'redirect' && self::existInBreadcrumb($element->getLink())) {
+        // || $element->getLink() != '' && strpos($site->getCurrentUrl(), $element->getLink()) === 0 || $element->getLink().'/?cms_action=manage' == $site->getCurrentUrl()
         $class .= $class == '' ? 'selected' : 'Selected';
+        $selected = true;
+      }
 
       if($curDepth < $depth && sizeof($children) > 0)
         $class .= $class == '' ? 'subnodes' : 'Subnodes';
@@ -166,9 +177,26 @@ class Common {
 
     }
     $html .= "</ul>"."\n";
-    return $html;
+
+    $answer = array(
+      'html' => $html,
+      'selected' => $selected
+    );
+    return $answer;
   }
 
+
+  private static function existInBreadcrumb($link) {
+    global $site;
+    $breadcrumb = $site->getBreadcrumb();
+    array_pop($breadcrumb);
+    foreach($breadcrumb as $key => $element) {
+      if($element->getLink() == $link) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }
 
