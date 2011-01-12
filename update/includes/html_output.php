@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		ImpressPages
- * @copyright	Copyright (C) 2011 JSC Apro media.
+ * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license		GNU/GPL, see ip_license.html
  */
 
@@ -46,7 +46,7 @@ class HtmlOutput {
       <img class="border" src="design/cms_main_bottom.gif" alt="Design" />
       <div class="clear"></div>
     </div>
-    <div class="footer">Copyright 2007-'.date("Y").' by <a href="http://www.aproweb.eu">JSC Apro Media</a></div>
+    <div class="footer">Copyright 2007-'.date("Y").' by <a href="http://www.aproweb.eu">ImpressPages LTD</a></div>
   </div>
 
 	<script type="text/javascript">

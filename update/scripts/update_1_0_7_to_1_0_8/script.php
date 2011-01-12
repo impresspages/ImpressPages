@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   ImpressPages
- * @copyright Copyright (C) 2011 JSC Apro media.
+ * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license   GNU/GPL, see ip_license.html
  */
 namespace update_1_0_7_to_1_0_8;

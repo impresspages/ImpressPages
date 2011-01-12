@@ -6,7 +6,7 @@
  * This file generates sitemap index and sitemaps.
  * 
  * @package		ImpressPages
- * @copyright	Copyright (C) 2011 JSC Apro media.
+ * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license		GNU/GPL, see ip_license.html
  */
 

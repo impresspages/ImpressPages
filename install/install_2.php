@@ -1,7 +1,7 @@
 <?php 
 /**
  * @package		ImpressPages
- * @copyright	Copyright (C) 2011 JSC Apro media.
+ * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license		GNU/GPL, see ip_license.html
  */
 
@@ -18,7 +18,7 @@ output('
 <h1>'.IP_STEP_LICENSE_LONG.'</h1>	
 <p>
 ImpressPages - Content Management System<br/>
-Copyright '.date("Y").' by <a href="http://www.aproweb.eu">JSC Apro Media</a>
+Copyright '.date("Y").' by <a href="http://www.aproweb.eu">ImpressPages LTD</a>
 </p>
 <p>
 This program is free software: you can redistribute it and/or modify it under the terms of the <a href="../ip_license.html">GNU General Public License</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

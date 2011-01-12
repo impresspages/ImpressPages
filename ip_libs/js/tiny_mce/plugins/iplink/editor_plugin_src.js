@@ -1,8 +1,8 @@
 /**
  * $Id: editor_plugin_src.js 1 2009.12.18 20:56:59 Audrius $
  *
- * @author Apro Media
- * @copyright Copyright � 2011 JSC Apro media , All rights reserved.
+ * @author ImpressPages LTD
+ * @copyright Copyright © 2011 ImpressPages LTD , All rights reserved.
  */
 
 (function() {
@@ -45,9 +45,9 @@
 		getInfo : function() {
 			return {
 				longname : 'ImpressPages link',
-				author : 'Apro Media',
-				authorurl : 'http://www.aproweb.eu',
-				infourl : 'http://docs.impresspages.eu',
+				author : 'ImpressPages LTD',
+				authorurl : 'http://www.impresspages.org',
+				infourl : 'http://www.impresspages.org',
 				version : tinymce.majorVersion + "." + tinymce.minorVersion
 			};
 		}
