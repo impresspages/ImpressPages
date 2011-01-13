@@ -67,16 +67,13 @@ define('IP_CONFIG_TIMEZONE', 'Strefa czasowa');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Proszę wybierz strefę czasową z poniższej listy');
 
 define('IP_FINISH_MESSAGE', '
-<p>Instalacja zakończona. Skasuj katalogi "install", "update" oraz zmień uprawnienia zapisu (chmod 644) dla następujących plików:</p>
-<p>
-/ip_config.php<br/>
-/robots.txt
+<p>Instalacja zakończona. Skasuj katalogi "install", "update".<br /><br />
 </p>
 <p>
 <a href="../">Strona główna</a>
 </p>
 <p>
-<a href="../admin.php">Administracja</a>
+<a href="../admin.php">Administracja</a><br /><br />
 </p>
 <p>
 Jeśli chcesz powtórzyć proces instalacji, usuń dane konfiguracyjne z pliku "ip_config.php" lub nadpisz go plikiem z pakietu instalacyjnego.

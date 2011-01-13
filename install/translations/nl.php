@@ -65,16 +65,12 @@ define('IP_CONFIG_TIMEZONE', 'Tijdzone website');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Kies de tijdzone van de website');
 
 define('IP_FINISH_MESSAGE', '
-<p>Verwijder de "install", "update" map en haal de schrijfpermissie van de volgende bestanden af:</p>
-<p>
-/ip_config.php<br/>
-/robots.txt
-</p>
+<p>Verwijder de "install", "update" map.<br /><br /></p>
 <p>
 <a href="../">Voorpagina</a>
 </p>
 <p>
-<a href="../admin.php">Administrator pagina</a>
+<a href="../admin.php">Administrator pagina</a><br /><br />
 </p>
 <p>
 Als je de installatie opnieuw wilt uitvoeren, dan moet u het "ip_config.php" bestand wissen.

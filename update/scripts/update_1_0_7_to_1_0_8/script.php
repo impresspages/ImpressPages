@@ -57,7 +57,7 @@ class Script {
   }
 
   public function getActionsCount() {
-    return 3;
+    return 4;
   }
 
   public function process () {
@@ -76,10 +76,55 @@ class Script {
         $answer .= $this->filesToUpload();
       break;
       case 3:
+        $answer .= $this->updateRobots();
+      break;
+      case 4:
         $answer .= $this->updateDatabase();
       break;
     }
 
+
+    return $answer;
+  }
+
+
+  public function updateRobots() {
+    global $navigation;
+    global $htmlOutput;
+
+    $answer = '';
+
+    $robotsFile = '../robots.txt';
+    if (is_writable($robotsFile)) {
+
+      $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
+      $newData = '';
+      foreach($data as $dataKey => $dataVal) {
+        $tmpVal = $dataVal;
+        $tmpVal = trim($tmpVal);
+        $tmpVal = str_replace('User-Agent:', 'User-agent:', $tmpVal);
+
+        $tmpVal =  preg_replace('/^User-Agent:(.*)/', 'User-agent:${0}', $tmpVal);
+        $tmpVal =  preg_replace('/^Disallow: \/ip_cms$/', 'Disallow: /ip_cms/', $tmpVal);
+        $tmpVal =  preg_replace('/^Disallow: \/ip_configs$/', 'Disallow: /ip_configs/', $tmpVal);
+        $tmpVal =  preg_replace('/^Disallow: \/update$/', 'Disallow: /update/', $tmpVal);
+        $tmpVal =  preg_replace('/^Disallow: \/install$/', 'Disallow: /install/', $tmpVal);
+        $tmpVal =  preg_replace('/^Sitemap:(.*)/', 'Sitemap: '.BASE_URL.'sitemap.php', $tmpVal);
+        $newData .= $tmpVal."\n";
+      }
+
+      file_put_contents($robotsFile, $newData);
+
+      header("location: ".$navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction() + 1));
+    } else {
+      $answer .= MAKE_ROBOTS_WRITEABLE;
+      $answer .= "<br/>";
+      $answer .= "<br/>";
+      $answer .= "<br/>";
+      $answer .= "<br/>";
+      $answer .= "<br/>";
+      $answer .= $htmlOutput->button(IP_NEXT, $navigation->generateLink($navigation->curStep(), $navigation->curScript(), $navigation->curAction()));
+    }
 
     return $answer;
   }

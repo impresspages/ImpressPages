@@ -65,16 +65,12 @@ define('IP_CONFIG_TIMEZONE', 'Svetainės laiko juosta');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Prašome pasirinkti svetainės laiko juostą');
 
 define('IP_FINISH_MESSAGE', '
-<p>Prašome ištrinti katalogus "install", "update" ir panaikinti įrašymo teises šiems failams:</p>
-<p>
-/ip_config.php<br/>
-/robots.txt
-</p>
+<p>Prašome ištrinti katalogus "install", "update".<br /><br /></p>
 <p>
 <a href="../">Svetainės pagrindinis puslapis</a>
 </p>
 <p>
-<a href="../admin.php">Administravimo aplinka</a>
+<a href="../admin.php">Administravimo aplinka</a><br /><br />
 </p>
 <p>
 Jei norite pakartoti diegimo procesą, prašome ištrinti konfigūracijos failo "ip_config.php" turinį.

@@ -67,16 +67,12 @@ define('IP_CONFIG_TIMEZONE', 'Website time zone');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Please choose website time zone');
 
 define('IP_FINISH_MESSAGE', '
-<p>Please delete directories "install", "update" and cancel write permissions for these files:</p>
-<p>
-/ip_config.php<br/>
-/robots.txt
-</p>
+<p>Please delete directories "install", "update".<br /><br /></p>
 <p>
 <a href="../">Front page</a>
 </p>
 <p>
-<a href="../admin.php">Administration page</a>
+<a href="../admin.php">Administration page</a><br /><br />
 </p>
 <p>
 If you wish to repeat the installation, please clear the configuration file "ip_config.php".

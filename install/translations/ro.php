@@ -67,16 +67,13 @@ define('IP_CONFIG_TIMEZONE', 'Timpul si zona site-ului');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Te rugam sa alegi timpul si zona pentru site');
 
 define('IP_FINISH_MESSAGE', '
-<p>Te rugam sa stergi directoarele "install", "update" si sa anulezi scrierea permisiunilor pentru aceste fisiere:</p>
-<p>
-/ip_config.php<br/>
-/robots.txt
+<p>Te rugam sa stergi directoarele "install", "update".<br /><br />
 </p>
 <p>
 <a href="../">Prima pagina</a>
 </p>
 <p>
-<a href="../admin.php">Pagina de administrare</a>
+<a href="../admin.php">Pagina de administrare</a><br /><br />
 </p>
 <p>
 Daca vrei sa repeti instalarea, te rugam sa stergi continutul fisierului "ip_config.php".

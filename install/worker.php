@@ -199,7 +199,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 
 	
 	$robots = 
-'User-Agent: *
+'User-agent: *
 Disallow: /ip_cms/
 Disallow: /ip_configs/
 Disallow: /update/
