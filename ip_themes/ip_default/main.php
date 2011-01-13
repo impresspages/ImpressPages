@@ -75,7 +75,7 @@
     
     
     echo '<a href="'.$site->generateUrl().'" title="home"><img src="'.BASE_URL.THEME_DIR.THEME.'/images/icon_home.gif" alt="home"/></a>'."\n";
-    echo \Modules\standard\breadcrumb\Module::generateBreadcrumb('<span>&#0187;</span>');
+    echo \Modules\standard\breadcrumb\Module::generateBreadcrumb(' <span>&#0187;</span> ');
 ?>
   </div>
 

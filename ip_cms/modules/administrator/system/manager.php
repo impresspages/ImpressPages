@@ -26,9 +26,10 @@ class Manager {
       switch($_GET['action']) {
         case "cache_clear":
           $log->log('administrator/system', 'Cache was cleared');
-
           $module = new Module;
           $module->clearCache();
+
+
           $answer .= '
       <div class="note">
         '.$parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_cleared').'

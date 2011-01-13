@@ -51,6 +51,8 @@
 
 .ipContent p a,
 .mceContentBody p a,
+.ipContent li a,
+.mceContentBody li a,
 .ipContent td a, .ipContent th a,
 .mceContentBody td a, .mceContentBody th a {
   color: #1e8de5;
@@ -59,6 +61,8 @@
 
 .ipContent p a:visited,
 .mceContentBody p a:visited,
+.ipContent li a:visited,
+.mceContentBody li a:visited,
 .ipContent td a:visited, .ipContent th a:visited,
 .mceContentBody td a:visited, .mceContentBody th a:visited {
   color: #6a78b4;
@@ -66,6 +70,8 @@
 
 .ipContent p a:hover,
 .mceContentBody p a:hover,
+.ipContent li a:hover,
+.mceContentBody li a:hover,
 .ipContent td a:hover, .ipContent th a:hover,
 .mceContentBody td a:hover, .mceContentBody th a:hover {
   color: #f59a25;

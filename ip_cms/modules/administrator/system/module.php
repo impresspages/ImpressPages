@@ -27,7 +27,21 @@ class Module{
 
     $site->dispatchEvent('administrator', 'system', 'clear_cache', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
     
-    
+    if ($cachedUrl != BASE_URL) { //update robots.txt file.
+      $robotsFile = 'robots.txt';
+      $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
+      $newData = '';
+      foreach($data as $dataKey => $dataVal) {
+        $tmpVal = $dataVal;
+        $tmpVal = trim($tmpVal);
+
+        $tmpVal =  preg_replace('/^Sitemap:(.*)/', 'Sitemap: '.BASE_URL.'sitemap.php', $tmpVal);
+        $newData .= $tmpVal."\n";
+      }
+      file_put_contents($robotsFile, $newData);          
+    }
+
+
     $sql = "select m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
     $rs = mysql_query($sql);
     if($rs){
