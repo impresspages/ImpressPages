@@ -2,6 +2,8 @@
 .project
 image/
 video/
+file/
+audio/
 .settings/
 .buildpath
 .project/
