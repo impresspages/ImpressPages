@@ -146,6 +146,10 @@
   margin-left: 6px;
 }
 
+#manHead span.ipCmsButtonBg2 span.ipCmsButton{
+  float: none;
+}
+
 #manHead a.ipCmsButton:hover{
   border-color: #8ebdf1;
   background-color: #e8eaec;
