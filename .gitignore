@@ -1,14 +1,14 @@
 
-.project
+audio/
+file/
+image/
+ip_plugins/
+video/
+ip_config.php
+robots.txt
 
 .settings/
 .buildpath
-.project/
-ip_config.php
-robots.txt
-nbproject/project.xml
-nbproject/private/private.xml
-nbproject/private/private.properties
-nbproject/project.properties
-ip_plugins/
-.Doxyfile
+.project
+
+nbproject/
