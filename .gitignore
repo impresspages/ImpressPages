@@ -1,9 +1,6 @@
 
 .project
-image/
-video/
-file/
-audio/
+
 .settings/
 .buildpath
 .project/
@@ -15,5 +12,3 @@ nbproject/private/private.properties
 nbproject/project.properties
 ip_plugins/
 .Doxyfile
-ip_config.php
-robots.txt
