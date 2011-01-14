@@ -245,10 +245,11 @@ class HtmlOutput{
 			  <div class="top_menu">
 
 				 '.$groupsHtml.'
-				 
 			   <a class="logout" href="'.$cms->generateActionUrl('logout').'">
 					'.$parametersMod->getValue('standard', 'configuration', 'system_translations', 'logout').'			    
 			   </a>
+         <a class="ipCmsTopHelp" href="#">Help</a>
+         <a class="ipCmsTopNotice" href="#">New version</a>
 			  </div>
 			  <div class="top_tabs">
 			   '.$modulesHtml.'

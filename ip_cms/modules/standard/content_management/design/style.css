@@ -113,7 +113,7 @@
   cursor: default;
 }
 
-#manHead a.ipCmsButton{
+#manHead .ipCmsButton{
   font-family: Verdana, Arial, Helvetica;
   font-size: 12px;
   color: #212023;
@@ -141,6 +141,11 @@
   margin-left: 6px;
 }
 
+#manHead span.ipCmsButtonBg2{
+  background: transparent url(button_bg2.gif) scroll repeat-x;
+  margin-left: 6px;
+}
+
 #manHead a.ipCmsButton:hover{
   border-color: #8ebdf1;
   background-color: #e8eaec;
@@ -152,6 +157,20 @@
 
 #manHead a.ipCmsButtonPreview{
   background: transparent url(icon_mode.gif) scroll no-repeat 3px 3px;  
+}
+
+#manHead .ipCmsButtonSaved{
+  background: transparent url(icon_saved.gif) scroll no-repeat 3px 3px;
+  border-color: #c6c8c8;
+  cursor: default;
+}
+
+#manHead .ipCmsButtonText{
+  color: #505050;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 23px;
+  margin-right: 10px;
 }
 
 #manHead span.ipCmsControllButtons:hover{

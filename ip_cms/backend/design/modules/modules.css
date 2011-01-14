@@ -65,17 +65,39 @@ border: 1px red solid;
 }
 
 a.logout{
- color: #3c64c8;
- padding: 6px 32px 8px 18px;
- text-decoration: none;
- background: transparent url(logout.png) scroll no-repeat right center;
- float: right;
+  color: #3c64c8;
+  background: url(logout.png) no-repeat right center;
+  float: right;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 32px 0 0;
+  text-decoration: none;
 }
 
 a.logout:hover{
-	text-decoration: underline;
-	background: transparent url(logout_hover.png) scroll no-repeat right center;
+  text-decoration: underline;
+  background-image: url(logout_hover.png);
 }
+
+a.ipCmsTopHelp,
+a.ipCmsTopNotice{
+  color: #3c64c8;
+  display: block;
+  float: right;
+  height: 28px;
+  line-height: 28px;
+  margin-right: 20px;
+  padding: 0 25px 0 0;
+  text-decoration: none;
+}
+
+a.ipCmsTopHelp:hover,
+a.ipCmsTopNotice:hover{
+  text-decoration: underline;
+}
+
+a.ipCmsTopHelp{ background: url(icon_help.png) no-repeat right center; }
+a.ipCmsTopNotice{ background: url(icon_notice.png) no-repeat right center; }
 
 a.top_links_img:hover{
  text-decoration: underline;
