@@ -318,29 +318,54 @@ class Script {
       $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_row');
       $module = \Db_100::getModule(null, 'standard', 'content_management');
       $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_contact_form');
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text')) {
-        \Db_100::addStringParameter($group['id'], 'Text', 'text', 'Text', 1);
+      if($group) {
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text')) {
+          \Db_100::addStringParameter($group['id'], 'Text', 'text', 'Text', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text_multiline')) {
+          \Db_100::addStringParameter($group['id'], 'Text (multiline)', 'text_multiline', 'Text (multiline)', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'select')) {
+          \Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'checkbox')) {
+          \Db_100::addStringParameter($group['id'], 'Checkbox', 'checkbox', 'Checbox', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'radio')) {
+          \Db_100::addStringParameter($group['id'], 'Radio', 'radio', 'Radio', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_popup_title')) {
+          \Db_100::addStringParameter($group['id'], 'Values popup title', 'values_popup_title', 'Values', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_field_title')) {
+          \Db_100::addStringParameter($group['id'], 'Values field title', 'values_field_title', 'Enter available values. Each value on a new line.', 1);
+        }
       }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'text_multiline')) {
-        \Db_100::addStringParameter($group['id'], 'Text (multiline)', 'text_multiline', 'Text (multiline)', 1);
-      }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'select')) {
-        \Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
-      }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'checkbox')) {
-        \Db_100::addStringParameter($group['id'], 'Checkbox', 'checkbox', 'Checbox', 1);
-      }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'radio')) {
-        \Db_100::addStringParameter($group['id'], 'Radio', 'radio', 'Radio', 1);
-      }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_popup_title')) {
-        \Db_100::addStringParameter($group['id'], 'Values popup title', 'values_popup_title', 'Values', 1);
-      }
-      if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'values_field_title')) {
-        \Db_100::addStringParameter($group['id'], 'Values field title', 'values_field_title', 'Enter available values. Each value on a new line.', 1);
+
+      $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
+      if ($group) {
+        if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+          \Db_100::addStringParameter($group['id'], 'Warning not saved', 'warning_not_saved', 'Your changes are not saved', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'saved')) {
+          \Db_100::addStringParameter($group['id'], 'Saved', 'saved', 'Saved', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'save_now')) {
+          \Db_100::addStringParameter($group['id'], 'Save now', 'save_now', 'Save now', 1);
+        }
       }
 
 
+      $module = \Db_100::getModule(null, 'standard', 'configuration');
+      $group = $parametersRefractor->getParametersGroup($module['id'], 'system_translations');
+      if($group) {
+        if(!\Db_100::getParameter('standard', 'configuration', 'system_translations', 'system_message')) {
+          \Db_100::addStringParameter($group['id'], 'System message', 'system_message', 'System message', 1);
+        }
+        if(!\Db_100::getParameter('standard', 'configuration', 'system_translations', 'help')) {
+          \Db_100::addStringParameter($group['id'], 'Help', 'help', 'Help', 1);
+        }
+      }
 
       if ($this->curStep == $this->stepCount){
         \Db_100::setSystemVariable('version','1.0.8');

@@ -25,7 +25,7 @@ class Actions {
             curl_setopt($ch, CURLOPT_URL, 'http://service.impresspages.org');
             curl_setopt($ch, CURLOPT_POST, 1);
 
-            $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1';
+            $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
             $postFields .= '&systemVersion='.\DbSystem::getSystemVariable('version');
 
             $groups = \Modules\developer\modules\Db::getGroups();
@@ -40,6 +40,27 @@ class Actions {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             $answer = curl_exec($ch);
+
+
+            if(isset($_REQUEST['afterLogin'])) { // request after login.
+              if($answer == '') {
+                $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+                return;
+              } else {
+                $md5 = \DbSystem::getSystemVariable('lat_system_message_md5');
+                if( !$md5 || $md5 != json_encode(md5($answer)) ) { //we have a new message
+                  $_SESSION['modules']['administrator']['system']['show_system_message'] = true; //display system alert
+                } else { //this message was already seen.
+                  $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+                  return;
+                }
+
+              }
+            } else { //administrator/system tab.
+              \DbSystem::setSystemVariable('lat_system_message_md5', json_encode(md5($answer)));
+              $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+            }
+
             echo $answer;
           }
         break;

@@ -14,7 +14,7 @@
   this.links = new Array();
   this.hidden = hidden_class;
   this.visible = visible_class;
-	this.allow_hide = allow_hide;
+  this.allow_hide = allow_hide;
   this.my_name = my_name;
   
 
@@ -25,21 +25,21 @@
   }
 
   function switchTab(element_id){
-     var i=0;
-     while(i<this.elem.length){
-				if(this.elem[i] == element_id && 
-					(!this.allow_hide || document.getElementById(this.links[i]).className != this.visible)
-					){
-          document.getElementById(this.elem[i]).style.display = '';
-          document.getElementById(this.links[i]).className =  this.visible;
-        }else{ 
-          document.getElementById(this.elem[i]).style.display = 'none';
-          document.getElementById(this.links[i]).className =  this.hidden;
-        }
+    var i=0;
+    while(i<this.elem.length){
+      if(this.elem[i] == element_id &&
+        (!this.allow_hide || document.getElementById(this.links[i]).className != this.visible)
+        ){
+        document.getElementById(this.elem[i]).style.display = '';
+        document.getElementById(this.links[i]).className =  this.visible;
+      }else{
+        document.getElementById(this.elem[i]).style.display = 'none';
+        document.getElementById(this.links[i]).className =  this.hidden;
+      }
       i++;
             
-     }
-     return false;
+    }
+    return false;
   }
 
   function switchFirst(){
@@ -49,9 +49,9 @@
 
   
   function hideAll(){
-     for(var nr in this.elem){
-        document.getElementById(this.elem[nr]).style.display = 'none';
-     }
+    for(var nr in this.elem){
+      document.getElementById(this.elem[nr]).style.display = 'none';
+    }
   }
 
 }

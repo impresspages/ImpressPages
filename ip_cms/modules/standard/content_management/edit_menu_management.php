@@ -227,7 +227,9 @@ class EditMenuManagement {
       document.getElementById(\'f_main_fields_created_on_error\').style.display = \'none\';
       document.getElementById(\'f_main_fields_redirect_error\').style.display = \'none\';
 
-      mod_management.changed = true;
+      //mod_management.changed = true;
+      mod_management.setChanged(true);
+
       var form = document.getElementById((\'f_main_fields\'));
       var form_popup = document.getElementById((\'f_main_fields_popup\'));
 
@@ -348,7 +350,8 @@ class EditMenuManagement {
           document.getElementById(\'mod_content_management_popup_parameter\').style.display = \'none\';
         }
         function mod_content_management_parameter_save(){
-          mod_management.changed = true;
+          mod_management.setChanged(true);
+          //mod_management.changed = true;
 
           document.getElementById(\'mod_content_management_popup_parameter\').style.display = \'none\';
           var value = \'\';
@@ -643,9 +646,9 @@ class EditMenuManagement {
     $answer = "";
     $answer .= '
     <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" onclick="window.open(\''.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->getCurrentUrl())).'\',\'mywindow\',\'width=600,height=450,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes\')">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
-    <span class="ipCmsButtonBg2"><span class="ipCmsButton ipCmsButtonSaved">Saved</span></span>
-    <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonOk" onclick="mod_management.changed = false; menu_saver.save_to_db()">'.$parametersMod->getValue('standard', 'content_management','admin_translations','man_save').'</a></span>
-    <span class="ipCmsButtonText">Your changes are not saved</span>
+    <span id="ipCmsButtonSaved" class="ipCmsButtonBg2"><span class="ipCmsButton ipCmsButtonSaved">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'saved')).'</span></span>
+    <span id="ipCmsButtonSave" style="display: none;" class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonOk" onclick="mod_management.changed = false; menu_saver.save_to_db()">'.$parametersMod->getValue('standard', 'content_management','admin_translations','man_save').'</a></span>
+    <span id="ipCmsButtonWarningSave" style="display: none;" class="ipCmsButtonText">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'warning_not_saved')).'</span>
     <script type="text/javascript">
         //<![CDATA[
       function change_mode(){      

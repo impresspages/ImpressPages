@@ -39,7 +39,9 @@ function edit_menu_management(){
   this.state;
   this.mode;
   this.universal_preview_response = universal_preview_response;
+  this.setChanged = setChanged;
   var module_id; //used when posting to worker
+
   function confirm_all(){
     for(var i=0; i<this.modules.length; i++){       //append existing modules
       if(this.modules[i].managed){
@@ -48,7 +50,22 @@ function edit_menu_management(){
       }
     }
   }
-     
+
+
+  function setChanged(value){
+    if(value) {
+      document.getElementById('ipCmsButtonSaved').style.display = 'none';
+      document.getElementById('ipCmsButtonWarningSave').style.display = '';
+      document.getElementById('ipCmsButtonSave').style.display = '';
+      this.changed = true;
+    } else {
+      document.getElementById('ipCmsButtonSaved').style.display = '';
+      document.getElementById('ipCmsButtonWarningSave').style.display = 'none';
+      document.getElementById('ipCmsButtonSave').style.display = 'none';
+      this.changed = false;
+    }
+  }
+
   function init(parent, all_modules, all_modules_translations, this_object, module_id){
     this.parent = parent;
     this.all_modules = all_modules;
@@ -154,7 +171,7 @@ function edit_menu_management(){
     this.modules[this.modules.length-1].managed = true;
     this.parent.insertBefore(div, document.getElementById('mod_collection_' + insert_before_collection_number));
     new_module.manage_init();
-    this.changed = true;
+    this.setChanged(true);
     if(new_module.static){
       setTimeout(this.this_object + '.module_preview_save(' + (this.modules.length-1) + ', true);',500); //used the same frame_worker as for confirm all
     }
@@ -196,8 +213,9 @@ function edit_menu_management(){
 				
     if(this.modules[collection_number].static){
       setTimeout(this.this_object + '.module_preview_save(' + collection_number + ', true);',500);  //used the same frame_worker as for confirm all
-    }else
-      this.changed = true;
+    } else {
+       this.setChanged(true);
+    }
   }
 
   function module_up(collection_number){
@@ -210,7 +228,7 @@ function edit_menu_management(){
       this.parent.removeChild(div);
       this.parent.insertBefore(div, target);
     }
-    this.changed = true;
+    this.setChanged(true);
   }
 
   function module_down(collection_number){
@@ -224,7 +242,7 @@ function edit_menu_management(){
         this.parent.insertBefore(div, target);
       }
     }
-    this.changed = true;
+    this.setChanged(true);
 			 
   }
 
@@ -239,8 +257,7 @@ function edit_menu_management(){
       this.modules[collection_number].deleted = 1;
       div.style.display = 'none';
     }
-    this.changed = true;
-			
+    this.setChanged(true);
   }
 
 
@@ -256,8 +273,7 @@ function edit_menu_management(){
     div.innerHTML = '';
     this.modules[collection_number].preview('worker_form', this.this_object + '.universal_preview_response', collection_number);
 
-    this.changed = true;
-
+    this.setChanged(true);
 
   }
 
@@ -278,7 +294,9 @@ function edit_menu_management(){
 
   function module_preview_save(collection_number, forced){
     document.getElementById('loading').style.display = 'inline';
+
     this.changed = false; //ugly ie bug fires onbeforeunload if iframe reloads
+
     this.modules[collection_number].save(forced);
   }
 
@@ -320,7 +338,7 @@ function edit_menu_management(){
       this.changed = false;
       menu_saver.save_to_db();
     } else {
-      this.changed = true;
+      this.setChanged(true);
     }
   }
      

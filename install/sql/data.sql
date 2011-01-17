@@ -116,11 +116,11 @@ INSERT INTO `ip_cms_mc_misc_contact_form` (`id`, `thank_you`, `email_to`, `email
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_mc_misc_contact_form_field` (`id`, `name`, `type`, `required`, `contact_form`) VALUES
-(94, 'File', 'file', 0, 2),
-(93, 'Text', 'textarea', 1, 2),
-(92, 'E-mail', 'email', 0, 2),
-(91, 'Name', 'text', 1, 2);
+INSERT INTO `ip_cms_mc_misc_contact_form_field` (`id`, `name`, `type`, `required`, `contact_form`, `values`) VALUES
+(94, 'File', 'file', 0, 2, NULL),
+(93, 'Text', 'textarea', 1, 2, NULL),
+(92, 'E-mail', 'email', 0, 2, NULL),
+(91, 'Name', 'text', 1, 2, NULL);
 
 -- Dumping data for table--
 
@@ -734,7 +734,12 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1620, 'checkbox', 1, 0, '', 463, 'Checkbox', NULL, 'string'),
 (1621, 'radio', 1, 0, '', 463, 'Radio', NULL, 'string'),
 (1622, 'values_popup_title', 1, 0, '', 463, 'Values popup title', NULL, 'string'),
-(1623, 'values_field_title', 1, 0, '', 463, 'Values field title', NULL, 'string');
+(1623, 'values_field_title', 1, 0, '', 463, 'Values field title', NULL, 'string'),
+(1624, 'warning_not_saved', 1, 0, '', 384, 'Warning not saved', NULL, 'string'),
+(1625, 'saved', 1, 0, '', 384, 'Saved', NULL, 'string'),
+(1626, 'save_now', 1, 0, '', 384, 'Save now', NULL, 'string'),
+(1627, 'system_message', 1, 0, '', 496, 'System message', NULL, 'string'),
+(1628, 'help', 1, 0, '', 496, 'Help', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -1376,7 +1381,12 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1159, 'Checbox', 1620),
 (1160, 'Radio', 1621),
 (1161, 'Values', 1622),
-(1162, 'Enter available values. Each value on a new line.', 1623);
+(1162, 'Enter available values. Each value on a new line.', 1623),
+(1163, 'Your changes are not saved', 1624),
+(1164, 'Saved', 1625),
+(1165, 'Save now', 1626),
+(1166, 'System message', 1627),
+(1167, 'Help', 1628);
 
 
 -- Dumping data for table--

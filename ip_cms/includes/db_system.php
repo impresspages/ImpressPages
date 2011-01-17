@@ -21,12 +21,16 @@ class DbSystem{    //system variables
      * @access private
      */
     public static function setSystemVariable($name, $value){
-      $sql = "update `".DB_PREF."variables` set `value` = '".mysql_real_escape_string($value)."' where
-      `name` = '".mysql_real_escape_string($name)."'";
-      $rs = mysql_query($sql);
-      if (!$rs) {
-        trigger_error($sql." ".mysql_error());
-        return false;
+      if (self::getSystemVariable($name)) {
+        $sql = "update `".DB_PREF."variables` set `value` = '".mysql_real_escape_string($value)."' where
+        `name` = '".mysql_real_escape_string($name)."'";
+        $rs = mysql_query($sql);
+        if (!$rs) {
+          trigger_error($sql." ".mysql_error());
+          return false;
+        }
+      } else {
+        self::insertSystemVariable($name, $value);
       }
     }    
 	
