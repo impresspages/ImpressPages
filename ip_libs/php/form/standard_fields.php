@@ -397,10 +397,10 @@ class FieldRadio extends Field{
     } else { //new approach
         foreach ($this->values as $key => $value) {
             $answer .= '<div class="libPhpFormFieldRow">';
-            if(isset($_POST[$this->name]) && $_POST[$this->name] == $this->value || $this->value === null && $key == 0)
-              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" checked class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'" value="1"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
+            if(isset($_POST[$this->name]) && $_POST[$this->name] == $this->value)
+              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" checked="checked" class="'.$class.' radio" type="radio" name="'.$this->name.'" value="1"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
             else
-              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" class="'.$class.' radio" type="radio" name="'.$this->getName($this->name).'"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
+              $answer .= '<input id="'.$id.'_'.$key.'" value="'.addslashes($value[0]).'" class="'.$class.' radio" type="radio" name="'.$this->name.'"/> <label for="'.$id.'_'.$key.'">'.htmlspecialchars($value[1]).'</label>'."\n";
             $answer .= '</div>';
         }
     }
