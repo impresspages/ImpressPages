@@ -383,11 +383,6 @@
   width: 215px;
 }
 
-.ipContent .libPhpFormFieldError .libPhpFormInput input,
-.ipContent .libPhpFormFieldError .libPhpFormInput textarea {
-  border-color: #e53031;
-}
-
 .ipContent .libPhpFormInput textarea {
   overflow: auto;
   width: 215px;
@@ -398,6 +393,26 @@
   font-size: 13px;
   padding: 1px;
   width: 215px;
+}
+
+.ipContent .libPhpFormInput input.checkbox,
+.ipContent .libPhpFormInput input.radio {
+  border: none;
+  width: auto;
+}
+
+.ipContent .libPhpFormFieldError .libPhpFormInput input,
+.ipContent .libPhpFormFieldError .libPhpFormInput textarea,
+.ipContent .libPhpFormFieldError .libPhpFormInput select {
+  border: 1px solid #e53031;
+}
+
+.ipContent  .libPhpFormFieldError .libPhpFormInput input.checkbox {
+  outline: #e53031 solid 1px;
+}
+
+.ipContent .libPhpFormFieldError .libPhpFormFieldRow label {
+  color: #e53031;
 }
 
 .ipContent .libPhpFormHint {
@@ -443,15 +458,5 @@
   font-size: 12px;
 }
 
-.ipContent .libPhpFormInput input.checkbox,
-.ipContent .libPhpFormInput input.radio {
-  border: none;
-  width: auto;
-}
-
-.ipContent  .libPhpFormFieldError .libPhpFormInput input.checkbox,
-.ipContent  .libPhpFormFieldError .libPhpFormInput input.radio {
-  outline: #e53031 solid 1px;
-}
 
 /* /forms */
