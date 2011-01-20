@@ -1,8 +1,8 @@
 <?php
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 namespace Backend;
@@ -17,7 +17,7 @@ require (__DIR__.'/session.php');
  *
  * Manages session, logins, rights, loads managemenet tools
  *
- * @package		ImpressPages
+ * @package	ImpressPages
  */
 class Cms {
   var $module;  //current module object
@@ -66,7 +66,7 @@ class Cms {
 
 
     //log in
-    if(isset($_REQUEST['action']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
+    if(isset($_REQUEST['action']) && isset($_REQUEST['f_name']) && isset($_REQUEST['f_pass']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
 
       if(\Backend\Db::incorrectLoginCount($_REQUEST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
         $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
