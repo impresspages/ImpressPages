@@ -3,7 +3,7 @@
 /**
  * @package		Library
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;

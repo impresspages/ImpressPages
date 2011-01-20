@@ -4,9 +4,9 @@
  * Upgrade from any version to 1.0.8
  *
  *
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
  
  UPDATE

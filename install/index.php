@@ -1,8 +1,8 @@
 <?php	
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 define('INSTALL', 'true');
 
@@ -56,7 +56,7 @@ function output($html){
       <img class="border" src="design/cms_main_bottom.gif" alt="Design" />
       <div class="clear"></div>
     </div>
-    <div class="footer">Copyright 2007-'.date("Y").' by <a href="http://www.aproweb.eu">ImpressPages LTD</a></div>
+    <div class="footer">Copyright 2007-'.date("Y").' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
   </div>
 
 	<script type="text/javascript">

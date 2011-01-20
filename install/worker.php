@@ -1,8 +1,8 @@
 <?php
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 ini_set('display_errors', '0');
@@ -124,9 +124,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 	"<?"."php
 	
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 	if (!defined('FRONTEND')&&!defined('BACKEND')) exit;

@@ -5,9 +5,9 @@
  * This file should be triggered to launch repeatedly few times a day.
  * He makes global maintenance and trows cron.php on all installed modules.
  * 
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 /** @private */

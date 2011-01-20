@@ -13,6 +13,8 @@ if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
+require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
+require_once (BASE_DIR.MODULE_DIR.'developer/modules/db.php');
 
 class Module{
   
@@ -63,6 +65,42 @@ class Module{
     $site->dispatchEvent('administrator', 'system', 'cache_cleared', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
     
    
+  }
+
+  public function getSystemInfo() {
+
+    $answer = '';
+
+    if(function_exists('curl_init')){
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, 'http://service.impresspages.org');
+      curl_setopt($ch, CURLOPT_POST, 1);
+
+      $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
+      $postFields .= '&systemVersion='.\DbSystem::getSystemVariable('version');
+
+      $groups = \Modules\developer\modules\Db::getGroups();
+      foreach($groups as $groupKey => $group){
+        $modules = \Modules\developer\modules\Db::getModules($group['id']);
+        foreach($modules as $moduleKey => $module){
+          $postFields .= '&modules['.$group['name'].']['.$module['name'].']='.$module['version'];
+        }
+      }
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+      curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+      $answer = curl_exec($ch);
+
+      if(json_decode($answer) === null) { //json decode error
+        return '';
+      }
+
+
+
+    }
+    
+    return $answer;
   }
 }
 

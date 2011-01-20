@@ -1,8 +1,8 @@
 <?php
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see licence.html
+ * @license	GNU/GPL, see licence.html
  */
 
 namespace Modules\community\user;

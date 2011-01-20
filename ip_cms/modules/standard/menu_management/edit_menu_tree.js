@@ -1,7 +1,7 @@
 /**
- * @package		ImpressPages
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license		GNU/GPL, see ip_license.html
+ * @license	GNU/GPL, see ip_license.html
  */
 
 Ext.BLANK_IMAGE_URL = 'ip_libs/js/ext/resources/images/aero/s.gif';
