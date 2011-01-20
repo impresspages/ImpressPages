@@ -51,6 +51,7 @@ class Manager {
     $answer .= '<a href="'.$cms->generateUrl($cms->curModId, 'action=cache_clear').'" class="button">'.htmlspecialchars($parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_clear')).'</a><br /><br /><br />';
     $answer .= '</div>';
     $answer .= '<div id="systemInfo" class="content" style="display: none;">';
+    $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message')).'</h1>';
     $answer .= ' <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'administrator/system/script.js"></script>';
     $answer .= '</div>';
     $answer .= HtmlOutput::footer();
