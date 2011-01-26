@@ -191,7 +191,7 @@ class HtmlOutput {
                               <div class="boxBottom"></div>
                       </div>
               </div>
-      <div class="footer">Copyright 2007-' . date("Y") . ' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
+      <div class="footer">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
       </div>
       <script type="text/javascript">
       //<![CDATA[
@@ -227,11 +227,11 @@ class HtmlOutput {
     var last_selected = null;
     function change_page(cur_object, url){
       if(last_selected){
-      last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal\');
-    }
-    last_selected = cur_object;
-    last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal top_tabs_selected\');
-    parent.content.location=url;
+        last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal\');
+      }
+      last_selected = cur_object;
+      last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal top_tabs_selected\');
+      parent.content.location=url;
 
     }
   //]]>
@@ -249,7 +249,7 @@ class HtmlOutput {
               $systemModuleGroupListId = $i;
             }
             if ($i == 0 && $key2 == 0) {
-              $modulesHtml .= '<li id="module_'.$module['g_name'].'_'.$module['m_name'].'" id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
+              $modulesHtml .= '<li id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
               $script_html .= '
               <script type="text/javascript">
                  //<![CDATA[
