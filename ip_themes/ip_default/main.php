@@ -1,7 +1,7 @@
 <?php if (!defined('FRONTEND')) exit;   ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>" lang="<?php echo $site->currentLanguage['code']; ?>">
-<head> 
+<head>
   <title><?php echo htmlspecialchars($site->getTitle()); ?></title>
   <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/ip_content.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/site.css" rel="stylesheet" type="text/css" />
@@ -11,9 +11,9 @@
   <meta name="description" content="<?php echo htmlspecialchars($site->getDescription()); ?>" />
   <meta name="generator" content="ImpressPages CMS 1.0 under GNU GPL license" />
   <!-- common functions used by various modules -->
-  <link rel="stylesheet" href="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/css/lightbox.css" type="text/css" media="screen" />  
+  <link rel="stylesheet" href="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/css/lightbox.css" type="text/css" media="screen" />
   <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/default.js"></script>
-</head>   
+</head>
 <body>
 <div class="main">
 
@@ -29,14 +29,12 @@
       <div class="menuTop">
 <?php
         require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
-				$menuTop = new Library\Php\Menu\Common();
-//				echo $menuTop->generateSubmenu('top');
-				echo $menuTop->generateSubmenu('top', 1, 1);
-
+        $menuTop = new Library\Php\Menu\Common();
+        echo $menuTop->generateSubmenu('top');
 ?>
-      </div>				
+      </div>
       <div class="languages">
-<?php 
+<?php
       	require_once (BASE_DIR.MODULE_DIR.'standard/languages/module.php');
         echo \Modules\standard\languages\Module::generateLanguageList();
 ?>
@@ -44,7 +42,7 @@
     </div>
 
     <div class="search">
-<?php 
+<?php
   		echo $site->getZone('search')->generateSearchBox();
 ?>
     </div>
@@ -53,19 +51,16 @@
   <div class="leftCol">
     <div class="box leftMenu">
 <?php
-			require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
-			$menuLeft = new Library\Php\Menu\Common();
-//			echo $menuLeft->generateSubmenu('left', null, 2);
-			echo $menuLeft->generate('top', 2, 1);
+      require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
+      $menuLeft = new Library\Php\Menu\Common();
+      echo $menuLeft->generateSubmenu('left', null, 2);
 ?>
     </div>
     <div class="box newsletter">
 <?php
-			echo $site->getZone('newsletter')->generateRegistrationBox();
-			
-			echo "\n".'      <div class="separator"></div>'."\n";
-
-			echo "\n".'      <a class="rss" href="'.$site->getZone('rss')->generateRssLink().'">'.$parametersMod->getValue('administrator', 'rss', 'translations', 'rss').'</a>'."\n";
+        echo $site->getZone('newsletter')->generateRegistrationBox();
+        echo "\n".'      <div class="separator"></div>'."\n";
+        echo "\n".'      <a class="rss" href="'.$site->getZone('rss')->generateRssLink().'">'.$parametersMod->getValue('administrator', 'rss', 'translations', 'rss').'</a>'."\n";
 ?>
       <div class="clear"><!-- --></div>
     </div>
@@ -75,8 +70,8 @@
   <div class="breadcrumb">
 <?php
     require_once (BASE_DIR.MODULE_DIR.'standard/breadcrumb/module.php');
-    
-    
+
+
     echo '<a href="'.$site->generateUrl().'" title="home"><img src="'.BASE_URL.THEME_DIR.THEME.'/images/icon_home.gif" alt="home"/></a>'."\n";
     echo \Modules\standard\breadcrumb\Module::generateBreadcrumb(' <span>&#0187;</span> ');
 ?>
@@ -93,9 +88,9 @@
 ?>
   </div>
 
-  <div class="ipContent">		
+  <div class="ipContent">
 <?php echo $site->generateContent(); ?>
- 
+
     <div class="clear"><!-- --></div>
   </div>
 
@@ -109,7 +104,7 @@
 </div>
 
 
-<!-- popups -->  
+<!-- popups -->
 <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/prototype.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
 <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/lightbox.js"></script>
@@ -117,11 +112,9 @@
   // <![CDATA[
   LightboxOptions.fileLoadingImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/loading.gif';
   LightboxOptions.fileBottomNavCloseImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/closelabel.gif';
-  //]]>             
+  //]]>
 </script>
 <!-- eof popups -->
-
-
 
 
 </body>
