@@ -131,7 +131,10 @@ class HtmlOutput {
         if(response != \'\') {
           var notice = document.getElementById(\'ipCmsSystemNotice\');
           if(notice) {
-            notice.style.display = \'\';
+            responseArray = eval(\'(\' + response + \')\');
+            if(responseArray[0][\'type\'] != \'status\') {
+              notice.style.display = \'\';
+            }
           }
         }
       }
