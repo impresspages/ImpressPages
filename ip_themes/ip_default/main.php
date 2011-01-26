@@ -30,7 +30,7 @@
 <?php
         require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
         $menuTop = new Library\Php\Menu\Common();
-        echo $menuTop->generateSubmenu('top');
+        echo $menuTop->generateSubmenu('top', 1, 1);
 ?>
       </div>
       <div class="languages">
