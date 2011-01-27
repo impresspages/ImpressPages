@@ -37,6 +37,18 @@ class Cron {
             foreach($messages as $messageKey => $messageVal) {
               $message .= '<p>'.$messageVal->message.'</p>';
             }
+
+            $onlyStatusMessages = true;
+            foreach($messages as $messageKey => $messageVal) {
+              if ($messageVal->type != 'status') {
+                $onlyStatusMessages = false;
+              }
+            }
+
+            if ($onlyStatusMessages) {
+              return;
+            }
+
           }
 
           if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
