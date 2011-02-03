@@ -114,7 +114,7 @@ function content_mod_photo() {
 				+ '</label>'
 				+ '<form id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_photo_layout + '</form>'
 				+ '<div class="ipCmsModuleSeparator"></div>'
-				+ '<form id="mod_'
+				+ '<form onsubmit="return false;" id="mod_'
 				+ this.collection_number
 				+ '_form" action="'
 				+ global_config_base_url

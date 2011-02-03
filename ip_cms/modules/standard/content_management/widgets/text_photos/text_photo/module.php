@@ -203,7 +203,7 @@ class Module extends \Modules\standard\content_management\Widget{
     if (!mysql_query($sql)){
       return("Can't update module row number".$sql);
     }else{
-      $sql = "update `".DB_PREF."mc_text_photos_text_photo` set layout = '".mysql_real_escape_string($values['layout'])."', `text` = '".mysql_real_escape_string($values['text'])."', photo = '".mysql_real_escape_string($new_name)."', photo_big = '".mysql_real_escape_string($new_bigname)."' where id = '".(int)$values['id']."'  ";
+      $sql = "update `".DB_PREF."mc_text_photos_text_photo` set title = '".mysql_real_escape_string($values['title'])."', layout = '".mysql_real_escape_string($values['layout'])."', `text` = '".mysql_real_escape_string($values['text'])."', photo = '".mysql_real_escape_string($new_name)."', photo_big = '".mysql_real_escape_string($new_bigname)."' where id = '".(int)$values['id']."'  ";
       if (!mysql_query($sql)){
         $this->set_error("Can't update module ".$sql);
       }

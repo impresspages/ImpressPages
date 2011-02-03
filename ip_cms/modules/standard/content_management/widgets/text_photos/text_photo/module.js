@@ -33,6 +33,7 @@ function content_mod_text_photo() {
   var id;
   var visible;
   var deleted;
+  var cahtchSubmit;
 
   var layout;
 
@@ -44,6 +45,7 @@ function content_mod_text_photo() {
     this.deleted = 0;
     this.tinyMCE_loaded = 0;
     this.menu_management = menu_management;
+    this.catchSubmit = true;
   }
 
   function empty() {
@@ -141,7 +143,7 @@ function content_mod_text_photo() {
     + '<tr>'
     + '<td class="ipCmsLeft">'
     + current_photo_img
-    + '<form id="mod_'
+    + '<form onsubmit="return false;" id="mod_'
     + this.collection_number
     + '_form" action="'
     + global_config_base_url

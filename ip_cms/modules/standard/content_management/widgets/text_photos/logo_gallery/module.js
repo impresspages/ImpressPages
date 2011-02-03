@@ -125,7 +125,7 @@ function content_mod_logo_gallery() {
 				+ '</label>'
 				+ '<form id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_logo_gallery_layout + '</form>'
 				+ '<div class="ipCmsModuleSeparator"></div>'
-				+ '<form id="mod_'
+				+ '<form onsubmit="return false;" id="mod_'
 				+ this.collection_number
 				+ '_form" action="'
 				+ global_config_base_url

@@ -139,7 +139,7 @@ function content_mod_photo_gallery() {
 				+ '<label class="ipCmsModuleName">'
 				+ widget_photo_gallery_gallery
 				+ '</label>'
-				+ '<form id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_photo_gallery_layout + '</form>'
+				+ '<form onsubmit="return false;" id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_photo_gallery_layout + '</form>'
 				+ '<div class="ipCmsModuleSeparator"></div>'
 				+ '<form id="mod_'	+ this.collection_number + '_form" action="'+ global_config_base_url
 				+ global_config_backend_worker_file

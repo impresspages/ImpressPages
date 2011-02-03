@@ -106,7 +106,7 @@ function content_mod_file() {
 				+ '<label class="ipCmsModuleName">'
 				+ widget_file_file
 				+ '</label>'
-				+ '<form id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_file_layout + '</form>'
+				+ '<form onsubmit="return false;" id="mod_' + this.collection_number	+ '_layout" action="">'	+ mod_file_layout + '</form>'
 				+ '<div class="ipCmsModuleSeparator"></div>'
 				+ '<form id="mod_'
 				+ this.collection_number
