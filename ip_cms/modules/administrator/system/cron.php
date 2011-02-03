@@ -49,6 +49,8 @@ class Cron {
               return;
             }
 
+          } else {
+            return;
           }
 
           if (defined('ERRORS_SEND') && ERRORS_SEND != '') {

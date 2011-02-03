@@ -856,7 +856,7 @@ class EditMenuManagement {
     $answer = '
           <form onsubmit="mod_management.changed = false; menu_saver.save_to_db(); return false;" id="f_main_fields" action="'.BASE_URL.BACKEND_WORKER_FILE."?module_id=".$tmp_module['id'].'&security_token='.$_SESSION['backend_session']['security_token'].'" method="post" enctype="multipart/form-data">  
             <span class="ipCmsTitle">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_button_title').'</span>
-            <input name="page_button_title" type="text" value="'.htmlspecialchars($lock['button_title']).'" />
+            <input onfocus="mod_management.setChanged(true);" name="page_button_title" type="text" value="'.htmlspecialchars($lock['button_title']).'" />
             <a class="ipCmsAdvancedButton" onclick="f_main_fields_popup_show();">'.$parametersMod->getValue('standard', 'content_management', 'admin_translations','advanced').'</a>  
 						
             <input name="page_page_title" type="hidden" value="'.htmlspecialchars($lock['page_title']).'" />

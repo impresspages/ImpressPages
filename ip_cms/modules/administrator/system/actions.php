@@ -29,8 +29,16 @@ class Actions {
                 return;
               } else {
                 $md5 = \DbSystem::getSystemVariable('last_system_message_shown');
-                if( !$md5 || $md5 != md5($systemInfo) ) { //we have a new message
-                  $_SESSION['modules']['administrator']['system']['show_system_message'] = true; //display system alert
+                if($systemInfo && (!$md5 || $md5 != md5($systemInfo)) ) { //we have a new message
+                  $newMessage = false;
+
+                  foreach(json_decode($systemInfo) as $infoKey => $infoValue) {
+                    if($infoValue->type != 'status') {
+                      $newMessage = true;
+                    }
+                  }
+
+                  $_SESSION['modules']['administrator']['system']['show_system_message'] = $newMessage; //display system alert
                 } else { //this message was already seen.
                   $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
                   return;

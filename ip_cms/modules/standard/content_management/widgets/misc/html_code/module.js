@@ -60,8 +60,7 @@ function content_mod_html_code() {
 
 	function manage() {
 		var div = document.createElement('div');
-		div.setAttribute(document.all ? "className" : "class",
-				'ipCmsManagement');
+		div.className = 'ipCmsManagement';
 
 		div.innerHTML = '' + '<label class="ipCmsModuleName">'
 				+ widget_html_code_html_code + '</label>'
