@@ -6,7 +6,7 @@
  */
 namespace Frontend;
 
-if (!defined('CMS')) exit;  
+if (!defined('CMS')) exit;
 
 /**
  * Class for common tasks with database

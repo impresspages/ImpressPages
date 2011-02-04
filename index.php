@@ -16,7 +16,6 @@
 define('CMS', true); // make sure other files are accessed through this file.
 define('FRONTEND', true); // make sure other files are accessed through this file.
 
-
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 
@@ -41,5 +40,5 @@ require (BASE_DIR.FRONTEND_DIR.'site.php');
 require (BASE_DIR.FRONTEND_DIR.'session.php');
 require (BASE_DIR.MODULE_DIR.'administrator/log/module.php'); 
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
-     
+
 require_once(BASE_DIR.FRONTEND_DIR.'bootstrap.php');

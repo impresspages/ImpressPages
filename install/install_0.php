@@ -4,7 +4,7 @@
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license	GNU/GPL, see ip_license.html
  */
-if (INSTALL!="true") exit;
+if (!defined('INSTALL')) exit;
  
 complete_step(0); 
 

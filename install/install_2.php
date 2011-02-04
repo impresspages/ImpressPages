@@ -5,7 +5,7 @@
  * @license	GNU/GPL, see ip_license.html
  */
 
-if (INSTALL!="true") exit;
+if (!defined('INSTALL')) exit;
  
  
 $licenseFile = "../ip_license.html";

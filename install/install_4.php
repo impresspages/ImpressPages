@@ -5,6 +5,9 @@
  * @license	GNU/GPL, see ip_license.html
  */
 
+
+if (!defined('INSTALL')) exit;
+
 $answer = '';
 
 

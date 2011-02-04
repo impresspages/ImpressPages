@@ -7,6 +7,9 @@
 
 namespace update_1_0_0_alpha_to_1_0_1_beta; 
 
+if (!defined('CMS')) exit;
+
+
 if(!defined('THEME_DIR'))
   define('THEME_DIR', '');
 if(!defined('AUDIO_DIR'))

@@ -93,7 +93,54 @@ LibDefault = {
     }else{
       el.innerHTML = html2;
     }
-  }
+  },
 
+
+  formPostAnswer : function(uniqueName){
+
+    if(window.frames[uniqueName].new_fields){
+      var new_fields = window.frames[uniqueName].new_fields;
+      for(var i=0; i<new_fields.length; i++){
+        eval(uniqueName + '_replace_input(\'' + new_fields[i][0] + '\', \'' + new_fields[i][1] + '\');');
+      }
+    }
+
+    var first = true;
+
+
+    var i = 1;
+
+    while (document.getElementById(uniqueName + '_field_' + 'field_' + i )) {
+      eval(uniqueName + '_reset(\'field_' + i + '\');');
+      i++;
+    }
+
+    if(window.frames[uniqueName].global_error){
+      eval(uniqueName + '_set_global_error(\'' + window.frames[uniqueName].global_error + '\', ' + first + ');');
+      first = false;
+    }
+
+    if(window.frames[uniqueName].errors){
+      var errors = window.frames[uniqueName].errors;
+      for(var i=0; i<errors.length; i++){
+        eval(uniqueName + '_set_error(\'' + errors[i][0] + '\', \'' + errors[i][1] + '\', '+ first + ');');
+        first = false;
+      }
+    }
+
+    if(window.frames[uniqueName].script){
+      eval(window.frames[uniqueName].script);
+    }
+  },
+
+  formBeforePost : function(form, uniqueName) {
+    if (!window.frames[uniqueName]) {
+      var newDiv = document.createElement("DIV");
+      newDiv.innerHTML = '<iframe onload="LibDefault.formPostAnswer(\'' + uniqueName + '\')" name="' + uniqueName + '" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>';
+      document.body.appendChild(newDiv);
+      form.setAttribute('target', uniqueName);
+    }
+    form.submit();
+  }
 
 }

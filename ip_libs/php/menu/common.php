@@ -163,6 +163,12 @@ class Common {
       if($curDepth < $depth && sizeof($children) > 0)
         $class .= $class == '' ? 'subnodes' : 'Subnodes';
 
+      if($class != '') {
+         $class .= ' type'.ucwords($element->getType());
+      } else {
+         $class .= 'type'.ucwords($element->getType());
+      }
+
       $tmpLink = $element->getLink();
       if ($tmpLink) {
         if($element->getType() == 'inactive') {

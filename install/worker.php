@@ -5,6 +5,9 @@
  * @license	GNU/GPL, see ip_license.html
  */
 
+
+if (!defined('INSTALL')) exit;
+
 ini_set('display_errors', '0');
 	session_start();
 

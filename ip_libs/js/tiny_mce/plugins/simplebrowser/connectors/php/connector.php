@@ -28,12 +28,11 @@
 
 	error_reporting(E_ALL|E_STRICT);
 	ini_set('display_errors', '1');
-
 	define("BACKEND", "true");  // make sure files are accessed through admin. 
 	require_once ('../../../../../../../ip_config.php');
 
-  session_name(SESSION_NAME); 
-  session_start();
+        session_name(SESSION_NAME);
+        session_start();
 	$admin = false;
   if(isset($_SESSION['backend_session']) && isset($_SESSION['backend_session']['user_id']) && isset($_SESSION['backend_session']['user_id']) != null){
     $admin = true;
