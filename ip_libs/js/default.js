@@ -96,6 +96,33 @@ LibDefault = {
   },
 
 
+
+  getPositionTop : function(element){
+    var offset = 0;
+    while(element) {
+      offset += element["offsetTop"];
+      element = element.offsetParent;
+    }
+    return offset;
+  },
+
+  /* Is a given element visible or not? */
+  isElementVisible : function(eltId) {
+    var elt = document.getElementById(eltId);
+    if (!elt) {
+        // Element not found.
+        return false;
+    }
+    // Get the top and bottom position of the given element.
+    var posTop = LibDefault.getPositionTop(elt);
+    var posBottom = posTop + elt.offsetHeight;
+    // Get the top and bottom position of the *visible* part of the window.
+    var visibleTop = document.documentElement.scrollTop;
+    var visibleBottom = visibleTop + document.documentElement.offsetHeight;
+    return ((posBottom >= visibleTop) && (posTop <= visibleBottom));
+  },
+
+
   formPostAnswer : function(uniqueName){
 
     if(window.frames[uniqueName].new_fields){
@@ -107,40 +134,89 @@ LibDefault = {
 
     var first = true;
 
-
     var i = 1;
 
     while (document.getElementById(uniqueName + '_field_' + 'field_' + i )) {
-      eval(uniqueName + '_reset(\'field_' + i + '\');');
+      if (eval("typeof " + uniqueName + '_reset' + " == 'function'")) {
+        eval(uniqueName + '_reset(\'field_' + i + '\');');
+      } else {
+        LibDefault.formReset(uniqueName, 'field_' + i);
+      }
       i++;
     }
 
     if(window.frames[uniqueName].global_error){
-      eval(uniqueName + '_set_global_error(\'' + window.frames[uniqueName].global_error + '\', ' + first + ');');
+      if (eval("typeof " + uniqueName + '_set_global_error' + " == 'function'")) {
+        eval(uniqueName + '_set_global_error(\'' + window.frames[uniqueName].global_error + '\', ' + first + ');');
+      } else {
+        LibDefault.setGlobalError(uniqueName, window.frames[uniqueName].global_error, first)
+      }
       first = false;
     }
 
     if(window.frames[uniqueName].errors){
       var errors = window.frames[uniqueName].errors;
       for(var i=0; i<errors.length; i++){
-        eval(uniqueName + '_set_error(\'' + errors[i][0] + '\', \'' + errors[i][1] + '\', '+ first + ');');
+        if (eval("typeof " + uniqueName + '_set_error' + " == 'function'")) {
+          eval(uniqueName + '_set_error(\'' + errors[i][0] + '\', \'' + errors[i][1] + '\', '+ first + ');');
+        } else {
+          LibDefault.formSetError(uniqueName, errors[i][0], errors[i][1], first)
+        }
         first = false;
       }
     }
 
     if(window.frames[uniqueName].script){
-      eval(window.frames[uniqueName].script);
+      //eval(window.frames[uniqueName].script);
     }
   },
 
   formBeforePost : function(form, uniqueName) {
-    if (!window.frames[uniqueName]) {
+    if (uniqueName in window.frames || !window.frames[uniqueName]) {
       var newDiv = document.createElement("DIV");
       newDiv.innerHTML = '<iframe onload="LibDefault.formPostAnswer(\'' + uniqueName + '\')" name="' + uniqueName + '" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>';
       document.body.appendChild(newDiv);
       form.setAttribute('target', uniqueName);
     }
     form.submit();
+  },
+
+
+
+
+
+  formReset : function(uniqueName, field_name){
+    document.getElementById(uniqueName + '_field_' + field_name).className = "libPhpFormField";
+    document.getElementById(uniqueName + '_field_' + field_name + '_error').innerHTML = '';
+    document.getElementById(uniqueName + '_field_' + field_name + '_error').style.display = 'none';
+    document.getElementById(uniqueName + '_global_error').style.display = 'none';
+  },
+
+  formSetError : function(uniqueName, field_name, error, first){
+    //document.getElementById(uniqueName + '_field_' + field_name).setAttribute("class", "libPhpFormFieldError");
+    //document.getElementById(uniqueName + '_field_' + field_name).setAttribute("className", "libPhpFormFieldError");
+    document.getElementById(uniqueName + '_field_' + field_name).className = "libPhpFormFieldError";
+    if(error != ''){
+      document.getElementById(uniqueName + '_field_' + field_name + '_error').innerHTML = error;
+      document.getElementById(uniqueName + '_field_' + field_name + '_error').style.display = 'block';
+    }
+
+    if(first && ! LibDefault.isElementVisible(uniqueName + '_field_' + field_name)){
+      document.location = '#' + uniqueName + '_field_' + field_name + '_error_anchor';
+    }
+  },
+
+  formSetGlobalError : function(uniqueName, error, first){
+    document.getElementById(uniqueName + '_global_error').innerHTML = error;
+    document.getElementById(uniqueName + '_global_error').style.display = 'block';
+    if(first && ! LibDefault.isElementVisible(uniqueName + '_global_error')){
+      document.location = '#' + uniqueName + '_global_error_anchor';
+    }
+
+  },
+
+  formReplaceInput : function(uniqueName, field_name, new_html){
+    document.getElementById(uniqueName + '_field_' + field_name + '_input').innerHTML = new_html;
   }
 
 }

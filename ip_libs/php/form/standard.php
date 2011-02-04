@@ -52,7 +52,7 @@ class Standard{
    * @param string $action url where the form should be submited.  
    * @return string form HTML      
    */     
-  function generateForm($button, $action=''){    
+  function generateForm($button, $action='', $uniqueName=''){
     global $libPhpFormStandardCounter;
     
     if($libPhpFormStandardCounter)
@@ -62,49 +62,16 @@ class Standard{
     
     $answer = '';
 
-    $uniqueName = "lib_php_form_standard_".$libPhpFormStandardCounter;
+    $uniqueName = "lib_php_form_standard_".$libPhpFormStandardCounter."_".$uniqueName;
 
     $resetStr = '';
     foreach($this->fields as $key => $field){
       $resetStr .= ' 
         '.$uniqueName.'_reset(\''.$field->name.'\');
       ';
-    }        
-
-    $answer .='
-<script type="text/javascript">
-//<![CDATA[ 
-  function '.$uniqueName.'_answer(){
-    if(window.frames[\''.$uniqueName.'\'].new_fields){
-      var new_fields = window.frames[\''.$uniqueName.'\'].new_fields;
-      for(var i=0; i<new_fields.length; i++){
-        '.$uniqueName.'_replace_input(new_fields[i][0], new_fields[i][1]);
-      }
-    }
-  
-    var first = true;
-  
-    '.$resetStr.'
-    if(window.frames[\''.$uniqueName.'\'].global_error){
-      '.$uniqueName.'_set_global_error(window.frames[\''.$uniqueName.'\'].global_error, first);
-      first = false;  
     }
 
-    if(window.frames[\''.$uniqueName.'\'].errors){
-      var errors = window.frames[\''.$uniqueName.'\'].errors;
-      for(var i=0; i<errors.length; i++){
-        '.$uniqueName.'_set_error(errors[i][0], errors[i][1], first);
-        first = false;
-      }
-    }
-    
-    if(window.frames[\''.$uniqueName.'\'].script){
-      eval(window.frames[\''.$uniqueName.'\'].script);
-    }
-  }      
-  //]]>    
-</script>
-';      
+
     
     
     $hiddenFields = '';        
@@ -114,26 +81,17 @@ class Standard{
       }
     
     $answer .= '
-<form id="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
+<form onsubmit="LibDefault.formBeforePost(this, \''.$uniqueName.'\')" id="'.$uniqueName.'" enctype="multipart/form-data" method="post" action="'.$action.'">
   '.$this->templateObject->generateForm($button, $action, $uniqueName, $this->fields).'
 
   <div>
 '.$hiddenFields.'
     <input type="hidden" name="spec_security_code" value="'.md5(date("Y-m-d")).'" />
     <input type="hidden" name="spec_rand_name" value="'.$uniqueName.'" />
-    <script type="text/javascript">
-      //<![CDATA[ 
-      document.write(\'<iframe onload="if(window.'.$uniqueName.'_answer)'.$uniqueName.'_answer();" name="'.$uniqueName.'" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>\');
-      //]]>
-    </script>
     <div class="clear"></div>
   </div>        
 </form>      
-<script type="text/javascript">
-//<![CDATA[ 
- document.getElementById(\''.$uniqueName.'\').target = \''.$uniqueName.'\';
-//]]>
-</script>
+
 ';
     
     return $answer;

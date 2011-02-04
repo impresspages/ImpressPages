@@ -159,7 +159,7 @@ class FieldFile extends Field{
  */  
 class FieldHidden extends Field{
   function genHtml($class, $id){
-      return '<input id="'.$id.'" class="'.$class.'" type="hidden" name="'.$this->name.'" value="'.$this->value.'"/>'."\n";
+      return '<input id="'.$id.'" class="'.$class.'" type="hidden" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
   }
   function getError(){
     $error = false;
