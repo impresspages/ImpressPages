@@ -172,9 +172,10 @@ LibDefault = {
   },
 
   formBeforePost : function(form, uniqueName) {
-    if (uniqueName in window.frames || !window.frames[uniqueName]) {
+    if(!document.getElementById(uniqueName + '_iframe')) {
+      alert('target bind');
       var newDiv = document.createElement("DIV");
-      newDiv.innerHTML = '<iframe onload="LibDefault.formPostAnswer(\'' + uniqueName + '\')" name="' + uniqueName + '" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>';
+      newDiv.innerHTML = '<iframe id="' + uniqueName + '_iframe" onload="LibDefault.formPostAnswer(\'' + uniqueName + '\')" name="' + uniqueName + '" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>';
       document.body.appendChild(newDiv);
       form.setAttribute('target', uniqueName);
     }
