@@ -156,7 +156,11 @@ class Element extends \Frontend\Element {
         }
       }
     }
-    return $pages;
+    if(is_array($pages)) {
+      return $pages;
+    } else {
+      return array();
+    }
   }
 
 
