@@ -74,7 +74,7 @@ class ElementDateTime extends Element{ //data element in area
 
     if($this->type == 'unix')
     {
-      $value = date("Y-m-d h:i:s", $record[$this->dbField]);
+      $value = date("Y-m-d H:i:s", $record[$this->dbField]);
     }
     else
     {
@@ -124,7 +124,7 @@ class ElementDateTime extends Element{ //data element in area
   function previewValue($record, $area){
     if($this->type == 'unix')
     {
-      $answer = htmlspecialchars(date("Y-m-d h:m:s", $record[$this->dbField]));
+      $answer = htmlspecialchars(date("Y-m-d H:i:s", $record[$this->dbField]));
     }
     else
     {

@@ -12,6 +12,11 @@ class Template {
 
   public static function generateHtml($title, $photo, $photo_big, $text, $layout=null){
 		$localPhoto = str_replace(BASE_URL, BASE_DIR, $photo);   //getImageSize may not work with URL in some configurations
+		
+		if(!file_exists($localPhoto)) {
+		  $photo = '';
+		}
+		
     switch($layout){
       default:
       case "default":

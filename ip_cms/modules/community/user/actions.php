@@ -98,6 +98,9 @@ class Actions {
           exit;
           break;
         case 'register':
+          
+          $html = '';
+          
           if(!$parametersMod->getValue('community','user','options','enable_registration')) {
             \Db::disconnect();
             exit;
@@ -124,9 +127,9 @@ class Actions {
 
 
 
-          if(sizeof($errors) > 0)
+          if (sizeof($errors) > 0) {
             $html = $standardForm->generateErrorAnswer($errors);
-          else {
+          } else {
             $tmp_code = md5(uniqid(rand(), true));
             if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
               $password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
@@ -153,10 +156,20 @@ class Actions {
                     </body></html>
                   ";
               } else {
-                $tmpUser = Db::userById($insert_id);
-                if ($tmpUser) {
-                  $this->login($tmpUser);
-                  $html = $this->redirectAfterLogin();                  
+                if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
+                  $tmpUser = Db::userById($insert_id);
+                  if ($tmpUser) {
+                    $this->login($tmpUser);
+                    $html = $this->redirectAfterLogin();                  
+                  }
+                } else {
+                  $html = "
+                      <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
+                      <script type=\"text/javascript\">
+                        parent.window.location.href = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified))."';
+                      </script>
+                      </body></html>
+                  ";                  
                 }
               }
             } else {
@@ -300,32 +313,32 @@ class Actions {
           break;
 
         case 'registration_verification':
-          $current = Db::userById($_REQUEST['id']);
-          if($current) {
-            $sameEmailUser = Db::userByEmail($current['email']);
-            $sameLoginUser = Db::userByLogin($current['login']);
-
-            if($current['verification_code'] == $_REQUEST['code']) {
-              if($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
+          $current = Db::userById ($_REQUEST['id']);
+          if ($current) {
+            $sameEmailUser = Db::userByEmail ($current['email']);
+            $sameLoginUser = Db::userByLogin ($current['login']);
+            if ($current['verification_code'] == $_REQUEST['code']) {
+              if ($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
                 header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlVerificationErrorEmailExist)));
-              }elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser != $current['id']) {
+              } elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser != $current['id']) {
                 header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlVerificationErrorUserExist)));
-              }else {
+              } else {
                 Db::verify($current['id']);
                 $site->dispatchEvent('community', 'user', 'registration_verification', array('user_id'=>$current['id']));
 
-                //login
-                $this->login($current);
-                $html = $this->redirectAfterLogin();
-                echo $thml;
-
-                //unused after autologin is implemented header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
+                  $this->login($current);
+                  $this->redirectAfterLoginHeader();
+                } else {
+                  header ("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                }
               }
             }else {
               header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationError)));
             }
-          }else
+          }else {
             header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationError)));
+          }
           \Db::disconnect();
           exit;
           break;
@@ -478,6 +491,26 @@ class Actions {
   }
 
 
+  
+  function redirectAfterLoginHeader () {
+    global $parametersMod;
+    global $site;
+    
+        
+    $html = '';
+    if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
+      header ("location: ".$_SESSION['modules']['community']['user']['page_after_login']);
+      unset($_SESSION['modules']['community']['user']['page_after_login']);
+    } else {
+      if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
+        header ("location: ".$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')));
+      } else {
+        $userZone = $site->getZoneByModule('community', 'user');
+        header ("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlProfile)));
+      }
+    }
+    return $html;
+  }  
 
   function redirectAfterLogin () {
     global $parametersMod;
@@ -502,7 +535,7 @@ class Actions {
             </script>
             </body></html>
         ";
-      }else {
+      } else {
         $html = "
             <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
             <script type=\"text/javascript\">
