@@ -535,8 +535,8 @@ $parameter["parameterValue/developer/std_mod/admin_translations/parameter_wysiwy
 $parameter["parameterTitle/developer/std_mod/admin_translations/previous_page"] = "Previous page";
 $parameter["parameterValue/developer/std_mod/admin_translations/previous_page"] = "Previous page";
 
-$parameter["parameterTitle/developer/std_mod/admin_translations/question_delete"] = "Delete paragraph?";
-$parameter["parameterValue/developer/std_mod/admin_translations/question_delete"] = "Delete paragraph?";
+$parameter["parameterTitle/developer/std_mod/admin_translations/question_delete"] = "Delete widget?";
+$parameter["parameterValue/developer/std_mod/admin_translations/question_delete"] = "Delete widget?";
 
 $parameter["parameterTitle/developer/std_mod/admin_translations/record_count_on_one_page"] = "Rows in page";
 $parameter["parameterValue/developer/std_mod/admin_translations/record_count_on_one_page"] = "Rows in page";
