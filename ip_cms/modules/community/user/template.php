@@ -10,7 +10,39 @@ namespace Modules\community\user;
 
 if (!defined('CMS')) exit;
 
+require_once(LIBRARY_DIR.'php/form/standard.php');
+
+
 class Template {
+
+
+  public static function registrationForm($fields) {
+    global $parametersMod;
+    global $site;
+    $standardForm = new \Library\Php\Form\Standard($fields);
+    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_register'), $site->generateUrl());
+  }
+
+  public static function loginForm($fields) {
+    global $parametersMod;
+    global $site;
+    $standardForm = new \Library\Php\Form\Standard($fields);
+    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_login'), $site->generateUrl());
+  }
+
+  public static function passwordResetForm($fields) {
+    global $parametersMod;
+    global $site;
+    $standardForm = new \Library\Php\Form\Standard($fields);
+    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_password_reset'), $site->generateUrl());
+  }
+
+  public static function profileForm($fields) {
+    global $parametersMod;
+    global $site;
+    $standardForm = new \Library\Php\Form\Standard($fields);
+    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_update'), $site->generateUrl());
+  }
 
   public static function login($form, $resetLink, $registrationLink) {
     global $site;
@@ -32,7 +64,9 @@ class Template {
     $answer .= '
 <div class="ipWidget ipWidgetContactForm">
     '.$form.'
-    '.$links.'
+    <div class="libPhpFormLinks">
+      '.$links.'
+    </div>
 </div>
     ';
 

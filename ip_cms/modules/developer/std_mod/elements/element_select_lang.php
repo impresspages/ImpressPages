@@ -53,15 +53,7 @@ class ElementSelectLang extends Element{ //data element in area
       exit;
     }
     
-    if(!isset($variables['dbField']) || $variables['dbField'] == ''){
-      $backtrace = debug_backtrace();
-      if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-        trigger_error('ElementSelectLang dbField parameter not set. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-      else
-        trigger_error('ElementSelectLang dbField parameter not set.');
-      exit;
-    }    
-    
+
     if(!isset($variables['values']) || $variables['values'] == ''){
       $backtrace = debug_backtrace();
       if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -196,6 +188,7 @@ class ElementSelectLang extends Element{ //data element in area
     $languages = $stdModDb->languages();
     foreach($languages as $key => $language){
       $value = '';
+      $answer = '';
       if(isset($values[$language['id']])){
         $value = $values[$language['id']];
         $answer = $value;

@@ -49,7 +49,7 @@ class Actions {
           } else {
             $tmp_code = md5(uniqid(rand(), true));
             if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-              $additionalFields['new_password'] = md5($_POST['password']);
+              $additionalFields['new_password'] = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
             } else {
               $additionalFields['new_password'] = $_POST['password'];
             }
@@ -133,17 +133,32 @@ class Actions {
             } else {
               $password = $_POST['password'];
             }
-            $insert_id = $standardForm->writeToDatabase(DB_PREF.'m_community_user', array('verification_code' => $tmp_code, 'password' => $password, 'last_login'=>date("Y-m-d"), 'language_id'=>$site->currentLanguage['id']));
+
+            if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
+              $verified = '0';
+            } else {
+              $verified = '1';
+            }
+
+            $insert_id = $standardForm->writeToDatabase(DB_PREF.'m_community_user', array('verified' => $verified, 'verification_code' => $tmp_code, 'password' => $password, 'last_login'=>date("Y-m-d"), 'language_id'=>$site->currentLanguage['id']));
             if($insert_id !== false) {
               $site->dispatchEvent('community', 'user', 'register', array('user_id'=>$insert_id));
-              $this->sendVerificationLink($_POST['email'], $tmp_code, mysql_insert_id());
-              $html = "
-                  <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                  <script type=\"text/javascript\">
-                    parent.window.location = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationRequired))."';
-                  </script>
-                  </body></html>
-                ";  
+              if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
+                $this->sendVerificationLink($_POST['email'], $tmp_code, $insert_id);
+                $html = "
+                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
+                    <script type=\"text/javascript\">
+                      parent.window.location = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationRequired))."';
+                    </script>
+                    </body></html>
+                  ";
+              } else {
+                $tmpUser = Db::userById($insert_id);
+                if ($tmpUser) {
+                  $this->login($tmpUser);
+                  $html = $this->redirectAfterLogin();                  
+                }
+              }
             } else {
               trigger_error("Cannot register new user");
             }
@@ -242,45 +257,26 @@ class Actions {
 
           if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
             $tmp_password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
-          }else $tmp_password = $_POST['password'];
+          } else {
+            $tmp_password = $_POST['password'];
+          }
 
           if($tmpUser && isset($_POST['password']) && $tmp_password == $tmpUser['password']) {
-            $session->login($tmpUser['id']);
-            $site->dispatchEvent('community', 'user', 'login', array('user_id'=>$tmpUser['id']));
-            Db::loginTimestamp($tmpUser['id']);
-            $log->log('community/user', 'frontend login', $tmpUser['login']." ".$tmpUser['email']." ".$_SERVER['REMOTE_ADDR']);
-
-            if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
-              $html = "
-                  <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                  <script type=\"text/javascript\">
-                    parent.window.location = '".$_SESSION['modules']['community']['user']['page_after_login']."';
-                  </script>
-                  </body></html>
-              "; 
-
-              unset($_SESSION['modules']['community']['user']['page_after_login']);
-            }else {
-              if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
-                $html = "
-                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                    <script type=\"text/javascript\">
-                      parent.window.location = '".$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))."';
-                    </script>
-                    </body></html>
-                ";
-              }else {
-                $html = "
-                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                    <script type=\"text/javascript\">
-                      parent.window.location = parent.window.location;
-                    </script>
-                    </body></html>
-                ";
-              }
+            $this->login($tmpUser);
+            if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
+              setCookie(
+                      Config::$autologinCookieName,
+                      json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
+                      time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
+                      Config::$autologinCookiePath,
+                      Config::getCookieDomain()
+                      );              
             }
 
-          }else {
+            $html = $this->redirectAfterLogin();
+
+
+          } else {
             $standardForm = new \Library\Php\Form\Standard(\Modules\community\user\Config::getRegistrationFields());
             $errors = array();
             $globalError = null;
@@ -317,7 +313,13 @@ class Actions {
               }else {
                 Db::verify($current['id']);
                 $site->dispatchEvent('community', 'user', 'registration_verification', array('user_id'=>$current['id']));
-                header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+
+                //login
+                $this->login($current);
+                $html = $this->redirectAfterLogin();
+                echo $thml;
+
+                //unused after autologin is implemented header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
               }
             }else {
               header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationError)));
@@ -366,6 +368,15 @@ class Actions {
             $site->dispatchEvent('community', 'user', 'logout', array('user_id'=>$session->userId()));
           }
           $session->logout();
+          if($parametersMod->getValue('community','user','options','enable_autologin')) {
+            setCookie(
+                    Config::$autologinCookieName,
+                    '',
+                    time()-60,
+                    Config::$autologinCookiePath,
+                    Config::getCookieDomain()
+                    );
+          }
           header('location: '.BASE_URL);
           \Db::disconnect();
           exit;
@@ -467,6 +478,53 @@ class Actions {
   }
 
 
+
+  function redirectAfterLogin () {
+    global $parametersMod;
+    global $site;
+    $html = '';
+    if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
+      $html = "
+          <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
+          <script type=\"text/javascript\">
+            parent.window.location = '".$_SESSION['modules']['community']['user']['page_after_login']."';
+          </script>
+          </body></html>
+      ";
+
+      unset($_SESSION['modules']['community']['user']['page_after_login']);
+    } else {
+      if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
+        $html = "
+            <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
+            <script type=\"text/javascript\">
+              parent.window.location = '".$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))."';
+            </script>
+            </body></html>
+        ";
+      }else {
+        $html = "
+            <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
+            <script type=\"text/javascript\">
+              var ipUrl = parent.window.location.href.split('#');
+              parent.window.location.href = ipUrl[0];
+            </script>
+            </body></html>
+        ";
+      }
+    }
+    return $html;
+  }
+
+  function login ($user) {
+    global $log;
+    global $session;
+    global $site;
+    $session->login($user['id']);
+    $site->dispatchEvent('community', 'user', 'login', array('user_id'=>$user['id']));
+    Db::loginTimestamp($user['id']);
+    $log->log('community/user', 'frontend login', $user['login']." ".$user['email']." ".$_SERVER['REMOTE_ADDR']);
+  }
 
 }
 

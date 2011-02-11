@@ -217,10 +217,14 @@ class Element extends \Frontend\Element {
         $answer .= Template::profile($user->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
         break;
       case 'registration':
-        if($parametersMod->getValue('community','user','options','enable_registration')) {
-          $answer .= Template::registration($user->generateRegistration());
-        }else {
-          $answer .= Template::registrationDisabledError();
+        if($session->loggedIn()) {
+            $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
+        } else {
+          if($parametersMod->getValue('community','user','options','enable_registration')) {
+            $answer .= Template::registration($user->generateRegistration());
+          }else {
+            $answer .= Template::registrationDisabledError();
+          }
         }
         break;
       case 'renewed_registration':

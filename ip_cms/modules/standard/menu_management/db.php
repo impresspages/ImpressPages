@@ -432,6 +432,9 @@ class Db{
     $url = str_replace("~", "-", $url);
     $url = str_replace(".", "-", $url);
     $url = str_replace("'", "", $url);
+    $url = str_replace("?", "", $url);
+    $url = str_replace(":", "", $url);
+    $url = str_replace(";", "", $url);
     
     if($url == ''){
       $url = '-';

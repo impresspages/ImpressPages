@@ -173,33 +173,21 @@ class Zone extends \Frontend\Zone {
    * @return string html form
    */
   public static function generateRegistration() {
-    global $parametersMod;
-    global $site;
-    $standardForm = new \Library\Php\Form\Standard(Config::getRegistrationFields());
-    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_register'), $site->generateUrl());
-
+    return Template::registrationForm(Config::getRegistrationFields());
   }
 
   /**
    * @return string html form
    */
   public static function generateLogin() {
-    global $parametersMod;
-    global $site;
-
-    $standardForm = new \Library\Php\Form\Standard(Config::getLoginFields());
-    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_login'), $site->generateUrl());
+    return Template::loginForm(Config::getLoginFields());
   }
 
   /**
    * @return string html form
    */
   public static function generatePasswordReset() {
-    global $parametersMod;
-    global $site;
-    $standardForm = new \Library\Php\Form\Standard(Config::getPasswordResetFields());
-    return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_password_reset'), $site->generateUrl());
-
+    return Template::passwordResetForm(Config::getPasswordResetFields());
   }
 
 
@@ -212,8 +200,7 @@ class Zone extends \Frontend\Zone {
     global $session;
 
     if($session->loggedIn()) {
-      $standardForm = new \Library\Php\Form\Standard(Config::getProfileFields());
-      return $standardForm->generateForm($parametersMod->getValue('community', 'user', 'translations', 'button_update'), $site->generateUrl());
+      return Template::profileForm(Config::getProfileFields());
     }else {
       $userZone = $site->getZoneByModule('community', 'user');
       return '<script type="text/javascript">document.location=\''.$site->generateUrl(null, $userZone->getName(), array(Config::$urlLogin)).'\'</script>';

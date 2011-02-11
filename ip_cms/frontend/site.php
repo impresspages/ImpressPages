@@ -215,6 +215,9 @@ class Site{
       $this->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
       $this->makeRedirect(); //if required;
     }
+
+    $this->dispatchEvent('administrator', 'system', 'init', array());
+
   }
 
   /**

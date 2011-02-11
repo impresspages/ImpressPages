@@ -51,12 +51,20 @@ class Field{
  * @package Library 
  */  
 class FieldText extends Field{
+  var $disableAutocomplete = false;
+
   function genHtml($class, $id){
+    if ($this->disableAutocomplete) {
+      $disableAutocomplete = ' autocomplete="off" ';
+    } else {
+      $disableAutocomplete = '';
+    }
+
     $answer = '';
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'" '.$disableAutocomplete.'/>'."\n";
     else      
-      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
+      return '<input id="'.$id.'" class="'.$class.'" type="text" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'" '.$disableAutocomplete.'/>'."\n";
   }
   function getError(){
     $error = false;
@@ -98,12 +106,21 @@ class FieldCheckbox extends Field{
  * @package Library 
  */  
 class FieldPassword extends Field{
+  var $disableAutocomplete = false;
   function genHtml($class, $id){
     $answer = '';
+
+    if ($this->disableAutocomplete) {
+      $disableAutocomplete = ' autocomplete="off" ';
+    } else {
+      $disableAutocomplete = '';
+    }
+
+
     if(isset($_POST[$this->name]))
-      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'"/>'."\n";
+      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($_POST[$this->name]).'" '.$disableAutocomplete.' />'."\n";
     else      
-      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'"/>'."\n";
+      return '<input id="'.$id.'" class="'.$class.'" type="password" name="'.$this->name.'" value="'.htmlspecialchars($this->value).'" '.$disableAutocomplete.' />'."\n";
   }
   function getError(){
     $error = false;
@@ -190,7 +207,7 @@ class FieldSelect extends Field{
   }
   function getError(){
     $error = false;
-    if($this->required && (!isset($_POST[$this->name])) || $_POST[$this->name] == '' ){
+    if($this->required && (!isset($_POST[$this->name]) || $_POST[$this->name] == '') ){
       $error = true;
     }else{
       $exists = false;

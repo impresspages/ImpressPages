@@ -447,7 +447,7 @@
 .ipContent .libPhpFormGlobalError {
   clear: both;
   color: #e53031;
-  display: block;
+  display: none;
   font-size: 12px;
   margin-bottom: 15px;
 }

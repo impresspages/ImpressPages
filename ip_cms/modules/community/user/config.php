@@ -38,8 +38,9 @@ class Config{
   public static $urlRenewRegistrationError = 'renew-registration-error';
   public static $urlVerificationErrorUserExist = 'verification-error-user-exist';
   public static $urlVerificationErrorEmailExist = 'verification-error-email-exist';
-	
-	
+  public static $autologinCookieName = 'ipAutologin';
+  public static $autologinCookiePath = '/';
+
 	
   /** @var array fields, that are used for registration */
   public static function getRegistrationFields(){
@@ -87,6 +88,7 @@ class Config{
 
     $field = new \Library\Php\Form\FieldPassword();
     $field->name = 'password';
+    $field->disableAutocomplete = true;
     $field->caption = $parametersMod->getValue('community','user','translations','field_password');
     $field->required = true;
     $registrationFields[] = $field;
@@ -94,6 +96,7 @@ class Config{
     if($parametersMod->getValue('community','user','options','type_password_twice')){
       $field = new \Library\Php\Form\FieldPassword();
       $field->name = 'confirm_password';
+      $field->disableAutocomplete = true;
       $field->required = true;
       $field->caption = $parametersMod->getValue('community','user','translations','field_confirm_password');
       $registrationFields[] = $field;
@@ -148,12 +151,14 @@ class Config{
   
       $field = new \Library\Php\Form\FieldPassword();
       $field->name = 'password';
+      $field->disableAutocomplete = true;
       $field->caption = $parametersMod->getValue('community','user','translations','field_password');
       $profileFields[] = $field;
 
       if($parametersMod->getValue('community','user','options','type_password_twice')){
         $field = new \Library\Php\Form\FieldPassword();
         $field->name = 'confirm_password';
+        $field->disableAutocomplete = true;
         $field->caption = $parametersMod->getValue('community','user','translations','field_confirm_password');
         $profileFields[] = $field;
       }
@@ -217,7 +222,16 @@ class Config{
     $field->caption = $parametersMod->getValue('community','user','translations','field_password');
     $field->required = true;
     $loginFields[] = $field;
-    
+
+    /*predefined fields (required)*/
+    if($parametersMod->getValue('community','user','options','enable_autologin')){
+      $field = new \Library\Php\Form\FieldCheckbox();
+      $field->name = 'autologin';
+      $field->caption = $parametersMod->getValue('community','user','translations','autologin');
+      $field->required = false;
+      $loginFields[] = $field;
+    }
+
     /*add your additional fields*/
     
     
@@ -276,6 +290,14 @@ class Config{
     /*you are able to add additional fields, but i think you don't need to*/
     
     return $passwordResetFields;  
+  }
+
+  public static function getCookieDomain() {
+    if ($_SERVER['HTTP_HOST'] != 'localhost'){
+      return $_SERVER['HTTP_HOST'];
+    } else {
+      return false;
+    }
   }
 
 }

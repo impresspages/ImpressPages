@@ -241,6 +241,7 @@ class Standard{
       //<![CDATA[
       var errors = new Array();
       var new_fields = new Array();
+      var fields = new Array();
       ";
   
     foreach($errors as $key => $error){
@@ -260,6 +261,13 @@ class Standard{
        new_fields.push(new_field);
         ";
     }
+    
+    foreach($this->fields as $key => $field){
+        $answer .= "
+       fields.push('".addslashes($field->name)."');
+        ";
+    }
+        
     
     if($globalError !== null){
       $answer .= " var global_error =  '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$globalError)))."'; ";

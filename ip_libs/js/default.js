@@ -1,7 +1,5 @@
 LibDefault = {
 
-
-
   cancelBubbling : function (e){
     if (window.event) {
       window.event.cancelBubble = true;
@@ -23,7 +21,7 @@ LibDefault = {
       return false;
     }
   },
-	
+
   removeEvent : function ( obj, evType, fn ) {
     if (obj.removeEventListener){
       obj.removeEventListener(evType, fn, false);
@@ -35,7 +33,6 @@ LibDefault = {
       return false;
     }
   },
-
 
   // example
   // LibDefault.ajaxMessage('http://www.yoursite.com', 'action=' + encodeURIComponent(do_action) + '&var2=val2&....')
@@ -58,7 +55,6 @@ LibDefault = {
     }
     xmlHttp.onreadystatechange=function()
     {
-			
       if(xmlHttp.readyState==4){
         var response = xmlHttp.responseText;
         if (responseFunction) {
@@ -85,7 +81,6 @@ LibDefault = {
     }
   },
 
-
   switchHTML : function(id, html1, html2){
     var el = document.getElementById(id);
     if(el.innerHTML != html1){
@@ -94,8 +89,6 @@ LibDefault = {
       el.innerHTML = html2;
     }
   },
-
-
 
   getPositionTop : function(element){
     var offset = 0;
@@ -122,7 +115,6 @@ LibDefault = {
     return ((posBottom >= visibleTop) && (posTop <= visibleBottom));
   },
 
-
   formPostAnswer : function(uniqueName){
 
     if(window.frames[uniqueName].new_fields){
@@ -134,22 +126,22 @@ LibDefault = {
 
     var first = true;
 
-    var i = 1;
-
-    while (document.getElementById(uniqueName + '_field_' + 'field_' + i )) {
-      if (eval("typeof " + uniqueName + '_reset' + " == 'function'")) {
-        eval(uniqueName + '_reset(\'field_' + i + '\');');
-      } else {
-        LibDefault.formReset(uniqueName, 'field_' + i);
+    if(window.frames[uniqueName].fields){
+      var fields = window.frames[uniqueName].fields;
+      for(var i=0; i<fields.length; i++){
+        if (eval("typeof " + uniqueName + '_reset' + " == 'function'")) {
+          eval(uniqueName + '_reset(\'field_' + fields[i] + '\');');
+        } else {
+          LibDefault.formReset(uniqueName, fields[i]);
+        }
       }
-      i++;
     }
 
     if(window.frames[uniqueName].global_error){
       if (eval("typeof " + uniqueName + '_set_global_error' + " == 'function'")) {
         eval(uniqueName + '_set_global_error(\'' + window.frames[uniqueName].global_error + '\', ' + first + ');');
       } else {
-        LibDefault.setGlobalError(uniqueName, window.frames[uniqueName].global_error, first)
+        LibDefault.formSetGlobalError(uniqueName, window.frames[uniqueName].global_error, first)
       }
       first = false;
     }
@@ -167,35 +159,34 @@ LibDefault = {
     }
 
     if(window.frames[uniqueName].script){
-      //eval(window.frames[uniqueName].script);
+      eval(window.frames[uniqueName].script);
     }
   },
 
   formBeforePost : function(form, uniqueName) {
     if(!document.getElementById(uniqueName + '_iframe')) {
-      alert('target bind');
-      var newDiv = document.createElement("DIV");
+      var newDiv = document.createElement("div");
       newDiv.innerHTML = '<iframe id="' + uniqueName + '_iframe" onload="LibDefault.formPostAnswer(\'' + uniqueName + '\')" name="' + uniqueName + '" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>';
       document.body.appendChild(newDiv);
-      form.setAttribute('target', uniqueName);
     }
+    form.setAttribute('target', uniqueName);
     form.submit();
   },
 
-
-
-
-
   formReset : function(uniqueName, field_name){
-    document.getElementById(uniqueName + '_field_' + field_name).className = "libPhpFormField";
-    document.getElementById(uniqueName + '_field_' + field_name + '_error').innerHTML = '';
+    if(document.getElementById(uniqueName + '_field_' + field_name)) {
+      document.getElementById(uniqueName + '_field_' + field_name).className = "libPhpFormField";
+    }
+    if(document.getElementById(uniqueName + '_field_' + field_name + '_error')) {
+      document.getElementById(uniqueName + '_field_' + field_name + '_error').innerHTML = '';
     document.getElementById(uniqueName + '_field_' + field_name + '_error').style.display = 'none';
-    document.getElementById(uniqueName + '_global_error').style.display = 'none';
+    }
+    if(document.getElementById(uniqueName + '_global_error')) {
+      document.getElementById(uniqueName + '_global_error').style.display = 'none';
+    }
   },
 
   formSetError : function(uniqueName, field_name, error, first){
-    //document.getElementById(uniqueName + '_field_' + field_name).setAttribute("class", "libPhpFormFieldError");
-    //document.getElementById(uniqueName + '_field_' + field_name).setAttribute("className", "libPhpFormFieldError");
     document.getElementById(uniqueName + '_field_' + field_name).className = "libPhpFormFieldError";
     if(error != ''){
       document.getElementById(uniqueName + '_field_' + field_name + '_error').innerHTML = error;
@@ -213,7 +204,6 @@ LibDefault = {
     if(first && ! LibDefault.isElementVisible(uniqueName + '_global_error')){
       document.location = '#' + uniqueName + '_global_error_anchor';
     }
-
   },
 
   formReplaceInput : function(uniqueName, field_name, new_html){
