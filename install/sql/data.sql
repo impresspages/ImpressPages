@@ -324,8 +324,8 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (489, 'new_file', 1, 0, '', 461, 'Upload video', '', 'string'),
 (490, 'save', 1, 0, '', 457, 'Save', '', 'string'),
 (498, 'type', 1, 0, '', 463, 'Type', '', 'string'),
-(1617, 'text', 1, 0, '', 463, 'Text', NULL, 'string'),
-(1618, 'text_multiline', 1, 0, '', 463, 'Text (multiline)', NULL, 'string'),
+(1617, 'autologin', 0, 0, '', 606, 'Autologin', NULL, 'string'),
+(1618, 'enable_autologin', 1, 0, '', 605, 'Enable autologin', NULL, 'bool'),
 (501, 'file', 1, 0, '', 463, 'File', '', 'string'),
 (502, 'new_field', 1, 0, '', 463, 'New field', '', 'string'),
 (504, 'required', 1, 0, '', 463, 'Required', '', 'string'),
@@ -425,7 +425,7 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (833, 'text', 1, 0, '', 449, 'Text', '', 'string'),
 (834, 'file', 1, 0, '', 409, 'File', '', 'string'),
 (835, 'warning_save', 1, 0, '', 384, 'Your changes will not be saved.', '', 'string'),
-(836, 'question_delete', 1, 0, '', 352, 'Delete widget?', '', 'string'),
+(836, 'question_delete', 1, 0, '', 352, 'Delete paragraph?', '', 'string'),
 (837, 'module', 1, 0, '', 491, 'Module', '', 'string'),
 (838, 'time', 1, 0, '', 491, 'Time', '', 'string'),
 (839, 'name', 1, 0, '', 491, 'Name', '', 'string'),
@@ -730,16 +730,21 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1614, 'error_duplicate_url', 1, 0, '', 376, 'Error - duplicate URL', NULL, 'string'),
 (1615, 'error_incorrect_url', 1, 0, '', 376, 'Error - incorrect URL', NULL, 'string'),
 (1616, 'widget_title', 1, 0, '', 607, 'Widget title', NULL, 'string'),
-(1619, 'select', 1, 0, '', 463, 'Select', NULL, 'string'),
-(1620, 'checkbox', 1, 0, '', 463, 'Checkbox', NULL, 'string'),
-(1621, 'radio', 1, 0, '', 463, 'Radio', NULL, 'string'),
-(1622, 'values_popup_title', 1, 0, '', 463, 'Values popup title', NULL, 'string'),
-(1623, 'values_field_title', 1, 0, '', 463, 'Values field title', NULL, 'string'),
-(1624, 'warning_not_saved', 1, 0, '', 384, 'Warning not saved', NULL, 'string'),
-(1625, 'saved', 1, 0, '', 384, 'Saved', NULL, 'string'),
-(1626, 'save_now', 1, 0, '', 384, 'Save now', NULL, 'string'),
-(1627, 'system_message', 1, 0, '', 496, 'System message', NULL, 'string'),
-(1628, 'help', 1, 0, '', 496, 'Help', NULL, 'string');
+(1619, 'require_email_confirmation', 1, 0, '', 605, 'Enable autologin', NULL, 'bool'),
+(1620, 'autologin_after_registration', 1, 0, '', 605, 'Enable autologin', NULL, 'bool'),
+(1621, 'autologin_time', 1, 0, '', 605, 'Enable autologin', NULL, 'integer'),
+(1622, 'text', 1, 0, '', 463, 'Text', NULL, 'string'),
+(1623, 'text_multiline', 1, 0, '', 463, 'Text (multiline)', NULL, 'string'),
+(1624, 'select', 1, 0, '', 463, 'Select', NULL, 'string'),
+(1625, 'checkbox', 1, 0, '', 463, 'Checkbox', NULL, 'string'),
+(1626, 'radio', 1, 0, '', 463, 'Radio', NULL, 'string'),
+(1627, 'values_popup_title', 1, 0, '', 463, 'Values popup title', NULL, 'string'),
+(1628, 'values_field_title', 1, 0, '', 463, 'Values field title', NULL, 'string'),
+(1629, 'warning_not_saved', 1, 0, '', 384, 'Warning not saved', NULL, 'string'),
+(1630, 'saved', 1, 0, '', 384, 'Saved', NULL, 'string'),
+(1631, 'save_now', 1, 0, '', 384, 'Save now', NULL, 'string'),
+(1632, 'system_message', 1, 0, '', 496, 'System message', NULL, 'string'),
+(1633, 'help', 1, 0, '', 496, 'Help', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -825,7 +830,10 @@ INSERT INTO `ip_cms_par_bool` (`id`, `value`, `parameter_id`) VALUES
 (430, 1, 1579),
 (431, 1, 1580),
 (432, 1, 1581),
-(433, 1, 1582);
+(433, 1, 1582),
+(434, 1, 1618),
+(435, 1, 1619),
+(436, 1, 1620);
 
 -- Dumping data for table--
 
@@ -862,7 +870,8 @@ INSERT INTO `ip_cms_par_integer` (`id`, `value`, `parameter_id`) VALUES
 (403, 1, 347),
 (404, 24, 1574),
 (405, 30, 1575),
-(406, 9, 1576);
+(406, 9, 1576),
+(407, 300, 1621);
 
 -- Dumping data for table--
 
@@ -1082,7 +1091,7 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (547, 'Upload video', 489),
 (548, 'Save', 490),
 (549, 'Type', 498),
-(1156, 'Text', 1617),
+(1156, 'Remember me', 1617),
 (552, 'File', 501),
 (553, 'New field', 502),
 (554, 'Required', 504),
@@ -1171,7 +1180,7 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (646, 'Text', 833),
 (647, 'File', 834),
 (648, 'Your changes will not be saved.', 835),
-(649, 'Delete widget?', 836),
+(649, 'Delete paragraph?', 836),
 (650, 'Module', 837),
 (651, 'Time', 838),
 (652, 'Name', 839),
@@ -1376,17 +1385,18 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1153, 'Duplicate URL', 1614),
 (1154, 'Incorrect URL. You can''t use slash in URL.', 1615),
 (1155, 'Table', 1616),
-(1157, 'Text (multiline)', 1618),
-(1158, 'Select', 1619),
-(1159, 'Checbox', 1620),
-(1160, 'Radio', 1621),
-(1161, 'Values', 1622),
-(1162, 'Enter available values. Each value on a new line.', 1623),
-(1163, 'Your changes are not saved', 1624),
-(1164, 'Saved', 1625),
-(1165, 'Save now', 1626),
-(1166, 'System message', 1627),
-(1167, 'Help', 1628);
+(1157, 'Text', 1622),
+(1158, 'Text (multiline)', 1623),
+(1159, 'Select', 1624),
+(1160, 'Checbox', 1625),
+(1161, 'Radio', 1626),
+(1162, 'Values', 1627),
+(1163, 'Enter available values. Each value on a new line.', 1628),
+(1164, 'Your changes are not saved', 1629),
+(1165, 'Saved', 1630),
+(1166, 'Save now', 1631),
+(1167, 'System message', 1632),
+(1168, 'Help', 1633);
 
 
 -- Dumping data for table--
