@@ -23,6 +23,7 @@ class Script {
 
   public function __construct($stepCount, $curStep, $curAction) {
     $this->deleteFolders = array();
+    $this->deleteFolders[] = 'install';
     $this->deleteFolders[] = 'ip_cms';
     $this->deleteFolders[] = 'ip_libs';
     $this->deleteFolders[] = 'nbproject';
@@ -316,6 +317,32 @@ class Script {
       //update contact form widget parameters
       $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_field');
       $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_row');
+      
+      
+      $module = \Db_100::getModule(null, 'community', 'user');
+      $group = $parametersRefractor->getParametersGroup($module['id'], 'translations');
+      if($group) {
+        if(!\Db_100::getParameter('community', 'user', 'translations', 'autologin')) {
+          \Db_100::addStringParameter($group['id'], 'Autologin', 'autologin', 'Remember me', 0);
+        }      
+      }
+      
+      $group = $parametersRefractor->getParametersGroup($module['id'], 'options');
+      if($group) {
+        if(!\Db_100::getParameter('community', 'user', 'options', 'enable_autologin')) {
+          \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'enable_autologin', true, 1);
+        }      
+        if(!\Db_100::getParameter('community', 'user', 'options', 'require_email_confirmation')) {
+          \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'require_email_confirmation', true, 1);
+        }      
+        if(!\Db_100::getParameter('community', 'user', 'options', 'autologin_after_registration')) {
+          \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'autologin_after_registration', true, 1);
+        }      
+        if(!\Db_100::getParameter('community', 'user', 'options', 'autologin_time')) {
+          \Db_100::addIntegerParameter($group['id'], 'Enable autologin', 'autologin_time', 300, 1);
+        }      
+      }      
+      
       $module = \Db_100::getModule(null, 'standard', 'content_management');
       $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_contact_form');
       if($group) {

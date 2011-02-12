@@ -6,11 +6,21 @@
  */
 
 
-if (!defined('INSTALL')) exit;
+function install_available(){
+	if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
+		return true;
+	else
+		return false;
+}
 
-ini_set('display_errors', '0');
+
+if(!install_available()) {
+  return;
+}
+
+
+ini_set('display_errors', '1');
 	session_start();
-
 if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
   if (strlen($_POST['prefix']) > strlen('ip_cms_')) {
   	echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
@@ -49,6 +59,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 				if(!$rs){
 					$error = true;
 					$errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+					echo $errorMessage;
         }
 			}
 			/*end structure*/
@@ -62,7 +73,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 			//$all_sql = utf8_encode($all_sql);
 			$all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `".$_POST['prefix'], $all_sql);
 			$all_sql = str_replace("[[[[base_url]]]]", get_parent_url(), $all_sql);
-			$sql_list = split("-- Dumping data for table--", $all_sql);
+			$sql_list = explode("-- Dumping data for table--", $all_sql);
 
 			
 			foreach($sql_list as $key => $sql){
@@ -279,7 +290,7 @@ Sitemap: '.get_parent_url().'sitemap.php';
 
 function get_parent_url() {
   $pageURL = 'http';
-  if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+  if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
     $pageURL .= "://";
   if ($_SERVER["SERVER_PORT"] != "80") {
     $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];

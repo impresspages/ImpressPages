@@ -219,7 +219,51 @@ class Db_100 {
       }
       
     }    
+    
+    
+    public static function addBoolParameter($groupId, $translation, $name, $value, $admin){
+      $sql = "INSERT INTO `".DB_PREF."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
+      VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'bool')";
+      $rs = mysql_query($sql);
+      if($rs){
+        $sql2 = "INSERT INTO `".DB_PREF."par_bool` (`value`, `parameter_id`)
+        VALUES (".((int)$value).", ".mysql_insert_id().");";
+        $rs2 = mysql_query($sql2);
+        if($rs2) {
+            return true;
+        } else {
+          trigger_error($sql2." ".mysql_error());  
+          return false;    
+        }
+      } else {
+        trigger_error($sql." ".mysql_error());  
+        return false;    
+      }
       
+    }        
+    
+    
+    public static function addIntegerParameter($groupId, $translation, $name, $value, $admin){
+      $sql = "INSERT INTO `".DB_PREF."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
+      VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'integer')";
+      $rs = mysql_query($sql);
+      if($rs){
+        $sql2 = "INSERT INTO `".DB_PREF."par_integer` (`value`, `parameter_id`)
+        VALUES (".((int)$value).", ".mysql_insert_id().");";
+        $rs2 = mysql_query($sql2);
+        if($rs2) {
+            return true;
+        } else {
+          trigger_error($sql2." ".mysql_error());  
+          return false;    
+        }
+      } else {
+        trigger_error($sql." ".mysql_error());  
+        return false;    
+      }
+      
+    }        
+    
 
     /**
      * @access private
