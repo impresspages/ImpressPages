@@ -120,7 +120,11 @@ LibDefault = {
     if(window.frames[uniqueName].new_fields){
       var new_fields = window.frames[uniqueName].new_fields;
       for(var i=0; i<new_fields.length; i++){
-        eval(uniqueName + '_replace_input(\'' + new_fields[i][0] + '\', \'' + new_fields[i][1] + '\');');
+        if (eval("typeof " + uniqueName + '_reset' + " == 'function'")) {
+          eval(uniqueName + '_replace_input(\'' + new_fields[i][0] + '\', \'' + new_fields[i][1] + '\');');
+        } else {
+          LibDefault.formReplaceInput(uniqueName, new_fields[i][0], new_fields[i][1]);
+        }
       }
     }
 
@@ -207,7 +211,9 @@ LibDefault = {
   },
 
   formReplaceInput : function(uniqueName, field_name, new_html){
-    document.getElementById(uniqueName + '_field_' + field_name + '_input').innerHTML = new_html;
+    if(document.getElementById(uniqueName + '_field_' + field_name + '_input')) {
+      document.getElementById(uniqueName + '_field_' + field_name + '_input').innerHTML = new_html;
+    }
   }
 
 }
