@@ -22,7 +22,7 @@
 				ed.windowManager.open({
 					file : url + '/browser.html',
 					width : tinyMCE.activeEditor.getParam("plugin_simplebrowser_width", '600'),
-					height : tinyMCE.activeEditor.getParam("plugin_simplebrowser_height", '450'),
+					height : tinyMCE.activeEditor.getParam("plugin_simplebrowser_height", '250'),
 					inline : 1,
 					browseimageurl : tinyMCE.activeEditor.getParam("plugin_simplebrowser_browseimageurl", false),
 					browselinkurl : tinyMCE.activeEditor.getParam("plugin_simplebrowser_browselinkurl", false),
@@ -38,7 +38,7 @@
 				ed.windowManager.open({
 					file : url + '/browser.html',
 					width : tinyMCE.activeEditor.getParam("plugin_simplebrowser_width", '600'),
-					height : tinyMCE.activeEditor.getParam("plugin_simplebrowser_height", '450'),
+					height : tinyMCE.activeEditor.getParam("plugin_simplebrowser_height", '250'),
 					inline : 1,
 					browseimageurl : tinyMCE.activeEditor.getParam("plugin_simplebrowser_browseimageurl", false),
 					browselinkurl : tinyMCE.activeEditor.getParam("plugin_simplebrowser_browselinkurl", false),

@@ -7,6 +7,8 @@
 
 namespace update_1_0_3_beta_to_1_0_4;
 
+if (!defined('CMS')) exit;
+
 define ('REMOVE_DIRECTORIES','<p><b>Please remove following directories:</b></p>');
 define ('REMOVE_FILES','<p><b>Please remove following files:</b></p>');
 define ('UPLOAD_DIRECTORIES', '<p><b>Please upload following folders from downloaded archive:</b></p>');
