@@ -312,7 +312,8 @@ class Script {
 
       //upate contact form widget
       Db::updateContactFormWidget();
-
+      Db::updateContactFormTextareaFiel();
+      
 
       //update contact form widget parameters
       $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_contact_form', 'text_field');

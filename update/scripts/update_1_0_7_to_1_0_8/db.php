@@ -13,7 +13,21 @@ if (!defined('CMS')) exit;
 
 class Db {
 
+  public static function updateContactFormTextareaFiel() {
+    $sql = "
+      UPDATE `".DB_PREF."mc_misc_contact_form_field` SET `type` = 'text_multiline' WHERE `type` = 'textarea'
+    ";
 
+    $rs = mysql_query($sql);
+    if($rs) {
+      return true;
+    } else {
+      trigger_error($sql.' '.mysql_error());
+      return false;
+    }
+  }
+  
+  
   public static function updateContactFormWidget() {
     $sql = "
       ALTER TABLE `".DB_PREF."mc_misc_contact_form_field` ADD `values` TEXT NULL COMMENT 'json array'
@@ -23,7 +37,7 @@ class Db {
     if($rs) {
       return true;
     } else {
-      //trigger_error($sql.' '.mysql_error());
+      trigger_error($sql.' '.mysql_error());
       return false;
     }
   }
