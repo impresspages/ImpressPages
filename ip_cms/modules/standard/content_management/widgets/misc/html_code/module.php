@@ -12,6 +12,7 @@ if (!defined('CMS')) exit;
 const GROUP_KEY = 'misc';
 const MODULE_KEY = 'html_code';
 
+require_once(BASE_DIR.LIBRARY_DIR.'php/js/functions.php');
 
 class Module extends \Modules\standard\content_management\Widget{
 
@@ -89,15 +90,14 @@ class Module extends \Modules\standard\content_management\Widget{
       $answer .= "  var new_module_name = '".$mod_management_name.".' + ".$mod_management_name.".get_modules_array_name() + '[".$collection_number."]';";
       $answer .= "  new_module.init(".$collection_number.", ".$module_id.", ".$visible.", new_module_name, ".$mod_management_name.");";
       $answer .= "
-			 new_module.preview_html = '".str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'", Template::generateHtml($lock['text'], true, $this->getLayout($module_id))))))."';
-			 
-			 ";
+      new_module.preview_html = '".\Library\Php\Js\Functions::htmlToString(Template::generateHtml($lock['text'], true, $this->getLayout($module_id)))."';
+";
       $answer .= "  new_module.layout = '".str_replace("\r", "", str_replace("\n", "' + \n '", str_replace("'", "\\'",$this->getLayout($module_id))))."';";
        
       $answer .= "
-			 new_module.set_text('".str_replace('script',"scr' + 'ipt", str_replace("\r", " ",str_replace("\n", "\\n", addslashes($lock['text']))))."');
-			 ";
-      	
+       new_module.set_text('".\Library\Php\Js\Functions::htmlToString($lock['text'])."');
+";
+      
       $answer .= "  ".$mod_management_name.".get_modules().push(new_module);";
       $answer .= "  ";
       $answer .= "  ";
@@ -179,7 +179,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $rs = mysql_query($sql);
     if ($rs){
       if ($lock = mysql_fetch_assoc($rs)){
-        return Template::generateHtml($lock['text'], $layout);
+        return Template::generateHtml($lock['text'], true, $layout);
       }
     }else
     trigger_error("Can't get text to create HTML ".$sql);
