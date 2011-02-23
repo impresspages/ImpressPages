@@ -40,7 +40,11 @@ class Module{
         $tmpVal =  preg_replace('/^Sitemap:(.*)/', 'Sitemap: '.BASE_URL.'sitemap.php', $tmpVal);
         $newData .= $tmpVal."\n";
       }
-      file_put_contents($robotsFile, $newData);          
+      if (is_writable($robotsFile)) {
+        file_put_contents($robotsFile, $newData);
+      } else {
+        trigger_error('robots.txt file need to be updated. Do it manually or make it writable and clear cache once again.');
+      }          
     }
 
 
