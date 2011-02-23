@@ -30,7 +30,7 @@
 <?php
         require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
         $menuTop = new Library\Php\Menu\Common();
-        echo $menuTop->generateSubmenu('top', 1, 1);
+        echo $menuTop->generateSubmenu('top', null, 1); //$zoneName, $parentElementId, $depthLimit
 ?>
       </div>
       <div class="languages">
@@ -53,7 +53,7 @@
 <?php
       require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
       $menuLeft = new Library\Php\Menu\Common();
-      echo $menuLeft->generateSubmenu('left', null, 2);
+      echo $menuLeft->generateSubmenu('left', null, 2);  //$zoneName, $parentElementId, $depthLimit
 ?>
     </div>
     <div class="box newsletter">

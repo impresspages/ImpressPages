@@ -22,6 +22,7 @@ class EditMenuTree {
 
   function __construct() {
     global $cms;
+    global $site;
 
     $this->languages = Db::languages();
     if(sizeof($this->languages) > 0)
@@ -31,11 +32,15 @@ class EditMenuTree {
 
 
     if(isset($_SESSION['backend_modules']['standard']['menu_management']['menu_name'])) {
-        $this->currentZone = $_SESSION['backend_modules']['standard']['menu_management']['menu_name'];
+        if($site->getZone($_SESSION['backend_modules']['standard']['menu_management']['menu_name']['name'])) {
+          $this->currentZone = $_SESSION['backend_modules']['standard']['menu_management']['menu_name'];
+        }
     }
 
     if(isset($_SESSION['backend_modules']['standard']['menu_management']['language_id'])) {
+      if($site->getLanguageById($_SESSION['backend_modules']['standard']['menu_management']['language_id'])) {
         $this->currentLanguage = $_SESSION['backend_modules']['standard']['menu_management']['language_id'];
+      }
     }
 
 
