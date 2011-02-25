@@ -614,6 +614,9 @@ $parameter["parameterTitle/standard/configuration/main_parameters/name"] = "Site
 
 $parameter["parameterTitle/standard/configuration/translations/copyright"] = "Copyright";
 
+$parameter["parameterTitle/standard/configuration/system_translations/system_message"] = "System message";
+$parameter["parameterValue/standard/configuration/system_translations/system_message"] = "System message";
+
 $parameter["parameterTitle/standard/configuration/system_translations/loading"] = "Loading";
 $parameter["parameterValue/standard/configuration/system_translations/loading"] = "Loading ...";
 
@@ -722,6 +725,15 @@ $parameter["parameterValue/standard/content_management/admin_translations/previe
 $parameter["parameterTitle/standard/content_management/admin_translations/warning_save"] = "Your changes will not be saved.";
 $parameter["parameterValue/standard/content_management/admin_translations/warning_save"] = "Your changes will not be saved.";
 
+$parameter["parameterTitle/standard/content_management/admin_translations/warning_not_saved"] = "Warning not saved";
+$parameter["parameterValue/standard/content_management/admin_translations/warning_not_saved"] = "Your changes are not saved";
+
+$parameter["parameterTitle/standard/content_management/admin_translations/warning_save"] = "Your changes will not be saved.";
+$parameter["parameterValue/standard/content_management/admin_translations/warning_save"] = "Your changes will not be saved.";
+
+$parameter["parameterTitle/standard/content_management/admin_translations/save_now"] = "Save now";
+$parameter["parameterValue/standard/content_management/admin_translations/save_now"] = "Save now";
+
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/height"] = "Height";
 
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/width"] = "Width";
@@ -777,6 +789,9 @@ $parameter["parameterValue/standard/content_management/widget_text_photo/layout_
 $parameter["parameterTitle/standard/content_management/widget_contact_form/button"] = "Button caption";
 $parameter["parameterValue/standard/content_management/widget_contact_form/button"] = "Button caption";
 
+$parameter["parameterTitle/standard/content_management/widget_contact_form/checkbox"] = "Checkbox";
+$parameter["parameterValue/standard/content_management/widget_contact_form/checkbox"] = "Checkbox";
+
 $parameter["parameterTitle/standard/content_management/widget_contact_form/contact_form"] = "Contact form";
 $parameter["parameterValue/standard/content_management/widget_contact_form/contact_form"] = "Contact form";
 
@@ -807,11 +822,14 @@ $parameter["parameterValue/standard/content_management/widget_contact_form/requi
 $parameter["parameterTitle/standard/content_management/widget_contact_form/required_fields"] = "All fields should be filled in.";
 $parameter["parameterValue/standard/content_management/widget_contact_form/required_fields"] = "All fields should be filled in.";
 
-$parameter["parameterTitle/standard/content_management/widget_contact_form/text_field"] = "Text field";
-$parameter["parameterValue/standard/content_management/widget_contact_form/text_field"] = "Text field";
+$parameter["parameterTitle/standard/content_management/widget_contact_form/select"] = "Select";
+$parameter["parameterValue/standard/content_management/widget_contact_form/select"] = "Select";
 
-$parameter["parameterTitle/standard/content_management/widget_contact_form/text_row"] = "Text row";
-$parameter["parameterValue/standard/content_management/widget_contact_form/text_row"] = "Text row";
+$parameter["parameterTitle/standard/content_management/widget_contact_form/text"] = "Text";
+$parameter["parameterValue/standard/content_management/widget_contact_form/text"] = "Text";
+
+$parameter["parameterTitle/standard/content_management/widget_contact_form/text_multiline"] = "Text (multiline)";
+$parameter["parameterValue/standard/content_management/widget_contact_form/text_multiline"] = "Text (multiline)";
 
 $parameter["parameterTitle/standard/content_management/widget_contact_form/thank_you"] = "Thank you message";
 $parameter["parameterValue/standard/content_management/widget_contact_form/thank_you"] = "Thank you message";
@@ -821,6 +839,9 @@ $parameter["parameterValue/standard/content_management/widget_contact_form/type"
 
 $parameter["parameterTitle/standard/content_management/widget_contact_form/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_contact_form/widget_title"] = "Contact form";
+
+$parameter["parameterTitle/standard/content_management/widget_contact_form/values_popup_title"] = "Values popup title";
+$parameter["parameterValue/standard/content_management/widget_contact_form/values_popup_title"] = "Values popup title";
 
 $parameter["parameterTitle/standard/content_management/widget_faq/error_empty_question"] = "Please enter the question.";
 $parameter["parameterValue/standard/content_management/widget_faq/error_empty_question"] = "Please enter the question.";
@@ -1259,30 +1280,90 @@ $parameter["parameterTitle/community/user/options/zone_after_login"] = "Redirect
 $parameter["parameterValue/community/user/options/zone_after_login"] = "";
 
 $parameter["parameterTitle/community/user/options/expires_in"] = "User account expires in (months)";
-$parameter["parameterValue/community/user/options/expires_in"] = "24";
 
 $parameter["parameterTitle/community/user/options/warn_before"] = "Warn user about deletion before (days)";
-$parameter["parameterValue/community/user/options/warn_before"] = "30";
 
 $parameter["parameterTitle/community/user/options/warn_every"] = "Warn user about deletion every (days)";
-$parameter["parameterValue/community/user/options/warn_every"] = "9";
 
 $parameter["parameterTitle/community/user/options/delete_expired_users"] = "Delete expired user";
-$parameter["parameterValue/community/user/options/delete_expired_users"] = "1";
 
 $parameter["parameterTitle/community/user/options/type_password_twice"] = "Type password twice";
-$parameter["parameterValue/community/user/options/type_password_twice"] = "1";
 
 $parameter["parameterTitle/community/user/options/registration_on_login_page"] = "Registration link on login page";
-$parameter["parameterValue/community/user/options/registration_on_login_page"] = "1";
 
 $parameter["parameterTitle/community/user/options/allow_password_reset"] = "Allow password reset";
-$parameter["parameterValue/community/user/options/allow_password_reset"] = "1";
 
 $parameter["parameterTitle/community/user/options/enable_registration"] = "Enable registration";
-$parameter["parameterValue/community/user/options/enable_registration"] = "1";
 
 $parameter["parameterTitle/community/user/options/encrypt_passwords"] = "Encrypt passwords";
-$parameter["parameterValue/community/user/options/encrypt_passwords"] = "0";
 
+$parameter["parameterTitle/community/user/options/enable_autologin"] = "Enable autologin";
+
+$parameter["parameterTitle/community/user/options/autologin_time"] = "Autologin time (days)";
+
+$parameter["parameterTitle/community/user/options/autologin_after_registration"] = "Autologin_after_registration";
+
+$parameter["parameterTitle/community/user/translations/autologin"] = "Autologin";
+
+$parameter["parameterTitle/community/user/translations/button_login"] = "Button - login";
+
+$parameter["parameterTitle/community/user/translations/button_password_reset"] = "Button - password reset";
+
+$parameter["parameterTitle/community/user/translations/button_register"] = "Button - registration";
+
+$parameter["parameterTitle/community/user/translations/button_update"] = "Button - update";
+
+$parameter["parameterTitle/community/user/translations/field_confirm_password"] = "Field - confirm password";
+
+$parameter["parameterTitle/community/user/translations/field_email"] = "Field - e-mail";
+
+$parameter["parameterTitle/community/user/translations/field_login"] = "Field - login";
+
+$parameter["parameterTitle/community/user/translations/field_password"] = "Field - password";
+
+$parameter["parameterTitle/community/user/translations/logout"] = "Logout";
+
+$parameter["parameterTitle/community/user/translations/password_reset"] = "Password reset hint";
+
+$parameter["parameterTitle/community/user/translations/text_password_reset"] = "Password reset text";
+
+$parameter["parameterTitle/community/user/translations/profile_updated"] = "Profile updated";
+
+$parameter["parameterTitle/community/user/translations/text_account_renewal_error"] = "Text - account renewal error";
+
+$parameter["parameterTitle/community/user/translations/text_account_renewed"] = "Text - account renewed";
+
+$parameter["parameterTitle/community/user/translations/text_disabled_registration_error"] = "Text - disabled registration error";
+
+$parameter["parameterTitle/community/user/translations/text_email_exist_error"] = "Text - e-mail exist error";
+
+$parameter["parameterTitle/community/user/translations/text_new_email_verification_error"] = "Text - new e-mail verification error";
+
+$parameter["parameterTitle/community/user/translations/text_new_email_verification_required"] = "Text - new e-mail verification required";
+
+$parameter["parameterTitle/community/user/translations/text_password_reset_sent"] = "Text - password reset instructions was sent";
+
+$parameter["parameterTitle/community/user/translations/text_password_verification_error"] = "Text - password reset verification error";
+
+$parameter["parameterTitle/community/user/translations/text_password_verified"] = "Text - password verified";
+
+$parameter["parameterTitle/community/user/translations/text_registration_verification_error"] = "Text - registration verification error";
+
+$parameter["parameterTitle/community/user/translations/text_registration_verification_required"] = "Text - registration verification required";
+
+$parameter["parameterTitle/community/user/translations/text_registration_successful"] = "Text - registraton successful";
+
+$parameter["parameterTitle/community/user/translations/text_user_exist_error"] = "Text - user exist error";
+
+$parameter["parameterTitle/community/user/translations/title_login"] = "Title - login";
+
+$parameter["parameterTitle/community/user/translations/title_new_email_verification_error"] = "Title - new e-mail verification error";
+
+$parameter["parameterTitle/community/user/translations/title_password_reset"] = "Title - password reset";
+
+$parameter["parameterTitle/community/user/translations/title_profile"] = "Title - profile";
+
+$parameter["parameterTitle/community/user/translations/title_registration"] = "Title - registration";
+
+$parameter["parameterTitle/community/user/translations/title_registration_verification_error"] = "Title - registration verification error ";
 

@@ -334,13 +334,13 @@ class Script {
           \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'enable_autologin', true, 1);
         }      
         if(!\Db_100::getParameter('community', 'user', 'options', 'require_email_confirmation')) {
-          \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'require_email_confirmation', true, 1);
+          \Db_100::addBoolParameter($group['id'], 'Require email confirmation', 'require_email_confirmation', true, 1);
         }      
         if(!\Db_100::getParameter('community', 'user', 'options', 'autologin_after_registration')) {
-          \Db_100::addBoolParameter($group['id'], 'Enable autologin', 'autologin_after_registration', true, 1);
+          \Db_100::addBoolParameter($group['id'], 'Autologin after registration', 'autologin_after_registration', true, 1);
         }      
         if(!\Db_100::getParameter('community', 'user', 'options', 'autologin_time')) {
-          \Db_100::addIntegerParameter($group['id'], 'Enable autologin', 'autologin_time', 300, 1);
+          \Db_100::addIntegerParameter($group['id'], 'Autologin time (days)', 'autologin_time', 300, 1);
         }      
       }      
       
