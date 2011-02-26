@@ -83,9 +83,12 @@ class Module{
 		if($alreadySent !== false){
 			$available = floor($parametersMod->getValue('administrator', 'email_queue', 'options', 'emails_per_hour')*0.8 - $alreadySent); //20% for imediate emails			
 			$lockKey = md5(uniqid(rand(), true));
-			if($available > 0)
+			if($available > 0) {
+			  if($available > 5 && !defined('CRON')) { //only cron job can send many emails at once.
+          $available = 5;
+        }
 				$locked = Db::lock($available, $lockKey);
-			else{
+			} else{
 				$available = 0;
 				$locked = 0;
 			}
@@ -98,9 +101,7 @@ class Module{
 					
 				$errors = false;
 
-				if(sizeof($emails) > 5){
-          set_time_limit(sizeof($emails)*10);
-        }				
+        set_time_limit(sizeof($emails)*10 + 100);
 				
 				foreach($emails as $key => $email){
 					$mail = new \PHPMailer();
@@ -157,6 +158,9 @@ class Module{
 						$errors = true;
 					}
 					
+					if(sizeof($emails) > 5) {
+  			    sleep(2);
+  			  }
 				}
 				
 				Db::unlock($lockKey);
