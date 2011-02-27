@@ -101,9 +101,11 @@ class Module{
 					
 				$errors = false;
 
-        set_time_limit(sizeof($emails)*10 + 100);
 				
 				foreach($emails as $key => $email){
+          set_time_limit((sizeof($emails) - $key)*10 + 100);
+				
+				
 					$mail = new \PHPMailer();
 /*          $mail->Sender = $email['from'];	
           $mail->addCustomHeader("Return-Path: " . $email['from']);*/
@@ -159,11 +161,12 @@ class Module{
 					}
 					
 					if(sizeof($emails) > 5) {
-  			    sleep(2);
+  			    sleep(1);
   			  }
+  			  
+  			  Db::unlockOne($email['id']);
 				}
 				
-				Db::unlock($lockKey);
 			}
 		}
 

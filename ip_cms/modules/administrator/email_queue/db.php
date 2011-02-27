@@ -81,6 +81,19 @@ class Db{
 			return mysql_affected_rows();
 	}
 
+	public static function unlockOne($id){
+		$sql = "update `".DB_PREF."m_administrator_email_queue` set 
+		`send` = NOW(), `lock` = NULL, `locked_on` = NULL 
+		where `id` = '".(int)$id."'";
+		$rs = mysql_query($sql);
+		if(!$rs){
+			trigger_error($sql." ".mysql_error());
+			return false;
+		}else
+			return mysql_affected_rows();
+	}
+
+
 	public static function getLocked($key){
 		$sql = "select * from `".DB_PREF."m_administrator_email_queue`  
 		where `lock` = '".mysql_real_escape_string($key)."'";
