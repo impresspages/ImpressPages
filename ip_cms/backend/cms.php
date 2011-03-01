@@ -214,10 +214,11 @@ class Cms {
 
   function deleteTmpFiles() {
     $dirs = array();
-    $dirs[] = TMP_IMAGE_DIR;
-    $dirs[] = TMP_VIDEO_DIR;
-    $dirs[] = TMP_FILE_DIR;
-
+    $dirs[] = BASE_DIR.TMP_IMAGE_DIR;
+    $dirs[] = BASE_DIR.TMP_VIDEO_DIR;
+    $dirs[] = BASE_DIR.TMP_FILE_DIR;
+    $dirs[] = BASE_DIR.TMP_AUDIO_DIR;
+    
     foreach($dirs as $key => $dir) {
       if ($handle = opendir($dir)) {
         $now = time();
