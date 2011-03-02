@@ -12,6 +12,23 @@ define('INSTALL', 'true');
 date_default_timezone_set('Europe/Vilnius'); //PHP 5 requires timezone to be set.
 
 
+if (get_magic_quotes_gpc()) { //fix magic quotes option
+    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+    while (list($key, $val) = each($process)) {
+        foreach ($val as $k => $v) {
+            unset($process[$key][$k]);
+            if (is_array($v)) {
+                $process[$key][stripslashes($k)] = $v;
+                $process[] = &$process[$key][stripslashes($k)];
+            } else {
+                $process[$key][stripslashes($k)] = stripslashes($v);
+            }
+        }
+    }
+    unset($process);
+}
+
+
 function install_available(){
 	if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
 		return true;

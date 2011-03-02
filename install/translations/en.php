@@ -3,7 +3,7 @@
 
 define('IP_PHP_VERSION', 'PHP version >= 5.3');
 define('IP_MOD_REWRITE', 'Apache module "mod_rewrite"');
-define('IP_MAGIC_QUOTES', 'Magic quotes off');
+define('IP_MAGIC_QUOTES', 'Magic quotes (off recommended)');
 
 define('IP_OK', 'Yes');
 define('IP_ERROR', 'No');

@@ -27,6 +27,7 @@ function directory_is_writable($dir) {
 }
 
 $error = array();
+$warning = array();
 
 if(PHP_MAJOR_VERSION < 5)
   $error['php_version'] = 1;
@@ -44,7 +45,7 @@ if(function_exists('apache_get_modules') ) {
 }
 
 if(get_magic_quotes_gpc()){
-  $error['magic_quotes'] = 1;
+  $warning['magic_quotes'] = 1;
 }
 
 $answer = '';	
@@ -65,7 +66,7 @@ else
   $table[] = '<span class="correct">'.IP_OK.'</span>';
 
 $table[] = IP_MAGIC_QUOTES;
-if(isset($error['magic_quotes']))
+if(isset($warning['magic_quotes']))
   $table[] = '<span class="error">'.IP_ERROR."</span>";
 else
   $table[] = '<span class="correct">'.IP_OK.'</span>';
