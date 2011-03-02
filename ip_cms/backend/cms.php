@@ -59,6 +59,7 @@ class Cms {
       $this->deleteTmpFiles();
       $this->html->footer();
       $this->html->send();
+      \db::disconnect();
       exit;
     }
     //eof log off
@@ -134,6 +135,7 @@ class Cms {
       if(strpos(BASE_URL, $_SERVER['HTTP_HOST']) != 7 && strpos(BASE_URL, $_SERVER['HTTP_HOST']) != 8 ) {
         /*check if we are in correct subdomain. www.yoursite.com not allways equal to yoursite.com from session perspective)*/
         header("location: ".BASE_URL."admin.php");
+        \db::disconnect();        
         exit;
       }
       $this->html->headerLogin();
