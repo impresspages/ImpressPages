@@ -3,6 +3,7 @@
 
 define('IP_PHP_VERSION', 'PHP versija >= 5.3');
 define('IP_MOD_REWRITE', 'Apache modulis "mod_rewrite"');
+define('IP_GD_LIB', 'GD grafinė biblioteka');
 define('IP_MAGIC_QUOTES', '"Magic quotes" rekomenduojama išjungti.');
 
 define('IP_OK', 'Taip');
@@ -13,7 +14,7 @@ define('IP_BACK', 'Atgal');
 define('IP_NEXT', 'Toliau');
 define('IP_ACCEPT', 'Sutinku');
 define('IP_INSTALLATION', 'ImpressPages TVS diegimo vedlys');
-define('IP_VERSION', 'Versija 1.0.8');
+define('IP_VERSION', 'Versija 1.0.9');
 define('IP_SUBDIRECTORIES', '(įskaitant pakatalogius ir failus)');
 define('IP_OPTIONAL', '(pasirinktinai)');
 
