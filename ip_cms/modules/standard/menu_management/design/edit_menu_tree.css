@@ -219,3 +219,28 @@ pre.code{
 * html #ipSitemap, * html #ipSitemap ul { height: 1%; }
 /*  */
 #ipSitemap ul{ display: none; }
+
+
+
+#backtrace_path .knob {
+    background: url("knob_background.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #FFBB44;
+    color: #264971;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: bold;
+    float: right;
+    padding: 1px 5px;
+}
+
+#backtrace_path .knob:hover {
+    background-color: #F6E0B5;
+    background-image: none;
+    text-decoration:  none;
+    
+}
+
+#delete_form  {
+	float: right;
+}
+

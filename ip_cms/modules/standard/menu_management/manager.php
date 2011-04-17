@@ -120,13 +120,17 @@ class Manager {
 			
 			
 			<div id="backtrace_path">
-        <a id="backgrace_path_update" style="cursor: default;" class="navigation">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'page_properties')).'</a>
+				<a class="knob" href="javascript:void(0);" onclick="delete_element()">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</a>
+        
+				<a id="backgrace_path_update" style="cursor: default;" class="navigation">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'page_properties')).'</a>
         <a id="backgrace_path_new" style="cursor: default;" class="navigation">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</a>
+
+        
       </div>
       <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/communication.js"></script>
       
-			<form class="stdMod" id="property_form" onsubmit="ModuleStandardMenuManagement.save(); return false;">
-        <div class="search">
+    <div class="search">
+      <form class="stdMod" id="property_form" onsubmit="ModuleStandardMenuManagement.save(); return false;">
           <input name="property_zone_name" value="'.htmlspecialchars($this->tree->currentZone['name']).'" type="hidden" />
           <input name="property_id" value="" type="hidden" />
           <input name="action" value="" type="hidden" />
@@ -184,9 +188,8 @@ class Manager {
 
 
           <input style="cursor: pointer;" class="knob bolder" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" type="submit">
-				</div>
       </form>
-          
+    </div>
 			<!-- content -->
       
 		   			

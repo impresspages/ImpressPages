@@ -39,7 +39,7 @@ class EditMenuTree {
 
     if(isset($_SESSION['backend_modules']['standard']['menu_management']['language_id'])) {
       if($site->getLanguageById($_SESSION['backend_modules']['standard']['menu_management']['language_id'])) {
-        $this->currentLanguage = $_SESSION['backend_modules']['standard']['menu_management']['language_id'];
+        $this->currentLanguage = $this->languages[$_SESSION['backend_modules']['standard']['menu_management']['language_id']];
       }
     }
 
@@ -52,7 +52,8 @@ class EditMenuTree {
 
       if(isset($_REQUEST['language_id'])) {
         $this->currentLanguage = $this->languages[$_REQUEST['language_id']];
-        $_SESSION['backend_modules']['standard']['menu_management']['language_id'] = $this->currentLanguage;
+//        var_dump($this->currentLanguage);
+        $_SESSION['backend_modules']['standard']['menu_management']['language_id'] = $this->currentLanguage['id'];
       }
     }
     $this->mode = "default";

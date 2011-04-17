@@ -6,9 +6,10 @@
 
 Ext.BLANK_IMAGE_URL = 'ip_libs/js/ext/resources/images/aero/s.gif';
 
+var globalTreeVar;
 
 iTree = function(){
-    var root, tree;  //this part is grabbed from the web. And the variable "tree" seems to bee unused
+    var root, tree;  
     var depth; //custom variable. Determines maximal depth of tree;
     return {
         init : function(){
@@ -61,7 +62,7 @@ iTree = function(){
           
     
     
-          
+          return tree;
         },
         
         
@@ -85,24 +86,8 @@ iTree = function(){
         },
         
         
-        deleteNode : function(arg){            
-           var node;
-           node = tree.getSelectionModel().getSelectedNode();
-           
-           var parent;
-           parent = node.parentNode;
-           if (confirm(translation_are_you_sure_you_wish_to_delete)){
-             var worker_form = document.getElementById("worker_form");
-              worker_form.innerHTML = ''+
-              '<input type="hidden" name="action" value="menu_delete" />'+
-              '<input type="hidden" name="node" value="'+ node.id +'" />'+
-              '<input type="hidden" name="index" value="'+ parent.indexOf(node) +'" />'+
-              '<input type="hidden" name="parent" value="'+ parent.id +'" />';
-              worker_form.submit();
-							parent.removeChild(node);
-
-              document.getElementById('content').style.display = 'none';
-           }
+        deleteNode : function(arg){
+          delete_element();
         },        
 
 				renameNode : function(arg){
@@ -282,16 +267,36 @@ function renameNodePromted(btn, text){
    
    
 function manage_element(notes, errors, variables){
-//alert(variables[0]);
   document.location = variables[0];
 }   
 
 Ext.onReady(function(){    
-    iTree.init();
+    globalTreeVar = iTree.init();
 //    iTree.depth = zone_depth;
 });
 
 
+
+function delete_element() {
+  var node;
+  node = globalTreeVar.getSelectionModel().getSelectedNode();
+  
+  var parent;
+  parent = node.parentNode;
+  if (confirm(translation_are_you_sure_you_wish_to_delete)){
+    var worker_form = document.getElementById("worker_form");
+     worker_form.innerHTML = ''+
+     '<input type="hidden" name="action" value="menu_delete" />'+
+     '<input type="hidden" name="node" value="'+ node.id +'" />'+
+     '<input type="hidden" name="index" value="'+ parent.indexOf(node) +'" />'+
+     '<input type="hidden" name="parent" value="'+ parent.id +'" />';
+     worker_form.submit();
+     parent.removeChild(node);
+
+     document.getElementById('content').style.display = 'none';
+  }
+  
+}
 
 
 

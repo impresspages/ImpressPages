@@ -31,6 +31,7 @@ function content_mod_contact_form() {
   this.values_close = values_close;
   this.values_save = values_save;
   this.change_type = change_type;
+  this.collect_fields = collect_fields;
 
   var collection_number;
   var id;
@@ -61,12 +62,14 @@ function content_mod_contact_form() {
     var fields_string = '';
     var i = 0;
     while (i < this.fields.length) {
-      fields_string = fields_string + ' <textarea name="field_' + i + '_name" />' + this.fields[i][0] + '</textarea> ';
-      fields_string = fields_string + ' <textarea name="field_' + i + '_type" />' + this.fields[i][1] + '</textarea> ';
-      fields_string = fields_string + ' <textarea name="field_' + i + '_required" />' + this.fields[i][2] + '</textarea> ';
-      fields_string = fields_string + ' <textarea name="field_' + i + '_values" />' + this.fields[i][3] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_name" >' + this.fields[i][0] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_type" >' + this.fields[i][1] + '</textarea> ';
+      fields_string = fields_string + ' <textarea name="field_' + i + '_required" >' + this.fields[i][2] + '</textarea> ';
+      //fields_string = fields_string + ' <textarea id="field_' + i + '_valuesTest" name="field_' + i + '_values" >' + this.fields[i][3] + '</textarea> ';
+      fields_string = fields_string + ' <input type="hidden" id="field_' + i + '_valuesTest" name="field_' + i + '_values" />';
       i++;
     }
+
 
     document.getElementById(worker_form).innerHTML = ''
     + '<input name="collection_number" value="make_preview" />'
@@ -75,16 +78,23 @@ function content_mod_contact_form() {
     + '" />' + '<input name="module_key" value="contact_form" />'
     + '<input name="group_key" value="misc" />'
     + '<input name="layout" value="' + this.layout + '" />'
-    + '<textarea name="thank_you" />' + this.thank_you
-    + '</textarea>' + '<textarea name="button" />' + this.button
-    + '</textarea>' + '<textarea name="email_to" />'
+    + '<textarea name="thank_you" >' + this.thank_you
+    + '</textarea>' + '<textarea name="button" >' + this.button
+    + '</textarea>' + '<textarea name="email_to" >'
     + this.email_to + '</textarea>'
-    + '<textarea name="email_subject" />' + this.email_subject
+    + '<textarea name="email_subject" >' + this.email_subject
     + '</textarea>' + fields_string +
 
     '<input name="answer_function" value="' + return_script
     + '" />';
 
+    var i = 0;
+    while (i < this.fields.length) {
+      document.getElementById('field_' + i + '_valuesTest').value = this.fields[i][3];
+      i++;
+    }
+    
+    
     document.getElementById(worker_form).submit();
 
   }
@@ -345,18 +355,25 @@ function content_mod_contact_form() {
     form.values.focus();
     border.style.marginTop = Math.abs((LibWindow.getWindowHeight() - border.offsetHeight)/2) + 'px';
 
-    form.values.value = document.getElementById('management_' + this.collection_number + '_field_' + field_number + '_values').value;
-    //form.values.value = this.fields[field_number][3];
+    //form.values.value = document.getElementById('management_' + this.collection_number + '_field_' + field_number + '_values').value;
+    
+    if (this.fields.length - 1 >= field_number) {
+      form.values.value = this.fields[field_number][3];
+    } else {
+      form.values.value = '';
+    }
+    
   }
   function values_close(){
     document.getElementById('ip_cms_contact_form_values').style.display = 'none';
   }
 
   function values_save() {
+    this.collect_fields();
     var form = document.getElementById('f_contact_form_values');
     var values = form.values.value;
     //this.fields[form.field_number.value][3] = values;
-    document.getElementById('management_' + this.collection_number + '_field_' + form.field_number.value + '_values').value = values
+    document.getElementById('management_' + this.collection_number + '_field_' + form.field_number.value + '_values').value = values;
     values_close();
   }
 
@@ -380,10 +397,10 @@ function content_mod_contact_form() {
         LayoutSelect.selectedIndex = index;
     }
   }
-  function save(forced) {
-		
+  
+  function collect_fields() {
     this.layout = document.getElementById('mod_' + this.collection_number + '_layout').layout.value;
-		
+    
     var i = 0;
     this.fields = new Array();
     while (document.getElementById('management_' + this.collection_number + '_field_' + i + '_name')) {
@@ -396,7 +413,6 @@ function content_mod_contact_form() {
       else
         field[2] = 0;
       field[3] = document.getElementById('management_' + this.collection_number + '_field_' + i + '_values').value;
-
       if (field[0] != '') {
         this.fields.push(field);
       }
@@ -411,6 +427,11 @@ function content_mod_contact_form() {
     .getElementById('management_' + this.collection_number + '_email_to').value;
     this.email_subject = document
     .getElementById('management_' + this.collection_number + '_email_subject').value;
+    
+  }
+  
+  function save(forced) {
+		this.collect_fields();
 
     if (!forced
       && (this.fields.length == 0 || this.thank_you == ''

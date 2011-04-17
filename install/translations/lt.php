@@ -58,7 +58,7 @@ define('IP_CONFIG_ERROR_TIME_ZONE', 'Pasirinkite svetainės laiko juostą.');
 
 
 define('IP_CONFIG_SITE_NAME', 'Svetainės pavadinimas');
-define('IP_CONFIG_SITE_EMAIL', 'Sveatinės el. pašto adresas');
+define('IP_CONFIG_SITE_EMAIL', 'Svetainės el. pašto adresas');
 define('IP_CONFIG_EMAIL', 'El. paštas klaidų pranešimams (pasirinktinai)');
 define('IP_CONFIG_LOGIN', 'Administratoriaus prisijungimo vardas');
 define('IP_CONFIG_PASS', 'Administratoriaus slaptžodis');
