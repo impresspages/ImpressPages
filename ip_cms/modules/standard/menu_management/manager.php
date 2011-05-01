@@ -27,7 +27,8 @@ class Manager {
     $data = array (
       'securityToken' =>  $cms->session->securityToken(),
       'moduleId' => $cms->curModId,
-      'postURL' => $cms->generateWorkerUrl()
+      'postURL' => $cms->generateWorkerUrl(),
+      'imageDir' => BASE_URL.MODULE_DIR.'standard/menu_management/img/'
     );
     
     $content = Template::content($data);
@@ -35,6 +36,8 @@ class Manager {
 
     
     $answer = Template::addLayout($content);
+
+    
     
     return $answer;
   }

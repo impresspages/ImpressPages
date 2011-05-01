@@ -1,0 +1,28 @@
+
+
+#tree {
+  border: 1px solid #ccc;
+  padding: 10px;
+  float: left;	
+	
+}
+
+
+#page_properties {
+  border: 1px solid #ccc;
+  padding: 10px;
+  float: left;  
+  
+}
+
+#tree_popup {
+  border: 1px solid #ccc;
+  padding: 10px;
+  float: left;  
+  	
+}
+
+
+.error {
+  display: none;	
+}
