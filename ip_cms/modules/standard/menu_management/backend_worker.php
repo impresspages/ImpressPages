@@ -34,14 +34,20 @@ class BackendWorker {
       case 'getChildren' :
         $this->_getChildren ();
         break;
-      case 'getPage' :
-        $this->_getPage();
+      case 'getUpdatePageForm' :
+        $this->_getPageForm();
         break;
       case 'getPageLink' :
         $this->_getPageLink();
         break;        
       case 'updatePage' :
         $this->_updatePage();
+        break;        
+      case 'getCreatePageForm' :
+        $this->_getCreatePageForm();
+        break;        
+      case 'createPage' :
+        $this->_createPage();
         break;        
     }
 
@@ -86,7 +92,7 @@ class BackendWorker {
           foreach ($languages as $languageKey => $language) {
             $answer[] = array(
       				'attr' => array('id' => $language['id'], 'rel' => 'language', 'websiteURL' => $parentWebsiteURL, 'languageId' => $language['id']),
-      				'data' => $language['d_short'],
+      				'data' => $language['d_short'] . '', //transform null into empty string. Null break JStree into infinite loop 
       				'state' => 'closed'
         		);
           }
@@ -124,7 +130,7 @@ class BackendWorker {
           
           $answer[] = array (
     				'attr' => array('id' => $zoneElement['id'], 'rel' => 'zone', 'websiteURL' => $parentWebsiteURL, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name']),
-    				'data' => $zone['title'],
+    				'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
     				'state' => 'closed'
         	);
         } 
@@ -158,7 +164,7 @@ class BackendWorker {
           
           $answer[] = array (
     				'attr' => array('id' => $child['id'], 'rel' => 'page', 'disabled' => $disabled, 'websiteURL' => $parentWebsiteURL, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName),
-    				'data' => $child['button_title'],
+    				'data' => $child['button_title'] . '', //transform null into empty string. Null break JStree into infinite loop 
     				'state' => 'closed'
         	);
           
@@ -175,7 +181,7 @@ class BackendWorker {
 
   
   
-  private function _getPage() {
+  private function _getPageForm() {
     global $site;
     global $parametersMod;
     
@@ -206,26 +212,125 @@ class BackendWorker {
     }
     
     $tabs = array(); 
-
+    
 
     $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
-    $content = Template::generateTabGeneral($element);
+    $content = Template::generateTabGeneral();
     $tabs[] = array('title' => $title, 'content' => $content);
     
     $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
-    $content = Template::generateTabSEO($element);
+    $content = Template::generateTabSEO();
     $tabs[] = array('title' => $title, 'content' => $content);
     
     $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
-    $content = Template::generateTabAdvanced($element);
+    $content = Template::generateTabAdvanced();
     $tabs[] = array('title' => $title, 'content' => $content);
     
     
     $answer = array();
+    $answer['page'] = array(); 
+
+    
+    $answer['page']['id'] = $element->getId(); 
+    $answer['page']['zoneName'] = $element->getZoneName(); 
+    $answer['page']['buttonTitle'] = $element->getButtonTitle() . ''; 
+    $answer['page']['visible'] = $element->getVisible(); 
+    $answer['page']['createdOn'] = $element->getCreatedOn(); 
+    $answer['page']['lastModified'] = $element->getLastModified();
+     
+    $answer['page']['pageTitle'] = $element->getPageTitle() . ''; 
+    $answer['page']['keywords'] = $element->getKeywords() . ''; 
+    $answer['page']['description'] = $element->getDescription() . ''; 
+    $answer['page']['url'] = $element->getUrl() . '';
+     
+    $answer['page']['type'] = $element->getType(); 
+    $answer['page']['redirectURL'] = $element->getRedirectUrl() . ''; 
+
     $answer['html'] = Template::generatePageProperties($tabs);
     
     $this->_printJson ($answer);    
   }
+  
+  
+  private function _getCreatePageForm() {
+    global $site;
+    global $parametersMod;
+    
+    if (!isset($_REQUEST['id'])) {
+      trigger_error("Element id is not set");
+      return;
+    }
+    
+    $parentElementId = $_REQUEST['id'];
+    
+    if (empty($_REQUEST['zoneName'])) {
+      trigger_error("Zone name is not set");
+      return false;
+    }        
+    
+    $zoneName = $_REQUEST['zoneName'];
+    $zone = $site->getZone($_REQUEST['zoneName']);
+    
+    if (empty($zoneName)) {
+      trigger_error("Can't find zone");
+      return false;
+    }
+      
+    $parentElement = $zone->getElement($parentElementId);
+    
+    if (! $parentElement) {
+      trigger_error ("Page does not exist");
+      return false;
+    }
+    
+    $tabs = array(); 
+
+    $element = new \Frontend\Element('', $_REQUEST['zoneName']);
+    
+    if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages')) {
+      $element->setVisible(!$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'));
+    }   
+
+    $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
+    $content = Template::generateTabGeneral($element, $parentElement);
+    $tabs[] = array('title' => $title, 'content' => $content);
+    
+    $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+    $content = Template::generateTabSEO($element, $parentElement);
+    $tabs[] = array('title' => $title, 'content' => $content);
+    
+    $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
+    $content = Template::generateTabAdvanced($element, $parentElement);
+    $tabs[] = array('title' => $title, 'content' => $content);
+    
+    
+    $answer = array();
+    
+    $element = new \Frontend\Element('', $zoneName);
+    $element->setCreatedOn(date('Y-m-d'));
+    $element->setLastModified(date('Y-m-d'));
+    $element->setType('default');
+    
+    $answer['parent']['id'] = $parentElementId;
+    $answer['page']['id'] = $element->getId(); 
+    $answer['page']['zoneName'] = $element->getZoneName(); 
+    $answer['page']['buttonTitle'] = $element->getButtonTitle(); 
+    $answer['page']['visible'] = $element->getVisible(); 
+    $answer['page']['createdOn'] = $element->getCreatedOn(); 
+    $answer['page']['lastModified'] = $element->getLastModified();
+     
+    $answer['page']['pageTitle'] = $element->getPageTitle(); 
+    $answer['page']['keywords'] = $element->getKeywords(); 
+    $answer['page']['description'] = $element->getDescription(); 
+    $answer['page']['url'] = $element->getUrl();
+     
+    $answer['page']['type'] = $element->getType(); 
+    $answer['page']['redirectURL'] = $element->getRedirectUrl(); 
+        
+    $answer['html'] = Template::generatePageProperties($tabs);
+    
+    $this->_printJson ($answer);    
+  }  
   
   
   private function _getPageLink() {
@@ -368,6 +473,60 @@ class BackendWorker {
   } 
   
   
+
+  private function _createPage () {
+    global $parametersMod;
+    global $site;
+    
+    $answer = array();
+    
+
+    //make url
+    if ($_POST['url'] == '') {
+      if ($_POST['pageTitle'] != '') {
+        $_POST['url'] = Model::makeUrl($_POST['pageTitle']);
+      } else {
+        $_POST['url'] = Model::makeUrl($_POST['buttonTitle']);
+      }
+    } else {
+      $tmpUrl = str_replace("/", "-", $_POST['url']);
+      $i = 1;
+      while (!Model::availableUrl($tmpUrl)) {
+        $tmpUrl = $_POST['url'].'-'.$i;
+        $i++;
+      }
+      $_POST['url'] = $tmpUrl;
+    }
+    //end make url
+    
+    
+    if (strtotime($_POST['createdOn']) === false) {
+      $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
+    }
+
+    if (strtotime($_POST['lastModified']) === false) {
+      $answer['errors'][] = array('field' => 'lastModified', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
+    }
+
+    if ($_POST['type'] == 'redirect' && $_POST['redirectURL'] == '') {
+      $answer['errors'][] = array('field' => 'redirectURL', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty'));
+    }
+    
+    if (empty($answer['errors'])) {
+    
+      $_POST['createdOn'] = date("Y-m-d", strtotime($_POST['createdOn']));
+      $_POST['lastModified'] = date("Y-m-d", strtotime($_POST['lastModified']));
+  
+      $visible = $_POST['visible'];
+
+      $newPageId = Model::insertContentElement($_POST['parentId'], $_POST);
+
+      $answer['status'] = 'success';
+      $answer['page']['id'] = $newPageId;
+    }
+    
+    $this->_printJson ($answer);
+  }   
   
   private function _printJson ($data) {
     header("HTTP/1.0 200 OK");

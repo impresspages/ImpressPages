@@ -129,34 +129,34 @@ class Model {
       $values .= 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
 
     if (isset($params['pageTitle']))
-      $values .= ',page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
+      $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
 
     if (isset($params['keywords']))
       $values .= ', keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
 
     if (isset($params['description']))
-      $values .= ',description = \''.mysql_real_escape_string($params['description']).'\'';
+      $values .= ', description = \''.mysql_real_escape_string($params['description']).'\'';
 
     if (isset($params['url']))
       $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
 
     if (isset($params['createdOn']))
-      $values .= ',created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+      $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
 
     if (isset($params['lastModified']))
       $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
 
     if (isset($params['type']))
-      $values .= ',type = \''.mysql_real_escape_string($params['type']).'\'';
+      $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
 
     if (isset($params['redirectURL']))
-      $values .= ',redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
+      $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
 
     if (isset($params['visible']))
-      $values .= ',visible = \''.mysql_real_escape_string($params['visible']).'\'';
+      $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
 
     if (isset($params['rss']))
-      $values .= ',rss = \''.mysql_real_escape_string($params['rss']).'\'';
+      $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
 
     $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.$values.' WHERE `id` = '.(int)$elementId.' ';
     $rs = mysql_query($sql);
@@ -167,6 +167,79 @@ class Model {
       return false;
     }
   }  
+  
+  /**
+   * 
+   * Insert new page
+   * @param int $parentId
+   * @param array $params
+   */
+  public static function insertContentElement($parentId, $params){
+    $values = '';
+    
+    $values .= ' parent = '.(int)$parentId;
+    $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
+    
+    if (isset($params['buttonTitle']))
+      $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
+
+    if (isset($params['pageTitle']))
+      $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
+
+    if (isset($params['keywords']))
+      $values .= ', keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
+
+    if (isset($params['description']))
+      $values .= ', description = \''.mysql_real_escape_string($params['description']).'\'';
+
+    if (isset($params['url']))
+      $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
+
+    if (isset($params['createdOn']))
+      $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+
+    if (isset($params['lastModified']))
+      $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
+
+    if (isset($params['type']))
+      $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
+
+    if (isset($params['redirectURL']))
+      $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
+
+    if (isset($params['visible']))
+      $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
+
+    if (isset($params['rss']))
+      $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
+
+    $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
+
+    $rs = mysql_query($sql);
+    if ($rs) {
+      return mysql_insert_id();
+    } else {
+      trigger_error($sql.' '.mysql_error());
+      return false;
+    }
+  }    
+  
+  
+  public static function getMaxIndex($parentId) {
+    $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = '.(int)$parentId.' ";
+    $rs = mysql_query($sql);
+    if ($rs) {
+      if ($lock = mysql_fetch_assoc($rs)) {
+        return $lock['max_row_number'];
+      } else {
+        return false;
+      }
+      return mysql_insert_id();
+    } else {
+      trigger_error($sql.' '.mysql_error());
+      return false;
+    }
+  }
   
   /**
    * @param string $url
@@ -240,11 +313,11 @@ class Model {
     while($url != str_replace("--", "-", $url))
       $url = str_replace("--", "-", $url);
     
-    if(Db::availableUrl($url, $allowed_id))
+    if(self::availableUrl($url, $allowed_id))
       return $url;
       
     $i = 1;
-    while(!Db::availableUrl($url.'-'.$i, $allowed_id)){
+    while(!self::availableUrl($url.'-'.$i, $allowed_id)){
       $i++;
     }
     

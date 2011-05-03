@@ -48,7 +48,12 @@ class Template {
   	var image_dir= \''.$data['imageDir'].'\'; 
   </script>
 	<div>
-		<div id="controlls"><span onclick="">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</span></div>
+		<div id="controlls">
+      <ul>
+				<li id="buttonNewPage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</li>
+        <li id="buttonDeletePage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</li>
+      </ul>    
+		</div>
 		<div id="tree"></div>
 		<div id="page_properties"></div>
 		<div id="tree_popup"></div>
@@ -65,12 +70,6 @@ class Template {
     $tabsList = '';
     $contentList = '';
     
-    $answer .= 
-'
-<ul>
-	<li>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</li>
-</ul>    
-';
     
     foreach ($tabs as $tabKey => $tab) {
       $tabsList .= 
@@ -102,15 +101,13 @@ class Template {
   }
   
   
-  public static function generateTabGeneral ($element) {
+  public static function generateTabGeneral () {
     global $parametersMod;
     $answer = '';
-    
+    $element = new \Frontend\Element('null', 'left');
     $answer .= 
 '
 <form id="formGeneral">
-<input type="hidden" name="pageId" value="'.htmlspecialchars($element->getId()).'" />
-<input type="hidden" name="zoneName" value="'.htmlspecialchars($element->getZoneName()).'" />
 '.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'
 <input name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
 '.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'
@@ -128,10 +125,11 @@ class Template {
     return $answer;
   }  
   
-  public static function generateTabSEO ($element) {
+  public static function generateTabSEO () {
     global $parametersMod;
     
     $answer = '';
+    $element = new \Frontend\Element('null', 'left');
     
     $answer .= 
 '
@@ -152,8 +150,9 @@ class Template {
     return $answer;
   }  
 
-  public static function generateTabAdvanced ($element) {
+  public static function generateTabAdvanced () {
     global $parametersMod;
+    $element = new \Frontend\Element('null', 'left');
     
     $answer = '';
     
@@ -166,7 +165,7 @@ class Template {
 <input name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'<br />
 <input name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'<br />
 <input name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'
-<img class="linkList" id="internalLinkingIcon" onclick="openInternalLinkingTree();" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif"><br />
+<img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif"><br />
 <p style="display: none;" id="redirectURLError"></p>
 <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
 <input type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
