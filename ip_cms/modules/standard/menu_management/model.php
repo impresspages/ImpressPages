@@ -242,6 +242,60 @@ class Model {
   }
   
   /**
+   * 
+   * Sibpages of the page
+   * @param int $elementId
+   * @return array subpages
+   */
+  public static function menuElementChildren($elementId) {
+    $sql = "select row_number, id, page_title, visible from `".DB_PREF."content_element` where parent= '".$elementId."' order by row_number";
+    $rs = mysql_query($sql);
+    if($rs) {
+      $elements = array();
+      while($lock = mysql_fetch_assoc($rs)) {
+        $elements[] = $lock;
+      }
+      return $elements;
+    } else {
+      trigger_error("Can't get content element children ".$sql." ".mysql_error());  
+    }
+
+  }
+  
+  /**
+   * 
+   * get widgets of the page
+   * @param int $elementId
+   * @return array widgets
+   */
+  public static function menuElementParagraphs($elementId) {
+    $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$elementId."'";
+    $rs = mysql_query($sql);
+    if($rs) {
+      $elements = array();
+      while($lock = mysql_fetch_assoc($rs)) {
+        $elements[] = $lock;
+      }
+      return $elements;
+    }else trigger_error("Can't get content element children ".$sql." ".mysql_error());
+
+  }
+  
+  /**
+   * 
+   * Delete menu element record
+   * @param int $id
+   */
+  public static function deleteMenuElement($id) {
+    global $globalWorker;
+    $sql = "delete from `".DB_PREF."content_element` where id = '".$id."' ";
+    if (!mysql_query($sql))
+      $globalWorker->set_error("Can't delete element ".$sql." ".mysql_error());
+
+  }  
+  
+  
+  /**
    * @param string $url
    * @param int $allowed_id
    * @returns bool true if url is available ignoring $allowed_id page.

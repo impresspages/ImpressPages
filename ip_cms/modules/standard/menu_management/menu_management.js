@@ -13,7 +13,7 @@ $(document).ready( function () {
   $('#tree_popup').bind('select_node.jstree', treePopupSelect);  
   
   $('#controlls').delegate('#buttonNewPage', 'click', createPageForm)
-  $('#controlls').delegate('#buttonDelete', 'click', deletePageConfirm)
+  $('#controlls').delegate('#buttonDeletePage', 'click', deletePageConfirm)
 
 } );
 
@@ -63,14 +63,15 @@ function initializeTreeManagement(id) {
         'page' : {
           'valid_children' : ['page'],
           'icon' : {
-            'image' : image_dir + 'file.png'
-          }
+            'image' : imageDir + 'file.png'
+          }/*,
+          'move_node' : function (obj){alert($(this).attr("id")); alert(obj.attr("id")); }*/
         },
 
         'zone' : {
           'valid_children' : [ 'page' ],
           'icon' : {
-            'image' : image_dir + 'folder.png'
+            'image' : imageDir + 'folder.png'
           },
           'start_drag' : false,
           'move_node' : false,
@@ -81,7 +82,7 @@ function initializeTreeManagement(id) {
         'language' : {
           'valid_children' : [ 'zone' ],
           'icon' : {
-            'image' : image_dir + 'folder.png'
+            'image' : imageDir + 'folder.png'
           },
           'start_drag' : false,
           'move_node' : false,
@@ -92,7 +93,7 @@ function initializeTreeManagement(id) {
         'website' : {
           'valid_children' : [ 'language' ],
           'icon' : {
-            'image' : image_dir + 'root.png'
+            'image' : imageDir + 'root.png'
           },
           'start_drag' : false,
           'move_node' : false,
@@ -101,9 +102,6 @@ function initializeTreeManagement(id) {
         }
       
       }
-      
-
-    
     },
     
     'ui' : {
@@ -115,14 +113,23 @@ function initializeTreeManagement(id) {
     'cookies' : {
       'save_opened' : 'mod_menu_' + id + '_open',
       'save_selected' : (id == 'tree') ? 'mod_menu_' + id + '_selected' : ''
+    },
+    
+    'dnd' : {
+      'open_timeout' : 0
     }
     
-  })
+  });
   
-  
+  if (id == 'tree') {
+    $("#" + id).bind("move_node.jstree", movePage);
+  }
 
   
 }
+
+
+
 
 
 /**
@@ -149,7 +156,7 @@ function createPageForm () {
     type: 'POST',
     url: postURL,
     data: data,
-    success: createPageFormSuccess,
+    success: createPageFormResponse,
     dataType: 'json'
   });      
 }
@@ -157,7 +164,7 @@ function createPageForm () {
 /**
  * Response to open new page form request
  */
-function createPageFormSuccess (response) {
+function createPageFormResponse (response) {
   if (response && response.html) {
     $('#page_properties').html(response.html);
     
@@ -215,16 +222,17 @@ function createPage () {
     type: 'POST',
     url: postURL,
     data: data,
-    success: createPageSuccess,
+    success: createPageResponse,
     dataType: 'json'
   });    
 }
 
 
 /**
- * 
+ * Create page post response
+ * @param response
  */
-function createPageSuccess (response) {
+function createPageResponse (response) {
   if (! response) {
     return;
   }
@@ -239,17 +247,43 @@ function createPageSuccess (response) {
       $('#' + error.field + 'Error').text(error.message).show();
     }
   } else {
-    window.location = window.location;  
+    var url = window.location.href.split('#');
+    window.location.href = url[0];
   }
 }
 
 
 /**
- * Delete page request
+ * Delete page request confirm
  */
 function deletePageConfirm () {
-  alert ('delete page');
+  var tree = jQuery.jstree._reference ( '#tree' );
+  var node = tree.get_selected();
+
   
+  if (!node || (node.attr('rel') != 'page')) {
+    alert('select page');
+    return;
+  }
+  
+  if (confirm(deleteConfirmText)) {
+    data = Object();
+
+    var tree = jQuery.jstree._reference ( '#tree' );
+    var node = tree.get_selected();
+      
+    data = Object();
+    data.id = node.attr('id');
+    data.action = 'deletePage';
+    
+    $.ajax({
+      type: 'POST',
+      url: postURL,
+      data: data,
+      success: deletePageResponse,
+      dataType: 'json'
+    });       
+  }
 }
 
 
@@ -257,9 +291,13 @@ function deletePageConfirm () {
 /**
  * Delete page request
  */
-function deletePage () {
-  alert ('delete page');
-  
+function deletePageResponse (response) {
+  if (response && response.status == 'success') {
+    var url = window.location.href.split('#');
+    window.location.href = url[0];    
+  } else {
+    alert('Unexpected error');    
+  }
 }
 
 
@@ -279,7 +317,6 @@ function updatePageForm(event, data) {
     data.zoneName = node.attr('zoneName');
     data.websiteURL = node.attr('websiteURL');
     data.languageId = node.attr('languageId');
-    data.zoneName = node.attr('zoneName');
     data.type = node.attr('rel');
     data.action = 'getUpdatePageForm';
     
@@ -288,7 +325,7 @@ function updatePageForm(event, data) {
       type: 'POST',
       url: postURL,
       data: data,
-      success: updatePageFormSuccess,
+      success: updatePageFormResponse,
       dataType: 'json'
     });    
   }
@@ -298,7 +335,7 @@ function updatePageForm(event, data) {
  * Select node request response.
  * @param response
  */
-function updatePageFormSuccess (response) {
+function updatePageFormResponse (response) {
   if (response && response.html) {
     $('#page_properties').html(response.html);
     
@@ -354,7 +391,7 @@ function updatePage() {
     type: 'POST',
     url: postURL,
     data: data,
-    success: updatePageSuccess,
+    success: updatePageResponse,
     dataType: 'json'
   });    
   
@@ -364,7 +401,7 @@ function updatePage() {
  * Save updated page response
  * @param response
  */
-function updatePageSuccess (response) {
+function updatePageResponse (response) {
   if (! response) {
     return;
   }
@@ -421,6 +458,74 @@ function updatePageSuccess (response) {
   
 }
 
+
+/**
+ * 
+ * @param e
+ * @param data
+ */
+function movePage(e, data) {
+  data.rslt.o.each(function (i) {
+    var data = Object(); 
+    
+    data.pageId = $(this).attr("id");
+    data.zoneName = $(this).attr('zoneName');
+    data.languageId = n$(this)ode.attr('languageId');
+    data.websiteURL = $(this).attr('websiteURL');
+    data.type = $(this).attr('rel');
+    data.destinationPageId = data.rslt.np.attr("id");
+    data.destinationPosition = data.rslt.cp + i;
+    data.action = 'movePage';
+    
+    $.ajax({
+      type: 'POST',
+      url: postURL,
+      data: data,
+      success: movePageResponse,
+      dataType: 'json'
+    });   
+  });
+  
+  
+    
+  //example:    
+  //$.ajax({
+  //  async : false,
+  //  type: 'POST',
+  //  url: "/static/v.1.0rc2/_demo/server.php",
+  //  data : { 
+  //    "operation" : "move_node", 
+  //    "id" : $(this).attr("id").replace("node_",""), 
+  //    "ref" : data.rslt.np.attr("id").replace("node_",""), 
+  //    "position" : data.rslt.cp + i,
+  //    "title" : data.rslt.name,
+  //    "copy" : data.rslt.cy ? 1 : 0
+  //  },
+  //  success : function (r) {
+  //    if(!r.status) {
+  //      $.jstree.rollback(data.rlbk);
+  //    }
+  //    else {
+  //      $(data.rslt.oc).attr("id", "node_" + r.id);
+  //      if(data.rslt.cy && $(data.rslt.oc).children("UL").length) {
+  //        data.inst.refresh(data.inst._get_parent(data.rslt.oc));
+  //      }
+  //    }
+  //    $("#analyze").click();
+  //  }
+  //});  
+  
+};
+
+
+
+function movePageResponse (response) {
+  if(response && response.status == 'success') {
+    var url = window.location.href.split('#');
+    window.location.href = url[0];
+  }
+}
+
 /**
  * Select page on internal linking popup
  * @param event
@@ -444,7 +549,7 @@ function treePopupSelect(event, data) {
     type: 'POST',
     url: postURL,
     data: data,
-    success: treePopupSelectSuccess,
+    success: treePopupSelectResponse,
     dataType: 'json'
   });    
 }
@@ -454,7 +559,7 @@ function treePopupSelect(event, data) {
  * Select page on internal linking popup response
  * @param response
  */
-function treePopupSelectSuccess (response) {  
+function treePopupSelectResponse (response) {  
   if (response && response.link) {
     $('#formAdvanced input[name="redirectURL"]').val(response.link);
     $('#formAdvanced input[name="type"][value="redirect"]').attr("checked","checked");

@@ -43,9 +43,8 @@ class Template {
 '
   <script type="text/javascript">
   	var postURL = \''.$data['postURL'].'\';
-  	var module_id = \''.$data['moduleId'].'\';
-  	var security_token = \''.$data['securityToken'].'\'; 
-  	var image_dir= \''.$data['imageDir'].'\'; 
+  	var imageDir= \''.$data['imageDir'].'\'; 
+  	var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\'; 
   </script>
 	<div>
 		<div id="controlls">

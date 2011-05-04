@@ -49,6 +49,12 @@ class BackendWorker {
       case 'createPage' :
         $this->_createPage();
         break;        
+      case 'deletePage' :
+        $this->_deletePage();
+        break;    
+      case 'movePage' :
+        $this->_movePage();
+        break;    
     }
 
   }
@@ -425,6 +431,11 @@ class BackendWorker {
     $answer = array();
     
 
+    if (empty($_REQUEST['pageId'])) {
+      trigger_error("Page id is not set");
+      return false;
+    }          
+    
     //make url
     if ($_POST['url'] == '') {
       if ($_POST['pageTitle'] != '') {
@@ -527,6 +538,126 @@ class BackendWorker {
     
     $this->_printJson ($answer);
   }   
+  
+  
+  private function _deletePage () {
+    if (empty($_REQUEST['id'])) {
+      trigger_error("Page id is not set");
+      return false;
+    }          
+    $pageId = $_REQUEST['id'];
+    
+    $this->_deletePageRecursion($pageId);
+    
+    $answer = array ();    
+    $answer['status'] = 'success';
+    
+    $this->_printJson($answer);
+    
+  }
+  
+  
+  
+  private function _deletePageRecursion ($id) {
+    $children = Model::menuElementChildren($id);
+    if ($children) {
+      foreach($children as $key => $lock) {
+        $this->_deletePageRecursion($lock['id']);
+      }
+    }
+
+    //delete paragraphs
+    $paragraphs = Model::menuElementParagraphs($id);
+    foreach($paragraphs as $key => $lock) {
+      eval(' $tmp_module = new \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Module(); ');
+      $tmp_module->delete_by_id($lock['module_id']);
+    }
+    //end delete paragraphs
+
+    Model::deleteMenuElement($id);
+    
+  }
+  
+
+  private function _movePage () {
+    global $site;
+    
+    if (empty($_REQUEST['pageId'])) {
+      trigger_error("Page id is not set");
+      return false;
+    }          
+    $pageId = $_REQUEST['pageId'];
+    
+    if (empty($_REQUEST['zoneName'])) {
+      trigger_error("Zone name is not set");
+      return false;
+    }          
+    $zoneName = $_REQUEST['zoneName'];
+    
+    if (empty($_REQUEST['languageId'])) {
+      trigger_error("Language id is not set");
+      return false;
+    }          
+    $languageId = $_REQUEST['languageId'];
+    
+    if (empty($_REQUEST['websiteURL'])) {
+      trigger_error("Website URL is not set");
+      return false;
+    }          
+    $websiteURL = $_REQUEST['websiteURL'];
+    
+    if (empty($_REQUEST['destinationPageId'])) {
+      trigger_error("Destination page ID is not set");
+      return false;
+    }          
+    $destinationPageId = $_REQUEST['destinationPageId'];
+    
+    if (empty($_REQUEST['destinationPosition'])) {
+      trigger_error("Destination position is not set");
+      return false;
+    }          
+    $destinationPosition = $_REQUEST['destinationPosition'];
+    
+    
+
+    //report url cange
+    $elementZone = $site->getZone($zoneName);
+    $element = $elementZone->getElement($pageId);
+    $oldUrl = $element->getLink(true);
+    //report url change
+
+    $newParentChildren = Model::contentElementChildren($destinationPageId);
+    
+    $newIndex = 0; //initial value
+    
+    if(count($newParentChildren) > 0) { //set as first page 
+      $newIndex = $newParentChildren[0]['row_number'] - 1;
+      
+      if (!empty($newParentChildren[$destinationPosition - 1]) && !empty($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
+        $newIndex = ($newParentChildren[$destinationPosition - 1]['row_number'] + $newParentChildren[$destinationPosition]['row_number']) / 2; //average
+      } else { //new position is at the end
+        $newIndex = $newParentChildren[count($newParentChildren) - 1]['row_number'] + 1;
+      }
+    } 
+    
+    $data = array (
+      'parent_id' => $destinationPageId,
+      'row_number' => $newIndex
+    );
+    Model::updateContentElement($pageId, $data);
+
+    //report url change
+    $elementZone = $site->getZone($zoneName);
+    $element = $elementZone->getElement($pageId);
+    $newUrl = $element->getLink(true);
+    $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
+    //report url change
+    
+    
+  }
+  
+  
+  
   
   private function _printJson ($data) {
     header("HTTP/1.0 200 OK");
