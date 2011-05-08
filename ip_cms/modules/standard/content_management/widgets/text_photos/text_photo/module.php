@@ -63,6 +63,16 @@ class Module extends \Modules\standard\content_management\Widget{
 
     return $answer;
   }
+  
+  function getData($id) {
+    $sql = "select * from `".DB_PREF."mc_text_photos_text_photo` where `id` = '".(int)$id."' ";
+    $rs = mysql_query($sql);
+    if($rs){
+        $data = mysql_fetch_assoc($rs);
+        return $data;
+    }   
+    return false;      
+  }  
 
   function getLayout($id){
     $sql = "select * from `".DB_PREF."mc_text_photos_text_photo` where id = '".(int)$id."'";

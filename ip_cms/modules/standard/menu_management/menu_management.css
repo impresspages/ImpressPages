@@ -1,28 +1,51 @@
+body {
+	font-size: 10px;
+	margin: 0px;
+	padding: 0px;
+}
 
 
 #tree {
-  border: 1px solid #ccc;
-  padding: 10px;
-  float: left;	
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+	overflow: auto;
+	width: 300px;
+	background: #fff;
+}
+
+#pageProperties {
+	border: 1px solid #ccc;
 	
+	position: fixed;
+	top: 10px;
+	right: 10px;
 }
 
-
-#page_properties {
-  border: 1px solid #ccc;
-  padding: 10px;
-  float: left;  
-  
-}
-
-#tree_popup {
-  border: 1px solid #ccc;
-  padding: 10px;
-  float: left;  
-  	
+#treePopup {
+	display: none;
 }
 
 
 .error {
-  display: none;	
+	display: none;
+}
+
+
+#sideBar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+	
+}
+
+#controlls ul {
+    list-style-type: none;
+}
+
+#controlls li {
+    cursor: pointer;
+    float: left;	
+    margin-right: 15px;
 }

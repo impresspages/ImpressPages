@@ -13,33 +13,33 @@ if (!defined('BACKEND')) exit;
 
 class Manager {
 
-  function __construct() {
-  }
+    function __construct() {
+    }
 
 
-  function manage() {
-    global $cms;
-    
-    require_once (__DIR__.'/template.php');
-    
-    $content = 'Test';
-    
-    $data = array (
+    function manage() {
+        global $cms;
+
+        require_once (__DIR__.'/template.php');
+
+        $content = 'Test';
+
+        $data = array (
       'securityToken' =>  $cms->session->securityToken(),
       'moduleId' => $cms->curModId,
       'postURL' => $cms->generateWorkerUrl(),
       'imageDir' => BASE_URL.MODULE_DIR.'standard/menu_management/img/'
-    );
-    
-    $content = Template::content($data);
-    
+      );
 
-    
-    $answer = Template::addLayout($content);
+      $content = Template::content($data);
 
-    
-    
-    return $answer;
-  }
-  
+
+
+      $answer = Template::addLayout($content);
+
+
+
+      return $answer;
+    }
+
 }

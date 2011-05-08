@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
@@ -7,375 +8,480 @@
 namespace Modules\standard\menu_management;
 
 
-if (!defined('BACKEND')) exit;
+if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
+require_once(__DIR__.'/db.php');
+require_once (BASE_DIR.MODULE_DIR.'standard/content_management/db.php');
+require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
+require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_image.php');
+require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/widget.php');
+
+$tmpModules = \Modules\standard\content_management\Db::menuModules();
+
+foreach($tmpModules as $groupKey => $group) {
+    foreach ($group as $moduleKey => $module){
+        require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$module['group_name'].'/'.$module['module_name'].'/module.php');
+    }
+}
 
 
 class Model {
 
-  /**
-   * Get all languages
-   * @return array
-   */
-  public static function getLanguages () {
-    require_once (BASE_DIR.MODULE_DIR.'standard/languages/db.php'); 
-    $languages = \Modules\standard\languages\Db::getLanguages();
-    return $languages;
-  }
 
-  /**
-   * Get zones that are associated with menu management
-   */
-  public static function getZones () {
-    
-    
-		global $parametersMod;
-		
-		$managedZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'));
-		$sqlZonesArray = "'".implode("','",$managedZones)."'";
 
-		$autoRssZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
-		$sqlAutoRssArray = "'".implode("','",$autoRssZones)."'";
-		
-    $dbZones = array();
-    $sql = "select z.name, z.translation, z.id, z.name in (".$sqlAutoRssArray.") as `auto_rss`, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
-    $rs = mysql_query($sql);
-    if($rs){
-      while($lock = mysql_fetch_assoc($rs)){
-        $dbZones[$lock['name']] = $lock;
-      }
-    }else trigger_error($sql." ".mysql_error());    
-    
-    $answer = array();
-    foreach($managedZones as $key => &$zone){
-      if(isset($dbZones[$zone])){        
-        $answer[$zone] = $dbZones[$zone];
-      }
-    }
-    
-    
-    
-    return $answer;
-  }
-
-  /**
-   * 
-   * returns 
-   * @param int $contentElementId
-   * @param int $languageId
-   * @return array root element of content
-   */
-  public static function rootContentElement($contentElementId, $languageId){
-    $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$contentElementId."' ";
-    $rs = mysql_query($sql);
-    if ($rs) {
-      if ($lock = mysql_fetch_assoc($rs)) {
-        return $lock['element_id'];        
-      }
-    } else {
-      trigger_error("Can't find zone element ".$sql." ".mysql_error());
-    }    
-  }  
-  
-  /**
-   * 
-   * Create root zone element
-   * @param int $zoneId
-   * @param int $languageId
-   */
-	public static function createRootZoneElement($zoneId, $languageId){
-	  $sql = "insert into `".DB_PREF."content_element` set visible = 1";
-		$rs = mysql_query($sql);
-    if($rs){
-			$sql2 = "insert into `".DB_PREF."zone_to_content` set 
-			language_id = '".mysql_real_escape_string($languageId)."',
-			zone_id = '".$zoneId."',
-			element_id = '".mysql_insert_id()."'";
-			$rs2 = mysql_query($sql2);
-			if(!$rs2)
-				trigger_error($sql2." ".mysql_error());
-		}
-	}  
-	
-	
-  /**
-   * 
-   * Get element children
-   * @param int $elementId
-   * @return array
-   */
-  public static function contentElementChildren($elementId){
-    $sql = "select row_number, id, button_title, visible from `".DB_PREF."content_element` where parent= '".$elementId."' order by row_number";
-    $rs = mysql_query($sql);
-    if($rs){
-      $elements = array();
-      while($lock = mysql_fetch_assoc($rs)){
-        $elements[] = $lock;
-      }
-      return $elements;
-    }else trigger_error("Can't get content element children ".$sql." ".mysql_error());    
-  }	
-  
-  /**
-   * 
-   * Update page
-   * @param int $elementId
-   * @param array $params
-   */
-  public static function updateContentElement($elementId, $params){
-    $values = '';
-    
-    if (isset($params['buttonTitle']))
-      $values .= 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
-
-    if (isset($params['pageTitle']))
-      $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
-
-    if (isset($params['keywords']))
-      $values .= ', keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
-
-    if (isset($params['description']))
-      $values .= ', description = \''.mysql_real_escape_string($params['description']).'\'';
-
-    if (isset($params['url']))
-      $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
-
-    if (isset($params['createdOn']))
-      $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
-
-    if (isset($params['lastModified']))
-      $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
-
-    if (isset($params['type']))
-      $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
-
-    if (isset($params['redirectURL']))
-      $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
-
-    if (isset($params['visible']))
-      $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
-
-    if (isset($params['rss']))
-      $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
-
-    $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.$values.' WHERE `id` = '.(int)$elementId.' ';
-    $rs = mysql_query($sql);
-    if ($rs) {
-      return true;
-    } else {
-      trigger_error($sql.' '.mysql_error());
-      return false;
-    }
-  }  
-  
-  /**
-   * 
-   * Insert new page
-   * @param int $parentId
-   * @param array $params
-   */
-  public static function insertContentElement($parentId, $params){
-    $values = '';
-    
-    $values .= ' parent = '.(int)$parentId;
-    $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
-    
-    if (isset($params['buttonTitle']))
-      $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
-
-    if (isset($params['pageTitle']))
-      $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
-
-    if (isset($params['keywords']))
-      $values .= ', keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
-
-    if (isset($params['description']))
-      $values .= ', description = \''.mysql_real_escape_string($params['description']).'\'';
-
-    if (isset($params['url']))
-      $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
-
-    if (isset($params['createdOn']))
-      $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
-
-    if (isset($params['lastModified']))
-      $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
-
-    if (isset($params['type']))
-      $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
-
-    if (isset($params['redirectURL']))
-      $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
-
-    if (isset($params['visible']))
-      $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
-
-    if (isset($params['rss']))
-      $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
-
-    $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
-
-    $rs = mysql_query($sql);
-    if ($rs) {
-      return mysql_insert_id();
-    } else {
-      trigger_error($sql.' '.mysql_error());
-      return false;
-    }
-  }    
-  
-  
-  public static function getMaxIndex($parentId) {
-    $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = '.(int)$parentId.' ";
-    $rs = mysql_query($sql);
-    if ($rs) {
-      if ($lock = mysql_fetch_assoc($rs)) {
-        return $lock['max_row_number'];
-      } else {
-        return false;
-      }
-      return mysql_insert_id();
-    } else {
-      trigger_error($sql.' '.mysql_error());
-      return false;
-    }
-  }
-  
-  /**
-   * 
-   * Sibpages of the page
-   * @param int $elementId
-   * @return array subpages
-   */
-  public static function menuElementChildren($elementId) {
-    $sql = "select row_number, id, page_title, visible from `".DB_PREF."content_element` where parent= '".$elementId."' order by row_number";
-    $rs = mysql_query($sql);
-    if($rs) {
-      $elements = array();
-      while($lock = mysql_fetch_assoc($rs)) {
-        $elements[] = $lock;
-      }
-      return $elements;
-    } else {
-      trigger_error("Can't get content element children ".$sql." ".mysql_error());  
+    public static function deletePage ($pageId) {
+        self::_deletePageRecursion($pageId);
+        return true;
     }
 
-  }
-  
-  /**
-   * 
-   * get widgets of the page
-   * @param int $elementId
-   * @return array widgets
-   */
-  public static function menuElementParagraphs($elementId) {
-    $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$elementId."'";
-    $rs = mysql_query($sql);
-    if($rs) {
-      $elements = array();
-      while($lock = mysql_fetch_assoc($rs)) {
-        $elements[] = $lock;
-      }
-      return $elements;
-    }else trigger_error("Can't get content element children ".$sql." ".mysql_error());
 
-  }
-  
-  /**
-   * 
-   * Delete menu element record
-   * @param int $id
-   */
-  public static function deleteMenuElement($id) {
-    global $globalWorker;
-    $sql = "delete from `".DB_PREF."content_element` where id = '".$id."' ";
-    if (!mysql_query($sql))
-      $globalWorker->set_error("Can't delete element ".$sql." ".mysql_error());
+    private static function _deletePageRecursion ($id) {
+        $children = Db::pageChildren($id);
+        if ($children) {
+            foreach($children as $key => $lock) {
+                self::_deletePageRecursion($lock['id']);
+            }
+        }
 
-  }  
-  
-  
-  /**
-   * @param string $url
-   * @param int $allowed_id
-   * @returns bool true if url is available ignoring $allowed_id page.
-   */
-  public static function availableUrl($url, $allowedId = null){
-    if($allowedId)
-      $sql = "select url from `".DB_PREF."content_element` where url = '".mysql_real_escape_string($url)."' and id <> '".$allowedId."'";
-    else
-      $sql = "select url from `".DB_PREF."content_element` where url = '".mysql_real_escape_string($url)."' ";
-      
-    $rs = mysql_query($sql);
-    if(!$rs)
-      trigger_error("Available url check ".$sql." ".mysql_error());
+        //delete paragraphs
+        $widgets = Db::pageWidgets($id);
+        foreach($widgets as $key => $lock) {
+            eval(' $tmp_module = new \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Module(); ');
+            $tmp_module->delete_by_id($lock['module_id']);
+        }
+        //end delete paragraphs
 
-    if(mysql_num_rows($rs) > 0)
-      return false;
-    else
-      return true;
-  }
-  
-  
-  /**
-   * 
-   * Create unique URL
-   * @param string $url
-   * @param int $allowed_id
-   */
-  public static function makeUrl($url, $allowed_id = null){
-    require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
-    if($url == '')
-      $url = 'page';
-    $url = mb_strtolower($url);
-    $url = \Library\Php\Text\Transliteration::transform($url);
-    $url = str_replace(" ", "-", $url);
-    $url = str_replace("/", "-", $url);
-    $url = str_replace("\\", "-", $url);
-    $url = str_replace("\"", "-", $url);
-    $url = str_replace("\'", "-", $url);
-    $url = str_replace("„", "-", $url);
-    $url = str_replace("“", "-", $url);
-    $url = str_replace("&", "-", $url);
-    $url = str_replace("%", "-", $url);
-    $url = str_replace("`", "-", $url);
-    $url = str_replace("!", "-", $url);
-    $url = str_replace("@", "-", $url);
-    $url = str_replace("#", "-", $url);
-    $url = str_replace("$", "-", $url);
-    $url = str_replace("^", "-", $url);
-    $url = str_replace("*", "-", $url);
-    $url = str_replace("(", "-", $url);
-    $url = str_replace(")", "-", $url);
-    $url = str_replace("{", "-", $url);
-    $url = str_replace("}", "-", $url);
-    $url = str_replace("[", "-", $url);
-    $url = str_replace("]", "-", $url);
-    $url = str_replace("|", "-", $url);
-    $url = str_replace("~", "-", $url);
-    $url = str_replace(".", "-", $url);
-    $url = str_replace("'", "", $url);
-    $url = str_replace("?", "", $url);
-    $url = str_replace(":", "", $url);
-    $url = str_replace(";", "", $url);
-    
-    if($url == ''){
-      $url = '-';
+        Db::deletePage($id);
+
     }
-      
-    
-    while($url != str_replace("--", "-", $url))
-      $url = str_replace("--", "-", $url);
-    
-    if(self::availableUrl($url, $allowed_id))
-      return $url;
-      
-    $i = 1;
-    while(!self::availableUrl($url.'-'.$i, $allowed_id)){
-      $i++;
+
+
+    /**
+     *
+     * Copy page
+     * @param unknown_type $nodeId
+     * @param unknown_type $newParentId
+     * @param int $position page position in the subtree
+     */
+    public static function copyPage($nodeId, $destinationPageId, $position){
+
+        $children = Db::pageChildren($destinationPageId);
+
+        if (!empty($children)) {
+            $rowNumber = $children[count($children) - 1]['row_number'] + 1;
+        } else {
+            $rowNumber = 0;
+        }
+
+
+        self::_copyPageRecursion($nodeId = $nodeId, $destinationPageId = $destinationPageId, $rowNumber = $rowNumber);
+
+        $contentManagementSystem = new \Modules\standard\content_management\System();
+        $contentManagementSystem->clearCache(BASE_URL);
     }
-    
-    return $url.'-'.$i;
-  }    
-  
+
+    /**
+     *
+     * Copy page internal recursion
+     * @param unknown_type $nodeId
+     * @param unknown_type $destinationPageId
+     * @param unknown_type $newIndex
+     * @param unknown_type $newPages
+     */
+    private static function _copyPageRecursion ($nodeId, $destinationPageId, $rowNumber, $newPages = null) {
+        //$newPages are the pages that have been copied already and should be skiped to duplicate again. This situacion can occur when copying the page to it self
+        if($newPages == null){
+            $newPages = array();
+        }
+        $newNodeId = Db::copyPage($nodeId, $destinationPageId, $rowNumber);
+        $newPages[$newNodeId] = 1;
+        self::_copyWidgets($nodeId, $newNodeId);
+
+
+        $children = Db::pageChildren($nodeId);
+        if($children){
+            foreach($children as $key => $lock){
+                if(!isset($newPages[$lock['id']])){
+                    self::_copyPageRecursion($lock['id'], $newNodeId, $key, $newPages);
+                }
+            }
+        }
+
+    }
+
+    private static function _copyWidgets($sourceId, $targetId){
+
+        $sourceWidgets = Db::pageWidgets($sourceId);
+
+        $position = 0;
+        foreach($sourceWidgets as $key => $value){
+            if (self::_copyWidget($sourceId, $targetId, $value, $position)){
+                $position++;
+            }
+
+        }
+
+    }
+
+    private static function _copyWidget($sourceId, $targetId, $widget, $position){
+        switch($widget['group_key'].'/'.$widget['module_key']){
+
+            case 'text_photos/faq':
+                $sql = "select * from `".DB_PREF."mc_text_photos_faq` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/faq/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\faq\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/logo_gallery':
+                $sql = "select * from `".DB_PREF."mc_text_photos_logo_gallery` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/logo_gallery/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\logo_gallery\Module();
+                    $widget->create_new_instance($values);
+
+                    $sqlMax = "select max(id) as max_id from `".DB_PREF."mc_text_photos_logo_gallery` where 1";
+                    $rsMax = mysql_query($sqlMax);
+                    if(!$rsMax){
+                        trigger_error($sqlMax.' '.mysql_error());
+                    }
+                    $lockMax = mysql_fetch_assoc($rsMax);
+                    $galleryId = $lockMax['max_id'];
+
+
+                    $sql2 = "select * from `".DB_PREF."mc_text_photos_logo_gallery_logo` where `logo_gallery` = '".(int)$lock['id']."' order by `row_number` ";
+                    $rs2 = mysql_query($sql2);
+                    if($rs2){
+                        while($logo = mysql_fetch_assoc($rs2)){
+                            $values = array();
+                            copy(BASE_DIR.IMAGE_DIR.$logo['logo'], BASE_DIR.TMP_IMAGE_DIR.$logo['logo']);
+                            $values['new_photo1'] = $logo['logo'];
+                            $values['title1'] = $logo['link'];
+                            $widget->insert_photo($galleryId, 1, $values);
+                        }
+                    } else {
+                        trigger_error($sql2.' '.mysql_error());
+                    }
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/photo':
+                $sql = "select * from `".DB_PREF."mc_text_photos_photo` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    $values['new_photo'] = $values['photo'];
+                    $values['new_bigphoto'] = $values['photo_big'];
+
+                    copy(BASE_DIR.IMAGE_DIR.$values['photo'], BASE_DIR.TMP_IMAGE_DIR.$values['photo']);
+                    copy(BASE_DIR.IMAGE_DIR.$values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$values['photo_big']);
+
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/photo/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\photo\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/photo_gallery':
+                $sql = "select * from `".DB_PREF."mc_text_photos_photo_gallery` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/photo_gallery/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\photo_gallery\Module();
+                    $widget->create_new_instance($values);
+
+                    $sqlMax = "select max(id) as max_id from `".DB_PREF."mc_text_photos_photo_gallery` where 1";
+                    $rsMax = mysql_query($sqlMax);
+                    if(!$rsMax){
+                        trigger_error($sqlMax.' '.mysql_error());
+                    }
+                    $lockMax = mysql_fetch_assoc($rsMax);
+                    $galleryId = $lockMax['max_id'];
+
+
+                    $sql2 = "select * from `".DB_PREF."mc_text_photos_photo_gallery_photo` where `photo_gallery` = '".(int)$lock['id']."' order by `row_number` ";
+                    $rs2 = mysql_query($sql2);
+                    if($rs2){
+                        while($logo = mysql_fetch_assoc($rs2)){
+                            $values = array();
+                            copy(BASE_DIR.IMAGE_DIR.$logo['photo'], BASE_DIR.TMP_IMAGE_DIR.$logo['photo']);
+                            copy(BASE_DIR.IMAGE_DIR.$logo['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$logo['photo_big']);
+                            $values['new_photo1'] = $logo['photo'];
+                            $values['new_bigphoto1'] = $logo['photo_big'];
+                            $values['title1'] = $logo['title'];
+                            $widget->insert_photo($galleryId, 1, $values);
+                        }
+                    } else {
+                        trigger_error($sql2.' '.mysql_error());
+                    }
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/separator':
+                $sql = "select * from `".DB_PREF."mc_text_photos_separator` where `id` = '".(int)$widget['module_id']."' ";
+                echo $sql;
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/separator/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\separator\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/table':
+                $sql = "select * from `".DB_PREF."mc_text_photos_table` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/table/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\table\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;                
+            case 'text_photos/text':
+                $sql = "select * from `".DB_PREF."mc_text_photos_text` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/text/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\text\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+
+            case 'text_photos/text_photo':
+                $sql = "select * from `".DB_PREF."mc_text_photos_text_photo` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+
+                    $values['new_photo'] = $values['photo'];
+                    $values['new_bigphoto'] = $values['photo_big'];
+
+                    copy(BASE_DIR.IMAGE_DIR.$values['photo'], BASE_DIR.TMP_IMAGE_DIR.$values['photo']);
+                    copy(BASE_DIR.IMAGE_DIR.$values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$values['photo_big']);
+
+
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/text_photo/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\text_photo\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/text_title':
+                $sql = "select * from `".DB_PREF."mc_text_photos_text_title` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/text_title/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\text_title\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'text_photos/title':
+                $sql = "select * from `".DB_PREF."mc_text_photos_title` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/title/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\text_photos\title\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;                
+            case 'misc/rich_text':
+                $sql = "select * from `".DB_PREF."mc_misc_rich_text` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/misc/rich_text/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\misc\rich_text\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'misc/contact_form':
+                $sql = "select * from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+
+                    $sqlField = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$widget['module_id']."' order by id asc";
+                    $rsField = mysql_query($sqlField);
+                    if(!$rsField){
+                        trigger_error($sql.' '.mysql_error());
+                    } else {
+                        $i = 0;
+                        while($lockField = mysql_fetch_assoc($rsField)){
+                            $values['field_'.$i.'_name'] = $lockField['name'];
+                            $values['field_'.$i.'_type'] = $lockField['type'];
+                            $values['field_'.$i.'_required'] = $lockField['required'];
+                            $values['field_'.$i.'_values'] = $lockField['values'];
+                            $i++;
+                        }
+
+                        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/misc/contact_form/module.php');
+                        $widgetObject = new \Modules\standard\content_management\Widgets\misc\contact_form\Module();
+                        $widgetObject->create_new_instance($values);
+
+
+                    }
+
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'misc/file':
+                $sql = "select * from `".DB_PREF."mc_misc_file` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    $values['new_photo'] = $values['photo'];
+
+                    copy(BASE_DIR.FILE_DIR.$values['photo'], BASE_DIR.TMP_FILE_DIR.$values['photo']);
+
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/misc/file/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\misc\file\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+            case 'misc/html_code':
+                $sql = "select * from `".DB_PREF."mc_misc_html_code` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+
+
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/misc/html_code/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\misc\html_code\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+
+            case 'misc/video':
+                $sql = "select * from `".DB_PREF."mc_misc_video` where `id` = '".(int)$widget['module_id']."' ";
+                $rs = mysql_query($sql);
+                if($rs){
+                    $lock = mysql_fetch_assoc($rs);
+                    $values = $lock;
+                    $values['row_number'] = $position;
+                    $values['content_element_id'] = $targetId;
+                    $values['visible'] = $widget['visible'];
+                    $values['new_photo'] = $values['photo'];
+
+                    copy(BASE_DIR.VIDEO_DIR.$values['photo'], BASE_DIR.TMP_VIDEO_DIR.$values['photo']);
+
+                    require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/misc/video/module.php');
+                    $widget = new \Modules\standard\content_management\Widgets\misc\video\Module();
+                    $widget->create_new_instance($values);
+                } else {
+                    trigger_error($sql.' '.mysql_error());
+                }
+                return true;
+                break;
+
+            default:
+                //@todo config
+                break;
+
+        }
+
+    }
+
 }

@@ -125,19 +125,6 @@ class Db {
   }
 
 
-  public static function menuElementParagraphs($elementId) {
-    $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$elementId."'";
-    $rs = mysql_query($sql);
-    if($rs) {
-      $elements = array();
-      while($lock = mysql_fetch_assoc($rs)) {
-        $elements[] = $lock;
-      }
-      return $elements;
-    }else trigger_error("Can't get content element children ".$sql." ".mysql_error());
-
-  }
-
 
   public static function createMenuElement($menuId, $languageId) {
     global $parametersMod;
@@ -301,8 +288,18 @@ class Db {
   }
 
 
-
-
+  public static function menuElementWidgets($elementId){
+    $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$elementId."' order by row_number";
+    $rs = mysql_query($sql);
+    if($rs){
+      $elements = array();
+      while($lock = mysql_fetch_assoc($rs)){
+        $elements[] = $lock;
+      }
+      return $elements;
+    }else trigger_error("Can't get content element children ".$sql." ".mysql_error());
+  
+  }
 
   public static function availableUrl($url, $allowed_id) {
     if($allowed_id)

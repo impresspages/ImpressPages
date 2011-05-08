@@ -1,24 +1,25 @@
-<?php 
+<?php
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license	GNU/GPL, see ip_license.html
  */
 namespace Modules\standard\menu_management;
-if (!defined('BACKEND')) exit; 
+if (!defined('BACKEND')) exit;
 
 
 class Template {
-  
-  
-  public static function addLayout ($content) {
-    return 
+
+
+    public static function addLayout ($content) {
+        return
 '<!DOCTYPE html>
 <html>
 <head>
   <title>ImpressPages</title>
   <link REL="SHORTCUT ICON" HREF="'.BASE_URL.BACKEND_DIR.'/design/images/favicon.ico" />
   <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js"></script>
@@ -26,85 +27,89 @@ class Template {
   <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.hotkeys.js"></script>
   <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.jstree.js"></script>
   <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.js"></script>
-</head>   
+  <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/ui/jquery-ui.js"></script>
+  </head>   
 	 
 <body>
 '.$content.'
 </body>
 </html>
 ';
-  }
-
-  public static function content ($data) {
-    global $parametersMod;
-    $answer = '';
-    
-    $answer .= 
-'
-  <script type="text/javascript">
-  	var postURL = \''.$data['postURL'].'\';
-  	var imageDir= \''.$data['imageDir'].'\'; 
-  	var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\'; 
-  </script>
-	<div>
-		<div id="controlls">
-      <ul>
-				<li id="buttonNewPage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</li>
-        <li id="buttonDeletePage">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</li>
-      </ul>    
-		</div>
-		<div id="tree"></div>
-		<div id="page_properties"></div>
-		<div id="tree_popup"></div>
-	</div>		
-';
-    return $answer;
-  }
-  
-  
-  public static function generatePageProperties ($tabs) {
-    global $parametersMod;
-    $answer = '';
-
-    $tabsList = '';
-    $contentList = '';
-    
-    
-    foreach ($tabs as $tabKey => $tab) {
-      $tabsList .= 
-'
-<li>
-'.htmlspecialchars($tab['title']).'
-</li>
-';
-      
-      $contentList .= 
-'
-<li>
-'.$tab['content'].'
-</li>
-';
     }
-    
-    $answer .= 
+
+    public static function content ($data) {
+        global $parametersMod;
+        $answer = '';
+
+        $answer .=
 '
-<ul class="tabs">
-'.$tabsList.'
-</ul>    
-<ul class="content">
-'.$contentList.'    
-</ul>    
+    <script type="text/javascript">
+        var postURL = \''.$data['postURL'].'\';
+        var imageDir= \''.$data['imageDir'].'\'; 
+        var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\'; 
+    </script>
+    <div>
+    	<div id="sideBar" class="ui-widget-content ui-resizable">
+    		<div id="controlls">
+                <ul>
+                    <li id="buttonNewPage"><span class="ui-icon ui-icon-document"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</li>
+                    <li id="buttonDeletePage"><span class="ui-icon ui-icon-trash"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</li>
+                    <li id="buttonCopyPage"><span class="ui-icon ui-icon-copy"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</li>
+                    <li id="buttonPastePage"><span class="ui-icon ui-icon-copy"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'paste')).'</li>
+                </ul>    
+    		</div>
+    		<div id="tree"> </div>
+    		<div class="clear"><!-- --></div>
+    	</div>
+    	<div id="pageProperties" class="ui-widget-content"></div>
+    	<div id="treePopup"></div>
+    </div>		
 ';
-    
-    return $answer;
-  }
-  
-  
-  public static function generateTabGeneral () {
-    global $parametersMod;
-    $answer = '';
-    $element = new \Frontend\Element('null', 'left');
-    $answer .= 
+        return $answer;
+    }
+
+
+    public static function generatePageProperties ($tabs) {
+        global $parametersMod;
+        $answer = '';
+
+        $tabsList = '';
+        $contentList = '';
+
+
+        foreach ($tabs as $tabKey => $tab) {
+            $tabsList .=
+'
+<li>
+	<a href="#propertiesTabs-'.($tabKey + 1).'">'.htmlspecialchars($tab['title']).'</a>
+</li>
+';
+
+            $contentList .=
+'
+<div id="propertiesTabs-'.($tabKey + 1).'">
+'.$tab['content'].'
+</div>
+';
+        }
+
+        $answer .=
+'
+    <ul class="tabs">
+    '.$tabsList.'
+    </ul>    
+    '.$contentList.'    
+';
+
+        return $answer;
+    }
+
+
+    public static function generateTabGeneral () {
+        global $parametersMod;
+        $answer = '';
+        $element = new \Frontend\Element('null', 'left');
+        $answer .=
 '
 <form id="formGeneral">
 '.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'
@@ -120,17 +125,17 @@ class Template {
 <input type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
 </form>
 ';
-    
-    return $answer;
-  }  
-  
-  public static function generateTabSEO () {
-    global $parametersMod;
-    
-    $answer = '';
-    $element = new \Frontend\Element('null', 'left');
-    
-    $answer .= 
+
+        return $answer;
+    }
+
+    public static function generateTabSEO () {
+        global $parametersMod;
+
+        $answer = '';
+        $element = new \Frontend\Element('null', 'left');
+
+        $answer .=
 '
 <form id="formSEO">
 '.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'page_title')).'
@@ -145,17 +150,17 @@ class Template {
 
 </form>  
 ';
-    
-    return $answer;
-  }  
 
-  public static function generateTabAdvanced () {
-    global $parametersMod;
-    $element = new \Frontend\Element('null', 'left');
-    
-    $answer = '';
-    
-    $answer .= 
+        return $answer;
+    }
+
+    public static function generateTabAdvanced () {
+        global $parametersMod;
+        $element = new \Frontend\Element('null', 'left');
+
+        $answer = '';
+
+        $answer .=
 '
 <form id="formAdvanced">
 
@@ -171,11 +176,11 @@ class Template {
 
 </form>    
 ';
-    
-    return $answer;
-  }  
-  
-  
+
+        return $answer;
+    }
+
+
 }
 
 
