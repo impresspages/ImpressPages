@@ -100,12 +100,12 @@ class Db {
 
     /**
      *
-     * Get element children
+     * Get page children
      * @param int $elementId
      * @return array
      */
     public static function pageChildren($parentId){
-        $sql = "select row_number, id, button_title, visible from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
+        $sql = "select * from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
         $rs = mysql_query($sql);
         if($rs){
             $pages = array();
@@ -113,10 +113,30 @@ class Db {
                 $pages[] = $lock;
             }
             return $pages;
-        }else trigger_error("Can't get children ".$sql." ".mysql_error());
+        } else {
+            trigger_error("Can't get children ".$sql." ".mysql_error());
+        }
     }
 
-
+    /**
+     *
+     * Get page
+     * @param int $id
+     * @return array
+     */
+    public static function getPage($id){
+        $sql = "select * from `".DB_PREF."content_element` where id= '".$id."' ";
+        $rs = mysql_query($sql);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock;
+            }
+        } else {
+            trigger_error("Can't get children ".$sql." ".mysql_error());
+        }
+        return false;
+    }
+    
 
     /**
      *
@@ -188,8 +208,18 @@ class Db {
         $values .= ' parent = '.(int)$parentId;
         $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
 
+        if (isset($params['button_title'])) {
+            $params['buttonTitle'] = $params['button_title'];
+        }
+        if (isset($params['page_title'])) {
+            $params['pageTitle'] = $params['page_title'];
+        }
+        if (isset($params['redirect_url'])) {
+            $params['redirectURL'] = $params['redirect_url'];
+        }
+        
         if (isset($params['buttonTitle']))
-        $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
+            $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
 
         if (isset($params['pageTitle']))
         $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
@@ -203,11 +233,17 @@ class Db {
         if (isset($params['url']))
         $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
 
-        if (isset($params['createdOn']))
-        $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+        if (isset($params['createdOn'])) {
+            $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+        } else {
+            $values .= ', created_on = \''.date('Y-m-d').'\'';
+        }
 
-        if (isset($params['lastModified']))
-        $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
+        if (isset($params['lastModified'])) {
+            $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
+        } else {
+            $values .= ', last_modified= \''.date('Y-m-d').'\'';
+        }
 
         if (isset($params['type']))
         $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
@@ -257,7 +293,7 @@ class Db {
      * @return array widgets
      */
     public static function pageWidgets($pageId) {
-        $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$pageId."'";
+        $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$pageId."' order by row_number";
         $rs = mysql_query($sql);
         if($rs) {
             $widgets = array();
@@ -265,7 +301,9 @@ class Db {
                 $widgets[] = $lock;
             }
             return $widgets;
-        }else trigger_error("Can't get content element children ".$sql." ".mysql_error());
+        } else {
+            trigger_error("Can't get content element children ".$sql." ".mysql_error());
+        }
 
     }
 

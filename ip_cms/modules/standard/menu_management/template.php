@@ -52,10 +52,22 @@ class Template {
     	<div id="sideBar" class="ui-widget-content ui-resizable">
     		<div id="controlls">
                 <ul>
-                    <li id="buttonNewPage"><span class="ui-icon ui-icon-document"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</li>
-                    <li id="buttonDeletePage"><span class="ui-icon ui-icon-trash"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</li>
-                    <li id="buttonCopyPage"><span class="ui-icon ui-icon-copy"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</li>
-                    <li id="buttonPastePage"><span class="ui-icon ui-icon-copy"></span>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'paste')).'</li>
+                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
+                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</span>
+                    </button>
+                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
+                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</span>
+                    </button>
+                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
+                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</span>
+                    </button>
+                    <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
+                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'paste')).'</span>
+                    </button>
                 </ul>    
     		</div>
     		<div id="tree"> </div>

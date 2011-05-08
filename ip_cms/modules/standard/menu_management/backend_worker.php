@@ -673,6 +673,16 @@ class BackendWorker {
      * Copy page from one place to another
      */
     private function _copyPage() {
+        global $site;
+        $site->requireConfig('standard/menu_management/remotes.php');
+        $answer = array();
+        
+        if (!isset($_REQUEST['websiteId'])) {
+            trigger_error("Website id is not set");
+            return false;
+        }
+        $websiteId = $_REQUEST['websiteId'];
+                
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -685,18 +695,52 @@ class BackendWorker {
         }
         $destinationPageId = $_REQUEST['destinationPageId'];
 
-        $children = Db::pageChildren($destinationPageId);
-        $destinationPosition = count($children); //paste at the bottom
+        
+        if ($websiteId == 0) { //local page
+            $children = Db::pageChildren($destinationPageId);
+            $destinationPosition = count($children); //paste at the bottom
+            Model::copyPage($pageId, $destinationPageId, $destinationPosition);            
+        } else { //remote page
+            $remotes = Remotes::getRemotes();
+            $remote = $remotes[$websiteId - 1];            
+            $data = array (
+                'pageId' => $pageId
+            );
+            $remotePages = $this->_remoteRequest($remote, 'getData', $data);
+            $this->_createPagesRecursion($destinationPageId, $remotePages);
+            
 
-        Model::copyPage($pageId, $destinationPageId, $destinationPosition);
+            $contentManagementSystem = new \Modules\standard\content_management\System();
+            $contentManagementSystem->clearCache(BASE_URL);            
+                
+            $answer['data'] = $data;
+        }
 
-        $answer = array();
         $answer['status'] = 'success';
         $answer['destinationPageId'] = $destinationPageId;
 
         $this->_printJson($answer);
     }
 
+    
+    /**
+     * 
+     * Array of pages and subpages
+     * @param array $pages
+     */
+    private function _createPagesRecursion ($targetPageId, $pages) {
+        foreach ($pages as $pageKey => $page) {
+            
+            Db::insertPage($targetPageId, $page);
+            foreach ($page['widgets'] as $widgetKey => $widget) {
+               Model::addWidget($targetId = $page['id'], $widget['data'], $widget); 
+            }
+            
+            if (! empty($page['subpages'])) {
+                self::_createPagesRecursion($page['id'], $page['subpages']);
+            }
+        }
+    }
 
 
     /**
@@ -738,12 +782,12 @@ class BackendWorker {
         curl_close($ch);
 
         $responseData = json_decode($response, true);
-        if ($responseData === null) {
+        if ($responseData === null || empty ($responseData['status']) || $responseData['status'] != 'success' || empty ($responseData['response'])) {
             trigger_error('Incorrect response from the server '.$response);
             return;
         }
 
-        return $responseData;
+        return $responseData['response'];
     }
 
 

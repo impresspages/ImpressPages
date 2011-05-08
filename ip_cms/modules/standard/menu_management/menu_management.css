@@ -2,6 +2,12 @@ body {
 	font-size: 10px;
 	margin: 0px;
 	padding: 0px;
+	font-family: Verdana,Arial,sans-serif;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
 }
 
 
@@ -42,6 +48,7 @@ body {
 
 #controlls ul {
     list-style-type: none;
+    padding: 10px 10px 0 10px;
 }
 
 #controlls li {

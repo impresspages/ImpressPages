@@ -25,6 +25,7 @@ $(document).ready(function() {
   $('#controlls').delegate('#buttonCopyPage', 'click', copyPage);
   $('#controlls').delegate('#buttonPastePage', 'click', pastePage);
 
+  $('#tree').width($('#sideBar').width() - 43);
   
   
   fixLayout();
@@ -704,6 +705,6 @@ function fixLayout () {
   $('#sideBar').height($(window).height() - 21);
   $('#sideBar').resizable('option', 'maxHeight', $(window).height() - 25);
   $('#sideBar').resizable('option', 'minHeight', $(window).height() - 25);
-  $('#sideBar').resizable('option', 'minWidth', 250);
+  $('#sideBar').resizable('option', 'minWidth', 354);
   $('#sideBar').resizable('option', 'maxWidth', 1600);
 }
