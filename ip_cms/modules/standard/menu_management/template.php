@@ -124,17 +124,25 @@ class Template {
         $answer .=
 '
 <form id="formGeneral">
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'
-<input name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'
-<input type="checkbox" name="visible" '.($element->getVisible() ? 'checked="yes"' : '' ).' /><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'created_on')).'
-<p class="error" id="createdOnError"></p>
-<input name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" /><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'last_modified')).'
-<p class="error" id="lastModifiedError"></p>
-<input name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" /><br />
-<input type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
+	<p class="field">
+        <label for="generalButtonTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'</label>
+        <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
+    </p>
+	<p class="field">
+        <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'visible')).'</label>
+    	<input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="yes"' : '' ).' /><br />
+    </p>
+	<p class="field">
+    	<label for="generalCreatedOn">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'created_on')).'</label>
+    	<span class="error" id="createdOnError"></span>
+    	<input id="generalCreatedOn" name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" /><br />
+    </p>
+	<p class="field">
+    	<label for="lastModifiedError">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'last_modified')).'</label>
+    	<span class="error" id="lastModifiedError"></span>
+    	<input id="generalLastModified" name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" /><br />
+	</p>    
+    <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
 </form>
 ';
 
@@ -150,15 +158,25 @@ class Template {
         $answer .=
 '
 <form id="formSEO">
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'page_title')).'
-<input name="pageTitle" value="'.htmlspecialchars($element->getPageTitle()).'" /><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'keywords')).'
-<textarea name="keywords">'.htmlspecialchars($element->getKeywords()).'</textarea><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'description')).'
-<textarea name="description">'.htmlspecialchars($element->getDescription()).'</textarea><br />
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'url')).'
-<input name="url" value="'.htmlspecialchars($element->getURL()).'" /><br />
-<input type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
+
+	<p class="field">
+        <label for="seoPageTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'page_title')).'</label>
+        <input id="seoPageTitle" name="pageTitle" value="'.htmlspecialchars($element->getPageTitle()).'" /><br />
+    </p>
+	<p class="field">
+        <label for="seoKeywords">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'keywords')).'</label>
+        <textarea id="seoKeywords" name="keywords">'.htmlspecialchars($element->getKeywords()).'</textarea><br />
+    </p>
+	<p class="field">
+        <label for="seoDescription">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'description')).'</label>
+        <textarea id="seoDescription" name="description">'.htmlspecialchars($element->getDescription()).'</textarea><br />
+    </p>
+	<p class="field">
+        <label for="seoUrl">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'url')).'</label>
+        <input id="seoUrl" name="url" value="'.htmlspecialchars($element->getURL()).'" /><br />
+    </p>
+
+    <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
 
 </form>  
 ';
@@ -175,17 +193,30 @@ class Template {
         $answer .=
 '
 <form id="formAdvanced">
-
-'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'type')).'<br />
-<input name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'<br />
-<input name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'<br />
-<input name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'<br />
-<input name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'
-<img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif"><br />
-<p style="display: none;" id="redirectURLError"></p>
-<input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-<input type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
-
+        <label>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'type')).'</label>        
+        <p class="field">
+            <input class="stdModBox" name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />
+           	<label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</label><br />
+       	</p>
+        <p class="field">
+            <input class="stdModBox" name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</label><br />
+       	</p>
+        <p class="field">
+            <input class="stdModBox" name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</label><br />
+            
+       	</p>
+       	
+        <span class="error" id="redirectURLError"></span>
+        <p class="field">
+        	<input class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</label><br/>       
+            <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
+            <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif" /><br />
+        </p>
+        <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
+	
 </form>    
 ';
 

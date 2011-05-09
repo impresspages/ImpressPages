@@ -465,6 +465,7 @@ function updatePageResponse(response) {
       for ( var errorKey in response.errors) {
         var error = response.errors[errorKey];
         $('#' + error.field + 'Error').text(error.message).show();
+        $('#' + error.field + 'Error').text(error.message).css('display', 'block');
       }
     }
   }
@@ -687,7 +688,7 @@ function openInternalLinkingTree() {
   if (!tree) {
     initializeTreeManagement('treePopup');
   }
-  $('#treePopup').dialog({ autoOpen: true, modal: true })
+  $('#treePopup').dialog({ autoOpen: true, modal: true, height: ($(window).height() - 200), width: 300})
   $('.ui-widget-overlay').bind('click', closeInternalLinkingTree )
   
 }

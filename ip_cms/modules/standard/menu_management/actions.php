@@ -21,21 +21,28 @@ class Actions {
     function makeActions() {
         global $site;
         global $parametersMod;
-        
+
         if (!isset($_REQUEST['action'])) {
             return;
         }
 
         switch ($_REQUEST['action']) {
             case 'getLanguages':
+                if (!$this->_adminAccess()) {
+                    return;
+                }
+
                 $languages = Db::getLanguages();
                 $data = array (
                     'status' => 'success',
                     'response' => $languages
-                );                
+                );
                 $this->_printJson($data);
                 break;
             case 'getZones':
+                if (!$this->_adminAccess()) {
+                    return;
+                }
                 $zones = Db::getZones();
                 $data = array (
                     'status' => 'success',
@@ -44,12 +51,15 @@ class Actions {
                 $this->_printJson($data);
                 break;
             case 'getChildren':
+                if (!$this->_adminAccess()) {
+                    return;
+                }
 
                 if (!isset($_REQUEST['parentId'])) {
                     trigger_error('Parent ID is not set');
-                    return;   
+                    return;
                 }
-                $children = Db::pageChildren($_REQUEST['parentId']);                
+                $children = Db::pageChildren($_REQUEST['parentId']);
                 $data = array (
                     'status' => 'success',
                     'response' => $children
@@ -58,13 +68,16 @@ class Actions {
 
                 break;
             case 'getData':
+                if (!$this->_adminAccess()) {
+                    return;
+                }
                 if (!isset($_REQUEST['pageId'])) {
                     trigger_error('Page ID is not set');
-                    return;   
+                    return;
                 }
                 $pageId = $_REQUEST['pageId'];
-                
-                $pages = array($this->_getPageDataRecursion($pageId)); 
+
+                $pages = array($this->_getPageDataRecursion($pageId));
 
                 $data = array (
                     'status' => 'success',
@@ -72,16 +85,16 @@ class Actions {
                 );
                 $this->_printJson($data);
                 break;
-                
+
         }
-        
+
         \Db::disconnect();
         exit;
     }
 
 
     private function _getPageDataRecursion($pageId) {
-        
+
         $page = Db::getPage($pageId);
 
         $widgets = Db::pageWidgets($page['id']);
@@ -91,7 +104,7 @@ class Actions {
             $widget['data'] = $widgetObject->getData($widget['module_id']);
         }
         $page['widgets'] = $widgets;
-        
+
         $page['subpages'] = array();
         $subpages = Db::pageChildren($pageId);
         foreach ($subpages as $key => $subpage) {
@@ -99,6 +112,42 @@ class Actions {
         }
 
         return $page;
+    }
+
+    private function _adminAccess () {
+        require (BASE_DIR.BACKEND_DIR.'db.php');
+        if (!isset($_REQUEST['username'])) {
+            return false;
+        }
+        if (!isset($_REQUEST['password'])) {
+            return false;
+        }
+
+        //check log in
+        if(isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
+
+            if(\Backend\Db::incorrectLoginCount($_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+                \Backend\Db::log('system', 'backend login suspended (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                return false;
+            } else {
+                $id = \Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
+                if($id !== false) {
+                    $module = \Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
+                    if (\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
+                        \Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                        return true;
+                    } else {
+                        \Backend\Db::log('system', 'this user is not allowed to access menu management module', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                        return false;
+                    }
+                } else {
+                    \Backend\Db::log('system', 'backend login incorrect (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                    return false;
+                }
+            }
+        }
+        //check log in
+        return false;
     }
 
     private function _printJson ($data) {

@@ -504,10 +504,12 @@ class BackendWorker {
                 $newElement = $zone->getElement($_POST['pageId']);
                 $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldPage->getLink(true), 'new_url'=>$newPage->getLink(true)));
             }
-
+            
+            $answer['status'] = 'success';
+        } else {
+            $answer['status'] = 'error';    
         }
-
-        $answer['status'] = 'success';
+        
 
         $this->_printJson ($answer);
     }
