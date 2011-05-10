@@ -46,7 +46,10 @@ class Template {
     <script type="text/javascript">
         var postURL = \''.$data['postURL'].'\';
         var imageDir= \''.$data['imageDir'].'\'; 
-        var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\'; 
+        var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\';
+
+        var textSave = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'\';
+        var textCancel = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'cancel')).'\';
     </script>
     <div>
     	<div id="sideBar" class="ui-widget-content ui-resizable">
@@ -74,8 +77,14 @@ class Template {
     		<div class="clear"><!-- --></div>
     	</div>
     	<div id="pageProperties" class="ui-widget-content"></div>
-    	<div id="treePopup"></div>
-    </div>		
+    </div>	
+	<div id="createPageForm" title="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'">
+		<form>
+            <label for="createPageButtonTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'</label>
+            <input id="createPageButtonTitle" name="buttonTitle" value="" />
+		</form>
+	</div>    	
+    <div id="treePopup"></div>
 ';
         return $answer;
     }

@@ -33,6 +33,17 @@ body {
 	display: none;
 }
 
+#createPageForm {
+    display: none;
+}
+
+.ui-widget #createPageForm form label{
+    margin-top: 15px;
+}
+
+.ui-widget #createPageForm input {
+	width: 270px;
+}
 
 .error {
 	display: none;

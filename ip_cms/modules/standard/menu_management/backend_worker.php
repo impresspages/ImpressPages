@@ -296,8 +296,8 @@ class BackendWorker {
             return false;
         }
 
-        $zoneName = $_REQUEST['zoneName'];
-        $zone = $site->getZone($_REQUEST['zoneName']);
+        $parentZoneName = $_REQUEST['zoneName'];
+        $zone = $site->getZone($parentZoneName);
 
         if (! $zone) {
             trigger_error("Can't find zone");
@@ -313,7 +313,7 @@ class BackendWorker {
 
         $tabs = array();
 
-        $page = new \Frontend\Element('', $zoneName);
+        $page = new \Frontend\Element('', $parentZoneName);
 
         if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages')) {
             $page->setVisible(!$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'));
@@ -339,7 +339,7 @@ class BackendWorker {
         $page->setLastModified(date('Y-m-d'));
         $page->setType('default');
 
-        $answer['parent']['pageId'] = $parentPageId;
+        $answer['selectedId'] = $parentPageId;
         $answer['page']['pageId'] = $page->getId();
         $answer['page']['zoneName'] = $page->getZoneName();
         $answer['page']['buttonTitle'] = $page->getButtonTitle();

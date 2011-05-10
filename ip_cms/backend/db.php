@@ -7,7 +7,7 @@
 
 
 namespace Backend;
-if(!defined('BACKEND')) exit;
+if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Db {
 

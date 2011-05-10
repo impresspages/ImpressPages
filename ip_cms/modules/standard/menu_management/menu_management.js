@@ -6,16 +6,15 @@
 
 $(document).ready(function() {
 
-  
-  $('#sideBar').resizable({ alsoResize: '#tree' });
+  $('#sideBar').resizable({
+    alsoResize : '#tree'
+  });
   $('#sideBar').bind('resize', fixLayout);
-  
-  
+
   $(window).bind('resize', fixLayout);
 
-  
   initializeTreeManagement('tree');
-  
+
   $('#tree').bind('select_node.jstree', updatePageForm);
 
   $('#treeopup').bind('select_node.jstree', treePopupSelect);
@@ -26,10 +25,9 @@ $(document).ready(function() {
   $('#controlls').delegate('#buttonPastePage', 'click', pastePage);
 
   $('#tree').width($('#sideBar').width() - 43);
-  
-  
+
   fixLayout();
-  
+
 });
 
 /**
@@ -155,12 +153,29 @@ function initializeTreeManagement(id) {
  * Open new page form
  */
 function createPageForm() {
+  
+  
+  var buttons = new Array;
+  
+  buttons.push({ text : textSave, click : createPage});
+  buttons.push({ text : textCancel, click : function () {$(this).dialog("close")} });
+  
+  $('#createPageForm').dialog({
+    autoOpen : true,
+    modal : true,
+    resizable : false,
+    buttons : buttons
+  });
+
+  return;
+
   var tree = jQuery.jstree._reference('#tree');
   var node = tree.get_selected();
   if (!node || (node.attr('rel') != 'page' && node.attr('rel') != 'zone')) {
     alert('select page');
     return;
-  }
+  }  
+
 
   var data = Object();
   data.id = node.attr('id');
@@ -190,9 +205,9 @@ function createPageFormResponse(response) {
     var tree = jQuery.jstree._reference('#tree');
 
     // store pageId to know whish page data being edited
-    tree.selectedPageId = response.page.pageId;
     tree.selectedPageZoneName = response.page.zoneName;
-    tree.selectedParentId = response.parent.id;
+    tree.selectedPageId = response.parent.pageId;
+    tree.selectedId = response.selectedId;
 
     $('#formGeneral input[name="buttonTitle"]').val(response.page.buttonTitle);
     $('#formGeneral input[name="visible"]').attr('checked',
@@ -225,8 +240,6 @@ function createPage() {
   var tree = jQuery.jstree._reference('#tree');
 
   data = Object();
-
-  data.parentId = tree.selectedParentId;
   data.pageId = tree.selectedPageId; // we have stored this ID before
   data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
   data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
@@ -268,12 +281,13 @@ function createPageResponse(response) {
   if (response.errors) {
     for ( var errorKey in response.errors) {
       var error = response.errors[errorKey];
-      console.log(error);
       $('#' + error.field + 'Error').text(error.message).show();
     }
   } else {
-    var url = window.location.href.split('#');
-    window.location.href = url[0];
+    var tree = jQuery.jstree._reference('#tree');
+
+    tree.refresh(tree.selectedParentId);
+
   }
 }
 
@@ -339,7 +353,6 @@ function updatePageForm(event, data) {
   var tree = jQuery.jstree._reference('#tree');
   var node = tree.get_selected();
 
-
   if (node.attr('rel') == 'page') {
 
     var data = Object();
@@ -400,11 +413,10 @@ function updatePageFormResponse(response) {
       return false;
     });
     $("#internalLinkingIcon").bind("click", openInternalLinkingTree);
-    
+
     $('#pageProperties').tabs('destroy');
     $('#pageProperties').tabs();
-    
-    
+
   }
 }
 
@@ -465,28 +477,11 @@ function updatePageResponse(response) {
       for ( var errorKey in response.errors) {
         var error = response.errors[errorKey];
         $('#' + error.field + 'Error').text(error.message).show();
-        $('#' + error.field + 'Error').text(error.message).css('display', 'block');
+        $('#' + error.field + 'Error').text(error.message).css('display',
+            'block');
       }
     }
   }
-
-  //  
-  // if($errorCreatedOn)
-  // $answer .=
-  // 'document.getElementById(\'property_created_on_error\').style.display =
-  // \'block\';';
-  //
-  // if($errorLastModified)
-  // $answer .=
-  // 'document.getElementById(\'property_last_modified_error\').style.display =
-  // \'block\';';
-  //
-  // if($errorEmptyRedirectUrl)
-  // $answer .= 'document.getElementById(\'property_type_error\').style.display
-  // = \'block\';';
-  //
-  // $answer .= 'document.getElementById(\'loading\').style.display =
-  // \'none\';';
 
   // if (!$_POST['visible']) {
   // $icon = 'node.ui.addClass(\'x-tree-node-disabled \');';
@@ -494,16 +489,6 @@ function updatePageResponse(response) {
   // $icon = '';
   // }
   //
-  // echo '
-  // document.getElementById(\'loading\').style.display = \'none\';
-  //   
-  // document.getElementById(\'property_last_modified_error\').style.display =
-  // \'none\';
-  // document.getElementById(\'property_created_on_error\').style.display =
-  // \'none\';
-  // document.getElementById(\'property_type_error\').style.display = \'none\';
-  //   
-  //   
   // var form = document.getElementById(\'property_form\');
   // form.property_url.value =
   // \''.\Library\Php\Js\Functions::htmlToString($_POST['url']).'\';
@@ -535,7 +520,7 @@ function movePage(e, moveData) {
     data.destinationId = moveData.rslt.np.attr("id");
     data.destinationPosition = moveData.rslt.cp + i;
     data.action = 'movePage';
-    
+
     var tree = jQuery.jstree._reference('#tree');
     tree.destinationId = moveData.rslt.np.attr("id");
 
@@ -587,26 +572,27 @@ function movePageResponse(response) {
 /**
  * Mark current page as copied
  */
-function copyPage () {
+function copyPage() {
   var tree = jQuery.jstree._reference('#tree');
-  tree.copiedNode = tree.get_selected();  
+  tree.copiedNode = tree.get_selected();
 }
 
 /**
  * Duplicate and move the page, selected as copied
  */
-function pastePage () {
+function pastePage() {
   var tree = jQuery.jstree._reference('#tree');
-  var selectedNode = tree.get_selected();  
-  if (!selectedNode || selectedNode.attr('rel') != 'zone' && selectedNode.attr('rel') != 'page') {
+  var selectedNode = tree.get_selected();
+  if (!selectedNode || selectedNode.attr('rel') != 'zone'
+      && selectedNode.attr('rel') != 'page') {
     alert('Please select the page');
     return;
-  }  
-  
+  }
+
   var copiedNode = tree.copiedNode;
-  
-  var data = Object(); 
-  
+
+  var data = Object();
+
   data.pageId = copiedNode.attr('pageId');
   data.zoneName = copiedNode.attr('zoneName');
   data.languageId = copiedNode.attr('languageId');
@@ -615,29 +601,27 @@ function pastePage () {
   data.destinationPageId = selectedNode.attr("pageId");
   data.action = 'copyPage';
 
-  tree.destinationId = selectedNode.attr('id'); 
-  
+  tree.destinationId = selectedNode.attr('id');
+
   $.ajax({
     type : 'POST',
     url : postURL,
     data : data,
     success : pastePageResponse,
     dataType : 'json'
-  });  
-  
-  
+  });
 
 }
 
-
-function pastePageResponse (response) {
+function pastePageResponse(response) {
   if (response && response.status == 'success') {
-    var tree = jQuery.jstree._reference('#tree');    
+    var tree = jQuery.jstree._reference('#tree');
     tree.refresh('#' + tree.destinationId);
-    //known bug. If page is pasted into empty folder, it can't be opened automatically, because refresh function does not provide a call back after refresh.
-  }  
+    // known bug. If page is pasted into empty folder, it can't be opened
+    // automatically, because refresh function does not provide a call back
+    // after refresh.
+  }
 }
-
 
 /**
  * Select page on internal linking popup
@@ -679,7 +663,7 @@ function treePopupSelectResponse(response) {
     $('#formAdvanced input[name="type"][value="redirect"]').attr("checked",
         "checked");
   }
-  
+
   closeInternalLinkingTree();
 }
 
@@ -688,9 +672,14 @@ function openInternalLinkingTree() {
   if (!tree) {
     initializeTreeManagement('treePopup');
   }
-  $('#treePopup').dialog({ autoOpen: true, modal: true, height: ($(window).height() - 200), width: 300})
-  $('.ui-widget-overlay').bind('click', closeInternalLinkingTree )
-  
+  $('#treePopup').dialog({
+    autoOpen : true,
+    modal : true,
+    height : ($(window).height() - 200),
+    width : 300
+  })
+  $('.ui-widget-overlay').bind('click', closeInternalLinkingTree)
+
 }
 
 function closeInternalLinkingTree() {
@@ -698,8 +687,7 @@ function closeInternalLinkingTree() {
   $('#treePopup').dialog('close');
 }
 
-
-function fixLayout () {
+function fixLayout() {
   $('#pageProperties').width($(window).width() - $('#sideBar').width() - 30);
   $('#pageProperties').height($(window).height() - 25);
   $('#tree').height($(window).height() - 21 - 81);
