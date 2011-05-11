@@ -16,6 +16,7 @@ $(document).ready(function() {
   initializeTreeManagement('tree');
 
   $('#tree').bind('select_node.jstree', updatePageForm);
+  $('#tree').bind('close_node.jstree', closeNode);
 
   $('#treeopup').bind('select_node.jstree', treePopupSelect);
 
@@ -26,6 +27,9 @@ $(document).ready(function() {
 
   $('#tree').width($('#sideBar').width() - 43);
 
+  $('#formCreatePage').bind('submit', function () { createPage (); return false;} );
+
+  
   fixLayout();
 
 });
@@ -34,11 +38,11 @@ $(document).ready(function() {
  * Initialize tree management
  * 
  * @param id
- *          id of div where management should be initialized
+ *            id of div where management should be initialized
  */
 function initializeTreeManagement(id) {
 
-  var plugins = [ 'themes', 'json_data', 'types', 'ui', 'cookies' ];
+  var plugins = [ 'themes', 'json_data', 'types', 'ui'];
   if (id == 'tree') {
     plugins.push('dnd');
     plugins.push('crrm');
@@ -78,10 +82,6 @@ function initializeTreeManagement(id) {
           'icon' : {
             'image' : imageDir + 'file.png'
           }
-        /*
-         * , 'move_node' : function (obj){alert($(this).attr("id"));
-         * alert(obj.attr("id")); }
-         */
         },
 
         'zone' : {
@@ -123,7 +123,8 @@ function initializeTreeManagement(id) {
     'ui' : {
       'select_limit' : 1,
       'select_multiple_modifier' : 'alt',
-      'selected_parent_close' : 'select_parent'
+      'selected_parent_close' : 'select_parent',
+      'select_prev_on_delete' : true,
     },
 
     'cookies' : {
@@ -136,17 +137,105 @@ function initializeTreeManagement(id) {
     },
 
     'contextmenu' : {
-      'items' : {
-
-      }
+      'show_at_node' : false,
+      'select_node' : true,
+      'items' : jsTreeCustomMenu
     }
-
+    
+    
   });
 
   if (id == 'tree') {
     $("#" + id).bind("move_node.jstree", movePage);
   }
 
+}
+
+
+/**
+ * geneate context menu
+ * @param node selected menu item
+ * @returns array context menu items
+ */
+function jsTreeCustomMenu(node) {
+    var items = false;
+    
+    if ($(node).attr('rel') == 'zone') {
+        items = {
+            "rename" : false,
+            "create" : false,
+            "remove" : false,
+            "ccp" : false,
+            
+            "newPage" : {
+                "label"             : textNewPage,
+                "action"            : function (obj) { createPageForm(); },
+                "_class"            : "class",  // class is applied to the item LI node
+                "icon"              : false,
+            }
+        };
+        
+    }
+    
+    
+    if ($(node).attr('rel') == 'page') {
+        var items = {
+            "rename" : false,
+            "create" : false,
+            "remove" : false,
+            "ccp" : false,
+            
+            "edit" : {
+                "label"             : textEdit,
+                "action"            : function (obj) { deletePageConfirm(); },
+                "_class"            : "class",  // class is applied to the item LI node
+                "icon"              : false,
+            },          
+            
+            "newPage" : {
+                "label"             : textNewPage,
+                "action"            : function (obj) { createPageForm(); },
+                "_class"            : "class",  // class is applied to the item LI node
+                "icon"              : false,
+            },
+                
+            "delete" : {
+                "label"             : textDelete,
+                "action"            : function (obj) { deletePageConfirm(); },
+                "_class"            : "class",  // class is applied to the item LI node
+                "icon"              : false,
+            }    
+        };
+    }
+
+
+    return items;
+
+}
+
+
+function closeNode (obj, obj2) {
+    
+    node = $(obj2.rslt.obj[0]);
+    var data = new Object; 
+
+    //console.log(node2.rstl.obj[0].attr('langaugeId'));
+    data.languageId = node.attr('languageId');
+    data.rel = node.attr('rel');
+    data.pageId = node.attr('pageId');
+    data.type = node.attr('rel');
+    data.zoneName = node.attr('zoneName');
+    data.languageId = node.attr('languageId');
+    data.websiteId = node.attr('websiteId');   
+        
+    data.action = 'closePage';
+    
+    $.ajax({
+      type : 'POST',
+      url : postURL,
+      data : data,
+      dataType : 'json'
+    });    
 }
 
 /**
@@ -159,6 +248,7 @@ function createPageForm() {
   
   buttons.push({ text : textSave, click : createPage});
   buttons.push({ text : textCancel, click : function () {$(this).dialog("close")} });
+
   
   $('#createPageForm').dialog({
     autoOpen : true,
@@ -169,92 +259,37 @@ function createPageForm() {
 
   return;
 
-  var tree = jQuery.jstree._reference('#tree');
-  var node = tree.get_selected();
-  if (!node || (node.attr('rel') != 'page' && node.attr('rel') != 'zone')) {
-    alert('select page');
-    return;
-  }  
-
-
-  var data = Object();
-  data.id = node.attr('id');
-  data.pageId = node.attr('pageId');
-  data.zoneName = node.attr('zoneName');
-  data.websiteId = node.attr('websiteId');
-  data.languageId = node.attr('languageId');
-  data.type = node.attr('rel');
-  data.action = 'getCreatePageForm';
-
-  $.ajax({
-    type : 'POST',
-    url : postURL,
-    data : data,
-    success : createPageFormResponse,
-    dataType : 'json'
-  });
 }
 
-/**
- * Response to open new page form request
- */
-function createPageFormResponse(response) {
-  if (response && response.html) {
-    $('#pageroperties').html(response.html);
 
-    var tree = jQuery.jstree._reference('#tree');
-
-    // store pageId to know whish page data being edited
-    tree.selectedPageZoneName = response.page.zoneName;
-    tree.selectedPageId = response.parent.pageId;
-    tree.selectedId = response.selectedId;
-
-    $('#formGeneral input[name="buttonTitle"]').val(response.page.buttonTitle);
-    $('#formGeneral input[name="visible"]').attr('checked',
-        response.page.visible ? 1 : 0);
-    $('#formGeneral input[name="createdOn"]').val(response.page.createdOn);
-    $('#formGeneral input[name="lastModified"]')
-        .val(response.page.lastModified);
-
-    $('#formSEO input[name="pageTitle"]').val(response.page.pageTitle);
-    $('#formSEO textarea[name="keywords"]').val(response.page.keywords);
-    $('#formSEO textarea[name="description"]').val(response.page.description);
-    $('#formSEO input[name="url"]').val(response.page.url);
-    $(
-        '#formAdvanced input[name="type"][name="type"][value="'
-            + response.page.type + '"]').attr('checked', 1);
-    $('#formAdvanced input[name="redirectURL"]').val(response.page.redirectURL);
-
-    $("#pageProperties form").bind("submit", function() {
-      createPage();
-      return false;
-    });
-    $("#internalLinkingIcon").bind("click", openInternalLinkingTree);
-  }
-}
 
 /**
  * Post data to create a new page
  */
 function createPage() {
-  var tree = jQuery.jstree._reference('#tree');
 
+  $('#createPageForm').dialog('close');
+  
+  
   data = Object();
-  data.pageId = tree.selectedPageId; // we have stored this ID before
-  data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
-  data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
-  data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1
-      : 0;
-  data.createdOn = $('#formGeneral input[name="createdOn"]').val();
-  data.lastModified = $('#formGeneral input[name="lastModified"]').val();
+  
+  var node = treeSelectedNode('#tree');
 
-  data.pageTitle = $('#formSEO input[name="pageTitle"]').val();
-  data.keywords = $('#formSEO textarea[name="keywords"]').val();
-  data.description = $('#formSEO textarea[name="description"]').val();
-  data.url = $('#formSEO input[name="url"]').val();
-  data.type = $('#formAdvanced input:checked[name="type"]').val();
-  data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
 
+  if (node) {
+    data.languageId = node.attr('languageId');
+    data.rel = node.attr('rel');
+    data.pageId = node.attr('pageId');
+    data.type = node.attr('rel');
+    data.zoneName = node.attr('zoneName');
+    data.languageId = node.attr('languageId');
+    data.websiteId = node.attr('websiteId');   
+  }    
+  data.buttonTitle = $('#createPageButtonTitle').val();
+
+  
+  $('#createPageForm input').val(''); //remove value from input field
+  
   data.action = 'createPage';
 
   $.ajax({
@@ -271,23 +306,15 @@ function createPage() {
  * 
  * @param response
  */
+
 function createPageResponse(response) {
   if (!response) {
     return;
   }
-
-  $('#pageProperties .error').hide();
-
-  if (response.errors) {
-    for ( var errorKey in response.errors) {
-      var error = response.errors[errorKey];
-      $('#' + error.field + 'Error').text(error.message).show();
-    }
-  } else {
+  
+  if (response.refreshId) {
     var tree = jQuery.jstree._reference('#tree');
-
-    tree.refresh(tree.selectedParentId);
-
+    tree.refresh('#' + response.refreshId);
   }
 }
 
@@ -304,10 +331,6 @@ function deletePageConfirm() {
   }
 
   if (confirm(deleteConfirmText)) {
-    data = Object();
-
-    var tree = jQuery.jstree._reference('#tree');
-    var node = tree.get_selected();
 
     data = Object();
     data.id = node.attr('id');
@@ -335,6 +358,8 @@ function deletePageResponse(response) {
   if (response && response.status == 'success') {
     var tree = jQuery.jstree._reference('#tree');
     var selectedNode = tree.get_selected()
+    tree.deselect_all(); //without it get_selected returns the same deleted page
+
     var path = tree.get_path(selectedNode, true);
 
     tree.refresh('#' + path[path.length - 2]);
@@ -353,6 +378,35 @@ function updatePageForm(event, data) {
   var tree = jQuery.jstree._reference('#tree');
   var node = tree.get_selected();
 
+  switch (node.attr('rel')) {
+    case 'page':
+        $('#buttonDeletePage').removeClass('ui-state-disabled');
+        $('#buttonCopyPage').removeClass('ui-state-disabled');
+        
+        if (tree.copiedNode) {
+            $('#buttonPastePage').removeClass('ui-state-disabled');
+        } else {
+            $('#buttonPastePage').addClass('ui-state-disabled');
+        }
+      break;
+    case 'website':
+    case 'language':
+        $('#buttonDeletePage').addClass('ui-state-disabled');
+        $('#buttonCopyPage').addClass('ui-state-disabled');
+        $('#buttonPastePage').addClass('ui-state-disabled');
+      break;
+    case 'zone':
+        $('#buttonDeletePage').addClass('ui-state-disabled');
+        $('#buttonCopyPage').addClass('ui-state-disabled');
+        if (tree.copiedNode) {
+            $('#buttonPastePage').removeClass('ui-state-disabled');
+        } else {
+            $('#buttonPastePage').addClass('ui-state-disabled');
+        }
+      break;  
+  }
+  
+  
   if (node.attr('rel') == 'page') {
 
     var data = Object();
@@ -575,6 +629,7 @@ function movePageResponse(response) {
 function copyPage() {
   var tree = jQuery.jstree._reference('#tree');
   tree.copiedNode = tree.get_selected();
+  $('#buttonPastePage').removeClass('ui-state-disabled');
 }
 
 /**
@@ -583,8 +638,7 @@ function copyPage() {
 function pastePage() {
   var tree = jQuery.jstree._reference('#tree');
   var selectedNode = tree.get_selected();
-  if (!selectedNode || selectedNode.attr('rel') != 'zone'
-      && selectedNode.attr('rel') != 'page') {
+  if (!selectedNode || selectedNode.attr('rel') != 'zone' && selectedNode.attr('rel') != 'page') {
     alert('Please select the page');
     return;
   }
@@ -650,6 +704,18 @@ function treePopupSelect(event, data) {
     success : treePopupSelectResponse,
     dataType : 'json'
   });
+}
+
+
+
+function treeSelectedNode(treeId) {
+    var tree = jQuery.jstree._reference(treeId);
+    var node = tree.get_selected();    
+    if (node.attr('id'))  {
+        return node;
+    } else {
+        return false;
+    }
 }
 
 /**

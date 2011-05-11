@@ -50,6 +50,9 @@ class Template {
 
         var textSave = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'\';
         var textCancel = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'cancel')).'\';
+        var textDelete = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'\';
+        var textEdit = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'edit')).'\';
+        var textNewPage = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'\';
     </script>
     <div>
     	<div id="sideBar" class="ui-widget-content ui-resizable">
@@ -67,7 +70,7 @@ class Template {
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</span>
                     </button>
-                    <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'paste')).'</span>
                     </button>
@@ -79,7 +82,7 @@ class Template {
     	<div id="pageProperties" class="ui-widget-content"></div>
     </div>	
 	<div id="createPageForm" title="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'">
-		<form>
+		<form id="formCreatePage">
             <label for="createPageButtonTitle">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'button_title')).'</label>
             <input id="createPageButtonTitle" name="buttonTitle" value="" />
 		</form>

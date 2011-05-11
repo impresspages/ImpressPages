@@ -71,9 +71,12 @@ class Db {
         if ($rs) {
             if ($lock = mysql_fetch_assoc($rs)) {
                 return $lock['element_id'];
+            } else {
+                return false;
             }
         } else {
             trigger_error("Can't find zone element ".$sql." ".mysql_error());
+            return false;
         }
     }
 
@@ -258,7 +261,6 @@ class Db {
         $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
 
         $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
-
         $rs = mysql_query($sql);
         if ($rs) {
             return mysql_insert_id();
@@ -270,7 +272,7 @@ class Db {
 
 
     public static function getMaxIndex($parentId) {
-        $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = '.(int)$parentId.' ";
+        $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = ".(int)$parentId." ";
         $rs = mysql_query($sql);
         if ($rs) {
             if ($lock = mysql_fetch_assoc($rs)) {
@@ -278,7 +280,6 @@ class Db {
             } else {
                 return false;
             }
-            return mysql_insert_id();
         } else {
             trigger_error($sql.' '.mysql_error());
             return false;

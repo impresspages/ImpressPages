@@ -74,6 +74,7 @@ class Module extends \Modules\standard\content_management\Widget{
         } else {
             $i = 0;
             while($lockField = mysql_fetch_assoc($rsField)){
+              $data['field_'.$i.'_values'] = $lockField['values'];
               $data['field_'.$i.'_name'] = $lockField['name'];
               $data['field_'.$i.'_type'] = $lockField['type'];
               $data['field_'.$i.'_required'] = $lockField['required'];

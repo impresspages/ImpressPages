@@ -44,9 +44,6 @@ class BackendWorker {
             case 'updatePage' :
                 $this->_updatePage();
                 break;
-            case 'getCreatePageForm' :
-                $this->_getCreatePageForm();
-                break;
             case 'createPage' :
                 $this->_createPage();
                 break;
@@ -59,6 +56,11 @@ class BackendWorker {
             case 'copyPage' :
                 $this->_copyPage();
                 break;
+            case 'closePage' :
+                $this->_closePage();
+                break;
+                
+              
         }
 
     }
@@ -67,12 +69,13 @@ class BackendWorker {
 
     private function _getChildren () {
         $parentType = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
-        $parentWebsiteURL = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
+        $parentWebsiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $parentLanguageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
         $parentZoneName = isset($_REQUEST['zoneName']) ? $_REQUEST['zoneName'] : null;
         $parentId = isset($_REQUEST['pageId']) ? $_REQUEST['pageId'] : null;
 
-        $list = $this->_getList ($parentType, $parentWebsiteURL, $parentLanguageId, $parentZoneName, $parentId);
+        $list = $this->_getList ($parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
+        
 
         $this->_printJson ($list);
     }
@@ -80,6 +83,13 @@ class BackendWorker {
     private function _getList ($parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId) {
         global $site;
 
+        $jsTreeId = self::_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
+
+        //store status only on local menu tree
+        if ($parentWebsiteId == 0) { 
+            $_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId] = 1;
+        }
+        
         $site->requireConfig('standard/menu_management/remotes.php');
 
         $remotes = Remotes::getRemotes();
@@ -90,22 +100,19 @@ class BackendWorker {
             case '' : //return websites
                 $websites = array();
                 $websites[0] = BASE_URL;
-                //$websites[1] = remote website1
-                //$websites[2] = remote website2
-
-
 
                 if ($parentId == null || $parentId == '') {
                     $answer[] = array(
-            				'attr' => array('id' => 'page_0', 'rel' => 'website', 'websiteId' => 0, 'pageId' => 0),
-            				'data' => BASE_URL,
-            				'state' => 'open',
-                  	'children' => $this->_getList($parentType = 'website', $parentWebsiteId = 0, $parentLanguageId = null, $parentZoneName = null, $parentId = 0)
+        				'attr' => array('id' => $this->_jsTreeId(0), 'rel' => 'website', 'websiteId' => 0, 'pageId' => 0),
+        				'data' => BASE_URL,
+                        'state' => 'open',
+                        'children' => $this->_getList('website', 0, null, null, 0)
+                    
                     );
-
+                    
                     foreach($remotes as $key => $remote) {
                         $answer[] = array(
-              				'attr' => array('id' => 'page_' . ($key + 1), 'rel' => 'website', 'websiteId' => $key + 1, 'pageId' => $key + 1),
+              				'attr' => array('id' => $this->_jsTreeId($key + 1), 'rel' => 'website', 'websiteId' => $key + 1, 'pageId' => $key + 1),
               				'data' => $remote['url'],
               				'state' => 'closed'
                 		);
@@ -126,11 +133,19 @@ class BackendWorker {
 
                 if (is_array($languages)) {
                     foreach ($languages as $languageKey => $language) {
-                        $answer[] = array(
-              				'attr' => array('id' => 'page_'.$parentWebsiteId.'_'.$language['id'], 'rel' => 'language', 'websiteId' => $parentWebsiteId, 'languageId' => $language['id'], 'pageId' => $language['id']),
+                        $jsTreeId = $this->_jsTreeId($parentWebsiteId, $language['id']);                         
+                        $page = array(
+              				'attr' => array('id' => $jsTreeId, 'rel' => 'language', 'websiteId' => $parentWebsiteId, 'languageId' => $language['id'], 'pageId' => $language['id']),
               				'data' => $language['d_short'] . '', //transform null into empty string. Null break JStree into infinite loop 
               				'state' => 'closed'
                 		);
+                		
+                        if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+                            $page['state'] = 'open';
+                            $page['children'] = $this->_getList('language', $parentWebsiteId, $language['id'], null, $language['id']);
+                        }
+                        $answer[] = $page;
+                		
                     }
                 }
 
@@ -159,12 +174,20 @@ class BackendWorker {
                         }
                     }
 
+                    $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElement['id']);                      
 
-                    $answer[] = array (
-    				'attr' => array('id' => 'page_'.$parentWebsiteId.'_'.$parentLanguageId.'_'.$zone['name'].'_'.$zoneElement['id'], 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElement['id']),
-    				'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-    				'state' => 'closed'
+                    $page = array (
+        				'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElement['id']),
+        				'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
+        				'state' => 'closed'
     				);
+    				
+                    if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+                        $page['state'] = 'open';
+                        $page['children'] = $this->_getList('zone', $parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElement['id']);
+                    }
+                    $answer[] = $page;
+    				
                 }
 
                 break;
@@ -190,11 +213,19 @@ class BackendWorker {
                     else
                     $disabled = 1;
 
-                    $answer[] = array (
-    				'attr' => array('id' => 'page_'.$parentWebsiteId.'_'.$parentLanguageId.'_'.$parentZoneName.'_'.$child['id'], 'rel' => 'page', 'disabled' => $disabled, 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $child['id']),
-    				'data' => $child['button_title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-    				'state' => 'closed'
+                    $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $child['id']);                      
+                    
+                    $page = array (
+        				'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'disabled' => $disabled, 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $child['id']),
+        				'data' => $child['button_title'] . '', //transform null into empty string. Null break JStree into infinite loop 
+        				'state' => 'closed'
     				);
+    				
+                    if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+                        $page['state'] = 'open';
+                        $page['children'] = $this->_getList('page', $parentWebsiteId, $parentLanguageId, $parentZoneName, $child['id']);
+                    }
+                    $answer[] = $page;    				
 
                 }
                 break;
@@ -280,85 +311,7 @@ class BackendWorker {
     }
 
 
-    private function _getCreatePageForm() {
-        global $site;
-        global $parametersMod;
 
-        if (!isset($_REQUEST['pageId'])) {
-            trigger_error("Page ID is not set");
-            return;
-        }
-
-        $parentPageId = $_REQUEST['pageId'];
-
-        if (!isset($_REQUEST['zoneName'])) {
-            trigger_error("Zone name is not set");
-            return false;
-        }
-
-        $parentZoneName = $_REQUEST['zoneName'];
-        $zone = $site->getZone($parentZoneName);
-
-        if (! $zone) {
-            trigger_error("Can't find zone");
-            return false;
-        }
-
-        $parentPage = $zone->getElement($parentPageId);
-
-        if (! $parentPage) {
-            trigger_error ("Page does not exist");
-            return false;
-        }
-
-        $tabs = array();
-
-        $page = new \Frontend\Element('', $parentZoneName);
-
-        if($parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages')) {
-            $page->setVisible(!$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages'));
-        }
-
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
-        $content = Template::generateTabGeneral($page, $parentPage);
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
-        $content = Template::generateTabSEO($page, $parentPage);
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
-        $content = Template::generateTabAdvanced($page, $parentPage);
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-
-        $answer = array();
-
-        $page = new \Frontend\Element('', $zoneName);
-        $page->setCreatedOn(date('Y-m-d'));
-        $page->setLastModified(date('Y-m-d'));
-        $page->setType('default');
-
-        $answer['selectedId'] = $parentPageId;
-        $answer['page']['pageId'] = $page->getId();
-        $answer['page']['zoneName'] = $page->getZoneName();
-        $answer['page']['buttonTitle'] = $page->getButtonTitle();
-        $answer['page']['visible'] = $page->getVisible();
-        $answer['page']['createdOn'] = $page->getCreatedOn();
-        $answer['page']['lastModified'] = $page->getLastModified();
-         
-        $answer['page']['pageTitle'] = $page->getPageTitle();
-        $answer['page']['keywords'] = $page->getKeywords();
-        $answer['page']['description'] = $page->getDescription();
-        $answer['page']['url'] = $page->getUrl();
-         
-        $answer['page']['type'] = $page->getType();
-        $answer['page']['redirectURL'] = $page->getRedirectUrl();
-
-        $answer['html'] = Template::generatePageProperties($tabs);
-
-        $this->_printJson ($answer);
-    }
 
 
     private function _getPageLink() {
@@ -522,51 +475,94 @@ class BackendWorker {
 
         $answer = array();
 
+        if (!isset($_REQUEST['buttonTitle'])) {
+            trigger_error('Button title is not set');
+            return;   
+        }
+        
+        $data = array();
+        
+        $data['buttonTitle'] = $_REQUEST['buttonTitle'];
+        $data['url'] = Db::makeUrl($_POST['buttonTitle']);
+        $data['createdOn'] = date("Y-m-d");
+        $data['lastModified'] = date("Y-m-d");
+        $data['visible'] = !$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages');
 
-        //make url
-        if ($_POST['url'] == '') {
-            if ($_POST['pageTitle'] != '') {
-                $_POST['url'] = Db::makeUrl($_POST['pageTitle']);
-            } else {
-                $_POST['url'] = Db::makeUrl($_POST['buttonTitle']);
-            }
+        
+        if (isset($_REQUEST['languageId'])) {
+            $language = $site->getLanguageById($_REQUEST['languageId']);
         } else {
-            $tmpUrl = str_replace("/", "-", $_POST['url']);
-            $i = 1;
-            while (!Db::availableUrl($tmpUrl)) {
-                $tmpUrl = $_POST['url'].'-'.$i;
-                $i++;
+            $languages = Db::getLanguages();
+            $languageArray = $languages[0];
+            $language = $site->getLanguageById($languageArray['id']);        
+        }
+
+        if (empty($language) || !$language) {
+            trigger_error('Can\'t find any language');
+            return;
+        }
+    
+        
+        if (isset($_REQUEST['zoneName'])) {
+            $zone = $site->getZone($_REQUEST['zoneName']);
+        } else {
+            $associatedZones = Db::getZones();            
+            $zoneArray = array_shift($associatedZones);
+            if ($zoneArray) {
+                $zone = $site->getZone($zoneArray['name']);
             }
-            $_POST['url'] = $tmpUrl;
-        }
-        //end make url
-
-
-        if (strtotime($_POST['createdOn']) === false) {
-            $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
         }
 
-        if (strtotime($_POST['lastModified']) === false) {
-            $answer['errors'][] = array('field' => 'lastModified', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
+        if (empty($zone) || $zone == false) {
+            trigger_error('Can\'t find any zone');
+            return;
+        }
+        
+        if (isset($_REQUEST['pageId'])) {
+            $parentPage = $zone->getElement($_REQUEST['pageId']);
+        }
+        
+
+        
+        if (empty($parentPage)) {
+            $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());                
+            if($parentPageId === false) { /*try to create*/
+                Db::createRootZoneElement($zone['id'], $language['id']);
+                $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());
+                if($parentPageId === false) {	/*fail to create*/
+                    trigger_error("Can't create root zone element.");
+                    return false;
+                }
+            }
+            
+            if ($parentPageId !== null) {
+                $parentPage = $zone->getElement($parentPageId);
+            }
+        }
+        
+        if (empty($parentPage)) {
+            trigger_error('Can\'t find where to create new page');
+            return;   
         }
 
-        if ($_POST['type'] == 'redirect' && $_POST['redirectURL'] == '') {
-            $answer['errors'][] = array('field' => 'redirectURL', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty'));
+         
+        $newPageId = Db::insertPage($parentPage->getId(), $data);
+
+        $answer['status'] = 'success';
+        
+        //find language
+        require_once(BASE_DIR.FRONTEND_DIR.'db.php');
+        $tmpId = $parentPage->getId();
+        $element = \Modules\standard\content_management\DbFrontend::getElement($tmpId);
+        while($element['parent'] !== null) {
+          $tmpUrlVars[] = $element['url'];
+          $element = \Modules\standard\content_management\DbFrontend::getElement($element['parent']);
         }
-
-        if (empty($answer['errors'])) {
-
-            $_POST['createdOn'] = date("Y-m-d", strtotime($_POST['createdOn']));
-            $_POST['lastModified'] = date("Y-m-d", strtotime($_POST['lastModified']));
-
-            $visible = $_POST['visible'];
-
-            $newPageId = Db::insertPage($_POST['parentId'], $_POST);
-
-            $answer['status'] = 'success';
-            $answer['page']['id'] = $newPageId;
-        }
-
+        $languageId = \Modules\standard\content_management\DbFrontend::languageByRootElement($element['id']);        
+        //end find language
+        
+        $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
+       
         $this->_printJson ($answer);
     }
 
@@ -743,6 +739,22 @@ class BackendWorker {
             }
         }
     }
+    
+    /**
+     * Remove page from session as open one.
+     * 
+     */
+    private function _closePage () {
+        $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
+        $websiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
+        $languageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
+        $zoneName = isset($_REQUEST['zoneName']) ? $_REQUEST['zoneName'] : null;
+        $id = isset($_REQUEST['pageId']) ? $_REQUEST['pageId'] : null;        
+        
+        $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);                      
+
+        unset($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId]);       
+    }
 
 
     /**
@@ -792,6 +804,21 @@ class BackendWorker {
         return $responseData['response'];
     }
 
+    
+    private function _jsTreeId($websiteId, $languageId = null, $zoneName = null, $id = null) {
+		$answer = 'page_' . $websiteId;
+		if($languageId !== null && $languageId !== '') {
+		    $answer .= '_' . $languageId;
+        	if($zoneName !== null && $zoneName !== '') {
+    		    $answer .= '_' . $zoneName;
+            	if($id !== null && $id !== '') {
+        		    $answer .= '_' . $id;
+        		}		
+        	}		
+		}
+		return $answer;
+    }
+    
 
     private function _printJson ($data) {
         header("HTTP/1.0 200 OK");
