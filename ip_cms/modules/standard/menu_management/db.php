@@ -210,7 +210,7 @@ class Db {
 
         $values .= ' parent = '.(int)$parentId;
         $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
-
+        
         if (isset($params['button_title'])) {
             $params['buttonTitle'] = $params['button_title'];
         }

@@ -483,6 +483,7 @@ class BackendWorker {
         $data = array();
         
         $data['buttonTitle'] = $_REQUEST['buttonTitle'];
+        $data['pageTitle'] = $_REQUEST['buttonTitle'];        
         $data['url'] = Db::makeUrl($_POST['buttonTitle']);
         $data['createdOn'] = date("Y-m-d");
         $data['lastModified'] = date("Y-m-d");

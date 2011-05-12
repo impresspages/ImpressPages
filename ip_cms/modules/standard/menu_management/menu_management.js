@@ -18,8 +18,6 @@ $(document).ready(function() {
   $('#tree').bind('select_node.jstree', updatePageForm);
   $('#tree').bind('close_node.jstree', closeNode);
 
-  $('#treeopup').bind('select_node.jstree', treePopupSelect);
-
   $('#controlls').delegate('#buttonNewPage', 'click', createPageForm);
   $('#controlls').delegate('#buttonDeletePage', 'click', deletePageConfirm);
   $('#controlls').delegate('#buttonCopyPage', 'click', copyPage);
@@ -124,7 +122,7 @@ function initializeTreeManagement(id) {
       'select_limit' : 1,
       'select_multiple_modifier' : 'alt',
       'selected_parent_close' : 'select_parent',
-      'select_prev_on_delete' : true,
+      'select_prev_on_delete' : true
     },
 
     'cookies' : {
@@ -147,6 +145,10 @@ function initializeTreeManagement(id) {
 
   if (id == 'tree') {
     $("#" + id).bind("move_node.jstree", movePage);
+  }
+  
+  if (id == 'treePopup') {
+      $('#treePopup').bind('select_node.jstree', treePopupSelect);
   }
 
 }
@@ -171,7 +173,7 @@ function jsTreeCustomMenu(node) {
                 "label"             : textNewPage,
                 "action"            : function (obj) { createPageForm(); },
                 "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false,
+                "icon"              : false
             }
         };
         
@@ -189,21 +191,21 @@ function jsTreeCustomMenu(node) {
                 "label"             : textEdit,
                 "action"            : function (obj) { deletePageConfirm(); },
                 "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false,
+                "icon"              : false
             },          
             
             "newPage" : {
                 "label"             : textNewPage,
                 "action"            : function (obj) { createPageForm(); },
                 "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false,
+                "icon"              : false
             },
                 
             "delete" : {
                 "label"             : textDelete,
                 "action"            : function (obj) { deletePageConfirm(); },
                 "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false,
+                "icon"              : false
             }    
         };
     }
@@ -214,9 +216,9 @@ function jsTreeCustomMenu(node) {
 }
 
 
-function closeNode (obj, obj2) {
+function closeNode (event, data) {
     
-    node = $(obj2.rslt.obj[0]);
+    node = $(data.rslt.obj[0]);
     var data = new Object; 
 
     //console.log(node2.rstl.obj[0].attr('langaugeId'));
@@ -326,7 +328,6 @@ function deletePageConfirm() {
   var node = tree.get_selected();
 
   if (!node || (node.attr('rel') != 'page')) {
-    alert('select page');
     return;
   }
 
@@ -627,8 +628,15 @@ function movePageResponse(response) {
  * Mark current page as copied
  */
 function copyPage() {
+    
   var tree = jQuery.jstree._reference('#tree');
-  tree.copiedNode = tree.get_selected();
+  var node = tree.get_selected();
+  
+  if (!node || (node.attr('rel') != 'page')) {
+      return;
+  }    
+  
+  tree.copiedNode = node; 
   $('#buttonPastePage').removeClass('ui-state-disabled');
 }
 
@@ -638,8 +646,7 @@ function copyPage() {
 function pastePage() {
   var tree = jQuery.jstree._reference('#tree');
   var selectedNode = tree.get_selected();
-  if (!selectedNode || selectedNode.attr('rel') != 'zone' && selectedNode.attr('rel') != 'page') {
-    alert('Please select the page');
+  if (!tree.copiedNode || !selectedNode || selectedNode.attr('rel') != 'zone' && selectedNode.attr('rel') != 'page') {
     return;
   }
 
@@ -684,6 +691,7 @@ function pastePageResponse(response) {
  * @param data
  */
 function treePopupSelect(event, data) {
+
   var tree = jQuery.jstree._reference('#treePopup');
   var node = tree.get_selected();
 
@@ -708,15 +716,6 @@ function treePopupSelect(event, data) {
 
 
 
-function treeSelectedNode(treeId) {
-    var tree = jQuery.jstree._reference(treeId);
-    var node = tree.get_selected();    
-    if (node.attr('id'))  {
-        return node;
-    } else {
-        return false;
-    }
-}
 
 /**
  * Select page on internal linking popup response
@@ -751,6 +750,21 @@ function openInternalLinkingTree() {
 function closeInternalLinkingTree() {
   $('.ui-widget-overlay').unbind('click');
   $('#treePopup').dialog('close');
+}
+
+/**
+ * Custom function to overcome some jsTree bug.
+ * @param treeId
+ * @returns
+ */
+function treeSelectedNode(treeId) {
+    var tree = jQuery.jstree._reference(treeId);
+    var node = tree.get_selected();    
+    if (node.attr('id'))  {
+        return node;
+    } else {
+        return false;
+    }
 }
 
 function fixLayout() {
