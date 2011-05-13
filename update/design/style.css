@@ -249,3 +249,7 @@ form strong{
 div.clear{
 	clear: both;
 }
+
+#content li {
+    margin-left: 17px;	
+}
