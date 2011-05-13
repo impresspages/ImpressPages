@@ -13,7 +13,6 @@ if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
-require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
 require_once (BASE_DIR.MODULE_DIR.'developer/modules/db.php');
 
 class Module{
