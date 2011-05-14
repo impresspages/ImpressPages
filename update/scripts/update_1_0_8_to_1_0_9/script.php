@@ -239,22 +239,22 @@ class Script {
             
             $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
             if ($group) {
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'general')) {
                     \Db_100::addStringParameter($group['id'], 'General', 'general', 'General', 1);
                 }
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'seo')) {
                     \Db_100::addStringParameter($group['id'], 'Seo', 'seo', 'SEO', 1);
                 }
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'advanced')) {
                     \Db_100::addStringParameter($group['id'], 'Advanced', 'advanced', 'Advanced', 1);
                 }
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'copy')) {
                     \Db_100::addStringParameter($group['id'], 'Copy', 'copy', 'Copy', 1);
                 }
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'paste')) {
                     \Db_100::addStringParameter($group['id'], 'Paste', 'paste', 'Paste', 1);
                 }
-                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'warning_not_saved')) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'cancel')) {
                     \Db_100::addStringParameter($group['id'], 'Cancel', 'cancel', 'Cancel', 1);
                 }
             }

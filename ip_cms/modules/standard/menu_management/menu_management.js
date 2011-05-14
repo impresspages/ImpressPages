@@ -210,12 +210,12 @@ function jsTreeCustomMenu(node) {
          
     
     if ($(node).attr('rel') == 'page' && $(node).attr('websiteId') == 0) {
-        items.delete = {
+        items.del = {
             "label"             : textDelete,
             "action"            : function (obj) { deletePageConfirm(); },
             "_class"            : "class",  // class is applied to the item LI node
             "icon"              : false
-        }    
+        };    
     };
 
 
