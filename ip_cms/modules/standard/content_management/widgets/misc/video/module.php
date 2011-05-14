@@ -77,6 +77,9 @@ class Module extends \Modules\standard\content_management\Widget{
     }    
 
     $data = mysql_fetch_assoc($rs);
+    
+    $data['photo'] = BASE_DIR.VIDEO_DIR.$data['photo'];
+    
     return $data;
     
     

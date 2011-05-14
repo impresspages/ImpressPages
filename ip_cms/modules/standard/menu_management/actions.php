@@ -102,6 +102,38 @@ class Actions {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
             $widget['data'] = $widgetObject->getData($widget['module_id']);
+            
+            switch ($widget['group_key'].'/'.$widget['module_key']) {
+                case 'text_photos/photo':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    break;
+                case 'text_photos/text_photo':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    break;
+                case 'misc/file':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    break;
+                case 'misc/video':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    break;   
+                case 'text_photos/logo_gallery':
+                    foreach($widget['data']['logos'] as $logoKey => $logo){
+                        $tmpValues = array();
+                        $logo['logo'] = str_replace(BASE_DIR, BASE_URL, $logo['logo']);
+                    }
+                    break;
+                case 'text_photos/photo_gallery':
+                    foreach($widget['data']['photos'] as $photoKey => $photo){
+                        $tmpValues = array();
+                        $photo['photo'] = str_replace(BASE_DIR, BASE_URL, $photo['photo']);
+                        $photo['photo_big'] = str_replace(BASE_DIR, BASE_URL, $photo['photo_big']);
+                    }
+                    break;
+            }
+            
+            
         }
         $page['widgets'] = $widgets;
 

@@ -83,10 +83,12 @@ class Module extends \Modules\standard\content_management\Widget{
     
     $data['logos'] = array ();
     
-    $sql2 = "select * from `".DB_PREF."mc_text_photos_logo_gallery_logo` where `logo_gallery` = '".(int)$data['id']."' order by `row_number` ";
+    $sql2 = "select * from `".DB_PREF."mc_text_photos_logo_gallery_logo` where `logo_gallery` = '".(int)$data['id']."' order by `row_number` desc";
     $rs2 = mysql_query($sql2);
     if($rs2){
         while($logo = mysql_fetch_assoc($rs2)){
+            $logo['logo'] = BASE_DIR.IMAGE_DIR.$logo['logo'];
+            
             $data['logos'][] = $logo; 
         }
     } else {

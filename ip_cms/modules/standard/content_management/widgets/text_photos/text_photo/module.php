@@ -72,8 +72,12 @@ class Module extends \Modules\standard\content_management\Widget{
         trigger_error($sql.' '.mysql_error());
         return false;
     }
-        
+    
     $data = mysql_fetch_assoc($rs);
+    
+    $data['photo'] = BASE_DIR.IMAGE_DIR.$data['photo'];
+    $data['photo_big'] = BASE_DIR.IMAGE_DIR.$data['photo_big'];
+    
     return $data;
   }  
 

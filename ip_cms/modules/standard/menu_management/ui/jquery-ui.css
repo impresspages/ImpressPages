@@ -66,7 +66,7 @@
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #ffbb44; background: #fceac9 url(images/ui-bg_glass_100_fceac9_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #264971; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #ffbb44; background: #fceac9; font-weight: bold; color: #264971; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #264971; text-decoration: none; }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #f5a417; background: #f6e0b5 url(images/ui-bg_inset-soft_75_f6e0b5_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #000000; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #000000; text-decoration: none; }

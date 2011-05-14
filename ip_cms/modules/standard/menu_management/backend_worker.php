@@ -754,13 +754,17 @@ class BackendWorker {
     private function _createPagesRecursion ($targetPageId, $pages) {
         foreach ($pages as $pageKey => $page) {
             
-            Db::insertPage($targetPageId, $page);
+            $newPageId = Db::insertPage($targetPageId, $page);
+            if ($newPageId == false) {
+                return;
+            }
+                
             foreach ($page['widgets'] as $widgetKey => $widget) {
-               Model::addWidget($targetId = $page['id'], $widget['data'], $widget); 
+               Model::addWidget($targetId = $newPageId, $widget['data'], $widget); 
             }
             
             if (! empty($page['subpages'])) {
-                self::_createPagesRecursion($page['id'], $page['subpages']);
+                self::_createPagesRecursion($newPageId, $page['subpages']);
             }
         }
     }
@@ -825,7 +829,7 @@ class BackendWorker {
             trigger_error('Incorrect response from the server '.$response);
             return;
         }
-
+        
         return $responseData['response'];
     }
 

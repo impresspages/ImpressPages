@@ -140,24 +140,24 @@ class Model {
         switch($widget['group_key'].'/'.$widget['module_key']){
 
             case 'text_photos/photo':
-                $values['new_photo'] = $values['photo'];
-                $values['new_bigphoto'] = $values['photo_big'];
-                copy(BASE_DIR.IMAGE_DIR.$values['photo'], BASE_DIR.TMP_IMAGE_DIR.$values['photo']);
-                copy(BASE_DIR.IMAGE_DIR.$values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$values['photo_big']);
+                $values['new_photo'] = basename($values['photo']);
+                $values['new_bigphoto'] = basename($values['photo_big']);
+                copy($values['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo']));
+                copy($values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo_big']));
                 break;
             case 'text_photos/text_photo':
-                $values['new_photo'] = $values['photo'];
-                $values['new_bigphoto'] = $values['photo_big'];
-                copy(BASE_DIR.IMAGE_DIR.$values['photo'], BASE_DIR.TMP_IMAGE_DIR.$values['photo']);
-                copy(BASE_DIR.IMAGE_DIR.$values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$values['photo_big']);
+                $values['new_photo'] = basename($values['photo']);
+                $values['new_bigphoto'] = basename($values['photo_big']);
+                copy($values['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo']));
+                copy($values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo_big']));
                 break;
             case 'misc/file':
-                $values['new_photo'] = $values['photo'];
-                copy(BASE_DIR.FILE_DIR.$values['photo'], BASE_DIR.TMP_FILE_DIR.$values['photo']);
+                $values['new_photo'] = basename($values['photo']);
+                copy($values['photo'], BASE_DIR.TMP_FILE_DIR.basename($values['photo']));
                 break;
             case 'misc/video':
-                $values['new_photo'] = $values['photo'];
-                copy(BASE_DIR.VIDEO_DIR.$values['photo'], BASE_DIR.TMP_VIDEO_DIR.$values['photo']);
+                $values['new_photo'] = basename($values['photo']);
+                copy($values['photo'], BASE_DIR.TMP_VIDEO_DIR.basename($values['photo']));
                 break;
         }
         
@@ -179,8 +179,8 @@ class Model {
                 $galleryId = $lockMax['max_id'];
                 foreach($values['logos'] as $logoKey => $logo){
                     $tmpValues = array();
-                    copy(BASE_DIR.IMAGE_DIR.$logo['logo'], BASE_DIR.TMP_IMAGE_DIR.$logo['logo']);
-                    $tmpValues['new_photo1'] = $logo['logo'];
+                    copy($logo['logo'], BASE_DIR.TMP_IMAGE_DIR.basename($logo['logo']));
+                    $tmpValues['new_photo1'] = basename($logo['logo']);
                     $tmpValues['title1'] = $logo['link'];
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
                 }
@@ -198,10 +198,10 @@ class Model {
 
                 foreach($values['photos'] as $photoKey => $photo){
                     $tmpValues = array();
-                    copy(BASE_DIR.IMAGE_DIR.$photo['photo'], BASE_DIR.TMP_IMAGE_DIR.$photo['photo']);
-                    copy(BASE_DIR.IMAGE_DIR.$photo['photo_big'], BASE_DIR.TMP_IMAGE_DIR.$photo['photo_big']);
-                    $tmpValues['new_photo1'] = $photo['photo'];
-                    $tmpValues['new_bigphoto1'] = $photo['photo_big'];
+                    copy($photo['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($photo['photo']));
+                    copy($photo['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($photo['photo_big']));
+                    $tmpValues['new_photo1'] = basename($photo['photo']);
+                    $tmpValues['new_bigphoto1'] = basename($photo['photo_big']);
                     $tmpValues['title1'] = $photo['title'];
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
                 }

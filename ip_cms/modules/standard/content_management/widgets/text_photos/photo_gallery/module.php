@@ -82,10 +82,13 @@ class Module extends \Modules\standard\content_management\Widget{
     
     $data['photos'] = array ();
     
-    $sql2 = "select * from `".DB_PREF."mc_text_photos_photo_gallery_photo` where `photo_gallery` = '".(int)$data['id']."' order by `row_number` ";
+    $sql2 = "select * from `".DB_PREF."mc_text_photos_photo_gallery_photo` where `photo_gallery` = '".(int)$data['id']."' order by `row_number` desc";
     $rs2 = mysql_query($sql2);
     if($rs2){
         while($photo = mysql_fetch_assoc($rs2)){
+            $photo['photo'] = BASE_DIR.IMAGE_DIR.$photo['photo'];
+            $photo['photo_big'] = BASE_DIR.IMAGE_DIR.$photo['photo_big'];
+            
             $data['photos'][] = $photo; 
         }
     } else {
