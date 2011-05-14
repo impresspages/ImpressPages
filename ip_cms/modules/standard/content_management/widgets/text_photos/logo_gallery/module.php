@@ -69,14 +69,14 @@ class Module extends \Modules\standard\content_management\Widget{
 
     $sql = "select * from `".DB_PREF."mc_text_photos_logo_gallery` where `id` = '".(int)$id."' ";
     $rs = mysql_query($sql);
-    if($rs){
+    if(!$rs){
         trigger_error($sql.' '.mysql_error());
         return false;
     }
 
     $data = mysql_fetch_assoc($rs);
     
-    if (!$lock) {
+    if (!$data) {
         trigger_error('Can\'t find widget');
         return false;
     }

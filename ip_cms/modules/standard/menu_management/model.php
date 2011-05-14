@@ -182,7 +182,7 @@ class Model {
                     copy(BASE_DIR.IMAGE_DIR.$logo['logo'], BASE_DIR.TMP_IMAGE_DIR.$logo['logo']);
                     $tmpValues['new_photo1'] = $logo['logo'];
                     $tmpValues['title1'] = $logo['link'];
-                    $widget->insert_photo($galleryId, 1, $tmpValues);
+                    $widgetObject->insert_photo($galleryId, 1, $tmpValues);
                 }
                 break;
             case 'text_photos/photo_gallery':
@@ -203,7 +203,7 @@ class Model {
                     $tmpValues['new_photo1'] = $photo['photo'];
                     $tmpValues['new_bigphoto1'] = $photo['photo_big'];
                     $tmpValues['title1'] = $photo['title'];
-                    $widget->insert_photo($galleryId, 1, $tmpValues);
+                    $widgetObject->insert_photo($galleryId, 1, $tmpValues);
                 }
                 break;
                 

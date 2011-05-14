@@ -64,11 +64,14 @@ class Module extends \Modules\standard\content_management\Widget{
   function getData($id) {
     $sql = "select * from `".DB_PREF."mc_misc_file` where `id` = '".(int)$id."' ";
     $rs = mysql_query($sql);
-    if($rs){
-        $data = mysql_fetch_assoc($rs);
-        return $data;
-    }   
-    return false;   
+    
+    if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+        return false;
+    }    
+
+    $data = mysql_fetch_assoc($rs);
+    return $data;
   }    
   
 

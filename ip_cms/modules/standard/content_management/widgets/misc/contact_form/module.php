@@ -63,28 +63,32 @@ class Module extends \Modules\standard\content_management\Widget{
   function getData($id) {
     $sql = "select * from `".DB_PREF."mc_misc_contact_form` where `id` = '".(int)$id."' ";
     $rs = mysql_query($sql);
-    if($rs){
-        $data = mysql_fetch_assoc($rs);
+    
+    if(!$rs){
+        trigger_error($sql.' '.mysql_error());
+        return false;
+    }    
+    
+    $data = mysql_fetch_assoc($rs);
         
-        $sqlField = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$id."' order by id asc";
-        $rsField = mysql_query($sqlField);
-        if(!$rsField){
-            trigger_error($sql.' '.mysql_error());
-            return false;
-        } else {
-            $i = 0;
-            while($lockField = mysql_fetch_assoc($rsField)){
-              $data['field_'.$i.'_values'] = $lockField['values'];
-              $data['field_'.$i.'_name'] = $lockField['name'];
-              $data['field_'.$i.'_type'] = $lockField['type'];
-              $data['field_'.$i.'_required'] = $lockField['required'];
-              $i++;
-            }  
-        }      
+    $sqlField = "select * from `".DB_PREF."mc_misc_contact_form_field` where `contact_form` = '".(int)$id."' order by id asc";
+    $rsField = mysql_query($sqlField);
+    if(!$rsField){
+        trigger_error($sql.' '.mysql_error());
+        return false;
+    } else {
+        $i = 0;
+        while($lockField = mysql_fetch_assoc($rsField)){
+          $data['field_'.$i.'_values'] = $lockField['values'];
+          $data['field_'.$i.'_name'] = $lockField['name'];
+          $data['field_'.$i.'_type'] = $lockField['type'];
+          $data['field_'.$i.'_required'] = $lockField['required'];
+          $i++;
+        }  
+    }      
         
-        return $data;
-    }   
-    return false;   
+    return $data;
+       
   }    
    
   function getLayout($id){

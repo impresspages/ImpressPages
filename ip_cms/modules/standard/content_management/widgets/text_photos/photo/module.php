@@ -65,7 +65,7 @@ class Module extends \Modules\standard\content_management\Widget{
   function getData($id) {
     $sql = "select * from `".DB_PREF."mc_text_photos_photo` where `id` = '".(int)$id."' ";
     $rs = mysql_query($sql);
-    if($rs){
+    if(!$rs){
         trigger_error($sql.' '.mysql_error());
         return false;           
     }

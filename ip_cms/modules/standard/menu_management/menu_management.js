@@ -172,7 +172,7 @@ function jsTreeCustomMenu(node) {
     if ($(node).attr('rel') == 'page' && $(node).attr('websiteId') == 0) {
         items.edit = {
             "label"             : textEdit,
-            "action"            : function (obj) { deletePageConfirm(); },
+            "action"            : function (obj) { editPage(); },
             "_class"            : "class",  // class is applied to the item LI node
             "icon"              : false
         };
@@ -223,6 +223,38 @@ function jsTreeCustomMenu(node) {
 
 }
 
+
+function editPage () {
+    var tree = jQuery.jstree._reference('#tree');
+    var node = tree.get_selected();
+
+    data = Object();
+    data.id = node.attr('id');
+    data.pageId = node.attr('pageId');
+    data.zoneName = node.attr('zoneName');
+    data.websiteId = node.attr('websiteId');
+    data.languageId = node.attr('languageId');
+    data.zoneName = node.attr('zoneName');
+    data.type = node.attr('rel');
+    data.action = 'getPageLink';
+
+    $.ajax({
+      type : 'POST',
+      url : postURL,
+      data : data,
+      success : editPageResponse,
+      dataType : 'json'
+    });
+}
+
+function editPageResponse (response) {
+    if (!response || !response.link) {
+        return;
+    }
+    
+    document.location = response.link + '?cms_action=manage';
+    
+}
 
 function closeNode (event, data) {
     
