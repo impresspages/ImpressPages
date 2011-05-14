@@ -53,6 +53,8 @@ class Template {
         var textDelete = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'\';
         var textEdit = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'edit')).'\';
         var textNewPage = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'\';
+        var textCopy = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'\';
+        var textPaste = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'paste')).'\';
     </script>
     <div>
     	<div id="sideBar" class="ui-widget-content ui-resizable">

@@ -616,13 +616,23 @@ class BackendWorker {
         }
         $destinationPageId = $_REQUEST['destinationPageId'];
 
+        //check if destination page exists
+        $pageZone = $site->getZone($zoneName);
+        $destinationPage = $pageZone->getElement($destinationPageId);
+        if (!$destinationPage) {
+            trigger_error("Destination page does not exist");
+            return false;
+        }
+
+        
+        
         if (!isset($_REQUEST['destinationPosition'])) {
             trigger_error("Destination position is not set");
             return false;
         }
         $destinationPosition = $_REQUEST['destinationPosition'];
 
-
+        
 
         //report url cange
         $pageZone = $site->getZone($zoneName);
@@ -682,6 +692,12 @@ class BackendWorker {
         }
         $websiteId = $_REQUEST['websiteId'];
                 
+        if (!isset($_REQUEST['zoneName'])) {
+            trigger_error("Zone name is not set");
+            return false;
+        }
+        $zoneName = $_REQUEST['zoneName'];        
+        
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -694,6 +710,14 @@ class BackendWorker {
         }
         $destinationPageId = $_REQUEST['destinationPageId'];
 
+        //check if destination page exists
+        $pageZone = $site->getZone($zoneName);
+        $destinationPage = $pageZone->getElement($destinationPageId);
+        if (!$destinationPage) {
+            trigger_error("Destination page does not exist");
+            return false;
+        }
+        
         
         if ($websiteId == 0) { //local page
             $children = Db::pageChildren($destinationPageId);

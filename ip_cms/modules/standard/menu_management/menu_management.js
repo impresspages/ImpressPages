@@ -160,55 +160,63 @@ function initializeTreeManagement(id) {
  * @returns array context menu items
  */
 function jsTreeCustomMenu(node) {
-    var items = false;
-    
-    if ($(node).attr('rel') == 'zone') {
-        items = {
-            "rename" : false,
-            "create" : false,
-            "remove" : false,
-            "ccp" : false,
-            
-            "newPage" : {
-                "label"             : textNewPage,
-                "action"            : function (obj) { createPageForm(); },
-                "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false
-            }
-        };
-        
+    items = {
+        "rename" : false,
+        "create" : false,
+        "remove" : false,
+        "ccp" : false
     }
     
+
+    
+    if ($(node).attr('rel') == 'page' && $(node).attr('websiteId') == 0) {
+        items.edit = {
+            "label"             : textEdit,
+            "action"            : function (obj) { deletePageConfirm(); },
+            "_class"            : "class",  // class is applied to the item LI node
+            "icon"              : false
+        };
+    };
+     
+    
+    if (($(node).attr('rel') == 'page' || $(node).attr('rel') == 'zone') && $(node).attr('websiteId') == 0) {
+        items.newPage = {
+            "label"             : textNewPage,
+            "action"            : function (obj) { createPageForm(); },
+            "_class"            : "class",  // class is applied to the item LI node
+            "icon"              : false
+        };
+    };
     
     if ($(node).attr('rel') == 'page') {
-        var items = {
-            "rename" : false,
-            "create" : false,
-            "remove" : false,
-            "ccp" : false,
-            
-            "edit" : {
-                "label"             : textEdit,
-                "action"            : function (obj) { deletePageConfirm(); },
-                "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false
-            },          
-            
-            "newPage" : {
-                "label"             : textNewPage,
-                "action"            : function (obj) { createPageForm(); },
-                "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false
-            },
-                
-            "delete" : {
-                "label"             : textDelete,
-                "action"            : function (obj) { deletePageConfirm(); },
-                "_class"            : "class",  // class is applied to the item LI node
-                "icon"              : false
-            }    
+        items.copy = {
+            "label"             : textCopy,
+            "action"            : function (obj) { copyPage(); },
+            "_class"            : "class",  // class is applied to the item LI node
+            "icon"              : false
         };
-    }
+    };
+     
+    
+    var tree = jQuery.jstree._reference('#tree');
+    if (($(node).attr('rel') == 'page' || $(node).attr('rel') == 'zone') && tree.copiedNode && $(node).attr('websiteId') == 0) {
+        items.paste = {
+            "label"             : textPaste,
+            "action"            : function (obj) { pastePage(); },
+            "_class"            : "class",  // class is applied to the item LI node
+            "icon"              : false
+        };
+    };
+         
+    
+    if ($(node).attr('rel') == 'page' && $(node).attr('websiteId') == 0) {
+        items.delete = {
+            "label"             : textDelete,
+            "action"            : function (obj) { deletePageConfirm(); },
+            "_class"            : "class",  // class is applied to the item LI node
+            "icon"              : false
+        }    
+    };
 
 
     return items;
@@ -221,7 +229,7 @@ function closeNode (event, data) {
     node = $(data.rslt.obj[0]);
     var data = new Object; 
 
-    //console.log(node2.rstl.obj[0].attr('langaugeId'));
+
     data.languageId = node.attr('languageId');
     data.rel = node.attr('rel');
     data.pageId = node.attr('pageId');
@@ -245,21 +253,23 @@ function closeNode (event, data) {
  */
 function createPageForm() {
   
-  
-  var buttons = new Array;
-  
-  buttons.push({ text : textSave, click : createPage});
-  buttons.push({ text : textCancel, click : function () {$(this).dialog("close")} });
+    var node = treeSelectedNode('#tree');
 
   
-  $('#createPageForm').dialog({
-    autoOpen : true,
-    modal : true,
-    resizable : false,
-    buttons : buttons
-  });
-
-  return;
+    var buttons = new Array;
+      
+    buttons.push({ text : textSave, click : createPage});
+    buttons.push({ text : textCancel, click : function () {$(this).dialog("close")} });
+    
+      
+    $('#createPageForm').dialog({
+        autoOpen : true,
+        modal : true,
+        resizable : false,
+        buttons : buttons
+    });
+    
+    return;
 
 }
 
@@ -358,7 +368,7 @@ function deletePageConfirm() {
 function deletePageResponse(response) {
   if (response && response.status == 'success') {
     var tree = jQuery.jstree._reference('#tree');
-    var selectedNode = tree.get_selected()
+    var selectedNode = tree.get_selected();
     tree.deselect_all(); //without it get_selected returns the same deleted page
 
     var path = tree.get_path(selectedNode, true);
@@ -405,6 +415,14 @@ function updatePageForm(event, data) {
             $('#buttonPastePage').addClass('ui-state-disabled');
         }
       break;  
+  }
+  
+  if (node.attr('websiteId') != 0) {
+      $('#buttonNewPage').addClass('ui-state-disabled');
+      $('#buttonDeletePage').addClass('ui-state-disabled');
+      $('#buttonPastePage').addClass('ui-state-disabled');
+      $('#pageProperties').html('');
+      return;
   }
   
   
