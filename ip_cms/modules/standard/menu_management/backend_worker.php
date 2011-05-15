@@ -158,33 +158,43 @@ class BackendWorker {
                     $zones = Db::getZones();
                 } else {
                     $remote = $remotes[$parentWebsiteId-1];
-                    $zones = $this->_remoteRequest($remote, 'getZones');
+                    $data = array (
+                        'parentId' => $parentId
+                    );                    
+                    $zones = $this->_remoteRequest($remote, 'getZones', $data);
                 }
                 
 
                 foreach ($zones as $zoneKey => $zone) {
-                    $zoneElement = Db::rootContentElement($zone['id'], $parentId);
-
-                    if($zoneElement == null) { /*try to create*/
-                        Db::createRootZoneElement($zone['id'], $parentId);
+                    if ($parentWebsiteId == 0) {
                         $zoneElement = Db::rootContentElement($zone['id'], $parentId);
-                        if($zoneElement == null) {	/*fail to create*/
-                            trigger_error("Can't create root zone element.");
-                            return false;
+    
+                        
+                        if($zoneElement == null) { /*try to create*/
+                            Db::createRootZoneElement($zone['id'], $parentId);
+                            $zoneElement = Db::rootContentElement($zone['id'], $parentId);
+                            if($zoneElement == null) {	/*fail to create*/
+                                trigger_error("Can't create root zone element.");
+                                return false;
+                            }
                         }
+                        $zoneElementId = $zoneElement;
+                    } else {
+                        $zoneElementId = $zone['elementId'];
                     }
+                    
 
-                    $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElement['id']);                      
+                    $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElementId);                      
 
                     $page = array (
-        				'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElement['id']),
+        				'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElementId),
         				'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
         				'state' => 'closed'
     				);
     				
                     if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $page['state'] = 'open';
-                        $page['children'] = $this->_getList('zone', $parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElement['id']);
+                        $page['children'] = $this->_getList('zone', $parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElementId);
                     }
                     $answer[] = $page;
     				

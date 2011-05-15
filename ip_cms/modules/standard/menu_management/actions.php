@@ -44,6 +44,28 @@ class Actions {
                     return;
                 }
                 $zones = Db::getZones();
+                
+                if (!isset($_REQUEST['parentId'])) {
+                    trigger_error('Parent ID is not set');
+                    return;
+                }                
+                $parentId = $_REQUEST['parentId'];
+                
+                foreach ($zones as $zoneKey => &$zone) {
+                    $zoneElement = Db::rootContentElement($zone['id'], $parentId);
+
+                    
+                    if($zoneElement == null) { /*try to create*/
+                        Db::createRootZoneElement($zone['id'], $parentId);
+                        $zoneElement = Db::rootContentElement($zone['id'], $parentId);
+                        if($zoneElement == null) {	/*fail to create*/
+                            trigger_error("Can't create root zone element.");
+                            return false;
+                        }
+                    }
+                    $zone['elementId'] = $zoneElement;
+                }                            
+                
                 $data = array (
                     'status' => 'success',
                     'response' => $zones

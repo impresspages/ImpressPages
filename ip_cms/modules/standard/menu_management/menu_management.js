@@ -497,8 +497,7 @@ function updatePageFormResponse(response) {
     tree.selectedPageZoneName = response.page.zoneName;
 
     $('#formGeneral input[name="buttonTitle"]').val(response.page.buttonTitle);
-    $('#formGeneral input[name="visible"]').attr('checked',
-        response.page.visible ? 1 : 0);
+    $('#formGeneral input[name="visible"]').attr('checked', response.page.visible == 1 ? true : false);
     $('#formGeneral input[name="createdOn"]').val(
         response.page.createdOn.substr(0, 10));
     $('#formGeneral input[name="lastModified"]').val(
