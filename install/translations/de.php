@@ -9,7 +9,7 @@ define('IP_MAGIC_QUOTES', 'Magic quotes (abgeschaltet Pflicht)');
 define('IP_OK', 'Ja');
 define('IP_ERROR', 'Nein');
 define('IP_WRITABLE', 'beschreibbar');
-define('IP_CHECK_AGAIN', 'nochmals Überprüfen');
+define('IP_CHECK_AGAIN', 'Nochmals Überprüfen');
 define('IP_BACK', 'Zurück');
 define('IP_NEXT', 'Nächstes');
 define('IP_ACCEPT', 'Akzeptieren');

@@ -44,7 +44,7 @@ if(function_exists('apache_get_modules') ) {
     $error['mod_rewrite'] = 1;
 }
 
-if (extension_loaded('gd') && function_exists('gd_info')) {
+if (!extension_loaded('gd') || !function_exists('gd_info')) {
   $error['gd_lib'] = 1;
 }
 
@@ -71,7 +71,7 @@ else
 
   
 $table[] = IP_GD_LIB;
-if(isset($error['magic_quotes']))
+if(isset($error['gd_lib']))
   $table[] = '<span class="error">'.IP_ERROR."</span>";
 else
   $table[] = '<span class="correct">'.IP_OK.'</span>';
