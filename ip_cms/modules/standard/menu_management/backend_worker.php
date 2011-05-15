@@ -218,18 +218,24 @@ class BackendWorker {
                 
                 foreach($children as $childKey => $child) {
 
-                    if ($child['visible'])
-                    $disabled = 0;
-                    else
-                    $disabled = 1;
+                    if ($child['visible']) {
+                        $icon = '';
+                        $disabled = 0;
+                    } else {
+                        $icon = BASE_URL.MODULE_DIR.'standard/menu_management/img/file_hidden.png';
+                        $disabled = 1;
+                    }
 
                     $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $child['id']);                      
                     
+                    
                     $page = array (
         				'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'disabled' => $disabled, 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $child['id']),
-        				'data' => $child['button_title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-        				'state' => 'closed'
+        				'data' => array ('title' => $child['button_title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop 
+        				'state' => 'closed',
+                        'icon' => 'XXX'
     				);
+                    //    'icon' => BASE_URL.MODULE_DIR.'standard/menu_management/img/folder.png'
     				
                     if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $page['state'] = 'open';

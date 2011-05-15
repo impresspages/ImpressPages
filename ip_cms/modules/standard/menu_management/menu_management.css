@@ -121,7 +121,6 @@ form .error {
 
 .ui-widget form .submit {
 	background-color: #FCEAC9;
-    background: #FCEAC9 url("knob_background.png") repeat-x scroll 0 0 transparent;
     border: 1px solid #FFBB44;
     color: #264971;
     height: 22px;
