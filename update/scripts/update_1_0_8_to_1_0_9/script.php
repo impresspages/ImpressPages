@@ -227,7 +227,7 @@ class Script {
         $answer = '';
         if (\Db_100::getSystemVariable('version') != '1.0.9') {
 
-            $sql = "ALTER TABLE `".DB_PREF."content_element` CHANGE `row_number` `row_number` DOUBLE NOT NULL ";
+            $sql = "ALTER TABLE `".DB_PREF."content_element` CHANGE `row_number` `row_number` DOUBLE NOT NULL DEFAULT '0' ";
             $rs = mysql_query($sql);
             if (!$sql) {
                 trigger_error($sql.' '.mysql_error());
