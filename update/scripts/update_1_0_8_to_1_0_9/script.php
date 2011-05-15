@@ -261,7 +261,7 @@ class Script {
             
             
             if ($this->curStep == $this->stepCount){
-                \Db_100::setSystemVariable('version','1.0.9rc1');
+                \Db_100::setSystemVariable('version','1.0.9rc2');
             }
         }
 
