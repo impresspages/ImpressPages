@@ -645,7 +645,7 @@ class EditMenuManagement {
     global $site;
     $answer = "";
     $answer .= '
-    <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" onclick="window.open(\''.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->getCurrentUrl())).'\',\'mywindow\',\'width=600,height=450,toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,copyhistory=yes,resizable=yes\')">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
+    <span class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonPreview" href="'.str_replace("&cms_action=manage", "",str_replace("?cms_action=manage", "", $site->getCurrentUrl())).'" target="_newTab">'.$parametersMod->getValue('standard', 'content_management','admin_translations','preview').'</a></span>
     <span id="ipCmsButtonSaved" class="ipCmsButtonBg2"><span class="ipCmsButton ipCmsButtonSaved">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'saved')).'</span></span>
     <span id="ipCmsButtonSave" style="display: none;" class="ipCmsButtonBg"><a class="ipCmsButton ipCmsButtonOk" onclick="mod_management.changed = false; menu_saver.save_to_db()">'.$parametersMod->getValue('standard', 'content_management','admin_translations','save_now').'</a></span>
     <span id="ipCmsButtonWarningSave" style="display: none;" class="ipCmsButtonText">'.htmlspecialchars($parametersMod->getValue('standard', 'content_management', 'admin_translations', 'warning_not_saved')).'</span>

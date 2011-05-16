@@ -80,7 +80,33 @@ class Manager{
           else{
             $fileUpload = new \Library\Php\File\UploadFile();
             $fileUpload->allowOnly(array("php"));
-            $file = $fileUpload->upload('config', TMP_FILE_DIR); 
+            $file = $fileUpload->upload('config', TMP_FILE_DIR);
+
+            
+            //security check
+            if ($file == UPLOAD_ERR_OK && function_exists('token_get_all')){
+              $error = false;
+              $content = file_get_contents(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+              $tokens = token_get_all($content);
+              foreach($tokens as $key => $token)
+              {
+                if (is_array($token)) {
+                  if ($token[0] == 307) { 
+                    $error = true;
+                  }
+                }
+              }
+              if ($error) {
+                unlink(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+                $errors['config'] = 'Incorrect language file';
+                $answer .= HtmlOutput::header();
+                $answer .= $standardForm->generateErrorAnswer($errors);
+                $answer .= HtmlOutput::footer(); 
+                break;
+              }               
+            }            
+            //end security check
+            
             if($file == UPLOAD_ERR_OK){
               $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;
               $answer .= HtmlOutput::header();

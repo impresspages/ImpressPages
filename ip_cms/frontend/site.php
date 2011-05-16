@@ -305,20 +305,21 @@ class Site{
         } else {
           require_once(FRONTEND_DIR.'default_zone.php');
           $tmpZoneObject = new \Frontend\DefaultZone($tmpZone['name']);
-    		}
+    	}
 
-    		  $tmpZoneObject->setName($tmpZone['name']);
-    		  $tmpZoneObject->setLayout($tmpZone['template']);
-    		  $tmpZoneObject->setTitle($tmpZone['title']);
-    		  $tmpZoneObject->setUrl($tmpZone['url']);
-    		  $tmpZoneObject->setKeywords($tmpZone['keywords']);
-    		  $tmpZoneObject->setDescription($tmpZone['description']);
-    		  $tmpZoneObject->setAssociatedModuleGroup($tmpZone['associated_group']);
-    		  $tmpZoneObject->setAssociatedModule($tmpZone['associated_module']);
+    	$tmpZoneObject->setId($tmpZone['id']);
+    	$tmpZoneObject->setName($tmpZone['name']);
+    	$tmpZoneObject->setLayout($tmpZone['template']);
+    	$tmpZoneObject->setTitle($tmpZone['title']);
+    	$tmpZoneObject->setUrl($tmpZone['url']);
+    	$tmpZoneObject->setKeywords($tmpZone['keywords']);
+    	$tmpZoneObject->setDescription($tmpZone['description']);
+    	$tmpZoneObject->setAssociatedModuleGroup($tmpZone['associated_group']);
+    	$tmpZoneObject->setAssociatedModule($tmpZone['associated_module']);
 
 
-    		  $this->zones[$zoneName]['object'] = $tmpZoneObject;
-    		  //end initialize zone object
+    	$this->zones[$zoneName]['object'] = $tmpZoneObject;
+    	//end initialize zone object
       }
       return $this->zones[$zoneName]['object'];
     }else{
@@ -445,12 +446,14 @@ class Site{
             unset($_SESSION['frontend']['redirects']);   
             return;//infinite redirect loop. Stop redirecting;
           } else {
-            $_SESSION['frontend']['redirects'][$currentUrl] = 1; //to detect infinite loop
-            header('HTTP/1.1 301 Moved Permanently');
-            header('Location: '.$curEl->getLink());
-            
-            \Db::disconnect();
-            exit();
+            if (!isset($_GET['cms_action']) || $_GET['cms_action'] != 'manage_content') {
+              $_SESSION['frontend']['redirects'][$currentUrl] = 1; //to detect infinite loop
+              header('HTTP/1.1 301 Moved Permanently');
+              header('Location: '.$curEl->getLink());
+              
+              \Db::disconnect();
+              exit();
+            }
           }
         break;
       }

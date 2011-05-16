@@ -39,8 +39,8 @@ function content_mod_faq() {
   }
 
   function empty() {
-    if (this.title == ''
-      && (this.text.length < 4 || this.text == '<p><br mce_bogus="1"></p>'))
+    if (this.text == '' || this.text.length < 4
+        || this.text == '<p><br mce_bogus="1"></p>')
       return true;
     else
       return false;

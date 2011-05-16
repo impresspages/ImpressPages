@@ -155,6 +155,7 @@ class Zone extends \Frontend\Zone {
     $newElement->setCreatedOn($dbElement['created_on']);
     $newElement->setModifyFrequency($dbElement['modify_frequency']);
     $newElement->setRss($dbElement['rss']);
+    $newElement->setVisible($dbElement['visible']);
     if($firstLevel)
       $newElement->setParentId(null);
     else

@@ -275,6 +275,10 @@ function content_mod_photo_gallery() {
 	}
 
 	function upload_new_photo() {
+	  
+    document.getElementById('management_' + this.collection_number + '_error').style.display = 'none';
+
+	  
 		for ( var i = 0; i < this.backup_photos.length; i++) {
 			this.backup_photos[i].save_title('mod' + this.collection_number
 					+ '' + i + '_photo_management');

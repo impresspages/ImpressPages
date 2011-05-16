@@ -41,4 +41,20 @@ define ('IP_ERROR_COMPLETED', '
 </p>
 ');
 define ('IP_ERROR_404', '<p>Requested page not found.</p>');
-define ('IP_ERROR_NO_INFORMATION', '<p>This script have no information about your system.</p>');
+define ('IP_ERROR_NO_INFORMATION', '<p>This script has no information about your system.</p>');
+define ('IP_ERROR_UNINSTALL_COPY_CONTENT', '
+<p>This ImpressPages CMS version duplicate all "Copy content" plugin functionallity. Please uninstall this plugin and try again.</p>
+<p>
+<b>Copy content plugin removal instructions:</b><br />
+<ul>
+	<li>Login to administration area</li>
+	<li>Open "Developer -> modules" tab</li>
+	<li>Press yellow icon on line "Standard"</li>
+	<li>Press trash icon on line "Copy content"</li>
+</ul>
+</p>
+<p>
+After you will delete "Copy content" plugin, come back here and proceed update process.
+</p>
+');
+

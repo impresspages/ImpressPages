@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `ip_cms_content_element`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row_number` int(11) NOT NULL DEFAULT '0',
+  `row_number` double NOT NULL DEFAULT '0',
   `parent` int(11) DEFAULT NULL,
   `button_title` varchar(255) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '0',

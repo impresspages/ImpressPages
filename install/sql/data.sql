@@ -744,7 +744,13 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (1630, 'saved', 1, 0, '', 384, 'Saved', NULL, 'string'),
 (1631, 'save_now', 1, 0, '', 384, 'Save now', NULL, 'string'),
 (1632, 'system_message', 1, 0, '', 496, 'System message', NULL, 'string'),
-(1633, 'help', 1, 0, '', 496, 'Help', NULL, 'string');
+(1633, 'help', 1, 0, '', 496, 'Help', NULL, 'string'),
+(1634, 'general', 1, 0, '', 478, 'General', NULL, 'string'),
+(1635, 'seo', 1, 0, '', 478, 'Seo', NULL, 'string'),
+(1636, 'advanced', 1, 0, '', 478, 'Advanced', NULL, 'string'),
+(1637, 'copy', 1, 0, '', 478, 'Copy', NULL, 'string'),
+(1638, 'paste', 1, 0, '', 478, 'Paste', NULL, 'string'),
+(1639, 'cancel', 1, 0, '', 478, 'Cancel', NULL, 'string');
 
 
 -- Dumping data for table--
@@ -1396,7 +1402,13 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1165, 'Saved', 1630),
 (1166, 'Save now', 1631),
 (1167, 'System message', 1632),
-(1168, 'Help', 1633);
+(1168, 'Help', 1633),
+(1169, 'General', 1634),
+(1170, 'SEO', 1635),
+(1171, 'Advanced', 1636),
+(1172, 'Copy', 1637),
+(1173, 'Paste', 1638),
+(1174, 'Cancel', 1639);
 
 
 -- Dumping data for table--
@@ -1430,7 +1442,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '1.0.8', '2010-01-13 21:38:44'),
+(40, 'version', '1.0.9rc2', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--

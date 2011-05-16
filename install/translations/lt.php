@@ -3,6 +3,7 @@
 
 define('IP_PHP_VERSION', 'PHP versija >= 5.3');
 define('IP_MOD_REWRITE', 'Apache modulis "mod_rewrite"');
+define('IP_GD_LIB', 'GD grafinė biblioteka');
 define('IP_MAGIC_QUOTES', '"Magic quotes" rekomenduojama išjungti.');
 
 define('IP_OK', 'Taip');
@@ -13,7 +14,7 @@ define('IP_BACK', 'Atgal');
 define('IP_NEXT', 'Toliau');
 define('IP_ACCEPT', 'Sutinku');
 define('IP_INSTALLATION', 'ImpressPages TVS diegimo vedlys');
-define('IP_VERSION', 'Versija 1.0.8');
+define('IP_VERSION', 'Versija 1.0.9');
 define('IP_SUBDIRECTORIES', '(įskaitant pakatalogius ir failus)');
 define('IP_OPTIONAL', '(pasirinktinai)');
 
@@ -57,7 +58,7 @@ define('IP_CONFIG_ERROR_TIME_ZONE', 'Pasirinkite svetainės laiko juostą.');
 
 
 define('IP_CONFIG_SITE_NAME', 'Svetainės pavadinimas');
-define('IP_CONFIG_SITE_EMAIL', 'Sveatinės el. pašto adresas');
+define('IP_CONFIG_SITE_EMAIL', 'Svetainės el. pašto adresas');
 define('IP_CONFIG_EMAIL', 'El. paštas klaidų pranešimams (pasirinktinai)');
 define('IP_CONFIG_LOGIN', 'Administratoriaus prisijungimo vardas');
 define('IP_CONFIG_PASS', 'Administratoriaus slaptžodis');

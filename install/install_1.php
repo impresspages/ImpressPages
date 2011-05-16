@@ -44,6 +44,10 @@ if(function_exists('apache_get_modules') ) {
     $error['mod_rewrite'] = 1;
 }
 
+if (!extension_loaded('gd') || !function_exists('gd_info')) {
+  $error['gd_lib'] = 1;
+}
+
 if(get_magic_quotes_gpc()){
   $warning['magic_quotes'] = 1;
 }
@@ -65,6 +69,14 @@ if(isset($error['mod_rewrite']))
 else
   $table[] = '<span class="correct">'.IP_OK.'</span>';
 
+  
+$table[] = IP_GD_LIB;
+if(isset($error['gd_lib']))
+  $table[] = '<span class="error">'.IP_ERROR."</span>";
+else
+  $table[] = '<span class="correct">'.IP_OK.'</span>';
+  
+  
 $table[] = IP_MAGIC_QUOTES;
 if(isset($warning['magic_quotes']))
   $table[] = '<span class="error">'.IP_ERROR."</span>";
