@@ -169,7 +169,7 @@ function content_mod_photo_gallery() {
 				+ widget_photo_gallery_quality
 				+ '"/>'
 				+ '<input type="hidden" name="photo_method[]" value="crop"/>'
-				+ '<input type="hidden" name="photo_forced[]" value="true"/>'
+				+ '<input type="hidden" name="photo_forced[]" value="1"/>'
 				+ '<input type="hidden" name="photo_width[]" value="'
 				+ widget_photo_gallery_big_width
 				+ '"/>'
@@ -180,7 +180,7 @@ function content_mod_photo_gallery() {
 				+ widget_photo_gallery_big_quality
 				+ '"/>'
 				+ '<input type="hidden" name="photo_method[]" value="fit"/>'
-				+ '<input type="hidden" name="photo_forced[]" value="false"/>'
+				+ '<input type="hidden" name="photo_forced[]" value="0"/>'
 				+ '<a class="ipCmsButton" style="margin-left: 5px;" href="javascript:void(0)" onclick="'
 				+ this.my_name + '.upload_new_photo()">'
 				+ widget_photo_gallery_upload + '</a>' + '</form>'

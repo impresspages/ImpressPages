@@ -12,7 +12,7 @@
   <meta name="generator" content="ImpressPages CMS 1.0 under GNU GPL license" />
   <!-- common functions used by various modules -->
   <link rel="stylesheet" href="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/css/lightbox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/default.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/jquery/jquery.js"></script>
 </head>
 <body>
 <div class="main">
@@ -104,17 +104,7 @@
 </div>
 
 
-<!-- popups -->
-<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/prototype.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/js/lightbox.js"></script>
-<script type="text/javascript">
-  // <![CDATA[
-  LightboxOptions.fileLoadingImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/loading.gif';
-  LightboxOptions.fileBottomNavCloseImage = '<?php echo BASE_URL.LIBRARY_DIR; ?>' + 'js/lightbox/images/closelabel.gif';
-  //]]>
-</script>
-<!-- eof popups -->
+
 
 
 </body>
