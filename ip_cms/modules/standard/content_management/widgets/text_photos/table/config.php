@@ -58,6 +58,7 @@ class Config // extends MimeType
     tinyMCE.init( {
       theme : "advanced",
       mode : "exact",
+      entity_encoding : "raw",      
       elements : "management_" + collection_number + "_text",
       plugins : "paste,inlinepopups,iplink,table",
       theme_advanced_buttons1 : "copy,paste,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator,bold,italic,underline,styleselect",

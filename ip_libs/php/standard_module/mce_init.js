@@ -7,6 +7,7 @@
 tinyMCE.init({
   theme : "advanced",
   mode: "exact",
+  entity_encoding : "raw",  
 	elements : "management_" + this.collection_number + "_text",
 	plugins : "paste,inlinepopups", 
 	theme_advanced_buttons1 : "pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",

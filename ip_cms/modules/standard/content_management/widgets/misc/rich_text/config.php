@@ -47,6 +47,7 @@ class Config // extends MimeType
     tinyMCE.init( {
       theme : "advanced",
       mode : "exact",
+      entity_encoding : "raw",      
       elements : "management_" + collection_number + "_text",
       plugins : "iplink,paste,simplebrowser,safari,spellchecker,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,inlinepopups,media,contextmenu,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
 
