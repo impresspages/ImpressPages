@@ -606,7 +606,9 @@ function movePage(e, moveData) {
     data.websiteId = $(this).attr('websiteId');
     data.type = $(this).attr('rel');
     data.destinationPageId = moveData.rslt.np.attr("pageId");
-    data.destinationId = moveData.rslt.np.attr("id");
+    data.destinationZoneName = moveData.rslt.np.attr("zoneName");
+    data.destinationLanguageId = moveData.rslt.np.attr("languageId");
+    data.destinationPageType = moveData.rslt.np.attr("rel");
     data.destinationPosition = moveData.rslt.cp + i;
     data.action = 'movePage';
 
