@@ -513,6 +513,7 @@ function updatePageFormResponse(response) {
         '#formAdvanced input[name="type"][name="type"][value="'
             + response.page.type + '"]').attr('checked', 1);
     $('#formAdvanced input[name="redirectURL"]').val(response.page.redirectURL);
+    $('#formAdvanced input[name="rss"]').attr('checked', response.page.rss == 1 ? true : false);
 
     $("#pageProperties form").bind("submit", function() {
       updatePage();
@@ -537,8 +538,7 @@ function updatePage() {
   data.pageId = tree.selectedPageId; // we have stored this ID before
   data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
   data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
-  data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1
-      : 0;
+  data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
   data.createdOn = $('#formGeneral input[name="createdOn"]').val();
   data.lastModified = $('#formGeneral input[name="lastModified"]').val();
 
@@ -548,6 +548,7 @@ function updatePage() {
   data.url = $('#formSEO input[name="url"]').val();
   data.type = $('#formAdvanced input:checked[name="type"]').val();
   data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
+  data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
 
   data.action = 'updatePage';
 

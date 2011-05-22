@@ -229,6 +229,11 @@ class Template {
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
             <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif" /><br />
         </p>
+    	<p class="field">
+            <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'rss')).'</label>
+        	<input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
+        </p>
+        
         <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
 	
 </form>    
