@@ -32,7 +32,7 @@ class ModelTree {
         
         foreach($remotes as $key => $remote) {
             $answer[] = array(
-                'id' => $key,
+                'id' => $key + 1,
                 'title' => $remote['url']
             );
         }
