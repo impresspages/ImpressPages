@@ -32,9 +32,12 @@ class Actions {
                     return;
                 }
 
-                $data = ModelTree::getLanguages();
+                $answer = array (
+                    'response' => ModelTree::getLanguages(),
+                    'status' => 'success'
+                );
                 
-                $this->_printJson($data);
+                $this->_printJson($answer);
                 
                 break;
             case 'getZones':
@@ -47,9 +50,14 @@ class Actions {
                     return;
                 }
                 
-                $data = ModelTree::getZones($_REQUEST['includeNonManagedZones']);
                 
-                $this->_printJson($data);
+                $answer = array (
+                    'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
+                    'status' => 'success'
+                );
+                
+                $this->_printJson($answer);
+                
                 
                 break;
             case 'getZonePages':
@@ -68,9 +76,14 @@ class Actions {
                 }
                 
                 
-                $data = ModelTree::getZonePages($_REQUEST['languageId'], $_REQUEST['zoneName']);
                 
-                $this->_printJson($data);
+                
+                $answer = array (
+                    'response' => ModelTree::getZonePages($_REQUEST['languageId'], $_REQUEST['zoneName']),
+                    'status' => 'success'
+                );
+                
+                $this->_printJson($answer);
                 
                 
                 break;
@@ -84,9 +97,14 @@ class Actions {
                     return;
                 }
                 
-                $data = ModelTree::getPages($_REQUEST['parentId']);
+
                 
-                $this->_printJson($data);
+                $answer = array (
+                    'response' => ModelTree::getPages($_REQUEST['parentId']),
+                    'status' => 'success'
+                );
+                
+                $this->_printJson($answer);
 
                 break;
             case 'getData':

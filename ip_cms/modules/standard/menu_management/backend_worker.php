@@ -105,11 +105,9 @@ class BackendWorker {
 
         $jsTreeId = self::_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
         
-       //echo $jsTreeId."\n";
         
         //store status only on local menu tree
-        if ($parentWebsiteId == 0) {
-                               // echo $jsTreeId."\n";
+        if (true || $parentWebsiteId == 0) {
             
             $_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId] = 1;
         }
@@ -169,6 +167,10 @@ class BackendWorker {
                     if ( !empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
             		    $state = 'open';
             		    $children = $this->_getList($externalLinking, 'language', $parentWebsiteId, $item['id'], null, $item['id']);
+    				    if (count($children) == 0) {
+    				        $children = false;
+    				        $state = 'leaf';    
+    				    }    				            		    
         		    }         
 
         		    
@@ -212,6 +214,10 @@ class BackendWorker {
     				if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
     				    $state = 'open';
     				    $children = $this->_getList($externalLinking, 'zone', $parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
+    				    if (count($children) == 0) {
+    				        $children = false;
+    				        $state = 'leaf';    
+    				    }    				    				    
     				}
                     
         		    
@@ -248,7 +254,7 @@ class BackendWorker {
                     $children = false;
                     
                     $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $item['id']);
-                    
+
                     //if node status is open
     				if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
     				    $state = 'open';
@@ -805,6 +811,12 @@ class BackendWorker {
         }
         $zoneName = $_REQUEST['zoneName'];
 
+        if (!isset($_REQUEST['languageId'])) {
+            trigger_error("Language id is not set");
+            return false;
+        }
+        $languageId = $_REQUEST['languageId'];        
+        
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -817,9 +829,38 @@ class BackendWorker {
         }
         $destinationPageId = $_REQUEST['destinationPageId'];
 
+        if (!isset($_REQUEST['destinationPageType'])) {
+            trigger_error("Destination page type is not set");
+            return false;
+        }
+        $destinationPageType = $_REQUEST['destinationPageType'];
+        
+        
+        if (!isset($_REQUEST['destinationLanguageId'])) {
+            trigger_error("Destination language id is not set");
+            return false;
+        }
+        $destinationLanguageId = $_REQUEST['destinationLanguageId'];    
+
+        
+        if (!isset($_REQUEST['destinationZoneName'])) {
+            trigger_error("Destination zone name is not set");
+            return false;
+        }
+        $destinationZoneName = $_REQUEST['destinationZoneName'];          
+        
         //check if destination page exists
-        $pageZone = $site->getZone($zoneName);
-        $destinationPage = $pageZone->getElement($destinationPageId);
+
+        
+        $destinationZone = $site->getZone($destinationZoneName);
+        if ($destinationPageType == 'zone') {
+            $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
+            $destinationPage = $destinationZone->getElement($rootElementId);
+        } else {
+            $destinationPage = $destinationZone->getElement($destinationPageId);     
+        }
+        
+        
         if (!$destinationPage) {
             trigger_error("Destination page does not exist");
             return false;
@@ -827,9 +868,9 @@ class BackendWorker {
 
 
         if ($websiteId == 0) { //local page
-            $children = Db::pageChildren($destinationPageId);
+            $children = Db::pageChildren($destinationPage->getId());
             $destinationPosition = count($children); //paste at the bottom
-            Model::copyPage($pageId, $destinationPageId, $destinationPosition);
+            Model::copyPage($pageId, $destinationPage->getId(), $destinationPosition);
         } else { //remote page
             $remotes = Remotes::getRemotes();
             $remote = $remotes[$websiteId - 1];
@@ -837,7 +878,7 @@ class BackendWorker {
                 'pageId' => $pageId
             );
             $remotePages = $this->_remoteRequest($remote, 'getData', $data);
-            $this->_createPagesRecursion($destinationPageId, $remotePages);
+            $this->_createPagesRecursion($destinationPage->getId(), $remotePages);
 
 
             $contentManagementSystem = new \Modules\standard\content_management\System();
@@ -847,7 +888,7 @@ class BackendWorker {
         }
 
         $answer['status'] = 'success';
-        $answer['destinationPageId'] = $destinationPageId;
+        $answer['destinationPageId'] = $destinationPage->getId();
 
         $this->_printJson($answer);
     }
@@ -932,9 +973,9 @@ class BackendWorker {
         curl_close($ch);
 
         $responseData = json_decode($response, true);
-        if ($responseData === null || empty ($responseData['status']) || $responseData['status'] != 'success' || empty ($responseData['response'])) {
+        if ($responseData === null || empty ($responseData['status']) || $responseData['status'] != 'success' || ! isset ($responseData['response'])) {
             trigger_error('Incorrect response from the server '.$response);
-            return;
+            return false;
         }
 
         return $responseData['response'];

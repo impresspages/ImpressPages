@@ -586,23 +586,6 @@ function updatePageResponse(response) {
     }
   }
 
-  // if (!$_POST['visible']) {
-  // $icon = 'node.ui.addClass(\'x-tree-node-disabled \');';
-  // } else {
-  // $icon = '';
-  // }
-  //
-  // var form = document.getElementById(\'property_form\');
-  // form.property_url.value =
-  // \''.\Library\Php\Js\Functions::htmlToString($_POST['url']).'\';
-  //   
-  //   
-  // var node = iTree.getTree().getSelectionModel().getSelectedNode();
-  // node.setText(\''.\Library\Php\Js\Functions::htmlToString($_POST['buttonTitle']).'\');
-  // node.ui.removeClass(\'x-tree-node-disabled\');
-  // '.$icon.'
-  // ';
-
 }
 
 /**
@@ -636,32 +619,6 @@ function movePage(e, moveData) {
     });
   });
 
-  // example:
-  // $.ajax({
-  // async : false,
-  // type: 'POST',
-  // url: "/static/v.1.0rc2/_demo/server.php",
-  // data : {
-  // "operation" : "move_node",
-  // "id" : $(this).attr("id").replace("node_",""),
-  // "ref" : data.rslt.np.attr("id").replace("node_",""),
-  // "position" : data.rslt.cp + i,
-  // "title" : data.rslt.name,
-  // "copy" : data.rslt.cy ? 1 : 0
-  // },
-  // success : function (r) {
-  // if(!r.status) {
-  // $.jstree.rollback(data.rlbk);
-  // }
-  // else {
-  // $(data.rslt.oc).attr("id", "node_" + r.id);
-  // if(data.rslt.cy && $(data.rslt.oc).children("UL").length) {
-  // data.inst.refresh(data.inst._get_parent(data.rslt.oc));
-  // }
-  // }
-  // $("#analyze").click();
-  // }
-  // });
 
 };
 
@@ -708,6 +665,9 @@ function pastePage() {
   data.websiteId = copiedNode.attr('websiteId');
   data.type = copiedNode.attr('rel');
   data.destinationPageId = selectedNode.attr("pageId");
+  data.destinationPageType = selectedNode.attr('rel');
+  data.destinationZoneName = selectedNode.attr('zoneName');
+  data.destinationLanguageId = selectedNode.attr('languageId');
   data.action = 'copyPage';
 
   tree.destinationId = selectedNode.attr('id');
