@@ -7,9 +7,9 @@
 
 namespace Modules\standard\menu_management;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
-require_once (__DIR__.'/db.php');
+require_once (__DIR__.'/model_tree.php');
 require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/widget.php');
 
 
@@ -32,47 +32,49 @@ class Actions {
                     return;
                 }
 
-                $languages = Db::getLanguages();
-                $data = array (
-                    'status' => 'success',
-                    'response' => $languages
-                );
+                $data = ModelTree::getLanguages();
+                
                 $this->_printJson($data);
+                
                 break;
             case 'getZones':
                 if (!$this->_adminAccess()) {
                     return;
                 }
-                $zones = Db::getZones();
                 
-                if (!isset($_REQUEST['parentId'])) {
-                    trigger_error('Parent ID is not set');
+                if (!isset ($_REQUEST['includeNonManagedZones'])) {
+                    trigger_error('Required parameters is not set');            
                     return;
-                }                
-                $parentId = $_REQUEST['parentId'];
+                }
                 
-                foreach ($zones as $zoneKey => &$zone) {
-                    $zoneElement = Db::rootContentElement($zone['id'], $parentId);
-
-                    
-                    if($zoneElement == null) { /*try to create*/
-                        Db::createRootZoneElement($zone['id'], $parentId);
-                        $zoneElement = Db::rootContentElement($zone['id'], $parentId);
-                        if($zoneElement == null) {	/*fail to create*/
-                            trigger_error("Can't create root zone element.");
-                            return false;
-                        }
-                    }
-                    $zone['elementId'] = $zoneElement;
-                }                            
+                $data = ModelTree::getZones($_REQUEST['includeNonManagedZones']);
                 
-                $data = array (
-                    'status' => 'success',
-                    'response' => $zones
-                );
                 $this->_printJson($data);
+                
                 break;
-            case 'getChildren':
+            case 'getZonePages':
+                if (!$this->_adminAccess()) {
+                    return;
+                }
+                
+                if (!isset ($_REQUEST['languageId'])) {
+                    trigger_error('Language id is not set');            
+                    return;
+                }
+                
+                if (!isset ($_REQUEST['zoneName'])) {
+                    trigger_error('Zone name is not set');            
+                    return;
+                }
+                
+                
+                $data = ModelTree::getZonePages($_REQUEST['languageId'], $_REQUEST['zoneName']);
+                
+                $this->_printJson($data);
+                
+                
+                break;
+            case 'getPages':
                 if (!$this->_adminAccess()) {
                     return;
                 }
@@ -81,11 +83,9 @@ class Actions {
                     trigger_error('Parent ID is not set');
                     return;
                 }
-                $children = Db::pageChildren($_REQUEST['parentId']);
-                $data = array (
-                    'status' => 'success',
-                    'response' => $children
-                );
+                
+                $data = ModelTree::getPages($_REQUEST['parentId']);
+                
                 $this->_printJson($data);
 
                 break;
