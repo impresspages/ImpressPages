@@ -34,7 +34,7 @@ require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 require (BASE_DIR.BACKEND_DIR.'cms.php');
 require (BASE_DIR.BACKEND_DIR.'db.php');
- 
+require (BASE_DIR.INCLUDE_DIR.'dispatcher.php'); 
   
 $parametersMod = new \ParametersMod();
 

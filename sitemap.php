@@ -37,7 +37,7 @@ require (FRONTEND_DIR.'site.php');
 require (FRONTEND_DIR.'session.php');
 require (MODULE_DIR.'administrator/log/module.php'); 
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
-
+require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
 
 if(\Db::connect()){
 	$log = new \Modules\administrator\log\Module();

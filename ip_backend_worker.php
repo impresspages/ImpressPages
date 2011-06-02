@@ -32,6 +32,7 @@ require (BASE_DIR.BACKEND_DIR.'cms.php');
 require (BASE_DIR.BACKEND_DIR.'db.php');
  
 require (FRONTEND_DIR.'site.php');
+require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
   
 $parametersMod = new parametersMod();
 
