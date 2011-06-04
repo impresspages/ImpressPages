@@ -33,6 +33,7 @@ require (BASE_DIR.FRONTEND_DIR.'session.php');
 require (BASE_DIR.MODULE_DIR.'administrator/log/module.php'); 
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
+require (BASE_DIR.INCLUDE_DIR.'view.php');
 
   
 $db = new db();
@@ -41,10 +42,11 @@ $db = new db();
 if($db->connect()){
 
 	$log = new \Modules\administrator\log\Module();
+	$dispatcher = new \Dispatcher();
 	$parametersMod = new ParametersMod();
 	$session = new Frontend\Session();
 
-	$site = new \Frontend\Site();
+	$site = new \Site();
 	$site->init();
 
 	$cron = new Cron();

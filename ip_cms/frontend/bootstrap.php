@@ -7,7 +7,7 @@ if(Db::connect()){
     $parametersMod = new parametersMod();
     $session = new Frontend\Session();
 
-    $site = new Frontend\Site();
+    $site = new \Site();
 
     $dispatcher->notify($site, 'site.beforeInit', null);    
     $site->init();
@@ -59,8 +59,9 @@ if(Db::connect()){
         $site->makeRedirect(); //if required;
     }
     
-    
+
     $output = $site->generateOutput();
+    
     $dispatcher->notify($site, 'site.outputGenerated', $output);
     echo $output;
     $dispatcher->notify($site, 'site.outputPrinted', $output);
@@ -80,13 +81,13 @@ if(Db::connect()){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1);
         $fakeCronAnswer = curl_exec($ch);
-        $dispatcher->notify($this, 'cron.afterFakeCron', $fakeCronAnswer);
+        $dispatcher->notify($site, 'cron.afterFakeCron', $fakeCronAnswer);
         
     }
 
     
     \Db::disconnect();
-    $dispatcher->notify($this, 'site.databaseDisconnect', null);
+    $dispatcher->notify($site, 'site.databaseDisconnect', null);
     
 
 

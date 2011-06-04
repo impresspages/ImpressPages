@@ -2,17 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>" lang="<?php echo $site->currentLanguage['code']; ?>">
 <head>
-  <title><?php echo htmlspecialchars($site->getTitle()); ?></title>
-  <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/ip_content.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/site.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="<?php echo BASE_URL; ?>favicon.ico" />
-  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
-  <meta name="keywords" content="<?php echo htmlspecialchars($site->getKeywords()); ?>" />
-  <meta name="description" content="<?php echo htmlspecialchars($site->getDescription()); ?>" />
-  <meta name="generator" content="ImpressPages CMS 1.0 under GNU GPL license" />
-  <!-- common functions used by various modules -->
-  <link rel="stylesheet" href="<?php echo BASE_URL.LIBRARY_DIR; ?>js/lightbox/css/lightbox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="<?php echo BASE_URL.LIBRARY_DIR; ?>js/jquery/jquery.js"></script>
+    <?php echo \Site::generateHead(); ?>
+    <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/ip_content.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/site.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="main">

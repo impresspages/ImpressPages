@@ -7,8 +7,6 @@
  * @license	GNU/GPL, see ip_license.html
  */
 
-namespace Frontend;
-
 if (!defined('CMS')) exit;
 
 require_once (__DIR__.'/zone.php');
@@ -66,6 +64,9 @@ class Site{
 
     /** bool true if page does not exists */
     private $error404;
+    
+    /** array required javascript files */
+    private $recuiredJavascript = array();
 
     protected $zones;
     protected $otherZones;
@@ -133,7 +134,7 @@ class Site{
      *
      */
     private function createLanguage($data){
-        $language = new Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible']);
+        $language = new \Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible']);
         return $language;
     }
 
@@ -221,6 +222,8 @@ class Site{
         $this->dispatchEvent('administrator', 'system', 'init', array());
         $dispatcher->notify($this, 'site.afterInit', null);
         
+        
+        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
     }
 
     /**
@@ -976,13 +979,42 @@ class Site{
     }
 
 
-
-    public function generateOutput () {
-
+    public function generateOutput() {
+        global $site;
+        global $log;
+        global $dispatcher;        
+        global $parametersMod;
+        global $session;
         
         ob_start();
         require(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout());
+        $output = ob_get_contents();
+        ob_end_clean();
+        return $output;
+    }
+
+    
+    public function addJavascript($file) {
+        $this->requiredJavascript[$file] = $file;
+    }
+
+    public function removeJavascript($file) {
+        if (isset($this->requiredJavascript[$file])) {
+            unset($this->requiredJavascript[$file]);
+        }
+    }
+    
+    public function generateHead() {
+        $data = array (
+            'title' => $this->getTitle(),
+            'keywords' => BASE_URL.'favicon.ico',
+            'description' => $this->getDescription(),
+            'favicon' => $this->getKeywords(),
+            'charset' => CHARSET,
+            'javascript' => $this->requiredJavascript
+        );
         
+        return \View::create('standard/configuration/view/head.php', $data)->render();
     }
 
 }

@@ -30,10 +30,13 @@ require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 require (BASE_DIR.BACKEND_DIR.'cms.php');
 require (BASE_DIR.BACKEND_DIR.'db.php');
+require (BASE_DIR.INCLUDE_DIR.'view.php');
  
 require (FRONTEND_DIR.'site.php');
 require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
-  
+
+$dispatcher = new \Dispatcher();
+
 $parametersMod = new parametersMod();
 
 
@@ -41,7 +44,7 @@ $parametersMod = new parametersMod();
 if(\Db::connect()){
 	$log = new \Modules\administrator\log\Module();
 
-  $site = new \Frontend\Site(); /*to generate links to site and get other data about frontend*/
+  $site = new \Site(); /*to generate links to site and get other data about frontend*/
 	$site->init();
 
   $cms = new \Backend\Cms();
