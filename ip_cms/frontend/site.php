@@ -12,7 +12,6 @@ if (!defined('CMS')) exit;
 require_once (__DIR__.'/zone.php');
 require_once (__DIR__.'/db.php');
 require_once (__DIR__.'/language.php');
-require_once (__DIR__.'/layout.php');
 
 /**
  *
