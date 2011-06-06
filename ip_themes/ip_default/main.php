@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>" lang="<?php echo $site->currentLanguage['code']; ?>">
 <head>
-    <?php echo \Site::generateHead(); ?>
+    <?php echo $site->generateHead(); ?>
     <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/ip_content.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/site.css" rel="stylesheet" type="text/css" />
 </head>
@@ -48,6 +48,11 @@
       echo $menuLeft->generateSubmenu('left', null, 2);  //$zoneName, $parentElementId, $depthLimit
 ?>
     </div>
+    <div class="box">
+<?php
+      $site->generateBlock('left');
+?>
+    </div>    
     <div class="box newsletter">
 <?php
         echo $site->getZone('newsletter')->generateRegistrationBox();

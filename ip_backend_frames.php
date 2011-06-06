@@ -31,13 +31,12 @@ require (BASE_DIR.INCLUDE_DIR.'db.php');
 require (BASE_DIR.FRONTEND_DIR.'site.php');
 require (BASE_DIR.MODULE_DIR.'administrator/log/module.php'); 
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
+require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
 require (BASE_DIR.BACKEND_DIR.'cms.php');
 require (BASE_DIR.BACKEND_DIR.'db.php');
-require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
-require (BASE_DIR.INCLUDE_DIR.'view.php');
 
   
-$dispatcher = new \Dispatcher();
+$dispatcher = new \Ip\Dispatcher();
 $parametersMod = new \ParametersMod();
 
 

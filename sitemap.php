@@ -37,13 +37,12 @@ require (FRONTEND_DIR.'site.php');
 require (FRONTEND_DIR.'session.php');
 require (MODULE_DIR.'administrator/log/module.php');
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
-require (BASE_DIR.INCLUDE_DIR.'dispatcher.php');
-require (BASE_DIR.INCLUDE_DIR.'view.php');
+require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
 
 if(\Db::connect()){
     $log = new \Modules\administrator\log\Module();
 
-    $dispatcher = new \Dispatcher();
+    $dispatcher = new \Ip\Dispatcher();
      
     $parametersMod = new ParametersMod();
     $session = new \Frontend\Session();

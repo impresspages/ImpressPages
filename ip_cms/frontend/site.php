@@ -985,10 +985,7 @@ class Site{
         global $parametersMod;
         global $session;
         
-        ob_start();
-        require(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout());
-        $output = ob_get_contents();
-        ob_end_clean();
+        $output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array(), true)->render();
         return $output;
     }
 
@@ -1013,7 +1010,18 @@ class Site{
             'javascript' => $this->requiredJavascript
         );
         
-        return \View::create('standard/configuration/view/head.php', $data)->render();
+        return \Ip\View::create('standard/configuration/view/head.php', $data)->render();
+    }
+    
+    
+    public function generateBlock($blockHook) {
+        global $dispatcher;
+        global $site;
+        $data = array (
+            'blockHook' => $blockHook
+        );
+        $dispatcher->notify($site, 'site.generateBlock', $data);
+                
     }
 
 }

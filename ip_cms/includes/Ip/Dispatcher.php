@@ -6,6 +6,8 @@
  */
 
  
+namespace Ip;
+
 if (!defined('CMS')) exit;  
 
 

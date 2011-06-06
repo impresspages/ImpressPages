@@ -5,6 +5,8 @@
  * @license	GNU/GPL, see ip_license.html
  */
 
+namespace Ip;
+
  
 if (!defined('CMS')) exit;  
 
@@ -30,7 +32,7 @@ class View{
     
     
     public static function create($file, $data = array(), $absolute = false) {
-        return new \View($file, $data, $absolute);
+        return new \Ip\View($file, $data, $absolute);
     }
     
     

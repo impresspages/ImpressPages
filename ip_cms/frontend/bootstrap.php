@@ -2,7 +2,7 @@
 
 if(Db::connect()){
     $log = new Modules\Administrator\Log\Module();
-    $dispatcher = new Dispatcher();
+    $dispatcher = new \Ip\Dispatcher();
 
     $parametersMod = new parametersMod();
     $session = new Frontend\Session();
