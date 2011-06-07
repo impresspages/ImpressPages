@@ -18,26 +18,51 @@ if (!defined('CMS')) exit;
 class Event{
     
     private $object;
-    private $eventName;
+    private $name;
     private $values;
+    private $processed;
 
-    public function __construct($object, $eventName, $values) {
+    public function __construct($object, $name, $values) {
         $this->object = $object;
-        $this->eventName = $eventName;
+        $this->name = $name;
         $this->values = $values;
+        $this->processed = 0;
     }
     
     public function getObject () {
         return $this->object;    
     }
     
-    public function getEventName () {
-        return $this->eventName;
+    public function getName () {
+        return $this->name;
     }
-    
     
     public function getValues () {
         return $this->data;    
+    }
+    
+    public function getValue ($key) {
+        return $this->values[$key];
+    }
+    
+    public function setValue ($key, $value) {
+        $this->values[$key] = $value;        
+    }
+    
+    public function issetValue ($key) {    
+        return isset($this->values[$key]);
+    }
+
+    public function unsetValue ($key) {
+        unset($this->values[$key]);        
+    }
+    
+    public function addProcessed () {
+        $this->processed++;
+    }
+    
+    public function getProcessed () {
+        return $this->processed;        
     }
     
     public function getValue ($valueKey) {

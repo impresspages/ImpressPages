@@ -196,7 +196,7 @@ class Site{
      */
     public function init(){
         global $dispatcher;
-        $dispatcher->notify($this, 'site.beforeInit', null);
+        $dispatcher->notify(new \Ip\Event($this, 'site.beforeInit', null));
         
         if (get_magic_quotes_gpc()) { //fix magic quotes option
             $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
@@ -217,11 +217,8 @@ class Site{
 
         $this->configZones();
 
+        $this->modulesInit();        
 
-        $this->dispatchEvent('administrator', 'system', 'init', array());
-        $dispatcher->notify($this, 'site.afterInit', null);
-        
-        
         $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
     }
 
@@ -976,6 +973,27 @@ class Site{
             }
         }
     }
+    
+    public function modulesInit(){
+        $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
+        $rs = mysql_query($sql);
+        if($rs){
+            while($lock = mysql_fetch_assoc($rs)){
+                if($lock['m_core']){
+                    $dir = BASE_DIR.MODULE_DIR;
+                } else {
+                    $dir = BASE_DIR.PLUGIN_DIR;
+                }
+                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
+                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
+                    eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
+                    if(method_exists($moduleSystem, 'init')){
+                        $moduleSystem->init();
+                    }
+                }
+            }
+        }
+    }    
 
 
     public function generateOutput() {
@@ -1020,7 +1038,10 @@ class Site{
         $data = array (
             'blockHook' => $blockHook
         );
-        $dispatcher->notify($site, 'site.generateBlock', $data);
+        
+        $result = $dispatcher->notifyUntil(new \Ip\Event($site, 'site.generateBlock', $data));
+        
+        
                 
     }
 

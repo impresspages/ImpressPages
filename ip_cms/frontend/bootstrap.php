@@ -9,9 +9,10 @@ if(Db::connect()){
 
     $site = new \Site();
 
-    $dispatcher->notify($site, 'site.beforeInit', null);    
+    $dispatcher->notify(new \Ip\Event($site, 'site.beforeInit', null));    
     $site->init();
-    $dispatcher->notify($site, 'site.afterInit', null);    
+    $site->dispatchEvent('administrator', 'system', 'init', array());
+    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));    
     
     /*detect browser language*/
     if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
@@ -62,9 +63,9 @@ if(Db::connect()){
 
     $output = $site->generateOutput();
     
-    $dispatcher->notify($site, 'site.outputGenerated', $output);
+    $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', $output));
     echo $output;
-    $dispatcher->notify($site, 'site.outputPrinted', $output);
+    $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', $output));
     
 
     /*
@@ -81,13 +82,13 @@ if(Db::connect()){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1);
         $fakeCronAnswer = curl_exec($ch);
-        $dispatcher->notify($site, 'cron.afterFakeCron', $fakeCronAnswer);
+        $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
         
     }
 
     
     \Db::disconnect();
-    $dispatcher->notify($site, 'site.databaseDisconnect', null);
+    $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
     
 
 
