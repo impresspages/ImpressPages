@@ -30,6 +30,14 @@ function ipInitManagement () {
 function ipInitManagementResponse(response) {
     if (response.status == 'success') {
         $('body').prepend(response.controlPanelHtml);
+        
+        $( ".ipBlockSelector" ).sortable({
+            revert: true
+        });        
+        
+        
+        $( ".ipWidgetAddSelector" ).draggable({ connectToSortable: ".ipBlockSelector", revert: 'invalid', helper: "clone"   });
+        
     }
     
 }

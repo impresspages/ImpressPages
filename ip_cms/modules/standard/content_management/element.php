@@ -63,7 +63,12 @@ class Element extends \Frontend\Element {
     global $parametersMod;
     global $site;
 
-    return 'test';
+    return '
+    <ul class="ipBlockSelector">
+    	<li>LAbas</li>
+    	<li>Nelabas</li>
+    </ul>
+    ';
   }
 
 
