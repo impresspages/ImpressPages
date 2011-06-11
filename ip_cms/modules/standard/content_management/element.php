@@ -65,10 +65,15 @@ class Element extends \Frontend\Element {
 
     return '
     <ul class="ipBlockSelector">
-    	<li>LAbas</li>
-    	<li>Nelabas</li>
+    	<li class="ipWidgetSelector">LAbas</li>
+    	<li class="ipWidgetSelector">Nelabas</li>
+    </ul>
+    <ul class="ipBlockSelector">
+    	<li class="ipWidgetSelector">AAAAAA</li>
+    	<li class="ipWidgetSelector">BBBB</li>
     </ul>
     ';
+    
   }
 
 

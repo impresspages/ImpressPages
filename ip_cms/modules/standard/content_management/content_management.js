@@ -32,9 +32,11 @@ function ipInitManagementResponse(response) {
         $('body').prepend(response.controlPanelHtml);
         
         $( ".ipBlockSelector" ).sortable({
+            connectWith: ".ipBlockSelector",
             revert: true
         });        
         
+
         
         $( ".ipWidgetAddSelector" ).draggable({ connectToSortable: ".ipBlockSelector", revert: 'invalid', helper: "clone"   });
         

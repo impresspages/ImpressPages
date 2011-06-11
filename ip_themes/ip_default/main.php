@@ -50,7 +50,7 @@
     </div>
     <div class="box">
 <?php
-      echo $site->generateBlock('left');
+      echo $site->generateBlock('left');      
 ?>
     </div>    
     <div class="box newsletter">
@@ -61,7 +61,11 @@
 ?>
       <div class="clear"><!-- --></div>
     </div>
-
+    <div class="box">
+<?php
+      echo $site->generateBlock('left');      
+?>
+    </div>
   </div>
 
   <div class="breadcrumb">
@@ -85,7 +89,7 @@
 ?>
   </div>
 
-  <div class="ipContent">
+  <div class="" style="float: left;">
 <?php echo $site->generateContent(); ?>
 
     <div class="clear"><!-- --></div>

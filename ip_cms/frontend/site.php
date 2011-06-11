@@ -1110,7 +1110,12 @@ class Site{
         if ($processed && $event->issetValue('content')) {
             return $event->getValue('content');    
         } else {
-            return 'standard_content';    
+            return '
+    <ul class="ipBlockSelector">
+    	<li class="ipWidgetSelector">LAbas</li>
+    	<li class="ipWidgetSelector">Nelabas</li>
+    </ul>    
+            ';    
         }
         
                 
