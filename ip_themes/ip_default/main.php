@@ -50,7 +50,7 @@
     </div>
     <div class="box">
 <?php
-      $site->generateBlock('left');
+      echo $site->generateBlock('left');
 ?>
     </div>    
     <div class="box newsletter">

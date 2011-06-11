@@ -41,10 +41,6 @@ class Event{
         return $this->data;    
     }
     
-    public function getValue ($key) {
-        return $this->values[$key];
-    }
-    
     public function setValue ($key, $value) {
         $this->values[$key] = $value;        
     }
@@ -65,14 +61,14 @@ class Event{
         return $this->processed;        
     }
     
-    public function getValue ($valueKey) {
-        if (isset($this->data[$valueKey])) {
-            return $this->data[$valueKey];   
+    public function getValue ($key) {
+        if (isset($this->values[$key])) {
+            return $this->values[$key];   
         }
         
         $trace = debug_backtrace();
-        throw new Exception(
-            'Undefined data variable via getData(): ' . $valueKey .
+        throw new \Exception(
+            'Undefined data variable via getData(): ' . $key .
             ' in ' . $trace[0]['file'] .
             ' on line ' . $trace[0]['line'],
             E_USER_NOTICE);

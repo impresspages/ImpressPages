@@ -352,9 +352,9 @@ class ParametersMod {
         $tmp_value_preview = $tmp_value;
 
 
-      $answer .= '
-            <img style="display: none;" class="mod_content_management_parameter_buttons"  id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'" border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event); return false;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
-';        
+//      $answer .= '
+//            <img style="display: none;" class="mod_content_management_parameter_buttons"  id="mod_content_management_parameter_buttons_'.$tmpParameter['id'].'" border="0" onclick="mod_content_management_parameter_manage( '.$tmpParameter['id'].', \''.$tmpParameter['translation'].'\', \''.$tmpType.'\'); LibDefault.cancelBubbling(event); return false;" src="'.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif" onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit.gif\'" onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'standard/content_management/design/icon_edit_hover.gif\'" title="Edit"/>
+//';        
 
 
       $languageId = '';
@@ -368,28 +368,28 @@ class ParametersMod {
         define('MOD_CONTENT_MANAGEMENT_PARAMETERS', 1);
       }else $tmp_init = '';
 
-      $answer .= "
-         <script type=\"text/javascript\">
-          //<![CDATA[  
-          ".$tmp_init."
-          mod_content_management_parameters_".$tmpParameter['id']." = new Array();
-          mod_content_management_parameters_".$tmpParameter['id']."[0] = ".$tmpParameter['id'].";
-          mod_content_management_parameters_".$tmpParameter['id']."[1] = '".str_replace("\r", " ",str_replace("\n", " ",str_replace("'", "\\'", $tmp_value)))."';
-          mod_content_management_parameters_".$tmpParameter['id']."[2] = '".$languageId."';
-          mod_content_management_parameters_".$tmpParameter['id']."[3] = false; //changed = false
-          mod_content_management_parameters.push(mod_content_management_parameters_".$tmpParameter['id'].");        
-          function mod_content_management_parameter_mouseover_".$tmpParameter['id']."(){
-            if(menu_saver){
-              document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'block';
-            }
-          }
-          function mod_content_management_parameter_mouseout_".$tmpParameter['id']."(){
-            document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'none';
-          }
-          LibDefault.addEvent(document.getElementById('mod_content_management_parameter_buttons_".($tmpParameter['id'])."').parentNode, 'mouseover', mod_content_management_parameter_mouseover_".$tmpParameter['id'].");
-          LibDefault.addEvent(document.getElementById('mod_content_management_parameter_buttons_".($tmpParameter['id'])."').parentNode, 'mouseout', mod_content_management_parameter_mouseout_".$tmpParameter['id'].");
-          //]]>
-        </script>";
+//      $answer .= "
+//         <script type=\"text/javascript\">
+//          //<![CDATA[  
+//          ".$tmp_init."
+//          mod_content_management_parameters_".$tmpParameter['id']." = new Array();
+//          mod_content_management_parameters_".$tmpParameter['id']."[0] = ".$tmpParameter['id'].";
+//          mod_content_management_parameters_".$tmpParameter['id']."[1] = '".str_replace("\r", " ",str_replace("\n", " ",str_replace("'", "\\'", $tmp_value)))."';
+//          mod_content_management_parameters_".$tmpParameter['id']."[2] = '".$languageId."';
+//          mod_content_management_parameters_".$tmpParameter['id']."[3] = false; //changed = false
+//          mod_content_management_parameters.push(mod_content_management_parameters_".$tmpParameter['id'].");        
+//          function mod_content_management_parameter_mouseover_".$tmpParameter['id']."(){
+//            if(menu_saver){
+//              document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'block';
+//            }
+//          }
+//          function mod_content_management_parameter_mouseout_".$tmpParameter['id']."(){
+//            document.getElementById('mod_content_management_parameter_buttons_".$tmpParameter['id']."').style.display = 'none';
+//          }
+//          LibDefault.addEvent(document.getElementById('mod_content_management_parameter_buttons_".($tmpParameter['id'])."').parentNode, 'mouseover', mod_content_management_parameter_mouseover_".$tmpParameter['id'].");
+//          LibDefault.addEvent(document.getElementById('mod_content_management_parameter_buttons_".($tmpParameter['id'])."').parentNode, 'mouseout', mod_content_management_parameter_mouseout_".$tmpParameter['id'].");
+//          //]]>
+//        </script>";
 
       $answer .=
               '

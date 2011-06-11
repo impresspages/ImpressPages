@@ -7,3 +7,6 @@
 <?php foreach ($javascript as $key => $file) { ?>
     <script type="text/javascript" src="<?php echo $file ?>"></script>
 <?php } ?>
+<?php foreach ($css as $key => $file) { ?>
+    <link href="<?php echo $file ?>" rel="stylesheet" type="text/css" />
+<?php } ?>

@@ -1,0 +1,10 @@
+#ipControllPanelBg{
+display: block;
+height: 117px;	
+}
+
+#ipControllPanel{
+position: fixed;
+height: 117px;
+width: 100%;
+}

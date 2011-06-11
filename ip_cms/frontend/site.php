@@ -65,8 +65,14 @@ class Site{
     private $error404;
     
     /** array required javascript files */
-    private $recuiredJavascript = array();
+    private $requiredJavascript = array();
 
+    /** array required css files */
+    private $requiredCss = array();
+    
+    /** string HTML or any other output. If is not null, it will be send to the output. If it is null, required page by request URL will be generated  */
+    protected $output;
+    
     protected $zones;
     protected $otherZones;
 
@@ -217,9 +223,10 @@ class Site{
 
         $this->configZones();
 
+        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+        
         $this->modulesInit();        
 
-        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
     }
 
     /**
@@ -673,15 +680,17 @@ class Site{
     /**
      * Some modules need to make some actions before any output.
      *
-     * This function detects such requirements and executes specified module.
+     * This function detects such requirements and executes required action of specified module.
      *
-     * If you need to use this feature, simply POST (or GET) two variables:
+     * If you need to use this feature, simply POST (or GET) thre variables:
      *
-     * $_REQUEST['module_group']
+     * $_REQUEST['g']
      *
-     * $_REQUEST['module_name']
+     * $_REQUEST['m']
      *
-     * This function will include file actions.php on specified module directory and execute method "make_actions()" on class actions_REQUEST['module_group']_REQUEST['module_name']
+     * $_REQUEST['a']
+     *
+     * This function will execute method $_REQUEST['a'] on class \Modules\REQUEST['g']\REQUEST['m']\Controller
      *
      */
     public function makeActions(){
@@ -699,15 +708,45 @@ class Site{
                     $tmpModule->makeActions();
                 }else{
                     $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
-                    else
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+                    } else {
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                    }
                 }
             }
-        }
+            
+            $this->getZone($this->currentZone)->makeActions(); //old deprecated way. Need to refactor to actions
 
-        $this->getZone($this->currentZone)->makeActions();
+            
+            if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
+                $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
+                if($newModule){
+                    if($newModule['core']){
+                        require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                    } else {
+                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                    }
+                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Controller();');
+                    $function = 'index';
+                    if (isset($_REQUEST['a'])) {
+                        $function = $_REQUEST['a'];
+                    }
+                    call_user_func(array($tmpModule, $function));
+                    
+                } else {
+                    $backtrace = debug_backtrace();
+                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+                    } else {
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                    }
+                }
+                
+            }
+            
+            
+        }
 
     }
 
@@ -996,6 +1035,15 @@ class Site{
     }    
 
 
+    public function setOutput ($output) {
+        $this->output = $output;   
+    }
+    
+    public function getOutput () {
+        return $this->output;    
+    }
+    
+    
     public function generateOutput() {
         global $site;
         global $log;
@@ -1003,10 +1051,23 @@ class Site{
         global $parametersMod;
         global $session;
         
-        $output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array(), true)->render();
-        return $output;
+        if ($this->output == null) {
+            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array(), true)->render();
+        }
+        
+        return $this->output;
     }
 
+    
+    public function addCss($file) {
+        $this->requiredCss[$file] = $file;
+    }
+
+    public function removeCss($file) {
+        if (isset($this->requiredCss[$file])) {
+            unset($this->requiredCss[$file]);
+        }
+    }    
     
     public function addJavascript($file) {
         $this->requiredJavascript[$file] = $file;
@@ -1025,22 +1086,32 @@ class Site{
             'description' => $this->getDescription(),
             'favicon' => $this->getKeywords(),
             'charset' => CHARSET,
-            'javascript' => $this->requiredJavascript
+            'javascript' => $this->requiredJavascript,
+            'css' => $this->requiredCss
         );
         
         return \Ip\View::create('standard/configuration/view/head.php', $data)->render();
     }
     
     
+    
+    
     public function generateBlock($blockHook) {
         global $dispatcher;
         global $site;
         $data = array (
-            'blockHook' => $blockHook
+            'hook' => $blockHook
         );
         
-        $result = $dispatcher->notifyUntil(new \Ip\Event($site, 'site.generateBlock', $data));
+        $event = new \Ip\Event($site, 'site.generateBlock', $data);
         
+        $processed = $dispatcher->notifyUntil($event);
+        
+        if ($processed && $event->issetValue('content')) {
+            return $event->getValue('content');    
+        } else {
+            return 'standard_content';    
+        }
         
                 
     }

@@ -71,6 +71,7 @@ class Dispatcher{
         
         foreach ($this->_handlers[$event->getName()] as $callable) {
             call_user_func($callable, $event);
+            $event->addProcessed();
             if ($event->getProcessed() > 0){
                 return $event->getProcessed();
             }
