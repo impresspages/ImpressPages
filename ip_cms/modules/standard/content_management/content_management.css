@@ -9,3 +9,15 @@ height: 117px;
 width: 100%;
 background-color: #FBFCFC;
 }
+
+.ipWidgetList{
+float: left;
+}
+
+.ipWidgetList li{
+float: left;
+width: 64px;
+heigth: 46px;
+margin: 0 0 5px 5px;
+list-style: none;    
+}

@@ -1,3 +1,8 @@
+/**
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license GNU/GPL, see ip_license.html
+ */
 
 $(document).ready(function() {
     ipInitManagement();
@@ -31,14 +36,16 @@ function ipInitManagementResponse(response) {
     if (response.status == 'success') {
         $('body').prepend(response.controlPanelHtml);
         
-        $( ".ipBlockSelector" ).sortable({
-            connectWith: ".ipBlockSelector",
+        $('.ipBlockSelector').sortable({
+            connectWith: '.ipBlockSelector',
             revert: true
         });        
         
 
+        $('.ipWidgetButtonSelector').ipWidgetButton();
         
-        $( ".ipWidgetAddSelector" ).draggable({ connectToSortable: ".ipBlockSelector", revert: 'invalid', helper: "clone"   });
+        
+        
         
     }
     
