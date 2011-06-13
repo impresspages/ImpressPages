@@ -68,10 +68,13 @@ class Element extends \Frontend\Element {
     	<li class="ipWidgetSelector">LAbas</li>
     	<li class="ipWidgetSelector">Nelabas</li>
     </ul>
+    =============================================
     <ul class="ipBlockSelector">
     	<li class="ipWidgetSelector">AAAAAA</li>
     	<li class="ipWidgetSelector">BBBB</li>
-    </ul>
+    	<li class="ipWidgetSelector">CCC</li>
+    	<li class="ipWidgetSelector">DDD</li>
+   	</ul>
     ';
     
   }

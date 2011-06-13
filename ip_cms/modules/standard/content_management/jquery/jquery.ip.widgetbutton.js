@@ -19,12 +19,11 @@
                         connectToSortable : '.ipBlockSelector',
                         revert : 'invalid',
                         helper : 'clone',
-                        stop: function(event, ui) { alert($(this).data('ipWidgetButton').name) }    
+                        stop: function(event, ui) {/*console.log(ui); console.log($(ui.item).attr('id'));*/ }    
                     });
                     
                     $this.data('ipWidgetButton', {
                         name : $this.attr('id').substr(15)
-                        
                     });
     
                 }                

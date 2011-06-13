@@ -11,7 +11,7 @@ if (!defined('CMS')) exit;
 class Controller{
     
 
-    function initVariables(){
+    public function initVariables(){
         global $site;
         
 //        header("content-type: application/x-javascript");
@@ -25,7 +25,7 @@ class Controller{
     }
     
 
-    function initManagementData(){
+    public function initManagementData(){
         global $site;
         global $dispatcher;
         
@@ -52,6 +52,25 @@ class Controller{
         $site->setOutput($answer);
     }
         
+    
+    public function createWidget(){
+        global $site;
+        $data = array (
+            'status' => 'success',
+            'widgetHtml' => '<li class="ipWidgetSelector"><div style="border: 1px solid; background-color: #565;">TEST<br /><br /> -- MANO WIDGETAS --<br /><div></li>'
+        );
+        
+        $answer = json_encode($data);        
+        $site->setOutput($answer);            
+    }
+    
+    public function updateWidget() {
+        
+    }
+    
+    public function deleteWidget($id, $data) {
+        
+    }
     
 }        
         

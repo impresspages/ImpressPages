@@ -36,10 +36,8 @@ function ipInitManagementResponse(response) {
     if (response.status == 'success') {
         $('body').prepend(response.controlPanelHtml);
         
-        $('.ipBlockSelector').sortable({
-            connectWith: '.ipBlockSelector',
-            revert: true
-        });        
+        
+        $('.ipBlockSelector').ipBlock();
         
 
         $('.ipWidgetButtonSelector').ipWidgetButton();
