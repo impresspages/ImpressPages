@@ -37,7 +37,7 @@ function ipInitManagementResponse(response) {
         $('body').prepend(response.controlPanelHtml);
         
         
-        $('.ipBlockSelector').ipBlock();
+        $('.ipBlock').ipBlock();
         
 
         $('.ipWidgetButtonSelector').ipWidgetButton();

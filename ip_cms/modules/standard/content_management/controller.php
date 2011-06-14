@@ -8,15 +8,15 @@ namespace Modules\standard\content_management;
 if (!defined('CMS')) exit;
 
 
+require_once(__DIR__.'/model_widget.php');
+
 class Controller{
     
 
     public function initVariables(){
         global $site;
         
-//        header("content-type: application/x-javascript");
         header('Content-type: text/javascript');
-        //header('Content-type: text/css');
         $data = array (
             'ipBaseUrl' => BASE_URL
         );
@@ -27,15 +27,8 @@ class Controller{
 
     public function initManagementData(){
         global $site;
-        global $dispatcher;
         
-        header('Content-type: text/json; charset=utf-8');
-        
-        $event = new \Ip\Event($this, 'contentManagement.collectWidgets', null);
-        $event->setValue('widgets', array());
-        $dispatcher->notify($event);
-        
-        $widgets = $event->getValue('widgets');
+        $widgets = ModelWidget::getWidgets();
         
         $data = array (
             'widgets' => $widgets
@@ -48,16 +41,72 @@ class Controller{
             'controlPanelHtml' => $controlPanelHtml,
         );
         
-        $answer = json_encode($data);        
-        $site->setOutput($answer);
+        $this->_outputAnswer($data);
     }
         
     
     public function createWidget(){
         global $site;
+        
+        
+        $error = false;
+        
+        if (!isset($_POST['widgetName']) ||
+            !isset($_POST['priority']) ||
+            !isset($_POST['blockName']) ||
+            !isset($_POST['zoneName']) ||
+            !isset($_POST['pageId']) ||
+            !isset($_POST['blockWidth'])
+            ) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }
+        
+        $widgetName = $_POST['widgetName'];
+        $priority = $_POST['priority'];
+        $blockName = $_POST['blockName'];
+        $blockWidth = $_POST['blockWidth'];
+        $zoneName = $_POST['zoneName'];
+        $pageId = $_POST['pageId'];
+        
+        
+        $widget = ModelWidget::getWidget($widgetName);
+        if ($widget === false) {
+            $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
+            return;
+        }
+        
+        $zone = $site->getZone($zoneName);
+        if ($zone === false) {
+            $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
+            return;
+        }
+        
+        $page = $zone->getPage($pageId);
+        if ($page === false) {
+            $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
+            return;
+        }
+        
+        
+        
+        try {
+            $widgetId = ModelWidget::createWidget($widgetName, $priority, $blockName, $blockWidth, $zoneName, $pageId, $widget->getDefaultLayout());
+            $widgetHtml = ModelWidget::generateWidgetManagement($widgetId);
+            //$widget->generateHtml($widgetId, $data, $layout) 
+        } catch (Exception $e) {
+            $this->_errorAnswer($e);
+            return;
+        }
+
+        
+        $html = 
+        
+        header('Content-type: text/json; charset=utf-8');
+        
         $data = array (
             'status' => 'success',
-            'widgetHtml' => '<li class="ipWidgetSelector"><div style="border: 1px solid; background-color: #565;">TEST<br /><br /> -- MANO WIDGETAS --<br /><div></li>'
+            'widgetHtml' => '<div class="ipWidget" style="border: 1px solid; background-color: #565;">TEST<br /><br /> -- MANO WIDGETAS --<br /></div>'
         );
         
         $answer = json_encode($data);        
@@ -66,10 +115,27 @@ class Controller{
     
     public function updateWidget() {
         
+        
     }
     
     public function deleteWidget($id, $data) {
         
+        
+    }
+    
+    private function _errorAnswer($errorMessage) {
+        $data = array (
+            'status' => 'error',
+            'errorMessage' => $errorMessage
+        );
+        
+        $this->_outputAnswer($data);
+    }
+    
+    private function _outputAnswer($data) {
+        header('Content-type: text/json; charset=utf-8');
+        $answer = json_encode($data);        
+        $site->setOutput($answer);         
     }
     
 }        

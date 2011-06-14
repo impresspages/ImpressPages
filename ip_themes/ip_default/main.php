@@ -89,7 +89,7 @@
 ?>
   </div>
 
-  <div class="" style="float: left;">
+  <div class="ipContent" style="float: left;">
 <?php echo $site->generateContent(); ?>
 
     <div class="clear"><!-- --></div>

@@ -1111,10 +1111,10 @@ class Site{
             return $event->getValue('content');    
         } else {
             return '
-    <ul class="ipBlock_'.$blockHook.' ipBlockSelector">
-    	<li class="ipWidgetSelector">LAbas</li>
-    	<li class="ipWidgetSelector">Nelabas</li>
-    </ul>    
+    <div class="ipBlock ipBlock_'.$blockHook.'">
+    	<div class="ipWidget">LAbas</div>
+    	<div class="ipWidget">Nelabas</div>
+    </div>    
             ';    
         }
         

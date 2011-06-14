@@ -64,17 +64,17 @@ class Element extends \Frontend\Element {
     global $site;
 
     return '
-    <ul class="ipBlockSelector">
-    	<li class="ipWidgetSelector">LAbas</li>
-    	<li class="ipWidgetSelector">Nelabas</li>
-    </ul>
+    <div class="ipBlock">
+    	<div class="ipWidget">LAbas</div>
+    	<div class="ipWidget">Nelabas</div>
+    </div>
     =============================================
-    <ul class="ipBlockSelector">
-    	<li class="ipWidgetSelector">AAAAAA</li>
-    	<li class="ipWidgetSelector">BBBB</li>
-    	<li class="ipWidgetSelector">CCC</li>
-    	<li class="ipWidgetSelector">DDD</li>
-   	</ul>
+    <div class="ipBlock">
+    	<div class="ipWidget">AAAAAA</div>
+    	<div class="ipWidget">BBBB</div>
+    	<div class="ipWidget">CCC</div>
+    	<div class="ipWidget">DDD</div>
+   	</div>
     ';
     
   }

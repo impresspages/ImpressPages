@@ -31,17 +31,21 @@ class System{
         
     }
     
-    public static function collectWidgets(\Ip\Event $event){
+    public static function collectWidgets(EventWidget $event){
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
         
         
-        $widgets = $event->getValue('widgets');
-        $widget = new Widget('title', 'Title');
-        $widgets[] = $widget;
-        $widget = new Widget('text', 'Text');
-        $widgets[] = $widget;
-        $event->setValue('widgets', $widgets);
-        
+//        $widgets = $event->getValue('widgets');
+//        $widget = new Widget('title', 'Title');
+//        $widgets[] = $widget;
+//        $widget = new Widget('text', 'Text');
+//        $widgets[] = $widget;
+//        $event->setValue('widgets', $widgets);
+          $widget = new Widget('title', 'Title');
+          $event->addWidget($widget);
+          $widget = new Widget('text', 'Text');
+          $event->addWidget($widget);
+          
     }
     
 

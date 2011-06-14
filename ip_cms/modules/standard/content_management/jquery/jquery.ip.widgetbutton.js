@@ -16,7 +16,7 @@
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.draggable({
-                        connectToSortable : '.ipBlockSelector',
+                        connectToSortable : '.ipBlock',
                         revert : 'invalid',
                         helper : 'clone',
                         stop: function(event, ui) {/*console.log(ui); console.log($(ui.item).attr('id'));*/ }    

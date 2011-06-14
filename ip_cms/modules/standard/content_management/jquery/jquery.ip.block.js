@@ -17,7 +17,7 @@
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.sortable({
-                        connectWith: '.ipBlockSelector',
+                        connectWith: '.ipBlock',
                         revert: true,
                         receive: function(event, ui) {
                             $element = null;
@@ -62,7 +62,7 @@
                 url : ipBaseUrl,
                 data : data,
                 context : $this,
-                success : function(response){  $(this).find('.ipWidgetButton').html(response.widgetHtml); $(this).ipBlock('destroy'); },
+                success : function(response){  $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy'); },
                 dataType : 'json'
             });        
         }        
