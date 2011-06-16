@@ -63,9 +63,9 @@ if(Db::connect()){
 
     $output = $site->generateOutput();
     
-    $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', $output));
+    $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$output)));
     echo $output;
-    $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', $output));
+    $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$output)));
     
 
     /*

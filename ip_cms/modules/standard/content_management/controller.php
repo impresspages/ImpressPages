@@ -133,6 +133,7 @@ class Controller{
     }
     
     private function _outputAnswer($data) {
+        global $site;
         header('Content-type: text/json; charset=utf-8');
         $answer = json_encode($data);        
         $site->setOutput($answer);         

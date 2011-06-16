@@ -694,6 +694,8 @@ class Site{
      *
      */
     public function makeActions(){
+        
+        
         if(sizeof($_REQUEST) > 0){
             if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])){ //old deprecated way
                 //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
@@ -716,8 +718,6 @@ class Site{
                 }
             }
             
-            $this->getZone($this->currentZone)->makeActions(); //old deprecated way. Need to refactor to actions
-
             
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
@@ -748,6 +748,10 @@ class Site{
             
         }
 
+        $this->getZone($this->currentZone)->makeActions(); //old deprecated way. Need to refactor to actions
+
+        
+        
     }
 
     /**
