@@ -32,7 +32,8 @@ class System{
     }
     
     public static function collectWidgets(EventWidget $event){
-        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
+        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/title/widget.php');
+        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/text/widget.php');
         
         
 //        $widgets = $event->getValue('widgets');
@@ -41,10 +42,11 @@ class System{
 //        $widget = new Widget('text', 'Text');
 //        $widgets[] = $widget;
 //        $event->setValue('widgets', $widgets);
-          $widget = new Widget('title', 'Title');
+          $widget = new WidgetTitle();
           $event->addWidget($widget);
-          $widget = new Widget('text', 'Text');
+          $widget = new WidgetText();
           $event->addWidget($widget);
+          //MODULE_DIR.'standard/content_management/img/widget.gif'
           
     }
     

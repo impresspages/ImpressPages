@@ -49,6 +49,11 @@
             // TODO
         },
         
+        _showError : function (errorMessage) {
+            alert(errorMessage);    
+            
+        },
+        
         _createWidget : function (widgetName) {
             var $this = $(this);
             data = Object();
@@ -62,16 +67,28 @@
                 url : ipBaseUrl,
                 data : data,
                 context : $this,
-                success : function(response){  $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy'); },
+                success : $.fn.ipBlock,
                 dataType : 'json'
             });        
-        }        
-        
-//        _createWidget : function(name) {
-//            return this.each(function() {
+        },       
+        // function(response){alert('test');  $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy'); }
+        _createWidgetResponse : function(response) {
+            
+            if (response.status == 'error') {
+                $.fn.ipBlock('_showError', response.errorMessage);
+                //alert(response.errorMessage);
+            }
+            
+            if (response.status == 'success') {
+                $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy');
+            }
+            //console.log(response);
+            
+            //alert('tst ' + name);
+//            return $(this).each(function() {
 //                alert(name);
-//            }
-//        }
+//            });
+        }
     
 
         
@@ -80,9 +97,10 @@
     
 
     $.fn.ipBlock = function(method) {
-
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof method === 'object' && method.action != '') {
+            methods[method.action].apply(this, Array.prototype.slice.call(arguments, 0));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {

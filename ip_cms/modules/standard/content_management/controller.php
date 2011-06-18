@@ -52,20 +52,18 @@ class Controller{
         $error = false;
         
         if (!isset($_POST['widgetName']) ||
-            !isset($_POST['priority']) ||
+            !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
             !isset($_POST['zoneName']) ||
-            !isset($_POST['pageId']) ||
-            !isset($_POST['blockWidth'])
+            !isset($_POST['pageId']) 
             ) {
             $this->_errorAnswer('Mising POST variable');
             return;
         }
         
         $widgetName = $_POST['widgetName'];
-        $priority = $_POST['priority'];
+        $position = $_POST['position'];
         $blockName = $_POST['blockName'];
-        $blockWidth = $_POST['blockWidth'];
         $zoneName = $_POST['zoneName'];
         $pageId = $_POST['pageId'];
         
@@ -91,7 +89,8 @@ class Controller{
         
         
         try {
-            $widgetId = ModelWidget::createWidget($widgetName, $priority, $blockName, $blockWidth, $zoneName, $pageId, $widget->getDefaultLayout());
+            $layouts = $widget->getLayouts();
+            $widgetId = ModelWidget::createWidget($widgetName, $position, $zoneName, $pageId, $blockName, $layouts[0]['name']);
             $widgetHtml = ModelWidget::generateWidgetManagement($widgetId);
             //$widget->generateHtml($widgetId, $data, $layout) 
         } catch (Exception $e) {
@@ -126,6 +125,7 @@ class Controller{
     private function _errorAnswer($errorMessage) {
         $data = array (
             'status' => 'error',
+            'action' => '_createWidgetResponse',
             'errorMessage' => $errorMessage
         );
         

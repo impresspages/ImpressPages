@@ -10,22 +10,22 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
-class WidgetTitle extends Widget{
+class WidgetText extends Widget{
 
     public function __construct() {
         
     }
     
     public function getTitle(){
-        return 'Title';
+        return 'Text';
     }
     
     public function getIcon(){
-        return MODULE_DIR.'standard/content_management/widget/title/icon.gif';
+        return MODULE_DIR.'standard/content_management/widget/text/icon.gif';
     }
     
     public function getName(){
-        return 'title';
+        return 'text';
     }    
     
     public function addHtml(){  

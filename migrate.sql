@@ -21,6 +21,10 @@ CHANGE `widget` `widgetName` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_gene
 
 ALTER TABLE `ip_m_content_management_widget` CHANGE `widgetName` `widgetName` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0'
 
+ALTER TABLE `ip_m_content_management_widget` CHANGE `layout` `layout` VARCHAR( 25 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
+
+ALTER TABLE `ip_m_content_management_widget` CHANGE `rowNumber` `position` DOUBLE NOT NULL 
+
 
 include migrate_integrate_widget_tables.php
 

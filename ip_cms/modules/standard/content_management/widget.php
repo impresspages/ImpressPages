@@ -6,40 +6,19 @@
  */
 namespace Modules\standard\content_management;
 
-class Widget{
-    var $title;
-    var $name;
-    var $icon;
+abstract class Widget{
 
-    public function __construct($name, $title) {
-        $this->setName($name);
-        $this->setTitle($title);
-        $this->setIcon(MODULE_DIR.'standard/content_management/img/widget.gif');
+    public static function getLayouts() {
+        $answer = array();
+        $answer[] = array('name' => 'default', 'title' => 'Default');
+        return $answer;
     }
     
-    public function setTitle($title) {
-        $this->title = $title;
-    }
+    abstract public function getTitle();
     
-    public function getTitle() {
-        return $this->title;        
-    }
+    abstract public function getIcon();
     
-    public function setIcon($icon) {
-        $this->icon = $icon;
-    }
-    
-    public function getIcon() {
-        return $this->icon;
-    }
-    
-    public function setName($name) {
-        $this->name = $name;
-    }
-    
-    public function getName () {
-        return $this->name;
-    }
+    abstract public function getName();
     
 
 }

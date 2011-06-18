@@ -46,6 +46,9 @@ while($lock = mysql_fetch_assoc($rs)) {
             	WHERE
             		id = ".(int)$lock['elementId']." 
             ";
+            $rsWidget = mysql_query($sqlWidget);
+            
+            if (!$rsWidget)
             
             $data = array (
                 'thankYou' => ,
