@@ -87,7 +87,7 @@ class View{
                 $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
             }
             
-            throw new Exception("Can't find view file: ".$this->file." ".$source);
+            throw new \Exception("Can't find view file: ".$this->file." ".$source);
         }
         
         return $output;        

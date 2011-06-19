@@ -9,7 +9,10 @@
 
     var methods = {
         init : function(options) {
+
+            
             return this.each(function() {
+                
                 var $this = $(this);
                 
                 var data = $this.data('ipBlock');
@@ -39,9 +42,12 @@
                     });        
                     
                     $this.data('ipBlock', {
-                        name : $this.attr('id').substr(15)
+                        name : $this.attr('id').substr(8),
+                        zoneName : options.zoneName,
+                        pageId : options.pageId
                         
-                    });
+                    }); 
+                    
                 }                
             });
         },
@@ -56,11 +62,16 @@
         
         _createWidget : function (widgetName) {
             var $this = $(this);
+
             data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'createWidget';
             data.widgetName = widgetName;
+            data.position = 1;
+            data.blockName = $this.data('ipBlock').name;
+            data.zoneName = $this.data('ipBlock').zoneName;
+            data.pageId = $this.data('ipBlock').pageId;
         
             $.ajax({
                 type : 'POST',
@@ -80,7 +91,9 @@
             }
             
             if (response.status == 'success') {
-                $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy');
+                alert(response.widgetHtml);
+                $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml);
+
             }
             //console.log(response);
             
@@ -99,7 +112,8 @@
     $.fn.ipBlock = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-        } else if (typeof method === 'object' && method.action != '') {
+        } else if (typeof method === 'object' && method.action) {
+            alert(method.action);
             methods[method.action].apply(this, Array.prototype.slice.call(arguments, 0));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);

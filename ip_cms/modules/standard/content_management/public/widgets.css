@@ -21,3 +21,7 @@ heigth: 46px;
 margin: 0 0 5px 5px;
 list-style: none;    
 }
+
+.ipWidget {
+    border: 1px solid #ccc;	
+}

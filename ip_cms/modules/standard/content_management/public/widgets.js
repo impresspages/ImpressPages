@@ -36,8 +36,11 @@ function ipInitManagementResponse(response) {
     if (response.status == 'success') {
         $('body').prepend(response.controlPanelHtml);
         
+        var options = new Object;
+        options.zoneName = ipZoneName;
+        options.pageId = ipPageId;
         
-        $('.ipBlock').ipBlock();
+        $('.ipBlock').ipBlock(options);
         
 
         $('.ipWidgetButtonSelector').ipWidgetButton();

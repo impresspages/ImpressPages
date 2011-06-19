@@ -14,6 +14,10 @@ abstract class Widget{
         return $answer;
     }
     
+    abstract public function managementHtml($widgetId, $data);
+    
+    abstract public function previewHtml($widgetId, $data);
+    
     abstract public function getTitle();
     
     abstract public function getIcon();

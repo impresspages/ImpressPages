@@ -15,16 +15,16 @@ class System{
         global $dispatcher;
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/ui/jquery-ui.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/content_management.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/jquery/jquery.ip.widgetbutton.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/jquery/jquery.ip.block.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
             $actionData = array (
 				'g' => 'standard',
 				'm' => 'content_management',
 				'a' => 'initVariables'            
             );
             $site->addJavascript($site->generateUrl(null, null, null, $actionData));
-            $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/content_management.css');
+            $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
         }     
 
 	    $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');

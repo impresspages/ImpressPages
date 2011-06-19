@@ -16,6 +16,15 @@ class WidgetTitle extends Widget{
         
     }
     
+    public function managementHtml($widgetId, $data){
+        return 'management';
+    }
+    
+    
+    public function previewHtml($widgetId, $data){
+        return 'preview';
+    }    
+    
     public function getTitle(){
         return 'Title';
     }
@@ -28,22 +37,6 @@ class WidgetTitle extends Widget{
         return 'title';
     }    
     
-    public function addHtml(){  
-        $answer = '';
-        
-        $answer .= 'TEST';
-        
-        return $answer;
-    }
-    
-    public function previewHtml(int $id,array $data) {
-        
-        
-    }
-    
-    public function adminHtml(int $id,array $data) {
-        
-        
-    }    
+  
     
 }

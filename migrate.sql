@@ -25,6 +25,15 @@ ALTER TABLE `ip_m_content_management_widget` CHANGE `layout` `layout` VARCHAR( 2
 
 ALTER TABLE `ip_m_content_management_widget` CHANGE `rowNumber` `position` DOUBLE NOT NULL 
 
+ALTER TABLE `ip_m_content_management_widget` ADD `zoneName` VARCHAR( 25 ) NOT NULL AFTER `position` ,
+ADD `blockName` VARCHAR( 25 ) NOT NULL AFTER `zoneName` 
+
+ALTER TABLE `ip_m_content_management_widget` ADD `created` INT NOT NULL ,
+ADD `modified` INT NOT NULL 
+
+
+
+
 
 include migrate_integrate_widget_tables.php
 
@@ -49,3 +58,7 @@ DROP TABLE `ip_mc_misc_contact_form` ,
 `ip_mc_text_photos_text_photo` ,
 `ip_mc_text_photos_text_title` ,
 `ip_mc_text_photos_title` ;
+
+
+
+

@@ -63,26 +63,13 @@ class Element extends \Frontend\Element {
     global $parametersMod;
     global $site;
 
-    return '
-    <div class="ipBlock">
-    	<div class="ipWidget">LAbas</div>
-    	<div class="ipWidget">Nelabas</div>
-    </div>
-    =============================================
-    <div class="ipBlock">
-    	<div class="ipWidget">AAAAAA</div>
-    	<div class="ipWidget">BBBB</div>
-    	<div class="ipWidget">CCC</div>
-    	<div class="ipWidget">DDD</div>
-   	</div>
-    ';
-    
+    return $site->generateBlock('main');
   }
-
 
   public function getDynamicModules() {
     return $this->dynamicModules;
   }
+  
   public function setDynamicModules($dynamicModules) {
     $this->dynamicModules=$dynamicModules;
   }

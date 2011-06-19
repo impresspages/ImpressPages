@@ -8,7 +8,7 @@ namespace Modules\standard\content_management;
 if (!defined('CMS')) exit;
 
 
-require_once(__DIR__.'/model_widget.php');
+require_once(__DIR__.'/model.php');
 
 class Controller{
     
@@ -18,7 +18,9 @@ class Controller{
         
         header('Content-type: text/javascript');
         $data = array (
-            'ipBaseUrl' => BASE_URL
+            'ipBaseUrl' => BASE_URL,
+        	'ipZoneName' => $site->getCurrentZone()->getName(),
+        	'ipPageId' => $site->getCurrentElement()->getId()
         );
         $answer = \Ip\View::create('standard/content_management/view/init_variables.php', $data)->render();
         $site->setOutput($answer);
@@ -28,7 +30,7 @@ class Controller{
     public function initManagementData(){
         global $site;
         
-        $widgets = ModelWidget::getWidgets();
+        $widgets = Model::getAvailableWidgetObjects();
         
         $data = array (
             'widgets' => $widgets
@@ -68,8 +70,8 @@ class Controller{
         $pageId = $_POST['pageId'];
         
         
-        $widget = ModelWidget::getWidget($widgetName);
-        if ($widget === false) {
+        $widgetObject = Model::getWidgetObject($widgetName);
+        if ($widgetObject === false) {
             $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
             return;
         }
@@ -80,7 +82,7 @@ class Controller{
             return;
         }
         
-        $page = $zone->getPage($pageId);
+        $page = $zone->getElement($pageId);
         if ($page === false) {
             $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
             return;
@@ -89,27 +91,23 @@ class Controller{
         
         
         try {
-            $layouts = $widget->getLayouts();
-            $widgetId = ModelWidget::createWidget($widgetName, $position, $zoneName, $pageId, $blockName, $layouts[0]['name']);
-            $widgetHtml = ModelWidget::generateWidgetManagement($widgetId);
-            //$widget->generateHtml($widgetId, $data, $layout) 
+            $layouts = $widgetObject->getLayouts();
+            $widgetId = Model::createWidget($position, $zoneName, $blockName, $pageId, $widgetName, $layouts[0]['name']);
+            $widgetHtml = Model::generateWidgetManagement($widgetId);
         } catch (Exception $e) {
             $this->_errorAnswer($e);
             return;
         }
 
-        
-        $html = 
-        
-        header('Content-type: text/json; charset=utf-8');
-        
+
         $data = array (
             'status' => 'success',
-            'widgetHtml' => '<div class="ipWidget" style="border: 1px solid; background-color: #565;">TEST<br /><br /> -- MANO WIDGETAS --<br /></div>'
+            'action' => '_createWidgetResponse',
+            'widgetHtml' => $widgetHtml
         );
         
-        $answer = json_encode($data);        
-        $site->setOutput($answer);            
+        $this->_outputAnswer($data);
+      
     }
     
     public function updateWidget() {
