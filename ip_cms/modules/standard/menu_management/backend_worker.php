@@ -108,7 +108,6 @@ class BackendWorker {
         
         //store status only on local menu tree
         if (true || $parentWebsiteId == 0) {
-            
             $_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId] = 1;
         }
 
@@ -211,7 +210,7 @@ class BackendWorker {
                     
                     $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
                     //if node status is open
-    				if (false && !empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+    				if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
     				    $state = 'open';
     				    $children = $this->_getList($externalLinking, 'zone', $parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
     				    if (count($children) == 0) {
