@@ -28,6 +28,8 @@ class Module{
 
     $site->dispatchEvent('administrator', 'system', 'clear_cache', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
     
+    $errors = false;
+    
     if ($cachedUrl != BASE_URL) { //update robots.txt file.
       $robotsFile = 'robots.txt';
       $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
@@ -43,6 +45,7 @@ class Module{
         file_put_contents($robotsFile, $newData);
       } else {
         trigger_error('robots.txt file need to be updated. Do it manually or make it writable and clear cache once again.');
+        $errors = true;
       }          
     }
 
@@ -60,12 +63,17 @@ class Module{
         }
       }
       
-      \DbSystem::replaceUrls($cachedUrl, BASE_URL);           
-      \DbSystem::setSystemVariable('cached_base_url', BASE_URL); // update system variable
+      if ($errors == false) {
+          \DbSystem::replaceUrls($cachedUrl, BASE_URL);           
+          \DbSystem::setSystemVariable('cached_base_url', BASE_URL); // update system variable
+      }
       
           
-    }         
-    $site->dispatchEvent('administrator', 'system', 'cache_cleared', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
+    }
+
+    if ($errors == false) {    
+        $site->dispatchEvent('administrator', 'system', 'cache_cleared', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
+    }
     
    
   }
