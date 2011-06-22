@@ -24,8 +24,9 @@ class Scripts {
     $this->scripts[] = array("from" => "1.0.6", "to" => "1.0.7", "script" => "update_1_0_6_to_1_0_7");
     $this->scripts[] = array("from" => "1.0.7", "to" => "1.0.8", "script" => "update_1_0_7_to_1_0_8");
     
-    $this->scripts[] = array("from" => "1.0.8", "to" => "1.0.9rc3", "script" => "update_1_0_8_to_1_0_9");
-    $this->scripts[] = array("from" => "1.0.9rc2", "to" => "1.0.9rc3", "script" => "update_1_0_8_to_1_0_9");
+    $this->scripts[] = array("from" => "1.0.8", "to" => "1.0.9", "script" => "update_1_0_8_to_1_0_9");
+    $this->scripts[] = array("from" => "1.0.9rc2", "to" => "1.0.9", "script" => "update_1_0_8_to_1_0_9");
+    $this->scripts[] = array("from" => "1.0.9rc3", "to" => "1.0.9", "script" => "update_1_0_8_to_1_0_9");
   }
 
   public function getScripts($fromVersion = "1.0.0 Alpha"){
