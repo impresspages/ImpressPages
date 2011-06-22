@@ -11,7 +11,7 @@ if (!defined('CMS')) exit;
 
 class Scripts {
   private $scripts;
-  const destinationVersion = '1.0.9rc3';
+  const destinationVersion = '1.0.9';
   
   public function __construct(){
     $this->scripts = array();        
