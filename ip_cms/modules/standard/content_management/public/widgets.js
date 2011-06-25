@@ -39,6 +39,7 @@ function ipInitManagementResponse(response) {
         var options = new Object;
         options.zoneName = ipZoneName;
         options.pageId = ipPageId;
+        options.revisionId = ipRevisionId;
         
         $('.ipBlock').ipBlock(options);
         

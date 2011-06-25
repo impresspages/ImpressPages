@@ -15,11 +15,11 @@ class Model{
     public static function generateBlock($blockName, $revision) {
     	global $site;
 
-    	$widgets = self::getRevisionWidgetRecords($revision['id']);
+    	$widgets = self::getBlockWidgetRecords($blockName, $revision['id']);
     	
     	$widgetsHtml = array();
     	foreach ($widgets as $key => $widget) {
-    		$widgetsHtml[] = self::generateWidgetPreview($widget);
+    		$widgetsHtml[] = self::_generateWidgetPreview($widget);
     	}
 
     	$data = array (
@@ -32,17 +32,17 @@ class Model{
     	return $answer;
     }
     
-    public static function getRevisionWidgetRecords($revisionId){
+    public static function getBlockWidgetRecords($blockName, $revisionId){
         $sql = "
-        	SELECT w.*, rtw.revisionId, rtw.blockName 
+        	SELECT w.*, rtw.revisionId 
         	FROM
         		`".DB_PREF."m_content_management_revision_to_widget` rtw,
         		`".DB_PREF."m_content_management_widget` w
         	WHERE
-        		rtw.widgetId = w.id
+        		rtw.widgetId = w.id AND
+        		w.blockName = '".mysql_real_escape_string($blockName)."'
      		ORDER BY `position` ASC
         ";    
-        
         $rs = mysql_query($sql);
         if (!$rs){
             throw new \Exception('Can\'t get widgets '.$sql.' '.mysql_error());
@@ -187,17 +187,17 @@ class Model{
             $widgetData = array();    
         }
         
-        $widgetObject = self::getWidgetObject($widgetRecord['widgetName']);
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if (!$widgetObject) {
-            throw new \Exception('Widget does not exist WidgetName: '.$widgetRecord['widgetName']);
+            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
         } 
         
-        $managementHtml = $widgetObject->previewHtml($widgetRecord['id'], $widgetData);
+        $previewHtml = $widgetObject->previewHtml($widgetRecord['id'], $widgetData);
         
         $data = array (
-            'managementHtml' => $managementHtml,
-            'widgetName' => $widgetRecord['widgetName']
+            'html' => $previewHtml,
+            'widgetRecord' => $widgetRecord
         );
         $answer = \Ip\View::create('standard/content_management/view/widget_preview.php', $data)->render();
         return $answer;    
@@ -215,33 +215,31 @@ class Model{
             $widgetData = array();    
         }
         
-        $widgetObject = self::getWidgetObject($widgetRecord['widgetName']);
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if (!$widgetObject) {
-            throw new \Exception('Widget does not exist WidgetName: '.$widgetRecord['widgetName']);
+            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
         } 
         
         $managementHtml = $widgetObject->managementHtml($widgetRecord['id'], $widgetData);
         
         $data = array (
             'managementHtml' => $managementHtml,
-            'widgetName' => $widgetRecord['widgetName']
+            'widgetRecord' => $widgetRecord
         );
         $answer = \Ip\View::create('standard/content_management/view/widget_management.php', $data)->render();
         return $answer;    
     }
     
-    public static function createWidget($position, $zoneName, $blockName, $pageId, $widgetName, $layout) {
+    public static function createWidget($revisionId, $position, $blockName, $widgetName, $layout) {
         $sql = "
         	insert into
         		".DB_PREF."m_content_management_widget
         	set
         		`position` = '".mysql_real_escape_string($position)."',
-        		`zoneName` = '".mysql_real_escape_string($zoneName)."',
         		`blockName` = '".mysql_real_escape_string($blockName)."',
-        		`pageId` = '".mysql_real_escape_string($pageId)."',
         		`visible` = 1,
-        		`widgetName` = '".mysql_real_escape_string($widgetName)."',
+        		`name` = '".mysql_real_escape_string($widgetName)."',
         		`layout` = '".mysql_real_escape_string($layout)."',
         		`created` = ".time()."
         ";
@@ -252,7 +250,23 @@ class Model{
             throw new \Exception('Can\'t create new widget '.$sql.' '.mysql_error());
         }
         
-        return mysql_insert_id();
+        $widgetId = mysql_insert_id();
+        
+            $sql = "
+        	insert into
+        		".DB_PREF."m_content_management_revision_to_widget
+        	set
+        		`revisionId` = ".(int)$revisionId.",
+        		`widgetId` = ".(int)$widgetId."
+        ";
+        
+        $rs = mysql_query($sql);
+        
+        if (!$rs) {
+            throw new \Exception('Can\'t associated revision to widget '.$sql.' '.mysql_error());
+        }        
+        
+        return $widgetId;
     }
     
 }

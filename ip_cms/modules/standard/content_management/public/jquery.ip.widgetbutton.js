@@ -23,9 +23,9 @@
                     });
                     
                     $this.data('ipWidgetButton', {
-                        name : $this.attr('id').substr(15)
+                        name : $this.attr('id').substr(15)                        
                     });
-    
+
                 }                
                     
                 

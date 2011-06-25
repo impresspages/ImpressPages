@@ -25,6 +25,11 @@ class System{
             );
             $site->addJavascript($site->generateUrl(null, null, null, $actionData));
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
+            
+            
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widget/text/ipWidgetText.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widget/title/ipWidgetTitle.js');
+            
         }     
 
 	    $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');

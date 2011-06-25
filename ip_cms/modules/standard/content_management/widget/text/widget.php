@@ -17,12 +17,16 @@ class WidgetText extends Widget{
     }
     
     public function managementHtml($widgetId, $data){
-        return 'management';
+    	$data = array (
+    	);
+    	$answer = \Ip\View::create('standard/content_management/widget/text/view/management.php', $data)->render();
+    	
+        return $answer;
     }
     
     
     public function previewHtml($widgetId, $data){
-        return 'preview';
+        return 'Text widget';
     }
     
     public function getTitle(){

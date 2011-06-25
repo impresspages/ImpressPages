@@ -22,7 +22,7 @@ class WidgetTitle extends Widget{
     
     
     public function previewHtml($widgetId, $data){
-        return 'preview';
+        return 'Title widget';
     }    
     
     public function getTitle(){

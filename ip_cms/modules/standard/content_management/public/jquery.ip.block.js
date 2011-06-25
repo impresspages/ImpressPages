@@ -34,6 +34,7 @@
                             //if received element is WidgetButton (insert new widget)
                             if ($element && $element.is('.ipWidgetButton')) {
                                 var newWidgetName = $element.data('ipWidgetButton').name;
+                                alert(newWidgetName);
                                 $block.ipBlock('_createWidget', newWidgetName);
                             } else {
 
@@ -43,8 +44,7 @@
                     
                     $this.data('ipBlock', {
                         name : $this.attr('id').substr(8),
-                        zoneName : options.zoneName,
-                        pageId : options.pageId
+                        revisionId : options.revisionId
                         
                     }); 
                     
@@ -72,6 +72,7 @@
             data.blockName = $this.data('ipBlock').name;
             data.zoneName = $this.data('ipBlock').zoneName;
             data.pageId = $this.data('ipBlock').pageId;
+            data.revisionId = $this.data('ipBlock').revisionId;
         
             $.ajax({
                 type : 'POST',
@@ -91,8 +92,10 @@
             }
             
             if (response.status == 'success') {
-                alert(response.widgetHtml);
+                alert(response.widgetId);
                 $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml);
+                $('.ipWidget_' + response.widgetId).trigger('ipInitManagement', [response.widgetId]);
+                //$('.ipWidget_' + response.widgetId).trigger('ipSave', ['message1', 'message2']);
 
             }
             //console.log(response);

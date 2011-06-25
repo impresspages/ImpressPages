@@ -32,7 +32,9 @@ ALTER TABLE `ip_m_content_management_widget` ADD `created` INT NOT NULL ,
 ADD `modified` INT NOT NULL 
 
 
-ALTER TABLE `ip_m_content_management_widget` DROP `modified` 
+ALTER TABLE `ip_m_content_management_widget` DROP `modified`
+
+ALTER TABLE `ip_m_content_management_widget` CHANGE `widgetName` `name` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' 
 
 
 CREATE TABLE IF NOT EXISTS `ip_m_content_management_revision_to_widget` (

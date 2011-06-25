@@ -17,10 +17,12 @@ class Controller{
         global $site;
         
         header('Content-type: text/javascript');
+        $revision = $site->getRevision();
         $data = array (
             'ipBaseUrl' => BASE_URL,
         	'ipZoneName' => $site->getCurrentZone()->getName(),
-        	'ipPageId' => $site->getCurrentElement()->getId()
+        	'ipPageId' => $site->getCurrentElement()->getId(),
+        	'ipRevisionId' => $revision['id']
         );
         $answer = \Ip\View::create('standard/content_management/view/init_variables.php', $data)->render();
         $site->setOutput($answer);
@@ -56,8 +58,7 @@ class Controller{
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
-            !isset($_POST['zoneName']) ||
-            !isset($_POST['pageId']) 
+            !isset($_POST['revisionId'])
             ) {
             $this->_errorAnswer('Mising POST variable');
             return;
@@ -66,8 +67,17 @@ class Controller{
         $widgetName = $_POST['widgetName'];
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
-        $zoneName = $_POST['zoneName'];
-        $pageId = $_POST['pageId'];
+        $revisionId = $_POST['revisionId'];
+        
+        
+        $revisionRecord = Model::getRevision($revisionId);
+        
+        if ($revisionRecord === false) {
+        	throw new Exception("Can't find required revision " . $revisionId); 
+        }
+        
+        $zoneName = $revisionRecord['zoneName'];
+        $pageId = $revisionRecord['pageId'];
         
         
         $widgetObject = Model::getWidgetObject($widgetName);
@@ -92,7 +102,7 @@ class Controller{
         
         try {
             $layouts = $widgetObject->getLayouts();
-            $widgetId = Model::createWidget($position, $zoneName, $blockName, $pageId, $widgetName, $layouts[0]['name']);
+            $widgetId = Model::createWidget($revisionId, $position, $blockName, $widgetName, $layouts[0]['name']);
             $widgetHtml = Model::generateWidgetManagement($widgetId);
         } catch (Exception $e) {
             $this->_errorAnswer($e);
@@ -103,7 +113,8 @@ class Controller{
         $data = array (
             'status' => 'success',
             'action' => '_createWidgetResponse',
-            'widgetHtml' => $widgetHtml
+            'widgetHtml' => $widgetHtml,
+        	'widgetId' => $widgetId
         );
         
         $this->_outputAnswer($data);
