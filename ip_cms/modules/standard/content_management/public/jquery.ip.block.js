@@ -94,6 +94,7 @@
             if (response.status == 'success') {
                 alert(response.widgetId);
                 $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml);
+
                 $('.ipWidget_' + response.widgetId).trigger('ipInitManagement', [response.widgetId]);
                 //$('.ipWidget_' + response.widgetId).trigger('ipSave', ['message1', 'message2']);
 

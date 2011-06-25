@@ -46,9 +46,14 @@ function ipInitManagementResponse(response) {
 
         $('.ipWidgetButtonSelector').ipWidgetButton();
         
-        
+        $('.ipWidgetButtonSave').live('click', ipWidgetSave);        
         
         
     }
     
+}
+
+function ipWidgetSave(event) {
+	$(event.currentTarget).trigger('ipSave');
+	//console.log(event);
 }
