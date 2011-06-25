@@ -25,3 +25,7 @@ list-style: none;
 .ipWidget {
     border: 1px solid #ccc;	
 }
+
+.ipBlock {
+	min-height: 10px;	
+}

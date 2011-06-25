@@ -110,10 +110,7 @@ class Controller{
       
     }
     
-    public function updateWidget() {
-        
-        
-    }
+
     
     public function deleteWidget($id, $data) {
         

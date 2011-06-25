@@ -73,6 +73,9 @@ class Site{
     /** string HTML or any other output. If is not null, it will be send to the output. If it is null, required page by request URL will be generated  */
     protected $output;
     
+    /** int Revision of current page.  */
+    protected $revision;
+    
     protected $zones;
     protected $otherZones;
 
@@ -1100,11 +1103,11 @@ class Site{
     
     
     
-    public function generateBlock($blockHook) {
+    public function generateBlock($blockName) {
         global $dispatcher;
         global $site;
         $data = array (
-            'hook' => $blockHook
+            'blockName' => $blockName
         );
         
         $event = new \Ip\Event($site, 'site.generateBlock', $data);
@@ -1114,15 +1117,46 @@ class Site{
         if ($processed && $event->issetValue('content')) {
             return $event->getValue('content');    
         } else {
-            return '
-    <div class="ipBlock ipBlock_'.$blockHook.'">
-    	<div class="ipWidget">LAbas</div>
-    	<div class="ipWidget">Nelabas</div>
-    </div>    
-            ';    
+	        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+        	$revision = $this->getRevision();
+	        if ($this->managementState()) {
+	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision);
+        	} else {
+	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision);
+        	}
         }
         
                 
+    }
+    
+    public function getRevision() {
+    	$revision = null;
+    	if ($this->managementState() && isset($this->getVars['cms_revision'])) {
+    		$revisionId = $this->getVars['cms_revision'];
+    		$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
+    		if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $site->getCurrentElement()->getId() ) {
+	    		$revision = \Modules\standard\content_management\Model::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+	    		if ($revision === false) {
+	    			$revisionId = \Modules\standard\content_management\Model::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+					$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
+					if ($revision === false) {
+						throw new Exception("Can't find created revision " . $revisionId); 
+					}    
+	    		} 
+    		}
+    	} else {
+	    	require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+    		$revision = \Modules\standard\content_management\Model::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+    		if ($revision === false) {
+    			$revisionId = \Modules\standard\content_management\Model::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+				$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
+				if ($revision === false) {
+					throw new Exception("Can't find created revision " . $revisionId); 
+				}    
+    		} 
+    	}
+		return $revision;
+    
     }
 
 }

@@ -32,6 +32,15 @@ ALTER TABLE `ip_m_content_management_widget` ADD `created` INT NOT NULL ,
 ADD `modified` INT NOT NULL 
 
 
+ALTER TABLE `ip_m_content_management_widget` DROP `modified` 
+
+
+CREATE TABLE IF NOT EXISTS `ip_m_content_management_revision_to_widget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `revisionId` int(11) NOT NULL,
+  `widgetId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 
 
