@@ -40,9 +40,12 @@ class Controller{
         
         $controlPanelHtml = \Ip\View::create('standard/content_management/view/control_panel.php', $data)->render();
         
+        $widgetControllsHtml = \Ip\View::create('standard/content_management/view/widget_controlls.php', $data)->render();
+        
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
+        	'widgetControllsHtml' => $widgetControllsHtml
         );
         
         $this->_outputAnswer($data);

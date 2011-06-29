@@ -43,17 +43,20 @@ function ipInitManagementResponse(response) {
         
         $('.ipBlock').ipBlock(options);
         
-
+        var options = new Object;
+        options.widgetControllsHtml = response.widgetControllsHtml;
+        $('.ipWidget').ipWidget(options);
+        
+        
         $('.ipWidgetButtonSelector').ipWidgetButton();
-        
-        $('.ipWidgetButtonSave').live('click', ipWidgetSave);        
-        
-        
+        $('.ipBlock').delegate('.ipWidgetButtonSave', 'click', ipWidgetSave);        
+
     }
     
 }
 
 function ipWidgetSave(event) {
+	
 	$(event.currentTarget).trigger('ipSave');
 	//console.log(event);
 }

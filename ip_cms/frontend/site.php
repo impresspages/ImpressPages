@@ -1120,9 +1120,9 @@ class Site{
 	        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         	$revision = $this->getRevision();
 	        if ($this->managementState()) {
-	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision);
+	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
         	} else {
-	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision);
+	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
         	}
         }
         

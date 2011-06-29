@@ -18,6 +18,7 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
             $actionData = array (
 				'g' => 'standard',
 				'm' => 'content_management',

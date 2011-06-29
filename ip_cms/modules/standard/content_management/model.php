@@ -12,20 +12,21 @@ require_once(__DIR__.'/event_widget.php');
 class Model{
     static private $widgetObjects = null;
     
-    public static function generateBlock($blockName, $revision) {
+    public static function generateBlock($blockName, $revision, $managementState) {
     	global $site;
 
     	$widgets = self::getBlockWidgetRecords($blockName, $revision['id']);
     	
     	$widgetsHtml = array();
     	foreach ($widgets as $key => $widget) {
-    		$widgetsHtml[] = self::_generateWidgetPreview($widget);
+    		$widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
     	}
 
     	$data = array (
     		'widgetsHtml' => $widgetsHtml,
     		'blockName' => $blockName,    		
-    		'revision' => $revision
+    		'revision' => $revision,
+    		'managementState' => $managementState
     	);
     	
     	$answer = \Ip\View::create('standard/content_management/view/block.php', $data)->render();
@@ -175,12 +176,12 @@ class Model{
         }
     }
 
-    public static function generateWidgetPreview($widgetId) {
+    public static function generateWidgetPreview($widgetId, $managementState) {
         $widgetRecord = self::getWidgetRecord($widgetId);
-        return self::_generateWidgetPreview($widgetRecord);
+        return self::_generateWidgetPreview($widgetRecord, $managementState);
     }
     
-    private static function _generateWidgetPreview($widgetRecord) {
+    private static function _generateWidgetPreview($widgetRecord, $managementState) {
         $widgetData = json_decode($widgetRecord['data']);
         
         if (!is_array($widgetData)) {
@@ -197,7 +198,8 @@ class Model{
         
         $data = array (
             'html' => $previewHtml,
-            'widgetRecord' => $widgetRecord
+            'widgetRecord' => $widgetRecord,
+        	'managementState' => $managementState
         );
         $answer = \Ip\View::create('standard/content_management/view/widget_preview.php', $data)->render();
         return $answer;    

@@ -29,3 +29,7 @@ list-style: none;
 .ipBlock {
 	min-height: 10px;	
 }
+
+.ipWidgetData {
+	display: none;	
+}
