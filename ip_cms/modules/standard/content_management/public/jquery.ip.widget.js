@@ -28,12 +28,69 @@
             				data[$(this).attr('name')] = $(this).val();
             			}
                 	);
-                	console.log(data);
-                	
+
                     $this.data('ipWidget', data); 
                     
+                    $this.delegate('.ipWidgetEdit', 'click', methods.editPressed);
+                    $this.delegate('.ipWidgetSave', 'click', methods.savePressed);
+                    
+                    $this.bind('edit.ipWidget', methods.edit);
+                    $this.bind('save.ipWidget', methods.save);
                 }                
             });
+        },
+        
+        editPressed : function(event) {
+        	$(this).trigger('edit.ipWidget');
+        },
+        savePressed : function(event) {
+        	$(this).trigger('save.ipWidget');
+        },
+        
+        edit : function(event){
+        	$this = $(this);
+        	
+            data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'manageWidget';
+            data.widgetId = $this.data('ipWidget').id;
+        
+            $.ajax({
+                type : 'POST',
+                url : ipBaseUrl,
+                data : data,
+                context : $this,
+                success : methods.manage,
+                dataType : 'json'
+            });     
+        },
+        
+        manage : function(response) {
+        	$this = $(this);
+        	$this.replaceWith(response.managementHtml);
+        },
+        
+        save : function(event){
+        	$this = $(this);
+        	
+            data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'manageWidget';
+            data.widgetId = $this.data('ipWidget').id;
+        
+            $.ajax({
+                type : 'POST',
+                url : ipBaseUrl,
+                data : data,
+                context : $this,
+                success : methods.saveSuccess,
+                dataType : 'json'
+            });                	
+        	
+        	alert('super save');
+        	console.log($(this).data('ipWidget'));
         }
         
     };

@@ -49,14 +49,31 @@ function ipInitManagementResponse(response) {
         
         
         $('.ipWidgetButtonSelector').ipWidgetButton();
-        $('.ipBlock').delegate('.ipWidgetButtonSave', 'click', ipWidgetSave);        
-
+        
+        $('.ipPageSave').bind('click', ipPageSave);
+        
     }
     
 }
 
-function ipWidgetSave(event) {
-	
-	$(event.currentTarget).trigger('ipSave');
-	//console.log(event);
+
+function ipPageSave(event){
+	$('.ipBlock').bind('progress', saveProgress);
+	$('.ipBlock').ipBlock('save');
 }
+
+
+function saveProgress(event){
+	console.log('save progress');
+}
+
+
+//function ipWidgetSave(event) {
+//	console.log(event);
+//    var parameters = new Object();
+//    parameters['test'] = 'testvalue'; 
+//    parameters['test2'] = 'testvalue2';
+//	
+//	$(event.currentTarget).trigger('ipSave', [parameters]);
+//
+//}

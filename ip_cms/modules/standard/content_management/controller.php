@@ -124,6 +124,28 @@ class Controller{
       
     }
     
+    public function manageWidget() {
+        global $site;
+        
+        if (!isset($_POST['widgetId'])) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }
+        
+        $widgetId = $_POST['widgetId'];
+        
+        $managementHtml = Model::generateWidgetManagement($widgetId);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_manageWidgetResponse',
+            'managementHtml' => $managementHtml,
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);        
+    }
+    
 
     
     public function deleteWidget($id, $data) {

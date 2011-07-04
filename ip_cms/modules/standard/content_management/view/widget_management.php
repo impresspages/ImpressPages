@@ -6,7 +6,7 @@ echo \Ip\View::create('standard/content_management/view/widget_data.php', array(
         <?php echo $managementHtml ?>
     </div>
     <div>
-        <span class="ipWidgetButton ipWidgetButtonSave">Save</span>
-        <span class="ipWidgetButton ipWidgetButtonCancel">Cancel</span>
+        <span class="ipWidgetButton ipWidgetSave">Save</span>
+        <span class="ipWidgetButton ipWidgetCancel">Cancel</span>
     </div>
 </div>

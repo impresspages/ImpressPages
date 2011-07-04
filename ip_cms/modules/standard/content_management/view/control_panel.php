@@ -6,4 +6,7 @@
         </li>
     <?php } ?>
     </ul>
+    <div>
+        <span class="ipPageSave">Save</span>
+    </div>
 </div>

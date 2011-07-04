@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	
     $('.ipWidget_text').live('ipInitManagement', ipWidgetTextInitManagment);
-    $('.ipWidget_text').live('ipSave', ipWidgetTextSave);
-    $('.ipWidget_text').live('click', function(){alert('testClick');});
+    $('.ipWidget_text').live('ipSave', ipWidget_text_save);
+    $('.ipWidget_text').live('ipclick', function(event, parameters){console.log(event);	console.log(parameters); alert('testClick2');});
 	
 });
 
@@ -19,8 +19,9 @@ function ipWidget_text_initManagement(widget){
 
 function ipWidget_text_save(widget, forced){
 	var data = Object();
-	
-	data.text = $(event.currentTarget).find('textarea').val();
+	alert('good');
+	console.log(forced);
+	//data.text = $(event.currentTarget).find('textarea').val();
 	
 	return data;
 }
@@ -44,6 +45,6 @@ function ipWidgetTextSave(event){
 //        dataType : 'json'
 //    });
 //    
-	
+
 	alert('save');
 }

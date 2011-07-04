@@ -1,3 +1,3 @@
 <div>
-	<span>Edit</span><span>Delete</span>
+	<span class="ipWidgetEdit">Edit</span><span class="ipWidgetDelete">Delete</span>
 </div>
