@@ -699,6 +699,8 @@ class BackendWorker {
      */
     private function _movePage () {
         global $site;
+        global $log;
+
 
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
@@ -744,7 +746,7 @@ class BackendWorker {
         }
         $destinationPageType = $_REQUEST['destinationPageType'];     
 
-        
+
         if (!isset($_REQUEST['destinationLanguageId'])) {
             trigger_error("Destination language ID is not set");
             return false;
@@ -759,7 +761,6 @@ class BackendWorker {
                 trigger_error('Can\'t find root zone element.');
                 return false;
             }
-            
             $destinationPage = $destinationZone->getElement($rootElementId);
         } else {
             $destinationPage = $destinationZone->getElement($destinationPageId);     
@@ -771,6 +772,7 @@ class BackendWorker {
             return false;
         }
 
+        
 
 
         if (!isset($_REQUEST['destinationPosition'])) {
@@ -787,13 +789,11 @@ class BackendWorker {
         $oldUrl = $page->getLink(true);
         //report url change
 
-        $newParentChildren = Db::pageChildren($destinationPageId);
-
+        $newParentChildren = Db::pageChildren($destinationPage->getId());
         $newIndex = 0; //initial value
 
-        if(count($newParentChildren) > 0) { //set as first page
-            $newIndex = $newParentChildren[0]['row_number'] - 1;
-
+        if(count($newParentChildren) > 0) {
+            $newIndex = $newParentChildren[0]['row_number'] - 1;  //set as first page
             if ($destinationPosition > 0) {
                 if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
                     $newIndex = ($newParentChildren[$destinationPosition - 1]['row_number'] + $newParentChildren[$destinationPosition]['row_number']) / 2; //average
@@ -803,12 +803,13 @@ class BackendWorker {
             }
         }
 
+        
         $data = array (
             'parentId' => $destinationPage->getId(),
             'rowNumber' => $newIndex
         );
         Db::updatePage($pageId, $data);
-
+        
         //report url change
         $pageZone = $site->getZone($zoneName);
         $page = $pageZone->getElement($pageId);
@@ -816,11 +817,13 @@ class BackendWorker {
         $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
         //report url change
 
-
+                
         $answer = array();
         $answer['status'] = 'success';
 
         $this->_printJson($answer);
+        
+      
 
     }
 
