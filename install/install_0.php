@@ -14,6 +14,7 @@ $answer = '<h1>'.IP_STEP_LANGUAGE_LONG."</h1>";
 
 
 $languages = array();
+$languages['cs'] = 'Čeština';
 $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
 $languages['de'] = 'Deutsch';
