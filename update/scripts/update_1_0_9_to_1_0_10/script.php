@@ -225,7 +225,7 @@ class Script {
         require_once(__DIR__.'/../update_1_0_2_beta_to_1_0_3_beta/parameters_refractor.php');
         
         $answer = '';
-        if (\Db_100::getSystemVariable('version') != '1.0.9') {
+        if (\Db_100::getSystemVariable('version') != '1.0.10') {
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','1.0.10');
             }
