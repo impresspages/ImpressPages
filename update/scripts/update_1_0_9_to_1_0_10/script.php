@@ -4,7 +4,7 @@
  * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license   GNU/GPL, see ip_license.html
  */
-namespace update_1_0_8_to_1_0_9;
+namespace update_1_0_9_to_1_0_10;
 
 if (!defined('CMS')) exit;
 
