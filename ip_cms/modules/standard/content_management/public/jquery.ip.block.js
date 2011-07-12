@@ -54,12 +54,13 @@
                     $this.find('.ipWidget').prepend().ipWidget(widgetOptions);
                     
                                         
-                    $this.bind('manage.ipWidget', methods._reinitWidgets);                    
+                    $this.bind('stateChangedToManagement.ipWidget', methods._reinitWidgets);                    
                 }                
             });
         },
         
         _reinitWidgets : function(event){
+        	console.log('REINIT');
         	var $this = $(this);
         	
             var widgetOptions = new Object;

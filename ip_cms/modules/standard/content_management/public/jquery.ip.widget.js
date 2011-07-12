@@ -27,16 +27,19 @@
             				data[$(this).attr('name')] = $(this).val();
             			}
                 	);
+                	
+                	data.state = 'preview'; //possible values: preview, management
 
                     $this.data('ipWidget', data); 
                     
                     $this.prepend(options.widgetControllsHtml);
                     
-                    $this.delegate('.ipWidgetEdit', 'click', methods.editPressed);
-                    $this.delegate('.ipWidgetSave', 'click', methods.savePressed);
+                    $this.delegate('.ipWidgetManage', 'click', function(event){$(this).trigger('manage.ipWidget');});
+                    $this.delegate('.ipWidgetSave', 'click', function(event){$(this).trigger('save.ipWidget');});
                     
-                    $this.bind('edit.ipWidget', methods.edit);
-                    $this.bind('save.ipWidget', methods.save);
+                    $this.bind('manage.ipWidget', function(event){$(this).ipWidget('manage')});
+                    $this.bind('save.ipWidget', function(event){$(this).ipWidget('save')});
+                    $this.bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data)});
                     
                     $this.bind('saveSuccess.ipWidget', methods.saveSuccess);
                     
@@ -44,82 +47,103 @@
             });
         },
         
-        editPressed : function(event) {
-        	$(this).trigger('edit.ipWidget');
+
+        manage : function(event){
+            return this.each(function() {
+   	
+	        	$this = $(this);
+	        	
+	            data = Object();
+	            data.g = 'standard';
+	            data.m = 'content_management';
+	            data.a = 'manageWidget';
+	            data.widgetId = $this.data('ipWidget').id;
+	        
+	            $.ajax({
+	                type : 'POST',
+	                url : ipBaseUrl,
+	                data : data,
+	                context : $this,
+	                success : methods._manageResponse,
+	                dataType : 'json'
+	            });
+            });
         },
         
-        savePressed : function(event) {
-        	$(this).trigger('save.ipWidget');
+        _manageResponse : function(response) {
+
+            return this.each(function() {
+            	$this = $(this);
+            	$block = $this.parent();
+	        	$this.replaceWith(response.managementHtml);
+	        	//TODO change widget status to 'management'
+	        	console.log('manage');
+	        	$block.trigger('stateChangedToManagement.ipWidget');
+            });
         },
         
-        edit : function(event){
-        	$this = $(this);
-        	
-            data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'manageWidget';
-            data.widgetId = $this.data('ipWidget').id;
-        
-            $.ajax({
-                type : 'POST',
-                url : ipBaseUrl,
-                data : data,
-                context : $this,
-                success : methods.manage,
-                dataType : 'json'
-            });     
-        },
-        
-        manage : function(response) {
-        	$this = $(this);
-        	$block = $this.parent();
-        	$this.replaceWith(response.managementHtml);
-        	console.log('manage');
-        	$block.trigger('manage.ipWidget');
-        },
-        
-        testSave : function(){
-        	console.log('testSave');	
-        },
         
         save : function(event){
-        	console.log('save start');
-        	var widgetObject = new ipWidget_text($(this));
-        	//widgetObject.init(this);
-        	widgetObject.save();
-        	
-        	//ipWidget_text_save(this, false);
-//        	$this = $(this);
-//        	alert('Save test');
-//            data = Object();
-//            data.g = 'standard';
-//            data.m = 'content_management';
-//            data.a = 'manageWidget';
-//            data.widgetId = $this.data('ipWidget').id;
-//        
-//            $.ajax({
-//                type : 'POST',
-//                url : ipBaseUrl,
-//                data : data,
-//                context : $this,
-//                success : methods.saveSuccess,
-//                dataType : 'json'
-//            });                	
-//        	
-//        	console.log($(this).data('ipWidget'));
+
+            return this.each(function() {        	
+	        	console.log('save start');
+	        	var widgetObject = new ipWidget_text($(this));
+	        	widgetObject.prepareData();
+            });
         },
         
-        saveSuccess : function(response) {
-        	console.log('saved');
-        	$(this).ipWidget('preview');
+        preparedData : function(data) {
+        	
+            return this.each(function() {          	
+	        	$this = $(this);
+	        	
+	        	$this.ipWidget('saveData', data);
+	        	
+
+	        });	        	
+        },
+        
+        saveData : function (data) {
+       	
+			return this.each(function() {           	
+				console.log(data);
+				$(this).ipWidget('preview');
+			});	        	
         },
         
         preview : function () {
-        	$this = $(this);
-        	
-        	alert($this.data('ipWidget').id);
+
+            return this.each(function() {         	
+	        	$this = $(this);
+
+	            data = Object();
+	            data.g = 'standard';
+	            data.m = 'content_management';
+	            data.a = 'previewWidget';
+	            data.widgetId = $this.data('ipWidget').id;
+	        
+	            $.ajax({
+	                type : 'POST',
+	                url : ipBaseUrl,
+	                data : data,
+	                context : $this,
+	                success : methods._previewResponse,
+	                dataType : 'json'
+	            });	        	
+	        	
+	        	alert($this.data('ipWidget').id);
+            });
+        },
+        
+        _previewResponse : function() {
+
+            return this.each(function() {
+            	$block = $this.parent();
+	        	$this.replaceWith(response.previewHtml);
+	        	console.log('preview');
+            });        	
         }
+        
         
     };
     

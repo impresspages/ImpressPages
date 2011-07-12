@@ -10,16 +10,22 @@ $(document).ready(function() {
 function ipWidget_text(widgetObject) {
     this.widgetObject = widgetObject;
     
-    this.save = save;
+    this.prepareData = prepareData;
     this.manageInit = manageInit;
-    this.saveResponse = saveResponse;
+    //this.saveResponse = saveResponse;
 
     function manageInit() {
     	
     }
     
-	function save () {
+	function prepareData () {
 		console.log('saving');
+		
+		var data = Object();
+		
+		data.text = $(this.widgetObject).find('textarea').first().val();
+		
+		$(this.widgetObject).trigger('preparedData.ipWidget', [data]);
 		
 //	    data = Object();
 //		data.g = 'standard';
@@ -39,11 +45,11 @@ function ipWidget_text(widgetObject) {
   			
 	}
 	
-	function saveResponse (response) {
-		console.log('saveResponse');
-		console.log($(this.widgetObject).data('ipWidget').id);
-		$(this.widgetObject).trigger('saveSuccess.ipWidget');
-		
-	}
+//	function saveResponse (response) {
+//		console.log('saveResponse');
+//		console.log($(this.widgetObject).data('ipWidget').id);
+//		$(this.widgetObject).trigger('saveSuccess.ipWidget');
+//		
+//	}
 };
 
