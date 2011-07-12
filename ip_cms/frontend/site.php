@@ -714,9 +714,9 @@ class Site{
                 }else{
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+                        trigger_error("Requested module (".$_REQUEST['module_group']." / ".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
                     } else {
-                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                        trigger_error("Requested module (".$_REQUEST['module_group']." / ".$_REQUEST['module_name'].") does not exitst.");
                     }
                 }
             }
@@ -735,14 +735,17 @@ class Site{
                     if (isset($_REQUEST['a'])) {
                         $function = $_REQUEST['a'];
                     }
-                    call_user_func(array($tmpModule, $function));
-                    
+                    if (method_exists($tmpModule, $function)) {
+                        call_user_func(array($tmpModule, $function));
+                    } else {
+                        trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$_REQUEST['a']."()) does not exitst.");
+                    }
                 } else {
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+                        trigger_error("Requested module (".$_REQUEST['g']." / ".$_REQUEST['m'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
                     } else {
-                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                        trigger_error("Requested module (".$_REQUEST['g']." / ".$_REQUEST['m'].") does not exitst.");
                     }
                 }
                 
