@@ -40,12 +40,9 @@ function ipInitManagementResponse(response) {
         options.zoneName = ipZoneName;
         options.pageId = ipPageId;
         options.revisionId = ipRevisionId;
+        options.widgetControllsHtml = response.widgetControllsHtml;
         
         $('.ipBlock').ipBlock(options);
-        
-        var options = new Object;
-        options.widgetControllsHtml = response.widgetControllsHtml;
-        $('.ipWidget').ipWidget(options);
         
         
         $('.ipWidgetButtonSelector').ipWidgetButton();

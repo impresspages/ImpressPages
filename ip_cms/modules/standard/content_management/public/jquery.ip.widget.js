@@ -19,7 +19,6 @@
             
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                	$this.prepend(options.widgetControllsHtml);
                 	
                 	var data = Object();
 
@@ -31,11 +30,16 @@
 
                     $this.data('ipWidget', data); 
                     
+                    $this.prepend(options.widgetControllsHtml);
+                    
                     $this.delegate('.ipWidgetEdit', 'click', methods.editPressed);
                     $this.delegate('.ipWidgetSave', 'click', methods.savePressed);
                     
                     $this.bind('edit.ipWidget', methods.edit);
                     $this.bind('save.ipWidget', methods.save);
+                    
+                    $this.bind('saveSuccess.ipWidget', methods.saveSuccess);
+                    
                 }                
             });
         },
@@ -43,6 +47,7 @@
         editPressed : function(event) {
         	$(this).trigger('edit.ipWidget');
         },
+        
         savePressed : function(event) {
         	$(this).trigger('save.ipWidget');
         },
@@ -68,29 +73,52 @@
         
         manage : function(response) {
         	$this = $(this);
+        	$block = $this.parent();
         	$this.replaceWith(response.managementHtml);
+        	console.log('manage');
+        	$block.trigger('manage.ipWidget');
+        },
+        
+        testSave : function(){
+        	console.log('testSave');	
         },
         
         save : function(event){
+        	console.log('save start');
+        	var widgetObject = new ipWidget_text($(this));
+        	//widgetObject.init(this);
+        	widgetObject.save();
+        	
+        	//ipWidget_text_save(this, false);
+//        	$this = $(this);
+//        	alert('Save test');
+//            data = Object();
+//            data.g = 'standard';
+//            data.m = 'content_management';
+//            data.a = 'manageWidget';
+//            data.widgetId = $this.data('ipWidget').id;
+//        
+//            $.ajax({
+//                type : 'POST',
+//                url : ipBaseUrl,
+//                data : data,
+//                context : $this,
+//                success : methods.saveSuccess,
+//                dataType : 'json'
+//            });                	
+//        	
+//        	console.log($(this).data('ipWidget'));
+        },
+        
+        saveSuccess : function(response) {
+        	console.log('saved');
+        	$(this).ipWidget('preview');
+        },
+        
+        preview : function () {
         	$this = $(this);
         	
-            data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'manageWidget';
-            data.widgetId = $this.data('ipWidget').id;
-        
-            $.ajax({
-                type : 'POST',
-                url : ipBaseUrl,
-                data : data,
-                context : $this,
-                success : methods.saveSuccess,
-                dataType : 'json'
-            });                	
-        	
-        	alert('super save');
-        	console.log($(this).data('ipWidget'));
+        	alert($this.data('ipWidget').id);
         }
         
     };

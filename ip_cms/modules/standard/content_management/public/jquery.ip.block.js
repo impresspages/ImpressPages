@@ -10,7 +10,7 @@
     var methods = {
         init : function(options) {
 
-            
+
             return this.each(function() {
                 
                 var $this = $(this);
@@ -41,16 +41,33 @@
                             }
                         }
                     });        
-                    
                     $this.data('ipBlock', {
                         name : $this.attr('id').substr(8),
-                        revisionId : options.revisionId
+                        revisionId : options.revisionId,
+                        widgetControllsHtml : options.widgetControllsHtml
                         
                     }); 
                     
+                    
+                    var widgetOptions = new Object;
+                    widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
+                    $this.find('.ipWidget').prepend().ipWidget(widgetOptions);
+                    
+                                        
+                    $this.bind('manage.ipWidget', methods._reinitWidgets);                    
                 }                
             });
         },
+        
+        _reinitWidgets : function(event){
+        	var $this = $(this);
+        	
+            var widgetOptions = new Object;
+            widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
+            
+            $this.find('.ipWidget').ipWidget(widgetOptions);
+        },
+        
         destroy : function() {
             // TODO
         },
@@ -79,7 +96,7 @@
                 url : ipBaseUrl,
                 data : data,
                 context : $this,
-                success : $.fn.ipBlock,
+                success : methods._createWidgetResponse,
                 dataType : 'json'
             });        
         },       
@@ -116,14 +133,12 @@
     $.fn.ipBlock = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-        } else if (typeof method === 'object' && method.action) {
-            alert(method.action);
-            methods[method.action].apply(this, Array.prototype.slice.call(arguments, 0));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipBlock');
+            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
         }
+
 
     };
     
