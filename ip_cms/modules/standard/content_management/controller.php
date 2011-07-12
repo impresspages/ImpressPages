@@ -146,12 +146,57 @@ class Controller{
         $this->_outputAnswer($data);        
     }
     
+    public function previewWidget() {
+        global $site;
+        
+        if (!isset($_POST['widgetId'])) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }
+        
+        $widgetId = $_POST['widgetId'];
+        
+        $previewHtml = Model::generateWidgetPreview($widgetId, true);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_manageWidgetResponse',
+            'previewHtml' => $previewHtml,
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);        
+    }    
+    
 
+    public function updateWidget(){
+        if (!isset($_POST['widgetId'])) {
+            $this->_errorAnswer('Mising POST variable websiteId');
+            return;
+        }
+        if (!isset($_POST['widgetData']) && is_array($_POST['widgetData'])) {
+            $this->_errorAnswer('Mising POST variable: widgetData');
+            return;
+        }
+        
+        $widgetId = $_POST['widgetId'];
+        
+        Model::setWidgetData($widgetId, $_POST['widgetData']);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_updateWidget',
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);              
+    }
     
     public function deleteWidget($id, $data) {
         
         
     }
+    
     
     private function _errorAnswer($errorMessage) {
         $data = array (

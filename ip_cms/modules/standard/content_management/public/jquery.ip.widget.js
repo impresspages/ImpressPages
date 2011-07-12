@@ -103,13 +103,36 @@
 	        });	        	
         },
         
-        saveData : function (data) {
+        saveData : function (widgetData) {
        	
-			return this.each(function() {           	
-				console.log(data);
-				$(this).ipWidget('preview');
+			return this.each(function() {     
+				console.log(widgetData);
+	            data = Object();
+	            data.g = 'standard';
+	            data.m = 'content_management';
+	            data.a = 'updateWidget';
+	            data.widgetId = $this.data('ipWidget').id;
+	            data.widgetData = widgetData;
+	            console.log(widgetData);
+	        
+	            $.ajax({
+	                type : 'POST',
+	                url : ipBaseUrl,
+	                data : data,
+	                context : $this,
+	                success : methods._saveDataResponse,
+	                dataType : 'json'
+	            });				
+				
+				
+				
+
 			});	        	
         },
+        
+        _saveDataResponse : function(response) {
+			this.ipWidget('preview');        	
+    	},
         
         preview : function () {
 
@@ -135,7 +158,7 @@
             });
         },
         
-        _previewResponse : function() {
+        _previewResponse : function(response) {
 
             return this.each(function() {
             	$block = $this.parent();

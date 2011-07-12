@@ -182,9 +182,11 @@ class Model{
     }
     
     private static function _generateWidgetPreview($widgetRecord, $managementState) {
-        $widgetData = json_decode($widgetRecord['data']);
-        
+        $widgetData = json_decode($widgetRecord['data'], true);
+        global $log;
+            $log->log('test3', 'preview');
         if (!is_array($widgetData)) {
+            $log->log('test4', 'not array');
             $widgetData = array();    
         }
         
@@ -269,6 +271,22 @@ class Model{
         }        
         
         return $widgetId;
+    }
+    
+    public static function setWidgetData($widgetId, $data) {
+        $sql = "
+            UPDATE `".DB_PREF."m_content_management_widget`
+            SET
+                `data` = '".mysql_real_escape_string(json_encode($data))."'
+            WHERE `id` = ".(int)$widgetId."
+        ";    
+        
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
+        }
+        
+        return true; 
     }
     
 }

@@ -26,7 +26,12 @@ class WidgetText extends Widget{
     
     
     public function previewHtml($widgetId, $data){
-        return 'Text widget';
+        
+        $answer = 'Text widget:<br/>';
+        if(isset($data['text'])) {
+            $answer .= $data['text'];
+        }
+        return $answer;
     }
     
     public function getTitle(){
