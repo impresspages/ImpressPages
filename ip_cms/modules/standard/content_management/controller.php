@@ -117,6 +117,7 @@ class Controller{
             'status' => 'success',
             'action' => '_createWidgetResponse',
             'widgetHtml' => $widgetHtml,
+            'position' => $position,
         	'widgetId' => $widgetId
         );
         
@@ -192,9 +193,26 @@ class Controller{
         $this->_outputAnswer($data);              
     }
     
-    public function deleteWidget($id, $data) {
+    public function deleteWidget() {
+        global $site;
         
+        if (!isset($_POST['widgetId'])) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }
         
+        $widgetId = $_POST['widgetId'];
+        
+        $managementHtml = Model::deleteWidget($widgetId);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_deleteWidgetResponse',
+            'managementHtml' => $managementHtml,
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);   
     }
     
     

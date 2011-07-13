@@ -286,4 +286,24 @@ class Model{
         return true; 
     }
     
+    
+    
+    public static function deleteWidget($widgetId, $revisionId) {
+        $sql = "
+            DELETE FROM `".DB_PREF."m_content_management_revision_to_widget`
+            WHERE
+                `widgetId` = ".(int)$widgetId." AND
+                `revisionId` = ".(int)$revisionId." 
+                
+        ";    
+        
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
+        }
+        
+        return true; 
+    }
+        
+    
 }

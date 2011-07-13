@@ -34,12 +34,14 @@
                     
                     $this.prepend(options.widgetControllsHtml);
                     
-                    $this.delegate('.ipWidgetManage', 'click', function(event){$(this).trigger('manage.ipWidget');});
-                    $this.delegate('.ipWidgetSave', 'click', function(event){$(this).trigger('save.ipWidget');});
-                    
-                    $this.bind('manage.ipWidget', function(event){$(this).ipWidget('manage')});
-                    $this.bind('save.ipWidget', function(event){$(this).ipWidget('save')});
-                    $this.bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data)});
+//                    $this.delegate('.ipWidgetManage', 'click', function(event){$(this).trigger('manage.ipWidget');});
+//                    $this.delegate('.ipWidgetSave', 'click', function(event){$(this).trigger('save.ipWidget');});
+//                    $this.delegate('.ipWidgetDelete', 'click', function(event){$(this).trigger('delete.ipWidget');});
+//                    
+//                    $this.bind('manage.ipWidget', function(event){$(this).ipWidget('manage');});
+//                    $this.bind('save.ipWidget', function(event){$(this).ipWidget('save');});
+//                    $this.bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data);});
+//                    $this.bind('delete.ipWidget', function(event){$(this).ipWidget('delete');});
                     
                     $this.bind('saveSuccess.ipWidget', methods.saveSuccess);
                     
@@ -48,6 +50,9 @@
         },
         
 
+        
+        
+        
         manage : function(event){
             return this.each(function() {
    	
