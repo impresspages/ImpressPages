@@ -17,8 +17,12 @@ class WidgetText extends Widget{
     }
     
     public function managementHtml($widgetId, $data){
-    	$data = array (
-    	);
+    	
+    	if (!isset($data['text'])) {
+    	   $data['text'] = '';    
+    	}
+    	
+    	
     	$answer = \Ip\View::create('standard/content_management/widget/text/view/management.php', $data)->render();
     	
         return $answer;

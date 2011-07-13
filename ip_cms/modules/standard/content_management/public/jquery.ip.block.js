@@ -34,7 +34,6 @@
                             //if received element is WidgetButton (insert new widget)
                             if ($element && $element.is('.ipWidgetButton')) {
                                 var newWidgetName = $element.data('ipWidgetButton').name;
-                                alert(newWidgetName);
                                 $block.ipBlock('_createWidget', newWidgetName);
                             } else {
 
@@ -79,27 +78,33 @@
         },
         
         _createWidget : function (widgetName) {
-            var $this = $(this);
 
-            data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'createWidget';
-            data.widgetName = widgetName;
-            data.position = 1;
-            data.blockName = $this.data('ipBlock').name;
-            data.zoneName = $this.data('ipBlock').zoneName;
-            data.pageId = $this.data('ipBlock').pageId;
-            data.revisionId = $this.data('ipBlock').revisionId;
-        
-            $.ajax({
-                type : 'POST',
-                url : ipBaseUrl,
-                data : data,
-                context : $this,
-                success : methods._createWidgetResponse,
-                dataType : 'json'
-            });        
+            return this.each(function() {
+                        	
+	            var $this = $(this);
+	
+	            data = Object();
+	            data.g = 'standard';
+	            data.m = 'content_management';
+	            data.a = 'createWidget';
+	            data.widgetName = widgetName;
+	            data.position = 1;
+	            data.blockName = $this.data('ipBlock').name;
+	            data.zoneName = $this.data('ipBlock').zoneName;
+	            data.pageId = $this.data('ipBlock').pageId;
+	            data.revisionId = $this.data('ipBlock').revisionId;
+	        
+	            $.ajax({
+	                type : 'POST',
+	                url : ipBaseUrl,
+	                data : data,
+	                context : $this,
+	                success : methods._createWidgetResponse,
+	                dataType : 'json'
+	            });        
+	            
+            });
+
         },       
         // function(response){alert('test');  $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml); $(this).ipBlock('destroy'); }
         _createWidgetResponse : function(response) {
@@ -111,18 +116,13 @@
             
             if (response.status == 'success') {
                 alert(response.widgetId);
-                $(this).find('.ipWidgetButton').replaceWith(response.widgetHtml);
+                //$(this).find('.ipWidgetButton').replaceWith(response.widgetHtml);
 
-                $('.ipWidget_' + response.widgetId).trigger('ipInitManagement', [response.widgetId]);
+                //$('.ipWidget_' + response.widgetId).trigger('ipInitManagement', [response.widgetId]);
                 //$('.ipWidget_' + response.widgetId).trigger('ipSave', ['message1', 'message2']);
 
             }
-            //console.log(response);
-            
-            //alert('tst ' + name);
-//            return $(this).each(function() {
-//                alert(name);
-//            });
+
         }
     
 

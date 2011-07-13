@@ -1,1 +1,1 @@
-<textarea name="text"></textarea>
+<textarea name="text"><?php echo $text ?></textarea>

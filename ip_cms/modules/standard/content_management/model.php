@@ -183,10 +183,7 @@ class Model{
     
     private static function _generateWidgetPreview($widgetRecord, $managementState) {
         $widgetData = json_decode($widgetRecord['data'], true);
-        global $log;
-            $log->log('test3', 'preview');
         if (!is_array($widgetData)) {
-            $log->log('test4', 'not array');
             $widgetData = array();    
         }
         
@@ -213,7 +210,7 @@ class Model{
     }
     
     private static function _generateWidgetManagement($widgetRecord) {
-        $widgetData = json_decode($widgetRecord['data']);
+        $widgetData = json_decode($widgetRecord['data'], 1);
         
         if (!is_array($widgetData)) {
             $widgetData = array();    
