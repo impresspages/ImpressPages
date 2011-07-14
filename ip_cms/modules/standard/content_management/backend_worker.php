@@ -58,21 +58,6 @@ class BackendWorker {
         case "save_page":
           $this->save_page();
           break;
-        /*case "make_html":
-  	      $this->make_html();
-  	      break;
-        case "set_main_fields":
-  	      $this->set_main_fields();
-  	      break;   
-  	    case "new_module":
-  	      $this->new_module();    
-  	      break;
-  	    case "update_module":
-  	      $this->update_module();    
-  	      break;
-  	    case "delete_module":
-  	      $this->delete_module();   
-  	      break;*/
         case "upload_tmp_image":
           $this->upload_tmp_image();
           break;
@@ -187,14 +172,6 @@ class BackendWorker {
       while ($lock = mysql_fetch_assoc($rs)) {
         if ($lock) {
           eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Module(); ');
-
-
-          if(!isset($inited_modules[$lock['module_key']])) {
-            if (method_exists ('\\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template', "initHtml")) {
-              eval('$answer .= \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template::initHtml();');
-              eval('$cached_html .= \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template::initHtml();');
-            }
-          }
 
           if ($new_module->is_dynamic()) {
             $dynamic_modules[] = array("module_group" => $lock['group_key'], "module_name" => $lock['module_key'], "id" => $lock['module_id']);
