@@ -43,7 +43,7 @@
 //                    $this.bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data);});
 //                    $this.bind('delete.ipWidget', function(event){$(this).ipWidget('delete');});
                     
-                    $this.bind('saveSuccess.ipWidget', methods.saveSuccess);
+             //       $this.bind('saveSuccess.ipWidget', methods.saveSuccess);
                     
                 }                
             });

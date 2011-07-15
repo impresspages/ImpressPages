@@ -65,17 +65,18 @@
                     
                     
                     
-                    $this.find('.ipWidget').delegate('.ipWidgetManage', 'click', function(event){console.log('MANAGE STEP0'); $(this).trigger('manageclick.ipBlock');});
-                    //$this.find('.ipWidget').delegate('.ipWidgetSave', 'click', function(event){$(this).trigger('save.ipWidget');});
+                    $this.delegate('.ipWidget .ipWidgetManage', 'click', function(event){$(this).trigger('manageClick.ipBlock');});
+                    $this.delegate('.ipWidget .ipWidgetSave', 'click', function(event){console.log('save0'); $(this).trigger('saveClick.ipBlock');});
                     //$this.find('.ipWidget').delegate('.ipWidgetDelete', 'click', function(event){$(this).trigger('delete.ipWidget');});
                     
-                    $this.find('.ipWidget').live('manageclick.ipBlock', function(event){$(this).trigger('manage.ipBlock', $(this).data('ipWidget').id);});
-                    //$this.find('.ipWidget').bind('save.ipWidget', function(event){$(this).ipWidget('save');});
+                    $this.delegate('.ipWidget', 'manageClick.ipBlock', function(event){$(this).trigger('manageWidget.ipBlock', $(this).data('ipWidget').id);});
+                    $this.delegate('.ipWidget', 'saveClick.ipBlock', function(event){console.log('save1'); $(this).trigger('saveWidget.ipBlock', $(this).data('ipWidget').id);});
                     //$this.find('.ipWidget').bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data);});
                     //$this.find('.ipWidget').bind('delete.ipWidget', function(event){$(this).ipWidget('delete');});                    
                     
                     
-                    $this.bind('manage.ipBlock', function(event, widgetId){console.log('MANAGE STEP2'); $(this).ipBlock('manage', widgetId);});
+                    $this.bind('manageWidget.ipBlock', function(event, widgetId){$(this).ipBlock('manageWidget', widgetId);});
+                    $this.bind('saveWidget.ipBlock', function(event, widgetId){console.log('save'); $(this).ipBlock('saveWidget', widgetId);});
                     
                     //$this.bind('stateChangedToManagement.ipWidget', methods._reinitWidgets);                    
                 }                
@@ -83,7 +84,54 @@
         },
         
         
-        manage : function (widgetId) { 
+        saveWidget : function(event){
+
+            return this.each(function() {        	
+	        	console.log('save start');
+	        	var widgetObject = new ipWidget_text($(this));
+	        	widgetObject.prepareData();
+            });
+        },
+        
+        preparedData : function(data) {
+        	
+            return this.each(function() {          	
+	        	$this = $(this);
+	        	
+	        	$this.ipBlock('saveWidgetData', data);
+	        	
+
+	        });	        	
+        },
+        
+        saveWidgetData : function (widgetData) {
+       	
+			return this.each(function() {     
+				console.log(widgetData);
+	            data = Object();
+	            data.g = 'standard';
+	            data.m = 'content_management';
+	            data.a = 'updateWidget';
+	            data.widgetId = $this.data('ipWidget').id;
+	            data.widgetData = widgetData;
+	            console.log(widgetData);
+	        
+	            $.ajax({
+	                type : 'POST',
+	                url : ipBaseUrl,
+	                data : data,
+	                context : $this,
+	                success : methods._saveDataResponse,
+	                dataType : 'json'
+	            });				
+				
+				
+				
+
+			});	        	
+        },
+        
+        manageWidget : function (widgetId) { 
 
             return this.each(function() {
                	
@@ -111,7 +159,26 @@
         _manageResponse : function(response) {
 
             return this.each(function() {
+            	
+            	
+            	
+            	
+            	
             	$this = $(this);
+            	
+            	
+            	
+            	console.log('REINIT');
+            	var $this = $(this);
+            	
+                var widgetOptions = new Object;
+                widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
+                console.log('reinit');
+                console.log(widgetOptions.widgetControllsHtml);
+                console.log($this);
+                $this.find('.ipWidget').ipWidget(widgetOptions);            	
+            	
+            	
             	$widget = $this.find('#ipWidget_' + response.widgetId);
             	console.log($widget);
             	$widget.replaceWith(response.managementHtml);
@@ -127,7 +194,8 @@
         	
             var widgetOptions = new Object;
             widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
-            
+            console.log('reinit');
+            console.log($this);
             $this.find('.ipWidget').ipWidget(widgetOptions);
         },
         
