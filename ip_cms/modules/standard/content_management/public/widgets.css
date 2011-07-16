@@ -23,7 +23,14 @@ list-style: none;
 }
 
 .ipWidget {
-    border: 1px solid #ccc;	
+    min-height: 5px;	
+}
+
+.ipWidget:hover {
+    /*border: 1px dotted #22a;*/
+    outline: 1px;
+    outline:#22a dotted 1px;
+    margin: -1;
 }
 
 .ipBlock {
@@ -32,4 +39,28 @@ list-style: none;
 
 .ipWidgetData {
 	display: none;	
+}
+
+.ipWidgetControls {
+	position: absolute;
+    display: none;	
+    margin-top: -23px;
+    background-color: #ccc;
+}
+
+.ipWidgetControls span{
+    padding: 4px;
+    float: left;
+    cursor: pointer;
+}
+
+.ipWidget:hover .ipWidgetControls {
+	display: block;
+}
+
+.ipWidgetButtons span{
+    background-color: #ccc;
+    cursor: pointer;
+    padding: 5px;
+    float: left;
 }

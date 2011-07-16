@@ -17,12 +17,22 @@ class WidgetTitle extends Widget{
     }
     
     public function managementHtml($widgetId, $data){
-        return 'management';
+        if (!isset($data['title'])) {
+           $data['title'] = '';    
+        }
+        $answer = \Ip\View::create('standard/content_management/widget/title/view/management.php', $data)->render();
+        
+        return $answer;
+        
     }
     
     
     public function previewHtml($widgetId, $data){
-        return '<div>Title widget</div>';
+        if (!isset($data['title'])) {
+           $data['title'] = '';    
+        }
+        
+        return $data['title'];
     }    
     
     public function getTitle(){
