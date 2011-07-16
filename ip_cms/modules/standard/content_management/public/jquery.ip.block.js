@@ -268,20 +268,20 @@
 
         _createWidgetResponse : function(response) {
             
-            if (response.status == 'error') {
-                $.fn.ipBlock('_showError', response.errorMessage);
-                //alert(response.errorMessage);
-            }
-            
-            if (response.status == 'success') {           
-            	if (response.position == 0) {
-	                $(this).prepend(response.widgetHtml);
-            	} else {
-	                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
-	                $(response.widgetHtml).insertAfter($secondChild);
-            	}
-
-            }
+	            if (response.status == 'error') {
+	                $.fn.ipBlock('_showError', response.errorMessage);
+	            }
+	            
+	            if (response.status == 'success') {           
+	            	if (response.position == 0) {
+		                $(this).prepend(response.widgetHtml);
+	            	} else {
+		                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
+		                $(response.widgetHtml).insertAfter($secondChild);
+	            	}
+	            	this.ipBlock('_initWidgetManagement', response.widgetId);
+	
+	            }
 
         },
         
@@ -290,11 +290,19 @@
             	$this = $(this);
             	$widget = $this.find('#ipWidget_' + widgetId);
             	$widget.replaceWith(newContent);
-            	$widget = $this.find('#ipWidget_' + widgetId);
-            	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+            	$this.ipBlock('_initWidgetManagement', widgetId);
             });        	
         	
+        },
+        
+        
+        _initWidgetManagement : function(widgetId){
+        	$this = (this);
+        	$widget = $this.find('#ipWidget_' + widgetId);
+        	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
         }
+        
+        
     
 
         
