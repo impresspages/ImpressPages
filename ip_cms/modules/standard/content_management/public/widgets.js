@@ -43,7 +43,7 @@ function ipInitManagementResponse(response) {
         options.widgetControllsHtml = response.widgetControllsHtml;
         
         $('.ipBlock').ipBlock(options);
-        $('.ipBlock').last().find('.ipWidget').first().ipWidget('manage');
+        //$('.ipBlock').last().find('.ipWidget').first().ipWidget('manage');
         
         $('.ipWidgetButtonSelector').ipWidgetButton();
         

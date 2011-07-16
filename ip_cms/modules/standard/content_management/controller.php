@@ -183,10 +183,12 @@ class Controller{
         $widgetId = $_POST['widgetId'];
         
         Model::setWidgetData($widgetId, $_POST['widgetData']);
+        $previewHtml = Model::generateWidgetPreview($widgetId, true);
         
         $data = array (
             'status' => 'success',
             'action' => '_updateWidget',
+            'previewHtml' => $previewHtml,
             'widgetId' => $widgetId
         );
         

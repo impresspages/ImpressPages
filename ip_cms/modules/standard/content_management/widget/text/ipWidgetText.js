@@ -24,8 +24,8 @@ function ipWidget_text(widgetObject) {
 		var data = Object();
 		
 		data.text = $(this.widgetObject).find('textarea').first().val();
-		
-		$(this.widgetObject).trigger('preparedData.ipWidget', [data]);
+		console.log(this.widgetObject);
+		$(this.widgetObject).trigger('preparedWidgetData.ipWidget', [data]);
 		
 //	    data = Object();
 //		data.g = 'standard';

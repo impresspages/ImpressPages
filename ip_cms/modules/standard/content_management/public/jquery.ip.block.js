@@ -59,7 +59,6 @@
                     
                     
                     var widgetOptions = new Object;
-                    widgetOptions.widgetControllsHtml = '';
                     $this.find('.ipWidget').ipWidget(widgetOptions);
                     $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControllsHtml);
                     
@@ -71,40 +70,77 @@
                     
                     $this.delegate('.ipWidget', 'manageClick.ipBlock', function(event){$(this).trigger('manageWidget.ipBlock', $(this).data('ipWidget').id);});
                     $this.delegate('.ipWidget', 'saveClick.ipBlock', function(event){console.log('save1'); $(this).trigger('saveWidget.ipBlock', $(this).data('ipWidget').id);});
-                    //$this.find('.ipWidget').bind('preparedData.ipWidget', function(event, data){$(this).ipWidget('preparedData', data);});
                     //$this.find('.ipWidget').bind('delete.ipWidget', function(event){$(this).ipWidget('delete');});                    
-                    
+                    $this.delegate('.ipWidget', 'preparedWidgetData.ipWidget', function(event, widgetData){console.log('prepared wiget data'); $(this).trigger('preparedWidgetData.ipBlock', [$(this).data('ipWidget').id, widgetData]);});
+                    	
+                    	
+             
+
                     
                     $this.bind('manageWidget.ipBlock', function(event, widgetId){$(this).ipBlock('manageWidget', widgetId);});
                     $this.bind('saveWidget.ipBlock', function(event, widgetId){console.log('save'); $(this).ipBlock('saveWidget', widgetId);});
+                    $this.bind('preparedWidgetData.ipBlock', function(event, widgetId, widgetData){console.log('prepared widget data'); console.log(widgetId); $(this).ipBlock('_saveWidgetData', widgetId, widgetData);});
                     
-                    //$this.bind('stateChangedToManagement.ipWidget', methods._reinitWidgets);                    
                 }                
             });
         },
         
         
-        saveWidget : function(event){
+        saveWidget : function(widgetId){
 
-            return this.each(function() {        	
+            return this.each(function() {
+            	$this = $(this);
 	        	console.log('save start');
-	        	var widgetObject = new ipWidget_text($(this));
-	        	widgetObject.prepareData();
+	        	$widget = $this.find('#ipWidget_' + widgetId);
+	        	widgetName = $widget.data('ipWidget').name;
+	        	console.log(widgetName);
+	        	if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+	        		eval('var widgetPluginObject = new ipWidget_' + widgetName + '($widget);');
+		        	widgetPluginObject.prepareData();
+	        	} else {
+	        		console.log($this);
+	        		$this.ipBlock('previewWidget', widgetId);
+	        	}
+	        	
+	        	
             });
         },
         
-        preparedData : function(data) {
+        previewWidget : function (widgetId) {
+            data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'previewWidget';
+            data.widgetId = widgetId;
+        
+            $.ajax({
+                type : 'POST',
+                url : ipBaseUrl,
+                data : data,
+                context : $this,
+                success : methods._previewWidgetResponse,
+                dataType : 'json'
+            });	        	
         	
-            return this.each(function() {          	
-	        	$this = $(this);
-	        	
-	        	$this.ipBlock('saveWidgetData', data);
-	        	
-
-	        });	        	
         },
         
-        saveWidgetData : function (widgetData) {
+        _previewWidgetResponse : function (response) {
+            return this.each(function() {
+
+            	$this = $(this);
+            	$widget = $this.find('#ipWidget_' + response.widgetId);
+            	console.log($widget);
+            	$widget.replaceWith(response.previewHtml);
+	        	//TODO change widget status to 'management'
+            	$widget = $this.find('#ipWidget_' + response.widgetId);
+            	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+            		
+                //$this.find('.ipWidget:not(:data("ipWidget"))').ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+                //$this.ipBlock('_reinitWidgets');
+            });        	
+        },
+                
+        _saveWidgetData : function (widgetId, widgetData) {
        	
 			return this.each(function() {     
 				console.log(widgetData);
@@ -112,7 +148,7 @@
 	            data.g = 'standard';
 	            data.m = 'content_management';
 	            data.a = 'updateWidget';
-	            data.widgetId = $this.data('ipWidget').id;
+	            data.widgetId = widgetId;
 	            data.widgetData = widgetData;
 	            console.log(widgetData);
 	        
@@ -129,6 +165,21 @@
 				
 
 			});	        	
+        },
+        
+        _saveDataResponse : function (response) {
+            return this.each(function() {
+
+            	$this = $(this);
+            	$widget = $this.find('#ipWidget_' + response.widgetId);
+            	$widget.replaceWith(response.previewHtml);
+	        	//TODO change widget status to 'management'
+            	$widget = $this.find('#ipWidget_' + response.widgetId);
+            	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+            		
+                //$this.find('.ipWidget:not(:data("ipWidget"))').ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+                //$this.ipBlock('_reinitWidgets');
+            });        	
         },
         
         manageWidget : function (widgetId) { 
@@ -148,7 +199,7 @@
 	                url : ipBaseUrl,
 	                data : data,
 	                context : $this,
-	                success : methods._manageResponse,
+	                success : methods._manageWidgetResponse,
 	                dataType : 'json'
 	            });
             });        	
@@ -156,49 +207,25 @@
         
         
         
-        _manageResponse : function(response) {
+        _manageWidgetResponse : function(response) {
 
             return this.each(function() {
-            	
-            	
-            	
-            	
-            	
+
             	$this = $(this);
-            	
-            	
-            	
-            	console.log('REINIT');
-            	var $this = $(this);
-            	
-                var widgetOptions = new Object;
-                widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
-                console.log('reinit');
-                console.log(widgetOptions.widgetControllsHtml);
-                console.log($this);
-                $this.find('.ipWidget').ipWidget(widgetOptions);            	
-            	
-            	
             	$widget = $this.find('#ipWidget_' + response.widgetId);
             	console.log($widget);
             	$widget.replaceWith(response.managementHtml);
 	        	//TODO change widget status to 'management'
-	        	$widget.trigger('stateChangedToManagement.ipWidget');
+            	$widget = $this.find('#ipWidget_' + response.widgetId);
+            	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+            		
+                //$this.find('.ipWidget:not(:data("ipWidget"))').ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+                //$this.ipBlock('_reinitWidgets');
             });
         },
                 
         
-        _reinitWidgets : function(event){
-        	console.log('REINIT');
-        	var $this = $(this);
-        	
-            var widgetOptions = new Object;
-            widgetOptions.widgetControllsHtml = $this.data('ipBlock').widgetControllsHtml;
-            console.log('reinit');
-            console.log($this);
-            $this.find('.ipWidget').ipWidget(widgetOptions);
-        },
-        
+
         destroy : function() {
             // TODO
         },
