@@ -199,18 +199,23 @@ class Controller{
         global $site;
         
         if (!isset($_POST['widgetId'])) {
-            $this->_errorAnswer('Mising POST variable');
+            $this->_errorAnswer('Mising widgetId POST variable');
             return;
         }
-        
         $widgetId = $_POST['widgetId'];
         
-        $managementHtml = Model::deleteWidget($widgetId);
+            
+        if (!isset($_POST['revisionId'])) {
+            $this->_errorAnswer('Mising revisionId POST variable');
+            return;
+        }        
+        $revisionId = $_POST['revisionId'];
+        
+        $managementHtml = Model::deleteWidget($widgetId, $revisionId);
         
         $data = array (
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
-            'managementHtml' => $managementHtml,
             'widgetId' => $widgetId
         );
         

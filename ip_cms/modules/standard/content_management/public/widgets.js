@@ -43,7 +43,6 @@ function ipInitManagementResponse(response) {
         options.widgetControllsHtml = response.widgetControllsHtml;
         
         $('.ipBlock').ipBlock(options);
-        //$('.ipBlock').last().find('.ipWidget').first().ipWidget('manage');
         
         $('.ipWidgetButtonSelector').ipWidgetButton();
         
@@ -64,13 +63,3 @@ function saveProgress(event){
 	console.log('save progress');
 }
 
-
-//function ipWidgetSave(event) {
-//	console.log(event);
-//    var parameters = new Object();
-//    parameters['test'] = 'testvalue'; 
-//    parameters['test2'] = 'testvalue2';
-//	
-//	$(event.currentTarget).trigger('ipSave', [parameters]);
-//
-//}
