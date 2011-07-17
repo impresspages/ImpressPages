@@ -33,19 +33,21 @@ class Controller{
         global $site;
         
         $widgets = Model::getAvailableWidgetObjects();
+        $revisions = \Ip\Db::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         
         $data = array (
-            'widgets' => $widgets
+            'widgets' => $widgets,
+            'revisions' => $revisions
         );
         
         $controlPanelHtml = \Ip\View::create('standard/content_management/view/control_panel.php', $data)->render();
         
-        $widgetControllsHtml = \Ip\View::create('standard/content_management/view/widget_controlls.php', $data)->render();
+        $widgetControlsHtml = \Ip\View::create('standard/content_management/view/widget_controls.php', $data)->render();
         
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-        	'widgetControllsHtml' => $widgetControllsHtml
+        	'widgetControlsHtml' => $widgetControlsHtml
         );
         
         $this->_outputAnswer($data);

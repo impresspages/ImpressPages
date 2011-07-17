@@ -23,7 +23,7 @@ list-style: none;
 }
 
 .ipWidget {
-    min-height: 5px;	
+    min-height: 10px;	
 }
 
 .ipWidget:hover {

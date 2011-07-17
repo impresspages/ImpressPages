@@ -7,6 +7,14 @@
     <?php } ?>
     </ul>
     <div>
-        <span class="ipPageSave">Save</span>
+        <select>
+            <?php foreach ($revisions as $revisionKey => $revision){ ?>
+                <option ><?php echo (int)$revision['id'].' - '.date("Y-m-d H:i", $revision['created']); ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <div>
+        <span class="ipPageSave">Save (create revision)</span>
+        <span class="ipPagePublish">Publish</span>
     </div>
 </div>

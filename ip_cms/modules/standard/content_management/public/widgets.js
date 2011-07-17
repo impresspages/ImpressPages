@@ -5,61 +5,84 @@
  */
 
 $(document).ready(function() {
-    ipInitManagement();
+    ipContentManagement = new ipContentManagement();
+    
+    ipContentManagement.init();
 });
 
+/**
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license GNU/GPL, see ip_license.html
+ */
 
-function ipInitManagement () {
-    if ($("#ipControllPanelBg").length == 0) {
-        var $controllsBgDiv = $('<div id="ipControllPanelBg" />');
-        $('body').prepend($controllsBgDiv);
+function ipContentManagement() {
+    this.init = init;
+    this.initResponse = initResponse;
+    this.publish = publish;
+    this.save = save;
+
+    
+    function init () {
+        if ($("#ipControllPanelBg").length == 0) {
+            var $controlsBgDiv = $('<div id="ipControllPanelBg" />');
+            $('body').prepend($controlsBgDiv);
+        }
+        
+        data = Object();
+        data.g = 'standard';
+        data.m = 'content_management';
+        data.a = 'initManagementData';
+
+        $.ajax({
+            type : 'POST',
+            url : ipBaseUrl,
+            data : data,
+            context : this,
+            success : initResponse,
+            dataType : 'json'
+        });
+        
+       
     }
-    
-    data = Object();
-    data.g = 'standard';
-    data.m = 'content_management';
-    data.a = 'initManagementData';
-
-    $.ajax({
-        type : 'POST',
-        url : ipBaseUrl,
-        data : data,
-        success : ipInitManagementResponse,
-        dataType : 'json'
-    });
-    
-   
-}
 
 
-function ipInitManagementResponse(response) {
-    if (response.status == 'success') {
-        $('body').prepend(response.controlPanelHtml);
-        
-        var options = new Object;
-        options.zoneName = ipZoneName;
-        options.pageId = ipPageId;
-        options.revisionId = ipRevisionId;
-        options.widgetControllsHtml = response.widgetControllsHtml;
-        
-        $('.ipBlock').ipBlock(options);
-        
-        $('.ipWidgetButtonSelector').ipWidgetButton();
-        
-        $('.ipPageSave').bind('click', ipPageSave);
+    function initResponse(response) {
+        if (response.status == 'success') {
+            $('body').prepend(response.controlPanelHtml);
+            
+            var options = new Object;
+            options.zoneName = ipZoneName;
+            options.pageId = ipPageId;
+            options.revisionId = ipRevisionId;
+            options.widgetControlsHtml = response.widgetControlsHtml;
+            
+            $('.ipBlock').ipBlock(options);
+            
+            $('.ipWidgetButtonSelector').ipWidgetButton();
+            
+            $('.ipPageSave').bind('click', save);
+            $('.ipPagePublish').bind('click', publish);
+        }
         
     }
+
+
+    function save(event){
+    	console.log('PageSave');
+    	$('.ipBlock').bind('progress', saveProgress);
+    	$('.ipBlock').ipBlock('save');
+    }
+
+    function publish(event){
+    	console.log('publish');
+    }
+
+
+    function saveProgress(event, progress){
+    	console.log('save progress ' + progress);
+    }    
     
 }
 
-
-function ipPageSave(event){
-	$('.ipBlock').bind('progress', saveProgress);
-	$('.ipBlock').ipBlock('save');
-}
-
-
-function saveProgress(event){
-	console.log('save progress');
-}
 

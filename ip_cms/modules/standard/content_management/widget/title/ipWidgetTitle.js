@@ -6,7 +6,6 @@
 
 function ipWidget_title(widgetObject) {
     this.widgetObject = widgetObject;
-    
     this.prepareData = prepareData;
     this.manageInit = manageInit;
 
@@ -16,7 +15,13 @@ function ipWidget_title(widgetObject) {
     
 	function prepareData () {
 		var data = Object();
-		data.title = $(this.widgetObject).find('input').first().val();
+		//data.title = $(this.widgetObject).find('input').val();
+		data.title = $(this.widgetObject).find('input[name="title"]').first().val();
+		
+		console.log('title:');
+		console.log(data.title);
+		//$(this.widgetObject).find('input').hide();
+		//this.widgetObject.hide();
 		$(this.widgetObject).trigger('preparedWidgetData.ipWidget', [data]);
 	}	
 

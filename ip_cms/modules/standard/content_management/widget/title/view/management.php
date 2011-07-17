@@ -1,1 +1,1 @@
-<input name="title" value="<?php addslashes($title) ?>" />
+<input name="title" value="<?php echo addslashes($title) ?>" />

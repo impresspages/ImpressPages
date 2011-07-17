@@ -682,17 +682,11 @@ class Site{
 
     /**
      * Some modules need to make some actions before any output.
-     *
      * This function detects such requirements and executes required action of specified module.
-     *
      * If you need to use this feature, simply POST (or GET) thre variables:
-     *
      * $_REQUEST['g']
-     *
      * $_REQUEST['m']
-     *
      * $_REQUEST['a']
-     *
      * This function will execute method $_REQUEST['a'] on class \Modules\REQUEST['g']\REQUEST['m']\Controller
      *
      */
@@ -889,19 +883,12 @@ class Site{
     /**
      *
      * Import required configuration file or modified version of it from CONFIG_DIR directory.
-     *
      * @param $file File name of configuration file that needs to be required (relative to MODULE_DIR folder).
-     *
      * <b>Example:</b>
-     *
      * requireConfig('group/module/config.php');
-     *
      * this line will try to require such files:
-     *
      * BASE_DIR.CONFIG_DIR.'group/module/config.php'; //customized config file in config directory
-     *
      * BASE_DIR.MODULE_DIR.'group/module/config.php'; //original module config file
-     *
      * BASE_DIR.PLUGIN_DIR.'group/module/config.php'; //original plugin config file
      *
      */
@@ -985,21 +972,11 @@ class Site{
      * if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
      *
      * class System{
-     *
      *   public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
-     *
      *       //your actions
-     *
      *   }
-     *
      * }
-     *
      *  ?>
-     *
-     *
-     *
-     *
-     *
      */
     public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
@@ -1132,34 +1109,43 @@ class Site{
                 
     }
     
+    /**
+     * If we are in the management state and last revision is published, then create new revision.
+     * 
+     */
     public function getRevision() {
+        //todo cache revision
     	$revision = null;
-    	if ($this->managementState() && isset($this->getVars['cms_revision'])) {
-    		$revisionId = $this->getVars['cms_revision'];
-    		$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
-    		if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $site->getCurrentElement()->getId() ) {
-	    		$revision = \Modules\standard\content_management\Model::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-	    		if ($revision === false) {
-	    			$revisionId = \Modules\standard\content_management\Model::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-					$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
-					if ($revision === false) {
-						throw new Exception("Can't find created revision " . $revisionId); 
-					}    
-	    		} 
-    		}
+    	if ($this->managementState()){
+    	    if (isset($this->getVars['cms_revision'])) { 
+        		$revisionId = $this->getVars['cms_revision'];
+        		$revision = \Ip\Db::getRevision($revisionId);
+    	    }
+    	    
+            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $site->getCurrentElement()->getId() ) {
+                $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+                if ($revision === false) {
+                    $revision = $this->_createRevision();
+                } 
+            }
     	} else {
 	    	require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-    		$revision = \Modules\standard\content_management\Model::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+    		$revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
     		if ($revision === false) {
-    			$revisionId = \Modules\standard\content_management\Model::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-				$revision = \Modules\standard\content_management\Model::getRevision($revisionId);
-				if ($revision === false) {
-					throw new Exception("Can't find created revision " . $revisionId); 
-				}    
-    		} 
+    		    $revision = $this->_createRevision();
+    		}
     	}
 		return $revision;
+    }
     
+    
+    private function _createRevision(){
+        $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+        $revision = \Ip\Db::getRevision($revisionId);
+        if ($revision === false) {
+            throw new Exception("Can't find created revision " . $revisionId); 
+        }
+        return $revision;    
     }
 
 }

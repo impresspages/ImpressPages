@@ -24,6 +24,7 @@
                         revert: true,
                         dropOnEmpty: true,
                         forcePlaceholderSize: true,
+                        handle: '.ipWidgetControls .ipWidgetMove',
 
                         receive: function(event, ui) {
                             $element = null;
@@ -53,14 +54,14 @@
                     $this.data('ipBlock', {
                         name : $this.attr('id').substr(8),
                         revisionId : options.revisionId,
-                        widgetControllsHtml : options.widgetControllsHtml
+                        widgetControlsHtml : options.widgetControlsHtml
                         
                     }); 
                     
                     
                     var widgetOptions = new Object;
                     $this.find('.ipWidget').ipWidget(widgetOptions);
-                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControllsHtml);
+                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
                     
                     
                     
@@ -299,7 +300,7 @@
         _initWidgetManagement : function(widgetId){
         	$this = (this);
         	$widget = $this.find('#ipWidget_' + widgetId);
-        	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControllsHtml);
+        	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControlsHtml);
         }
         
         
