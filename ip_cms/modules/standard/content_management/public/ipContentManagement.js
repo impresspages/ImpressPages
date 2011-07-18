@@ -36,7 +36,7 @@ function ipContentManagement() {
 
         $.ajax({
             type : 'POST',
-            url : ipBaseUrl,
+            url : document.location,
             data : data,
             context : this,
             success : initResponse,
@@ -63,6 +63,8 @@ function ipContentManagement() {
             
             $('.ipPageSave').bind('click', save);
             $('.ipPagePublish').bind('click', publish);
+            
+            $('#ipRevisionSelect').bind('change', selectRevision);
         }
         
     }
@@ -81,7 +83,11 @@ function ipContentManagement() {
 
     function saveProgress(event, progress){
     	console.log('save progress ' + progress);
-    }    
+    }   
+    
+    function selectRevision(event){
+    	document.location = $(event.currentTarget).val(); 
+    }
     
 }
 

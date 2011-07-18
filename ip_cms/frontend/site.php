@@ -1099,10 +1099,15 @@ class Site{
         } else {
 	        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         	$revision = $this->getRevision();
-	        if ($this->managementState()) {
-	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+        	
+        	if ($revision != false) {
+                if ($this->managementState()) {
+                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+                } else {
+                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+                }
         	} else {
-	        	return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+                return '';      
         	}
         }
         
@@ -1122,7 +1127,7 @@ class Site{
         		$revision = \Ip\Db::getRevision($revisionId);
     	    }
     	    
-            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $site->getCurrentElement()->getId() ) {
+            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
                 $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
                 if ($revision === false) {
                     $revision = $this->_createRevision();
@@ -1131,9 +1136,6 @@ class Site{
     	} else {
 	    	require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
     		$revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-    		if ($revision === false) {
-    		    $revision = $this->_createRevision();
-    		}
     	}
 		return $revision;
     }

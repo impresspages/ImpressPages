@@ -41,7 +41,8 @@ class Model{
         		`".DB_PREF."m_content_management_widget` w
         	WHERE
         		rtw.widgetId = w.id AND
-        		w.blockName = '".mysql_real_escape_string($blockName)."'
+        		w.blockName = '".mysql_real_escape_string($blockName)."' AND
+        		rtw.revisionId = ".(int)$revisionId."
      		ORDER BY `position` ASC
         ";    
         $rs = mysql_query($sql);

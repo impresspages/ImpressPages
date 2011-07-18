@@ -7,9 +7,9 @@
     <?php } ?>
     </ul>
     <div>
-        <select>
+        <select id="ipRevisionSelect">
             <?php foreach ($revisions as $revisionKey => $revision){ ?>
-                <option ><?php echo (int)$revision['id'].' - '.date("Y-m-d H:i", $revision['created']); ?></option>
+                <option <?php echo $revision['id'] == $currentRevisionId ? ' selected="selected" ' : '' ?> value="<?php echo $managementUrls[$revisionKey]; ?>"><?php echo (int)$revision['id'].' - '.date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' (published) ' : ''; ?></option>
             <?php } ?>
         </select>
     </div>

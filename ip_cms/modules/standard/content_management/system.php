@@ -15,16 +15,16 @@ class System{
         global $dispatcher;
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/ui/jquery-ui.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
-            $actionData = array (
+            $getVars = array (
 				'g' => 'standard',
 				'm' => 'content_management',
 				'a' => 'initVariables'            
             );
-            $site->addJavascript($site->generateUrl(null, null, null, $actionData));
+            $site->addJavascript($site->generateUrl(null, null, null, $getVars));
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
             
             
@@ -41,19 +41,10 @@ class System{
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/title/widget.php');
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/text/widget.php');
         
-        
-//        $widgets = $event->getValue('widgets');
-//        $widget = new Widget('title', 'Title');
-//        $widgets[] = $widget;
-//        $widget = new Widget('text', 'Text');
-//        $widgets[] = $widget;
-//        $event->setValue('widgets', $widgets);
-          $widget = new WidgetTitle();
-          $event->addWidget($widget);
-          $widget = new WidgetText();
-          $event->addWidget($widget);
-          //MODULE_DIR.'standard/content_management/img/widget.gif'
-          
+        $widget = new WidgetTitle();
+        $event->addWidget($widget);
+        $widget = new WidgetText();
+        $event->addWidget($widget);
     }
     
 

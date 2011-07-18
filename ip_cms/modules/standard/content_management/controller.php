@@ -20,6 +20,7 @@ class Controller{
         $revision = $site->getRevision();
         $data = array (
             'ipBaseUrl' => BASE_URL,
+            'ipManagementUrl' => $site->generateUrl(),
         	'ipZoneName' => $site->getCurrentZone()->getName(),
         	'ipPageId' => $site->getCurrentElement()->getId(),
         	'ipRevisionId' => $revision['id']
@@ -35,9 +36,18 @@ class Controller{
         $widgets = Model::getAvailableWidgetObjects();
         $revisions = \Ip\Db::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         
+        $managementUrls = array();
+        foreach($revisions as $revisionKey => $revision) {
+           $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['id']; 
+        }
+        
+        $revision = $site->getRevision();
+        
         $data = array (
             'widgets' => $widgets,
-            'revisions' => $revisions
+            'revisions' => $revisions,
+            'currentRevisionId' => $revision['id'],
+            'managementUrls' => $managementUrls 
         );
         
         $controlPanelHtml = \Ip\View::create('standard/content_management/view/control_panel.php', $data)->render();
@@ -75,7 +85,7 @@ class Controller{
         $revisionId = $_POST['revisionId'];
         
         
-        $revisionRecord = Model::getRevision($revisionId);
+        $revisionRecord = \Ip\Db::getRevision($revisionId);
         
         if ($revisionRecord === false) {
         	throw new Exception("Can't find required revision " . $revisionId); 
