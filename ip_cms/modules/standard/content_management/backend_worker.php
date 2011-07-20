@@ -156,6 +156,7 @@ class BackendWorker {
   }
 
   function make_html() {
+    global $site;
     $inited_modules = array();
     $sql = "
         select etm.module_key, etm.module_id, g.name as 'group_key' 
@@ -173,6 +174,21 @@ class BackendWorker {
         if ($lock) {
           eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Module(); ');
 
+          if(!isset($initedmodules[$lock['module_key']])) {
+            if (file_exists(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$lock['group_key'].'/'.$lock['module_key'].'/template.php')) {
+              $site->requireTemplate('standard/content_management/widgets/'.$lock['group_key'].'/'.$lock['module_key'].'/template.php');
+              if (class_exists('\\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template')){
+                if (method_exists ('\\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template', "initHtml")) {
+                  eval('$answer .= \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template::initHtml();');
+                  eval('$cached_html .= \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Template::initHtml();');
+                  $initedmodules[$lock['module_key']] = 1;
+                }
+              }
+            
+            }
+          }          
+          
+          
           if ($new_module->is_dynamic()) {
             $dynamic_modules[] = array("module_group" => $lock['group_key'], "module_name" => $lock['module_key'], "id" => $lock['module_id']);
             $answer .= "<dynamic_module/>";
