@@ -157,10 +157,10 @@ INSERT INTO `ip_cms_mc_text_photos_photo_gallery_photo` (`id`, `title`, `photo`,
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_mc_text_photos_separator` (`id`, `layout`) VALUES
-(20, 'line'),
-(21, 'line'),
-(22, 'line'),
-(23, 'line');
+(40, 'line'),
+(39, 'line'),
+(60, 'line'),
+(64, 'line');
 
 -- Dumping data for table--
 
