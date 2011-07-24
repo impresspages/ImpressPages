@@ -14,7 +14,7 @@ define('IP_BACK', 'Atgal');
 define('IP_NEXT', 'Toliau');
 define('IP_ACCEPT', 'Sutinku');
 define('IP_INSTALLATION', 'ImpressPages TVS diegimo vedlys');
-define('IP_VERSION', 'Versija 1.0.11');
+define('IP_VERSION', 'Versija 1.0.12');
 define('IP_SUBDIRECTORIES', '(įskaitant pakatalogius ir failus)');
 define('IP_OPTIONAL', '(pasirinktinai)');
 
