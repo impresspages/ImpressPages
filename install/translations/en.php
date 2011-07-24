@@ -45,7 +45,7 @@ define('IP_DB_PREFIX', 'Table prefix (use underscore to separate prefix).');
 define('IP_DB_DATA_WARNING', 'Attention!!! All old tables with the same prefix will be deleted!');
 define('IP_DB_ERROR_ALL_FIELDS', 'Please fill in all fields');
 define('IP_DB_ERROR_CONNECT', 'Can\'t connect to database');
-define('IP_DB_ERROR_DB', 'Incorrect login data or specified database does not exists');
+define('IP_DB_ERROR_DB', 'Specified database does not exists');
 define('IP_DB_ERROR_QUERY', 'Unknown SQL error');
 define('IP_DB_ERROR_LONG_PREFIX', 'Prefix can\'t be longer than 7 symbols');
 define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefix can\'t contain any special characters and should sart with letter');
