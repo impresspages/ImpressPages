@@ -35,13 +35,13 @@ class Model{
     
     public static function getBlockWidgetRecords($blockName, $revisionId){
         $sql = "
-        	SELECT w.*, rtw.revisionId 
+        	SELECT w.*, rtw.revisionId, rtw.position, rtw.blockName, rtw.visible 
         	FROM
         		`".DB_PREF."m_content_management_revision_to_widget` rtw,
         		`".DB_PREF."m_content_management_widget` w
         	WHERE
         		rtw.widgetId = w.id AND
-        		w.blockName = '".mysql_real_escape_string($blockName)."' AND
+        		rtw.blockName = '".mysql_real_escape_string($blockName)."' AND
         		rtw.revisionId = ".(int)$revisionId."
      		ORDER BY `position` ASC
         ";    
@@ -174,14 +174,61 @@ class Model{
         return $answer;    
     }
     
+    
+    /**
+     * 
+     * Enter description here ...
+     * @param $revisionId
+     * @param $blockName
+     * @param int $newPosition Real position of widget starting with 0
+     */
+    private static function _calcWidgetPositionNumber($revisionId, $widgetId, $newBlockName, $newPosition) {
+        $allWidgets = self::getBlockWidgetRecords($newBlockName, $revisionId);
+        
+        $widgets = array();
+        
+        foreach ($allWidgets as $widgetKey => $widget) {
+            if ($widget['id'] != $widgetId) {
+                $widgets[] = $widget;
+            }    
+        }
+        
+        if (count($widgets) == 0) {
+            $positionNumber = 0;    
+        } else {
+            if ($newPosition == 0) {
+                $positionNumber = $widgets[0]['position'] - 40;                
+            } else {
+                if ($newPosition >= count($widgets)) {
+                    $positionNumber = $widgets[count($widgets) - 1]['position'] + 40;            
+                } else {
+                    $positionNumber = ($widgets[$newPosition - 1]['position'] + $widgets[$newPosition]['position']) / 2;            
+                }
+            }
+        }
+        return $positionNumber;
+    }
+    
+    /**
+     * 
+     * Enter description here ...
+     * @param $revisionId
+     * @param int $position Real position of widget starting with 0
+     * @param $blockName
+     * @param $widgetName
+     * @param $layout
+     * @throws \Exception
+     */
     public static function createWidget($revisionId, $position, $blockName, $widgetName, $layout) {
+        
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
+        
+        
+        
         $sql = "
         	insert into
         		".DB_PREF."m_content_management_widget
         	set
-        		`position` = '".mysql_real_escape_string($position)."',
-        		`blockName` = '".mysql_real_escape_string($blockName)."',
-        		`visible` = 1,
         		`name` = '".mysql_real_escape_string($widgetName)."',
         		`layout` = '".mysql_real_escape_string($layout)."',
         		`created` = ".time()."
@@ -199,7 +246,10 @@ class Model{
         	insert into
         		".DB_PREF."m_content_management_revision_to_widget
         	set
-        		`revisionId` = ".(int)$revisionId.",
+                `position` = '".mysql_real_escape_string($positionNumber)."',
+                `blockName` = '".mysql_real_escape_string($blockName)."',
+                `visible` = 1,
+        	    `revisionId` = ".(int)$revisionId.",
         		`widgetId` = ".(int)$widgetId."
         ";
         
@@ -247,5 +297,24 @@ class Model{
         return true; 
     }
         
+    
+    public static function moveWidget($revisionId, $widgetId, $newPosition, $newBlockName) {
+        
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $widgetId, $newBlockName, $newPosition);
+        
+        $sql = "
+            UPDATE `".DB_PREF."m_content_management_revision_to_widget`
+            SET
+                `position` = '".$positionNumber."',
+                `blockName` = '".mysql_real_escape_string($newBlockName)."'
+            WHERE `widgetId` = ".(int)$widgetId." AND `revisionId` = ".(int)$revisionId."
+        ";    
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
+        }
+        
+        return true;         
+    }
     
 }

@@ -26,29 +26,63 @@
                         forcePlaceholderSize: true,
                         handle: '.ipWidgetControls .ipWidgetMove',
 
+                        //this event is fired twice by both blocks, when element is moved from one block to another.
+                        update: function(event, ui) { 
+                    		if(!$(ui.item).data('ipWidget')) {
+                    			//some other object is dragged in. Do nothing.
+                    			return;
+                    		}
+                    		
+                    		//item is dragged out of the block. This action will be handled by the reciever using "receive"
+                    		if ($(ui.item).parent().data('ipBlock').name != $this.data('ipBlock').name) { 
+                    			return;
+                    		}
+                    	
+                    		var widgetId = $(ui.item).data('ipWidget').id;
+                    		var position = $(ui.item).index();
+                    		
+                            var data = Object();
+                            data.g = 'standard';
+                            data.m = 'content_management';
+                            data.a = 'moveWidget';
+                            data.widgetId = widgetId;
+                            data.position = position;
+                            data.blockName = $this.data('ipBlock').name;
+                            data.revisionId = $this.data('ipBlock').revisionId;
+                        
+                            $.ajax({
+                                type : 'POST',
+                                url : ipBaseUrl,
+                                data : data,
+                                context : $this,
+                                success : methods._moveWidgetResponse,
+                                dataType : 'json'
+                            });	                     		
+                    		
+                    	},
+                        
                         receive: function(event, ui) {
-                            $element = null;
+                    		console.log('received');
+
                             
                             $element = $(ui.item);
 
-                            $duplicatedDragItem =  $('.ipBlock .ipWidgetButtonSelector');
-                            
-                            if ($duplicatedDragItem) {
+                            //if received element is WidgetButton (insert new widget)
+                            if ($element && $element.is('.ipWidgetButton')) {
+                            	
+                            	
+                            	
+                                $duplicatedDragItem =  $('.ipBlock .ipWidgetButtonSelector');
                                 $position = $duplicatedDragItem.index();
+                                var newWidgetName = $element.data('ipWidgetButton').name;
+                                
                                 $duplicatedDragItem.remove();
                                 
                                 $block = $(event.target);
-                                //if received element is WidgetButton (insert new widget)
-                                if ($element && $element.is('.ipWidgetButton')) {
-                                    var newWidgetName = $element.data('ipWidgetButton').name;
-                                    $block.ipBlock('_createWidget', newWidgetName, $position);
-                                } else {
-                                	//do nothing
-                                }
-                            	
-                            } else {
-                            	$.fn.ipBlock('_showError', 'Can\'t select dragged item');
-                            }
+                                
+                                $block.ipBlock('_createWidget', newWidgetName, $position);
+                            }                            
+                            
                         }
                     });        
                     $this.data('ipBlock', {
@@ -83,6 +117,15 @@
             });
         },
         
+        _moveWidgetResponse : function (response) {
+        	
+        },
+        
+        save : function () {
+        	console.log('Block save');
+        },
+        
+
         
         previewWidget : function (widgetId) {
             data = Object();

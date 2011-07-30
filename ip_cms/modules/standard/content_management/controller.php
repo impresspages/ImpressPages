@@ -64,11 +64,37 @@ class Controller{
     }
         
     
-    public function createWidget(){
+    public function moveWidget() {
         global $site;
         
         
-        $error = false;
+        if (!isset($_POST['widgetId']) ||
+            !isset($_POST['position']) ||
+            !isset($_POST['blockName']) ||
+            !isset($_POST['revisionId'])
+            ) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }
+        
+        $widgetId = $_POST['widgetId'];
+        $position = $_POST['position'];
+        $blockName = $_POST['blockName'];
+        $revisionId = $_POST['revisionId'];
+        
+        Model::moveWidget($revisionId, $widgetId, $position, $blockName);
+                
+        $data = array (
+            'status' => 'success'
+        );
+        
+        $this->_outputAnswer($data);        
+    }
+    
+    public function createWidget() {
+        global $site;
+        
+        
         
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
@@ -238,7 +264,6 @@ class Controller{
     private function _errorAnswer($errorMessage) {
         $data = array (
             'status' => 'error',
-            'action' => '_createWidgetResponse',
             'errorMessage' => $errorMessage
         );
         
