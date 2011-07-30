@@ -1,66 +1,69 @@
-#ipControllPanelBg{
-display: block;
-height: 117px;	
+#ipControllPanelBg {
+	display: block;
+	height: 117px;
 }
 
-#ipControllPanel{
-position: fixed;
-height: 117px;
-width: 100%;
-background-color: #FBFCFC;
+#ipControllPanel {
+	position: fixed;
+	height: 117px;
+	width: 100%;
+	background-color: #FBFCFC;
 }
 
-.ipWidgetList{
-float: left;
+.ipWidgetList {
+	float: left;
 }
 
-.ipWidgetList li{
-float: left;
-width: 64px;
-heigth: 46px;
-margin: 0 0 5px 5px;
-list-style: none;    
+.ipWidgetList li {
+	float: left;
+	width: 64px;
+	heigth: 46px;
+	margin: 0 0 5px 5px;
+	list-style: none;
+}
+
+.ipRevisionsControl {
+	float: right;
 }
 
 .ipWidget {
-    min-height: 10px;	
+	min-height: 10px;
 }
 
-.ipWidget:hover {
-    /*border: 1px dotted #22a;*/
-    outline: 1px;
-    outline:#22a dotted 1px;
-    margin: -1;
+.ipWidget:hover { /*border: 1px dotted #22a;*/
+	outline: 1px;
+	outline: #22a dotted 1px;
+	margin: -1;
 }
 
 .ipBlock {
-	min-height: 10px;	
+	min-height: 10px;
 }
 
 .ipWidgetData {
-	display: none;	
+	display: none;
 }
 
 .ipWidgetControls {
 	position: absolute;
-    display: none;	
-    margin-top: -23px;
-    background-color: #ccc;
+	display: none;
+	margin-top: -23px;
+	background-color: #ccc;
 }
 
-.ipWidgetControls span{
-    padding: 4px;
-    float: left;
-    cursor: pointer;
+.ipWidgetControls span {
+	padding: 4px;
+	float: left;
+	cursor: pointer;
 }
 
 .ipWidget:hover .ipWidgetControls {
 	display: block;
 }
 
-.ipWidgetButtons span{
-    background-color: #ccc;
-    cursor: pointer;
-    padding: 5px;
-    float: left;
+.ipWidgetButtons span {
+	background-color: #ccc;
+	cursor: pointer;
+	padding: 5px;
+	float: left;
 }

@@ -20,7 +20,9 @@ function ipContentManagement() {
     this.init = init;
     this.initResponse = initResponse;
     this.publish = publish;
-    this.save = save;
+    this.blockSaveFinish = blockSaveFinish;
+    
+
 
     
     function init () {
@@ -61,7 +63,7 @@ function ipContentManagement() {
             
             $('.ipWidgetButtonSelector').ipWidgetButton();
             
-            $('.ipPageSave').bind('click', save);
+            $('.ipPageSave').bind('click', saveStart);
             $('.ipPagePublish').bind('click', publish);
             
             $('#ipRevisionSelect').bind('change', selectRevision);
@@ -70,20 +72,34 @@ function ipContentManagement() {
     }
 
 
-    function save(event){
-    	console.log('PageSave');
-    	$('.ipBlock').bind('progress', saveProgress);
+    function saveStart(event){
+
+    	//$('.ipBlock').bind('progress', saveProgress);
+
+    	$(this).data('ipContentManagement', {pendingBlocks : $('.ipBlock').length});
+    	console.log('Steps: ' + this.pendingBlocks );
+    	$(this).bind('saveFinish.ipBlock', function(event){console.log('AAA'); this.blockSaveFinish(event);});
+    	
     	$('.ipBlock').ipBlock('save');
+    	
+    	
     }
 
+    function blockSaveFinish (event) {
+    	this.pendingBlocks--;
+    	console.log('left ' + this.pendingBlocks );
+    	
+    }
+    
+    
     function publish(event){
     	console.log('publish');
     }
 
-
-    function saveProgress(event, progress){
-    	console.log('save progress ' + progress);
-    }   
+//
+//    function saveProgress(event, progress){
+//    	console.log('save progress ' + progress);
+//    }   
     
     function selectRevision(event){
     	document.location = $(event.currentTarget).val(); 

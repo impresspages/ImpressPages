@@ -118,11 +118,15 @@
         },
         
         _moveWidgetResponse : function (response) {
-        	
+        	//todo show error on error response
         },
         
         save : function () {
-        	console.log('Block save');
+            return this.each(function() {
+            	$this = $(this);        	
+            	console.log('Block save');
+            	$this.trigger('saveFinish.ipBlock');
+            });
         },
         
 

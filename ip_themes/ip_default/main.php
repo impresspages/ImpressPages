@@ -61,11 +61,6 @@
 ?>
       <div class="clear"><!-- --></div>
     </div>
-    <div class="box">
-<?php
-      echo $site->generateBlock('left');      
-?>
-    </div>
   </div>
 
   <div class="breadcrumb">
