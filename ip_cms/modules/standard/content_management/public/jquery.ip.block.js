@@ -99,23 +99,11 @@
                     $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
                     
                     
-                    
-                    //$this.delegate('.ipWidget .ipWidgetManage', 'click', function(event){$(this).trigger('manageClick.ipBlock');});
-                    //$this.delegate('.ipWidget .ipWidgetSave', 'click', function(event){$(this).trigger('saveClick.ipBlock');});
                     $this.delegate('.ipWidget .ipWidgetDelete', 'click', function(event){$(this).trigger('deleteClick.ipBlock');});
                     
-                    //$this.delegate('.ipWidget', 'manageClick.ipBlock', function(event){$(this).trigger('manageWidget.ipBlock', $(this).data('ipWidget').id);});
-                    //$this.delegate('.ipWidget', 'saveClick.ipBlock', function(event){$(this).trigger('saveWidget.ipBlock', $(this).data('ipWidget').id);});
-                    $this.delegate('.ipWidget', 'preparedWidgetData.ipWidget', function(event, widgetData){$(this).trigger('preparedWidgetData.ipBlock', [$(this).data('ipWidget').id, widgetData]);});
                     $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event){$(this).trigger('deleteWidget.ipBlock', $(this).data('ipWidget').id);});                    
                     
-                    //$this.bind('manageWidget.ipBlock', function(event, widgetId){$(this).ipBlock('manageWidget', widgetId);});
-                    //$this.bind('saveWidget.ipBlock', function(event, widgetId){$(this).ipBlock('saveWidget', widgetId);});
-                    $this.bind('preparedWidgetData.ipBlock', function(event, widgetId, widgetData){$(this).ipBlock('_saveWidgetData', widgetId, widgetData);});
                     $this.bind('deleteWidget.ipBlock', function(event, widgetId){$(this).ipBlock('deleteWidget', widgetId);});
-                    
-                    
-                    		
                     
                 }                
             });
@@ -126,6 +114,7 @@
         },
         
         saveStart : function () {
+            console.log('global save start');
             return this.each(function() {
             	$this = $(this);  
             	var saveJob = new ipSaveJob('Title', 10);
@@ -136,118 +125,6 @@
         },
         
 
-        
-//        previewWidget : function (widgetId) {
-//            data = Object();
-//            data.g = 'standard';
-//            data.m = 'content_management';
-//            data.a = 'previewWidget';
-//            data.widgetId = widgetId;
-//        console.log('preview1');
-//            $.ajax({
-//                type : 'POST',
-//                url : ipBaseUrl,
-//                data : data,
-//                context : $this,
-//                success : methods._previewWidgetResponse,
-//                dataType : 'json'
-//            });	        	
-//        	
-//        },        
-//        
-//        
-//        _previewWidgetResponse : function (response) {
-//            return this.each(function() {
-//            	$this.ipBlock('_replaceWidgetContent', response.widgetId, response.previewHtml);
-//            });        	
-//        },        
-        
-        saveWidget : function(widgetId){
-            return this.each(function() {
-            	$this = $(this);
-	        	$widget = $this.find('#ipWidget_' + widgetId);
-	        	widgetName = $widget.data('ipWidget').name;
-	        	console.log(widgetName);
-	        	if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
-	        		eval('var widgetPluginObject = new ipWidget_' + widgetName + '($widget);');
-		        	widgetPluginObject.prepareData();
-	        	} else {
-	        		console.log($this);
-	        		$this.ipBlock('previewWidget', widgetId);
-	        	}
-	        	
-	        	
-            });
-        },
-
-
-                
-        _saveWidgetData : function (widgetId, widgetData) {
-       	
-			return this.each(function() {     
-				console.log(widgetData);
-	            data = Object();
-	            data.g = 'standard';
-	            data.m = 'content_management';
-	            data.a = 'updateWidget';
-	            data.widgetId = widgetId;
-	            data.widgetData = widgetData;
-	            console.log(widgetData);
-	        
-	            $.ajax({
-	                type : 'POST',
-	                url : ipBaseUrl,
-	                data : data,
-	                context : $this,
-	                success : methods._saveWidgetDataResponse,
-	                dataType : 'json'
-	            });				
-				
-				
-				
-
-			});	        	
-        },
-        
-        _saveWidgetDataResponse : function (response) {
-            return this.each(function() {
-
-            	$this = $(this);
-            	$this.ipBlock('_replaceWidgetContent', response.widgetId, response.previewHtml);
-            });        	
-        },
-        
-//        manageWidget : function (widgetId) { 
-//            return this.each(function() {
-//	        	$this = $(this);
-//	            data = Object();
-//	            data.g = 'standard';
-//	            data.m = 'content_management';
-//	            data.a = 'manageWidget';
-//	            data.widgetId = widgetId;
-//	        
-//	            $.ajax({
-//	                type : 'POST',
-//	                url : ipBaseUrl,
-//	                data : data,
-//	                context : $this,
-//	                success : methods._manageWidgetResponse,
-//	                dataType : 'json'
-//	            });
-//            });        	
-//        },
-        
-        
-        
-//        _manageWidgetResponse : function(response) {
-//
-//            return this.each(function() {
-//
-//            	$this = $(this);
-//            	$this.ipBlock('_replaceWidgetContent', response.widgetId, response.managementHtml);
-//            });
-//        },
-                
         
 
         destroy : function() {
@@ -336,25 +213,7 @@
 	            }
 
         }
-//        
-//        _replaceWidgetContent : function(widgetId, newContent){
-//            return this.each(function() {
-//            	$this = $(this);
-//            	$widget = $this.find('#ipWidget_' + widgetId);
-//            	$widget.replaceWith(newContent);
-//            	$this.ipBlock('_initWidgetManagement', widgetId);
-//            });        	
-//        	
-//        },
-//        
-//        
-//        _initWidgetManagement : function(widgetId){
-//        	$this = (this);
-//        	$widget = $this.find('#ipWidget_' + widgetId);
-//        	$widget.ipWidget(new Object).prepend($this.data('ipBlock').widgetControlsHtml);
-//        }
-//        
-        
+
     
 
         

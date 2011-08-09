@@ -15,6 +15,7 @@
             var data = $this.data('ipWidget');
             // If the plugin hasn't been initialized yet
             if (!data) {
+                // initialize data array
                 var data = Object();
                 $this.find('.ipWidgetData input').each(function() {
                     data[$(this).attr('name')] = $(this).val();
@@ -23,21 +24,25 @@
                 data.widgetControlsHtml = options.widgetControlsHtml;
                 $this.data('ipWidget', data);
 
+                // mange action
                 $this.delegate('.ipWidget .ipWidgetManage', 'click', function(event) {
                     $(this).trigger('manageClick.ipWidget');
                 });
                 $this.bind('manageClick.ipWidget', function(event) {
                     $(this).ipWidget('manage');
                 });
-                
-                
-                
-                
+
+                // save acion
                 $this.delegate('.ipWidget .ipWidgetSave', 'click', function(event) {
-                    $(this).trigger('saveClick.ipWidget');
+                    $(this).trigger('saveWidget.ipWidget');
                 });
-                $this.bind('saveWidget.ipBlock', function(event) {
-                    $(this).ipBlock('save');
+                $this.bind('saveWidget.ipWidget', function(event) {
+                    $(this).ipWidget('save');
+                });
+
+
+                $this.bind('preparedWidgetData.ipWidget', function(event, widgetData) {
+                    $(this).ipWidget('_saveData', widgetData);
                 });
             }
         });
@@ -80,6 +85,54 @@
 
     },
 
+
+
+    save : function() {
+        return this.each(function() {
+            $this = $(this);
+            widgetName = $this.data('ipWidget').name;
+            if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+                eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                widgetPluginObject.prepareData();
+            } else {
+                $this.ipWidget('preview');
+            }
+
+        });
+    },
+
+    _saveData : function(widgetData) {
+
+        return this.each(function() {
+            $this = $(this);
+            console.log(widgetData);
+            data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'updateWidget';
+            data.widgetId = $this.data('ipWidget').id;
+            data.widgetData = widgetData;
+            console.log(widgetData);
+
+            $.ajax( {
+            type : 'POST',
+            url : ipBaseUrl,
+            data : data,
+            context : $this,
+            success : methods._saveDataResponse,
+            dataType : 'json'
+            });
+
+        });
+    },
+
+    _saveDataResponse : function(response) {
+        return this.each(function() {
+            $this = $(this);
+            $this.ipWidget('_replaceContent', response.previewHtml);
+        });
+    },
+
     _replaceContent : function(newContent) {
         return this.each(function() {
             $this = $(this);
@@ -87,48 +140,14 @@
             $this.ipWidget('_initManagement');
         });
 
-    },
-
+    },    
+    
     _initManagement : function() {
         return this.each(function() {
             $this = $(this);
             $this.prepend($this.data('ipWidget').widgetControlsHtml)
         });
     }
-
-    // 2011-08-08
-    // preview : function () {
-    // console.log('preview2');
-    // return this.each(function() {
-    // $this = $(this);
-    //
-    // data = Object();
-    // data.g = 'standard';
-    // data.m = 'content_management';
-    // data.a = 'previewWidget';
-    // data.widgetId = $this.data('ipWidget').id;
-    //	        
-    // $.ajax({
-    // type : 'POST',
-    // url : ipBaseUrl,
-    // data : data,
-    // context : $this,
-    // success : methods._previewResponse,
-    // dataType : 'json'
-    // });
-    //	        	
-    // alert($this.data('ipWidget').id);
-    // });
-    // },
-    //        
-    // _previewResponse : function(response) {
-    //
-    // return this.each(function() {
-    // $block = $this.parent();
-    // $this.replaceWith(response.previewHtml);
-    // console.log('preview');
-    // });
-    // }
 
     };
 
