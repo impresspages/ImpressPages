@@ -106,7 +106,8 @@ class Db{
         $revisionId = mysql_insert_id();
         
         $eventData = array(
-            'revisionId' => $revisionId
+            'revisionId' => $revisionId,
+            'basedOn' => null //new revision
         );
         $dispatcher->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));    
         
@@ -122,10 +123,10 @@ class Db{
         $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
         
         $eventData = array(
-            'oldRevisionId' => $oldRevisionId,
-            'newRevisionId' => $newRevisionId
+            'revisionId' => $newRevisionId,
+            'basedOn' => $oldRevision 
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));    
+        $dispatcher->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));    
             
         return $newRevisionId;        
     }       

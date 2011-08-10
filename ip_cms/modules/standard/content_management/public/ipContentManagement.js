@@ -10,7 +10,7 @@ $(document).ready(function() {
 	$ipObject.ipContentManagement();
 
 	$ipObject.bind('initFinished.ipContentManagement', ipInitBlocks);
-	$ipObject.bind('saveStart.ipContentManagement', ipSaveStart);
+	$ipObject.bind('pageSaveStart.ipContentManagement', ipPageSaveStart);
 });
 
 function ipInitBlocks(event, options) {
@@ -18,8 +18,9 @@ function ipInitBlocks(event, options) {
 	$('.ipBlock').ipBlock(options);
 }
 
-function ipSaveStart (event) {	
-	$('.ipBlock').ipBlock('saveStart');
+function ipPageSaveStart (event) {	
+    console.log('START');
+	$('.ipBlock').ipBlock('pageSaveStart');
 }
 
 /**

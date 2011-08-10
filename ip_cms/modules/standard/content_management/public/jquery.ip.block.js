@@ -104,6 +104,7 @@
                     $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event){$(this).trigger('deleteWidget.ipBlock', $(this).data('ipWidget').id);});                    
                     
                     $this.bind('deleteWidget.ipBlock', function(event, widgetId){$(this).ipBlock('deleteWidget', widgetId);});
+
                     
                 }                
             });
@@ -113,14 +114,15 @@
         	//todo show error on error response
         },
         
-        saveStart : function () {
-            console.log('global save start');
+        pageSaveStart : function () {
             return this.each(function() {
-            	$this = $(this);  
-            	var saveJob = new ipSaveJob('Title', 10);
-            	$this.trigger('addSaveJob.ipContentManagement', ['block_' + $this.data('ipBlock').name, saveJob]);
-            	//console.log('Block save');
-            	//$this.trigger('saveFinish.ipBlock');
+            	//$this = $(this); // don't do $this = $(this); Somehow this operation equals to ipContentManagement = $(this); and raises problems later;
+//            	var saveJob = new ipSaveJob('Title', 10);
+//            	$(this).trigger('addSaveJob.ipContentManagement', ['block_' + $(this).data('ipBlock').name, saveJob]);
+//                var saveJob2 = new ipSaveJob('Title2', 5);
+//                $(this).trigger('addSaveJob.ipContentManagement', ['ablock_' + $(this).data('ipBlock').name, saveJob2]);
+//                
+            	
             });
         },
         
@@ -161,7 +163,6 @@
         
         _deleteResponse : function(response){
         	$this.find('#ipWidget_' + response.widgetId).remove();
-        	
         },
                 
         
@@ -209,12 +210,8 @@
 		                $(response.widgetHtml).insertAfter($secondChild);
 	            	}
 	            	this.ipBlock('_initWidgetManagement', response.widgetId);
-	
 	            }
-
         }
-
-    
 
         
     };

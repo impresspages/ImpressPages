@@ -62,7 +62,37 @@ class Model{
 
     
     public static function duplicateRevision($revisionId) {
-    	
+//        $sql = "
+//            SELECT * 
+//            FROM
+//                `".DB_PREF."m_content_management_revision_to_widget` rtw,
+//            WHERE
+//                rtw.revisionId = ".(int)$revisionId."
+//            ORDER BY `position` ASC
+//        ";    
+//        
+//        $rs = mysql_query($sql);
+//        if (!$rs){
+//            throw new \Exception('Can\'t get revision data '.$sql.' '.mysql_error());
+//        }        
+//        
+//        while ($lock = mysql_fetch_assoc($rs)) {
+//            
+//            $sql = "
+//                INSERT INTO
+//                    `".DB_PREF."m_content_management_revision_to_widget` rtw,
+//                SET
+//                    `revisionId` = ".(int)$revisionId."
+//                ORDER BY `position` ASC
+//            ";    
+//            
+//            $rs = mysql_query($sql);
+//            if (!$rs){
+//                throw new \Exception('Can\'t get revision data '.$sql.' '.mysql_error());
+//            }        
+//            $answer[] = $lock;
+//        }        
+        
     }
     
     public static function getAvailableWidgetObjects() {

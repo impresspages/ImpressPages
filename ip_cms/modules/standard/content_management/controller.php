@@ -261,6 +261,27 @@ class Controller{
     }
     
     
+    public function savePage () {
+        global $site;
+            
+        if (!isset($_POST['revisionId'])) {
+            $this->_errorAnswer('Mising revisionId POST variable');
+            return;
+        }        
+        $revisionId = $_POST['revisionId'];
+        
+        $managementHtml = Model::deleteWidget($widgetId, $revisionId);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_deleteWidgetResponse',
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);   
+        
+    }
+    
     private function _errorAnswer($errorMessage) {
         $data = array (
             'status' => 'error',
@@ -276,6 +297,8 @@ class Controller{
         $answer = json_encode($data);        
         $site->setOutput($answer);         
     }
+    
+   
     
 }        
         

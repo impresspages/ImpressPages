@@ -72,15 +72,16 @@
 	                
 	                $('.ipWidgetButtonSelector').ipWidgetButton();
 	                
-	                $('.ipPageSave').bind('click', function(event){$(this).trigger('saveClick.ipContentManagement');});
+	                
+	                $('.ipPageSave').bind('click', function(event){$(this).trigger('savePageClick.ipContentManagement');});
 	                $('.ipPagePublish').bind('click', function(event){$(this).trigger('publishClick.ipContentManagement');});
 	                $('#ipRevisionSelect').bind('change', function(event){document.location = $(event.currentTarget).val(); });
 	                
 
-	                $this.bind('saveClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
+	                $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
 	                $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publish');});
 	                
-	                $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
+	                $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){console.log('add job'); console.log(this); $(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
 
 	                
 	                $this.trigger('initFinished.ipContentManagement', options);
@@ -91,18 +92,56 @@
         //*********SAVE**********//
         
         saveStart : function() {
-            return this.each(function() {    
+            return this.each(function() {
 	        	$this = $(this);
-	        	$this.trigger('saveStart.ipContentManagement');
+	        	$this.trigger('pageSaveStart.ipContentManagement');
+	        	jobsCount = 0;
+	        	for (var prop in $this.data('ipContentManagement').saveJobs) {
+	        	    jobsCount++;
+	        	}
+	        	
+	        	if (jobsCount == 0) {
+	        	    $this.ipContentManagement('saveFinish'); //initiate save finishing action
+	        	} else {
+	        	    //wait for jobs to finish
+	        	}
+	        	
             });
      
         },
         
+        saveFinish : function() {
+            return this.each(function() {
+                $this = $(this);
+                data = Object();
+                data.g = 'standard';
+                data.m = 'content_management';
+                data.a = 'savePage';
+
+
+                refreshLocation = document.location
+                
+                $.ajax({
+                    type : 'POST',
+                    url : document.location,
+                    data : data,
+                    context : $this,
+                    success : methods._savePageResponse,
+                    dataType : 'json'
+                });                     
+            });
+        },
+        
+        _savePageResponse: function() {
+            var url = parent.window.location.href.split('#');
+            parent.window.location.href = url[0];
+        },
+        
         addSaveJob : function (jobName, saveJobObject) {
             return this.each(function() {  
-	        	$this = $(this);
-	        	$this.data('ipContentManagement').saveJobs[jobName] = saveJobObject;
-	        	$this.ipContentManagement('_displaySaveProgress');
+	        	$(this); //don't do $this = $(this); Somehow this operation equals to ipBlock = $(this); and raises problems if block want to add two jobs;	
+	        	$(this).data('ipContentManagement').saveJobs[jobName] = saveJobObject;
+	        	$(this).ipContentManagement('_displaySaveProgress');
             });
         },
 
