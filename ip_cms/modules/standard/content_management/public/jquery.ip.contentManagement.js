@@ -60,6 +60,7 @@
 	            if (response.status == 'success') {
 	            	$this = $(this);
 	                $('body').prepend(response.controlPanelHtml);
+	                $('body').append(response.saveProgressHtml);
 	                
 	                var options = new Object;
 	                options.zoneName = ipZoneName;
@@ -93,7 +94,18 @@
         
         saveStart : function() {
             return this.each(function() {
-	        	$this = $(this);
+                $this = $(this);
+
+                $( "#ipSaveProgress" ).dialog({
+                    height: 140,
+                    modal: true
+                });
+                
+                $( "#ipSaveProgress .ipMainProgressbar" ).progressbar({
+                    value: 0
+                });
+                
+                
 	        	$this.trigger('pageSaveStart.ipContentManagement');
 	        	jobsCount = 0;
 	        	for (var prop in $this.data('ipContentManagement').saveJobs) {
@@ -112,11 +124,13 @@
         
         saveFinish : function() {
             return this.each(function() {
+                return ;
                 $this = $(this);
                 data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'savePage';
+                data.revisionId = ipRevisionId;
 
 
                 refreshLocation = document.location
@@ -132,9 +146,10 @@
             });
         },
         
-        _savePageResponse: function() {
-            var url = parent.window.location.href.split('#');
-            parent.window.location.href = url[0];
+        _savePageResponse: function(response) {
+            if (response.status == 'success') {
+              // window.location.href = response.newRevisionUrl;
+            }
         },
         
         addSaveJob : function (jobName, saveJobObject) {

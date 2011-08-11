@@ -8,6 +8,8 @@ namespace Modules\standard\content_management;
 if (!defined('CMS')) exit;
 
 
+require_once(__DIR__.'/model.php');
+
 class System{
 
     function init(){
@@ -20,6 +22,10 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
+            
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.js');
+            $site->addCss(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.css');
+            
             $getVars = array (
 				'g' => 'standard',
 				'm' => 'content_management',
@@ -35,7 +41,9 @@ class System{
         }     
 
 	    $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
-        
+
+        $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+	    
     }
     
     public static function collectWidgets(EventWidget $event){
@@ -47,6 +55,10 @@ class System{
         $widget = new WidgetText();
         $event->addWidget($widget);
     }
+    
+    public static function duplicatedRevision (\Ip\Event $event) {
+        Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
+    }   
     
 
     

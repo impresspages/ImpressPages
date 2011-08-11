@@ -38,7 +38,7 @@ class Event{
     }
     
     public function getValues () {
-        return $this->data;    
+        return $this->values;    
     }
     
     public function setValue ($key, $value) {
@@ -68,14 +68,14 @@ class Event{
         
         $trace = debug_backtrace();
         throw new \Exception(
-            'Undefined data variable via getData(): ' . $key .
+            'Undefined value via getValue(): ' . $key .
             ' in ' . $trace[0]['file'] .
             ' on line ' . $trace[0]['line'],
             E_USER_NOTICE);
     }
     
     public function valueExist($valueKey) {
-        return isset($this->data[$valueKey]);
+        return isset($this->value[$valueKey]);
     }
     
 }

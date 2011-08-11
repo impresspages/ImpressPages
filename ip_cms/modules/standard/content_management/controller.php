@@ -53,11 +53,14 @@ class Controller{
         $controlPanelHtml = \Ip\View::create('standard/content_management/view/control_panel.php', $data)->render();
         
         $widgetControlsHtml = \Ip\View::create('standard/content_management/view/widget_controls.php', $data)->render();
+
+        $saveProgressHtml = \Ip\View::create('standard/content_management/view/save_progress.php', $data)->render();
         
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-        	'widgetControlsHtml' => $widgetControlsHtml
+        	'widgetControlsHtml' => $widgetControlsHtml,
+            'saveProgressHtml' => $saveProgressHtml
         );
         
         $this->_outputAnswer($data);
@@ -270,12 +273,13 @@ class Controller{
         }        
         $revisionId = $_POST['revisionId'];
         
-        $managementHtml = Model::deleteWidget($widgetId, $revisionId);
+        $newRevisionId = \Ip\Db::duplicateRevision($revisionId);
         
         $data = array (
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
-            'widgetId' => $widgetId
+            'newRevisionId' => $newRevisionId,
+            'newRevisionUrl' => $site->getCurrentElement()->getLink().'&cms_revision='.$newRevisionId 
         );
         
         $this->_outputAnswer($data);   
