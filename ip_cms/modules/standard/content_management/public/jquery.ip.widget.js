@@ -89,6 +89,7 @@
 
     save : function() {
         return this.each(function() {
+            console.log('widget save');
             $this = $(this);
             widgetName = $this.data('ipWidget').name;
             if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
@@ -144,6 +145,7 @@
     
     _initManagement : function() {
         return this.each(function() {
+            console.log('init management');
             $this = $(this);
             $this.prepend($this.data('ipWidget').widgetControlsHtml)
         });

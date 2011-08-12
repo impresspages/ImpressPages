@@ -147,7 +147,8 @@ class Controller{
         try {
             $layouts = $widgetObject->getLayouts();
             $widgetId = Model::createWidget($revisionId, $position, $blockName, $widgetName, $layouts[0]['name']);
-            $widgetHtml = Model::generateWidgetManagement($widgetId);
+            $widgetHtml = Model::generateWidgetPreview($widgetId, true);
+            $widgetManagementHtml = Model::generateWidgetManagement($widgetId);
         } catch (Exception $e) {
             $this->_errorAnswer($e);
             return;
@@ -158,6 +159,7 @@ class Controller{
             'status' => 'success',
             'action' => '_createWidgetResponse',
             'widgetHtml' => $widgetHtml,
+            'widgetManagementHtml' => $widgetManagementHtml,
             'position' => $position,
         	'widgetId' => $widgetId
         );

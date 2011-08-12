@@ -104,6 +104,7 @@
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar({
                     value: 0
                 });
+                $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', 50);
                 
                 
 	        	$this.trigger('pageSaveStart.ipContentManagement');

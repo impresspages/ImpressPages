@@ -197,20 +197,27 @@
         },       
 
         _createWidgetResponse : function(response) {
+            $this = $(this);
+            if (response.status == 'error') {
+                $.fn.ipBlock('_showError', response.errorMessage);
+            }
             
-	            if (response.status == 'error') {
-	                $.fn.ipBlock('_showError', response.errorMessage);
-	            }
-	            
-	            if (response.status == 'success') {           
-	            	if (response.position == 0) {
-		                $(this).prepend(response.widgetHtml);
-	            	} else {
-		                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
-		                $(response.widgetHtml).insertAfter($secondChild);
-	            	}
-	            	this.ipBlock('_initWidgetManagement', response.widgetId);
-	            }
+            if (response.status == 'success') {           
+            	if (response.position == 0) {
+	                $(this).prepend(response.widgetHtml);
+            	} else {
+	                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
+	                $(response.widgetHtml).insertAfter($secondChild);
+            	}
+            	
+                var widgetOptions = new Object;
+                widgetOptions.widgetControlsHtml = $this.data('ipBlock').widgetControlsHtml;
+                $this.find('#ipWidget_' + response.widgetId).ipWidget(widgetOptions);
+                
+                //replace preview HTML with management HTML
+                $this.find('#ipWidget_' + response.widgetId).ipWidget('_replaceContent', response.widgetManagementHtml);
+
+            }
         }
 
         
