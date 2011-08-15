@@ -10,7 +10,7 @@ abstract class Widget{
 
     public static function getLayouts() {
         $answer = array();
-        $answer[] = array('name' => 'default', 'title' => 'Default');
+        $answer[] = array('name' => 'default');
         return $answer;
     }
     

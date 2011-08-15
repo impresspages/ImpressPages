@@ -47,6 +47,14 @@ class System{
     }
     
     public static function collectWidgets(EventWidget $event){
+        $widgets = array (
+            'Title',
+            'Text',
+            'TextPhoto',
+        ); 
+        
+        
+        
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/title/widget.php');
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/text/widget.php');
         

@@ -1039,7 +1039,7 @@ class Site{
         global $session;
         
         if ($this->output == null) {
-            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array(), true)->render();
+            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
         }
         
         return $this->output;
@@ -1077,7 +1077,7 @@ class Site{
             'css' => $this->requiredCss
         );
         
-        return \Ip\View::create('standard/configuration/view/head.php', $data)->render();
+        return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/head.php', $data)->render();
     }
     
     

@@ -21,9 +21,7 @@ class WidgetText extends Widget{
     	if (!isset($data['text'])) {
     	   $data['text'] = '';    
     	}
-    	
-    	
-    	$answer = \Ip\View::create('standard/content_management/widget/text/view/management.php', $data)->render();
+    	$answer = \Ip\View::create('view/management.php', $data)->render();
     	
         return $answer;
     }

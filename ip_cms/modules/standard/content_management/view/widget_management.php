@@ -1,5 +1,5 @@
 <?php
-echo \Ip\View::create('standard/content_management/view/widget_data.php', array('widgetRecord' => $widgetRecord))->render();
+echo \Ip\View::create('widget_data.php', array('widgetRecord' => $widgetRecord))->render();
 ?>
     <div>
         <?php echo $managementHtml ?>

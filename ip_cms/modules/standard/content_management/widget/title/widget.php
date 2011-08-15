@@ -5,7 +5,6 @@
  * @license GNU/GPL, see ip_license.html
  */
 namespace Modules\standard\content_management;
-
 if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
@@ -20,7 +19,7 @@ class WidgetTitle extends Widget{
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
-        $answer = \Ip\View::create('standard/content_management/widget/title/view/management.php', $data)->render();
+        $answer = \Ip\View::create('view/management.php', $data)->render();
         
         return $answer;
         

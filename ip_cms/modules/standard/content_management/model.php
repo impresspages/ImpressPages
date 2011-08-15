@@ -29,7 +29,7 @@ class Model{
     		'managementState' => $managementState
     	);
     	
-    	$answer = \Ip\View::create('standard/content_management/view/block.php', $data)->render();
+    	$answer = \Ip\View::create('view/block.php', $data)->render();
     	return $answer;
     }
     
@@ -184,7 +184,7 @@ class Model{
             'widgetRecord' => $widgetRecord,
         	'managementState' => $managementState
         );
-        $answer = \Ip\View::create('standard/content_management/view/widget_preview.php', $data)->render();
+        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
         return $answer;    
     }
     
@@ -212,7 +212,7 @@ class Model{
             'managementHtml' => $managementHtml,
             'widgetRecord' => $widgetRecord
         );
-        $answer = \Ip\View::create('standard/content_management/view/widget_management.php', $data)->render();
+        $answer = \Ip\View::create('view/widget_management.php', $data)->render();
         return $answer;    
     }
     

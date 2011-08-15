@@ -25,7 +25,7 @@ class Controller{
         	'ipPageId' => $site->getCurrentElement()->getId(),
         	'ipRevisionId' => $revision['id']
         );
-        $answer = \Ip\View::create('standard/content_management/view/init_variables.php', $data)->render();
+        $answer = \Ip\View::create('view/init_variables.php', $data)->render();
         $site->setOutput($answer);
     }
     
@@ -50,11 +50,11 @@ class Controller{
             'managementUrls' => $managementUrls 
         );
         
-        $controlPanelHtml = \Ip\View::create('standard/content_management/view/control_panel.php', $data)->render();
+        $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
         
-        $widgetControlsHtml = \Ip\View::create('standard/content_management/view/widget_controls.php', $data)->render();
+        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
 
-        $saveProgressHtml = \Ip\View::create('standard/content_management/view/save_progress.php', $data)->render();
+        $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
         
         $data = array (
             'status' => 'success',
