@@ -8,6 +8,10 @@ namespace Modules\standard\content_management;
 
 abstract class Widget{
 
+    public function post ($data) {
+        
+    }
+    
     public static function getLayouts() {
         $answer = array();
         $answer[] = array('name' => 'default');

@@ -66,6 +66,35 @@ class Controller{
         $this->_outputAnswer($data);
     }
         
+    public function widgetPost() {
+        global $site;
+        
+        
+        if (!isset($_POST['widgetId'])) {
+            $this->_errorAnswer('Mising widgetId POST variable');
+            return;
+        }
+        $widgetId = $_POST['widgetId'];
+        
+        $widgetRecord = Model::getWidgetRecord($widgetId);
+
+        try {
+            if ($widgetRecord) {
+                $widgetObject = Model::getWidgetObject($widgetRecord['name']);
+                if ($widgetObject) {
+                    $answer = $widgetObject->post($_POST);
+                    $this->_outputAnswer($answer);
+                } else {
+                    throw new Exception("Can't find requested Widget: ".$widgetRecord['name']);
+                }
+            } else {
+                throw new Exception("Can't find requested Widget: ".$widgetId);
+            }
+        } catch (Exception $e) {
+            $this->_errorAnswer($e);            
+        }
+        
+    }
     
     public function moveWidget() {
         global $site;
@@ -299,7 +328,7 @@ class Controller{
     
     private function _outputAnswer($data) {
         global $site;
-        header('Content-type: text/json; charset=utf-8');
+        //header('Content-type: text/json; charset=utf-8'); throws save file dialog on firefox if iframe is used
         $answer = json_encode($data);        
         $site->setOutput($answer);         
     }

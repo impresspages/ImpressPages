@@ -17,6 +17,8 @@
             if (!data) {
                 // initialize data array
                 var data = Object();
+                
+                //parse widget record data
                 $this.find('.ipWidgetData input').each(function() {
                     data[$(this).attr('name')] = $(this).val();
                 });
@@ -94,6 +96,8 @@
             widgetName = $this.data('ipWidget').name;
             if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
                 eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                $this.data('ipWidget').status = 'test';
+                console.log($this.data('ipWidget').status);
                 widgetPluginObject.prepareData();
             } else {
                 $this.ipWidget('preview');
