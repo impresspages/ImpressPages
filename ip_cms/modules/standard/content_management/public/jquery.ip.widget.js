@@ -73,7 +73,10 @@
     _manageWidgetResponse : function(response) {
         return this.each(function() {
             $this = $(this);
-            $this.ipWidget('_replaceContent', response.managementHtml);
+            $newWidget = $(response.managementHtml); 
+            $($newWidget).insertAfter($this);
+            $newWidget.trigger('reinitRequired.ipWidget');
+            $this.remove();
         });
     },
 
@@ -136,25 +139,9 @@
             $this = $(this);
             $this.ipWidget('_replaceContent', response.previewHtml);
         });
-    },
-
-    _replaceContent : function(newContent) {
-        return this.each(function() {
-            $this = $(this);
-            $this.html(newContent);
-            $this.ipWidget('_initManagement');
-        });
-
-    },    
-    
-    _initManagement : function() {
-        return this.each(function() {
-            console.log('init management');
-            $this = $(this);
-            $this.prepend($this.data('ipWidget').widgetControlsHtml)
-        });
     }
 
+    
     };
 
     $.fn.ipWidget = function(method) {

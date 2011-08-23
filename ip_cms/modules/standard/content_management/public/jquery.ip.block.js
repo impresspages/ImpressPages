@@ -105,8 +105,19 @@
                     
                     $this.bind('deleteWidget.ipBlock', function(event, widgetId){$(this).ipBlock('deleteWidget', widgetId);});
 
+                    $this.bind('reinitRequired.ipWidget', function(event){$(this).ipBlock('reinit');});
                     
                 }                
+            });
+        },
+        
+        reinit : function () {
+            return this.each(function() {       
+              //$this = $(this); // don't do $this = $(this); Somehow this operation equals to ipContentManagement = $(this); and raises problems later;
+                var widgetOptions = new Object;
+                widgetOptions.widgetControlsHtml = $(this).data('ipBlock').widgetControlsHtml;
+                $(this).find('.ipWidget').ipWidget(widgetOptions);
+                $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);
             });
         },
         
