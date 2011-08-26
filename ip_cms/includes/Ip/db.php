@@ -25,7 +25,7 @@ class Db{
             WHERE
                 `zoneName` = '".mysql_real_escape_string($zoneName)."' AND
                 `pageId` = '".(int)$pageId."'
-            ORDER BY `created` DESC, `id` DESC
+            ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
         
@@ -50,7 +50,7 @@ class Db{
                 `zoneName` = '".mysql_real_escape_string($zoneName)."' AND
                 `pageId` = '".(int)$pageId."' AND
                 `published`
-            ORDER BY `created` DESC, `id` DESC
+            ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
         
@@ -70,7 +70,7 @@ class Db{
     public static function getRevision($revisionId) {
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
-            WHERE `id` = ".(int)$revisionId."
+            WHERE `revisionId` = ".(int)$revisionId."
         ";    
         
         $rs = mysql_query($sql);

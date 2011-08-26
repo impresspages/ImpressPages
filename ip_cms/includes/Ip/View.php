@@ -52,7 +52,7 @@ class View{
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
-                throw new Exception("Incorrect view variable name '".$key."' ".$source);
+                throw new \Exception("Incorrect view variable name '".$key."' ".$source);
             }
         }
 

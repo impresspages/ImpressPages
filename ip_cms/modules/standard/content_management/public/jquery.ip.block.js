@@ -88,20 +88,23 @@
                     $this.data('ipBlock', {
                         name : $this.attr('id').substr(8),
                         revisionId : options.revisionId,
-                        widgetControlsHtml : options.widgetControlsHtml,
+                        widgetControls1Html : options.widgetControls1Html,
+                        widgetControls2Html : options.widgetControls2Html,
                         contenManagementObject : options.contentManagementObject
                     }); 
                     
                     
                     var widgetOptions = new Object;
-                    widgetOptions.widgetControlsHtml = options.widgetControlsHtml;
+                    widgetOptions.widgetControls1Html = options.widgetControls1Html;
+                    widgetOptions.widgetControls2Html = options.widgetControls2Html;
                     $this.find('.ipWidget').ipWidget(widgetOptions);
-                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
+                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControls1Html);
+                    $this.find('.ipWidgetManagement').append($this.data('ipBlock').widgetControls2Html);
                     
                     
                     $this.delegate('.ipWidget .ipWidgetDelete', 'click', function(event){$(this).trigger('deleteClick.ipBlock');});
                     
-                    $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event){$(this).trigger('deleteWidget.ipBlock', $(this).data('ipWidget').id);});                    
+                    $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event){$(this).trigger('deleteWidget.ipBlock', $(this).data('ipWidget').instanceId);});                    
                     
                     $this.bind('deleteWidget.ipBlock', function(event, widgetId){$(this).ipBlock('deleteWidget', widgetId);});
 
@@ -115,9 +118,11 @@
             return this.each(function() {       
               //$this = $(this); // don't do $this = $(this); Somehow this operation equals to ipContentManagement = $(this); and raises problems later;
                 var widgetOptions = new Object;
-                widgetOptions.widgetControlsHtml = $(this).data('ipBlock').widgetControlsHtml;
+                widgetOptions.widgetControls1Html = $(this).data('ipBlock').widgetControls1Html;
+                widgetOptions.widgetControls2Html = $(this).data('ipBlock').widgetControls2Html;
                 $(this).find('.ipWidget').ipWidget(widgetOptions);
-                $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);
+                $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControls1Html);
+                $(this).find('.ipWidgetManagement').append($(this).data('ipBlock').widgetControls2Html);
             });
         },
         
@@ -149,7 +154,7 @@
             
         },
         
-        deleteWidget : function(widgetId){
+        deleteWidget : function(instanceId){
             return this.each(function() {
    	
 	        	$this = $(this);
@@ -158,8 +163,7 @@
 	            data.g = 'standard';
 	            data.m = 'content_management';
 	            data.a = 'deleteWidget';
-	            data.widgetId = widgetId;
-	            data.revisionId = $this.data('ipBlock').revisionId;	            
+	            data.instanceId = instanceId;	            
 	        
 	            $.ajax({
 	                type : 'POST',

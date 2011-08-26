@@ -1102,9 +1102,9 @@ class Site{
         	
         	if ($revision != false) {
                 if ($this->managementState()) {
-                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
                 } else {
-                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision, $this->managementState());
+                    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
                 }
         	} else {
                 return '';      

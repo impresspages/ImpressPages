@@ -11,12 +11,8 @@ if (!defined('CMS')) exit;
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
 class WidgetText extends Widget{
-
-    public function __construct() {
-        
-    }
     
-    public function managementHtml($widgetId, $data){
+    public static function managementHtml($widgetId, $data){
     	
     	if (!isset($data['text'])) {
     	   $data['text'] = '';    
@@ -27,7 +23,7 @@ class WidgetText extends Widget{
     }
     
     
-    public function previewHtml($widgetId, $data){
+    public static function previewHtml($widgetId, $data){
         
         $answer = '';
         
@@ -37,15 +33,15 @@ class WidgetText extends Widget{
         return $answer;
     }
     
-    public function getTitle(){
+    public static function getTitle(){
         return 'Text';
     }
     
-    public function getIcon(){
+    public static function getIcon(){
         return MODULE_DIR.'standard/content_management/widget/text/icon.gif';
     }
     
-    public function getName(){
+    public static function getName(){
         return 'text';
     }    
     

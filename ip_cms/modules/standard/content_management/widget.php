@@ -8,7 +8,8 @@ namespace Modules\standard\content_management;
 
 abstract class Widget{
 
-    public function post ($data) {
+
+    public static function post ($data) {
         
     }
     
@@ -18,15 +19,33 @@ abstract class Widget{
         return $answer;
     }
     
-    abstract public function managementHtml($widgetId, $data);
+    public static function duplicate($oldId, $newId) {
+            
+    }
     
-    abstract public function previewHtml($widgetId, $data);
+    public static function delete($widgetId){
+
+    }
     
-    abstract public function getTitle();
+    public static function managementHtml($widgetId, $data) {
+        
+    }
     
-    abstract public function getIcon();
+    public static function previewHtml($widgetId, $data) {
+        
+    }
     
-    abstract public function getName();
+    public static function getTitle() {
+        
+    }
+    
+    public static function getIcon() {
+        
+    }
+    
+    public static function getName() {
+        
+    }
     
 
 }

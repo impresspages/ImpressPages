@@ -23,7 +23,6 @@
                     data[$(this).attr('name')] = $(this).val();
                 });
                 data.state = 'preview'; // possible values: preview, management
-                data.widgetControlsHtml = options.widgetControlsHtml;
                 $this.data('ipWidget', data);
 
                 // mange action
@@ -42,6 +41,13 @@
                     $(this).ipWidget('save');
                 });
 
+                // cancel acion
+                $this.delegate('.ipWidget .ipWidgetCancel', 'click', function(event) {
+                    $(this).trigger('cancelWidget.ipWidget');
+                });
+                $this.bind('cancelWidget.ipWidget', function(event) {
+                    $(this).ipWidget('cancel');
+                });
 
                 $this.bind('preparedWidgetData.ipWidget', function(event, widgetData) {
                     $(this).ipWidget('_saveData', widgetData);
@@ -57,7 +63,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'manageWidget';
-            data.widgetId = $this.data('ipWidget').id;
+            data.instanceId = $this.data('ipWidget').instanceId;
 
             $.ajax( {
             type : 'POST',
@@ -94,7 +100,6 @@
 
     save : function() {
         return this.each(function() {
-            console.log('widget save');
             $this = $(this);
             widgetName = $this.data('ipWidget').name;
             if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
@@ -118,9 +123,8 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'updateWidget';
-            data.widgetId = $this.data('ipWidget').id;
+            data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
-            console.log(widgetData);
 
             $.ajax( {
             type : 'POST',
@@ -137,10 +141,46 @@
     _saveDataResponse : function(response) {
         return this.each(function() {
             $this = $(this);
-            $this.ipWidget('_replaceContent', response.previewHtml);
+            $newWidget = $(response.previewHtml); 
+            $($newWidget).insertAfter($this);
+            $newWidget.trigger('reinitRequired.ipWidget');
+            $this.remove();            
         });
-    }
+    },
 
+    cancel : function() {
+        return this.each(function() {
+            $this = $(this);
+
+            data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'cancelWidget';
+            data.widgetId = $this.data('ipWidget').id;
+
+            $.ajax( {
+                type : 'POST',
+                url : ipBaseUrl,
+                data : data,
+                context : $this,
+                success : methods._cancelResponse,
+                dataType : 'json'
+            });
+
+        });
+    },
+
+    _cancelResponse : function(response) {
+        return this.each(function() {
+            $this = $(this);
+            $newWidget = $(response.previewHtml); 
+            $($newWidget).insertAfter($this);
+            $newWidget.trigger('reinitRequired.ipWidget');
+            $this.remove();            
+        });
+    }  
+    
+    
     
     };
 

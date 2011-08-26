@@ -23,7 +23,7 @@ class Controller{
             'ipManagementUrl' => $site->generateUrl(),
         	'ipZoneName' => $site->getCurrentZone()->getName(),
         	'ipPageId' => $site->getCurrentElement()->getId(),
-        	'ipRevisionId' => $revision['id']
+        	'ipRevisionId' => $revision['revisionId']
         );
         $answer = \Ip\View::create('view/init_variables.php', $data)->render();
         $site->setOutput($answer);
@@ -38,7 +38,7 @@ class Controller{
         
         $managementUrls = array();
         foreach($revisions as $revisionKey => $revision) {
-           $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['id']; 
+           $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId']; 
         }
         
         $revision = $site->getRevision();
@@ -46,20 +46,22 @@ class Controller{
         $data = array (
             'widgets' => $widgets,
             'revisions' => $revisions,
-            'currentRevisionId' => $revision['id'],
+            'currentRevisionId' => $revision['revisionId'],
             'managementUrls' => $managementUrls 
         );
         
         $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
         
-        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
-
+        $widgetControls1Html = \Ip\View::create('view/widget_controls1.php', $data)->render();
+        $widgetControls2Html = \Ip\View::create('view/widget_controls2.php', $data)->render();
+        
         $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
         
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-        	'widgetControlsHtml' => $widgetControlsHtml,
+        	'widgetControls1Html' => $widgetControls1Html,
+            'widgetControls2Html' => $widgetControls2Html,
             'saveProgressHtml' => $saveProgressHtml
         );
         
@@ -85,10 +87,10 @@ class Controller{
                     $answer = $widgetObject->post($_POST);
                     $this->_outputAnswer($answer);
                 } else {
-                    throw new Exception("Can't find requested Widget: ".$widgetRecord['name']);
+                    throw new \Exception("Can't find requested Widget: ".$widgetRecord['name']);
                 }
             } else {
-                throw new Exception("Can't find requested Widget: ".$widgetId);
+                throw new \Exception("Can't find requested Widget: ".$widgetId);
             }
         } catch (Exception $e) {
             $this->_errorAnswer($e);            
@@ -114,7 +116,7 @@ class Controller{
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
         
-        Model::moveWidget($revisionId, $widgetId, $position, $blockName);
+        Model::moveInstance($instanceId, $revisionId, $blockName, $position);
                 
         $data = array (
             'status' => 'success'
@@ -146,7 +148,7 @@ class Controller{
         $revisionRecord = \Ip\Db::getRevision($revisionId);
         
         if ($revisionRecord === false) {
-        	throw new Exception("Can't find required revision " . $revisionId); 
+        	throw new \Exception("Can't find required revision " . $revisionId); 
         }
         
         $zoneName = $revisionRecord['zoneName'];
@@ -200,20 +202,42 @@ class Controller{
     public function manageWidget() {
         global $site;
         
-        if (!isset($_POST['widgetId'])) {
+        if (!isset($_POST['instanceId'])) {
             $this->_errorAnswer('Mising POST variable');
             return;
+        }        
+        $instanceId = $_POST['instanceId'];
+        
+        
+        
+        
+        $widgetRecord = Model::getWidgetFullRecord($instanceId);
+
+        if ($widgetRecord === false){
+            throw new \Exception('Can\'t find widget '.$instanceId);
         }
         
-        $widgetId = $_POST['widgetId'];
         
-        $managementHtml = Model::generateWidgetManagement($widgetId);
+        
+        $position = Model::getInstancePosition($instanceId);
+  
+        Model::deleteInstance($instanceId);
+        
+        $newWidgetId = Model::createWidget($widgetRecord['name'], $widgetRecord['data'], $widgetRecord['layout'], $widgetRecord['widgetId']);
+
+        $newInstanceId = Model::addInstance($newWidgetId, $widgetRecord['revisionId'], $widgetRecord['blockName'], $position, $widgetRecord['visible']);
+        
+       
+        $widgetObject = Model::getWidgetObject($widgetRecord['name']);
+        $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId);
+        
+        $managementHtml = Model::generateWidgetManagement($newInstanceId);
         
         $data = array (
             'status' => 'success',
             'action' => '_manageWidgetResponse',
             'managementHtml' => $managementHtml,
-            'widgetId' => $widgetId
+            'instanceId' => $instanceId
         );
         
         $this->_outputAnswer($data);        
@@ -241,27 +265,73 @@ class Controller{
         $this->_outputAnswer($data);        
     }    
     
-
-    public function updateWidget(){
+    
+    public function cancelWidget() {
+        global $site;
+        
         if (!isset($_POST['widgetId'])) {
-            $this->_errorAnswer('Mising POST variable websiteId');
+            $this->_errorAnswer('Mising POST variable');
             return;
         }
+        $widgetId = $_POST['widgetId'];
+        
+            
+        if (!isset($_POST['revisionId'])) {
+            $this->_errorAnswer('Mising POST variable');
+            return;
+        }        
+        $revisionId = $_POST['revisionId'];
+        
+        $widgetFullRecord = Model::getWidgetFullRecord($instanceId);
+        
+        if ($widgetFullRecord['predecessor'] !== null) {
+            $widgetPosition = Model::getWidgetPosition($revisionId, $widgetFullRecord['blockName'], $widgetId);
+            Model::addWidget($widgetFullRecord['predecessor'], $revisionId, $widgetFullRecord['blockName'], $position);
+            Model::deleteWidget($widgetId, $revisionId);            
+        }
+        
+        
+        $previewHtml = Model::generateWidgetPreview($widgetFullRecord['predecessor'], true);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_cancelWidgetResponse',
+            'previewHtml' => $previewHtml,
+            'widgetId' => $widgetId
+        );
+        
+        $this->_outputAnswer($data);        
+    }       
+    
+
+    public function updateWidget(){
+        if (!isset($_POST['instanceId'])) {
+            $this->_errorAnswer('Mising POST variable instanceId');
+            return;
+        }
+        $instanceId = $_POST['instanceId'];
+        
         if (!isset($_POST['widgetData']) && is_array($_POST['widgetData'])) {
             $this->_errorAnswer('Mising POST variable: widgetData');
             return;
         }
+        $widgetData = $_POST['widgetData'];
         
-        $widgetId = $_POST['widgetId'];
         
-        Model::setWidgetData($widgetId, $_POST['widgetData']);
-        $previewHtml = Model::generateWidgetPreview($widgetId, true);
+        $updateArray = array (
+            'data' => $widgetData
+        );
+        
+        $record = Model::getWidgetFullRecord($instanceId);
+        
+        Model::updateWidget($record['widgetId'], $updateArray);
+        $previewHtml = Model::generateWidgetPreview($instanceId, true);
         
         $data = array (
             'status' => 'success',
             'action' => '_updateWidget',
             'previewHtml' => $previewHtml,
-            'widgetId' => $widgetId
+            'instanceId' => $instanceId
         );
         
         $this->_outputAnswer($data);              
@@ -270,25 +340,18 @@ class Controller{
     public function deleteWidget() {
         global $site;
         
-        if (!isset($_POST['widgetId'])) {
-            $this->_errorAnswer('Mising widgetId POST variable');
+        if (!isset($_POST['instanceId'])) {
+            $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
-        $widgetId = $_POST['widgetId'];
+        $instanceId = $_POST['instanceId'];
         
-            
-        if (!isset($_POST['revisionId'])) {
-            $this->_errorAnswer('Mising revisionId POST variable');
-            return;
-        }        
-        $revisionId = $_POST['revisionId'];
-        
-        $managementHtml = Model::deleteWidget($widgetId, $revisionId);
+        Model::deleteInstance($instanceId);
         
         $data = array (
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
-            'widgetId' => $widgetId
+            'widgetId' => $instanceId
         );
         
         $this->_outputAnswer($data);   

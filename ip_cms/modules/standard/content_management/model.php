@@ -12,10 +12,10 @@ require_once(__DIR__.'/event_widget.php');
 class Model{
     static private $widgetObjects = null;
     
-    public static function generateBlock($blockName, $revision, $managementState) {
+    public static function generateBlock($blockName, $revisionId, $managementState) {
     	global $site;
 
-    	$widgets = self::getBlockWidgetRecords($blockName, $revision['id']);
+    	$widgets = self::getBlockWidgetRecords($blockName, $revisionId);
     	
     	$widgetsHtml = array();
     	foreach ($widgets as $key => $widget) {
@@ -25,7 +25,7 @@ class Model{
     	$data = array (
     		'widgetsHtml' => $widgetsHtml,
     		'blockName' => $blockName,    		
-    		'revision' => $revision,
+    		'revisionId' => $revisionId,
     		'managementState' => $managementState
     	);
     	
@@ -33,17 +33,77 @@ class Model{
     	return $answer;
     }
     
+
+
+    public static function generateWidgetPreview($instanceId, $managementState) {
+        $widgetRecord = self::getWidgetFullRecord($instanceId);
+        return self::_generateWidgetPreview($widgetRecord, $managementState);
+    }
+    
+    private static function _generateWidgetPreview($widgetRecord, $managementState) {        
+        $widgetData = $widgetRecord['data'];
+        if (!is_array($widgetData)) {
+            $widgetData = array();    
+        }
+        
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
+        
+        if (!$widgetObject) {
+            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
+        } 
+        
+        $previewHtml = $widgetObject->previewHtml($widgetRecord['widgetId'], $widgetData);
+        
+        $data = array (
+            'html' => $previewHtml,
+            'widgetRecord' => $widgetRecord,
+        	'managementState' => $managementState
+        );
+        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
+        return $answer;    
+    }
+    
+    public static function generateWidgetManagement($instanceId) {
+        $widgetRecord = self::getWidgetFullRecord($instanceId);
+        return self::_generateWidgetManagement($widgetRecord);
+    }
+    
+    private static function _generateWidgetManagement($widgetRecord) {
+        $widgetData = $widgetRecord['data'];
+        
+        if (!is_array($widgetData)) {
+            $widgetData = array();    
+        }
+        
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
+        
+        if (!$widgetObject) {
+            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
+        } 
+        
+        $managementHtml = $widgetObject->managementHtml($widgetRecord['widgetId'], $widgetData);
+        
+        $data = array (
+            'managementHtml' => $managementHtml,
+            'widgetRecord' => $widgetRecord
+        );
+        $answer = \Ip\View::create('view/widget_management.php', $data)->render();
+        return $answer;    
+    }
+    
+    
     public static function getBlockWidgetRecords($blockName, $revisionId){
         $sql = "
-        	SELECT w.*, rtw.revisionId, rtw.position, rtw.blockName, rtw.visible 
-        	FROM
-        		`".DB_PREF."m_content_management_revision_to_widget` rtw,
-        		`".DB_PREF."m_content_management_widget` w
-        	WHERE
-        		rtw.widgetId = w.id AND
-        		rtw.blockName = '".mysql_real_escape_string($blockName)."' AND
-        		rtw.revisionId = ".(int)$revisionId."
-     		ORDER BY `position` ASC
+            SELECT * 
+            FROM
+                `".DB_PREF."m_content_management_widget_instance` i,
+                `".DB_PREF."m_content_management_widget` w
+            WHERE
+                i.deleted is NULL AND
+                i.widgetId = w.widgetId AND
+                i.blockName = '".mysql_real_escape_string($blockName)."' AND
+                i.revisionId = ".(int)$revisionId."
+            ORDER BY `position` ASC
         ";    
         $rs = mysql_query($sql);
         if (!$rs){
@@ -53,21 +113,24 @@ class Model{
         $answer = array();
         
         while ($lock = mysql_fetch_assoc($rs)) {
+            $lock['data'] = json_decode($lock['data'], true);
             $answer[] = $lock;
         }
-            	
-    	return $answer;
+                
+        return $answer;
     }
     
+
 
     
     public static function duplicateRevision($oldRevisionId, $newRevisionId) {
         $sql = "
             SELECT * 
             FROM
-                `".DB_PREF."m_content_management_revision_to_widget` rtw
+                `".DB_PREF."m_content_management_widget_instance` i
             WHERE
-                rtw.revisionId = ".(int)$oldRevisionId."
+                i.revisionId = ".(int)$oldRevisionId." AND
+                i.deleted IS NULL
             ORDER BY `position` ASC
         ";    
         
@@ -81,18 +144,17 @@ class Model{
             $dataSql = '';
             
             foreach ($lock as $key => $value) {
-                if ($dataSql != '') {
-                    $dataSql .= ', ';    
-                }
-                
-                if ($key != 'revisionId' && $key != 'id' ) {
+                if ($key != 'revisionId' && $key != 'instanceId' ) {
+                    if ($dataSql != '') {
+                        $dataSql .= ', ';    
+                    }
                     $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
                 } 
             }
             
             $insertSql = "
                 INSERT INTO
-                    `".DB_PREF."m_content_management_revision_to_widget`
+                    `".DB_PREF."m_content_management_widget_instance`
                 SET
                     ".$dataSql.",
                     `revisionId` = ".(int)$newRevisionId."                     
@@ -144,8 +206,8 @@ class Model{
     
     public static function getWidgetRecord($widgetId) {
         $sql = "
-        	SELECT * FROM `".DB_PREF."m_content_management_widget`
-        	WHERE `id` = ".(int)$widgetId."
+            SELECT * FROM `".DB_PREF."m_content_management_widget`
+            WHERE `widgetId` = ".(int)$widgetId."
         ";    
         
         $rs = mysql_query($sql);
@@ -154,84 +216,88 @@ class Model{
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
+            $lock['data'] = json_decode($lock['data'], true);
             return $lock;
         } else {
             return false;
         }
     }
 
-    public static function generateWidgetPreview($widgetId, $managementState) {
-        $widgetRecord = self::getWidgetRecord($widgetId);
-        return self::_generateWidgetPreview($widgetRecord, $managementState);
-    }
     
-    private static function _generateWidgetPreview($widgetRecord, $managementState) {
-        $widgetData = json_decode($widgetRecord['data'], true);
-        if (!is_array($widgetData)) {
-            $widgetData = array();    
+    /**
+     * 
+     * getWidgetFullRecord differ from getWidgetRecord by including the information from m_content_management_widget_instance table.
+     * @param int $instanceId
+     * @throws \Exception
+     */
+     public static function getWidgetFullRecord($instanceId) {
+        $sql = "
+            SELECT * FROM
+                `".DB_PREF."m_content_management_widget_instance` i,
+                `".DB_PREF."m_content_management_widget` w
+            WHERE
+                i.`instanceId` = ".(int)$instanceId." AND
+                i.widgetId = w.widgetId 
+        ";    
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t find widget '.$sql.' '.mysql_error());
         }
         
-        $widgetObject = self::getWidgetObject($widgetRecord['name']);
-        
-        if (!$widgetObject) {
-            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
-        } 
-        
-        $previewHtml = $widgetObject->previewHtml($widgetRecord['id'], $widgetData);
-        
-        $data = array (
-            'html' => $previewHtml,
-            'widgetRecord' => $widgetRecord,
-        	'managementState' => $managementState
-        );
-        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
-        return $answer;    
-    }
-    
-    public static function generateWidgetManagement($widgetId) {
-        $widgetRecord = self::getWidgetRecord($widgetId);
-        return self::_generateWidgetManagement($widgetRecord);
-    }
-    
-    private static function _generateWidgetManagement($widgetRecord) {
-        $widgetData = json_decode($widgetRecord['data'], 1);
-        
-        if (!is_array($widgetData)) {
-            $widgetData = array();    
+        if ($lock = mysql_fetch_assoc($rs)) {
+            $lock['data'] = json_decode($lock['data'], true);            
+            return $lock;
+        } else {
+            return false;
         }
-        
-        $widgetObject = self::getWidgetObject($widgetRecord['name']);
-        
-        if (!$widgetObject) {
-            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
-        } 
-        
-        $managementHtml = $widgetObject->managementHtml($widgetRecord['id'], $widgetData);
-        
-        $data = array (
-            'managementHtml' => $managementHtml,
-            'widgetRecord' => $widgetRecord
-        );
-        $answer = \Ip\View::create('view/widget_management.php', $data)->render();
-        return $answer;    
-    }
+    }    
     
     
     /**
      * 
-     * Enter description here ...
-     * @param $revisionId
-     * @param $blockName
+     * Find position of widget in current block
+     * @param int $instanceId
+     * @return int position of widget or null if widget does not exist
+     */
+    public static function getInstancePosition($instanceId) {
+        $record = Model::getWidgetFullRecord($instanceId);
+        
+        $sql = "
+            SELECT count(instanceId) as position FROM
+                `".DB_PREF."m_content_management_widget_instance` 
+            WHERE
+                `revisionId` = ".$record['revisionId']." AND
+                `blockName` = '".mysql_real_escape_string($record['blockName'])."' AND
+                `position` < ".$record['position']."  
+        ";    
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t find widget '.$sql.' '.mysql_error());
+        }
+        
+        if ($lock = mysql_fetch_assoc($rs)) {
+            return $lock['position'];
+        } else {
+            return false;
+        }        
+
+    }        
+    
+    /**
+     * 
+     * Return float number that will position widget in requested position
+     * @param int $instnaceId
+     * @param string $blockName
      * @param int $newPosition Real position of widget starting with 0
      */
-    private static function _calcWidgetPositionNumber($revisionId, $widgetId, $newBlockName, $newPosition) {
+    private static function _calcWidgetPositionNumber($revisionId, $instanceId, $newBlockName, $newPosition) {
         $allWidgets = self::getBlockWidgetRecords($newBlockName, $revisionId);
         
         $widgets = array();
         
-        foreach ($allWidgets as $widgetKey => $widget) {
-            if ($widget['id'] != $widgetId) {
-                $widgets[] = $widget;
+        foreach ($allWidgets as $widgetKey => $instance) {
+            if ($instanceId === null || $instance['instanaceId'] != $instanceId) {
+                $widgets[] = $instance;
             }    
         }
         
@@ -254,26 +320,22 @@ class Model{
     /**
      * 
      * Enter description here ...
-     * @param $revisionId
+     * @param int $revisionId
      * @param int $position Real position of widget starting with 0
-     * @param $blockName
-     * @param $widgetName
-     * @param $layout
+     * @param string $blockName
+     * @param string $widgetName
+     * @param string $layout
      * @throws \Exception
      */
-    public static function createWidget($revisionId, $position, $blockName, $widgetName, $layout) {
-        
-        $positionNumber = self::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
-        
-        
-        
+    public static function createWidget($widgetName, $data, $layout, $predecessor) {
         $sql = "
-        	insert into
-        		".DB_PREF."m_content_management_widget
-        	set
-        		`name` = '".mysql_real_escape_string($widgetName)."',
-        		`layout` = '".mysql_real_escape_string($layout)."',
-        		`created` = ".time()."
+          insert into
+              ".DB_PREF."m_content_management_widget
+          set
+              `name` = '".mysql_real_escape_string($widgetName)."',
+              `layout` = '".mysql_real_escape_string($layout)."',
+              `created` = ".time().",
+              `data` = '".mysql_real_escape_string(json_encode($data))."'
         ";
         
         $rs = mysql_query($sql);
@@ -283,33 +345,34 @@ class Model{
         }
         
         $widgetId = mysql_insert_id();
-        
-            $sql = "
-        	insert into
-        		".DB_PREF."m_content_management_revision_to_widget
-        	set
-                `position` = '".mysql_real_escape_string($positionNumber)."',
-                `blockName` = '".mysql_real_escape_string($blockName)."',
-                `visible` = 1,
-        	    `revisionId` = ".(int)$revisionId.",
-        		`widgetId` = ".(int)$widgetId."
-        ";
-        
-        $rs = mysql_query($sql);
-        
-        if (!$rs) {
-            throw new \Exception('Can\'t associated revision to widget '.$sql.' '.mysql_error());
-        }        
-        
+                
         return $widgetId;
+
     }
+
     
-    public static function setWidgetData($widgetId, $data) {
+    public static function updateWidget($widgetId, $data) {
+        
+        $dataSql = '';
+        
+        foreach ($data as $key => $value) {
+            if ($dataSql != '') {
+                $dataSql .= ', ';    
+            }
+            
+            if ($key == 'data') {
+                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode($data))."' ";
+            } else {
+                $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";    
+            }
+        }
+        
+        
         $sql = "
             UPDATE `".DB_PREF."m_content_management_widget`
             SET
-                `data` = '".mysql_real_escape_string(json_encode($data))."'
-            WHERE `id` = ".(int)$widgetId."
+                ".$dataSql."
+            WHERE `widgetId` = ".(int)$widgetId."
         ";    
         
         $rs = mysql_query($sql);
@@ -321,42 +384,61 @@ class Model{
     }
     
     
-    
-    public static function deleteWidget($widgetId, $revisionId) {
+
+    public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible) {
+        
+        $positionNumber = Model::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
+        
         $sql = "
-            DELETE FROM `".DB_PREF."m_content_management_revision_to_widget`
-            WHERE
-                `widgetId` = ".(int)$widgetId." AND
-                `revisionId` = ".(int)$revisionId." 
+            INSERT INTO `".DB_PREF."m_content_management_widget_instance`
+            SET
+                `widgetId` = ".(int)$widgetId.",
+                `revisionId` = ".(int)$revisionId.",
+                `blockName` = '".mysql_real_escape_string($blockName)."',
+                `position` = '".$positionNumber."', 
+                `visible` = ".(int)$visible.",
+                `created` = ".(int)time().",
+                `deleted` = NULL 
                 
         ";    
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
+            throw new \Exception('Can\'t create instance '.$sql.' '.mysql_error());
+        }
+        
+        return mysql_insert_id(); 
+    }    
+    
+    
+
+    public static function deleteInstance($instanceId) {
+        $sql = "
+            UPDATE `".DB_PREF."m_content_management_widget_instance`
+            SET
+                `deleted` = ".(int)time()."
+            WHERE
+                `instanceId` = ".(int)$instanceId."
+        ";    
+        
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t delete instance '.$sql.' '.mysql_error());
         }
         
         return true; 
     }
         
     
-    public static function moveWidget($revisionId, $widgetId, $newPosition, $newBlockName) {
+    public static function moveInstance($instanceId, $newRevisionId, $newBlockName, $newPosition) {
+        throw new \Exception('refactoring needed');
         
-        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $widgetId, $newBlockName, $newPosition);
+        $record = Model::getWidgetFullRecord($instanceId);
         
-        $sql = "
-            UPDATE `".DB_PREF."m_content_management_revision_to_widget`
-            SET
-                `position` = '".$positionNumber."',
-                `blockName` = '".mysql_real_escape_string($newBlockName)."'
-            WHERE `widgetId` = ".(int)$widgetId." AND `revisionId` = ".(int)$revisionId."
-        ";    
-        $rs = mysql_query($sql);
-        if (!$rs){
-            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
-        }
-        
-        return true;         
+        Model::deleteInstance($instanceId);
+        $newInstanceId = Model::addInstance($record['widgetId'], $newRevisionId, $newBlockName, $newPosition, $record['visible']);
+
+        return $newInstanceId;         
     }
     
 }
