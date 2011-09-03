@@ -10,7 +10,7 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
-class WidgetText extends Widget{
+class Widget_ipText extends Widget{
     
     public static function managementHtml($widgetId, $data){
     	
@@ -38,11 +38,11 @@ class WidgetText extends Widget{
     }
     
     public static function getIcon(){
-        return MODULE_DIR.'standard/content_management/widget/text/icon.gif';
+        return MODULE_DIR.'standard/content_management/widget/ipText/icon.gif';
     }
     
     public static function getName(){
-        return 'text';
+        return 'ipText';
     }    
     
 

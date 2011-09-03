@@ -79,10 +79,26 @@
     _manageWidgetResponse : function(response) {
         return this.each(function() {
             $this = $(this);
-            $newWidget = $(response.managementHtml); 
-            $($newWidget).insertAfter($this);
-            $newWidget.trigger('reinitRequired.ipWidget');
-            $this.remove();
+            if (response.status == 'success') {
+                $newWidget = $(response.managementHtml); 
+                $($newWidget).insertAfter($this);
+                $newWidget.trigger('reinitRequired.ipWidget');                
+                $this.remove();
+                
+                
+                widgetName = $($newWidget).data('ipWidget').name;
+                console.log('manage init 0');
+                if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+                    console.log('manage init 1');
+                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                    $($newWidget).data('ipWidget').status = 'management';
+                    console.log($($newWidget).data('ipWidget').status);
+                    widgetPluginObject.manageInit();
+                }              
+                
+            } else {
+                alert(response.errorMessage);
+            }
         });
     },
 
@@ -156,7 +172,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'cancelWidget';
-            data.widgetId = $this.data('ipWidget').id;
+            data.instanceId = $this.data('ipWidget').instanceId;
 
             $.ajax( {
                 type : 'POST',

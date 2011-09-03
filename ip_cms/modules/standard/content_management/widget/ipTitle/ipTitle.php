@@ -9,13 +9,10 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
-class WidgetTitle extends Widget{
+class Widget_ipTitle extends Widget{
 
-    public function __construct() {
-        
-    }
-    
-    public function managementHtml($widgetId, $data){
+
+    public static function managementHtml($widgetId, $data){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
@@ -26,7 +23,7 @@ class WidgetTitle extends Widget{
     }
     
     
-    public function previewHtml($widgetId, $data){
+    public static function previewHtml($widgetId, $data){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
@@ -34,16 +31,16 @@ class WidgetTitle extends Widget{
         return $data['title'];
     }    
     
-    public function getTitle(){
+    public static function getTitle(){
         return 'Title';
     }
     
-    public function getIcon(){
-        return MODULE_DIR.'standard/content_management/widget/title/icon.gif';
+    public static function getIcon(){
+        return MODULE_DIR.'standard/content_management/widget/ipTitle/icon.gif';
     }
     
-    public function getName(){
-        return 'title';
+    public static function getName(){
+        return 'ipTitle';
     }    
     
   

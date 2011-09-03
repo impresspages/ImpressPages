@@ -8,6 +8,7 @@ namespace Modules\standard\content_management;
 if (!defined('CMS')) exit;
 
 require_once(__DIR__.'/event_widget.php');
+require_once(__DIR__.'/widget_exception.php');
 
 class Model{
     static private $widgetObjects = null;
@@ -19,7 +20,19 @@ class Model{
     	
     	$widgetsHtml = array();
     	foreach ($widgets as $key => $widget) {
-    		$widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
+    	    try {
+    		  $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
+    	    } catch (WidgetException $e) {
+    	        if ($e->getCode() == WidgetException::WIDGET_EXCEPTION_UNKNOWN) {
+    	            $viewData = array (
+    	               'widgetRecord' => $widget,
+    	               'managementState' => $managementState
+    	            );
+                    $widgetsHtml[] = \Ip\View::create('view/unknown_widget.php', $viewData)->render();  
+    	        } else {
+    	            throw $e;
+    	        }
+    	    }
     	}
 
     	$data = array (
@@ -49,7 +62,7 @@ class Model{
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if (!$widgetObject) {
-            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
+            throw new WidgetException('Widget does not exist. Widget name: '.$widgetRecord['name'], WidgetException::WIDGET_EXCEPTION_UNKNOWN);
         } 
         
         $previewHtml = $widgetObject->previewHtml($widgetRecord['widgetId'], $widgetData);
@@ -268,7 +281,8 @@ class Model{
             WHERE
                 `revisionId` = ".$record['revisionId']." AND
                 `blockName` = '".mysql_real_escape_string($record['blockName'])."' AND
-                `position` < ".$record['position']."  
+                `position` < ".$record['position']." AND
+                `deleted` IS NULL  
         ";    
         $rs = mysql_query($sql);
         if (!$rs){
@@ -361,7 +375,7 @@ class Model{
             }
             
             if ($key == 'data') {
-                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode($data))."' ";
+                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode($value))."' ";
             } else {
                 $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";    
             }
@@ -382,6 +396,34 @@ class Model{
         
         return true; 
     }
+    
+    public static function updateInstance($instanceId, $data) {
+        
+        $dataSql = '';
+        
+        foreach ($data as $key => $value) {
+            if ($dataSql != '') {
+                $dataSql .= ', ';    
+            }
+            $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";    
+        }
+        
+        
+        $sql = "
+            UPDATE `".DB_PREF."m_content_management_widget_instance`
+            SET
+                ".$dataSql."
+            WHERE `instanceId` = ".(int)$widgetId."
+        ";    
+        
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new \Exception('Can\'t update instance '.$sql.' '.mysql_error());
+        }
+        
+        return true; 
+    }
+    
     
     
 
@@ -429,16 +471,5 @@ class Model{
         return true; 
     }
         
-    
-    public static function moveInstance($instanceId, $newRevisionId, $newBlockName, $newPosition) {
-        throw new \Exception('refactoring needed');
-        
-        $record = Model::getWidgetFullRecord($instanceId);
-        
-        Model::deleteInstance($instanceId);
-        $newInstanceId = Model::addInstance($record['widgetId'], $newRevisionId, $newBlockName, $newPosition, $record['visible']);
 
-        return $newInstanceId;         
-    }
-    
 }

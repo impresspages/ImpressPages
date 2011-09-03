@@ -38,14 +38,14 @@
                     			return;
                     		}
                     	
-                    		var widgetId = $(ui.item).data('ipWidget').id;
+                    		var instanceId = $(ui.item).data('ipWidget').instanceId;
                     		var position = $(ui.item).index();
                     		
                             var data = Object();
                             data.g = 'standard';
                             data.m = 'content_management';
                             data.a = 'moveWidget';
-                            data.widgetId = widgetId;
+                            data.instanceId = instanceId;
                             data.position = position;
                             data.blockName = $this.data('ipBlock').name;
                             data.revisionId = $this.data('ipBlock').revisionId;
@@ -123,6 +123,9 @@
                 $(this).find('.ipWidget').ipWidget(widgetOptions);
                 $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControls1Html);
                 $(this).find('.ipWidgetManagement').append($(this).data('ipBlock').widgetControls2Html);
+                
+                               
+                
             });
         },
         
@@ -219,18 +222,14 @@
             
             if (response.status == 'success') {           
             	if (response.position == 0) {
-	                $(this).prepend(response.widgetHtml);
+	                $(this).prepend(response.widgetManagementHtml);
             	} else {
 	                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
-	                $(response.widgetHtml).insertAfter($secondChild);
+	                $(response.widgetManagementHtml).insertAfter($secondChild);
             	}
             	
-                var widgetOptions = new Object;
-                widgetOptions.widgetControlsHtml = $this.data('ipBlock').widgetControlsHtml;
-                $this.find('#ipWidget_' + response.widgetId).ipWidget(widgetOptions);
-                
-                //replace preview HTML with management HTML
-                $this.find('#ipWidget_' + response.widgetId).ipWidget('_replaceContent', response.widgetManagementHtml);
+            	$this.ipBlock('reinit');
+
 
             }
         }

@@ -102,7 +102,7 @@ class Controller{
         global $site;
         
         
-        if (!isset($_POST['widgetId']) ||
+        if (!isset($_POST['instanceId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
             !isset($_POST['revisionId'])
@@ -111,12 +111,15 @@ class Controller{
             return;
         }
         
-        $widgetId = $_POST['widgetId'];
+        $instanceId = $_POST['instanceId'];
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
         
-        Model::moveInstance($instanceId, $revisionId, $blockName, $position);
+        
+        $record = Model::getWidgetFullRecord($instanceId);
+        Model::deleteInstance($instanceId);
+        Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
                 
         $data = array (
             'status' => 'success'
@@ -177,9 +180,10 @@ class Controller{
         
         try {
             $layouts = $widgetObject->getLayouts();
-            $widgetId = Model::createWidget($revisionId, $position, $blockName, $widgetName, $layouts[0]['name']);
-            $widgetHtml = Model::generateWidgetPreview($widgetId, true);
-            $widgetManagementHtml = Model::generateWidgetManagement($widgetId);
+            $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
+            $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
+            $widgetHtml = Model::generateWidgetPreview($instanceId, true);
+            $widgetManagementHtml = Model::generateWidgetManagement($instanceId);
         } catch (Exception $e) {
             $this->_errorAnswer($e);
             return;
@@ -219,17 +223,25 @@ class Controller{
         
         
         
+
+        $widgetObject = Model::getWidgetObject($widgetRecord['name']);
+        
+        if (!$widgetObject) {        
+            $this->_errorAnswer("Controlls of this widget does not exist. You need to install required plugin \"" . $widgetRecord['name'] . "\" or remove this widget");
+            return;
+        }
+        
+        
         $position = Model::getInstancePosition($instanceId);
-  
         Model::deleteInstance($instanceId);
         
         $newWidgetId = Model::createWidget($widgetRecord['name'], $widgetRecord['data'], $widgetRecord['layout'], $widgetRecord['widgetId']);
-
         $newInstanceId = Model::addInstance($newWidgetId, $widgetRecord['revisionId'], $widgetRecord['blockName'], $position, $widgetRecord['visible']);
         
-       
-        $widgetObject = Model::getWidgetObject($widgetRecord['name']);
         $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId);
+        
+        
+               
         
         $managementHtml = Model::generateWidgetManagement($newInstanceId);
         
@@ -269,25 +281,20 @@ class Controller{
     public function cancelWidget() {
         global $site;
         
-        if (!isset($_POST['widgetId'])) {
+        if (!isset($_POST['instanceId'])) {
             $this->_errorAnswer('Mising POST variable');
             return;
         }
-        $widgetId = $_POST['widgetId'];
+        $instanceId = $_POST['instanceId'];
         
             
-        if (!isset($_POST['revisionId'])) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
-        }        
-        $revisionId = $_POST['revisionId'];
-        
         $widgetFullRecord = Model::getWidgetFullRecord($instanceId);
         
         if ($widgetFullRecord['predecessor'] !== null) {
-            $widgetPosition = Model::getWidgetPosition($revisionId, $widgetFullRecord['blockName'], $widgetId);
-            Model::addWidget($widgetFullRecord['predecessor'], $revisionId, $widgetFullRecord['blockName'], $position);
-            Model::deleteWidget($widgetId, $revisionId);            
+            $widgetPositin = Model::getInstancePosition($instanceId);
+            Model::deleteInstance($instanceId);
+            Model::addInstance($widgetFullRecord['predecessor'], $revisionId, $widgetFullRecord['blockName'], $position, $widgetFullRecord['visible']);
+                        
         }
         
         
