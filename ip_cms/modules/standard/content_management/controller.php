@@ -84,7 +84,7 @@ class Controller{
             if ($widgetRecord) {
                 $widgetObject = Model::getWidgetObject($widgetRecord['name']);
                 if ($widgetObject) {
-                    $answer = $widgetObject->post($_POST);
+                    $answer = $widgetObject->post($instanceId, $_POST, $widgetRecord['data']);
                     $this->_outputAnswer($answer);
                 } else {
                     throw new \Exception("Can't find requested Widget: ".$widgetRecord['name']);

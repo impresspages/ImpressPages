@@ -9,7 +9,7 @@ namespace Modules\standard\content_management;
 abstract class Widget{
 
 
-    public static function post ($data) {
+    public static function post ($instanceId, $postData, $data) {
         
     }
     

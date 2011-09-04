@@ -32,6 +32,7 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
             
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadPicture.js');
             
             
             $getVars = array (
@@ -85,7 +86,7 @@ class System{
         return array (
             'ipTitle',
             'ipText',
-            'ipTextPhoto',            
+            'ipTextPicture',            
         );           
     }
 
