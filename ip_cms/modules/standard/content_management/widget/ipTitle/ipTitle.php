@@ -23,7 +23,7 @@ class Widget_ipTitle extends Widget{
     }
     
     
-    public static function previewHtml($widgetId, $data){
+    public static function previewHtml($instanceId, $data){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }

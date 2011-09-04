@@ -77,6 +77,7 @@
     },
 
     _manageWidgetResponse : function(response) {
+        console.log('manage response');
         return this.each(function() {
             $this = $(this);
             if (response.status == 'success') {
@@ -90,7 +91,7 @@
                 console.log('manage init 0');
                 if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
                     console.log('manage init 1');
-                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
                     $($newWidget).data('ipWidget').status = 'management';
                     console.log($($newWidget).data('ipWidget').status);
                     widgetPluginObject.manageInit();

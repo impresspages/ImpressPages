@@ -23,7 +23,7 @@ class Widget_ipText extends Widget{
     }
     
     
-    public static function previewHtml($widgetId, $data){
+    public static function previewHtml($instanceId, $data){
         
         $answer = '';
         

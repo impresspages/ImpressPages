@@ -14,15 +14,21 @@ class Widget_ipTextPhoto extends Widget{
 
 
     
-    public static function post($data) {
-                    
+    public static function post($instanceId, $postData) {
+        $answer = '';
+        
+        
+        $answer = 'aga';
+        return $answer;  
     }
     
-    public static function managementHtml($widgetId, $data){
+    public static function managementHtml($instanceId, $data){
     	
     	if (!isset($data['text'])) {
     	   $data['text'] = '';    
     	}
+    	
+    	$data['instanceId'] = $instanceId;
     	
 
     	

@@ -72,13 +72,13 @@ class Controller{
         global $site;
         
         
-        if (!isset($_POST['widgetId'])) {
+        if (!isset($_POST['instanceId'])) {
             $this->_errorAnswer('Mising widgetId POST variable');
             return;
         }
-        $widgetId = $_POST['widgetId'];
+        $instanceId = $_POST['instanceId'];
         
-        $widgetRecord = Model::getWidgetRecord($widgetId);
+        $widgetRecord = Model::getWidgetFullRecord($instanceId);
 
         try {
             if ($widgetRecord) {
@@ -90,7 +90,7 @@ class Controller{
                     throw new \Exception("Can't find requested Widget: ".$widgetRecord['name']);
                 }
             } else {
-                throw new \Exception("Can't find requested Widget: ".$widgetId);
+                throw new \Exception("Can't find requested Widget: ".$instanceId);
             }
         } catch (Exception $e) {
             $this->_errorAnswer($e);            

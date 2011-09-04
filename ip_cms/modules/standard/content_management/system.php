@@ -27,6 +27,12 @@ class System{
             
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.js');
             $site->addCss(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.css');
+
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
+            
+            
             
             $getVars = array (
 				'g' => 'standard',

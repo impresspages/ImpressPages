@@ -65,7 +65,7 @@ class Model{
             throw new WidgetException('Widget does not exist. Widget name: '.$widgetRecord['name'], WidgetException::WIDGET_EXCEPTION_UNKNOWN);
         } 
         
-        $previewHtml = $widgetObject->previewHtml($widgetRecord['widgetId'], $widgetData);
+        $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData);
         
         $data = array (
             'html' => $previewHtml,
@@ -94,7 +94,7 @@ class Model{
             throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
         } 
         
-        $managementHtml = $widgetObject->managementHtml($widgetRecord['widgetId'], $widgetData);
+        $managementHtml = $widgetObject->managementHtml($widgetRecord['instanceId'], $widgetData);
         
         $data = array (
             'managementHtml' => $managementHtml,
