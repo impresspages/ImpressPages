@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-function ipWidget_ipTextPicture(widgetObject) {
+function ipWidget_ipPicture(widgetObject) {
     this.widgetObject = widgetObject;
 
     this.prepareData = prepareData;
@@ -29,7 +29,7 @@ function ipWidget_ipTextPicture(widgetObject) {
 
         var data = Object();
 
-        data.text = $(this.widgetObject).find('textarea').first().val();
+        //data.text = $(this.widgetObject).find('textarea').first().val();
         console.log(this.widgetObject);
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }

@@ -87,6 +87,7 @@ class System{
             'ipTitle',
             'ipText',
             'ipTextPicture',            
+            'ipPicture',
         );           
     }
 
