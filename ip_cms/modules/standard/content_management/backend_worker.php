@@ -218,10 +218,15 @@ class BackendWorker {
 
   function make_preview() {
     if (isset($_REQUEST['module_key']) && ($_REQUEST['module_key'] != null) && isset($_REQUEST['group_key']) && ($_REQUEST['group_key'] != null)) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$_REQUEST['group_key'].'\\'.$_REQUEST['module_key'].'\\Module(); ');
-      $answer = $new_module->manager_preview();
-      $this->set_variable("html", $answer);
-      $this->set_variable("collection_number", $_REQUEST['collection_number']);
+      $menuModule = Db::getMenuModModule(null, $_REQUEST['group_key'], $_REQUEST['module_key']);  
+      if ($menuModule) {
+          eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+          $answer = $new_module->manager_preview();
+          $this->set_variable("html", $answer);
+          $this->set_variable("collection_number", $_REQUEST['collection_number']);
+      } else {
+          $this->set_error("Bad parameters");
+      }  
     }else $this->set_error("Bad parameters");
     $this->javascript_answer();
   }
@@ -229,37 +234,52 @@ class BackendWorker {
 
   function new_module($values) {
     if (isset($values['module_key']) && ($values['module_key'] != null) && isset($values['group_key']) && ($values['group_key'] != null)) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$values['group_key'].'\\'.$values['module_key'].'\\Module(); ');
-      $answer = $new_module->create_new_instance($values);
-      if($answer)
-        $this->set_error($answer);
-
+      $menuModule = Db::getMenuModModule(null, $values['group_key'], $values['module_key']);  
+      if ($menuModule) {
+          eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+          $answer = $new_module->create_new_instance($values);
+          if($answer)
+            $this->set_error($answer);
+      } else {
+          $this->set_error("Bad parameters");
+      }
     }else $this->set_error("Bad parameters");
   }
 
   function update_module($values) {
     if (isset($values['module_key']) && ($values['module_key'] != null) && isset($values['group_key']) && ($values['group_key'] != null)) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$values['group_key'].'\\'.$values['module_key'].'\\Module(); ');
-      $answer = $new_module->update($values);
-      if ($answer[0])
-        foreach($answer[0] as $key => $value)
-          $this->set_error($value);
-      if ($answer[1])
-        foreach($answer[1] as $key => $value)
-          $this->set_note($value);
+      $menuModule = Db::getMenuModModule(null, $values['group_key'], $values['module_key']);  
+      if ($menuModule) {
+          eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+          $answer = $new_module->update($values);
+          if ($answer[0])
+            foreach($answer[0] as $key => $value)
+              $this->set_error($value);
+          if ($answer[1])
+            foreach($answer[1] as $key => $value)
+              $this->set_note($value);
+      } else {
+          $this->set_error("Bad parameters");
+      }
     }else $this->set_error("Bad parameters");
   }
 
   function delete_module($values) {
     if (isset($values['module_key']) && ($values['module_key'] != null) && isset($values['group_key']) && ($values['group_key'] != null)) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$values['group_key'].'\\'.$values['module_key'].'\\Module(); ');
-      $answer = $new_module->delete($values);
-      if ($answer[0])
-        foreach($answer[0] as $key => $value)
-          $this->set_error($value);
-      if ($answer[1])
-        foreach($answer[1] as $key => $value)
-          $this->set_note($value);
+        
+      $menuModule = Db::getMenuModModule(null, $values['group_key'], $values['module_key']);  
+      if ($menuModule) {
+          eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+              $answer = $new_module->delete($values);
+          if ($answer[0])
+            foreach($answer[0] as $key => $value)
+              $this->set_error($value);
+          if ($answer[1])
+            foreach($answer[1] as $key => $value)
+              $this->set_note($value);
+      } else {
+          $this->set_error("Bad parameters");
+      }
     }else $this->set_error("Bad parameters");
   }
 

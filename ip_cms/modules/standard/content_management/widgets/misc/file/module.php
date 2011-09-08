@@ -20,14 +20,15 @@ class Module extends \Modules\standard\content_management\Widget{
     global $site;    
     $answer =
      '<script type="text/javascript" src="'.BASE_URL.CONTENT_MODULE_URL.'misc/file/module.js"></script>
-    <div style="display: none;"><input type="hidden" id="mod_file_action_after_photo_save" value="" /></div>
-     <iframe style="display: none; width: 0px; height: 0px; border: 0;" name="mod_file_iframe" onload="f_mod_file_after_photo_save()" width="400" height="200"></iframe> 
      <script type="text/javascript" >
       //<![CDATA[
        function f_mod_file_after_photo_save(){
           eval(document.getElementById(\'mod_file_action_after_photo_save\').value);
        }
-     </script>';
+     </script>
+     <div style="display: none;"><input type="hidden" id="mod_file_action_after_photo_save" value="" /></div>
+     <iframe style="display: none; width: 0px; height: 0px; border: 0;" name="mod_file_iframe" onload="f_mod_file_after_photo_save()" width="400" height="200"></iframe> 
+     ';
     
     $site->requireConfig('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/config.php');
 

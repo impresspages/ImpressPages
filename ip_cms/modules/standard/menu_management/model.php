@@ -123,13 +123,27 @@ class Model {
     
     
     public static function getWidgetData ($widget) {
-        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
-        eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
-        $answer = $widgetObject->getData($widget['module_id']);
-        return $answer;
+        
+      $menuModule = \Modules\standard\content_management\Db::getMenuModModule(null, $widget['group_key'], $widget['module_key']);  
+      if ($menuModule) {
+          require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$menuModule['g_name'].'/'.$menuModule['m_name'].'/module.php');
+        
+          eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+          $answer = $widgetObject->getData($widget['module_id']);
+          return $answer;
+      } else {
+          return false;
+      }
     }
 
     public static function addWidget($targetId, $widgetData, $widget){
+        
+        
+        $menuModule = \Modules\standard\content_management\Db::getMenuModModule(null, $widget['group_key'], $widget['module_key']);  
+        if (!$menuModule) { //check for security in eval method
+            return false;    
+        }
+             
         
         $values = $widgetData;
         
@@ -163,8 +177,9 @@ class Model {
         
         
         
-        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
-        eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module();');
+   
+        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$menuModule['g_name'].'/'.$menuModule['m_name'].'/module.php');
+        eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module();');
         $widgetObject->create_new_instance($values);        
         
         

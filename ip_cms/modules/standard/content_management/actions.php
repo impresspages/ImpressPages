@@ -34,8 +34,11 @@ class Actions {
     require_once(BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
 
     if(isset($_REQUEST['cm_group']) && isset($_REQUEST['cm_name'])) {
-      eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$_REQUEST['cm_group'].'\\'.$_REQUEST['cm_name'].'\\Module(); ');
-      $new_module->makeActions();
+      $menuModule = Db::getMenuModModule(null, $_REQUEST['cm_group'], $_REQUEST['cm_name']);  
+      if ($menuModule) {
+          eval (' $new_module = new \\Modules\\standard\\content_management\\Widgets\\'.$menuModule['g_name'].'\\'.$menuModule['m_name'].'\\Module(); ');
+          $new_module->makeActions();
+      }    
     }
 
     if(isset($_POST['id'])) {

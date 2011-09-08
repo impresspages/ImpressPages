@@ -100,7 +100,7 @@ class Element extends \Frontend\Element {
           eval('$module = new \\Modules\\standard\\content_management\\Widgets\\'.$dynamicModules[$key]['module_group'].'\\'.$dynamicModules[$key]['module_name'].'\\Module(\''.$dynamicModules[$key]['module_name'].'\');');
           //widgets\standard\content_management\Widgets\misc\contact_form
           $tmpHtml = '';
-          eval('$tmpHtml = $module->make_html('.$dynamicModules[$key]['id'].');');
+          $tmpHtml = $module->make_html($dynamicModules[$key]['id']);
           $answer .= $html.$tmpHtml;
         }else
           $answer .= $html;

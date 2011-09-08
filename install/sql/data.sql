@@ -948,10 +948,10 @@ INSERT INTO `ip_cms_par_lang` (`id`, `translation`, `language_id`, `parameter_id
 (4682, '<p>Your e-mail has been changed. To complete the update process of your profile you need to confirm that you have received this e-mail by clicking on the link below:</p>\n<p>[[link]]</p>\n<p>If the link does not work, just copy and paste the entire link into your browser.</p>', 384, 1563),
 (4683, '<p>Your account has been deleted.</p>', 344, 1564),
 (4684, '<p>Your account has been deleted.</p>', 384, 1564),
-(4685, '<p>Your account is due to expire at [[date]].</p>\n<p>Please visit the website and log in or click the link bellow to renew your account:</p>\n<p>[[link]]</p>\n<p>&nbsp;</p>\n<p>If you take no action until [[date]] your account will be deleted.</p>', 344, 1565),
-(4686, '<p>Your account is due to expire at [[date]].</p>\n<p>Please visit the website and log in or click the link bellow to renew your account:</p>\n<p>[[link]]</p>\n<p>&nbsp;</p>\n<p>If you take no action until [[date]] your account will be deleted.</p>', 384, 1565),
-(4687, '<p>You asked to reset your password. Please press the link bellow to confirm this action:</p>\n<p>[[link]]</p>\n<p>If the link does not work, just copy and paste the entire link into your browser.</p>', 344, 1566),
-(4688, '<p>You asked to reset your password. Please press the link bellow to confirm this action:</p>\n<p>[[link]]</p>\n<p>If the link does not work, just copy and paste the entire link into your browser.</p>', 384, 1566),
+(4685, '<p>Your account is due to expire at [[date]].</p>\n<p>Please visit the website and log in or click the link below to renew your account:</p>\n<p>[[link]]</p>\n<p>&nbsp;</p>\n<p>If you take no action before [[date]] your account will be deleted.</p>', 344, 1565),
+(4686, '<p>Your account is due to expire at [[date]].</p>\n<p>Please visit the website and log in or click the link below to renew your account:</p>\n<p>[[link]]</p>\n<p>&nbsp;</p>\n<p>If you take no action before [[date]] your account will be deleted.</p>', 384, 1565),
+(4687, '<p>You asked to reset your password. Please press the link below to confirm this action:</p>\n<p>[[link]]</p>\n<p>If the link does not work, just copy and paste the entire link into your browser.</p>', 344, 1566),
+(4688, '<p>You asked to reset your password. Please press the link below to confirm this action:</p>\n<p>[[link]]</p>\n<p>If the link does not work, just copy and paste the entire link into your browser.</p>', 384, 1566),
 (4689, 'Already registered', 344, 1567),
 (4690, 'Already registered', 384, 1567),
 (4691, 'Passwords don''t match', 344, 1568),
@@ -1442,7 +1442,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '1.0.12', '2010-01-13 21:38:44'),
+(40, 'version', '1.0.13', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--

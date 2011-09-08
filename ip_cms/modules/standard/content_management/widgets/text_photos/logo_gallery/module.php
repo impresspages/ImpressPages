@@ -26,15 +26,17 @@ class Module extends \Modules\standard\content_management\Widget{
     $answer =
      '<script type="text/javascript"  src="'.BASE_URL.CONTENT_MODULE_URL.'text_photos/logo_gallery/module.js"></script>
      <script type="text/javascript"  src="'.BASE_URL.CONTENT_MODULE_URL.'text_photos/logo_gallery/photo.js"></script>
-     <div style="display: none;"><input type="hidden" id="mod_logo_gallery_action_after_photo_save" value="" /></div>
-     <iframe style="display: none; width: 0px; height: 0px; border: 0;" name="mod_logo_gallery_iframe" onload="f_mod_logo_gallery_after_photo_save()" width="400" height="200"></iframe> 
      <script type="text/javascript" >
        //<![CDATA[
        function f_mod_logo_gallery_after_photo_save(){
           eval(document.getElementById(\'mod_logo_gallery_action_after_photo_save\').value);
        }
        //]]>
-     </script>';
+     </script>
+     <div style="display: none;"><input type="hidden" id="mod_logo_gallery_action_after_photo_save" value="" /></div>
+     <iframe style="display: none; width: 0px; height: 0px; border: 0;" name="mod_logo_gallery_iframe" onload="f_mod_logo_gallery_after_photo_save()" width="400" height="200"></iframe> 
+     
+     ';
      
     $site->requireConfig('standard/content_management/widgets/'.GROUP_KEY.'/'.MODULE_KEY.'/config.php');
     $layouts = Config::getLayouts();

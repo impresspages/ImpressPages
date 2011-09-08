@@ -108,15 +108,15 @@ $moduleTitle["community"]["user"] = "User";
 
     $parameterTitle["community"]["user"]["email_messages"]["text_account_will_expire"] = "Text - account will expire";
     $parameterValue["community"]["user"]["email_messages"]["text_account_will_expire"] = "<p>Your account is due to expire at [[date]].</p>
-<p>Please visit the website and log in or click the link bellow to renew your account:</p>
+<p>Please visit the website and log in or click the link below to renew your account:</p>
 <p>[[link]]</p>
 <p>&nbsp;</p>
-<p>If you take no action until [[date]] your account will be deleted.</p>"; /* changed */
+<p>If you take no action before [[date]] your account will be deleted.</p>"; /* changed */
     $parameterAdmin["community"]["user"]["email_messages"]["text_account_will_expire"] = "0";
     $parameterType["community"]["user"]["email_messages"]["text_account_will_expire"] = "lang_wysiwyg";
 
     $parameterTitle["community"]["user"]["email_messages"]["text_password_reset"] = "Text - password reset confirm";
-    $parameterValue["community"]["user"]["email_messages"]["text_password_reset"] = "<p>You asked to reset your password. Please press the link bellow to confirm this action:</p>
+    $parameterValue["community"]["user"]["email_messages"]["text_password_reset"] = "<p>You asked to reset your password. Please press the link below to confirm this action:</p>
 <p>[[link]]</p>
 <p>If the link does not work, just copy and paste the entire link into your browser.</p>";
     $parameterAdmin["community"]["user"]["email_messages"]["text_password_reset"] = "0";
