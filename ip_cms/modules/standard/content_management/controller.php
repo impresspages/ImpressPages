@@ -20,6 +20,7 @@ class Controller{
         $revision = $site->getRevision();
         $data = array (
             'ipBaseUrl' => BASE_URL,
+            'ipLibraryDir' => LIBRARY_DIR,
             'ipManagementUrl' => $site->generateUrl(),
         	'ipZoneName' => $site->getCurrentZone()->getName(),
         	'ipPageId' => $site->getCurrentElement()->getId(),

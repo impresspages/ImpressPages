@@ -14,12 +14,13 @@ function ipWidget_ipPicture(widgetObject) {
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         
-        var options = {
-            crop: true,
-            aspectRatio: 500/60
-        };
-        
-        //this.widgetObject.find('.ipWidget_ipTextPhoto_uploadPicture').ipWidgetPhotoUpload(options);
+        var options = new Object;
+//        var options = {
+//            crop: true,
+//            aspectRatio: 500/60
+//        };
+        console.log('bbbbbbbb');
+        this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         
         
     }
