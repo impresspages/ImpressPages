@@ -8,7 +8,7 @@ namespace update_1_0_10_to_1_0_11;
 
 if (!defined('CMS')) exit;
 
-
+require_once('translations.php');
 
 class Script {
     var $deleteFiles;
