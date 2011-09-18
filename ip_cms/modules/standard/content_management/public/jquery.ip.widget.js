@@ -19,9 +19,13 @@
                 var data = Object();
                 
                 //parse widget record data
-                $this.find('.ipWidgetData input').each(function() {
-                    data[$(this).attr('name')] = $(this).val();
-                });
+                var instanceDataInput = $this.find('.ipWidgetData input')
+                if (instanceDataInput){
+                    data = $.parseJSON(instanceDataInput.val());                    
+                }else {
+                    data = new Array();
+                }
+                
                 data.state = 'preview'; // possible values: preview, management
                 $this.data('ipWidget', data);
 
@@ -77,7 +81,6 @@
     },
 
     _manageWidgetResponse : function(response) {
-        console.log('manage response');
         return this.each(function() {
             $this = $(this);
             if (response.status == 'success') {
@@ -88,12 +91,9 @@
                 
                 
                 widgetName = $($newWidget).data('ipWidget').name;
-                console.log('manage init 0');
                 if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
-                    console.log('manage init 1');
                     eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
                     $($newWidget).data('ipWidget').status = 'management';
-                    console.log($($newWidget).data('ipWidget').status);
                     widgetPluginObject.manageInit();
                 }              
                 
@@ -108,7 +108,6 @@
         // return this.each(function() {
         // $block = $this.parent();
         // $this.replaceWith(response.previewHtml);
-        // console.log('preview');
         // });
 
     },
@@ -122,7 +121,6 @@
             if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
                 eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
                 $this.data('ipWidget').status = 'test';
-                console.log($this.data('ipWidget').status);
                 widgetPluginObject.prepareData();
             } else {
                 $this.ipWidget('preview');

@@ -15,12 +15,10 @@ function ipWidget_text(widgetObject) {
     }
     
 	function prepareData () {
-		console.log('saving');
 		
 		var data = Object();
 		
 		data.text = $(this.widgetObject).find('textarea').first().val();
-		console.log(this.widgetObject);
 		$(this.widgetObject).trigger('preparedWidgetData.ipWidget', [data]);
 	}	
 

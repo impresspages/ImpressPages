@@ -21,6 +21,9 @@ class Controller{
         $data = array (
             'ipBaseUrl' => BASE_URL,
             'ipLibraryDir' => LIBRARY_DIR,
+            'ipThemeDir' => THEME_DIR,
+            'ipModuleDir' => MODULE_DIR,
+            'ipTheme' => THEME,
             'ipManagementUrl' => $site->generateUrl(),
         	'ipZoneName' => $site->getCurrentZone()->getName(),
         	'ipPageId' => $site->getCurrentElement()->getId(),

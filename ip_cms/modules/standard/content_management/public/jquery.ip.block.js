@@ -62,7 +62,6 @@
                     	},
                         
                         receive: function(event, ui) {
-                    		console.log('received');
 
                             
                             $element = $(ui.item);

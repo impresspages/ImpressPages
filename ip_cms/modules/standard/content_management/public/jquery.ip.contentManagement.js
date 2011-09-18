@@ -180,7 +180,6 @@
 	        	
 	        	var saveJobs = $this.data('ipContentManagement').saveJobs;
 	
-	        	console.log('save progress');
 	        	
 	        	for (var i in saveJobs) {
 	        		var curJob = saveJobs[i];
@@ -188,7 +187,6 @@
 	        		timeSpent = timeSpent + curJob.getTimeLeft() / (1 - curJob.getProgress()) * curJob.getProgress();	        		
 	        	}
 	        	
-	        	console.log('Time spent: ' + timeSpent + ' Time left: ' + timeLeft + ' Complete: ' + timeSpent / (timeLeft + timeSpent) * 100 + '%');
             });
         }
 

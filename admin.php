@@ -44,23 +44,22 @@ $parametersMod = new \ParametersMod();
 
 if(\Db::connect()){
 
-  header('X-UA-Compatible: IE=EmulateIE7');
   
-	$log = new \Modules\Administrator\Log\Module();
+    $log = new \Modules\Administrator\Log\Module();
 
-  $site = new \Site(); /*to generate links to site and get other data about frontend*/
+    $site = new \Site(); /*to generate links to site and get other data about frontend*/
 	
-  $site->init();
+    $site->init();
 	
   
 
-  $cms = new Cms();
+    $cms = new Cms();
   
-  $cms->makeActions();
+    $cms->makeActions();
   
-  $cms->manage();
+    $cms->manage();
       
   
-  \Db::disconnect();
+    \Db::disconnect();
 }else   trigger_error('Database access');
    

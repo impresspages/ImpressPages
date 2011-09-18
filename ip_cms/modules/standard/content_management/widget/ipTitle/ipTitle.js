@@ -18,8 +18,6 @@ function ipWidget_title(widgetObject) {
 		//data.title = $(this.widgetObject).find('input').val();
 		data.title = $(this.widgetObject).find('input[name="title"]').first().val();
 		
-		console.log('title:');
-		console.log(data.title);
 		//$(this.widgetObject).find('input').hide();
 		//this.widgetObject.hide();
 		$(this.widgetObject).trigger('preparedWidgetData.ipWidget', [data]);

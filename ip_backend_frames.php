@@ -42,7 +42,7 @@ $parametersMod = new \ParametersMod();
 
 if(\Db::connect()){
 
-  header('X-UA-Compatible: IE=EmulateIE7');
+
   
   $log = new \Modules\Administrator\Log\Module();
 

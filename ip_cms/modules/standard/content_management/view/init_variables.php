@@ -1,5 +1,8 @@
 var ipBaseUrl = <?php echo json_encode($ipBaseUrl) ?>;
 var ipLibraryDir = <?php echo json_encode($ipLibraryDir) ?>;
+var ipThemeDir = <?php echo json_encode($ipThemeDir) ?>;
+var ipModuleDir = <?php echo json_encode($ipModuleDir) ?>;
+var ipTheme = <?php echo json_encode($ipTheme) ?>;
 var ipManagementUrl = <?php echo json_encode($ipManagementUrl) ?>;
 var ipZoneName = <?php echo json_encode($ipZoneName) ?>;
 var ipPageId = <?php echo json_encode($ipPageId) ?>;

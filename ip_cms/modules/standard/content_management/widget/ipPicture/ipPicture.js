@@ -13,25 +13,28 @@ function ipWidget_ipPicture(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        
+        console.log(instanceData.data);
         var options = new Object;
-//        var options = {
-//            crop: true,
-//            aspectRatio: 500/60
-//        };
-        console.log('bbbbbbbb');
+        var options = {
+            curPicture : instanceData.data.picture,
+            crop : true,
+            aspectRatio: 500/60
+        };
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         
         
     }
 
     function prepareData() {
-        console.log('saving');
 
         var data = Object();
 
+        var picture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
+        
+        data.picture = picture;
+        console.log(picture);
+        
         //data.text = $(this.widgetObject).find('textarea').first().val();
-        console.log(this.widgetObject);
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 
