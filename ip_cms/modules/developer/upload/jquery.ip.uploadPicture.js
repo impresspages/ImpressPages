@@ -36,18 +36,75 @@
                         aspectRatio : options.aspectRatio //eg 1024/768
                     }); 
                     
-                    $this.html('<div style="border: 1px red solid; width: 100%; height: 200px; overflow: hidden;"><div id="ipUploadButton" style="position: absolute; z-index: 100;">Upload new</div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>');
+                    $this.html('<div style="border: 1px red solid; width: 100%; height: 400px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div style="cursor: pointer;" id="ipUploadButton">Upload new </div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>');
+                    
+                    $this.find('.ipUploadLargerButton').click(function() {
+                        $(this).trigger('pictureScaleUp.ipUploadPicture');
+                    });
+                    
+                    $this.bind('pictureScaleUp.ipUploadPicture', function(e){
+                        console.log('scale up');
+                        var scaleFactor = 1.1;
+                        
+                        var picture = $(this).find('.preview');
+                        var container = picture.parent().parent();
+                        var dragContainer = picture.parent();                        
+                        
+                        var pictureCenterX = (dragContainer.width() / 2) - parseInt(picture.css('left'));
+                        var pictureCenterXPercentage = pictureCenterX * 100 / picture.width(); 
+                        
+                        var pictureCenterY = (dragContainer.height() / 2) - parseInt(picture.css('top'));
+                        var pictureCenterYPercentage = pictureCenterY * 100 / picture.height(); 
+                        
+                        picture.height('auto');
+                        picture.width(picture.width() * scaleFactor);
+                        
+                        picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+
+                    });
+                    
+                    $this.find('.ipUploadSmallerButton').click(function() {
+                        $(this).trigger('pictureScaleDown.ipUploadPicture');
+                    });
+                    $this.bind('pictureScaleDown.ipUploadPicture', function(e){
+                        console.log('scale down');
+                        var scaleFactor = 1.1;
+                        
+                        var picture = $(this).find('.preview');
+                        var container = picture.parent().parent();
+                        var dragContainer = picture.parent();                        
+                        
+                        var pictureCenterX = (dragContainer.width() / 2) - parseInt(picture.css('left'));
+                        var pictureCenterXPercentage = pictureCenterX * 100 / picture.width(); 
+                        
+                        var pictureCenterY = (dragContainer.height() / 2) - parseInt(picture.css('top'));
+                        var pictureCenterYPercentage = pictureCenterY * 100 / picture.height(); 
+                        
+                        picture.height('auto');
+                        picture.width(picture.width() / scaleFactor);
+                        
+                        if (picture.width() < container.width()) {
+                            picture.height('auto');
+                            picture.width(container.width());
+                        }
+                        if (picture.height() < container.height()) {
+                            picture.width('auto');
+                            picture.height(container.height());
+                        }
+                        picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+                        
+                      
+                    });
                     
                     
                     //uploaded new photo and loaded. Reinit drag container
-                    $this.find('.preview').load(function() { 
+                    $this.find('.preview').load(function() {
                         var picture = $(this);
-                        container = $(this).parent().parent();
-                        dragContainer = $(this).parent();
+                        var container = $(this).parent().parent();
+                        var dragContainer = $(this).parent();
                         
                         containerAspectRatio = container.width() / container.height();
                         pictureAspectRatio = picture.width() / picture.height();
-                        console.log(containerAspectRatio + ' ' + pictureAspectRatio);
                         if (containerAspectRatio > pictureAspectRatio) {
                             picture.height('auto');
                             picture.width(container.width());
@@ -55,20 +112,17 @@
                             picture.width('auto');
                             picture.height(container.height());
                         }
+                        picture.trigger('pictureResized.ipUploadPicture', [50, 50]);
+                    });
+                    
+                    
+                    $this.find('.preview').bind('pictureResized.ipUploadPicture', function(e, pictureCenterXPercentage, pictureCenterYPercentage) {
+                        var picture = $(this);
+                        var container = $(this).parent().parent();
+                        var dragContainer = $(this).parent();
                         
-                        
-
-                        
-                        marginVertical = picture.height() - container.height();
-                        if (marginVertical < 0) {
-                            marginVertical = 0;
-                        }
-
-                        dragContainer.css('margin-top', -marginVertical);
-                        dragContainer.css('margin-bottom', -marginVertical);
-                        dragContainer.height(container.height() + marginVertical*2);
-                        picture.css('top', marginVertical/2);
-                        
+                        var pictureCenterX = picture.width() * pictureCenterXPercentage / 100;
+                        var pictureCenterY = picture.height() * pictureCenterYPercentage / 100;
                         
                         marginHorizontal = picture.width() - container.width();
                         if (marginHorizontal < 0) {
@@ -78,10 +132,36 @@
                         dragContainer.css('margin-left', -marginHorizontal);
                         dragContainer.css('margin-right', -marginHorizontal);
                         dragContainer.width(container.width() + marginHorizontal*2);
-                        picture.css('left', marginHorizontal/2);
+                        picture.css('left', dragContainer.width() / 2 - pictureCenterX);                          
+                        if (parseInt(picture.css('left')) < 0){
+                            picture.css('left', 0);
+                        }
+                        if (parseInt(picture.css('left')) > dragContainer.width() - picture.width()){
+                            picture.css('left', dragContainer.width() - picture.width());
+                        }
+                        
+                        
+                        
+                        marginVertical = picture.height() - container.height();
+                        if (marginVertical < 0) {
+                            marginVertical = 0;
+                        }
+
+                        dragContainer.css('margin-top', -marginVertical);
+                        dragContainer.css('margin-bottom', -marginVertical);
+                        dragContainer.height(container.height() + marginVertical*2);
+                        picture.css('top', dragContainer.height() / 2 - pictureCenterY);
+                        if (parseInt(picture.css('top')) < 0){
+                            picture.css('top', 0);
+                        }
+                        if (parseInt(picture.css('top')) > dragContainer.height() - picture.height()){
+                            picture.css('top', dragContainer.height() - picture.height());
+                        }
+                     
                         
                         
                     });
+                    
                     
                     $this.find('.preview').draggable({ containment: "parent" });
                     
@@ -98,8 +178,8 @@
                         },
                         
                         
-                        flash_swf_url : ipBaseUrl + ipLibraryDir + 'plupload/js/plupload.flash.swf',
-                        silverlight_xap_url : ipBaseUrl + ipLibraryDir + '/plupload/js/plupload.silverlight.xap'
+                        flash_swf_url : ipBaseUrl + ipLibraryDir + 'js/plupload/plupload.flash.swf',
+                        silverlight_xap_url : ipBaseUrl + ipLibraryDir + 'js/plupload/plupload.silverlight.xap'
                     });
 
                     uploader.bind('Init', function(up, params) {

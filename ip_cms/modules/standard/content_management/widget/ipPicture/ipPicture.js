@@ -32,9 +32,6 @@ function ipWidget_ipPicture(widgetObject) {
         var picture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
         
         data.picture = picture;
-        console.log(picture);
-        
-        //data.text = $(this.widgetObject).find('textarea').first().val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 
