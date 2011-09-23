@@ -9,11 +9,10 @@ function ipWidget_ipPicture(widgetObject) {
 
     this.prepareData = prepareData;
     this.manageInit = manageInit;
-    this.uploadPicture = uploadPicture;
+
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        console.log(instanceData.data);
         var options = new Object;
         var options = {
             curPicture : instanceData.data.picture,
@@ -29,20 +28,13 @@ function ipWidget_ipPicture(widgetObject) {
 
         var data = Object();
 
-        var picture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
-        
-        data.picture = picture;
+        data.picture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
+
+        data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 
-    function fileUploaded(event) {
 
-    }
-    
-    function uploadPicture() {
-        
-    }
-    
     
 
 };

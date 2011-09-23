@@ -27,16 +27,17 @@
                         curPicture = defaultPicture;
                     }
                         
-                    
+                    var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
                     $this.data('ipUploadPicture', {
                         crop : options.crop, //allow to crop? true / false
                         curPicture : curPicture,
+                        uniqueId : uniqueId,
                         defaultPicture : defaultPicture,
                         aspectRatio : options.aspectRatio //eg 1024/768
                     }); 
                     
-                    $this.html('<div style="border: 1px red solid; width: 100%; height: 400px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><em id="testContainer"><div style="cursor: pointer;" id="ipUploadButton">Upload new </div></em><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>');
+                    $this.html('<div style="border: 1px red solid; width: 100%; height: 400px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div id="ipUploadContainer_' + uniqueId + '"><div style="cursor: pointer;" id="ipUploadButton_' + uniqueId + '">Upload new </div></div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>');
                     
                     $this.find('.ipUploadLargerButton').click(function() {
                         $(this).trigger('pictureScaleUp.ipUploadPicture');
@@ -167,9 +168,8 @@
                     
                     var uploader = new plupload.Uploader( {
                         runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : 'ipUploadButton',
-                        container : 'testContainer',
-                        container : 'ipUploadButton',
+                        browse_button : 'ipUploadButton_' + uniqueId,
+                        container : 'ipUploadContainer_' + uniqueId,
                         max_file_size : '100mb',            
                         url : ipBaseUrl, //website root (available globaly in ImpressPages environment)
                         multipart_params : {

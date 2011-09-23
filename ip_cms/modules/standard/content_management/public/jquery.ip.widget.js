@@ -5,7 +5,9 @@
  */
 
 (function($) {
-
+    IP_WIDGET_STATE_MANAGEMENT = 'management';
+    IP_WIDGET_STATE_SAVE_PROGRESS = 'save_progress';
+    IP_WIDGET_STATE_PREVIEW = 'preview';
     var methods = {
     init : function(options) {
 
@@ -56,18 +58,44 @@
                 $this.bind('preparedWidgetData.ipWidget', function(event, widgetData) {
                     $(this).ipWidget('_saveData', widgetData);
                 });
+                
+                $this.bind('saveProgress.ipWidget', function(event, progress, timeLeft) {
+                    $(this).ipWidget('_saveProgress', progress, timeLeft);
+                });
+                
             }
         });
     },
 
+    //return all instances that are in mangement state
+    fetchManaged : function () {
+        var answer = new Array();
+        this.each(function() {
+            console.log('STATE: ' + $(this).data('ipWidget').state);
+            if ($(this).data('ipWidget').state == IP_WIDGET_STATE_MANAGEMENT){
+                answer.push($(this));
+            }
+        });
+        return $(answer);
+    },
+    
     manage : function() {
-        return this.each(function() {
-            $this = $(this);
+        return this.each(function() {            
+            
+            
+            var $this = $(this);
+            
+            if ($this.data('ipWidget').state != IP_WIDGET_STATE_PREVIEW) {
+                return;
+            }            
+            
             data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'manageWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
+            
+
 
             $.ajax( {
             type : 'POST',
@@ -82,11 +110,17 @@
 
     _manageWidgetResponse : function(response) {
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
             if (response.status == 'success') {
                 $newWidget = $(response.managementHtml); 
-                $($newWidget).insertAfter($this);
-                $newWidget.trigger('reinitRequired.ipWidget');                
+                $newWidget.insertAfter($this);
+                $newWidget.trigger('reinitRequired.ipWidget');
+
+                //change state to managed
+                var tmpData = $newWidget.data('ipWidget');
+                tmpData.state = IP_WIDGET_STATE_MANAGEMENT;
+                $newWidget.data('ipWidget', tmpData);
+                
                 $this.remove();
                 
                 
@@ -103,24 +137,27 @@
         });
     },
 
-    fetchManaged : function() {
-        // $answer =
-        // return this.each(function() {
-        // $block = $this.parent();
-        // $this.replaceWith(response.previewHtml);
-        // });
 
-    },
 
 
 
     save : function() {
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
+            
+            if ($this.data('ipWidget').state != IP_WIDGET_STATE_MANAGEMENT) {
+                return;
+            }
+            
+            
             widgetName = $this.data('ipWidget').name;
             if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+                var saveJob = new ipSaveJob(widgetName, 1);
+                $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
+                
+                
                 eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
-                $this.data('ipWidget').status = 'test';
+                $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
                 $this.ipWidget('preview');
@@ -129,10 +166,20 @@
         });
     },
 
+    _saveProgress : function(progress, timeLeft) {
+
+        return this.each(function() {
+            var $this = $(this);
+            var saveJob = new ipSaveJob(widgetName, timeLeft + 1);
+            saveJob.setProgress(progress);
+            $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
+        });
+    },    
+    
     _saveData : function(widgetData) {
 
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
             console.log(widgetData);
             data = Object();
             data.g = 'standard';
@@ -155,17 +202,31 @@
 
     _saveDataResponse : function(response) {
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
             $newWidget = $(response.previewHtml); 
             $($newWidget).insertAfter($this);
             $newWidget.trigger('reinitRequired.ipWidget');
-            $this.remove();            
+            
+            //change state to managed
+            var tmpData = $newWidget.data('ipWidget');
+            tmpData.state = IP_WIDGET_STATE_PREVIEW;
+            $newWidget.data('ipWidget', tmpData);            
+            
+            var instanceId = $(this).data('ipWidget').instanceId; 
+            $this.remove();
+            
+            $this.trigger('removeSaveJob.ipContentManagement', ['widget_' + instanceId]);
+            
         });
     },
 
     cancel : function() {
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
+            
+            if ($this.data('ipWidget').state != IP_WIDGET_STATE_MANAGEMENT) {
+                return;
+            }
 
             data = Object();
             data.g = 'standard';
@@ -187,13 +248,23 @@
 
     _cancelResponse : function(response) {
         return this.each(function() {
-            $this = $(this);
+            var $this = $(this);
             $newWidget = $(response.previewHtml); 
             $($newWidget).insertAfter($this);
             $newWidget.trigger('reinitRequired.ipWidget');
+            
+            //change state to managed
+            var tmpData = $newWidget.data('ipWidget');
+            tmpData.state = IP_WIDGET_STATE_PREVIEW;
+            $newWidget.data('ipWidget', tmpData);
+
+            
             $this.remove();            
         });
-    }  
+    },  
+    
+
+    
     
     
     

@@ -115,7 +115,7 @@
         
         reinit : function () {
             return this.each(function() {       
-              //$this = $(this); // don't do $this = $(this); Somehow this operation equals to ipContentManagement = $(this); and raises problems later;
+                var $this = $(this);
                 var widgetOptions = new Object;
                 widgetOptions.widgetControls1Html = $(this).data('ipBlock').widgetControls1Html;
                 widgetOptions.widgetControls2Html = $(this).data('ipBlock').widgetControls2Html;
@@ -134,13 +134,8 @@
         
         pageSaveStart : function () {
             return this.each(function() {
-            	//$this = $(this); // don't do $this = $(this); Somehow this operation equals to ipContentManagement = $(this); and raises problems later;
-//            	var saveJob = new ipSaveJob('Title', 10);
-//            	$(this).trigger('addSaveJob.ipContentManagement', ['block_' + $(this).data('ipBlock').name, saveJob]);
-//                var saveJob2 = new ipSaveJob('Title2', 5);
-//                $(this).trigger('addSaveJob.ipContentManagement', ['ablock_' + $(this).data('ipBlock').name, saveJob2]);
-//                
-            	
+            	var $this = $(this);
+                $(this).find('.ipWidget').ipWidget('fetchManaged').ipWidget('save');
             });
         },
         
@@ -159,7 +154,7 @@
         deleteWidget : function(instanceId){
             return this.each(function() {
    	
-	        	$this = $(this);
+	        	var $this = $(this);
 	        	
 	            data = Object();
 	            data.g = 'standard';
@@ -214,7 +209,7 @@
         },       
 
         _createWidgetResponse : function(response) {
-            $this = $(this);
+            var $this = $(this);
             if (response.status == 'error') {
                 $.fn.ipBlock('_showError', response.errorMessage);
             }

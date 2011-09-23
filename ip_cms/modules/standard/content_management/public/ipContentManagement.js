@@ -18,7 +18,7 @@ function ipInitBlocks(event, options) {
 	$('.ipBlock').ipBlock(options);
 }
 
-function ipPageSaveStart (event) {	
+function ipPageSaveStart (event) {
 	$('.ipBlock').ipBlock('pageSaveStart');
 }
 

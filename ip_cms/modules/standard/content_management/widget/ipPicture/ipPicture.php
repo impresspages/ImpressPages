@@ -37,9 +37,11 @@ class Widget_ipPicture extends Widget{
            $data['pictureBig'] = '';    
         }
         
+        if (!isset($data['title'])) {
+           $data['title'] = '';    
+        }
+        
     	$data['instanceId'] = $instanceId;
-    	
-
     	
     	$answer = \Ip\View::create('view/management.php', $data)->render();
     	

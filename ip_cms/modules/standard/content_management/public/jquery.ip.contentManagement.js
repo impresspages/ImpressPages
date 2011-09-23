@@ -58,7 +58,7 @@
         initResponse : function(response) {
             return this.each(function() {        	
 	            if (response.status == 'success') {
-	            	$this = $(this);
+	            	var $this = $(this);
 	                $('body').prepend(response.controlPanelHtml);
 	                $('body').append(response.saveProgressHtml);
 	                
@@ -83,7 +83,10 @@
 	                $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
 	                $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publish');});
 	                
-	                $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){console.log('add job'); console.log(this); $(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
+	                $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
+
+                    $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
+	                
 
 	                
 	                $this.trigger('initFinished.ipContentManagement', options);
@@ -95,7 +98,7 @@
         
         saveStart : function() {
             return this.each(function() {
-                $this = $(this);
+                var $this = $(this);
 
                 $( "#ipSaveProgress" ).dialog({
                     height: 140,
@@ -105,15 +108,14 @@
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar({
                     value: 0
                 });
-                $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', 50);
+                
                 
                 
 	        	$this.trigger('pageSaveStart.ipContentManagement');
-	        	jobsCount = 0;
+	        	var jobsCount = 0;
 	        	for (var prop in $this.data('ipContentManagement').saveJobs) {
 	        	    jobsCount++;
 	        	}
-	        	
 	        	if (jobsCount == 0) {
 	        	    $this.ipContentManagement('saveFinish'); //initiate save finishing action
 	        	} else {
@@ -126,8 +128,9 @@
         
         saveFinish : function() {
             return this.each(function() {
-                return ;
-                $this = $(this);
+//                console.log('save finish');
+//                return ;
+                var $this = $(this);
                 data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
@@ -150,35 +153,57 @@
         
         _savePageResponse: function(response) {
             if (response.status == 'success') {
-              // window.location.href = response.newRevisionUrl;
+               window.location.href = response.newRevisionUrl;
             }
         },
         
         addSaveJob : function (jobName, saveJobObject) {
             return this.each(function() {  
-	        	$(this); //don't do $this = $(this); Somehow this operation equals to ipBlock = $(this); and raises problems if block want to add two jobs;	
-	        	$(this).data('ipContentManagement').saveJobs[jobName] = saveJobObject;
-	        	$(this).ipContentManagement('_displaySaveProgress');
+	        	var $this = $(this);	
+	        	$this.data('ipContentManagement').saveJobs[jobName] = saveJobObject;
+	        	$this.ipContentManagement('_displaySaveProgress');
             });
         },
 
+        removeSaveJob : function (jobName) {
+            return this.each(function() {  
+                var $this = $(this);
+                
+                var tmpData = $this.data('ipContentManagement'); 
+                delete tmpData.saveJobs[jobName];
+                $this.data('ipContentManagement', tmpData);
+
+                $this.ipContentManagement('_displaySaveProgress');
+                
+                var jobsCount = 0;
+                for (var prop in $this.data('ipContentManagement').saveJobs) {
+                    jobsCount++;
+                }
+
+                if (jobsCount == 0) {
+                    $this.ipContentManagement('saveFinish'); //initiate save finishing action
+                } else {
+                    //wait for other jobs to finish
+                }
+            });
+        },        
     
         publish : function(event){
             return this.each(function() {  
-            	$this = $(this);
+            	var $this = $(this);
             });
         },
 
         _displaySaveProgress : function () {
             return this.each(function() {
-	        	$this = $(this);
+	        	var $this = $(this);
 	        	var percentage = 0;
 	        	
 	        	var timeLeft = 0;
 	        	var timeSpent = 0;
 	        	var progress = 0;
 	        	
-	        	var saveJobs = $this.data('ipContentManagement').saveJobs;
+	        	var saveJobs = $(this).data('ipContentManagement').saveJobs;
 	
 	        	
 	        	for (var i in saveJobs) {
@@ -187,6 +212,11 @@
 	        		timeSpent = timeSpent + curJob.getTimeLeft() / (1 - curJob.getProgress()) * curJob.getProgress();	        		
 	        	}
 	        	
+	        	var overallProgress = timeSpent / (timeLeft + timeSpent);
+	        	
+                $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', overallProgress*100);
+	        	
+	        	//console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft  );
             });
         }
 
