@@ -4,7 +4,7 @@
  * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license   GNU/GPL, see ip_license.html
  */
-namespace update_1_0_8_to_1_0_9;
+namespace update_1_0_11_to_1_0_12;
 
 if (!defined('CMS')) exit;
 
@@ -225,43 +225,9 @@ class Script {
         require_once(__DIR__.'/../update_1_0_2_beta_to_1_0_3_beta/parameters_refractor.php');
         
         $answer = '';
-        if (\Db_100::getSystemVariable('version') != '1.0.9') {
-
-            $sql = "ALTER TABLE `".DB_PREF."content_element` CHANGE `row_number` `row_number` DOUBLE NOT NULL DEFAULT '0' ";
-            $rs = mysql_query($sql);
-            if (!$sql) {
-                trigger_error($sql.' '.mysql_error());
-            }
-            
-            $module = \Db_100::getModule(null, 'standard', 'menu_management');
-
-            $parametersRefractor = new \update_1_0_2_beta_to_1_0_3_beta\ParametersRefractor();
-            
-            $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
-            if ($group) {
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'general')) {
-                    \Db_100::addStringParameter($group['id'], 'General', 'general', 'General', 1);
-                }
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'seo')) {
-                    \Db_100::addStringParameter($group['id'], 'Seo', 'seo', 'SEO', 1);
-                }
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'advanced')) {
-                    \Db_100::addStringParameter($group['id'], 'Advanced', 'advanced', 'Advanced', 1);
-                }
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'copy')) {
-                    \Db_100::addStringParameter($group['id'], 'Copy', 'copy', 'Copy', 1);
-                }
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'paste')) {
-                    \Db_100::addStringParameter($group['id'], 'Paste', 'paste', 'Paste', 1);
-                }
-                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'cancel')) {
-                    \Db_100::addStringParameter($group['id'], 'Cancel', 'cancel', 'Cancel', 1);
-                }
-            }
-            
-            
+        if (\Db_100::getSystemVariable('version') != '1.0.12') {
             if ($this->curStep == $this->stepCount){
-                \Db_100::setSystemVariable('version','1.0.9');
+                \Db_100::setSystemVariable('version','1.0.12');
             }
         }
 
