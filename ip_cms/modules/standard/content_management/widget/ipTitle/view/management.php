@@ -1,1 +1,1 @@
-<input name="title" value="<?php echo addslashes($title) ?>" />
+<input name="title" class="ipWidget_ipTitle_title" value="<?php echo htmlspecialchars($title); ?>" />

@@ -259,27 +259,26 @@ class Controller{
         $this->_outputAnswer($data);        
     }
     
-    public function previewWidget() {
-        global $site;
-        
-        if (!isset($_POST['widgetId'])) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
-        }
-        
-        $widgetId = $_POST['widgetId'];
-        
-        $previewHtml = Model::generateWidgetPreview($widgetId, true);
-        
-        $data = array (
-            'status' => 'success',
-            'action' => '_manageWidgetResponse',
-            'previewHtml' => $previewHtml,
-            'widgetId' => $widgetId
-        );
-        
-        $this->_outputAnswer($data);        
-    }    
+//    public function previewWidget() {
+//        global $site;
+//        
+//        if (!isset($_POST['instanceId'])) {
+//            $this->_errorAnswer('Mising POST variable');
+//            return;
+//        }        
+//        $instanceId = $_POST['instanceId'];
+//        
+//        $previewHtml = Model::generateWidgetPreview($instanceId, true);
+//        
+//        $data = array (
+//            'status' => 'success',
+//            'action' => '_manageWidgetResponse',
+//            'previewHtml' => $previewHtml,
+//            'widgetId' => $widgetId
+//        );
+//        
+//        $this->_outputAnswer($data);        
+//    }    
     
     
     public function cancelWidget() {

@@ -12,10 +12,11 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 class Widget_ipTitle extends Widget{
 
 
-    public static function managementHtml($widgetId, $data){
+    public static function managementHtml($instanceId, $data){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
+
         $answer = \Ip\View::create('view/management.php', $data)->render();
         
         return $answer;
@@ -28,7 +29,9 @@ class Widget_ipTitle extends Widget{
            $data['title'] = '';    
         }
         
-        return $data['title'];
+        $answer = \Ip\View::create('view/preview.php', $data)->render();        
+        
+        return $answer;
     }    
     
     public static function getTitle(){

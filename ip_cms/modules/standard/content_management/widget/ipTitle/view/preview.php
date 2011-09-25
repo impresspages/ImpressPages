@@ -1,1 +1,1 @@
-<?php
+Title:<?php echo htmlspecialchars($title); ?>

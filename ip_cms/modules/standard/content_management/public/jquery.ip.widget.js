@@ -28,7 +28,12 @@
                     data = new Array();
                 }
                 
-                data.state = 'preview'; // possible values: preview, management
+                if ($this.hasClass('ipWidgetManagement')) {
+                    data.state = IP_WIDGET_STATE_MANAGEMENT;
+                } else {
+                    data.state = IP_WIDGET_STATE_PREVIEW;
+                }
+                
                 $this.data('ipWidget', data);
 
                 // mange action
@@ -44,6 +49,7 @@
                     $(this).trigger('saveWidget.ipWidget');
                 });
                 $this.bind('saveWidget.ipWidget', function(event) {
+                    console.log(this);
                     $(this).ipWidget('save');
                 });
 
@@ -89,7 +95,7 @@
                 return;
             }            
             
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'manageWidget';
@@ -127,7 +133,7 @@
                 widgetName = $($newWidget).data('ipWidget').name;
                 if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
                     eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
-                    $($newWidget).data('ipWidget').status = 'management';
+                    $($newWidget).data('ipWidget').status = IP_WIDGET_STATE_MANAGEMENT;
                     widgetPluginObject.manageInit();
                 }              
                 
@@ -160,7 +166,7 @@
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
-                $this.ipWidget('preview');
+                $this.ipWidget('_saveData', new Array());
             }
 
         });
@@ -180,8 +186,7 @@
 
         return this.each(function() {
             var $this = $(this);
-            console.log(widgetData);
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'updateWidget';
@@ -228,7 +233,7 @@
                 return;
             }
 
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'cancelWidget';
@@ -261,7 +266,7 @@
             
             $this.remove();            
         });
-    },  
+    }
     
 
     

@@ -136,7 +136,7 @@ class Db{
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE `pageId` = ".(int)$pageId." AND `zoneName` = '".mysql_real_escape_string($zoneName)."'
-            ORDER BY `created` DESC
+            ORDER BY `created` DESC, `revisionId` DESC
         ";    
         
         $rs = mysql_query($sql);

@@ -87,7 +87,8 @@
 
                     $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
 	                
-
+                    $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
+                    
 	                
 	                $this.trigger('initFinished.ipContentManagement', options);
 	            }
@@ -102,13 +103,18 @@
 
                 $( "#ipSaveProgress" ).dialog({
                     height: 140,
-                    modal: true
+                    modal: true,
+                    close: function(event, ui) { $(this).trigger('saveCancel.ipContentManagement'); }
                 });
                 
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar({
                     value: 0
                 });
                 
+                
+                var tmpData = $this.data('ipContentManagement');
+                tmpData.saving = true;
+                $this.data('ipContentManagement', tmpData);
                 
                 
 	        	$this.trigger('pageSaveStart.ipContentManagement');
@@ -126,11 +132,27 @@
      
         },
         
+        saveCancel : function() {
+            var $this = $(this);
+            var tmpData = $this.data('ipContentManagement');
+            tmpData.saving = false;
+            $this.data('ipContentManagement', tmpData);
+            $( "#ipSaveProgress" ).dialog('close');            
+        },
+        
         saveFinish : function() {
             return this.each(function() {
 //                console.log('save finish');
 //                return ;
+                
+                
                 var $this = $(this);
+                
+                if (!$this.data('ipContentManagement').saving) {
+                    return;
+                }
+                
+                
                 data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
@@ -153,7 +175,10 @@
         
         _savePageResponse: function(response) {
             if (response.status == 'success') {
-               window.location.href = response.newRevisionUrl;
+                window.location.href = response.newRevisionUrl;
+            } else {
+                //show error
+                $( "#ipSaveProgress" ).dialog('close');
             }
         },
         
@@ -190,6 +215,7 @@
     
         publish : function(event){
             return this.each(function() {  
+                console.log('publish log');
             	var $this = $(this);
             });
         },

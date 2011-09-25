@@ -94,8 +94,6 @@
                     
                     
                     var widgetOptions = new Object;
-                    widgetOptions.widgetControls1Html = options.widgetControls1Html;
-                    widgetOptions.widgetControls2Html = options.widgetControls2Html;
                     $this.find('.ipWidget').ipWidget(widgetOptions);
                     $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControls1Html);
                     $this.find('.ipWidgetManagement').append($this.data('ipBlock').widgetControls2Html);
@@ -114,15 +112,14 @@
         },
         
         reinit : function () {
-            return this.each(function() {       
+            return this.each(function() {      
+                console.log('reinit');
                 var $this = $(this);
                 var widgetOptions = new Object;
-                widgetOptions.widgetControls1Html = $(this).data('ipBlock').widgetControls1Html;
-                widgetOptions.widgetControls2Html = $(this).data('ipBlock').widgetControls2Html;
-                $(this).find('.ipWidget').ipWidget(widgetOptions);
                 $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControls1Html);
                 $(this).find('.ipWidgetManagement').append($(this).data('ipBlock').widgetControls2Html);
                 
+                $(this).find('.ipWidget').ipWidget(widgetOptions);
                                
                 
             });
@@ -174,6 +171,7 @@
         },
         
         _deleteResponse : function(response){
+            var $this = $(this);
         	$this.find('#ipWidget_' + response.widgetId).remove();
         },
                 
@@ -222,7 +220,8 @@
 	                $(response.widgetManagementHtml).insertAfter($secondChild);
             	}
             	
-            	$this.ipBlock('reinit');
+            	$this.trigger('reinitRequired.ipWidget');
+            	//$this.ipBlock('reinit');
 
 
             }

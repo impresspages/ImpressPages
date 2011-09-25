@@ -53,6 +53,17 @@ class Widget_ipPicture extends Widget{
         
         $answer = '';
 
+        if (!isset($data['picture'])) {
+           $data['picture'] = '';    
+        }
+        
+        if (!isset($data['pictureBig'])) {
+           $data['pictureBig'] = '';    
+        }
+        
+        if (!isset($data['title'])) {
+           $data['title'] = '';    
+        }        
         
         $answer = \Ip\View::create('view/preview.php', $data)->render();        
         
