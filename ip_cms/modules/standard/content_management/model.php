@@ -146,7 +146,7 @@ class Model{
                 i.deleted IS NULL
             ORDER BY `position` ASC
         ";    
-        
+      
         $rs = mysql_query($sql);
         if (!$rs){
             throw new \Exception('Can\'t get revision data '.$sql.' '.mysql_error());
@@ -161,7 +161,12 @@ class Model{
                     if ($dataSql != '') {
                         $dataSql .= ', ';    
                     }
-                    $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
+                    if ($value !== null) {
+                        $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
+                    } else {
+                        $dataSql .= " `".$key."` = NULL ";
+                    }
+                    
                 } 
             }
             

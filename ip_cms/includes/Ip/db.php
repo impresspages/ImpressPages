@@ -117,7 +117,7 @@ class Db{
 
     public static function duplicateRevision ($oldRevisionId) {
         global $dispatcher;
-        
+
         $oldRevision = self::getRevision($oldRevisionId);
         $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
         
@@ -125,7 +125,6 @@ class Db{
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        
         $dispatcher->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));    
             
         return $newRevisionId;        

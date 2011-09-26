@@ -113,7 +113,6 @@
         
         reinit : function () {
             return this.each(function() {      
-                console.log('reinit');
                 var $this = $(this);
                 var widgetOptions = new Object;
                 $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControls1Html);

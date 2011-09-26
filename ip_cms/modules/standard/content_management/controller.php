@@ -378,6 +378,7 @@ class Controller{
         $revisionId = $_POST['revisionId'];
         
         $newRevisionId = \Ip\Db::duplicateRevision($revisionId);
+
         
         $data = array (
             'status' => 'success',

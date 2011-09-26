@@ -1073,14 +1073,21 @@ class Site{
             'description' => $this->getDescription(),
             'favicon' => $this->getKeywords(),
             'charset' => CHARSET,
-            'javascript' => $this->requiredJavascript,
             'css' => $this->requiredCss
         );
         
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/head.php', $data)->render();
     }
     
-    
+    public function generateJavascript() {
+        $data = array (
+            'javascript' => $this->requiredJavascript
+        );
+        
+        return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
+        
+            
+    }
     
     
     public function generateBlock($blockName) {

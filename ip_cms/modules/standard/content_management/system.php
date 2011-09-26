@@ -34,11 +34,12 @@ class System{
             
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadPicture.js');
             
-            
+            $revision = $site->getRevision();
             $getVars = array (
 				'g' => 'standard',
 				'm' => 'content_management',
-				'a' => 'initVariables'            
+				'a' => 'initVariables',
+                'cms_revision' => $revision['revisionId']           
             );
             $site->addJavascript($site->generateUrl(null, null, null, $getVars));
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
