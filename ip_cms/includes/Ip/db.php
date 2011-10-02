@@ -114,6 +114,31 @@ class Db{
         
         return $revisionId;        
     }       
+    
+    public static function publishRevision ($revisionId) {
+        $revision = self::getRevision($revisionId);
+        if (!$revision) {
+            return false;
+        }
+        
+         
+        $sql = "
+            UPDATE `".DB_PREF."revision`
+            SET
+                `published` = (revisionId = '".(int)$revisionId."')
+            WHERE
+                `zoneName` = '".mysql_real_escape_string($revision['zoneName'])."'
+                AND
+                `pageId` = '".(int)$revision['pageId']."'
+        ";   
+
+        $rs = mysql_query($sql);
+            
+        if (!$rs) {
+            throw new \Exception("Can't publish revision " . $sql . ' '. mysql_error()); 
+        }
+
+    }
 
     public static function duplicateRevision ($oldRevisionId) {
         global $dispatcher;

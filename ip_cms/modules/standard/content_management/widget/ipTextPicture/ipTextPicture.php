@@ -4,13 +4,13 @@
  * @copyright   Copyright (C) 2011 ImpressPages LTD.
  * @license GNU/GPL, see ip_license.html
  */
-namespace Modules\standard\content_management;
+namespace Modules\standard\content_management\widget;
 
 if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
-class Widget_ipTextPicture extends Widget{
+class ipTextPicture extends \Modules\standard\content_management\Widget{
 
 
     

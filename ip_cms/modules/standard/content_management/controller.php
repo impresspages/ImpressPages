@@ -11,27 +11,7 @@ if (!defined('CMS')) exit;
 require_once(__DIR__.'/model.php');
 
 class Controller{
-    
 
-    public function initVariables(){
-        global $site;
-        
-        header('Content-type: text/javascript');
-        $revision = $site->getRevision();
-        $data = array (
-            'ipBaseUrl' => BASE_URL,
-            'ipLibraryDir' => LIBRARY_DIR,
-            'ipThemeDir' => THEME_DIR,
-            'ipModuleDir' => MODULE_DIR,
-            'ipTheme' => THEME,
-            'ipManagementUrl' => $site->generateUrl(),
-        	'ipZoneName' => $site->getCurrentZone()->getName(),
-        	'ipPageId' => $site->getCurrentElement()->getId(),
-        	'ipRevisionId' => $revision['revisionId']
-        );
-        $answer = \Ip\View::create('view/init_variables.php', $data)->render();
-        $site->setOutput($answer);
-    }
     
 
     public function initManagementData(){
@@ -41,17 +21,20 @@ class Controller{
         $revisions = \Ip\Db::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         
         $managementUrls = array();
-        foreach($revisions as $revisionKey => $revision) {
-           $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId']; 
+        foreach($revisions as $revisionKey => $revision) {            
+            $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId']; 
         }
         
         $revision = $site->getRevision();
+                
+        $manageableRevision = $revisions[0]['revisionId'] == $revision['revisionId'];
         
         $data = array (
             'widgets' => $widgets,
             'revisions' => $revisions,
-            'currentRevisionId' => $revision['revisionId'],
-            'managementUrls' => $managementUrls 
+            'currentRevision' => $revision,
+            'managementUrls' => $managementUrls,
+            'manageableRevision' => $manageableRevision
         );
         
         $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
@@ -60,13 +43,13 @@ class Controller{
         $widgetControls2Html = \Ip\View::create('view/widget_controls2.php', $data)->render();
         
         $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
-        
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
         	'widgetControls1Html' => $widgetControls1Html,
             'widgetControls2Html' => $widgetControls2Html,
-            'saveProgressHtml' => $saveProgressHtml
+            'saveProgressHtml' => $saveProgressHtml,
+            'manageableRevision' => $manageableRevision
         );
         
         $this->_outputAnswer($data);
@@ -382,7 +365,7 @@ class Controller{
         
         $data = array (
             'status' => 'success',
-            'action' => '_deleteWidgetResponse',
+            'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
             'newRevisionUrl' => $site->getCurrentElement()->getLink().'&cms_revision='.$newRevisionId 
         );
@@ -390,6 +373,29 @@ class Controller{
         $this->_outputAnswer($data);   
         
     }
+
+    public function publishPage () {
+        global $site;
+            
+        if (!isset($_POST['revisionId'])) {
+            $this->_errorAnswer('Mising revisionId POST variable');
+            return;
+        }        
+        $revisionId = $_POST['revisionId'];
+        
+        \Ip\Db::publishRevision($revisionId);
+        
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_publishPageResponse',
+            'newRevisionUrl' => $site->getCurrentElement()->getLink().'&cms_revision='.$revisionId 
+        );
+        
+        $this->_outputAnswer($data);   
+        
+    }
+    
     
     private function _errorAnswer($errorMessage) {
         $data = array (

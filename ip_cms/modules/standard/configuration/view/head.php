@@ -7,3 +7,4 @@
 <?php foreach ($css as $key => $file) { ?>
         <link href="<?php echo $file ?>" rel="stylesheet" type="text/css" />
 <?php } ?>
+

@@ -52,7 +52,7 @@
                         
                             $.ajax({
                                 type : 'POST',
-                                url : ipBaseUrl,
+                                url : ip.baseUrl,
                                 data : data,
                                 context : $this,
                                 success : methods._moveWidgetResponse,
@@ -160,7 +160,7 @@
 	        
 	            $.ajax({
 	                type : 'POST',
-	                url : ipBaseUrl,
+	                url : ip.baseUrl,
 	                data : data,
 	                context : $this,
 	                success : methods._deleteResponse,
@@ -194,7 +194,7 @@
 	        
 	            $.ajax({
 	                type : 'POST',
-	                url : ipBaseUrl,
+	                url : ip.baseUrl,
 	                data : data,
 	                context : $this,
 	                success : methods._createWidgetResponse,

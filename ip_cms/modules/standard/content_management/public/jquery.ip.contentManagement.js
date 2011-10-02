@@ -63,12 +63,13 @@
 	                $('body').append(response.saveProgressHtml);
 	                
 	                var options = new Object;
-	                options.zoneName = ipZoneName;
-	                options.pageId = ipPageId;
-	                options.revisionId = ipRevisionId;
+	                options.zoneName = ip.zoneName;
+	                options.pageId = ip.pageId;
+	                options.revisionId = ip.revisionId;
 	                options.widgetControls1Html = response.widgetControls1Html;
                     options.widgetControls2Html = response.widgetControls2Html;
 	                options.contentManagementObject = $this;
+	                options.manageableRevision = response.manageableRevision;
 	                
 
 	                
@@ -89,8 +90,7 @@
 	                
                     $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
                     
-	                
-	                $this.trigger('initFinished.ipContentManagement', options);
+                    $this.trigger('initFinished.ipContentManagement', options);
 	            }
             });
         },
@@ -157,7 +157,7 @@
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'savePage';
-                data.revisionId = ipRevisionId;
+                data.revisionId = ip.revisionId;
 
 
                 refreshLocation = document.location
@@ -177,6 +177,10 @@
             if (response.status == 'success') {
                 window.location.href = response.newRevisionUrl;
             } else {
+                var tmpData = $this.data('ipContentManagement');
+                tmpData.saving = false;
+                $this.data('ipContentManagement', tmpData);
+                                
                 //show error
                 $( "#ipSaveProgress" ).dialog('close');
             }
@@ -215,9 +219,32 @@
     
         publish : function(event){
             return this.each(function() {  
-                console.log('publish log');
             	var $this = $(this);
+            	
+                data = Object();
+                data.g = 'standard';
+                data.m = 'content_management';
+                data.a = 'publishPage';
+                data.revisionId = ip.revisionId;
+
+                $.ajax({
+                    type : 'POST',
+                    url : document.location,
+                    data : data,
+                    context : $this,
+                    success : methods._publishPageResponse,
+                    dataType : 'json'
+                });                  	
             });
+        },
+        
+        
+        _publishPageResponse : function (response) {
+            if (response.status == 'success') {
+                window.location.href = response.newRevisionUrl;
+            } else {
+                //show error
+            }            
         },
 
         _displaySaveProgress : function () {

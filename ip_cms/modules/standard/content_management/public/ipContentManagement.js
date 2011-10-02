@@ -7,19 +7,23 @@
 $(document).ready(function() {
 
 	$ipObject = $(document);
-	$ipObject.ipContentManagement();
 
 	$ipObject.bind('initFinished.ipContentManagement', ipInitBlocks);
-	$ipObject.bind('pageSaveStart.ipContentManagement', ipPageSaveStart);
+	
+
+    $ipObject.ipContentManagement();
+
 });
 
 function ipInitBlocks(event, options) {
-
-	$('.ipBlock').ipBlock(options);
+    if (options.manageableRevision) {
+        $('.ipBlock').ipBlock(options);
+        $ipObject.bind('pageSaveStart.ipContentManagement', ipPageSaveStart);
+    }
 }
 
 function ipPageSaveStart (event) {
-	$('.ipBlock').ipBlock('pageSaveStart');
+    $('.ipBlock').ipBlock('pageSaveStart');
 }
 
 /**

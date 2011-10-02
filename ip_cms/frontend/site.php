@@ -1080,7 +1080,17 @@ class Site{
     }
     
     public function generateJavascript() {
+        $revision = $this->getRevision();             
         $data = array (
+            'ipBaseUrl' => BASE_URL,
+            'ipLibraryDir' => LIBRARY_DIR,
+            'ipThemeDir' => THEME_DIR,
+            'ipModuleDir' => MODULE_DIR,
+            'ipTheme' => THEME,
+            'ipManagementUrl' => $this->generateUrl(),
+            'ipZoneName' => $this->getCurrentZone()->getName(),
+            'ipPageId' => $this->getCurrentElement()->getId(),
+            'ipRevisionId' => $revision['revisionId'],
             'javascript' => $this->requiredJavascript
         );
         
@@ -1140,6 +1150,7 @@ class Site{
                     $revision = $this->_createRevision();
                 } 
             }
+                
     	} else {
 	    	require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
     		$revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
@@ -1152,7 +1163,7 @@ class Site{
         $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
         $revision = \Ip\Db::getRevision($revisionId);
         if ($revision === false) {
-            throw new Exception("Can't find created revision " . $revisionId); 
+            throw new \Exception("Can't find created revision " . $revisionId); 
         }
         return $revision;    
     }

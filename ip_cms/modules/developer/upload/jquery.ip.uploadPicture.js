@@ -14,7 +14,7 @@
             return this.each(function() {
                 
                 var $this = $(this);
-                var defaultPicture = ipModuleDir + 'developer/upload/img/empty_picture.png';
+                var defaultPicture = ip.moduleDir + 'developer/upload/img/empty_picture.png';
                 
                 
                 var data = $this.data('ipUploadPicture');
@@ -171,7 +171,7 @@
                         browse_button : 'ipUploadButton_' + uniqueId,
                         container : 'ipUploadContainer_' + uniqueId,
                         max_file_size : '100mb',            
-                        url : ipBaseUrl, //website root (available globaly in ImpressPages environment)
+                        url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                         multipart_params : {
                             g : 'developer',
                             m : 'upload',
@@ -179,8 +179,8 @@
                         },
                         
                         
-                        flash_swf_url : ipBaseUrl + ipLibraryDir + 'js/plupload/plupload.flash.swf',
-                        silverlight_xap_url : ipBaseUrl + ipLibraryDir + 'js/plupload/plupload.silverlight.xap'
+                        flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
+                        silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
                     });
 
                     uploader.bind('Init', function(up, params) {
@@ -222,7 +222,7 @@
                         var data = $this.data('ipUploadPicture');
                         data.curPicture = answer.fileName;
                         $this.data('ipUploadPicture', data);
-                        $this.find('.preview').attr('src', ipBaseUrl + answer.fileName);
+                        $this.find('.preview').attr('src', ip.baseUrl + answer.fileName);
                     });
 
                     

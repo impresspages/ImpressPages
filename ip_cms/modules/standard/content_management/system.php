@@ -34,20 +34,7 @@ class System{
             
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadPicture.js');
             
-            $revision = $site->getRevision();
-            $getVars = array (
-				'g' => 'standard',
-				'm' => 'content_management',
-				'a' => 'initVariables',
-                'cms_revision' => $revision['revisionId']           
-            );
-            $site->addJavascript($site->generateUrl(null, null, null, $getVars));
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
-            
-            
-            foreach (self::_getWidgets() as $key => $widgetName) {
-                $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widget/'.$widgetName.'/'.$widgetName.'.js');
-            }
             
         }     
 
@@ -58,39 +45,87 @@ class System{
     }
     
     public static function collectWidgets(EventWidget $event){
-        
-        foreach (self::_getWidgets() as $key => $widgetName) {
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/'.$widgetName.'/'.$widgetName.'.php');
-            
-            eval('$widget = new \Modules\standard\content_management\Widget_'.$widgetName.'();');
-            $event->addWidget($widget);
+        global $site;
+        require_once(BASE_DIR.FRONTEND_DIR.'db.php');
+        $modules = \Frontend\Db::getModules();
+
+         
+        //loopa all installed modules
+        foreach ($modules as $moduleKey => $module) {
+                $themeDir = BASE_DIR.THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                
+                if ($module['core']) {
+                    $widgetDir = BASE_DIR.MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                } else {
+                    $widgetDir = BASE_DIR.PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                }
+                       
+                if (! file_exists($widgetDir) || ! is_dir($widgetDir)) {
+                    continue;
+                }
+                
+                $widgetFolders = scandir($widgetDir);
+                
+                if ($widgetFolders === false) {
+                    return;
+                }
+                
+                //foeach all widget folders
+                foreach ($widgetFolders as $widgetFolderKey => $widgetFolder) {
+                    //each directory is a widget  
+                    if (!is_dir($widgetDir.$widgetFolder)){
+                        continue;
+                    }            
+                    
+                    //register widget if widget controller exists
+                    if (file_exists($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php') && is_file($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php')) {
+                        require_once($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php');
+                        eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\widget\\'.$widgetFolder.'();');
+                        $event->addWidget($widget);                    
+                    }
+                    
+                    //scan for js and css files required for widget management
+                    if ($site->managementState()) {
+                        self::includeResources($widgetDir.$widgetFolder, $themeDir.$widgetFolder);
+                    }
+                    $publicResourcesDir = $widgetDir.$widgetFolder.'/public';
+                    $publicResourcesThemeDir = $themeDir.$widgetFolder.'/public';
+                    if (file_exists($publicResourcesDir) && is_dir($publicResourcesDir)){
+                        self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
+                    }
+                }
         }
-        
-//        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/title/widget.php');
-//        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/text/widget.php');
-//        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget/text_photo/widget.php');
-//        
-//        $widget = new WidgetTitle();
-//        $event->addWidget($widget);
-//        $widget = new WidgetText();
-//        $event->addWidget($widget);
-//        $widget = new WidgetTextPhoto();
-//        $event->addWidget($widget);
+
+    }
+
+    public static function includeResources($resourcesFolder, $overrideFolder){
+        global $site;
+        $files = scandir($resourcesFolder);
+        if ($files === false) {
+            continue;
+        }
+        foreach ($files as $fileKey => $file) {
+            if (is_dir($resourcesFolder)){
+                continue;
+            }      
+            if (substr($file, -3) == '.js'){
+                $site->addJavascript($resourcesFolder.'/'.$file);
+            }
+            if (substr($file, -4) == '.css'){
+                //overriden css version exists
+                if (file_exists($overrideFolder.'/'.$file)){
+                    $site->addCss($overrideFolder.'/'.$file);
+                } else {
+                    $site->addCss($resourcesFolder.'/'.$file);
+                }
+            }
+        }
     }
     
     public static function duplicatedRevision (\Ip\Event $event) {
         Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
     }   
     
-    
-    private static function _getWidgets () {
-        return array (
-            'ipTitle',
-            'ipText',
-            'ipTextPicture',            
-            'ipPicture',
-        );           
-    }
 
     
 }            

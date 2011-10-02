@@ -99,6 +99,6 @@
       <div class="clear"><!-- --></div>
     </div>
 
-    <?php echo $site->generateJavascript(); ?>
+<?php echo $site->generateJavascript(); ?>
 </body>
 </html>
