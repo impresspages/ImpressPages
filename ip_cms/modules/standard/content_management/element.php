@@ -53,7 +53,7 @@ class Element extends \Frontend\Element {
     global $moduleUrl;
     global $site;
 
-    return 'content';
+    return $site->generateBlock('main');
 
 
   }

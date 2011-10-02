@@ -15,9 +15,7 @@ class Model{
     
     public static function generateBlock($blockName, $revisionId, $managementState) {
     	global $site;
-
     	$widgets = self::getBlockWidgetRecords($blockName, $revisionId);
-    	
     	$widgetsHtml = array();
     	foreach ($widgets as $key => $widget) {
     	    try {
@@ -41,7 +39,6 @@ class Model{
     		'revisionId' => $revisionId,
     		'managementState' => $managementState
     	);
-    	
     	$answer = \Ip\View::create('view/block.php', $data)->render();
     	return $answer;
     }
