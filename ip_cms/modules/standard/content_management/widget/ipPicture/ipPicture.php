@@ -14,7 +14,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
 
 
     
-    public static function post($instanceId, $postData, $data) {
+    public function post($instanceId, $postData, $data) {
         $answer = '';
         
         $newData = array();
@@ -27,7 +27,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
         return $answer;  
     }
     
-    public static function managementHtml($instanceId, $data){
+    public function managementHtml($instanceId, $data, $layout){
     	
     	if (!isset($data['picture'])) {
     	   $data['picture'] = '';    
@@ -49,7 +49,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
     }
     
     
-    public static function previewHtml($widgetId, $data){
+    public function previewHtml($widgetId, $data, $layout){
         
         $answer = '';
 
@@ -70,16 +70,16 @@ class ipPicture extends \Modules\standard\content_management\Widget{
         return $answer;
     }
     
-    public static function getTitle(){
+    public function getTitle(){
         return 'Picture';
     }
     
-    public static function getIcon(){
+    public function getIcon(){
         return MODULE_DIR.'standard/content_management/widget/'.self::getName().'/icon.gif';
     }
     
-    public static function getName(){
-        return 'ipPicture';
+    public function getName(){
+        return 'IpPicture';
     }    
     
 

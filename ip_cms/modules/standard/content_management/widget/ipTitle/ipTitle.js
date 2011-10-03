@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 console.log('included');
-function ipWidget_ipTitle(widgetObject) {
+function ipWidget_IpTitle(widgetObject) {
     this.widgetObject = widgetObject;
     this.prepareData = prepareData;
     this.manageInit = manageInit;

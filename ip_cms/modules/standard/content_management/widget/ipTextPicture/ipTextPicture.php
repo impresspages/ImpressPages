@@ -14,7 +14,7 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
 
 
     
-    public static function post($instanceId, $postData, $data) {
+    public function post($instanceId, $postData, $data) {
         $answer = '';
         
         $newData = array();
@@ -27,7 +27,7 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
         return $answer;  
     }
     
-    public static function managementHtml($instanceId, $data){
+    public function managementHtml($instanceId, $data, $layout){
     	
     	if (!isset($data['text'])) {
     	   $data['text'] = '';    
@@ -43,7 +43,7 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
     }
     
     
-    public static function previewHtml($widgetId, $data){
+    public function previewHtml($widgetId, $data, $layout){
         
         $answer = '';
         
@@ -53,16 +53,16 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
         return $answer;
     }
     
-    public static function getTitle(){
+    public function getTitle(){
         return 'Text with picture';
     }
     
-    public static function getIcon(){
+    public function getIcon(){
         return MODULE_DIR.'standard/content_management/widget/ipTextPicture/icon.gif';
     }
     
-    public static function getName(){
-        return 'ipTextPicture';
+    public function getName(){
+        return 'IpTextPicture';
     }    
     
 

@@ -12,7 +12,7 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
 class ipText extends \Modules\standard\content_management\Widget{
     
-    public static function managementHtml($widgetId, $data){
+    public function managementHtml($widgetId, $data, $layout){
     	
     	if (!isset($data['text'])) {
     	   $data['text'] = '';    
@@ -23,7 +23,7 @@ class ipText extends \Modules\standard\content_management\Widget{
     }
     
     
-    public static function previewHtml($instanceId, $data){
+    public function previewHtml($instanceId, $data, $layout){
         
         $answer = '';
         
@@ -33,16 +33,16 @@ class ipText extends \Modules\standard\content_management\Widget{
         return $answer;
     }
     
-    public static function getTitle(){
+    public function getTitle(){
         return 'Text';
     }
     
-    public static function getIcon(){
+    public function getIcon(){
         return MODULE_DIR.'standard/content_management/widget/ipText/icon.gif';
     }
     
-    public static function getName(){
-        return 'ipText';
+    public function getName(){
+        return 'IpText';
     }    
     
 

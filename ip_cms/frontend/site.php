@@ -9,9 +9,13 @@
 
 if (!defined('CMS')) exit;
 
+define('IP_DEFAULT_WIDGET_FOLDER', 'widget');
+
 require_once (__DIR__.'/zone.php');
 require_once (__DIR__.'/db.php');
 require_once (__DIR__.'/language.php');
+
+
 
 /**
  *

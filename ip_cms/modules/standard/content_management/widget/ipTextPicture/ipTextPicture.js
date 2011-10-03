@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-function ipWidget_ipTextPicture(widgetObject) {
+function ipWidget_IpTextPicture(widgetObject) {
     this.widgetObject = widgetObject;
 
     this.prepareData = prepareData;

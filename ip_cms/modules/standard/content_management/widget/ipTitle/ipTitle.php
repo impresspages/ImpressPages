@@ -12,7 +12,7 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 class ipTitle extends \Modules\standard\content_management\Widget{
 
 
-    public static function managementHtml($instanceId, $data){
+    public function managementHtml($instanceId, $data, $layout){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
@@ -24,7 +24,7 @@ class ipTitle extends \Modules\standard\content_management\Widget{
     }
     
     
-    public static function previewHtml($instanceId, $data){
+    public function previewHtml($instanceId, $data, $layout){
         if (!isset($data['title'])) {
            $data['title'] = '';    
         }
@@ -34,16 +34,16 @@ class ipTitle extends \Modules\standard\content_management\Widget{
         return $answer;
     }    
     
-    public static function getTitle(){
+    public function getTitle(){
         return 'Title';
     }
     
-    public static function getIcon(){
+    public function getIcon(){
         return MODULE_DIR.'standard/content_management/widget/ipTitle/icon.gif';
     }
     
-    public static function getName(){
-        return 'ipTitle';
+    public function getName(){
+        return 'IpTitle';
     }    
     
   

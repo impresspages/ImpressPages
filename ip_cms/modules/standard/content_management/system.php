@@ -47,24 +47,25 @@ class System{
     public static function collectWidgets(EventWidget $event){
         global $site;
         require_once(BASE_DIR.FRONTEND_DIR.'db.php');
+        require_once(__DIR__.'/widget.php');
         $modules = \Frontend\Db::getModules();
 
          
-        //loopa all installed modules
+        //loop all installed modules
         foreach ($modules as $moduleKey => $module) {
-                $themeDir = BASE_DIR.THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                $themeDir = THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/'.IP_DEFAULT_WIDGET_FOLDER.'/';
                 
                 if ($module['core']) {
-                    $widgetDir = BASE_DIR.MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                    $widgetDir = MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
                 } else {
-                    $widgetDir = BASE_DIR.PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                    $widgetDir = PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
                 }
                        
-                if (! file_exists($widgetDir) || ! is_dir($widgetDir)) {
+                if (! file_exists(BASE_DIR.$widgetDir) || ! is_dir(BASE_DIR.$widgetDir)) {
                     continue;
                 }
                 
-                $widgetFolders = scandir($widgetDir);
+                $widgetFolders = scandir(BASE_DIR.$widgetDir);
                 
                 if ($widgetFolders === false) {
                     return;
@@ -73,15 +74,18 @@ class System{
                 //foeach all widget folders
                 foreach ($widgetFolders as $widgetFolderKey => $widgetFolder) {
                     //each directory is a widget  
-                    if (!is_dir($widgetDir.$widgetFolder)){
+                    if (!is_dir(BASE_DIR.$widgetDir.$widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..'){
                         continue;
                     }            
                     
                     //register widget if widget controller exists
-                    if (file_exists($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php') && is_file($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php')) {
-                        require_once($widgetDir.$widgetFolder.'/'.$widgetFolder.'.php');
-                        eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\widget\\'.$widgetFolder.'();');
+                    if (file_exists(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php') && is_file(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php')) {
+                        require_once(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php');
+                        eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\'.IP_DEFAULT_WIDGET_FOLDER.'\\'.$widgetFolder.'($widgetFolder, $module[\'g_name\'], $module[\'m_name\'], $module[\'core\']);');
                         $event->addWidget($widget);                    
+                    } else {                        
+                        $widget = new Widget($widgetFolder, $module['g_name'], $module['m_name'], $module['core']);
+                        $event->addWidget($widget);
                     }
                     
                     //scan for js and css files required for widget management
@@ -90,7 +94,7 @@ class System{
                     }
                     $publicResourcesDir = $widgetDir.$widgetFolder.'/public';
                     $publicResourcesThemeDir = $themeDir.$widgetFolder.'/public';
-                    if (file_exists($publicResourcesDir) && is_dir($publicResourcesDir)){
+                    if (file_exists(BASE_DIR.$publicResourcesDir) && is_dir(BASE_DIR.$publicResourcesDir)){
                         self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
                     }
                 }
@@ -100,23 +104,23 @@ class System{
 
     public static function includeResources($resourcesFolder, $overrideFolder){
         global $site;
-        $files = scandir($resourcesFolder);
+        $files = scandir(BASE_DIR.$resourcesFolder);
         if ($files === false) {
             continue;
         }
         foreach ($files as $fileKey => $file) {
-            if (is_dir($resourcesFolder)){
+            if (is_dir(BASE_DIR.$resourcesFolder.$file)){
                 continue;
             }      
             if (substr($file, -3) == '.js'){
-                $site->addJavascript($resourcesFolder.'/'.$file);
+                $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file);
             }
             if (substr($file, -4) == '.css'){
                 //overriden css version exists
                 if (file_exists($overrideFolder.'/'.$file)){
-                    $site->addCss($overrideFolder.'/'.$file);
+                    $site->addCss(BASE_URL.$overrideFolder.'/'.$file);
                 } else {
-                    $site->addCss($resourcesFolder.'/'.$file);
+                    $site->addCss(BASE_URL.$resourcesFolder.'/'.$file);
                 }
             }
         }
