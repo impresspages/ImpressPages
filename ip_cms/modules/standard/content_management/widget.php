@@ -11,6 +11,8 @@ class Widget{
     var $moduleGroup;
     var $moduleName;
     var $core;
+    const PREVIEW_DIR = 'preview';
+    const MANAGEMENT_DIR = 'management';
     
     public function __construct($name, $moduleGroup, $moduleName, $core = false) {
         $this->name = $name;
@@ -55,20 +57,44 @@ class Widget{
     
     public function getLayouts() {
         global $parametersMod;
-        $availableViews = scandir(BASE_DIR.$this->widgetDir);
         
-        $layouts = array();
-        foreach ($availableViews as $viewKey => $viewFile) {
-            $layout = substr($viewFile, 0, -4);
-            if (is_file($viewFile) && substr($viewFile, -4) == '.php') {
-                if ($parametersMod->exist($this->moduleGroup, $this->moduleName, 'translations', 'layout_'.$layout)) {
-                    $translation = $parametersMod->getValue($this->moduleGroup, $this->moduleName, 'translations', 'layout_'.$layout);
-                } else {
-                    $translation = $layout;
-                }
-                $layouts[] = array('name' => $layout, 'title' => $translation);
+        $views = array();
+        
+        //collect default view files
+        $availableViewFiles = scandir(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR);
+        foreach ($availableViewFiles as $viewKey => $viewFile) {
+            //$layout = substr($viewFile, 0, -4);
+            if (is_file(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
+                $views[substr($viewFile, 0, -4)] = 1;
             }
         }
+
+        //collect overriden theme view files
+        $themeViewsFolder = BASE_DIR.THEME_DIR.THEME.'/modules/'.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR;
+        if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
+            $availableViewFiles = scandir($themeViewsFolder);
+            foreach ($availableViewFiles as $viewKey => $viewFile) {
+                $layout = substr($viewFile, 0, -4);
+                if (is_file($themeViewsFolder.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
+                    $views[substr($viewFile, 0, -4)] = 1;
+                }
+            }
+        }
+        
+        $layouts = array();
+        foreach ($views as $viewKey => $view) {
+            if ($parametersMod->exist($this->moduleGroup, $this->moduleName, 'translations', 'layout_'.$viewKey)) {
+                $translation = $parametersMod->getValue($this->moduleGroup, $this->moduleName, 'translations', 'layout_'.$viewKey);
+            } else {
+                $translation = $viewKey;
+            }
+            $layouts[] = array('name' => $viewKey, 'title' => $translation);
+        }
+        
+        if (empty($layouts)) {
+            $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'default'));
+        }
+        
         return $layouts;
     }
     
@@ -89,7 +115,7 @@ class Widget{
     }
     
     public function previewHtml($widgetId, $data, $layout) {
-        
+            
     }
     
 

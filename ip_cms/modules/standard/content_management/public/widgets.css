@@ -64,9 +64,31 @@
 	display: block;
 }
 
-.ipWidgetButtons span {
-	background-color: #ccc;
-	cursor: pointer;
-	padding: 5px;
-	float: left;
+.ipWidgetLayoutSelect {
+    float: right;	
 }
+
+.ipWidgetManagement {
+    background-color: #eee;
+}
+
+.ipWidgetManagementHeader {
+	padding: 4px;
+}
+
+.ipWidgetManagementBody {
+    border: 1px solid #ccc;	
+}
+
+.ipWidgetManagementFooter {
+    padding4px;	
+}
+
+.ipWidgetManagementFooter span {
+    background-color: #ccc;
+    cursor: pointer;
+    padding: 5px;
+    float: left;
+}
+
+

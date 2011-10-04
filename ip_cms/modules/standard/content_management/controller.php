@@ -228,8 +228,6 @@ class Controller{
         $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId);
         
         
-               
-        
         $managementHtml = Model::generateWidgetManagement($newInstanceId);
         
         $data = array (

@@ -95,7 +95,9 @@ class Model{
         
         $data = array (
             'managementHtml' => $managementHtml,
-            'widgetRecord' => $widgetRecord
+            'widgetRecord' => $widgetRecord,
+            'layouts' => $widgetObject->getLayouts(),
+            'widgetTitle' => $widgetObject->getTitle()
         );
         $answer = \Ip\View::create('view/widget_management.php', $data)->render();
         return $answer;    
