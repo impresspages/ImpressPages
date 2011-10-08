@@ -9,6 +9,7 @@ if (!defined('CMS')) exit;
 
 
 require_once(__DIR__.'/model.php');
+require_once(__DIR__.'/exception.php');
 
 class Controller{
 
@@ -74,10 +75,10 @@ class Controller{
                     $answer = $widgetObject->post($instanceId, $_POST, $widgetRecord['data']);
                     $this->_outputAnswer($answer);
                 } else {
-                    throw new \Exception("Can't find requested Widget: ".$widgetRecord['name']);
+                    throw new Exception("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
                 }
             } else {
-                throw new \Exception("Can't find requested Widget: ".$instanceId);
+                throw new Exception("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
             }
         } catch (Exception $e) {
             $this->_errorAnswer($e);            
@@ -138,7 +139,7 @@ class Controller{
         $revisionRecord = \Ip\Db::getRevision($revisionId);
         
         if ($revisionRecord === false) {
-        	throw new \Exception("Can't find required revision " . $revisionId); 
+        	throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION); 
         }
         
         $zoneName = $revisionRecord['zoneName'];
@@ -205,7 +206,7 @@ class Controller{
         $widgetRecord = Model::getWidgetFullRecord($instanceId);
 
         if ($widgetRecord === false){
-            throw new \Exception('Can\'t find widget '.$instanceId);
+            throw new Exception('Can\'t find widget '.$instanceId, Exception::UNKNOWN_INSTANCE);
         }
         
         

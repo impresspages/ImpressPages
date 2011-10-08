@@ -9,6 +9,8 @@ if (!defined('CMS')) exit;
 
 require_once(__DIR__.'/event_widget.php');
 require_once(__DIR__.'/widget_exception.php');
+require_once(__DIR__.'/exception.php');
+
 
 class Model{
     static private $widgetObjects = null;
@@ -88,7 +90,7 @@ class Model{
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if (!$widgetObject) {
-            throw new \Exception('Widget does not exist. Widget name: '.$widgetRecord['name']);
+            throw new Exception('Widget does not exist. Widget name: '.$widgetRecord['name'], Exception::DB);
         } 
         
         $managementHtml = $widgetObject->managementHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
@@ -119,7 +121,7 @@ class Model{
         ";    
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t get widgets '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t get widgets '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         $answer = array();
@@ -148,7 +150,7 @@ class Model{
       
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t get revision data '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t get revision data '.$sql.' '.mysql_error(), Exception::DB);
         }        
         
         while ($lock = mysql_fetch_assoc($rs)) {
@@ -180,7 +182,7 @@ class Model{
             
             $insertRs = mysql_query($insertSql);
             if (!$insertRs){
-                throw new \Exception('Can\'t get revision data '.$insertSql.' '.mysql_error());
+                throw new Exception('Can\'t get revision data '.$insertSql.' '.mysql_error(), Exception::DB);
             }        
         }        
         
@@ -229,7 +231,7 @@ class Model{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -245,7 +247,7 @@ class Model{
      * 
      * getWidgetFullRecord differ from getWidgetRecord by including the information from m_content_management_widget_instance table.
      * @param int $instanceId
-     * @throws \Exception
+     * @throws Exception
      */
      public static function getWidgetFullRecord($instanceId) {
         $sql = "
@@ -258,7 +260,7 @@ class Model{
         ";    
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -290,7 +292,7 @@ class Model{
         ";    
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -343,7 +345,7 @@ class Model{
      * @param string $blockName
      * @param string $widgetName
      * @param string $layout
-     * @throws \Exception
+     * @throws Exception
      */
     public static function createWidget($widgetName, $data, $layout, $predecessor) {
         $sql = "
@@ -359,7 +361,7 @@ class Model{
         $rs = mysql_query($sql);
         
         if (!$rs) {
-            throw new \Exception('Can\'t create new widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t create new widget '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         $widgetId = mysql_insert_id();
@@ -395,7 +397,7 @@ class Model{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t update widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t update widget '.$sql.' '.mysql_error());
         }
         
         return true; 
@@ -422,7 +424,7 @@ class Model{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t update instance '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t update instance '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         return true; 
@@ -450,7 +452,7 @@ class Model{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t create instance '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t create instance '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         return mysql_insert_id(); 
@@ -469,7 +471,7 @@ class Model{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t delete instance '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t delete instance '.$sql.' '.mysql_error(), Exception::DB);
         }
         
         return true; 
