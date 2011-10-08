@@ -192,6 +192,7 @@
             data.a = 'updateWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
+            data.layout = $this.find('.ipWidgetLayoutSelect').val();
 
             $.ajax( {
             type : 'POST',

@@ -40,15 +40,13 @@ class Controller{
         
         $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
         
-        $widgetControls1Html = \Ip\View::create('view/widget_controls1.php', $data)->render();
-        $widgetControls2Html = \Ip\View::create('view/widget_controls2.php', $data)->render();
+        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
         
         $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-        	'widgetControls1Html' => $widgetControls1Html,
-            'widgetControls2Html' => $widgetControls2Html,
+        	'widgetControlsHtml' => $widgetControlsHtml,
             'saveProgressHtml' => $saveProgressHtml,
             'manageableRevision' => $manageableRevision
         );
@@ -302,6 +300,13 @@ class Controller{
             return;
         }
         $instanceId = $_POST['instanceId'];
+
+        if (!isset($_POST['layout'])) {
+            $this->_errorAnswer('Mising POST variable layout');
+            return;
+        }
+        $layout = $_POST['layout'];
+        
         
         if (!isset($_POST['widgetData']) && is_array($_POST['widgetData'])) {
             $this->_errorAnswer('Mising POST variable: widgetData');
@@ -311,7 +316,8 @@ class Controller{
         
         
         $updateArray = array (
-            'data' => $widgetData
+            'data' => $widgetData,
+            'layout' => $layout
         );
         
         $record = Model::getWidgetFullRecord($instanceId);

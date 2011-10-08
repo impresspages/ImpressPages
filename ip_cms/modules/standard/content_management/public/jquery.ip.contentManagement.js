@@ -66,8 +66,7 @@
 	                options.zoneName = ip.zoneName;
 	                options.pageId = ip.pageId;
 	                options.revisionId = ip.revisionId;
-	                options.widgetControls1Html = response.widgetControls1Html;
-                    options.widgetControls2Html = response.widgetControls2Html;
+	                options.widgetControlsHtml = response.widgetControlsHtml;
 	                options.contentManagementObject = $this;
 	                options.manageableRevision = response.manageableRevision;
 	                

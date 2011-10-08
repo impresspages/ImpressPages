@@ -4,7 +4,7 @@ use Library\Php\Text\Html2Text;
         <span class="ipWidgetManagementTitle"><?php echo htmlspecialchars($widgetTitle) ?></span>
         <select class="ipWidgetLayoutSelect">
         <?php foreach($layouts as $layoutKey => $layout) { ?>
-            <option value="<?php echo htmlspecialchars($layout['name']); ?>">
+            <option value="<?php echo htmlspecialchars($layout['name']); ?>" <?php if ($layout['name'] == $widgetRecord['layout']) { echo ' selected="selected" '; }  ?>>
                 <?php echo htmlspecialchars($layout['title']) ?>
             </option>        
         <?php } ?>

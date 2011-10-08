@@ -87,16 +87,14 @@
                     $this.data('ipBlock', {
                         name : $this.attr('id').substr(8),
                         revisionId : options.revisionId,
-                        widgetControls1Html : options.widgetControls1Html,
-                        widgetControls2Html : options.widgetControls2Html,
+                        widgetControlsHtml : options.widgetControlsHtml,
                         contenManagementObject : options.contentManagementObject
                     }); 
                     
                     
                     var widgetOptions = new Object;
                     $this.find('.ipWidget').ipWidget(widgetOptions);
-                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControls1Html);
-                    $this.find('.ipWidgetManagement').append($this.data('ipBlock').widgetControls2Html);
+                    $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
                     
                     
                     $this.delegate('.ipWidget .ipWidgetDelete', 'click', function(event){$(this).trigger('deleteClick.ipBlock');});
@@ -115,8 +113,7 @@
             return this.each(function() {      
                 var $this = $(this);
                 var widgetOptions = new Object;
-                $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControls1Html);
-                $(this).find('.ipWidgetManagement').append($(this).data('ipBlock').widgetControls2Html);
+                $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);                
                 
                 $(this).find('.ipWidget').ipWidget(widgetOptions);
                                
