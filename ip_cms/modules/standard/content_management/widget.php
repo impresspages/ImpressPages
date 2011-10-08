@@ -110,12 +110,19 @@ class Widget{
 
     }
     
-    public function managementHtml($widgetId, $data, $layout) {
+    public function managementHtml($instanceId, $data, $layout) {
         return '<p>Add "management/default.php" view file to replace this content.</p>';
     }
     
-    public function previewHtml($widgetId, $data, $layout) {
-            
+    public function previewHtml($instanceId, $data, $layout) {
+        $answer = '';
+        try {
+            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+        } catch (\Ip\CoreException $e){
+            return $e->getCode();
+            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR.'/default.php', $data)->render();
+        }
+        return $answer;    
     }
     
 
