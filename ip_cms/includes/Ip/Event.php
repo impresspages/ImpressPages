@@ -67,11 +67,11 @@ class Event{
         }
         
         $trace = debug_backtrace();
-        throw new \Exception(
+        throw new CoreException(
             'Undefined value via getValue(): ' . $key .
             ' in ' . $trace[0]['file'] .
             ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE);
+            E_USER_NOTICE, CoreException::EVENT);
     }
     
     public function valueExist($valueKey) {

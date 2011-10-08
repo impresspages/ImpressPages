@@ -31,7 +31,7 @@ class Db{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find last revision '.$sql.' '.mysql_error());
+            throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -56,7 +56,7 @@ class Db{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find last revision '.$sql.' '.mysql_error());
+            throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -75,7 +75,7 @@ class Db{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find revision '.$sql.' '.mysql_error());
+            throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
         
         if ($lock = mysql_fetch_assoc($rs)) {
@@ -100,7 +100,7 @@ class Db{
 
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t create new revision '.$sql.' '.mysql_error());
+            throw new CoreException('Can\'t create new revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
 
         $revisionId = mysql_insert_id();
@@ -135,7 +135,7 @@ class Db{
         $rs = mysql_query($sql);
             
         if (!$rs) {
-            throw new \Exception("Can't publish revision " . $sql . ' '. mysql_error()); 
+            throw new CoreException("Can't publish revision " . $sql . ' '. mysql_error(), CoreException::DB); 
         }
 
     }
@@ -165,7 +165,7 @@ class Db{
         
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new \Exception('Can\'t find revision '.$sql.' '.mysql_error());
+            throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
         
         $answer = array();

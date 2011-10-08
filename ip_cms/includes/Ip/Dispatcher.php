@@ -31,7 +31,7 @@ class Dispatcher{
      * Bind action to callable function
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
-     * @throws Exception
+     * @throws CoreException
      */
     public function bind ($eventName, $callable) {
         if (!is_callable($callable)) {
@@ -40,8 +40,8 @@ class Dispatcher{
                 $errorMessage = "Incorrect callable ".$callable." (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
             } else {
                 $errorMessage = "Incorrect callable ".$callable;
-                throw new \Exception($errorMessage);
             }
+            throw new CoreException($errorMessage, CoreException::EVENT);
         }
         
         if (! isset($this->_handlers[$eventName])) {

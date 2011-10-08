@@ -32,7 +32,7 @@ class View{
     public static function create($file, $data = array()) {
         $backtrace = debug_backtrace();
         if(!isset($backtrace[0]['file']) || !isset($backtrace[0]['line'])) {
-            throw new \Exception("Can't find caller");
+            throw new CoreException("Can't find caller", CoreException::VIEW);
         }
 
         $sourceFile = $backtrace[0]['file'];
@@ -43,7 +43,7 @@ class View{
         
         $foundFile = self::findFile($file, $sourceFile);
         if ($foundFile === false) {
-            throw new \Exception('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )');
+            throw new CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )', CoreException::VIEW);
         }
 
         foreach ($data as $key => $value) {
@@ -52,7 +52,7 @@ class View{
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
-                throw new \Exception("Incorrect view variable name '".$key."' ".$source);
+                throw new CoreException("Incorrect view variable name '".$key."' ".$source, CoreException::VIEW);
             }
         }
 
