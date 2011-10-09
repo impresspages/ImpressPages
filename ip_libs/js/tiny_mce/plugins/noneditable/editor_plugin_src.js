@@ -1,8 +1,11 @@
 /**
- * $Id: editor_plugin_src.js 743 2008-03-23 17:47:33Z spocke $
+ * editor_plugin_src.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 (function() {
@@ -10,7 +13,7 @@
 
 	tinymce.create('tinymce.plugins.NonEditablePlugin', {
 		init : function(ed, url) {
-			var t = this, editClass, nonEditClass;
+			var t = this, editClass, nonEditClass, state;
 
 			t.editor = ed;
 			editClass = ed.getParam("noneditable_editable_class", "mceEditable");
@@ -30,10 +33,13 @@
 
 				// Block or unblock
 				if (sc || ec) {
+					state = 1;
 					t._setDisabled(1);
 					return false;
-				} else
+				} else if (state == 1) {
 					t._setDisabled(0);
+					state = 0;
+				}
 			});
 		},
 
@@ -70,11 +76,13 @@
 					ed.onKeyPress.addToTop(t._block);
 					ed.onKeyUp.addToTop(t._block);
 					ed.onPaste.addToTop(t._block);
+					ed.onContextMenu.addToTop(t._block);
 				} else {
 					ed.onKeyDown.remove(t._block);
 					ed.onKeyPress.remove(t._block);
 					ed.onKeyUp.remove(t._block);
 					ed.onPaste.remove(t._block);
+					ed.onContextMenu.remove(t._block);
 				}
 
 				t.disabled = s;

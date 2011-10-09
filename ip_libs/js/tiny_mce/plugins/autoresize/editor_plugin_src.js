@@ -1,8 +1,11 @@
 /**
- * $Id: editor_plugin_src.js 539 2008-01-14 19:08:58Z spocke $
+ * editor_plugin_src.js
  *
- * @author Moxiecode
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * Copyright 2009, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://tinymce.moxiecode.com/license
+ * Contributing: http://tinymce.moxiecode.com/contributing
  */
 
 (function() {
@@ -23,7 +26,7 @@
 		 * @param {string} url Absolute URL to where the plugin is located.
 		 */
 		init : function(ed, url) {
-			var t = this;
+			var t = this, oldSize = 0;
 
 			if (ed.getParam('fullscreen_is_enabled'))
 				return;
@@ -35,14 +38,24 @@
 				var d = ed.getDoc(), b = d.body, de = d.documentElement, DOM = tinymce.DOM, resizeHeight = t.autoresize_min_height, myHeight;
 
 				// Get height differently depending on the browser used
-				myHeight = tinymce.isIE ? b.scrollHeight : de.offsetHeight;
+				myHeight = tinymce.isIE ? b.scrollHeight : d.body.offsetHeight;
 
 				// Don't make it smaller than the minimum height
 				if (myHeight > t.autoresize_min_height)
 					resizeHeight = myHeight;
 
+				// If a maximum height has been defined don't exceed this height
+				if (t.autoresize_max_height && myHeight > t.autoresize_max_height) {
+					resizeHeight = t.autoresize_max_height;
+					ed.getBody().style.overflowY = "auto";
+				} else
+					ed.getBody().style.overflowY = "hidden";
+
 				// Resize content element
-				DOM.setStyle(DOM.get(ed.id + '_ifr'), 'height', resizeHeight + 'px');
+				if (resizeHeight !== oldSize) {
+					DOM.setStyle(DOM.get(ed.id + '_ifr'), 'height', resizeHeight + 'px');
+					oldSize = resizeHeight;
+				}
 
 				// if we're throbbing, we'll re-throb to match the new size
 				if (t.throbbing) {
@@ -54,16 +67,14 @@
 			t.editor = ed;
 
 			// Define minimum height
-			t.autoresize_min_height = ed.getElement().offsetHeight;
+			t.autoresize_min_height = parseInt( ed.getParam('autoresize_min_height', ed.getElement().offsetHeight) );
 
-			// Things to do when the editor is ready
-			ed.onInit.add(function(ed, l) {
-				// Show throbber until content area is resized properly
-				ed.setProgressState(true);
-				t.throbbing = true;
+			// Define maximum height	
+			t.autoresize_max_height = parseInt( ed.getParam('autoresize_max_height', 0) );
 
-				// Hide scrollbars
-				ed.getBody().style.overflowY = "hidden";
+			// Add padding at the bottom for better UX
+			ed.onInit.add(function(ed){
+				ed.dom.setStyle(ed.getBody(), 'paddingBottom', ed.getParam('autoresize_bottom_margin', 50) + 'px');
 			});
 
 			// Add appropriate listeners for resizing content area
@@ -73,20 +84,32 @@
 			ed.onKeyUp.add(resize);
 			ed.onPostRender.add(resize);
 
-			ed.onLoadContent.add(function(ed, l) {
-				resize();
+			if (ed.getParam('autoresize_on_init', true)) {
+				// Things to do when the editor is ready
+				ed.onInit.add(function(ed, l) {
+					// Show throbber until content area is resized properly
+					ed.setProgressState(true);
+					t.throbbing = true;
 
-				// Because the content area resizes when its content CSS loads,
-				// and we can't easily add a listener to its onload event,
-				// we'll just trigger a resize after a short loading period
-				setTimeout(function() {
+					// Hide scrollbars
+					ed.getBody().style.overflowY = "hidden";
+				});
+
+				ed.onLoadContent.add(function(ed, l) {
 					resize();
 
-					// Disable throbber
-					ed.setProgressState(false);
-					t.throbbing = false;
-				}, 1250);
-			});
+					// Because the content area resizes when its content CSS loads,
+					// and we can't easily add a listener to its onload event,
+					// we'll just trigger a resize after a short loading period
+					setTimeout(function() {
+						resize();
+
+						// Disable throbber
+						ed.setProgressState(false);
+						t.throbbing = false;
+					}, 1250);
+				});
+			}
 
 			// Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
 			ed.addCommand('mceAutoResize', resize);

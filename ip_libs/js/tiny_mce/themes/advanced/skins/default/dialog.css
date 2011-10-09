@@ -1,6 +1,6 @@
 /* Generic */
 body {
-font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px; color:#797979;
+font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px;
 scrollbar-3dlight-color:#F0F0EE;
 scrollbar-arrow-color:#676662;
 scrollbar-base-color:#F0F0EE;
@@ -9,16 +9,17 @@ scrollbar-face-color:#E0E0DD;
 scrollbar-highlight-color:#F0F0EE;
 scrollbar-shadow-color:#F0F0EE;
 scrollbar-track-color:#F5F5F5;
-background:#F5F5F5;
+background:#F0F0EE;
 padding:0;
 margin:8px 8px 0 8px;
 }
 
-html {background:#F5F5F5;}
+html {background:#F0F0EE;}
 td {font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}
 textarea {resize:none;outline:none;}
 a:link, a:visited {color:black;}
 a:hover {color:#2B6FB6;}
+.nowrap {white-space: nowrap}
 
 /* Forms */
 fieldset {margin:0; padding:4px; border:1px solid #919B9C; font-family:Verdana, Arial; font-size:10px;}
@@ -28,7 +29,7 @@ label.invalid {color:#EE0000; display:inline;}
 input.invalid {border:1px solid #EE0000;}
 input {background:#FFF; border:1px solid #CCC;}
 input, select, textarea {font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}
-input, select, textarea {border:1px solid #C0C0C0;padding:2px;}
+input, select, textarea {border:1px solid #808080;}
 input.radio {border:1px none #000000; background:transparent; vertical-align:middle;}
 input.checkbox {border:1px none #000000; background:transparent; vertical-align:middle;}
 .input_noborder {border:0;}
@@ -36,22 +37,19 @@ input.checkbox {border:1px none #000000; background:transparent; vertical-align:
 /* Buttons */
 #insert, #cancel, input.button, .updateButton {
 border:0; margin:0; padding:0;
-height:24px;
-width: 70px;
-background:url(../../../../../../../ip_cms/modules/standard/content_management/design/button.gif);
-border:1px solid #FFBB44;
-color:#264971;
-cursor:pointer;
-font-family:Verdana,Arial,Helvetica;
-font-size:12px;
 font-weight:bold;
+width:94px; height:26px;
+background:url(img/buttons.png) 0 -26px;
+cursor:pointer;
+padding-bottom:2px;
+float:left;
 }
 
-#insert:hover, #cancel:hover, input.button:hover, .updateButton:hover {
-background: #F6E0B5;
-}
+#insert {background:url(img/buttons.png) 0 -52px}
+#cancel {background:url(img/buttons.png) 0 0; float:right}
 
 /* Browse */
+a.pickcolor, a.browse {text-decoration:none}
 a.browse span {display:block; width:20px; height:18px; background:url(../../img/icons.gif) -860px 0; border:1px solid #FFF; margin-left:1px;}
 .mceOldBoxModel a.browse span {width:22px; height:20px;}
 a.browse:hover span {border:1px solid #0A246A; background-color:#B2BBD0;}
@@ -72,11 +70,7 @@ td.charmap, #charmap a {width:18px; height:18px; color:#000; border:1px solid #A
 
 /* Source */
 .wordWrapCode {vertical-align:middle; border:1px none #000000; background:transparent;}
-.mceActionPanel {
-/*width: 150px;*/
-margin-left:-7px;
-margin-top:9px;
-}
+.mceActionPanel {margin-top:5px;}
 
 /* Tabs classes */
 .tabs {width:100%; height:18px; line-height:normal; background:url(img/tabs.gif) repeat-x 0 -72px;}
@@ -102,7 +96,7 @@ margin-top:9px;
 /* Titles */
 h1, h2, h3, h4 {color:#2B6FB6; margin:0; padding:0; padding-top:5px;}
 h3 {font-size:14px;}
-.title {font-size:12px; font-weight:bold; color:#797979;}
+.title {font-size:12px; font-weight:bold; color:#2B6FB6;}
 
 /* Dialog specific */
 #link .panel_wrapper, #link div.current {height:125px;}
