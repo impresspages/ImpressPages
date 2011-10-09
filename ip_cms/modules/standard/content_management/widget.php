@@ -13,6 +13,7 @@ class Widget{
     var $core;
     const PREVIEW_DIR = 'preview';
     const MANAGEMENT_DIR = 'management';
+    const PUBLIC_DIR = 'management';
     
     public function __construct($name, $moduleGroup, $moduleName, $core = false) {
         $this->name = $name;
@@ -111,7 +112,13 @@ class Widget{
     }
     
     public function managementHtml($instanceId, $data, $layout) {
-        return '<p>Add "management/default.php" view file to replace this content.</p>';
+        $answer = '';
+        try {
+            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::MANAGEMENT_DIR.'/default.php', $data)->render();
+        } catch (\Ip\CoreException $e){
+            //do nothing. Administration view does not exist
+        }
+        return $answer;         
     }
     
     public function previewHtml($instanceId, $data, $layout) {
@@ -119,7 +126,6 @@ class Widget{
         try {
             $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
         } catch (\Ip\CoreException $e){
-            return $e->getCode();
             $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR.'/default.php', $data)->render();
         }
         return $answer;    

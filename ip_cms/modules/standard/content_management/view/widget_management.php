@@ -1,4 +1,3 @@
-use Library\Php\Text\Html2Text;
 <div id="ipWidget_<?php echo $widgetRecord['instanceId']; ?>" class="ipWidget ipWidgetManagement ipWidget_<?php echo $widgetRecord['name']; ?>" >
     <div class="ipWidgetManagementHeader">
         <span class="ipWidgetManagementTitle"><?php echo htmlspecialchars($widgetTitle) ?></span>

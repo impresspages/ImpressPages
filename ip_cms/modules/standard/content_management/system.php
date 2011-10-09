@@ -91,12 +91,17 @@ class System{
                     //scan for js and css files required for widget management
                     if ($site->managementState()) {
                         self::includeResources($widgetDir.$widgetFolder, $themeDir.$widgetFolder);
+                        
+                        $widgetJsFile = $widgetDir.$widgetFolder.'/'.$widgetFolder.'.js';
+                        if (file_exists($widgetJsFile) && is_file($widgetJsFile)) {
+                            $site->addJavascript($widgetJsFile);
+                        }
+                        
                     }
-                    $publicResourcesDir = $widgetDir.$widgetFolder.'/public';
-                    $publicResourcesThemeDir = $themeDir.$widgetFolder.'/public';
-                    if (file_exists(BASE_DIR.$publicResourcesDir) && is_dir(BASE_DIR.$publicResourcesDir)){
-                        self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
-                    }
+                    $publicResourcesDir = $widgetDir.$widgetFolder.'/'.Widget::PUBLIC_DIR;
+                    $publicResourcesThemeDir = $themeDir.$widgetFolder.'/'.Widget::PUBLIC_DIR;
+                    self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
+                    
                 }
         }
 
@@ -104,6 +109,11 @@ class System{
 
     public static function includeResources($resourcesFolder, $overrideFolder){
         global $site;
+        
+        if (!file_exists($resourcesFolder) || !is_dir($resourcesFolder) || !file_exists($overrideFolder) || !is_dir($overrideFolder)) {
+            return;
+        }
+        
         $files = scandir(BASE_DIR.$resourcesFolder);
         if ($files === false) {
             continue;

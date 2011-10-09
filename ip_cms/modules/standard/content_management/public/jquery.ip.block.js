@@ -208,9 +208,9 @@
                 $.fn.ipBlock('_showError', response.errorMessage);
             }
             
-            if (response.status == 'success') {           
+            if (response.status == 'success') {   
             	if (response.position == 0) {
-	                $(this).prepend(response.widgetManagementHtml);
+          	        $(this).prepend(response.widgetManagementHtml);
             	} else {
 	                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
 	                $(response.widgetManagementHtml).insertAfter($secondChild);

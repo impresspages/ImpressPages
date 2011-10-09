@@ -8,6 +8,7 @@
     IP_WIDGET_STATE_MANAGEMENT = 'management';
     IP_WIDGET_STATE_SAVE_PROGRESS = 'save_progress';
     IP_WIDGET_STATE_PREVIEW = 'preview';
+    IP_WIDGET_STATE_WAITING_MANAGEMENT = 'aquiring_management';
     var methods = {
     init : function(options) {
 
@@ -93,7 +94,11 @@
             
             if ($this.data('ipWidget').state != IP_WIDGET_STATE_PREVIEW) {
                 return;
-            }            
+            }   
+            
+            var tmpData = $this.data('ipWidget');
+            tmpData.state = IP_WIDGET_STATE_WAITING_MANAGEMENT;
+            $this.data('ipWidget', tmpData);
             
             var data = Object();
             data.g = 'standard';
@@ -139,6 +144,9 @@
                 
             } else {
                 alert(response.errorMessage);
+                var tmpData = $this.data('ipWidget');
+                tmpData.state = IP_WIDGET_STATE_PREVIEW;
+                $this.data('ipWidget', tmpData);                
             }
         });
     },
@@ -166,7 +174,12 @@
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
-                $this.ipWidget('_saveData', new Array());
+                var widgetInputs = $this.find('.ipWidgetManagementBody').find(':input');
+                var data = Object();
+                widgetInputs.each(function(index) {
+                    data[$(this).attr('name')] = $(this).val();
+                }); 
+                $this.ipWidget('_saveData', data);
             }
 
         });

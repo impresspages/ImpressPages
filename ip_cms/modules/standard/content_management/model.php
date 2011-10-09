@@ -8,7 +8,6 @@ namespace Modules\standard\content_management;
 if (!defined('CMS')) exit;
 
 require_once(__DIR__.'/event_widget.php');
-require_once(__DIR__.'/widget_exception.php');
 require_once(__DIR__.'/exception.php');
 
 
@@ -22,15 +21,15 @@ class Model{
     	foreach ($widgets as $key => $widget) {
     	    try {
     		  $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
-    	    } catch (WidgetException $e) {
-    	        if ($e->getCode() == WidgetException::WIDGET_EXCEPTION_UNKNOWN) {
+    	    } catch (WidgetException $e) {    	        
+    	        if ($e->getCode() == Exception::UNKNOWN_WIDGET) {
     	            $viewData = array (
     	               'widgetRecord' => $widget,
     	               'managementState' => $managementState
     	            );
                     $widgetsHtml[] = \Ip\View::create('view/unknown_widget.php', $viewData)->render();  
     	        } else {
-    	            throw $e;
+    	            throw new Exception('Error when generating widget preview', null, $e);
     	        }
     	    }
     	}
@@ -61,7 +60,7 @@ class Model{
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if (!$widgetObject) {
-            throw new WidgetException('Widget does not exist. Widget name: '.$widgetRecord['name'], WidgetException::WIDGET_EXCEPTION_UNKNOWN);
+            throw new WidgetException('Widget does not exist. Widget name: '.$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
         } 
         
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
@@ -94,7 +93,6 @@ class Model{
         } 
         
         $managementHtml = $widgetObject->managementHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
-        
         $data = array (
             'managementHtml' => $managementHtml,
             'widgetRecord' => $widgetRecord,
@@ -102,6 +100,7 @@ class Model{
             'widgetTitle' => $widgetObject->getTitle()
         );
         $answer = \Ip\View::create('view/widget_management.php', $data)->render();
+        
         return $answer;    
     }
     
