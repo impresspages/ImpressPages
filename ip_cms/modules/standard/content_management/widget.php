@@ -111,6 +111,18 @@ class Widget{
         return $layouts;
     }
     
+    /**
+     * 
+     * Enter description here ...
+     * @param $instanceId
+     * @param $postData
+     * @param $currentData
+     * @return array data to be stored to the database
+     */
+    public function prepareData ($instanceId, $postData, $currentData) {
+        return $postData;
+    }
+    
     public function post ($instanceId, $postData, $data) {
         
     }

@@ -17,10 +17,12 @@ class Functions{
   public static function genUnocupiedName($file, $dest_dir){
     require_once (LIBRARY_DIR.'php/text/transliteration.php');
     $new_name = basename($file);
-    $ext_pos = strrpos($file, ".");
+    $ext_pos = strrpos($new_name, ".");
+    $new_extension = substr($new_name, $ext_pos, strlen($file));              
     $new_name = substr($new_name, 0, $ext_pos);
-    $new_extension = substr($file, $ext_pos, strlen($file));              
-
+    global $log;
+    $log->log('test', 'filename0', $file.' '.basename($file).' '.$new_name.' '.$ext_pos.' '.$new_extension);
+    
     $new_name = \Library\Php\Text\Transliteration::transform($new_name);
     $new_name = utf8_decode($new_name); 
     $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ".", ",", "!", ":", "\"", "?", "|");
@@ -35,6 +37,8 @@ class Functions{
       }
       $new_name = $new_name.'_'.$i;
     }                    
+    global $log;
+    $log->log('test', 'filename1', $new_name.' '.$new_extension);
     $new_name .= $new_extension;
     return $new_name;
   }

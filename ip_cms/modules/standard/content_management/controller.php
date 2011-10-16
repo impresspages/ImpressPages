@@ -310,15 +310,20 @@ class Controller{
             $this->_errorAnswer('Mising POST variable: widgetData');
             return;
         }
-        $widgetData = $_POST['widgetData'];
         
+        $postData = $_POST['widgetData'];
         
-        $updateArray = array (
-            'data' => $widgetData,
-            'layout' => $layout
-        );
         
         $record = Model::getWidgetFullRecord($instanceId);
+        
+        $widgetObject = Model::getWidgetObject($record['name']); 
+        
+        $newData = $widgetObject->prepareData($instanceId, $postData, $record['data']);
+
+        $updateArray = array (
+            'data' => $newData,
+            'layout' => $layout
+        );
         
         Model::updateWidget($record['widgetId'], $updateArray);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);

@@ -9,78 +9,28 @@ namespace Modules\standard\content_management\widget;
 if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
+require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 
 class ipPicture extends \Modules\standard\content_management\Widget{
 
 
     
-    public function post($instanceId, $postData, $data) {
+    public function prepareData($instanceId, $postData, $currentData) {
         $answer = '';
         
-        $newData = array();
+        $newData = $currentData;
         
-        
-        
-        Model::updateInstance($instanceId, $newData);
-        
-        
-        return $answer;  
-    }
-    
-    public function managementHtml($instanceId, $data, $layout){
-    	
-    	if (!isset($data['picture'])) {
-    	   $data['picture'] = '';    
-    	}
-    	
-        if (!isset($data['pictureBig'])) {
-           $data['pictureBig'] = '';    
+        if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
+            if (isset($currentData['picture']) && file_exists(BASE_DIR.$currentData['picture']) && is_file(BASE_DIR.$currentData['picture'])) {
+                unlink(BASE_DIR.$currentData['picture']);
+            }
+            
+            $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newPicture'], BASE_DIR.IMAGE_DIR);
+            $newData['picture'] = IMAGE_DIR.$unocupiedName;    
         }
-        
-        if (!isset($data['title'])) {
-           $data['title'] = '';    
-        }
-        
-    	$data['instanceId'] = $instanceId;
-    	
-    	$answer = \Ip\View::create('view/management.php', $data)->render();
-    	
-        return $answer;
+        return $newData;  
     }
     
-    
-    public function previewHtml($widgetId, $data, $layout){
-        
-        $answer = '';
-
-        if (!isset($data['picture'])) {
-           $data['picture'] = '';    
-        }
-        
-        if (!isset($data['pictureBig'])) {
-           $data['pictureBig'] = '';    
-        }
-        
-        if (!isset($data['title'])) {
-           $data['title'] = '';    
-        }        
-        
-        $answer = \Ip\View::create('view/preview.php', $data)->render();        
-        
-        return $answer;
-    }
-    
-    public function getTitle(){
-        return 'Picture';
-    }
-    
-    public function getIcon(){
-        return MODULE_DIR.'standard/content_management/widget/'.self::getName().'/icon.gif';
-    }
-    
-    public function getName(){
-        return 'IpPicture';
-    }    
     
 
     

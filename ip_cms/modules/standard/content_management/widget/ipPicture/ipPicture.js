@@ -12,6 +12,7 @@ function ipWidget_IpPicture(widgetObject) {
 
 
     function manageInit() {
+        console.log('picture init');
         var instanceData = this.widgetObject.data('ipWidget');
         var options = new Object;
         var options = {
@@ -25,14 +26,12 @@ function ipWidget_IpPicture(widgetObject) {
     }
 
     function prepareData() {
-
         var data = Object();
-
-        data.picture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
-
+        data.newPicture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture('getCurPicture');
         data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        
     }
+
 
 
     
