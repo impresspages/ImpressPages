@@ -230,7 +230,7 @@ class Site{
 
         $this->configZones();
 
-        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js', 0);
         
         $this->modulesInit();        
 
@@ -1042,7 +1042,7 @@ class Site{
         global $parametersMod;
         global $session;
         
-        if ($this->output == null) {
+        if (!isset($this->output)) {
             $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
         }
         
@@ -1050,41 +1050,60 @@ class Site{
     }
 
     
-    public function addCss($file) {
-        $this->requiredCss[$file] = $file;
+    public function addCss($file, $stage = 1) {
+        $this->requiredCss[(int)$stage][$file] = $file;
     }
 
     public function removeCss($file) {
-        if (isset($this->requiredCss[$file])) {
-            unset($this->requiredCss[$file]);
+        foreach($this->requiredCss as $levelKey => &$level) {
+            if (isset($this->requiredCss[$levelKey][$file])) {
+                unset($this->requiredCss[$levelKey][$file]);
+            }
         }
     }    
     
-    public function addJavascript($file) {
-        $this->requiredJavascript[$file] = $file;
+    public function addJavascript($file, $stage = 1) {
+        $this->requiredJavascript[(int)$stage][$file] = $file;
     }
 
     public function removeJavascript($file) {
-        if (isset($this->requiredJavascript[$file])) {
-            unset($this->requiredJavascript[$file]);
+        foreach($this->requiredJavascript as $levelKey => &$level) {
+            if (isset($this->requiredJavascript[$levelKey][$file])) {
+                unset($this->requiredJavascript[$levelKey][$file]);
+            }
         }
     }
     
     public function generateHead() {
+        
+        ksort($this->requiredCss);
+        $cssFiles = array();        
+        foreach($this->requiredCss as $levelKey => $level) {
+            $cssFiles = array_merge($cssFiles, $level);
+        }
+        
         $data = array (
             'title' => $this->getTitle(),
             'keywords' => BASE_URL.'favicon.ico',
             'description' => $this->getDescription(),
             'favicon' => $this->getKeywords(),
             'charset' => CHARSET,
-            'css' => $this->requiredCss
+            'css' => $cssFiles
         );
         
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/head.php', $data)->render();
     }
     
     public function generateJavascript() {
-        $revision = $this->getRevision();             
+        $revision = $this->getRevision();
+
+        
+        ksort($this->requiredJavascript);
+        $javascriptFiles = array();        
+        foreach($this->requiredJavascript as $levelKey => $level) {
+            $javascriptFiles = array_merge($javascriptFiles, $level);
+        }
+        
         $data = array (
             'ipBaseUrl' => BASE_URL,
             'ipLibraryDir' => LIBRARY_DIR,
@@ -1095,7 +1114,7 @@ class Site{
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
             'ipRevisionId' => $revision['revisionId'],
-            'javascript' => $this->requiredJavascript
+            'javascript' => $javascriptFiles
         );
         
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();

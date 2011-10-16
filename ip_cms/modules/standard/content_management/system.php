@@ -27,17 +27,27 @@ class System{
             
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.js');
             $site->addCss(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.css');
-
+            
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/tiny_mce/jquery.tinymce.js');            
+            
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
             
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadPicture.js');
+
+            $getVariables = array (
+                'g' => 'standard',
+                'm' => 'configuration',
+                'a' => 'tinymceConfig'
+            );
+            
+            $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
             
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
             
         }     
-
+        
 	    $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
 
         $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');

@@ -1,7 +1,7 @@
     <script>
         var ip = {
             baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
-            ipLibraryDir : <?php echo json_encode($ipLibraryDir) ?>,
+            libraryDir : <?php echo json_encode($ipLibraryDir) ?>,
             themeDir : <?php echo json_encode($ipThemeDir) ?>,
             moduleDir : <?php echo json_encode($ipModuleDir) ?>,
             theme : <?php echo json_encode($ipTheme) ?>,
