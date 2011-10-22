@@ -57,12 +57,14 @@ class Functions{
 	     $finfo = finfo_open(FILEINFO_MIME_TYPE);
 	     $mtype = finfo_file($finfo, $file_path);
 	     finfo_close($finfo);
-  	}elseif (function_exists('mime_content_type')){
+  	} elseif (function_exists('mime_content_type')){
        $mtype = mime_content_type($file_path);
-    }elseif (class_exists('finfo')){
+  	} elseif (class_exists('finfo')){
       $fi = new finfo(FILEINFO_MIME);
       $mtype = $fi->buffer(file_get_contents($files[$i]));
-    }
+  	} else {
+      //any other ideas?
+  	}
   	return $mtype;
   }
   
