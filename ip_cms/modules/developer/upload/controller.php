@@ -15,6 +15,10 @@ class Controller{
     public function upload(){
         global $site;
         
+        if (!isset($_SESSION['backend_session']['user_id'])) {
+            throw new \Ip\CoreException("Try to upload image to temporary directory without permission.", \Ip\CoreException::SECURITY);
+        }
+        
         // Settings
         //$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
         $targetDir = BASE_DIR.TMP_IMAGE_DIR;

@@ -32,6 +32,10 @@
                     } else {
                         curPicture = defaultPicture;
                     }
+                    
+                    if (options.aspectRatio && options.aspectRatio == 0) {
+                        options.aspectRatio = null;
+                    }
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
@@ -163,6 +167,10 @@
             var $picture = $this.find('.preview');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();
+            
+            if ($container.height() == 0 || $picture.height() == 0) {
+                return; //to avoid division by zero.
+            }
             
             containerAspectRatio = $container.width() / $container.height();
             pictureAspectRatio = $picture.width() / $picture.height();
@@ -343,14 +351,13 @@
             $tmpPicture.height('auto');
             $this.append($tmpPicture);
             
-            var scale = $tmpPicture.width() / picture.width();
-            console.log($tmpPicture.width());
+            var scale = $picture.width() / $tmpPicture.width();
             $tmpPicture.remove();
             
             coordinates.x1 = Math.round(offsetX / scale);
             coordinates.y1 = Math.round(offsetY / scale);
-            coordinates.x2 = Math.round(coordinates.x1 + $container.width() * scale);
-            coordinates.y2 = Math.round(coordinates.y1 + $container.height() * scale);
+            coordinates.x2 = Math.round(coordinates.x1 + $container.width() / scale);
+            coordinates.y2 = Math.round(coordinates.y1 + $container.height() / scale);
             return coordinates;
         }
         

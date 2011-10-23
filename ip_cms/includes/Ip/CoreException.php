@@ -21,6 +21,7 @@ class CoreException extends \Exception
     const EVENT = 2;
     const REVISION = 3;
     const WIDGET = 4;
+    const SECURITY = 5;
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null) {
         // make sure everything is assigned properly

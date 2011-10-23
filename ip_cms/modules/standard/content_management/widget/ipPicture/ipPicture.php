@@ -19,36 +19,58 @@ class ipPicture extends \Modules\standard\content_management\Widget{
     public function prepareData($instanceId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
+        
 
         $destinationDir = BASE_DIR.IMAGE_DIR;
         
         $newData = $currentData;
 
         if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
-            //$this->removeOldPictures($currentData);
-
+            
+            if (TMP_IMAGE_DIR.basename($postData['newPicture']) != $postData['newPicture']) {
+                throw new \Exception("Security notice. Try to access an image (".$postData['newPicture'].") from a non temporary folder.");
+            }
+            
             //new original picture
             $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newPicture'], $destinationDir);
             copy($postData['newPicture'], $destinationDir.$unocupiedName);
             $newData['pictureOriginal'] = IMAGE_DIR.$unocupiedName;
-
+            
+            
+            
+            $bigPictureName = \Library\Php\Picture\Functions::resize(
+            $postData['newPicture'],
+            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_width'), 
+            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_height'),  
+            BASE_DIR.IMAGE_DIR, 
+            \Library\Php\Picture\Functions::CROP_TYPE_FIT, 
+            false, 
+            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_quality')
+            );
+            $newData['pictureBig'] = IMAGE_DIR.$bigPictureName;
+        }
+        
+        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) ) {
             //new small picture
             $smallPictureName = \Library\Php\Picture\Functions::crop (
-            $postData['newPicture'],
+            $newData['pictureOriginal'],
             $destinationDir,
             $postData['cropX1'],
             $postData['cropY1'],
             $postData['cropX2'],
             $postData['cropY2'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'quality'));
-
+            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'quality')
+            );
             $newData['pictureSmall'] = IMAGE_DIR.$smallPictureName;
+        }
+        
+        
             
 //            copy($postData['newPicture'], BASE_DIR.IMAGE_DIR.$unocupiedName);
 //            $newData['pictureOriginal'] = IMAGE_DIR.$unocupiedName;
 
 //            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'photo_height');
-        }
+        
 
         if (isset($postData['title'])) {
             $newData['title'] = $postData['title'];
