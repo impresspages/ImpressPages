@@ -21,7 +21,7 @@ function ipWidget_IpPicture(widgetObject) {
             pictureCenterX : instanceData.data.centerX,
             pictureCenterY : instanceData.data.centerY,
             
-            crop : true,
+            
             aspectRatio: 1/1
         };
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);

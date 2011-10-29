@@ -4,5 +4,5 @@
     </form>
 </div>
 <div style="padding: 10px;">
-    <div class="ipWidget_ipPicture_uploadPicture" style="width: 200px;"></div>
+    <div class="ipWidget_ipPicture_uploadPicture" style="width: 100%;"></div>
 </div>

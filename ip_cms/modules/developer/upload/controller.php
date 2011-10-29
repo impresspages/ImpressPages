@@ -11,6 +11,18 @@ if (!defined('CMS')) exit;
 
 class Controller{
     
+    
+    public function getContainerHtml() {
+        global $site;
+        $html = \Ip\View::create('view/container.php', array())->render();
+        $site->setOutput($html);
+        $answerArray = array(
+            "status" => "success",
+            "html" => $html
+        );
+        $answer = json_encode($answerArray);
+        $site->setOutput($answer);
+    }
 
     public function upload(){
         global $site;

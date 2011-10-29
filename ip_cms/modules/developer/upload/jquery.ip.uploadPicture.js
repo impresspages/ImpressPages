@@ -4,6 +4,30 @@
  * @license GNU/GPL, see ip_license.html
  */
 
+/**
+ * 
+ * Available options:
+ * 
+ * backgroundPicture - defautl picture to be used when real picture is not uploaded
+ * backgroundColor - 
+ * picture - url to image to be cropped / resized
+ * cropX1 - current cropping coordinates
+ * cropY1 
+ * cropX2
+ * cropY2 * 
+ * containerWidth - width of container (100% if not set)
+ * containerHeight - height of container (the same as width if not set)
+ * changeWidth - allow user to change container width
+ * changeHeight - allow user to change container height
+ * constrainProportions - update container parameters to constrain proportions on resize
+ * maxContainerWidth - 
+ * maxContainerHeight -
+ * minContainerWidth
+ * minContainerHeight
+ * 
+ * uploadHandler - link to PHP script that will accept uploads
+ * 
+ */
 
 
 (function($) {
@@ -23,6 +47,8 @@
                 }
                 
                 
+                
+                
                 var data = $this.data('ipUploadPicture');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
@@ -33,6 +59,8 @@
                         curPicture = defaultPicture;
                     }
                     
+                    if (options.width)
+                    
                     if (options.aspectRatio && options.aspectRatio == 0) {
                         options.aspectRatio = null;
                     }
@@ -42,7 +70,6 @@
                     $this.data('ipUploadPicture', {
                         defaultPicture : defaultPicture,
                         changed : false,
-                        crop : options.crop, //allow to crop? true / false
                         curPicture : curPicture,
                         uniqueId : uniqueId,
                         defaultPicture : defaultPicture,
@@ -51,103 +78,122 @@
                     
                     var photoHeight = Math.round($this.width() / $this.data('ipUploadPicture').aspectRatio);
                     
-                    $this.html('<div style="border: 1px black solid; width: 100%; height: ' + photoHeight + 'px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div id="ipUploadContainer_' + uniqueId + '"><div style="cursor: pointer;" id="ipUploadButton_' + uniqueId + '">Upload new </div></div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>');
                     
-                    $this.find('.ipUploadLargerButton').click(function() {
-                        $(this).trigger('pictureScaleUp.ipUploadPicture');
-                    });
+                    var data = Object();
+                    data.g = 'developer';
+                    data.m = 'upload';
+                    data.a = 'getContainerHtml';
                     
-                    $this.bind('pictureScaleUp.ipUploadPicture', function(event) {
-                        $(this).ipUploadPicture('_scaleUp', event);
-                    });
-                    
-                   
-                    
-                    $this.find('.ipUploadSmallerButton').click(function() {
-                        $(this).trigger('pictureScaleDown.ipUploadPicture');
-                    });
-
-                    $this.bind('pictureScaleDown.ipUploadPicture', function(event) {
-                        $(this).ipUploadPicture('_scaleDown', event);
-                    });                     
-                    
-                    
-                    //uploaded new photo and loaded. Reinit drag container
-                    $this.find('.preview').load(function (){
-                        $this.ipUploadPicture('_pictureLoaded');
-                    });
-                    
-                    
-                    $this.find('.preview').bind('pictureResized.ipUploadPicture', function(event, pictureCenterXPercentage, pictureCenterYPercentage) {
-                        $this.ipUploadPicture('_pictureResized', event, pictureCenterXPercentage, pictureCenterYPercentage);
-                    });
-                    
-                    
-                    
-                    
-                    $this.find('.preview').draggable({ containment: "parent" });
-                    
-                    var uploader = new plupload.Uploader( {
-                        runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : 'ipUploadButton_' + uniqueId,
-                        container : 'ipUploadContainer_' + uniqueId,
-                        max_file_size : '100mb',            
-                        url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
-                        multipart_params : {
-                            g : 'developer',
-                            m : 'upload',
-                            a : 'upload'
-                        },
-                        
-                        
-                        flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
-                        silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
+                    $.ajax({
+                        type : 'POST',
+                        url : ip.baseUrl,
+                        data : data,
+                        context : $this,
+                        success : methods._containerHtmlResponse,
+                        dataType : 'json'
                     });
 
-                    uploader.bind('Init', function(up, params) {
-                    });
+                }
+            });
 
-//                    $('#uploadfiles').click(function(e) {
-//                        uploader.start();
-//                        e.preventDefault();
-//                    });
-                    
-                    uploader.init();
-
-                    uploader.bind('FilesAdded', function(up, files) {
-                        
-                        $.each(files, function(i, file) {
-                            console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
-                        });
-                        up.refresh(); // Reposition Flash/Silverlight
-                        up.start();
-                    });
-//
-                    uploader.bind('UploadProgress', function(up, file) {
-                        //console.log(file);
-                        //$('#' + file.id + " b").html(file.percent + "%");
-                    });
-
-                    uploader.bind('Error', function(up, err) {
-                        console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
-                        up.refresh(); // Reposition Flash/Silverlight
-                    });
-
-                    
-                    
-                    
-                    
-                    
-                    uploader.bind('FileUploaded', function(up, file, response) {
-                        $this.ipUploadPicture('_uploadedNewPhoto', up, file, response);
-                    });
-
-                    
-                }                
+        },
+        
+        
+        _containerHtmlResponse : function (response) {
+            $this = this;
+            if (response.status != 'success') {
+                return;
+            }
+            
+            //'<div style="border: 1px black solid; width: 100%; height: ' + photoHeight + 'px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div id="ipUploadContainer_' + uniqueId + '"><div style="cursor: pointer;" id="ipUploadButton_' + uniqueId + '">Upload new </div></div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>'
+            $this.html(response.html);
+            
+            $this.find('ipUploadImage').attr('src', curPicture);
+            
+            
+            $this.find('.ipUploadLargerButton').click(function() {
+                $(this).trigger('pictureScaleUp.ipUploadPicture');
+            });
+            
+            $this.bind('pictureScaleUp.ipUploadPicture', function(event) {
+                $(this).ipUploadPicture('_scaleUp', event);
             });
             
             
             
+            $this.find('.ipUploadSmallerButton').click(function() {
+                $(this).trigger('pictureScaleDown.ipUploadPicture');
+            });
+
+            $this.bind('pictureScaleDown.ipUploadPicture', function(event) {
+                $(this).ipUploadPicture('_scaleDown', event);
+            });
+            
+            
+            //uploaded new photo and loaded. Reinit drag container
+            $this.find('.preview').load(function (){
+                $this.ipUploadPicture('_pictureLoaded');
+            });
+            
+            
+            $this.find('.preview').bind('pictureResized.ipUploadPicture', function(event, pictureCenterXPercentage, pictureCenterYPercentage) {
+                $this.ipUploadPicture('_pictureResized', event, pictureCenterXPercentage, pictureCenterYPercentage);
+            });
+            
+            
+            
+            
+            $this.find('.preview').draggable({ containment: "parent" });
+            
+            var uploader = new plupload.Uploader( {
+                runtimes : 'gears,html5,flash,silverlight,browserplus',
+                browse_button : 'ipUploadButton_' + uniqueId,
+                container : 'ipUploadContainer_' + uniqueId,
+                max_file_size : '100mb',
+                url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
+                multipart_params : {
+                    g : 'developer',
+                    m : 'upload',
+                    a : 'upload'
+                },
+                
+                
+                flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
+                silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
+            });
+
+            uploader.bind('Init', function(up, params) {
+            });
+
+//            $('#uploadfiles').click(function(e) {
+//                uploader.start();
+//                e.preventDefault();
+//            });
+            
+            uploader.init();
+
+            uploader.bind('FilesAdded', function(up, files) {
+                
+                $.each(files, function(i, file) {
+                    console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
+                });
+                up.refresh(); // Reposition Flash/Silverlight
+                up.start();
+            });
+//
+            uploader.bind('UploadProgress', function(up, file) {
+                //console.log(file);
+                //$('#' + file.id + " b").html(file.percent + "%");
+            });
+
+            uploader.bind('Error', function(up, err) {
+                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
+                up.refresh(); // Reposition Flash/Silverlight
+            });
+            
+            uploader.bind('FileUploaded', function(up, file, response) {
+                $this.ipUploadPicture('_uploadedNewPhoto', up, file, response);
+            });            
             
         },
         
