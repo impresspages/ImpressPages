@@ -19,7 +19,7 @@
             
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-            		$(this).trigger('initStarted.ipContentManagement');
+                    $(this).trigger('initStarted.ipContentManagement');
  
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
@@ -53,7 +53,7 @@
         
 
 
-        //********INIT*********
+        // ********INIT*********
 
         initResponse : function(response) {
             return this.each(function() {        	
@@ -94,7 +94,7 @@
             });
         },
 
-        //*********SAVE**********//
+        // *********SAVE**********//
         
         saveStart : function() {
             return this.each(function() {
@@ -122,9 +122,9 @@
 	        	    jobsCount++;
 	        	}
 	        	if (jobsCount == 0) {
-	        	    $this.ipContentManagement('saveFinish'); //initiate save finishing action
+	        	    $this.ipContentManagement('saveFinish'); // initiate save finishing action
 	        	} else {
-	        	    //wait for jobs to finish
+	        	    // wait for jobs to finish
 	        	}
 	        	
             });
@@ -141,8 +141,8 @@
         
         saveFinish : function() {
             return this.each(function() {
-//                console.log('save finish');
-//                return ;
+// console.log('save finish');
+// return ;
                 
                 
                 var $this = $(this);
@@ -180,7 +180,7 @@
                 tmpData.saving = false;
                 $this.data('ipContentManagement', tmpData);
                                 
-                //show error
+                // show error
                 $( "#ipSaveProgress" ).dialog('close');
             }
         },
@@ -209,9 +209,9 @@
                 }
 
                 if (jobsCount == 0) {
-                    $this.ipContentManagement('saveFinish'); //initiate save finishing action
+                    $this.ipContentManagement('saveFinish'); // initiate save finishing action
                 } else {
-                    //wait for other jobs to finish
+                    // wait for other jobs to finish
                 }
             });
         },        
@@ -242,7 +242,7 @@
             if (response.status == 'success') {
                 window.location.href = response.newRevisionUrl;
             } else {
-                //show error
+                // show error
             }            
         },
 
@@ -268,11 +268,11 @@
 	        	
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', overallProgress*100);
 	        	
-	        	//console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft  );
+	        	// console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft );
             });
         }
 
-        //*********END SAVE*************//
+        // *********END SAVE*************//
         
     };
     

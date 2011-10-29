@@ -11,8 +11,6 @@
 	z-index: 1000;
 }
 
-
-
 .ipWidgetList {
 	float: left;
 }
@@ -65,11 +63,11 @@
 }
 
 .ipWidgetLayoutSelect {
-    float: right;	
+	float: right;
 }
 
 .ipWidgetManagement {
-    background-color: #eee;
+	background-color: #eee;
 }
 
 .ipWidgetManagementHeader {
@@ -77,18 +75,16 @@
 }
 
 .ipWidgetManagementBody {
-    border: 1px solid #ccc;	
+	border: 1px solid #ccc;
 }
 
-.ipWidgetManagementFooter {
-    padding4px;	
+.ipWidgetManagementFooter {padding4px;
+	
 }
 
 .ipWidgetManagementFooter span {
-    background-color: #ccc;
-    cursor: pointer;
-    padding: 5px;
-    float: left;
+	background-color: #ccc;
+	cursor: pointer;
+	padding: 5px;
+	float: left;
 }
-
-
