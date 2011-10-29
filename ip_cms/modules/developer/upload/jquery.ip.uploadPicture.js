@@ -39,19 +39,17 @@
                 
                 var $this = $(this);
                 
-                var defaultPicture;
-                if (options.defaultPicture) {
-                    defaultPicture = options.defaultPicture;
-                } else {
-                    defaultPicture = ip.moduleDir + 'developer/upload/img/empty_picture.png';
-                }
-                
-                
-                
-                
                 var data = $this.data('ipUploadPicture');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
+                    
+                    var defaultPicture;
+                    if (options.defaultPicture) {
+                        defaultPicture = options.defaultPicture;
+                    } else {
+                        defaultPicture = ip.moduleDir + 'developer/upload/img/empty_picture.png';
+                    }
+                    
                     var curPicture;
                     if (options.picture) {
                         curPicture = options.picture;
@@ -59,7 +57,27 @@
                         curPicture = defaultPicture;
                     }
                     
-                    if (options.width)
+                    if (!options.containerWidth) {
+                        options.containerWidth = '100%';
+                    }
+                    if (!options.containerHeight) {
+                        options.containerHeight = $this.width();
+                    }
+                    
+                    
+                    if (!options.maxContainerWidth) {
+                        options.maxContainerWidth = $this.width();
+                    }
+                    if (!options.maxContainerHeight) {
+                        options.maxContainerHeight = options.containerHeight;
+                    }
+                    if (!options.minContainerWidth) {
+                        options.minContainerWidth = 1;
+                    }
+                    if (!options.maxContainerHeight) {
+                        options.minContainerHeight = 1;
+                    }
+                    
                     
                     if (options.aspectRatio && options.aspectRatio == 0) {
                         options.aspectRatio = null;
@@ -68,6 +86,14 @@
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
                     $this.data('ipUploadPicture', {
+                        containerWidth : options.containerWidth,
+                        containerHeight : options.containerHeight,
+                        maxContainerWidth : options.maxContainerWidth,
+                        maxContainerHeight : options.maxContainerHeight,
+                        minContainerWidth : options.minContainerWidth,
+                        minContainerHeight : options.minContainerHeight,
+                        
+                        
                         defaultPicture : defaultPicture,
                         changed : false,
                         curPicture : curPicture,
@@ -101,6 +127,8 @@
         
         _containerHtmlResponse : function (response) {
             $this = this;
+            var data = $this.data('ipUploadPicture');
+            
             if (response.status != 'success') {
                 return;
             }
@@ -108,8 +136,31 @@
             //'<div style="border: 1px black solid; width: 100%; height: ' + photoHeight + 'px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div id="ipUploadContainer_' + uniqueId + '"><div style="cursor: pointer;" id="ipUploadButton_' + uniqueId + '">Upload new </div></div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>'
             $this.html(response.html);
             
-            $this.find('ipUploadImage').attr('src', curPicture);
+            $this.find('.ipUploadImage').attr('src', data.curPicture);
             
+            $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
+            $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
+
+
+            $this.find('.ipUploadWindow').css('width', data.containerWidth);
+            $this.find('.ipUploadWindow').css('height', data.containerHeight);
+            
+            var resizableOptions = Object();
+            if (data.maxContainerWidth) {
+                resizableOptions.maxWidth = data.maxContainerWidth;
+            }
+            if (data.maxContainerHeight) {
+                resizableOptions.maxHeight = data.maxContainerHeight;
+            }
+            if (data.minContainerWidth) {
+                resizableOptions.minWidth = data.minContainerWidth;
+            }
+            if (data.minContainerHeight) {
+                resizableOptions.minHeight = data.minContainerHeight;
+            }
+            
+            $this.find('.ipUploadWindow').resizable(resizableOptions);
+
             
             $this.find('.ipUploadLargerButton').click(function() {
                 $(this).trigger('pictureScaleUp.ipUploadPicture');
@@ -131,24 +182,24 @@
             
             
             //uploaded new photo and loaded. Reinit drag container
-            $this.find('.preview').load(function (){
+            $this.find('.ipUploadImage').load(function (){
                 $this.ipUploadPicture('_pictureLoaded');
             });
             
             
-            $this.find('.preview').bind('pictureResized.ipUploadPicture', function(event, pictureCenterXPercentage, pictureCenterYPercentage) {
+            $this.find('.ipUploadImage').bind('pictureResized.ipUploadPicture', function(event, pictureCenterXPercentage, pictureCenterYPercentage) {
                 $this.ipUploadPicture('_pictureResized', event, pictureCenterXPercentage, pictureCenterYPercentage);
             });
             
             
             
             
-            $this.find('.preview').draggable({ containment: "parent" });
+            $this.find('.ipUploadImage').draggable({ containment: "parent" });
             
             var uploader = new plupload.Uploader( {
                 runtimes : 'gears,html5,flash,silverlight,browserplus',
-                browse_button : 'ipUploadButton_' + uniqueId,
-                container : 'ipUploadContainer_' + uniqueId,
+                browse_button : 'ipUploadButton_' + data.uniqueId,
+                container : 'ipUploadContainer_' + data.uniqueId,
                 max_file_size : '100mb',
                 url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                 multipart_params : {
@@ -204,13 +255,13 @@
             data.curPicture = answer.fileName;
             data.changed = true;
             $this.data('ipUploadPicture', data);
-            $this.find('.preview').attr('src', ip.baseUrl + answer.fileName);
+            $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
         },
         
         
         _pictureLoaded : function() {
             var $this = $(this);
-            var $picture = $this.find('.preview');
+            var $picture = $this.find('.ipUploadImage');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
@@ -235,7 +286,7 @@
         
         _pictureResized : function(e, pictureCenterXPercentage, pictureCenterYPercentage) {
             var $this = $(this);
-            var $picture = $this.find('.preview');
+            var $picture = $this.find('.ipUploadImage');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
@@ -282,7 +333,7 @@
         _uploadPicture : function(e){
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.preview');
+            var $picture = $(this).find('.ipUploadImage');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();                        
                 
@@ -315,7 +366,7 @@
         _scaleUp : function(e){
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.preview');
+            var $picture = $(this).find('.ipUploadImage');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();                        
             
@@ -336,9 +387,9 @@
         _scaleDown : function(e){
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.preview');
+            var $picture = $(this).find('.ipUploadImage');
             var $container = $picture.parent().parent();
-            var $dragContainer = $picture.parent();                          
+            var $dragContainer = $picture.parent();
             
             var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
             var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
@@ -371,7 +422,7 @@
             }
         },
         
-        getNewPictureUploaded : function () {            
+        getNewPictureUploaded : function () {
             var $this = $(this);
             return $this.data('ipUploadPicture').changed;
         },
@@ -380,16 +431,16 @@
             return true || this.ipUploadPicture('getNewPictureUploaded');
         },
         
-        getCropCoordinates : function () {      
+        getCropCoordinates : function () {
             $this = this;
             
-            var $picture = $this.find('.preview');
+            var $picture = $this.find('.ipUploadImage');
             var $container = $picture.parent().parent();
-            var $dragContainer = $picture.parent();            
+            var $dragContainer = $picture.parent();
             
             var coordinates = new Object;
             
-            var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($picture.css('left'));            
+            var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($picture.css('left'));
             var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($picture.css('top'));
             
             var $tmpPicture = $picture.clone();

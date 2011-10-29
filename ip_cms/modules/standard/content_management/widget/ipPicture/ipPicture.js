@@ -16,6 +16,10 @@ function ipWidget_IpPicture(widgetObject) {
         var options = new Object;
         var options = {
             picture : instanceData.data.pictureOriginal,
+            
+            containerWidth : 200,
+            
+            
             pictureWidth : instanceData.data.scaleWidth,
             pictureHeight : instanceData.data.scaleHeight,
             pictureCenterX : instanceData.data.centerX,
