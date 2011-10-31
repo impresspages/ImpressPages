@@ -5,7 +5,6 @@
 
 .ipUploadWindow{
     overflow: hidden;
-    background-color: black;
 }
 
 .ipUploadBrowseButton{

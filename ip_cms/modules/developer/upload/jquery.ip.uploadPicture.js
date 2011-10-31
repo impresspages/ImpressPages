@@ -297,8 +297,7 @@
             
             var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
             var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
-            
-
+        
             
             $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
         },
@@ -389,6 +388,20 @@
             var $picture = $this.find('.ipUploadImage');
             var $container = $picture.parent().parent();
             var $dragContainer = $picture.parent();
+            
+            if ($picture.width() < $container.width()) {
+                $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
+                $picture.height('auto');
+                console.log('chorochori2');
+                $picture.width($container.width());
+            }
+            if ($picture.height() < $container.height()) {
+                $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+                $picture.width('auto');
+                $picture.height($container.height());
+                console.log('charachiri2');
+            }                   
+            
             
             var pictureCenterX = Math.round($picture.width() * pictureCenterXPercentage / 100);
             var pictureCenterY = Math.round($picture.height() * pictureCenterYPercentage / 100);
@@ -502,17 +515,7 @@
             $picture.height('auto');
             $picture.width($picture.width() / scaleFactor);
             
-            if ($picture.width() < $container.width()) {
-                $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
-                $picture.height('auto');
-                $picture.width($container.width());
-            }
-            if ($picture.height() < $container.height()) {
-                $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
-                $picture.width('auto');
-                $picture.height($container.height());
-                console.log('charachiri');
-            }
+
             $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
             
           
