@@ -16,17 +16,23 @@ function ipWidget_IpPicture(widgetObject) {
         var options = new Object;
         var options = {
             picture : instanceData.data.pictureOriginal,
+            cropX1 : instanceData.data.cropX1,
+            cropY1 : instanceData.data.cropY1,
+            cropX2 : instanceData.data.cropX2,
+            cropY2 : instanceData.data.cropY2,
+            scale : instanceData.data.scale,
+//            minWindowWidth : 200,
+//            maxWindowWidth : 205,
+//            minWindowHeight : 200,
+//            maxWindowHeight : 201,
+              
+//            pictureWidth : instanceData.data.scaleWidth,
+//            pictureHeight : instanceData.data.scaleHeight,
+//            pictureCenterX : instanceData.data.centerX,
+//            pictureCenterY : instanceData.data.centerY,
             
-            containerWidth : 200,
             
-            
-            pictureWidth : instanceData.data.scaleWidth,
-            pictureHeight : instanceData.data.scaleHeight,
-            pictureCenterX : instanceData.data.centerX,
-            pictureCenterY : instanceData.data.centerY,
-            
-            
-            aspectRatio: 1/1
+//            aspectRatio: 1/1
         };
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         
@@ -53,6 +59,11 @@ function ipWidget_IpPicture(widgetObject) {
             }
         }
         
+        var windowWidth = ipUploadPicture.ipUploadPicture('getWindowWidth');
+        var maxWidth = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').width();
+        data.scale = windowWidth / maxWidth;
+        console.log('width maxwidth: ' + windowWidth + ' ' + maxWidth);
+        console.log('scale ' + data.scale);
         data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
         
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        

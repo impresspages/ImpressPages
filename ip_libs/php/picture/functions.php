@@ -18,7 +18,7 @@ class Functions{
     const ERROR_WRITE = 3; //Can't write destination file
     const ERROR_UNKNOWN_MIME = 4; //Can't write destination file
     const ERROR_UNKNOWN_CROP_TYPE = 5; //Unknown crop type
-    
+
     const CROP_TYPE_FIT = 1; //resize to fit
     const CROP_TYPE_CROP = 2; //crop image if it don't fit
     const CROP_TYPE_WIDTH = 3; //resize to width
@@ -85,11 +85,15 @@ class Functions{
     /*
      *
      */
-    public static function crop ($pictureFile, $destDir, $x1, $y1, $x2, $y2, $quality) {
+    public static function crop ($pictureFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
         global $parametersMod;
 
-        $widthDest = $x2 - $x1;
-        $heightDest = $y2 - $y1;
+        if ($widthDest === null) {
+            $widthDest = $x2 - $x1;
+        }
+        if ($heightDest === null) {
+            $heightDest = $y2 - $y1;
+        }
 
         $pictureInfo = getimagesize($pictureFile);
         if ($pictureInfo[0] == $widthDest && $pictureInfo[1] == $heightDest) {
@@ -114,8 +118,8 @@ class Functions{
         imagealphablending($imageNew, false);
         imagesavealpha($imageNew,true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-        imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
-        imagecopyresampled($imageNew, $image, 0,  0, $x1, $y1, $widthDest, $heightDest, $widthDest, $heightDest);
+        imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
+        imagecopyresampled($imageNew, $image, 0,  0, $x1, $y1, $widthDest, $heightDest, $x2 - $x1, $y2 - $y1);
 
         $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
         $newFile = $destDir.$newName;
@@ -219,7 +223,7 @@ class Functions{
         $dest_proportion = $widthDest / $heightDest;
         $sourceProportion = (double)$widthSource / (double)$heightSource;
 
-        
+
          
          
         switch($type){

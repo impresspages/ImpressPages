@@ -4,8 +4,8 @@
 }
 
 .ipUploadWindow{
-    border: 1px black solid;
     overflow: hidden;
+    background-color: black;
 }
 
 .ipUploadBrowseButton{
@@ -13,7 +13,7 @@
 }
 </style>
 
-<div class="ipUploadWindow">
+<div class="ipUploadWindow ui-widget-content">
     <div class="ipUploadButtons">
         <div class="ipUploadBrowseContainer" id="ipUploadContainer_' + uniqueId + '">
             <div class="ipUploadBrowseButton" id="ipUploadButton_' + uniqueId + '">Upload new</div>

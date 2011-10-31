@@ -53,8 +53,11 @@ class ipPicture extends \Modules\standard\content_management\Widget{
             $newData['pictureBig'] = IMAGE_DIR.$bigPictureName;
         }
         
-        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) ) {
+        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) ) {
             //new small picture
+            $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']); 
+            $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_photo', 'width') * $postData['scale']);
+            $requiredHeight = round($requiredWidth / $ratio);
             $smallPictureName = \Library\Php\Picture\Functions::crop (
             $newData['pictureOriginal'],
             $destinationDir,
@@ -62,9 +65,17 @@ class ipPicture extends \Modules\standard\content_management\Widget{
             $postData['cropY1'],
             $postData['cropX2'],
             $postData['cropY2'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'quality')
+            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'quality'),
+            $requiredWidth,
+            $requiredHeight
             );
             $newData['pictureSmall'] = IMAGE_DIR.$smallPictureName;
+            $newData['scale'] = $postData['scale'];
+            $newData['cropX1'] = $postData['cropX1'];
+            $newData['cropY1'] = $postData['cropY1'];
+            $newData['cropX2'] = $postData['cropX2'];
+            $newData['cropY2'] = $postData['cropY2'];
+            
         }
         
         
