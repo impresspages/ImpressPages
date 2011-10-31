@@ -25,23 +25,35 @@
                 var instanceDataInput = $this.find('.ipWidgetData input')
                 if (instanceDataInput){
                     data = $.parseJSON(instanceDataInput.val());
+                    
+                    if (!data.data) {
+                        data.data = new Array(); //widgets don't need to worry if data variable is null or not. It is always an array
+                    }                    
                 }else {
                     data = new Array();
+                    data.data = new Array();  //widgets don't need to worry if data variable is null or not. It is always an array
                 }
                 
                 if ($this.hasClass('ipWidgetManagement')) {
-                    widgetName = data.name;
-                    if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
-                        eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
-                        data.state = IP_WIDGET_STATE_MANAGEMENT;
-                        widgetPluginObject.manageInit();
-                    }
+                    data.state = IP_WIDGET_STATE_MANAGEMENT;
                 } else {
                     data.state = IP_WIDGET_STATE_PREVIEW;
                 }
                 
                 $this.data('ipWidget', data);
 
+                if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
+                    widgetName = data.name;
+                    if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+                        eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                        data = $this.data('ipWidget');
+                        data.state = IP_WIDGET_STATE_MANAGEMENT;
+                        $this.data('ipWidget', data);
+                        widgetPluginObject.manageInit();
+                    }
+                }
+                
+                
                 // mange action
                 $this.delegate('.ipWidget .ipWidgetManage', 'click', function(event) {
                     $(this).trigger('manageClick.ipWidget');
@@ -92,7 +104,7 @@
     },
     
     manage : function() {
-        return this.each(function() {            
+        return this.each(function() {
             
             
             var $this = $(this);
@@ -132,20 +144,22 @@
                 $newWidget.insertAfter($this);
                 $newWidget.trigger('reinitRequired.ipWidget');
 
-                //change state to managed
-                var tmpData = $newWidget.data('ipWidget');
-                tmpData.state = IP_WIDGET_STATE_MANAGEMENT;
-                $newWidget.data('ipWidget', tmpData);
-                
                 $this.remove();
                 
-                
-                widgetName = $($newWidget).data('ipWidget').name;
-                if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
-                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
-                    $($newWidget).data('ipWidget').status = IP_WIDGET_STATE_MANAGEMENT;
-                    widgetPluginObject.manageInit();
-                }
+//                //change state to managed
+//                var tmpData = $newWidget.data('ipWidget');
+//                tmpData.state = IP_WIDGET_STATE_MANAGEMENT;
+//                $newWidget.data('ipWidget', tmpData);
+//                
+//
+//                
+//                
+//                widgetName = $($newWidget).data('ipWidget').name;
+//                if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+//                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
+//                    $($newWidget).data('ipWidget').status = IP_WIDGET_STATE_MANAGEMENT;
+//                    widgetPluginObject.manageInit();
+//                }
                 
             } else {
                 alert(response.errorMessage);

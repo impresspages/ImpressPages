@@ -12,7 +12,6 @@ function ipWidget_IpText(widgetObject) {
 
 
     function manageInit() {
-        console.log('text widget init');
         var instanceData = this.widgetObject.data('ipWidget');
         this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
     }

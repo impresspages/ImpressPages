@@ -14,29 +14,27 @@ function ipWidget_IpPicture(widgetObject) {
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         var options = new Object;
-        var options = {
-//            picture : instanceData.data.pictureOriginal,
-//            cropX1 : instanceData.data.cropX1,
-//            cropY1 : instanceData.data.cropY1,
-//            cropX2 : instanceData.data.cropX2,
-//            cropY2 : instanceData.data.cropY2,
-//            scale : instanceData.data.scale,
-            
-            
-            
-//            minWindowWidth : 200,
-//            maxWindowWidth : 205,
-//            minWindowHeight : 200,
-//            maxWindowHeight : 201,
-              
-//            pictureWidth : instanceData.data.scaleWidth,
-//            pictureHeight : instanceData.data.scaleHeight,
-//            pictureCenterX : instanceData.data.centerX,
-//            pictureCenterY : instanceData.data.centerY,
-            
-            
-//            aspectRatio: 1/1
-        };
+        
+        if (instanceData.data.pictureOriginal) {
+            options.picture = instanceData.data.pictureOriginal;
+        }
+        if (instanceData.data.cropX1) {
+            options.cropX1 = instanceData.data.cropX1;
+        }
+        if (instanceData.data.cropY1) {
+            options.cropY1 = instanceData.data.cropY1;
+        }
+        if (instanceData.data.cropX2) {
+            options.cropX2 = instanceData.data.cropX2;
+        }
+        if (instanceData.data.cropY2) {
+            options.cropY2 = instanceData.data.cropY2;
+        }
+        if (instanceData.data.scale) {
+            options.scale = instanceData.data.scale;
+        }
+        
+
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         
         
@@ -52,7 +50,7 @@ function ipWidget_IpPicture(widgetObject) {
             }
         }
         
-        if (ipUploadPicture.ipUploadPicture('getCropCoordinatesChanged')) {
+        if (ipUploadPicture.ipUploadPicture('getCropCoordinatesChanged') && ipUploadPicture.ipUploadPicture('getCurPicture') != false) {
             var cropCoordinates = ipUploadPicture.ipUploadPicture('getCropCoordinates');
             if (cropCoordinates) {
                 data.cropX1 = cropCoordinates.x1;

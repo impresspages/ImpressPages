@@ -66,7 +66,7 @@ class Widget{
             //collect default view files
             $layoutsDir = BASE_DIR.$this->widgetDir.self::PREVIEW_DIR;
             if (!file_exists($layoutsDir) || !is_dir($layoutsDir)) {
-                throw new Exception('Layouts directory does not exist', self::NO_LAYOUTS);
+                throw new Exception('Layouts directory does not exist', Exception::NO_LAYOUTS);
             }
             
             $availableViewFiles = scandir(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR);

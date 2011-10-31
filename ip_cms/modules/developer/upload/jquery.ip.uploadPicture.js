@@ -36,13 +36,11 @@
         init : function(options) {
 
             return this.each(function() {
-                console.log('test1');
                 var $this = $(this);
                 
                 var data = $this.data('ipUploadPicture');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    console.log('test2');
                     var defaultPicture;
                     if (options.defaultPicture) {
                         defaultPicture = options.defaultPicture;
@@ -69,20 +67,22 @@
                         options.maxWindowWidth = $this.width();
                     }
                     if (!options.maxWindowHeight) {
-                        options.maxWindowHeight = options.WindowHeight;
+                        options.maxWindowHeight = 10000;
                     }
                     if (!options.minWindowWidth) {
                         options.minWindowWidth = 1;
                     }
-                    if (!options.maxWindowHeight) {
+                    if (!options.minWindowHeight) {
                         options.minWindowHeight = 1;
                     }
                     
                     if (!options.changeWidth) {
                         options.changeWidth = false;
+                        options.minWindowWidth = options.maxWindowWidth;
                     }
                     if (!options.changeHeight) {
                         options.changeHeight = false;
+                        options.minWindowHeight = options.maxWindowHeight;
                     }
                     if (!options.aspectRatio) {
                         options.aspectRatio = true;
@@ -159,7 +159,7 @@
             
             var data = $this.data('ipUploadPicture');
             var $ipUploadWindow = $this.find('.ipUploadWindow');
-            
+            console.log(data);
             
             
             $this.find('.ipUploadImage').attr('src', data.curPicture);
@@ -338,7 +338,6 @@
                 }
                 $picture.trigger('pictureResized.ipUploadPicture', [50, 50]);
             } else { //current picture loaded. Crop it as it was cropped before
-                console.log($this.data('ipUploadPicture'));
                 var cropX1 = 0;
                 var cropY1 = 0;
                 var cropX2 = parseInt($picture.width());
@@ -359,12 +358,8 @@
                 
                 var centerX = (cropX2 - cropX1) / 2 + cropX1;
                 var centerY = (cropY2 - cropY1) / 2 + cropY1;
-                console.log( '(' + cropY2 + ' - ' + cropY1 + ') / 2 + ' + cropY1 + ' ');
-                console.log('centerx ' + centerX + ' centery' + centerY);
                 var centerPercentageX = centerX / $picture.width() * 100;
                 var centerPercentageY = centerY / $picture.height() * 100;
-                console.log([cropX1, cropY1,cropX2, cropY2]);
-                
                 $container.width($container.width() * $this.data('ipUploadPicture').scale);
                 $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
                 $container.height(Math.round($container.width() / $photoRatio));
@@ -372,10 +367,6 @@
                 var pictureScale = $container.width() / (cropX2 - cropX1);
                 $picture.width($picture.width() * pictureScale);
                 $picture.height('auto');
-                console.log($picture.width());
-                console.log($picture.height());
-                console.log($this.data('ipUploadPicture'));
-                console.log([centerPercentageX, centerPercentageY]);
                 $picture.trigger('pictureResized.ipUploadPicture', [centerPercentageX, centerPercentageY]);
 
             }
@@ -392,14 +383,12 @@
             if ($picture.width() < $container.width()) {
                 $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
                 $picture.height('auto');
-                console.log('chorochori2');
                 $picture.width($container.width());
             }
             if ($picture.height() < $container.height()) {
                 $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
                 $picture.width('auto');
                 $picture.height($container.height());
-                console.log('charachiri2');
             }                   
             
             

@@ -14,57 +14,71 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
 
 
     
-    public function post($instanceId, $postData, $data) {
-        $answer = '';
-        
-        $newData = array();
-        
-        
-        
-        Model::updateInstance($instanceId, $newData);
-        
-        
-        return $answer;  
-    }
-    
-    public function managementHtml($instanceId, $data, $layout){
-    	
-    	if (!isset($data['text'])) {
-    	   $data['text'] = '';    
-    	}
-    	
-    	$data['instanceId'] = $instanceId;
-    	
 
-    	
-    	$answer = \Ip\View::create('view/management.php', $data)->render();
-    	
-        return $answer;
-    }
-    
-    
-    public function previewHtml($widgetId, $data, $layout){
-        
+    public function prepareData($instanceId, $postData, $currentData) {
+        global $parametersMod;
         $answer = '';
         
-        if(isset($data['text'])) {
-            $answer = $data['text'];
+
+        $destinationDir = BASE_DIR.IMAGE_DIR;
+        
+        $newData = $currentData;
+        
+        
+        $newData['text'] = $postData['text'];
+
+        if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
+            
+            if (TMP_IMAGE_DIR.basename($postData['newPicture']) != $postData['newPicture']) {
+                throw new \Exception("Security notice. Try to access an image (".$postData['newPicture'].") from a non temporary folder.");
+            }
+            
+            //new original picture
+            $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newPicture'], $destinationDir);
+            copy($postData['newPicture'], $destinationDir.$unocupiedName);
+            $newData['pictureOriginal'] = IMAGE_DIR.$unocupiedName;
+            
+            
+            
+            $bigPictureName = \Library\Php\Picture\Functions::resize(
+            $postData['newPicture'],
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_width'), 
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_height'),  
+            BASE_DIR.IMAGE_DIR, 
+            \Library\Php\Picture\Functions::CROP_TYPE_FIT, 
+            false, 
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_quality')
+            );
+            $newData['pictureBig'] = IMAGE_DIR.$bigPictureName;
         }
-        return $answer;
+        
+        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
+            //new small picture
+            $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']); 
+            $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'width'));
+            $requiredHeight = round($requiredWidth / $ratio);
+            $smallPictureName = \Library\Php\Picture\Functions::crop (
+            $newData['pictureOriginal'],
+            $destinationDir,
+            $postData['cropX1'],
+            $postData['cropY1'],
+            $postData['cropX2'],
+            $postData['cropY2'],
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'quality'),
+            $requiredWidth,
+            $requiredHeight
+            );
+            $newData['pictureSmall'] = IMAGE_DIR.$smallPictureName;
+            $newData['cropX1'] = $postData['cropX1'];
+            $newData['cropY1'] = $postData['cropY1'];
+            $newData['cropX2'] = $postData['cropX2'];
+            $newData['cropY2'] = $postData['cropY2'];
+            
+        }
+        
+       // return $newData;
     }
-    
-    public function getTitle(){
-        return 'Text with picture';
-    }
-    
-    public function getIcon(){
-        return MODULE_DIR.'standard/content_management/widget/ipTextPicture/icon.gif';
-    }
-    
-    public function getName(){
-        return 'IpTextPicture';
-    }    
-    
+            
 
     
 }

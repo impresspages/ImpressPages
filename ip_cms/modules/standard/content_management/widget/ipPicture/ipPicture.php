@@ -15,9 +15,6 @@ require_once(BASE_DIR.LIBRARY_DIR.'php/picture/functions.php');
 class ipPicture extends \Modules\standard\content_management\Widget{
 
 
-    public function post($instanceId, $postData, $data) {
-        
-    }
 
     public function prepareData($instanceId, $postData, $currentData) {
         global $parametersMod;
