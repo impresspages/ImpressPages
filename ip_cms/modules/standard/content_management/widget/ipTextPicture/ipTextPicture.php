@@ -76,7 +76,7 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
             
         }
         
-       // return $newData;
+        return $newData;
     }
             
 
