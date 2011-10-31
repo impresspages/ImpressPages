@@ -24,13 +24,18 @@
                 //parse widget record data
                 var instanceDataInput = $this.find('.ipWidgetData input')
                 if (instanceDataInput){
-                    data = $.parseJSON(instanceDataInput.val());                    
+                    data = $.parseJSON(instanceDataInput.val());
                 }else {
                     data = new Array();
                 }
                 
                 if ($this.hasClass('ipWidgetManagement')) {
-                    data.state = IP_WIDGET_STATE_MANAGEMENT;
+                    widgetName = data.name;
+                    if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
+                        eval('var widgetPluginObject = new ipWidget_' + widgetName + '($this);');
+                        data.state = IP_WIDGET_STATE_MANAGEMENT;
+                        widgetPluginObject.manageInit();
+                    }
                 } else {
                     data.state = IP_WIDGET_STATE_PREVIEW;
                 }
@@ -140,7 +145,7 @@
                     eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
                     $($newWidget).data('ipWidget').status = IP_WIDGET_STATE_MANAGEMENT;
                     widgetPluginObject.manageInit();
-                }              
+                }
                 
             } else {
                 alert(response.errorMessage);

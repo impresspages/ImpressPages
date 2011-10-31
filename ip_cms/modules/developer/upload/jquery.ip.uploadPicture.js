@@ -36,13 +36,13 @@
         init : function(options) {
 
             return this.each(function() {
-                
+                console.log('test1');
                 var $this = $(this);
                 
                 var data = $this.data('ipUploadPicture');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    
+                    console.log('test2');
                     var defaultPicture;
                     if (options.defaultPicture) {
                         defaultPicture = options.defaultPicture;

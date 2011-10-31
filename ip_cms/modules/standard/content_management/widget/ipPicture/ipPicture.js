@@ -15,12 +15,15 @@ function ipWidget_IpPicture(widgetObject) {
         var instanceData = this.widgetObject.data('ipWidget');
         var options = new Object;
         var options = {
-            picture : instanceData.data.pictureOriginal,
-            cropX1 : instanceData.data.cropX1,
-            cropY1 : instanceData.data.cropY1,
-            cropX2 : instanceData.data.cropX2,
-            cropY2 : instanceData.data.cropY2,
-            scale : instanceData.data.scale,
+//            picture : instanceData.data.pictureOriginal,
+//            cropX1 : instanceData.data.cropX1,
+//            cropY1 : instanceData.data.cropY1,
+//            cropX2 : instanceData.data.cropX2,
+//            cropY2 : instanceData.data.cropY2,
+//            scale : instanceData.data.scale,
+            
+            
+            
 //            minWindowWidth : 200,
 //            maxWindowWidth : 205,
 //            minWindowHeight : 200,
