@@ -8,8 +8,8 @@
  * 
  * Available options:
  * 
- * backgroundPicture - defautl picture to be used when real picture is not uploaded
- * backgroundColor - 
+ * backgroundPicture - defautl picture to be used when real picture is not uploaded (not implemented)
+ * backgroundColor - (not implemented)
  * picture - url to image to be cropped / resized
  * cropX1 - current cropping coordinates
  * cropY1 
@@ -19,7 +19,7 @@
  * windowHeight - height of container (the same as width if not set)
  * changeWidth - allow user to change container width
  * changeHeight - allow user to change container height
- * constrainProportions - update container parameters to constrain proportions on resize
+ * constrainProportions - update container parameters to constrain proportions on resize (not implemented)
  * maxWindowWidth - 
  * maxWindowHeight -
  * minWindowWidth
@@ -108,16 +108,12 @@
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
                         
-                        
-                        
-                        aspectRatio : options.aspectRatio,
-                        
                         defaultPicture : defaultPicture,
-                        changed : false,
+                        pictureChanged : false,
+                        coordinatesChanged : false,
+                        
                         curPicture : curPicture,
                         uniqueId : uniqueId,
-                        defaultPicture : defaultPicture,
-                        aspectRatio : options.aspectRatio //eg 1024/768
                     }); 
                     
                     var photoHeight = Math.round($this.width() / $this.data('ipUploadPicture').aspectRatio);
@@ -294,7 +290,6 @@
             var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
             var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
         
-            
             $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
         },
         
@@ -303,7 +298,8 @@
             var answer = jQuery.parseJSON(response.response);
             var data = $this.data('ipUploadPicture');
             data.curPicture = answer.fileName;
-            data.changed = true;
+            data.pictureChanged = true;
+            data.coordinatesChanged = true;
             $this.data('ipUploadPicture', data);
             $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
         },
@@ -374,6 +370,10 @@
             var $picture = $this.find('.ipUploadImage');
             var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
+            
+            var data = $this.data('ipUploadPicture');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadPicture', data);
             
             if ($picture.width() < $window.width()) {
                 $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
@@ -516,11 +516,11 @@
         
         getNewPictureUploaded : function () {
             var $this = this;
-            return $this.data('ipUploadPicture').changed;
+            return $this.data('ipUploadPicture').pictureChanged;
         },
         
         getCropCoordinatesChanged : function () {
-            return true || this.ipUploadPicture('getNewPictureUploaded');
+            return $this.data('ipUploadPicture').coordinatesChanged || this.ipUploadPicture('getNewPictureUploaded');
         },
         
         getCropCoordinates : function () {
