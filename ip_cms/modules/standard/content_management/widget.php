@@ -142,7 +142,7 @@ class Widget{
         } catch (\Ip\CoreException $e){
             //do nothing. Administration view does not exist
         }
-        return $answer;         
+        return $answer;
     }
     
     public function previewHtml($instanceId, $data, $layout) {

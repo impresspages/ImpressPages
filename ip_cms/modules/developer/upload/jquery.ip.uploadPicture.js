@@ -511,7 +511,7 @@
         },
         
         getCurPicture : function () {
-            var $this = $(this);
+            var $this = this;
             if ($this.data('ipUploadPicture').curPicture !== $this.data('ipUploadPicture').defaultPicture) {
                 return $this.data('ipUploadPicture').curPicture;
             } else {
@@ -520,7 +520,7 @@
         },
         
         getNewPictureUploaded : function () {
-            var $this = $(this);
+            var $this = this;
             return $this.data('ipUploadPicture').changed;
         },
         
@@ -529,7 +529,7 @@
         },
         
         getCropCoordinates : function () {
-            $this = this;
+            var $this = this;
             
             var $picture = $this.find('.ipUploadImage');
             var $container = $picture.parent().parent();
@@ -556,13 +556,13 @@
         },
         
         getWindowWidth : function () {
-            $this = this;
+            var $this = this;
             //return $this.find('.ipUploadWindow').width() + $this.find('.ipUploadWindow').css('border');
             return $this.find('.ipUploadWindow').outerWidth(true);
         },
         
         getWindowHeight : function () {
-            $this = this;
+            var $this = this;
             return $this.find('.ipUploadWindow').height();
         }
         

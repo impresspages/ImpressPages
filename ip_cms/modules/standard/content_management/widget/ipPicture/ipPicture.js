@@ -63,8 +63,6 @@ function ipWidget_IpPicture(widgetObject) {
         var windowWidth = ipUploadPicture.ipUploadPicture('getWindowWidth');
         var maxWidth = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').width();
         data.scale = windowWidth / maxWidth;
-        console.log('width maxwidth: ' + windowWidth + ' ' + maxWidth);
-        console.log('scale ' + data.scale);
         data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
         
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        

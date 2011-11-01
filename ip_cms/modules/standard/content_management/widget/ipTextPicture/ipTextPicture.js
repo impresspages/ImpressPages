@@ -41,10 +41,29 @@ function ipWidget_IpTextPicture(widgetObject) {
     }
 
     function prepareData() {
-
         var data = Object();
 
+        var ipUploadPicture = this.widgetObject.find('.ipWidget_ipTextPicture_uploadPicture');
+        if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
+            var newPicture = ipUploadPicture.ipUploadPicture('getCurPicture');
+            if (newPicture) {
+                data.newPicture = newPicture;
+            }
+        }
+        
+        if (ipUploadPicture.ipUploadPicture('getCropCoordinatesChanged') && ipUploadPicture.ipUploadPicture('getCurPicture') != false) {
+            var cropCoordinates = ipUploadPicture.ipUploadPicture('getCropCoordinates');
+            if (cropCoordinates) {
+                data.cropX1 = cropCoordinates.x1;
+                data.cropY1 = cropCoordinates.y1;
+                data.cropX2 = cropCoordinates.x2;
+                data.cropY2 = cropCoordinates.y2;
+            }
+        }
+        
+
         data.text = $(this.widgetObject).find('textarea').first().val();
+        data.title = $(this.widgetObject).find('.ipWidget_ipTextPicutre_title').first().val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 

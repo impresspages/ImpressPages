@@ -26,6 +26,7 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
         
         
         $newData['text'] = $postData['text'];
+        $newData['title'] = $postData['title'];
 
         if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
             
@@ -79,6 +80,18 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
         return $newData;
     }
             
+    public function managementHtml($instanceId, $data, $layout) {
+        global $parametersMod;
+        $answer = '';
+        try {
+            $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'title');
+            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::MANAGEMENT_DIR.'/default.php', $data)->render();
+        } catch (\Ip\CoreException $e){
+            //do nothing. Administration view does not exist
+        }
+        return $answer;
+    }    
+    
 
     
 }
