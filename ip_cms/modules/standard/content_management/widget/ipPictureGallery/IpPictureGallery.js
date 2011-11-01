@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-function ipWidget_IpPicture(widgetObject) {
+function ipWidget_IpPictureGallery(widgetObject) {
     this.widgetObject = widgetObject;
 
     this.prepareData = prepareData;
@@ -30,8 +30,8 @@ function ipWidget_IpPicture(widgetObject) {
         if (instanceData.data.cropY2) {
             options.cropY2 = instanceData.data.cropY2;
         }
-        if (instanceData.data.pictureWindowScale) {
-            options.windowScale = instanceData.data.pictureWindowScale;
+        if (instanceData.data.scale) {
+            options.scale = instanceData.data.scale;
         }
         
 

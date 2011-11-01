@@ -93,8 +93,8 @@
                         options.aspectRatio = null;
                     }
                     
-                    if (!options.scale) {
-                        options.scale = 1;
+                    if (!options.windowScale) {
+                        options.windowScale = 1;
                     }
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
@@ -110,7 +110,7 @@
                         cropY1 : options.cropY1,
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
-                        scale : options.scale,
+                        windowScale : options.windowScale,
                         
                         
                         aspectRatio : options.aspectRatio,
@@ -288,7 +288,7 @@
         _resizedWindow : function (resizeEvent, ui) {
             var $this = $(this);
             var $picture = $this.find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
 
             
@@ -316,23 +316,23 @@
         _pictureLoaded : function() {
             var $this = $(this);
             var $picture = $this.find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
-            if ($container.height() == 0 || $picture.height() == 0) {
+            if ($window.height() == 0 || $picture.height() == 0) {
                 return; //to avoid division by zero.
             }
             
             if ($this.ipUploadPicture('getNewPictureUploaded')) { //new picture uploaded. Center it.
-                containerAspectRatio = $container.width() / $container.height();
+                containerAspectRatio = $window.width() / $window.height();
                 pictureAspectRatio = $picture.width() / $picture.height();
                 if (containerAspectRatio > pictureAspectRatio) {
-                    $picture.width($container.width());
+                    $picture.width($window.width());
                     $picture.height('auto');
                     $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
                     
                 } else {
-                    $picture.height($container.height());
+                    $picture.height($window.height());
                     $picture.width('auto');
                     $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
                 }
@@ -360,11 +360,11 @@
                 var centerY = (cropY2 - cropY1) / 2 + cropY1;
                 var centerPercentageX = centerX / $picture.width() * 100;
                 var centerPercentageY = centerY / $picture.height() * 100;
-                $container.width($container.width() * $this.data('ipUploadPicture').scale);
+                $window.width($window.width() * $this.data('ipUploadPicture').windowScale);
                 $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                $container.height(Math.round($container.width() / $photoRatio));
+                $window.height(Math.round($window.width() / $photoRatio));
                 
-                var pictureScale = $container.width() / (cropX2 - cropX1);
+                var pictureScale = $window.width() / (cropX2 - cropX1);
                 $picture.width($picture.width() * pictureScale);
                 $picture.height('auto');
                 $picture.trigger('pictureResized.ipUploadPicture', [centerPercentageX, centerPercentageY]);
@@ -377,32 +377,32 @@
         _pictureResized : function(e, pictureCenterXPercentage, pictureCenterYPercentage) {
             var $this = $(this);
             var $picture = $this.find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
-            if ($picture.width() < $container.width()) {
+            if ($picture.width() < $window.width()) {
                 $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
                 $picture.height('auto');
-                $picture.width($container.width());
+                $picture.width($window.width());
             }
-            if ($picture.height() < $container.height()) {
+            if ($picture.height() < $window.height()) {
                 $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
                 $picture.width('auto');
-                $picture.height($container.height());
+                $picture.height($window.height());
             }                   
             
             
             var pictureCenterX = Math.round($picture.width() * pictureCenterXPercentage / 100);
             var pictureCenterY = Math.round($picture.height() * pictureCenterYPercentage / 100);
-            marginHorizontal = $picture.width() - $container.width();
-            console.log('container width ' + $container.width());
+            marginHorizontal = $picture.width() - $window.width();
+            console.log('container width ' + $window.width());
             if (marginHorizontal < 0) {
                 marginHorizontal = 0;
             }
 
             $dragContainer.css('margin-left', -marginHorizontal);
             $dragContainer.css('margin-right', -marginHorizontal);
-            $dragContainer.width($container.width() + marginHorizontal*2);
+            $dragContainer.width($window.width() + marginHorizontal*2);
             $picture.css('left', $dragContainer.width() / 2 - pictureCenterX);                          
             if (parseInt($picture.css('left')) < 0){
                 $picture.css('left', 0);
@@ -413,14 +413,14 @@
             
             
             
-            marginVertical = $picture.height() - $container.height();
+            marginVertical = $picture.height() - $window.height();
             if (marginVertical < 0) {
                 marginVertical = 0;
             }
 
             $dragContainer.css('margin-top', -marginVertical);
             $dragContainer.css('margin-bottom', -marginVertical);
-            $dragContainer.height($container.height() + marginVertical*2);
+            $dragContainer.height($window.height() + marginVertical*2);
             $picture.css('top', $dragContainer.height() / 2 - pictureCenterY);
             if (parseInt($picture.css('top')) < 0){
                 $picture.css('top', 0);
@@ -437,7 +437,7 @@
             var scaleFactor = 1.1;
             
             var $picture = $(this).find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();                        
                 
             var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
@@ -451,13 +451,13 @@
             $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
 
             
-            if ($picture.width() < $container.width()) {
-                $picture.width($container.width());
+            if ($picture.width() < $window.width()) {
+                $picture.width($window.width());
                 $picture.height('auto');
                 $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
             }
-            if ($picture.height() < $container.height()) {
-                $picture.height($container.height());
+            if ($picture.height() < $window.height()) {
+                $picture.height($window.height());
                 $picture.width('auto');
                 $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
             }
@@ -470,7 +470,7 @@
             var scaleFactor = 1.1;
             
             var $picture = $(this).find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();                        
             
             var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
@@ -491,7 +491,7 @@
             var scaleFactor = 1.1;
             
             var $picture = $(this).find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
             var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
@@ -532,7 +532,7 @@
             var $this = this;
             
             var $picture = $this.find('.ipUploadImage');
-            var $container = $picture.parent().parent();
+            var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
             
             var coordinates = new Object;
@@ -550,8 +550,8 @@
             
             coordinates.x1 = Math.round(offsetX / scale);
             coordinates.y1 = Math.round(offsetY / scale);
-            coordinates.x2 = Math.round(coordinates.x1 + $container.width() / scale);
-            coordinates.y2 = Math.round(coordinates.y1 + $container.height() / scale);
+            coordinates.x2 = Math.round(coordinates.x1 + $window.width() / scale);
+            coordinates.y2 = Math.round(coordinates.y1 + $window.height() / scale);
             return coordinates;
         },
         
