@@ -24,6 +24,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
         $destinationDir = BASE_DIR.IMAGE_DIR;
         
         $newData = $currentData;
+        $newData['pictureWindowWidth'] = $postData['pictureWindowWidth'];
 
         if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
             
@@ -67,7 +68,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
             $requiredHeight
             );
             $newData['pictureSmall'] = IMAGE_DIR.$smallPictureName;
-            $newData['scale'] = $postData['scale'];
+            $newData['scale'] = $postData['scale'];            
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
             $newData['cropX2'] = $postData['cropX2'];

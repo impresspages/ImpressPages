@@ -30,10 +30,12 @@ function ipWidget_IpPicture(widgetObject) {
         if (instanceData.data.cropY2) {
             options.cropY2 = instanceData.data.cropY2;
         }
-        if (instanceData.data.pictureWindowScale) {
-            options.windowScale = instanceData.data.pictureWindowScale;
+        if (instanceData.data.pictureWindowWidth) {
+            options.windowWidth = instanceData.data.pictureWindowWidth;
+            console.log(options.windowWidth);
         }
-        
+        options.changeHeight = true;
+        options.changeWidth = true;
 
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         
@@ -63,6 +65,7 @@ function ipWidget_IpPicture(widgetObject) {
         var windowWidth = ipUploadPicture.ipUploadPicture('getWindowWidth');
         var maxWidth = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').width();
         data.scale = windowWidth / maxWidth;
+        data.pictureWindowWidth = windowWidth;
         data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
         
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        

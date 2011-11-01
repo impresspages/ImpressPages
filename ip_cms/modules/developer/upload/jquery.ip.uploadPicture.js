@@ -56,7 +56,7 @@
                     }
                     
                     if (!options.windowWidth) {
-                        options.windowWidth = '100%';
+                        options.windowWidth = $this.width();
                     }
                     if (!options.windowHeight) {
                         options.windowHeight = $this.width();
@@ -92,10 +92,7 @@
                     if (options.aspectRatio && options.aspectRatio == 0) {
                         options.aspectRatio = null;
                     }
-                    
-                    if (!options.windowScale) {
-                        options.windowScale = 1;
-                    }
+
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
@@ -110,7 +107,7 @@
                         cropY1 : options.cropY1,
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
-                        windowScale : options.windowScale,
+                        
                         
                         
                         aspectRatio : options.aspectRatio,
@@ -154,23 +151,18 @@
                 return;
             }
             
-            //'<div style="border: 1px black solid; width: 100%; height: ' + photoHeight + 'px; overflow: hidden;"><div style="position: absolute; z-index: 100;"><div id="ipUploadContainer_' + uniqueId + '"><div style="cursor: pointer;" id="ipUploadButton_' + uniqueId + '">Upload new </div></div><div class="ipUploadLargerButton">Larger </div><div class="ipUploadSmallerButton">Smaller</div></div><div class="ipUploadDragContainer"><img class="preview" src="' + curPicture + '" alt="picture"/></div></div>'
             $this.html(response.html);
             
             var data = $this.data('ipUploadPicture');
             var $ipUploadWindow = $this.find('.ipUploadWindow');
-            console.log(data);
             
             
             $this.find('.ipUploadImage').attr('src', data.curPicture);
-//            $this.find('.ipUploadImage').load(function () {
-//                $(this).trigger('pictureScaleUp.ipUploadPicture');
-//            });
             
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
-            $ipUploadWindow.css('width', data.containerWidth);
+            $ipUploadWindow.width(data.windowWidth);
             if (data.maxWindowWidth && $ipUploadWindow.width() > data.maxWindowWidth) {
                 $ipUploadWindow.width(data.maxWindowWidth);
             }
@@ -180,6 +172,10 @@
             }
             
             
+            console.log(data.maxWindowWidth);
+            console.log(data.minWindowWidth);
+            console.log(data.maxWindowHeight);
+            console.log(data.minWindowHeight);
             
             if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
                 var resizableOptions = Object();
@@ -360,7 +356,6 @@
                 var centerY = (cropY2 - cropY1) / 2 + cropY1;
                 var centerPercentageX = centerX / $picture.width() * 100;
                 var centerPercentageY = centerY / $picture.height() * 100;
-                $window.width($window.width() * $this.data('ipUploadPicture').windowScale);
                 $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
                 $window.height(Math.round($window.width() / $photoRatio));
                 
