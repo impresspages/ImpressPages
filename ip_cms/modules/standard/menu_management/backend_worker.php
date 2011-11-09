@@ -652,6 +652,9 @@ class BackendWorker {
 
         $autoRssZones = Db::getAutoRssZones();
         $data['rss'] = in_array($zone->getName(), $autoRssZones);
+        if($data['rss'] === '') {
+            $data['rss'] = 0;
+        }
         
         
         

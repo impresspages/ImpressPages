@@ -332,10 +332,10 @@ class Db {
         $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
 
         if (isset($params['visible']))
-        $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
+        $values .= ', visible = \''.mysql_real_escape_string((int)$params['visible']).'\'';
 
         if (isset($params['rss']))
-        $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
+        $values .= ', rss = \''.mysql_real_escape_string((int)$params['rss']).'\'';
 
         if (isset($params['cached_html']))
         $values .= ', `cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
