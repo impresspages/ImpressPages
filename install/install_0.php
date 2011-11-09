@@ -17,6 +17,7 @@ $languages = array();
 $languages['cs'] = 'Čeština';
 $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
+$languages['fr'] = 'French';
 $languages['de'] = 'Deutsch';
 $languages['lt'] = 'Lietuvių';
 $languages['pl'] = 'Polski';
