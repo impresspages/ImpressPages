@@ -273,10 +273,10 @@ class Db {
         $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
 
         if (isset($params['visible']))
-        $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
+        $values .= ', visible = \''.mysql_real_escape_string((int)$params['visible']).'\'';
 
         if (isset($params['rss']))
-        $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
+        $values .= ', rss = \''.mysql_real_escape_string((int)$params['rss']).'\'';
 
         $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
         $rs = mysql_query($sql);
