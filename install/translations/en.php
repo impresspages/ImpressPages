@@ -37,7 +37,7 @@ define('IP_STEP_COMPLETED_LONG', 'ImpressPages CMS successfully installed.');
 
 
 
-define('IP_DB_SERVER', 'Database Host (eg. localhost)');
+define('IP_DB_SERVER', 'Database Host (eg. localhost or 127.0.0.1)');
 define('IP_DB_USER', 'User name');
 define('IP_DB_PASS', 'User password');
 define('IP_DB_DB', 'Database');
