@@ -485,7 +485,7 @@ class BackendWorker {
                     return false;
                 }
 
-                $answer['link'] = $page->getLink();
+                $answer['link'] = $page->getLink(true);
 
 
                 break;

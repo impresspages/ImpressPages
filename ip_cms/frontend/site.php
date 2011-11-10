@@ -446,7 +446,7 @@ class Site{
             unset($_SESSION['frontend']['redirects']);   
             return;//infinite redirect loop. Stop redirecting;
           } else {
-            if (!isset($_GET['cms_action']) || $_GET['cms_action'] != 'manage_content') {
+            if (!isset($_GET['cms_action']) || $_GET['cms_action'] != 'manage') {
               $_SESSION['frontend']['redirects'][$currentUrl] = 1; //to detect infinite loop
               header('HTTP/1.1 301 Moved Permanently');
               header('Location: '.$curEl->getLink());
