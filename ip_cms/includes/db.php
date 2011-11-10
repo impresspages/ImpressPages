@@ -253,7 +253,7 @@ class Db{
         $value = 1;
       else 
         $value = 0;
-      $sql = "update `".DB_PREF."par_string` set `value` = '".$value."' where
+      $sql = "update `".DB_PREF."par_bool` set `value` = '".$value."' where
       `parameter_id` = '".(int)$id."'";
       $rs = mysql_query($sql);
       if($rs)
