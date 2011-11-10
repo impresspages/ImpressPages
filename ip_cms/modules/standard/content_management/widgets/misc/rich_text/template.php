@@ -10,10 +10,9 @@ namespace Modules\standard\content_management\Widgets\misc\rich_text;
 if (!defined('CMS')) exit;
 class Template {
 
-  public static function generateHtml($text, $layout = null){
+  public static function generateHtml($text, $layout = null, $manager = false){
     $text = $text;
     $text = str_replace('<br>', '<br />', $text);
-    $text = str_replace('</object>', '<param name="wmode" value="opaque"></object>', $text);
 
     $text = str_replace('"/'.FILE_DIR.'/repository/', '"'.BASE_URL.FILE_DIR.'repository/', $text);
     $text = str_replace('"/'.IMAGE_DIR.'/repository/', '"'.BASE_URL.IMAGE_DIR.'repository/', $text);
