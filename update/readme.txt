@@ -1,7 +1,7 @@
 /**
  *
  * ImpressPages CMS update script
- * Upgrade from any version to 1.0.13
+ * Upgrade from any version to 1.0.14
  *
  *
  * @package	ImpressPages
