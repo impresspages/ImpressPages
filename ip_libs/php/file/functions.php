@@ -22,7 +22,8 @@ class Functions{
     $new_extension = substr($file, $ext_pos, strlen($file));              
 
     $new_name = \Library\Php\Text\Transliteration::transform($new_name);
-    $new_name = utf8_decode($new_name); 
+    $new_name = utf8_decode($new_name);
+    $new_name = str_replace('?', '-', $new_name);
     $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ".", ",", "!", ":", "\"", "?", "|");
     $new_name = str_replace($spec, "_", $new_name);
     

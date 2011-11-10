@@ -357,7 +357,7 @@ class Script {
           \Db_100::addStringParameter($group['id'], 'Select', 'select', 'Select', 1);
         }
         if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'checkbox')) {
-          \Db_100::addStringParameter($group['id'], 'Checkbox', 'checkbox', 'Checbox', 1);
+          \Db_100::addStringParameter($group['id'], 'Checkbox', 'checkbox', 'Checkbox', 1);
         }
         if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'radio')) {
           \Db_100::addStringParameter($group['id'], 'Radio', 'radio', 'Radio', 1);

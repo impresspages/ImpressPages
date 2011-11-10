@@ -288,7 +288,7 @@ class Cms {
         }else {
           $backtrace = debug_backtrace();
           if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
-            trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+            trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: ".$backtrace[0]['file']." line: ".$backtrace[0]['line']." ) ");
           else
             trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
         }

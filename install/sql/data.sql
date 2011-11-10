@@ -1394,7 +1394,7 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (1157, 'Text', 1622),
 (1158, 'Text (multiline)', 1623),
 (1159, 'Select', 1624),
-(1160, 'Checbox', 1625),
+(1160, 'Checkbox', 1625),
 (1161, 'Radio', 1626),
 (1162, 'Values', 1627),
 (1163, 'Enter available values. Each value on a new line.', 1628),
