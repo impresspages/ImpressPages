@@ -122,7 +122,7 @@
                     var data = Object();
                     data.g = 'developer';
                     data.m = 'upload';
-                    data.a = 'getContainerHtml';
+                    data.a = 'getPictureContainerHtml';
                     
                     $.ajax({
                         type : 'POST',
@@ -166,12 +166,7 @@
             if (data.maxWindowHeight && $ipUploadWindow.height() > data.maxWindowHeight) {
                 $ipUploadWindow.height(data.maxWindowHeight);
             }
-            
-            
-            console.log(data.maxWindowWidth);
-            console.log(data.minWindowWidth);
-            console.log(data.maxWindowHeight);
-            console.log(data.minWindowHeight);
+
             
             if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
                 var resizableOptions = Object();

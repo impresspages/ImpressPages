@@ -22,7 +22,7 @@
             return this.each(function() {
                 var $this = $(this);
                 
-                var data = $this.data('ipUploadPicture');
+                var data = $this.data('ipUploadFile');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                 
@@ -30,17 +30,14 @@
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
-                    $this.data('ipUploadPicture', {
-                        
+                    $this.data('ipUploadFile', {
+                        uniqueId : uniqueId
                     }); 
-                    
-                    var photoHeight = Math.round($this.width() / $this.data('ipUploadPicture').aspectRatio);
-                    
                     
                     var data = Object();
                     data.g = 'developer';
                     data.m = 'upload';
-                    data.a = 'getContainerHtml';
+                    data.a = 'getFileContainerHtml';
                     
                     $.ajax({
                         type : 'POST',
@@ -49,7 +46,9 @@
                         context : $this,
                         success : methods._containerHtmlResponse,
                         dataType : 'json'
-                    });
+                    });                    
+                    
+                    
 
                 }
             });
@@ -58,17 +57,82 @@
         
 
         
+        _containerHtmlResponse : function (response) {
+            $this = this;
+            
+            if (response.status != 'success') {
+                return;
+            }
+            
+            $this.html(response.html);
+            var data = $this.data('ipUploadFile');
+            
 
+            $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
+            
+
+//            $('#uploadfiles').click(function(e) {
+//                uploader.start();
+//                e.preventDefault();
+//            });
+            
+            var uploader = new plupload.Uploader( {
+                runtimes : 'gears,html5,flash,silverlight,browserplus',
+                browse_button : 'ipUploadButton_' + data.uniqueId,
+                max_file_size : '1000mb',
+                url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
+                multipart_params : {
+                    g : 'developer',
+                    m : 'upload',
+                    a : 'upload'
+                },
+                
+                
+                flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
+                silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
+            });
+
+            
+            uploader.bind('Init', function(up, params) {
+            });
+            
+            
+            uploader.init();
+
+            
+            uploader.bind('FilesAdded', function(up, files) {
+                
+                $.each(files, function(i, file) {
+                    console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
+                });
+                up.refresh(); // Reposition Flash/Silverlight
+                up.start();
+            });
+
+            uploader.bind('UploadProgress', function(up, file) {
+                //console.log(file);
+                //$('#' + file.id + " b").html(file.percent + "%");
+            });
+
+            uploader.bind('Error', function(up, err) {
+                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
+                up.refresh(); // Reposition Flash/Silverlight
+            });
+            
+            uploader.bind('FileUploaded', function(up, file, response) {
+                $this.ipUploadFile('_uploadedNewFile', up, file, response);
+            });
+
+        },
         
-        _uploadedNewPhoto : function (up, file, response) {
+        
+        _uploadedNewFile : function (up, file, response) {
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
-            var data = $this.data('ipUploadPicture');
-            data.curPicture = answer.fileName;
-            data.changed = true;
-            $this.data('ipUploadPicture', data);
-            $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
-        },
+            var data = $this.data('ipUploadFile');
+            $this.data('ipUploadFile', data);
+            $this.trigger('fileUploaded.ipUploadFile', [answer.fileName]);
+        }
         
 
         
@@ -81,7 +145,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipUploadPicture');
+            $.error('Method ' + method + ' does not exist on jQuery.ipUploadFile');
         }
 
 

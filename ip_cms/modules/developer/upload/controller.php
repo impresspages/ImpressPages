@@ -12,9 +12,9 @@ if (!defined('CMS')) exit;
 class Controller{
     
     
-    public function getContainerHtml() {
+    public function getPictureContainerHtml() {
         global $site;
-        $html = \Ip\View::create('view/container.php', array())->render();
+        $html = \Ip\View::create('view/pictureContainer.php', array())->render();
         $site->setOutput($html);
         $answerArray = array(
             "status" => "success",
@@ -23,6 +23,19 @@ class Controller{
         $answer = json_encode($answerArray);
         $site->setOutput($answer);
     }
+    
+    
+    public function getFileContainerHtml() {
+        global $site;
+        $html = \Ip\View::create('view/fileContainer.php', array())->render();
+        $site->setOutput($html);
+        $answerArray = array(
+            "status" => "success",
+            "html" => $html
+        );
+        $answer = json_encode($answerArray);
+        $site->setOutput($answer);
+    }    
 
     public function upload(){
         global $site;
@@ -33,7 +46,7 @@ class Controller{
         
         // Settings
         //$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
-        $targetDir = BASE_DIR.TMP_IMAGE_DIR;
+        $targetDir = BASE_DIR.TMP_FILE_DIR;
         
         //$cleanupTargetDir = false; // Remove old files
         //$maxFileAge = 60 * 60; // Temp file age in seconds
@@ -115,7 +128,7 @@ class Controller{
             "jsonrpc" => "2.0",
             "result" => null, 
             "id" => "id",
-            "fileName" => TMP_IMAGE_DIR.$fileName
+            "fileName" => TMP_FILE_DIR.$fileName
         );
         $answer =  json_encode($answerArray);
         $site->setOutput($answer);        
