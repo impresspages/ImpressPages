@@ -78,11 +78,13 @@
                     
                     if (!options.changeWidth) {
                         options.changeWidth = false;
-                        options.minWindowWidth = options.maxWindowWidth;
+                        options.minWindowWidth = options.windowWidth;
+                        options.maxWindowWidth = options.windowWidth;
                     }
                     if (!options.changeHeight) {
                         options.changeHeight = false;
-                        options.minWindowHeight = options.maxWindowHeight;
+                        options.minWindowHeight = options.windowHeight;
+                        options.maxWindowHeight = options.windowHeight;
                     }
                     if (!options.aspectRatio) {
                         options.aspectRatio = true;
@@ -93,12 +95,12 @@
                         options.aspectRatio = null;
                     }
 
-                        
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
-                    
                     $this.data('ipUploadPicture', {
                         windowWidth : options.windowWidth,
                         windowHeight : options.windowHeight,
+                        changeWidth : options.changeWidth,
+                        chagneHeight : options.changeHeight,
                         maxWindowWidth : options.maxWindowWidth,
                         maxWindowHeight : options.maxWindowHeight,
                         minWindowWidth : options.minWindowWidth,
@@ -115,7 +117,6 @@
                         curPicture : curPicture,
                         uniqueId : uniqueId,
                     }); 
-                    
                     var photoHeight = Math.round($this.width() / $this.data('ipUploadPicture').aspectRatio);
                     
                     
@@ -162,12 +163,12 @@
             if (data.maxWindowWidth && $ipUploadWindow.width() > data.maxWindowWidth) {
                 $ipUploadWindow.width(data.maxWindowWidth);
             }
-            $ipUploadWindow.css('height', data.containerHeight);
+            $ipUploadWindow.height(data.windowHeight);
             if (data.maxWindowHeight && $ipUploadWindow.height() > data.maxWindowHeight) {
                 $ipUploadWindow.height(data.maxWindowHeight);
             }
 
-            
+            console.log(data);
             if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
                 var resizableOptions = Object();
                 resizableOptions.maxWidth = data.maxWindowWidth;
@@ -329,7 +330,6 @@
                 var cropY1 = 0;
                 var cropX2 = parseInt($picture.width());
                 var cropY2 = parseInt($picture.height());
-                
                 if ($this.data('ipUploadPicture').cropX1) {
                     cropX1 = parseInt($this.data('ipUploadPicture').cropX1);
                 }
@@ -348,7 +348,16 @@
                 var centerPercentageX = centerX / $picture.width() * 100;
                 var centerPercentageY = centerY / $picture.height() * 100;
                 $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                $window.height(Math.round($window.width() / $photoRatio));
+                if ($this.data('ipUploadPicture').changeHeight) {
+                    $window.height(Math.round($window.width() / $photoRatio));
+                } else {
+                    console.log('cant chnge height');
+                    console.log($this.data('ipUploadPicture'));
+                    if ($this.data('ipUploadPicture').changeWidth) {
+                        console.log('width changeab');
+                        $window.width(Math.round($window.height() * $photoRatio));
+                    }
+                }
                 
                 var pictureScale = $window.width() / (cropX2 - cropX1);
                 $picture.width($picture.width() * pictureScale);
@@ -365,7 +374,6 @@
             var $picture = $this.find('.ipUploadImage');
             var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
-            
             var data = $this.data('ipUploadPicture');
             data.coordinatesChanged = true;
             $this.data('ipUploadPicture', data);
@@ -379,13 +387,12 @@
                 $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
                 $picture.width('auto');
                 $picture.height($window.height());
-            }                   
+            }
             
             
             var pictureCenterX = Math.round($picture.width() * pictureCenterXPercentage / 100);
             var pictureCenterY = Math.round($picture.height() * pictureCenterYPercentage / 100);
             marginHorizontal = $picture.width() - $window.width();
-            console.log('container width ' + $window.width());
             if (marginHorizontal < 0) {
                 marginHorizontal = 0;
             }
@@ -393,7 +400,7 @@
             $dragContainer.css('margin-left', -marginHorizontal);
             $dragContainer.css('margin-right', -marginHorizontal);
             $dragContainer.width($window.width() + marginHorizontal*2);
-            $picture.css('left', $dragContainer.width() / 2 - pictureCenterX);                          
+            $picture.css('left', $dragContainer.width() / 2 - pictureCenterX);
             if (parseInt($picture.css('left')) < 0){
                 $picture.css('left', 0);
             }
