@@ -1,3 +1,11 @@
-<div style="padding: 10px;">
-    <div class="ipWidget_ipFile_uploadFile" style="width: 100%;"></div>
-</div>
+<?php if (isset($files) && is_array($files)){ ?>
+    <ul>
+    <?php foreach ($files as $fileKey => $file) { ?>
+        <?php $curFileName = isset($file['fileName']) ? htmlspecialchars($file['fileName']) : ''; ?>
+        <?php $curTitle = isset($file['title']) ? htmlspecialchars($file['title']) : ''; ?>
+        <li>
+            <a href="<?php echo addslashes(BASE_URL.$curFileName) ?>" title="<?php echo addslashes($curTitle) ?>"><?php echo htmlspecialchars($curTitle) ?></a>
+        </li>
+    <?php } ?>
+    </ul>
+<?php } ?>

@@ -47,7 +47,7 @@ class View{
         }
 
         foreach ($data as $key => $value) {
-            if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key)) {
+            if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
                 $source = '';                
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";

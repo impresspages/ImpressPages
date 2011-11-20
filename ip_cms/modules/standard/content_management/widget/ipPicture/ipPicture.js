@@ -32,7 +32,6 @@ function ipWidget_IpPicture(widgetObject) {
         }
         if (instanceData.data.pictureWindowWidth) {
             options.windowWidth = instanceData.data.pictureWindowWidth;
-            console.log(options.windowWidth);
         }
         options.changeHeight = true;
         options.changeWidth = true;

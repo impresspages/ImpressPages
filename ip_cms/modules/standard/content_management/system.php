@@ -35,7 +35,8 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
             
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadPicture.js');
-
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js');
+            
             $getVariables = array (
                 'g' => 'standard',
                 'm' => 'configuration',
