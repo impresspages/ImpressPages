@@ -17,9 +17,6 @@ function ipWidget_IpFile(widgetObject) {
         
         var uploader = this.widgetObject.find('.ipWidget_ipFile_uploadFile');
         var options = new Object;
-        if (instanceData.data.files) {
-
-        }
         uploader.ipUploadFile(options);
         
         var container = this.widgetObject.find('.ipWidget_ipFile_container');
@@ -56,7 +53,7 @@ function ipWidget_IpFile(widgetObject) {
         $files = container.ipWidget_ipFile_container('getFiles');
         $files.each(function(index) {
             var $this = $(this);
-            var tmpFile = new Object(); //console.log('--'); console.log($files); console.log(i); console.log($files[i]); console.log('--');
+            var tmpFile = new Object();
             tmpFile.title = $this.ipWidget_ipFile_file('getTitle');
             tmpFile.fileName = $this.ipWidget_ipFile_file('getFileName');
             tmpFile.status = $this.ipWidget_ipFile_file('getStatus');
@@ -199,8 +196,6 @@ function ipWidget_IpFile(widgetObject) {
             $this.find('.ipWidget_ipFile_fileRemove').bind('click', 
                 function(event){
                     $this = $(this);
-                    console.log($this);
-                    console.log('remove click');
                     $this.trigger('removeClick.ipWidget_ipFile');
                 }
             );

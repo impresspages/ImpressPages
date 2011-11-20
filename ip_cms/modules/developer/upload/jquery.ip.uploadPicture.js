@@ -141,7 +141,7 @@
         
         
         _containerHtmlResponse : function (response) {
-            $this = this;
+            var $this = this;
             
             
             if (response.status != 'success') {
@@ -155,7 +155,7 @@
             
             
             $this.find('.ipUploadImage').attr('src', data.curPicture);
-            
+            console.log('uniqueId: ' + data.uniqueId);
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
