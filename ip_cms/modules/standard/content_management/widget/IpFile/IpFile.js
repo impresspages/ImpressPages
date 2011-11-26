@@ -224,7 +224,6 @@ function ipWidget_IpFile(widgetObject) {
     },
     
     setStatus : function(newStatus) {
-        console.log(this);
         var $this = $(this);
         var tmpData = $this.data('ipWidget_ipFile_file');
         tmpData.status = newStatus;

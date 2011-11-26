@@ -281,8 +281,13 @@ function ipWidget_IpPictureGallery(widgetObject) {
     getStatus : function() {
         var $this = this;
         
+        var tmpData = $this.data('ipWidget_ipPictureGallery_picture');
+        if (tmpData.status == 'deleted') {
+            return tmpData.status;
+        }
+        
         var ipUploadPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview');
-        if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
+        if (tmpData.status == 'new' || ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
             return 'new';
         } else {
             if (ipUploadPicture.ipUploadPicture('getCropCoordinatesChanged') && ipUploadPicture.ipUploadPicture('getCurPicture') != false) {

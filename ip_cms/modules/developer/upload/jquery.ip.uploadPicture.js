@@ -168,7 +168,6 @@
                 $ipUploadWindow.height(data.maxWindowHeight);
             }
 
-            console.log(data);
             if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
                 var resizableOptions = Object();
                 resizableOptions.maxWidth = data.maxWindowWidth;
@@ -220,6 +219,12 @@
             
             
             $this.find('.ipUploadImage').draggable({ containment: "parent" });
+            $this.bind( "dragstop", function(event, ui) {
+                $this = $(this);
+                var data = $this.data('ipUploadPicture');
+                data.coordinatesChanged = true;
+                $this.data('ipUploadPicture', data);
+            });
             
             var uploader = new plupload.Uploader( {
                 runtimes : 'gears,html5,flash,silverlight,browserplus',
@@ -374,9 +379,6 @@
             var $picture = $this.find('.ipUploadImage');
             var $window = $picture.parent().parent();
             var $dragContainer = $picture.parent();
-            var data = $this.data('ipUploadPicture');
-            data.coordinatesChanged = true;
-            $this.data('ipUploadPicture', data);
             
             if ($picture.width() < $window.width()) {
                 $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
@@ -482,6 +484,10 @@
             
             $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
 
+            var data = $this.data('ipUploadPicture');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadPicture', data);
+            
         },
         
         _scaleDown : function(e){
@@ -503,6 +509,10 @@
             
 
             $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+            
+            var data = $this.data('ipUploadPicture');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadPicture', data);
             
           
         },
