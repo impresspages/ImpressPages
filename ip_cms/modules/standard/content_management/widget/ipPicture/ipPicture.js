@@ -33,8 +33,8 @@ function ipWidget_IpPicture(widgetObject) {
         if (instanceData.data.pictureWindowWidth) {
             options.windowWidth = instanceData.data.pictureWindowWidth;
         }
-        options.changeHeight = true;
-        options.changeWidth = true;
+        options.enableChangeHeight = true;
+        options.enableChangeWidth = true;
 
         this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
         

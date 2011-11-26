@@ -8,7 +8,7 @@
  * 
  * Available options:
  * 
- * backgroundPicture - defautl picture to be used when real picture is not uploaded (not implemented)
+ * backgroundPicture - default picture to be used when real picture is not uploaded (not implemented)
  * backgroundColor - (not implemented)
  * picture - url to image to be cropped / resized
  * cropX1 - current cropping coordinates
@@ -17,13 +17,15 @@
  * cropY2 * 
  * windowWidth - width of container (100% if not set)
  * windowHeight - height of container (the same as width if not set)
- * changeWidth - allow user to change container width
- * changeHeight - allow user to change container height
  * constrainProportions - update container parameters to constrain proportions on resize (not implemented)
- * maxWindowWidth - 
- * maxWindowHeight -
+ * maxWindowWidth
+ * maxWindowHeight
  * minWindowWidth
  * minWindowHeight
+ * enableScale - allow user to scale picture
+ * enableFraming - allow user to frame the picture
+ * enableChangeWidth - allow user to change container width
+ * enableChangeHeight - allow user to change container height
  * 
  * uploadHandler - link to PHP script that will accept uploads
  * 
@@ -76,13 +78,13 @@
                         options.minWindowHeight = 1;
                     }
                     
-                    if (!options.changeWidth) {
-                        options.changeWidth = false;
+                    if (!options.enableChangeWidth) {
+                        options.enableChangeWidth = false;
                         options.minWindowWidth = options.windowWidth;
                         options.maxWindowWidth = options.windowWidth;
                     }
-                    if (!options.changeHeight) {
-                        options.changeHeight = false;
+                    if (!options.enableChangeHeight) {
+                        options.enableChangeHeight = false;
                         options.minWindowHeight = options.windowHeight;
                         options.maxWindowHeight = options.windowHeight;
                     }
@@ -99,8 +101,8 @@
                     $this.data('ipUploadPicture', {
                         windowWidth : options.windowWidth,
                         windowHeight : options.windowHeight,
-                        changeWidth : options.changeWidth,
-                        chagneHeight : options.changeHeight,
+                        enableChangeWidth : options.enableChangeWidth,
+                        chagneHeight : options.enableChangeHeight,
                         maxWindowWidth : options.maxWindowWidth,
                         maxWindowHeight : options.maxWindowHeight,
                         minWindowWidth : options.minWindowWidth,
@@ -353,12 +355,12 @@
                 var centerPercentageX = centerX / $picture.width() * 100;
                 var centerPercentageY = centerY / $picture.height() * 100;
                 $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                if ($this.data('ipUploadPicture').changeHeight) {
+                if ($this.data('ipUploadPicture').enableChangeHeight) {
                     $window.height(Math.round($window.width() / $photoRatio));
                 } else {
                     console.log('cant chnge height');
                     console.log($this.data('ipUploadPicture'));
-                    if ($this.data('ipUploadPicture').changeWidth) {
+                    if ($this.data('ipUploadPicture').enableChangeWidth) {
                         console.log('width changeab');
                         $window.width(Math.round($window.height() * $photoRatio));
                     }
@@ -466,11 +468,12 @@
         },
         
         _scaleUp : function(e){
+            var $this = $(this);
             var scaleFactor = 1.1;
             
             var $picture = $(this).find('.ipUploadImage');
             var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();                        
+            var $dragContainer = $picture.parent();
             
             var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
             var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
@@ -491,6 +494,8 @@
         },
         
         _scaleDown : function(e){
+            var $this = $(this);
+            
             var scaleFactor = 1.1;
             
             var $picture = $(this).find('.ipUploadImage');

@@ -30,8 +30,8 @@ function ipWidget_IpTextPicture(widgetObject) {
             options.cropY2 = instanceData.data.cropY2;
         }
         
-        options.changeHeight = true;
-        options.changeWidth = false;
+        options.enableChangeHeight = true;
+        options.enableChangeWidth = false;
         
 
         this.widgetObject.find('.ipWidget_ipTextPicture_uploadPicture').ipUploadPicture(options);

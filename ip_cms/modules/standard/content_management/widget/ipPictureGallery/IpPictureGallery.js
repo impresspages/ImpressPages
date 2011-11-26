@@ -230,8 +230,8 @@ function ipWidget_IpPictureGallery(widgetObject) {
             console.log(pictureOptions);
             pictureOptions.windowWidth = options.smallPictureWidth;
             pictureOptions.windowHeight = options.smallPictureHeight;
-            pictureOptions.changeWidth = false;
-            pictureOptions.changeHeight = false;
+            pictureOptions.enableChangeWidth = false;
+            pictureOptions.enableChangeHeight = false;
 
             $this.find('.ipWidget_ipPictureGallery_picturePreview').ipUploadPicture(pictureOptions);
             
