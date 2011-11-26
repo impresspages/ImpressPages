@@ -26,6 +26,8 @@ function ipWidget_IpPictureGallery(widgetObject) {
         } else {
             options.pictures = new Array();
         }
+        options.smallPictureWidth = this.widgetObject.find('input[name="smallPictureWidth"]').val();
+        options.smallPictureHeight = this.widgetObject.find('input[name="smallPictureHeight"]').val();
         options.pictureTemplate = this.widgetObject.find('.ipWidget_ipPictureGallery_pictureTemplate');
         container.ipWidget_ipPictureGallery_container(options);
         
@@ -97,15 +99,23 @@ function ipWidget_IpPictureGallery(widgetObject) {
             } else {
                 pictures = new Array();
             }
+
             
             if (!data) {
                 $this.data('ipWidget_ipPictureGallery_container', {
                     pictures : pictures,
-                    pictureTemplate : options.pictureTemplate
+                    pictureTemplate : options.pictureTemplate,
+                    smallPictureWidth : options.smallPictureWidth,
+                    smallPictureHeight : options.smallPictureHeight
                 });
                 
                 for (var i in pictures) {
-                    $this.ipWidget_ipPictureGallery_container('addPicture', pictures[i]['fileName'], pictures[i]['title'], 'present'); 
+                    var coordinates = new Object();
+                    coordinates.cropX1 = pictures[i]['cropX1'];
+                    coordinates.cropY1 = pictures[i]['cropY1'];
+                    coordinates.cropX2 = pictures[i]['cropX2'];
+                    coordinates.cropY2 = pictures[i]['cropY2'];
+                    $this.ipWidget_ipPictureGallery_container('addPicture', pictures[i]['pictureOriginal'], pictures[i]['title'], 'present', coordinates); 
                 }
                 $this.bind('removePicture.ipWidget_ipPictureGallery', function(event, pictureObject) {
                     var $pictureObject = $(pictureObject);
@@ -120,10 +130,10 @@ function ipWidget_IpPictureGallery(widgetObject) {
         });
     },
     
-    addPicture : function (fileName, title, status) {
+    addPicture : function (fileName, title, status, coordinates) {
         var $this = this;
         var $newPictureRecord = $this.data('ipWidget_ipPictureGallery_container').pictureTemplate.clone();
-        $newPictureRecord.ipWidget_ipPictureGallery_picture({'status' : status, 'fileName' : fileName, 'title' : title});
+        $newPictureRecord.ipWidget_ipPictureGallery_picture({'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
         $this.append($newPictureRecord);
         
     },
@@ -171,13 +181,19 @@ function ipWidget_IpPictureGallery(widgetObject) {
 
             var data = $this.data('ipWidget_ipPictureGallery_picture');
 
+            var status = 'new';
+            if (options.status) {
+                status = options.status;
+            }
             
             // If the plugin hasn't been initialized yet
             if (!data) {
                 var data = {
                     title : '',
                     fileName : '',
-                    status : 'new'
+                    status : status,
+                    smallPictureWidth : options.smallPictureWidth,
+                    smallPictureHeight : options.smallPictureHeight
                 };
                 
                 if (options.title) {
@@ -203,24 +219,22 @@ function ipWidget_IpPictureGallery(widgetObject) {
             //$this.find('.ipWidget_ipPictureGallery_picturePreview').attr('src', ip.baseUrl + data.fileName);
             var pictureOptions = new Object;
             pictureOptions.picture = data.fileName;
-//            if (instanceData.data.cropX1) {
-//                options.cropX1 = instanceData.data.cropX1;
-//            }
-//            if (instanceData.data.cropY1) {
-//                options.cropY1 = instanceData.data.cropY1;
-//            }
-//            if (instanceData.data.cropX2) {
-//                options.cropX2 = instanceData.data.cropX2;
-//            }
-//            if (instanceData.data.cropY2) {
-//                options.cropY2 = instanceData.data.cropY2;
-//            }
-            pictureOptions.windowWidth = 200;
-            pictureOptions.windowHeight = 100;
+            if (options.coordinates) {
+                pictureOptions.cropX1 = options.coordinates.cropX1;
+                pictureOptions.cropY1 = options.coordinates.cropY1;
+                pictureOptions.cropX2 = options.coordinates.cropX2;
+                pictureOptions.cropY2 = options.coordinates.cropY2;
+            }
+            console.log('options');
+            console.log(options);
+            console.log(pictureOptions);
+            pictureOptions.windowWidth = options.smallPictureWidth;
+            pictureOptions.windowHeight = options.smallPictureHeight;
             pictureOptions.changeWidth = false;
             pictureOptions.changeHeight = false;
 
             $this.find('.ipWidget_ipPictureGallery_picturePreview').ipUploadPicture(pictureOptions);
+            
             
 //          handle uploading of new photo
 //          if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
@@ -258,24 +272,34 @@ function ipWidget_IpPictureGallery(widgetObject) {
     },
     
     getCropCoordinates : function() {
-        var ipUploadPicture = this.widgetObject.find('.ipWidget_ipPictureGallery_picturePreview');
+        var $this = this;
+        var ipUploadPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview');
         var cropCoordinates = ipUploadPicture.ipUploadPicture('getCropCoordinates');
         return cropCoordinates;
     },
         
     getStatus : function() {
         var $this = this;
+        
+        var ipUploadPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview');
+        if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
+            return 'new';
+        } else {
+            if (ipUploadPicture.ipUploadPicture('getCropCoordinatesChanged') && ipUploadPicture.ipUploadPicture('getCurPicture') != false) {
+                return 'coordinatesChanged';
+            }
+        }
+        
         var tmpData = $this.data('ipWidget_ipPictureGallery_picture');
+        //status, set on creation. Usually 'new' or 'present'
         return tmpData.status;
     },
     
     setStatus : function(newStatus) {
-        console.log(this);
         var $this = $(this);
         var tmpData = $this.data('ipWidget_ipPictureGallery_picture');
         tmpData.status = newStatus;
         $this.data('ipWidget_ipPictureGallery_picture', tmpData);
-        
     }
     
 

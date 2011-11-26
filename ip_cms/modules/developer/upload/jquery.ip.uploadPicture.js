@@ -522,6 +522,7 @@
         },
         
         getCropCoordinatesChanged : function () {
+            var $this = this;
             return $this.data('ipUploadPicture').coordinatesChanged || this.ipUploadPicture('getNewPictureUploaded');
         },
         

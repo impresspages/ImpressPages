@@ -50,7 +50,7 @@ class ipFile extends \Modules\standard\content_management\Widget{
                                 $newData['files'][] = $newFile;
                             }
                             break;
-                        case 'present':
+                        case 'present'://file not changed
                             if (!isset($currentData['files']) || !is_array($currentData['files'])) {
                                 break; //possible hack. There is no files yet.
                             }

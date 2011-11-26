@@ -10,8 +10,8 @@
     }
     .ipWidget_ipPictureGallery_pictureTemplate{
         float: left;
-        width: 210px;
-        height: 210px;
+        width: px;
+        height: px;
         background-color: #aaa;
     }
 </style>
@@ -26,3 +26,9 @@
         </form>
     </li>
 </ul>
+<div class="ipWidget_ipPictureGallery_hidden">
+    <form>
+        <input name="smallPictureWidth" type="hidden" value="<?php echo (int)$smallPictureWidth ?>" />
+        <input type="smallPictureHeight" value="<?php echo (int)$smallPictureHeight ?>" />
+    </form>
+</div>
