@@ -94,9 +94,10 @@ class Functions{
         if ($heightDest === null) {
             $heightDest = $y2 - $y1;
         }
-
+        
         $pictureInfo = getimagesize($pictureFile);
-        if ($pictureInfo[0] == $widthDest && $pictureInfo[1] == $heightDest) {
+
+        if ($pictureInfo[0] == $widthDest && $pictureInfo[1] == $heightDest && $x1 == 0 && $y1 == 0) {//don't need to crop or resize
             $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
             copy($pictureFile, $destDir.$newName);
             return $newName;
@@ -114,12 +115,56 @@ class Functions{
             throw new \Exception ($e->getMessage(), $e->getCode(), $e);
         }
 
+        if ($x2 - $x1 > imagesx($image) || $y2 - $y1 > imagesy($image) || $x1 < 0 || $y1 < 0) { //cropping area goes out of image edge. Fill transparent.
+            $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
+            imagealphablending($tmpImage, false);
+            imagesavealpha($tmpImage,true);
+            $color = imagecolorallocatealpha($tmpImage, 255, 255, 255, 127);
+            imagefilledrectangle($tmpImage, 0, 0, $x2 - $x1, $y2 - $y1, $color);
+            if ($x1 >= 0) {
+                $sx1 = $x1;
+                $dx1 = 0;
+            } else {
+                $sx1 = 0;
+                $dx1 = -$x1;
+            }
+            if ($y1 >= 0) {
+                $sy1 = $y1;
+                $dy1 = 0;
+            } else {
+                $sy1 = 0;
+                $dy1 = -$y1;
+            }
+            if ($x2 - $x1 > imagesx($image)) {
+                $sx2 = imagesx($image);
+                $dx2 = $x2 - $x1;
+            } else {
+                $sx2 = $x2;
+                $dx2 = $x2 - $x1;
+            }
+            if ($y2 - $y1 > imagesy($image)) {
+                $sy2 = imagesy($image);
+                $dy2 = $y2 - $y1;
+            } else {
+                $sy2 = $y2;
+                $dy2 = $y2 - $y1;
+            }
+            
+            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $sx2 - $sx1, $sy2 - $sy1, $sx2 - $sx1, $sy2 - $sy1);
+            $image = $tmpImage;
+        } else { 
+            $sx1 = $x1;
+            $sx2 = $x2;
+            $sy1 = $y1;
+            $sy2 = $y2;
+        }
+        
         $imageNew = imagecreatetruecolor($widthDest, $heightDest);
         imagealphablending($imageNew, false);
         imagesavealpha($imageNew,true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
         imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
-        imagecopyresampled($imageNew, $image, 0,  0, $x1, $y1, $widthDest, $heightDest, $x2 - $x1, $y2 - $y1);
+        imagecopyresampled($imageNew, $image, 0,  0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
 
         $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
         $newFile = $destDir.$newName;
@@ -353,6 +398,18 @@ class Functions{
             case IMAGETYPE_GIF:
             case IMAGETYPE_PNG:
                 try {
+                    //fill transparent places with white.
+                    /*$width = imagesx($imageNew);
+                    $height = imagesy($imageNew);
+                    $imageBg = imagecreatetruecolor($width, $height);
+                    imagealphablending($imageBg, false);
+                    imagesavealpha($imageBg,true);
+                    imagealphablending($imageNew, true);
+                    imagesavealpha($imageNew,true);
+                    $color = imagecolorallocatealpha($imageBg, 255, 255, 0, 0);
+                    imagefilledrectangle ( $imageBg, 0, 0, $width, $height, $color );
+                    imagecopymerge($imageBg, $imageNew, 0, 0, 0, 0, $width, $height, 50);
+                    */
                     self::savePng($imageNew, $newFile, $quality);
                 } catch (\Exceptin $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
