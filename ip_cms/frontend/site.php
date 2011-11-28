@@ -629,8 +629,7 @@ class Site{
     if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
       if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_mistyped_urls', $this->currentLanguage['id']))
         $message = $this->error404Message().'
-             Link: '.$this->getCurrentUrl().'
-             Http referer: '.$_SERVER['HTTP_REFERER'];
+             Link: '.$this->getCurrentUrl();
     }else{
       if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
         if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_inside_link', $this->currentLanguage['id']))
