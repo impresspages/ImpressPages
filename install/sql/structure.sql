@@ -244,6 +244,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
   PRIMARY KEY (`instanceId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1974 ;
 
+-- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_parameter`;
 
