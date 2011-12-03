@@ -30,57 +30,6 @@ INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_titl
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_content_element_to_modules` (`id`, `row_number`, `element_id`, `visible`, `module_key`, `group_key`, `module_id`, `instance_id`, `preview`) VALUES
-(51, 5, 67, 1, 'title', 'text_photos', 10, 0, 0),
-(50, 4, 67, 1, 'photo_gallery', 'text_photos', 2, 0, 0),
-(49, 0, 67, 1, 'title', 'text_photos', 9, 0, 0),
-(48, 1, 67, 1, 'title', 'text_photos', 8, 0, 0),
-(47, 2, 67, 1, 'text_photo', 'text_photos', 2, 0, 0),
-(46, 3, 66, 1, 'text', 'text_photos', 13, 0, 0),
-(45, 2, 66, 1, 'title', 'text_photos', 7, 0, 0),
-(44, 1, 66, 1, 'text', 'text_photos', 12, 0, 0),
-(43, 0, 66, 1, 'title', 'text_photos', 6, 0, 0),
-(42, 1, 65, 1, 'text', 'text_photos', 11, 0, 0),
-(41, 0, 65, 1, 'title', 'text_photos', 5, 0, 0),
-(40, 4, 64, 1, 'separator', 'text_photos', 40, 0, 0),
-(39, 2, 64, 1, 'separator', 'text_photos', 39, 0, 0),
-(35, 0, 64, 1, 'title', 'text_photos', 4, 0, 0),
-(36, 1, 64, 1, 'text', 'text_photos', 8, 0, 0),
-(37, 3, 64, 1, 'text', 'text_photos', 9, 0, 0),
-(38, 5, 64, 1, 'text', 'text_photos', 10, 0, 0),
-(52, 3, 67, 1, 'title', 'text_photos', 11, 0, 0),
-(53, 6, 67, 1, 'photo', 'text_photos', 5, 0, 0),
-(54, 0, 71, 1, 'title', 'text_photos', 12, 0, 0),
-(55, 1, 71, 1, 'text', 'text_photos', 14, 0, 0),
-(56, 2, 71, 1, 'text', 'text_photos', 15, 0, 0),
-(57, 0, 68, 1, 'title', 'text_photos', 13, 0, 0),
-(58, 0, 69, 1, 'title', 'text_photos', 14, 0, 0),
-(59, 1, 69, 1, 'text_photo', 'text_photos', 3, 0, 0),
-(60, 2, 69, 1, 'separator', 'text_photos', 60, 0, 0),
-(61, 3, 69, 1, 'title', 'text_photos', 15, 0, 0),
-(62, 4, 69, 1, 'text', 'text_photos', 16, 0, 0),
-(63, 6, 69, 1, 'photo_gallery', 'text_photos', 3, 0, 0),
-(64, 5, 69, 1, 'separator', 'text_photos', 64, 0, 0),
-(65, 0, 70, 1, 'title', 'text_photos', 16, 0, 0),
-(66, 1, 70, 1, 'text', 'text_photos', 17, 0, 0),
-(67, 2, 70, 1, 'title', 'text_photos', 17, 0, 0),
-(68, 3, 70, 1, 'contact_form', 'misc', 2, 0, 0),
-(69, 1, 72, 1, 'text', 'text_photos', 18, 0, 0),
-(70, 0, 72, 1, 'title', 'text_photos', 18, 0, 0),
-(71, 0, 73, 1, 'title', 'text_photos', 19, 0, 0),
-(72, 1, 73, 1, 'text', 'text_photos', 19, 0, 0),
-(73, 1, 74, 1, 'text', 'text_photos', 20, 0, 0),
-(74, 0, 74, 1, 'title', 'text_photos', 20, 0, 0),
-(75, 1, 75, 1, 'text', 'text_photos', 21, 0, 0),
-(76, 0, 75, 1, 'title', 'text_photos', 21, 0, 0),
-(77, 0, 76, 1, 'title', 'text_photos', 22, 0, 0),
-(78, 1, 76, 1, 'text', 'text_photos', 22, 0, 0),
-(79, 0, 77, 1, 'title', 'text_photos', 23, 0, 0),
-(80, 1, 77, 1, 'text', 'text_photos', 23, 0, 0),
-(81, 1, 68, 1, 'video', 'misc', 2, 0, 0);
-
--- Dumping data for table--
-
 INSERT INTO `ip_cms_language` (`id`, `d_short`, `d_long`, `row_number`, `visible`, `url`, `code`) VALUES
 (344, 'EN', 'English', 2, 1, 'en', 'en'),
 (384, 'LA', 'Latin', 3, 1, 'la', 'la');
