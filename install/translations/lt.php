@@ -66,7 +66,7 @@ define('IP_CONFIG_TIMEZONE', 'Svetainės laiko juosta');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Prašome pasirinkti svetainės laiko juostą');
 
 define('IP_FINISH_MESSAGE', '
-<p>Prašome ištrinti katalogus "install", "update".<br /><br /></p>
+<p>Prašome ištrinti "install" katalogą.<br /><br /></p>
 <p>
 <a href="../">Svetainės pagrindinis puslapis</a>
 </p>

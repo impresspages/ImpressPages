@@ -68,7 +68,7 @@ define('IP_CONFIG_TIMEZONE', 'Website time zone');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Please choose website time zone');
 
 define('IP_FINISH_MESSAGE', '
-<p>Please delete directories "install", "update".<br /><br /></p>
+<p>Please delete "install" directory.<br /><br /></p>
 <p>
 <a href="../">Front page</a>
 </p>
