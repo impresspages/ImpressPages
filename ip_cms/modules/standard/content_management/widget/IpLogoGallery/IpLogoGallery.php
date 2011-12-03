@@ -220,8 +220,8 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
     
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['smallLogoWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'width');
-        $data['smallLogoHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'height');
+        $data['logoWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width');
+        $data['logoHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height');
         return parent::managementHtml($instanceId, $data, $layout);
     }
 

@@ -267,8 +267,8 @@ function ipWidget_IpPictureGallery(widgetObject) {
     
     getFileName : function() {
         var $this = this;
-        var tmpData = $this.data('ipWidget_ipPictureGallery_picture');
-        return tmpData.fileName;
+        var curPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview').ipUploadPicture('getCurPicture');
+        return curPicture;
     },
     
     getCropCoordinates : function() {

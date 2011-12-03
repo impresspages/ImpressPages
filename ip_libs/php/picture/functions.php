@@ -116,6 +116,12 @@ class Functions{
         }
 
         if ($x2 - $x1 > imagesx($image) || $y2 - $y1 > imagesy($image) || $x1 < 0 || $y1 < 0) { //cropping area goes out of image edge. Fill transparent.
+            /*
+             * Negative coordinates x1, y1 are possible.
+             * This part of code just adds tarnsparent edges in this way making $image required proportions. 
+             * We don't care about the size in this step.
+             * 
+             * */
             $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
             imagealphablending($tmpImage, false);
             imagesavealpha($tmpImage,true);
@@ -137,27 +143,51 @@ class Functions{
             }
             if ($x2 - $x1 > imagesx($image)) {
                 $sx2 = imagesx($image);
-                $dx2 = $x2 - $x1;
+                //$dx2 = $x2 - $x1;
+                $dx2 = $dx1 + imagesx($image);
             } else {
                 $sx2 = $x2;
-                $dx2 = $x2 - $x1;
+                $dx2 = imagesx($tmpImage);
             }
             if ($y2 - $y1 > imagesy($image)) {
                 $sy2 = imagesy($image);
-                $dy2 = $y2 - $y1;
+                $dy2 = $dy1 + imagesy($image);
             } else {
                 $sy2 = $y2;
-                $dy2 = $y2 - $y1;
+                $dy2 = imagesy($tmpImage);
+                
             }
             
-            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $sx2 - $sx1, $sy2 - $sy1, $sx2 - $sx1, $sy2 - $sy1);
+            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $dx2 - $dx1, $dy2 - $dy1, $sx2 - $sx1, $sy2 - $sy1);
             $image = $tmpImage;
+            
+            $sx1 = 0;
+            $sy1 = 0;
+            $sx2 = imagesx($image);
+            $sy2 = imagesy($image);
+            
+            /*transparency required. Transform to png*/
+            $mime = IMAGETYPE_PNG;
+            
+            $path_parts = pathinfo($pictureFile);
+            if ($path_parts['extension'] != 'png') {
+                $tmpPictureName = $path_parts['filename'].'.png';
+            } else {
+                $tmpPictureName = $pictureFile;
+            }
+            $newName = \Library\Php\File\Functions::genUnocupiedName($tmpPictureName, $destDir);
         } else { 
             $sx1 = $x1;
             $sx2 = $x2;
             $sy1 = $y1;
             $sy2 = $y2;
+            $mime = self::getMimeType($pictureFile);
+            $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
         }
+        
+        /**
+         * Our $image is required proportions. The only thing we need to do is to scale the image and save.
+         */
         
         $imageNew = imagecreatetruecolor($widthDest, $heightDest);
         imagealphablending($imageNew, false);
@@ -166,11 +196,11 @@ class Functions{
         imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
         imagecopyresampled($imageNew, $image, 0,  0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
 
-        $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
+        
         $newFile = $destDir.$newName;
 
 
-        $mime = self::getMimeType($pictureFile);
+        
         try {
             self::saveImage($imageNew, $newFile, $quality, $mime);
         } catch (\Exception $e) {

@@ -1,7 +1,7 @@
 <?php if (isset($logos) && is_array($logos)){ ?>
     <ul>
     <?php foreach ($logos as $logoKey => $logo) { ?>
-        <?php $curLogo = isset($logo['picture']) ? $logo['picture'] : ''; ?>
+        <?php $curLogo = isset($logo['logoSmall']) ? $logo['logoSmall'] : ''; ?>
         <?php $curTitle = isset($logo['title']) ? $logo['title'] : ''; ?>
         <?php $curLink = isset($logo['link']) ? $logo['link'] : ''; ?>
         <li>

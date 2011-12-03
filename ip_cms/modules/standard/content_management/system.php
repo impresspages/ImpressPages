@@ -105,7 +105,7 @@ class System{
                         
                         $widgetJsFile = $widgetDir.$widgetFolder.'/'.$widgetFolder.'.js';
                         if (file_exists($widgetJsFile) && is_file($widgetJsFile)) {
-                            $site->addJavascript($widgetJsFile);
+                            $site->addJavascript( BASE_URL.$widgetJsFile);
                         }
                         
                     }

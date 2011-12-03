@@ -230,7 +230,10 @@ function ipWidget_IpLogoGallery(widgetObject) {
             logoOptions.enableChangeWidth = false;
             logoOptions.enableChangeHeight = false;
             logoOptions.enableScale = false;
-            logoOptions.
+            logoOptions.enableFraming = false;
+            logoOptions.enableUnderscale = true;
+            logoOptions.autosizeType = 'fit';
+            
             $this.find('.ipWidget_ipLogoGallery_logoPreview').ipUploadPicture(logoOptions);
             
             
@@ -265,8 +268,8 @@ function ipWidget_IpLogoGallery(widgetObject) {
     
     getFileName : function() {
         var $this = this;
-        var tmpData = $this.data('ipWidget_ipLogoGallery_logo');
-        return tmpData.fileName;
+        var curPicture = $this.find('.ipWidget_ipLogoGallery_logoPreview').ipUploadPicture('getCurPicture');
+        return curPicture;
     },
     
     getCropCoordinates : function() {
@@ -285,7 +288,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
         }
         
         var ipUploadLogo = $this.find('.ipWidget_ipLogoGallery_logoPreview');
-        if (tmpData.status == 'new' || ipUploadLogo.ipUploadPicture('getNewLogoUploaded')) {
+        if (tmpData.status == 'new' || ipUploadLogo.ipUploadPicture('getNewPictureUploaded')) {
             return 'new';
         } else {
             if (ipUploadLogo.ipUploadPicture('getCropCoordinatesChanged') && ipUploadLogo.ipUploadPicture('getCurLogo') != false) {
