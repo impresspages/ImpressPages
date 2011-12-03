@@ -14,7 +14,7 @@ define('IP_BACK', 'Zurück');
 define('IP_NEXT', 'Nächstes');
 define('IP_ACCEPT', 'Akzeptieren');
 define('IP_INSTALLATION', 'ImpressPages CMS Installations Wizard');
-define('IP_VERSION', 'Version 1.0.9');
+define('IP_VERSION', 'Version 1.1.0rc1');
 define('IP_SUBDIRECTORIES', '(Integriere Unterordner und Dateien)');
 define('IP_OPTIONAL', '(Optional)');
 

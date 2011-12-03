@@ -33,55 +33,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_content_element_to_modules`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_content_element_to_modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `element_id` int(11) NOT NULL DEFAULT '0',
-  `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `module_key` varchar(255) NOT NULL DEFAULT '0',
-  `group_key` varchar(255) NOT NULL,
-  `module_id` int(11) NOT NULL DEFAULT '0',
-  `instance_id` int(11) NOT NULL DEFAULT '0',
-  `preview` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_content_module`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_content_module` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `dynamic` tinyint(1) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  `version` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_content_module_group`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_content_module_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 
@@ -119,263 +70,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_mc_misc_contact_form`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_contact_form` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `thank_you` varchar(255) NOT NULL DEFAULT '',
-  `email_to` varchar(255) NOT NULL DEFAULT '',
-  `email_subject` varchar(255) NOT NULL DEFAULT '',
-  `button` varchar(255) NOT NULL DEFAULT '',
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_misc_contact_form_field`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_contact_form_field` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `type` varchar(255) NOT NULL DEFAULT '',
-  `required` int(1) NOT NULL DEFAULT '0',
-  `contact_form` int(11) NOT NULL DEFAULT '0',
-  `values` text COMMENT 'json array',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_misc_file`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `photo` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_misc_html_code`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_html_code` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_misc_rich_text`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_rich_text` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_misc_video`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_misc_video` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `photo` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_faq`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_faq` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_logo_gallery`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_logo_gallery` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `blank` char(1) NOT NULL DEFAULT '',
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_logo_gallery_logo`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_logo_gallery_logo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `link` mediumtext NOT NULL,
-  `logo` mediumtext NOT NULL,
-  `logo_gallery` int(11) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_photo`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `photo` mediumtext NOT NULL,
-  `photo_big` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_photo_gallery`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo_gallery` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `blank` char(1) NOT NULL DEFAULT '',
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_photo_gallery_photo`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_photo_gallery_photo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `photo` mediumtext NOT NULL,
-  `photo_big` mediumtext NOT NULL,
-  `photo_gallery` int(11) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_separator`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_separator` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `layout` varchar(255) NOT NULL DEFAULT 'line',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_table`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_text`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_text_photo`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_photo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `photo` mediumtext NOT NULL,
-  `photo_big` mediumtext NOT NULL,
-  `text` mediumtext NOT NULL,
-  `layout` varchar(255) NOT NULL DEFAULT 'left',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_text_title`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_text_title` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `text` mediumtext NOT NULL,
-  `level` int(11) NOT NULL DEFAULT '1',
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_mc_text_photos_title`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_mc_text_photos_title` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` mediumtext NOT NULL,
-  `level` int(11) NOT NULL DEFAULT '1',
-  `layout` varchar(255) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
 DROP TABLE IF EXISTS `ip_cms_module`;
-
+   
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_module` (
@@ -515,6 +211,39 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_community_user` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- Table structure
+  
+DROP TABLE IF EXISTS `ip_cms_m_content_management_widget`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
+  `widgetId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '0',
+  `layout` varchar(25) NOT NULL,
+  `data` text NOT NULL,
+  `created` int(11) NOT NULL,
+  `predecessor` int(11) DEFAULT NULL COMMENT 'Id of other widget that was duplicated to create this widget',
+  PRIMARY KEY (`widgetId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_m_content_management_widget_instance`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
+  `instanceId` int(11) NOT NULL AUTO_INCREMENT,
+  `revisionId` int(11) NOT NULL,
+  `widgetId` int(11) NOT NULL,
+  `position` double NOT NULL,
+  `blockName` varchar(25) NOT NULL,
+  `visible` tinyint(1) NOT NULL DEFAULT '1',
+  `created` int(11) NOT NULL COMMENT 'unix timestamp',
+  `deleted` int(11) DEFAULT NULL COMMENT 'unix timestamp',
+  PRIMARY KEY (`instanceId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1974 ;
+
 
 DROP TABLE IF EXISTS `ip_cms_parameter`;
 
@@ -601,6 +330,21 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_revision`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
+  `revisionId` int(11) NOT NULL AUTO_INCREMENT,
+  `zoneName` varchar(25) NOT NULL,
+  `pageId` int(11) NOT NULL DEFAULT '0',
+  `published` tinyint(1) NOT NULL DEFAULT '0',
+  `created` int(11) NOT NULL,
+  PRIMARY KEY (`revisionId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
 
 -- Table structure
 
