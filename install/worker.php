@@ -7,134 +7,134 @@
 
 
 function install_available(){
-	if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
-		return true;
-	else
-		return false;
+    if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
+    return true;
+    else
+    return false;
 }
 
 
 if(!install_available()) {
-  return;
+    return;
 }
 
 
 ini_set('display_errors', '0');
-	session_start();
+session_start();
 if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
-  if (strlen($_POST['prefix']) > strlen('ip_cms_')) {
-  	echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
-    exit;
-  }
-  
-  if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $_POST['prefix'])) {
-    echo '{errorCode:"ERROR_INCORRECT_PREFIX", error:""}';
-    exit;
-  }
-  
-	$conn = mysql_connect($_POST['server'], $_POST['db_user'], $_POST['db_pass']);
-	if(!$conn) {
-  	echo '{errorCode:"ERROR_CONNECT", error:""}';
-	} else {
-		if(mysql_select_db($_POST['db'], $conn)){		  
-			mysql_query("SET CHARACTER SET utf8", $conn);
-			/*structure*/
-			$sqlFile = "sql/structure.sql";
-			$fh = fopen($sqlFile, 'r');
-			$all_sql = fread($fh, filesize($sqlFile));
-			fclose($fh);			
-			
+    if (strlen($_POST['prefix']) > strlen('ip_cms_')) {
+        echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
+        exit;
+    }
 
-			$all_sql = str_replace("[[[[database]]]]", $_POST['db'], $all_sql);
-			$all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `".$_POST['prefix'], $all_sql);
-			$all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$_POST['prefix'], $all_sql);
-			$sql_list = explode("-- Table structure", $all_sql);
-			
-			$error = false;
-			$errorMessage = '';
+    if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $_POST['prefix'])) {
+        echo '{errorCode:"ERROR_INCORRECT_PREFIX", error:""}';
+        exit;
+    }
+
+    $conn = mysql_connect($_POST['server'], $_POST['db_user'], $_POST['db_pass']);
+    if(!$conn) {
+        echo '{errorCode:"ERROR_CONNECT", error:""}';
+    } else {
+        if(mysql_select_db($_POST['db'], $conn)){
+            mysql_query("SET CHARACTER SET utf8", $conn);
+            /*structure*/
+            $sqlFile = "sql/structure.sql";
+            $fh = fopen($sqlFile, 'r');
+            $all_sql = fread($fh, filesize($sqlFile));
+            fclose($fh);
+            	
+
+            $all_sql = str_replace("[[[[database]]]]", $_POST['db'], $all_sql);
+            $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `".$_POST['prefix'], $all_sql);
+            $all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$_POST['prefix'], $all_sql);
+            $sql_list = explode("-- Table structure", $all_sql);
+            	
+            $error = false;
+            $errorMessage = '';
 
 
-			foreach($sql_list as $key => $sql){
-				$rs = mysql_query($sql);
-				if(!$rs){
-					$error = true;
-					$errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-					echo $errorMessage;
+            foreach($sql_list as $key => $sql){
+                $rs = mysql_query($sql);
+                if(!$rs){
+                    $error = true;
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                    echo $errorMessage;
+                }
+            }
+            /*end structure*/
+             	
+            /*data*/
+            $sqlFile = "sql/data.sql";
+            $fh = fopen($sqlFile, 'r');
+            $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
+            fclose($fh);
+            	
+            //$all_sql = utf8_encode($all_sql);
+            $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `".$_POST['prefix'], $all_sql);
+            $all_sql = str_replace("[[[[base_url]]]]", get_parent_url(), $all_sql);
+            $sql_list = explode("-- Dumping data for table--", $all_sql);
+
+            	
+            foreach($sql_list as $key => $sql){
+                /*	$semicolon_pos = strrpos($sql, ";");
+                 $sql = substr($sql, 0, $semicolon_pos);*/
+                $rs = mysql_query($sql);
+                if(!$rs) {
+                    $error = true;
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                }
+            }
+
+            /*end data*/
+
+            if($error)
+            echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
+            	
+        }else{
+            echo '{errorCode:"ERROR_DB", error:""}';
         }
-			}
-			/*end structure*/
-			
-			/*data*/
-			$sqlFile = "sql/data.sql";
-			$fh = fopen($sqlFile, 'r');
-			$all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
-			fclose($fh);			
-			
-			//$all_sql = utf8_encode($all_sql);
-			$all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `".$_POST['prefix'], $all_sql);
-			$all_sql = str_replace("[[[[base_url]]]]", get_parent_url(), $all_sql);
-			$sql_list = explode("-- Dumping data for table--", $all_sql);
+    }
+    mysql_close($conn);
+    if($error == false){
+        if($_SESSION['step'] < 3)
+        $_SESSION['step'] = 3;
+        	
+        $_SESSION['db_server'] = $_POST['server'];
+        $_SESSION['db_db'] = $_POST['db'];
+        $_SESSION['db_user'] = $_POST['db_user'];
+        $_SESSION['db_pass'] = $_POST['db_pass'];
+        $_SESSION['db_prefix'] = $_POST['prefix'];
 
-			
-			foreach($sql_list as $key => $sql){
-			/*	$semicolon_pos = strrpos($sql, ";");
-				$sql = substr($sql, 0, $semicolon_pos);*/
-				$rs = mysql_query($sql);
- 				if(!$rs) {
-					$error = true;
-					$errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        }
-			}
-
-			/*end data*/
-
-			if($error)
-					echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
-					
-		}else{
-  		echo '{errorCode:"ERROR_DB", error:""}';
-		}
-	}	
-  mysql_close($conn);    
-	if($error == false){
-		if($_SESSION['step'] < 3)
-			$_SESSION['step'] = 3;
-			
-		$_SESSION['db_server'] = $_POST['server'];
-		$_SESSION['db_db'] = $_POST['db'];
-		$_SESSION['db_user'] = $_POST['db_user'];
-		$_SESSION['db_pass'] = $_POST['db_pass'];
-		$_SESSION['db_prefix'] = $_POST['prefix'];
-		
-	}
+    }
 }
 
 if(isset($_POST['action']) && $_POST['action'] == 'config'){
-  $errors = array();
-	if($_POST['site_name'] == '')
-		$errors[] = 'ERROR_SITE_NAME';
+    $errors = array();
+    if($_POST['site_name'] == '')
+    $errors[] = 'ERROR_SITE_NAME';
 
-	if($_POST['site_email'] == '' || !preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_POST['site_email']))
-		$errors[] = 'ERROR_SITE_EMAIL';
+    if($_POST['site_email'] == '' || !preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_POST['site_email']))
+    $errors[] = 'ERROR_SITE_EMAIL';
 
-  if(!isset($_POST['install_login']) || !isset($_POST['install_pass']) || $_POST['install_login'] == '' || $_POST['install_pass'] == '')
-		$errors[] = 'ERROR_LOGIN';
+    if(!isset($_POST['install_login']) || !isset($_POST['install_pass']) || $_POST['install_login'] == '' || $_POST['install_pass'] == '')
+    $errors[] = 'ERROR_LOGIN';
 
-	if(isset($_POST['timezone'])&& $_POST['timezone'] != '')
-		$timezone = 'date_default_timezone_set(\''.$_POST['timezone'].'\')';
-	else
-		$errors[] = 'ERROR_TIME_ZONE';
+    if(isset($_POST['timezone'])&& $_POST['timezone'] != '')
+    $timezone = 'date_default_timezone_set(\''.$_POST['timezone'].'\')';
+    else
+    $errors[] = 'ERROR_TIME_ZONE';
 
-	if($_POST['email'] != '' && !preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_POST['email'])){
-		$errors[] = 'ERROR_EMAIL';
-	}
-		
-  if (sizeof($errors) > 0) {
-    die('{errorCode:"'.implode(" ", $errors).'", error:""}');
-  }
+    if($_POST['email'] != '' && !preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_POST['email'])){
+        $errors[] = 'ERROR_EMAIL';
+    }
+
+    if (sizeof($errors) > 0) {
+        die('{errorCode:"'.implode(" ", $errors).'", error:""}');
+    }
 
 
-	$config = 
+    $config =
 	"<?"."php
 	
 /**
@@ -206,13 +206,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 
 
 
-	$myFile = "../ip_config.php";
-	$fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_CONFIG", error:""}');
-	fwrite($fh, $config);
-	fclose($fh);
+    $myFile = "../ip_config.php";
+    $fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_CONFIG", error:""}');
+    fwrite($fh, $config);
+    fclose($fh);
 
-	
-	$robots = 
+
+    $robots =
 'User-agent: *
 Disallow: /ip_cms/
 Disallow: /ip_configs/
@@ -227,87 +227,88 @@ Disallow: /ip_license.html
 Disallow: /readme.txt
 Sitemap: '.get_parent_url().'sitemap.php';
 
-	$myFile = "../robots.txt";
-	$fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_ROBOTS", error:""}');
-	fwrite($fh, $robots);
-	fclose($fh);
+    $myFile = "../robots.txt";
+    $fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_ROBOTS", error:""}');
+    fwrite($fh, $robots);
+    fclose($fh);
 
-	$conn = mysql_connect($_SESSION['db_server'], $_SESSION['db_user'], $_SESSION['db_pass']); 
-	if(!$conn) {
-		die('{errorCode:"ERROR_CONNECT", error:""}');
-	} else {
-		if(mysql_select_db($_SESSION['db_db'], $conn)){
-		  mysql_query("SET CHARACTER SET utf8", $conn);
-	
-	
-	    //login and password
-			$sql = "update `".$_SESSION['db_prefix']."user` set pass = '".md5($_POST['install_pass'])."', name='".mysql_real_escape_string($_POST['install_login'])."' where 1 limit 1";
-			$rs = mysql_query($sql);
-			if(!$rs){
-			  $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');			
-			}
-			//site name and email
-			$sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', '".mysql_real_escape_string($_POST['site_name'])."') where 1";
-			$rs = mysql_query($sql);
-			if(!$rs){
-			  $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');			
-			}
-			$sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-			$rs = mysql_query($sql);
-			if(!$rs){
-			  $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');			
-			}
-			$sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-			$rs = mysql_query($sql);
-			if(!$rs){
-			  $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');			
-			}
-			$rs = mysql_query($sql);
-			if(!$rs){
-			  $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-        die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');			
-			}
-			
-			
-		}else die('{errorCode:"ERROR_DB", error:""}');
+    $conn = mysql_connect($_SESSION['db_server'], $_SESSION['db_user'], $_SESSION['db_pass']);
+    if(!$conn) {
+        die('{errorCode:"ERROR_CONNECT", error:""}');
+    } else {
+        if(mysql_select_db($_SESSION['db_db'], $conn)){
+            mysql_query("SET CHARACTER SET utf8", $conn);
 
-		
-		mysql_close($conn);
-		
-	}
 
-	
-	if ($_SESSION['step'] < 4) {
-		$_SESSION['step'] = 4;
-  }
-  exit;
+            //login and password
+            $sql = "update `".$_SESSION['db_prefix']."user` set pass = '".md5($_POST['install_pass'])."', name='".mysql_real_escape_string($_POST['install_login'])."' where 1 limit 1";
+            $rs = mysql_query($sql);
+            if(!$rs){
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+            }
+            //site name and email
+            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', '".mysql_real_escape_string($_POST['site_name'])."') where 1";
+            $rs = mysql_query($sql);
+            if(!$rs){
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+            }
+            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
+            $rs = mysql_query($sql);
+            if(!$rs){
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+            }
+/*TODO follow the new structure
+ *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
+            $rs = mysql_query($sql);
+            if(!$rs){
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+            }*/
+            $rs = mysql_query($sql);
+            if(!$rs){
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+            }
+            	
+            	
+        }else die('{errorCode:"ERROR_DB", error:""}');
+
+
+        mysql_close($conn);
+
+    }
+
+
+    if ($_SESSION['step'] < 4) {
+        $_SESSION['step'] = 4;
+    }
+    exit;
 }
 
 
 function get_parent_url() {
-  $pageURL = 'http';
-  if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+    $pageURL = 'http';
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
     $pageURL .= "://";
-  if ($_SERVER["SERVER_PORT"] != "80") {
-    $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-  } else {
-    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-  }
-  
-  $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
-  $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
-  
-  return $pageURL;
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+        $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+
+    $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+    $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
+
+    return $pageURL;
 }
 
 function get_parent_dir() {
-  $dir = __DIR__;
-  $dir = str_replace("\\", "/", $dir);
-	$dir = substr($dir, 0, strrpos($dir, '/') + 1);
- 
- return $dir;
+    $dir = __DIR__;
+    $dir = str_replace("\\", "/", $dir);
+    $dir = substr($dir, 0, strrpos($dir, '/') + 1);
+
+    return $dir;
 }
