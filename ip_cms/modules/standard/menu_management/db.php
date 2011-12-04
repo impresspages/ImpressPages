@@ -139,7 +139,7 @@ class Db {
         }
         return false;
     }
-    
+
 
     /**
      *
@@ -210,7 +210,7 @@ class Db {
 
         $values .= ' parent = '.(int)$parentId;
         $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
-        
+
         if (isset($params['button_title'])) {
             $params['buttonTitle'] = $params['button_title'];
         }
@@ -220,9 +220,9 @@ class Db {
         if (isset($params['redirect_url'])) {
             $params['redirectURL'] = $params['redirect_url'];
         }
-        
+
         if (isset($params['buttonTitle']))
-            $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
+        $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
 
         if (isset($params['pageTitle']))
         $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';

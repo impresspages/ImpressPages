@@ -44,17 +44,17 @@ class Actions {
                     return;
                 }
                 $zones = Db::getZones();
-                
+
                 if (!isset($_REQUEST['parentId'])) {
                     trigger_error('Parent ID is not set');
                     return;
-                }                
+                }
                 $parentId = $_REQUEST['parentId'];
-                
+
                 foreach ($zones as $zoneKey => &$zone) {
                     $zoneElement = Db::rootContentElement($zone['id'], $parentId);
 
-                    
+
                     if($zoneElement == null) { /*try to create*/
                         Db::createRootZoneElement($zone['id'], $parentId);
                         $zoneElement = Db::rootContentElement($zone['id'], $parentId);
@@ -64,8 +64,8 @@ class Actions {
                         }
                     }
                     $zone['elementId'] = $zoneElement;
-                }                            
-                
+                }
+
                 $data = array (
                     'status' => 'success',
                     'response' => $zones
@@ -124,7 +124,7 @@ class Actions {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
             $widget['data'] = $widgetObject->getData($widget['module_id']);
-            
+
             switch ($widget['group_key'].'/'.$widget['module_key']) {
                 case 'text_photos/photo':
                     $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
@@ -139,7 +139,7 @@ class Actions {
                     break;
                 case 'misc/video':
                     $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
-                    break;   
+                    break;
                 case 'text_photos/logo_gallery':
                     foreach($widget['data']['logos'] as $logoKey => $logo){
                         $tmpValues = array();
@@ -154,8 +154,8 @@ class Actions {
                     }
                     break;
             }
-            
-            
+
+
         }
         $page['widgets'] = $widgets;
 

@@ -11,19 +11,19 @@ require_once(__DIR__.'/seo_area.php');
 
 
 class Manager{
-  var $standardModule;
+    var $standardModule;
 
-  function __construct() {
+    function __construct() {
 
-    $area = new SeoArea();
+        $area = new SeoArea();
 
-    $this->standardModule = new \Modules\developer\std_mod\StandardModule($area);
-  }
+        $this->standardModule = new \Modules\developer\std_mod\StandardModule($area);
+    }
 
 
-  function manage() {
-    return $this->standardModule->manage();
-  }
+    function manage() {
+        return $this->standardModule->manage();
+    }
 
 
 

@@ -120,8 +120,8 @@ class Model {
         }
 
     }
-    
-    
+
+
     public static function getWidgetData ($widget) {
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
         eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
@@ -130,13 +130,13 @@ class Model {
     }
 
     public static function addWidget($targetId, $widgetData, $widget){
-        
+
         $values = $widgetData;
-        
+
         $values['content_element_id'] = $targetId;
         $values['row_number'] = $widget['row_number'];
         $values['visible'] = $widget['visible'];
-        
+
         switch($widget['group_key'].'/'.$widget['module_key']){
 
             case 'text_photos/photo':
@@ -160,14 +160,14 @@ class Model {
                 copy($values['photo'], BASE_DIR.TMP_VIDEO_DIR.basename($values['photo']));
                 break;
         }
-        
-        
-        
+
+
+
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
         eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module();');
-        $widgetObject->create_new_instance($values);        
-        
-        
+        $widgetObject->create_new_instance($values);
+
+
         switch ($widget['group_key'].'/'.$widget['module_key']) {
             case 'text_photos/logo_gallery':
                 $sqlMax = "select max(id) as max_id from `".DB_PREF."mc_text_photos_logo_gallery` where 1";
@@ -206,8 +206,8 @@ class Model {
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
                 }
                 break;
-                
-            
+
+
         }
 
     }
