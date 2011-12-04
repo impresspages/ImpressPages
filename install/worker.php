@@ -43,13 +43,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             $fh = fopen($sqlFile, 'r');
             $all_sql = fread($fh, filesize($sqlFile));
             fclose($fh);
-            	
+             
 
             $all_sql = str_replace("[[[[database]]]]", $_POST['db'], $all_sql);
             $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `".$_POST['prefix'], $all_sql);
             $all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$_POST['prefix'], $all_sql);
             $sql_list = explode("-- Table structure", $all_sql);
-            	
+             
             $error = false;
             $errorMessage = '';
 
@@ -63,19 +63,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
                 }
             }
             /*end structure*/
-             	
+
             /*data*/
             $sqlFile = "sql/data.sql";
             $fh = fopen($sqlFile, 'r');
             $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
             fclose($fh);
-            	
+             
             //$all_sql = utf8_encode($all_sql);
             $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `".$_POST['prefix'], $all_sql);
             $all_sql = str_replace("[[[[base_url]]]]", get_parent_url(), $all_sql);
             $sql_list = explode("-- Dumping data for table--", $all_sql);
 
-            	
+             
             foreach($sql_list as $key => $sql){
                 /*	$semicolon_pos = strrpos($sql, ";");
                  $sql = substr($sql, 0, $semicolon_pos);*/
@@ -90,7 +90,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
             if($error)
             echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
-            	
+             
         }else{
             echo '{errorCode:"ERROR_DB", error:""}';
         }
@@ -99,7 +99,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     if($error == false){
         if($_SESSION['step'] < 3)
         $_SESSION['step'] = 3;
-        	
+         
         $_SESSION['db_server'] = $_POST['server'];
         $_SESSION['db_db'] = $_POST['db'];
         $_SESSION['db_user'] = $_POST['db_user'];
@@ -260,20 +260,20 @@ Sitemap: '.get_parent_url().'sitemap.php';
                 $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
-/*TODO follow the new structure
- *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-            $rs = mysql_query($sql);
-            if(!$rs){
-                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
-                die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
-            }*/
+            /*TODO follow the new structure
+             *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
+             $rs = mysql_query($sql);
+             if(!$rs){
+             $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+             die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+             }*/
             $rs = mysql_query($sql);
             if(!$rs){
                 $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
-            	
-            	
+             
+             
         }else die('{errorCode:"ERROR_DB", error:""}');
 
 

@@ -9,11 +9,11 @@ if(Db::connect()){
 
     $site = new \Site();
 
-    $dispatcher->notify(new \Ip\Event($site, 'site.beforeInit', null));    
+    $dispatcher->notify(new \Ip\Event($site, 'site.beforeInit', null));
     $site->init();
     $site->dispatchEvent('administrator', 'system', 'init', array());
-    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));    
-    
+    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
+
     /*detect browser language*/
     if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
         require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
@@ -50,7 +50,7 @@ if(Db::connect()){
     /*check if the website is closed*/
     if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()){
         echo $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
-        \Db::disconnect();        
+        \Db::disconnect();
         exit;
     }
     /*eof check if the website is closed*/
@@ -59,14 +59,14 @@ if(Db::connect()){
         $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
         $site->makeRedirect(); //if required;
     }
-    
+
 
     $output = $site->generateOutput();
-    
+
     $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$output)));
     echo $output;
     $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$output)));
-    
+
 
     /*
      Automatic execution of cron.
@@ -83,16 +83,16 @@ if(Db::connect()){
         curl_setopt($ch, CURLOPT_TIMEOUT, 1);
         $fakeCronAnswer = curl_exec($ch);
         $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
-        
+
     }
 
-    
+
     \Db::disconnect();
     $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
-    
+
 
 
 } else {
     trigger_error("Database access");
 }
- 
+

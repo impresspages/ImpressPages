@@ -10,18 +10,18 @@ if (!defined('CMS')) exit;
 class TemplateList{
 
 
-  public static function languages($languages) {
-    global $site;
-    $answer = "\n".'<ul class="languages">'."\n";
-    foreach ($languages as $key => $language) {
-      if($language->getVisible()){
-        $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="act"' : '';
-        $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language->getLongDescription()).'" href="'.$site->generateUrl($language->getId()).'">'.htmlspecialchars($language->getShortDescription()).'</a></li>'."\n";
-      }
+    public static function languages($languages) {
+        global $site;
+        $answer = "\n".'<ul class="languages">'."\n";
+        foreach ($languages as $key => $language) {
+            if($language->getVisible()){
+                $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="act"' : '';
+                $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language->getLongDescription()).'" href="'.$site->generateUrl($language->getId()).'">'.htmlspecialchars($language->getShortDescription()).'</a></li>'."\n";
+            }
+        }
+        $answer .= '</ul>'."\n";
+        return $answer;
     }
-    $answer .= '</ul>'."\n";
-    return $answer;
-  }   
-    
+
 
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package ImpressPages
  * @copyright   Copyright (C) 2011 ImpressPages LTD.
@@ -7,16 +7,16 @@
 
 namespace Ip;
 
- 
-if (!defined('CMS')) exit;  
+
+if (!defined('CMS')) exit;
 
 
 
 /**
- * 
+ *
  * View class
- * 
- */ 
+ *
+ */
 class Db{
     public static function getLastRevision($zoneName, $pageId) {
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
@@ -28,20 +28,20 @@ class Db{
             ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
-        
+
         $rs = mysql_query($sql);
         if (!$rs){
             throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
-        
+
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             return false;
-        }       
-        
+        }
+
     }
-    
+
     public static function getPublishedRevision($zoneName, $pageId) {
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
         $sql = "
@@ -53,40 +53,40 @@ class Db{
             ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
-        
+
         $rs = mysql_query($sql);
         if (!$rs){
             throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
-        
+
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             return false;
-        }       
-        
-    }    
-    
+        }
+
+    }
+
     public static function getRevision($revisionId) {
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE `revisionId` = ".(int)$revisionId."
         ";    
-        
+
         $rs = mysql_query($sql);
         if (!$rs){
             throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
-        
+
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             return false;
-        }       
-        
+        }
+
     }
-        
-    
+
+
     public static function createRevision ($zoneName, $pageId, $published) {
         global $dispatcher;
         $sql = "
@@ -104,23 +104,23 @@ class Db{
         }
 
         $revisionId = mysql_insert_id();
-        
+
         $eventData = array(
             'revisionId' => $revisionId
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));    
-        
-        
-        
-        return $revisionId;        
-    }       
-    
+        $dispatcher->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));
+
+
+
+        return $revisionId;
+    }
+
     public static function publishRevision ($revisionId) {
         $revision = self::getRevision($revisionId);
         if (!$revision) {
             return false;
         }
-        
+
          
         $sql = "
             UPDATE `".DB_PREF."revision`
@@ -133,9 +133,9 @@ class Db{
         ";   
 
         $rs = mysql_query($sql);
-            
+
         if (!$rs) {
-            throw new CoreException("Can't publish revision " . $sql . ' '. mysql_error(), CoreException::DB); 
+            throw new CoreException("Can't publish revision " . $sql . ' '. mysql_error(), CoreException::DB);
         }
 
     }
@@ -145,36 +145,36 @@ class Db{
 
         $oldRevision = self::getRevision($oldRevisionId);
         $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
-        
+
         $eventData = array(
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));    
-            
-        return $newRevisionId;        
-    }       
-    
-    
+        $dispatcher->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));
+
+        return $newRevisionId;
+    }
+
+
     public static function getPageRevisions($zoneName, $pageId) {
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE `pageId` = ".(int)$pageId." AND `zoneName` = '".mysql_real_escape_string($zoneName)."'
             ORDER BY `created` DESC, `revisionId` DESC
         ";    
-        
+
         $rs = mysql_query($sql);
         if (!$rs){
             throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
         }
-        
+
         $answer = array();
         while ($lock = mysql_fetch_assoc($rs)) {
             $answer[] = $lock;
         }
         return $answer;
-        
+
     }
-            
-    
+
+
 }

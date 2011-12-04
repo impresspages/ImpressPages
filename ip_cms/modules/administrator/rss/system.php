@@ -14,8 +14,8 @@ require_once (__DIR__.'/db.php');
 
 class System{
 
-	function clearCache($cachedBaseUrl){
-	  Db::clearCache();
-	}
-	
+    function clearCache($cachedBaseUrl){
+        Db::clearCache();
+    }
+
 }

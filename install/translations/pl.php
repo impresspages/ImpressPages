@@ -49,7 +49,7 @@ define('IP_DB_ERROR_DB', 'Podana baza danych nie istnieje');
 define('IP_DB_ERROR_QUERY', 'Nierozpoznany błąd MySQL');
 define('IP_DB_ERROR_LONG_PREFIX', 'Przedrostek nie może być dłuższy niż 7 znaków');
 define('IP_DB_ERROR_INCORRECT_PREFIX', 'Przedrostek nie może zawierać żadnych znaków specjalnych i powinien rozpoczynać się literą');
-define('IP_DB_ERROR_EMAIL', 'Błędny adres e-mail'); 
+define('IP_DB_ERROR_EMAIL', 'Błędny adres e-mail');
 define('IP_CONFIG_ERROR_CONFIG', 'Nie można zapisać konfiguracji do pliku "/ip_config.php"');
 define('IP_CONFIG_ERROR_ROBOTS', 'Nie można zapisać pliku "/robots.txt"');
 define('IP_CONFIG_ERROR_EMAIL', 'Proszę wprowadź poprawny adres e-mail administratora');

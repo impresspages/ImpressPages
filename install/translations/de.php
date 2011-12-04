@@ -49,7 +49,7 @@ define('IP_DB_ERROR_DB', 'Die angegeben Datenbank existiert nicht');
 define('IP_DB_ERROR_QUERY', 'Unknown SQL error');
 define('IP_DB_ERROR_LONG_PREFIX', 'Präfix darf nicht länger als 7 Zeichen sein');
 define('IP_DB_ERROR_INCORRECT_PREFIX', 'Bei einer Präfix können keine Speziellen zeichen verwendet werden');
-define('IP_DB_ERROR_EMAIL', 'Falsche E-mail Adresse'); 
+define('IP_DB_ERROR_EMAIL', 'Falsche E-mail Adresse');
 define('IP_CONFIG_ERROR_CONFIG', 'Die "/ip_config.php" ist nicht beschreibar. Bitte auf chmod 0666 setzen.');
 define('IP_CONFIG_ERROR_ROBOTS', 'Die "/robots.txt" ist nicht beschreibar. Bitte auf chmod 0666 setzen.');
 define('IP_CONFIG_ERROR_EMAIL', 'Bitte gebt eine Emailadresse an');

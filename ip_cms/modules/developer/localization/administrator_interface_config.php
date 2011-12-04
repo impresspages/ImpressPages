@@ -8,7 +8,7 @@
 
 
 
-if (!defined('BACKEND')) exit;  
+if (!defined('BACKEND')) exit;
 
 //$parameterValue ["standard"]["configuration"]["advanced_options"]["administrator_interface_language"] = "en" //insert RFC 4646 code of language into whish you are translating now
 

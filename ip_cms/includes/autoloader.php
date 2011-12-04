@@ -8,26 +8,26 @@
 
 if (!defined('CMS')) exit;
 /**
- * Autoloader class 
- */ 
+ * Autoloader class
+ */
 
 
 function __impressPagesAutoloader($name) {
-    
+
     $fileName = BASE_DIR.INCLUDE_DIR.str_replace('\\', '/', $name) . '.php';
-    
+
     if (file_exists($fileName)) {
         require_once($fileName);
-        return true;   
+        return true;
     }
 
     $fileName = BASE_DIR.MODULE_DIR.str_replace('\\', '/', $name) . '.php';
-    
+
     if (file_exists($fileName)) {
         require_once($fileName);
-        return true;   
+        return true;
     }
-    
+
     return false;
 }
 

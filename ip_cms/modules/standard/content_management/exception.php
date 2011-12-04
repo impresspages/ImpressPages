@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package ImpressPages
  * @copyright   Copyright (C) 2011 ImpressPages LTD.

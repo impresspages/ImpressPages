@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
@@ -8,15 +8,15 @@
 namespace Ip;
 
 
-if (!defined('CMS')) exit;  
+if (!defined('CMS')) exit;
 
 /**
- * 
+ *
  * Event dispatcher class
- * 
- */ 
+ *
+ */
 class Event{
-    
+
     private $object;
     private $name;
     private $values;
@@ -28,54 +28,54 @@ class Event{
         $this->values = $values;
         $this->processed = 0;
     }
-    
+
     public function getObject () {
-        return $this->object;    
+        return $this->object;
     }
-    
+
     public function getName () {
         return $this->name;
     }
-    
+
     public function getValues () {
-        return $this->values;    
+        return $this->values;
     }
-    
+
     public function setValue ($key, $value) {
-        $this->values[$key] = $value;        
+        $this->values[$key] = $value;
     }
-    
-    public function issetValue ($key) {    
+
+    public function issetValue ($key) {
         return isset($this->values[$key]);
     }
 
     public function unsetValue ($key) {
-        unset($this->values[$key]);        
+        unset($this->values[$key]);
     }
-    
+
     public function addProcessed () {
         $this->processed++;
     }
-    
+
     public function getProcessed () {
-        return $this->processed;        
+        return $this->processed;
     }
-    
+
     public function getValue ($key) {
         if (isset($this->values[$key])) {
-            return $this->values[$key];   
+            return $this->values[$key];
         }
-        
+
         $trace = debug_backtrace();
         throw new CoreException(
             'Undefined value via getValue(): ' . $key .
             ' in ' . $trace[0]['file'] .
             ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE, CoreException::EVENT);
+        E_USER_NOTICE, CoreException::EVENT);
     }
-    
+
     public function valueExist($valueKey) {
         return isset($this->value[$valueKey]);
     }
-    
+
 }

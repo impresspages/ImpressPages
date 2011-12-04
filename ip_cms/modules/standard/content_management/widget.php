@@ -14,40 +14,40 @@ class Widget{
     const PREVIEW_DIR = 'preview';
     const MANAGEMENT_DIR = 'management';
     const PUBLIC_DIR = 'management';
-    
+
     public function __construct($name, $moduleGroup, $moduleName, $core = false) {
         $this->name = $name;
         $this->moduleGroup = $moduleGroup;
         $this->moduleName = $moduleName;
         $this->core = $core;
-        
+
         if ($core) {
             $this->widgetDir = MODULE_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/';
         } else {
             $this->widgetDir = PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/';
         }
     }
-    
+
     public function getTitle() {
         return self::getName();
     }
-    
+
     public function getName() {
-        return $this->name;    
+        return $this->name;
     }
-    
+
     public function getModuleGroup() {
         return $this->moduleGroup;
     }
-    
+
     public function getModuleName() {
         return $this->moduleName;
     }
-    
+
     public function getCore() {
-        return $this->core;    
+        return $this->core;
     }
-    
+
     public function getIcon() {
         if (file_exists(BASE_DIR.$this->widgetDir.'icon.gif')) {
             return $this->widgetDir.'icon.gif';
@@ -55,20 +55,20 @@ class Widget{
             return MODULE_DIR.'standard/content_management/img/default_icon.gif';
         }
     }
-    
+
     public function getLayouts() {
         global $parametersMod;
-        
+
         $views = array();
-        
+
         try {
-            
+
             //collect default view files
             $layoutsDir = BASE_DIR.$this->widgetDir.self::PREVIEW_DIR;
             if (!file_exists($layoutsDir) || !is_dir($layoutsDir)) {
                 throw new Exception('Layouts directory does not exist', Exception::NO_LAYOUTS);
             }
-            
+
             $availableViewFiles = scandir(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR);
             foreach ($availableViewFiles as $viewKey => $viewFile) {
                 //$layout = substr($viewFile, 0, -4);
@@ -76,7 +76,7 @@ class Widget{
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
-    
+
             //collect overriden theme view files
             $themeViewsFolder = BASE_DIR.THEME_DIR.THEME.'/modules/'.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::PREVIEW_DIR;
             if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
@@ -88,7 +88,7 @@ class Widget{
                     }
                 }
             }
-            
+
             $layouts = array();
             foreach ($views as $viewKey => $view) {
                 if ($parametersMod->exist($this->moduleGroup, $this->moduleName, 'translations', 'layout_'.$viewKey)) {
@@ -98,22 +98,22 @@ class Widget{
                 }
                 $layouts[] = array('name' => $viewKey, 'title' => $translation);
             }
-            
+
             if (empty($layouts)) {
                 throw new Exception('No layouts', self::NO_LAYOUTS);
             }
-            
+
         } catch (Exception $e) {
             $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'default'));
         }
 
-        
+
         return $layouts;
     }
-    
+
     /**
-     * 
-     * 
+     *
+     *
      * @param $instanceId
      * @param $postData
      * @param $currentData
@@ -122,19 +122,19 @@ class Widget{
     public function prepareData ($instanceId, $postData, $currentData) {
         return $postData;
     }
-    
+
     public function post ($instanceId, $postData, $data) {
-        
+
     }
-    
+
     public function duplicate($oldId, $newId) {
-            
+
     }
-    
+
     public function delete($widgetId){
 
     }
-    
+
     public function managementHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
@@ -144,7 +144,7 @@ class Widget{
         }
         return $answer;
     }
-    
+
     public function previewHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
@@ -156,8 +156,8 @@ class Widget{
             );
             $answer = \Ip\View::create('view/unknown_widget_layout.php', $tmpData)->render();
         }
-        return $answer;    
+        return $answer;
     }
-    
+
 
 }

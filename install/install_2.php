@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
@@ -6,14 +6,14 @@
  */
 
 if (!defined('INSTALL')) exit;
- 
- 
+
+
 $licenseFile = "../ip_license.html";
 $fh = fopen($licenseFile, 'r');
 $license = fread($fh, filesize($licenseFile));
 fclose($fh);
- 
-	
+
+
 output('
 <h1>'.IP_STEP_LICENSE_LONG.'</h1>	
 <p>

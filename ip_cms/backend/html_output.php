@@ -9,19 +9,19 @@
 namespace Backend;
 
 if (!defined('BACKEND'))
-  exit;
+exit;
 
 class HtmlOutput {
 
-  var $html;
+    var $html;
 
-  function __construct() {
-    $this->html = '';
-  }
+    function __construct() {
+        $this->html = '';
+    }
 
-  function headerModule() {
-    global $parametersMod;
-    $this->html .= '
+    function headerModule() {
+        global $parametersMod;
+        $this->html .= '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
@@ -68,11 +68,11 @@ class HtmlOutput {
     </script>
     <!-- display loading until page is loaded-->
     ';
-  }
+    }
 
-  function headerModules() {
-    global $cms;
-    $this->html .= '
+    function headerModules() {
+        global $cms;
+        $this->html .= '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
@@ -105,10 +105,10 @@ class HtmlOutput {
     ';
 
 
-    if( isset($_SESSION['modules']['administrator']['system']['show_system_message'])) {
-      if ($_SESSION['modules']['administrator']['system']['show_system_message'] == true) {
+        if( isset($_SESSION['modules']['administrator']['system']['show_system_message'])) {
+            if ($_SESSION['modules']['administrator']['system']['show_system_message'] == true) {
 
-        $this->html .= '
+                $this->html .= '
     <script type="text/javascript">
       //<![CDATA[
 
@@ -119,12 +119,12 @@ class HtmlOutput {
       //]]>
     </script>
         ';
-      } else {
-        // do nothing
-      }
+            } else {
+                // do nothing
+            }
 
-    } else {
-      $this->html .= '
+        } else {
+            $this->html .= '
   <script type="text/javascript">
     //<![CDATA[
       function ipCmsNoticeResponse(response){
@@ -144,16 +144,16 @@ class HtmlOutput {
     //]]>
   </script>
       ';
+        }
+
+
+
+
+
     }
 
-
-
-
-
-  }
-
-  function headerLogin() {
-    $this->html .= '
+    function headerLogin() {
+        $this->html .= '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
@@ -166,16 +166,16 @@ class HtmlOutput {
 <body> 
 
     ';
-  }
+    }
 
-  function loginForm($error = null) {
-    global $parametersMod;
-    global $cms;
+    function loginForm($error = null) {
+        global $parametersMod;
+        global $cms;
 
-    if ($error)
-      $error = '<label class="error">' . htmlspecialchars($error) . '</label>';
+        if ($error)
+        $error = '<label class="error">' . htmlspecialchars($error) . '</label>';
 
-    $this->html .= '
+        $this->html .= '
       <div class="wrapper">
               <a href="http://www.impresspages.org"><img src="' . BASE_URL . BACKEND_DIR . 'design/login/impress-pages.png" class="logo" /></a>
               <div class="image">
@@ -205,27 +205,27 @@ class HtmlOutput {
       </script>
 		
     ';
-  }
+    }
 
-  function modules($groups) {
-    global $cms;
-    $groupsHtml = "";
-    $systemModule = null;
-    $systemModuleGroupListId = '';
+    function modules($groups) {
+        global $cms;
+        $groupsHtml = "";
+        $systemModule = null;
+        $systemModuleGroupListId = '';
 
-    if ($groups !== null) {
+        if ($groups !== null) {
 
 
 
-      $i = 0;
-      foreach ($groups as $key => $modules) {
+            $i = 0;
+            foreach ($groups as $key => $modules) {
 
-        if ($modules !== null)
-          $groupsHtml .= '<span id="moduleGroupLink' . $i . '" class="left knob opened" >' . $key . '</span>';
-        $i++;
-      }
+                if ($modules !== null)
+                $groupsHtml .= '<span id="moduleGroupLink' . $i . '" class="left knob opened" >' . $key . '</span>';
+                $i++;
+            }
 
-      $groupsHtml .= '
+            $groupsHtml .= '
   <script type="text/javascript">
   //<![CDATA[
     var modTabs = new LibTabs(\'modTabs\', \'left knob\', \'left knob opened\');
@@ -242,53 +242,53 @@ class HtmlOutput {
   //]]>
   </script>
   ';
-      $i = 0;
-      $modulesHtml = '';
-      $script_html = '';
-      foreach ($groups as $key => $modules) {
-        if ($modules !== null) {
-          $modulesHtml .= '<div id="moduleGroup' . $i . '" class="top_tabs"><ul>';
-          foreach ($modules as $key2 => $module) {
-            if($module['g_name'] == 'administrator' && $module['m_name'] == 'system') {
-              $systemModule = $module;
-              $systemModuleGroupListId = $i;
-            }
-            if ($i == 0 && $key2 == 0) {
-              $modulesHtml .= '<li id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
-              $script_html .= '
+            $i = 0;
+            $modulesHtml = '';
+            $script_html = '';
+            foreach ($groups as $key => $modules) {
+                if ($modules !== null) {
+                    $modulesHtml .= '<div id="moduleGroup' . $i . '" class="top_tabs"><ul>';
+                    foreach ($modules as $key2 => $module) {
+                        if($module['g_name'] == 'administrator' && $module['m_name'] == 'system') {
+                            $systemModule = $module;
+                            $systemModuleGroupListId = $i;
+                        }
+                        if ($i == 0 && $key2 == 0) {
+                            $modulesHtml .= '<li id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
+                            $script_html .= '
               <script type="text/javascript">
                  //<![CDATA[
                 last_selected = document.getElementById(\'modTabsFirstModule\');
                 //]]>
               </script>';
-            }else
-              $modulesHtml .= '<li id="module_'.$module['g_name'].'_'.$module['m_name'].'" class="top_tabs_normal" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
-          }
-          $modulesHtml .= '</ul></div>';
-          $modulesHtml .=
-                  $script_html . '
+                        }else
+                        $modulesHtml .= '<li id="module_'.$module['g_name'].'_'.$module['m_name'].'" class="top_tabs_normal" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
+                    }
+                    $modulesHtml .= '</ul></div>';
+                    $modulesHtml .=
+                    $script_html . '
           <script type="text/javascript">
             //<![CDATA[
             modTabs.addTab(\'moduleGroupLink' . $i . '\', \'moduleGroup' . $i . '\');
             //]]>
           </script>
           ';
+                }else
+                trigger_error("No modules");
+                $i++;
+            }
         }else
-          trigger_error("No modules");
-        $i++;
-      }
-    }else
-      trigger_error("No groups");
-    global $parametersMod;
-    global $cms;
+        trigger_error("No groups");
+        global $parametersMod;
+        global $cms;
 
-    if($systemModule != null) {
-      $systemMessage = '<a id="ipCmsSystemNotice" style="'.(!empty($_SESSION['modules']['administrator']['system']['show_system_message']) ? '' : 'display: none;').'" class="ipCmsTopNotice" onclick="modTabs.switchTab(\'moduleGroup'.$systemModuleGroupListId.'\'); change_page(document.getElementById(\'module_'.$systemModule['g_name'].'_'.$systemModule['m_name'].'\'), \'' . $cms->generateUrl($systemModule['id']) . '\'); this.style.display=\'none\'; return false;" href="#">' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message') . '</a>';
-    } else {
-      $systemMessage = '';
-    }
+        if($systemModule != null) {
+            $systemMessage = '<a id="ipCmsSystemNotice" style="'.(!empty($_SESSION['modules']['administrator']['system']['show_system_message']) ? '' : 'display: none;').'" class="ipCmsTopNotice" onclick="modTabs.switchTab(\'moduleGroup'.$systemModuleGroupListId.'\'); change_page(document.getElementById(\'module_'.$systemModule['g_name'].'_'.$systemModule['m_name'].'\'), \'' . $cms->generateUrl($systemModule['id']) . '\'); this.style.display=\'none\'; return false;" href="#">' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message') . '</a>';
+        } else {
+            $systemMessage = '';
+        }
 
-    $this->html .='
+        $this->html .='
       <div class="all">
         <div class="top_menu">
 
@@ -309,29 +309,29 @@ class HtmlOutput {
 			
 			';
 
-    $this->html .= '
+        $this->html .= '
       <script type="text/javascript">
       //<![CDATA[
         modTabs.switchFirst();
       //]]>
       </script>
     ';
-  }
+    }
 
-  function footer() {
-    $this->html .= '    
+    function footer() {
+        $this->html .= '
       </body>
       </html>    
     ';
-  }
+    }
 
-  function html($code) {
-    $this->html .= $code;
-  }
+    function html($code) {
+        $this->html .= $code;
+    }
 
-  function send() {
-    echo $this->html;
-  }
+    function send() {
+        echo $this->html;
+    }
 
 }
 

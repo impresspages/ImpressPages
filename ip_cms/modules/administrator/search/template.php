@@ -11,9 +11,9 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 class Template{
 
 
-  public static function searchForm($caption, $value, $button, $url){
-    global $parametersMod;
-    return '
+    public static function searchForm($caption, $value, $button, $url){
+        global $parametersMod;
+        return '
 <form id="modAdministratorSearchForm" method="post" action="'.$url.'"> 
   <div>
     <input type="hidden" name="action" value="search" />
@@ -22,70 +22,70 @@ class Template{
   </div>
 </form>    
 ';    
-  }
-  
-  public static function noSearchString($title, $text){
-    global $site;
-    $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-    $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-    
-    $answer = '';
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
-    return $answer;
-  }
-  
-  
-  public static function noResults($title, $text){
-    global $site;
-    $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-    $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-
-    $answer = '';
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
-    return $answer;
-  }
-  
-  public static function searchResult($title, $foundElementsCombined, $foundElements){
-    global $site;
-    global $parametersMod;
-    
-    $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-    $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-    
-    $answer ='';
-    
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-    $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($foundElementsCombined));
-    
-    foreach ($foundElements as $zoneKey => $zoneBunch) {
-      $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($site->getZone($zoneKey)->getTitle(), 2);
-      $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($zoneBunch));
     }
 
-    return $answer;  
-  }
-  
-  public static function elementsList($elements){
-    global $parametersMod;
-    $answer = "\n";
-    $answer .= '<ul class="modAdministratorSearchList">'."\n";
-    foreach ($elements as $key => $element) {
-		  $answer .= '  <li>'."\n";
-      $tmpTitle = $element->getPageTitle();
-      if($tmpTitle == ''){
-        $tmpTitle = $element->getButtonTitle();
-      } 
-			$answer .= '    <a class="modAdministratorSearchLink" href="'.$element->getLink().'">'.htmlspecialchars($tmpTitle).'</a>'."\n";
-			if($parametersMod->getValue('administrator', 'search', 'options', 'show_description')){
-				$answer .= '    <p class="modAdministratorSearchDescription">'.htmlspecialchars($element->getDescription()).'</p>'."\n";
-			}
-      $answer .= '  </li>'."\n";
+    public static function noSearchString($title, $text){
+        global $site;
+        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
+        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
+
+        $answer = '';
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
+        return $answer;
     }
-    $answer .= '</ul>'."\n";
-    return $answer;
-  }
+
+
+    public static function noResults($title, $text){
+        global $site;
+        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
+        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
+
+        $answer = '';
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
+        return $answer;
+    }
+
+    public static function searchResult($title, $foundElementsCombined, $foundElements){
+        global $site;
+        global $parametersMod;
+
+        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
+        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
+
+        $answer ='';
+
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
+        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($foundElementsCombined));
+
+        foreach ($foundElements as $zoneKey => $zoneBunch) {
+            $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($site->getZone($zoneKey)->getTitle(), 2);
+            $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($zoneBunch));
+        }
+
+        return $answer;
+    }
+
+    public static function elementsList($elements){
+        global $parametersMod;
+        $answer = "\n";
+        $answer .= '<ul class="modAdministratorSearchList">'."\n";
+        foreach ($elements as $key => $element) {
+            $answer .= '  <li>'."\n";
+            $tmpTitle = $element->getPageTitle();
+            if($tmpTitle == ''){
+                $tmpTitle = $element->getButtonTitle();
+            }
+            $answer .= '    <a class="modAdministratorSearchLink" href="'.$element->getLink().'">'.htmlspecialchars($tmpTitle).'</a>'."\n";
+            if($parametersMod->getValue('administrator', 'search', 'options', 'show_description')){
+                $answer .= '    <p class="modAdministratorSearchDescription">'.htmlspecialchars($element->getDescription()).'</p>'."\n";
+            }
+            $answer .= '  </li>'."\n";
+        }
+        $answer .= '</ul>'."\n";
+        return $answer;
+    }
 
 }
 

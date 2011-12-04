@@ -10,13 +10,13 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Template{
 
-  public static function breadcrumb($breadCrumb, $separator = '') {
-    $answer = '';
-    foreach ($breadCrumb as $key => $element) {
-      if($answer != '')
-        $answer .= $separator;
-      $answer .= '<a href="'.$element->getLink().'" title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>';
+    public static function breadcrumb($breadCrumb, $separator = '') {
+        $answer = '';
+        foreach ($breadCrumb as $key => $element) {
+            if($answer != '')
+            $answer .= $separator;
+            $answer .= '<a href="'.$element->getLink().'" title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>';
+        }
+        return $answer;
     }
-    return $answer;
-  }   
 }

@@ -47,7 +47,7 @@ define('IP_DB_ERROR_DB', 'Nurodyta duomenų bazė neegzistuoja');
 define('IP_DB_ERROR_QUERY', 'Nežinoma SQL klaida');
 define('IP_DB_ERROR_LONG_PREFIX', 'Prefiksas negali būti ilgesnis, kaip 7 simboliai');
 define('IP_DB_ERROR_INCORRECT_PREFIX', 'Prefikse negali būti specialilų ženklų. Prefiksas turi prasidėti raide');
-define('IP_DB_ERROR_EMAIL', 'Neteisingas el. pašto adresas'); 
+define('IP_DB_ERROR_EMAIL', 'Neteisingas el. pašto adresas');
 define('IP_CONFIG_ERROR_CONFIG', 'Nepavyko įrašyti konfigūracijos failo "/ip_config.php"');
 define('IP_CONFIG_ERROR_ROBOTS', 'Nepavyko suformuoti failo "/robots.txt"');
 define('IP_CONFIG_ERROR_EMAIL', 'Prašome įvesti teisingą administratoriaus el. pašto adresą');

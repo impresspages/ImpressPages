@@ -92,7 +92,7 @@ class ModulesInstallation{
                 }
             }
         }
-        
+
         return $answer;
     }
 

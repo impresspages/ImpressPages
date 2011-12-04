@@ -354,8 +354,9 @@ class Model{
               `name` = '".mysql_real_escape_string($widgetName)."',
               `layout` = '".mysql_real_escape_string($layout)."',
               `created` = ".time().",
-              `data` = '".mysql_real_escape_string(json_encode($data))."'
-        ";
+              `data` = '".mysql_real_escape_string(json_encode($data))."',
+              `predecessor` = '".(int)$predecessor."'
+              ";
 
         $rs = mysql_query($sql);
 

@@ -1,2 +1,4 @@
-<h2><?php echo htmlspecialchars(isset($title) ? $title : '' ); ?></h2>
+<h2>
+<?php echo htmlspecialchars(isset($title) ? $title : '' ); ?>
+</h2>
 

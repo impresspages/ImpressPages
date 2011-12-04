@@ -1,1 +1,3 @@
-<textarea name="text"><?php echo isset($text) ? $text : '' ?></textarea>
+<textarea name="text">
+<?php echo isset($text) ? $text : '' ?>
+</textarea>

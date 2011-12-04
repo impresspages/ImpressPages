@@ -137,7 +137,7 @@ abstract class Zone{
         $element = $this->getElement($elementId);
         else
         $element = $this->getCurrentElement();
-        	
+         
         if($element){
             $elements[] = $element;
             $parentElementId = $element->getParentId();
@@ -228,11 +228,11 @@ abstract class Zone{
     public function makeActions(){
     }
 
-	/** @return int Zone id */
+    /** @return int Zone id */
     public function getId(){return $this->id;}
     /** @param $id int */
     public function setId($id){$this->id=$id;}
-    
+
     /** @return string Zone name */
     public function getName(){return $this->name;}
     /** @param $name string */

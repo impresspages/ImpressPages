@@ -48,7 +48,7 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                     if (!isset($picture['cropX1']) || !isset($picture['cropY1']) || !isset($picture['cropX2']) || !isset($picture['cropY2'])) {
                         break;
                     }
-                    
+
                     //security check
                     if (TMP_FILE_DIR.basename($picture['fileName']) != $picture['fileName']) {
                         throw new \Exception("Security notice. Try to access a file (".$picture['fileName'].") from a non temporary folder.");
@@ -87,7 +87,7 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                         'cropY1' => $picture['cropY1'],
                         'cropX2' => $picture['cropX2'],
                         'cropY2' => $picture['cropY2'],
-                        
+
                     );
                     $newData['pictures'][] = $newPicture;
                      
@@ -101,12 +101,12 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                     if (!isset($picture['cropX1']) || !isset($picture['cropY1']) || !isset($picture['cropX2']) || !isset($picture['cropY2'])) {
                         break;
                     }
-                    
+
                     $existingPictureData = self::_findExistingPicture($picture['fileName'], $currentData['pictures']);
                     if (!$existingPictureData) {
                         break; //existing picture not found. Impossible to recalculate coordinates if picture does not exists.
                     }
-                    
+
                     //create simplified small picture (thumbnail)
                     $pictureSmall = self::_createSmallPicture(
                     $picture['fileName'],
@@ -116,15 +116,15 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                     $picture['cropY2'],
                     IMAGE_DIR
                     );
-                    
+
                     //find picture title
                     if ($picture['title'] == '') {
                         $title = basename($picture['fileName']);
                     } else {
                         $title = $picture['title'];
                     }
-                    
-                    
+
+
                     $newPicture = array(
                         'pictureOriginal' => $existingPictureData['pictureOriginal'],
                         'pictureBig' => $existingPictureData['pictureBig'],
@@ -136,27 +136,27 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                         'cropY2' => $picture['cropY2'],
                     );
                     $newData['pictures'][] = $newPicture;
-                    
-                    
+
+
                     break;
                 case 'present': //picure not changed
                     if (!isset($currentData['pictures']) || !is_array($currentData['pictures'])) {
                         break; //possible hack. There is no pictures yet.
                     }
-                    
+
                     $existingPictureData = self::_findExistingPicture($picture['fileName'], $currentData['pictures']);
                     if (!$existingPictureData) {
                         break; //existing picture not found. Impossible to recalculate coordinates if picture does not exists.
                     }
-                    
-                    
+
+
                     //find picture title
                     if ($picture['title'] == '') {
                         $title = basename($picture['fileName']);
                     } else {
                         $title = $picture['title'];
-                    }                    
-                    
+                    }
+
                     $newPicture = array(
                         'pictureOriginal' => $existingPictureData['pictureOriginal'],
                         'pictureBig' => $existingPictureData['pictureBig'],
@@ -164,7 +164,7 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                         'title' => $title
                     );
                     $newData['pictures'][] = $newPicture;
-                    
+
                     break;
                 case 'deleted':
                     //do nothing. Files will be deleted when no links to them will be present.
@@ -218,13 +218,13 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
         return $answer;
 
     }
-    
+
     private function _findExistingPicture ($pictureOriginalFile, $allPictures) {
 
         if (!is_array($allPictures)) {
             return false;
-        } 
-        
+        }
+
         $answer = false;
         foreach ($allPictures as $pictureKey => $picture) {
             if ($picture['pictureOriginal'] == $pictureOriginalFile) {
@@ -232,12 +232,12 @@ class ipPictureGallery extends \Modules\standard\content_management\Widget{
                 break;
             }
         }
-        
+
         return $answer;
-        
+
     }
 
-    
+
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
         $data['smallPictureWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'width');

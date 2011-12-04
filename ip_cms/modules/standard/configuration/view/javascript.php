@@ -1,4 +1,5 @@
-    <script>
+
+<script>
         var ip = {
             baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
             libraryDir : <?php echo json_encode($ipLibraryDir) ?>,
@@ -11,5 +12,6 @@
         };
     </script>
 <?php foreach ($javascript as $key => $file) { ?>
-    <script type="text/javascript" src="<?php echo $file ?>"></script>
+<script
+    type="text/javascript" src="<?php echo $file ?>"></script>
 <?php } ?>

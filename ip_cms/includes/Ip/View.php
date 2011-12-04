@@ -39,8 +39,8 @@ class View{
         if (DIRECTORY_SEPARATOR != '/') {
             $sourceFile = str_replace(DIRECTORY_SEPARATOR, '/', $sourceFile);
         }
-        
-        
+
+
         $foundFile = self::findFile($file, $sourceFile);
         if ($foundFile === false) {
             throw new CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )', CoreException::VIEW);
@@ -48,7 +48,7 @@ class View{
 
         foreach ($data as $key => $value) {
             if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
-                $source = '';                
+                $source = '';
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
@@ -65,17 +65,17 @@ class View{
             $file = dirname($sourceFile).'/'.$file;
         }
 
-        
-        
+
+
         $moduleView = ''; //relative link to view according to modules root.
         if (strpos($file, BASE_DIR.MODULE_DIR) === 0) {
             $moduleView = substr($file, strlen(BASE_DIR.MODULE_DIR));
         }
-        
+
         if ($moduleView == '' && strpos($file, BASE_DIR.PLUGIN_DIR) === 0) {
             $moduleView = substr($file, strlen(BASE_DIR.PLUGIN_DIR));
         }
-      
+
         if ($moduleView == '' && strpos($file, BASE_DIR.THEME_DIR.'modules/') === 0) {
             $moduleView = substr($file, strlen(BASE_DIR.THEME_DIR.'modules/'));
         }
@@ -86,20 +86,20 @@ class View{
 
             if (file_exists(BASE_DIR.PLUGIN_DIR.$moduleView)) {
                 return(BASE_DIR.PLUGIN_DIR.$moduleView);
-            }            
-            
+            }
+
             if (file_exists(BASE_DIR.MODULE_DIR.$moduleView)) {
                 return(BASE_DIR.MODULE_DIR.$moduleView);
             }
-            
+
         } else {
             if (file_exists($file)) {
                 return $file;
             } else {
                 return false;
-            }            
+            }
         }
-        
+
         return false;
     }
 
@@ -120,7 +120,7 @@ class View{
 
         ob_start();
 
-        require ($this->file);      //file existance is checked in constructor  
+        require ($this->file);      //file existance is checked in constructor
 
         $output = ob_get_contents();
         ob_end_clean();

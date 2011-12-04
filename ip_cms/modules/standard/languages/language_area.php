@@ -15,13 +15,13 @@ require_once(__DIR__.'/element_url.php');
 
 class LanguageArea extends \Modules\developer\std_mod\Area {
 
-  var $errors = array();
-  private $urlBeforeUpdate;
+    var $errors = array();
+    private $urlBeforeUpdate;
 
-  function __construct() {
-    global $parametersMod;
-    parent::__construct(
-            array(
+    function __construct() {
+        global $parametersMod;
+        parent::__construct(
+        array(
             'dbTable' => 'language',
             'title' => $parametersMod->getValue('standard','languages','admin_translations','languages'),
             'dbPrimaryKey' => 'id',
@@ -31,45 +31,45 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
             'sortField' => 'row_number',
             'newRecordPosition' => 'bottom'
             )
-    );
+            );
 
 
 
-    $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Modules\developer\std_mod\ElementText(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','short'),
                     'showOnList' => true,
                     'dbField' => 'd_short',
                     'required' => true
             )
-    );
-    $this->addElement($element);
+            );
+            $this->addElement($element);
 
 
-    $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Modules\developer\std_mod\ElementText(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','long'),
                     'useInBreadcrumb' => true,
                     'showOnList' => true,
                     'dbField' => 'd_long',
             )
-    );
-    $this->addElement($element);
+            );
+            $this->addElement($element);
 
-    $element = new \Modules\developer\std_mod\ElementBool(
+            $element = new \Modules\developer\std_mod\ElementBool(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','visible'),
                     'showOnList' => true,
                     'dbField' => 'visible',
             )
-    );
-    $this->addElement($element);
+            );
+            $this->addElement($element);
 
 
 
 
 
-    $element = new ElementUrl(
+            $element = new ElementUrl(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','url'),
                     'showOnList' => true,
@@ -78,119 +78,119 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
                     'regExpression' => '/^([^\/\\\])+$/',
                     'regExpressionError' => $parametersMod->getValue('standard','languages','admin_translations','error_incorrect_url')
             )
-    );
-    $this->addElement($element);
+            );
+            $this->addElement($element);
 
 
 
-    $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Modules\developer\std_mod\ElementText(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','code'),
                     'showOnList' => true,
                     'dbField' => 'code',
                     'required' => true
             )
-    );
-    $this->addElement($element);
+            );
+            $this->addElement($element);
 
 
 
 
-  }
-
-
-  function afterInsert($id) {
-    global $site;
-
-    Db::createRootZoneElement($id);
-    Db::createEmptyTranslations($id,'par_lang');
-
-    $site->dispatchEvent('standard', 'languages', 'language_created', array('language_id'=>$id));
-  }
-
-  function beforeDelete($id) {
-    global $site;
-
-
-
-    $site->dispatchEvent('standard', 'languages', 'before_delete', array('language_id'=>$id));
-  }
-
-
-  function afterDelete($id) {
-    global $site;
-
-
-    Db::deleteRootZoneElement($id);
-    Db::deleteTranslations($id, 'par_lang');
-
-    $site->dispatchEvent('standard', 'languages', 'language_deleted', array('language_id'=>$id));    //deprecated
-    $site->dispatchEvent('standard', 'languages', 'after_delte', array('language_id'=>$id));
-
-  }
-
-
-  function beforeUpdate($id) {
-    global $site;
-
-    $tmpLanguage = Db::getLanguageById($id);
-    $this->urlBeforeUpdate = $tmpLanguage['url'];
-
-
-    $site->dispatchEvent('standard', 'languages', 'before_update', array('language_id'=>$id));
-
-  }
-
-
-  function afterUpdate($id) {
-    global $site;
-    global $parametersMod;
-
-    $tmpLanguage = Db::getLanguageById($id);
-    if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
-      $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
-      $newUrl = BASE_URL.$tmpLanguage['url'].'/';
-      $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
-    }
-
-    $site->dispatchEvent('standard', 'languages', 'language_updated', array('language_id'=>$id));    //deprecated
-    $site->dispatchEvent('standard', 'languages', 'after_update', array('language_id'=>$id));
-  }
-
-  function allowDelete($id) {
-    global $parametersMod;
-    require_once (MODULE_DIR."standard/content_management/db.php");
-
-    $dbContentManagement = new \Modules\standard\content_management\Db();
-
-    $answer = true;
-
-
-    $zones = Db::getZones();
-    foreach($zones as $key => $zone) {
-      $rootElement = $dbContentManagement->rootMenuElement($zone['id'], $id);
-      $elements = $dbContentManagement->menuElementChildren($rootElement);
-      if(sizeof($elements) > 0) {
-        $answer = false;
-        $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_not_empty_language');
-      }
-    }
-
-    if(sizeof(Db::getLanguages()) ==1) {
-      $answer = false;
-      $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_last_language');
     }
 
 
-    return $answer;
-  }
+    function afterInsert($id) {
+        global $site;
 
-  function lastError($action) {
-    if(isset($this->errors[$action]))
-      return $this->errors[$action];
-    else
-      return '';
-  }
+        Db::createRootZoneElement($id);
+        Db::createEmptyTranslations($id,'par_lang');
+
+        $site->dispatchEvent('standard', 'languages', 'language_created', array('language_id'=>$id));
+    }
+
+    function beforeDelete($id) {
+        global $site;
+
+
+
+        $site->dispatchEvent('standard', 'languages', 'before_delete', array('language_id'=>$id));
+    }
+
+
+    function afterDelete($id) {
+        global $site;
+
+
+        Db::deleteRootZoneElement($id);
+        Db::deleteTranslations($id, 'par_lang');
+
+        $site->dispatchEvent('standard', 'languages', 'language_deleted', array('language_id'=>$id));    //deprecated
+        $site->dispatchEvent('standard', 'languages', 'after_delte', array('language_id'=>$id));
+
+    }
+
+
+    function beforeUpdate($id) {
+        global $site;
+
+        $tmpLanguage = Db::getLanguageById($id);
+        $this->urlBeforeUpdate = $tmpLanguage['url'];
+
+
+        $site->dispatchEvent('standard', 'languages', 'before_update', array('language_id'=>$id));
+
+    }
+
+
+    function afterUpdate($id) {
+        global $site;
+        global $parametersMod;
+
+        $tmpLanguage = Db::getLanguageById($id);
+        if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+            $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
+            $newUrl = BASE_URL.$tmpLanguage['url'].'/';
+            $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
+        }
+
+        $site->dispatchEvent('standard', 'languages', 'language_updated', array('language_id'=>$id));    //deprecated
+        $site->dispatchEvent('standard', 'languages', 'after_update', array('language_id'=>$id));
+    }
+
+    function allowDelete($id) {
+        global $parametersMod;
+        require_once (MODULE_DIR."standard/content_management/db.php");
+
+        $dbContentManagement = new \Modules\standard\content_management\Db();
+
+        $answer = true;
+
+
+        $zones = Db::getZones();
+        foreach($zones as $key => $zone) {
+            $rootElement = $dbContentManagement->rootMenuElement($zone['id'], $id);
+            $elements = $dbContentManagement->menuElementChildren($rootElement);
+            if(sizeof($elements) > 0) {
+                $answer = false;
+                $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_not_empty_language');
+            }
+        }
+
+        if(sizeof(Db::getLanguages()) ==1) {
+            $answer = false;
+            $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_last_language');
+        }
+
+
+        return $answer;
+    }
+
+    function lastError($action) {
+        if(isset($this->errors[$action]))
+        return $this->errors[$action];
+        else
+        return '';
+    }
 
 
 

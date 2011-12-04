@@ -21,11 +21,11 @@ $parameter["parameterValue/community/newsletter/subscription_translations/subjec
 
 $parameter["parameterValue/community/newsletter/subscription_translations/subscribe"] = "Subscribe";
 
-$parameter["parameterValue/community/newsletter/subscription_translations/text_confirmation"] = 
+$parameter["parameterValue/community/newsletter/subscription_translations/text_confirmation"] =
 "<p>Thank you for your registration.</p>
 <p>The confirmation e-mail has been sent to your email address. Please confirm the registration by clicking on the link in the email.</p>";
 
-$parameter["parameterValue/community/newsletter/subscription_translations/text_email_confirmation"] = 
+$parameter["parameterValue/community/newsletter/subscription_translations/text_email_confirmation"] =
 "<p><strong>Thank you for subscribing to our newsletter!</strong></p>
 <p>To complete your registration, you need to confirm that you have received this email by clicking on the link below:</p>
 <p>[[link]]</p>
@@ -47,7 +47,7 @@ $parameter["parameterValue/standard/configuration/error_404/error_broken_link_in
 
 $parameter["parameterValue/standard/configuration/error_404/error_broken_link_outside"] = "<p>Sorry, but the page you were trying to get to, does not exist. Apparently, there is a broken link on the page you just came from. We have been notified and will attempt to contact the owner of that page and let them know about it.</p>";
 
-$parameter["parameterValue/standard/configuration/error_404/error_mistyped_url"] = 
+$parameter["parameterValue/standard/configuration/error_404/error_mistyped_url"] =
 "<p>Sorry, but the page you were trying to get to does not exist.</p>
 <p>It looks like this was the result of either</p>
 <ul>
@@ -55,7 +55,7 @@ $parameter["parameterValue/standard/configuration/error_404/error_mistyped_url"]
 <li>or an out-of-date bookmark in your web browser.</li>
 </ul>";
 
-$parameter["parameterValue/standard/configuration/main_parameters/email_template"] = 
+$parameter["parameterValue/standard/configuration/main_parameters/email_template"] =
 "<table border=\"0\" width=\"100%\">
 <tbody>
 <tr>

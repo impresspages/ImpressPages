@@ -12,48 +12,48 @@ if (!defined('CMS')) exit;
 
 class Config // extends MimeType
 {
-  static function getMceStyles()
-  {
-    global $site;
-    $site->requireConfig('standard/content_management/config.php');
-    return \Modules\standard\content_management\Config::getMceStyles();
-  }
-
-  static function getMceInit($mode, $selector, $purpose){
-    switch($purpose){
-      case 'frontend':
-        return self::frontendMceInit($mode, $selector);
-        break;
-      case 'backend':
-      default:
-        return self::backendMceInit($mode, $selector);
-        break;
+    static function getMceStyles()
+    {
+        global $site;
+        $site->requireConfig('standard/content_management/config.php');
+        return \Modules\standard\content_management\Config::getMceStyles();
     }
-  }
 
-  static function frontendMceInit($mode, $selector){
-    //tinymce styles
-    $tinyMceStylesStr = '';
-    $classesArray = '';
-    foreach(self::getMceStyles() as $style){
-      if($tinyMceStylesStr != ''){
-        $tinyMceStylesStr .= ';';
-      }
-      $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
-
-      if($style['css_style'] != ''){
-        if($classesArray != ''){
-          $classesArray .= ',';
+    static function getMceInit($mode, $selector, $purpose){
+        switch($purpose){
+            case 'frontend':
+                return self::frontendMceInit($mode, $selector);
+                break;
+            case 'backend':
+            default:
+                return self::backendMceInit($mode, $selector);
+                break;
         }
-        $classesArray .= '"'.$style['css_style'].'"';
-      }
-
     }
-    //end tinymce styles
+
+    static function frontendMceInit($mode, $selector){
+        //tinymce styles
+        $tinyMceStylesStr = '';
+        $classesArray = '';
+        foreach(self::getMceStyles() as $style){
+            if($tinyMceStylesStr != ''){
+                $tinyMceStylesStr .= ';';
+            }
+            $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
+
+            if($style['css_style'] != ''){
+                if($classesArray != ''){
+                    $classesArray .= ',';
+                }
+                $classesArray .= '"'.$style['css_style'].'"';
+            }
+
+        }
+        //end tinymce styles
 
 
 
-    return '
+        return '
     tinyMCE.init( {
       theme : "advanced",
       '.$mode.',
@@ -146,31 +146,31 @@ class Config // extends MimeType
     });
 ';
 
-  }
-
-  static function backendMceInit($mode, $selector){
-    //tinymce styles
-    $tinyMceStylesStr = '';
-    $classesArray = '';
-    foreach(self::getMceStyles() as $style){
-      if($tinyMceStylesStr != ''){
-        $tinyMceStylesStr .= ';';
-      }
-      $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
-
-      if($style['css_style'] != ''){
-        if($classesArray != ''){
-          $classesArray .= ',';
-        }
-        $classesArray .= '"'.$style['css_style'].'"';
-      }
-
     }
-    //end tinymce styles
+
+    static function backendMceInit($mode, $selector){
+        //tinymce styles
+        $tinyMceStylesStr = '';
+        $classesArray = '';
+        foreach(self::getMceStyles() as $style){
+            if($tinyMceStylesStr != ''){
+                $tinyMceStylesStr .= ';';
+            }
+            $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
+
+            if($style['css_style'] != ''){
+                if($classesArray != ''){
+                    $classesArray .= ',';
+                }
+                $classesArray .= '"'.$style['css_style'].'"';
+            }
+
+        }
+        //end tinymce styles
 
 
 
-    return '
+        return '
     tinyMCE.init( {
       theme : "advanced",
       '.$mode.',
@@ -264,7 +264,7 @@ class Config // extends MimeType
     });
 ';
 
-  }
+    }
 
 }
 

@@ -8,14 +8,14 @@
 
 namespace Modules\developer\localization;
 
-if (!defined('BACKEND')) exit;  
+if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 
 
 class HtmlOutput{
-  public static function header(){
-    return '
+    public static function header(){
+        return '
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
       <html>
       <head>
@@ -28,12 +28,12 @@ class HtmlOutput{
       </head>   
       <body>
       ';        
-  }
+    }
 
 
-  public static function footer(){
-    return "</body></html>";
-  }
+    public static function footer(){
+        return "</body></html>";
+    }
 }
 
 

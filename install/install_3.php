@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
@@ -6,30 +6,30 @@
  */
 
 if (!defined('INSTALL')) exit;
- 
- 
+
+
 $licenseFile = "../ip_license.html";
 $fh = fopen($licenseFile, 'r');
 $license = fread($fh, filesize($licenseFile));
 fclose($fh);
- 
-	
+
+
 if(!isset($_SESSION['db_server']))
-		$_SESSION['db_server'] = 'localhost';
+$_SESSION['db_server'] = 'localhost';
 
 if(!isset($_SESSION['db_user']))
-		$_SESSION['db_user'] = '';
+$_SESSION['db_user'] = '';
 
 if(!isset($_SESSION['db_pass']))
-		$_SESSION['db_pass'] = '';
+$_SESSION['db_pass'] = '';
 
 if(!isset($_SESSION['db_db']))
-		$_SESSION['db_db'] = '';
+$_SESSION['db_db'] = '';
 
 if(!isset($_SESSION['db_prefix']))
-		$_SESSION['db_prefix'] = 'ip_';
+$_SESSION['db_prefix'] = 'ip_';
 
-	
+
 output('
 
 <script type="text/javascript">

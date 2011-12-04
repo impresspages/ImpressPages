@@ -19,14 +19,14 @@ class ipFile extends \Modules\standard\content_management\Widget{
     public function prepareData($instanceId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
-        
-        
+
+
         $destinationDir = BASE_DIR.FILE_DIR;
-        
+
         $newData = $currentData;
-        
+
         $newData['files'] = array(); //we will create new files array.
-        
+
         if (isset($postData['files']) && is_array($postData['files'])) {//check if files array is set
             foreach($postData['files'] as $filesKey => $file){
                 if (isset($file['title']) && isset($file['fileName']) && isset($file['status'])){ //check if all require data present
@@ -46,7 +46,7 @@ class ipFile extends \Modules\standard\content_management\Widget{
                                 $newFile = array(
                                     'fileName' => FILE_DIR.$unocupiedName,
                                     'title' => $title
-                                );                                
+                                );
                                 $newData['files'][] = $newFile;
                             }
                             break;
@@ -66,7 +66,7 @@ class ipFile extends \Modules\standard\content_management\Widget{
                                 $newFile['title'] = $file['title'];
                                 $newData['files'][] = $newFile;
                             }
-                            
+
                             break;
                         case 'deleted':
                             //do nothing. File will be deleted when no links to it will be present.

@@ -1,51 +1,51 @@
-<?php 
+<?php
 /**
  * @package   ImpressPages
  * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license   GNU/GPL, see ip_license.html
  */
 
-namespace Modules\standard\content_management;   
- 
+namespace Modules\standard\content_management;
+
 
 if (!defined('CMS')) exit;
 
 class Config // extends MimeType
 {
-  static function getMceStyles()
-  {
-    $tinyMceStyles = array();
-    $tinyMceStyles[] = array('translation'=>'Text', 'css_style'=>'');
-    $tinyMceStyles[] = array('translation'=>'Caption', 'css_style'=>'caption');
-    $tinyMceStyles[] = array('translation'=>'Signature', 'css_style'=>'signature');
-    $tinyMceStyles[] = array('translation'=>'Note', 'css_style'=>'note');
-    return $tinyMceStyles;
-  }
-
-
-  static function getMceInit(){
-    //tinymce styles
-    $tinyMceStylesStr = '';
-    $classesArray = '';
-    foreach(self::getMceStyles() as $style){
-      if($tinyMceStylesStr != ''){
-        $tinyMceStylesStr .= ';';
-      }
-      $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
-
-      if($style['css_style'] != ''){
-        if($classesArray != ''){
-          $classesArray .= ',';
-        }
-        $classesArray .= '"'.$style['css_style'].'"';
-      }
-
+    static function getMceStyles()
+    {
+        $tinyMceStyles = array();
+        $tinyMceStyles[] = array('translation'=>'Text', 'css_style'=>'');
+        $tinyMceStyles[] = array('translation'=>'Caption', 'css_style'=>'caption');
+        $tinyMceStyles[] = array('translation'=>'Signature', 'css_style'=>'signature');
+        $tinyMceStyles[] = array('translation'=>'Note', 'css_style'=>'note');
+        return $tinyMceStyles;
     }
-    //end tinymce styles
+
+
+    static function getMceInit(){
+        //tinymce styles
+        $tinyMceStylesStr = '';
+        $classesArray = '';
+        foreach(self::getMceStyles() as $style){
+            if($tinyMceStylesStr != ''){
+                $tinyMceStylesStr .= ';';
+            }
+            $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
+
+            if($style['css_style'] != ''){
+                if($classesArray != ''){
+                    $classesArray .= ',';
+                }
+                $classesArray .= '"'.$style['css_style'].'"';
+            }
+
+        }
+        //end tinymce styles
 
 
 
-    return '
+        return '
 
     tinyMCE.init( {
       theme : "advanced",
@@ -144,7 +144,7 @@ class Config // extends MimeType
 
 
 ';
-  }
+    }
 }
 
 

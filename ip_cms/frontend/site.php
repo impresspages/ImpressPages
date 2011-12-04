@@ -67,19 +67,19 @@ class Site{
 
     /** bool true if page does not exists */
     private $error404;
-    
+
     /** array required javascript files */
     private $requiredJavascript = array();
 
     /** array required css files */
     private $requiredCss = array();
-    
+
     /** string HTML or any other output. If is not null, it will be send to the output. If it is null, required page by request URL will be generated  */
     protected $output;
-    
+
     /** int Revision of current page.  */
     protected $revision;
-    
+
     protected $zones;
     protected $otherZones;
 
@@ -210,7 +210,7 @@ class Site{
     public function init(){
         global $dispatcher;
         $dispatcher->notify(new \Ip\Event($this, 'site.beforeInit', null));
-        
+
         if (get_magic_quotes_gpc()) { //fix magic quotes option
             $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
             while (list($key, $val) = each($process)) {
@@ -231,8 +231,8 @@ class Site{
         $this->configZones();
 
         $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js', 0);
-        
-        $this->modulesInit();        
+
+        $this->modulesInit();
 
     }
 
@@ -695,8 +695,8 @@ class Site{
      *
      */
     public function makeActions(){
-        
-        
+
+
         if(sizeof($_REQUEST) > 0){
             if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])){ //old deprecated way
                 //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
@@ -718,8 +718,8 @@ class Site{
                     }
                 }
             }
-            
-            
+
+
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
@@ -746,16 +746,16 @@ class Site{
                         trigger_error("Requested module (".$_REQUEST['g']." / ".$_REQUEST['m'].") does not exitst.");
                     }
                 }
-                
+
             }
-            
-            
+
+
         }
 
         $this->getZone($this->currentZone)->makeActions(); //old deprecated way. Need to refactor to actions
 
-        
-        
+
+
     }
 
     /**
@@ -1003,7 +1003,7 @@ class Site{
             }
         }
     }
-    
+
     public function modulesInit(){
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
         $rs = mysql_query($sql);
@@ -1023,33 +1023,33 @@ class Site{
                 }
             }
         }
-    }    
+    }
 
 
     public function setOutput ($output) {
-        $this->output = $output;   
+        $this->output = $output;
     }
-    
+
     public function getOutput () {
-        return $this->output;    
-    }
-    
-    
-    public function generateOutput() {
-        global $site;
-        global $log;
-        global $dispatcher;        
-        global $parametersMod;
-        global $session;
-        
-        if (!isset($this->output)) {
-            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
-        }
-        
         return $this->output;
     }
 
-    
+
+    public function generateOutput() {
+        global $site;
+        global $log;
+        global $dispatcher;
+        global $parametersMod;
+        global $session;
+
+        if (!isset($this->output)) {
+            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+        }
+
+        return $this->output;
+    }
+
+
     public function addCss($file, $stage = 1) {
         $this->requiredCss[(int)$stage][$file] = $file;
     }
@@ -1060,8 +1060,8 @@ class Site{
                 unset($this->requiredCss[$levelKey][$file]);
             }
         }
-    }    
-    
+    }
+
     public function addJavascript($file, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = $file;
     }
@@ -1073,15 +1073,15 @@ class Site{
             }
         }
     }
-    
+
     public function generateHead() {
-        
+
         ksort($this->requiredCss);
-        $cssFiles = array();        
+        $cssFiles = array();
         foreach($this->requiredCss as $levelKey => $level) {
             $cssFiles = array_merge($cssFiles, $level);
         }
-        
+
         $data = array (
             'title' => $this->getTitle(),
             'keywords' => BASE_URL.'favicon.ico',
@@ -1090,20 +1090,20 @@ class Site{
             'charset' => CHARSET,
             'css' => $cssFiles
         );
-        
+
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/head.php', $data)->render();
     }
-    
+
     public function generateJavascript() {
         $revision = $this->getRevision();
 
-        
+
         ksort($this->requiredJavascript);
-        $javascriptFiles = array();        
+        $javascriptFiles = array();
         foreach($this->requiredJavascript as $levelKey => $level) {
             $javascriptFiles = array_merge($javascriptFiles, $level);
         }
-        
+
         $data = array (
             'ipBaseUrl' => BASE_URL,
             'ipLibraryDir' => LIBRARY_DIR,
@@ -1116,75 +1116,75 @@ class Site{
             'ipRevisionId' => $revision['revisionId'],
             'javascript' => $javascriptFiles
         );
-        
+
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
-        
-            
+
+
     }
-    
-    
+
+
     public function generateBlock($blockName) {
         global $dispatcher;
         global $site;
         $data = array (
             'blockName' => $blockName
         );
-        
+
         $event = new \Ip\Event($site, 'site.generateBlock', $data);
-        
+
         $processed = $dispatcher->notifyUntil($event);
-        
+
         if ($processed && $event->issetValue('content')) {
-            return $event->getValue('content');    
+            return $event->getValue('content');
         } else {
-	        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-        	$revision = $this->getRevision();
-        	
-        	if ($revision != false) {
-        	    return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
-        	} else {
-                return '';      
-        	}
+            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+            $revision = $this->getRevision();
+             
+            if ($revision != false) {
+                return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
+            } else {
+                return '';
+            }
         }
-        
-                
+
+
     }
-    
+
     /**
      * If we are in the management state and last revision is published, then create new revision.
-     * 
+     *
      */
     public function getRevision() {
         //todo cache revision
-    	$revision = null;
-    	if ($this->managementState()){
-    	    if (isset($this->getVars['cms_revision'])) { 
-        		$revisionId = $this->getVars['cms_revision'];
-        		$revision = \Ip\Db::getRevision($revisionId);
-    	    }
-    	    
+        $revision = null;
+        if ($this->managementState()){
+            if (isset($this->getVars['cms_revision'])) {
+                $revisionId = $this->getVars['cms_revision'];
+                $revision = \Ip\Db::getRevision($revisionId);
+            }
+             
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
                 $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
                 if ($revision === false) {
                     $revision = $this->_createRevision();
-                } 
+                }
             }
-                
-    	} else {
-	    	require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-    		$revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-    	}
-		return $revision;
+
+        } else {
+            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+            $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+        }
+        return $revision;
     }
-    
-    
+
+
     private function _createRevision(){
         $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
         $revision = \Ip\Db::getRevision($revisionId);
         if ($revision === false) {
-            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION); 
+            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
         }
-        return $revision;    
+        return $revision;
     }
 
 }

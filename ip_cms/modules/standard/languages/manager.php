@@ -11,20 +11,20 @@ require_once(__DIR__.'/language_area.php');
 
 
 class Manager{
-  var $standardModule;
+    var $standardModule;
 
-  function __construct() {
-    global $parametersMod;
+    function __construct() {
+        global $parametersMod;
 
-    $languageArea = new LanguageArea();
+        $languageArea = new LanguageArea();
 
-    $this->standardModule = new \Modules\developer\std_mod\StandardModule($languageArea);
-  }
+        $this->standardModule = new \Modules\developer\std_mod\StandardModule($languageArea);
+    }
 
 
-  function manage() {
-    return $this->standardModule->manage();
-  }
+    function manage() {
+        return $this->standardModule->manage();
+    }
 
 
 

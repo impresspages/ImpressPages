@@ -1,19 +1,20 @@
 <style>
 .ipUploadButtons {
-    position: absolute; z-index: 100;
+	position: absolute;
+	z-index: 100;
 }
 
-.ipUploadWindow{
-    overflow: hidden;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+.ipUploadWindow {
+	overflow: hidden;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
-.ipUploadBrowseButton{
-    cursor: pointer;
+.ipUploadBrowseButton {
+	cursor: pointer;
 }
 </style>
 

@@ -48,7 +48,7 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                     if (!isset($logo['cropX1']) || !isset($logo['cropY1']) || !isset($logo['cropX2']) || !isset($logo['cropY2'])) {
                         break;
                     }
-                    
+
                     //security check
                     if (TMP_FILE_DIR.basename($logo['fileName']) != $logo['fileName']) {
                         throw new \Exception("Security notice. Try to access a file (".$logo['fileName'].") from a non temporary folder.");
@@ -83,7 +83,7 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                         'cropY1' => $logo['cropY1'],
                         'cropX2' => $logo['cropX2'],
                         'cropY2' => $logo['cropY2'],
-                        
+
                     );
                     $newData['logos'][] = $newLogo;
                      
@@ -97,12 +97,12 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                     if (!isset($logo['cropX1']) || !isset($logo['cropY1']) || !isset($logo['cropX2']) || !isset($logo['cropY2'])) {
                         break;
                     }
-                    
+
                     $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
                     if (!$existingLogoData) {
                         break; //existing logo not found. Impossible to recalculate coordinates if logo does not exists.
                     }
-                    
+
                     //create simplified small logo (thumbnail)
                     $logoSmall = self::_createSmallLogo(
                     $logo['fileName'],
@@ -112,15 +112,15 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                     $logo['cropY2'],
                     IMAGE_DIR
                     );
-                    
+
                     //find logo title
                     if ($logo['title'] == '') {
                         $title = basename($logo['fileName']);
                     } else {
                         $title = $logo['title'];
                     }
-                    
-                    
+
+
                     $newLogo = array(
                         'logoOriginal' => $existingLogoData['logoOriginal'],
                         'logoSmall' => $logoSmall,
@@ -131,34 +131,34 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                         'cropY2' => $logo['cropY2'],
                     );
                     $newData['logos'][] = $newLogo;
-                    
-                    
+
+
                     break;
                 case 'present': //picure not changed
                     if (!isset($currentData['logos']) || !is_array($currentData['logos'])) {
                         break; //possible hack. There is no logos yet.
                     }
-                    
+
                     $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
                     if (!$existingLogoData) {
                         break; //existing logo not found. Impossible to recalculate coordinates if logo does not exists.
                     }
-                    
-                    
+
+
                     //find logo title
                     if ($logo['title'] == '') {
                         $title = basename($logo['fileName']);
                     } else {
                         $title = $logo['title'];
-                    }                    
-                    
+                    }
+
                     $newLogo = array(
                         'logoOriginal' => $existingLogoData['logoOriginal'],
                         'logoSmall' => $existingLogoData['logoSmall'],
                         'title' => $title
                     );
                     $newData['logos'][] = $newLogo;
-                    
+
                     break;
                 case 'deleted':
                     //do nothing. Files will be deleted when no links to them will be present.
@@ -198,13 +198,13 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
         return $answer;
 
     }
-    
+
     private function _findExistingLogo ($logoOriginalFile, $allLogos) {
 
         if (!is_array($allLogos)) {
             return false;
-        } 
-        
+        }
+
         $answer = false;
         foreach ($allLogos as $logoKey => $logo) {
             if ($logo['logoOriginal'] == $logoOriginalFile) {
@@ -212,12 +212,12 @@ class ipLogoGallery extends \Modules\standard\content_management\Widget{
                 break;
             }
         }
-        
+
         return $answer;
-        
+
     }
 
-    
+
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
         $data['logoWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width');
