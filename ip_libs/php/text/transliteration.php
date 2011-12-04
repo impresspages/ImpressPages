@@ -13,8 +13,8 @@ namespace Library\Php\Text;
  */
 class Transliteration
 {
-  public static function transform($string){
-$chars = 
+    public static function transform($string){
+        $chars =
 'À = "A"
 Á = "A"
 Â = "A"
@@ -580,17 +580,17 @@ $chars =
 – = "-"';
 
 
-    $char_pairs = explode("\n", $chars);
-    
-    
-    foreach($char_pairs as $key => $pair){
-      $pair_array = explode(' = "', $pair);      
-      $chars_from[] = $pair_array[0];
-      $chars_to[] = substr($pair_array[1], 0, -1);
+        $char_pairs = explode("\n", $chars);
+
+
+        foreach($char_pairs as $key => $pair){
+            $pair_array = explode(' = "', $pair);
+            $chars_from[] = $pair_array[0];
+            $chars_to[] = substr($pair_array[1], 0, -1);
+        }
+
+        $answer = str_replace($chars_from, $chars_to, $string);
+        return $answer;
     }
-    
-    $answer = str_replace($chars_from, $chars_to, $string);
-    return $answer;
-  }
-  
+
 }

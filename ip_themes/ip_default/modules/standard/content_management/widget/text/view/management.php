@@ -1,1 +1,4 @@
-Overriden:<textarea name="text"><?php echo $text ?></textarea>
+Overriden:
+<textarea name="text">
+<?php echo $text ?>
+</textarea>

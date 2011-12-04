@@ -1,141 +1,121 @@
 /* global */
 .ipContent .clear {
-  clear: both;
-  font-size: 0px;
-  height: 0px;
-  overflow: hidden;
+    clear: both;
+    font-size: 0px;
+    height: 0px;
+    overflow: hidden;
 }
 /* /global */
 
 /* content styles */
 /* main content styles in dynamically generated content area */
-.ipContent,
-.mceContentBody {
-  color: #4b4a4a;
-  font-family: Arial, Verdana, Tahoma;
-  font-size: 14px;
-  text-align: left;
+.ipContent,.mceContentBody {
+    color: #4b4a4a;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 14px;
+    text-align: left;
 }
 
-.ipContent table,
-.mceContentBody table {
-  border-collapse: collapse;
+.ipContent table,.mceContentBody table {
+    border-collapse: collapse;
 }
 
-.ipContent td, .ipContent th,
-.mceContentBody td, .mceContentBody th {
-  border-bottom: 1px solid #cccccc;
-  font-family: Arial, Verdana, Tahoma;
-  font-size: 12px;
-  padding: 10px;
-  vertical-align: top;
+.ipContent td,.ipContent th,.mceContentBody td,.mceContentBody th {
+    border-bottom: 1px solid #cccccc;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 12px;
+    padding: 10px;
+    vertical-align: top;
 }
 
-.ipContent td p, .ipContent th p,
-.mceContentBody td p, .mceContentBody th p {
-  line-height: 14px;
+.ipContent td p,.ipContent th p,.mceContentBody td p,.mceContentBody th p
+    {
+    line-height: 14px;
 }
 
-.ipContent thead td, .ipContent th,
-.mceContentBody thead td, .mceContentBody th {
-  background-color: #cccccc;
-  color: #ffffff;
-  font-weight: bold;
+.ipContent thead td,.ipContent th,.mceContentBody thead td,.mceContentBody th
+    {
+    background-color: #cccccc;
+    color: #ffffff;
+    font-weight: bold;
 }
 
-.ipContent p,
-.mceContentBody p {
-  line-height: 20px;
-  margin: 0;
+.ipContent p,.mceContentBody p {
+    line-height: 20px;
+    margin: 0;
 }
 
-.ipContent p a,
-.mceContentBody p a,
-.ipContent li a,
-.mceContentBody li a,
-.ipContent td a, .ipContent th a,
-.mceContentBody td a, .mceContentBody th a {
-  color: #1e8de5;
-  text-decoration: underline;
+.ipContent p a,.mceContentBody p a,.ipContent li a,.mceContentBody li a,.ipContent td a,.ipContent th a,.mceContentBody td a,.mceContentBody th a
+    {
+    color: #1e8de5;
+    text-decoration: underline;
 }
 
-.ipContent p a:visited,
-.mceContentBody p a:visited,
-.ipContent li a:visited,
-.mceContentBody li a:visited,
-.ipContent td a:visited, .ipContent th a:visited,
-.mceContentBody td a:visited, .mceContentBody th a:visited {
-  color: #6a78b4;
+.ipContent p a:visited,.mceContentBody p a:visited,.ipContent li a:visited,.mceContentBody li a:visited,.ipContent td a:visited,.ipContent th a:visited,.mceContentBody td a:visited,.mceContentBody th a:visited
+    {
+    color: #6a78b4;
 }
 
-.ipContent p a:hover,
-.mceContentBody p a:hover,
-.ipContent li a:hover,
-.mceContentBody li a:hover,
-.ipContent td a:hover, .ipContent th a:hover,
-.mceContentBody td a:hover, .mceContentBody th a:hover {
-  color: #f59a25;
+.ipContent p a:hover,.mceContentBody p a:hover,.ipContent li a:hover,.mceContentBody li a:hover,.ipContent td a:hover,.ipContent th a:hover,.mceContentBody td a:hover,.mceContentBody th a:hover
+    {
+    color: #f59a25;
 }
 
-.ipContent ol,
-.mceContentBody ol {
-  margin: 10px 0 10px 15px;
-  padding: 0;
+.ipContent ol,.mceContentBody ol {
+    margin: 10px 0 10px 15px;
+    padding: 0;
 }
 
-.ipContent ol li,
-.mceContentBody ol li {
-  line-height: 20px;
-  list-style-position: inside;
-  margin: 0;
-  padding: 0;
+.ipContent ol li,.mceContentBody ol li {
+    line-height: 20px;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
 }
 
-.ipContent ul,
-.mceContentBody ul {
-  list-style: none;
-  margin: 10px 0 10px 15px;
-  padding: 0;
+.ipContent ul,.mceContentBody ul {
+    list-style: none;
+    margin: 10px 0 10px 15px;
+    padding: 0;
 }
 
-.ipContent ul li,
-.mceContentBody ul li {
-  background: transparent url(images/list.gif) no-repeat scroll 6px 9px;
-  line-height: 20px;
-  margin: 0;
-  padding: 0 0 0 18px;
+.ipContent ul li,.mceContentBody ul li {
+    background: transparent url(images/list.gif) no-repeat scroll 6px 9px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0 0 0 18px;
 }
 
-.ipContent .caption,
-.mceContentBody .caption { /* predefined style in wysiwyg */
-  font-weight: bold;
+.ipContent .caption,.mceContentBody .caption {
+    /* predefined style in wysiwyg */
+    font-weight: bold;
 }
 
-.ipContent .signature,
-.mceContentBody .signature { /* predefined style in wysiwyg */
-  font-style: italic;
-  text-align: right;
+.ipContent .signature,.mceContentBody .signature {
+    /* predefined style in wysiwyg */
+    font-style: italic;
+    text-align: right;
 }
 
-.ipContent .note,
-.mceContentBody .note { /* predefined style in wysiwyg */
-  background-color: #f8fafc;
-  border: 1px solid #c0c0c0;
-  display: block;
-  padding: 10px;
+.ipContent .note,.mceContentBody .note {
+    /* predefined style in wysiwyg */
+    background-color: #f8fafc;
+    border: 1px solid #c0c0c0;
+    display: block;
+    padding: 10px;
 }
 /* /content styles */
 
 /* TinyMCE styles */
 /* repairing broken styles */
 .ipContent a.mceText {
-  color: #000000;
-  font-size: 12px;
-  font-family: Verdana;
+    color: #000000;
+    font-size: 12px;
+    font-family: Verdana;
 }
 
 .ipContent .mceStatusbar div {
-  display: none;
+    display: none;
 }
 
 /* place here rules that need to repair other broken TinyMCE elements if new CSS rules collide with them. */
@@ -143,320 +123,337 @@
 /* /TinyMCE styles */
 
 /* content modules */
-
-.ipContent .ipWidget { /* by default all content modules have the same margin */
-  margin-bottom: 20px;
+.ipContent .ipWidget {
+    /* by default all content modules have the same margin */
+    margin-bottom: 20px;
 }
 
-.ipContent .ipWidgetText {}
+.ipContent .ipWidgetText {
+    
+}
 
-.ipContent .ipWidgetTitle {}
+.ipContent .ipWidgetTitle {
+    
+}
 
 .ipContent h1.ipWidgetTitleHeading {
-  color: #00a8da;
-  font-family: "Trebuchet MS", Verdana, Arial;
-  font-size: 28px;
-  font-weight: normal;
-  margin: 0;
-  padding: 0;
+    color: #00a8da;
+    font-family: "Trebuchet MS", Verdana, Arial;
+    font-size: 28px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
 }
 
 .ipContent h2.ipWidgetTitleHeading {
-  color: #83b51e;
-  font-family: Arial, Verdana, "Trebuchet MS";
-  font-size: 16px;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
+    color: #83b51e;
+    font-family: Arial, Verdana, "Trebuchet MS";
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
 }
 
 .ipContent h3.ipWidgetTitleHeading {
-  color: #83b51e;
-  font-family: "Trebuchet MS", Verdana, Arial;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 20px;
-  margin: 0;
-  padding: 0;
+    color: #83b51e;
+    font-family: "Trebuchet MS", Verdana, Arial;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
 }
 
-.ipContent .ipWidgetTextPhoto {}
+.ipContent .ipWidgetTextPhoto {
+    
+}
 
 .ipContent .ipWidgetTextPhotoImageLeft {
-  border: 1px solid #cccccc;
-  float: left;
-  margin: 0 10px 10px 0;
-  padding: 3px;
+    border: 1px solid #cccccc;
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 3px;
 }
 
 .ipContent .ipWidgetTextPhotoImageLeft:hover {
-  border: 1px solid #999999;
+    border: 1px solid #999999;
 }
 
 .ipContent .ipWidgetTextPhotoImageLeft img {
-  border: none;
-  float: left;
+    border: none;
+    float: left;
 }
 
 .ipContent .ipWidgetTextPhotoImageRight {
-  border: 1px solid #cccccc;
-  float: right;
-  margin: 0 0 10px 10px;
-  padding: 3px;
+    border: 1px solid #cccccc;
+    float: right;
+    margin: 0 0 10px 10px;
+    padding: 3px;
 }
 
 .ipContent .ipWidgetTextPhotoImageRight:hover {
-  border: 1px solid #999999;
+    border: 1px solid #999999;
 }
 
 .ipContent .ipWidgetTextPhotoImageRight img {
-  border: none;
-  float: right;
+    border: none;
+    float: right;
 }
 
 .ipContent .ipWidgetTextPhotoImageSmallLeft {
-  border: 1px solid #cccccc;
-  float: left;
-  margin: 0 10px 10px 0;
-  width: 100px;
+    border: 1px solid #cccccc;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 100px;
 }
 
 .ipContent .ipWidgetTextPhotoImageSmallRight {
-  border: 1px solid #cccccc;
-  float: right;
-  margin: 0 0 10px 10px;
-  width: 100px;
-}    
+    border: 1px solid #cccccc;
+    float: right;
+    margin: 0 0 10px 10px;
+    width: 100px;
+}
 
-.ipContent .ipWidgetTextPhotoText {}
+.ipContent .ipWidgetTextPhotoText {
+    
+}
 
-.ipContent .ipWidgetPhoto {}
+.ipContent .ipWidgetPhoto {
+    
+}
 
 .ipContent .ipWidgetPhotoImage {
-  border: 1px solid #cccccc;
-  display: block;
-  padding: 3px;
+    border: 1px solid #cccccc;
+    display: block;
+    padding: 3px;
 }
 
 .ipContent .ipWidgetSeparatorLine {
-  border-top: 1px dotted #cccccc;
-  height: 1px;
+    border-top: 1px dotted #cccccc;
+    height: 1px;
 }
 
 .ipContent .ipWidgetSeparatorSpace {
-  height: 10px;
+    height: 10px;
 }
 
-.ipContent .ipWidgetPhotoGallery {}
+.ipContent .ipWidgetPhotoGallery {
+    
+}
 
 .ipContent .ipWidgetPhotoGalleryWrapper {
-  float: left;
-  margin: -10px 0 0 -10px;
+    float: left;
+    margin: -10px 0 0 -10px;
 }
 
 .ipContent .ipWidgetPhotoGalleryImage {
-  border: 1px solid #cccccc;
-  float: left;
-  margin: 10px 0 0 10px;
-  padding: 3px;
+    border: 1px solid #cccccc;
+    float: left;
+    margin: 10px 0 0 10px;
+    padding: 3px;
 }
 
 .ipContent .ipWidgetPhotoGalleryImage:hover {
-  border: 1px solid #999999;
+    border: 1px solid #999999;
 }
 
 .ipContent .ipWidgetPhotoGalleryImage img {
-  border: none;
-  float: left;
+    border: none;
+    float: left;
 }
 
-.ipContent .ipWidgetLogoGallery {}
+.ipContent .ipWidgetLogoGallery {
+    
+}
 
 .ipContent .ipWidgetLogoGalleryWrapper {
-  float: left;
-  margin: -24px 0 0 -24px;
+    float: left;
+    margin: -24px 0 0 -24px;
 }
 
 .ipContent .ipWidgetLogoGalleryLogo {
-  float: left;
-  height: 150px;
-  margin: 24px 0 0 24px;
-  overflow: hidden;
-  vertical-align: middle;
-  width: 150px;
+    float: left;
+    height: 150px;
+    margin: 24px 0 0 24px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 150px;
 }
 
 .ipContent .ipWidgetVideo {
-  text-align: left;
+    text-align: left;
 }
 
-.ipContent .ipWidgetFaq {}
+.ipContent .ipWidgetFaq {
+    
+}
 
 .ipContent .ipWidgetFaqQuestion {
-  color: #4b4a4a;
-  font-weight: bold;
-  text-decoration: none;
+    color: #4b4a4a;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .ipContent .ipWidgetFaqAnswer {
-  display: none;
+    display: none;
 }
 
-.ipContent .ipWidgetFile {}
+.ipContent .ipWidgetFile {
+    
+}
 
 .ipContent .ipWidgetFileLink {
-  color: #1e8de5;
-  font-weight: bold;
-  text-decoration: none;	
+    color: #1e8de5;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .ipContent .ipWidgetFileLink:visited {
-  color: #6a78b4;
+    color: #6a78b4;
 }
 
 .ipContent .ipWidgetFileLink:hover {
-  color: #f59a25;
+    color: #f59a25;
 }
 
-
-.ipContent .ipWidgetHtmlCode {}
+.ipContent .ipWidgetHtmlCode {
+    
+}
 
 .ipContent .ipWidgetContactForm {
-  border: 1px solid #cecece;
-  padding: 17px; 
+    border: 1px solid #cecece;
+    padding: 17px;
 }
 
 /* /content modules */
 
 /* forms */
-
-.ipContent .libPhpFormField,
-.ipContent .libPhpFormFieldError {
-  padding-bottom: 17px;
+.ipContent .libPhpFormField,.ipContent .libPhpFormFieldError {
+    padding-bottom: 17px;
 }
 
 .ipContent .libPhpFormButtons {
-  padding-left: 160px;
+    padding-left: 160px;
 }
 
 .ipContent .libPhpFormSubmit {
-  background-color: #ffffff;
-  border: 1px solid #00A8DA;
-  color: #00A8DA;
-  cursor: pointer;
-  font-family: Arial, Verdana, Tahoma;
-  font-size: 12px;
-  font-weight: bold;
-  height: 24px;
-  padding: 2px 5px 2px 4px;
+    background-color: #ffffff;
+    border: 1px solid #00A8DA;
+    color: #00A8DA;
+    cursor: pointer;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 12px;
+    font-weight: bold;
+    height: 24px;
+    padding: 2px 5px 2px 4px;
 }
 
 .ipContent .libPhpFormSubmit:hover {
-  background-color: #00A8DA;
-  color: white;
+    background-color: #00A8DA;
+    color: white;
 }
 
 .ipContent .libPhpFormCaption {
-  display: block;
-  float: left;
-  font-weight: bold;
-  padding: 3px 10px 0 0;
-  text-align: left;
-  width: 150px;
+    display: block;
+    float: left;
+    font-weight: bold;
+    padding: 3px 10px 0 0;
+    text-align: left;
+    width: 150px;
 }
 
-.ipContent .libPhpFormFieldError .libPhpFormCaption {}
+.ipContent .libPhpFormFieldError .libPhpFormCaption {
+    
+}
 
 .ipContent .libPhpFormInput {
-  float: left;
-  padding-right: 10px;
-  width: 215px;
+    float: left;
+    padding-right: 10px;
+    width: 215px;
 }
 
-.ipContent .libPhpFormInput input,
-.ipContent .libPhpFormInput textarea {
-  border: 1px solid #cecece;
-  color: #3c3c3c;
-  font-family: Arial, Verdana, Tahoma;
-  font-size: 13px;
-  padding: 1px;
-  width: 215px;
+.ipContent .libPhpFormInput input,.ipContent .libPhpFormInput textarea {
+    border: 1px solid #cecece;
+    color: #3c3c3c;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 13px;
+    padding: 1px;
+    width: 215px;
 }
 
 .ipContent .libPhpFormInput textarea {
-  overflow: auto;
-  width: 215px;
+    overflow: auto;
+    width: 215px;
 }
 
 .ipContent .libPhpFormInput select {
-  color: #3c3c3c;
-  font-size: 13px;
-  padding: 1px;
-  width: 215px;
+    color: #3c3c3c;
+    font-size: 13px;
+    padding: 1px;
+    width: 215px;
 }
 
-.ipContent .libPhpFormInput input.checkbox,
-.ipContent .libPhpFormInput input.radio {
-  border: none;
-  width: auto;
+.ipContent .libPhpFormInput input.checkbox,.ipContent .libPhpFormInput input.radio
+    {
+    border: none;
+    width: auto;
 }
 
-.ipContent .libPhpFormFieldError .libPhpFormInput input,
-.ipContent .libPhpFormFieldError .libPhpFormInput textarea,
-.ipContent .libPhpFormFieldError .libPhpFormInput select {
-  border: 1px solid #e53031;
+.ipContent .libPhpFormFieldError .libPhpFormInput input,.ipContent .libPhpFormFieldError .libPhpFormInput textarea,.ipContent .libPhpFormFieldError .libPhpFormInput select
+    {
+    border: 1px solid #e53031;
 }
 
 .ipContent  .libPhpFormFieldError .libPhpFormInput input.checkbox {
-  outline: #e53031 solid 1px;
+    outline: #e53031 solid 1px;
 }
 
 .ipContent .libPhpFormFieldError .libPhpFormFieldRow label {
-  color: #e53031;
+    color: #e53031;
 }
 
 .ipContent .libPhpFormHint {
-  background: transparent url(images/hint_cursor.gif) no-repeat scroll top left;
-  display: none;
-  float: left;
-  height: 17px;
-  width: 10px;
+    background: transparent url(images/hint_cursor.gif) no-repeat scroll top
+        left;
+    display: none;
+    float: left;
+    height: 17px;
+    width: 10px;
 }
 
 .ipContent .libPhpFormHint span {
-  background-color: #f4f6f7;
-  color: #00a8da;
-  float: left;
-  font-size: 12px;
-  line-height: 17px;
-  margin-left: 10px;
-  padding: 8px;
-  position: absolute;
-  width: 225px;
-  z-index: 3;
+    background-color: #f4f6f7;
+    color: #00a8da;
+    float: left;
+    font-size: 12px;
+    line-height: 17px;
+    margin-left: 10px;
+    padding: 8px;
+    position: absolute;
+    width: 225px;
+    z-index: 3;
 }
 
 .ipContent .libPhpFormError {
-  clear: both;
-  color: #e53031;
-  display: none;
-  float: left;
-  font-size: 12px;
+    clear: both;
+    color: #e53031;
+    display: none;
+    float: left;
+    font-size: 12px;
 }
 
 .ipContent .libPhpFormGlobalError {
-  clear: both;
-  color: #e53031;
-  display: none;
-  font-size: 12px;
-  margin-bottom: 15px;
+    clear: both;
+    color: #e53031;
+    display: none;
+    font-size: 12px;
+    margin-bottom: 15px;
 }
 
 .ipContent .libPhpFormNote {
-  clear: both;
-  float: left;
-  font-size: 12px;
+    clear: both;
+    float: left;
+    font-size: 12px;
 }
-
 
 /* /forms */

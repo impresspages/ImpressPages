@@ -63,9 +63,9 @@ if(\Db::connect()){
 
     \Db::disconnect();
 }else   trigger_error('Database access');
- 
- 
- 
+
+
+
 /**
  * Sitemap index and sitemap generation class
  * @package ImpressPages
@@ -154,7 +154,7 @@ class sitemap{
                     else
                     $tmp_freq = 'never';
 
-                    	
+                     
                     $answer .= '<changefreq>'.$tmp_freq.'</changefreq>
   				';
                 }

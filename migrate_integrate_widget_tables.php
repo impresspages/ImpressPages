@@ -9,9 +9,9 @@ ini_set('display_errors', '1');
 
 
 if(is_file(__DIR__.'/ip_config.php')) {
-  require (__DIR__.'/ip_config.php');
+    require (__DIR__.'/ip_config.php');
 } else {
-  require (__DIR__.'/../ip_config.php');
+    require (__DIR__.'/../ip_config.php');
 }
 
 require (BASE_DIR.INCLUDE_DIR.'db.php');
@@ -37,7 +37,7 @@ if (!$rs) {
 while($lock = mysql_fetch_assoc($rs)) {
     switch ($lock['widgetName']) {
         case 'contact_form':
-            
+
             $sqlWidget = "
             	SELECT
             		* 
@@ -47,26 +47,26 @@ while($lock = mysql_fetch_assoc($rs)) {
             		id = ".(int)$lock['elementId']." 
             ";
             $rsWidget = mysql_query($sqlWidget);
-            
+
             if (!$rsWidget)
-            
+
             $data = array (
                 'thankYou' => ,
             )
             break;
         case '':
-        
+
             break;
         case '':
-        
+
             break;
         case '':
-        
+
             break;
-            
+
     }
 
-    
+
 }
 
 
