@@ -13,7 +13,7 @@ namespace Library\Php\Js;
  */
 class Functions
 {
-  public static function htmlToString($html) {
-    return str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "\\n' + \n '", str_replace("'", "\\'",str_replace("\\", "\\\\",$html)))));
-  }
+    public static function htmlToString($html) {
+        return str_replace('script',"scr' + 'ipt", str_replace("\r", "", str_replace("\n", "\\n' + \n '", str_replace("'", "\\'",str_replace("\\", "\\\\",$html)))));
+    }
 }

@@ -4,30 +4,30 @@
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license	GNU/GPL, see ip_license.html
  */
- 
-namespace Library\Php\Form\Templates;  
- 
- if (!defined('CMS')) exit;
+
+namespace Library\Php\Form\Templates;
+
+if (!defined('CMS')) exit;
 
 require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard_fields.php');
 
 /**
  * Class to generate common form template.
- * @package Library 
- */  
+ * @package Library
+ */
 class Standard{
-  public static function generateForm($button, $action, $uniqueName, $fields){
-    $answer = '';
-      
+    public static function generateForm($button, $action, $uniqueName, $fields){
+        $answer = '';
 
 
-    $tmp_html = '';
-    foreach($fields as $key => $field){
-      $tmp_html .= self::generateField($field, $uniqueName);
-    }
-    
-    
-    $answer .= '
+
+        $tmp_html = '';
+        foreach($fields as $key => $field){
+            $tmp_html .= self::generateField($field, $uniqueName);
+        }
+
+
+        $answer .= '
 <div>        
   <a name="'.$uniqueName.'_global_error_anchor">
   </a>
@@ -41,52 +41,52 @@ class Standard{
   <div class="clear"><!-- --></div>
 </div>
 ';
-    
-    
-  
 
-    $answer .='
+
+
+
+        $answer .='
 
       ';    
-      
-    return $answer;
-  }
-  
-   
-  public static function generateField($field, $uniqueName){
-    $answer = '';
-    
-    if($field->required)
-      $f_required_prefix = ' *';
-    else
-      $f_required_prefix = '';
 
-    if($field->hint){
-      $fHintBlock = '
+        return $answer;
+    }
+
+     
+    public static function generateField($field, $uniqueName){
+        $answer = '';
+
+        if($field->required)
+        $f_required_prefix = ' *';
+        else
+        $f_required_prefix = '';
+
+        if($field->hint){
+            $fHintBlock = '
 <div class="libPhpFormHint" id="'.$uniqueName.'_hint_'.$field->name.'">
   <span>
     '.$field->hint.'
   </span>
 </div>';
-      $fHintScript = '
+            $fHintScript = '
 onmouseover="document.getElementById(\''.$uniqueName.'_hint_'.$field->name.'\').style.display=\'block\'"
 onmouseout="document.getElementById(\''.$uniqueName.'_hint_'.$field->name.'\').style.display=\'none\'"
 ';
-    }else{
-      $fHintBlock = '';
-      $fHintScript = '';              
-    }
+        }else{
+            $fHintBlock = '';
+            $fHintScript = '';
+        }
 
-    if($field->note)
-      $fNoteBlock = '
+        if($field->note)
+        $fNoteBlock = '
 <div class="libPhpFormNote">
   '.$field->note.'
 </div>
 ';
-    else
-      $fNoteBlock = '';
-  
-    $answer .= '
+        else
+        $fNoteBlock = '';
+
+        $answer .= '
 <div id="'.$uniqueName.'_field_'.$field->name.'" class="libPhpFormField" '.$fHintScript.'>
   <a name="'.$uniqueName.'_field_'.$field->name.'_error_anchor">
   </a>
@@ -104,8 +104,8 @@ onmouseout="document.getElementById(\''.$uniqueName.'_hint_'.$field->name.'\').s
   '.$fHintBlock.'
   <div class="clear"></div>
 </div>';
-    return $answer;  
-  }
+        return $answer;
+    }
 }
 
 

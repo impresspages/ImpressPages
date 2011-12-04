@@ -13,8 +13,8 @@ namespace Library\Php\Text;
  */
 class HtmlTransform
 {
-  public static function prepareLink($link){
-    return wordwrap(str_replace('&amp;', '&', $link), 20, "<wbr/>", true);    
-  }
-  
+    public static function prepareLink($link){
+        return wordwrap(str_replace('&amp;', '&', $link), 20, "<wbr/>", true);
+    }
+
 }
