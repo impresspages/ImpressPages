@@ -19,13 +19,25 @@ if (!defined('CMS')) exit;
  */
 class View{
 
+    
+    const DOCTYPE_XHTML1_STRICT = 1;
+    const DOCTYPE_XHTML1_TRANSITIONAL = 2;
+    const DOCTYPE_XHTML1_FRAMESET = 3;
+    const DOCTYPE_HTML4_STRICT = 4;
+    const DOCTYPE_HTML4_TRANSITIONAL = 5;
+    const DOCTYPE_HTML4_FRAMESET = 6;
+    const DOCTYPE_HTML5 = 7;
+    
+        
     private $file;
     private $data;
+    private $doctype;
 
 
     private function __construct($file, $data = array()) {
         $this->file = $file;
         $this->data = $data;
+        eval('$this->doctype = self::'.DEFAULT_DOCTYPE.';');
     }
 
 
@@ -129,6 +141,70 @@ class View{
 
     }
 
-
+    public function setDoctype ($doctype) {
+        $this->doctype = $doctype;
+    }
+    
+    public function getDoctype () {
+        return $this->doctype;
+    }
+    
+    public function doctypeDeclaration($doctype = null) {
+        if ($doctype === null) {
+            $doctype = $this->getDoctype();
+        }
+        switch ($doctype) {
+            case self::DOCTYPE_XHTML1_STRICT:
+                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+                break;   
+            case self::DOCTYPE_XHTML1_TRANSITIONAL:
+                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                break;
+            case self::DOCTYPE_XHTML1_FRAMESET:
+                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
+                break;
+            case self::DOCTYPE_HTML4_STRICT:
+                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+                break;
+            case self::DOCTYPE_HTML4_TRANSITIONAL:
+                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+                break;
+            case self::DOCTYPE_HTML4_FRAMESET:
+                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
+                break;
+            case self::DOCTYPE_HTML5:
+                return '<!DOCTYPE HTML>';
+                break;
+            default:
+                throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
+        }
+    }
+    
+    
+    public function htmlAttributes($doctype = null) {
+        global $site;
+        if ($doctype === null) {
+            $doctype = $this->getDoctype();
+        }
+        switch ($doctype) {
+            case self::DOCTYPE_XHTML1_STRICT:
+            case self::DOCTYPE_XHTML1_TRANSITIONAL:
+            case self::DOCTYPE_XHTML1_FRAMESET:
+                $lang = $site->getCurrentLanguage()->getCode();
+                return 'xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
+                break;
+            case self::DOCTYPE_HTML4_STRICT:
+            case self::DOCTYPE_HTML4_TRANSITIONAL:
+            case self::DOCTYPE_HTML4_FRAMESET:
+            default:
+                return '';
+                break;
+            case self::DOCTYPE_HTML5:
+                $lang = $site->getCurrentLanguage()->getCode();
+                return 'lang="'.$lang.'"';
+                break;
+        }        
+       
+    }
 
 }
