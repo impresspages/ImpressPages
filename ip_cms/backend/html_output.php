@@ -22,16 +22,16 @@ class HtmlOutput {
     function headerModule() {
         global $parametersMod;
         $this->html .= '
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <title>ImpressPages</title>
-  <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
-  <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
-</head>   
-	 
+    <meta charset="UTF-8">
+    <title>ImpressPages</title>
+    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
+</head>
+
 <body> <!-- display loading until page is loaded-->
 
     <!-- display loading util page is loaded-->
@@ -57,7 +57,7 @@ class HtmlOutput {
         </tr></table>
       </div>
     </div>
-    <script type="text/javascript">
+    <script>
     //<![CDATA[
     LibDefault.addEvent(window, \'load\', init);
 
@@ -73,19 +73,19 @@ class HtmlOutput {
     function headerModules() {
         global $cms;
         $this->html .= '
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>ImpressPages</title>
-  <link href="' . BASE_URL . BACKEND_DIR . 'design/modules/modules.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
-  <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
-</head>   
-	
+    <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/modules/modules.css">
+    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
+</head>
+
 <body>
-<script type="text/javascript">
+<script>
   //<![CDATA[
     function session_ping(){
       LibDefault.ajaxMessage(\'' . $cms->generateActionUrl('ping') . '\', \'\', pingResponse);
@@ -109,7 +109,7 @@ class HtmlOutput {
             if ($_SESSION['modules']['administrator']['system']['show_system_message'] == true) {
 
                 $this->html .= '
-    <script type="text/javascript">
+    <script>
       //<![CDATA[
 
             var notice = document.getElementById(\'ipCmsSystemNotice\');
@@ -125,7 +125,7 @@ class HtmlOutput {
 
         } else {
             $this->html .= '
-  <script type="text/javascript">
+  <script>
     //<![CDATA[
       function ipCmsNoticeResponse(response){
         if(response != \'\') {
@@ -154,15 +154,15 @@ class HtmlOutput {
 
     function headerLogin() {
         $this->html .= '
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <title>ImpressPages</title>
-  <link href="' . BASE_URL . BACKEND_DIR . 'design/login/login.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>   
-	
+    <meta charset="UTF-8">
+    <title>ImpressPages</title>
+    <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/login/login.css">
+    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+</head>
+
 <body> 
 
     ';
@@ -177,19 +177,19 @@ class HtmlOutput {
 
         $this->html .= '
       <div class="wrapper">
-              <a href="http://www.impresspages.org"><img src="' . BASE_URL . BACKEND_DIR . 'design/login/impress-pages.png" class="logo" /></a>
+              <a href="http://www.impresspages.org"><img src="' . BASE_URL . BACKEND_DIR . 'design/login/impress-pages.png" class="logo"></a>
               <div class="image">
                       <div class="box">
                               <div class="boxTop"></div>
                               <form style="margin: 0;" action="' . $cms->generateActionUrl('login') . '" method="post">
                                       <div class="boxContent">
                                               ' . $error . '
-                                              <div class="input"><input type="hidden" name="action" value="login" /></div>
+                                              <div class="input"><input type="hidden" name="action" value="login"></div>
                                               <label>' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_name')) . '</label>
-                                              <div class="input"><input id="login_name" name="f_name" type="text" /></div>
+                                              <div class="input"><input id="login_name" name="f_name" type="text"></div>
                                               <label>' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_password')) . '</label>
-                                              <div class="input"><input type="password" name="f_pass" /></div>
-                                              <input class="submit" type="submit" value="' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_login')) . '" />
+                                              <div class="input"><input type="password" name="f_pass"></div>
+                                              <input class="submit" type="submit" value="' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_login')) . '">
                                               <div style="clear: both;"></div>
                                       </div>
                               </form>
@@ -198,12 +198,12 @@ class HtmlOutput {
               </div>
       <div class="footer">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
       </div>
-      <script type="text/javascript">
+      <script>
       //<![CDATA[
         document.getElementById(\'login_name\').focus();
       //]]>
       </script>
-		
+
     ';
     }
 
@@ -226,7 +226,7 @@ class HtmlOutput {
             }
 
             $groupsHtml .= '
-  <script type="text/javascript">
+  <script>
   //<![CDATA[
     var modTabs = new LibTabs(\'modTabs\', \'left knob\', \'left knob opened\');
     var last_selected = null;
@@ -256,7 +256,7 @@ class HtmlOutput {
                         if ($i == 0 && $key2 == 0) {
                             $modulesHtml .= '<li id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
                             $script_html .= '
-              <script type="text/javascript">
+              <script>
                  //<![CDATA[
                 last_selected = document.getElementById(\'modTabsFirstModule\');
                 //]]>
@@ -267,7 +267,7 @@ class HtmlOutput {
                     $modulesHtml .= '</ul></div>';
                     $modulesHtml .=
                     $script_html . '
-          <script type="text/javascript">
+          <script>
             //<![CDATA[
             modTabs.addTab(\'moduleGroupLink' . $i . '\', \'moduleGroup' . $i . '\');
             //]]>
@@ -310,7 +310,7 @@ class HtmlOutput {
 			';
 
         $this->html .= '
-      <script type="text/javascript">
+      <script>
       //<![CDATA[
         modTabs.switchFirst();
       //]]>

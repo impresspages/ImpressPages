@@ -16,17 +16,17 @@ require_once (__DIR__.'/html_output.php');
 class HtmlOutput{
     public static function header(){
         return '
-      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-      <html>
-      <head>
-        <title>ImpressPages</title>
-        <link href="'.BASE_URL.BACKEND_DIR.'design/common.css" rel="stylesheet" type="text/css" />  
-        <link href="'.BASE_URL.MODULE_DIR.'administrator/system/style.css" rel="stylesheet" type="text/css" />  
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="text/javascript" src="'.LIBRARY_DIR.'js/default.js"></script>
-      </head>   
-      <body>
-      ';        
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ImpressPages</title>
+    <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/common.css">
+    <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'administrator/system/style.css">
+    <script src="'.LIBRARY_DIR.'js/default.js"></script>
+</head>
+<body>
+      ';
     }
 
 

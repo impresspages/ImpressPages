@@ -877,14 +877,14 @@ class StandardModule {
 
         $answer .= '
 		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>ImpressPages</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-</head>   
+    <script src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
+    <script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
+</head>
 	 
 <body> <!-- display loading until page is loaded-->
 			
@@ -896,7 +896,7 @@ class StandardModule {
 					</td>
 				</tr></table>
 			</div>
-      <script type="text/javascript">
+      <script>
       //<![CDATA[
 				LibDefault.addEvent(window, \'load\', init);
 	      				
@@ -907,13 +907,13 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/style.css" type="text/css" rel="stylesheet" media="screen" />
-		<script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/scripts.js"></script>
-		<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/mouse.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/positioning.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/default.js" ></script>
+		<link href="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/style.css" type="text/css" rel="stylesheet" media="screen">
+		<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/scripts.js"></script>
+		<script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
+		<script src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
+		<script src="'.LIBRARY_DIR.'js/mouse.js" ></script>
+		<script src="'.LIBRARY_DIR.'js/positioning.js" ></script>
+		<script src="'.LIBRARY_DIR.'js/default.js" ></script>
 		
 		';
 
@@ -929,7 +929,7 @@ class StandardModule {
         $answer .= '
 		
 		 <div class="all" onmousemove="setPos(event)" onmouseup="mouseButtonPos=\'up\'">';
-        $answer .= '<script type="text/javascript">LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
+        $answer .= '<script>LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
 
         if($this->treeDepth > 0) {
             $answer .= $this->printTree();
@@ -962,9 +962,9 @@ class StandardModule {
     function printRoad() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->treeDepth)
-        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal.png" alt="" /></a>';
+        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal.png" alt=""></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal_disabled.png" alt="" /></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal_disabled.png" alt=""></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1119,21 +1119,21 @@ class StandardModule {
         $answer = '';
         $answer .= '<form class="stdMod" target="std_mod_update_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
         $answer .= '<div class="search">';
-        $answer .= '<input type="hidden" name="type" value="ajax"/>';
-        $answer .= '<input type="hidden" name="back_url" value="'.$this->generateUrlBack().'"/>';
-        $answer .= '<input type="hidden" name="action" value="update"/>';
+        $answer .= '<input type="hidden" name="type" value="ajax">';
+        $answer .= '<input type="hidden" name="back_url" value="'.$this->generateUrlBack().'">';
+        $answer .= '<input type="hidden" name="action" value="update">';
         foreach($area->elements as $key => $value) {
             if ($this->errors != null && isset($this->errors[$key]))
             $tmpError = $this->printError($this->errors[$key]);
             else
             $tmpError = '';
             if($value->visibleOnUpdate)
-            $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br /><br />";
+            $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br><br>";
             /*else
              $answer .= $tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area);*/
         }
         $answer .= '
-        <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'"/>
+        <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'">
 				</div>
       </form>
 			<div class="separator"></div>
@@ -1154,7 +1154,7 @@ class StandardModule {
 
         $answer .='
           <iframe onload="std_mod_update_f_answer()" name="std_mod_update_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
-          <script type="text/javascript">
+          <script>
           //<![CDATA[ 
             function std_mod_update_f_answer(){
               '.$resetStr.'
@@ -1198,8 +1198,8 @@ class StandardModule {
         $answer = '';
         $answer .= '<form id="std_mod_new_f" target="std_mod_new_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
         $answer .= '<div class="search">';
-        $answer .= '<input type="hidden" name="type" value="ajax"/>';
-        $answer .= '<input type="hidden" name="action" value="insert"/>';
+        $answer .= '<input type="hidden" name="type" value="ajax">';
+        $answer .= '<input type="hidden" name="action" value="insert">';
         foreach($this->currentArea->elements as $key => $element) {
             if($element->visibleOnInsert) {
                 if(isset($this->errors[$key]))
@@ -1208,13 +1208,13 @@ class StandardModule {
                 $tmpError = '';
 
                 if($element->visibleOnInsert)
-                $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$element->title.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea)."<br /><br />";
+                $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$element->title.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea)."<br><br>";
                 else
                 $answer .= $tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea);
             }
         }
         $answer .= '
-        <input style="width: 0; height:0; overflow:hidden; border: 0;" class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'"/>
+        <input style="width: 0; height:0; overflow:hidden; border: 0;" class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'">
 				</div>
       </form>';
 
@@ -1233,7 +1233,7 @@ class StandardModule {
 
         $answer .='
           <iframe onload="std_mod_new_f_answer()" name="std_mod_new_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
-          <script type="text/javascript">
+          <script>
           //<![CDATA[ 
             function std_mod_new_f_answer(){
               '.$resetStr.'
@@ -1266,11 +1266,11 @@ class StandardModule {
         $answer = '<div class="search"><form id="std_mod_search_f" method="POST" class="stdMod" action="'.$this->generateUrlLevel($this->level).'">';
         foreach($area->elements as $key => $value) {
             if($value->searchable) {
-                $answer .= '<span class="label bolder">'.$value->title.'</span><br />'.$value->printSearchField($level, $key, $area)."<br /><br />";
+                $answer .= '<span class="label bolder">'.$value->title.'</span><br />'.$value->printSearchField($level, $key, $area)."<br><br>";
                 $empty = false;
             }
         }
-        $answer .= '<input style="width: 0; height:0; border: 0; overflow:hidden;" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','search').'"/></form></div>';
+        $answer .= '<input style="width: 0; height:0; border: 0; overflow:hidden;" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','search').'"></form></div>';
 
         if ($empty)
         return;
@@ -1302,7 +1302,7 @@ class StandardModule {
         $answer = '';
 
         $answer .= '
-			<script type="text/javascript">
+			<script>
 				function std_mod_change_page(){
 					document.getElementById(\'std_mod_pages_form\').action= document.getElementById(\'std_mod_pages_form\').action + 
 					\'&page['.$this->level.']=\' + 
@@ -1329,12 +1329,12 @@ class StandardModule {
 					<option value="100000">100000</option>
 				 </select>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
-					<img src="'.LIBRARY_DIR.'/php/standard_module/design/previous_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'" />
+					<img src="'.LIBRARY_DIR.'/php/standard_module/design/previous_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
-					<img src="'.LIBRARY_DIR.'/php/standard_module/design/next_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'" />
+					<img src="'.LIBRARY_DIR.'/php/standard_module/design/next_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
 				 </a>
 			 </div>
 			</form>
@@ -1554,7 +1554,7 @@ class StandardModule {
         $answer = '';
 
         $answer .= '
-    <script type="text/javascript">
+    <script>
       function confirmDelete(action, parameters, question){
         var answer = confirm(question); 
         if (answer)
@@ -1607,7 +1607,7 @@ class StandardModule {
 							<img 
 								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
 								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>
+							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
@@ -1627,7 +1627,7 @@ class StandardModule {
 							<img
 								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
 								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>
+							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
@@ -1642,7 +1642,7 @@ class StandardModule {
 
         if(sizeof($this->errors) != 0) {
             $answer .= '
-			<script type="text/javascript">
+			<script>
 				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\';
 				document.getElementById(\'std_mod_new_popup\').style.display = \'block\';
 			</script>
@@ -1653,7 +1653,7 @@ class StandardModule {
 
         $answer .= '
 		
-		<script type="text/javascript">
+		<script>
 
 		function std_mod_new_popup_click(e){ 
 			var border = document.getElementById(\'std_mod_new_popup_border\');
