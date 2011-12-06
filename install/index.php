@@ -56,7 +56,7 @@ function output($html){
 <body>
 
   <div class="container">
-    <img id="logo" src="design/cms_logo.gif" alt="ImpressPages CMS" />
+    <img id="logo" src="design/cms_logo.png" alt="ImpressPages CMS" />
     <div class="clear"></div>
     <div id="wrapper">
       <p id="installationNotice">'.IP_INSTALLATION.' <span>'.IP_VERSION.'</span></p>
