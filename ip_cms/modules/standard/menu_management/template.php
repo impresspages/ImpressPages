@@ -17,7 +17,6 @@ class Template {
 <html>
 <head>
   <title>ImpressPages</title>
-  <link REL="SHORTCUT ICON" HREF="'.BASE_URL.BACKEND_DIR.'/design/images/favicon.ico" />
   <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
   <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

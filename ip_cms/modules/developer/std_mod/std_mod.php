@@ -881,7 +881,6 @@ class StandardModule {
 <html>
 <head>
     <title>ImpressPages</title>
-  <link REL="SHORTCUT ICON" HREF="'.BASE_URL.BACKEND_DIR.'design/images/impress-pages-cms.ico" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>

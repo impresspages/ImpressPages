@@ -22,7 +22,6 @@ class HtmlOutput{
         <title>ImpressPages</title>
         <link href="'.BASE_URL.BACKEND_DIR.'design/common.css" rel="stylesheet" type="text/css" />  
         <link href="'.BASE_URL.MODULE_DIR.'developer/config_exp_imp/design/style.css" rel="stylesheet" type="text/css" />  
-        <link REL="SHORTCUT ICON" HREF="backend_design/favicon.ico" />
         <meta http-equiv="Content-Type" content="text/html; charset='.CHARSET.'" />
         <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
       </head>   

@@ -120,8 +120,6 @@ div.content div.libPhpFormInput select {
 div.content div.libPhpFormHint {
 	float: left;
 	display: none;
-	background: transparent url(images/hint_cursor.gif) scroll no-repeat
-		left 3px;
 	width: 10px;
 	height: 17px;
 }
