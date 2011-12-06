@@ -1179,7 +1179,7 @@ class Site{
 
 
     private function _createRevision(){
-        $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+        $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId(),0);
         $revision = \Ip\Db::getRevision($revisionId);
         if ($revision === false) {
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
