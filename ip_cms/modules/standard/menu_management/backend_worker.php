@@ -570,12 +570,12 @@ class BackendWorker {
         //find language
         require_once(BASE_DIR.FRONTEND_DIR.'db.php');
         $tmpId = $parentPage->getId();
-        $element = \Modules\standard\content_management\DbFrontend::getElement($tmpId);
+        $element = \Modules\standard\menu_management\Db::getPage($tmpId);
         while($element['parent'] !== null) {
             $tmpUrlVars[] = $element['url'];
-            $element = \Modules\standard\content_management\DbFrontend::getElement($element['parent']);
+            $element = \Modules\standard\menu_management\Db::getPage($element['parent']);
         }
-        $languageId = \Modules\standard\content_management\DbFrontend::languageByRootElement($element['id']);
+        $languageId = \Modules\standard\cmenu_management\Db::languageByRootElement($element['id']);
         //end find language
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());

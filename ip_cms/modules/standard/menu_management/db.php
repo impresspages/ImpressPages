@@ -58,6 +58,20 @@ class Db {
         return $answer;
     }
 
+    public static function languageByRootElement($element_id){ //returns root element of menu
+        $sql = "select mte.language_id from `".DB_PREF."zone_to_content` mte where  mte.element_id = '".(int)$element_id."'";
+        $rs = mysql_query($sql);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock['language_id'];
+            }
+        }else
+        trigger_error("Can't find zone element ".$sql." ".mysql_error());
+    }
+
+
+
+
     /**
      *
      * returns
@@ -287,26 +301,7 @@ class Db {
     }
 
 
-    /**
-     *
-     * get widgets of the page
-     * @param int $pageId
-     * @return array widgets
-     */
-    public static function pageWidgets($pageId) {
-        $sql = "select * from `".DB_PREF."content_element_to_modules` where element_id = '".$pageId."' order by row_number";
-        $rs = mysql_query($sql);
-        if($rs) {
-            $widgets = array();
-            while($lock = mysql_fetch_assoc($rs)) {
-                $widgets[] = $lock;
-            }
-            return $widgets;
-        } else {
-            trigger_error("Can't get content element children ".$sql." ".mysql_error());
-        }
 
-    }
 
     /**
      *

@@ -159,17 +159,17 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
     function allowDelete($id) {
         global $parametersMod;
-        require_once (MODULE_DIR."standard/content_management/db.php");
+        require_once (MODULE_DIR."standard/menu_management/db.php");
 
-        $dbContentManagement = new \Modules\standard\content_management\Db();
+        $dbMenuManagement = new \Modules\standard\menu_management\Db();
 
         $answer = true;
 
 
         $zones = Db::getZones();
         foreach($zones as $key => $zone) {
-            $rootElement = $dbContentManagement->rootMenuElement($zone['id'], $id);
-            $elements = $dbContentManagement->menuElementChildren($rootElement);
+            $rootElement = $dbMenuManagement->rootContentElement($zone['id'], $id);
+            $elements = $dbMenuManagement->pageChildren($rootElement);
             if(sizeof($elements) > 0) {
                 $answer = false;
                 $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_not_empty_language');

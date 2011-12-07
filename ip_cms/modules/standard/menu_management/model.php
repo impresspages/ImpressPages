@@ -11,18 +11,10 @@ namespace Modules\standard\menu_management;
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 require_once(__DIR__.'/db.php');
-require_once (BASE_DIR.MODULE_DIR.'standard/content_management/db.php');
 require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
 require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_image.php');
-require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/widget.php');
 
-$tmpModules = \Modules\standard\content_management\Db::menuModules();
 
-foreach($tmpModules as $groupKey => $group) {
-    foreach ($group as $moduleKey => $module){
-        require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$module['group_name'].'/'.$module['module_name'].'/module.php');
-    }
-}
 
 
 class Model {
