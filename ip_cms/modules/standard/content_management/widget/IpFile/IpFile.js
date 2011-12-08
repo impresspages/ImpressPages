@@ -143,7 +143,7 @@ function ipWidget_IpFile(widgetObject) {
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
 
     };
@@ -242,7 +242,7 @@ function ipWidget_IpFile(widgetObject) {
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
 
     };

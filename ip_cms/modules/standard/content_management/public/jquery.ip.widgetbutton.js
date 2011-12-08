@@ -11,7 +11,7 @@
             return this.each(function() {
                 var $this = $(this);
                 
-                var data = $this.data('ipWidgetButton');
+                var data = $this.data('ipAdminWidgetButton');
             
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
@@ -22,7 +22,7 @@
                         stop: function(event, ui) {/*console.log(ui); console.log($(ui.item).attr('id'));*/ }    
                     });
                     
-                    $this.data('ipWidgetButton', {
+                    $this.data('ipAdminWidgetButton', {
                         name : $this.attr('id').substr(15)                        
                     });
 
@@ -39,20 +39,20 @@
         },
         test : function () {
             return this.each(function() {
-                alert('test ' + $(this).data('ipWidgetButton').name);
+                alert('test ' + $(this).data('ipAdminWidgetButton').name);
             });
         }
         
     };
 
-    $.fn.ipWidgetButton = function(method) {
+    $.fn.ipAdminWidgetButton = function(method) {
 
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
 
     };

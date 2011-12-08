@@ -30,6 +30,9 @@
     </div>
 
     <?php } ?>
+<<<<<<< HEAD
+    <div class="ipPageAdvanced">Advanced</div>
+=======
     <div class="ipAdminControls">
         <div class="ipgLeft">
             
@@ -39,6 +42,7 @@
             <a href="#" class="ipAdminButton ipaPublish">Publish</a>
         </div>
     </div>
+>>>>>>> 035b12a3cfd04c6f7922c7161b017a272aa782ea
     <div class="ipRevisionsControl">
         <div>
             <select id="ipRevisionSelect">

@@ -26,8 +26,8 @@
                     }); 
                     
                     
-                    if ($("#ipControllPanelBg").length == 0) {
-                        var $controlsBgDiv = $('<div id="ipControllPanelBg" />');
+                    if ($(".ipAdminPanelContainer").length == 0) {
+                        var $controlsBgDiv = $('<div class="ipAdminPanelContainer" />');
                         $('body').prepend($controlsBgDiv);
                     }
                 
@@ -72,7 +72,7 @@
 	                
 
 	                
-	                $('.ipWidgetButtonSelector').ipWidgetButton();
+	                $('.ipAdminWidgetButtonSelector').ipAdminWidgetButton();
 	                
 	                
 	                $('.ipPageSave').bind('click', function(event){$(this).trigger('savePageClick.ipContentManagement');});
@@ -283,7 +283,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
 
 
