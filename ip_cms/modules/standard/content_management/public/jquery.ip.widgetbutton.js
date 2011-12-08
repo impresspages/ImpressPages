@@ -23,10 +23,10 @@
                     });
                     
                     $this.data('ipAdminWidgetButton', {
-                        name : $this.attr('id').substr(15)                        
+                        name : $this.attr('id').substr(20)
                     });
 
-                }                
+                }
                     
                 
                 

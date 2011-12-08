@@ -65,15 +65,11 @@
 
                     // if received element is AdminWidgetButton (insert new widget)
                     if ($element && $element.is('.ipAdminWidgetButton')) {
-
                         $duplicatedDragItem = $('.ipBlock .ipAdminWidgetButtonSelector');
                         $position = $duplicatedDragItem.index();
                         var newWidgetName = $element.data('ipAdminWidgetButton').name;
-
                         $duplicatedDragItem.remove();
-
                         $block = $(event.target);
-
                         $block.ipBlock('_createWidget', newWidgetName, $position);
                     }
 
