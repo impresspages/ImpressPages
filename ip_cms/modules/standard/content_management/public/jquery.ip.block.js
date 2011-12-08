@@ -63,12 +63,12 @@
 
                     $element = $(ui.item);
 
-                    // if received element is WidgetButton (insert new widget)
-                    if ($element && $element.is('.ipWidgetButton')) {
+                    // if received element is AdminWidgetButton (insert new widget)
+                    if ($element && $element.is('.ipAdminWidgetButton')) {
 
-                        $duplicatedDragItem = $('.ipBlock .ipWidgetButtonSelector');
+                        $duplicatedDragItem = $('.ipBlock .ipAdminWidgetButtonSelector');
                         $position = $duplicatedDragItem.index();
-                        var newWidgetName = $element.data('ipWidgetButton').name;
+                        var newWidgetName = $element.data('ipAdminWidgetButton').name;
 
                         $duplicatedDragItem.remove();
 
@@ -226,7 +226,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
 
     };

@@ -1,16 +1,21 @@
-<div id="ipControllPanel">
+<div class="ipAdminPanel ipAdmin">
 <?php if($manageableRevision){ ?>
-    <ul class="ipWidgetList">
+    <div class="ipAdminWidgets">
+        <ul>
     <?php foreach ($widgets as $widgetKey => $widget) { ?>
-        <li id="ipWidgetButton_<?php echo $widget->getName(); ?>"
-            class="ipWidgetButton ipWidgetButtonSelector"><img
-            title="<?php echo htmlspecialchars($widget->getTitle()); ?>"
-            alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
-            src="<?php echo BASE_URL.$widget->getIcon() ?>" /></li>
+            <li id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>"
+                class="ipAdminWidgetButton ipAdminWidgetButtonSelector">
+                <a href="#">
+                    <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
+                    <img alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
+                         src="<?php echo BASE_URL.$widget->getIcon() ?>" />
+                </a>
+            </li>
             <?php } ?>
-    </ul>
+        </ul>
+    </div>
     <?php } else { ?>
-    <div style="float: left;">
+    <div>
         <p>
             This is a preview of older revision, created at (
             <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
@@ -25,6 +30,15 @@
     </div>
 
     <?php } ?>
+    <div class="ipAdminControls">
+        <div class="ipgLeft">
+            
+        </div>
+        <div class="ipgRight">
+            <a href="#" class="ipAdminButton">Save</a>
+            <a href="#" class="ipAdminButton ipaPublish">Publish</a>
+        </div>
+    </div>
     <div class="ipRevisionsControl">
         <div>
             <select id="ipRevisionSelect">
