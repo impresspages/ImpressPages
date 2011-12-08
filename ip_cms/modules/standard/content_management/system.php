@@ -64,12 +64,12 @@ class System{
          
         //loop all installed modules
         foreach ($modules as $moduleKey => $module) {
-            $themeDir = THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/'.IP_DEFAULT_WIDGET_FOLDER.'/';
+            $themeDir = THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
 
             if ($module['core']) {
-                $widgetDir = MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                $widgetDir = MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
             } else {
-                $widgetDir = PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/widget/';
+                $widgetDir = PLUGIN_DIR.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
             }
              
             if (! file_exists(BASE_DIR.$widgetDir) || ! is_dir(BASE_DIR.$widgetDir)) {
@@ -92,7 +92,7 @@ class System{
                 //register widget if widget controller exists
                 if (file_exists(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php') && is_file(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php')) {
                     require_once(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php');
-                    eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\'.IP_DEFAULT_WIDGET_FOLDER.'\\'.$widgetFolder.'($widgetFolder, $module[\'g_name\'], $module[\'m_name\'], $module[\'core\']);');
+                    eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\'.Model::WIDGET_DIR.'\\'.$widgetFolder.'($widgetFolder, $module[\'g_name\'], $module[\'m_name\'], $module[\'core\']);');
                     $event->addWidget($widget);
                 } else {
                     $widget = new Widget($widgetFolder, $module['g_name'], $module['m_name'], $module['core']);

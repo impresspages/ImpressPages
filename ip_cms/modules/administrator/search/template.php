@@ -7,6 +7,7 @@
 namespace Modules\administrator\search;
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
+require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 
 class Template{
 
@@ -26,42 +27,30 @@ class Template{
 
     public static function noSearchString($title, $text){
         global $site;
-        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-
         $answer = '';
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpTitle', array("title" => $title));
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => $text));
         return $answer;
     }
 
 
     public static function noResults($title, $text){
-        global $site;
-        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
 
         $answer = '';
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpTitle', array("title" => $title));
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => $text));
         return $answer;
     }
 
-    public static function searchResult($title, $foundElementsCombined, $foundElements){
-        global $site;
-        global $parametersMod;
+    public static function searchResult($title, $foundElementsCombined, $foundElements){        
 
-        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-
-        $answer ='';
-
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($title, 1);
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($foundElementsCombined));
+        $answer = '';
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpTitle', array("title" => $title));
+        $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => Template::elementsList($foundElementsCombined)));
 
         foreach ($foundElements as $zoneKey => $zoneBunch) {
-            $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($site->getZone($zoneKey)->getTitle(), 2);
-            $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml(Template::elementsList($zoneBunch));
+            $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpTitle', array("title" => $site->getZone($zoneKey)->getTitle()), 'level2');
+            $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => Template::elementsList($zoneBunch)));
         }
 
         return $answer;

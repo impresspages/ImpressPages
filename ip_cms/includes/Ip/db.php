@@ -18,6 +18,7 @@ if (!defined('CMS')) exit;
  *
  */
 class Db{
+    
     public static function getLastRevision($zoneName, $pageId) {
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
         $sql = "

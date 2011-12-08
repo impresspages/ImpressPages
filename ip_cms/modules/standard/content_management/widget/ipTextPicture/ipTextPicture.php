@@ -79,19 +79,13 @@ class ipTextPicture extends \Modules\standard\content_management\Widget{
 
         return $newData;
     }
-
+    
+    
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $answer = '';
-        try {
-            $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'title');
-            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.IP_DEFAULT_WIDGET_FOLDER.'/'.$this->name.'/'.self::MANAGEMENT_DIR.'/default.php', $data)->render();
-        } catch (\Ip\CoreException $e){
-            //do nothing. Administration view does not exist
-        }
-        return $answer;
-    }
-
+        $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'title');
+        return parent::managementHtml($instanceId, $data, $layout);
+    }    
 
 
 }

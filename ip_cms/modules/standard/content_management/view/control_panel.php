@@ -25,6 +25,7 @@
     </div>
 
     <?php } ?>
+    <div class="ipPageAdvanced">Advanced</div>
     <div class="ipRevisionsControl">
         <div>
             <select id="ipRevisionSelect">

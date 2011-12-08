@@ -70,6 +70,11 @@ class View{
 
         return new \Ip\View($foundFile, $data);
     }
+    
+    public function renderWidget($widgetName, $data, $layout = null) {
+        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+        $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
+    }
 
 
     private static function findFile($file, $sourceFile) {
@@ -113,6 +118,11 @@ class View{
         }
 
         return false;
+    }
+    
+
+    public function getData() {
+        return $this->data;
     }
 
 

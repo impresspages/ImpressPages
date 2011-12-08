@@ -9,7 +9,6 @@
 
 if (!defined('CMS')) exit;
 
-define('IP_DEFAULT_WIDGET_FOLDER', 'widget');
 
 require_once (__DIR__.'/zone.php');
 require_once (__DIR__.'/db.php');
@@ -825,12 +824,12 @@ class Site{
      *
      */
     public function generateContent(){
+        global $log;
         $answer = '';
         if($this->currentZone){
             if($this->error404){
-                $this->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-                $answer .= \Modules\standard\content_management\widgets\text_photos\text\Template::generateHtml($this->error404Message());
-                global $log;
+                require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
+                $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => $this->error404Message()));
                 $log->log("system", "error404", $this->getCurrentUrl()." ".$this->error404Message());
             }else{
                 if($this->managementState()){
@@ -1165,7 +1164,7 @@ class Site{
              
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
                 $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-                if ($revision === false) {
+                if ($revision === false || $revision['published']) {
                     $revision = $this->_createRevision();
                 }
             }

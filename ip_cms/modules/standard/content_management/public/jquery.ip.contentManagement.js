@@ -43,11 +43,11 @@
                         context : $this,
                         success : methods.initResponse,
                         dataType : 'json'
-                    });                    
+                    });
                     
                     
 
-                }                
+                }
             });
         },
         
@@ -116,17 +116,17 @@
                 $this.data('ipContentManagement', tmpData);
                 
                 
-	        	$this.trigger('pageSaveStart.ipContentManagement');
-	        	var jobsCount = 0;
-	        	for (var prop in $this.data('ipContentManagement').saveJobs) {
-	        	    jobsCount++;
-	        	}
-	        	if (jobsCount == 0) {
-	        	    $this.ipContentManagement('saveFinish'); // initiate save finishing action
-	        	} else {
-	        	    // wait for jobs to finish
-	        	}
-	        	
+                $this.trigger('pageSaveStart.ipContentManagement');
+                var jobsCount = 0;
+                for (var prop in $this.data('ipContentManagement').saveJobs) {
+                    jobsCount++;
+                }
+                if (jobsCount == 0) {
+                    $this.ipContentManagement('saveFinish'); // initiate save finishing action
+                } else {
+                    // wait for jobs to finish
+                }
+        
             });
      
         },
@@ -136,13 +136,12 @@
             var tmpData = $this.data('ipContentManagement');
             tmpData.saving = false;
             $this.data('ipContentManagement', tmpData);
-            $( "#ipSaveProgress" ).dialog('close');            
+            $( "#ipSaveProgress" ).dialog('close');
         },
         
         saveFinish : function() {
             return this.each(function() {
-// console.log('save finish');
-// return ;
+
                 
                 
                 var $this = $(this);

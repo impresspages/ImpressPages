@@ -82,21 +82,29 @@ class HtmlOutput {
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
 </head>
 
 <body>
 <script>
   //<![CDATA[
-    function session_ping(){
-      LibDefault.ajaxMessage(\'' . $cms->generateActionUrl('ping') . '\', \'\', pingResponse);
-    }
-    iii = setInterval(session_ping, 120000);
-    
     function pingResponse(response){
       if(response != \'\'){
         document.location = \'admin.php\';
       }
     }
+  
+  
+    function session_ping(){
+        $.ajax({
+            type : \'POST\',
+            url : \'' . $cms->generateActionUrl('ping') . '\',
+            data : Object(),
+            success : pingResponse
+        });
+    }
+    iii = setInterval(session_ping, 240000);
+    
     
 
 

@@ -13,6 +13,8 @@ require_once(__DIR__.'/exception.php');
 
 class Model{
     static private $widgetObjects = null;
+    const DEFAULT_LAYOUT = 'default';
+    const WIDGET_DIR = 'widget';
 
     public static function generateBlock($blockName, $revisionId, $managementState) {
         global $site;
@@ -44,6 +46,17 @@ class Model{
         return $answer;
     }
 
+    public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null) {
+        if ($layout == null) {
+            $layout = self::DEFAULT_LAYOUT;
+        }
+        $widgetObject = self::getWidgetObject($widgetName);
+        if (!$widgetObject) {
+            throw new Exception('Widget ' . $widgetName . ' does not exist', Exception::UNKNOWN_WIDGET);
+        }
+        
+        return $widgetObject->previewHtml(null, $data, $layout);
+    }
 
 
     public static function generateWidgetPreview($instanceId, $managementState) {
@@ -347,6 +360,9 @@ class Model{
      * @throws Exception
      */
     public static function createWidget($widgetName, $data, $layout, $predecessor) {
+        if ($layout == null) {
+            $layout = self::DEFAULT_LAYOUT;
+        }
         $sql = "
           insert into
               ".DB_PREF."m_content_management_widget

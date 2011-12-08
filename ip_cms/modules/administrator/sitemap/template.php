@@ -9,8 +9,7 @@ namespace Modules\administrator\sitemap;
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
-require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/title/template.php');
-require_once (BASE_DIR.MODULE_DIR.'standard/content_management/widgets/text_photos/text/template.php');
+require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 
 class Template{
 

@@ -46,7 +46,7 @@ class Controller{
         $data = array (
             'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-        	'widgetControlsHtml' => $widgetControlsHtml,
+            'widgetControlsHtml' => $widgetControlsHtml,
             'saveProgressHtml' => $saveProgressHtml,
             'manageableRevision' => $manageableRevision
         );
@@ -401,11 +401,20 @@ class Controller{
 
         \Ip\Db::publishRevision($revisionId);
 
+        
+        $revision = \Ip\Db::getRevision($revisionId);
+        
+        $lastRevision = \Ip\Db::getLastRevision($revision['zoneName'], $revision['pageId']);
+        if ($lastRevision['revisionId'] == $revision['revisionId']) {
+            $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
+        } else {
+            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$revisionId; 
+        }
 
         $data = array (
             'status' => 'success',
             'action' => '_publishPageResponse',
-            'newRevisionUrl' => $site->getCurrentElement()->getLink().'&cms_revision='.$revisionId 
+            'newRevisionUrl' => $newRevisionUrl 
         );
 
         $this->_outputAnswer($data);
