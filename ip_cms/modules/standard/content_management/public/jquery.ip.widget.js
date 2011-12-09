@@ -28,7 +28,7 @@
                     
                     if (!data.data) {
                         data.data = new Array(); //widgets don't need to worry if data variable is null or not. It is always an array
-                    }                    
+                    }
                 }else {
                     data = new Array();
                     data.data = new Array();  //widgets don't need to worry if data variable is null or not. It is always an array

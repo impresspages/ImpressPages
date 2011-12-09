@@ -79,7 +79,7 @@ class HtmlOutput {
     <meta charset="UTF-8">
     <title>ImpressPages</title>
     <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/modules/modules.css">
-    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico>
+    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>

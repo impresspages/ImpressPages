@@ -11,9 +11,17 @@ if (!defined('CMS')) exit;
 require_once(__DIR__.'/model.php');
 require_once(__DIR__.'/exception.php');
 
-class Controller{
+class Controller extends \Ip\Controller{
 
 
+    
+    public function allowAction($action) {
+        if (\Ip\Backend::loggedIn()) {
+            return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
+        } else {
+            return false;
+        }
+    }
 
     public function initManagementData(){
         global $site;
@@ -91,7 +99,8 @@ class Controller{
         if (!isset($_POST['instanceId']) ||
         !isset($_POST['position']) ||
         !isset($_POST['blockName']) ||
-        !isset($_POST['revisionId'])
+        !isset($_POST['revisionId']) ||
+        !isset($_POST['managementState'])
         ) {
             $this->_errorAnswer('Mising POST variable');
             return;
@@ -101,17 +110,36 @@ class Controller{
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
-
+        $managementState = $_POST['managementState'];
+        
 
         $record = Model::getWidgetFullRecord($instanceId);
+        
+        if (!$record)
+        {
+            $this->_errorAnswer('Unknown instance '.$instanaceId);
+            return;
+        }
+        
         Model::deleteInstance($instanceId);
-        Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
+        $newInstanceId = Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
 
+        
+        //preview and management might depend on instanceId. We need to regenerate moved widget.
+        if ($managementState) {
+            $widgetHtml = Model::generateWidgetManagement($newInstanceId);
+        } else {
+            $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
+        }
+        
         $data = array (
-            'status' => 'success'
-            );
+            'status' => 'success',
+            'widgetHtml' => $widgetHtml,
+            'oldInstance' => $instanceId,
+            'newInstanceId' => $newInstanceId
+        );
 
-            $this->_outputAnswer($data);
+        $this->_outputAnswer($data);
     }
 
     public function createWidget() {

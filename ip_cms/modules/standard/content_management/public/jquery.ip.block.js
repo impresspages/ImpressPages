@@ -47,6 +47,11 @@
                     data.position = position;
                     data.blockName = $this.data('ipBlock').name;
                     data.revisionId = $this.data('ipBlock').revisionId;
+                    if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
+                        data.managementState = 1;
+                    } else {
+                        data.managementState = 0;
+                    }
 
                     $.ajax( {
                     type : 'POST',
@@ -118,6 +123,11 @@
     },
 
     _moveWidgetResponse : function(response) {
+        var $this = $(this);
+        if (response.status == 'success') {
+            $('#ipWidget_' + response.oldInstance).replaceWith(response.widgetHtml);
+            $this.trigger('reinitRequired.ipWidget');
+        }
         // todo show error on error response
     },
 

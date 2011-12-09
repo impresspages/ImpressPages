@@ -733,7 +733,9 @@ class Site{
                         $function = $_REQUEST['a'];
                     }
                     if (method_exists($tmpModule, $function)) {
-                        call_user_func(array($tmpModule, $function));
+                        if ($tmpModule->allowAction($function)) {
+                            call_user_func(array($tmpModule, $function));
+                        }
                     } else {
                         trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$_REQUEST['a']."()) does not exitst.");
                     }

@@ -9,8 +9,16 @@ if (!defined('CMS')) exit;
 
 
 
-class Controller{
+class Controller extends \Ip\Controller{
 
+
+    public function allowAction($action) {
+        if (\Ip\Backend::loggedIn()) {
+            return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
+        } else {
+            return false;
+        }
+    }
 
     public function getPictureContainerHtml() {
         global $site;

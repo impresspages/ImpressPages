@@ -11,8 +11,14 @@ if (!defined('CMS')) exit;
 
 
 
-class Controller {
+class Controller extends \Ip\Controller{
 
+    
+
+    public function allowAction($action) {
+        return true;
+    }    
+    
     function tinymceConfig() {
         global $site;
         $data = array();
