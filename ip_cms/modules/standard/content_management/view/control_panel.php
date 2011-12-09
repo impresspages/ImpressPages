@@ -1,35 +1,31 @@
-<div class="ipAdminPanel ipAdmin">
-<?php if($manageableRevision){ ?>
+<div class="ipAdminPanel">
     <div class="ipAdminWidgets">
+<?php if(!$manageableRevision){ ?>
+        <div class="ipAdminWidgetsDisable">
+            <p>
+                This is a preview of older revision, created at (
+                    <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
+                ).
+                <a href="#">Publish this revision</a>
+                <a href="#">Duplicate and edit this revision</a>
+            </p>
+        </div>
+<?php } ?>
         <ul>
-    <?php foreach ($widgets as $widgetKey => $widget) { ?>
-            <li id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>"
-                class="ipAdminWidgetButton ipAdminWidgetButtonSelector">
+<?php foreach ($widgets as $widgetKey => $widget) { ?>
+            <li>
                 <a href="#">
                     <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
-                    <img alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
+                    <img id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>"
+                         class="ipAdminWidgetButton ipAdminWidgetButtonSelector"
+                         alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
                          src="<?php echo BASE_URL.$widget->getIcon() ?>" />
                 </a>
             </li>
-            <?php } ?>
+<?php } ?>
         </ul>
     </div>
-    <?php } else { ?>
-    <div>
-        <p>
-            This is a preview of older revision, created at (
-            <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
-            ).
-        </p>
-        <p>
-            <a>Publish this revision</a>
-        </p>
-        <p>
-            <a>Duplicate and edit this revision</a>
-        </p>
-    </div>
 
-    <?php } ?>
     <div class="ipAdminControls">
         <div class="ipgLeft">
             <span class="ipAdminControlsLabel"><?php echo $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_button_title'); ?></span>
@@ -50,7 +46,8 @@
 <?php } ?>
                 </ul>
             </div>
-            <a href="#" class="ipAdminButton ipaPublish ipActionPublish">Publish</a>
+            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish">Publish</a>
         </div>
     </div>
+
 </div>

@@ -22,7 +22,7 @@
                 var data = Object();
                 
                 //parse widget record data
-                var instanceDataInput = $this.find('.ipWidgetData input')
+                var instanceDataInput = $this.find('.ipAdminWidgetData')
                 if (instanceDataInput){
                     data = $.parseJSON(instanceDataInput.val());
                     
@@ -34,7 +34,7 @@
                     data.data = new Array();  //widgets don't need to worry if data variable is null or not. It is always an array
                 }
                 
-                if ($this.hasClass('ipWidgetManagement')) {
+                if ($this.hasClass('ipAdminWidget')) {
                     data.state = IP_WIDGET_STATE_MANAGEMENT;
                 } else {
                     data.state = IP_WIDGET_STATE_PREVIEW;
@@ -55,7 +55,8 @@
                 
                 
                 // mange action
-                $this.delegate('.ipWidget .ipWidgetManage', 'click', function(event) {
+                $this.delegate('.ipWidget .ipActionWidgetManage', 'click', function(event) {
+                    event.preventDefault();
                     $(this).trigger('manageClick.ipWidget');
                 });
                 $this.bind('manageClick.ipWidget', function(event) {
@@ -63,7 +64,8 @@
                 });
 
                 // save acion
-                $this.delegate('.ipWidget .ipWidgetSave', 'click', function(event) {
+                $this.delegate('.ipWidget .ipActionWidgetSave', 'click', function(event) {
+                    event.preventDefault();
                     $(this).trigger('saveWidget.ipWidget');
                 });
                 $this.bind('saveWidget.ipWidget', function(event) {
@@ -71,7 +73,8 @@
                 });
 
                 // cancel acion
-                $this.delegate('.ipWidget .ipWidgetCancel', 'click', function(event) {
+                $this.delegate('.ipWidget .ipActionWidgetCancel', 'click', function(event) {
+                    event.preventDefault();
                     $(this).trigger('cancelWidget.ipWidget');
                 });
                 $this.bind('cancelWidget.ipWidget', function(event) {
@@ -192,7 +195,7 @@
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
-                var widgetInputs = $this.find('.ipWidgetManagementBody').find(':input');
+                var widgetInputs = $this.find('.ipAdminWidgetBody').find(':input');
                 var data = Object();
                 widgetInputs.each(function(index) {
                     data[$(this).attr('name')] = $(this).val();
@@ -223,7 +226,7 @@
             data.a = 'updateWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
-            data.layout = $this.find('.ipWidgetLayoutSelect').val();
+            data.layout = $this.find('.ipAdminWidgetLayouts').val();
 
             $.ajax( {
             type : 'POST',

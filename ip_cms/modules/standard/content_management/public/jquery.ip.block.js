@@ -22,7 +22,7 @@
                 revert : true,
                 dropOnEmpty : true,
                 forcePlaceholderSize : true,
-                handle : '.ipWidgetControls .ipWidgetMove',
+                handle : '.ipAdminWidgetControls .ipActionWidgetMove',
 
                 // this event is fired twice by both blocks, when element is moved from one block to another.
                 update : function(event, ui) {
@@ -86,7 +86,7 @@
                 $this.find('.ipWidget').ipWidget(widgetOptions);
                 $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
 
-                $this.delegate('.ipWidget .ipWidgetDelete', 'click', function(event) {
+                $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
                     $(this).trigger('deleteClick.ipBlock');
                 });
 
