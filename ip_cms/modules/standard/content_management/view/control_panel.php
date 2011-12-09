@@ -32,30 +32,25 @@
     <?php } ?>
     <div class="ipAdminControls">
         <div class="ipgLeft">
-            
+            <span class="ipAdminControlsLabel"><?php echo $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'man_additional_button_title'); ?></span>
+            <input type="text" class="ipAdminInput" value="<?php echo htmlspecialchars('variable'); ?>" />
+            <a href="#" class="ipAdminButton ipaOptions"><span><?php echo $parametersMod->getValue('standard', 'content_management', 'admin_translations','advanced'); ?></span></a>
         </div>
         <div class="ipgRight">
-            <a href="#" class="ipAdminButton">Save</a>
-            <a href="#" class="ipAdminButton ipaPublish">Publish</a>
-        </div>
-    </div>
-    <div class="ipRevisionsControl">
-        <div>
-            <select id="ipRevisionSelect">
-            <?php foreach ($revisions as $revisionKey => $revision){ ?>
-                <option
-                <?php echo $revision['revisionId'] == $currentRevision['revisionId'] ? ' selected="selected" ' : '' ?>
-                    value="<?php echo $managementUrls[$revisionKey]; ?>">
-                    <?php echo (int)$revision['revisionId'].' - '.date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' (published) ' : ''; ?>
-                </option>
-                <?php } ?>
-            </select>
-        </div>
-        <div>
-            <span class="ipPageSave">Save (create revision)</span>
-        </div>
-        <div>
-            <span class="ipPagePublish">Publish</span>
+            <a href="#" class="ipAdminButton ipaSave ipActionSave">Save</a>
+            <div class="ipAdminRevisions">
+                <a href="#" class="ipAdminButton ipaDropdown"><span>&nbsp;</span></a>
+                <ul>
+<?php foreach ($revisions as $revisionKey => $revision){ ?>
+                    <li<?php echo $revision['revisionId'] == $currentRevision['revisionId'] ? ' class="ipaActive" ' : '' ?>>
+                        <a href="<?php echo $managementUrls[$revisionKey]; ?>">
+                            <?php echo (int)$revision['revisionId'].' - '.date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' (published) ' : ''; ?>
+                        </a>
+                    </li>
+<?php } ?>
+                </ul>
+            </div>
+            <a href="#" class="ipAdminButton ipaPublish ipActionPublish">Publish</a>
         </div>
     </div>
 </div>

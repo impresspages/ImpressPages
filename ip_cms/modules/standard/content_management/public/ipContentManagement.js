@@ -17,11 +17,11 @@ $(document).ready(function() {
 function ipInitBlocks(event, options) {
     if (options.manageableRevision) {
         $('.ipBlock').ipBlock(options);
-        $ipObject.bind('pageSaveStart.ipContentManagement', ipPageSaveStart);
+        $ipObject.bind('pageSaveStart.ipContentManagement', ipActionSaveStart);
     }
 }
 
-function ipPageSaveStart(event) {
+function ipActionSaveStart(event) {
     $('.ipBlock').ipBlock('pageSaveStart');
 }
 

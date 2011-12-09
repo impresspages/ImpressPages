@@ -9,6 +9,7 @@
     float: right;
 }
 
+/* draggable widgets and controls */
 .ipAdminPanelContainer {
     display: block;
     height: 153px;
@@ -16,13 +17,14 @@
 .ipAdminPanel {
     background-color: #FBFCFC;
     height: 153px;
+    min-width: 800px;
     position: fixed;
     width: 100%;
     z-index: 1000;
 }
 .ipAdminWidgets {
-  height: 91px;
-  padding: 14px 50px 0 28px;
+    height: 91px;
+    padding: 14px 50px 0 28px;
 }
 .ipAdminWidgets ul {
     list-style: none;
@@ -80,13 +82,28 @@
     border-bottom: 1px solid #000;
     box-shadow: inset 0px 3px 3px -2px #a8a8a8;
     height: 39px;
-    padding-top: 8px;
+    padding: 8px 10px 0;
+}
+.ipAdminControlsLabel {
+    color: #000;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+}
+.ipAdminInput {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    height: 26px;
+    margin: 0 10px;
+    padding: 0 2px;
+    width: 360px;
 }
 .ipAdminButton {
     background: #e0e0e0;
-    background: -moz-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
     background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
     border: 1px solid #b8b8b8;
+    border-radius: 2px;
     color: #2f313f;
     display: inline-block;
     font-size: 13px;
@@ -95,9 +112,11 @@
     text-decoration: none;
     text-shadow: 1px 1px 0 rgba(255,255,255,.66);
 }
+.ipAdminButton:hover {
+    background: #c0c0c0;
+}
 .ipAdminButton.ipaPublish {
     background: #77b000;
-    background: -moz-linear-gradient(top, #77b000 0%, #569100 100%);
     background: linear-gradient(top, #77b000 0%, #569100 100%);
     box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,.1);
     color: #fff;
@@ -106,8 +125,77 @@
     text-shadow: 1px 1px 0 rgba(0,0,0,.47);
     text-transform: uppercase;
 }
-.ipAdminControls .ipAdminButton {
+.ipAdminButton.ipaPublish:hover {
+    background: #559000;
+    background: linear-gradient(top, #559000 0%, #76af00 100%);
+    box-shadow: none;
+}
+.ipAdminButton.ipaOptions {
+    padding: 0;
+}
+.ipAdminButton.ipaOptions span {
+    background: url(icon_options.png) no-repeat 8px center;
+    display: inline-block;
+    padding: 0 18px 0 32px;
+}
+.ipAdminButton.ipaSave {
+    border-radius: 2px 0px 0px 2px;
+    float: left;
+}
+.ipAdminButton.ipaDropdown {
+    border-left: none;
+    border-radius: 0px 2px 2px 0px;
+    display: inline-block;
+    height: 30px;
+}
+.ipAdminButton.ipaDropdown span {
+    background: url(icon_down.png) no-repeat center center;
+    display: inline-block;
+    width: 9px;
+}
+.ipAdminButton.ipaDropdown:hover {
+    background-color: #c0c0c0;
+}
+.ipAdminRevisions {
+    display: inline-block;
     margin-right: 10px;
+    position: relative;
+}
+.ipAdminRevisions ul {
+    background-color: #fff;
+    border: 1px solid #b8b8b8;
+    display: none;
+    list-style: none;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    top: 31px;
+    width: 210px;
+}
+.ipAdminRevisions li a {
+    color: #2f313f;
+    display: block;
+    font-size: 12px;
+    padding: 4px 7px;
+    text-decoration: none;
+}
+.ipAdminRevisions li a:hover {
+    background-color: #dbdbdb;
+    color: #000;
+}
+.ipAdminRevisions:hover ul {
+    display: block;
+}
+
+/* vendor specific styles; to remove in the future */
+.ipAdminButton {
+    background: -moz-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+}
+.ipAdminButton.ipaPublish {
+    background: -moz-linear-gradient(top, #77b000 0%, #569100 100%);
+}
+.ipAdminButton.ipaPublish:hover {
+    background: -moz-linear-gradient(top, #559000 0%, #76af00 100%);
 }
 
 
@@ -117,27 +205,6 @@
 
 
 
-
-
-
-
-
-
-.ipWidgetList {
-	float: left;
-}
-
-.ipWidgetList li {
-	float: left;
-	width: 64px;
-	heigth: 46px;
-	margin: 0 0 5px 5px;
-	list-style: none;
-}
-
-.ipRevisionsControl {
-	float: right;
-}
 
 .ipWidget {
 	min-height: 10px;

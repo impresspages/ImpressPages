@@ -57,40 +57,35 @@
 
         initResponse : function(response) {
             return this.each(function() {        	
-	            if (response.status == 'success') {
-	            	var $this = $(this);
-	                $('body').prepend(response.controlPanelHtml);
-	                $('body').append(response.saveProgressHtml);
-	                
-	                var options = new Object;
-	                options.zoneName = ip.zoneName;
-	                options.pageId = ip.pageId;
-	                options.revisionId = ip.revisionId;
-	                options.widgetControlsHtml = response.widgetControlsHtml;
-	                options.contentManagementObject = $this;
-	                options.manageableRevision = response.manageableRevision;
-	                
+                if (response.status == 'success') {
+                    var $this = $(this);
+                    $('body').prepend(response.controlPanelHtml);
+                    $('body').append(response.saveProgressHtml);
 
-	                
-	                $('.ipAdminWidgetButtonSelector').ipAdminWidgetButton();
-	                
-	                
-	                $('.ipPageSave').bind('click', function(event){$(this).trigger('savePageClick.ipContentManagement');});
-	                $('.ipPagePublish').bind('click', function(event){$(this).trigger('publishClick.ipContentManagement');});
-	                $('#ipRevisionSelect').bind('change', function(event){document.location = $(event.currentTarget).val(); });
-	                
+                    var options = new Object;
+                    options.zoneName = ip.zoneName;
+                    options.pageId = ip.pageId;
+                    options.revisionId = ip.revisionId;
+                    options.widgetControlsHtml = response.widgetControlsHtml;
+                    options.contentManagementObject = $this;
+                    options.manageableRevision = response.manageableRevision;
 
-	                $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
-	                $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publish');});
-	                
-	                $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
+                    $('.ipAdminWidgetButtonSelector').ipAdminWidgetButton();
+
+                    $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
+                    $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
+
+                    $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
+                    $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publish');});
+
+                    $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
 
                     $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
-	                
+
                     $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
-                    
+
                     $this.trigger('initFinished.ipContentManagement', options);
-	            }
+                }
             });
         },
 
