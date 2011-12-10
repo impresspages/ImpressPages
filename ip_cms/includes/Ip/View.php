@@ -75,7 +75,35 @@ class View{
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
     }
+    
+    /**
+     * Escape and echo text
+     * @param string $text
+     */
+    public function esc($text){
+        echo htmlspecialchars($text);
+    }
+    
+    /**
+     * Escape and echo parameter
+     * @param string $parameterKey
+     */    
+    public function escPar($parameterKey){
+        $this->esc($this->par($parameterKey));
+    }
 
+    public function par($parameterKey){
+        global $parametersMod;
+        $parts = explode('/', $parameterKey);
+        if (count($parts) != 4) {
+            if (DEVELOPMENT_ENVIRONMENT) {
+                throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
+            } else {
+                return '';
+            }
+        }
+        return $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3]);
+    }
 
     private static function findFile($file, $sourceFile) {
         if (strpos($file, BASE_DIR) !== 0) {
@@ -150,6 +178,11 @@ class View{
         return $output;
 
     }
+    
+    public function __toString()
+    {
+        return $this->render();
+    }    
 
     public function setDoctype ($doctype) {
         $this->doctype = $doctype;

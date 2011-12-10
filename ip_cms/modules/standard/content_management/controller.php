@@ -16,11 +16,81 @@ class Controller extends \Ip\Controller{
 
     
     public function allowAction($action) {
-        if (\Ip\Backend::loggedIn()) {
-            return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
-        } else {
-            return false;
+        switch($action) {
+            case 'getPageOptionsHtml':
+            case 'savePageOptions':
+                if (\Ip\Backend::loggedIn()) {
+                    return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management') || \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'menu_management');
+                } else {
+                    return false;
+                }
+                
+                break;
+            default:
+                if (\Ip\Backend::loggedIn()) {
+                    return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
+                } else {
+                    return false;
+                }
         }
+    }
+    
+    public function getPageOptionsHtml() {
+        global $site;
+        global $parametersMod;
+        if (!isset($_REQUEST['pageId'])) {
+            $this->_errorAnswer('Page id is not set');
+            return;
+        }
+
+        $pageId = $_REQUEST['pageId'];
+
+        if (!isset($_REQUEST['zoneName'])) {
+            $this->_errorAnswer('Zone name is not set');
+            return;
+        }
+
+        $zone = $site->getZone($_REQUEST['zoneName']);
+
+        if (!($zone)) {
+            $this->_errorAnswer('Can\'t find zone');
+            return;
+        }
+
+        $element = $zone->getElement($pageId);
+
+        if (! $element) {
+            $this->_errorAnswer('Page does not exist');
+            return;
+        }
+        
+        $data = array(
+            'element' => $element
+        );
+        
+        $tabs = array();
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
+        $content = \Ip\View::create('view/page_options_general.php', $data)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+        $content = \Ip\View::create('view/page_options_seo.php', $data)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
+        $content = \Ip\View::create('view/page_options_advanced.php', $data)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+        
+        
+        $optionsHtml = \Ip\View::create('view/page_options.php', array('tabs' => $tabs))->render();
+        $answer = array(
+            'status' => 'success',
+            'optionsHtml' => $optionsHtml
+        );
+        self::_outputAnswer($answer);
+    }
+    
+    public function savePageOptions() {
     }
 
     public function initManagementData(){

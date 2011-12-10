@@ -56,7 +56,7 @@
         // ********INIT*********
 
         initResponse : function(response) {
-            return this.each(function() {        	
+            return this.each(function() {
                 if (response.status == 'success') {
                     var $this = $(this);
                     $('body').prepend(response.controlPanelHtml);
@@ -71,6 +71,8 @@
                     options.manageableRevision = response.manageableRevision;
 
                     $('.ipAdminWidgetButtonSelector').ipAdminWidgetButton();
+                    
+                    $('.ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
 
                     $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
                     $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
@@ -83,12 +85,31 @@
                     $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
 
                     $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
+                    
+                    $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('pageOptions');});
 
                     $this.trigger('initFinished.ipContentManagement', options);
                 }
             });
         },
 
+        // *********PAGE OPTIONS***********//
+        
+        pageOptions : function() {
+            return this.each(function() {
+                var $this = $(this);
+                if ($('.ipaOptionsDialog').length) {
+                    $this.find('.ipaOptionsDialog').dialog();
+                } else {
+                    $('.ipaOptions').append('<div class="ipaOptionsDialog" style="display: none;"><div class="ipaOptionsDialogForm"></div></div>');
+                    $('.ipaOptionsDialogForm').ipPageOptions();
+                    $('.ipaOptionsDialogForm').ipPageOptions('getData', ip.pageId, ip.zoneName);
+                    $('.ipaOptionsDialog').dialog();
+                }
+                
+            });
+        },
+        
         // *********SAVE**********//
         
         saveStart : function() {
@@ -181,9 +202,9 @@
         
         addSaveJob : function (jobName, saveJobObject) {
             return this.each(function() {  
-	        	var $this = $(this);	
-	        	$this.data('ipContentManagement').saveJobs[jobName] = saveJobObject;
-	        	$this.ipContentManagement('_displaySaveProgress');
+                var $this = $(this);    
+                $this.data('ipContentManagement').saveJobs[jobName] = saveJobObject;
+                $this.ipContentManagement('_displaySaveProgress');
             });
         },
 
@@ -212,8 +233,8 @@
     
         publish : function(event){
             return this.each(function() {  
-            	var $this = $(this);
-            	
+                var $this = $(this);
+                
                 data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
@@ -227,7 +248,7 @@
                     context : $this,
                     success : methods._publishPageResponse,
                     dataType : 'json'
-                });                  	
+                });                      
             });
         },
         
@@ -242,27 +263,27 @@
 
         _displaySaveProgress : function () {
             return this.each(function() {
-	        	var $this = $(this);
-	        	var percentage = 0;
-	        	
-	        	var timeLeft = 0;
-	        	var timeSpent = 0;
-	        	var progress = 0;
-	        	
-	        	var saveJobs = $(this).data('ipContentManagement').saveJobs;
-	
-	        	
-	        	for (var i in saveJobs) {
-	        		var curJob = saveJobs[i];
-	        		timeLeft = timeLeft + curJob.getTimeLeft();
-	        		timeSpent = timeSpent + curJob.getTimeLeft() / (1 - curJob.getProgress()) * curJob.getProgress();	        		
-	        	}
-	        	
-	        	var overallProgress = timeSpent / (timeLeft + timeSpent);
-	        	
+                var $this = $(this);
+                var percentage = 0;
+                
+                var timeLeft = 0;
+                var timeSpent = 0;
+                var progress = 0;
+                
+                var saveJobs = $(this).data('ipContentManagement').saveJobs;
+    
+                
+                for (var i in saveJobs) {
+                    var curJob = saveJobs[i];
+                    timeLeft = timeLeft + curJob.getTimeLeft();
+                    timeSpent = timeSpent + curJob.getTimeLeft() / (1 - curJob.getProgress()) * curJob.getProgress();                    
+                }
+                
+                var overallProgress = timeSpent / (timeLeft + timeSpent);
+                
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', overallProgress*100);
-	        	
-	        	// console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft );
+                
+                // console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft );
             });
         }
 

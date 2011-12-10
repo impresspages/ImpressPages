@@ -1,8 +1,8 @@
 <?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license	GNU/GPL, see ip_license.html
+ * @package    ImpressPages
+ * @copyright    Copyright (C) 2011 ImpressPages LTD.
+ * @license    GNU/GPL, see ip_license.html
  */
 namespace Modules\standard\menu_management;
 
@@ -103,8 +103,8 @@ class BackendWorker {
 
                 if ($parentId == null || $parentId == '') {
                     $answer[] = array(
-        				'attr' => array('id' => $this->_jsTreeId(0), 'rel' => 'website', 'websiteId' => 0, 'pageId' => 0),
-        				'data' => BASE_URL,
+                        'attr' => array('id' => $this->_jsTreeId(0), 'rel' => 'website', 'websiteId' => 0, 'pageId' => 0),
+                        'data' => BASE_URL,
                         'state' => 'open',
                         'children' => $this->_getList('website', 0, null, null, 0)
 
@@ -112,10 +112,10 @@ class BackendWorker {
 
                     foreach($remotes as $key => $remote) {
                         $answer[] = array(
-              				'attr' => array('id' => $this->_jsTreeId($key + 1), 'rel' => 'website', 'websiteId' => $key + 1, 'pageId' => $key + 1),
-              				'data' => $remote['url'],
-              				'state' => 'closed'
-                		);
+                              'attr' => array('id' => $this->_jsTreeId($key + 1), 'rel' => 'website', 'websiteId' => $key + 1, 'pageId' => $key + 1),
+                              'data' => $remote['url'],
+                              'state' => 'closed'
+                        );
                     }
 
                 }
@@ -135,16 +135,16 @@ class BackendWorker {
                     foreach ($languages as $languageKey => $language) {
                         $jsTreeId = $this->_jsTreeId($parentWebsiteId, $language['id']);
                         $page = array(
-              				'attr' => array('id' => $jsTreeId, 'rel' => 'language', 'websiteId' => $parentWebsiteId, 'languageId' => $language['id'], 'pageId' => $language['id']),
-              				'data' => $language['d_short'] . '', //transform null into empty string. Null break JStree into infinite loop 
-              				'state' => 'closed'
-                		);
+                              'attr' => array('id' => $jsTreeId, 'rel' => 'language', 'websiteId' => $parentWebsiteId, 'languageId' => $language['id'], 'pageId' => $language['id']),
+                              'data' => $language['d_short'] . '', //transform null into empty string. Null break JStree into infinite loop 
+                              'state' => 'closed'
+                        );
 
-                		if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
-                		    $page['state'] = 'open';
-                		    $page['children'] = $this->_getList('language', $parentWebsiteId, $language['id'], null, $language['id']);
-                		}
-                		$answer[] = $page;
+                        if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+                            $page['state'] = 'open';
+                            $page['children'] = $this->_getList('language', $parentWebsiteId, $language['id'], null, $language['id']);
+                        }
+                        $answer[] = $page;
 
                     }
                 }
@@ -173,7 +173,7 @@ class BackendWorker {
                         if($zoneElement == null) { /*try to create*/
                             Db::createRootZoneElement($zone['id'], $parentId);
                             $zoneElement = Db::rootContentElement($zone['id'], $parentId);
-                            if($zoneElement == null) {	/*fail to create*/
+                            if($zoneElement == null) {    /*fail to create*/
                                 trigger_error("Can't create root zone element.");
                                 return false;
                             }
@@ -187,16 +187,16 @@ class BackendWorker {
                     $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElementId);
 
                     $page = array (
-        				'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElementId),
-        				'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-        				'state' => 'closed'
-        				);
+                        'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $zone['name'], 'pageId' => $zoneElementId),
+                        'data' => $zone['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
+                        'state' => 'closed'
+                    );
 
-        				if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
-        				    $page['state'] = 'open';
-        				    $page['children'] = $this->_getList('zone', $parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElementId);
-        				}
-        				$answer[] = $page;
+                        if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+                        $page['state'] = 'open';
+                            $page['children'] = $this->_getList('zone', $parentWebsiteId, $parentLanguageId, $zone['name'], $zoneElementId);
+                        }
+                        $answer[] = $page;
 
                 }
 
@@ -230,9 +230,9 @@ class BackendWorker {
 
 
                     $page = array (
-        				'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'disabled' => $disabled, 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $child['id']),
-        				'data' => array ('title' => $child['button_title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop 
-        				'state' => 'closed',
+                        'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'disabled' => $disabled, 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $child['id']),
+                        'data' => array ('title' => $child['button_title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop 
+                        'state' => 'closed',
                         'icon' => 'XXX'
                         );
                         //    'icon' => BASE_URL.MODULE_DIR.'standard/menu_management/img/folder.png'
@@ -546,7 +546,7 @@ class BackendWorker {
             if($parentPageId === false) { /*try to create*/
                 Db::createRootZoneElement($zone['id'], $language['id']);
                 $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());
-                if($parentPageId === false) {	/*fail to create*/
+                if($parentPageId === false) {    /*fail to create*/
                     trigger_error("Can't create root zone element.");
                     return false;
                 }
