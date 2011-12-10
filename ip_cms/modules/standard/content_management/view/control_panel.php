@@ -6,8 +6,8 @@
                 This is a preview of older revision, created at (
                     <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
                 ).
-                <a href="#">Publish this revision</a>
-                <a href="#">Duplicate and edit this revision</a>
+                <a href="#" class="ipActionPublish">Publish this revision</a>
+                <a href="#" class="ipActionSave">Duplicate and edit this revision</a>
             </p>
         </div>
 <?php } ?>
