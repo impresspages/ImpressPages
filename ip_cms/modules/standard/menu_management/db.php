@@ -162,8 +162,11 @@ class Db {
      * @param array $params
      */
     public static function updatePage($pageId, $params){
+        global $site;
         $values = array();
 
+        $oldPage = self::getPage($pageId);
+        
         if (isset($params['buttonTitle']))
         $values[] = 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
 
@@ -176,13 +179,33 @@ class Db {
         if (isset($params['description']))
         $values[] =  'description = \''.mysql_real_escape_string($params['description']).'\'';
 
-        if (isset($params['url']))
-        $values[] =  'url= \''.mysql_real_escape_string($params['url']).'\'';
+        if (isset($params['url'])){
+            if ($params['url'] == '') {
+                if (isset($params['pageTitle']) && $params['pageTitle'] != '') {
+                    $params['url'] = self::makeUrl($params['pageTitle'], $pageId);
+                } else {
+                    if (isset($params['buttonTitle']) && $params['buttonTitle'] != '') {
+                        $params['url'] = self::makeUrl($params['buttonTitle'], $pageId);
+                    } else {
+                        $params['url'] = self::makeUrl('page', $pageId);
+                    }
+                }
+            } else {
+                $tmpUrl = str_replace("/", "-", $params['url']);
+                $i = 1;
+                while (!self::availableUrl($tmpUrl, $pageId)) {
+                    $tmpUrl = $params['url'].'-'.$i;
+                    $i++;
+                }
+                $params['url'] = $tmpUrl;
+            }
+            $values[] =  'url= \''.mysql_real_escape_string($params['url']).'\'';
+        }
 
-        if (isset($params['createdOn']))
+        if (isset($params['createdOn']) && strtotime($params['createdOn']) !== false)
         $values[] =  'created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
 
-        if (isset($params['lastModified']))
+        if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false)
         $values[] =  'last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
 
         if (isset($params['type']))
@@ -206,6 +229,13 @@ class Db {
         $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.implode(', ', $values).' WHERE `id` = '.(int)$pageId.' ';
         $rs = mysql_query($sql);
         if ($rs) {
+            
+            if(isset($params['url']) && $oldPage['url'] != $params['url']){
+                $newElement = $zone->getElement($pageId);
+                $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldPage->getLink(true), 'new_url'=>$newPage->getLink(true)));
+            }
+            
+            
             return true;
         } else {
             trigger_error($sql.' '.mysql_error());

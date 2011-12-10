@@ -21,10 +21,10 @@
         },
         
         
-        getData : function (pageId, zoneName) {
+        refreshPageData : function (pageId, zoneName) {
             var $this = this;
             
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'getPageOptionsHtml';
@@ -36,12 +36,12 @@
                 url : document.location,
                 data : data,
                 context : $this,
-                success : methods._getDataResponse,
+                success : methods._refreshPageDataResponse,
                 dataType : 'json'
             });            
         },
         
-        _getDataResponse : function (response) {
+        _refreshPageDataResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
                 $this.html(response.optionsHtml);
@@ -49,6 +49,26 @@
                 $this.tabs();
             }
             console.log('response');
+        },
+        
+        
+        getPageOptions : function () {
+
+            var data = Object();
+
+            data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
+            data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
+            data.createdOn = $('#formGeneral input[name="createdOn"]').val();
+            data.lastModified = $('#formGeneral input[name="lastModified"]').val();
+
+            data.pageTitle = $('#formSEO input[name="pageTitle"]').val();
+            data.keywords = $('#formSEO textarea[name="keywords"]').val();
+            data.description = $('#formSEO textarea[name="description"]').val();
+            data.url = $('#formSEO input[name="url"]').val();
+            data.type = $('#formAdvanced input:checked[name="type"]').val();
+            data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
+
+            return data;
         }
         
     };

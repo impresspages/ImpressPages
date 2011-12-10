@@ -23,6 +23,7 @@
  
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
+                        optionsChanged : false
                     }); 
                     
                     
@@ -31,7 +32,7 @@
                         $('body').prepend($controlsBgDiv);
                     }
                 
-                    data = Object();
+                    var data = Object();
                     data.g = 'standard';
                     data.m = 'content_management';
                     data.a = 'initManagementData';
@@ -98,12 +99,17 @@
         pageOptions : function() {
             return this.each(function() {
                 var $this = $(this);
+                
+                var data = $this.data('ipContentManagement');
+                data.optionsChanged = true;
+                $this.data('ipContentManagement', data);
+                
                 if ($('.ipaOptionsDialog').length) {
                     $this.find('.ipaOptionsDialog').dialog();
                 } else {
                     $('.ipaOptions').append('<div class="ipaOptionsDialog" style="display: none;"><div class="ipaOptionsDialogForm"></div></div>');
                     $('.ipaOptionsDialogForm').ipPageOptions();
-                    $('.ipaOptionsDialogForm').ipPageOptions('getData', ip.pageId, ip.zoneName);
+                    $('.ipaOptionsDialogForm').ipPageOptions('refreshPageData', ip.pageId, ip.zoneName);
                     $('.ipaOptionsDialog').dialog();
                 }
                 
@@ -167,10 +173,13 @@
                 }
                 
                 
-                data = Object();
+                var data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'savePage';
+                if ($this.data('ipContentManagement').optionsChanged){
+                    data.pageOptions = $('.ipaOptionsDialogForm').ipPageOptions('getPageOptions');
+                }
                 data.revisionId = ip.revisionId;
 
 
@@ -183,7 +192,7 @@
                     context : $this,
                     success : methods._savePageResponse,
                     dataType : 'json'
-                });                     
+                });
             });
         },
         
@@ -194,7 +203,7 @@
                 var tmpData = $this.data('ipContentManagement');
                 tmpData.saving = false;
                 $this.data('ipContentManagement', tmpData);
-                                
+
                 // show error
                 $( "#ipSaveProgress" ).dialog('close');
             }
@@ -235,7 +244,7 @@
             return this.each(function() {  
                 var $this = $(this);
                 
-                data = Object();
+                var data = Object();
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'publishPage';
@@ -248,7 +257,7 @@
                     context : $this,
                     success : methods._publishPageResponse,
                     dataType : 'json'
-                });                      
+                });
             });
         },
         

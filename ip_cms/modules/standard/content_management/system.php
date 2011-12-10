@@ -47,7 +47,8 @@ class System{
                 $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
 
                 $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
-
+                $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/page_options.css');
+                
         }
 
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');

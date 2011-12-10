@@ -10,6 +10,7 @@ if (!defined('CMS')) exit;
 
 require_once(__DIR__.'/model.php');
 require_once(__DIR__.'/exception.php');
+require_once(BASE_DIR.MODULE_DIR.'standard/menu_management/db.php');
 
 class Controller extends \Ip\Controller{
 
@@ -18,7 +19,6 @@ class Controller extends \Ip\Controller{
     public function allowAction($action) {
         switch($action) {
             case 'getPageOptionsHtml':
-            case 'savePageOptions':
                 if (\Ip\Backend::loggedIn()) {
                     return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management') || \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'menu_management');
                 } else {
@@ -90,8 +90,6 @@ class Controller extends \Ip\Controller{
         self::_outputAnswer($answer);
     }
     
-    public function savePageOptions() {
-    }
 
     public function initManagementData(){
         global $site;
@@ -473,10 +471,24 @@ class Controller extends \Ip\Controller{
             return;
         }
         $revisionId = $_POST['revisionId'];
+        
+        
+        if (isset($_POST['pageOptions'])){
+            $pageOptions = $_POST['pageOptions'];
+        }
 
+        $revision = \Ip\Db::getRevision($revisionId);
+        
+        if (!$revision) {
+            return;
+        }
+        
         $newRevisionId = \Ip\Db::duplicateRevision($revisionId);
 
-
+        if (isset($pageOptions)) {
+            \Modules\standard\menu_management\Db::updatePage($revision['pageId'], $pageOptions);
+        }
+        
         $data = array (
             'status' => 'success',
             'action' => '_savePageResponse',

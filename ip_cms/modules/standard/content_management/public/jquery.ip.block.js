@@ -152,7 +152,7 @@
 
             var $this = $(this);
 
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'deleteWidget';
@@ -180,7 +180,7 @@
 
             var $this = $(this);
 
-            data = Object();
+            var data = Object();
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'createWidget';

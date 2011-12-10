@@ -430,25 +430,6 @@ class BackendWorker {
         }
         $pageId = $_REQUEST['pageId'];
 
-        //make url
-        if ($_POST['url'] == '') {
-            if ($_POST['pageTitle'] != '') {
-                $_POST['url'] = Db::makeUrl($_POST['pageTitle'], $pageId);
-            } else {
-                if ($_POST['buttonTitle'] != '') {
-                    $_POST['url'] = Db::makeUrl($_POST['buttonTitle'], $pageId);
-                }
-            }
-        } else {
-            $tmpUrl = str_replace("/", "-", $_POST['url']);
-            $i = 1;
-            while (!Db::availableUrl($tmpUrl, $_POST['pageId'])) {
-                $tmpUrl = $_POST['url'].'-'.$i;
-                $i++;
-            }
-            $_POST['url'] = $tmpUrl;
-        }
-        //end make url
 
         if (strtotime($_POST['createdOn']) === false) {
             $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
@@ -465,15 +446,7 @@ class BackendWorker {
 
         if (empty($answer['errors'])) {
             $zone = $site->getZone($_POST['zoneName']);
-            $oldPage = $zone->getElement($_POST['pageId']);
-
             Db::updatePage($_POST['pageId'], $_POST);
-
-            if($oldPage->getUrl() != $_POST['url']){
-                $newElement = $zone->getElement($_POST['pageId']);
-                $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldPage->getLink(true), 'new_url'=>$newPage->getLink(true)));
-            }
-
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';

@@ -228,7 +228,7 @@ function editPage () {
     var tree = jQuery.jstree._reference('#tree');
     var node = tree.get_selected();
 
-    data = Object();
+    var data = Object();
     data.id = node.attr('id');
     data.pageId = node.attr('pageId');
     data.zoneName = node.attr('zoneName');
@@ -315,7 +315,7 @@ function createPage() {
   $('#createPageForm').dialog('close');
   
   
-  data = Object();
+  var data = Object();
   
   var node = treeSelectedNode('#tree');
 
@@ -375,7 +375,7 @@ function deletePageConfirm() {
 
   if (confirm(deleteConfirmText)) {
 
-    data = Object();
+    var data = Object();
     data.id = node.attr('id');
     data.pageId = node.attr('pageId');
     data.zoneName = node.attr('zoneName');
@@ -498,8 +498,7 @@ function updatePageFormResponse(response) {
 
     $('#formGeneral input[name="buttonTitle"]').val(response.page.buttonTitle);
     $('#formGeneral input[name="visible"]').attr('checked', response.page.visible == 1 ? true : false);
-    $('#formGeneral input[name="createdOn"]').val(
-        response.page.createdOn.substr(0, 10));
+    $('#formGeneral input[name="createdOn"]').val(response.page.createdOn.substr(0, 10));
     $('#formGeneral input[name="lastModified"]').val(
         response.page.lastModified.substr(0, 10));
 
@@ -507,9 +506,7 @@ function updatePageFormResponse(response) {
     $('#formSEO textarea[name="keywords"]').val(response.page.keywords);
     $('#formSEO textarea[name="description"]').val(response.page.description);
     $('#formSEO input[name="url"]').val(response.page.url);
-    $(
-        '#formAdvanced input[name="type"][name="type"][value="'
-            + response.page.type + '"]').attr('checked', 1);
+    $('#formAdvanced input[name="type"][name="type"][value="' + response.page.type + '"]').attr('checked', 1);
     $('#formAdvanced input[name="redirectURL"]').val(response.page.redirectURL);
 
     $("#pageProperties form").bind("submit", function() {
@@ -530,7 +527,7 @@ function updatePageFormResponse(response) {
 function updatePage() {
   var tree = jQuery.jstree._reference('#tree');
 
-  data = Object();
+  var data = Object();
 
   data.pageId = tree.selectedPageId; // we have stored this ID before
   data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
@@ -744,7 +741,7 @@ function treePopupSelect(event, data) {
   var tree = jQuery.jstree._reference('#treePopup');
   var node = tree.get_selected();
 
-  data = Object();
+  var data = Object();
   data.id = node.attr('id');
   data.pageId = node.attr('pageId');
   data.zoneName = node.attr('zoneName');

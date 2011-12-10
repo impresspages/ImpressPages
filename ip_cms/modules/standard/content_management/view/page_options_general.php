@@ -1,7 +1,7 @@
 <form id="formGeneral">
     <p class="field">
         <label for="generalButtonTitle">
-            <?php $this->escPar('standard/menu_management/admin_translations/button_title')?>.'
+            <?php $this->escPar('standard/menu_management/admin_translations/button_title')?>
         </label>
         <input id="generalButtonTitle" name="buttonTitle" value="<?php $this->esc($element->getButtonTitle()) ?>" />
         <br />
@@ -28,5 +28,4 @@
         </span>
         <input id="generalLastModified" name="lastModified" value="<?php $this->esc(substr($element->getLastModified(), 0, 10)) ?>" /><br />
     </p>
-    <input class="submit" type="submit" value="<?php $this->escPar('standard/menu_management/admin_translations/save')?>" />
 </form>
