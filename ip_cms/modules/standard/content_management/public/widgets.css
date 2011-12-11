@@ -263,7 +263,7 @@
 .ipAdminWidget .ipaTitle {
     float: left;
 }
-.ipAdminWidgetLayouts {
+.ipAdminWidget .ipaLayouts {
     float: right;
 }
 .ipAdminWidget .ipaBody {}

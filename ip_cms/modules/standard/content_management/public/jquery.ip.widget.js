@@ -226,7 +226,7 @@
             data.a = 'updateWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
-            data.layout = $this.find('.ipAdminWidgetLayouts').val();
+            data.layout = $this.find('.ipaLayouts').val();
 
             $.ajax( {
             type : 'POST',

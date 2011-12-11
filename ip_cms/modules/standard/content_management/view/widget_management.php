@@ -1,7 +1,7 @@
 <div id="ipWidget-<?php echo $widgetRecord['instanceId']; ?>" class="ipWidget ipAdminWidget ipAdminWidget-<?php echo $widgetRecord['name']; ?> ipLayout-<?php echo $widgetRecord['layout']; ?>">
     <div class="ipaHeader ipgClear">
         <span class="ipaTitle"><?php echo htmlspecialchars($widgetTitle) ?></span>
-        <select class="ipAdminWidgetLayouts">
+        <select class="ipaLayouts">
 <?php foreach($layouts as $layoutKey => $layout) { ?>
             <option value="<?php echo htmlspecialchars($layout['name']); ?>"<?php if ($layout['name'] == $widgetRecord['layout']) { echo ' selected="selected"'; } ?>>
                 <?php echo htmlspecialchars($layout['title']) ?>
