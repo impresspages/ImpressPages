@@ -6,8 +6,8 @@
                 This is a preview of older revision, created at (
                     <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
                 ).
-                <a href="#">Publish this revision</a>
-                <a href="#">Duplicate and edit this revision</a>
+                <a href="#" class="ipActionPublish">Publish this revision</a>
+                <a href="#" class="ipActionSave">Duplicate and edit this revision</a>
             </p>
         </div>
 <?php } ?>
@@ -28,7 +28,7 @@
 
     <div class="ipAdminControls">
         <div class="ipgLeft">
-            <span class="ipAdminControlsLabel"><?php $this->escPar('standard/content_management/admin_translations/man_additional_button_title'); ?></span>
+            <span class="ipaLabel"><?php $this->escPar('standard/content_management/admin_translations/man_additional_button_title'); ?></span>
             <input type="text" class="ipAdminInput ipaPageOptionsTitle" value="<?php $this->esc($page->getButtonTitle()); ?>" />
             <a href="#" class="ipAdminButton ipaOptions"><span><?php echo $this->escPar('standard/content_management/admin_translations/advanced') ?></span></a>
         </div>
