@@ -13,14 +13,16 @@
 <?php } ?>
         <ul>
 <?php foreach ($widgets as $widgetKey => $widget) { ?>
-            <li>
-                <a href="#">
-                    <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
-                    <img id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>"
-                         class="ipAdminWidgetButton ipAdminWidgetButtonSelector"
-                         alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
-                         src="<?php echo BASE_URL.$widget->getIcon() ?>" />
-                </a>
+            <li >
+                <div id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>" class="ipAdminWidgetButton ipAdminWidgetButtonSelector">
+                    <a href="#">
+                        <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
+                        <img 
+                             class=""
+                             alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
+                             src="<?php echo BASE_URL.$widget->getIcon() ?>" />
+                    </a>
+                </div>
             </li>
 <?php } ?>
         </ul>

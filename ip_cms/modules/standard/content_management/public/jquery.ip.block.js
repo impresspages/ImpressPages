@@ -21,7 +21,8 @@
                 connectWith : '.ipBlock',
                 revert : true,
                 dropOnEmpty : true,
-                forcePlaceholderSize : true,
+                forcePlaceholderSize : false,
+                placeholder: 'ipAdminWidgetPlaceholder',
                 handle : '.ipAdminWidgetControls .ipActionWidgetMove',
 
                 // this event is fired twice by both blocks, when element is moved from one block to another.
