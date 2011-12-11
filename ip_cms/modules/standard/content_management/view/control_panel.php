@@ -28,7 +28,7 @@
 
     <div class="ipAdminControls">
         <div class="ipgLeft">
-            <span class="ipAdminControlsLabel"><?php $this->escPar('standard/content_management/admin_translations/man_additional_button_title'); ?></span>
+            <span class="ipaLabel"><?php $this->escPar('standard/content_management/admin_translations/man_additional_button_title'); ?></span>
             <input type="text" class="ipAdminInput" value="<?php echo htmlspecialchars('variable'); ?>" />
             <a href="#" class="ipAdminButton ipaOptions"><span><?php echo $this->escPar('standard/content_management/admin_translations/advanced') ?></span></a>
         </div>

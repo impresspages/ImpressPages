@@ -116,7 +116,7 @@
     height: 39px;
     padding: 8px 10px 0;
 }
-.ipAdminControlsLabel {
+.ipAdminControls .ipaLabel {
     color: #000;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 12px;
@@ -127,9 +127,11 @@
     font-family: Verdana, Geneva, sans-serif;
     font-size: 12px;
     height: 26px;
-    margin: 0 10px;
     padding: 0 2px;
     width: 360px;
+}
+.ipAdminControls .ipAdminInput {
+    margin: 0 10px;
 }
 .ipAdminButton {
     background: #e0e0e0;
@@ -266,7 +268,11 @@
 .ipAdminWidget .ipaLayouts {
     float: right;
 }
-.ipAdminWidget .ipaBody {}
+.ipAdminWidget .ipaBody {
+    background-color: #ebebeb;
+    border: 1px solid #ccc;
+    padding: 4px;
+}
 .ipAdminWidget .ipaFooter {
     background-color: #dbdbdb;
     padding: 4px;
@@ -277,6 +283,13 @@
 .ipAdminWidget .ipaFooter .ipAdminButton:first-child {
     margin-left: 0;
 }
+
+/* Widget: IpText */
+.ipAdminWidget-IpText .ipaBody {
+    border: 0;
+    padding: 0;
+}
+
 
 /* style that interfere with theme styles and potentially may cause issues */
 .ipWidget {

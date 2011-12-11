@@ -92,6 +92,7 @@
                 $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
 
                 $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
+                    event.preventDefault();
                     $(this).trigger('deleteClick.ipBlock');
                 });
 
