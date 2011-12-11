@@ -36,12 +36,8 @@
         },
         destroy : function() {
             // TODO
-        },
-        test : function () {
-            return this.each(function() {
-                alert('test ' + $(this).data('ipAdminWidgetButton').name);
-            });
         }
+
         
     };
 

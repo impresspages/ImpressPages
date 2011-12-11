@@ -71,7 +71,7 @@
                     options.contentManagementObject = $this;
                     options.manageableRevision = response.manageableRevision;
 
-                    $('.ipAdminWidgetButtonSelector').ipAdminWidgetButton();
+                    $('.ipActionWidgetButton').ipAdminWidgetButton();
                     
                     $('.ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
 

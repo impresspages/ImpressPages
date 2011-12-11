@@ -13,8 +13,8 @@
 <?php } ?>
         <ul>
 <?php foreach ($widgets as $widgetKey => $widget) { ?>
-            <li >
-                <div id="ipAdminWidgetButton_<?php echo $widget->getName(); ?>" class="ipAdminWidgetButton ipAdminWidgetButtonSelector">
+            <li>
+                <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
                     <a href="#">
                         <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
                         <img 
