@@ -42,12 +42,12 @@ class System{
                 'g' => 'standard',
                 'm' => 'configuration',
                 'a' => 'tinymceConfig'
-                );
+            );
 
-                $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
+            $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
 
-                $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
-                $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/page_options.css');
+            $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
+            $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/page_options.css');
                 
         }
 

@@ -105,9 +105,9 @@ class Db {
         $rs = mysql_query($sql);
         if($rs){
             $sql2 = "insert into `".DB_PREF."zone_to_content` set
-			language_id = '".mysql_real_escape_string($languageId)."',
-			zone_id = '".$zoneId."',
-			element_id = '".mysql_insert_id()."'";
+            language_id = '".mysql_real_escape_string($languageId)."',
+            zone_id = '".$zoneId."',
+            element_id = '".mysql_insert_id()."'";
             $rs2 = mysql_query($sql2);
             if(!$rs2)
             trigger_error($sql2." ".mysql_error());
@@ -161,11 +161,16 @@ class Db {
      * @param int $pageId
      * @param array $params
      */
-    public static function updatePage($pageId, $params){
+    public static function updatePage($zoneName, $pageId, $params){
         global $site;
         $values = array();
 
-        $oldPage = self::getPage($pageId);
+        $zone = $site->getZone($zoneName);
+        if (!$zone) {
+            return;
+        }
+        
+        $oldPage = $zone->getElement($pageId);
         
         if (isset($params['buttonTitle']))
         $values[] = 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
@@ -230,8 +235,8 @@ class Db {
         $rs = mysql_query($sql);
         if ($rs) {
             
-            if(isset($params['url']) && $oldPage['url'] != $params['url']){
-                $newElement = $zone->getElement($pageId);
+            if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
+                $newPage = $zone->getElement($pageId);
                 $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldPage->getLink(true), 'new_url'=>$newPage->getLink(true)));
             }
             

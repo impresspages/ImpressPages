@@ -270,31 +270,35 @@ class Site{
                     break;
                 }
             }
-            if (!$this->getZone($this->currentZone)->getCurrentElement()) {
-                if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone have no pages.
-                    $redirect = false;
-                    foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
-                        $tmpZone = $this->getZone($key);
-                        if ($tmpZone->getAssociatedModuleGroup() == 'standard'
-                        && $tmpZone->getAssociatedModule() == 'content_management' &&
-                        $tmpZone->findElement(array(), array())) {
-                            $this->currentZone = $key;
-                            $redirect = true;
-                            header("Location: ".$this->generateUrl(null, $key));
-                            break;
-                        }
-                    }
 
-                    if(!$redirect) {
-                        $this->error404();
-                    }
-
-                } else {
-                    $this->error404();
-                }
-            }
         }
 
+    }
+
+    public function checkError404(){
+        if (!$this->getZone($this->currentZone)->getCurrentElement()) {
+            if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone have no pages.
+                $redirect = false;
+                foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
+                    $tmpZone = $this->getZone($key);
+                    if ($tmpZone->getAssociatedModuleGroup() == 'standard'
+                    && $tmpZone->getAssociatedModule() == 'content_management' &&
+                    $tmpZone->findElement(array(), array())) {
+                        $this->currentZone = $key;
+                        $redirect = true;
+                        header("Location: ".$this->generateUrl(null, $key));
+                        break;
+                    }
+                }
+
+                if(!$redirect) {
+                    $this->error404();
+                }
+
+            } else {
+                $this->error404();
+            }
+        }
     }
 
     /**

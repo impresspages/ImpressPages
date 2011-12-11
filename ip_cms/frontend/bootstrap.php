@@ -57,6 +57,13 @@ if(Db::connect()){
 
     if(!defined('BACKEND')){
         $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+
+        if ($site->getOutput() == null) {
+            $site->checkError404();
+
+        }
+
+
         $site->makeRedirect(); //if required;
     }
 

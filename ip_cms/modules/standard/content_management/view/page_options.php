@@ -10,3 +10,4 @@
     <?php echo $tab['content'] ?>
 </div>
 <?php } ?>
+<a class="ipAdminButton ipaOptionsConfirm" href="#">Confirm</a><a class="ipAdminButton ipaOptionsCancel" href="#">Cancel</a>

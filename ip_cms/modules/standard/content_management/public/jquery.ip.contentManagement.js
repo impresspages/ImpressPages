@@ -87,8 +87,13 @@
 
                     $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
                     
-                    $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('pageOptions');});
+                    $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('openPageOptions');});
 
+                    $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
+                    $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
+                    //$this.bind('dialogclose', methods._optionsCancel);
+                    
+                    
                     $this.trigger('initFinished.ipContentManagement', options);
                 }
             });
@@ -96,25 +101,61 @@
 
         // *********PAGE OPTIONS***********//
         
-        pageOptions : function() {
+        openPageOptions : function() {
             return this.each(function() {
                 var $this = $(this);
-                
-                var data = $this.data('ipContentManagement');
-                data.optionsChanged = true;
-                $this.data('ipContentManagement', data);
-                
                 if ($('.ipaOptionsDialog').length) {
-                    $this.find('.ipaOptionsDialog').dialog();
+                    
+                    $this.find('.ipaOptionsDialog').dialog('open');
                 } else {
-                    $('.ipaOptions').append('<div class="ipaOptionsDialog" style="display: none;"><div class="ipaOptionsDialogForm"></div></div>');
-                    $('.ipaOptionsDialogForm').ipPageOptions();
-                    $('.ipaOptionsDialogForm').ipPageOptions('refreshPageData', ip.pageId, ip.zoneName);
-                    $('.ipaOptionsDialog').dialog();
+                    $('.ipAdminPanel').append('<div class="ipaOptionsDialog" style="display: none;"></div>');
+                    $('.ipaOptionsDialog').dialog({width: 600, height : 450});
+                    $('.ipaOptionsDialog').ipPageOptions();
+                    $('.ipaOptionsDialog').ipPageOptions('refreshPageData', ip.pageId, ip.zoneName);
                 }
                 
             });
         },
+        
+        _optionsConfirm : function (event){
+            var $this = $(this);
+            var data = $this.data('ipContentManagement');
+            
+            var data = Object();
+            data.g = 'standard';
+            data.m = 'content_management';
+            data.a = 'savePageOptions';
+            data.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
+            data.revisionId = ip.revisionId;
+            
+            $('.ipaPageOptionsTitle').val(data.pageOptions.buttonTitle);
+
+            $.ajax({
+                type : 'POST',
+                url : document.location,
+                data : data,
+                context : $this,
+                success : methods._savePageOptionsResponse,
+                dataType : 'json'
+            });
+
+        },
+        
+        _savePageOptionsResponse : function (response) {
+            if (response.status == 'success') {
+                $('.ipaOptionsDialog').remove();
+            } else {
+                alert(response.errorMessage);
+            }
+        },
+        
+        
+        _optionsCancel : function (event) {
+            var $this = $(this);
+            $('.ipaOptionsDialog').remove();
+        },
+        
+        
         
         // *********SAVE**********//
         
@@ -168,7 +209,9 @@
                 
                 var $this = $(this);
                 
-                if (!$this.data('ipContentManagement').saving) {
+                var data = $this.data('ipContentManagement');
+                
+                if (!data.saving) {
                     return;
                 }
                 
@@ -177,9 +220,8 @@
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'savePage';
-                if ($this.data('ipContentManagement').optionsChanged){
-                    data.pageOptions = $('.ipaOptionsDialogForm').ipPageOptions('getPageOptions');
-                }
+                data.pageOptions = new Object();
+                data.pageOptions.buttonTitle = $('.ipaPageOptionsTitle').val();
                 data.revisionId = ip.revisionId;
 
 

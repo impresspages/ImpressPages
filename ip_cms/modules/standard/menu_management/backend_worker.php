@@ -446,7 +446,7 @@ class BackendWorker {
 
         if (empty($answer['errors'])) {
             $zone = $site->getZone($_POST['zoneName']);
-            Db::updatePage($_POST['pageId'], $_POST);
+            Db::updatePage($_POST['zoneName'], $_POST['pageId'], $_POST);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
@@ -649,7 +649,7 @@ class BackendWorker {
             'parentId' => $destinationPageId,
             'rowNumber' => $newIndex
         );
-        Db::updatePage($pageId, $data);
+        Db::updatePage($zoneName, $pageId, $data);
 
         //report url change
         $pageZone = $site->getZone($zoneName);

@@ -48,7 +48,21 @@
                 $this.tabs('destroy');
                 $this.tabs();
             }
-            console.log('response');
+            
+            $('.ipaOptionsConfirm').bind('click', methods._confirm);
+            $('.ipaOptionsCancel').bind('click', methods._cancel);
+            
+            
+        },
+        
+        _confirm : function (event) {
+            var $this = $(this);
+            $this.trigger('pageOptionsConfirm.ipPageOptions');
+        },
+        
+        _cancel : function (event) {
+            var $this = $(this);
+            $this.trigger('pageOptionsCancel.ipPageOptions');
         },
         
         
