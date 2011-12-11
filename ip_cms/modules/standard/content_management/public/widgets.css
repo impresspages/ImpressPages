@@ -17,6 +17,9 @@
   height: 0;
   visibility: hidden;
 }
+.ipgHide {
+    display: none;
+}
 
 /* draggable widgets and controls */
 .ipAdminPanelContainer {
@@ -290,6 +293,20 @@
     padding: 0;
 }
 
+/* Widget: IpFile */
+.ipAdminWidget-IpFile .ipaBody .ipaButton {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 4px;
+}
+.ipAdminWidget-IpFile .ipaBody .ipaFileMove {
+    cursor: move;
+}
+.ipAdminWidget-IpFile .ipaBody .ipaFileTemplate {
+    margin-bottom: 4px;
+}
 
 /* style that interfere with theme styles and potentially may cause issues */
 .ipWidget {
