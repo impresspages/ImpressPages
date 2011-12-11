@@ -36,14 +36,14 @@ function ipWidget_IpPicture(widgetObject) {
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
 
-        this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').ipUploadPicture(options);
+        this.widgetObject.find('.ipaImage').ipUploadPicture(options);
         
         
     }
 
     function prepareData() {
         var data = Object();
-        var ipUploadPicture = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture');
+        var ipUploadPicture = this.widgetObject.find('.ipaImage');
         if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
             var newPicture = ipUploadPicture.ipUploadPicture('getCurPicture');
             if (newPicture) {
@@ -62,10 +62,10 @@ function ipWidget_IpPicture(widgetObject) {
         }
         
         var windowWidth = ipUploadPicture.ipUploadPicture('getWindowWidth');
-        var maxWidth = this.widgetObject.find('.ipWidget_ipPicture_uploadPicture').width();
+        var maxWidth = this.widgetObject.find('.ipaImage').width();
         data.scale = windowWidth / maxWidth;
         data.pictureWindowWidth = windowWidth;
-        data.title = this.widgetObject.find('.ipWidget_ipPicture_title').val();
+        data.title = this.widgetObject.find('.ipaImageTitle').val();
         
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        
     }

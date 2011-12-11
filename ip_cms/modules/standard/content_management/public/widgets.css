@@ -314,6 +314,14 @@
     margin-bottom: 4px;
 }
 
+/* Widget: IpPicture (todo: IpImage)*/
+.ipAdminWidget-IpPicture .ipaImageTitle {
+    margin-bottom: 4px;
+}
+.ipAdminWidget-IpPicture .ipaImage {
+    width: 100%;
+}
+
 /* Image upload tools */
 .ipUploadButtons {
     background-color: rgba(0,0,0,.8);
