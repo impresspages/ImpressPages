@@ -1,30 +1,10 @@
-<style>
-.ipUploadButtons {
-	position: absolute;
-	z-index: 100;
-}
-
-.ipUploadWindow {
-	overflow: hidden;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-
-.ipUploadBrowseButton {
-	cursor: pointer;
-}
-</style>
-
 <div class="ipUploadWindow ui-widget-content">
     <div class="ipUploadButtons">
         <div class="ipUploadBrowseContainer">
-            <div class="ipUploadBrowseButton">Upload new</div>
+            <a href="#" class="ipUploadBrowseButton">Upload new</a>
         </div>
-        <div class="ipUploadLargerButton">Larger</div>
-        <div class="ipUploadSmallerButton">Smaller</div>
+        <a href="#" class="ipUploadLargerButton">Larger</a>
+        <a href="#" class="ipUploadSmallerButton">Smaller</a>
     </div>
     <div class="ipUploadDragContainer">
         <img class="ipUploadImage" src="" alt="picture" />
