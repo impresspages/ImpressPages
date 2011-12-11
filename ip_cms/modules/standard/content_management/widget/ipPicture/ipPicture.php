@@ -28,7 +28,7 @@ class ipPicture extends \Modules\standard\content_management\Widget{
 
         if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
 
-            if (TMP_IMAGE_DIR.basename($postData['newPicture']) != $postData['newPicture']) {
+            if (TMP_FILE_DIR.basename($postData['newPicture']) != $postData['newPicture']) {
                 throw new \Exception("Security notice. Try to access an image (".$postData['newPicture'].") from a non temporary folder.");
             }
 
