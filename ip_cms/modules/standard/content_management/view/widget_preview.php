@@ -1,4 +1,4 @@
-<div id="ipWidget-<?php echo $widgetRecord['instanceId']; ?>" class="ipWidget ipPreviewWidget ipWidget-<?php echo $widgetRecord['name']; ?> ipLayout-<?php echo $widgetRecord['layout']; ?>">
+<div <?php echo $managementState ? 'id="ipWidget-'.$widgetRecord['instanceId'].'"' : '' ?> class="ipWidget ipPreviewWidget ipWidget-<?php echo $widgetRecord['name']; ?> ipLayout-<?php echo $widgetRecord['layout']; ?>">
 <?php
     if ($managementState){
         $tmpData = $widgetRecord;

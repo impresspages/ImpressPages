@@ -164,15 +164,15 @@
             url : ip.baseUrl,
             data : data,
             context : $this,
-            success : methods._deleteResponse,
+            success : methods._deleteWidgetResponse,
             dataType : 'json'
             });
         });
     },
 
-    _deleteResponse : function(response) {
+    _deleteWidgetResponse : function(response) {
         var $this = $(this);
-        $this.find('#ipWidget_' + response.widgetId).remove();
+        $this.find('#ipWidget-' + response.widgetId).remove();
     },
 
     _createWidget : function(widgetName, position) {
