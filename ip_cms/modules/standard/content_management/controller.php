@@ -105,9 +105,12 @@ class Controller extends \Ip\Controller{
         $revision = $site->getRevision();
 
         $manageableRevision = $revisions[0]['revisionId'] == $revision['revisionId'];
+        
+        $page = $site->getCurrentElement();
 
         $data = array (
             'widgets' => $widgets,
+            'page' => $page,
             'revisions' => $revisions,
             'currentRevision' => $revision,
             'managementUrls' => $managementUrls,
@@ -472,7 +475,6 @@ class Controller extends \Ip\Controller{
         }
         $revisionId = $_POST['revisionId'];
         
-        
         if (isset($_POST['pageOptions'])){
             $pageOptions = $_POST['pageOptions'];
         }
@@ -480,24 +482,62 @@ class Controller extends \Ip\Controller{
         $revision = \Ip\Db::getRevision($revisionId);
         
         if (!$revision) {
+            $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
             return;
         }
         
         $newRevisionId = \Ip\Db::duplicateRevision($revisionId);
-
-        if (isset($pageOptions)) {
-            \Modules\standard\menu_management\Db::updatePage($revision['pageId'], $pageOptions);
+        
+        $zone = $site->getZone($revision['zoneName']);
+        if (!$zone) {
+            $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
+            return;
         }
+        
+        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
         
         $data = array (
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $site->getCurrentElement()->getLink().'&cms_revision='.$newRevisionId 
+            'newRevisionUrl' => $zone->getElement($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId 
         );
 
         $this->_outputAnswer($data);
 
+    }
+    
+    
+    public function savePageOptions () {
+        if (empty($_POST['revisionId'])) {
+            $this->_errorAnswer('Mising revisionId POST variable');
+            return;
+        }
+        $revisionId = $_POST['revisionId'];
+        
+        
+        if (empty($_POST['pageOptions'])){
+            $this->_errorAnswer('Mising pageOptions POST variable');
+            return;
+        }
+        $pageOptions = $_POST['pageOptions'];
+        
+        $revision = \Ip\Db::getRevision($revisionId);
+        
+        if (!$revision) {
+            $this->_errorAnswer('Can\'t find revision. RvisionId \''.$revisionId.'\'');
+            return;
+        }
+        
+        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+        
+        $data = array (
+            'status' => 'success',
+            'action' => '_savePageOptionsResponse'
+        );
+
+        $this->_outputAnswer($data);
+        
     }
 
     public function publishPage () {
