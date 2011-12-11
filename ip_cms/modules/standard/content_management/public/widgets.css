@@ -1,7 +1,7 @@
 /* global */
 .ipAdminPanel,
-.ipAdminWidgetHeader,
-.ipAdminWidgetFooter {
+.ipAdminWidget .ipaHeader,
+.ipAdminWidget .ipaFooter {
     font: 14px Arial, Helvetica, sans-serif;
 }
 .ipgLeft {
@@ -254,27 +254,27 @@
 .ipActionWidgetMove {
     cursor: move;
 }
-.ipAdminWidgetHeader {
+.ipAdminWidget .ipaHeader {
     background-color: #ebebeb;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     padding: 7px;
 }
-.ipAdminWidgetHeader .ipaTitle {
+.ipAdminWidget .ipaTitle {
     float: left;
 }
 .ipAdminWidgetLayouts {
     float: right;
 }
-.ipAdminWidgetBody {}
-.ipAdminWidgetFooter {
+.ipAdminWidget .ipaBody {}
+.ipAdminWidget .ipaFooter {
     background-color: #dbdbdb;
     padding: 4px;
 }
-.ipAdminWidgetFooter .ipAdminButton {
+.ipAdminWidget .ipaFooter .ipAdminButton {
     margin-left: 10px;
 }
-.ipAdminWidgetFooter .ipAdminButton:first-child {
+.ipAdminWidget .ipaFooter .ipAdminButton:first-child {
     margin-left: 0;
 }
 

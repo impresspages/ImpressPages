@@ -195,7 +195,7 @@
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
-                var widgetInputs = $this.find('.ipAdminWidgetBody').find(':input');
+                var widgetInputs = $this.find('.ipaBody').find(':input');
                 var data = Object();
                 widgetInputs.each(function(index) {
                     data[$(this).attr('name')] = $(this).val();
