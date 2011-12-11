@@ -1,7 +1,8 @@
 /* global */
 .ipAdminPanel,
 .ipAdminWidget .ipaHeader,
-.ipAdminWidget .ipaFooter {
+.ipAdminWidget .ipaFooter,
+.ipUploadButton {
     font: 14px Arial, Helvetica, sans-serif;
 }
 .ipgLeft {
@@ -333,6 +334,13 @@
 .ipUploadWindow {
     overflow: hidden;
     user-select: none;
+}
+.ipUploadButton {
+    color: #fff;
+    display: inline-block;
+}
+.ipUploadBrowseContainer {
+    display: inline-block;
 }
 
 /* style that interfere with theme styles and potentially may cause issues */
