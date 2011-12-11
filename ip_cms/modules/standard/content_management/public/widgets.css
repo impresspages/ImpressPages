@@ -373,3 +373,9 @@
     -moz-user-select: none;
     -o-user-select: none;
 }
+.ipAdminWidgetDrag{
+    width: 50px;
+    height: 50px;
+    background-color: green;
+    overflow: hidden;
+}

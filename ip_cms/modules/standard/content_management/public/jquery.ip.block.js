@@ -25,6 +25,19 @@
                 placeholder: 'ipAdminWidgetPlaceholder',
                 handle : '.ipAdminWidgetControls .ipActionWidgetMove',
 
+                start : function (event, ui) {
+                    
+                    ui.item.addClass('ipAdminWidgetDrag');
+                    ui.item.width(50);
+                    ui.item.height(50);
+                },
+                
+                stop : function (event, ui) {
+                    ui.item.removeClass('ipAdminWidgetDrag');
+                    ui.item.width('auto');
+                    ui.item.height('auto');
+                },
+                
                 // this event is fired twice by both blocks, when element is moved from one block to another.
                 update : function(event, ui) {
                     if (!$(ui.item).data('ipWidget')) {
