@@ -373,6 +373,24 @@
     margin-top: 10px;
 }
 
+/* Widget: IpTextPicture (todo: IpTextImage)*/
+.ipAdminWidget-IpTextPicture .ipaImageContainer {
+    float: left;
+    width: 200px;
+}
+.ipAdminWidget-IpTextPicture .ipaOptions {
+    margin-top: 10px;
+}
+.ipAdminWidget-IpTextPicture .ipaOptions .ipAdminInput {
+    width: 186px;
+}
+.ipAdminWidget-IpTextPicture .ipaTextarea {
+    margin-left: 209px;
+}
+.ipAdminWidget-IpTextPicture .ipaTextarea textarea {
+    width: 100%;
+}
+
 /* Image upload tools */
 .ipUploadButtons {
     background-color: rgba(0,0,0,.8);

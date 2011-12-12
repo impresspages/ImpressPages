@@ -34,7 +34,7 @@ function ipWidget_IpTextPicture(widgetObject) {
         options.enableChangeWidth = false;
         
 
-        this.widgetObject.find('.ipWidget_ipTextPicture_uploadPicture').ipUploadPicture(options);
+        this.widgetObject.find('.ipaImage').ipUploadPicture(options);
         
         
         this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
@@ -43,7 +43,7 @@ function ipWidget_IpTextPicture(widgetObject) {
     function prepareData() {
         var data = Object();
 
-        var ipUploadPicture = this.widgetObject.find('.ipWidget_ipTextPicture_uploadPicture');
+        var ipUploadPicture = this.widgetObject.find('.ipaImage');
         if (ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
             var newPicture = ipUploadPicture.ipUploadPicture('getCurPicture');
             if (newPicture) {
@@ -63,7 +63,7 @@ function ipWidget_IpTextPicture(widgetObject) {
         
 
         data.text = $(this.widgetObject).find('textarea').first().val();
-        data.title = $(this.widgetObject).find('.ipWidget_ipTextPicutre_title').first().val();
+        data.title = $(this.widgetObject).find('.ipaImageTitle').first().val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 

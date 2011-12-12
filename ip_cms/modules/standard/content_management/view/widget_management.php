@@ -15,10 +15,10 @@
     $tmpData['state'] = 'management';
     echo \Ip\View::create('widget_data.php', array('widgetInstance' => $tmpData))->render();
 ?>
-    <div class="ipaBody">
+    <div class="ipaBody ipgClear">
 <?php echo $managementHtml; ?>
     </div>
-    <div class="ipaFooter">
+    <div class="ipaFooter ipgClear">
         <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave">Save</a>
         <a href="#" class="ipAdminButton ipActionWidgetCancel">Cancel</a>
     </div>
