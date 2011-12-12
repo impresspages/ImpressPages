@@ -263,9 +263,9 @@
     border-top: 3px solid #000;
 }
 .ipAdminWidgetControls {
-    border: 1px solid #000;
-    display: none;
+    border: 1px solid transparent;
     float: left;
+    height: 27px;
     margin: -29px 0 0 -1px;
     position: absolute;
 }
@@ -275,6 +275,7 @@
     display: block;
     float: left;
     padding: 2px 0;
+    visibility: hidden;
 }
 .ipAdminWidgetControls .ipaButton:hover {
     background: #2e2e2e;
@@ -494,7 +495,10 @@
     outline: #4d4d4d dashed 1px;
 }
 .ipWidget:hover .ipAdminWidgetControls {
-    display: block;
+    border-color: #000;
+}
+.ipWidget:hover .ipAdminWidgetControls .ipaButton {
+    visibility: visible;
 }
 
 /* vendor specific styles; to remove in the future */
