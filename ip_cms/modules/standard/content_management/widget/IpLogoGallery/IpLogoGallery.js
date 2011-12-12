@@ -126,7 +126,6 @@ function ipWidget_IpLogoGallery(widgetObject) {
                 
                 $( ".ipWidget_ipLogoGallery_container" ).sortable();
                 $( ".ipWidget_ipLogoGallery_container" ).sortable('option', 'handle', '.ipaLogoMove');
-                $( ".ipWidget_ipLogoGallery_container" ).disableSelection();
 
             }
         });

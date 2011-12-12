@@ -107,7 +107,7 @@ function ipWidget_IpFile(widgetObject) {
                 
                 $( ".ipWidget_ipFile_container" ).sortable();
                 $( ".ipWidget_ipFile_container" ).sortable('option', 'handle', '.ipaFileMove');
-                $( ".ipWidget_ipFile_container" ).disableSelection();
+                
 
             }
         });

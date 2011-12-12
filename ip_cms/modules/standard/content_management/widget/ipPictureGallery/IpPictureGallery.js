@@ -126,7 +126,6 @@ function ipWidget_IpPictureGallery(widgetObject) {
                 
                 $( ".ipWidget_ipPictureGallery_container" ).sortable();
                 $( ".ipWidget_ipPictureGallery_container" ).sortable('option', 'handle', '.ipaImageMove');
-                $( ".ipWidget_ipPictureGallery_container" ).disableSelection();
 
             }
         });
