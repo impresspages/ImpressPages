@@ -51,10 +51,10 @@ class Widget{
     }
 
     public function getIcon() {
-        if (file_exists(BASE_DIR.$this->widgetDir.'icon.gif')) {
-            return $this->widgetDir.'icon.gif';
+        if (file_exists(BASE_DIR.$this->widgetDir.'icon.png')) {
+            return $this->widgetDir.'icon.png';
         } else {
-            return MODULE_DIR.'standard/content_management/img/default_icon.gif';
+            return MODULE_DIR.'standard/content_management/img/icon_widget.png';
         }
     }
 

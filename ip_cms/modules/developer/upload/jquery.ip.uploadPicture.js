@@ -49,7 +49,7 @@
                     if (options.defaultPicture) {
                         defaultPicture = options.defaultPicture;
                     } else {
-                        defaultPicture = ip.moduleDir + 'developer/upload/img/empty_picture.png';
+                        defaultPicture = ip.moduleDir + 'developer/upload/img/empty.gif';
                     }
                     
                     var curPicture;
@@ -209,7 +209,8 @@
             });            
 
             
-            $this.find('.ipUploadLargerButton').click(function() {
+            $this.find('.ipUploadLargerButton').click(function(event) {
+                event.preventDefault();
                 $(this).trigger('pictureScaleUp.ipUploadPicture');
             });
             if (!data.enableScale) {
@@ -224,7 +225,8 @@
             
             
             
-            $this.find('.ipUploadSmallerButton').click(function() {
+            $this.find('.ipUploadSmallerButton').click(function(event) {
+                event.preventDefault();
                 $(this).trigger('pictureScaleDown.ipUploadPicture');
             });console.log(data);
             if (!data.enableScale) {console.log('hide');
