@@ -15,7 +15,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         
-        var uploader = this.widgetObject.find('.ipWidget_ipPictureGallery_uploadFile');
+        var uploader = this.widgetObject.find('.ipaUpload');
         var options = new Object;
         uploader.ipUploadFile(options);
         
@@ -28,7 +28,9 @@ function ipWidget_IpPictureGallery(widgetObject) {
         }
         options.smallPictureWidth = this.widgetObject.find('input[name="smallPictureWidth"]').val();
         options.smallPictureHeight = this.widgetObject.find('input[name="smallPictureHeight"]').val();
-        options.pictureTemplate = this.widgetObject.find('.ipWidget_ipPictureGallery_pictureTemplate');
+        uploader.css('width',options.smallPictureWidth);
+        uploader.css('height',options.smallPictureHeight);
+        options.pictureTemplate = this.widgetObject.find('.ipaImageTemplate');
         container.ipWidget_ipPictureGallery_container(options);
         
         
@@ -123,7 +125,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
                 });
                 
                 $( ".ipWidget_ipPictureGallery_container" ).sortable();
-                $( ".ipWidget_ipPictureGallery_container" ).sortable('option', 'handle', '.ipWidget_ipPictureGallery_pictureMoveHandle');
+                $( ".ipWidget_ipPictureGallery_container" ).sortable('option', 'handle', '.ipaImageMove');
                 $( ".ipWidget_ipPictureGallery_container" ).disableSelection();
 
             }
@@ -134,8 +136,12 @@ function ipWidget_IpPictureGallery(widgetObject) {
         var $this = this;
         var $newPictureRecord = $this.data('ipWidget_ipPictureGallery_container').pictureTemplate.clone();
         $newPictureRecord.ipWidget_ipPictureGallery_picture({'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
-        $this.append($newPictureRecord);
-        
+        var $uploader = $this.find('.ipaUpload');
+        if ($uploader.length > 0) {
+            $($uploader).before($newPictureRecord);
+        } else {
+            $this.append($newPictureRecord);
+        }
     },
     
     removePicture : function ($pictureObject) {
@@ -146,7 +152,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
     
     getPictures : function () {
         var $this = this;
-        return $this.find('.ipWidget_ipPictureGallery_pictureTemplate');
+        return $this.find('.ipaImageTemplate');
     }
 
 
@@ -211,12 +217,12 @@ function ipWidget_IpPictureGallery(widgetObject) {
                     fileName : data.fileName,
                     status : data.status
                 });
-                $this.find('.ipWidget_ipPictureGallery_pictureTitle').val(data.title);
+                $this.find('.ipaImageTitle').val(data.title);
             }
             
             
             
-            //$this.find('.ipWidget_ipPictureGallery_picturePreview').attr('src', ip.baseUrl + data.fileName);
+            //$this.find('.ipaImage').attr('src', ip.baseUrl + data.fileName);
             var pictureOptions = new Object;
             pictureOptions.picture = data.fileName;
             if (options.coordinates) {
@@ -233,7 +239,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
             pictureOptions.enableChangeWidth = false;
             pictureOptions.enableChangeHeight = false;
 
-            $this.find('.ipWidget_ipPictureGallery_picturePreview').ipUploadPicture(pictureOptions);
+            $this.find('.ipaImage').ipUploadPicture(pictureOptions);
             
             
 //          handle uploading of new photo
@@ -247,7 +253,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
             
             
             
-            $this.find('.ipWidget_ipPictureGallery_pictureRemove').bind('click', 
+            $this.find('.ipaImageRemove').bind('click', 
                 function(event){
                     $this = $(this);
                     $this.trigger('removeClick.ipWidget_ipPictureGallery');
@@ -262,18 +268,18 @@ function ipWidget_IpPictureGallery(widgetObject) {
     
     getTitle : function() {
         var $this = this;
-        return $this.find('.ipWidget_ipPictureGallery_pictureTitle').val();
+        return $this.find('.ipaImageTitle').val();
     },
     
     getFileName : function() {
         var $this = this;
-        var curPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview').ipUploadPicture('getCurPicture');
+        var curPicture = $this.find('.ipaImage').ipUploadPicture('getCurPicture');
         return curPicture;
     },
     
     getCropCoordinates : function() {
         var $this = this;
-        var ipUploadPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview');
+        var ipUploadPicture = $this.find('.ipaImage');
         var cropCoordinates = ipUploadPicture.ipUploadPicture('getCropCoordinates');
         return cropCoordinates;
     },
@@ -286,7 +292,7 @@ function ipWidget_IpPictureGallery(widgetObject) {
             return tmpData.status;
         }
         
-        var ipUploadPicture = $this.find('.ipWidget_ipPictureGallery_picturePreview');
+        var ipUploadPicture = $this.find('.ipaImage');
         if (tmpData.status == 'new' || ipUploadPicture.ipUploadPicture('getNewPictureUploaded')) {
             return 'new';
         } else {

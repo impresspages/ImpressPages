@@ -1,44 +1,14 @@
-<div style="padding: 10px;">
-    <div class="ipWidget_ipPictureGallery_uploadFile"
-        style="float: left;"></div>
-    <div class="clear">
-        <!--  -->
+<div class="ipWidget_ipPictureGallery_container">
+    <div class="ipaUpload"></div>
+</div>
+<div class="ipgHide">
+    <div class="ipaImageTemplate">
+        <a href="#" class="ipaButton ipaImageMove">Move</a>
+        <a href="#" class="ipaButton ipaImageRemove">Remove</a>
+        <input type="text" class="ipAdminInput ipaImageTitle" name="title" value="" />
+        <div class="ipaImage" style="width: 200px;"></div>
     </div>
 </div>
-<ul class="ipWidget_ipPictureGallery_container">
-</ul>
-<style>
-.ipWidget_ipPictureGallery_hidden {
-	display: none;
-}
 
-.ipWidget_ipPictureGallery_pictureTemplate {
-	float: left;
-	width: px;
-	height: px;
-	background-color: #aaa;
-}
-</style>
-<div class="clear">
-    <!-- -->
-</div>
-<ul class="ipWidget_ipPictureGallery_hidden">
-    <li class="ipWidget_ipPictureGallery_pictureTemplate">
-        <form>
-            <span class="ipWidget_ipPictureGallery_pictureMoveHandle">Move</span>
-            <input class="ipWidget_ipPictureGallery_pictureTitle"
-                type="text" name="title" value="" />
-            <div class="ipWidget_ipPictureGallery_picturePreview"
-                style="width: 200px;"></div>
-            <span class="ipWidget_ipPictureGallery_pictureRemove">Remove</span>
-        </form>
-    </li>
-</ul>
-<div class="ipWidget_ipPictureGallery_hidden">
-    <form>
-        <input name="smallPictureWidth" type="hidden"
-            value="<?php echo (int)$smallPictureWidth ?>" /> <input
-            type="smallPictureHeight"
-            value="<?php echo (int)$smallPictureHeight ?>" />
-    </form>
-</div>
+<input type="hidden" name="smallPictureWidth" value="<?php echo (int)$smallPictureWidth; ?>" />
+<input type="hidden" name="smallPictureHeight" value="<?php echo (int)$smallPictureHeight; ?>" />

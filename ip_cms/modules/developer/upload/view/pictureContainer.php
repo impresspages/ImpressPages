@@ -1,10 +1,10 @@
 <div class="ipUploadWindow ui-widget-content">
     <div class="ipUploadButtons">
         <div class="ipUploadBrowseContainer">
-            <a href="#" class="ipUploadButton ipUploadBrowseButton">Upload new</a>
+            <a href="#" class="ipUploadImageButton ipUploadBrowseButton">Upload new</a>
         </div>
-        <a href="#" class="ipUploadButton ipUploadLargerButton">Larger</a>
-        <a href="#" class="ipUploadButton ipUploadSmallerButton">Smaller</a>
+        <a href="#" class="ipUploadImageButton ipUploadLargerButton">Larger</a>
+        <a href="#" class="ipUploadImageButton ipUploadSmallerButton">Smaller</a>
     </div>
     <div class="ipUploadDragContainer">
         <img class="ipUploadImage" src="" alt="picture" />

@@ -15,7 +15,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         
-        var uploader = this.widgetObject.find('.ipWidget_ipLogoGallery_uploadFile');
+        var uploader = this.widgetObject.find('.ipaUpload');
         var options = new Object;
         uploader.ipUploadFile(options);
         
@@ -28,7 +28,9 @@ function ipWidget_IpLogoGallery(widgetObject) {
         }
         options.logoWidth = this.widgetObject.find('input[name="logoWidth"]').val();
         options.logoHeight = this.widgetObject.find('input[name="logoHeight"]').val();
-        options.logoTemplate = this.widgetObject.find('.ipWidget_ipLogoGallery_logoTemplate');
+        uploader.css('width',options.logoWidth);
+        uploader.css('height',options.logoHeight);
+        options.logoTemplate = this.widgetObject.find('.ipaLogoTemplate');
         container.ipWidget_ipLogoGallery_container(options);
         
         
@@ -123,7 +125,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
                 });
                 
                 $( ".ipWidget_ipLogoGallery_container" ).sortable();
-                $( ".ipWidget_ipLogoGallery_container" ).sortable('option', 'handle', '.ipWidget_ipLogoGallery_logoMoveHandle');
+                $( ".ipWidget_ipLogoGallery_container" ).sortable('option', 'handle', '.ipaLogoMove');
                 $( ".ipWidget_ipLogoGallery_container" ).disableSelection();
 
             }
@@ -134,8 +136,12 @@ function ipWidget_IpLogoGallery(widgetObject) {
         var $this = this;
         var $newLogoRecord = $this.data('ipWidget_ipLogoGallery_container').logoTemplate.clone();
         $newLogoRecord.ipWidget_ipLogoGallery_logo({'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
-        $this.append($newLogoRecord);
-        
+        var $uploader = $this.find('.ipaUpload');
+        if ($uploader.length > 0) {
+            $($uploader).before($newLogoRecord);
+        } else {
+            $this.append($newLogoRecord);
+        }
     },
     
     removeLogo : function ($logoObject) {
@@ -146,7 +152,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
     
     getLogos : function () {
         var $this = this;
-        return $this.find('.ipWidget_ipLogoGallery_logoTemplate');
+        return $this.find('.ipaLogoTemplate');
     }
 
 
@@ -211,12 +217,12 @@ function ipWidget_IpLogoGallery(widgetObject) {
                     fileName : data.fileName,
                     status : data.status
                 });
-                $this.find('.ipWidget_ipLogoGallery_logoTitle').val(data.title);
+                $this.find('.ipaLogoTitle').val(data.title);
             }
             
             
             
-            //$this.find('.ipWidget_ipLogoGallery_logoPreview').attr('src', ip.baseUrl + data.fileName);
+            //$this.find('.ipaLogo').attr('src', ip.baseUrl + data.fileName);
             var logoOptions = new Object;
             logoOptions.picture = data.fileName;
             if (options.coordinates) {
@@ -234,7 +240,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
             logoOptions.enableUnderscale = true;
             logoOptions.autosizeType = 'fit';
             
-            $this.find('.ipWidget_ipLogoGallery_logoPreview').ipUploadPicture(logoOptions);
+            $this.find('.ipaLogo').ipUploadPicture(logoOptions);
             
             
 //          handle uploading of new photo
@@ -248,7 +254,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
             
             
             
-            $this.find('.ipWidget_ipLogoGallery_logoRemove').bind('click', 
+            $this.find('.ipaLogoRemove').bind('click', 
                 function(event){
                     $this = $(this);
                     $this.trigger('removeClick.ipWidget_ipLogoGallery');
@@ -263,18 +269,18 @@ function ipWidget_IpLogoGallery(widgetObject) {
     
     getTitle : function() {
         var $this = this;
-        return $this.find('.ipWidget_ipLogoGallery_logoTitle').val();
+        return $this.find('.ipaLogoTitle').val();
     },
     
     getFileName : function() {
         var $this = this;
-        var curPicture = $this.find('.ipWidget_ipLogoGallery_logoPreview').ipUploadPicture('getCurPicture');
+        var curPicture = $this.find('.ipaLogo').ipUploadPicture('getCurPicture');
         return curPicture;
     },
     
     getCropCoordinates : function() {
         var $this = this;
-        var ipUploadLogo = $this.find('.ipWidget_ipLogoGallery_logoPreview');
+        var ipUploadLogo = $this.find('.ipaLogo');
         var cropCoordinates = ipUploadLogo.ipUploadPicture('getCropCoordinates');
         return cropCoordinates;
     },
@@ -287,7 +293,7 @@ function ipWidget_IpLogoGallery(widgetObject) {
             return tmpData.status;
         }
         
-        var ipUploadLogo = $this.find('.ipWidget_ipLogoGallery_logoPreview');
+        var ipUploadLogo = $this.find('.ipaLogo');
         if (tmpData.status == 'new' || ipUploadLogo.ipUploadPicture('getNewPictureUploaded')) {
             return 'new';
         } else {

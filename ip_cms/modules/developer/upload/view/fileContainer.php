@@ -1,1 +1,1 @@
-<div class="ipUploadBrowseButton">Add new</div>
+<a href="#" class="ipAdminButton ipUploadBrowseButton">Add new</a>

@@ -1,8 +1,6 @@
 /* global */
 .ipAdminPanel,
-.ipAdminWidget .ipaHeader,
-.ipAdminWidget .ipaFooter,
-.ipUploadButton {
+.ipAdminWidget {
     font: 14px Arial, Helvetica, sans-serif;
 }
 .ipgLeft {
@@ -11,6 +9,7 @@
 .ipgRight {
     float: right;
 }
+.ipAdminWidget:after,
 .ipgClear:after {
   clear: both;
   content: ".";
@@ -20,6 +19,81 @@
 }
 .ipgHide {
     display: none;
+}
+
+.ipAdminLabel {
+    color: #000;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.ipAdminInput {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 26px;
+    padding: 0 7px;
+    width: 235px;
+}
+.ipAdminButton {
+    background: #e0e0e0;
+    background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+    border: 1px solid #b8b8b8;
+    border-radius: 2px;
+    color: #2f313f;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 0 14px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255,255,255,.66);
+}
+.ipAdminButton:hover {
+    background: #c0c0c0;
+}
+.ipAdminButton.ipaConfirm {
+    background: #77b000;
+    background: linear-gradient(top, #77b000 0%, #569100 100%);
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,.1);
+    color: #fff;
+    font-weight: bold;
+    padding: 0 20px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
+    text-transform: uppercase;
+}
+.ipAdminButton.ipaConfirm:hover {
+    background: #559000;
+    background: linear-gradient(top, #559000 0%, #76af00 100%);
+    box-shadow: none;
+}
+.ipAdminButton.ipaOptions {
+    padding: 0;
+}
+.ipAdminButton.ipaOptions span {
+    background: url(../img/icon_options.png) no-repeat 8px center;
+    display: inline-block;
+    padding: 0 18px 0 32px;
+}
+.ipAdminButton.ipaSave {
+    border-radius: 2px 0 0 2px;
+    float: left;
+}
+.ipAdminButton.ipaDropdown {
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+    display: inline-block;
+    height: 30px;
+}
+.ipAdminButton.ipaDropdown span {
+    background: url(../img/icon_down.png) no-repeat center center;
+    display: inline-block;
+    width: 9px;
+}
+.ipAdminButton.ipaDropdown:hover {
+    background-color: #c0c0c0;
 }
 
 /* draggable widgets and controls */
@@ -129,88 +203,20 @@
     font-family: Verdana, Geneva, sans-serif;
     font-size: 12px;
 }
-.ipAdminLabel {
-    color: #000;
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.ipAdminInput {
-    background-color: #fff;
-    border: 1px solid #96979a;
-    color: #2f313f;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    height: 26px;
-    padding: 0 7px;
-    width: 235px;
-}
-.ipAdminControls .ipAdminInput {
-    margin: 0 10px;
-}
 .ipAdminControls .ipAdminInput {
     border-color: #96979a;
     font-family: Verdana, Geneva, sans-serif;
+    margin: 0 10px;
     padding: 0 2px;
     width: 360px;
 }
-.ipAdminButton {
-    background: #e0e0e0;
-    background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-    border: 1px solid #b8b8b8;
-    border-radius: 2px;
-    color: #2f313f;
-    display: inline-block;
+.ipAdminControls .ipAdminButton {
     font-size: 13px;
     line-height: 30px;
     padding: 0 18px;
-    text-decoration: none;
-    text-shadow: 1px 1px 0 rgba(255,255,255,.66);
 }
-.ipAdminButton:hover {
-    background: #c0c0c0;
-}
-.ipAdminButton.ipaConfirm {
-    background: #77b000;
-    background: linear-gradient(top, #77b000 0%, #569100 100%);
-    box-shadow: inset 0 0 0 3px rgba(255,255,255,.1);
-    color: #fff;
+.ipAdminControls .ipAdminButton.ipaConfirm {
     font-size: 14px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
-    text-transform: uppercase;
-}
-.ipAdminButton.ipaConfirm:hover {
-    background: #559000;
-    background: linear-gradient(top, #559000 0%, #76af00 100%);
-    box-shadow: none;
-}
-.ipAdminButton.ipaOptions {
-    padding: 0;
-}
-.ipAdminButton.ipaOptions span {
-    background: url(../img/icon_options.png) no-repeat 8px center;
-    display: inline-block;
-    padding: 0 18px 0 32px;
-}
-.ipAdminButton.ipaSave {
-    border-radius: 2px 0 0 2px;
-    float: left;
-}
-.ipAdminButton.ipaDropdown {
-    border-left: none;
-    border-radius: 0 2px 2px 0;
-    display: inline-block;
-    height: 30px;
-}
-.ipAdminButton.ipaDropdown span {
-    background: url(../img/icon_down.png) no-repeat center center;
-    display: inline-block;
-    width: 9px;
-}
-.ipAdminButton.ipaDropdown:hover {
-    background-color: #c0c0c0;
 }
 .ipAdminRevisions {
     display: inline-block;
@@ -335,13 +341,62 @@
 }
 .ipAdminWidget .ipaFooter {
     background-color: #dbdbdb;
-    padding: 4px;
+    border-top: 1px solid #fff;
+    float: left;
+    padding: 5px 8px;
 }
 .ipAdminWidget .ipaFooter .ipAdminButton {
     margin-left: 10px;
 }
 .ipAdminWidget .ipaFooter .ipAdminButton:first-child {
     margin-left: 0;
+}
+
+/* Image upload tools */
+.ipUploadButtons {
+    background-color: rgba(0,0,0,.8);
+    margin: 9px;
+    padding: 3px;
+    position: absolute;
+    z-index: 99;
+}
+.ipUploadWindow {
+    background: url(../img/bg_upload.gif);
+    overflow: hidden;
+    user-select: none;
+}
+.ipUploadBrowseContainer {
+    float: left;
+}
+.ipUploadImageButton {
+    background: url(../img/icons_upload.png) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 24px;
+}
+.ipUploadImageButton.ipUploadBrowseButton {
+    background-position: 0 0;
+    width: 40px;
+}
+.ipUploadImageButton.ipUploadBrowseButton:hover {
+    background-position: -40px 0;
+}
+.ipUploadImageButton.ipUploadLargerButton {
+    background-position: 0 -24px;
+    margin-left: 3px;
+}
+.ipUploadImageButton.ipUploadLargerButton:hover {
+    background-position: -24px -24px;
+}
+.ipUploadImageButton.ipUploadSmallerButton {
+    background-position: 0 -48px;
+    margin-left: 3px;
+}
+.ipUploadImageButton.ipUploadSmallerButton:hover {
+    background-position: -24px -48px;
 }
 
 /* Widget: IpText */
@@ -362,7 +417,7 @@
     cursor: move;
 }
 .ipAdminWidget-IpFile .ipaBody .ipaFileTemplate {
-    margin-bottom: 4px;
+    margin-bottom: 7px;
 }
 
 /* Widget: IpPicture (todo: IpImage)*/
@@ -379,7 +434,7 @@
     width: 200px;
 }
 .ipAdminWidget-IpTextPicture .ipaOptions {
-    margin-top: 10px;
+    margin-bottom: 27px;
 }
 .ipAdminWidget-IpTextPicture .ipaOptions .ipAdminInput {
     width: 186px;
@@ -391,51 +446,41 @@
     width: 100%;
 }
 
-/* Image upload tools */
-.ipUploadButtons {
-    background-color: rgba(0,0,0,.8);
-    margin: 9px;
-    padding: 3px;
-    position: absolute;
-    z-index: 99;
-}
-.ipUploadWindow {
+/* Widget: IpPictureGallery (todo: IpImageGallery)
+   Widget: IpLogoGallery */
+.ipAdminWidget-IpPictureGallery .ipaUpload,
+.ipAdminWidget-IpLogoGallery .ipaUpload {
     background: url(../img/bg_upload.gif);
-    overflow: hidden;
-    user-select: none;
-}
-.ipUploadBrowseContainer {
     float: left;
+    margin: 0 7px 7px 0;
+    position: relative;
+    text-align: center;
 }
-.ipUploadButton {
-    background: url(../img/icons_upload.png) no-repeat;
-    display: block;
+.ipAdminWidget-IpPictureGallery .ipaUpload .ipAdminButton,
+.ipAdminWidget-IpLogoGallery .ipaUpload .ipAdminButton {
+    position: relative;
+    top: 42%;
+}
+.ipAdminWidget-IpPictureGallery .ipaImageTemplate,
+.ipAdminWidget-IpLogoGallery .ipaLogoTemplate {
     float: left;
-    height: 24px;
-    overflow: hidden;
-    text-indent: -999px;
-    width: 24px;
+    margin: 0 7px 7px 0;
 }
-.ipUploadBrowseButton {
-    background-position: 0 0;
-    width: 40px;
+.ipAdminWidget-IpPictureGallery .ipaBody .ipaButton,
+.ipAdminWidget-IpLogoGallery .ipaBody .ipaButton {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 4px;
 }
-.ipUploadBrowseButton:hover {
-    background-position: -40px 0;
+.ipAdminWidget-IpPictureGallery .ipaBody .ipaImageMove,
+.ipAdminWidget-IpLogoGallery .ipaBody .ipaLogoMove {
+    cursor: move;
 }
-.ipUploadLargerButton {
-    background-position: 0 -24px;
-    margin-left: 3px;
-}
-.ipUploadLargerButton:hover {
-    background-position: -24px -24px;
-}
-.ipUploadSmallerButton {
-    background-position: 0 -48px;
-    margin-left: 3px;
-}
-.ipUploadSmallerButton:hover {
-    background-position: -24px -48px;
+.ipAdminWidget-IpPictureGallery .ipaImageTitle,
+.ipAdminWidget-IpLogoGallery .ipaLogoTitle {
+    width: 95px;
 }
 
 /* style that interfere with theme styles and potentially may cause issues */
