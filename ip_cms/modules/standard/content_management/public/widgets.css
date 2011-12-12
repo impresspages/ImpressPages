@@ -215,6 +215,9 @@
     line-height: 30px;
     padding: 0 18px;
 }
+.ipAdminControls .ipAdminButton.ipaOptions {
+    padding: 0;
+}
 .ipAdminControls .ipAdminButton.ipaConfirm {
     font-size: 14px;
 }
