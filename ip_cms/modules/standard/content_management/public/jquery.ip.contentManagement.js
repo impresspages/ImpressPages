@@ -60,8 +60,8 @@
             return this.each(function() {
                 if (response.status == 'success') {
                     var $this = $(this);
+                    $('body').prepend(response.saveProgressHtml);
                     $('body').prepend(response.controlPanelHtml);
-                    $('body').append(response.saveProgressHtml);
 
                     var options = new Object;
                     options.zoneName = ip.zoneName;
