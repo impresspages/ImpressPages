@@ -548,7 +548,7 @@ class BackendWorker {
             $tmpUrlVars[] = $element['url'];
             $element = \Modules\standard\menu_management\Db::getPage($element['parent']);
         }
-        $languageId = \Modules\standard\cmenu_management\Db::languageByRootElement($element['id']);
+        $languageId = \Modules\standard\menu_management\Db::languageByRootElement($element['id']);
         //end find language
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());

@@ -1170,8 +1170,12 @@ class Site{
              
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
                 $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-                if ($revision === false || $revision['published']) {
+                if ($revision === false) {
                     $revision = $this->_createRevision();
+                } else {
+                    if ($revision['published']) {
+                        $revision = $this->_duplicateRevision($revision['revisionId']);
+                    }
                 }
             }
 
@@ -1191,6 +1195,14 @@ class Site{
         }
         return $revision;
     }
-
+    
+    private function _duplicateRevision($oldRevisionId){
+        $revisionId = \Ip\Db::duplicateRevision($oldRevisionId);
+        $revision = \Ip\Db::getRevision($revisionId);
+        if ($revision === false) {
+            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
+        }
+        return $revision;
+    }    
 }
 

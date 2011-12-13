@@ -406,8 +406,6 @@
                 
                 switch (data.autosizeType) {
                     case 'fit' :
-                        console.log('NOT IMPLEMENTED');
-                            console.log('FIT');
                             var centerX = (cropX2 - cropX1) / 2 + cropX1;
                             var centerY = (cropY2 - cropY1) / 2 + cropY1;
                             var centerPercentageX = centerX / $picture.width() * 100;
@@ -433,7 +431,6 @@
                             }
                         break;
                     case 'crop' :
-                            console.log('crop');
                             var centerX = (cropX2 - cropX1) / 2 + cropX1;
                             var centerY = (cropY2 - cropY1) / 2 + cropY1;
                             var centerPercentageX = centerX / $picture.width() * 100;
