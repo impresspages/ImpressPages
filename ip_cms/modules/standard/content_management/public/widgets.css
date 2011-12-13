@@ -261,6 +261,7 @@
 }
 .ipAdminWidget {
     border-top: 3px solid #000;
+    margin-bottom: 29px !important; /* !important used to force .ipAdminWidgetControls not to cover .ipaFooter from widget above (mostly action buttons) */
 }
 .ipAdminWidgetControls {
     border: 1px solid transparent;
@@ -275,6 +276,7 @@
     display: block;
     float: left;
     padding: 2px 0;
+    text-decoration: none;
     visibility: hidden;
 }
 .ipAdminWidgetControls .ipaButton:hover {
