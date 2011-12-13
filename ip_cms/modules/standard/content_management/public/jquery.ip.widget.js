@@ -290,15 +290,15 @@
         return this.each(function() {
             var $this = $(this);
             if (response.status == 'success') {
-                $newWidget = $(response.previewHtml); 
-                $($newWidget).insertAfter($this);
-                $newWidget.trigger('reinitRequired.ipWidget');
-                console.log(response);
-                //change state to managed
-                var tmpData = $newWidget.data('ipWidget');
-                tmpData.state = IP_WIDGET_STATE_PREVIEW;
-                $newWidget.data('ipWidget', tmpData);
-                
+                if (response.oldInstanceId){
+                    $newWidget = $(response.previewHtml); 
+                    $($newWidget).insertAfter($this);
+                    $newWidget.trigger('reinitRequired.ipWidget');
+                    //change state to managed
+                    var tmpData = $newWidget.data('ipWidget');
+                    tmpData.state = IP_WIDGET_STATE_PREVIEW;
+                    $newWidget.data('ipWidget', tmpData);
+                }                
                 $this.remove();
             } else {
                 console.log(response);

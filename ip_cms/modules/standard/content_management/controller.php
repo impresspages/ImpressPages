@@ -178,7 +178,7 @@ class Controller extends \Ip\Controller{
         }
 
         $instanceId = $_POST['instanceId'];
-        $position = $_POST['position'];
+        $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
         $managementState = $_POST['managementState'];
@@ -373,15 +373,19 @@ class Controller extends \Ip\Controller{
         if ($widgetFullRecord['predecessor'] !== null) {
             $widgetPositin = Model::getInstancePosition($instanceId);
             Model::deleteInstance($instanceId);
-            $newInstanceId = Model::addInstance($widgetFullRecord['predecessor'], $widgetFullRecord['revisionId'], $widgetFullRecord['blockName'], $curPosition, $widgetFullRecord['visible']);
-
-            $previewHtml = Model::generateWidgetPreview($newInstanceId, true);
+            if ($widgetFullRecord['predecessor']) {
+                $newInstanceId = Model::addInstance($widgetFullRecord['predecessor'], $widgetFullRecord['revisionId'], $widgetFullRecord['blockName'], $curPosition, $widgetFullRecord['visible']);
+                $previewHtml = Model::generateWidgetPreview($newInstanceId, true);
+            } else {
+                $newInstanceId = '';
+                $previewHtml = '';
+            }
 
             $data = array (
                 'status' => 'success',
                 'action' => '_cancelWidgetResponse',
                 'previewHtml' => $previewHtml,
-                'instanceId' => $newInstanceId
+                'oldInstanceId' => $newInstanceId
             );
 
             $this->_outputAnswer($data);

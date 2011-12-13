@@ -336,7 +336,7 @@ class Model{
         if (count($widgets) == 0) {
             $positionNumber = 0;
         } else {
-            if ($newPosition == 0) {
+            if ($newPosition <= 0) {
                 $positionNumber = $widgets[0]['position'] - 40;
             } else {
                 if ($newPosition >= count($widgets)) {
