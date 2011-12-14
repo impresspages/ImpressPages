@@ -9,7 +9,7 @@
 .ipgRight {
     float: right;
 }
-.ipAdminWidget:after,
+.ipWidget:after,
 .ipgClear:after {
   clear: both;
   content: ".";
@@ -521,6 +521,11 @@
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
+}
+
+/* To be removed */
+.ui-dialog {
+    font-size: 12px;
 }
 .ipAdminWidgetDrag{
     width: 50px;

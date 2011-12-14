@@ -5,6 +5,13 @@
     height: 0px;
     overflow: hidden;
 }
+.ipWidget:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
 /* /global */
 
 /* content styles */
@@ -136,7 +143,7 @@
     
 }
 
-.ipContent h1.ipWidgetTitleHeading {
+.ipWidget-IpTitle h1 {
     color: #00a8da;
     font-family: "Trebuchet MS", Verdana, Arial;
     font-size: 28px;
@@ -145,7 +152,7 @@
     padding: 0;
 }
 
-.ipContent h2.ipWidgetTitleHeading {
+.ipWidget-IpTitle h2 {
     color: #83b51e;
     font-family: Arial, Verdana, "Trebuchet MS";
     font-size: 16px;
@@ -154,110 +161,60 @@
     padding: 0;
 }
 
-.ipContent h3.ipWidgetTitleHeading {
-    color: #83b51e;
-    font-family: "Trebuchet MS", Verdana, Arial;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 20px;
-    margin: 0;
-    padding: 0;
-}
-
-.ipContent .ipWidgetTextPhoto {
-    
-}
-
-.ipContent .ipWidgetTextPhotoImageLeft {
+.ipWidget-IpTextPicture img {
     border: 1px solid #cccccc;
     float: left;
     margin: 0 10px 10px 0;
     padding: 3px;
 }
 
-.ipContent .ipWidgetTextPhotoImageLeft:hover {
+.ipWidget-IpTextPicture img:hover {
     border: 1px solid #999999;
 }
 
-.ipContent .ipWidgetTextPhotoImageLeft img {
-    border: none;
-    float: left;
-}
-
-.ipContent .ipWidgetTextPhotoImageRight {
+.ipWidget-IpTextPicture.ipLayout-right img {
     border: 1px solid #cccccc;
     float: right;
     margin: 0 0 10px 10px;
     padding: 3px;
 }
 
-.ipContent .ipWidgetTextPhotoImageRight:hover {
+.ipWidget-IpTextPicture.ipLayout-right img :hover {
     border: 1px solid #999999;
 }
 
-.ipContent .ipWidgetTextPhotoImageRight img {
-    border: none;
-    float: right;
-}
-
-.ipContent .ipWidgetTextPhotoImageSmallLeft {
-    border: 1px solid #cccccc;
-    float: left;
-    margin: 0 10px 10px 0;
-    width: 100px;
-}
-
-.ipContent .ipWidgetTextPhotoImageSmallRight {
-    border: 1px solid #cccccc;
-    float: right;
-    margin: 0 0 10px 10px;
-    width: 100px;
-}
-
-.ipContent .ipWidgetTextPhotoText {
-    
-}
-
-.ipContent .ipWidgetPhoto {
-    
-}
-
-.ipContent .ipWidgetPhotoImage {
+.ipWidget-IpPicture {
     border: 1px solid #cccccc;
     display: block;
     padding: 3px;
 }
 
-.ipContent .ipWidgetSeparatorLine {
-    border-top: 1px dotted #cccccc;
-    height: 1px;
-}
-
-.ipContent .ipWidgetSeparatorSpace {
-    height: 10px;
-}
-
-.ipContent .ipWidgetPhotoGallery {
-    
-}
-
-.ipContent .ipWidgetPhotoGalleryWrapper {
+.ipWidget-IpPictureGallery ul {
     float: left;
+    list-style: none;
     margin: -10px 0 0 -10px;
+    padding: 0;
 }
 
-.ipContent .ipWidgetPhotoGalleryImage {
+.ipWidget-IpPictureGallery ul li {
+    background: none;
+    float: left;
+    padding: 0;
+}
+
+.ipWidget-IpPictureGallery li a {
     border: 1px solid #cccccc;
+    display: block;
     float: left;
     margin: 10px 0 0 10px;
     padding: 3px;
 }
 
-.ipContent .ipWidgetPhotoGalleryImage:hover {
+.ipWidget-IpPictureGallery li a:hover {
     border: 1px solid #999999;
 }
 
-.ipContent .ipWidgetPhotoGalleryImage img {
+.ipWidget-IpPictureGallery li a img {
     border: none;
     float: left;
 }
@@ -266,12 +223,17 @@
     
 }
 
-.ipContent .ipWidgetLogoGalleryWrapper {
+.ipWidget-IpLogoGallery ul {
     float: left;
     margin: -24px 0 0 -24px;
 }
 
-.ipContent .ipWidgetLogoGalleryLogo {
+.ipWidget-IpLogoGallery ul li {
+    background: none;
+    float: left;
+    padding: 0;
+}
+.ipWidget-IpLogoGallery li a {
     float: left;
     height: 150px;
     margin: 24px 0 0 24px;
@@ -298,21 +260,28 @@
     display: none;
 }
 
-.ipContent .ipWidgetFile {
-    
+.ipWidget-IpFile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.ipContent .ipWidgetFileLink {
+.ipWidget-IpFile ul li {
+    background: none;
+    padding: 0;
+}
+
+.ipWidget-IpFile a {
     color: #1e8de5;
     font-weight: bold;
     text-decoration: none;
 }
 
-.ipContent .ipWidgetFileLink:visited {
+.ipWidget-IpFile a:visited {
     color: #6a78b4;
 }
 
-.ipContent .ipWidgetFileLink:hover {
+.ipWidget-IpFile a:hover {
     color: #f59a25;
 }
 
