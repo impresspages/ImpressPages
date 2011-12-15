@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-function ipWidget_IpText(widgetObject) {
+function IpWidget_IpText(widgetObject) {
     this.widgetObject = widgetObject;
 
     this.manageInit = manageInit;
