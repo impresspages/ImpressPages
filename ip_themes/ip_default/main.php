@@ -16,17 +16,6 @@
                 src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/images/logo.jpg"
                 alt="ImpressPages CMS" /> </a>
             <div class="right">
-                <div class="icons">
-                    <a
-                        title="<?php echo htmlspecialchars($parametersMod->getValue('standard', 'configuration','main_parameters','name')); ?>"
-                        href="<?php echo $site->generateUrl(); ?>"><img
-                        src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/images/icon_home.gif"
-                        alt="home" /> </a> <a
-                        title="<?php echo htmlspecialchars($parametersMod->getValue('administrator', 'sitemap','translations','sitemap')); ?>"
-                        href="<?php echo $site->generateUrl(null, 'sitemap'); ?>"><img
-                        src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/images/icon_sitemap.gif"
-                        alt="sitemap" /> </a>
-                </div>
                 <div class="menuTop">
                 <?php
                 require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
@@ -61,16 +50,6 @@
             <?php
             echo $site->generateBlock('left');
             ?>
-            </div>
-            <div class="box newsletter">
-            <?php
-            echo $site->getZone('newsletter')->generateRegistrationBox();
-            echo "\n".'      <div class="separator"></div>'."\n";
-            echo "\n".'      <a class="rss" href="'.$site->getZone('rss')->generateRssLink().'">'.$parametersMod->getValue('administrator', 'rss', 'translations', 'rss').'</a>'."\n";
-            ?>
-                <div class="clear">
-                    <!-- -->
-                </div>
             </div>
         </div>
 
