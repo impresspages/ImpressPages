@@ -122,7 +122,7 @@
     </div>
 
     <?php echo $site->generateJavascript(); ?>
-    <script type="text/javascript" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/jquery.colorbox.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/jquery.colorbox-min.js"></script>
     <script type="text/javascript" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/scripts.js"></script>
 </body>
 </html>
