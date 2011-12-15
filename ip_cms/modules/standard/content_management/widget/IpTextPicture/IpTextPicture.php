@@ -10,7 +10,7 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
-class ipTextPicture extends \Modules\standard\content_management\Widget{
+class IpTextPicture extends \Modules\standard\content_management\Widget{
 
 
 

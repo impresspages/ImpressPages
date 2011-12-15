@@ -12,7 +12,7 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/picture/functions.php');
 
-class ipPicture extends \Modules\standard\content_management\Widget{
+class IpPicture extends \Modules\standard\content_management\Widget{
 
 
 

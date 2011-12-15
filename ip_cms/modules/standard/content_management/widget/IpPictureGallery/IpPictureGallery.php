@@ -13,7 +13,7 @@ require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/picture/functions.php');
 
 
-class ipPictureGallery extends \Modules\standard\content_management\Widget{
+class IpPictureGallery extends \Modules\standard\content_management\Widget{
 
 
 
