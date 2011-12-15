@@ -30,12 +30,15 @@
                     ui.item.addClass('ipAdminWidgetDrag');
                     ui.item.width(50);
                     ui.item.height(50);
+                    $('.ipAdminWidgetControls').css('display', 'none');
                 },
                 
                 stop : function (event, ui) {
                     ui.item.removeClass('ipAdminWidgetDrag');
                     ui.item.width('auto');
                     ui.item.height('auto');
+                    $('.ipAdminWidgetControls').css('visibility', 'visible');
+                    $('.ipAdminWidgetControls').css('display', '');
                 },
                 
                 // this event is fired twice by both blocks, when element is moved from one block to another.
