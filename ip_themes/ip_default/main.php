@@ -4,8 +4,9 @@
 <html <?php echo $this->htmlAttributes() ?>>
 <head>
     <?php echo $site->generateHead(); ?>
-    <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/ip_content.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo BASE_URL.THEME_DIR.THEME ?>/site.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/colorbox.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/ip_content.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/site.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="main">
@@ -121,5 +122,7 @@
     </div>
 
     <?php echo $site->generateJavascript(); ?>
+    <script type="text/javascript" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/jquery.colorbox.js"></script>
+    <script type="text/javascript" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/scripts.js"></script>
 </body>
 </html>
