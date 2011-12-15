@@ -81,7 +81,15 @@ class Controller extends \Ip\Controller{
         }
 
 
-
+        //security check Mangirdas 2011-12-15
+        $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
+        $disallow = array('htaccess','php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
+        if (in_array($fileExtension, $disallow)) {
+            //security risk
+            return;
+        }
+        
+        //end security check
 
 
         // Look for the content type header
