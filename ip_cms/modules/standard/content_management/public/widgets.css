@@ -275,6 +275,7 @@
     background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
     display: block;
     float: left;
+    font-weight: normal;
     padding: 2px 0;
     text-decoration: none;
     visibility: hidden;
