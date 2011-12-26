@@ -18,84 +18,82 @@
             // If the plugin hasn't been initialized yet
             if (!data) {
                 $this.sortable( {
-                connectWith : '.ipBlock',
-                revert : true,
-                dropOnEmpty : true,
-                forcePlaceholderSize : false,
-                placeholder: 'ipAdminWidgetPlaceholder',
-                handle : '.ipAdminWidgetControls .ipActionWidgetMove',
-
-                start : function (event, ui) {
+                    connectWith : '.ipBlock',
+                    revert : true,
+                    dropOnEmpty : true,
+                    forcePlaceholderSize : false,
+                    placeholder: 'ipAdminWidgetPlaceholder',
+                    handle : '.ipAdminWidgetControls .ipActionWidgetMove',
+                    start : function (event, ui) {
+                        ui.item.addClass('ipAdminWidgetDrag');
+                        ui.item.width(ui.item.find('.ipAdminWidgetMoveIcon').outerWidth());
+                        ui.item.height(ui.item.find('.ipAdminWidgetMoveIcon').outerHeight());
+                        $('.ipAdminWidgetControls').css('display', 'none');
+                    },
                     
-                    ui.item.addClass('ipAdminWidgetDrag');
-                    ui.item.width(50);
-                    ui.item.height(50);
-                    $('.ipAdminWidgetControls').css('display', 'none');
-                },
-                
-                stop : function (event, ui) {
-                    ui.item.removeClass('ipAdminWidgetDrag');
-                    ui.item.width('auto');
-                    ui.item.height('auto');
-                    $('.ipAdminWidgetControls').css('visibility', 'visible');
-                    $('.ipAdminWidgetControls').css('display', '');
-                },
-                
-                // this event is fired twice by both blocks, when element is moved from one block to another.
-                update : function(event, ui) {
-                    if (!$(ui.item).data('ipWidget')) {
-                        // some other object is dragged in. Do nothing.
-                        return;
+                    stop : function (event, ui) {
+                        ui.item.removeClass('ipAdminWidgetDrag');
+                        ui.item.width('auto');
+                        ui.item.height('auto');
+                        $('.ipAdminWidgetControls').css('visibility', 'visible');
+                        $('.ipAdminWidgetControls').css('display', '');
+                    },
+                    
+                    // this event is fired twice by both blocks, when element is moved from one block to another.
+                    update : function(event, ui) {
+                        if (!$(ui.item).data('ipWidget')) {
+                            // some other object is dragged in. Do nothing.
+                            return;
+                        }
+    
+                        // item is dragged out of the block. This action will be handled by the reciever using "receive"
+                        if ($(ui.item).parent().data('ipBlock').name != $this.data('ipBlock').name) {
+                            return;
+                        }
+    
+                        var instanceId = $(ui.item).data('ipWidget').instanceId;
+                        var position = $(ui.item).index();
+    
+                        var data = Object();
+                        data.g = 'standard';
+                        data.m = 'content_management';
+                        data.a = 'moveWidget';
+                        data.instanceId = instanceId;
+                        data.position = position;
+                        data.blockName = $this.data('ipBlock').name;
+                        data.revisionId = $this.data('ipBlock').revisionId;
+                        if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
+                            data.managementState = 1;
+                        } else {
+                            data.managementState = 0;
+                        }
+    
+                        $.ajax( {
+                        type : 'POST',
+                        url : ip.baseUrl,
+                        data : data,
+                        context : $this,
+                        success : methods._moveWidgetResponse,
+                        dataType : 'json'
+                        });
+    
+                    },
+    
+                    receive : function(event, ui) {
+    
+                        $element = $(ui.item);
+    
+                        // if received element is AdminWidgetButton (insert new widget)
+                        if ($element && $element.is('.ipActionWidgetButton')) {
+                            $duplicatedDragItem = $('.ipBlock .ipActionWidgetButton');
+                            $position = $duplicatedDragItem.index();
+                            var newWidgetName = $element.data('ipAdminWidgetButton').name;
+                            $duplicatedDragItem.remove();
+                            $block = $(event.target);
+                            $block.ipBlock('_createWidget', newWidgetName, $position);
+                        }
+    
                     }
-
-                    // item is dragged out of the block. This action will be handled by the reciever using "receive"
-                    if ($(ui.item).parent().data('ipBlock').name != $this.data('ipBlock').name) {
-                        return;
-                    }
-
-                    var instanceId = $(ui.item).data('ipWidget').instanceId;
-                    var position = $(ui.item).index();
-
-                    var data = Object();
-                    data.g = 'standard';
-                    data.m = 'content_management';
-                    data.a = 'moveWidget';
-                    data.instanceId = instanceId;
-                    data.position = position;
-                    data.blockName = $this.data('ipBlock').name;
-                    data.revisionId = $this.data('ipBlock').revisionId;
-                    if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
-                        data.managementState = 1;
-                    } else {
-                        data.managementState = 0;
-                    }
-
-                    $.ajax( {
-                    type : 'POST',
-                    url : ip.baseUrl,
-                    data : data,
-                    context : $this,
-                    success : methods._moveWidgetResponse,
-                    dataType : 'json'
-                    });
-
-                },
-
-                receive : function(event, ui) {
-
-                    $element = $(ui.item);
-
-                    // if received element is AdminWidgetButton (insert new widget)
-                    if ($element && $element.is('.ipActionWidgetButton')) {
-                        $duplicatedDragItem = $('.ipBlock .ipActionWidgetButton');
-                        $position = $duplicatedDragItem.index();
-                        var newWidgetName = $element.data('ipAdminWidgetButton').name;
-                        $duplicatedDragItem.remove();
-                        $block = $(event.target);
-                        $block.ipBlock('_createWidget', newWidgetName, $position);
-                    }
-
-                }
                 });
                 $this.data('ipBlock', {
                 name : $this.attr('id').substr(8),
@@ -143,7 +141,7 @@
     _moveWidgetResponse : function(response) {
         var $this = $(this);
         if (response.status == 'success') {
-            $('#ipWidget_' + response.oldInstance).replaceWith(response.widgetHtml);
+            $('#ipWidget-' + response.oldInstance).replaceWith(response.widgetHtml);
             $this.trigger('reinitRequired.ipWidget');
         }
         // todo show error on error response

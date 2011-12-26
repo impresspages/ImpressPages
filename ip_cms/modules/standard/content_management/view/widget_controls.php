@@ -3,3 +3,4 @@
     <a href="#" class="ipaButton ipActionWidgetMove"><span>Move</span></a>
     <a href="#" class="ipaButton ipActionWidgetDelete"><span>Delete</span></a>
 </div>
+<div class="ipAdminWidgetMoveIcon"></div>

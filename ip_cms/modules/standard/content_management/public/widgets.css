@@ -323,6 +323,18 @@
 .ipAdminWidgetControls .ipActionWidgetDelete:hover span {
     background-position: 7px -115px;
 }
+.ipAdminWidgetMoveIcon {
+    background: url(../img/icon_widget.png) #fff;
+    border: 3px solid #878787;
+    display: none;
+    height: 51px;
+    position: relative;
+    text-decoration: none;
+    width: 51px;
+}
+.ipAdminWidgetDrag .ipAdminWidgetMoveIcon {
+    display: block;
+}
 .ipAdminWidgetPlaceholder {
     background: #bdeaf9;
     outline: #5abee3 dashed 1px;
@@ -538,4 +550,5 @@
     height: 50px;
     background-color: green;
     overflow: hidden;
+    margin-left: 100px;
 }
