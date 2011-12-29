@@ -78,11 +78,12 @@ class HtmlOutput {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/modules/modules.css">
+    <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/ip_admin.css">
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
+    <script src="' . BASE_URL . BACKEND_DIR . 'design/ip_admin.js"></script>
 </head>
 
 <body>
@@ -217,113 +218,64 @@ class HtmlOutput {
 
     function modules($groups) {
         global $cms;
-        $groupsHtml = "";
+        global $parametersMod;
+        $modulesHtml = '';
         $systemModule = null;
-        $systemModuleGroupListId = '';
 
         if ($groups !== null) {
-
-
-
+            $modulesHtml .= '<ul>';
             $i = 0;
-            foreach ($groups as $key => $modules) {
-
-                if ($modules !== null)
-                $groupsHtml .= '<span id="moduleGroupLink' . $i . '" class="left knob opened" >' . $key . '</span>';
-                $i++;
-            }
-
-            $groupsHtml .= '
-  <script>
-  //<![CDATA[
-    var modTabs = new LibTabs(\'modTabs\', \'left knob\', \'left knob opened\');
-    var last_selected = null;
-    function change_page(cur_object, url){
-      if(last_selected){
-        last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal\');
-      }
-      last_selected = cur_object;
-      last_selected.setAttribute(document.all ? "className" : "class", \'top_tabs_normal top_tabs_selected\');
-      parent.content.location=url;
-
-    }
-  //]]>
-  </script>
-  ';
-            $i = 0;
-            $modulesHtml = '';
-            $script_html = '';
+            $ipaActive = ' class="ipaActive"';
             foreach ($groups as $key => $modules) {
                 if ($modules !== null) {
-                    $modulesHtml .= '<div id="moduleGroup' . $i . '" class="top_tabs"><ul>';
+                    $modulesHtml .= '<li' . ($i ? '' : $ipaActive) . '><a href="#">' . $key . '</a>';
+                    $modulesHtml .= '<ul>';
+                    $i2 = 0;
                     foreach ($modules as $key2 => $module) {
                         if($module['g_name'] == 'administrator' && $module['m_name'] == 'system') {
                             $systemModule = $module;
-                            $systemModuleGroupListId = $i;
                         }
-                        if ($i == 0 && $key2 == 0) {
-                            $modulesHtml .= '<li id="modTabsFirstModule" class="top_tabs_normal top_tabs_selected" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
-                            $script_html .= '
-              <script>
-                 //<![CDATA[
-                last_selected = document.getElementById(\'modTabsFirstModule\');
-                //]]>
-              </script>';
-                        }else
-                        $modulesHtml .= '<li id="module_'.$module['g_name'].'_'.$module['m_name'].'" class="top_tabs_normal" onclick="change_page(this, \'' . $cms->generateUrl($module['id']) . '\')" ><span>' . $module['translation'] . '</span></li>';
+                        $modulesHtml .= '<li' . ($i || $i2 ? '' : $ipaActive) . ' id="ipAdminModule-' . $module['id'] . '"><a href="' . $cms->generateUrl($module['id']) . '" target="content">' . $module['translation'] . '</a></li>';
+                        $i2++;
                     }
-                    $modulesHtml .= '</ul></div>';
-                    $modulesHtml .=
-                    $script_html . '
-          <script>
-            //<![CDATA[
-            modTabs.addTab(\'moduleGroupLink' . $i . '\', \'moduleGroup' . $i . '\');
-            //]]>
-          </script>
-          ';
-                }else
-                trigger_error("No modules");
+                    $modulesHtml .= '</ul>';
+                    $modulesHtml .= '</li>';
+                } else {
+                    trigger_error("No modules");
+                }
                 $i++;
             }
-        }else
-        trigger_error("No groups");
-        global $parametersMod;
-        global $cms;
+            $modulesHtml .= '</ul>';
+        } else {
+            trigger_error("No groups");
+        }
 
-        if($systemModule != null) {
-            $systemMessage = '<a id="ipCmsSystemNotice" style="'.(!empty($_SESSION['modules']['administrator']['system']['show_system_message']) ? '' : 'display: none;').'" class="ipCmsTopNotice" onclick="modTabs.switchTab(\'moduleGroup'.$systemModuleGroupListId.'\'); change_page(document.getElementById(\'module_'.$systemModule['g_name'].'_'.$systemModule['m_name'].'\'), \'' . $cms->generateUrl($systemModule['id']) . '\'); this.style.display=\'none\'; return false;" href="#">' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message') . '</a>';
+        // checking to show system notice
+        if($systemModule != null && !empty($_SESSION['modules']['administrator']['system']['show_system_message'])) {
+            $systemMessage = '
+            <a href="' . $cms->generateUrl($systemModule['id']) . '" target="content" class="ipaNotice">
+                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message') . '
+            </a>';
         } else {
             $systemMessage = '';
         }
 
-        $this->html .='
-      <div class="all">
-        <div class="top_menu">
-
-          ' . $groupsHtml . '
-          <a class="logout" href="' . $cms->generateActionUrl('logout') . '">
-          ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'logout') . '
-          </a>
-          <a class="ipCmsTopHelp" target="_blank" href="http://www.impresspages.org/help">' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'help') . '</a>
-          '.$systemMessage.'
-        </div>
-        <div class="top_tabs">
-        ' . $modulesHtml . '
-        </div>
-      </div><!-- class="all" -->
-						
-		
-			
-			
-			';
-
         $this->html .= '
-      <script>
-      //<![CDATA[
-        modTabs.switchFirst();
-      //]]>
-      </script>
-    ';
+    <div class="ipAdminNav">
+        <div class="ipAdminNavActions">
+            ' . $systemMessage . '
+            <a class="ipaHelp" target="_blank" href="http://www.impresspages.org/help">
+                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'help') . '
+            </a>
+            <a class="ipaLogout" href="' . $cms->generateActionUrl('logout') . '">
+                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'logout') . '
+            </a>
+        </div>
+        <div class="ipAdminNavLinks">
+            ' . $modulesHtml . '
+        </div>
+    </div>
+';
     }
 
     function footer() {

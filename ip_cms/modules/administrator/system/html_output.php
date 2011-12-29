@@ -21,7 +21,7 @@ class HtmlOutput{
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/common.css">
+    <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/ip_admin.css">
     <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'administrator/system/style.css">
     <script src="'.LIBRARY_DIR.'js/default.js"></script>
 </head>

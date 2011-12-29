@@ -11,16 +11,15 @@
 }
 .ipWidget:after,
 .ipgClear:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 .ipgHide {
     display: none;
 }
-
 .ipAdminLabel {
     color: #000;
     display: block;
@@ -104,7 +103,7 @@
 .ipAdminPanel {
     background-color: #FBFCFC;
     height: 153px;
-    min-width: 800px;
+    min-width: 840px;
     position: fixed;
     width: 100%;
     z-index: 1000;

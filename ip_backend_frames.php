@@ -61,7 +61,7 @@ if(\Db::connect()){
 <head>
 <link rel="SHORTCUT ICON" href="favicon.ico" />
 </head>
-<frameset rows="64px,*" framespacing="0" border="0">
+<frameset rows="72px,*" framespacing="0" border="0">
     <frame name="header" noresize="noresize" frameborder=0
         scrolling="no"
         src="<?php echo $cms->generateActionurl('tep_modules'); ?>">

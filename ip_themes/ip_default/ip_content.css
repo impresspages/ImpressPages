@@ -6,11 +6,11 @@
     overflow: hidden;
 }
 .ipWidget:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 /* /global */
 
