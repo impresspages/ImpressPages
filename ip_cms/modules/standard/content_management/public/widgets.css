@@ -231,11 +231,13 @@
     border: 1px solid #b8b8b8;
     display: none;
     list-style: none;
+    max-height: 230px;
     padding: 4px;
     position: absolute;
+    overflow: auto;
     right: 0;
     top: 31px;
-    width: 210px;
+    width: 230px;
 }
 .ipAdminRevisions li a {
     color: #2f313f;
