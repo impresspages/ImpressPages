@@ -20,6 +20,7 @@ $languages['en'] = 'English';
 $languages['fr'] = 'French';
 $languages['de'] = 'Deutsch';
 $languages['lt'] = 'Lietuvių';
+$languages['pt'] = 'Portugues';
 $languages['pl'] = 'Polski';
 $languages['ro'] = 'Română';
 
