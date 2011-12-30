@@ -97,7 +97,6 @@
     fetchManaged : function () {
         var answer = new Array();
         this.each(function() {
-            console.log('STATE: ' + $(this).data('ipWidget').state);
             if ($(this).data('ipWidget').state == IP_WIDGET_STATE_MANAGEMENT){
                 answer.push($(this));
             }

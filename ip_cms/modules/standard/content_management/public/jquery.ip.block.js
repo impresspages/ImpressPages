@@ -69,37 +69,38 @@
                         }
     
                         $.ajax( {
-                        type : 'POST',
-                        url : ip.baseUrl,
-                        data : data,
-                        context : $this,
-                        success : methods._moveWidgetResponse,
-                        dataType : 'json'
+                            type : 'POST',
+                            url : ip.baseUrl,
+                            data : data,
+                            context : $this,
+                            success : methods._moveWidgetResponse,
+                            dataType : 'json'
                         });
     
                     },
     
                     receive : function(event, ui) {
-    
                         $element = $(ui.item);
-    
                         // if received element is AdminWidgetButton (insert new widget)
                         if ($element && $element.is('.ipActionWidgetButton')) {
                             $duplicatedDragItem = $('.ipBlock .ipActionWidgetButton');
                             $position = $duplicatedDragItem.index();
                             var newWidgetName = $element.data('ipAdminWidgetButton').name;
                             $duplicatedDragItem.remove();
-                            $block = $(event.target);
+                            $block = $this;
+                            console.log('received');
+                            console.log(event);
                             $block.ipBlock('_createWidget', newWidgetName, $position);
                         }
     
                     }
                 });
+                
                 $this.data('ipBlock', {
-                name : $this.attr('id').substr(8),
-                revisionId : options.revisionId,
-                widgetControlsHtml : options.widgetControlsHtml,
-                contenManagementObject : options.contentManagementObject
+                    name : $this.attr('id').substr(8),
+                    revisionId : options.revisionId,
+                    widgetControlsHtml : options.widgetControlsHtml,
+                    contenManagementObject : options.contentManagementObject
                 });
 
                 var widgetOptions = new Object;
