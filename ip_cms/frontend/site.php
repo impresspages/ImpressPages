@@ -230,6 +230,7 @@ class Site{
         $this->configZones();
 
         $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js', 0);
+        $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js', 0);
 
         $this->modulesInit();
 

@@ -1,9 +1,9 @@
 /* global */
 .ipBlock .clear {
-    clear: both;
-    font-size: 0px;
-    height: 0px;
-    overflow: hidden;
+  clear: both;
+  font-size: 0;
+  height: 0;
+  overflow: hidden;
 }
 .ipWidget:after {
     clear: both;
