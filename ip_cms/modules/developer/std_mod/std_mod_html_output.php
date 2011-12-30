@@ -104,41 +104,7 @@ class stdModHtmlOutput{
         if($name == '')
         $this->html .= $this->error("Input without name ");
         global $cms;
-        if(!$cms->tinyMce){
-            $cms->tinyMce = true;
-            $this->html .= '
-          <script src="'.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
-          <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>
-          <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>
 
-          
-          
-        ';
-
-            //tinymce styles
-            global $site;
-            $site->requireConfig('standard/content_management/config.php');
-            $tinyMceStylesStr = '';
-            foreach(\Modules\standard\content_management\Config::getMceStyles() as $style){
-                if($tinyMceStylesStr != ''){
-                    $tinyMceStylesStr .= ';';
-                }
-                $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
-            }
-            //end tinymce styles
-
-
-
-
-            $this->html .= '
-<script type="text/javascript">
-  //<![CDATA[
-  '.Config::getMceInit('mode: "specific_textareas"', 'editor_selector : "mceEditor"', 'backend').'
-  //]]>
-</script>
-';
-
-        }
 
 
 
