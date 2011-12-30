@@ -105,7 +105,7 @@ class std_mod_html_output{
         if($name == '')
         $this->html .= $this->error("Input without name ");
         global $cms;
-        if(!$cms->tiny_mce){
+        if(false && !$cms->tiny_mce){
 
             //tinymce styles
             global $site;
@@ -129,7 +129,7 @@ class std_mod_html_output{
             $this->html .= "
 <script type=\"text/javascript\">
   //<![CDATA[
-    ".\Modules\developer\std_mod\Config::getMceInit('mode: "specific_textareas"', 'editor_selector : "mceEditor"', 'backend')."
+  $('.mceEditor').tinymce(ipTinyMceConfigMin);
   //]]>
 </script>
 ";
@@ -138,6 +138,9 @@ class std_mod_html_output{
 
 
         $this->html .= '<textarea class="mceEditor" mce_editable="true" '.$disabled_str.' class="stdMod" cols="100" rows="10" name="'.htmlspecialchars($name).'">'.$value.'</textarea>' ;
+        
+        
+   
     }
 
     function input($name, $value = '', $disabled = false, $max_length = null){

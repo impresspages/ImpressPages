@@ -28,8 +28,25 @@ class HtmlOutput {
     <meta charset="UTF-8">
     <title>ImpressPages</title>
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+    
+    <script type="text/javascript">
+        var ip = {
+            baseUrl : '.json_encode(BASE_URL).',
+            libraryDir : '.json_encode(LIBRARY_DIR).',
+            themeDir : '.json_encode(THEME_DIR).',
+            moduleDir : '.json_encode(MODULE_DIR).',
+            theme : '. json_encode(THEME) .',
+            zoneName : '.json_encode(null).',
+            pageId : '.json_encode(null).',
+            revisionId : '.json_encode(null).',
+        };
+    </script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
+    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
+    <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>
+    
 </head>
 
 <body> <!-- display loading until page is loaded-->

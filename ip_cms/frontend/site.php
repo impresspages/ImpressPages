@@ -1110,6 +1110,7 @@ class Site{
             $javascriptFiles = array_merge($javascriptFiles, $level);
         }
 
+        
         $data = array (
             'ipBaseUrl' => BASE_URL,
             'ipLibraryDir' => LIBRARY_DIR,
@@ -1118,7 +1119,7 @@ class Site{
             'ipTheme' => THEME,
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
-            'ipPageId' => $this->getCurrentElement()->getId(),
+            'ipPageId' => $this->getCurrentElement() ? $this->getCurrentElement()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],
             'javascript' => $javascriptFiles
         );
@@ -1180,9 +1181,13 @@ class Site{
                 }
             }
 
-        } else {
+        } else {            
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-            $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+            $currentElement = $this->getCurrentElement();
+            if ($currentElement) {
+                $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $currentElement->getId());
+            }
+            
         }
         return $revision;
     }

@@ -565,6 +565,7 @@ class StandardModule {
 
         $answer = $this->make_html();
 
+        
         return $answer;
     }
 
@@ -684,6 +685,7 @@ class StandardModule {
         global $std_mod_db;
         global $parametersMod;
         global $cms;
+
         $std_mod_db = new std_mod_db();
 
         $answer = '';
@@ -695,8 +697,25 @@ class StandardModule {
 <head>
     <title>ImpressPages</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  
+    <script type="text/javascript">
+        var ip = {
+            baseUrl : '.json_encode(BASE_URL).',
+            libraryDir : '.json_encode(LIBRARY_DIR).',
+            themeDir : '.json_encode(THEME_DIR).',
+            moduleDir : '.json_encode(MODULE_DIR).',
+            theme : '. json_encode(THEME) .',
+            zoneName : '.json_encode(null).',
+            pageId : '.json_encode(null).',
+            revisionId : '.json_encode(null).',
+        };
+    </script>
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
   <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
+  <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
+  <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
+  <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>
 </head>   
 	 
 <body> <!-- display loading until page is loaded-->
@@ -760,6 +779,15 @@ class StandardModule {
             '<div class="clear">
 		  </div>
 		 </div><!-- class="all" -->
+		 
+
+';
+         $answer .= '
+<script type="text/javascript">
+  //<![CDATA[
+  $(\'.mceEditor\').tinymce(ipTinyMceConfigMed);
+  //]]>
+</script>
 		 
 		   </body>
       </html>   
