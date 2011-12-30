@@ -18,16 +18,15 @@ class System{
         global $site;
         global $dispatcher;
         if ($site->managementState()) {
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/ui/jquery-ui.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.contentManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.pageOptions.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
-            
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.js');
-            $site->addCss(BASE_URL.LIBRARY_DIR.'js/ui/jquery-ui.css');
+
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
+            $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/tiny_mce/jquery.tinymce.js');
 

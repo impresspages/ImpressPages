@@ -234,7 +234,7 @@ class View{
             case self::DOCTYPE_XHTML1_TRANSITIONAL:
             case self::DOCTYPE_XHTML1_FRAMESET:
                 $lang = $site->getCurrentLanguage()->getCode();
-                return 'xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
+                return ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
                 break;
             case self::DOCTYPE_HTML4_STRICT:
             case self::DOCTYPE_HTML4_TRANSITIONAL:
@@ -244,7 +244,7 @@ class View{
                 break;
             case self::DOCTYPE_HTML5:
                 $lang = $site->getCurrentLanguage()->getCode();
-                return 'lang="'.$lang.'"';
+                return ' lang="'.$lang.'"';
                 break;
         }        
        
