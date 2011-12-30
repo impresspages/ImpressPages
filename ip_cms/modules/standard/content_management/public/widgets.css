@@ -441,35 +441,35 @@
     margin-bottom: 7px;
 }
 
-/* Widget: IpPicture (todo: IpImage)*/
-.ipAdminWidget-IpPicture .ipaImage {
+/* Widget: IpImage */
+.ipAdminWidget-IpImage .ipaImage {
     width: 100%;
 }
-.ipAdminWidget-IpPicture .ipaOptions {
+.ipAdminWidget-IpImage .ipaOptions {
     margin-top: 10px;
 }
 
-/* Widget: IpTextPicture (todo: IpTextImage)*/
-.ipAdminWidget-IpTextPicture .ipaImageContainer {
+/* Widget: IpTextImage */
+.ipAdminWidget-IpTextImage .ipaImageContainer {
     float: left;
     width: 200px;
 }
-.ipAdminWidget-IpTextPicture .ipaOptions {
+.ipAdminWidget-IpTextImage .ipaOptions {
     margin-bottom: 27px;
 }
-.ipAdminWidget-IpTextPicture .ipaOptions .ipAdminInput {
+.ipAdminWidget-IpTextImage .ipaOptions .ipAdminInput {
     width: 186px;
 }
-.ipAdminWidget-IpTextPicture .ipaTextarea {
+.ipAdminWidget-IpTextImage .ipaTextarea {
     margin-left: 209px;
 }
-.ipAdminWidget-IpTextPicture .ipaTextarea textarea {
+.ipAdminWidget-IpTextImage .ipaTextarea textarea {
     width: 100%;
 }
 
-/* Widget: IpPictureGallery (todo: IpImageGallery)
+/* Widget: IpImageGallery
    Widget: IpLogoGallery */
-.ipAdminWidget-IpPictureGallery .ipaUpload,
+.ipAdminWidget-IpImageGallery .ipaUpload,
 .ipAdminWidget-IpLogoGallery .ipaUpload {
     background: url(../img/bg_upload.gif);
     float: left;
@@ -477,17 +477,17 @@
     position: relative;
     text-align: center;
 }
-.ipAdminWidget-IpPictureGallery .ipaUpload .ipAdminButton,
+.ipAdminWidget-IpImageGallery .ipaUpload .ipAdminButton,
 .ipAdminWidget-IpLogoGallery .ipaUpload .ipAdminButton {
     position: relative;
     top: 42%;
 }
-.ipAdminWidget-IpPictureGallery .ipaImageTemplate,
+.ipAdminWidget-IpImageGallery .ipaImageTemplate,
 .ipAdminWidget-IpLogoGallery .ipaLogoTemplate {
     float: left;
     margin: 0 7px 7px 0;
 }
-.ipAdminWidget-IpPictureGallery .ipaBody .ipaButton,
+.ipAdminWidget-IpImageGallery .ipaBody .ipaButton,
 .ipAdminWidget-IpLogoGallery .ipaBody .ipaButton {
     background-color: #000;
     color: #fff;
@@ -495,11 +495,11 @@
     font-size: 10px;
     padding: 2px 4px;
 }
-.ipAdminWidget-IpPictureGallery .ipaBody .ipaImageMove,
+.ipAdminWidget-IpImageGallery .ipaBody .ipaImageMove,
 .ipAdminWidget-IpLogoGallery .ipaBody .ipaLogoMove {
     cursor: move;
 }
-.ipAdminWidget-IpPictureGallery .ipaImageTitle,
+.ipAdminWidget-IpImageGallery .ipaImageTitle,
 .ipAdminWidget-IpLogoGallery .ipaLogoTitle {
     width: 95px;
 }

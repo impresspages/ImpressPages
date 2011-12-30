@@ -8,9 +8,9 @@
  * 
  * Available options:
  * 
- * backgroundPicture - default picture to be used when real picture is not uploaded (not implemented)
+ * backgroundImage - default image to be used when real image is not uploaded (not implemented)
  * backgroundColor - (not implemented)
- * picture - url to image to be cropped / resized
+ * image - url to image to be cropped / resized
  * cropX1 - current cropping coordinates
  * cropY1 
  * cropX2
@@ -22,9 +22,9 @@
  * maxWindowHeight
  * minWindowWidth
  * minWindowHeight
- * enableScale - allow user to scale picture
- * enableUnderscale - allow user to minimize picture without limits (false by default. Always true if autosizeType is 'fill')
- * enableFraming - allow user to frame the picture
+ * enableScale - allow user to scale image
+ * enableUnderscale - allow user to minimize image without limits (false by default. Always true if autosizeType is 'fill')
+ * enableFraming - allow user to frame the image
  * enableChangeWidth - allow user to change container width
  * enableChangeHeight - allow user to change container height
  * autosizeType - how to resize image after upload. Available options: crop, fit. Default - crop
@@ -42,21 +42,21 @@
             return this.each(function() {
                 var $this = $(this);
                 
-                var data = $this.data('ipUploadPicture');
+                var data = $this.data('ipUploadImage');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    var defaultPicture;
-                    if (options.defaultPicture) {
-                        defaultPicture = options.defaultPicture;
+                    var defaultImage;
+                    if (options.defaultImage) {
+                        defaultImage = options.defaultImage;
                     } else {
-                        defaultPicture = ip.moduleDir + 'developer/upload/img/empty.gif';
+                        defaultImage = ip.moduleDir + 'developer/upload/img/empty.gif';
                     }
                     
-                    var curPicture;
-                    if (options.picture) {
-                        curPicture = options.picture;
+                    var curImage;
+                    if (options.image) {
+                        curImage = options.image;
                     } else {
-                        curPicture = defaultPicture;
+                        curImage = defaultImage;
                     }
                     
                     if (!options.windowWidth) {
@@ -116,7 +116,7 @@
                     
 
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
-                    $this.data('ipUploadPicture', {
+                    $this.data('ipUploadImage', {
                         windowWidth : options.windowWidth,
                         windowHeight : options.windowHeight,
                         enableChangeWidth : options.enableChangeWidth,
@@ -134,11 +134,11 @@
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
                         
-                        defaultPicture : defaultPicture,
-                        pictureChanged : false,
+                        defaultImage : defaultImage,
+                        imageChanged : false,
                         coordinatesChanged : false,
                         
-                        curPicture : curPicture,
+                        curImage : curImage,
                         uniqueId : uniqueId,
                     }); 
                     
@@ -146,7 +146,7 @@
                     var data = Object();
                     data.g = 'developer';
                     data.m = 'upload';
-                    data.a = 'getPictureContainerHtml';
+                    data.a = 'getImageContainerHtml';
                     
                     $.ajax({
                         type : 'POST',
@@ -173,11 +173,11 @@
             
             $this.html(response.html);
             
-            var data = $this.data('ipUploadPicture');
+            var data = $this.data('ipUploadImage');
             var $ipUploadWindow = $this.find('.ipUploadWindow');
             
             
-            $this.find('.ipUploadImage').attr('src', ip.baseUrl + data.curPicture);
+            $this.find('.ipUploadImage').attr('src', ip.baseUrl + data.curImage);
             console.log('uniqueId: ' + data.uniqueId);
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
@@ -200,25 +200,25 @@
                 $ipUploadWindow.resizable(resizableOptions);
                 
                 $ipUploadWindow.bind( "resize", function(event, ui) {
-                    $(this).trigger('windowResize.ipUploadPicture', [event, ui]);
+                    $(this).trigger('windowResize.ipUploadImage', [event, ui]);
                 });                
                 
             }
-            $this.bind('windowResize.ipUploadPicture', function(event, resizeEvent, ui) {
-                $(this).ipUploadPicture('_resizedWindow', resizeEvent, ui);
+            $this.bind('windowResize.ipUploadImage', function(event, resizeEvent, ui) {
+                $(this).ipUploadImage('_resizedWindow', resizeEvent, ui);
             });            
 
             
             $this.find('.ipUploadLargerButton').click(function(event) {
                 event.preventDefault();
-                $(this).trigger('pictureScaleUp.ipUploadPicture');
+                $(this).trigger('imageScaleUp.ipUploadImage');
             });
             if (!data.enableScale) {
                 $this.find('.ipUploadLargerButton').hide();
             }
             
-            $this.bind('pictureScaleUp.ipUploadPicture', function(event) {
-                $(this).ipUploadPicture('_scaleUp', event);
+            $this.bind('imageScaleUp.ipUploadImage', function(event) {
+                $(this).ipUploadImage('_scaleUp', event);
             });
 
             
@@ -227,26 +227,26 @@
             
             $this.find('.ipUploadSmallerButton').click(function(event) {
                 event.preventDefault();
-                $(this).trigger('pictureScaleDown.ipUploadPicture');
+                $(this).trigger('imageScaleDown.ipUploadImage');
             });console.log(data);
             if (!data.enableScale) {console.log('hide');
                 $this.find('.ipUploadSmallerButton').hide();
             }
             
 
-            $this.bind('pictureScaleDown.ipUploadPicture', function(event) {
-                $(this).ipUploadPicture('_scaleDown', event);
+            $this.bind('imageScaleDown.ipUploadImage', function(event) {
+                $(this).ipUploadImage('_scaleDown', event);
             });
             
             
             //uploaded new photo and loaded. Reinit drag container
             $this.find('.ipUploadImage').load(function (){
-                $this.ipUploadPicture('_pictureLoaded');
+                $this.ipUploadImage('_imageLoaded');
             });
             
             
-            $this.find('.ipUploadImage').bind('pictureResized.ipUploadPicture', function(event, pictureCenterXPercentage, pictureCenterYPercentage) {
-                $this.ipUploadPicture('_pictureResized', event, pictureCenterXPercentage, pictureCenterYPercentage);
+            $this.find('.ipUploadImage').bind('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
+                $this.ipUploadImage('_imageResized', event, imageCenterXPercentage, imageCenterYPercentage);
             });
             
             
@@ -254,9 +254,9 @@
             $this.find('.ipUploadImage').draggable({ containment: "parent", disabled: !data.enableFraming });
             $this.bind( "dragstop", function(event, ui) {
                 $this = $(this);
-                var data = $this.data('ipUploadPicture');
+                var data = $this.data('ipUploadImage');
                 data.coordinatesChanged = true;
-                $this.data('ipUploadPicture', data);
+                $this.data('ipUploadImage', data);
             });
             
             var uploader = new plupload.Uploader( {
@@ -306,189 +306,189 @@
             });
             
             uploader.bind('FileUploaded', function(up, file, response) {
-                $this.ipUploadPicture('_uploadedNewFile', up, file, response);
+                $this.ipUploadImage('_uploadedNewFile', up, file, response);
             });            
             
         },
         
         _resizedWindow : function (resizeEvent, ui) {
             var $this = $(this);
-            var $picture = $this.find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
+            var $image = $this.find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
 
             
-            var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
-            var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
+            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
             
-            var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
-            var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
+            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
         
-            $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
         },
         
         _uploadedNewFile : function (up, file, response) {
             console.log('uploaded new file');
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
-            var data = $this.data('ipUploadPicture');
-            data.curPicture = answer.fileName;
-            data.pictureChanged = true;
+            var data = $this.data('ipUploadImage');
+            data.curImage = answer.fileName;
+            data.imageChanged = true;
             data.coordinatesChanged = true;
-            $this.data('ipUploadPicture', data);
+            $this.data('ipUploadImage', data);
             $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
         },
         
         
-        _pictureLoaded : function() {
+        _imageLoaded : function() {
             var $this = $(this);
-            var $picture = $this.find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
-            var data = $this.data('ipUploadPicture');
+            var $image = $this.find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
+            var data = $this.data('ipUploadImage');
             
-            if ($window.height() == 0 || $picture.height() == 0) {
+            if ($window.height() == 0 || $image.height() == 0) {
                 return; //to avoid division by zero.
             }
-            console.log('new picture loaded');
-            console.log($this.ipUploadPicture('getNewPictureUploaded'));
-            if ($this.ipUploadPicture('getNewPictureUploaded')) { //new picture uploaded. Center it.
-                console.log('new picture');
+            console.log('new image loaded');
+            console.log($this.ipUploadImage('getNewImageUploaded'));
+            if ($this.ipUploadImage('getNewImageUploaded')) { //new image uploaded. Center it.
+                console.log('new image');
                 containerAspectRatio = $window.width() / $window.height();
-                $picture.height('auto');
-                $picture.width('auto');
-                pictureAspectRatio = $picture.width() / $picture.height();
+                $image.height('auto');
+                $image.width('auto');
+                imageAspectRatio = $image.width() / $image.height();
                 switch (data.autosizeType) {
                     case 'fit' :
-                        if (containerAspectRatio < pictureAspectRatio) {
-                            $picture.width($window.width());
-                            $picture.height('auto');
-                            $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+                        if (containerAspectRatio < imageAspectRatio) {
+                            $image.width($window.width());
+                            $image.height('auto');
+                            $image.height(Math.round($image.height())); //set exact value made by automatic scale
                             
                         } else {
-                            $picture.height($window.height());
-                            $picture.width('auto');
-                            $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
+                            $image.height($window.height());
+                            $image.width('auto');
+                            $image.width(Math.round($image.width())); //set exact value made by automatic scale
                         }
                         break;
                     case 'crop' :
                     default: 
-                        if (containerAspectRatio > pictureAspectRatio) {
-                            $picture.width($window.width());
-                            $picture.height('auto');
-                            $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+                        if (containerAspectRatio > imageAspectRatio) {
+                            $image.width($window.width());
+                            $image.height('auto');
+                            $image.height(Math.round($image.height())); //set exact value made by automatic scale
                             
                         } else {
-                            $picture.height($window.height());
-                            $picture.width('auto');
-                            $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
+                            $image.height($window.height());
+                            $image.width('auto');
+                            $image.width(Math.round($image.width())); //set exact value made by automatic scale
                         }
                 }
                 
-                $picture.trigger('pictureResized.ipUploadPicture', [50, 50]);
-            } else { //current picture loaded. Crop it as it was cropped before
+                $image.trigger('imageResized.ipUploadImage', [50, 50]);
+            } else { //current image loaded. Crop it as it was cropped before
                 var cropX1 = 0;
                 var cropY1 = 0;
-                var cropX2 = parseInt($picture.width());
-                var cropY2 = parseInt($picture.height());
-                if ($this.data('ipUploadPicture').cropX1) {
-                    cropX1 = parseInt($this.data('ipUploadPicture').cropX1);
+                var cropX2 = parseInt($image.width());
+                var cropY2 = parseInt($image.height());
+                if ($this.data('ipUploadImage').cropX1) {
+                    cropX1 = parseInt($this.data('ipUploadImage').cropX1);
                 }
-                if ($this.data('ipUploadPicture').cropY1) {
-                    cropY1 = parseInt($this.data('ipUploadPicture').cropY1);
+                if ($this.data('ipUploadImage').cropY1) {
+                    cropY1 = parseInt($this.data('ipUploadImage').cropY1);
                 }
-                if ($this.data('ipUploadPicture').cropX2) {
-                    cropX2 = parseInt($this.data('ipUploadPicture').cropX2);
+                if ($this.data('ipUploadImage').cropX2) {
+                    cropX2 = parseInt($this.data('ipUploadImage').cropX2);
                 }
-                if ($this.data('ipUploadPicture').cropY2) {
-                    cropY2 = parseInt($this.data('ipUploadPicture').cropY2);
+                if ($this.data('ipUploadImage').cropY2) {
+                    cropY2 = parseInt($this.data('ipUploadImage').cropY2);
                 }
                 
                 switch (data.autosizeType) {
                     case 'fit' :
                             var centerX = (cropX2 - cropX1) / 2 + cropX1;
                             var centerY = (cropY2 - cropY1) / 2 + cropY1;
-                            var centerPercentageX = centerX / $picture.width() * 100;
-                            var centerPercentageY = centerY / $picture.height() * 100;
+                            var centerPercentageX = centerX / $image.width() * 100;
+                            var centerPercentageY = centerY / $image.height() * 100;
                             $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
                             $windowRatio = $window.width() / $window.height();
-                            if ($this.data('ipUploadPicture').enableChangeHeight) {
+                            if ($this.data('ipUploadImage').enableChangeHeight) {
                                 $window.height(Math.round($window.width() / $photoRatio));
                             } else {
-                                if ($this.data('ipUploadPicture').enableChangeWidth) {
+                                if ($this.data('ipUploadImage').enableChangeWidth) {
                                     $window.width(Math.round($window.height() * $photoRatio));
                                 }
                             }
                             
                             if ($photoRatio < $windowRatio) {
-                                var pictureScale = $window.height() / (cropY2 - cropY1);
-                                $picture.height($picture.height() * pictureScale);
-                                $picture.width('auto');
+                                var imageScale = $window.height() / (cropY2 - cropY1);
+                                $image.height($image.height() * imageScale);
+                                $image.width('auto');
                             } else {
-                                var pictureScale = $window.width() / (cropX2 - cropX1);
-                                $picture.width($picture.width() * pictureScale);
-                                $picture.height('auto');
+                                var imageScale = $window.width() / (cropX2 - cropX1);
+                                $image.width($image.width() * imageScale);
+                                $image.height('auto');
                             }
                         break;
                     case 'crop' :
                             var centerX = (cropX2 - cropX1) / 2 + cropX1;
                             var centerY = (cropY2 - cropY1) / 2 + cropY1;
-                            var centerPercentageX = centerX / $picture.width() * 100;
-                            var centerPercentageY = centerY / $picture.height() * 100;
+                            var centerPercentageX = centerX / $image.width() * 100;
+                            var centerPercentageY = centerY / $image.height() * 100;
                             $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
                             $windowRatio = $window.width() / $window.height();
-                            if ($this.data('ipUploadPicture').enableChangeHeight) {
+                            if ($this.data('ipUploadImage').enableChangeHeight) {
                                 $window.height(Math.round($window.width() / $photoRatio));
                             } else {
-                                if ($this.data('ipUploadPicture').enableChangeWidth) {
+                                if ($this.data('ipUploadImage').enableChangeWidth) {
                                     $window.width(Math.round($window.height() * $photoRatio));
                                 }
                             }
                             
                             if ($photoRatio > $windowRatio) {
-                                var pictureScale = $window.height() / (cropY2 - cropY1);
-                                $picture.height($picture.height() * pictureScale);
-                                $picture.width('auto');
+                                var imageScale = $window.height() / (cropY2 - cropY1);
+                                $image.height($image.height() * imageScale);
+                                $image.width('auto');
                             } else {
-                                var pictureScale = $window.width() / (cropX2 - cropX1);
-                                $picture.width($picture.width() * pictureScale);
-                                $picture.height('auto');
+                                var imageScale = $window.width() / (cropX2 - cropX1);
+                                $image.width($image.width() * imageScale);
+                                $image.height('auto');
                             }
                         break;
                             
                 
                 }
-                $picture.trigger('pictureResized.ipUploadPicture', [centerPercentageX, centerPercentageY]);
+                $image.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
 
             }
             
 
         },
         
-        _pictureResized : function(e, pictureCenterXPercentage, pictureCenterYPercentage) {
+        _imageResized : function(e, imageCenterXPercentage, imageCenterYPercentage) {
             var $this = $(this);
-            var $picture = $this.find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
-            var data = $this.data('ipUploadPicture');
+            var $image = $this.find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
+            var data = $this.data('ipUploadImage');
             if (!data.enableUnderscale) {
                 
-                if ($picture.width() < $window.width()) {
-                    $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
-                    $picture.height('auto');
-                    $picture.width($window.width());
+                if ($image.width() < $window.width()) {
+                    $image.width(Math.round($image.width())); //set exact value made by automatic scale
+                    $image.height('auto');
+                    $image.width($window.width());
                 }
-                if ($picture.height() < $window.height()) {
-                    $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
-                    $picture.width('auto');
-                    $picture.height($window.height());
+                if ($image.height() < $window.height()) {
+                    $image.height(Math.round($image.height())); //set exact value made by automatic scale
+                    $image.width('auto');
+                    $image.height($window.height());
                 }
             }
             
             
-            var pictureCenterX = Math.round($picture.width() * pictureCenterXPercentage / 100);
-            var pictureCenterY = Math.round($picture.height() * pictureCenterYPercentage / 100);
-            marginHorizontal = $picture.width() - $window.width();
+            var imageCenterX = Math.round($image.width() * imageCenterXPercentage / 100);
+            var imageCenterY = Math.round($image.height() * imageCenterYPercentage / 100);
+            marginHorizontal = $image.width() - $window.width();
             if (marginHorizontal < 0) {
                 marginHorizontal = 0;
             }
@@ -496,17 +496,17 @@
             $dragContainer.css('margin-left', -marginHorizontal);
             $dragContainer.css('margin-right', -marginHorizontal);
             $dragContainer.width($window.width() + marginHorizontal*2);
-            $picture.css('left', $dragContainer.width() / 2 - pictureCenterX);
-            if (parseInt($picture.css('left')) < 0){
-                $picture.css('left', 0);
+            $image.css('left', $dragContainer.width() / 2 - imageCenterX);
+            if (parseInt($image.css('left')) < 0){
+                $image.css('left', 0);
             }
-            if (parseInt($picture.css('left')) > $dragContainer.width() - $picture.width()){
-                $picture.css('left', $dragContainer.width() - $picture.width());
+            if (parseInt($image.css('left')) > $dragContainer.width() - $image.width()){
+                $image.css('left', $dragContainer.width() - $image.width());
             }
             
             
             
-            marginVertical = $picture.height() - $window.height();
+            marginVertical = $image.height() - $window.height();
             if (marginVertical < 0) {
                 marginVertical = 0;
             }
@@ -514,47 +514,47 @@
             $dragContainer.css('margin-top', -marginVertical);
             $dragContainer.css('margin-bottom', -marginVertical);
             $dragContainer.height($window.height() + marginVertical*2);
-            $picture.css('top', $dragContainer.height() / 2 - pictureCenterY);
-            if (parseInt($picture.css('top')) < 0){
-                $picture.css('top', 0);
+            $image.css('top', $dragContainer.height() / 2 - imageCenterY);
+            if (parseInt($image.css('top')) < 0){
+                $image.css('top', 0);
             }
-            if (parseInt($picture.css('top')) > $dragContainer.height() - $picture.height()){
-                $picture.css('top', $dragContainer.height() - $picture.height());
+            if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()){
+                $image.css('top', $dragContainer.height() - $image.height());
             }
          
 
             
         },
         
-        _uploadPicture : function(e){
+        _uploadImage : function(e){
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();                        
+            var $image = $(this).find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();                        
                 
-            var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
-            var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
+            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
             
-            var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
-            var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
+            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
             
-            $picture.width(Math.round($picture.width() / scaleFactor));
-            $picture.height('auto');//scale automatically
-            $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+            $image.width(Math.round($image.width() / scaleFactor));
+            $image.height('auto');//scale automatically
+            $image.height(Math.round($image.height())); //set exact value made by automatic scale
 
             
-            if ($picture.width() < $window.width()) {
-                $picture.width($window.width());
-                $picture.height('auto');
-                $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+            if ($image.width() < $window.width()) {
+                $image.width($window.width());
+                $image.height('auto');
+                $image.height(Math.round($image.height())); //set exact value made by automatic scale
             }
-            if ($picture.height() < $window.height()) {
-                $picture.height($window.height());
-                $picture.width('auto');
-                $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+            if ($image.height() < $window.height()) {
+                $image.height($window.height());
+                $image.width('auto');
+                $image.height(Math.round($image.height())); //set exact value made by automatic scale
             }
-            $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
             
           
         },
@@ -563,25 +563,25 @@
             var $this = $(this);
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
+            var $image = $(this).find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
             
-            var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
-            var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
+            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
             
-            var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
-            var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
+            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
             
-            $picture.width(Math.round($picture.width() * scaleFactor));
-            $picture.height('auto'); //scale automatically
-            $picture.height(Math.round($picture.height())); //set exact value made by automatic scale
+            $image.width(Math.round($image.width() * scaleFactor));
+            $image.height('auto'); //scale automatically
+            $image.height(Math.round($image.height())); //set exact value made by automatic scale
             
-            $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
 
-            var data = $this.data('ipUploadPicture');
+            var data = $this.data('ipUploadImage');
             data.coordinatesChanged = true;
-            $this.data('ipUploadPicture', data);
+            $this.data('ipUploadImage', data);
             
         },
         
@@ -590,68 +590,68 @@
             
             var scaleFactor = 1.1;
             
-            var $picture = $(this).find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
+            var $image = $(this).find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
             
-            var pictureCenterX = ($dragContainer.width() / 2) - parseInt($picture.css('left'));
-            var pictureCenterXPercentage = pictureCenterX * 100 / $picture.width(); 
+            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
             
-            var pictureCenterY = ($dragContainer.height() / 2) - parseInt($picture.css('top'));
-            var pictureCenterYPercentage = pictureCenterY * 100 / $picture.height(); 
+            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
             
-            $picture.width(Math.round($picture.width())); //set exact value made by automatic scale
-            $picture.height('auto');
-            $picture.width($picture.width() / scaleFactor);
+            $image.width(Math.round($image.width())); //set exact value made by automatic scale
+            $image.height('auto');
+            $image.width($image.width() / scaleFactor);
             
 
-            $picture.trigger('pictureResized.ipUploadPicture', [pictureCenterXPercentage, pictureCenterYPercentage]);
+            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
             
-            var data = $this.data('ipUploadPicture');
+            var data = $this.data('ipUploadImage');
             data.coordinatesChanged = true;
-            $this.data('ipUploadPicture', data);
+            $this.data('ipUploadImage', data);
             
           
         },
         
-        getCurPicture : function () {
+        getCurImage : function () {
             var $this = this;
-            if ($this.data('ipUploadPicture').curPicture !== $this.data('ipUploadPicture').defaultPicture) {
-                return $this.data('ipUploadPicture').curPicture;
+            if ($this.data('ipUploadImage').curImage !== $this.data('ipUploadImage').defaultImage) {
+                return $this.data('ipUploadImage').curImage;
             } else {
                 return false;
             }
         },
         
-        getNewPictureUploaded : function () {
+        getNewImageUploaded : function () {
             var $this = this;
-            return $this.data('ipUploadPicture').pictureChanged;
+            return $this.data('ipUploadImage').imageChanged;
         },
         
         getCropCoordinatesChanged : function () {
             var $this = this;
-            return $this.data('ipUploadPicture').coordinatesChanged || this.ipUploadPicture('getNewPictureUploaded');
+            return $this.data('ipUploadImage').coordinatesChanged || this.ipUploadImage('getNewImageUploaded');
         },
         
         getCropCoordinates : function () {
             var $this = this;
             
-            var $picture = $this.find('.ipUploadImage');
-            var $window = $picture.parent().parent();
-            var $dragContainer = $picture.parent();
+            var $image = $this.find('.ipUploadImage');
+            var $window = $image.parent().parent();
+            var $dragContainer = $image.parent();
             
             var coordinates = new Object;
             
-            var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($picture.css('left'));
-            var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($picture.css('top'));
+            var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($image.css('left'));
+            var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($image.css('top'));
             
-            var $tmpPicture = $picture.clone();
-            $tmpPicture.width('auto');
-            $tmpPicture.height('auto');
-            $this.append($tmpPicture);
+            var $tmpImage = $image.clone();
+            $tmpImage.width('auto');
+            $tmpImage.height('auto');
+            $this.append($tmpImage);
             
-            var scale = $picture.width() / $tmpPicture.width();
-            $tmpPicture.remove();
+            var scale = $image.width() / $tmpImage.width();
+            $tmpImage.remove();
             
             coordinates.x1 = Math.round(offsetX / scale);
             coordinates.y1 = Math.round(offsetY / scale);
@@ -675,13 +675,13 @@
     };
     
 
-    $.fn.ipUploadPicture = function(method) {
+    $.fn.ipUploadImage = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipUploadPicture');
+            $.error('Method ' + method + ' does not exist on jQuery.ipUploadImage');
         }
 
 

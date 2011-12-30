@@ -1,6 +1,6 @@
-<?php if (isset($pictureSmall) && $pictureSmall != ''){ ?>
+<?php if (isset($imageSmall) && $imageSmall != ''){ ?>
 <img
-    style="float: left;" src="<?php echo BASE_URL.$pictureSmall ?>"
+    style="float: left;" src="<?php echo BASE_URL.$imageSmall ?>"
     title="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>"
     alt="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>" />
 <?php } ?>

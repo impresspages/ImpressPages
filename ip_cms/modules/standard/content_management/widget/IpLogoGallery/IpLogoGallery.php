@@ -10,7 +10,7 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once(BASE_DIR.LIBRARY_DIR.'php/picture/functions.php');
+require_once(BASE_DIR.LIBRARY_DIR.'php/image/functions.php');
 
 
 class IpLogoGallery extends \Modules\standard\content_management\Widget{
@@ -183,7 +183,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
     private function _createSmallLogo ($sourceFile, $x1, $y1, $x2, $y2, $destinationDir) {
         global $parametersMod;
         $ratio = ($x1 - $x2 / ($y1 - $y2));
-        $destinationFilename = \Library\Php\Picture\Functions::crop (
+        $destinationFilename = \Library\Php\Image\Functions::crop (
         $sourceFile,
         BASE_DIR.$destinationDir,
         $x1,

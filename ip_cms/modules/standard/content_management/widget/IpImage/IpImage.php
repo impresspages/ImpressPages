@@ -10,9 +10,9 @@ if (!defined('CMS')) exit;
 
 require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once(BASE_DIR.LIBRARY_DIR.'php/picture/functions.php');
+require_once(BASE_DIR.LIBRARY_DIR.'php/image/functions.php');
 
-class IpPicture extends \Modules\standard\content_management\Widget{
+class IpImage extends \Modules\standard\content_management\Widget{
 
 
 
@@ -24,40 +24,40 @@ class IpPicture extends \Modules\standard\content_management\Widget{
         $destinationDir = BASE_DIR.IMAGE_DIR;
 
         $newData = $currentData;
-        $newData['pictureWindowWidth'] = $postData['pictureWindowWidth'];
+        $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
-        if (isset($postData['newPicture']) && file_exists(BASE_DIR.$postData['newPicture']) && is_file(BASE_DIR.$postData['newPicture'])) {
+        if (isset($postData['newImage']) && file_exists(BASE_DIR.$postData['newImage']) && is_file(BASE_DIR.$postData['newImage'])) {
 
-            if (TMP_FILE_DIR.basename($postData['newPicture']) != $postData['newPicture']) {
-                throw new \Exception("Security notice. Try to access an image (".$postData['newPicture'].") from a non temporary folder.");
+            if (TMP_FILE_DIR.basename($postData['newImage']) != $postData['newImage']) {
+                throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non temporary folder.");
             }
 
-            //new original picture
-            $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newPicture'], $destinationDir);
-            copy($postData['newPicture'], $destinationDir.$unocupiedName);
-            $newData['pictureOriginal'] = IMAGE_DIR.$unocupiedName;
+            //new original image
+            $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newImage'], $destinationDir);
+            copy($postData['newImage'], $destinationDir.$unocupiedName);
+            $newData['imageOriginal'] = IMAGE_DIR.$unocupiedName;
 
 
 
-            $bigPictureName = \Library\Php\Picture\Functions::resize(
-            $postData['newPicture'],
+            $bigImageName = \Library\Php\Image\Functions::resize(
+            $postData['newImage'],
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_width'),
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_height'),
             BASE_DIR.IMAGE_DIR,
-            \Library\Php\Picture\Functions::CROP_TYPE_FIT,
+            \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_quality')
             );
-            $newData['pictureBig'] = IMAGE_DIR.$bigPictureName;
+            $newData['imageBig'] = IMAGE_DIR.$bigImageName;
         }
 
         if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) ) {
-            //new small picture
+            //new small image
             $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
             $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_photo', 'width') * $postData['scale']);
             $requiredHeight = round($requiredWidth / $ratio);
-            $smallPictureName = \Library\Php\Picture\Functions::crop (
-            $newData['pictureOriginal'],
+            $smallImageName = \Library\Php\Image\Functions::crop (
+            $newData['imageOriginal'],
             $destinationDir,
             $postData['cropX1'],
             $postData['cropY1'],
@@ -67,7 +67,7 @@ class IpPicture extends \Modules\standard\content_management\Widget{
             $requiredWidth,
             $requiredHeight
             );
-            $newData['pictureSmall'] = IMAGE_DIR.$smallPictureName;
+            $newData['imageSmall'] = IMAGE_DIR.$smallImageName;
             $newData['scale'] = $postData['scale'];
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
@@ -78,8 +78,8 @@ class IpPicture extends \Modules\standard\content_management\Widget{
 
 
 
-        //            copy($postData['newPicture'], BASE_DIR.IMAGE_DIR.$unocupiedName);
-        //            $newData['pictureOriginal'] = IMAGE_DIR.$unocupiedName;
+        //            copy($postData['newImage'], BASE_DIR.IMAGE_DIR.$unocupiedName);
+        //            $newData['imageOriginal'] = IMAGE_DIR.$unocupiedName;
 
         //            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'photo_height');
 
@@ -92,21 +92,21 @@ class IpPicture extends \Modules\standard\content_management\Widget{
     }
 
     //you don't need to remove old files
-    //private function removeOldPictures($data) {
-    //        if (isset($currentData['pictureOriginal'])) {
-    //            $this->unlinkPicture(BASE_DIR.$currentData['pictureOriginal']);
+    //private function removeOldImages($data) {
+    //        if (isset($currentData['imageOriginal'])) {
+    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
     //        }
-    //        if (isset($currentData['pictureBig'])) {
-    //            $this->unlinkPicture(BASE_DIR.$currentData['pictureOriginal']);
+    //        if (isset($currentData['imageBig'])) {
+    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
     //        }
-    //        if (isset($currentData['pictureSmall'])) {
-    //            $this->unlinkPicture(BASE_DIR.$currentData['pictureOriginal']);
+    //        if (isset($currentData['imageSmall'])) {
+    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
     //        }
     //    }
 
-    //    private function unlinkPicture($picture) {
-    //        if (file_exists($picture) && is_file($picture)) {
-    //            $success = unlink($picture);
+    //    private function unlinkImage($image) {
+    //        if (file_exists($image) && is_file($image)) {
+    //            $success = unlink($image);
     //            return $success;
     //        }
     //        return false;

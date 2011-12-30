@@ -161,48 +161,48 @@
     padding: 0;
 }
 
-.ipWidget-IpTextPicture img {
+.ipWidget-IpTextImage img {
     border: 1px solid #cccccc;
     float: left;
     margin: 0 10px 10px 0;
     padding: 3px;
 }
 
-.ipWidget-IpTextPicture img:hover {
+.ipWidget-IpTextImage img:hover {
     border: 1px solid #999999;
 }
 
-.ipWidget-IpTextPicture.ipLayout-right img {
+.ipWidget-IpTextImage.ipLayout-right img {
     border: 1px solid #cccccc;
     float: right;
     margin: 0 0 10px 10px;
     padding: 3px;
 }
 
-.ipWidget-IpTextPicture.ipLayout-right img :hover {
+.ipWidget-IpTextImage.ipLayout-right img :hover {
     border: 1px solid #999999;
 }
 
-.ipWidget-IpPicture img {
+.ipWidget-IpImage img {
     border: 1px solid #cccccc;
     display: block;
     padding: 3px;
 }
 
-.ipWidget-IpPictureGallery ul {
+.ipWidget-IpImageGallery ul {
     float: left;
     list-style: none;
     margin: -10px 0 0 -10px;
     padding: 0;
 }
 
-.ipWidget-IpPictureGallery ul li {
+.ipWidget-IpImageGallery ul li {
     background: none;
     float: left;
     padding: 0;
 }
 
-.ipWidget-IpPictureGallery li a {
+.ipWidget-IpImageGallery li a {
     border: 1px solid #cccccc;
     display: block;
     float: left;
@@ -210,11 +210,11 @@
     padding: 3px;
 }
 
-.ipWidget-IpPictureGallery li a:hover {
+.ipWidget-IpImageGallery li a:hover {
     border: 1px solid #999999;
 }
 
-.ipWidget-IpPictureGallery li a img {
+.ipWidget-IpImageGallery li a img {
     border: none;
     float: left;
 }

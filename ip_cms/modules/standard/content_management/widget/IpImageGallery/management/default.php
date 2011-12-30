@@ -1,4 +1,4 @@
-<div class="ipWidget_ipPictureGallery_container">
+<div class="ipWidget_ipImageGallery_container">
     <div class="ipaUpload"></div>
 </div>
 <div class="ipgHide">
@@ -10,5 +10,5 @@
     </div>
 </div>
 
-<input type="hidden" name="smallPictureWidth" value="<?php echo (int)$smallPictureWidth; ?>" />
-<input type="hidden" name="smallPictureHeight" value="<?php echo (int)$smallPictureHeight; ?>" />
+<input type="hidden" name="smallImageWidth" value="<?php echo (int)$smallImageWidth; ?>" />
+<input type="hidden" name="smallImageHeight" value="<?php echo (int)$smallImageHeight; ?>" />

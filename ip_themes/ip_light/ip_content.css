@@ -1,8 +1,8 @@
 .ipWidget-IpTitle {}
 .ipWidget-IpText {}
-.ipWidget-IpPicture {}
-.ipWidget-IpTextPicture {}
-.ipWidget-IpTextPicture.ipLayout-right {}
-.ipWidget-IpPictureGallery {}
+.ipWidget-IpImage {}
+.ipWidget-IpTextImage {}
+.ipWidget-IpTextImage.ipLayout-right {}
+.ipWidget-IpImageGallery {}
 .ipWidget-IpLogoGallery {}
 .ipWidget-IpFile {}

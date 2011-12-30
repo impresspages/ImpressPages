@@ -20,9 +20,9 @@ class Controller extends \Ip\Controller{
         }
     }
 
-    public function getPictureContainerHtml() {
+    public function getImageContainerHtml() {
         global $site;
-        $html = \Ip\View::create('view/pictureContainer.php', array())->render();
+        $html = \Ip\View::create('view/imageContainer.php', array())->render();
         $site->setOutput($html);
         $answerArray = array(
             "status" => "success",

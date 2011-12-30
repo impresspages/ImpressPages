@@ -7,6 +7,6 @@
         <a href="#" class="ipUploadImageButton ipUploadSmallerButton">Smaller</a>
     </div>
     <div class="ipUploadDragContainer">
-        <img class="ipUploadImage" src="" alt="picture" />
+        <img class="ipUploadImage" src="" alt="image" />
     </div>
 </div>

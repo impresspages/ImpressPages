@@ -223,7 +223,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             
             //$this.find('.ipaLogo').attr('src', ip.baseUrl + data.fileName);
             var logoOptions = new Object;
-            logoOptions.picture = data.fileName;
+            logoOptions.image = data.fileName;
             if (options.coordinates) {
                 logoOptions.cropX1 = options.coordinates.cropX1;
                 logoOptions.cropY1 = options.coordinates.cropY1;
@@ -239,12 +239,12 @@ function IpWidget_IpLogoGallery(widgetObject) {
             logoOptions.enableUnderscale = true;
             logoOptions.autosizeType = 'fit';
             
-            $this.find('.ipaLogo').ipUploadPicture(logoOptions);
+            $this.find('.ipaLogo').ipUploadImage(logoOptions);
             
             
 //          handle uploading of new photo
-//          if (ipUploadLogo.ipUploadPicture('getNewLogoUploaded')) {
-//              var newLogo = ipUploadLogo.ipUploadPicture('getCurLogo');
+//          if (ipUploadLogo.ipUploadImage('getNewLogoUploaded')) {
+//              var newLogo = ipUploadLogo.ipUploadImage('getCurLogo');
 //              if (newLogo) {
 //                  data.newLogo = newLogo;
 //              }
@@ -273,14 +273,14 @@ function IpWidget_IpLogoGallery(widgetObject) {
     
     getFileName : function() {
         var $this = this;
-        var curPicture = $this.find('.ipaLogo').ipUploadPicture('getCurPicture');
-        return curPicture;
+        var curImage = $this.find('.ipaLogo').ipUploadImage('getCurImage');
+        return curImage;
     },
     
     getCropCoordinates : function() {
         var $this = this;
         var ipUploadLogo = $this.find('.ipaLogo');
-        var cropCoordinates = ipUploadLogo.ipUploadPicture('getCropCoordinates');
+        var cropCoordinates = ipUploadLogo.ipUploadImage('getCropCoordinates');
         return cropCoordinates;
     },
         
@@ -293,10 +293,10 @@ function IpWidget_IpLogoGallery(widgetObject) {
         }
         
         var ipUploadLogo = $this.find('.ipaLogo');
-        if (tmpData.status == 'new' || ipUploadLogo.ipUploadPicture('getNewPictureUploaded')) {
+        if (tmpData.status == 'new' || ipUploadLogo.ipUploadImage('getNewImageUploaded')) {
             return 'new';
         } else {
-            if (ipUploadLogo.ipUploadPicture('getCropCoordinatesChanged') && ipUploadLogo.ipUploadPicture('getCurLogo') != false) {
+            if (ipUploadLogo.ipUploadImage('getCropCoordinatesChanged') && ipUploadLogo.ipUploadImage('getCurLogo') != false) {
                 return 'coordinatesChanged';
             }
         }

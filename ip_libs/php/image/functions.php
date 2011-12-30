@@ -5,7 +5,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-namespace Library\Php\Picture;
+namespace Library\Php\Image;
 
 require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 
@@ -25,7 +25,7 @@ class Functions{
     const CROP_TYPE_HEIGHT = 4; //resize to height
 
     /**
-     * @param string $pictureFile
+     * @param string $imageFile
      * @param int $widthDest required width
      * @param int $heightDest required height
      * @param string $destDir typicaly BASE_DIR.IMAGE_URL or BASE_DIR.TMP_IMAGE_URL
@@ -39,35 +39,35 @@ class Functions{
      * @param int $quality from 0 (biggest compression) to  100 (best quality)
      * @return string file name of resized image in destDir folder
      */
-    public static function resize ($pictureFile, $widthDest, $heightDest, $destDir, $type, $forced, $quality) {
-        $pictureInfo = getimagesize($pictureFile);
+    public static function resize ($imageFile, $widthDest, $heightDest, $destDir, $type, $forced, $quality) {
+        $imageInfo = getimagesize($imageFile);
 
-        if (!self::resizeRequired($pictureInfo[0], $pictureInfo[1], $widthDest, $heightDest, $type, $forced)) {
-            $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
-            copy($pictureFile, $destDir.$newName);
+        if (!self::resizeRequired($imageInfo[0], $imageInfo[1], $widthDest, $heightDest, $type, $forced)) {
+            $newName = \Library\Php\File\Functions::genUnocupiedName($imageFile, $destDir);
+            copy($imageFile, $destDir.$newName);
             return $newName;
         }
 
 
 
-        if (!self::getMemmoryNeeded($pictureFile) ) {
+        if (!self::getMemmoryNeeded($imageFile) ) {
             throw new \Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
         try {
-            $image = self::createPictureImage($pictureFile);
+            $image = self::createImageImage($imageFile);
         } catch (\Exception $e) {
             throw new \Exception ($e->getMessage(), $e->getCode(), $e);
         }
 
 
-        $imageNew = self::resizeImage($image, $widthDest, $heightDest, $pictureInfo[0], $pictureInfo[1], $type);
+        $imageNew = self::resizeImage($image, $widthDest, $heightDest, $imageInfo[0], $imageInfo[1], $type);
 
-        $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
+        $newName = \Library\Php\File\Functions::genUnocupiedName($imageFile, $destDir);
         $newFile = $destDir.$newName;
 
 
-        $mime = self::getMimeType($pictureFile);
+        $mime = self::getMimeType($imageFile);
         try {
             self::saveImage($imageNew, $newFile, $quality, $mime);
         } catch (\Exception $e) {
@@ -85,7 +85,7 @@ class Functions{
     /*
      *
      */
-    public static function crop ($pictureFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
+    public static function crop ($imageFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
         global $parametersMod;
 
         if ($widthDest === null) {
@@ -95,22 +95,22 @@ class Functions{
             $heightDest = $y2 - $y1;
         }
 
-        $pictureInfo = getimagesize($pictureFile);
+        $imageInfo = getimagesize($imageFile);
 
-        if ($pictureInfo[0] == $widthDest && $pictureInfo[1] == $heightDest && $x1 == 0 && $y1 == 0) {//don't need to crop or resize
-            $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
-            copy($pictureFile, $destDir.$newName);
+        if ($imageInfo[0] == $widthDest && $imageInfo[1] == $heightDest && $x1 == 0 && $y1 == 0) {//don't need to crop or resize
+            $newName = \Library\Php\File\Functions::genUnocupiedName($imageFile, $destDir);
+            copy($imageFile, $destDir.$newName);
             return $newName;
         }
 
 
 
-        if (!self::getMemmoryNeeded($pictureFile) ) {
+        if (!self::getMemmoryNeeded($imageFile) ) {
             throw new \Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
         try {
-            $image = self::createPictureImage($pictureFile);
+            $image = self::createImageImage($imageFile);
         } catch (\Exception $e) {
             throw new \Exception ($e->getMessage(), $e->getCode(), $e);
         }
@@ -169,20 +169,20 @@ class Functions{
             /*transparency required. Transform to png*/
             $mime = IMAGETYPE_PNG;
 
-            $path_parts = pathinfo($pictureFile);
+            $path_parts = pathinfo($imageFile);
             if ($path_parts['extension'] != 'png') {
-                $tmpPictureName = $path_parts['filename'].'.png';
+                $tmpImageName = $path_parts['filename'].'.png';
             } else {
-                $tmpPictureName = $pictureFile;
+                $tmpImageName = $imageFile;
             }
-            $newName = \Library\Php\File\Functions::genUnocupiedName($tmpPictureName, $destDir);
+            $newName = \Library\Php\File\Functions::genUnocupiedName($tmpImageName, $destDir);
         } else {
             $sx1 = $x1;
             $sx2 = $x2;
             $sy1 = $y1;
             $sy2 = $y2;
-            $mime = self::getMimeType($pictureFile);
-            $newName = \Library\Php\File\Functions::genUnocupiedName($pictureFile, $destDir);
+            $mime = self::getMimeType($imageFile);
+            $newName = \Library\Php\File\Functions::genUnocupiedName($imageFile, $destDir);
         }
 
         /**
@@ -232,15 +232,15 @@ class Functions{
         return true;
     }
 
-    public static function getMemmoryNeeded($pictureFile){
-        $pictureInfo = getimagesize($pictureFile);
-        if(!isset($pictureInfo['channels']) || !$pictureInfo['channels']) {
-            $pictureInfo['channels'] = 4;
+    public static function getMemmoryNeeded($imageFile){
+        $imageInfo = getimagesize($imageFile);
+        if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
+            $imageInfo['channels'] = 4;
         }
-        if(!isset($pictureInfo['bits']) || !$pictureInfo['bits']) {
-            $pictureInfo['bits'] = 8;
+        if(!isset($imageInfo['bits']) || !$imageInfo['bits']) {
+            $imageInfo['bits'] = 8;
         }
-        $memoryNeeded = round(($pictureInfo[0] * $pictureInfo[1] * $pictureInfo['bits'] * $pictureInfo['channels'] / 8 + Pow(2, 16)) * 1.65);
+        $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + Pow(2, 16)) * 1.65);
         if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded > (integer) ini_get('memory_limit') * pow(1024, 2)) {
             $success = ini_set('memory_limit', (integer) ini_get('memory_limit')+ 10 + ceil(((memory_get_usage() + $memoryNeeded) - (integer) ini_get('memory_limit') * pow(1024, 2)) / pow(1024, 2)) . 'M');
         } else {
@@ -250,23 +250,23 @@ class Functions{
     }
 
      
-    public static function createPictureImage($picture){
+    public static function createImageImage($image){
 
-        $mime = self::getMimeType($picture);
+        $mime = self::getMimeType($image);
 
 
         switch ($mime) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
-                $image = imagecreatefromjpeg($picture);
+                $image = imagecreatefromjpeg($image);
                 break;
             case IMAGETYPE_GIF:
-                $image = imagecreatefromgif($picture);
+                $image = imagecreatefromgif($image);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
             case IMAGETYPE_PNG:
-                $image = imagecreatefrompng($picture);
+                $image = imagecreatefrompng($image);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -278,10 +278,10 @@ class Functions{
         return $image;
     }
 
-    public static function getMimeType($pictureFile) {
-        $pictureInfo = getimagesize($pictureFile);
-        if (isset($pictureInfo[2])) {
-            return $pictureInfo[2];
+    public static function getMimeType($imageFile) {
+        $imageInfo = getimagesize($imageFile);
+        if (isset($imageInfo[2])) {
+            return $imageInfo[2];
         } else {
             throw new \Exception("Unknown file type.", self::ERROR_UNKNOWN_MIME);
         }
