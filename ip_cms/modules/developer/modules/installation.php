@@ -83,12 +83,12 @@ class ModulesInstallation{
             curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-            $answer = curl_exec($ch);
+            $json = curl_exec($ch);
 
-            if(json_decode($answer) !== null) { //json decode succeded
-                $answer = json_decode($answer, true);
-                if ($answer['status'] != 'success') {
-                    $answer = $answer['errorMessage'];
+            if(json_decode($json) !== null) { //json decode succeded
+                $array = json_decode($json, true);
+                if ($array['status'] != 'success') {
+                    $answer = $array['errorMessage'];
                 }
             }
         }
