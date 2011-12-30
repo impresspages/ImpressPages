@@ -1,5 +1,5 @@
 
-<?php if ($this->getDoctype() == 7) { // DOCTYPE_HTML5 ?>
+<?php if ($this->getDoctype() == \Ip\View::DOCTYPE_HTML5) { // DOCTYPE_HTML5 ?>
 <meta charset="<?php echo $charset; ?>" />
 <?php } else { ?>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />

@@ -1090,9 +1090,9 @@ class Site{
 
         $data = array (
             'title' => $this->getTitle(),
-            'keywords' => BASE_URL.'favicon.ico',
+            'keywords' => $this->getKeywords(),
             'description' => $this->getDescription(),
-            'favicon' => $this->getKeywords(),
+            'favicon' => BASE_URL.'favicon.ico',
             'charset' => CHARSET,
             'css' => $cssFiles
         );
