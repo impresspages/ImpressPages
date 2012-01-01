@@ -35,14 +35,14 @@ class Model{
         $destinationDir = FILE_DIR;
         $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($file, $destinationDir);
         copy(BASE_DIR.$file, BASE_DIR.$destinationDir.$unocupiedName);
-        self::bindFile($destinationDir.$unocupiedName, $module, $id);
-        return BASE_DIR.$unocupiedName;
+        self::bindFile($destinationDir.$unocupiedName, $module, $instanceId);
+        return $destinationDir.$unocupiedName;
     }
     
     public static function bindFile($file, $module, $instanceId) {
         $sql = "
         INSERT INTO
-            `".DB_PREF."m_administrator_repository`
+            `".DB_PREF."m_administrator_repository_file`
         SET
             `fileName` = '".mysql_real_escape_string($file)."',
             `module` = '".mysql_real_escape_string($module)."',
@@ -57,10 +57,10 @@ class Model{
         
     }
     
-    public static function unbindFile($file, $module, $id) {
+    public static function unbindFile($file, $module, $instanceId) {
         $sql = "
         DELETE FROM
-            `".DB_PREF."m_administrator_repository`
+            `".DB_PREF."m_administrator_repository_file`
         WHERE
             `fileName` = '".mysql_real_escape_string($file)."' AND
             `module` = '".mysql_real_escape_string($module)."' AND
@@ -75,14 +75,18 @@ class Model{
         $whoUses = self::whoUsesFile($file);
         
         if (count($whoUses) == 0) {
-            unlink(BASE_DIR.$file);
+            if (file_exists(BASE_DIR.$file)) {
+                unlink(BASE_DIR.$file);
+            }
         }
     }
     
     public static function whoUsesFile($file){
         $sql = "
-        SELECT FROM
-            `".DB_PREF."m_administrator_repository`
+        SELECT
+            *
+        FROM
+            `".DB_PREF."m_administrator_repository_file`
         WHERE
             `fileName` = '".mysql_real_escape_string($file)."'
         ";

@@ -12,16 +12,17 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 require_once(BASE_DIR.LIBRARY_DIR.'php/image/functions.php');
 
+
 class IpImage extends \Modules\standard\content_management\Widget{
 
 
 
-    public function prepareData($instanceId, $postData, $currentData) {
+    public function prepareData($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
 
 
-        $destinationDir = BASE_DIR.IMAGE_DIR;
+        $destinationDir = BASE_DIR.TMP_IMAGE_DIR;
 
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
@@ -32,23 +33,22 @@ class IpImage extends \Modules\standard\content_management\Widget{
                 throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non temporary folder.");
             }
 
+            
             //new original image
-            $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($postData['newImage'], $destinationDir);
-            copy($postData['newImage'], $destinationDir.$unocupiedName);
-            $newData['imageOriginal'] = IMAGE_DIR.$unocupiedName;
+            $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($postData['newImage'], 'standard/content_management', $widgetId);
 
 
-
-            $bigImageName = \Library\Php\Image\Functions::resize(
+            $tmpBigImageName = \Library\Php\Image\Functions::resize(
             $postData['newImage'],
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_width'),
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_height'),
-            BASE_DIR.IMAGE_DIR,
+            BASE_DIR.TMP_IMAGE_DIR,
             \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_quality')
             );
-            $newData['imageBig'] = IMAGE_DIR.$bigImageName;
+            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
 
         if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) ) {
@@ -56,7 +56,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
             $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_photo', 'width') * $postData['scale']);
             $requiredHeight = round($requiredWidth / $ratio);
-            $smallImageName = \Library\Php\Image\Functions::crop (
+            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
             $newData['imageOriginal'],
             $destinationDir,
             $postData['cropX1'],
@@ -67,7 +67,9 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $requiredWidth,
             $requiredHeight
             );
-            $newData['imageSmall'] = IMAGE_DIR.$smallImageName;
+            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
+            
             $newData['scale'] = $postData['scale'];
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
@@ -86,15 +88,16 @@ class IpImage extends \Modules\standard\content_management\Widget{
     }
 
     public function delete($widgetId, $data) {
-/*        if ($data['imageOriginal']) {
-            unlink(BASE_DIR.$data['imageOriginal']);
+        
+        if (isset($data['imageOriginal']) && $data['imageOriginal']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
-        if ($data['imageSmall']) {
-            unlink(BASE_DIR.$data['imageSmall']);
+        if (isset($data['imageSmall']) && $data['imageSmall']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
         }
-        if ($data['imageBig']) {
-            unlink(BASE_DIR.$data['imageBig']);
-        }*/
+        if (isset($data['imageBig']) && $data['imageBig']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+        }
     }
    
 

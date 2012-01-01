@@ -16,7 +16,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
 
 
 
-    public function prepareData($instanceId, $postData, $currentData) {
+    public function prepareData($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
 
