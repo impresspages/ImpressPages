@@ -78,12 +78,6 @@ class IpImage extends \Modules\standard\content_management\Widget{
 
 
 
-        //            copy($postData['newImage'], BASE_DIR.IMAGE_DIR.$unocupiedName);
-        //            $newData['imageOriginal'] = IMAGE_DIR.$unocupiedName;
-
-        //            $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'photo_height');
-
-
         if (isset($postData['title'])) {
             $newData['title'] = $postData['title'];
         }
@@ -91,27 +85,18 @@ class IpImage extends \Modules\standard\content_management\Widget{
         return $newData;
     }
 
-    //you don't need to remove old files
-    //private function removeOldImages($data) {
-    //        if (isset($currentData['imageOriginal'])) {
-    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
-    //        }
-    //        if (isset($currentData['imageBig'])) {
-    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
-    //        }
-    //        if (isset($currentData['imageSmall'])) {
-    //            $this->unlinkImage(BASE_DIR.$currentData['imageOriginal']);
-    //        }
-    //    }
-
-    //    private function unlinkImage($image) {
-    //        if (file_exists($image) && is_file($image)) {
-    //            $success = unlink($image);
-    //            return $success;
-    //        }
-    //        return false;
-    //    }
-
+    public function delete($widgetId, $data) {
+/*        if ($data['imageOriginal']) {
+            unlink(BASE_DIR.$data['imageOriginal']);
+        }
+        if ($data['imageSmall']) {
+            unlink(BASE_DIR.$data['imageSmall']);
+        }
+        if ($data['imageBig']) {
+            unlink(BASE_DIR.$data['imageBig']);
+        }*/
+    }
+   
 
 
 

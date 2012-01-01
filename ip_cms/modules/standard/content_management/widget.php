@@ -129,11 +129,29 @@ class Widget{
 
     }
 
-    public function duplicate($oldId, $newId) {
+    /**
+     * 
+     * Duplicate widget action. This function is executed after the widget is being duplicated.
+     * All widget data is duplicated automatically. This method is used only in case a widget
+     * needs to do some maintenance tasks on duplication.
+     * @param int $oldId old widget id
+     * @param int $newId duplicated widget id
+     * @param array $data data that has been duplicated from old widget to the new one
+     */
+    public function duplicate($oldId, $newId, $data) {
 
     }
 
-    public function delete($widgetId){
+    /**
+     * 
+     * Delete widget. This method is executed before actuall deletion of widget.
+     * It is used to remove widget data (photos, files, additional database records and so on).
+     * Standard widget data is being deleted automatically. So you don't need to extend this method
+     * if your widget does not upload files or add new records to the database manually.
+     * @param int $widgetId
+     * @param array $data data that is being stored in the widget
+     */
+    public function delete($widgetId, $data){
 
     }
 

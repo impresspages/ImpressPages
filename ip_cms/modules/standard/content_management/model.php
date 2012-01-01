@@ -552,7 +552,7 @@ class Model{
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
         
         if ($widgetObject) {
-            $widgetObject->delete($widgetId);
+            $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
         
         $sql = "

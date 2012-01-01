@@ -321,7 +321,7 @@ class Controller extends \Ip\Controller{
         $newWidgetId = Model::createWidget($widgetRecord['name'], $widgetRecord['data'], $widgetRecord['layout'], $widgetRecord['widgetId']);
         $newInstanceId = Model::addInstance($newWidgetId, $widgetRecord['revisionId'], $widgetRecord['blockName'], $position, $widgetRecord['visible']);
 
-        $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId);
+        $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId, $widgetRecord['data']);
 
 
         $managementHtml = Model::generateWidgetManagement($newInstanceId);
