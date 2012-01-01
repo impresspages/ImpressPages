@@ -53,7 +53,9 @@ class System{
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
 
         $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
-         
+        
+        $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
+        
     }
 
     public static function collectWidgets(EventWidget $event){
@@ -152,6 +154,11 @@ class System{
         Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
     }
 
+    
+    public static function removeRevision (\Ip\Event $event) {
+        $revisionId = $event->getValue('revisionId');
+        Model::removeRevision($revisionId);
+    }
 
 
 }

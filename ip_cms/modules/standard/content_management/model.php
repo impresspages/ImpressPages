@@ -476,6 +476,11 @@ class Model{
 
 
 
+    /**
+     * 
+     * Mark instance as deleted. Instance will be remove completely, when revision will be deleted.
+     * @param int $instanceId
+     */
     public static function deleteInstance($instanceId) {
         $sql = "
             UPDATE `".DB_PREF."m_content_management_widget_instance`
@@ -491,6 +496,75 @@ class Model{
         }
 
         return true;
+    }
+    
+    public static function removeRevision($revisionId) {
+        $sql = "
+            DELETE FROM
+                `".DB_PREF."m_content_management_widget_instance` 
+            WHERE
+                `revisionId` = ".(int)$revisionId."
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t remove revision widgets instances '.$sql.' '.mysql_error(), Exception::DB);
+        }
+    }
+    
+    
+    /**
+     * 
+     * Each widget might be used many times. That is controlled using instanaces. This method destroys all widgets that has no instances.
+     * @throws Exception
+     */
+    public static function deleteUnusedWidgets() {
+    
+
+        $sql = "
+            SELECT
+                w.widgetId 
+            FROM
+                `".DB_PREF."m_content_management_widget` w
+            LEFT JOIN
+                `".DB_PREF."m_content_management_widget_instance` i
+            ON
+                i.widgetId = w.widgetId
+            WHERE
+                i.instanceId IS NULL
+          
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t get unused widgets '.$sql.' '.mysql_error(), Exception::DB);
+        }
+        while ($lock = mysql_fetch_assoc($rs)) {
+            self::deleteWidget($lock['widgetId']);
+        }
+    }
+    
+    /**
+     * 
+     * Completely remove widget.
+     * @param int $widgetId
+     */
+    public static function deleteWidget($widgetId){
+        $widgetRecord = self::getWidgetRecord($widgetId);
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
+        
+        if ($widgetObject) {
+            $widgetObject->delete($widgetId);
+        }
+        
+        $sql = "
+          DELETE FROM
+              `".DB_PREF."m_content_management_widget`
+          WHERE
+              `widgetId` = ".(int)$widgetId."
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t delete widget '.$sql.' '.mysql_error(), Exception::DB);
+        }
     }
 
 

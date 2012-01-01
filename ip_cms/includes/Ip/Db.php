@@ -166,7 +166,7 @@ class Db{
 
         $rs = mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t get page revisions '.$sql.' '.mysql_error(), CoreException::DB);
         }
 
         $answer = array();
@@ -177,5 +177,41 @@ class Db{
 
     }
 
+    /**
+     * 
+     * Delete all not published revisions that are older than X days. 
+     * @param int $days
+     */
+    public static function removeOldRevisions($days) {
+        global $dispatcher;
+        
+        $sqlWhere = "`created` < ".(time() - $days * 24 * 60 * 60)." AND NOT `published`";
+        $sql = "
+            SELECT * FROM `".DB_PREF."revision`
+            WHERE ".$sqlWhere."
+        ";
+
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new CoreException('Can\'t find old revisions '.$sql.' '.mysql_error(), CoreException::DB);
+        }
+
+        while ($lock = mysql_fetch_assoc($rs)) {
+            $eventData = array(
+                'revisionId' => $lock['revisionId'],
+            );
+            $dispatcher->notify(new \Ip\Event(null, 'site.removeRevision', $eventData));
+        }
+
+        $sql = "
+            DELETE FROM `".DB_PREF."revision`
+            WHERE ".$sqlWhere."
+        ";    
+
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new CoreException('Can\'t delete old revisions '.$sql.' '.mysql_error(), CoreException::DB);
+        }
+    }
 
 }

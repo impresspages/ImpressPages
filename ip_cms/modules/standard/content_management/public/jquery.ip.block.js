@@ -88,8 +88,6 @@
                             var newWidgetName = $element.data('ipAdminWidgetButton').name;
                             $duplicatedDragItem.remove();
                             $block = $this;
-                            console.log('received');
-                            console.log(event);
                             $block.ipBlock('_createWidget', newWidgetName, $position);
                         }
     

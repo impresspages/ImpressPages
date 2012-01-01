@@ -94,11 +94,11 @@ class stdModHtmlOutput{
 
     function wysiwyg($name, $value = '', $disabled = false){
         global $site;
-        $site->requireConfig('developer/std_mod/config.php');
-        if($disabled)
-        $disabledStr = ' disabled ';
-        else
-        $disabledStr = ' ';
+        if($disabled) {
+            $disabledStr = ' disabled ';
+        } else {
+            $disabledStr = ' ';
+        }
 
 
         if($name == '')

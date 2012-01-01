@@ -95,45 +95,15 @@ class std_mod_html_output{
 
     function wysiwyg($name, $value = '', $disabled = false){
         global $site;
-        $site->requireConfig('developer/std_mod/config.php');
 
-        if($disabled)
-        $disabled_str = ' disabled ';
-        else
-        $disabled_str = ' ';
+        if($disabled) {
+            $disabled_str = ' disabled ';
+        } else {
+            $disabled_str = ' ';
+        }
 
-        if($name == '')
-        $this->html .= $this->error("Input without name ");
-        global $cms;
-        if(false && !$cms->tiny_mce){
-
-            //tinymce styles
-            global $site;
-            $site->requireConfig('standard/content_management/config.php');
-            $tinyMceStylesStr = '';
-            foreach(\Modules\standard\content_management\Config::getMceStyles() as $style){
-                if($tinyMceStylesStr != ''){
-                    $tinyMceStylesStr .= ';';
-                }
-                $tinyMceStylesStr .= $style['translation'].'='.$style['css_style'];
-            }
-            //end tinymce styles
-
-            $cms->tiny_mce = true;
-
-            $this->html .= '
-<script src="'.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/ext/adapter/prototype/prototype.js"></script>
-<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>
-';
-            $this->html .= "
-<script type=\"text/javascript\">
-  //<![CDATA[
-  $('.mceEditor').tinymce(ipTinyMceConfigMin);
-  //]]>
-</script>
-";
-
+        if($name == '') {
+            $this->html .= $this->error("Input without name ");
         }
 
 
