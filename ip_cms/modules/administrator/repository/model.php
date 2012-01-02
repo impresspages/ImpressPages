@@ -58,6 +58,8 @@ class Model{
     }
     
     public static function unbindFile($file, $module, $instanceId) {
+
+        
         $sql = "
         DELETE FROM
             `".DB_PREF."m_administrator_repository_file`
@@ -65,17 +67,20 @@ class Model{
             `fileName` = '".mysql_real_escape_string($file)."' AND
             `module` = '".mysql_real_escape_string($module)."' AND
             `instanceId` = '".mysql_real_escape_string($instanceId)."'
+        LIMIT
+            1
         ";
+        //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
         
         $rs = mysql_query($sql);
         if (!$rs){
             throw new Exception('Can\'t file instance '.$sql.' '.mysql_error(), Exception::DB);
         }
-        
+        global $log; $log->log('test', 'test', $file.'-');
         $whoUses = self::whoUsesFile($file);
         
         if (count($whoUses) == 0) {
-            if (file_exists(BASE_DIR.$file)) {
+            if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
                 unlink(BASE_DIR.$file);
             }
         }

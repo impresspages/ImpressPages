@@ -17,7 +17,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
 
 
-    public function prepareData($widgetId, $postData, $currentData) {
+    public function update($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
 
@@ -26,9 +26,29 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
         $newData = $currentData;
 
-        if (!isset($postData['images']) && !is_array($postData['images'])) {//check if images array is set
+        //check if images array is set
+        if (!isset($postData['images']) && !is_array($postData['images'])) {
             return $newData;
         }
+        
+        //delete images that does not exist in posted array
+        //Usually it should not happen ever. But just in case we are checking it and eleting unused images.
+        if (isset($currentData['images']) && is_array($currentData['images'])) {
+            //loop all current images 
+            foreach ($currentData['images'] as $curImageKey => &$curImage) {
+                //loop posted images
+                $found = false;
+                foreach ($postData['images'] as $postImageKey => &$postImage) {
+                    $found = true;
+                }
+                if (!$found) {
+                    //old image does not exist in new posted array. Lets delete it.
+                    \Modules\administrator\repository\Model::unbindFile($curImage['fileName'], 'standard/content_management', $widgetId);
+                }
+            }
+        }
+        
+        
 
         $newData['images'] = array(); //we will create new images array.
 
@@ -55,21 +75,26 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     //create a copy of original file
-                    $imageOriginal = self::_createOriginalImage($image['fileName'], IMAGE_DIR);
+                    $imageOriginal = \Modules\administrator\repository\Model::addFile($image['fileName'], 'standard/content_management', $widgetId);
 
                      
                     //create simplified big image
-                    $imageBig = self::_createBigImage($image['fileName'], IMAGE_DIR);
+                    $tmpImageBig = self::_createBigImage($image['fileName'], TMP_IMAGE_DIR);
+                    $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);
+                    unlink(BASE_DIR.$tmpImageBig);
+                    
 
                     //create simplified small image (thumbnail)
-                    $imageSmall = self::_createSmallImage(
+                    $tmpImageSmall = self::_createSmallImage(
                     $image['fileName'],
                     $image['cropX1'],
                     $image['cropY1'],
                     $image['cropX2'],
                     $image['cropY2'],
-                    IMAGE_DIR
+                    TMP_IMAGE_DIR
                     );
+                    $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
+                    unlink(BASE_DIR.$tmpImageSmall);
 
                     //find image title
                     if ($image['title'] == '') {
@@ -93,10 +118,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                      
                     break;
                 case 'coordinatesChanged' :
-                    if (IMAGE_DIR.basename($image['fileName']) != $image['fileName']) {
-                        throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non temporary folder.");
-                    }
-
                     //check if crop coordinates are set
                     if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])) {
                         break;
@@ -106,16 +127,21 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     if (!$existingImageData) {
                         break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
                     }
+                    //remove current existing image. New will be created.
+                    \Modules\administrator\repository\Model::unbindFile($existingImageData['imageSmall'], 'standard/content_management', $widgetId);
 
                     //create simplified small image (thumbnail)
-                    $imageSmall = self::_createSmallImage(
+                    $tmpImageSmall = self::_createSmallImage(
                     $image['fileName'],
                     $image['cropX1'],
                     $image['cropY1'],
                     $image['cropX2'],
                     $image['cropY2'],
-                    IMAGE_DIR
+                    TMP_IMAGE_DIR
                     );
+                    $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
+                    unlink(BASE_DIR.$tmpImageSmall);
+                    
 
                     //find image title
                     if ($image['title'] == '') {
@@ -123,7 +149,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     } else {
                         $title = $image['title'];
                     }
-
 
                     $newImage = array(
                         'imageOriginal' => $existingImageData['imageOriginal'],
@@ -140,10 +165,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
                     break;
                 case 'present': //picure not changed
-                    if (!isset($currentData['images']) || !is_array($currentData['images'])) {
-                        break; //possible hack. There is no images yet.
-                    }
-
                     $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
                     if (!$existingImageData) {
                         break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
@@ -167,7 +188,11 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
                     break;
                 case 'deleted':
-                    //do nothing. Files will be deleted when no links to them will be present.
+                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
+                    if (!$existingImageData) {
+                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+                    }
+                    self::_deleteOneImage($existingImageData, $widgetId);
                     break;
             }
         }
@@ -178,12 +203,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
     }
 
 
-    private function _createOriginalImage ($sourceFile, $destinationDir){
-        $destinationFilename = \Library\Php\File\Functions::genUnocupiedName($sourceFile, BASE_DIR.$destinationDir);
-        copy($sourceFile, BASE_DIR.$destinationDir.$destinationFilename);
-        $answer = $destinationDir.$destinationFilename;
-        return $answer;
-    }
+
 
     private function _createBigImage ($sourceFile, $destinationDir) {
         global $parametersMod;
@@ -245,7 +265,30 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
+    
+    public function delete($widgetId, $data) {
+        if (!isset($data['images']) || !is_array($data['images'])) {
+            return;
+        }
+        
+        foreach($data['images'] as $imageKey => $image) {
+            self::_deleteOneImage($image, $widgetId);
+        };
+    }    
 
-
+    private function _deleteOneImage($image, $widgetId) {
+        if (!is_array($image)) {
+            return;
+        }
+        if (isset($image['imageOriginal']) && $image['imageOriginal']) {
+            \Modules\administrator\repository\Model::unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+        }
+        if (isset($image['imageBig']) && $image['imageBig']) {
+            \Modules\administrator\repository\Model::unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
+        }
+        if (isset($image['imageSmall']) && $image['imageSmall']) {
+            \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
+        }        
+    }
 
 }

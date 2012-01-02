@@ -17,7 +17,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
 
 
-    public function prepareData($widgetId, $postData, $currentData) {
+    public function update($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
 

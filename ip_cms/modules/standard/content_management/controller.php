@@ -429,7 +429,7 @@ class Controller extends \Ip\Controller{
 
         $widgetObject = Model::getWidgetObject($record['name']);
 
-        $newData = $widgetObject->prepareData($record['widgetId'], $postData, $record['data']);
+        $newData = $widgetObject->update($record['widgetId'], $postData, $record['data']);
 
         $updateArray = array (
             'data' => $newData,

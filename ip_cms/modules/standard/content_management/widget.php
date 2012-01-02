@@ -121,7 +121,7 @@ class Widget{
      * @param $currentData
      * @return array data to be stored to the database
      */
-    public function prepareData ($widgetId, $postData, $currentData) {
+    public function update ($widgetId, $postData, $currentData) {
         return $postData;
     }
 

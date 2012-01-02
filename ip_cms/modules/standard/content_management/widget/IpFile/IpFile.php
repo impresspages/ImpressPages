@@ -16,7 +16,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
 
 
 
-    public function prepareData($widgetId, $postData, $currentData) {
+    public function update($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
 
@@ -36,15 +36,16 @@ class IpFile extends \Modules\standard\content_management\Widget{
                                 if (TMP_FILE_DIR.basename($file['fileName']) != $file['fileName']) {
                                     throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non temporary folder.");
                                 }
-                                $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($file['fileName'], $destinationDir);
-                                copy($file['fileName'], $destinationDir.$unocupiedName);
+                                
+                                $repositoryFilename = \Modules\administrator\repository\Model::addFile($file['fileName'], 'standard/content_management', $widgetId);
+                                
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
                                 } else {
                                     $title = $file['title'];
                                 }
                                 $newFile = array(
-                                    'fileName' => FILE_DIR.$unocupiedName,
+                                    'fileName' => $repositoryFilename,
                                     'title' => $title
                                 );
                                 $newData['files'][] = $newFile;
@@ -69,7 +70,11 @@ class IpFile extends \Modules\standard\content_management\Widget{
 
                             break;
                         case 'deleted':
-                            //do nothing. File will be deleted when no links to it will be present.
+                            $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
+                            if (!$existingImageData) {
+                                break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+                            }
+                            \Modules\administrator\repository\Model::unbindFile($existingImageData['fileName'], 'standard/content_management', $widgetId);
                             break;
                     }
                 }
@@ -80,7 +85,36 @@ class IpFile extends \Modules\standard\content_management\Widget{
         return $newData;
     }
 
+    /*
+    private function _findExistingFile ($fileName, $allFiles) {
 
+        if (!is_array($allFiles)) {
+            return false;
+        }
+
+        $answer = false;
+        foreach ($allFiles as $fileKey => $image) {
+            if ($image['imageOriginal'] == $imageOriginalFile) {
+                $answer = $image;
+                break;
+            }
+        }
+
+        return $answer;
+
+    }    */
+
+    public function delete($widgetId, $data) {
+        if (!isset($data['files']) || !is_array($data['files'])) {
+            return;
+        }
+        
+        foreach($data['files'] as $fileKey => $file) {
+            if (isset($file['fileName']) && $file['fileName']) {
+                \Modules\administrator\repository\Model::unbindFile($file['fileName'], 'standard/content_management', $widgetId);
+            }
+        };
+    }
 
 
 
