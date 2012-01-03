@@ -52,29 +52,23 @@ class IpFile extends \Modules\standard\content_management\Widget{
                             }
                             break;
                         case 'present'://file not changed
-                            if (!isset($currentData['files']) || !is_array($currentData['files'])) {
-                                break; //possible hack. There is no files yet.
-                            }
-                            $reallyPresent = false;
-                            foreach($currentData['files'] as $currentFileKey => $currentFile) {
-                                if ($currentFile['fileName'] == $file['fileName']) {
-                                    $reallyPresent = true;
-                                }
-                            }
-                            if ($reallyPresent) {
+
+                            $existingFile = self::_findExistingFile($file['fileName'], $currentData['files']);
+                            if ($existingFile) {
                                 $newFile = array();
-                                $newFile['fileName'] = $currentFile['fileName'];
+                                $newFile['fileName'] = $existingFile['fileName'];
                                 $newFile['title'] = $file['title'];
                                 $newData['files'][] = $newFile;
                             }
 
                             break;
                         case 'deleted':
-                            $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-                            if (!$existingImageData) {
-                                break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+                            $existingFile = self::_findExistingFile($file['fileName'], $currentData['files']);
+                            if (!$existingFile) {
+                                \Modules\administrator\repository\Model::unbindFile($existingFile['fileName'], 'standard/content_management', $widgetId);
+                            } else {
+                                //do nothing existing image not found. 
                             }
-                            \Modules\administrator\repository\Model::unbindFile($existingImageData['fileName'], 'standard/content_management', $widgetId);
                             break;
                     }
                 }
@@ -85,7 +79,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
         return $newData;
     }
 
-    /*
+    
     private function _findExistingFile ($fileName, $allFiles) {
 
         if (!is_array($allFiles)) {
@@ -93,16 +87,16 @@ class IpFile extends \Modules\standard\content_management\Widget{
         }
 
         $answer = false;
-        foreach ($allFiles as $fileKey => $image) {
-            if ($image['imageOriginal'] == $imageOriginalFile) {
-                $answer = $image;
+        foreach ($allFiles as $fileKey => $file) {
+            if ($file['fileName'] == $fileName) {
+                $answer = $file;
                 break;
             }
         }
 
         return $answer;
 
-    }    */
+    }    
 
     public function delete($widgetId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
