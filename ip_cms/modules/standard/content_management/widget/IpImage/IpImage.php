@@ -52,6 +52,11 @@ class IpImage extends \Modules\standard\content_management\Widget{
         }
 
         if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) ) {
+            //remove old file
+            if(isset($currentData['imageSmall'])) {
+                \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
+            }
+            
             //new small image
             $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
             $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_photo', 'width') * $postData['scale']);
@@ -67,6 +72,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $requiredWidth,
             $requiredHeight
             );
+            
             $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
             
@@ -88,17 +94,23 @@ class IpImage extends \Modules\standard\content_management\Widget{
     }
 
     public function delete($widgetId, $data) {
-        
+        self::_deleteOneImage($data, $widgetId);
+    }
+    
+    private function _deleteOneImage($data, $widgetId) {
+        if (!is_array($data)) {
+            return;
+        }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
             \Modules\administrator\repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-        }
-        if (isset($data['imageSmall']) && $data['imageSmall']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
         }
         if (isset($data['imageBig']) && $data['imageBig']) {
             \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
         }
-    }
+        if (isset($data['imageSmall']) && $data['imageSmall']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
+        }        
+    }    
    
 
 
