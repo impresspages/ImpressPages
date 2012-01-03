@@ -74,10 +74,10 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                         throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non temporary folder.");
                     }
 
-                    //create a copy of original file
+                    //create a copy of original(uploaded) file
                     $imageOriginal = \Modules\administrator\repository\Model::addFile($image['fileName'], 'standard/content_management', $widgetId);
 
-                     
+                    
                     //create simplified big image
                     $tmpImageBig = self::_createBigImage($image['fileName'], TMP_IMAGE_DIR);
                     $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);

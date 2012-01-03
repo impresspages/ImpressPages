@@ -55,18 +55,22 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     //create a copy of original file
-                    $logoOriginal = self::_createOriginalLogo($logo['fileName'], IMAGE_DIR);
+                    $logoOriginal = \Modules\administrator\repository\Model::addFile($logo['fileName'], 'standard/content_management', $widgetId);
 
-                     
+
+
                     //create simplified small logo (thumbnail)
-                    $logoSmall = self::_createSmallLogo(
+                    $tmpLogoSmall = self::_createSmallLogo(
                     $logo['fileName'],
                     $logo['cropX1'],
                     $logo['cropY1'],
                     $logo['cropX2'],
                     $logo['cropY2'],
-                    IMAGE_DIR
+                    TMP_IMAGE_DIR
                     );
+                    $logoSmall = \Modules\administrator\repository\Model::addFile($tmpLogoSmall, 'standard/content_management', $widgetId);
+                    unlink(BASE_DIR.$tmpLogoSmall);
+                    
 
                     //find logo title
                     if ($logo['title'] == '') {
@@ -89,9 +93,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                      
                     break;
                 case 'coordinatesChanged' :
-                    if (IMAGE_DIR.basename($logo['fileName']) != $logo['fileName']) {
-                        throw new \Exception("Security notice. Try to access a file (".$logo['fileName'].") from a non temporary folder.");
-                    }
+
 
                     //check if crop coordinates are set
                     if (!isset($logo['cropX1']) || !isset($logo['cropY1']) || !isset($logo['cropX2']) || !isset($logo['cropY2'])) {
@@ -104,14 +106,17 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     //create simplified small logo (thumbnail)
-                    $logoSmall = self::_createSmallLogo(
+                    $tmpLogoSmall = self::_createSmallLogo(
                     $logo['fileName'],
                     $logo['cropX1'],
                     $logo['cropY1'],
                     $logo['cropX2'],
                     $logo['cropY2'],
-                    IMAGE_DIR
+                    TMP_IMAGE_DIR
                     );
+                    $logoSmall = \Modules\administrator\repository\Model::addFile($tmpLogoSmall, 'standard/content_management', $widgetId);
+                    unlink(BASE_DIR.$tmpLogoSmall);
+                    
 
                     //find logo title
                     if ($logo['title'] == '') {
@@ -134,11 +139,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
 
                     break;
-                case 'present': //picure not changed
-                    if (!isset($currentData['logos']) || !is_array($currentData['logos'])) {
-                        break; //possible hack. There is no logos yet.
-                    }
-
+                case 'present': //picure not changed. Store new title
                     $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
                     if (!$existingLogoData) {
                         break; //existing logo not found. Impossible to recalculate coordinates if logo does not exists.
@@ -161,7 +162,11 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
                     break;
                 case 'deleted':
-                    //do nothing. Files will be deleted when no links to them will be present.
+                    $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
+                    if (!$existingLogoData) {
+                        break; //existing logo not found. Impossible to recalculate coordinates if image does not exists.
+                    }
+                    self::_deleteOneLogo($existingLogoData, $widgetId);
                     break;
             }
         }
@@ -225,6 +230,27 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
+    public function delete($widgetId, $data) {
+        if (!isset($data['logos']) || !is_array($data['logos'])) {
+            return;
+        }
+        
+        foreach($data['logos'] as $logoKey => $logo) {
+            self::_deleteOneLogo($logo, $widgetId);
+        };
+    }        
+
+    private function _deleteOneLogo($logo, $widgetId) {
+        if (!is_array($logo)) {
+            return;
+        }
+        if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
+            \Modules\administrator\repository\Model::unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
+        }
+        if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+            \Modules\administrator\repository\Model::unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
+        }
+    }    
 
 
 
