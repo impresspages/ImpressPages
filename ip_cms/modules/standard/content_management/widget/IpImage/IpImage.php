@@ -22,7 +22,6 @@ class IpImage extends \Modules\standard\content_management\Widget{
         $answer = '';
 
 
-        $destinationDir = BASE_DIR.TMP_IMAGE_DIR;
 
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
@@ -33,16 +32,27 @@ class IpImage extends \Modules\standard\content_management\Widget{
                 throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non temporary folder.");
             }
 
+            //remove old image
+            if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
+                \Modules\administrator\repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
+            }
             
             //new original image
             $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($postData['newImage'], 'standard/content_management', $widgetId);
 
 
+            //remove old big image
+            if (isset($currentData['imageBig']) && $currentData['imageBig']) {
+                \Modules\administrator\repository\Model::unbindFile($currentData['imageBig'], 'standard/content_management', $widgetId);
+            }
+            
+            
+            //new big image
             $tmpBigImageName = \Library\Php\Image\Functions::resize(
             $postData['newImage'],
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_width'),
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_height'),
-            BASE_DIR.TMP_IMAGE_DIR,
+            TMP_IMAGE_DIR,
             \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'big_quality')
@@ -63,7 +73,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $requiredHeight = round($requiredWidth / $ratio);
             $tmpSmallImageName = \Library\Php\Image\Functions::crop (
             $newData['imageOriginal'],
-            $destinationDir,
+            TMP_IMAGE_DIR,
             $postData['cropX1'],
             $postData['cropY1'],
             $postData['cropX2'],
@@ -94,10 +104,10 @@ class IpImage extends \Modules\standard\content_management\Widget{
     }
 
     public function delete($widgetId, $data) {
-        self::_deleteOneImage($data, $widgetId);
+        self::_deleteImage($data, $widgetId);
     }
     
-    private function _deleteOneImage($data, $widgetId) {
+    private function _deleteImage($data, $widgetId) {
         if (!is_array($data)) {
             return;
         }
