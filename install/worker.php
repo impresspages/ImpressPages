@@ -19,6 +19,8 @@ if(!install_available()) {
 }
 
 
+
+
 ini_set('display_errors', '0');
 session_start();
 if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
@@ -32,8 +34,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
         exit;
     }
 
+    $error = false;
     $conn = mysql_connect($_POST['server'], $_POST['db_user'], $_POST['db_pass']);
     if(!$conn) {
+        $error = true;
         echo '{errorCode:"ERROR_CONNECT", error:""}';
     } else {
         if(mysql_select_db($_POST['db'], $conn)){
@@ -50,7 +54,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             $all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$_POST['prefix'], $all_sql);
             $sql_list = explode("-- Table structure", $all_sql);
              
-            $error = false;
             $errorMessage = '';
 
 
@@ -77,8 +80,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
              
             foreach($sql_list as $key => $sql){
-                /*	$semicolon_pos = strrpos($sql, ";");
-                 $sql = substr($sql, 0, $semicolon_pos);*/
                 $rs = mysql_query($sql);
                 if(!$rs) {
                     $error = true;
@@ -87,11 +88,34 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             }
 
             /*end data*/
+            
+            define('BASE_DIR', get_parent_dir());
+            define('BACKEND', 1);
+            define('CMS', 1);
+            define('INCLUDE_DIR', 'ip_cms/includes/');
+            define('FRONTEND_DIR', 'ip_cms/frontend/');
+            define('MODULE_DIR', 'ip_cms/modules/');
+            define('LIBRARY_DIR', 'ip_libs/');
+            define('DB_PREF', $_POST['prefix']);
 
-            if($error)
-            echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
+            require (BASE_DIR.FRONTEND_DIR.'db.php');
+            require (BASE_DIR.INCLUDE_DIR.'db.php');
+            require (BASE_DIR.INCLUDE_DIR.'parameters.php');            
+            require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
+
+            global $parametersMod;
+            $parametersMod = new parametersMod();
+            
+            
+            \Modules\developer\localization\Manager::saveParameters(__DIR__.'/parameters.php');
+            
+            
+            if($error) {
+                echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
+            }
              
         }else{
+            $error = true;
             echo '{errorCode:"ERROR_DB", error:""}';
         }
     }

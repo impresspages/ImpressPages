@@ -11,7 +11,7 @@ namespace Library\Php\Form;
 if (!defined('CMS')) exit;
 
 /** @private */
-require_once (LIBRARY_DIR.'php/form/hn_captcha/hn_captcha.class.php');
+require_once (BASE_DIR.LIBRARY_DIR.'php/form/hn_captcha/hn_captcha.class.php');
 /** @private */
 require_once (__DIR__.'/templates/standard.php');
 
