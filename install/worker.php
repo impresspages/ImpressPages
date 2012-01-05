@@ -100,7 +100,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
             require (BASE_DIR.FRONTEND_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'db.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters.php');            
+            require (BASE_DIR.INCLUDE_DIR.'parameters.php');
             require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
 
             global $parametersMod;

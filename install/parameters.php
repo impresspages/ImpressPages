@@ -1228,12 +1228,12 @@ newsletter";
     $parameterType["standard"]["configuration"]["main_parameters"]["email_template"] = "lang_wysiwyg";
 
     $parameterTitle["standard"]["configuration"]["main_parameters"]["email"] = "Site e-mail";
-    $parameterValue["standard"]["configuration"]["main_parameters"]["email"] = "mangirdas@impresspages.org";
+    $parameterValue["standard"]["configuration"]["main_parameters"]["email"] = "[[[[site_email]]]]";
     $parameterAdmin["standard"]["configuration"]["main_parameters"]["email"] = "0";
     $parameterType["standard"]["configuration"]["main_parameters"]["email"] = "lang";
 
     $parameterTitle["standard"]["configuration"]["main_parameters"]["name"] = "Site name";
-    $parameterValue["standard"]["configuration"]["main_parameters"]["name"] = "xxx";
+    $parameterValue["standard"]["configuration"]["main_parameters"]["name"] = "[[[[site_name]]]]";
     $parameterAdmin["standard"]["configuration"]["main_parameters"]["name"] = "0";
     $parameterType["standard"]["configuration"]["main_parameters"]["name"] = "lang";
   
