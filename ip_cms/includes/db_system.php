@@ -69,22 +69,44 @@ class DbSystem{    //system variables
     public static function replaceUrls($oldUrl, $newUrl){
         $sql = "update `".DB_PREF."par_string` set value = REPLACE(`value`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1";
         $rs = mysql_query($sql);
+        
+        if (!$rs) {
+            trigger_error($sql." ".mysql_error());
+            return false;
+        }
+
+
+        $sql = "update `".DB_PREF."par_lang` set translation = REPLACE(`translation`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1";
+        $rs = mysql_query($sql);
+        if (!$rs) {
+            trigger_error($sql." ".mysql_error());
+            return false;
+        }
+
+        
+        $fromJsonUrl = json_encode($oldUrl);
+        $fromJsonUrl = substr($fromJsonUrl, 1, -1);
+        $toJsonUrl = json_encode($newUrl);
+        $toJsonUrl = substr($toJsonUrl, 1, -1);
+        
+        $sql = "
+        UPDATE 
+            `".DB_PREF."m_content_management_widget` 
+        SET 
+            `data` = REPLACE(`data`, '".mysql_real_escape_string($fromJsonUrl)."', '".mysql_real_escape_string($toJsonUrl)."') where 1";
+        global $log;
+        $log->log('test', 'test', $sql);
+        $log->log('test', 'json_encode', json_encode('http://www.vu.lt'));
+        $rs = mysql_query($sql);
         if ($rs) {
-
-            $sql2 = "update `".DB_PREF."par_lang` set translation = REPLACE(`translation`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1";
-            $rs2 = mysql_query($sql2);
-            if ($rs2) {
-                return true;
-            } else {
-                trigger_error($sql2." ".mysql_error());
-                return false;
-            }
-
             return true;
         } else {
             trigger_error($sql." ".mysql_error());
             return false;
         }
+        
+        
+        return true;
     }
 
 
