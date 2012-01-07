@@ -273,14 +273,13 @@
                 for (var prop in $this.data('ipContentManagement').saveJobs) {
                     jobsCount++;
                 }
-
                 if (jobsCount == 0) {
                     $this.ipContentManagement('saveFinish'); // initiate save finishing action
                 } else {
                     // wait for other jobs to finish
                 }
             });
-        },        
+        },
     
         publish : function(event){
             return this.each(function() {  

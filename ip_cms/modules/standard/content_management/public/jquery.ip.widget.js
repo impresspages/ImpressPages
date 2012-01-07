@@ -246,15 +246,13 @@
             $($newWidget).insertAfter($this);
             $newWidget.trigger('reinitRequired.ipWidget');
             
-            //change state to managed
             var tmpData = $newWidget.data('ipWidget');
             tmpData.state = IP_WIDGET_STATE_PREVIEW;
-            $newWidget.data('ipWidget', tmpData);            
+            $newWidget.data('ipWidget', tmpData);
             
             var instanceId = $(this).data('ipWidget').instanceId; 
-            $this.remove();
-            
             $this.trigger('removeSaveJob.ipContentManagement', ['widget_' + instanceId]);
+            $this.remove();
             
         });
     },
