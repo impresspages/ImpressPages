@@ -230,9 +230,6 @@ function IpWidget_IpImageGallery(widgetObject) {
                 imageOptions.cropX2 = options.coordinates.cropX2;
                 imageOptions.cropY2 = options.coordinates.cropY2;
             }
-            console.log('options');
-            console.log(options);
-            console.log(imageOptions);
             imageOptions.windowWidth = options.smallImageWidth;
             imageOptions.windowHeight = options.smallImageHeight;
             imageOptions.enableChangeWidth = false;

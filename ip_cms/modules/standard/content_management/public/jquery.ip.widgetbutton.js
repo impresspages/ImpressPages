@@ -19,7 +19,7 @@
                         connectToSortable : '.ipBlock',
                         revert : 'invalid',
                         helper : 'clone',
-                        stop: function(event, ui) {/*console.log(ui); console.log($(ui.item).attr('id'));*/ }    
+                        stop: function(event, ui) { }
                     });
                     
                     $this.data('ipAdminWidgetButton', {

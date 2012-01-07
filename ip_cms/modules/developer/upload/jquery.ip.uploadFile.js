@@ -103,7 +103,7 @@
             uploader.bind('FilesAdded', function(up, files) {
                 
                 $.each(files, function(i, file) {
-                    console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
+                    //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
                 up.start();
@@ -115,7 +115,7 @@
             });
 
             uploader.bind('Error', function(up, err) {
-                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
+                //console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 up.refresh(); // Reposition Flash/Silverlight
             });
             

@@ -300,7 +300,7 @@
                 }                
                 $this.remove();
             } else {
-                console.log(response);
+                //do nothing
             }
         });
     }

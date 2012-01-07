@@ -178,7 +178,6 @@
             
             
             $this.find('.ipUploadImage').attr('src', ip.baseUrl + data.curImage);
-            console.log('uniqueId: ' + data.uniqueId);
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
@@ -228,8 +227,8 @@
             $this.find('.ipUploadSmallerButton').click(function(event) {
                 event.preventDefault();
                 $(this).trigger('imageScaleDown.ipUploadImage');
-            });console.log(data);
-            if (!data.enableScale) {console.log('hide');
+            });
+            if (!data.enableScale) {
                 $this.find('.ipUploadSmallerButton').hide();
             }
             
@@ -289,7 +288,7 @@
             uploader.bind('FilesAdded', function(up, files) {
                 
                 $.each(files, function(i, file) {
-                    console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
+                    //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
                 up.start();
@@ -301,7 +300,7 @@
             });
 
             uploader.bind('Error', function(up, err) {
-                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
+                //console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 up.refresh(); // Reposition Flash/Silverlight
             });
             
@@ -328,7 +327,6 @@
         },
         
         _uploadedNewFile : function (up, file, response) {
-            console.log('uploaded new file');
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
             var data = $this.data('ipUploadImage');
@@ -350,10 +348,7 @@
             if ($window.height() == 0 || $image.height() == 0) {
                 return; //to avoid division by zero.
             }
-            console.log('new image loaded');
-            console.log($this.ipUploadImage('getNewImageUploaded'));
             if ($this.ipUploadImage('getNewImageUploaded')) { //new image uploaded. Center it.
-                console.log('new image');
                 containerAspectRatio = $window.width() / $window.height();
                 $image.height('auto');
                 $image.width('auto');
