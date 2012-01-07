@@ -1,23 +1,23 @@
 <form id="formAdvanced">
-    <label><?php $this->escPar('standard/menu_management/admin_translations/type') ?></label>
+    <label><?php echo $this->escPar('standard/menu_management/admin_translations/type') ?></label>
     <p class="field">
         <input class="stdModBox" name="type" value="default" <?php $element->getType() == 'default' ? 'checked="checkded"' : '' ?> type="radio" />
         <label class="small">
-            <?php $this->escPar('standard/menu_management/admin_translations/no_redirect') ?>
+            <?php echo $this->escPar('standard/menu_management/admin_translations/no_redirect') ?>
         </label>
         <br />
     </p>
     <p class="field">
         <input class="stdModBox" name="type" value="inactive" <?php $element->getType() == 'inactive' ? 'checked="checkded"' : '' ?> type="radio" />
         <label class="small">
-            <?php $this->escPar('standard/menu_management/admin_translations/inactive') ?>
+            <?php echo $this->escPar('standard/menu_management/admin_translations/inactive') ?>
         </label>
         <br />
     </p>
     <p class="field">
         <input class="stdModBox" name="type" value="subage" <?php $element->getType() == 'subage' ? 'checked="checkded"' : '' ?> type="radio" />
         <label class="small">
-            <?php $this->escPar('standard/menu_management/admin_translations/redirect_to_subpage') ?>
+            <?php echo $this->escPar('standard/menu_management/admin_translations/redirect_to_subpage') ?>
         </label>
         <br />
 
@@ -27,7 +27,7 @@
     <p class="field">
         <input class="stdModBox" name="type" value="redirect" <?php echo ($element->getType() == 'redirect' ? 'checked="checkded"' : '' )?> type="radio" />
         <label class="small">
-            <?php $this->escPar('standard/menu_management/admin_translations/redirect_to_external_page') ?>
+            <?php echo $this->escPar('standard/menu_management/admin_translations/redirect_to_external_page') ?>
         </label>
         <br />
         <input autocomlete="off" name="redirectURL" value="<?php echo $element->getRedirectUrl() ?>">

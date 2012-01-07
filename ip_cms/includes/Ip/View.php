@@ -80,19 +80,25 @@ class View{
      * Escape and echo text
      * @param string $text
      */
-    public function esc($text){
-        echo htmlspecialchars($text);
+    public function esc($text, $variables = null){
+        if (!empty($variables) && is_array($variables)) {
+            foreach($variables as $variableKey => $variableValue) {
+                $text = str_replace('[[' . $variableKey . ']]', $variableValue, $text);
+            }
+            
+        }
+        return htmlspecialchars($text);
     }
     
     /**
      * Escape and echo parameter
      * @param string $parameterKey
      */    
-    public function escPar($parameterKey){
-        $this->esc($this->par($parameterKey));
+    public function escPar($parameterKey, $variables = null){
+        echo $this->esc($this->par($parameterKey), $variables);
     }
 
-    public function par($parameterKey){
+    public function par($parameterKey, $variables = null){
         global $parametersMod;
         $parts = explode('/', $parameterKey);
         if (count($parts) != 4) {
@@ -102,7 +108,15 @@ class View{
                 return '';
             }
         }
-        return $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3]);
+        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3]);
+
+        if (!empty($variables) && is_array($variables)) {
+            foreach($variables as $variableKey => $variableValue) {
+                $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
+            }
+        }
+        
+        return $value;
     }
 
     private static function findFile($file, $sourceFile) {

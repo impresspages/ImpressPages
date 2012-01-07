@@ -171,7 +171,50 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterValue["standard"]["content_management"]["admin_translations"]["save_now"] = "Save now";
     $parameterAdmin["standard"]["content_management"]["admin_translations"]["save_now"] = "1";
     $parameterType["standard"]["content_management"]["admin_translations"]["save_now"] = "string";
+	
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["older_revision_preview"] = "Older revision preview";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["older_revision_preview"] = "This is a preview of older revision, created at ([[date]]).";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["older_revision_preview"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["older_revision_preview"] = "string";	
   
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["older_revision_publish"] = "Older revision publish";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["older_revision_publish"] = "Publish this revision";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["older_revision_publish"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["older_revision_publish"] = "string";
+	
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["older_revision_edit"] = "Older revision edit";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["older_revision_edit"] = "Duplicate and edit this revision";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["older_revision_edit"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["older_revision_edit"] = "string";
+	
+	
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["publish"] = "Publish";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["publish"] = "Publish";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["publish"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["publish"] = "string";	
+
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["publish"] = "Publish";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["publish"] = "Publish";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["publish"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["publish"] = "string";	
+	
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["published_revision_marker"] = "Published revision marker";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["published_revision_marker"] = "(published)";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["published_revision_marker"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["published_revision_marker"] = "string";	
+	
+    $parameterTitle["standard"]["content_management"]["admin_translations"]["missing_layout"] = "Missing widget layout";
+    $parameterValue["standard"]["content_management"]["admin_translations"]["missing_layout"] = "Missing layout \"[[layout]]\" for widget \"[[widgetName]]\"";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["missing_layout"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["missing_layout"] = "string_wysiwyg";	
+	
+    $parameterValue["standard"]["content_management"]["admin_translations"]["missing_widget"] = "Controls for this widget does not exist. Widget name: [[widgetName]]";
+    $parameterAdmin["standard"]["content_management"]["admin_translations"]["missing_widget"] = "1";
+    $parameterType["standard"]["content_management"]["admin_translations"]["missing_widget"] = "string_wysiwyg";	
+	
+		
+
+	
   $parameterGroupTitle["standard"]["content_management"]["widget_contact_form"] = "Widget: Contact form";
   $parameterGroupAdmin["standard"]["content_management"]["widget_contact_form"] = "1";
 
