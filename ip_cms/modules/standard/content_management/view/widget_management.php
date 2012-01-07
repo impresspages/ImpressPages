@@ -11,7 +11,7 @@
     </div>
 <?php
     $tmpData = $widgetRecord;
-    //but it is needed at management initialization unset($tmpData['data']); //data is removed because it will constantly change during management process
+    //but it is needed at management initialization //unset($tmpData['data']); //data is removed because it will constantly change during management process
     $tmpData['state'] = 'management';
     echo \Ip\View::create('widget_data.php', array('widgetInstance' => $tmpData))->render();
 ?>
@@ -19,7 +19,7 @@
 <?php echo $managementHtml; ?>
     </div>
     <div class="ipaFooter ipgClear">
-        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave">Save</a>
-        <a href="#" class="ipAdminButton ipActionWidgetCancel">Cancel</a>
+        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave"><?php echo $this->escPar('standard/content_management/admin_translations/man_paragraph_confirm'); ?></a>
+        <a href="#" class="ipAdminButton ipActionWidgetCancel"><?php echo $this->escPar('standard/content_management/admin_translations/man_paragraph_cancel'); ?></a>
     </div>
 </div>

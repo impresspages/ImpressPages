@@ -3,8 +3,8 @@
 </div>
 <div class="ipgHide">
     <div class="ipaLogoTemplate">
-        <a href="#" class="ipaButton ipaLogoMove">Move</a>
-        <a href="#" class="ipaButton ipaLogoRemove">Remove</a>
+        <a href="#" class="ipaButton ipaLogoMove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/move') ?></a>
+        <a href="#" class="ipaButton ipaLogoRemove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/remove') ?></a>
         <input type="text" class="ipAdminInput ipaLogoTitle" name="title" value="" />
         <div class="ipaLogo" style="width: 200px;"></div>
     </div>

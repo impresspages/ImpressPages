@@ -374,6 +374,23 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterAdmin["standard"]["content_management"]["widget_file"]["new_file"] = "1";
     $parameterType["standard"]["content_management"]["widget_file"]["new_file"] = "string";
 
+    $parameterTitle["standard"]["content_management"]["widget_file"]["move"] = "Move";
+    $parameterValue["standard"]["content_management"]["widget_file"]["move"] = "Move";
+    $parameterAdmin["standard"]["content_management"]["widget_file"]["move"] = "1";
+    $parameterType["standard"]["content_management"]["widget_file"]["move"] = "string";	
+	
+    $parameterTitle["standard"]["content_management"]["widget_file"]["preview"] = "Preview";
+    $parameterValue["standard"]["content_management"]["widget_file"]["preview"] = "Preview";
+    $parameterAdmin["standard"]["content_management"]["widget_file"]["preview"] = "1";
+    $parameterType["standard"]["content_management"]["widget_file"]["preview"] = "string";	
+	
+    $parameterTitle["standard"]["content_management"]["widget_file"]["remove"] = "Remove";
+    $parameterValue["standard"]["content_management"]["widget_file"]["remove"] = "Remove";
+    $parameterAdmin["standard"]["content_management"]["widget_file"]["remove"] = "1";
+    $parameterType["standard"]["content_management"]["widget_file"]["remove"] = "string";	
+	
+
+
     $parameterTitle["standard"]["content_management"]["widget_file"]["current_file"] = "Current file";
     $parameterValue["standard"]["content_management"]["widget_file"]["current_file"] = "Current file";
     $parameterAdmin["standard"]["content_management"]["widget_file"]["current_file"] = "1";
@@ -505,8 +522,18 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["height"] = "1";
     $parameterType["standard"]["content_management"]["widget_logo_gallery"]["height"] = "integer";
   
-  $parameterGroupTitle["standard"]["content_management"]["widget_photo"] = "Widget: Photo";
-  $parameterGroupAdmin["standard"]["content_management"]["widget_photo"] = "1";
+    $parameterTitle["standard"]["content_management"]["widget_logo_gallery"]["move"] = "Move";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["move"] = "Move";
+    $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["move"] = "1";
+    $parameterType["standard"]["content_management"]["widget_logo_gallery"]["move"] = "string";
+
+    $parameterTitle["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "Remove";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "Remove";
+    $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "1";
+    $parameterType["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "string";
+
+	$parameterGroupTitle["standard"]["content_management"]["widget_photo"] = "Widget: Photo";
+    $parameterGroupAdmin["standard"]["content_management"]["widget_photo"] = "1";
 
     $parameterTitle["standard"]["content_management"]["widget_photo"]["photo"] = "Photo";
     $parameterValue["standard"]["content_management"]["widget_photo"]["photo"] = "Photo";
@@ -685,7 +712,17 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "100";
     $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "1";
     $parameterType["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "integer";
-  
+
+    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["move"] = "Move";
+    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["move"] = "Move";
+    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["move"] = "1";
+    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["move"] = "string";
+
+    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "Remove";
+    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "Remove";
+    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "1";
+    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "string";
+	
   $parameterGroupTitle["standard"]["content_management"]["widget_rich_text"] = "Widget: Rich text";
   $parameterGroupAdmin["standard"]["content_management"]["widget_rich_text"] = "1";
 
