@@ -552,11 +552,17 @@ class Controller extends \Ip\Controller{
             return;
         }
         $revisionId = $_POST['revisionId'];
-
+        $revision = \Ip\Db::getRevision($revisionId);
+        
+        
+        
+        $pageOptions = array();
+        $pageOptions['lastModified'] = date("Y-m-d");
+        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+        
+        
         \Ip\Db::publishRevision($revisionId);
 
-        
-        $revision = \Ip\Db::getRevision($revisionId);
         
         $lastRevision = \Ip\Db::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
