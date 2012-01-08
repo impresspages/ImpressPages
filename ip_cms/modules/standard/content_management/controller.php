@@ -95,6 +95,7 @@ class Controller extends \Ip\Controller{
         global $site;
 
         $widgets = Model::getAvailableWidgetObjects();
+        $widgets = \Modules\developer\widgets\Model::sortWidgets($widgets);
         $revisions = \Ip\Db::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
 
         $managementUrls = array();

@@ -248,6 +248,22 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
 
 -- Table structure
 
+DROP TABLE IF EXISTS `ip_cms_m_developer_widget_sort`;
+
+-- Table structure
+
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_developer_widget_sort` (
+  `sortId` int(11) NOT NULL AUTO_INCREMENT,
+  `widgetName` varchar(255) NOT NULL,
+  `priority` int(11) NOT NULL DEFAULT '0',
+  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'used for maintenance only',
+  PRIMARY KEY (`sortId`),
+  UNIQUE KEY `widgetName` (`widgetName`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+-- Table structure
+
 DROP TABLE IF EXISTS `ip_cms_parameter`;
 
 -- Table structure

@@ -30,6 +30,17 @@ INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_titl
 
 -- Dumping data for table--
 
+INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`, `deleted`) VALUES
+(2, 'IpImage', 50, 0),
+(3, 'IpImageGallery', 60, 0),
+(4, 'IpLogoGallery', 70, 0),
+(5, 'IpText', 30, 0),
+(6, 'IpTextImage', 40, 0),
+(7, 'IpTitle', 20, 0),
+(8, 'IpFile', 80, 0);
+
+-- Dumping data for table--
+
 INSERT INTO `ip_cms_language` (`id`, `d_short`, `d_long`, `row_number`, `visible`, `url`, `code`) VALUES
 (344, 'EN', 'English', 2, 1, 'en', 'en'),
 (384, 'LA', 'Latin', 3, 1, 'la', 'la');
