@@ -145,7 +145,7 @@ class Site{
      *
      */
     private function createLanguage($data){
-        $language = new \Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible']);
+        $language = new \Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
         return $language;
     }
 

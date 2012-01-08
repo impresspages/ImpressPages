@@ -95,6 +95,17 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
 
 
+            $element = new \Modules\developer\std_mod\ElementText(
+            array(
+                    'title' => $parametersMod->getValue('standard','languages','admin_translations','text_direction'),
+                    'showOnList' => true,
+                    'dbField' => 'text_direction',
+                    'required' => true,
+                    'defaultValue' => 'ltr'
+            )
+            );
+            $this->addElement($element);
+
 
     }
 

@@ -1423,6 +1423,11 @@ newsletter";
     $parameterAdmin["standard"]["languages"]["admin_translations"]["error_incorrect_url"] = "1";
     $parameterType["standard"]["languages"]["admin_translations"]["error_incorrect_url"] = "string";
 
+    $parameterTitle["standard"]["languages"]["admin_translations"]["text_direction"] = "Text direction";
+    $parameterValue["standard"]["languages"]["admin_translations"]["text_direction"] = "Text direction (ltr or rtl)";
+    $parameterAdmin["standard"]["languages"]["admin_translations"]["text_direction"] = "1";
+    $parameterType["standard"]["languages"]["admin_translations"]["text_direction"] = "string";
+
     $parameterTitle["standard"]["languages"]["options"]["multilingual"] = "Multilingual site";
     $parameterValue["standard"]["languages"]["options"]["multilingual"] = "1";
     $parameterAdmin["standard"]["languages"]["options"]["multilingual"] = "1";

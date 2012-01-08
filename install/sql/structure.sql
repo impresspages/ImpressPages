@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS `ip_cms_language`;
 
 -- Table structure
 
+
 CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `d_short` varchar(255) NOT NULL DEFAULT '',
@@ -48,8 +49,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `visible` int(1) NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL,
+  `text_direction` varchar(10) NOT NULL DEFAULT 'ltr',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Table structure
 

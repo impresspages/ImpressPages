@@ -28,6 +28,8 @@ class Language{
     public $visible;
     /** int */
     public $id;
+    /** string - text direction */
+    public $textDirection;
 
 
     /**
@@ -40,13 +42,14 @@ class Language{
      * @return Language
      *
      */
-    public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible){
+    public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible, $textDirection){
         $this->id = $id;
         $this->code = $code;
         $this->url = $url;
         $this->longDescription = $longDescription;
         $this->shortDescription = $shortDescription;
         $this->visible = $visible;
+        $this->textDirection = $textDirection;
     }
 
     /**
@@ -102,6 +105,15 @@ class Language{
      */
     public function getVisible(){
         return $this->visible;
+    }
+    
+    /**
+     *
+     * @return string
+     *
+     */
+    public function getTextDirection(){
+        return $this->textDirection;
     }
 
 }
