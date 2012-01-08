@@ -43,7 +43,6 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (327, 324, 1, 'content_management', 1, 'Content management', 1, '1.00', 1),
 (328, 336, 1, 'zones', 1, 'Zones', 1, '1.00', 1),
 (329, 324, 6, 'languages', 1, 'Languages', 1, '1.00', 1),
-(330, 336, 5, 'widgets', 1, 'Widgets', 1, '1.00', 1),
 (332, 324, 5, 'configuration', 0, 'Configuration', 1, '1.00', 1),
 (333, 324, 4, 'seo', 1, 'SEO', 1, '1.00', 1),
 (347, 324, 3, 'menu_management', 1, 'Menu management', 1, '1.00', 1),
@@ -82,7 +81,6 @@ INSERT INTO `ip_cms_user` (`id`, `name`, `pass`, `wrong_logins`, `blocked`, `e_m
 INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 (530, 8, 436),
 (525, 8, 361),
-(523, 8, 330),
 (522, 8, 352),
 (521, 8, 349),
 (520, 8, 328),
