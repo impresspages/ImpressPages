@@ -16,8 +16,6 @@
 define('CMS', true); // make sure other files are accessed through this file.
 define('FRONTEND', true); // make sure other files are accessed through this file.
 
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', '1');
 
 if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
     echo 'Your PHP version is: '.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.'. To run ImpressPages CMS you need PHP 5.3.*';
@@ -30,6 +28,15 @@ if(is_file(__DIR__.'/ip_config.php')) {
 } else {
     require (__DIR__.'/../ip_config.php');
 }
+
+
+error_reporting(E_ALL|E_STRICT);
+if (DEVELOPMENT_ENVIRONMENT){ 
+    ini_set('display_errors', '1');
+} else {
+    ini_set('display_errors', '0');
+}
+
 
 
 require (BASE_DIR.INCLUDE_DIR.'parameters.php');

@@ -20,14 +20,21 @@ define('SITEMAP_MAX_LENGTH', 50000);
 define('CMS', true);
 define('FRONTEND', true);
 define('SITEMAP', true);
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', '1');
+
 
 if(is_file(__DIR__.'/ip_config.php')) {
     require (__DIR__.'/ip_config.php');
 } else {
     require (__DIR__.'/../ip_config.php');
 }
+
+error_reporting(E_ALL|E_STRICT);
+if (DEVELOPMENT_ENVIRONMENT){ 
+    ini_set('display_errors', '1');
+} else {
+    ini_set('display_errors', '0');
+}
+
 
 require (INCLUDE_DIR.'parameters.php');
 require (INCLUDE_DIR.'db.php');
