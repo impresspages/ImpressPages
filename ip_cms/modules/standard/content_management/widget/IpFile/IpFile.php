@@ -14,7 +14,10 @@ require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
 
 class IpFile extends \Modules\standard\content_management\Widget{
 
-
+    public function getTitle() {
+        global $parametersMod;
+        return $parametersMod->getValue('standard', 'content_management', 'widget_file', 'file');
+    }
 
     public function update($widgetId, $postData, $currentData) {
         global $parametersMod;

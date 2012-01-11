@@ -12,7 +12,10 @@ require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widget.php');
 
 class IpTextImage extends \Modules\standard\content_management\Widget{
 
-
+    public function getTitle() {
+        global $parametersMod;
+        return $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'text_photo');
+    }
 
 
     public function update($widgetId, $postData, $currentData) {

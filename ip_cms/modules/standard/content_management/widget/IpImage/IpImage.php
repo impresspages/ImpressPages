@@ -16,7 +16,12 @@ require_once(BASE_DIR.LIBRARY_DIR.'php/image/functions.php');
 class IpImage extends \Modules\standard\content_management\Widget{
 
 
+    public function getTitle() {
+        global $parametersMod;
+        return $parametersMod->getValue('standard', 'content_management', 'widget_photo', 'photo');
+    }
 
+    
     public function update($widgetId, $postData, $currentData) {
         global $parametersMod;
         $answer = '';
