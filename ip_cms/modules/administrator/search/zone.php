@@ -65,16 +65,21 @@ class Zone extends \Frontend\Zone {
     public function generateSearchBox() {
         global $site;
         global $parametersMod;
+        
+        $data = array (
+            'actionUrl' => $this->getUrl()
+        );
+        
+        if($site->currentZone == $this->name && isset($_GET['q'])){
+            $data['searchValue'] = $site->getVars['q'];
+        } else {
+            $data['searchValue'] = '';
+        }
+        
+        $searchBox = \Ip\View::create('view/search-box.php', $data)->render();
 
-        $site->requireTemplate('administrator/search/template.php');
+        return $searchBox;
 
-        $value = '';
-
-        $searchZone = $site->getZoneByModule('administrator', 'search');
-        if($site->currentZone == $this->name && isset($_GET['q']))
-        $value = $site->getVars['q'];
-
-        return Template::searchForm($parametersMod->getValue('administrator','search','translations','search'), $value, $parametersMod->getValue('administrator','search','translations','search'), $site->generateUrl(null, $this->name));
     }
 
 }

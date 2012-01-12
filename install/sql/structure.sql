@@ -145,6 +145,21 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
 
 -- Table structure
 
+DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_file`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
+  `fileId` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) NOT NULL,
+  `module` varchar(255) NOT NULL COMMENT 'Module group and module key which uses file resource. Eg. standard/content_management',
+  `instanceId` int(11) NOT NULL COMMENT 'Unique identificator. Tells in which part of the module the file is used. Teoretically there could be two identical records. The same module binds the same file to the same instance. For example: gallery widget adds the same photo twice.',
+  `date` int(11) NOT NULL COMMENT 'Date, when this module started to use this resource.',
+  PRIMARY KEY (`fileId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files' AUTO_INCREMENT=7 ;
+
+-- Table structure
+
 DROP TABLE IF EXISTS `ip_cms_m_administrator_rss`;
 
 -- Table structure
