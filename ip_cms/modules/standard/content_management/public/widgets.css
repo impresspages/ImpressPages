@@ -150,6 +150,7 @@
     position: absolute;
     text-align: center;
     top: 62px;
+    white-space: nowrap;
     width: 100%;
 }
 .ipAdminWidgets li a:hover {
@@ -258,8 +259,8 @@
 }
 
 /* widget management */
-.ipBlock {
-    min-height: 10px;
+.ipBlock.ipbEmpty {
+    min-height: 10px; /* to create minimum height when block is empty */
 }
 .ipAdminWidget {
     border-top: 3px solid #000;

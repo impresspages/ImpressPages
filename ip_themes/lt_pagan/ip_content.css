@@ -1,0 +1,71 @@
+/**
+ *
+ * ImpressPages CMS theme: LT pagan
+ *
+ * Styles file for widgets, system modules and content
+ *
+ * @package ImpressPages
+ * @copyright Copyright (C) 2011 ImpressPages LTD.
+ * @license GNU/GPL, see ip_license.html
+ *
+ */
+
+/* Modules */
+.ipModuleSearch {
+    clear: right;
+    float: right;
+}
+.ipModuleSearch .ipmInput {}
+.ipModuleSearch .ipmButton {}
+
+/* Widgets :: main */
+.ipBlock.ipbEmpty {
+    outline: #019bd4 dashed 1px;
+    height: 30px;
+}
+.ipWidget {
+    margin-bottom: 25px;
+}
+.ipWidget:last-child {
+    margin-bottom: 0;
+}
+.ipWidget-IpTitle .ipwTitle {
+    color: #000;
+    font-family: Georgia, serif;
+}
+.ipWidget-IpTitle h1 {
+    font-size: 36px;
+}
+.ipWidget-IpTitle h2 {
+    font-size: 24px;
+}
+.ipWidget-IpTitle h3 {
+    font-size: 18px;
+}
+.ipWidget-IpText {}
+.ipWidget-IpText p,
+.mceContentBody p,
+.ipWidget-IpTextImage p {
+    margin-bottom: 20px;
+}
+.ipWidget-IpImage {}
+.ipWidget-IpTextImage {}
+.ipWidget-IpTextImage.ipLayout-right {}
+.ipWidget-IpImageGallery {}
+.ipWidget-IpLogoGallery {}
+.ipWidget-IpFile {}
+
+/* Widgets :: side */
+.side .ipWidget-IpTitle .ipwTitle {
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    padding: 7px 20px;
+}
+
+/* Libraries */
+.mceContentBody { /* should be similar to text widgets or follow default styles of the <body> */
+    color: #333;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+}

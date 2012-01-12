@@ -12,10 +12,10 @@ class TemplateList{
 
     public static function languages($languages) {
         global $site;
-        $answer = "\n".'<ul class="languages">'."\n";
+        $answer = "\n".'<ul>'."\n";
         foreach ($languages as $key => $language) {
             if($language->getVisible()){
-                $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="act"' : '';
+                $actClass = ($language->getId() == $site->getCurrentLanguage()->getId()) ? ' class="current"' : '';
                 $answer .= '  <li'.$actClass.'><a title="'.htmlspecialchars($language->getLongDescription()).'" href="'.$site->generateUrl($language->getId()).'">'.htmlspecialchars($language->getShortDescription()).'</a></li>'."\n";
             }
         }

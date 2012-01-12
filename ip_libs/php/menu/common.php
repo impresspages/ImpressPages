@@ -152,29 +152,26 @@ class Common {
 
             $class = '';
             if($element->getCurrent()  || $element->getType() == 'redirect' && $element->getLink() == $site->getCurrentUrl()) {
-                $class .= 'current';
+                $class .= ($class ? ' ' : '') . 'current';
                 $selected = true;
             } elseif($element->getSelected() || $subSelected || $element->getType() == 'redirect' && self::existInBreadcrumb($element->getLink())) {
                 // || $element->getLink() != '' && strpos($site->getCurrentUrl(), $element->getLink()) === 0 || $element->getLink().'/?cms_action=manage' == $site->getCurrentUrl()
-                $class .= $class == '' ? 'selected' : 'Selected';
+                $class .= ($class ? ' ' : '') . 'selected';
                 $selected = true;
             }
 
-            if($curDepth < $depth && sizeof($children) > 0)
-            $class .= $class == '' ? 'subnodes' : 'Subnodes';
-
-            if($class != '') {
-                $class .= ' type'.ucwords($element->getType());
-            } else {
-                $class .= 'type'.ucwords($element->getType());
+            if($curDepth < $depth && sizeof($children) > 0) {
+                $class .= ($class ? ' ' : '') . 'subnodes';
             }
+
+            $class .= ($class ? ' ' : '') . 'type'.ucwords($element->getType());
 
             $tmpLink = $element->getLink();
             if ($tmpLink) {
                 if($element->getType() == 'inactive') {
-                    $html .= '  <li class="'.$class.'"><a class="'.$class.'" title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
+                    $html .= '  <li class="'.$class.'"><a title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
                 } else {
-                    $html .= '  <li class="'.$class.'"><a class="'.$class.'" href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
+                    $html .= '  <li class="'.$class.'"><a href="'.$tmpLink.'"  title="'.htmlspecialchars($element->getPageTitle()).'">'.htmlspecialchars($element->getButtonTitle()).'</a>'.$subHtml."</li>"."\n";
                 }
             } else {
                 $html .= '  <li class="'.$class.'"><a>'.htmlspecialchars($element->getButtonTitle())."</a>\n".$subHtml."\n  </li>\n";

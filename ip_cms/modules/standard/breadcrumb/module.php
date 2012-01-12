@@ -19,14 +19,13 @@ class Module{
     /**
      * @return string HTML with links to website languages
      */
-    static function generateBreadcrumb($separator){
+    static function generateBreadcrumb($separator, $showHome = true){
         global $site;
         global $parametersMod;
 
         $breadCrumb = $site->getBreadcrumb();
 
-         
         $site->requireTemplate('standard/breadcrumb/template.php');
-        return Template::breadcrumb($breadCrumb, $separator);
+        return Template::breadcrumb($breadCrumb, $separator, $showHome);
     }
 }
