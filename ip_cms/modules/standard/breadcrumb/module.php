@@ -21,11 +21,15 @@ class Module{
      */
     static function generateBreadcrumb($separator, $showHome = true){
         global $site;
-        global $parametersMod;
+        
+        $data = array (
+            'homeUrl' => $site->generateUrl(),
+            'breadcrumbElements' => $site->getBreadcrumb(),
+        );
+        
+        $breadcrumb = \Ip\View::create('view/breadcrumb.php', $data)->render();
 
-        $breadCrumb = $site->getBreadcrumb();
+        return $breadcrumb;
 
-        $site->requireTemplate('standard/breadcrumb/template.php');
-        return Template::breadcrumb($breadCrumb, $separator, $showHome);
     }
 }

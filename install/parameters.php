@@ -1373,6 +1373,11 @@ newsletter";
     $parameterAdmin["standard"]["configuration"]["translations"]["copyright"] = "0";
     $parameterType["standard"]["configuration"]["translations"]["copyright"] = "lang";
 
+    $parameterTitle["standard"]["configuration"]["translations"]["home"] = "Home";
+    $parameterValue["standard"]["configuration"]["translations"]["home"] = "home";
+    $parameterAdmin["standard"]["configuration"]["translations"]["home"] = "0";
+    $parameterType["standard"]["configuration"]["translations"]["home"] = "lang";
+
     $parameterTitle["standard"]["languages"]["admin_translations"]["cant_delete_last_language"] = "Can't delete last language";
     $parameterValue["standard"]["languages"]["admin_translations"]["cant_delete_last_language"] = "There should be at least one language.";
     $parameterAdmin["standard"]["languages"]["admin_translations"]["cant_delete_last_language"] = "1";
