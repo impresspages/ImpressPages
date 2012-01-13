@@ -17,7 +17,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'gallery');
+        return $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'gallery');
     }
 
     
@@ -214,12 +214,12 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         global $parametersMod;
         $destinationFilename = \Library\Php\Image\Functions::resize(
         $sourceFile,
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'big_width'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'big_height'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height'),
         BASE_DIR.$destinationDir,
         \Library\Php\Image\Functions::CROP_TYPE_FIT,
         false,
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'big_quality')
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_quality')
         );
         $answer = $destinationDir.$destinationFilename;
         return $answer;
@@ -235,9 +235,9 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         $y1,
         $x2,
         $y2,
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'quality'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'width'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'height')
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height')
         );
         $answer = $destinationDir.$destinationFilename;
         return $answer;
@@ -265,8 +265,8 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['smallImageWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'width');
-        $data['smallImageHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'height');
+        $data['smallImageWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width');
+        $data['smallImageHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height');
         return parent::managementHtml($instanceId, $data, $layout);
     }
 

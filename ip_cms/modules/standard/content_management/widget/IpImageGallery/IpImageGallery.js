@@ -238,7 +238,7 @@ function IpWidget_IpImageGallery(widgetObject) {
             $this.find('.ipaImage').ipUploadImage(imageOptions);
             
             
-//          handle uploading of new photo
+//          handle uploading of new image
 //          if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
 //              var newImage = ipUploadImage.ipUploadImage('getCurImage');
 //              if (newImage) {

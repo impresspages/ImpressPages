@@ -14,7 +14,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'text_photo');
+        return $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'text_image');
     }
 
 
@@ -55,12 +55,12 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             //new big image
             $tmpBigImageName = \Library\Php\Image\Functions::resize(
             $postData['newImage'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_width'),
-            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_height'),
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'big_width'),
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'big_height'),
             TMP_IMAGE_DIR,
             \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
-            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'big_quality')
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'big_quality')
             );
             $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
@@ -75,7 +75,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             
             //new small image
             $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
-            $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'width'));
+            $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'width'));
             $requiredHeight = round($requiredWidth / $ratio);
             $tmpSmallImageName = \Library\Php\Image\Functions::crop (
             $newData['imageOriginal'],
@@ -84,7 +84,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             $postData['cropY1'],
             $postData['cropX2'],
             $postData['cropY2'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'quality'),
+            $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'quality'),
             $requiredWidth,
             $requiredHeight
             );
@@ -104,7 +104,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
     
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_photo', 'title');
+        $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'title');
         return parent::managementHtml($instanceId, $data, $layout);
     }    
 

@@ -242,7 +242,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             $this.find('.ipaLogo').ipUploadImage(logoOptions);
             
             
-//          handle uploading of new photo
+//          handle uploading of new image
 //          if (ipUploadLogo.ipUploadImage('getNewLogoUploaded')) {
 //              var newLogo = ipUploadLogo.ipUploadImage('getCurLogo');
 //              if (newLogo) {
