@@ -193,6 +193,9 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
                     break;
                 case 'deleted':
+                    if (empty($currentData['images']) || $image['fileName']) {
+                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+                    }
                     $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
                     if (!$existingImageData) {
                         break; //existing image not found. Impossible to recalculate coordinates if image does not exists.

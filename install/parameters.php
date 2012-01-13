@@ -532,6 +532,12 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "1";
     $parameterType["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "string";
 
+    $parameterTitle["standard"]["content_management"]["widget_logo_gallery"]["quality"] = "Quality";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_logo_gallery"]["quality"] = "integer";
+
+
 	$parameterGroupTitle["standard"]["content_management"]["widget_image"] = "Widget: Image";
     $parameterGroupAdmin["standard"]["content_management"]["widget_image"] = "1";
 
