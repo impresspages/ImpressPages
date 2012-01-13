@@ -1,1 +1,1 @@
-<?php echo isset($text) ? $text : '' ?>
+<?php echo isset($text) ? $text : ''; ?>

@@ -10,24 +10,72 @@
  *
  */
 
+/* Libraries */
+/* tiny mce :: rich text editor
+    should be similar to text widgets or follow default styles of the <body>, including style reset
+ */
+.mceContentBody {
+    color: #333;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+}
+.mceContentBody p,
+.mceContentBody ul,
+.mceContentBody ol,
+.mceContentBody li,
+.mceContentBody dl,
+.mceContentBody dd,
+.mceContentBody dt {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.mceContentBody a {
+    text-decoration: none;
+}
+
 /* Modules */
 .ipModuleSearch {
     clear: right;
     float: right;
+    margin-top: 20px;
 }
-.ipModuleSearch .ipmInput {}
-.ipModuleSearch .ipmButton {}
+.ipModuleSearch .ipmInput {
+    border: 1px solid #b3b3b3;
+    box-shadow: 0 1px 2px -1px #b3b3b3 inset;
+    height: 21px;
+    padding: 2px 2px 0; /* padding at the top allows to equal button and input heights */
+    width: 160px;
+}
+.ipModuleSearch .ipmButton {
+    background: #f4f4f4; /* Old browsers */
+    background: -moz-linear-gradient(top, #f4f4f4 0%, #d1d1d1 100%);
+    background: linear-gradient(top, #f4f4f4 0%, #d1d1d1 100%);
+    border: 1px solid #a7a7a7;
+    cursor: pointer;
+    height: 25px; /* input buttons have borders inside their height */
+    text-transform: uppercase;
+}
+.ipModuleSearch .ipmButton:hover {
+    background: #e1e0e0; /* Old browsers */
+    background: -moz-linear-gradient(top, #e1e0e0 0%, #d6d4d4 100%);
+    background: linear-gradient(top, #e1e0e0 0%, #d6d4d4 100%);
+    box-shadow: 0 0 3px 0 #fff inset;
+}
 
 /* Widgets :: main */
 .ipBlock.ipbEmpty {
+    min-height: 30px;
     outline: #019bd4 dashed 1px;
-    height: 30px;
 }
 .ipWidget {
     margin-bottom: 25px;
 }
-.ipWidget:last-child {
-    margin-bottom: 0;
+.ipWidget:last-child,
+.ipWidget p:last-child,
+.ipWidget ul:last-child,
+.ipWidget ol:last-child {
+    margin-bottom: 0; /* removing bottom margin on last elements */
 }
 .ipWidget-IpTitle .ipwTitle {
     color: #000;
@@ -42,30 +90,158 @@
 .ipWidget-IpTitle h3 {
     font-size: 18px;
 }
-.ipWidget-IpText {}
 .ipWidget-IpText p,
 .mceContentBody p,
-.ipWidget-IpTextImage p {
+.ipWidget-IpTextImage .ipwText p {
+    line-height: 20px;
     margin-bottom: 20px;
 }
-.ipWidget-IpImage {}
-.ipWidget-IpTextImage {}
-.ipWidget-IpTextImage.ipLayout-right {}
-.ipWidget-IpImageGallery {}
-.ipWidget-IpLogoGallery {}
-.ipWidget-IpFile {}
+.ipWidget-IpText ul,
+.mceContentBody ul,
+.ipWidget-IpTextImage .ipwText ul {
+    list-style-position: inside;
+    margin: 0 0 20px 0;
+}
+.ipWidget-IpText ol,
+.mceContentBody ol,
+.ipWidget-IpTextImage .ipwText ol {
+    list-style-position: inside;
+    margin: 0 0 20px 0;
+}
+.ipWidget-IpText li,
+.mceContentBody li,
+.ipWidget-IpTextImage .ipwText li {
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+.ipWidget-IpText p+ul,
+.mceContentBody p+ul,
+.ipWidget-IpTextImage .ipwText p+ul,
+.ipWidget-IpText p+ol,
+.mceContentBody p+ol,
+.ipWidget-IpTextImage .ipwText p+ol {
+    margin-top: -20px; /* If list goes just after the paragraph the space is removed */
+}
+.ipWidget-IpText a,
+.mceContentBody a,
+.ipWidget-IpTextImage .ipwText a {
+    color: #019bd4;
+}
+.ipWidget-IpText a:hover,
+.mceContentBody a:hover,
+.ipWidget-IpTextImage .ipwText a:hover {
+    text-decoration: underline;
+}
+/* default text style on rich text editor */
+.ipWidget-IpText .caption,
+.mceContentBody .caption,
+.ipWidget-IpTextImage .ipwText .caption {
+    color: #000;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 28px;
+}
+/* default text style on rich text editor */
+.ipWidget-IpText .signature,
+.mceContentBody .signature,
+.ipWidget-IpTextImage .ipwText .signature {
+    color: #9a9a9a;
+}
+/* default text style on rich text editor */
+.ipWidget-IpText .note,
+.mceContentBody .note,
+.ipWidget-IpTextImage .ipwText .note {
+    color: #000;
+    font-family: Georgia, serif;
+}
+.ipWidget-IpImage img,
+.ipWidget-IpImageGallery img {
+    display: block; /* to remove 3px space below the image (default rendering behavior) */
+}
+.ipWidget-IpTextImage .ipwImage {
+    float: left;
+    width: 300px;
+}
+.ipWidget-IpTextImage .ipwText {
+    float: right;
+    width: 220px;
+}
+.ipWidget-IpTextImage.ipLayout-right .ipwImage {
+    float: right;
+}
+.ipWidget-IpTextImage.ipLayout-right .ipwText {
+    float: left;
+}
+.ipWidget-IpImageGallery ul,
+.ipWidget-IpLogoGallery ul {
+    list-style: none;
+    margin: -20px 0 0 -20px; /* hack to keep images aligned with the content but keeping spaces between them */
+}
+.ipWidget-IpImageGallery li,
+.ipWidget-IpLogoGallery li {
+    float: left;
+    margin: 20px 0 0 20px;
+}
+.ipWidget-IpImageGallery li a,
+.ipWidget-IpLogoGallery li a {
+    border: 1px solid #888;
+    display: block;
+    padding: 2px;
+}
+.ipWidget-IpImageGallery a:hover,
+.ipWidget-IpLogoGallery a:hover {
+    border-color: #000;
+}
+.ipWidget-IpFile ul {
+    list-style: none;
+}
+.ipWidget-IpFile li {
+    margin-bottom: 4px;
+}
+.ipWidget-IpFile a {
+    color: #019bd4;
+    font-weight: bold;
+}
+.ipWidget-IpFile a:hover {
+    text-decoration: underline;
+}
 
 /* Widgets :: side */
+.side .ipWidget-IpTitle {
+    margin-bottom: 0;
+}
 .side .ipWidget-IpTitle .ipwTitle {
     background-color: #000;
     color: #fff;
     font-size: 18px;
+    margin-bottom: 1px;
     padding: 7px 20px;
 }
-
-/* Libraries */
-.mceContentBody { /* should be similar to text widgets or follow default styles of the <body> */
-    color: #333;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
+.side .ipWidget-IpText {
+    padding: 15px 20px;
 }
+.side .ipWidget-IpText ul,
+.side .ipWidget-IpTextImage .ipwText ul,
+.side .ipWidget-IpText ol,
+.side .ipWidget-IpTextImage .ipwText ol {
+    list-style-position: outside;
+}
+.side .ipWidget-IpText .note,
+.side .mceContentBody .note,
+.side .ipWidget-IpTextImage .ipwText .note {
+    background-color: #f3f3f3;
+    color: #000;
+    display: block;
+    margin: -15px -20px;
+    padding: 15px 20px;
+}
+.side .ipWidget-IpImage img {
+    max-width: 100%;
+}
+.side .ipWidget-IpImageGallery li img,
+.side .ipWidget-IpLogoGallery li img {
+    width: 94px;
+}
+
+/* Admin */
+/* here should go styles for admin tools if you want to override the default styles */
