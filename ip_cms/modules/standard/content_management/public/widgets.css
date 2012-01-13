@@ -35,7 +35,7 @@
     font-size: 12px;
     height: 26px;
     padding: 0 7px;
-    width: 235px;
+    width: 95%;
 }
 .ipAdminButton {
     background: #e0e0e0;
@@ -440,6 +440,9 @@
 }
 .ipAdminWidget-IpFile .ipaBody .ipaFileTemplate {
     margin-bottom: 7px;
+}
+.ipAdminWidget-IpFile .ipaFileTitle {
+    width: 50%;
 }
 
 /* Widget: IpImage */
