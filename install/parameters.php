@@ -452,8 +452,8 @@ $moduleTitle["standard"]["content_management"] = "Content management";
   $parameterGroupTitle["standard"]["content_management"]["widget_logo_gallery"] = "Widget: Logo gallery";
   $parameterGroupAdmin["standard"]["content_management"]["widget_logo_gallery"] = "1";
 
-    $parameterTitle["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "The photo is too big.";
-    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "The photo is too big";
+    $parameterTitle["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "The image is too big.";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "The image is too big";
     $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "1";
     $parameterType["standard"]["content_management"]["widget_logo_gallery"]["too_big"] = "string";
 
@@ -532,196 +532,196 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterAdmin["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "1";
     $parameterType["standard"]["content_management"]["widget_logo_gallery"]["remove"] = "string";
 
-	$parameterGroupTitle["standard"]["content_management"]["widget_photo"] = "Widget: Photo";
-    $parameterGroupAdmin["standard"]["content_management"]["widget_photo"] = "1";
+	$parameterGroupTitle["standard"]["content_management"]["widget_image"] = "Widget: Image";
+    $parameterGroupAdmin["standard"]["content_management"]["widget_image"] = "1";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["photo"] = "Photo";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["photo"] = "Photo";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["image"] = "Image";
+    $parameterValue["standard"]["content_management"]["widget_image"]["image"] = "Image";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["title"] = "Title";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["title"] = "Title";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["title"] = "Title";
+    $parameterValue["standard"]["content_management"]["widget_image"]["title"] = "Title";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["current_photo"] = "Current photo";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["current_photo"] = "Current photo";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["current_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["current_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["current_image"] = "Current image";
+    $parameterValue["standard"]["content_management"]["widget_image"]["current_image"] = "Current image";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["current_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["current_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["layout_default"] = "Layout default";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["layout_default"] = "Default";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["layout_default"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["layout_default"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["layout_default"] = "Layout default";
+    $parameterValue["standard"]["content_management"]["widget_image"]["layout_default"] = "Default";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["layout_default"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["layout_default"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["too_big"] = "The photo is too big";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["too_big"] = "The photo is too big";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["too_big"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["too_big"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["too_big"] = "The image is too big";
+    $parameterValue["standard"]["content_management"]["widget_image"]["too_big"] = "The image is too big";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["too_big"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["too_big"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["partial"] = "Transfer failed. Try again.";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["partial"] = "Transfer failed. Try again.";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["partial"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["partial"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["partial"] = "Transfer failed. Try again.";
+    $parameterValue["standard"]["content_management"]["widget_image"]["partial"] = "Transfer failed. Try again.";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["partial"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["partial"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["bad_type"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["bad_type"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterValue["standard"]["content_management"]["widget_image"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["bad_type"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["bad_type"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["new_photo"] = "New photo";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["new_photo"] = "New photo";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["new_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["new_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["new_image"] = "New image";
+    $parameterValue["standard"]["content_management"]["widget_image"]["new_image"] = "New image";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["new_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["new_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["no_file"] = "No file";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["no_file"] = "Please select the file";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["no_file"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["no_file"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["no_file"] = "No file";
+    $parameterValue["standard"]["content_management"]["widget_image"]["no_file"] = "Please select the file";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["no_file"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["no_file"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["unknown"] = "Unknown";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["unknown"] = "Unkown error. Please contact administrator.";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["unknown"] = "0";
-    $parameterType["standard"]["content_management"]["widget_photo"]["unknown"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["unknown"] = "Unknown";
+    $parameterValue["standard"]["content_management"]["widget_image"]["unknown"] = "Unkown error. Please contact administrator.";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["unknown"] = "0";
+    $parameterType["standard"]["content_management"]["widget_image"]["unknown"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["widget_title"] = "Widget title";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["widget_title"] = "Photo";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["widget_title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["widget_title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["widget_title"] = "Widget title";
+    $parameterValue["standard"]["content_management"]["widget_image"]["widget_title"] = "Image";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["widget_title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["widget_title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["width"] = "Photo width";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["width"] = "665";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["width"] = "Image width";
+    $parameterValue["standard"]["content_management"]["widget_image"]["width"] = "665";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["width"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["height"] = "Photo Height";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["height"] = "450";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["height"] = "Image Height";
+    $parameterValue["standard"]["content_management"]["widget_image"]["height"] = "450";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["big_width"] = "Big photo width";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["big_width"] = "700";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["big_width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["big_width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["big_width"] = "Big image width";
+    $parameterValue["standard"]["content_management"]["widget_image"]["big_width"] = "700";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["big_width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["big_width"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["big_height"] = "Big photo height";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["big_height"] = "450";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["big_height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["big_height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["big_height"] = "Big image height";
+    $parameterValue["standard"]["content_management"]["widget_image"]["big_height"] = "450";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["big_height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["big_height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["quality"] = "Photo quality";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["quality"] = "Image quality";
+    $parameterValue["standard"]["content_management"]["widget_image"]["quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["quality"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo"]["big_quality"] = "Big photo quality";
-    $parameterValue["standard"]["content_management"]["widget_photo"]["big_quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_photo"]["big_quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo"]["big_quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image"]["big_quality"] = "Big image quality";
+    $parameterValue["standard"]["content_management"]["widget_image"]["big_quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_image"]["big_quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image"]["big_quality"] = "integer";
   
-  $parameterGroupTitle["standard"]["content_management"]["widget_photo_gallery"] = "Widget: Photo gallery";
-  $parameterGroupAdmin["standard"]["content_management"]["widget_photo_gallery"] = "1";
+  $parameterGroupTitle["standard"]["content_management"]["widget_image_gallery"] = "Widget: Image gallery";
+  $parameterGroupAdmin["standard"]["content_management"]["widget_image_gallery"] = "1";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["title"] = "Title";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["title"] = "Title";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["title"] = "Title";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["title"] = "Title";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["gallery"] = "Photo gallery";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["gallery"] = "Photo gallery";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["gallery"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["gallery"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["gallery"] = "Image gallery";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["gallery"] = "Image gallery";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["gallery"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["gallery"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["new_photo"] = "New photo";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["new_photo"] = "New photo";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["new_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["new_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["new_image"] = "New image";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["new_image"] = "New image";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["new_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["new_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["delete_confirm"] = "Delete the photo?";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["delete_confirm"] = "Delete the photo?";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["delete_confirm"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["delete_confirm"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["delete_confirm"] = "Delete the image?";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["delete_confirm"] = "Delete the image?";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["delete_confirm"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["delete_confirm"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["layout_default"] = "Layout default";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["layout_default"] = "Default";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["layout_default"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["layout_default"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["layout_default"] = "Layout default";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["layout_default"] = "Default";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["layout_default"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["layout_default"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["too_big"] = "The photo is too big";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["too_big"] = "The photo is too big";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["too_big"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["too_big"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["too_big"] = "The image is too big";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["too_big"] = "The image is too big";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["too_big"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["too_big"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["partial"] = "Transfer failed. Try again.";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["partial"] = "Transfer failed. Try again.";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["partial"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["partial"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["partial"] = "Transfer failed. Try again.";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["partial"] = "Transfer failed. Try again.";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["partial"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["partial"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["unknown"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["unknown"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["unknown"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["unknown"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["bad_type"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["bad_type"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["bad_type"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["bad_type"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["upload"] = "Upload";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["upload"] = "Upload";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["upload"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["upload"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["upload"] = "Upload";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["upload"] = "Upload";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["upload"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["upload"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["no_file"] = "No file";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["no_file"] = "Please select the file";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["no_file"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["no_file"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["no_file"] = "No file";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["no_file"] = "Please select the file";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["no_file"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["no_file"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["widget_title"] = "Widget title";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["widget_title"] = "Photo gallery";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["widget_title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["widget_title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["widget_title"] = "Widget title";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["widget_title"] = "Image gallery";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["widget_title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["widget_title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["width"] = "Photo width";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["width"] = "152";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["width"] = "Image width";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["width"] = "152";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["width"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["height"] = "Photo Height";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["height"] = "150";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["height"] = "Image Height";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["height"] = "150";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["big_width"] = "Big photo width";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["big_width"] = "600";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["big_width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["big_width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["big_width"] = "Big image width";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_width"] = "600";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["big_width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["big_width"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["big_height"] = "Big photo height";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["big_height"] = "400";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["big_height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["big_height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "Big image height";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "400";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["quality"] = "Photo quality";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["quality"] = "Image quality";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["quality"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "Big photo quality";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["big_quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["big_quality"] = "Big image quality";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["big_quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["big_quality"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["move"] = "Move";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["move"] = "Move";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["move"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["move"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["move"] = "Move";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["move"] = "Move";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["move"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["move"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "Remove";
-    $parameterValue["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "Remove";
-    $parameterAdmin["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "1";
-    $parameterType["standard"]["content_management"]["widget_photo_gallery"]["remove"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_image_gallery"]["remove"] = "Remove";
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["remove"] = "Remove";
+    $parameterAdmin["standard"]["content_management"]["widget_image_gallery"]["remove"] = "1";
+    $parameterType["standard"]["content_management"]["widget_image_gallery"]["remove"] = "string";
 	
   $parameterGroupTitle["standard"]["content_management"]["widget_rich_text"] = "Widget: Rich text";
   $parameterGroupAdmin["standard"]["content_management"]["widget_rich_text"] = "1";
@@ -780,108 +780,108 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterAdmin["standard"]["content_management"]["widget_text"]["layout_default"] = "1";
     $parameterType["standard"]["content_management"]["widget_text"]["layout_default"] = "string";
   
-  $parameterGroupTitle["standard"]["content_management"]["widget_text_photo"] = "Widget: Text with photo";
-  $parameterGroupAdmin["standard"]["content_management"]["widget_text_photo"] = "1";
+  $parameterGroupTitle["standard"]["content_management"]["widget_text_image"] = "Widget: Text with image";
+  $parameterGroupAdmin["standard"]["content_management"]["widget_text_image"] = "1";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["title"] = "Title";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["title"] = "Title";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["title"] = "Title";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["title"] = "Title";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["new_photo"] = "Upload photo";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["new_photo"] = "Upload photo";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["new_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["new_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["new_image"] = "Upload image";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["new_image"] = "Upload image";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["new_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["new_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["current_photo"] = "Current photo";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["current_photo"] = "Current photo";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["current_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["current_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["current_image"] = "Current image";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["current_image"] = "Current image";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["current_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["current_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["too_big"] = "The photo is too big";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["too_big"] = "The photo is too big";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["too_big"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["too_big"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["too_big"] = "The image is too big";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["too_big"] = "The image is too big";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["too_big"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["too_big"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["partial"] = "Transfer failed. Try again.";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["partial"] = "Transfer failed. Try again.";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["partial"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["partial"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["partial"] = "Transfer failed. Try again.";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["partial"] = "Transfer failed. Try again.";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["partial"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["partial"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["unknown"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["unknown"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["unknown"] = "Unknown error. Check server configuration or contact administrator.";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["unknown"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["unknown"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["bad_type"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["bad_type"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["bad_type"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["bad_type"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["text_photo"] = "Text with photo";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["text_photo"] = "Text with photo";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["text_photo"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["text_photo"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["text_image"] = "Text with image";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["text_image"] = "Text with image";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["text_image"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["text_image"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["no_file"] = "No file";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["no_file"] = "Please select the file";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["no_file"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["no_file"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["no_file"] = "No file";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["no_file"] = "Please select the file";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["no_file"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["no_file"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["widget_title"] = "Widget title";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["widget_title"] = "Text/photo";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["widget_title"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["widget_title"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["widget_title"] = "Widget title";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["widget_title"] = "Text/image";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["widget_title"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["widget_title"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["layout_left"] = "Layout left";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["layout_left"] = "Left";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["layout_left"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["layout_left"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["layout_left"] = "Layout left";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["layout_left"] = "Left";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["layout_left"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["layout_left"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["layout_right"] = "Layout right";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["layout_right"] = "Right";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["layout_right"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["layout_right"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["layout_right"] = "Layout right";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["layout_right"] = "Right";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["layout_right"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["layout_right"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["layout_small_left"] = "Layout small left";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["layout_small_left"] = "Small left";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["layout_small_left"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["layout_small_left"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["layout_small_left"] = "Layout small left";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["layout_small_left"] = "Small left";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["layout_small_left"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["layout_small_left"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["layout_small_right"] = "Layout small right";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["layout_small_right"] = "Small right";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["layout_small_right"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["layout_small_right"] = "string";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["layout_small_right"] = "Layout small right";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["layout_small_right"] = "Small right";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["layout_small_right"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["layout_small_right"] = "string";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["quality"] = "Photo quality";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["quality"] = "image quality";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["quality"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["big_height"] = "Big photo height";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["big_height"] = "900";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["big_height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["big_height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["big_height"] = "Big image height";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["big_height"] = "900";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["big_height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["big_height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["big_width"] = "Big photo width";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["big_width"] = "500";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["big_width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["big_width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["big_width"] = "Big image width";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["big_width"] = "500";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["big_width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["big_width"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["big_quality"] = "Big photo quality";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["big_quality"] = "100";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["big_quality"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["big_quality"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["big_quality"] = "Big image quality";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["big_quality"] = "100";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["big_quality"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["big_quality"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["height"] = "Photo Height";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["height"] = "400";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["height"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["height"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["height"] = "Image height";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["height"] = "400";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["height"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["height"] = "integer";
 
-    $parameterTitle["standard"]["content_management"]["widget_text_photo"]["width"] = "Photo width";
-    $parameterValue["standard"]["content_management"]["widget_text_photo"]["width"] = "200";
-    $parameterAdmin["standard"]["content_management"]["widget_text_photo"]["width"] = "1";
-    $parameterType["standard"]["content_management"]["widget_text_photo"]["width"] = "integer";
+    $parameterTitle["standard"]["content_management"]["widget_text_image"]["width"] = "Image width";
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["width"] = "200";
+    $parameterAdmin["standard"]["content_management"]["widget_text_image"]["width"] = "1";
+    $parameterType["standard"]["content_management"]["widget_text_image"]["width"] = "integer";
   
   $parameterGroupTitle["standard"]["content_management"]["widget_text_title"] = "Widget: Title/Text";
   $parameterGroupAdmin["standard"]["content_management"]["widget_text_title"] = "1";
