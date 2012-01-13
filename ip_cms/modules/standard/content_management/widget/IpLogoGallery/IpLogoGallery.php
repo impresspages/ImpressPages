@@ -200,9 +200,9 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
         $y1,
         $x2,
         $y2,
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'quality'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'width'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_photo_gallery', 'height')
+        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'quality'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width'),
+        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height')
         );
         $answer = $destinationDir.$destinationFilename;
         return $answer;
