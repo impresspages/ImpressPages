@@ -74,6 +74,7 @@ class View{
     public function renderWidget($widgetName, $data, $layout = null) {
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
+        return $answer;
     }
     
     /**

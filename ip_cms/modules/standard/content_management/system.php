@@ -56,6 +56,7 @@ class System{
         
         $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
         
+        $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
     }
 
     public static function collectWidgets(EventWidget $event){
@@ -158,6 +159,11 @@ class System{
     public static function removeRevision (\Ip\Event $event) {
         $revisionId = $event->getValue('revisionId');
         Model::removeRevision($revisionId);
+    }
+    
+    public static function publishRevision (\Ip\Event $event) {
+        $revisionId = $event->getValue('revisionId');
+        Model::clearCache($revisionId);
     }
 
 

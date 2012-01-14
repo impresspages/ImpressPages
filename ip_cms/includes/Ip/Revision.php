@@ -117,6 +117,7 @@ class Revision{
     }
 
     public static function publishRevision ($revisionId) {
+        global $dispatcher;
         $revision = self::getRevision($revisionId);
         if (!$revision) {
             return false;
@@ -138,6 +139,12 @@ class Revision{
         if (!$rs) {
             throw new CoreException("Can't publish revision " . $sql . ' '. mysql_error(), CoreException::DB);
         }
+        
+        $eventData = array(
+            'revisionId' => $revisionId,
+        );
+        $dispatcher->notify(new \Ip\Event(null, 'site.publishRevision', $eventData));
+        
 
     }
 

@@ -47,13 +47,12 @@ class Element extends \Frontend\Element{
         global $site;
         global $parametersMod;
 
-        $site->requireTemplate('administrator/search/template.php');
 
         if($this->getId() == null)
         return Template::noSearchString($parametersMod->getValue('administrator', 'search', 'translations', 'search'), $parametersMod->getValue('administrator', 'search', 'translations', 'no_search_word'));
-         
-         
-         
+        
+        
+        
         $searchableZones = explode("\n", $parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'));
         $combinedZones = explode("\n", $parametersMod->getValue('administrator', 'search', 'options', 'combined_zones'));
 
@@ -87,10 +86,15 @@ class Element extends \Frontend\Element{
         usort($foundElementsCombined, 'Modules\administrator\search\Element::compareRank');
 
 
-        if(sizeof($foundElements) > 0 || sizeof($foundElementsCombined) > 0)
-        return Template::searchResult($parametersMod->getValue('administrator', 'search', 'translations', 'search'), $foundElementsCombined, $foundElements);
-        else
-        return Template::noResults($parametersMod->getValue('administrator', 'search', 'translations', 'search'), $parametersMod->getValue('administrator', 'search', 'translations', 'no_results'));
+        if(sizeof($foundElements) > 0 || sizeof($foundElementsCombined) > 0) {
+            $data = array (
+                'foundElementsCombined' => $foundElementsCombined,
+                'foundElements' => $foundElements,
+            );
+            return \Ip\View::create('view/results.php', $data)->render();
+        } else {
+            return \Ip\View::create('view/no_results.php', array())->render();
+        }
     }
 
 

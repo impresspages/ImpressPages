@@ -55,7 +55,33 @@ class Model{
             throw new Exception('Widget ' . $widgetName . ' does not exist', Exception::UNKNOWN_WIDGET);
         }
         
-        return $widgetObject->previewHtml(null, $data, $layout);
+        $previewHtml = $widgetObject->previewHtml(null, $data, $layout);
+        
+        $widgetRecord = array (
+            'widgetId' => null,
+            'name' => $widgetName,
+            'layout' => $layout,
+            'data' => $data,
+            'created' => time(),
+            'predecessor' => null,
+        
+            'instanceId' => null,
+            'revisionId' => null,
+            'position' => null,
+            'blockName' => null,
+            'visible' => 1,
+            'created' => time(),
+            'deleted' => null
+        );
+        return self::_generateWidgetPreview($widgetRecord, FALSE);
+        /*
+        $data = array (
+            'html' => $previewHtml,
+            'widgetRecord' => $data, //static data used instead of widget record from the database
+            'managementState' => FALSE
+        );
+        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
+        return $answer;*/
     }
 
 
@@ -567,5 +593,22 @@ class Model{
         }
     }
 
+    
+    public static function clearCache($revisionId) {
+        require_once (BASE_DIR.LIBRARY_DIR.'php/text/html2text.php');
+        
+        $revision = \Ip\Revision::getRevision($revisionId);
+        $pageContent = Model::generateBlock('main', $revisionId, FALSE);
+        
+        $html2text = new \Library\Php\Text\Html2Text();
+        $html2text->set_html($pageContent);
+        $pageContentText = $html2text->get_text();
+        
+        $params = array (
+            'cached_html' => $pageContent,
+            'cached_text' => $pageContentText
+        );
+        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
+    }    
 
 }

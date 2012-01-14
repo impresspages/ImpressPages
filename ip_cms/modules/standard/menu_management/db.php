@@ -231,6 +231,16 @@ class Db {
         if (isset($params['rowNumber']))
         $values[] =  'row_number = \''.mysql_real_escape_string($params['rowNumber']).'\'';
 
+        if (isset($params['cached_html']))
+        $values[] =  '`cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
+
+        if (isset($params['cached_text']))
+        $values[] =  '`cached_text` = \''.mysql_real_escape_string($params['cached_text']).'\'';
+
+        if (count($values) == 0) {
+            return true; //nothing to update.
+        }
+        
         $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.implode(', ', $values).' WHERE `id` = '.(int)$pageId.' ';
         $rs = mysql_query($sql);
         if ($rs) {
@@ -309,6 +319,14 @@ class Db {
         if (isset($params['rss']))
         $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
 
+        if (isset($params['cached_html']))
+        $values .= ', `cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
+
+        if (isset($params['rowNumber']))
+        $values .= ', `cached_text` = \''.mysql_real_escape_string($params['cached_text']).'\'';
+
+        
+        
         $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
         $rs = mysql_query($sql);
         if ($rs) {
@@ -422,6 +440,9 @@ class Db {
         else
         return true;
     }
+    
+    
+
 
 
     /**

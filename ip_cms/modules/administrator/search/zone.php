@@ -76,7 +76,7 @@ class Zone extends \Frontend\Zone {
             $data['searchValue'] = '';
         }
         
-        $searchBox = \Ip\View::create('view/search-box.php', $data)->render();
+        $searchBox = \Ip\View::create('view/search_box.php', $data)->render();
 
         return $searchBox;
 
