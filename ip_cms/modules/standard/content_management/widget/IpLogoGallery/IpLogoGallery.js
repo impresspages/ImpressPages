@@ -133,8 +133,9 @@ function IpWidget_IpLogoGallery(widgetObject) {
     
     addLogo : function (fileName, title, status, coordinates) {
         var $this = this;
+        var data = $this.data('ipWidget_ipLogoGallery_container');
         var $newLogoRecord = $this.data('ipWidget_ipLogoGallery_container').logoTemplate.clone();
-        $newLogoRecord.ipWidget_ipLogoGallery_logo({'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
+        $newLogoRecord.ipWidget_ipLogoGallery_logo({'logoWidth' : data.logoWidth, 'logoHeight' : data.logoHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
         var $uploader = $this.find('.ipaUpload');
         if ($uploader.length > 0) {
             $($uploader).before($newLogoRecord);
