@@ -25,6 +25,7 @@ class Module{
         $data = array (
             'homeUrl' => $site->generateUrl(),
             'breadcrumbElements' => $site->getBreadcrumb(),
+            'separator' => $separator,
         );
         
         $breadcrumb = \Ip\View::create('view/breadcrumb.php', $data)->render();
