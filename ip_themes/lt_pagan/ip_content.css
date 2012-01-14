@@ -43,23 +43,41 @@
 .ipModuleSearch .ipmInput {
     border: 1px solid #b3b3b3;
     box-shadow: 0 1px 2px -1px #b3b3b3 inset;
+    float: left;
     height: 21px;
-    padding: 2px 2px 0; /* padding at the top allows to equal button and input heights */
+    padding: 1px 2px;
     width: 160px;
 }
+.ipModuleSearch .ipmInput:focus {
+    box-shadow: none;
+}
 .ipModuleSearch .ipmButton {
+    /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #f4f4f4; /* Old browsers */
-    background: -moz-linear-gradient(top, #f4f4f4 0%, #d1d1d1 100%);
-    background: linear-gradient(top, #f4f4f4 0%, #d1d1d1 100%);
+    background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* IE10+ */
+    background: linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
     border: 1px solid #a7a7a7;
     cursor: pointer;
+    float: left;
     height: 25px; /* input buttons have borders inside their height */
+    margin-left: 5px;
     text-transform: uppercase;
 }
 .ipModuleSearch .ipmButton:hover {
+    /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #e1e0e0; /* Old browsers */
-    background: -moz-linear-gradient(top, #e1e0e0 0%, #d6d4d4 100%);
-    background: linear-gradient(top, #e1e0e0 0%, #d6d4d4 100%);
+    background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1e0e0), color-stop(100%,#d6d4d4)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* IE10+ */
+    background: linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
     box-shadow: 0 0 3px 0 #fff inset;
 }
 
@@ -71,6 +89,7 @@
 .ipWidget {
     margin-bottom: 25px;
 }
+.ipWidget:after { /* clearing, see 960.css */ }
 .ipWidget:last-child,
 .ipWidget p:last-child,
 .ipWidget ul:last-child,
@@ -100,6 +119,7 @@
 .mceContentBody ul,
 .ipWidget-IpTextImage .ipwText ul {
     list-style-position: inside;
+    list-style-type: square;
     margin: 0 0 20px 0;
 }
 .ipWidget-IpText ol,
@@ -207,8 +227,8 @@
 }
 
 /* Widgets :: side */
-.side .ipWidget-IpTitle {
-    margin-bottom: 0;
+.side .ipWidget {
+    margin-bottom: 15px;
 }
 .side .ipWidget-IpTitle .ipwTitle {
     background-color: #000;
@@ -218,7 +238,7 @@
     padding: 7px 20px;
 }
 .side .ipWidget-IpText {
-    padding: 15px 20px;
+    padding: 0 20px;
 }
 .side .ipWidget-IpText ul,
 .side .ipWidget-IpTextImage .ipwText ul,
@@ -232,15 +252,21 @@
     background-color: #f3f3f3;
     color: #000;
     display: block;
-    margin: -15px -20px;
+    margin-left: -20px; /* aligning background with box side */
+    margin-right: -20px; /* aligning background with box side */
+    margin-top: -15px; /* pushing up to stick to headline */
     padding: 15px 20px;
 }
+.side .ipWidget-IpTextImage .ipwImage,
 .side .ipWidget-IpImage img {
     max-width: 100%;
 }
 .side .ipWidget-IpImageGallery li img,
 .side .ipWidget-IpLogoGallery li img {
     width: 94px;
+}
+.side .ipWidget-IpFile {
+    padding: 15px 20px;
 }
 
 /* Admin */
