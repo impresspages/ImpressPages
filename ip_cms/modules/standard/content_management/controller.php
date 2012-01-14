@@ -96,7 +96,7 @@ class Controller extends \Ip\Controller{
 
         $widgets = Model::getAvailableWidgetObjects();
         $widgets = \Modules\developer\widgets\Model::sortWidgets($widgets);
-        $revisions = \Ip\Db::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revisionKey => $revision) {
@@ -234,7 +234,7 @@ class Controller extends \Ip\Controller{
         $revisionId = $_POST['revisionId'];
 
 
-        $revisionRecord = \Ip\Db::getRevision($revisionId);
+        $revisionRecord = \Ip\Revision::getRevision($revisionId);
 
         if ($revisionRecord === false) {
             throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
@@ -484,14 +484,14 @@ class Controller extends \Ip\Controller{
             $pageOptions = $_POST['pageOptions'];
         }
 
-        $revision = \Ip\Db::getRevision($revisionId);
+        $revision = \Ip\Revision::getRevision($revisionId);
         
         if (!$revision) {
             $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
             return;
         }
         
-        $newRevisionId = \Ip\Db::duplicateRevision($revisionId);
+        $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
         
         $zone = $site->getZone($revision['zoneName']);
         if (!$zone) {
@@ -527,7 +527,7 @@ class Controller extends \Ip\Controller{
         }
         $pageOptions = $_POST['pageOptions'];
         
-        $revision = \Ip\Db::getRevision($revisionId);
+        $revision = \Ip\Revision::getRevision($revisionId);
         
         if (!$revision) {
             $this->_errorAnswer('Can\'t find revision. RvisionId \''.$revisionId.'\'');
@@ -553,7 +553,7 @@ class Controller extends \Ip\Controller{
             return;
         }
         $revisionId = $_POST['revisionId'];
-        $revision = \Ip\Db::getRevision($revisionId);
+        $revision = \Ip\Revision::getRevision($revisionId);
         
         
         
@@ -562,10 +562,10 @@ class Controller extends \Ip\Controller{
         \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
         
         
-        \Ip\Db::publishRevision($revisionId);
+        \Ip\Revision::publishRevision($revisionId);
 
         
-        $lastRevision = \Ip\Db::getLastRevision($revision['zoneName'], $revision['pageId']);
+        $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
             $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
         } else {

@@ -1167,11 +1167,11 @@ class Site{
         if ($this->managementState()){
             if (isset($this->getVars['cms_revision'])) {
                 $revisionId = $this->getVars['cms_revision'];
-                $revision = \Ip\Db::getRevision($revisionId);
+                $revision = \Ip\Revision::getRevision($revisionId);
             }
              
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
-                $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
                 if ($revision === false) {
                     $revision = $this->_createRevision();
                 } else {
@@ -1185,7 +1185,7 @@ class Site{
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
             $currentElement = $this->getCurrentElement();
             if ($currentElement) {
-                $revision = \Ip\Db::getLastRevision($this->getCurrentZone()->getName(), $currentElement->getId());
+                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $currentElement->getId());
             }
             
         }
@@ -1194,8 +1194,8 @@ class Site{
 
 
     private function _createRevision(){
-        $revisionId = \Ip\Db::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId(),0);
-        $revision = \Ip\Db::getRevision($revisionId);
+        $revisionId = \Ip\Revision::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId(),0);
+        $revision = \Ip\Revision::getRevision($revisionId);
         if ($revision === false) {
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
         }
@@ -1203,8 +1203,8 @@ class Site{
     }
     
     private function _duplicateRevision($oldRevisionId){
-        $revisionId = \Ip\Db::duplicateRevision($oldRevisionId);
-        $revision = \Ip\Db::getRevision($revisionId);
+        $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
+        $revision = \Ip\Revision::getRevision($revisionId);
         if ($revision === false) {
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
         }
