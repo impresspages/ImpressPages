@@ -101,7 +101,6 @@ function IpWidget_IpImageGallery(widgetObject) {
             } else {
                 images = new Array();
             }
-
             
             if (!data) {
                 $this.data('ipWidget_ipImageGallery_container', {
@@ -133,8 +132,9 @@ function IpWidget_IpImageGallery(widgetObject) {
     
     addImage : function (fileName, title, status, coordinates) {
         var $this = this;
+        var data = $this.data('ipWidget_ipImageGallery_container');
         var $newImageRecord = $this.data('ipWidget_ipImageGallery_container').imageTemplate.clone();
-        $newImageRecord.ipWidget_ipImageGallery_image({'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
+        $newImageRecord.ipWidget_ipImageGallery_image({'smallImageWidth' : data.smallImageWidth, 'smallImageHeight' : data.smallImageHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
         var $uploader = $this.find('.ipaUpload');
         if ($uploader.length > 0) {
             $($uploader).before($newImageRecord);
