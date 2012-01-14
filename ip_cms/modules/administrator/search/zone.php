@@ -67,7 +67,7 @@ class Zone extends \Frontend\Zone {
         global $parametersMod;
         
         $data = array (
-            'actionUrl' => $this->getUrl()
+            'actionUrl' => $site->generateUrl(null, $this->getName())
         );
         
         if($site->currentZone == $this->name && isset($_GET['q'])){
