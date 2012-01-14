@@ -97,10 +97,14 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             define('MODULE_DIR', 'ip_cms/modules/');
             define('LIBRARY_DIR', 'ip_libs/');
             define('DB_PREF', $_POST['prefix']);
+            define('THEME', 'lt_pagan');
+            define('THEME_DIR', 'ip_themes/');
+            
 
             require (BASE_DIR.FRONTEND_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'parameters.php');
+            require (BASE_DIR.THEME_DIR.THEME.'/_parameters.php');
             require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
 
             global $parametersMod;
@@ -109,6 +113,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             
             \Modules\developer\localization\Manager::saveParameters(__DIR__.'/parameters.php');
             
+            \Modules\developer\localization\Manager::saveParameters(BASE_DIR.THEME_DIR.THEME.'/_parameters.php');
             
             if($error) {
                 echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
