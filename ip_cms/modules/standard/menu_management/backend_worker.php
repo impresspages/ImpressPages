@@ -547,7 +547,7 @@ class BackendWorker {
             $zone = $site->getZone($_POST['zoneName']);
             $oldPage = $zone->getElement($_POST['pageId']);
 
-            Db::updatePage($_POST['pageId'], $_POST);
+            Db::updatePage($_POST['zoneName'], $_POST['pageId'], $_POST);
 
             if($oldPage->getUrl() != $_POST['url']){
                 $newElement = $zone->getElement($_POST['pageId']);
