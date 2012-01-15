@@ -211,7 +211,7 @@ class BackendWorker {
                     
                     $jsTreeId = $this->_jsTreeId($parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
                     //if node status is open
-    				if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
+    				if (false && !empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
     				    $state = 'open';
     				    $children = $this->_getList($externalLinking, 'zone', $parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
     				    if (count($children) == 0) {
@@ -632,18 +632,13 @@ class BackendWorker {
 
         if (empty($parentPage)) {
             $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());
-            if($parentPageId === false) { /*try to create*/
-                Db::createRootZoneElement($zone['id'], $language['id']);
-                $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());
-                if($parentPageId === false) {	/*fail to create*/
-                    trigger_error("Can't create root zone element.");
-                    return false;
-                }
-            }
 
-            if ($parentPageId !== null) {
-                $parentPage = $zone->getElement($parentPageId);
-            }
+            if($parentPageId === false) {
+                trigger_error("Can't find root zone element.");
+                return false;
+            }            
+
+            $parentPage = $zone->getElement($parentPageId);
         }
 
         if (empty($parentPage)) {
@@ -728,10 +723,43 @@ class BackendWorker {
             return false;
         }
         $destinationPageId = $_REQUEST['destinationPageId'];
+        
 
+        if (!isset($_REQUEST['destinationZoneName'])) {
+            trigger_error("Destination zone name is not set");
+            return false;
+        }
+        $destinationZoneName = $_REQUEST['destinationZoneName'];        
+
+
+        if (!isset($_REQUEST['destinationPageType'])) {
+            trigger_error("Destination type is not set");
+            return false;
+        }
+        $destinationPageType = $_REQUEST['destinationPageType'];     
+
+        
+        if (!isset($_REQUEST['destinationLanguageId'])) {
+            trigger_error("Destination language ID is not set");
+            return false;
+        }
+        $destinationLanguageId = $_REQUEST['destinationLanguageId'];        
+        
         //check if destination page exists
-        $pageZone = $site->getZone($zoneName);
-        $destinationPage = $pageZone->getElement($destinationPageId);
+        $destinationZone = $site->getZone($destinationZoneName);
+        if ($destinationPageType == 'zone') {
+            $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
+            if (!$rootElementId) {
+                trigger_error('Can\'t find root zone element.');
+                return false;
+            }
+            
+            $destinationPage = $destinationZone->getElement($rootElementId);
+        } else {
+            $destinationPage = $destinationZone->getElement($destinationPageId);     
+        }
+                
+
         if (!$destinationPage) {
             trigger_error("Destination page does not exist");
             return false;
@@ -770,7 +798,7 @@ class BackendWorker {
         }
 
         $data = array (
-            'parentId' => $destinationPageId,
+            'parentId' => $destinationPage->getId(),
             'rowNumber' => $newIndex
         );
         Db::updatePage($pageId, $data);
@@ -855,6 +883,11 @@ class BackendWorker {
         $destinationZone = $site->getZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
+            if (!$rootElementId) {
+                trigger_error('Can\'t find root zone element.');
+                return false;
+            }
+            
             $destinationPage = $destinationZone->getElement($rootElementId);
         } else {
             $destinationPage = $destinationZone->getElement($destinationPageId);     
