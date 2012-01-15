@@ -20,11 +20,15 @@ class System{
         $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js');
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
+
+        $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateNewsletter');
+        
     }
 
 
     public static function generateContent (\Ip\Event $event) {
         global $site;
+        
         $blockName = $event->getValue('blockName');
         if (
             $blockName != 'main' ||
@@ -36,6 +40,21 @@ class System{
         echo $site->getCurrentElement()->generateContent();
         
     }
+    
+    
+    public static function generateNewsletter (\Ip\Event $event) {
+        global $site;
+        $blockName = $event->getValue('blockName');
+        if ($blockName == 'newsletter') {
+            $newsletterZone = $newsletterBox = $site->getZoneByModule('community', 'newsletter');
+            if (!$newsletterZone) {
+                return;
+            }
+            $newsletterBox = $newsletterZone->generateRegistrationBox();
+            $event->setValue('content', $newsletterBox );
+            $event->addProcessed();
+        }
+    }    
 
 
 
