@@ -21,6 +21,8 @@ $parameter["parameterValue/community/newsletter/subscription_translations/subjec
 
 $parameter["parameterValue/community/newsletter/subscription_translations/subscribe"] = "Subscribe";
 
+$parameter["parameterValue/community/newsletter/subscription_translations/label"] = "Enter e-mail address";
+
 $parameter["parameterValue/community/newsletter/subscription_translations/text_confirmation"] =
 "<p>Thank you for your registration.</p>
 <p>The confirmation e-mail has been sent to your email address. Please confirm the registration by clicking on the link in the email.</p>";
