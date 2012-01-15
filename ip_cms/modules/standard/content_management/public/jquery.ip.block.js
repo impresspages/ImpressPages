@@ -102,8 +102,8 @@
                 });
 
                 var widgetOptions = new Object;
-                $this.find('.ipWidget').ipWidget(widgetOptions);
-                $this.find('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
+                $this.children('.ipWidget').ipWidget(widgetOptions);
+                $this.children('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
 
                 $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
                     event.preventDefault();
@@ -130,9 +130,9 @@
         return this.each(function() {
             var $this = $(this);
             var widgetOptions = new Object;
-            $(this).find('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);
+            $(this).children('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);
 
-            $(this).find('.ipWidget').ipWidget(widgetOptions);
+            $(this).children('.ipWidget').ipWidget(widgetOptions);
 
         });
     },
@@ -149,7 +149,7 @@
     pageSaveStart : function() {
         return this.each(function() {
             var $this = $(this);
-            $(this).find('.ipWidget').ipWidget('fetchManaged').ipWidget('save');
+            $(this).children('.ipWidget').ipWidget('fetchManaged').ipWidget('save');
         });
     },
 
@@ -229,7 +229,7 @@
             if (response.position == 0) {
                 $(this).prepend(response.widgetManagementHtml);
             } else {
-                $secondChild = $(this).find('.ipWidget:nth-child(' + response.position + ')');
+                $secondChild = $(this).children('.ipWidget:nth-child(' + response.position + ')');
                 $(response.widgetManagementHtml).insertAfter($secondChild);
             }
 
