@@ -34,12 +34,13 @@
     text-decoration: none;
 }
 
-/* Modules */
+/* Modules :: search */
 .ipModuleSearch {
     clear: right;
     float: right;
     margin-top: 20px;
 }
+.ipModuleNewsletter .ipmInput,
 .ipModuleSearch .ipmInput {
     border: 1px solid #b3b3b3;
     box-shadow: 0 1px 2px -1px #b3b3b3 inset;
@@ -48,9 +49,11 @@
     padding: 1px 2px;
     width: 160px;
 }
+.ipModuleNewsletter .ipmInput:focus,
 .ipModuleSearch .ipmInput:focus {
     box-shadow: none;
 }
+.ipModuleNewsletter .ipmButton, 
 .ipModuleSearch .ipmButton {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #f4f4f4; /* Old browsers */
@@ -62,12 +65,16 @@
     background: linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
     border: 1px solid #a7a7a7;
+    color: #000;
     cursor: pointer;
     float: left;
     height: 25px; /* input buttons have borders inside their height */
+    line-height: 25px;
     margin-left: 5px;
+    padding: 0 6px;
     text-transform: uppercase;
 }
+.ipModuleNewsletter .ipmButton:hover,
 .ipModuleSearch .ipmButton:hover {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #e1e0e0; /* Old browsers */
@@ -79,6 +86,32 @@
     background: linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
     box-shadow: 0 0 3px 0 #fff inset;
+}
+/* Modules :: newsletter */
+.ipModuleNewsletter .ipmForm {
+    background-color: #f3f3f3;
+    color: #000;
+    margin-top: -15px;
+    padding: 15px 20px;
+}
+.ipModuleNewsletter .ipmLabel {
+    line-height: 20px;
+}
+.ipModuleNewsletter .ipmInput {
+    float: none;
+    margin: 10px 0;
+    width: 174px;
+}
+.ipModuleNewsletter .ipmButtons {
+    clear: both;
+    margin-left: -5px;
+}
+.ipModuleNewsletter .ipmButton {
+    margin-top: 5px;
+}
+.ipModuleNewsletter .ipmError p {
+    color: #da0001;
+    margin-bottom: 10px;
 }
 
 /* Widgets :: main */
