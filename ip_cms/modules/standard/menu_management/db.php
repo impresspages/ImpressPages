@@ -34,11 +34,10 @@ class Db {
         $managedZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'));
         $sqlZonesArray = "'".implode("','",$managedZones)."'";
 
-        $autoRssZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
-        $sqlAutoRssArray = "'".implode("','",$autoRssZones)."'";
+
 
         $dbZones = array();
-        $sql = "select z.name, z.translation, z.id, z.name in (".$sqlAutoRssArray.") as `auto_rss`, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
+        $sql = "select z.name, z.translation, z.id, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
@@ -66,6 +65,14 @@ class Db {
                 return $lock['language_id'];
             }
         }else
+    
+    public static function getAutoRssZones() {
+        global $parametersMod;
+        
+        $answer = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
+        return $answer;
+    }
+    
         trigger_error("Can't find zone element ".$sql." ".mysql_error());
     }
 

@@ -401,7 +401,8 @@ class BackendWorker {
          
         $answer['page']['type'] = $page->getType();
         $answer['page']['redirectURL'] = $page->getRedirectUrl() . '';
-
+        $answer['page']['rss'] = $page->getRss();
+        
         $answer['html'] = Template::generatePageProperties($tabs);
 
         $this->_printJson ($answer);
@@ -584,15 +585,7 @@ class BackendWorker {
             trigger_error('Button title is not set');
             return;
         }
-
-        $data = array();
-
-        $data['buttonTitle'] = $_REQUEST['buttonTitle'];
-        $data['pageTitle'] = $_REQUEST['buttonTitle'];
-        $data['url'] = Db::makeUrl($_POST['buttonTitle']);
-        $data['createdOn'] = date("Y-m-d");
-        $data['lastModified'] = date("Y-m-d");
-        $data['visible'] = !$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages');
+        $buttonTitle = $_REQUEST['buttonTitle'];
 
 
         if (isset($_REQUEST['languageId'])) {
@@ -647,6 +640,20 @@ class BackendWorker {
         }
 
          
+        $data = array();
+
+        $data['buttonTitle'] = $buttonTitle;
+        $data['pageTitle'] = $buttonTitle;
+        $data['url'] = Db::makeUrl($buttonTitle);
+        $data['createdOn'] = date("Y-m-d");
+        $data['lastModified'] = date("Y-m-d");
+        $data['visible'] = !$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages');
+
+        $autoRssZones = Db::getAutoRssZones();
+        $data['rss'] = in_array($zone->getName(), $autoRssZones);
+        
+        
+        
         $newPageId = Db::insertPage($parentPage->getId(), $data);
 
         $answer['status'] = 'success';
