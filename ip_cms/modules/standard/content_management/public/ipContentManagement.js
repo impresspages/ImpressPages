@@ -9,6 +9,7 @@ $(document).ready(function() {
     $ipObject = $(document);
 
     $ipObject.bind('initFinished.ipContentManagement', ipInitBlocks);
+    $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
 
     $ipObject.ipContentManagement();
 
@@ -23,6 +24,14 @@ function ipInitBlocks(event, options) {
 
 function ipActionSaveStart(event) {
     $('.ipBlock').ipBlock('pageSaveStart');
+}
+
+function ipAdminWidgetsScroll() {
+    $('.ipAdminWidgetsContainer').scrollable({
+        next: '.ipaRight',
+        prev: '.ipaLeft',
+        items: 'li',
+    });
 }
 
 /**

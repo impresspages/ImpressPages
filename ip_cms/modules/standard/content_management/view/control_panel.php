@@ -9,21 +9,23 @@
             </p>
         </div>
 <?php } ?>
-        <ul>
+        <a href="#" class="ipAdminWidgetsScroll ipaLeft"></a>
+        <a href="#" class="ipAdminWidgetsScroll ipaRight"></a>
+        <div class="ipAdminWidgetsContainer">
+<?php $scrollWidth = count($widgets)*75; // to keep all elements on one line ?>
+            <ul<?php echo ' style="width: '.$scrollWidth.'px;"'; ?>>
 <?php foreach ($widgets as $widgetKey => $widget) { ?>
-            <li>
-                <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
-                    <a href="#">
-                        <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
-                        <img 
-                             class=""
-                             alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"
-                             src="<?php echo BASE_URL.$widget->getIcon() ?>" />
-                    </a>
-                </div>
-            </li>
+                <li>
+                    <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
+                        <a href="#">
+                            <span><?php echo htmlspecialchars($widget->getTitle()); ?></span>
+                            <img src="<?php echo BASE_URL.$widget->getIcon() ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
+                        </a>
+                    </div>
+                </li>
 <?php } ?>
-        </ul>
+            </ul>
+        </div>
     </div>
 
     <div class="ipAdminControls">

@@ -28,6 +28,8 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
             $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
 
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.scrollable.js');
+
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/tiny_mce/jquery.tinymce.js');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');

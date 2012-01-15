@@ -103,18 +103,40 @@
 .ipAdminPanel {
     background-color: #FBFCFC;
     height: 153px;
-    min-width: 840px;
+    min-width: 860px;
     position: fixed;
     width: 100%;
     z-index: 1000;
 }
 .ipAdminWidgets {
-    height: 91px;
-    padding: 14px 50px 0 28px;
+    margin: 14px 0;
     position: relative;
+}
+.ipAdminWidgetsScroll {
+    background: url(../img/icons_scroll.png) no-repeat;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 26px;
+}
+.ipAdminWidgetsScroll.ipaLeft {
+    background-position: 8px center;
+    left: 6px;
+}
+.ipAdminWidgetsScroll.ipaRight {
+    background-position: -32px center;
+    right: 6px;
+}
+.ipAdminWidgetsScroll:hover {
+    background-color: #e6e6e6;
+}
+.ipAdminWidgetsContainer {
+    overflow: hidden;
+    margin: 0 38px;
 }
 .ipAdminWidgets ul {
     list-style: none;
+    position: relative;
 }
 .ipAdminWidgets li {
     float: left;
@@ -138,6 +160,9 @@
     height: 51px;
     padding: 2px;
     width: 51px;
+}
+.ipAdminWidgets .ipActionWidgetButton {
+    padding-bottom: 16px; /* to push widget button down to keep space for title */
 }
 .ipAdminWidgets li span {
     border-radius: 5px;
