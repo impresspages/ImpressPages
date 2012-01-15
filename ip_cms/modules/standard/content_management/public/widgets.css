@@ -9,6 +9,8 @@
 .ipgRight {
     float: right;
 }
+.ipAdminPanelContainer:after,
+.ipAdminPanelContainer:before,
 .ipWidget:after,
 .ipgClear:after {
     clear: both;
@@ -96,20 +98,18 @@
 }
 
 /* draggable widgets and controls */
-.ipAdminPanelContainer {
-    display: block;
-    height: 153px;
-}
+.ipAdminPanelContainer {/* see clearing option above */}
 .ipAdminPanel {
     background-color: #FBFCFC;
-    height: 153px;
+    left: 0;
     min-width: 860px;
     position: fixed;
+    top: 0;
     width: 100%;
     z-index: 1000;
 }
 .ipAdminWidgets {
-    margin: 14px 0;
+    margin: 10px 0;
     position: relative;
 }
 .ipAdminWidgetsScroll {

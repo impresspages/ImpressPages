@@ -9,6 +9,7 @@ $(document).ready(function() {
     $ipObject = $(document);
 
     $ipObject.bind('initFinished.ipContentManagement', ipInitBlocks);
+    $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
     $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
 
     $ipObject.ipContentManagement();
@@ -26,6 +27,15 @@ function ipActionSaveStart(event) {
     $('.ipBlock').ipBlock('pageSaveStart');
 }
 
+/**
+ * 
+ * Function used to paginate Widgets on Administration Panel
+ * 
+ * @param none
+ * @returns nothing
+ * 
+ * 
+ */
 function ipAdminWidgetsScroll() {
     var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
     $scrollable.scrollable({
@@ -42,6 +52,21 @@ function ipAdminWidgetsScroll() {
     $('.ipAdminWidgets .ipaLeft').click(function(){
         scrollableAPI.move(-scrollBy);
     });
+}
+
+/**
+ * 
+ * Function used to create a space on a page for Administration Panel
+ * 
+ * @param none
+ * @returns nothing
+ * 
+ * 
+ */
+function ipAdminPanelInit() {
+    $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
+    $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
+    $container.height($panel.height()); // setting the height to container
 }
 
 /**
