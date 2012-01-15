@@ -14,10 +14,13 @@ $answer = '<h1>'.IP_STEP_LANGUAGE_LONG."</h1>";
 
 
 $languages = array();
+$languages['cs'] = 'Čeština';
 $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
+$languages['fr'] = 'French';
 $languages['de'] = 'Deutsch';
 $languages['lt'] = 'Lietuvių';
+$languages['pt'] = 'Portugues';
 $languages['pl'] = 'Polski';
 $languages['ro'] = 'Română';
 

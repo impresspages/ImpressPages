@@ -54,6 +54,7 @@ function initializeTreeManagement(id) {
       'ajax' : {
         'url' : postURL,
         'data' : function(n) {
+            
           return {
             'action' : 'getChildren',
             'id' : n.attr ? n.attr('id') : '',
@@ -61,7 +62,8 @@ function initializeTreeManagement(id) {
             'type' : n.attr ? n.attr('rel') : '',
             'zoneName' : n.attr ? n.attr('zoneName') : '',
             'languageId' : n.attr ? n.attr('languageId') : '',
-            'websiteId' : n.attr ? n.attr('websiteId') : ''
+            'websiteId' : n.attr ? n.attr('websiteId') : '',
+            'externalLinking' : id == 'treePopup' ? 1 : 0
           };
         }
       }
@@ -508,6 +510,7 @@ function updatePageFormResponse(response) {
     $('#formSEO input[name="url"]').val(response.page.url);
     $('#formAdvanced input[name="type"][name="type"][value="' + response.page.type + '"]').attr('checked', 1);
     $('#formAdvanced input[name="redirectURL"]').val(response.page.redirectURL);
+    $('#formAdvanced input[name="rss"]').attr('checked', response.page.rss == 1 ? true : false);
 
     $("#pageProperties form").bind("submit", function() {
       updatePage();
@@ -532,8 +535,7 @@ function updatePage() {
   data.pageId = tree.selectedPageId; // we have stored this ID before
   data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
   data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
-  data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1
-      : 0;
+  data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
   data.createdOn = $('#formGeneral input[name="createdOn"]').val();
   data.lastModified = $('#formGeneral input[name="lastModified"]').val();
 
@@ -543,6 +545,7 @@ function updatePage() {
   data.url = $('#formSEO input[name="url"]').val();
   data.type = $('#formAdvanced input:checked[name="type"]').val();
   data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
+  data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
 
   data.action = 'updatePage';
 
@@ -584,23 +587,6 @@ function updatePageResponse(response) {
     }
   }
 
-  // if (!$_POST['visible']) {
-  // $icon = 'node.ui.addClass(\'x-tree-node-disabled \');';
-  // } else {
-  // $icon = '';
-  // }
-  //
-  // var form = document.getElementById(\'property_form\');
-  // form.property_url.value =
-  // \''.\Library\Php\Js\Functions::htmlToString($_POST['url']).'\';
-  //   
-  //   
-  // var node = iTree.getTree().getSelectionModel().getSelectedNode();
-  // node.setText(\''.\Library\Php\Js\Functions::htmlToString($_POST['buttonTitle']).'\');
-  // node.ui.removeClass(\'x-tree-node-disabled\');
-  // '.$icon.'
-  // ';
-
 }
 
 /**
@@ -618,7 +604,9 @@ function movePage(e, moveData) {
     data.websiteId = $(this).attr('websiteId');
     data.type = $(this).attr('rel');
     data.destinationPageId = moveData.rslt.np.attr("pageId");
-    data.destinationId = moveData.rslt.np.attr("id");
+    data.destinationZoneName = moveData.rslt.np.attr("zoneName");
+    data.destinationLanguageId = moveData.rslt.np.attr("languageId");
+    data.destinationPageType = moveData.rslt.np.attr("rel");
     data.destinationPosition = moveData.rslt.cp + i;
     data.action = 'movePage';
 
@@ -634,32 +622,6 @@ function movePage(e, moveData) {
     });
   });
 
-  // example:
-  // $.ajax({
-  // async : false,
-  // type: 'POST',
-  // url: "/static/v.1.0rc2/_demo/server.php",
-  // data : {
-  // "operation" : "move_node",
-  // "id" : $(this).attr("id").replace("node_",""),
-  // "ref" : data.rslt.np.attr("id").replace("node_",""),
-  // "position" : data.rslt.cp + i,
-  // "title" : data.rslt.name,
-  // "copy" : data.rslt.cy ? 1 : 0
-  // },
-  // success : function (r) {
-  // if(!r.status) {
-  // $.jstree.rollback(data.rlbk);
-  // }
-  // else {
-  // $(data.rslt.oc).attr("id", "node_" + r.id);
-  // if(data.rslt.cy && $(data.rslt.oc).children("UL").length) {
-  // data.inst.refresh(data.inst._get_parent(data.rslt.oc));
-  // }
-  // }
-  // $("#analyze").click();
-  // }
-  // });
 
 };
 
@@ -706,6 +668,9 @@ function pastePage() {
   data.websiteId = copiedNode.attr('websiteId');
   data.type = copiedNode.attr('rel');
   data.destinationPageId = selectedNode.attr("pageId");
+  data.destinationPageType = selectedNode.attr('rel');
+  data.destinationZoneName = selectedNode.attr('zoneName');
+  data.destinationLanguageId = selectedNode.attr('languageId');
   data.action = 'copyPage';
 
   tree.destinationId = selectedNode.attr('id');

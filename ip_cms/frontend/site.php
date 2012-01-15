@@ -242,7 +242,7 @@ class Site{
      *
      */
     private function configZones(){
-        if (defined('BACKEND')) {
+    if (defined('BACKEND') || defined('SITEMAP')) {
             $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
             foreach ($zones as $key => $zone) {
                 $this->zones[$zone['name']] = $zone;
@@ -521,7 +521,7 @@ class Site{
      * @return string - Current URL
      */
     public function generateCurrentUrl(){
-        $this->getCurrentUrl();
+     return $this->getCurrentUrl();
     }
 
     /**
@@ -651,8 +651,7 @@ class Site{
         if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
             if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_mistyped_urls', $this->currentLanguage['id']))
             $message = $this->error404Message().'
-             Link: '.$this->getCurrentUrl().'
-             Http referer: '.$_SERVER['HTTP_REFERER'];
+             Link: '.$this->getCurrentUrl();
         }else{
             if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
                 if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_inside_link', $this->currentLanguage['id']))

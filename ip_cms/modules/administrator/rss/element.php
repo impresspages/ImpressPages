@@ -152,7 +152,7 @@ class Element extends \Frontend\Element {
         if($depth < $maxDepth) {
             if(is_array($pages)) {
                 foreach($pages as $key => $page) {
-                    $pages = array_merge($pages, $this->getPages($zoneName, $page->id));
+          $pages = array_merge($pages, $this->getPages($zoneName, $page->getId()));
                 }
             }
         }

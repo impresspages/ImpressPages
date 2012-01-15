@@ -57,7 +57,7 @@ class Zone extends \Frontend\Zone {
 
             return $elements;
         } else {
-            return false;
+      return array();
         }
 
     }

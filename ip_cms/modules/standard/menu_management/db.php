@@ -34,11 +34,10 @@ class Db {
         $managedZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'));
         $sqlZonesArray = "'".implode("','",$managedZones)."'";
 
-        $autoRssZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
-        $sqlAutoRssArray = "'".implode("','",$autoRssZones)."'";
+
 
         $dbZones = array();
-        $sql = "select z.name, z.translation, z.id, z.name in (".$sqlAutoRssArray.") as `auto_rss`, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
+        $sql = "select z.name, z.translation, z.id, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
@@ -66,10 +65,18 @@ class Db {
                 return $lock['language_id'];
             }
         }else
+    
+
+    
         trigger_error("Can't find zone element ".$sql." ".mysql_error());
     }
 
-
+    public static function getAutoRssZones() {
+        global $parametersMod;
+        
+        $answer = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
+        return $answer;
+    }
 
 
     /**
@@ -85,7 +92,16 @@ class Db {
         if ($rs) {
             if ($lock = mysql_fetch_assoc($rs)) {
                 return $lock['element_id'];
-            } else {
+            } else { //try to create
+                self::createRootZoneElement($zoneId, $languageId);
+                $rs2 = mysql_query($sql);
+                if ($rs2) {
+                    if ($lock2 = mysql_fetch_assoc($rs2)) {
+                        return $lock2['element_id'];
+                    } else { //try to create
+                        return false;
+                    }
+                }
                 return false;
             }
         } else {
@@ -104,13 +120,15 @@ class Db {
         $sql = "insert into `".DB_PREF."content_element` set visible = 1";
         $rs = mysql_query($sql);
         if($rs){
+            $elementId = mysql_insert_id();
             $sql2 = "insert into `".DB_PREF."zone_to_content` set
             language_id = '".mysql_real_escape_string($languageId)."',
             zone_id = '".$zoneId."',
-            element_id = '".mysql_insert_id()."'";
+			element_id = '".$elementId."'";
             $rs2 = mysql_query($sql2);
-            if(!$rs2)
-            trigger_error($sql2." ".mysql_error());
+            if(!$rs2) {
+                trigger_error($sql2." ".mysql_error());
+            }
         }
     }
 
@@ -314,10 +332,10 @@ class Db {
         $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
 
         if (isset($params['visible']))
-        $values .= ', visible = \''.mysql_real_escape_string($params['visible']).'\'';
+        $values .= ', visible = \''.mysql_real_escape_string((int)$params['visible']).'\'';
 
         if (isset($params['rss']))
-        $values .= ', rss = \''.mysql_real_escape_string($params['rss']).'\'';
+        $values .= ', rss = \''.mysql_real_escape_string((int)$params['rss']).'\'';
 
         if (isset($params['cached_html']))
         $values .= ', `cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';

@@ -425,7 +425,7 @@ class StandardModule {
                             }
                         }
 
-                        if(!$sortFieldDefined){
+            if(!$sortFieldDefined && $this->currentArea->sortField){
                             if ($need_comma)
                             $sql .= ", `".mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
                             else {
@@ -506,8 +506,8 @@ class StandardModule {
                   //parent.window.location.href = parent.window.location.href; don't work with #xxx
                                    
                   var ipUrl = parent.window.location.href.split('#');
-                  parent.window.location.href = ipUrl[0];
                 
+                  parent.window.location = ipUrl[0] + '&anticache=' + Math.floor(Math.random()*1000); //Firefox5 don't reload if the same url.
                 </script>
               </body></html>
           ";              
