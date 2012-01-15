@@ -242,7 +242,7 @@ class Site{
      *
      */
     private function configZones(){
-        if (defined('BACKEND')) {
+    if (defined('BACKEND') || defined('SITEMAP')) {
             $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
             foreach ($zones as $key => $zone) {
                 $this->zones[$zone['name']] = $zone;
