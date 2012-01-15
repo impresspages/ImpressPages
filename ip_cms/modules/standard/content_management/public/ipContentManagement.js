@@ -27,10 +27,20 @@ function ipActionSaveStart(event) {
 }
 
 function ipAdminWidgetsScroll() {
-    $('.ipAdminWidgetsContainer').scrollable({
-        next: '.ipaRight',
-        prev: '.ipaLeft',
-        items: 'li',
+    var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
+    $scrollable.scrollable({
+        items: 'li' // items are <li> elements; on scroll styles will be added to <ul>
+    });
+    var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
+    var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
+    var containerWidth = scrollableAPI.getRoot().width();
+    var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll
+    if(scrollBy < 1) { scrollBy = 1; } // setting the minimum
+    $('.ipAdminWidgets .ipaRight').click(function(){
+        scrollableAPI.move(scrollBy);
+    });
+    $('.ipAdminWidgets .ipaLeft').click(function(){
+        scrollableAPI.move(-scrollBy);
     });
 }
 
