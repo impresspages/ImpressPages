@@ -101,7 +101,7 @@
 /* draggable widgets and controls */
 .ipAdminPanelContainer {/* see clearing option above */}
 .ipAdminPanel {
-    background-color: #FBFCFC;
+    background-color: #fbfcfc;
     left: 0;
     min-width: 860px;
     position: fixed;
@@ -139,7 +139,7 @@
     margin: 0 38px;
 }
 .ipAdminWidgetsContainer:before {
-    background-color: #fff;
+    background-color: #fbfcfc;
     content: " ";
     display: block;
     height: 100%;
@@ -149,7 +149,7 @@
     z-index: 2;
 }
 .ipAdminWidgetsContainer:after {
-    background-color: #fff;
+    background-color: #fbfcfc;
     content: " ";
     display: block;
     height: 100%;
