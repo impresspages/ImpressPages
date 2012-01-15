@@ -1,3 +1,1 @@
-<textarea name="text">
-<?php echo isset($html) ? $html : '' ?>
-</textarea>
+<textarea name="text" class="ipAdminTextarea"><?php echo isset($html) ? $html : ''; ?></textarea>

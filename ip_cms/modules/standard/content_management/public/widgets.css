@@ -40,6 +40,16 @@
     padding: 0 7px;
     width: 95%;
 }
+.ipAdminTextarea {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 150px;
+    padding: 4px 2px;
+    width: 95%;
+}
 .ipAdminButton {
     background: #e0e0e0;
     background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
@@ -467,8 +477,12 @@
     background-position: -24px -48px;
 }
 
-/* Widget: IpText */
-.ipAdminWidget-IpText .ipaBody {
+/* Widget: IpText
+   Widget: IpRichText
+   Widget: IpTable */
+.ipAdminWidget-IpText .ipaBody,
+.ipAdminWidget-IpRichText .ipaBody,
+.ipAdminWidget-IpTable .ipaBody {
     border: 0;
     padding: 0;
 }
@@ -552,6 +566,17 @@
 .ipAdminWidget-IpImageGallery .ipaImageTitle,
 .ipAdminWidget-IpLogoGallery .ipaLogoTitle {
     width: 95px;
+}
+
+/* Widget: IpHtml */
+.ipAdminWidget-IpHtml .ipaBody {
+    padding: 0;
+}
+.ipAdminWidget-IpHtml .ipaBody .ipAdminTextarea {
+    border-color: #ccc;
+    margin: -1px;
+    padding: 0;
+    width: 100%;
 }
 
 /* style that interfere with theme styles and potentially may cause issues */
