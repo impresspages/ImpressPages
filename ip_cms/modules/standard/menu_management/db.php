@@ -66,17 +66,17 @@ class Db {
             }
         }else
     
+
+    
+        trigger_error("Can't find zone element ".$sql." ".mysql_error());
+    }
+
     public static function getAutoRssZones() {
         global $parametersMod;
         
         $answer = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
         return $answer;
     }
-    
-        trigger_error("Can't find zone element ".$sql." ".mysql_error());
-    }
-
-
 
 
     /**
