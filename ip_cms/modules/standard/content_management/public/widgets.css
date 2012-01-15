@@ -11,6 +11,7 @@
 }
 .ipAdminPanelContainer:after,
 .ipAdminPanelContainer:before,
+.ipAdminWidgets:after,
 .ipWidget:after,
 .ipgClear:after {
     clear: both;
@@ -118,6 +119,7 @@
     height: 100%;
     position: absolute;
     width: 26px;
+    z-index: 9;
 }
 .ipAdminWidgetsScroll.ipaLeft {
     background-position: 8px center;
@@ -134,8 +136,27 @@
     box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.15);
 }
 .ipAdminWidgetsContainer {
-    overflow: hidden;
     margin: 0 38px;
+}
+.ipAdminWidgetsContainer:before {
+    background-color: #fff;
+    content: " ";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 38px;
+    z-index: 2;
+}
+.ipAdminWidgetsContainer:after {
+    background-color: #fff;
+    content: " ";
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 38px;
+    z-index: 2;
 }
 .ipAdminWidgets ul {
     list-style: none;
