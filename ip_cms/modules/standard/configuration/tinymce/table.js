@@ -1,4 +1,4 @@
-ipTinyMceConfigTables = {
+ipTinyMceConfigTable = {
     // Location of TinyMCE script
     script_url : ip.baseUrl + ip.libraryDir + 'js/tiny_mce/tiny_mce.js',
     
@@ -8,6 +8,7 @@ ipTinyMceConfigTables = {
     theme_advanced_buttons1 : "copy,paste,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
     theme_advanced_buttons2 : "bold,italic,underline,styleselect",
     theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
+    theme_advanced_buttons4 : "tablecontrols",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
     theme_advanced_statusbar_location : "bottom",

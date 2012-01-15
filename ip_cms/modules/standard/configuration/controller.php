@@ -27,7 +27,7 @@ class Controller extends \Ip\Controller{
         $answer .= \Ip\View::create('tinymce/min.js', $data)->render();
         $answer .= \Ip\View::create('tinymce/med.js', $data)->render();
         $answer .= \Ip\View::create('tinymce/max.js', $data)->render();
-        $answer .= \Ip\View::create('tinymce/tables.js', $data)->render();
+        $answer .= \Ip\View::create('tinymce/table.js', $data)->render();
 
 
         $site->setOutput($answer);
