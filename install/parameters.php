@@ -1563,6 +1563,11 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
         $parameterAdmin["community"]["newsletter"]["subscription_translations"]["unsubscribe"] = "0";
         $parameterType["community"]["newsletter"]["subscription_translations"]["unsubscribe"] = "lang";
 
+        $parameterTitle["community"]["newsletter"]["subscription_translations"]["label"] = "Input label";
+        $parameterValue["community"]["newsletter"]["subscription_translations"]["label"] = "Enter e-mail address";
+        $parameterAdmin["community"]["newsletter"]["subscription_translations"]["label"] = "0";
+        $parameterType["community"]["newsletter"]["subscription_translations"]["label"] = "lang";
+
         $parameterTitle["community"]["newsletter_subscribers"]["admin_translations"]["email"] = "E-mail";
         $parameterValue["community"]["newsletter_subscribers"]["admin_translations"]["email"] = "E-mail";
         $parameterAdmin["community"]["newsletter_subscribers"]["admin_translations"]["email"] = "1";
