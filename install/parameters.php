@@ -1505,9 +1505,9 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
     $parameterGroupAdmin["community"]["newsletter"]["subscription_translations"] = "0";
 
         $parameterTitle["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "Incorrect e-mail";
-        $parameterValue["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "<p>Incorrect e-mail address</p>";
+        $parameterValue["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "Incorrect e-mail address";
         $parameterAdmin["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "0";
-        $parameterType["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "lang_wysiwyg";
+        $parameterType["community"]["newsletter"]["subscription_translations"]["text_incorrect_email"] = "lang";
 
         $parameterTitle["community"]["newsletter"]["subscription_translations"]["text_subscribed"] = "Text subscribed";
         $parameterValue["community"]["newsletter"]["subscription_translations"]["text_subscribed"] = "<p>You have successfully subscribed to our newsletter.</p>";

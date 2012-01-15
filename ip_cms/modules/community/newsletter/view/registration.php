@@ -2,7 +2,7 @@
 <?php $newsletterTitle = $this->par('community/newsletter/subscription_translations/newsletter'); ?>
 <?php echo $this->renderWidget('IpTitle', array('title' => $newsletterTitle)); ?>
     <form class="ipmForm clearfix" method="post" action="">
-        <div class="ipmError"><?php echo $this->par('community/newsletter/subscription_translations/text_incorrect_email'); ?></div>
+        <div class="ipmError"></div>
         <p>
             <label class="ipmLabel">
                 <?php echo $this->escPar('community/newsletter/subscription_translations/label'); ?>

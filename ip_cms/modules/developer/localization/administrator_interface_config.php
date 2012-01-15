@@ -237,6 +237,29 @@ $parameter["parameterValue/community/newsletter/admin_translations/was_sent"] = 
 $parameter["parameterTitle/community/newsletter/admin_translations/where_to_send"] = "Where to send?";
 $parameter["parameterValue/community/newsletter/admin_translations/where_to_send"] = "Send test email to: ";
 
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_incorrect_email"] = "Incorrect e-mail";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/newsletter"] = "Newsletter";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/subject_confirmation"] = "Subject confirmation ";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/subscribe"] = "Subscribe";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/label"] = "Input label";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_confirmation"] = "Text confirmation";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_error_cant_unsubscribe"] = "Text error can't unsubscribe";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_error_confirmation"] = "Text error confirmation";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_subscribed"] = "Text subscribed";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/text_unsubscribed"] = "Text unsubscribed";
+
+$parameter["parameterTitle/community/newsletter/subscription_translations/unsubscribe"] = "Unsubscribe";
+
+
 $parameter["parameterTitle/community/newsletter/options/show_unsubscribe_button"] = "Show unsubscribe button";
 
 $parameter["parameterTitle/community/newsletter_subscribers/admin_translations/email"] = "Email";
