@@ -79,10 +79,8 @@ class Zone extends \Frontend\Zone{
 
     public function generateRegistrationBox(){
         global $site;
-        global $parametersMod;
 
-        $site->requireTemplate('community/newsletter/template.php');
-        return Template::registration($site->generateUrl(null, $this->zoneName), $parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribe_button'));
+        return \Ip\View::create('view/registration.php')->render();
     }
 
     public function makeActions(){
