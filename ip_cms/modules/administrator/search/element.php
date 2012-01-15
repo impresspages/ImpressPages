@@ -59,7 +59,15 @@ class Element extends \Frontend\Element{
         $foundElements = array();
         $foundElementsCombined = array();
 
-        $searchWords = explode(" ", $site->getVars['q']);
+        $searchWords = explode(" ", trim($site->getVars['q']));
+        $nonEmptySearchWords = array();
+        foreach ($searchWords as $searchWordKey => $searchWord) {
+            if ($searchWord != '') {
+                $nonEmptySearchWords[] = $searchWord;
+            }
+        }    
+        $searchWords = $nonEmptySearchWords;    
+        
         foreach ($searchableZones as $key => $value) {
             if ($value != '') {
                 $tmpElements = $site->getZone($value)->getAllElements();
