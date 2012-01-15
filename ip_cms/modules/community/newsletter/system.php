@@ -45,7 +45,7 @@ class System{
     public static function generateNewsletter (\Ip\Event $event) {
         global $site;
         $blockName = $event->getValue('blockName');
-        if ($blockName == 'newsletter') {
+        if ($blockName == 'ipNewsletter') {
             $newsletterZone = $newsletterBox = $site->getZoneByModule('community', 'newsletter');
             if (!$newsletterZone) {
                 return;
