@@ -25,6 +25,9 @@
                 var instanceDataInput = $this.find('.ipAdminWidgetData')
                 if (instanceDataInput){
                     data = $.parseJSON(instanceDataInput.val());
+                    if (!data) {
+                        data = Object();
+                    }
                     
                     if (!data.data) {
                         data.data = new Array(); //widgets don't need to worry if data variable is null or not. It is always an array

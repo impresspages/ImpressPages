@@ -82,7 +82,7 @@
 
 $(document).ready(function($) {
     var widgetOptions = new Object;
-    $('.ipModuleNewsletter').ipModuleNewsletter(widgetOptions);
+    //$('.ipModuleNewsletter').ipModuleNewsletter(widgetOptions);
     //$('.ipModuleNewsletter').ipModuleNewsletter();
 });
 

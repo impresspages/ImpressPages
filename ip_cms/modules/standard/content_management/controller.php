@@ -418,9 +418,8 @@ class Controller extends \Ip\Controller{
         $layout = $_POST['layout'];
 
 
-        if (!isset($_POST['widgetData']) && is_array($_POST['widgetData'])) {
-            $this->_errorAnswer('Mising POST variable: widgetData');
-            return;
+        if (!isset($_POST['widgetData']) || !is_array($_POST['widgetData'])) {
+            $_POST['widgetData'] = array();
         }
 
         $postData = $_POST['widgetData'];
