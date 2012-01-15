@@ -71,9 +71,20 @@ class ElementImage extends Element{ //data element in area
 
         $image = BASE_URL.$this->copies[0]['destDir'].$value;
 
+    $imageSize = getimagesize(BASE_DIR.$this->copies[0]['destDir'].$value);
+
+    $sizing = '';
+    if( $imageSize[0] >= 200 && $imageSize[0]>=$imageSize[1] ) // width more than 200 and image is horizontal
+    {
+      $sizing.='width="200" '; // limit only width (let browser scale height)
+    }elseif ( $imageSize[1] >= 200 && $imageSize[1] >= $imageSize[0] ) // height more than 200 and image is vertical
+      {
+        $sizing.='height="200" '; // limit only height (let browse scale width)
+      }
+
         $html = new StdModHtmlOutput();
         if($value)
-        $html->html('<span class="label"><img width="200" src="'.$image.'"/></span><br />');
+        $html->html('<span class="label"><img '.$sizing.'src="'.$image.'"/></span><br />');
         $html->inputFile($prefix, $this->disabledOnUpdate);
         if($value){
             $html->html('<span class="label"><input  class="stdModBox" type="checkbox" name="'.$prefix.'_delete"></span>');

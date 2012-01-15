@@ -4,6 +4,7 @@ ipTinyMceConfigMed = {
     
     theme : "advanced",
     plugins : "paste,inlinepopups,iplink",
+    entity_encoding : "raw", 
     theme_advanced_buttons1 : "copy,paste,pastetext,separator,justifyleft,justifycenter,justifyright,separator,undo,redo,separator",
     theme_advanced_buttons2 : "bold,italic,underline,styleselect",
     theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
