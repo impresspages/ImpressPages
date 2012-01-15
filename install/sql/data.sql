@@ -31,13 +31,17 @@ INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_titl
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`, `deleted`) VALUES
-(2, 'IpImage', 50, 0),
-(3, 'IpImageGallery', 60, 0),
-(4, 'IpLogoGallery', 70, 0),
+(2, 'IpImage', 60, 0),
+(3, 'IpImageGallery', 70, 0),
+(4, 'IpLogoGallery', 80, 0),
 (5, 'IpText', 30, 0),
-(6, 'IpTextImage', 40, 0),
+(6, 'IpTextImage', 50, 0),
 (7, 'IpTitle', 20, 0),
-(8, 'IpFile', 80, 0);
+(8, 'IpFile', 90, 0),
+(10, 'IpSeparator', 40, 0),
+(12, 'IpNewsletter', 110, 0),
+(9, 'IpHtml', 120, 0),
+(11, 'IpTable', 100, 0);
 
 -- Dumping data for table--
 
