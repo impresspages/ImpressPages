@@ -25,6 +25,7 @@ class Controller  extends \Ip\Controller{
         global $parametersMod;
         global $log;
         $newsletterZone = $site->getZoneByModule('community', 'newsletter');
+        $zoneName = $newsletterZone->getName();
 
         if(!$newsletterZone)
         return;
@@ -86,107 +87,33 @@ class Controller  extends \Ip\Controller{
         global $log;
 
         $newsletterZone = $site->getZoneByModule('community', 'newsletter');
-
+        
         if(!$newsletterZone)
         return;
 
+        $zoneName = $newsletterZone->getName();
+        
         if ($parametersMod->getValue('community', 'newsletter', 'options', 'show_unsubscribe_button')) { //if unsubscribe through webpage is allowed
             Db::unsubscribe($_REQUEST['email'], $site->currentLanguage['id']);
-            echo '
-              {
-              "status":"email_confirmation",
-              "url":"'.$site->generateUrl(null, $zoneName, array("unsubscribed")).'"
-              }';
 
             $log->log('community/newsletter', 'Unsubscribe (website form)', $_REQUEST['email']);
+            
+            $data = array (
+                'status' => 'success',
+                'redirectUrl' => $site->generateUrl(null, $zoneName, array("unsubscribed")) 
+            );
+            $this->_outputAnswer($data);
+        } else {
+            $this->_errorAnswer('Unsubscribtion disabled');
         }
+        
+        
+        
 
     }
 
-    /**
-     *
-     * Unsubscribe via e-mail link
-     */
-    public function cancel() {
-        global $site;
-        global $parametersMod;
-        global $log;
-        $newsletterZone = $site->getZoneByModule('community', 'newsletter');
 
-        if(!$newsletterZone)
-        return;
-
-        if (isset($_REQUEST['id']) && isset($_REQUEST['code'])) {
-            $record = DB::getSubscriber($_REQUEST['id']);
-            $log->log('community/newsletter', 'Unsubscribe (e-mail link)', $record['email']);
-
-            Db::unsubscribe($_REQUEST['email'], $site->currentLanguage['id'], $_REQUEST['id'], $_REQUEST['code']);
-            header('location: '.$site->generateUrl(null, $newsletterZone->getName(), array("unsubscribed"), array()));
-
-            \Db::disconnect();
-            exit;
-        }
-    }
-
-    public function getLink() {
-        global $site;
-        global $parametersMod;
-        global $log;
-        $newsletterZone = $site->getZoneByModule('community', 'newsletter');
-
-        if(!$newsletterZone)
-        return;
-
-        if (isset($_REQUEST['page'])) {
-            switch ($_REQUEST['page']) {
-                case 'error_confirmation':
-                    echo $site->generateUrl(null, $zoneName, array("error_confirmation"));
-                    break;
-                case 'email_confirmation':
-                    echo $site->generateUrl(null, $zoneName, array("email_confirmation"));
-                    break;
-                case 'subscribed':
-                    echo $site->generateUrl(null, $zoneName, array("subscribed"));
-                    break;
-                case 'incorrect_email':
-                    echo $site->generateUrl(null, $zoneName, array("incorrect_email"));
-                    break;
-                case 'unsubscribed':
-                    echo $site->generateUrl(null, $zoneName, array("unsubscribed"));
-                    break;
-            }
-        }
-        \Db::disconnect();
-        exit;
-        break;
-    }
-
-    /**
-     * 
-     * Confirm subscribtion
-     */
-    public function conf () {
-        global $site;
-        global $parametersMod;
-        global $log;
-        $newsletterZone = $site->getZoneByModule('community', 'newsletter');
-
-        if(!$newsletterZone)
-        return;
-
-        if (isset($_GET['id']) && isset($_GET['code'])) {
-
-            if(Db::confirm($_GET['id'],  $_GET['code'], $site->currentLanguage['id'])) {
-                header('location: '.$site->generateUrl(null, $newsletterZone->getName(), array("subscribed"), array()));
-                $record = DB::getSubscriber($_GET['id']);
-                $log->log('community/newsletter', 'Confirm subscribtion', $record['email']);
-            } else {
-                header('location: '.$site->generateUrl(null, $newsletterZone->getName(), array("error_confirmation"), array()));
-                $log->log('community/newsletter', 'Incorrect confirmation link', $_GET['id'].' '.$_GET['code']);
-            }
-        }
-        break;
-    }
+   
     
     private function _errorAnswer($errorMessage) {
         $data = array (

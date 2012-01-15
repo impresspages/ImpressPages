@@ -1,12 +1,3 @@
-        global $parametersMod;
-
-        global $site;
-
-        $site->requireTemplate('standard/content_management/widgets/text_photos/title/template.php');
-        $site->requireTemplate('standard/content_management/widgets/text_photos/text/template.php');
-
-        $answer = '';
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\title\Template::generateHtml($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'newsletter'), 1);
-        $answer .= \Modules\standard\content_management\Widgets\text_photos\text\Template::generateHtml($text);
-
-        return $answer;
+<?php $title = $this->par('community/newsletter/subscription_translations/newsletter'); ?>
+<?php echo $this->renderWidget('IpTitle', array('title' => $title)); ?>
+<?php echo $this->renderWidget('IpText', array('text' => $text)); ?>

@@ -63,10 +63,10 @@ class Element extends \Frontend\Element{
                 break;
         }
 
-
-        $site->requireTemplate('community/newsletter/template.php');
-        $template = new Template();
-        $answer = $template->textPage($text);
+        $data = array (
+            'text' => $text
+        );
+        $answer = \Ip\View::create('view/text_page.php', $data)->render();
         return $answer;
     }
 
@@ -74,6 +74,14 @@ class Element extends \Frontend\Element{
     public function generateManagement(){
         return $this->generateContent();
     }
+    
+    
+    public function makeActions(){
+       require_once(__DIR__.'/actions.php');
+       $actions = Actions::makeActions($this->zoneName);
+   }
+    
+    
 }
 
 

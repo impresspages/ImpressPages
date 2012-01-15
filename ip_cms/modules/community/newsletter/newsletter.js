@@ -32,7 +32,13 @@ $(document).ready(function($) {
 
                 $(this).data('ipModuleNewsletter', {'init' : true});
 
-                $this.find('.ipmForm').bind('click', function(event) {
+                
+                //SUBSCRIBTION
+                $this.bind('subscribe.ipModuleNewsletter', function(event) {
+                    $(this).ipModuleNewsletter('subscribe');
+                });
+                
+                $this.find('.ipmForm').bind('submit', function(event) {
                     event.preventDefault();
                     $(this).trigger('subscribe.ipModuleNewsletter');
                 });
@@ -40,6 +46,17 @@ $(document).ready(function($) {
                 $this.bind('subscribe.ipModuleNewsletter', function(event) {
                     $(this).ipModuleNewsletter('subscribe');
                 });
+                
+                //UNSUBSCRIBTION
+                $this.find('.ipmUnsubscribe').bind('click', function(event) {
+                    event.preventDefault();
+                    $(this).trigger('unsubscribe.ipModuleNewsletter');
+                });
+                
+                $this.bind('unsubscribe.ipModuleNewsletter', function(event) {
+                    $(this).ipModuleNewsletter('unsubscribe');
+                });                
+                
 
             }
         });
@@ -77,21 +94,35 @@ $(document).ready(function($) {
     },
     
     unsubscribe : function(newsletterUrl, email) {
+
+        var $this = this;
+        
         var data = Object();
-        data.action = 'unsubscribe';
-        data.email = email;
+        data.g = 'community';
+        data.m = 'newsletter';
+        data.a = 'unsubscribe';
+        data.email = $this.find('.ipmInput').val();
+        
         $.ajax({
         type : 'POST',
-        url : newsletterUrl,
+        url : ip.baseUrl,
         data : data,
-        success : ModCommunityNewsletter.unsubscribeAnswer,
+        context : $this,
+        success : methods._unsubscribeAnswer,
         dataType : 'json'
         });
         return false;
     },
 
-    unsubscribeAnswer : function($variables) {
-        document.location = variables.url;
+    _unsubscribeAnswer : function(answer) {
+        $this = this;
+        if (answer.status == 'success') {
+            window.location = answer.redirectUrl;
+        } else {
+            if (answer.errorMessage) {
+                $this.find('.ipmError').text(answer.errorMessage);
+            }
+        }
     }
 
     };
