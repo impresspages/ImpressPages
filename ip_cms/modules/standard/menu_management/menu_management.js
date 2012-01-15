@@ -54,6 +54,7 @@ function initializeTreeManagement(id) {
       'ajax' : {
         'url' : postURL,
         'data' : function(n) {
+            
           return {
             'action' : 'getChildren',
             'id' : n.attr ? n.attr('id') : '',
@@ -61,7 +62,8 @@ function initializeTreeManagement(id) {
             'type' : n.attr ? n.attr('rel') : '',
             'zoneName' : n.attr ? n.attr('zoneName') : '',
             'languageId' : n.attr ? n.attr('languageId') : '',
-            'websiteId' : n.attr ? n.attr('websiteId') : ''
+            'websiteId' : n.attr ? n.attr('websiteId') : '',
+            'externalLinking' : id == 'treePopup' ? 1 : 0
           };
         }
       }
