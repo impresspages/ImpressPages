@@ -521,7 +521,7 @@ class Site{
      * @return string - Current URL
      */
     public function generateCurrentUrl(){
-        $this->getCurrentUrl();
+     return $this->getCurrentUrl();
     }
 
     /**
