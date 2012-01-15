@@ -425,7 +425,7 @@ class StandardModule {
                             }
                         }
 
-                        if(!$sortFieldDefined){
+            if(!$sortFieldDefined && $this->currentArea->sortField){
                             if ($need_comma)
                             $sql .= ", `".mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
                             else {
