@@ -43,9 +43,11 @@ $(document).ready(function($) {
                     $(this).trigger('subscribe.ipModuleNewsletter');
                 });
                 
-                $this.bind('subscribe.ipModuleNewsletter', function(event) {
-                    $(this).ipModuleNewsletter('subscribe');
+                $this.find('.ipmSubscribe').bind('click', function(event) {
+                    event.preventDefault();
+                    $(this).trigger('subscribe.ipModuleNewsletter');
                 });
+                
                 
                 //UNSUBSCRIBTION
                 $this.find('.ipmUnsubscribe').bind('click', function(event) {
