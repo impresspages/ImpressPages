@@ -14,38 +14,36 @@ if(Db::connect()){
     $site->dispatchEvent('administrator', 'system', 'init', array());
     $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
-    /*detect browser language*/
-    if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
-        $tmpLangArray = Library\Php\BrowserDetection\Language::getLanguages();
-        $tmpBrowserLanguageId = null;
-        foreach($tmpLangArray as $key => $lang){
-            foreach($site->languages as $key2 => $siteLang){
-                if($siteLang['code'] == $lang && $tmpBrowserLanguageId == null){
-                    $tmpBrowserLanguageId = $siteLang['id'];
-                }
-            }
+  /*detect browser language*/
+  if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
+    require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
+    
+    $browserLanguages = Library\Php\BrowserDetection\Language::getLanguages(); 
+    $selectedLanguageId = null;
+    foreach($browserLanguages as $browserLanguageKey => $browserLanguage){
+      foreach($site->languages as $siteLanguageKey => $siteLanguage){
+        if(strpos($browserLanguage, '-') !== false) {
+          $browserLanguage = substr($browserLanguage, 0, strpos($browserLanguage, '-'));
         }
-        if($tmpBrowserLanguageId == null){
-            foreach($tmpLangArray as $key => $lang){
-                if(strpos($lang, '-') !== false)
-                $lang = substr($lang, 0, strpos($lang, '-'));
-                foreach($site->languages as $key2 => $siteLang){
-                    $tmpSiteCode = $siteLang['code'];
-                    if(strpos($tmpSiteCode, '-') !== false)
-                    $tmpSiteCode = substr($tmpSiteLang, 0, strpos($tmpSiteLang, '-'));
-                    if($tmpSiteCode == $lang  && $tmpBrowserLanguageId == null){
-                        $tmpBrowserLanguageId = $siteLang['id'];
-                    }
-                }
-            }
+        if(strpos($siteLanguage['code'], '-') !== false) {
+          $siteLanguage['code'] = substr($siteLanguage['code'], 0, strpos($siteLanguage['code'], '-'));
         }
-
-        if($tmpBrowserLanguageId != $site->currentLanguage['id'] && $tmpBrowserLanguageId !== null)
-        header("location:".$site->generateUrl($tmpBrowserLanguageId));
+        
+        if($siteLanguage['code'] == $browserLanguage){
+            $selectedLanguageId = $siteLanguage['id'];
+            break;
+        }
+      }
+      if ($selectedLanguageId != null) {
+        break;
+      }
     }
-    $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
-    /*eof detect browser language*/
+
+    if($selectedLanguageId != $site->currentLanguage['id'] && $selectedLanguageId !== null)
+      header("location:".$site->generateUrl($selectedLanguageId));
+  }
+  $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
+  /*eof detect browser language*/
 
     /*check if the website is closed*/
     if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()){
