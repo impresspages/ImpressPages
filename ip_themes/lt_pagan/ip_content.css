@@ -109,9 +109,8 @@
 .ipModuleNewsletter .ipmButton {
     margin-top: 5px;
 }
-.ipModuleNewsletter .ipmError p {
+.ipModuleNewsletter .ipmError {
     color: #da0001;
-    margin-bottom: 10px;
 }
 
 /* Widgets :: main */
