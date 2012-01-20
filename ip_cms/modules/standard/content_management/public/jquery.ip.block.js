@@ -130,8 +130,6 @@
         return this.each(function() {
             var $this = $(this);
             var widgetOptions = new Object;
-            $(this).children('.ipWidget').prepend($(this).data('ipBlock').widgetControlsHtml);
-
             $(this).children('.ipWidget').ipWidget(widgetOptions);
 
         });
@@ -232,7 +230,6 @@
                 $secondChild = $(this).children('.ipWidget:nth-child(' + response.position + ')');
                 $(response.widgetManagementHtml).insertAfter($secondChild);
             }
-
             $this.trigger('reinitRequired.ipWidget');
             // $this.ipBlock('reinit');
 
