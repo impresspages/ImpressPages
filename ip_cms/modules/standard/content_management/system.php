@@ -17,6 +17,17 @@ class System{
     function init(){
         global $site;
         global $dispatcher;
+        
+        $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
+        $dispatcher->bind('contentManagement.initWidgets', __NAMESPACE__ .'\System::initWidgets');
+        
+        $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+        
+        $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
+        
+        $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
+        
+        
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.contentManagement.js');
@@ -49,28 +60,88 @@ class System{
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/page_options.css');
-                
+
+            $event = new EventWidget(null, 'contentManagement.initWidgets', null);
+            $dispatcher->notify($event);
         }
 
-        $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
-
-        $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
-        
-        $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
-        
-        $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
     }
 
+    
     public static function collectWidgets(EventWidget $event){
         global $site;
+        $widgetDirs = self::_getWidgetDirs();
+        foreach($widgetDirs as $widgetDirKey => $widgetDirRecord) {
+            
+            $module['g_name'] = $widgetDirRecord['moduleGroup'];
+            $module['m_name'] = $widgetDirRecord['moduleName'];
+            $module['core'] = $widgetDirRecord['core'];
+            $widgetDir = $widgetDirRecord['dir'];
+            $widgetKey = $widgetDirRecord['widgetKey'];
+            
+            
+            //register widget if widget controller exists
+            $widgetPhpFile = BASE_DIR.$widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php';
+            if (file_exists($widgetPhpFile) && is_file($widgetPhpFile)) {
+                require_once($widgetPhpFile);
+                eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\'.Model::WIDGET_DIR.'\\'.$widgetKey.'($widgetKey, $module[\'g_name\'], $module[\'m_name\'], $module[\'core\']);');
+                $event->addWidget($widget);
+            } else {
+                $widget = new Widget($widgetKey, $module['g_name'], $module['m_name'], $module['core']);
+                $event->addWidget($widget);
+            }
+
+        }
+    }
+    
+    public static function initWidgets () {
+        global $site;
+        
+        //widget JS and CSS are included automatically only in administration state
+        if (!$site->managementState()) {
+            return;
+        }
+        
+        $widgetDirs = self::_getWidgetDirs();
+        foreach($widgetDirs as $widgetDirKey => $widgetDirRecord) {
+            
+            $module['g_name'] = $widgetDirRecord['moduleGroup'];
+            $module['m_name'] = $widgetDirRecord['moduleName'];
+            $module['core'] = $widgetDirRecord['core'];
+            $widgetDir = $widgetDirRecord['dir'];
+            $widgetKey = $widgetDirRecord['widgetKey'];
+            $themeDir = THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
+            
+            
+            //scan for js and css files required for widget management
+            if ($site->managementState()) {
+                self::includeResources($widgetDir.$widgetKey, $themeDir.$widgetKey);
+                
+                $widgetJsFile = $widgetDir.'/'.$widgetKey.'.js';
+                if (file_exists($widgetJsFile) && is_file($widgetJsFile)) {
+                    $site->addJavascript( BASE_URL.$widgetJsFile);
+                }
+            }
+            $publicResourcesDir = $widgetDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
+            $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
+            self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
+        }
+    }
+    
+    private static function _getWidgetDirs() {
+        global $site;
+        
+        $answer = array();
+        
         require_once(BASE_DIR.FRONTEND_DIR.'db.php');
         require_once(__DIR__.'/widget.php');
         $modules = \Frontend\Db::getModules();
+        
+        
 
          
         //loop all installed modules
         foreach ($modules as $moduleKey => $module) {
-            $themeDir = THEME_DIR.THEME.'/modules/'.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
 
             if ($module['core']) {
                 $widgetDir = MODULE_DIR.$module['g_name'].'/'.$module['m_name'].'/'.Model::WIDGET_DIR.'/';
@@ -85,44 +156,30 @@ class System{
             $widgetFolders = scandir(BASE_DIR.$widgetDir);
 
             if ($widgetFolders === false) {
-                return;
+                continue;
             }
-
+            
             //foeach all widget folders
             foreach ($widgetFolders as $widgetFolderKey => $widgetFolder) {
                 //each directory is a widget
                 if (!is_dir(BASE_DIR.$widgetDir.$widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..'){
                     continue;
+                } 
+                if (isset ($answer[(string)$widgetFolder])) {
+                    global $log;
+                    $log->log('stadard', 'content_management', 'duplicatedWidget', $widgetFolder);
                 }
-
-                //register widget if widget controller exists
-                if (file_exists(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php') && is_file(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php')) {
-                    require_once(BASE_DIR.$widgetDir.$widgetFolder.'/'.$widgetFolder.'.php');
-                    eval('$widget = new \\Modules\\'.$module['g_name'].'\\'.$module['m_name'].'\\'.Model::WIDGET_DIR.'\\'.$widgetFolder.'($widgetFolder, $module[\'g_name\'], $module[\'m_name\'], $module[\'core\']);');
-                    $event->addWidget($widget);
-                } else {
-                    $widget = new Widget($widgetFolder, $module['g_name'], $module['m_name'], $module['core']);
-                    $event->addWidget($widget);
-                }
-
-                //scan for js and css files required for widget management
-                if ($site->managementState()) {
-                    self::includeResources($widgetDir.$widgetFolder, $themeDir.$widgetFolder);
-
-                    $widgetJsFile = $widgetDir.$widgetFolder.'/'.$widgetFolder.'.js';
-                    if (file_exists($widgetJsFile) && is_file($widgetJsFile)) {
-                        $site->addJavascript( BASE_URL.$widgetJsFile);
-                    }
-
-                }
-                $publicResourcesDir = $widgetDir.$widgetFolder.'/'.Widget::PUBLIC_DIR;
-                $publicResourcesThemeDir = $themeDir.$widgetFolder.'/'.Widget::PUBLIC_DIR;
-                self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
-
+                $answer[] = array (
+                    'moduleGroup' => $module['g_name'],
+                    'moduleName' => $module['m_name'],
+                    'core' => $module['core'],
+                    'dir' => $widgetDir.$widgetFolder.'/',
+                    'widgetKey' => $widgetFolder 
+                );
             }
         }
-
-    }
+        return $answer;
+    } 
 
     public static function includeResources($resourcesFolder, $overrideFolder){
         global $site;
