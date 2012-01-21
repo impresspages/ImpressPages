@@ -102,8 +102,8 @@
                 });
 
                 var widgetOptions = new Object;
+                widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
                 $this.children('.ipWidget').ipWidget(widgetOptions);
-                $this.children('.ipWidget').prepend($this.data('ipBlock').widgetControlsHtml);
 
                 $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
                     event.preventDefault();
@@ -130,6 +130,7 @@
         return this.each(function() {
             var $this = $(this);
             var widgetOptions = new Object;
+            widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
             $(this).children('.ipWidget').ipWidget(widgetOptions);
 
         });
@@ -237,6 +238,8 @@
     }
 
     };
+    
+
 
     $.fn.ipBlock = function(method) {
         if (methods[method]) {

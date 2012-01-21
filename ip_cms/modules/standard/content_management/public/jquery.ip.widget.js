@@ -21,6 +21,8 @@
                 // initialize data array
                 var data = Object();
                 
+                $this.prepend(options.widgetControlls);
+                
                 //parse widget record data
                 var instanceDataInput = $this.find('.ipAdminWidgetData')
                 if (instanceDataInput){
