@@ -18,7 +18,7 @@ class Scripts {
     $this->scripts[] = array("from" => "2.0rc1", "to" => "2.0rc2", "script" => "update_2_0_rc1_to_2_0_rc2");
   }
 
-  public function getScripts($fromVersion = "1.0.0 Alpha"){
+  public function getScripts($fromVersion = "2.0rc1"){
     $answer = array();
     
     $currentScript = false;

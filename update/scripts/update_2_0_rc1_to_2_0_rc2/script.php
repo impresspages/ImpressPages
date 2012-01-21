@@ -225,6 +225,25 @@ class Script {
         
         $answer = '';
         if (\Db_100::getSystemVariable('version') != '2.0rc2') {
+            
+            
+            $parametersRefractor = new ParametersRefractor();
+            
+            $module = \Db_100::getModule(null, 'standard', 'content_management');
+            
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
+            if ($group) {
+                if(!\Db_100::getParameter('standard', 'menu_management', 'admin_translations', 'default')) {
+                    \Db_100::addStringParameter($group['id'], 'Default layout', 'default', 'Default', 1);
+                }
+            
+            
+            }
+            
+            
+            
+            
+            
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.0rc2');
             }

@@ -8,6 +8,9 @@
 
 if (!defined('CMS')) exit;
 
+require_once('db/db100.php');
+require_once('db/parameters_refractor.php');
+
 
 class Update {
     private static $connection;
@@ -184,23 +187,8 @@ class Update {
     private function getCurrentVersion () {
         $answer = false;
 
-        require_once('db/db100.php');
         $answer = \Db_100::getSystemVariable('version');
 
-        if ($answer == "1.0.0 Alpha") {
-            if(file_exists('../includes/config.php') && !file_exists('../ip_config.php')) {
-                if(defined('TMP_IMAGE_DIR')) {
-                    $fileName = '../'.TMP_IMAGE_DIR."100alpha";
-                    $fileHandle = fopen($fileName, 'w');
-                    fclose($fileHandle);
-                }
-            }
-            if(defined('TMP_IMAGE_DIR') && !file_exists('../'.TMP_IMAGE_DIR.'100alpha')) {
-                $answer = "1.0.1 Beta";
-            }
-
-
-        }
         return $answer;
     }
 
