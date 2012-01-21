@@ -825,7 +825,7 @@ class BackendWorker {
             'parentId' => $destinationPage->getId(),
             'rowNumber' => $newIndex
         );
-        Db::updatePage($pageId, $data);
+        Db::updatePage($zoneName, $pageId, $data);
 
         //report url change
         $pageZone = $site->getZone($zoneName);
