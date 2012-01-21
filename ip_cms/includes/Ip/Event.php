@@ -22,6 +22,13 @@ class Event{
     private $values;
     private $processed;
 
+    /**
+     * 
+     * Enter description here ...
+     * @param object $object object which throws the event. Almost always $this. Can be null
+     * @param string $name event name. Uniquely identifies event type. Eg. "site.createdRevision"
+     * @param array $values array values describing event
+     */
     public function __construct($object, $name, $values) {
         $this->object = $object;
         $this->name = $name;

@@ -51,7 +51,7 @@ class Dispatcher{
         $this->_handlers[$eventName][] = $callable;
     }
 
-    public function notify($event) {
+    public function notify(Event $event) {
         if ( ! isset($this->_handlers[$event->getName()])) {
             return false;
         }
@@ -64,7 +64,7 @@ class Dispatcher{
     }
 
 
-    public function notifyUntil($event) {
+    public function notifyUntil(Event $event) {
         if ( ! isset($this->_handlers[$event->getName()])) {
             return false;
         }
