@@ -696,7 +696,13 @@ class BackendWorker {
         }
         $pageId = $_REQUEST['pageId'];
 
-        Model::deletePage($pageId);
+        if (!isset($_REQUEST['zoneName'])) {
+            trigger_error("zoneName is not set");
+            return false;
+        }
+        $zoneName = $_REQUEST['zoneName'];
+        
+        Model::deletePage($zoneName, $pageId);
 
         $answer = array ();
         $answer['status'] = 'success';

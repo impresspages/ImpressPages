@@ -27,6 +27,7 @@ class System{
         
         $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
         
+        $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
         
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
@@ -225,6 +226,12 @@ class System{
         Model::clearCache($revisionId);
     }
 
+    public static function pageDeleted(\Ip\Event\PageDeleted $event) {
+        $zoneName = $event->getZoneName();
+        $pageId = $event->getPageId();
+        
+        Model::removePageRevisions($zoneName, $pageId);
+    }
 
 }
 

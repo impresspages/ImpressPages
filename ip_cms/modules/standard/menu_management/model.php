@@ -8,6 +8,8 @@
 namespace Modules\standard\menu_management;
 
 
+use Modules\standard\content_management\EventWidget;
+
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 require_once(__DIR__.'/db.php');
@@ -21,30 +23,31 @@ class Model {
 
 
 
-    public static function deletePage ($pageId) {
-        self::_deletePageRecursion($pageId);
+    public static function deletePage ($zoneName, $pageId) {
+        global $site;
+        
+        $zone = $site->getZone($zoneName);
+        if (!$zone) {
+            throw new \Exception("Unknown zone " + $zoneName);
+        } 
+        self::_deletePageRecursion($zone, $pageId);
         return true;
     }
 
 
-    private static function _deletePageRecursion ($id) {
+    private static function _deletePageRecursion (\Frontend\Zone $zone, $id) {
+        global $dispatcher;
         $children = Db::pageChildren($id);
         if ($children) {
             foreach($children as $key => $lock) {
-                self::_deletePageRecursion($lock['id']);
+                self::_deletePageRecursion($zone, $lock['id']);
             }
         }
 
-        //delete paragraphs
-        $widgets = Db::pageWidgets($id);
-        foreach($widgets as $key => $lock) {
-            eval(' $tmp_module = new \\Modules\\standard\\content_management\\Widgets\\'.$lock['group_key'].'\\'.$lock['module_key'].'\\Module(); ');
-            $tmp_module->delete_by_id($lock['module_id']);
-        }
-        //end delete paragraphs
-
         Db::deletePage($id);
 
+        $event = new \Ip\Event\PageDeleted(null, $zone->getName(), $id);
+        $dispatcher->notify($event);
     }
 
 

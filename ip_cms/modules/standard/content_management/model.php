@@ -308,6 +308,31 @@ class Model{
             return false;
         }
     }
+    
+    
+    public static function getRevisions($zoneName, $pageId) {
+        $sql = "
+            SELECT * FROM
+                `".DB_PREF."revision` 
+            WHERE
+                `zoneName` = '".mysql_real_escape_string($zoneName)."'
+                AND
+                `pageId` = ".(int)$pageId."
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t get revisions '.$sql.' '.mysql_error(), Exception::DB);
+        }
+        
+        $answer = array();
+
+        while ($lock = mysql_fetch_assoc($rs)) {
+            $answer[] = $lock;
+        }
+
+        return $answer;
+    }
+    
 
 
     /**
@@ -535,9 +560,31 @@ class Model{
         if (!$rs){
             throw new Exception('Can\'t remove revision widgets instances '.$sql.' '.mysql_error(), Exception::DB);
         }
+        
+        $sql = "
+            DELETE FROM
+                `".DB_PREF."revision` 
+            WHERE
+                `revisionId` = ".(int)$revisionId."
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t remove revision '.$sql.' '.mysql_error(), Exception::DB);
+        }        
+    }
+
+    
+    public static function removePageRevisions($zoneName, $pageId) {
+        $revisions = self::getRevisions($zoneName, $pageId);
+        foreach($revisions as $revisionKey => $revision) {
+            self::removeRevision($revision['revisionId']);
+        } 
+        
+        self::deleteUnusedWidgets();
     }
     
     
+
     /**
      * 
      * Each widget might be used many times. That is controlled using instanaces. This method destroys all widgets that has no instances.
