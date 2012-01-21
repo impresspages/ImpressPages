@@ -22,8 +22,6 @@ class Manager {
 
         require_once (__DIR__.'/template.php');
 
-        $content = 'Test';
-
         $data = array (
       'securityToken' =>  $cms->session->securityToken(),
       'moduleId' => $cms->curModId,

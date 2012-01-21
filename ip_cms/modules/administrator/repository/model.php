@@ -76,7 +76,6 @@ class Model{
         if (!$rs){
             throw new Exception('Can\'t file instance '.$sql.' '.mysql_error(), Exception::DB);
         }
-        global $log; $log->log('test', 'test', $file.'-');
         $whoUses = self::whoUsesFile($file);
         
         if (count($whoUses) == 0) {

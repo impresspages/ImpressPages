@@ -95,8 +95,6 @@ class DbSystem{    //system variables
         SET 
             `data` = REPLACE(`data`, '".mysql_real_escape_string($fromJsonUrl)."', '".mysql_real_escape_string($toJsonUrl)."') where 1";
         global $log;
-        $log->log('test', 'test', $sql);
-        $log->log('test', 'json_encode', json_encode('http://www.vu.lt'));
         $rs = mysql_query($sql);
         if ($rs) {
             return true;

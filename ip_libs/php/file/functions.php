@@ -21,7 +21,6 @@ class Functions{
         $new_extension = substr($new_name, $ext_pos, strlen($file));
         $new_name = substr($new_name, 0, $ext_pos);
         global $log;
-        $log->log('test', 'filename0', $file.' '.basename($file).' '.$new_name.' '.$ext_pos.' '.$new_extension);
 
         $new_name = \Library\Php\Text\Transliteration::transform($new_name);
         $new_name = utf8_decode($new_name);
@@ -37,8 +36,6 @@ class Functions{
             }
             $new_name = $new_name.'_'.$i;
         }
-        global $log;
-        $log->log('test', 'filename1', $new_name.' '.$new_extension);
         $new_name .= $new_extension;
         return $new_name;
     }
