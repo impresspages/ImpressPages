@@ -300,8 +300,12 @@
                     var tmpData = $newWidget.data('ipWidget');
                     tmpData.state = IP_WIDGET_STATE_PREVIEW;
                     $newWidget.data('ipWidget', tmpData);
-                }                
+                }
+                $block = $this.parent('.ipBlock');
                 $this.remove();
+                if ($block.children('.ipWidget').length == 0) {
+                    $block.addClass('ipbEmpty');
+                }
             } else {
                 //do nothing
             }

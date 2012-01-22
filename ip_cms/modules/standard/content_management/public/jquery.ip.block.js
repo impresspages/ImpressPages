@@ -186,6 +186,9 @@
     _deleteWidgetResponse : function(response) {
         var $this = $(this);
         $this.find('#ipWidget-' + response.widgetId).remove();
+        if ($this.children('.ipWidget').length == 0) {
+            $this.addClass('ipbEmpty');
+        }
     },
 
     _createWidget : function(widgetName, position) {
@@ -234,6 +237,9 @@
             $this.trigger('reinitRequired.ipWidget');
             // $this.ipBlock('reinit');
 
+        }
+        if ($this.hasClass('ipbEmpty')) {
+            $this.removeClass('ipbEmpty');
         }
     }
 
