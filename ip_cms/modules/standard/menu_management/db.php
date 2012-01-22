@@ -409,9 +409,7 @@ class Db {
                         case 'row_number':
                             break;
                         case 'url':
-                            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/backend_worker.php');
-                            $worker = new \Modules\standard\content_management\BackendWorker();
-                            $sql2 .= ", `url` = '".mysql_real_escape_string($worker->makeUrl($value))."'";
+                            $sql2 .= ", `url` = '".mysql_real_escape_string(self::ensureUniqueUrl($value))."'";
                             break;
                         default:
                             if($value === null){
@@ -523,5 +521,21 @@ class Db {
 
         return $url.'-'.$i;
     }
+    
+    
+    
+    public static function ensureUniqueUrl($url, $allowedId = null) {
+        $url = str_replace("/", "-", $url);
+        
+        if(self::availableUrl($url, $allowedId))
+          return $url;
+        
+        $i = 1;
+        while(!self::availableUrl($url.'-'.$i, $allowedId)) {
+          $i++;
+        }
+        
+        return $url.'-'.$i;
+    }    
 
 }

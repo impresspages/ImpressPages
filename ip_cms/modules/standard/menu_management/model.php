@@ -58,7 +58,7 @@ class Model {
      * @param unknown_type $newParentId
      * @param int $position page position in the subtree
      */
-    public static function copyPage($nodeId, $destinationPageId, $position){
+    public static function copyPage($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $position){
 
         $children = Db::pageChildren($destinationPageId);
 
@@ -69,10 +69,8 @@ class Model {
         }
 
 
-        self::_copyPageRecursion($nodeId = $nodeId, $destinationPageId = $destinationPageId, $rowNumber = $rowNumber);
+        self::_copyPageRecursion($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber);
 
-        $contentManagementSystem = new \Modules\standard\content_management\System();
-        $contentManagementSystem->clearCache(BASE_URL);
     }
 
     /**
@@ -83,14 +81,14 @@ class Model {
      * @param unknown_type $newIndex
      * @param unknown_type $newPages
      */
-    private static function _copyPageRecursion ($nodeId, $destinationPageId, $rowNumber, $newPages = null) {
+    private static function _copyPageRecursion ($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber, $newPages = null) {
         //$newPages are the pages that have been copied already and should be skiped to duplicate again. This situacion can occur when copying the page to it self
         if($newPages == null){
             $newPages = array();
         }
         $newNodeId = Db::copyPage($nodeId, $destinationPageId, $rowNumber);
         $newPages[$newNodeId] = 1;
-        self::_copyWidgets($nodeId, $newNodeId);
+        self::_copyWidgets($zoneName, $nodeId, $destinationZoneName, $newNodeId);
 
 
         $children = Db::pageChildren($nodeId);
@@ -104,16 +102,9 @@ class Model {
 
     }
 
-    private static function _copyWidgets($sourceId, $targetId){
-
-        $sourceWidgets = Db::pageWidgets($sourceId);
-
-        $position = 0;
-        foreach($sourceWidgets as $key => $widget){
-            $widgetData = self::getWidgetData($widget);
-            self::addWidget($targetId, $widgetData, $widget);
-        }
-
+    private static function _copyWidgets($zoneName, $sourceId, $destinationZoneName, $targetId){
+        $oldRevisionId = \Ip\Revision::getPublishedRevision($zoneName, $sourceId);
+        \Ip\Revision::duplicateRevision($oldRevisionId, $zoneName, $targetId, 1);
     }
 
 

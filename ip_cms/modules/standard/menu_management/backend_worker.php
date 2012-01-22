@@ -929,21 +929,9 @@ class BackendWorker {
         if ($websiteId == 0) { //local page
             $children = Db::pageChildren($destinationPage->getId());
             $destinationPosition = count($children); //paste at the bottom
-            Model::copyPage($pageId, $destinationPage->getId(), $destinationPosition);
+            Model::copyPage($zoneName, $pageId, $destinationZoneName, $destinationPage->getId(), $destinationPosition);
         } else { //remote page
-            $remotes = Remotes::getRemotes();
-            $remote = $remotes[$websiteId - 1];
-            $data = array (
-                'pageId' => $pageId
-            );
-            $remotePages = $this->_remoteRequest($remote, 'getData', $data);
-            $this->_createPagesRecursion($destinationPage->getId(), $remotePages);
-
-
-            $contentManagementSystem = new \Modules\standard\content_management\System();
-            $contentManagementSystem->clearCache(BASE_URL);
-
-            $answer['data'] = $data;
+            trigger_error("remotes are not supported yest.");
         }
 
         $answer['status'] = 'success';
