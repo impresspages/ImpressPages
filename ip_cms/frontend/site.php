@@ -1171,12 +1171,8 @@ class Site{
              
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
                 $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
-                if ($revision === false) {
-                    $revision = $this->_createRevision();
-                } else {
-                    if ($revision['published']) {
-                        $revision = $this->_duplicateRevision($revision['revisionId']);
-                    }
+                if ($revision['published']) {
+                    $revision = $this->_duplicateRevision($revision['revisionId']);
                 }
             }
 

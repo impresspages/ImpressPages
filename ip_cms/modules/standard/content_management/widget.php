@@ -15,7 +15,7 @@ class Widget{
     var $core;
     const PREVIEW_DIR = 'preview';
     const MANAGEMENT_DIR = 'management';
-    const PUBLIC_DIR = 'management';
+    const PUBLIC_DIR = 'public';
 
     public function __construct($name, $moduleGroup, $moduleName, $core = false) {
         $this->name = $name;
@@ -51,8 +51,8 @@ class Widget{
     }
 
     public function getIcon() {
-        if (file_exists(BASE_DIR.$this->widgetDir.'icon.png')) {
-            return $this->widgetDir.'icon.png';
+        if (file_exists(BASE_DIR.$this->widgetDir.self::PUBLIC_DIR.'/icon.png')) {
+            return $this->widgetDir.self::PUBLIC_DIR.'/icon.png';
         } else {
             return MODULE_DIR.'standard/content_management/img/icon_widget.png';
         }

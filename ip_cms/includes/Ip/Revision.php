@@ -38,7 +38,7 @@ class Revision{
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
-            return false;
+            return self::createRevision($zoneName, $pageId, 1);
         }
 
     }
@@ -63,7 +63,7 @@ class Revision{
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
-            return false;
+            return self::createRevision($zoneName, $pageId, 1);
         }
 
     }
@@ -148,12 +148,25 @@ class Revision{
 
     }
 
-    public static function duplicateRevision ($oldRevisionId) {
+    public static function duplicateRevision ($oldRevisionId, $zoneName = null, $pageId = null, $published = null) {
         global $dispatcher;
 
         $oldRevision = self::getRevision($oldRevisionId);
-        $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
+        
+        if ($zoneName !== null) {
+            $oldRevision['zoneName'] = $zoneName;
+        }
+        if ($pageId !== null) {
+            $oldRevision['pageId'] = $pageid;
+        }
+        
+        $newRevisionId = self::createRevision($oldRevision['zoneName'], 0);
 
+        if ($published !== null) {
+            self::publishRevision($newRevisionId)
+        }
+        
+        
         $eventData = array(
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 

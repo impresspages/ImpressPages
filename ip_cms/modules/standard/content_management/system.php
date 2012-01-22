@@ -116,16 +116,11 @@ class System{
             
             //scan for js and css files required for widget management
             if ($site->managementState()) {
-                self::includeResources($widgetDir.$widgetKey, $themeDir.$widgetKey);
-                
-                $widgetJsFile = $widgetDir.'/'.$widgetKey.'.js';
-                if (file_exists($widgetJsFile) && is_file($widgetJsFile)) {
-                    $site->addJavascript( BASE_URL.$widgetJsFile);
-                }
+                $publicResourcesDir = $widgetDir.Widget::PUBLIC_DIR;
+                $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
+                self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
+                self::includeResources($publicResourcesThemeDir);
             }
-            $publicResourcesDir = $widgetDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
-            $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
-            self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
         }
     }
     
@@ -182,30 +177,36 @@ class System{
         return $answer;
     } 
 
-    public static function includeResources($resourcesFolder, $overrideFolder){
+    public static function includeResources($resourcesFolder, $overrideFolder = null){
         global $site;
 
-        if (!file_exists($resourcesFolder) || !is_dir($resourcesFolder) || !file_exists($overrideFolder) || !is_dir($overrideFolder)) {
-            return;
-        }
-
-        $files = scandir(BASE_DIR.$resourcesFolder);
-        if ($files === false) {
-            continue;
-        }
-        foreach ($files as $fileKey => $file) {
-            if (is_dir(BASE_DIR.$resourcesFolder.$file)){
+        if (file_exists(BASE_DIR.$resourcesFolder) && is_dir(BASE_DIR.$resourcesFolder)) {
+            $files = scandir(BASE_DIR.$resourcesFolder);
+            if ($files === false) {
                 continue;
             }
-            if (substr($file, -3) == '.js'){
-                $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file);
-            }
-            if (substr($file, -4) == '.css'){
-                //overriden css version exists
-                if (file_exists($overrideFolder.'/'.$file)){
-                    $site->addCss(BASE_URL.$overrideFolder.'/'.$file);
-                } else {
-                    $site->addCss(BASE_URL.$resourcesFolder.'/'.$file);
+            
+            
+            foreach ($files as $fileKey => $file) {
+                if (is_dir(BASE_DIR.$resourcesFolder.$file) && $file != '.' && $file != '..'){
+                    self::includeResources(BASE_DIR.$resourcesFolder.$file, BASE_DIR.$overrideFolder.$file);
+                    continue;
+                }
+                if (strtolower(substr($file, -3)) == '.js'){
+                    //overriden js version exists
+                    if (file_exists($overrideFolder.'/'.$file)){
+                        $site->addJavascript(BASE_URL.$overrideFolder.'/'.$file);
+                    } else {
+                        $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file);
+                    }
+                }
+                if (strtolower(substr($file, -4)) == '.css'){
+                    //overriden css version exists
+                    if (file_exists($overrideFolder.'/'.$file)){
+                        $site->addCss(BASE_URL.$overrideFolder.'/'.$file);
+                    } else {
+                        $site->addCss(BASE_URL.$resourcesFolder.'/'.$file);
+                    }
                 }
             }
         }
