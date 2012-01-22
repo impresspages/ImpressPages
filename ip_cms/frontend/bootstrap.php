@@ -61,8 +61,9 @@ if(Db::connect()){
 
         }
 
-
-        $site->makeRedirect(); //if required;
+        if (!$site->managementState()) {
+            $site->makeRedirect(); //if required;
+        }
     }
 
 

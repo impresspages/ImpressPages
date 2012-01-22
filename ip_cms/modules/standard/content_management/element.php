@@ -23,6 +23,12 @@ class Element extends \Frontend\Element {
     protected $linkIgnoreRedirect;
 
     public function getLink($ignoreRedirect = false) {
+        global $site;
+        if ($site->managementState()) {
+            $ignoreRedirect = true;
+        }
+        
+        
         if($this->link == null || $this->linkIgnoreRedirect == null) {
             $this->generateDepthAndLink();
         }
