@@ -100,20 +100,20 @@ INSERT INTO `ip_cms_m_content_management_widget_instance` (`instanceId`, `revisi
 INSERT INTO `ip_cms_revision` (`revisionId`, `zoneName`, `pageId`, `published`, `created`) VALUES
 (90, 'top', 64, 1, 1323984493),
 (91, 'top', 64, 0, 1323984561),
-(92, 'top', 65, 1, 1323984493),
-(93, 'top', 65, 0, 1323984561),
-(94, 'top', 66, 1, 1323984493),
-(95, 'top', 66, 0, 1323984561),
-(96, 'top', 67, 1, 1323984493),
-(97, 'top', 67, 0, 1323984561),
-(98, 'top', 68, 1, 1323984493),
-(99, 'top', 68, 0, 1323984561),
-(100, 'top', 69, 1, 1323984493),
-(101, 'top', 69, 0, 1323984561),
-(102, 'top', 70, 1, 1323984493),
-(103, 'top', 70, 0, 1323984561),
-(104, 'top', 71, 1, 1323984493),
-(105, 'top', 71, 0, 1323984561);
+(92, 'left', 66, 1, 1327262227),
+(93, 'left', 66, 0, 1327262227),
+(94, 'left', 67, 1, 1327262230),
+(95, 'left', 67, 0, 1327262230),
+(96, 'left', 71, 1, 1327262232),
+(97, 'left', 71, 0, 1327262232),
+(98, 'left', 68, 1, 1327262235),
+(99, 'left', 68, 0, 1327262235),
+(100, 'left', 69, 1, 1327262238),
+(101, 'left', 69, 0, 1327262238),
+(102, 'left', 70, 1, 1327262240),
+(103, 'left', 70, 0, 1327262240),
+(104, 'top', 65, 1, 1327262247),
+(105, 'top', 65, 0, 1327262247);
 
 -- Dumping data for table--
 
@@ -177,6 +177,7 @@ INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `
 (628, '', '', 'Newsletter', 'newsletter', 109, 384, NULL);
 
 -- Dumping data for table--
+
 
 INSERT INTO `ip_cms_zone_to_content` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
 (163, 344, 105, 1),
