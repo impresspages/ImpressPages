@@ -103,8 +103,8 @@ class Model {
     }
 
     private static function _copyWidgets($zoneName, $sourceId, $destinationZoneName, $targetId){
-        $oldRevisionId = \Ip\Revision::getPublishedRevision($zoneName, $sourceId);
-        \Ip\Revision::duplicateRevision($oldRevisionId, $zoneName, $targetId, 1);
+        $oldRevision = \Ip\Revision::getPublishedRevision($zoneName, $sourceId);
+        \Ip\Revision::duplicateRevision($oldRevision['revisionId'], $zoneName, $targetId, 1);
     }
 
 
