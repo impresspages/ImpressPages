@@ -21,14 +21,17 @@ class Module{
         global $cms;
         global $parametersMod;
         global $site;
+        global $dispatcher;
 
 
-
+        //throw event in 1.0.X style
         $cachedUrl = \DbSystem::getSystemVariable('cached_base_url'); // get system variable
 
         $site->dispatchEvent('administrator', 'system', 'clear_cache', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
+        
+        
 
-    $errors = false;
+        $errors = false;
     
         if ($cachedUrl != BASE_URL) { //update robots.txt file.
             $robotsFile = 'robots.txt';
@@ -70,11 +73,19 @@ class Module{
 
 
         }
+        
+        $eventData = array(
+            'old_url'=>$cachedUrl,
+            'new_url'=>BASE_URL
+        );
 
-    if ($errors == false) {    
-        $site->dispatchEvent('administrator', 'system', 'cache_cleared', array('old_url'=>$cachedUrl, 'new_url'=>BASE_URL));
-    }
+        if ($errors == false) {
+            $site->dispatchEvent('administrator', 'system', 'cache_cleared', $eventData);
+        }
 
+        //throw event in 2.X style
+        $dispatcher->notify(new \Ip\Event\ClearCache($this, $cachedUrl, BASE_URL));
+        
          
     }
 
