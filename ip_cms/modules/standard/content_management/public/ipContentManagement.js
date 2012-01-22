@@ -46,10 +46,12 @@ function ipAdminWidgetsScroll() {
     var containerWidth = scrollableAPI.getRoot().width();
     var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll
     if(scrollBy < 1) { scrollBy = 1; } // setting the minimum
-    $('.ipAdminWidgets .ipaRight').click(function(){
+    $('.ipAdminWidgets .ipaRight').click(function(event){
+        event.preventDefault();
         scrollableAPI.move(scrollBy);
     });
-    $('.ipAdminWidgets .ipaLeft').click(function(){
+    $('.ipAdminWidgets .ipaLeft').click(function(event){
+        event.preventDefault();
         scrollableAPI.move(-scrollBy);
     });
 }

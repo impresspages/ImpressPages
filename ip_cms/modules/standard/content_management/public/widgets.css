@@ -315,9 +315,10 @@
 }
 
 /* widget management */
-.ipBlock.ipbEmpty {
+.ipBlock {
     min-height: 10px; /* to create minimum height when block is empty */
 }
+.ipBlock.ipbEmpty {} /* styles when block is empty */
 .ipAdminWidget {
     border-top: 3px solid #000;
     margin-bottom: 29px !important; /* !important used to force .ipAdminWidgetControls not to cover .ipaFooter from widget above (mostly action buttons) */
