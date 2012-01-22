@@ -315,7 +315,7 @@
 }
 
 /* widget management */
-.ipBlock.ipbEmpty {
+.ipBlock {
     min-height: 10px; /* to create minimum height when block is empty */
 }
 .ipAdminWidget {
