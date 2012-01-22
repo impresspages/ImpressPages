@@ -38,7 +38,8 @@ class Revision{
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
-            return self::createRevision($zoneName, $pageId, 1);
+            $revisionId = self::createRevision($zoneName, $pageId, 1);
+            return self::getRevision($revisionId);
         }
 
     }
@@ -63,7 +64,8 @@ class Revision{
         if ($lock = mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
-            return self::createRevision($zoneName, $pageId, 1);
+            $revisionId = self::createRevision($zoneName, $pageId, 1);
+            return self::getRevision($revisionId);
         }
 
     }
@@ -153,17 +155,21 @@ class Revision{
 
         $oldRevision = self::getRevision($oldRevisionId);
         
+        if ($oldRevision === null) {
+            throw new \Ip\CoreException("Can't find old revision: ".$oldRevisionId, \Ip\CoreException::REVISION);
+        }
+        
         if ($zoneName !== null) {
             $oldRevision['zoneName'] = $zoneName;
         }
         if ($pageId !== null) {
-            $oldRevision['pageId'] = $pageid;
+            $oldRevision['pageId'] = $pageId;
         }
         
-        $newRevisionId = self::createRevision($oldRevision['zoneName'], 0);
+        $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
 
         if ($published !== null) {
-            self::publishRevision($newRevisionId)
+            self::publishRevision($newRevisionId);
         }
         
         
