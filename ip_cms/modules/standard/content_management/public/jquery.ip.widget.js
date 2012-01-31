@@ -152,32 +152,14 @@
 
                 $this.remove();
                 
-//                //change state to managed
-//                var tmpData = $newWidget.data('ipWidget');
-//                tmpData.state = IP_WIDGET_STATE_MANAGEMENT;
-//                $newWidget.data('ipWidget', tmpData);
-//                
-//
-//                
-//                
-//                widgetName = $($newWidget).data('ipWidget').name;
-//                if (eval("typeof ipWidget_" + widgetName + " == 'function'")) {
-//                    eval('var widgetPluginObject = new ipWidget_' + widgetName + '($newWidget);');
-//                    $($newWidget).data('ipWidget').status = IP_WIDGET_STATE_MANAGEMENT;
-//                    widgetPluginObject.manageInit();
-//                }
-                
             } else {
                 alert(response.errorMessage);
                 var tmpData = $this.data('ipWidget');
                 tmpData.state = IP_WIDGET_STATE_PREVIEW;
-                $this.data('ipWidget', tmpData);                
+                $this.data('ipWidget', tmpData);
             }
         });
     },
-
-
-
 
 
     save : function() {
