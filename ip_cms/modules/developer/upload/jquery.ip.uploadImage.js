@@ -74,10 +74,10 @@
                         options.maxWindowHeight = 10000;
                     }
                     if (!options.minWindowWidth) {
-                        options.minWindowWidth = 1;
+                        options.minWindowWidth = 10;
                     }
                     if (!options.minWindowHeight) {
-                        options.minWindowHeight = 1;
+                        options.minWindowHeight = 10;
                     }
                     
                     if (!options.enableChangeWidth) {
