@@ -50,7 +50,8 @@
                 if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
                     widgetName = data.name;
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
-                        eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this);');
+                        var $content = $this.find('.ipaBody');
+                        eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
                         data = $this.data('ipWidget');
                         data.state = IP_WIDGET_STATE_MANAGEMENT;
                         $this.data('ipWidget', data);
