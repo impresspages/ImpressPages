@@ -4,8 +4,9 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-function IpWidget_IpImage(widgetObject) {
+function IpWidget_IpImage(widgetObject, contentBody) {
     this.widgetObject = widgetObject;
+    this.contentBody = contentBody;
 
     this.prepareData = prepareData;
     this.manageInit = manageInit;
@@ -33,6 +34,7 @@ function IpWidget_IpImage(widgetObject) {
         if (instanceData.data.imageWindowWidth) {
             options.windowWidth = instanceData.data.imageWindowWidth;
         }
+        options.maxWindowWidth = this.contentBody.width();
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
 
@@ -62,7 +64,7 @@ function IpWidget_IpImage(widgetObject) {
         }
         
         var windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
-        var maxWidth = this.widgetObject.find('.ipaImage').width();
+        var maxWidth = this.contentBody.width();
         data.scale = windowWidth / maxWidth;
         data.imageWindowWidth = windowWidth;
         data.title = this.widgetObject.find('.ipaImageTitle').val();

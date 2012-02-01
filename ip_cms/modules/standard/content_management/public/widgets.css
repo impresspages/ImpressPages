@@ -508,7 +508,8 @@
 
 /* Widget: IpImage */
 .ipAdminWidget-IpImage .ipaImage {
-    width: 100%;
+    width: 200px;
+    height: 200px;
 }
 .ipAdminWidget-IpImage .ipaOptions {
     margin-top: 10px;

@@ -177,8 +177,9 @@
                 var saveJob = new ipSaveJob(widgetName, 1);
                 $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
                 
+                var $content = $this.find('.ipaBody');
                 
-                eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this);');
+                eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
