@@ -463,6 +463,7 @@
                 }
                 
                 switch (data.autosizeType) {
+                    case 'resize' :
                     case 'fit' :
                             var centerX = (cropX2 - cropX1) / 2 + cropX1;
                             var centerY = (cropY2 - cropY1) / 2 + cropY1;
