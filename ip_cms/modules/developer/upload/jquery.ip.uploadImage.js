@@ -517,6 +517,9 @@
                 $image.css('top', $dragContainer.height() - $image.height());
             }
          
+            var data = $this.data('ipUploadImage');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadImage', data);
 
             
         },
