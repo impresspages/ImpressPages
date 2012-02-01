@@ -65,6 +65,7 @@ function IpWidget_IpImage(widgetObject, contentBody) {
         
         var windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
         var maxWidth = this.contentBody.width();
+        data.maxWidth = this.widgetObject.width();
         data.scale = windowWidth / maxWidth;
         data.imageWindowWidth = windowWidth;
         data.title = this.widgetObject.find('.ipaImageTitle').val();

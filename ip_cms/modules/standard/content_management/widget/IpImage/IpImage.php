@@ -74,7 +74,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             
             //new small image
             $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
-            $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_image', 'width') * $postData['scale']);
+            $requiredWidth = round($postData['maxWidth'] * $postData['scale']);
             $requiredHeight = round($requiredWidth / $ratio);
             $tmpSmallImageName = \Library\Php\Image\Functions::crop (
             $newData['imageOriginal'],
