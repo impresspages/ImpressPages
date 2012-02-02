@@ -229,7 +229,14 @@ class Script {
             
             $parametersRefractor = new \ParametersRefractor();
             
-
+            $module = \Db_100::getModule(null, 'standard', 'configuration');
+            
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'error_404');
+            if ($group) {
+                if(!\Db_100::getParameter('standard', 'configuration', 'error_404', 'error_title')) {
+                    \Db_100::addStringParameter($group['id'], 'Error page title', 'error_title', 'Page not found', 0);
+                }
+            }
             
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.0');

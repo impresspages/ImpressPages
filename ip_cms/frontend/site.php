@@ -46,6 +46,10 @@ class Site{
     /** array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility. */
     public $getVars;
 
+    /** bool true if page does not exists */
+    private $error404;
+    
+
     /** @deprecated use getCurrentZone()->getUrl() instead */
     public $zoneUrl;
 
@@ -64,9 +68,6 @@ class Site{
     /** array javascript files, required by current page */
     private $_requiredJs;
 
-    /** bool true if page does not exists */
-    private $error404;
-
     /** array required javascript files */
     private $requiredJavascript = array();
 
@@ -84,37 +85,7 @@ class Site{
 
 
     public function __construct(){
-        if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
-            $this->parseUrl();
-            $this->languages = \Frontend\Db::getLanguages(true);
 
-            if(sizeof($this->languages) > 0){
-                $this->currentLanguage = reset($this->languages);
-            }
-        } else {
-            $this->parseUrl();
-
-            $this->languages = \Frontend\Db::getLanguages(true);
-            if(sizeof($this->languages) == 0){
-                trigger_error('All website languages are hidden.');
-                exit;
-            }
-
-            if($this->languageUrl != null){
-                foreach($this->languages as $key => $language){
-                    if($language['url'] == $this->languageUrl){
-                        $this->currentLanguage = $language;
-                    }
-                }
-                if($this->currentLanguage == null){
-                    $this->currentLanguage = reset($this->languages);
-                    $this->error404();
-                }
-            }else
-            $this->currentLanguage = reset($this->languages);
-
-            setlocale(LC_ALL, $this->currentLanguage['code']);
-        }
 
     }
 
@@ -227,6 +198,41 @@ class Site{
         }
 
 
+
+        if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
+            $this->parseUrl();
+            $this->languages = \Frontend\Db::getLanguages(true);
+
+            if(sizeof($this->languages) > 0){
+                $this->currentLanguage = reset($this->languages);
+            }
+        } else {
+            $this->parseUrl();
+
+            $this->languages = \Frontend\Db::getLanguages(true);
+            if(sizeof($this->languages) == 0){
+                trigger_error('All website languages are hidden.');
+                exit;
+            }
+
+            if($this->languageUrl != null){
+                foreach($this->languages as $key => $language){
+                    if($language['url'] == $this->languageUrl){
+                        $this->currentLanguage = $language;
+                    }
+                }
+                if($this->currentLanguage == null){
+                    $this->currentLanguage = reset($this->languages);
+                    $this->error404;
+                }
+            }else
+            $this->currentLanguage = reset($this->languages);
+
+            setlocale(LC_ALL, $this->currentLanguage['code']);
+        }        
+        
+        
+        
         $this->configZones();
 
         $this->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js', 0);
@@ -234,6 +240,12 @@ class Site{
 
         $this->modulesInit();
 
+    }
+    
+    private function error404() {
+        global $dispatcher;
+        $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
+        $this->error404 = true;
     }
 
     /**
@@ -611,81 +623,7 @@ class Site{
         return $answer;
     }
 
-    /**
-     * Find the reason why the user come to non-existent URL
-     * @return string error message
-     */
-    public function error404Message(){
-        global $parametersMod;
-        //find reason
-        $message = '';
-        if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
-            $message = $parametersMod->getValue('standard','configuration','error_404', 'error_mistyped_url', $this->currentLanguage['id']);
-        }else{
-            if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
-                $message = $parametersMod->getValue('standard','configuration','error_404', 'error_broken_link_inside', $this->currentLanguage['id']);
-            }if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) === false){
-                $message = $parametersMod->getValue('standard','configuration','error_404', 'error_broken_link_outside', $this->currentLanguage['id']);
-            }
-        }
-        //end find reason
-        return $message;
-    }
 
-    /**
-     *
-     * Report error, set header.
-     *
-     */
-    private function error404(){
-        require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
-        global $parametersMod;
-        $this->error404 = true;
-        $headers = 'MIME-Version: 1.0'. "\r\n";
-        $headers .= 'Content-type: text/html; charset='.CHARSET."\r\n";
-        $headers .= 'From: sender@sender.com' . "\r\n";
-
-        $message = '';
-
-        //error reporting
-        if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
-            if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_mistyped_urls', $this->currentLanguage['id']))
-            $message = $this->error404Message().'
-             Link: '.$this->getCurrentUrl();
-        }else{
-            if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
-                if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_inside_link', $this->currentLanguage['id']))
-                $message = $this->error404Message().'
-             Link: '.$this->getCurrentUrl().'
-             Http referer: '.$_SERVER['HTTP_REFERER'];
-            }if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) === false){
-                if(defined('ERRORS_SEND') && ERRORS_SEND && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_outside_link', $this->currentLanguage['id']))
-                $message = $this->error404Message().'
-             Link: '.$this->getCurrentUrl().'
-             Http referer: '.$_SERVER['HTTP_REFERER'];
-            }
-             
-        }
-        if ($message != '') {
-            $queue = new \Modules\administrator\email_queue\Module();
-            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email', $this->currentLanguage['id']), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name', $this->currentLanguage['id']), ERRORS_SEND, '', BASE_URL." ERROR", $message, false, true);
-            //we need to set currentLanguage id if this function is trown at $site object construction time.
-            $queue->send();
-        }
-
-        //end error reporting
-
-        if(
-        $parametersMod->getValue('standard', 'configuration', 'error_404', 'send_to_main_page')
-        &&
-        ($this->languageUrl != '' || sizeof($this->urlVars) > 0 || sizeof($this->getVars) > 0 || $this->zoneUrl != '')
-        ){
-            header("Location: ".BASE_URL);
-            exit;
-        }else{
-            header("HTTP/1.0 404 Not Found");
-        }
-    }
 
     /**
      * Some modules need to make some actions before any output.
@@ -822,36 +760,6 @@ class Site{
      */
     public function managementState(){
         return (isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
-    }
-
-    /**
-     *
-     * @return string - The content of current page (in management state management tools are automatically added).
-     *
-     */
-    public function generateContent(){
-        global $log;
-        $answer = '';
-        if($this->currentZone){
-            if($this->error404){
-                require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-                $answer .= \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData('IpText', array("text" => $this->error404Message()));
-                $log->log("system", "error404", $this->getCurrentUrl()." ".$this->error404Message());
-            }else{
-                if($this->managementState()){
-
-                    if(!isset($_SESSION['backend_session']['user_id'])){
-                        $answer = '<script type="text/javascript">window.location = \''.BASE_URL.BACKEND_MAIN_FILE.'\';</script>';
-                    }else{
-                        $answer .= $this->getZone($this->currentZone)->getCurrentElement()->generateManagement();
-                    }
-                }else{
-                    $answer .= $this->getZone($this->currentZone)->getCurrentElement()->generateContent();
-                }
-            }
-        }
-
-        return $answer;
     }
 
     /**
@@ -1170,6 +1078,9 @@ class Site{
             }
              
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
+                if (!$this->getCurrentElement()) {
+                    return null;
+                }
                 $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
                 if ($revision['published']) {
                     $revision = $this->_duplicateRevision($revision['revisionId']);
