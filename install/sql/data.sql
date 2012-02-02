@@ -147,7 +147,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '2.0rc2', '2010-01-13 21:38:44'),
+(40, 'version', '2.0', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--

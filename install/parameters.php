@@ -1263,6 +1263,12 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["error_404"]["error_broken_link_outside"] = "0";
         $parameterType["standard"]["configuration"]["error_404"]["error_broken_link_outside"] = "lang_wysiwyg";
 
+        $parameterTitle["standard"]["configuration"]["error_404"]["error_title"] = "Error page title";
+        $parameterValue["standard"]["configuration"]["error_404"]["error_title"] = "Page not found";
+        $parameterAdmin["standard"]["configuration"]["error_404"]["error_title"] = "0";
+        $parameterType["standard"]["configuration"]["error_404"]["error_title"] = "lang";
+        
+        
     $parameterGroupTitle["standard"]["configuration"]["main_parameters"] = "Main parameters";
     $parameterGroupAdmin["standard"]["configuration"]["main_parameters"] = "0";
 

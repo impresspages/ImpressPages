@@ -14,7 +14,7 @@ define('IP_BACK', 'Précédent');
 define('IP_NEXT', 'Suivant');
 define('IP_ACCEPT', 'Accepter');
 define('IP_INSTALLATION', 'Installateur du CMS/GED ImpressPages');
-define('IP_VERSION', 'Version 2.0rc2');
+define('IP_VERSION', 'Version '.TARGET_VERSION);
 define('IP_SUBDIRECTORIES', '(y compris sous-dossiers et fichiers)');
 define('IP_OPTIONAL', '(optionnel)');
 
