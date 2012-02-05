@@ -28,7 +28,7 @@
 
                 }
                     
-                
+                $this.find('a').bind('click', function () {return false;} );
                 
                 
 
