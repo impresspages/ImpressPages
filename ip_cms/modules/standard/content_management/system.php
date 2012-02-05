@@ -183,7 +183,7 @@ class System{
         if (file_exists(BASE_DIR.$resourcesFolder) && is_dir(BASE_DIR.$resourcesFolder)) {
             $files = scandir(BASE_DIR.$resourcesFolder);
             if ($files === false) {
-                continue;
+                return;
             }
             
             
