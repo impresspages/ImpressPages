@@ -29,21 +29,38 @@ function __impressPagesAutoloader($name) {
     $parts = explode('\\', $name);
     if (count($parts) >= 4 && $parts[0] == 'Modules') {
         $fileName = $parts[1].'/'.$parts[2].'/'.strtolower($parts[3]);
-        for ($depth = 4; $depth < count($parts) - 1; $depth++) {
-            $fileName .= '/'.strtolower($parts[$depth]); 
+        for ($depth = 4; $depth < count($parts); $depth++) {
+            $fileName .= '/'.$parts[$depth]; 
         }
         $fileName .= '.php';
-        if (file_exists(BASE_DIR.INCLUDE_DIR.$fileName)) {
-            require_once(BASE_DIR.INCLUDE_DIR.$fileName);
+        $success = __impressPagesAutoloaderTry($fileName);
+        if ($success) {
             return true;
         }
-        if (file_exists(BASE_DIR.MODULE_DIR.$fileName)) {
-            require_once(BASE_DIR.MODULE_DIR.$fileName);
+        $success = __impressPagesAutoloaderTry(strtolower($fileName));
+        if ($success) {
             return true;
-        }        
+        }
+
     }
     
     return false;
+}
+
+
+function __impressPagesAutoloaderTry($fileName) {
+    if (file_exists(BASE_DIR.INCLUDE_DIR.$fileName)) {
+        require_once(BASE_DIR.INCLUDE_DIR.$fileName);
+        return true;
+    }
+    if (file_exists(BASE_DIR.MODULE_DIR.$fileName)) {
+        require_once(BASE_DIR.MODULE_DIR.$fileName);
+        return true;
+    }
+    if (file_exists(BASE_DIR.PLUGIN_DIR.$fileName)) {
+        require_once(BASE_DIR.PLUGIN_DIR.$fileName);
+        return true;
+    }
 }
 
 spl_autoload_register('__impressPagesAutoloader');
