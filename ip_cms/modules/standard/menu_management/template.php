@@ -207,34 +207,34 @@ class Template {
 <form id="formAdvanced">
         <label>'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'type')).'</label>        
         <p class="field">
-            <input class="stdModBox" name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />
-           	<label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</label><br />
-       	</p>
+            <input id="typeDefault" class="stdModBox" name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />
+            <label for="typeDefault" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'no_redirect')).'</label><br />
+        </p>
         <p class="field">
-            <input class="stdModBox" name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</label><br />
-       	</p>
+            <input id="typeInactive" class="stdModBox" name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label for="typeInactive" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'inactive')).'</label><br />
+        </p>
         <p class="field">
-            <input class="stdModBox" name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</label><br />
+            <input id="typeSubpage" class="stdModBox" name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label for="typeSubpage" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_subpage')).'</label><br />
             
-       	</p>
-       	
+        </p>
+        
         <span class="error" id="redirectURLError"></span>
         <p class="field">
-        	<input class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</label><br/>       
+            <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
+            <label for="typeRedirect" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</label><br/>       
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
             <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif" /><br />
         </p>
-    	<p class="field">
+        <p class="field">
             <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'rss')).'</label>
-        	<input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
+            <input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
         </p>
         
         <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'" />
-	
-</form>    
+
+</form>
 ';
 
         return $answer;
@@ -242,7 +242,5 @@ class Template {
 
 
 }
-
-
 
 

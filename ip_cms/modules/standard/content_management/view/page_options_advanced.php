@@ -1,22 +1,22 @@
 <form id="formAdvanced">
     <label><?php echo $this->escPar('standard/menu_management/admin_translations/type') ?></label>
     <p class="field">
-        <input class="stdModBox" name="type" value="default" <?php $element->getType() == 'default' ? 'checked="checkded"' : '' ?> type="radio" />
-        <label class="small">
+        <input id="ipContentManagementTypeDefault" class="stdModBox" name="type" value="default" <?php echo $element->getType() == 'default' ? 'checked="checked"' : '' ?> type="radio" />
+        <label for="ipContentManagementTypeDefault" class="small">
             <?php echo $this->escPar('standard/menu_management/admin_translations/no_redirect') ?>
         </label>
         <br />
     </p>
     <p class="field">
-        <input class="stdModBox" name="type" value="inactive" <?php $element->getType() == 'inactive' ? 'checked="checkded"' : '' ?> type="radio" />
-        <label class="small">
+        <input id="ipContentManagementTypeInactive" class="stdModBox" name="type" value="inactive" <?php echo $element->getType() == 'inactive' ? 'checked="checked"' : '' ?> type="radio" />
+        <label for="ipContentManagementTypeInactive" class="small">
             <?php echo $this->escPar('standard/menu_management/admin_translations/inactive') ?>
         </label>
         <br />
     </p>
     <p class="field">
-        <input class="stdModBox" name="type" value="subage" <?php $element->getType() == 'subage' ? 'checked="checkded"' : '' ?> type="radio" />
-        <label class="small">
+        <input id="ipContentManagementTypeSubpage" class="stdModBox" name="type" value="subpage" <?php echo $element->getType() == 'subpage' ? 'checked="checked"' : '' ?> type="radio" />
+        <label for="ipContentManagementTypeSubpage" class="small">
             <?php echo $this->escPar('standard/menu_management/admin_translations/redirect_to_subpage') ?>
         </label>
         <br />
@@ -25,13 +25,13 @@
 
     <san class="error" id="redirectURLError"></san>
     <p class="field">
-        <input class="stdModBox" name="type" value="redirect" <?php echo ($element->getType() == 'redirect' ? 'checked="checkded"' : '' )?> type="radio" />
-        <label class="small">
+        <input id="ipContentManagementTypeRedirect" class="stdModBox" name="type" value="redirect" <?php echo ($element->getType() == 'redirect' ? 'checked="checked"' : '' )?> type="radio" />
+        <label for="ipContentManagementTypeRedirect" class="small">
             <?php echo $this->escPar('standard/menu_management/admin_translations/redirect_to_external_page') ?>
         </label>
         <br />
         <input autocomlete="off" name="redirectURL" value="<?php echo $element->getRedirectUrl() ?>">
-        <img class="linkList" id="internalLinkingIcon" src="<?php echo BASE_URL.MODULE_DIR ?>standard/menu_management/img/list.gif" />
+        <span>Please use "Menu Management" tab for internal linkig options</span>
         <br />
     </p>
 </form>
