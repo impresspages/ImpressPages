@@ -96,7 +96,7 @@ class View{
      * @param string $parameterKey
      */    
     public function escPar($parameterKey, $variables = null){
-        echo $this->esc($this->par($parameterKey), $variables);
+        return $this->esc($this->par($parameterKey), $variables);
     }
 
     public function par($parameterKey, $variables = null){
