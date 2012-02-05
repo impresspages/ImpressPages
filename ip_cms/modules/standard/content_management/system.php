@@ -30,26 +30,30 @@ class System{
         $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
         
         if ($site->managementState()) {
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.contentManagement.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.pageOptions.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
+            
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+            
+            
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.contentManagement.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.pageOptions.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widgetbutton.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js', 2);
 
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js', 2);
             $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
 
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.scrollable.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.scrollable.js', 2);
 
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/tiny_mce/jquery.tinymce.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/tiny_mce/jquery.tinymce.js', 2);
 
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js', 2);
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js', 2);
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js', 2);
 
-            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js', 2);
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js', 2);
 
             $getVariables = array (
                 'g' => 'standard',
@@ -57,7 +61,7 @@ class System{
                 'a' => 'tinymceConfig'
             );
 
-            $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
+            $site->addJavascript($site->generateUrl(null, null, array(), $getVariables), 2);
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/page_options.css');
@@ -195,9 +199,9 @@ class System{
                 if (strtolower(substr($file, -3)) == '.js'){
                     //overriden js version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        $site->addJavascript(BASE_URL.$overrideFolder.'/'.$file);
+                        $site->addJavascript(BASE_URL.$overrideFolder.'/'.$file, 2);
                     } else {
-                        $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file);
+                        $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file, 2);
                     }
                 }
                 if (strtolower(substr($file, -4)) == '.css'){

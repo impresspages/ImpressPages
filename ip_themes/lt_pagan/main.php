@@ -64,8 +64,11 @@
             </div>
         </footer>
     </div>
+    <?php echo $site->generateBlock('simpleSlideshow'); ?>
     <?php
-        $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js', 2);
+        $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js', 2);
         echo $site->generateJavascript();
     ?>
 </body>
