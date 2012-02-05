@@ -26,7 +26,7 @@ ipTinyMceConfigMin = {
     convert_urls : true,
 
     paste_auto_cleanup_on_paste : true,
-    paste_retain_style_properties : false,
+    paste_retain_style_properties : "",
     paste_strip_class_attributes : false,
     paste_remove_spans : false,
     paste_remove_styles : true,
