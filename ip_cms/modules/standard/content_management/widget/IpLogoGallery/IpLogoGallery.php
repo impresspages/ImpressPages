@@ -31,7 +31,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
         $newData = $currentData;
 
-        if (!isset($postData['logos']) && !is_array($postData['logos'])) {//check if logos array is set
+        if (!isset($postData['logos']) || !is_array($postData['logos'])) {//check if logos array is set
             return $newData;
         }
 
