@@ -1,0 +1,2 @@
+<?php echo $this->renderWidget('IpTitle', array('title' => $this->par('administrator/search/translations/search'))); ?>
+<?php echo $this->renderWidget('IpText', array('text' => $this->par('administrator/search/translations/no_search_word'))); ?>

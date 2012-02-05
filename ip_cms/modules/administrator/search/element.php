@@ -49,7 +49,7 @@ class Element extends \Frontend\Element{
 
 
         if($this->getId() == null)
-        return Template::noSearchString($parametersMod->getValue('administrator', 'search', 'translations', 'search'), $parametersMod->getValue('administrator', 'search', 'translations', 'no_search_word'));
+        return \Ip\View::create('view/no_search_word.php', array())->render(); 
         
         
         
