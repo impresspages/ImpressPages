@@ -64,7 +64,6 @@
             </div>
         </footer>
     </div>
-    <?php echo $site->generateBlock('simpleSlideshow'); ?>
     <?php
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js', 2);
