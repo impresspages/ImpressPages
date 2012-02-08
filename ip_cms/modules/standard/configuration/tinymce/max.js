@@ -14,7 +14,6 @@ ipTinyMceConfigMax = {
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_resizing : true,
     theme_advanced_resize_horizontal : false,
-    valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
     height : 300,
     width : '100%',
     content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",
@@ -26,19 +25,6 @@ ipTinyMceConfigMax = {
     relative_urls : false,
     convert_urls : true,
 
-    paste_auto_cleanup_on_paste : true,
-    paste_retain_style_properties : "",
-    paste_strip_class_attributes : false,
-    paste_remove_spans : false,
-    paste_remove_styles : true,
-    paste_convert_middot_lists : true,
-    paste_text_use_dialog : true,    
-    
-    paste_preprocess : function(pl, o) {
-    console.log(pl);
-    console.log(o);
-        ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note'));
-    }
     
 
 };
