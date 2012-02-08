@@ -123,97 +123,77 @@
 }
 .ipWidget:after { /* clearing, see 960.css */ }
 .ipWidget:last-child,
-.ipWidget p:last-child,
-.ipWidget ul:last-child,
-.ipWidget ol:last-child {
+.ipPreviewWidget p:last-child,
+.ipPreviewWidget ul:last-child,
+.ipPreviewWidget ol:last-child {
     margin-bottom: 0; /* removing bottom margin on last elements */
 }
-.ipWidget-IpTitle .ipwTitle {
+.ipPreviewWidget h1,
+.ipPreviewWidget h2,
+.ipPreviewWidget h3 {
     color: #000;
     font-family: Georgia, serif;
 }
-.ipWidget-IpTitle h1 {
+.ipPreviewWidget h1 {
     font-size: 36px;
 }
-.ipWidget-IpTitle h2 {
+.ipPreviewWidget h2 {
     font-size: 24px;
 }
-.ipWidget-IpTitle h3 {
+.ipPreviewWidget h3 {
     font-size: 18px;
 }
-.ipWidget-IpText p,
-.ipWidget-IpRichText p,
-.mceContentBody p,
-.ipWidget-IpTextImage .ipwText p {
+.ipPreviewWidget p,
+.mceContentBody p {
     line-height: 20px;
     margin-bottom: 20px;
 }
-.ipWidget-IpText ul,
-.ipWidget-IpRichText ul,
-.mceContentBody ul,
-.ipWidget-IpTextImage .ipwText ul {
+.ipPreviewWidget ul,
+.mceContentBody ul {
     list-style-position: inside;
     list-style-type: square;
     margin: 0 0 20px 0;
 }
-.ipWidget-IpText ol,
-.ipWidget-IpRichText ol,
-.mceContentBody ol,
-.ipWidget-IpTextImage .ipwText ol {
+.ipPreviewWidget ol,
+.mceContentBody ol {
     list-style-position: inside;
     margin: 0 0 20px 0;
 }
-.ipWidget-IpText li,
-.ipWidget-IpRichText li,
-.mceContentBody li,
-.ipWidget-IpTextImage .ipwText li {
+.ipPreviewWidget li,
+.mceContentBody li {
     line-height: 20px;
     margin-bottom: 4px;
 }
-.ipWidget-IpText p+ul,
-.ipWidget-IpRichText p+ul,
+.ipPreviewWidget p+ul,
 .mceContentBody p+ul,
-.ipWidget-IpTextImage .ipwText p+ul,
-.ipWidget-IpText p+ol,
-.ipWidget-IpRichText p+ol,
-.mceContentBody p+ol,
-.ipWidget-IpTextImage .ipwText p+ol {
+.ipPreviewWidget p+ol,
+.mceContentBody p+ol {
     margin-top: -20px; /* If list goes just after the paragraph the space is removed */
 }
-.ipWidget-IpText a,
-.ipWidget-IpRichText a,
-.mceContentBody a,
-.ipWidget-IpTextImage .ipwText a {
+.ipPreviewWidget a,
+.mceContentBody a {
     color: #019bd4;
 }
-.ipWidget-IpText a:hover,
-.ipWidget-IpRichText a:hover,
-.mceContentBody a:hover,
-.ipWidget-IpTextImage .ipwText a:hover {
+.ipPreviewWidget a:hover,
+.mceContentBody a:hover {
     text-decoration: underline;
 }
 /* default text style on rich text editor */
-.ipWidget-IpText .caption,
-.ipWidget-IpRichText .caption,
-.mceContentBody .caption,
-.ipWidget-IpTextImage .ipwText .caption {
+.ipPreviewWidget .caption,
+.mceContentBody .caption {
     color: #000;
     font-family: Georgia, serif;
     font-size: 18px;
     line-height: 28px;
 }
 /* default text style on rich text editor */
-.ipWidget-IpText .signature,
-.ipWidget-IpRichText .signature,
-.mceContentBody .signature,
-.ipWidget-IpTextImage .ipwText .signature {
+.ipPreviewWidget.signature,
+.mceContentBody .signature {
     color: #9a9a9a;
 }
 /* default text style on rich text editor */
-.ipWidget-IpText .note,
-.ipWidget-IpRichText .note,
-.mceContentBody .note,
-.ipWidget-IpTextImage .ipwText .note {
+.ipPreviewWidget .note,
+.mceContentBody .note {
     color: #000;
     font-family: Georgia, serif;
 }
@@ -238,12 +218,12 @@
 .ipWidget-IpImageGallery ul,
 .ipWidget-IpLogoGallery ul {
     list-style: none;
-    margin: -20px 0 0 -20px; /* hack to keep images aligned with the content but keeping spaces between them */
+    margin: -20px 0 0 -20px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
 }
 .ipWidget-IpImageGallery li,
 .ipWidget-IpLogoGallery li {
     float: left;
-    margin: 20px 0 0 20px;
+    margin: 20px 0 0 20px; /* size should be equal with ul element but without minus sign */
 }
 .ipWidget-IpImageGallery li a,
 .ipWidget-IpLogoGallery li a {
@@ -268,37 +248,38 @@
 .ipWidget-IpFile a:hover {
     text-decoration: underline;
 }
-.ipWidget-IpTable p,
-.mceContentBody table p {
-    line-height: auto;
-    margin: 0;
-}
-.ipWidget-IpTable table,
+.ipPreviewWidget table,
 .mceContentBody table {
     border-collapse: collapse;
     color: #000;
     font-size: 11px;
     width: 100%;
 }
-.ipWidget-IpTable td,
+.ipPreviewWidget table p,
+.mceContentBody table p {
+    line-height: auto;
+    margin: 0;
+}
+.ipPreviewWidget td,
 .mceContentBody td {
     border-bottom: 1px solid #b2b2b2;
+    font-size: 11px;
     padding: 9px;
     text-align: center;
 }
-.ipWidget-IpTable th,
+.ipPreviewWidget th,
 .mceContentBody th,
-.ipWidget-IpTable thead td,
+.ipPreviewWidget thead td,
 .mceContentBody thead td,
-.ipWidget-IpTable tbody tr:first-child td,
-.mceContentBody tbody tr:first-child td {
+.ipPreviewWidget tbody tr:first-child td,
+.mceContentBody tbody tr:first-child td { /* making first line look like header in all cases */
     background-color: #000;
     border: none;
     color: #fff;
     font-size: 12px;
     font-weight: bold;
 }
-.ipWidget-IpTable thead+tbody tr:first-child td,
+.ipPreviewWidget thead+tbody tr:first-child td,
 .mceContentBody thead+tbody tr:first-child td { /* setting back styles if thead exists */
     background-color: transparent;
     border-bottom: 1px solid #b2b2b2;
@@ -306,7 +287,7 @@
     font-size: 11px;
     font-weight: normal;
 }
-.ipWidget-IpTable td:first-child,
+.ipPreviewWidget td:first-child,
 .mceContentBody td:first-child {
     text-align: left;
 }
@@ -324,7 +305,9 @@
 .side .ipWidget {
     margin-bottom: 15px;
 }
-.side .ipWidget-IpTitle .ipwTitle {
+.side .ipPreviewWidget h1,
+.side .ipPreviewWidget h2,
+.side .ipPreviewWidget h3 {
     background-color: #000;
     color: #fff;
     font-size: 18px;
@@ -335,18 +318,12 @@
 .side .ipWidget-IpRichText {
     padding: 0 20px;
 }
-.side .ipWidget-IpText ul,
-.side .ipWidget-IpRichText ul,
-.side .ipWidget-IpTextImage .ipwText ul,
-.side .ipWidget-IpText ol,
-.side .ipWidget-IpRichText ol,
-.side .ipWidget-IpTextImage .ipwText ol {
+.side .ipPreviewWidget ul,
+.side .ipPreviewWidget ol {
     list-style-position: outside;
 }
-.side .ipWidget-IpText .note,
-.side .ipWidget-IpRichText .note,
-.side .mceContentBody .note,
-.side .ipWidget-IpTextImage .ipwText .note {
+.side .ipPreviewWidget .note,
+.side .mceContentBody .note {
     background-color: #f3f3f3;
     color: #000;
     display: block;
@@ -359,9 +336,18 @@
 .side .ipWidget-IpImage img {
     max-width: 100%;
 }
+.side .ipWidget-IpImageGallery ul,
+.side .ipWidget-IpLogoGallery ul {
+    margin: -15px 0 0 -15px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
+}
+.side .ipWidget-IpImageGallery li,
+.side .ipWidget-IpLogoGallery li {
+    float: left;
+    margin: 15px 0 0 15px; /* size should be equal with ul element but without minus sign */
+}
 .side .ipWidget-IpImageGallery li img,
 .side .ipWidget-IpLogoGallery li img {
-    width: 94px;
+    width: 96px;
 }
 .side .ipWidget-IpFile {
     padding: 15px 20px;
