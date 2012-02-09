@@ -79,7 +79,7 @@
                     $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
 
                     $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
-                    $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publish');});
+                    $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
 
                     $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
 
@@ -239,11 +239,35 @@
         },
         
         _savePageResponse: function(response) {
+            $this = $(this);
+            var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
-                window.location.href = response.newRevisionUrl;
+                if (data.publishAfterSave) {
+                    var data = Object();
+                    data.g = 'standard';
+                    data.m = 'content_management';
+                    data.a = 'publishPage';
+                    data.revisionId = response.newRevisionId;
+
+                    $.ajax({
+                        type : 'POST',
+                        url : document.location,
+                        data : data,
+                        context : $this,
+                        success : methods._publishPageResponse,
+                        dataType : 'json'
+                    });
+                
+                
+                } else {
+                    window.location.href = response.newRevisionUrl;
+                }
             } else {
                 var tmpData = $this.data('ipContentManagement');
                 tmpData.saving = false;
+                if (tmpData.publishAfterSave) {
+                    tmpData.publishAfterSave = false;
+                }
                 $this.data('ipContentManagement', tmpData);
 
                 // show error
@@ -281,26 +305,15 @@
             });
         },
     
-        publish : function(event){
-            return this.each(function() {  
-                var $this = $(this);
-                
-                var data = Object();
-                data.g = 'standard';
-                data.m = 'content_management';
-                data.a = 'publishPage';
-                data.revisionId = ip.revisionId;
-
-                $.ajax({
-                    type : 'POST',
-                    url : document.location,
-                    data : data,
-                    context : $this,
-                    success : methods._publishPageResponse,
-                    dataType : 'json'
-                });
-            });
+        publishStart : function (event) {
+            $this = $(this);
+            var tmpData = $this.data('ipContentManagement'); 
+            tmpData.publishAfterSave = true;
+            $this.data('ipContentManagement', tmpData);
+            $this.ipContentManagement('saveStart');
         },
+        
+
         
         
         _publishPageResponse : function (response) {
