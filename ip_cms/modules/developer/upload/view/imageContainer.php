@@ -7,6 +7,6 @@
         <a href="#" class="ipUploadImageButton ipUploadSmallerButton">Smaller</a>
     </div>
     <div class="ipUploadDragContainer">
-        <img class="ipUploadImage" src="" alt="image" />
+        <img class="ipUploadImage" src="<?php echo BASE_URL.MODULE_DIR ?>developer/upload/img/empty.gif" alt="image" />
     </div>
 </div>
