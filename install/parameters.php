@@ -993,8 +993,8 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["menu_management"]["admin_translations"]["new_page"] = "1";
         $parameterType["standard"]["menu_management"]["admin_translations"]["new_page"] = "string";
 
-        $parameterTitle["standard"]["menu_management"]["admin_translations"]["question_delete"] = "Are you realy wish to delete?";
-        $parameterValue["standard"]["menu_management"]["admin_translations"]["question_delete"] = "Are you realy wish to delete?";
+        $parameterTitle["standard"]["menu_management"]["admin_translations"]["question_delete"] = "Do you really want to delete?";
+        $parameterValue["standard"]["menu_management"]["admin_translations"]["question_delete"] = "Do you really want to delete?";
         $parameterAdmin["standard"]["menu_management"]["admin_translations"]["question_delete"] = "1";
         $parameterType["standard"]["menu_management"]["admin_translations"]["question_delete"] = "string";
 

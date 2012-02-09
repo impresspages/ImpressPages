@@ -1218,8 +1218,8 @@ $parameter["parameterValue/standard/menu_management/admin_translations/page_titl
 $parameter["parameterTitle/standard/menu_management/admin_translations/save"] = "Save";
 $parameter["parameterValue/standard/menu_management/admin_translations/save"] = "Save";
 
-$parameter["parameterTitle/standard/menu_management/admin_translations/question_delete"] = "Are you realy wish to delete?";
-$parameter["parameterValue/standard/menu_management/admin_translations/question_delete"] = "Are you realy wish to delete?";
+$parameter["parameterTitle/standard/menu_management/admin_translations/question_delete"] = "Do you really want to delete?";
+$parameter["parameterValue/standard/menu_management/admin_translations/question_delete"] = "Do you really want to delete?";
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/redirect_to_external_page"] = "Redirect to external page (don't forget to include http://)";
 $parameter["parameterValue/standard/menu_management/admin_translations/redirect_to_external_page"] = "Redirect to external page";
