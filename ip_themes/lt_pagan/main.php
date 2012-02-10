@@ -4,10 +4,10 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
 <?php
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css');
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
-    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css', 1);
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css', 2);
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css', 3);
+    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css', 4);
     echo $site->generateHead();
 ?>
     <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
                 <?php
                     require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
                     $menuTop = new Library\Php\Menu\Common();
-                    echo $menuTop->generateSubmenu('top', null, 1); //$zoneName, $parentElementId, $depthLimit
+                    echo $menuTop->generateSubmenu('top', null, 2); //$zoneName, $parentElementId, $depthLimit
                 ?>
             </div>
         </header>
@@ -45,7 +45,7 @@
             <?php echo $site->generateBlock('main'); ?>
         </div>
         <div class="side grid_3 left">
-            <nav>
+            <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
                 <?php
                     require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
                     $menuLeft = new Library\Php\Menu\Common();
@@ -60,7 +60,7 @@
         <footer class="clearfix">
             <div class="grid_12 clearfix">
                 <p class="left">Theme "LT pagan"</p>
-                <p class="right">Drag & drop with <a href="http://www.impresspages.org">ImpressPages CMS</a></p>
+                <p class="right">Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a></p>
             </div>
         </footer>
     </div>
