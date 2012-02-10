@@ -11,6 +11,7 @@ function IpWidget_IpImage(widgetObject, contentBody) {
     this.prepareData = prepareData;
     this.manageInit = manageInit;
 
+    this.addError = addError;
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
@@ -38,9 +39,19 @@ function IpWidget_IpImage(widgetObject, contentBody) {
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
 
-        this.widgetObject.find('.ipaImage').ipUploadImage(options);
-        
-        
+        var $imageUploader = this.widgetObject.find('.ipaImage');
+        $imageUploader.ipUploadImage(options);
+        this.widgetObject.bind('imageUploadError.ipUploadImage', this.addError);
+//        console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
+
+    }
+
+    function addError(event, errorMessage) {
+        var $this = $(this); //we are in a widget DOM scope 
+        var $errorDom = $this.find('.ipaErrorDom .ipaError').clone(); 
+        $errorDom.text(errorMessage);
+        $this.find('.ipaErrorContainer').append($errorDom);
+        console.log(errorMessage);
     }
 
     function prepareData() {
