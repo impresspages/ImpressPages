@@ -14,7 +14,7 @@ define('IP_BACK', 'zpět');
 define('IP_NEXT', 'další');
 define('IP_ACCEPT', 'Přijmout');
 define('IP_INSTALLATION', 'Průvodce instalací CMS ImpressPages');
-define('IP_VERSION', 'Version 2.0rc1');
+define('IP_VERSION', 'Version '.TARGET_VERSION);
 define('IP_SUBDIRECTORIES', '(včetně podsložek a souborů)');
 define('IP_OPTIONAL', '(volitelné)');
 
