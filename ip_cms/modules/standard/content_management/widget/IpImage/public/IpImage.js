@@ -12,9 +12,7 @@ function IpWidget_IpImage(widgetObject, contentBody) {
     this.manageInit = manageInit;
 
     this.addError = addError;
-    this.removeError = removeError;
-    this.imageAdded = imageAdded; 
-    this.uploadProgress = uploadProgress;
+
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
@@ -45,27 +43,12 @@ function IpWidget_IpImage(widgetObject, contentBody) {
         var $imageUploader = this.widgetObject.find('.ipaImage');
         $imageUploader.ipUploadImage(options);
         this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
-        this.widgetObject.bind('imageUploadAdd.ipUploadImage', {widgetController: this}, this.imageAdded);
-        this.widgetObject.bind('imageUploadProgress.ipUploadImage', {widgetController: this}, this.uploadProgress);
 
     }
     
-    function imageAdded (event, file) {
-        event.data.widgetController.removeError();
-    }
-    
-    function uploadProgress (event, file) {
-        event.data.widgetController.removeError();
-    }
 
     function addError(event, errorMessage) {
-        event.data.widgetController.removeError();
-        
-        var $this = $(this); //we are in a widget DOM scope
-        //show new error
-        var $errorDom = $this.find('.ipaErrorDom .ipaError').clone(); 
-        $errorDom.text(errorMessage);
-        $this.find('.ipaErrorContainer').append($errorDom);
+        $(this).trigger('error.ipContentManagement', errorMessage);
     }
     
     function removeError () {

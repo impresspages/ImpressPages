@@ -516,12 +516,6 @@
 .ipAdminWidget-IpImage .ipaOptions {
     margin-top: 10px;
 }
-.ipAdminWidget-IpImage .ipaErrorDom {
-    display: none;
-}
-.ipAdminWidget-IpImage .ipaError {
-    color: #f00;
-}
 
 /* Widget: IpTextImage */
 .ipAdminWidget-IpTextImage .ipaImageContainer {
