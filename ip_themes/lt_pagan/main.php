@@ -4,10 +4,10 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
 <?php
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css', 1);
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css', 2);
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css', 3);
-    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css', 4);
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css');
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
+    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
     echo $site->generateHead();
 ?>
     <!--[if lt IE 9]>
