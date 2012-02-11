@@ -10,6 +10,8 @@ function IpWidget_IpImageGallery(widgetObject) {
     this.prepareData = prepareData;
     this.manageInit = manageInit;
     this.fileUploaded = fileUploaded;
+    
+    this.addError = addError;
 
 
     function manageInit() {
@@ -35,10 +37,15 @@ function IpWidget_IpImageGallery(widgetObject) {
         
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
-        
-        
+        this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
     }
 
+    
+
+
+    function addError(event, errorMessage) {
+        $(this).trigger('error.ipContentManagement', [errorMessage]);
+    }
     
     function fileUploaded(event, fileName) {
         /* we are in widgetObject context */
