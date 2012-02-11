@@ -11,12 +11,14 @@ function IpWidget_IpLogoGallery(widgetObject) {
     this.manageInit = manageInit;
     this.fileUploaded = fileUploaded;
 
+    this.addError = addError;
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         
         var uploader = this.widgetObject.find('.ipaUpload');
         var options = new Object;
+        options.filterExtensions = ['jpg','gif','png','bmp'];
         uploader.ipUploadFile(options);
         
         var container = this.widgetObject.find('.ipWidget_ipLogoGallery_container');
@@ -35,10 +37,15 @@ function IpWidget_IpLogoGallery(widgetObject) {
         
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
+        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+        this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
         
         
     }
 
+    function addError(event, errorMessage) {
+        $(this).trigger('error.ipContentManagement', [errorMessage]);
+    }    
     
     function fileUploaded(event, fileName) {
         /* we are in widgetObject context */
