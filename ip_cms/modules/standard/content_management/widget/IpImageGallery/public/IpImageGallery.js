@@ -37,7 +37,7 @@ function IpWidget_IpImageGallery(widgetObject) {
         
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
-        this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
+        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
     }
 
     

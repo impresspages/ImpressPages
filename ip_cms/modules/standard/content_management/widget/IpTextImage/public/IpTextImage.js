@@ -37,7 +37,7 @@ function IpWidget_IpTextImage(widgetObject) {
         
 
         this.widgetObject.find('.ipaImage').ipUploadImage(options);
-        this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
+        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
         
         
         this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);

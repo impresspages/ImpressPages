@@ -42,7 +42,7 @@ function IpWidget_IpImage(widgetObject, contentBody) {
 
         var $imageUploader = this.widgetObject.find('.ipaImage');
         $imageUploader.ipUploadImage(options);
-        this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
+        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
 
     }
     

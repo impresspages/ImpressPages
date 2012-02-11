@@ -120,7 +120,7 @@
                     
                     if (typeof options.maxFileSize == 'undefined') {
                         options.maxFileSize = '100mb';
-                    }                    
+                    }
 
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     $this.data('ipUploadImage', {
@@ -295,7 +295,7 @@
             uploader.bind('FilesAdded', function(up, files) {
                 
                 $.each(files, function(i, file) {
-                    $this.trigger('imageUploadAdd.ipUploadImage', file);
+                    $this.trigger('fileAdded.ipUploadImage', file);
                     //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
@@ -303,14 +303,14 @@
             });
 //
             uploader.bind('UploadProgress', function(up, file) {
-                $this.trigger('imageUploadProgress.ipUploadImage', file);
+                $this.trigger('uploadProgress.ipUploadImage', file);
                 //$('#' + file.id + " b").html(file.percent + "%");
             });
 
             uploader.bind('Error', function(up, err) {
                 //var errorMessage = "Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "");
                 var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
-                $this.trigger('imageUploadError.ipUploadImage', errorMessage);
+                $this.trigger('error.ipUploadImage', errorMessage);
                 up.refresh(); // Reposition Flash/Silverlight
             });
             
