@@ -271,7 +271,7 @@
                     m : 'upload',
                     a : 'upload'
                 },
-                filters : [{title : "Image files", extensions : "jpg,gif,png"}],
+                filters : [{title : "Image files", extensions : "jpg,gif,png,bmp"}],
                 
                 
                 flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
@@ -299,7 +299,8 @@
             });
 
             uploader.bind('Error', function(up, err) {
-                var errorMessage = "Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "");
+                //var errorMessage = "Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "");
+                var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
                 $this.trigger('imageUploadError.ipUploadImage', errorMessage);
                 up.refresh(); // Reposition Flash/Silverlight
             });
