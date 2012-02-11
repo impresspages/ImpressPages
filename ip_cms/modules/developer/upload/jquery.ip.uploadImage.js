@@ -63,7 +63,11 @@
                         options.windowWidth = $this.width();
                     }
                     if (!options.windowHeight) {
-                        options.windowHeight = $this.height();
+                        if ($this.height()) {
+                            options.windowHeight = $this.height();
+                        } else {
+                            options.windowHeight = options.windowWidth;
+                        }
                     }
                     
                     
