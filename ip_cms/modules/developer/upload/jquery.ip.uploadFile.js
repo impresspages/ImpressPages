@@ -29,12 +29,17 @@
                     if (typeof options.maxFileSize == 'undefined') {
                         options.maxFileSize = '10000mb';
                     }
+                    if (typeof options.filterExtensions == 'undefined') {
+                        options.filterExtensions = null 
+                    }
+
 
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
                     $this.data('ipUploadFile', {
                         maxFileSize : options.maxFileSize,
+                        filterExtensions : options.filterExtensions,
                         uniqueId : uniqueId
                         
                     }); 
@@ -76,21 +81,27 @@
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
             
             
-            var uploader = new plupload.Uploader( {
-                runtimes : 'gears,html5,flash,silverlight,browserplus',
-                browse_button : 'ipUploadButton_' + data.uniqueId,
-                max_file_size : data.maxFileSize,
-                url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
-                multipart_params : {
-                    g : 'developer',
-                    m : 'upload',
-                    a : 'upload'
-                },
-                
-                
-                flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
-                silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
-            });
+            var uploaderConfig = {
+                    runtimes : 'gears,html5,flash,silverlight,browserplus',
+                    browse_button : 'ipUploadButton_' + data.uniqueId,
+                    max_file_size : data.maxFileSize,
+                    url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
+                    multipart_params : {
+                        g : 'developer',
+                        m : 'upload',
+                        a : 'upload'
+                    },
+                    
+                    
+                    flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
+                    silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
+            };
+
+            if (data.filterExtensions) {
+                uploaderConfig.filters = [{title : "Filtered files", extensions : data.filterExtensions.join(',')}];
+            }
+
+            var uploader = new plupload.Uploader(uploaderConfig);
 
             
             uploader.bind('Init', function(up, params) {

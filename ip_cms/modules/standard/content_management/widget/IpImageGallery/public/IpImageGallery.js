@@ -19,6 +19,7 @@ function IpWidget_IpImageGallery(widgetObject) {
         
         var uploader = this.widgetObject.find('.ipaUpload');
         var options = new Object;
+        options.filterExtensions = ['jpg','gif','png','bmp'];
         uploader.ipUploadFile(options);
         
         var container = this.widgetObject.find('.ipWidget_ipImageGallery_container');
@@ -38,6 +39,8 @@ function IpWidget_IpImageGallery(widgetObject) {
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
         this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+        this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
+        
     }
 
     
@@ -243,18 +246,6 @@ function IpWidget_IpImageGallery(widgetObject) {
             imageOptions.enableChangeHeight = false;
 
             $this.find('.ipaImage').ipUploadImage(imageOptions);
-            
-            
-//          handle uploading of new image
-//          if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
-//              var newImage = ipUploadImage.ipUploadImage('getCurImage');
-//              if (newImage) {
-//                  data.newImage = newImage;
-//              }
-//          }
-            
-            
-            
             
             $this.find('.ipaImageRemove').bind('click', 
                 function(event){
