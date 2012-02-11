@@ -198,6 +198,9 @@
 .ipAdminWidgets .ipActionWidgetButton {
     padding-bottom: 16px; /* to push widget button down to keep space for title */
 }
+.ipActionWidgetButton.ui-draggable-dragging {
+    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+}
 .ipAdminWidgets li span {
     border-radius: 5px;
     color: #5f5e60;
