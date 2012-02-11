@@ -49,7 +49,7 @@ class Controller extends \Ip\Controller{
         global $site;
 
         if (!isset($_SESSION['backend_session']['user_id'])) {
-            throw new \Ip\CoreException("Try to upload image to temporary directory without permission.", \Ip\CoreException::SECURITY);
+            die('{"jsonrpc" : "2.0", "error" : {"code": 201, "message": "Try to upload image to temporary directory without permission."}, "id" : "id"}');
         }
 
         // Settings
@@ -86,7 +86,7 @@ class Controller extends \Ip\Controller{
         $disallow = array('htaccess','php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
         if (in_array($fileExtension, $disallow)) {
             //security risk
-            return;
+            die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Forbidden file extension: '.$fileExtension.'."}, "id" : "id"}');
         }
         
         //end security check

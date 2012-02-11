@@ -11,6 +11,7 @@ function IpWidget_IpFile(widgetObject) {
     this.manageInit = manageInit;
     this.fileUploaded = fileUploaded;
 
+    this.addError = addError;
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
@@ -31,8 +32,13 @@ function IpWidget_IpFile(widgetObject) {
         
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
+        this.widgetObject.bind('error.ipUploadFile', this.addError);
         
         
+    }
+    
+    function addError(event, errorMessage) {
+        $(this).trigger('error.ipContentManagement', [errorMessage]);
     }
 
     

@@ -104,7 +104,7 @@
                 
                 $.each(files, function(i, file) {
                     $this.trigger('fileAdded.ipUploadFile', file);
-                    //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
+                    console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
                 up.start();
@@ -116,9 +116,9 @@
             });
 
             uploader.bind('Error', function(up, err) {
+                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
                 $this.trigger('error.ipUploadFile', errorMessage);
-                //console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 up.refresh(); // Reposition Flash/Silverlight
             });
             
@@ -132,9 +132,14 @@
         _uploadedNewFile : function (up, file, response) {
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
-            var data = $this.data('ipUploadFile');
-            $this.data('ipUploadFile', data);
-            $this.trigger('fileUploaded.ipUploadFile', [answer.fileName]);
+            
+            if (answer.error) {
+                $this.trigger('error.ipUploadFile', answer.error.message);
+            } else {
+                var data = $this.data('ipUploadFile');
+                $this.data('ipUploadFile', data);
+                $this.trigger('fileUploaded.ipUploadFile', [answer.fileName]);
+            }
         }
         
 
