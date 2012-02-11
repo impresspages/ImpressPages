@@ -9,6 +9,8 @@ function IpWidget_IpTextImage(widgetObject) {
 
     this.prepareData = prepareData;
     this.manageInit = manageInit;
+    
+    this.addError = addError;
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
@@ -35,10 +37,13 @@ function IpWidget_IpTextImage(widgetObject) {
         
 
         this.widgetObject.find('.ipaImage').ipUploadImage(options);
+        this.widgetObject.bind('imageUploadError.ipUploadImage', {widgetController: this}, this.addError);
         
         
         this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
     }
+    
+
 
     function prepareData() {
         var data = Object();
@@ -65,6 +70,10 @@ function IpWidget_IpTextImage(widgetObject) {
         data.text = $(this.widgetObject).find('textarea').first().val();
         data.title = $(this.widgetObject).find('.ipaImageTitle').first().val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+    }
+    
+    function addError(event, errorMessage) {
+        $(this).trigger('error.ipContentManagement', errorMessage);
     }
 
 
