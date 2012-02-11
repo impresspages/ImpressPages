@@ -626,7 +626,17 @@
     -moz-user-select: none;
     -o-user-select: none;
 }
-
+/* Error messages */
+.ipAdminError {
+    padding: 5px;
+    color: #f00;
+    border-bottom: 1px #ccc solid;
+    margin: 0;
+}
+.ipAdminErrorSample {
+    display: none;
+}
+    
 /* To be removed */
 .ui-dialog {
     font-size: 12px;

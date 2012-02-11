@@ -51,5 +51,9 @@
             <a href="#" class="ipAdminButton ipaConfirm ipActionPublish"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
         </div>
     </div>
-
+    <div class="ipAdminErrorContainer">
+    </div>
+    <div class="ipAdminErrorSample">
+        <p class="ipAdminError"></p>
+    </div>
 </div>

@@ -93,12 +93,21 @@
                     $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
                     //$this.bind('dialogclose', methods._optionsCancel);
                     
+                    $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     
                     $this.trigger('initFinished.ipContentManagement', options);
                 }
             });
         },
 
+        
+        addError : function (errorMessage) {
+            var $newError = $('.ipAdminErrorSample .ipAdminError').clone();
+            $newError.text(errorMessage);
+            $('.ipAdminErrorContainer').append($newError);
+            $newError.animate( {opacity: "100%"}, 6000)
+            .animate( { queue: true, opacity: "0%" }, { duration: 3000, complete: function(){$(this).remove();}});
+        },
         // *********PAGE OPTIONS***********//
         
         openPageOptions : function() {
