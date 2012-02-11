@@ -26,12 +26,17 @@
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                 
+                    if (typeof options.maxFileSize == 'undefined') {
+                        options.maxFileSize = '10000mb';
+                    }
 
                         
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     
                     $this.data('ipUploadFile', {
+                        maxFileSize : options.maxFileSize,
                         uniqueId : uniqueId
+                        
                     }); 
                     
                     var data = Object();
@@ -46,7 +51,7 @@
                         context : $this,
                         success : methods._containerHtmlResponse,
                         dataType : 'json'
-                    });                    
+                    });
                     
                     
 
@@ -70,16 +75,11 @@
 
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
             
-
-//            $('#uploadfiles').click(function(e) {
-//                uploader.start();
-//                e.preventDefault();
-//            });
             
             var uploader = new plupload.Uploader( {
                 runtimes : 'gears,html5,flash,silverlight,browserplus',
                 browse_button : 'ipUploadButton_' + data.uniqueId,
-                max_file_size : '1000mb',
+                max_file_size : data.maxFileSize,
                 url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                 multipart_params : {
                     g : 'developer',
@@ -103,6 +103,7 @@
             uploader.bind('FilesAdded', function(up, files) {
                 
                 $.each(files, function(i, file) {
+                    $this.trigger('fileAdded.ipUploadFile', file);
                     //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
@@ -110,11 +111,13 @@
             });
 
             uploader.bind('UploadProgress', function(up, file) {
-                //console.log(file);
+                $this.trigger('uploadProgress.ipUploadFile', file);
                 //$('#' + file.id + " b").html(file.percent + "%");
             });
 
             uploader.bind('Error', function(up, err) {
+                var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
+                $this.trigger('error.ipUploadFile', errorMessage);
                 //console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 up.refresh(); // Reposition Flash/Silverlight
             });
