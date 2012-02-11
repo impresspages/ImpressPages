@@ -340,11 +340,16 @@
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
             var data = $this.data('ipUploadImage');
-            data.curImage = answer.fileName;
-            data.imageChanged = true;
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
-            $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
+            
+            if (answer.error) {
+                $this.trigger('error.ipUploadFile', answer.error.message);
+            } else {
+                data.curImage = answer.fileName;
+                data.imageChanged = true;
+                data.coordinatesChanged = true;
+                $this.data('ipUploadImage', data);
+                $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
+            }
         },
         
         /**
