@@ -114,6 +114,9 @@
                         options.enableUnderscale = true;
                     }
                     
+                    if (typeof options.maxFileSize == 'undefined') {
+                        options.maxFileSize = '100mb';
+                    }                    
 
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     $this.data('ipUploadImage', {
@@ -133,6 +136,8 @@
                         cropY1 : options.cropY1,
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
+                        
+                        maxFileSize : options.maxFileSize,
                         
                         defaultImage : defaultImage,
                         imageChanged : false,
@@ -264,7 +269,7 @@
                 runtimes : 'gears,html5,flash,silverlight,browserplus',
                 browse_button : 'ipUploadButton_' + data.uniqueId,
                 container : 'ipUploadContainer_' + data.uniqueId,
-                max_file_size : '100mb',
+                max_file_size : data.maxFileSize,
                 url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                 multipart_params : {
                     g : 'developer',
@@ -286,7 +291,7 @@
             uploader.bind('FilesAdded', function(up, files) {
                 
                 $.each(files, function(i, file) {
-                    console.log(file);
+                    $this.trigger('imageUploadAdd.ipUploadImage', file);
                     //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
@@ -294,7 +299,7 @@
             });
 //
             uploader.bind('UploadProgress', function(up, file) {
-                //console.log(file);
+                $this.trigger('imageUploadProgress.ipUploadImage', file);
                 //$('#' + file.id + " b").html(file.percent + "%");
             });
 
