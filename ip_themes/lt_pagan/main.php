@@ -1,4 +1,4 @@
-<?php if (!defined('FRONTEND')) exit; ?>
+<?php if (!defined('CMS')) exit; ?>
 <?php echo $this->doctypeDeclaration(); ?>
 
 <html<?php echo $this->htmlAttributes(); ?>>
