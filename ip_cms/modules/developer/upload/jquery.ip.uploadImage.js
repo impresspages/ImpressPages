@@ -304,7 +304,7 @@
 //
             uploader.bind('UploadProgress', function(up, file) {
                 $this.trigger('uploadProgress.ipUploadImage', file);
-                //$('#' + file.id + " b").html(file.percent + "%");
+                $this.ipUploadImage('_showProgressbar', file.percent);
             });
 
             uploader.bind('Error', function(up, err) {
@@ -315,6 +315,7 @@
             });
             
             uploader.bind('FileUploaded', function(up, file, response) {
+                $this.ipUploadImage('_hideProgressbar');
                 $this.ipUploadImage('_uploadedNewFile', up, file, response);
             });
             
@@ -350,6 +351,24 @@
                 $this.data('ipUploadImage', data);
                 $this.find('.ipUploadImage').attr('src', ip.baseUrl + answer.fileName);
             }
+        },
+        
+        _showProgressbar : function (percent) {
+            $this = $(this);
+            var $progressbar = $this.find('.ipUploadProgressbar');
+            $progressbar.progressbar({
+                value: percent
+            });
+            $progressbar.width($this.width() * 0.6);
+            $progressbar.css('margin-top', ($this.height() - $progressbar.height()) / 2);
+            $progressbar.css('margin-left', ($this.width() - $progressbar.width()) / 2);
+            $progressbar.show();
+        },
+        
+        _hideProgressbar : function () {
+            $this = $(this);
+            var $progressbar = $this.find('.ipUploadProgressbar');
+            $progressbar.hide();
         },
         
         /**

@@ -442,6 +442,11 @@
     position: absolute;
     z-index: 99;
 }
+.ipUploadProgressbar {
+    display:none;
+    position: absolute;
+    z-index: 199;
+}
 .ipUploadWindow {
     background: url(../img/bg_upload.gif);
     overflow: hidden;

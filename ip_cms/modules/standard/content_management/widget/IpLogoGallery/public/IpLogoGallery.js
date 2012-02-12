@@ -304,7 +304,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
         if (tmpData.status == 'new' || ipUploadLogo.ipUploadImage('getNewImageUploaded')) {
             return 'new';
         } else {
-            if (ipUploadLogo.ipUploadImage('getCropCoordinatesChanged') && ipUploadLogo.ipUploadImage('getCurLogo') != false) {
+            if (ipUploadLogo.ipUploadImage('getCropCoordinatesChanged') && ipUploadLogo.ipUploadImage('getCurImage') != false) {
                 return 'coordinatesChanged';
             }
         }
