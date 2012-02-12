@@ -28,6 +28,6 @@ $languageUrl = "en";
 
     // Widget: IpTextImage
     $parameterValue["standard"]["content_management"]["widget_text_image"]["width"] = "300"; // content
-    $parameterValue["standard"]["content_management"]["widget_text_image"]["height"] = "190"; // content
+    $parameterValue["standard"]["content_management"]["widget_text_image"]["height"] = "600"; // content
     $parameterValue["standard"]["content_management"]["widget_text_image"]["big_width"] = "800"; // lightbox
     $parameterValue["standard"]["content_management"]["widget_text_image"]["big_height"] = "600"; // lightbox
