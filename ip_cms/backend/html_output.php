@@ -281,7 +281,7 @@ class HtmlOutput {
     <div class="ipAdminNav">
         <div class="ipAdminNavActions">
             ' . $systemMessage . '
-            <a class="ipaHelp" target="_blank" href="http://www.impresspages.org/help">
+            <a class="ipaHelp" target="_blank" href="http://www.impresspages.org/help2">
                 ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'help') . '
             </a>
             <a class="ipaLogout" href="' . $cms->generateActionUrl('logout') . '">
