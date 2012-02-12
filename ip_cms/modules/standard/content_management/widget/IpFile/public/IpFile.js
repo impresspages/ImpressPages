@@ -45,8 +45,9 @@ function IpWidget_IpFile(widgetObject) {
     function fileUploaded(event, fileName) {
         /* we are in widgetObject context */
         var $this = $(this);
+        $title = fileName.split('/').pop();
         var container = $this.find('.ipWidget_ipFile_container');
-        container.ipWidget_ipFile_container('addFile', fileName, '', 'new');
+        container.ipWidget_ipFile_container('addFile', fileName, $title, 'new');
     }
     
 
