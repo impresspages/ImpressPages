@@ -68,7 +68,7 @@
 
         
         _containerHtmlResponse : function (response) {
-            $this = this;
+            var $this = this;
             
             if (response.status != 'success') {
                 return;
