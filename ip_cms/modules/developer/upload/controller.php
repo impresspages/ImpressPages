@@ -128,8 +128,10 @@ class Controller extends \Ip\Controller{
                 $in = fopen("php://input", "rb");
 
                 if ($in) {
-                    while ($buff = fread($in, 4096))
-                    fwrite($out, $buff);
+                    while ($buff = fread($in, 4096)) {
+                        set_time_limit(30);
+                        fwrite($out, $buff);
+                    }
                 } else
                 die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}');
 

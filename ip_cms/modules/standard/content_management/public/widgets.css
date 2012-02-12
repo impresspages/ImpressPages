@@ -435,14 +435,14 @@
 }
 
 /* Image upload tools */
-.ipUploadButtons {
+.ipUploadWindow .ipUploadButtons {
     background-color: rgba(0,0,0,.8);
     margin: 9px;
     padding: 3px;
     position: absolute;
     z-index: 99;
 }
-.ipUploadProgressbar {
+.ipUploadWindow .ipUploadProgressbar {
     display:none;
     position: absolute;
     z-index: 199;
@@ -452,10 +452,10 @@
     overflow: hidden;
     user-select: none;
 }
-.ipUploadBrowseContainer {
+.ipUploadWindow .ipUploadBrowseContainer {
     float: left;
 }
-.ipUploadImageButton {
+.ipUploadWindow .ipUploadImageButton {
     background: url(../img/icons_upload.png) no-repeat;
     display: block;
     float: left;
@@ -464,25 +464,25 @@
     text-indent: -999px;
     width: 24px;
 }
-.ipUploadImageButton.ipUploadBrowseButton {
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton {
     background-position: 0 0;
     width: 40px;
 }
-.ipUploadImageButton.ipUploadBrowseButton:hover {
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton:hover {
     background-position: -40px 0;
 }
-.ipUploadImageButton.ipUploadLargerButton {
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton {
     background-position: 0 -24px;
     margin-left: 3px;
 }
-.ipUploadImageButton.ipUploadLargerButton:hover {
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton:hover {
     background-position: -24px -24px;
 }
-.ipUploadImageButton.ipUploadSmallerButton {
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton {
     background-position: 0 -48px;
     margin-left: 3px;
 }
-.ipUploadImageButton.ipUploadSmallerButton:hover {
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton:hover {
     background-position: -24px -48px;
 }
 
