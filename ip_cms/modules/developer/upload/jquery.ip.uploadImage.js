@@ -211,12 +211,12 @@
                 
                 $ipUploadWindow.bind( "resize", function(event, ui) {
                     $(this).trigger('windowResize.ipUploadImage', [event, ui]);
-                });                
+                });
                 
             }
             $this.bind('windowResize.ipUploadImage', function(event, resizeEvent, ui) {
                 $(this).ipUploadImage('_resizedWindow', resizeEvent, ui);
-            });            
+            });
 
             
             $this.find('.ipUploadLargerButton').click(function(event) {
