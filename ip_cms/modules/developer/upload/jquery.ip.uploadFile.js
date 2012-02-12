@@ -152,7 +152,6 @@
             $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
             $newFileProgressbar.find('.ipUploadTitle').text(file.name);
             $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
-            $newFileProgressbar.find('.ipUploadCancel').bind('click', up.removeFile, file);
             $this.find('.ipUploadProgressContainer').append($newFileProgressbar);
             //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
         },
