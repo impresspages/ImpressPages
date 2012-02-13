@@ -692,13 +692,15 @@
             var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($image.css('left'));
             var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($image.css('top'));
             
-            var $tmpImage = $image.clone();
-            $tmpImage.width('auto');
-            $tmpImage.height('auto');
-            $this.append($tmpImage);
             
-            var scale = $image.width() / $tmpImage.width();
-            $tmpImage.remove();
+            var currentWidth = $image.width();
+            
+            $image.width('auto');
+            $image.height('auto');
+            
+            var originalWidth = $image.width();
+            
+            var scale = currentWidth / originalWidth;
             
             coordinates.x1 = Math.round(offsetX / scale);
             coordinates.y1 = Math.round(offsetY / scale);
@@ -801,8 +803,21 @@
         }
         
         
+
+
+        
+        
     };
     
+    
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+    }
 
     $.fn.ipUploadImage = function(method) {
         if (methods[method]) {
