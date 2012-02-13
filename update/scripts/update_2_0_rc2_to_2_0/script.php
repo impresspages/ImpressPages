@@ -237,6 +237,28 @@ class Script {
                     \Db_100::addStringParameter($group['id'], 'Error page title', 'error_title', 'Page not found', 0);
                 }
             }
+
+            $module = \Db_100::getModule(null, 'standard', 'content_management');
+            
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
+            if ($group) {
+                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'layout_default')) {
+                    \Db_100::addStringParameter($group['id'], 'Layout default', 'layout_default', 'Default', 1);
+                }
+                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'layout_left')) {
+                    \Db_100::addStringParameter($group['id'], 'Layout left', 'layout_left', 'Default', 1);
+                }
+                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'layout_left_small')) {
+                    \Db_100::addStringParameter($group['id'], 'Layout left small', 'layout_left_small', 'Left small', 1);
+                }
+                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'layout_right')) {
+                    \Db_100::addStringParameter($group['id'], 'Layout right', 'layout_right', 'Right', 1);
+                }
+                if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'layout_right_small')) {
+                    \Db_100::addStringParameter($group['id'], 'Layout right small', 'layout_right_small', 'Right small', 1);
+                }
+            }
+            
             
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.0');

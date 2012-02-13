@@ -217,6 +217,30 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["missing_widget"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["missing_widget"] = "string";
 
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["layout_left"] = "Layout left";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["layout_left"] = "Left";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_left"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["layout_left"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["layout_left_small"] = "Layout left small";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["layout_left_small"] = "Left small";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_left_small"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["layout_left_small"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["layout_right"] = "Right left";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["layout_right"] = "Right";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_right"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["layout_right"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["layout_right_small"] = "Layout right small";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["layout_right_small"] = "Right small";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_right_small"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["layout_right_small"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["layout_default"] = "Layout default";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["layout_default"] = "Default";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_default"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["layout_default"] = "string";
         
     $parameterGroupTitle["standard"]["content_management"]["widget_contact_form"] = "Widget: Contact form";
     $parameterGroupAdmin["standard"]["content_management"]["widget_contact_form"] = "1";
