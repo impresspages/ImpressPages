@@ -103,7 +103,7 @@ class Controller extends \Ip\Controller{
         if (strpos($contentType, "multipart") !== false) {
             if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
                 // Open temp file
-                $out = fopen($targetDir . DIRECTORY_SEPARATOR . $fileName, $chunk == 0 ? "wb" : "ab");
+                $out = fopen($targetDir . $fileName, $chunk == 0 ? "wb" : "ab");
                 if ($out) {
                     // Read binary input stream and append it to temp file
                     $in = fopen($_FILES['file']['tmp_name'], "rb");
