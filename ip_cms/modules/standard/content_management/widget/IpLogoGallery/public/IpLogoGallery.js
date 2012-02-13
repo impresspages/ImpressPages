@@ -265,6 +265,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
                 function(event){
                     $this = $(this);
                     $this.trigger('removeClick.ipWidget_ipLogoGallery');
+                    return false;
                 }
             );
             $this.bind('removeClick.ipWidget_ipLogoGallery', function(event) {

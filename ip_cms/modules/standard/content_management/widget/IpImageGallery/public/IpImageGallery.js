@@ -251,6 +251,7 @@ function IpWidget_IpImageGallery(widgetObject) {
                 function(event){
                     $this = $(this);
                     $this.trigger('removeClick.ipWidget_ipImageGallery');
+                    return false;
                 }
             );
             $this.bind('removeClick.ipWidget_ipImageGallery', function(event) {
