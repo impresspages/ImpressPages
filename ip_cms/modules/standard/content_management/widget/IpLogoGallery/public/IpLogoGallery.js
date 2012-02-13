@@ -18,7 +18,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
         
         var uploader = this.widgetObject.find('.ipaUpload');
         var options = new Object;
-        options.filterExtensions = ['jpg','gif','png','bmp'];
+        options.filterExtensions = ['jpg','gif','png'];
         uploader.ipUploadFile(options);
         
         var container = this.widgetObject.find('.ipWidget_ipLogoGallery_container');

@@ -280,7 +280,7 @@
                     m : 'upload',
                     a : 'upload'
                 },
-                filters : [{title : "Image files", extensions : "jpg,gif,png,bmp"}],
+                filters : [{title : "Image files", extensions : "jpg,gif,png"}],
                 
                 
                 flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
