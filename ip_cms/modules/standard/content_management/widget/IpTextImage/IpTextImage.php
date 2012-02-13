@@ -67,7 +67,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             
         }
 
-        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
+        if (isset($newData['imageOriginal']) &&  isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
             //remove old file
             if(isset($currentData['imageSmall'])) {
                 \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
