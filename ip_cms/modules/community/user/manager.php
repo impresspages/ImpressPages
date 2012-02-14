@@ -128,7 +128,13 @@ class Manager {
         $this->standard_module = new \Modules\developer\std_mod\StandardModule($area0);
     }
     function manage() {
-        return $this->standard_module->manage();
+        
+        $answer = '';
+        
+        $answer .= '<div>Users module is not yet compatible with ImpressPages 2.x</div>';
+        
+        //$answer .= $this->standard_module->manage(); 
+        return $answer;
 
     }
 
