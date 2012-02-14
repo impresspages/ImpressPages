@@ -1,5 +1,5 @@
 <div class="ipUploadProgressContainer"></div>
-<div class="ipUploadProgressItemSample" style="display: none;">
+<div class="ipUploadProgressItemSample ipgHide">
     <div class="ipUploadProgressItem">
         <div class="ipUploadProgressbar"></div>
         <p class="ipUploadTitle"></p>

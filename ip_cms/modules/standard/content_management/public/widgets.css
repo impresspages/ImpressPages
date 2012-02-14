@@ -434,7 +434,33 @@
     margin-left: 0;
 }
 
-/* Image upload tools */
+/* File/Image upload tools */
+.ipUploadProgressContainer {}
+.ipUploadProgressItem {
+    margin-bottom: 10px;
+}
+.ipUploadTitle {
+    color: #000;
+    font-size: 11px;
+    line-height: 22px;
+    margin-top: -22px;
+    padding: 0 5px;
+    text-shadow: 1px 1px 0 #fff;
+}
+.ipUploadProgressbar {
+    background: #ebebeb;
+    border: 1px solid #d3d3d3;
+    height: 20px;
+}
+.ipUploadProgressbar .ui-progressbar-value {
+    background: #019bd4;
+    border: 1px solid #018bbe;
+    height: 100%;
+    margin: -1px;
+}
+.ipUploadWindow {
+    position: relative;
+}
 .ipUploadWindow .ipUploadButtons {
     background-color: rgba(0,0,0,.8);
     margin: 9px;
@@ -443,9 +469,12 @@
     z-index: 99;
 }
 .ipUploadWindow .ipUploadProgressbar {
-    display:none;
+    display: none;
+    margin-top: -11px;
     position: absolute;
-    z-index: 199;
+    top: 50%;
+    width: 100%;
+    z-index: 999;
 }
 .ipUploadWindow {
     background: url(../img/bg_upload.gif);
@@ -544,16 +573,7 @@
    Widget: IpLogoGallery */
 .ipAdminWidget-IpImageGallery .ipaUpload,
 .ipAdminWidget-IpLogoGallery .ipaUpload {
-    background: url(../img/bg_upload.gif);
-    float: left;
-    margin: 0 7px 7px 0;
-    position: relative;
-    text-align: center;
-}
-.ipAdminWidget-IpImageGallery .ipaUpload .ipAdminButton,
-.ipAdminWidget-IpLogoGallery .ipaUpload .ipAdminButton {
-    position: relative;
-    top: 42%;
+    clear: both;
 }
 .ipAdminWidget-IpImageGallery .ipaImageTemplate,
 .ipAdminWidget-IpLogoGallery .ipaLogoTemplate {

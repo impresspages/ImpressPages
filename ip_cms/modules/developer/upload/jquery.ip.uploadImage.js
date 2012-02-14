@@ -359,9 +359,6 @@
             $progressbar.progressbar({
                 value: percent
             });
-            $progressbar.width($this.width() * 0.6);
-            $progressbar.css('margin-top', ($this.height() - $progressbar.height()) / 2);
-            $progressbar.css('margin-left', ($this.width() - $progressbar.width()) / 2);
             $progressbar.show();
         },
         

@@ -30,8 +30,6 @@ function IpWidget_IpLogoGallery(widgetObject) {
         }
         options.logoWidth = this.widgetObject.find('input[name="logoWidth"]').val();
         options.logoHeight = this.widgetObject.find('input[name="logoHeight"]').val();
-        uploader.css('width',options.logoWidth);
-        uploader.css('height',options.logoHeight);
         options.logoTemplate = this.widgetObject.find('.ipaLogoTemplate');
         container.ipWidget_ipLogoGallery_container(options);
         

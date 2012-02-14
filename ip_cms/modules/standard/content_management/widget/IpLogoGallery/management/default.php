@@ -5,9 +5,9 @@
     <div class="ipaLogoTemplate">
         <a href="#" class="ipaButton ipaLogoMove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/move') ?></a>
         <a href="#" class="ipaButton ipaLogoRemove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/remove') ?></a>
-        <a class="ipaButton ipaLogoLink">Link</a>
-        <br/>
-        <br/>
+        <a href="#" class="ipaButton ipaLogoLink">Link</a>
+        <br />
+        <br />
         <input type="text" class="ipAdminInput ipaLogoTitle" name="title" value="" />
         <div class="ipaLogo" style="width: 200px;"></div>
     </div>

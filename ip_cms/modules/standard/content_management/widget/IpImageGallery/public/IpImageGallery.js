@@ -31,8 +31,6 @@ function IpWidget_IpImageGallery(widgetObject) {
         }
         options.smallImageWidth = this.widgetObject.find('input[name="smallImageWidth"]').val();
         options.smallImageHeight = this.widgetObject.find('input[name="smallImageHeight"]').val();
-        uploader.css('width',options.smallImageWidth);
-        uploader.css('height',options.smallImageHeight);
         options.imageTemplate = this.widgetObject.find('.ipaImageTemplate');
         container.ipWidget_ipImageGallery_container(options);
         
