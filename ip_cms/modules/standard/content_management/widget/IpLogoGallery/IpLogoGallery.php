@@ -77,17 +77,19 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     unlink(BASE_DIR.$tmpLogoSmall);
                     
 
-                    //find logo title
-                    if ($logo['title'] == '') {
-                        $title = basename($logo['fileName']);
-                    } else {
-                        $title = $logo['title'];
+                    if (!isset($logo['title'])) {
+                        $logo['title'] = '';
                     }
+                    if (!isset($logo['link'])) {
+                        $logo['link'] = '';
+                    }
+                    
 
                     $newLogo = array(
                         'logoOriginal' => $logoOriginal,
                         'logoSmall' => $logoSmall,
-                        'title' => $title,
+                        'title' => $logo['title'],
+                        'link' => $logo['link'],
                         'cropX1' => $logo['cropX1'],
                         'cropY1' => $logo['cropY1'],
                         'cropX2' => $logo['cropX2'],
@@ -123,18 +125,20 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     unlink(BASE_DIR.$tmpLogoSmall);
                     
 
-                    //find logo title
-                    if ($logo['title'] == '') {
-                        $title = basename($logo['fileName']);
-                    } else {
-                        $title = $logo['title'];
+            
+                    if (!isset($logo['title'])) {
+                        $logo['title'] = '';
+                    }
+                    if (!isset($logo['link'])) {
+                        $logo['link'] = '';
                     }
 
 
                     $newLogo = array(
                         'logoOriginal' => $existingLogoData['logoOriginal'],
                         'logoSmall' => $logoSmall,
-                        'title' => $title,
+                        'title' => $logo['title'],
+                        'link' => $logo['link'],
                         'cropX1' => $logo['cropX1'],
                         'cropY1' => $logo['cropY1'],
                         'cropX2' => $logo['cropX2'],
@@ -144,24 +148,24 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
 
                     break;
-                case 'present': //picure not changed. Store new title
+                case 'present': //picure not changed. Store new title / link
                     $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
                     if (!$existingLogoData) {
                         break; //existing logo not found. Impossible to recalculate coordinates if logo does not exists.
                     }
 
-
-                    //find logo title
-                    if ($logo['title'] == '') {
-                        $title = basename($logo['fileName']);
-                    } else {
-                        $title = $logo['title'];
+                    if (!isset($logo['title'])) {
+                        $logo['title'] = '';
                     }
-
+                    if (!isset($logo['link'])) {
+                        $logo['link'] = '';
+                    }
+                                        
                     $newLogo = array(
                         'logoOriginal' => $existingLogoData['logoOriginal'],
                         'logoSmall' => $existingLogoData['logoSmall'],
-                        'title' => $title
+                        'title' => $logo['title'],
+                        'link' => $logo['link']
                     );
                     $newData['logos'][] = $newLogo;
 

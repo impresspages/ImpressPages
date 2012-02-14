@@ -66,6 +66,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             var $this = $(this);
             var tmpLogo = new Object();
             tmpLogo.title = $this.ipWidget_ipLogoGallery_logo('getTitle');
+            tmpLogo.link = $this.ipWidget_ipLogoGallery_logo('getLink');
             tmpLogo.fileName = $this.ipWidget_ipLogoGallery_logo('getFileName');
             tmpLogo.status = $this.ipWidget_ipLogoGallery_logo('getStatus');
             var tmpCropCoordinates = $this.ipWidget_ipLogoGallery_logo('getCropCoordinates');
@@ -124,7 +125,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
                     coordinates.cropY1 = logos[i]['cropY1'];
                     coordinates.cropX2 = logos[i]['cropX2'];
                     coordinates.cropY2 = logos[i]['cropY2'];
-                    $this.ipWidget_ipLogoGallery_container('addLogo', logos[i]['logoOriginal'], logos[i]['title'], 'present', coordinates); 
+                    $this.ipWidget_ipLogoGallery_container('addLogo', logos[i]['logoOriginal'], logos[i]['title'], logos[i]['link'], 'present', coordinates); 
                 }
                 $this.bind('removeLogo.ipWidget_ipLogoGallery', function(event, logoObject) {
                     var $logoObject = $(logoObject);
@@ -138,11 +139,11 @@ function IpWidget_IpLogoGallery(widgetObject) {
         });
     },
     
-    addLogo : function (fileName, title, status, coordinates) {
+    addLogo : function (fileName, title, link, status, coordinates) {
         var $this = this;
         var data = $this.data('ipWidget_ipLogoGallery_container');
         var $newLogoRecord = $this.data('ipWidget_ipLogoGallery_container').logoTemplate.clone();
-        $newLogoRecord.ipWidget_ipLogoGallery_logo({'logoWidth' : data.logoWidth, 'logoHeight' : data.logoHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
+        $newLogoRecord.ipWidget_ipLogoGallery_logo({'logoWidth' : data.logoWidth, 'logoHeight' : data.logoHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'link' : link, 'coordinates' : coordinates});
         var $uploader = $this.find('.ipaUpload');
         if ($uploader.length > 0) {
             $($uploader).before($newLogoRecord);
@@ -203,6 +204,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             if (!data) {
                 var data = {
                     title : '',
+                    link : '',
                     fileName : '',
                     status : status,
                     logoWidth : options.logoWidth,
@@ -211,6 +213,9 @@ function IpWidget_IpLogoGallery(widgetObject) {
                 
                 if (options.title) {
                     data.title = options.title;
+                }
+                if (options.link) {
+                    data.link = options.link;
                 }
                 if (options.fileName) {
                     data.fileName = options.fileName;
@@ -221,6 +226,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
                 
                 $this.data('ipWidget_ipLogoGallery_logo', {
                     title : data.title,
+                    link : data.link,
                     fileName : data.fileName,
                     status : data.status
                 });
@@ -250,15 +256,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             $this.find('.ipaLogo').ipUploadImage(logoOptions);
             
             
-//          handle uploading of new image
-//          if (ipUploadLogo.ipUploadImage('getNewLogoUploaded')) {
-//              var newLogo = ipUploadLogo.ipUploadImage('getCurLogo');
-//              if (newLogo) {
-//                  data.newLogo = newLogo;
-//              }
-//          }
-            
-            
+
             
             
             $this.find('.ipaLogoRemove').bind('click', 
@@ -268,8 +266,24 @@ function IpWidget_IpLogoGallery(widgetObject) {
                     return false;
                 }
             );
+            $this.find('.ipaLogoLink').bind('click', 
+                    function(event){
+                        $this = $(this);
+                        $this.trigger('linkClick.ipWidget_ipLogoGallery');
+                        return false;
+                    }
+                );
             $this.bind('removeClick.ipWidget_ipLogoGallery', function(event) {
                 $this.trigger('removeLogo.ipWidget_ipLogoGallery', this);
+            });
+            $this.bind('linkClick.ipWidget_ipLogoGallery', function(event) {
+                $this = $(this);
+                var data = $this.data('ipWidget_ipLogoGallery_logo');
+                var newLink;
+                if (newLink = prompt('Where this logo should link?', data.link)) {
+                    data.link = newLink;
+                    $this.data('ipWidget_ipLogoGallery_logo', data);
+                }
             });
             return $this;
         });
@@ -278,6 +292,12 @@ function IpWidget_IpLogoGallery(widgetObject) {
     getTitle : function() {
         var $this = this;
         return $this.find('.ipaLogoTitle').val();
+    },
+    
+    
+    getLink : function() {
+        var $this = this;
+        return $this.data('ipWidget_ipLogoGallery_logo').link;
     },
     
     getFileName : function() {
