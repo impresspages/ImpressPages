@@ -67,8 +67,8 @@ LibDefault = {
 
     xmlHttp.open("POST",url, true);
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xmlHttp.setRequestHeader("Content-length", parameters.length);
-    xmlHttp.setRequestHeader("Connection", "close");
+    //xmlHttp.setRequestHeader("Content-length", parameters.length);
+    //xmlHttp.setRequestHeader("Connection", "close");
     xmlHttp.send(parameters);
   },
 

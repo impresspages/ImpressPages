@@ -976,7 +976,6 @@ class StandardModule {
 
 
         $answer .='
-          <iframe onload="std_mod_update_f_answer()" name="std_mod_update_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
           <script type="text/javascript">
           //<![CDATA[ 
             function std_mod_update_f_answer(){
@@ -996,6 +995,7 @@ class StandardModule {
             }      
             //]]>    
           </script>          
+          <iframe onload="std_mod_update_f_answer()" name="std_mod_update_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
           ';      
 
         return $answer;
@@ -1050,7 +1050,6 @@ class StandardModule {
 
 
         $answer .='
-          <iframe onload="std_mod_new_f_answer()" name="std_mod_new_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
           <script type="text/javascript">
           //<![CDATA[ 
             function std_mod_new_f_answer(){
@@ -1070,6 +1069,7 @@ class StandardModule {
             }      
             //]]>    
           </script>          
+        <iframe onload="std_mod_new_f_answer()" name="std_mod_new_f_iframe" width="0" height="0" frameborder="0">Your browser does not support iframes.</iframe>
           ';      
         return $answer;
     }
