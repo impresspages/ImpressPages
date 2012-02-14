@@ -223,10 +223,11 @@ class Site{
                 }
                 if($this->currentLanguage == null){
                     $this->currentLanguage = reset($this->languages);
-                    $this->error404;
+                    $this->error404();
                 }
-            }else
-            $this->currentLanguage = reset($this->languages);
+            } else {
+                $this->currentLanguage = reset($this->languages);
+            }
 
             setlocale(LC_ALL, $this->currentLanguage['code']);
         }        
@@ -237,12 +238,18 @@ class Site{
 
         $this->modulesInit();
 
+        if ($this->error404) {
+            $this->dispatchError404();
+        }
     }
     
     private function error404() {
+        $this->error404 = true;
+    }
+    
+    private function dispatchError404() {
         global $dispatcher;
         $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
-        $this->error404 = true;
     }
 
     /**
