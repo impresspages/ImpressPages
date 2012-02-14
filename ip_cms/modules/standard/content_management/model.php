@@ -414,6 +414,13 @@ class Model{
         if ($layout == null) {
             $layout = self::DEFAULT_LAYOUT;
         }
+        
+        if ($predecessor === null) {
+            $predecessorSql = ' NULL ';
+        } else {
+            $predecessorSql = (int)$predecessor;
+        }
+        
         $sql = "
           insert into
               ".DB_PREF."m_content_management_widget
@@ -422,7 +429,7 @@ class Model{
               `layout` = '".mysql_real_escape_string($layout)."',
               `created` = ".time().",
               `data` = '".mysql_real_escape_string(json_encode($data))."',
-              `predecessor` = '".(int)$predecessor."'
+              `predecessor` = ".$predecessorSql."
               ";
 
         $rs = mysql_query($sql);
