@@ -79,6 +79,7 @@ class element_wysiwyg extends Element{ //data element in area
     }
 
     function check_field($prefix, $action){
+	global $parametersMod;
 
         if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
         return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
