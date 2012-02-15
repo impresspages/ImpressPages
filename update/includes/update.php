@@ -123,6 +123,13 @@ class Update {
 
         $answer .= $tmpHtml;
 
+        if ($this->getCurrentVersion() == '2.0rc1' || $this->getCurrentVersion() == '2.0rc2') {
+            $tmpHtml = IP_OLD_VERSION_VARNING;
+            $tmpHtml = str_replace("[[current_version]]", htmlspecialchars($this->getCurrentVersion()), $tmpHtml);
+            $answer .= $tmpHtml;
+        }
+        
+        
         $answer .= "<br/><br/>";
 
         $answer .= $htmlOutput->button(IP_STEP_BACKUP_UPDATE, $navigation->generateLink(2));
