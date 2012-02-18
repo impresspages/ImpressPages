@@ -1,6 +1,6 @@
 <?php if (!defined('FRONTEND')) exit;   ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>" lang="<?php echo $site->currentLanguage['code']; ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>" lang="<?php echo $site->getCurrentLanguage()->getCode(); ?>">
 <head>
   <title><?php echo htmlspecialchars($site->getTitle()); ?></title>
   <link href="<?php echo BASE_URL.THEME_DIR.THEME; ?>/ip_content.css" rel="stylesheet" type="text/css" />
