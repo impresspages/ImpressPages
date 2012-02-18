@@ -165,7 +165,11 @@ class FieldFile extends Field{
     return $error;
   }
   function postedValue(){
-    return $_FILES[$this->name]['name'];
+      if (isset($_FILES[$this->name]['name'])) {
+          return $_FILES[$this->name]['name'];
+      } else {
+          return '';
+      }
   }
    
 }
