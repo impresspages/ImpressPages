@@ -67,7 +67,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 			/*data*/
 			$sqlFile = "sql/data.sql";
 			$fh = fopen($sqlFile, 'r');
-			$all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
+			$all_sql = fread($fh, filesize($sqlFile));
 			fclose($fh);			
 			
 			//$all_sql = utf8_encode($all_sql);
