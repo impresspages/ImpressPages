@@ -432,12 +432,7 @@ class FieldRadio extends Field{
     }
     return $error;
   }
-  function postedValue(){
-    if(isset($_POST[$this->name]))
-      return 1;
-    else
-      return 0;
-  }
+
 
   function getName($str){
     $underscorePos = strpos($str, '_');
