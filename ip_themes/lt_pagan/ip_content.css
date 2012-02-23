@@ -301,6 +301,15 @@
 }
 .ipWidget-IpHtml {}
 
+.ipWidget-IpFaq .ipWidgetFaqQuestion {
+    color: #4B4A4A;
+    font-weight: bold;
+    text-decoration: none;
+}
+.ipWidget-IpFaq .ipWidgetFaqAnswer {
+    display: none;
+}
+
 /* Widgets :: side */
 .side .ipWidget {
     margin-bottom: 15px;
