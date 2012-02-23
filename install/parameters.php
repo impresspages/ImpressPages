@@ -363,15 +363,15 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["widget_faq"]["error_empty_question"] = "1";
         $parameterType["standard"]["content_management"]["widget_faq"]["error_empty_question"] = "string";
 
-        $parameterTitle["standard"]["content_management"]["widget_faq"]["title"] = "Title";
-        $parameterValue["standard"]["content_management"]["widget_faq"]["title"] = "Title";
-        $parameterAdmin["standard"]["content_management"]["widget_faq"]["title"] = "1";
-        $parameterType["standard"]["content_management"]["widget_faq"]["title"] = "string";
+        $parameterTitle["standard"]["content_management"]["widget_faq"]["question"] = "Question";
+        $parameterValue["standard"]["content_management"]["widget_faq"]["question"] = "Question";
+        $parameterAdmin["standard"]["content_management"]["widget_faq"]["question"] = "1";
+        $parameterType["standard"]["content_management"]["widget_faq"]["question"] = "string";
 
-        $parameterTitle["standard"]["content_management"]["widget_faq"]["text"] = "Text";
-        $parameterValue["standard"]["content_management"]["widget_faq"]["text"] = "Text";
-        $parameterAdmin["standard"]["content_management"]["widget_faq"]["text"] = "1";
-        $parameterType["standard"]["content_management"]["widget_faq"]["text"] = "string";
+        $parameterTitle["standard"]["content_management"]["widget_faq"]["answer"] = "Answer";
+        $parameterValue["standard"]["content_management"]["widget_faq"]["answer"] = "Answer";
+        $parameterAdmin["standard"]["content_management"]["widget_faq"]["answer"] = "1";
+        $parameterType["standard"]["content_management"]["widget_faq"]["answer"] = "string";
 
         $parameterTitle["standard"]["content_management"]["widget_faq"]["layout_default"] = "Layout default";
         $parameterValue["standard"]["content_management"]["widget_faq"]["layout_default"] = "Default";
