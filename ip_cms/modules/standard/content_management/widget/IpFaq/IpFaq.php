@@ -16,9 +16,4 @@ class IpFaq extends \Modules\standard\content_management\Widget{
         return $parametersMod->getValue('standard', 'content_management', 'widget_faq', 'widget_title');
     }
 
-    public function previewHtml($instanceId, $data, $layout) {
-        $data['instanceId']=$instanceId;
-        return parent::previewHtml($instanceId, $data, $layout);
-    }
-
 }
