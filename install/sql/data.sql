@@ -26,7 +26,8 @@ INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`
 (12, 'IpNewsletter', 110, 0),
 (9, 'IpHtml', 120, 0),
 (11, 'IpTable', 100, 0),
-(13, 'IpRichText', 130, 0);
+(13, 'IpRichText', 130, 0),
+(14, 'IpFaq', 140, 0);
 
 -- Dumping data for table--
 
