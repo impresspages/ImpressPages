@@ -305,9 +305,17 @@
     color: #4B4A4A;
     font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
 }
+
+.ipWidget-IpFaq .ipWidgetFaqQuestionVisible {
+    color: #000000;
+}
+
 .ipWidget-IpFaq .ipWidgetFaqAnswer {
-    display: none;
+}
+
+.ipWidget-IpFaq .ipWidgetFaqAnswerVisible {
 }
 
 /* Widgets :: side */

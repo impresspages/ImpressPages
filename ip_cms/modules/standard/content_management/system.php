@@ -41,6 +41,8 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js', 2);
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js', 2);
 
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widgets.js',2);
+
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js', 2);
             $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
 
@@ -68,6 +70,8 @@ class System{
 
             $event = new EventWidget(null, 'contentManagement.initWidgets', null);
             $dispatcher->notify($event);
+        } else {
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widgets.js',2);
         }
 
     }
