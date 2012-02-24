@@ -71,7 +71,7 @@ class System{
             $dispatcher->notify($event);
         }
 
-        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/widgets.js',2);
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js',2);
 
     }
 
