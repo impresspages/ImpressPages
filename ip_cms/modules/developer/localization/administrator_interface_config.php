@@ -875,11 +875,11 @@ $parameter["parameterValue/standard/content_management/widget_faq/faq"] = "FAQ";
 $parameter["parameterTitle/standard/content_management/widget_faq/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_faq/layout_default"] = "Default";
 
-$parameter["parameterTitle/standard/content_management/widget_faq/text"] = "Text";
-$parameter["parameterValue/standard/content_management/widget_faq/text"] = "Text";
+$parameter["parameterTitle/standard/content_management/widget_faq/answer"] = "Answer";
+$parameter["parameterValue/standard/content_management/widget_faq/answer"] = "Answer";
 
-$parameter["parameterTitle/standard/content_management/widget_faq/title"] = "Title";
-$parameter["parameterValue/standard/content_management/widget_faq/title"] = "Title";
+$parameter["parameterTitle/standard/content_management/widget_faq/question"] = "Question";
+$parameter["parameterValue/standard/content_management/widget_faq/question"] = "Question";
 
 $parameter["parameterTitle/standard/content_management/widget_faq/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_faq/widget_title"] = "FAQ";
