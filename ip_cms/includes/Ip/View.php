@@ -163,6 +163,14 @@ class View{
         return false;
     }
     
+    /**
+     * 
+     * Set view data
+     * @param array $data
+     */
+    public function setData($data) {
+        $this->data = $data;
+    }
 
     public function getData() {
         return $this->data;
