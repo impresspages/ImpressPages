@@ -391,10 +391,13 @@ class Controller extends \Ip\Controller{
 
             $this->_outputAnswer($data);
         } else {
+            Model::deleteInstance($instanceId);
+            Model::deleteUnusedWidgets();
             $data = array (
-                'status' => 'error',
+                'status' => 'success',
                 'action' => '_cancelWidgetResponse',
-                'errorMessage' => 'Widget has no predecessor.',
+                'previewHtml' => '',
+                'oldInstanceId' =>null
             );
 
             $this->_outputAnswer($data);
