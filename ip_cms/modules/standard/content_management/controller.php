@@ -372,16 +372,9 @@ class Controller extends \Ip\Controller{
         $widgetFullRecord = Model::getWidgetFullRecord($instanceId);
 
         if ($widgetFullRecord['predecessor'] !== null) {
-            $widgetPositin = Model::getInstancePosition($instanceId);
             Model::deleteInstance($instanceId);
-            if ($widgetFullRecord['predecessor']) {
-                $newInstanceId = Model::addInstance($widgetFullRecord['predecessor'], $widgetFullRecord['revisionId'], $widgetFullRecord['blockName'], $curPosition, $widgetFullRecord['visible']);
-                $previewHtml = Model::generateWidgetPreview($newInstanceId, true);
-            } else {
-                $newInstanceId = '';
-                $previewHtml = '';
-            }
-
+            $newInstanceId = Model::addInstance($widgetFullRecord['predecessor'], $widgetFullRecord['revisionId'], $widgetFullRecord['blockName'], $curPosition, $widgetFullRecord['visible']);
+            $previewHtml = Model::generateWidgetPreview($newInstanceId, true);
             $data = array (
                 'status' => 'success',
                 'action' => '_cancelWidgetResponse',
@@ -391,10 +384,12 @@ class Controller extends \Ip\Controller{
 
             $this->_outputAnswer($data);
         } else {
+            Model::deleteInstance($instanceId);
             $data = array (
-                'status' => 'error',
+                'status' => 'success',
                 'action' => '_cancelWidgetResponse',
-                'errorMessage' => 'Widget has no predecessor.',
+                'previewHtml' => '',
+                'oldInstanceId' => ''
             );
 
             $this->_outputAnswer($data);
