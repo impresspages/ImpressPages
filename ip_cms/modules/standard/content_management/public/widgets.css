@@ -608,6 +608,11 @@
     width: 100%;
 }
 
+/* Widget: IpFaq */
+.ipAdminWidget-IpFaq .ipaAnswer {
+    margin-top: 20px;
+}
+
 /* style that interfere with theme styles and potentially may cause issues */
 .ipWidget {
     min-height: 10px;
