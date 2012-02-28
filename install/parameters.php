@@ -361,11 +361,11 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["values_field_title"] = "1";
         $parameterType["standard"]["content_management"]["widget_contact_form"]["values_field_title"] = "string";
 
-    $parameterGroupTitle["standard"]["content_management"]["widget_faq"] = "Widget: FAQ";
+    $parameterGroupTitle["standard"]["content_management"]["widget_faq"] = "Widget: F.A.Q.";
     $parameterGroupAdmin["standard"]["content_management"]["widget_faq"] = "1";
 
-        $parameterTitle["standard"]["content_management"]["widget_faq"]["faq"] = "FAQ";
-        $parameterValue["standard"]["content_management"]["widget_faq"]["faq"] = "FAQ";
+        $parameterTitle["standard"]["content_management"]["widget_faq"]["faq"] = "F.A.Q.";
+        $parameterValue["standard"]["content_management"]["widget_faq"]["faq"] = "F.A.Q.";
         $parameterAdmin["standard"]["content_management"]["widget_faq"]["faq"] = "1";
         $parameterType["standard"]["content_management"]["widget_faq"]["faq"] = "string";
 
@@ -390,7 +390,7 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterType["standard"]["content_management"]["widget_faq"]["layout_default"] = "string";
 
         $parameterTitle["standard"]["content_management"]["widget_faq"]["widget_title"] = "Widget title";
-        $parameterValue["standard"]["content_management"]["widget_faq"]["widget_title"] = "FAQ";
+        $parameterValue["standard"]["content_management"]["widget_faq"]["widget_title"] = "F.A.Q.";
         $parameterAdmin["standard"]["content_management"]["widget_faq"]["widget_title"] = "1";
         $parameterType["standard"]["content_management"]["widget_faq"]["widget_title"] = "string";
 

@@ -300,22 +300,39 @@
     height: 25px;
 }
 .ipWidget-IpHtml {}
-
-.ipWidget-IpFaq .ipWidgetFaqQuestion {
-    color: #4B4A4A;
+.ipWidget-IpFaq {
+    padding-left: 30px;
+}
+.ipWidget-IpFaq .ipwContainer:before {
+    border: 1px solid #000;
+    font-size: 11px;
     font-weight: bold;
-    text-decoration: none;
+    color: #000;
+    content: '?';
+    display: block;
+    margin-left: -30px;
+    padding: 2px 4px;
+    position: absolute;
+}
+.ipWidget-IpFaq .ipwContainer.expanded:before {
+    background-color: #000;
+    color: #fff;
+}
+.ipWidget-IpFaq .ipwQuestion {
+    color: #000;
     cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    text-decoration: none;
 }
-
-.ipWidget-IpFaq .ipWidgetFaqQuestionVisible {
-    color: #000000;
+.ipWidget-IpFaq .ipwQuestion:hover {
+    text-decoration: underline;
 }
-
-.ipWidget-IpFaq .ipWidgetFaqAnswer {
+.ipWidget-IpFaq .ipwAnswer {
+    margin-top: 5px;
 }
-
-.ipWidget-IpFaq .ipWidgetFaqAnswerVisible {
+.ipWidget-IpFaq .collapsed .ipwAnswer {
+    display: none;
 }
 
 /* Widgets :: side */

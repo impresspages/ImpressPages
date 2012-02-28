@@ -6,26 +6,33 @@
 
 // jQuery plugins for widgets
 (function($) {
-    $.fn.IpFaqWidget = function() {
+    $.fn.ipWidgetFaq = function() {
         return this.each(function() {
-                var $this = $(this).children('h3'), state = false, answer = $this.next('div').hide().css('height','auto').slideUp();
-                $this.click(function() {
-                    state = !state;
-                    answer.slideToggle(state);
-                    answer.toggleClass('ipWidgetFaqAnswerVisible',state);
-                    $this.toggleClass('ipWidgetFaqQuestionVisible',state);
+            var $faq = $(this);
+            var $container = $faq.find('.ipwContainer');
+            var $question = $faq.find('.ipwQuestion');
+            var $answer = $faq.find('.ipwAnswer');
+
+            // if container has 'disable' class, functionality is not added
+            if (!$container.hasClass('disabled')) {
+                // can start with expanded or collapsed, depending on the class found
+                if ($container.hasClass('expanded')) {
+                    $answer.show();
+                } else {
+                    $container.addClass('collapsed');
+                    $answer.slideUp();
+                }
+                $question.click(function() {
+                    $answer.slideToggle();
+                    $container.toggleClass('collapsed expanded');
                 });
+            }
         });
     };
-
 })(jQuery);
 
 // hook all widgets with plugins
 $(document).ready(function() {
     // handling all widgets by class
-    $('.ipWidget-IpFaq').IpFaqWidget();
-    
-    $(".ipWidget-IpFaq + .ipPreviewWidget form").validator();
+    $('.ipWidget-IpFaq').ipWidgetFaq();
 });
-
-
