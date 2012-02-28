@@ -23,7 +23,7 @@ ipTinyMceConfigMax = {
     document_base_url : ip.baseUrl,
     remove_script_host : false,
     relative_urls : false,
-    convert_urls : true,
+    convert_urls : true
 
     
 

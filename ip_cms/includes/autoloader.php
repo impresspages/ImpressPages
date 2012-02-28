@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package		Library
+ * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license	GNU/GPL, see ip_license.html
  */
@@ -21,18 +21,8 @@ function __impressPagesAutoloader($name) {
         return true;
     }
 
-    if (file_exists(BASE_DIR.MODULE_DIR.$fileName)) {
-        require_once(BASE_DIR.MODULE_DIR.$fileName);
-        return true;
-    }
-
-    $parts = explode('\\', $name);
-    if (count($parts) >= 4 && $parts[0] == 'Modules') {
-        $fileName = $parts[1].'/'.$parts[2].'/'.strtolower($parts[3]);
-        for ($depth = 4; $depth < count($parts); $depth++) {
-            $fileName .= '/'.$parts[$depth]; 
-        }
-        $fileName .= '.php';
+    if (substr($fileName, 0, 8) == 'Modules/') {
+        $fileName = substr($fileName, 8);
         $success = __impressPagesAutoloaderTry($fileName);
         if ($success) {
             return true;
@@ -41,18 +31,21 @@ function __impressPagesAutoloader($name) {
         if ($success) {
             return true;
         }
-
     }
     
+    if (substr($fileName, 0, 8) == 'Library/') {
+        $fileName = substr($fileName, 8);
+        if (file_exists(BASE_DIR.LIBRARY_DIR.$fileName)) {
+            require_once(BASE_DIR.LIBRARY_DIR.$fileName);
+            return true;
+        }
+    }
+
     return false;
 }
 
 
 function __impressPagesAutoloaderTry($fileName) {
-    if (file_exists(BASE_DIR.INCLUDE_DIR.$fileName)) {
-        require_once(BASE_DIR.INCLUDE_DIR.$fileName);
-        return true;
-    }
     if (file_exists(BASE_DIR.MODULE_DIR.$fileName)) {
         require_once(BASE_DIR.MODULE_DIR.$fileName);
         return true;
