@@ -24,6 +24,8 @@
 $(document).ready(function() {
     // handling all widgets by class
     $('.ipWidget-IpFaq').IpFaqWidget();
+    
+    $(".ipWidget-IpFaq + .ipPreviewWidget form").validator();
 });
 
 

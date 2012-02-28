@@ -243,6 +243,16 @@ class Script {
                     \Db_100::addStringParameter($group['id'], 'Answer', 'answer', 'Answer', 1);
                 }
             }
+
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_contact_form');
+            if ($group) {
+                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'move')) {
+                    \Db_100::addStringParameter($group['id'], 'Move', 'move', 'Move', 1);
+                }
+                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+                    \Db_100::addStringParameter($group['id'], 'Remove', 'remove', 'Remove', 1);
+                }
+            }
             
             
             if ($this->curStep == $this->stepCount){

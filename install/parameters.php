@@ -314,7 +314,18 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterValue["standard"]["content_management"]["widget_contact_form"]["widget_title"] = "Contact form";
         $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["widget_title"] = "1";
         $parameterType["standard"]["content_management"]["widget_contact_form"]["widget_title"] = "string";
+        
 
+        $parameterTitle["standard"]["content_management"]["widget_contact_form"]["move"] = "Move";
+        $parameterValue["standard"]["content_management"]["widget_contact_form"]["move"] = "Move";
+        $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["move"] = "1";
+        $parameterType["standard"]["content_management"]["widget_contact_form"]["move"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["widget_contact_form"]["remove"] = "Remove";
+        $parameterValue["standard"]["content_management"]["widget_contact_form"]["remove"] = "Remove";
+        $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["remove"] = "1";
+        $parameterType["standard"]["content_management"]["widget_contact_form"]["remove"] = "string";
+        
         $parameterTitle["standard"]["content_management"]["widget_contact_form"]["text"] = "Text";
         $parameterValue["standard"]["content_management"]["widget_contact_form"]["text"] = "Text";
         $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["text"] = "1";

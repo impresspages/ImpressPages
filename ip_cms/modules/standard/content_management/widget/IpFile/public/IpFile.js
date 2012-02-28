@@ -57,7 +57,7 @@ function IpWidget_IpFile(widgetObject) {
         var container = this.widgetObject.find('.ipWidget_ipFile_container');
         
         data.files = new Array();
-        $files = container.ipWidget_ipFile_container('getFiles');
+        var $files = container.ipWidget_ipFile_container('getFiles');
         $files.each(function(index) {
             var $this = $(this);
             var tmpFile = new Object();

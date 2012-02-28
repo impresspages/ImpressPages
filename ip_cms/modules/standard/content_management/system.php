@@ -72,7 +72,8 @@ class System{
         }
 
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js',2);
-
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.validator.js',2);
+        
     }
 
     
