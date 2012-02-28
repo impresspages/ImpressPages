@@ -22,6 +22,8 @@ class Form{
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = '';
+        $this->pages = array();
+        $this->attributes = array();
     }
     
     public function addPage(Page $page) {
@@ -96,6 +98,14 @@ class Form{
     
     public function getAttributes() {
         return $this->attributes;
+    }
+    
+    public function getAttributesStr() {
+        $answer = '';
+        foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
+            $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
+        }
+        return $answer;
     }
 
     public function render(\Ip\View $view = null) {

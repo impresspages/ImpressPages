@@ -17,6 +17,7 @@ abstract class Field{
     protected $note;
     protected $hint;
     protected $name;
+    protected $defaultValue;
     protected $validators;
     
     public function __construct($options) {
@@ -29,16 +30,19 @@ abstract class Field{
         }
         
         if (!empty($options['label'])) {
-            $this->label = $options['label'];
+            $this->setLabel($options['label']);
         }
         if (!empty($options['note'])) {
-            $this->note = $options['note'];
+            $this->setNote($options['note']);
         }
         if (!empty($options['hint'])) {
-            $this->hint = $options['hint'];
+            $this->setHint($options['hint']);
         }
         if (!empty($options['name'])) {
-            $this->name = $options['name'];
+            $this->setName($options['name']);
+        }
+        if (!empty($options['defaultValue'])) {
+            $this->setDefaultValue($options['defaultValue']);
         }
     }
     
@@ -121,6 +125,12 @@ abstract class Field{
         $this->name = $name;
     }
 
-
+    public function getDefaultValue() {
+        return $this->defaultValue;
+    }
+    
+    public function setDefaultValue($defaultValue) {
+        $this->defaultValue = $defaultValue;
+    }
     
 }

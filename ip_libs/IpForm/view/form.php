@@ -1,4 +1,4 @@
-<form method="<?php echo $form->getMethod() ?>">
+<form method="<?php echo $form->getMethod() ?>" <?php echo $form->getAttributesStr() ?>>
     <?php foreach ($form->getPages() as $pageKey => $page) { ?>
     <div class="page">
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>

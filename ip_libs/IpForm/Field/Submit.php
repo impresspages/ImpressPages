@@ -11,7 +11,7 @@ namespace Library\IpForm\Field;
 class Submit extends Field{
     
     public function render($doctype) {
-        return '<input type="submit" value="Submit"/>';
+        return '<input type="submit" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
     }
     
     public function getLayout() {
