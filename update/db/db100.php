@@ -264,6 +264,84 @@ class Db_100 {
       
     }        
     
+    
+    
+    public static function addParameter($groupId, $parameter) {
+        $sql = "insert into `".DB_PREF."parameter`
+      set `name` = '".mysql_real_escape_string($parameter['name'])."',
+      `admin` = '".mysql_real_escape_string($parameter['admin'])."',
+      `group_id` = ".(int)$groupId.",
+      `translation` = '".mysql_real_escape_string($parameter['translation'])."',
+      `comment` = '".mysql_real_escape_string($parameter['comment'])."',
+      `type` = '".mysql_real_escape_string($parameter['type'])."'";
+
+        $rs = mysql_query($sql);
+        if($rs) {
+            $last_insert_id = mysql_insert_id();
+            switch($parameter['type']) {
+                case "string_wysiwyg":
+                    $sql = "insert into `".DB_PREF."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql);
+                    if(!$rs)
+                    trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                    break;
+                case "string":
+                    $sql = "insert into `".DB_PREF."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql);
+                    if(!$rs)
+                    trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                    break;
+                case "integer":
+                    $sql = "insert into `".DB_PREF."par_integer` set `value` = ".mysql_real_escape_string($parameter['value']).", `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql);
+                    if(!$rs)
+                    trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                    break;
+                case "bool":
+                    $sql = "insert into `".DB_PREF."par_bool` set `value` = ".mysql_real_escape_string($parameter['value']).", `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql);
+                    if(!$rs)
+                    trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                    break;
+                case "textarea":
+                    $sql = "insert into `".DB_PREF."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql);
+                    if(!$rs)
+                    trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                    break;
+
+                case "lang":
+                    $languages = Db::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3);
+                        if(!$rs3)
+                        trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    }
+                    break;
+                case "lang_textarea":
+                    $languages = Db::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3);
+                        if(!$rs3)
+                        trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    }
+                    break;
+                case "lang_wysiwyg":
+                    $languages = Db::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3);
+                        if(!$rs3)
+                        trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    }
+                    break;
+            }
+        }else {
+            trigger_error($sql." ".mysql_error());
+        }
+    }    
 
     /**
      * @access private
