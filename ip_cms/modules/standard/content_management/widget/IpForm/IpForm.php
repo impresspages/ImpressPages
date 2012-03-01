@@ -15,7 +15,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_text', 'menu_mod_text');
+        return $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'contact_form');
     }
     
     public function managementHtml($instanceId, $data, $layout) {

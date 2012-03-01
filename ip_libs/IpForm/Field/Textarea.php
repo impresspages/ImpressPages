@@ -8,14 +8,12 @@
 namespace Library\IpForm\Field;
 
 
-class Email extends Field{
+class Textarea extends Field{
     
     public function render($doctype) {
         $attributesStr = '';
         
-        return '<input '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
+        return '<textarea '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
     }
-    
-
     
 }

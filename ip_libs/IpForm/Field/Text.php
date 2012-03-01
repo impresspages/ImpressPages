@@ -14,11 +14,9 @@ class Text extends Field{
         $attributesStr = '';
         
         
-        return '<input '.$this->getValidationAttributesStr().' type="text" value="test"/>';
+        return '<input '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
     }
     
-    public function getLayout() {
-        return self::LAYOUT_DEFAULT;
-    }
+
     
 }

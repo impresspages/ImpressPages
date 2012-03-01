@@ -235,19 +235,12 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpEmail', '\Library\IpForm\Field\Email', 'Email');
         $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpTextarea', '\Library\IpForm\Field\Textarea', 'Textarea');
+        $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select');
+        $event->addField($newFieldType);
     }    
-    /*
-    
-                array('text' => 'Text (one line)',
-            'textarea' => 'Text (many lines)',
-            'select' => 'Select',
-            'file' => 'File',
-            'checkbox' => 'Checkbox',
-            'radiobutton' => 'Radio button',
-            'title' => 'Title',
-            );
-        
-    */
+
     
     public static function duplicatedRevision (\Ip\Event $event) {
         Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));

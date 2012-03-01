@@ -19,6 +19,7 @@ abstract class Field{
     protected $name;
     protected $defaultValue;
     protected $validators;
+    protected $attributes;
     
     public function __construct($options) {
         $this->validators = array();
@@ -44,6 +45,9 @@ abstract class Field{
         if (!empty($options['defaultValue'])) {
             $this->setDefaultValue($options['defaultValue']);
         }
+        if (!empty($options['attributes'])) {
+            $this->setDefaultValue($options['attributes']);
+        }
     }
     
     public abstract function render($doctype);
@@ -55,6 +59,16 @@ abstract class Field{
     public function getLayout() {
         return self::LAYOUT_DEFAULT;
     }
+    
+    
+    public function getAttributesStr() {
+        $answer = '';
+        foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
+            $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
+        }
+        return $answer;
+    }
+    
     
     public function getValidators() {
         return $this->validators;
@@ -89,6 +103,7 @@ abstract class Field{
         }
         return $attributesStr;
     }
+    
     
     
     /* GETTERS AND SETTERS  */
@@ -133,4 +148,11 @@ abstract class Field{
         $this->defaultValue = $defaultValue;
     }
     
+    public function getAttributes() {
+        return $this->attributes;
+    }
+    
+    public function setAttributes($attributes) {
+        $this->attributes = $attributes;
+    }
 }
