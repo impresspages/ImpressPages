@@ -29,6 +29,10 @@ class System{
         
         $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
         
+        //IpForm widget
+        $dispatcher->bind('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
+        
+        
         if ($site->managementState()) {
             
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
@@ -220,6 +224,31 @@ class System{
         }
     }
 
+    /**
+     * IpForm widget
+     * @param \Modules\standard\content_managemet\EventFormFields $event
+     */
+    public static function collectFieldTypes(EventFormFields $event){
+        global $site;
+
+        $newFieldType = new FieldType('IpText', '\Library\IpForm\Field\Text', 'Text');
+        $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpEmail', '\Library\IpForm\Field\Email', 'Email');
+        $event->addField($newFieldType);
+    }    
+    /*
+    
+                array('text' => 'Text (one line)',
+            'textarea' => 'Text (many lines)',
+            'select' => 'Select',
+            'file' => 'File',
+            'checkbox' => 'Checkbox',
+            'radiobutton' => 'Radio button',
+            'title' => 'Title',
+            );
+        
+    */
+    
     public static function duplicatedRevision (\Ip\Event $event) {
         Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
     }

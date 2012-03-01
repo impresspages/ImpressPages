@@ -199,6 +199,8 @@ function IpWidget_IpForm(widgetObject) {
                     status : data.status
                 });
                 $this.find('.ipaFieldTitle').val(data.title);
+                console.log(data.type);
+                $this.find('.ipaFieldType').val(data.type);
             }
             
             $this.find('.ipaFieldRemove').bind('click', function(event){
@@ -220,7 +222,9 @@ function IpWidget_IpForm(widgetObject) {
     
     getType : function() {
         var $this = this;
-        return $this.find('.ipaFormType').val();
+        console.log('type');
+        console.log($this.find('.ipaFieldType').val());
+        return $this.find('.ipaFieldType').val();
     },
         
     getStatus : function() {

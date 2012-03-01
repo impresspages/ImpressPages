@@ -19,18 +19,28 @@ class IpForm extends \Modules\standard\content_management\Widget{
     }
     
     public function managementHtml($instanceId, $data, $layout) {
-        
+        global $dispatcher;
         $addFieldForm = new \Library\IpForm\Form();
         $addFieldForm->addAttribute('class', 'ipaButton ipaFormAddField');
         
+        //collect available field types
+        $event = new \Modules\standard\content_management\EventFormFields(null, 'contentManagement.collectFieldTypes', null);
+        $dispatcher->notify($event);
+        $fieldObjects = $event->getFields();
         
+        $fieldTypes = array ();
+        foreach($fieldObjects as $fieldObject){
+            $fieldTypes[] = array('key' => $fieldObject->getKey(), 'title' => $fieldObject->getTitle());
+        }
+        $data['fieldTypes'] = $fieldTypes;
+        
+        //create add field button
         $field = new \Library\IpForm\Field\Submit(
         array(
         'defaultValue' => 'Add'
         )
         );
         $addFieldForm->addField($field);
-        
         
         
         $data['addFieldForm'] = $addFieldForm;
