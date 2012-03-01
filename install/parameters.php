@@ -361,6 +361,12 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["values_field_title"] = "1";
         $parameterType["standard"]["content_management"]["widget_contact_form"]["values_field_title"] = "string";
 
+        $parameterTitle["standard"]["content_management"]["widget_contact_form"]["send"] = "Send";
+        $parameterValue["standard"]["content_management"]["widget_contact_form"]["send"] = "Send";
+        $parameterAdmin["standard"]["content_management"]["widget_contact_form"]["send"] = "0";
+        $parameterType["standard"]["content_management"]["widget_contact_form"]["send"] = "lang";
+        
+        
     $parameterGroupTitle["standard"]["content_management"]["widget_faq"] = "Widget: F.A.Q.";
     $parameterGroupAdmin["standard"]["content_management"]["widget_faq"] = "1";
 

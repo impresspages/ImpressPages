@@ -19,14 +19,11 @@ class IpForm extends \Modules\standard\content_management\Widget{
     }
     
     public function managementHtml($instanceId, $data, $layout) {
-        global $dispatcher;
         $addFieldForm = new \Library\IpForm\Form();
         $addFieldForm->addAttribute('class', 'ipaButton ipaFormAddField');
         
         //collect available field types
-        $event = new \Modules\standard\content_management\EventFormFields(null, 'contentManagement.collectFieldTypes', null);
-        $dispatcher->notify($event);
-        $fieldObjects = $event->getFields();
+        $fieldObjects = IpForm\Model::getAvailableFieldTypes();
         
         $fieldTypes = array ();
         foreach($fieldObjects as $fieldObject){
@@ -50,34 +47,24 @@ class IpForm extends \Modules\standard\content_management\Widget{
     public function previewHtml($instanceId, $data, $layout) {
         $form = new \Library\IpForm\Form();
         
-        $field = new \Library\IpForm\Field\Text(
-        array(
-        'label' => 'Label',  //Field label
-        'name' => 'name',  //Input (post variable) name
-        'required' => 'false'  //Database field name
-        )
-        );
-        $form->addField($field);
-
-        $field = new \Library\IpForm\Field\Email(
-        array(
-        'label' => 'Label2',  //Field label
-        'name' => 'name2',  //Input (post variable) name
-        'note' => 'Simple note',
-        'hint' => 'Hint'
-        )
-        );
-        $field->addValidator('Required');
+        if (!$data['fields'] || !is_array($data['fields'])) {
+            $data['fields'] = array();
+        }
+        foreach ($data['fields'] as $fieldKey => $field) {
+            if (!isset($field['options']) || !is_array($field['options'])) {
+                $field['options'] = array();
+            }
+            $fieldType = IpForm\Model::getFieldType($field['type']);
+            if ($fieldType) {
+                $newField = $fieldType->createField($field['options']);
+                $form->addField($newField);
+            }
+        }
         
-        $form->addField($field);
-
 
         $field = new \Library\IpForm\Field\Submit(
         array(
-        'label' => 'Label2',  //Field label
-        'name' => 'name2',  //Input (post variable) name
-        'note' => 'Simple note',
-        'hint' => 'Hint'
+        'defaultValue' => 'Submit'
         )
         );
 

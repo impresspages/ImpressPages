@@ -34,6 +34,22 @@ class FieldType{
         $this->jsData = $jsData;
     }
     
+    /**
+     * 
+     * Create field that could be used in form class.
+     * @param array $options will be passed to field constructor
+     * @return \Library\IpForm\Field\Field
+     */
+    public function createField($options) {
+        if (!$options || !is_array($options)) {
+            $options = array();
+        }
+        $fieldClass = $this->getFieldClass();
+        $field = new $fieldClass($options);
+        return $field;
+        
+    }
+    
     public function getKey() {
         return $this->key;
     }
