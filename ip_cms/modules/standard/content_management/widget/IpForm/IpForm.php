@@ -51,11 +51,17 @@ class IpForm extends \Modules\standard\content_management\Widget{
             $data['fields'] = array();
         }
         foreach ($data['fields'] as $fieldKey => $field) {
+            if (!isset($field['type'])) {
+                continue;
+            }
             if (!isset($field['options']) || !is_array($field['options'])) {
                 $field['options'] = array();
             }
             $fieldType = IpForm\Model::getFieldType($field['type']);
             if ($fieldType) {
+                $field['options']['label'] = $field['label'];
+                $field['options']['name'] = 'input_'.$fieldKey;
+                
                 $newField = $fieldType->createField($field['options']);
                 $form->addField($newField);
             }

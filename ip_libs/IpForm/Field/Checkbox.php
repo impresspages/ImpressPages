@@ -10,15 +10,16 @@
 namespace Library\IpForm\Field;
 
 
-class Radio extends Field{
+class Checkbox extends Field{
 
-    private $checked;
+    protected $checked;
+    protected $text;
     
     public function __construct($options = array()) {
         if (isset($options['checked'])) {
             $this->checked = $options['checked'];
         } else {
-            if($this->defaultValue === TRUE) {
+            if(isset($options['defaultValue']) && $options['defaultValue'] === TRUE) {
                 $this->checked = TRUE;
             } else {
                 $this->checked = FALSE;
@@ -35,9 +36,10 @@ class Radio extends Field{
         } else {
             $attributes = '';
         }
-        $answer .= '<radio '.$attributes.' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($value[0]).'"/>'."/n";
-        
-        $answer .= '<span>'.htmlspecialchars($value[1]).'</span>'."/n";
+        $answer .= '<input type="checkbox" '.$attributes.' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($this->getDefaultValue()).'"/>'."\n";
+        if ($this->getText()) {
+            $answer .= '<span>'.htmlspecialchars($this->getText()).'</span>';
+        }
     
         return $answer; 
     }
@@ -49,5 +51,15 @@ class Radio extends Field{
     public function getChecked() {
         return $this->checked;
     }
+    
+    public function setText($text) {
+        $this->text = $text;
+    }
+    
+    public function getText() {
+        return $this->text;
+    }
+    
+    
     
 }

@@ -46,7 +46,9 @@ abstract class Field{
             $this->setDefaultValue($options['defaultValue']);
         }
         if (!empty($options['attributes'])) {
-            $this->setDefaultValue($options['attributes']);
+            $this->setAttributes($options['attributes']);
+        } else {
+            $this->setAttributes(array());
         }
     }
     

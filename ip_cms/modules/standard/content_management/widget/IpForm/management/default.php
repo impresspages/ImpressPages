@@ -3,7 +3,7 @@
 <div class="ipgHide">
     <div class="ipaFieldTemplate">
         <a href="#" class="ipaButton ipaFieldMove"><?php echo $this->escPar('standard/content_management/widget_contact_form/move') ?></a>
-        <input type="text" class="ipAdminInput ipaFieldTitle" name="title" value="" />
+        <input type="text" class="ipAdminInput ipaFieldLabel" name="label" value="" />
         <select class="ipaFieldType" target="_blank">
             <?php foreach($fieldTypes as $fieldType) { ?>
                 <option value="<?php echo $this->esc($fieldType['key']); ?>"><?php echo $this->esc($fieldType['title']); ?></option>

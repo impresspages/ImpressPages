@@ -24,17 +24,26 @@ class Radio extends Field{
     public function render($doctype) {
         $attributesStr = '';
         $answer = '';
-        foreach($this->getValues as $value) {
+        foreach($this->getValues() as $value) {
             if ($value[0]== $this->defaultValue) {
                 $checked = 'checked="checked"';
             } else {
                 $checked = '';
             }
-            $answer .= '<radio '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'"/>'."/n";
-            $answer .= '<span>'.htmlspecialchars($value[1]).'</span>'."/n";
+            $answer .= '<radio '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'"/>'."\n";
+            $answer .= '<span>'.htmlspecialchars($value[1]).'</span>'."\n";
         }
 
         return $answer; 
+    }
+    
+    
+    public function setValues($values) {
+        $this->values = $values;
+    }
+    
+    public function getValues() {
+        return $this->values;
     }
     
     

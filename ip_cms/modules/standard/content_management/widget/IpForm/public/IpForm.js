@@ -55,7 +55,7 @@ function IpWidget_IpForm(widgetObject) {
         $fields.each(function(index) {
             var $this = $(this);
             var tmpField = new Object();
-            tmpField.title = $this.ipWidget_ipForm_field('getTitle');
+            tmpField.label = $this.ipWidget_ipForm_field('getLabel');
             tmpField.type = $this.ipWidget_ipForm_field('getType');
             var status = $this.ipWidget_ipForm_field('getStatus');
             if (status != 'deleted') {
@@ -179,12 +179,12 @@ function IpWidget_IpForm(widgetObject) {
             // If the plugin hasn't been initialized yet
             if (!data) {
                 var data = {
-                    title : '',
+                    label : '',
                     type : '',
                     status : 'new'
                 };
-                if (options.title) {
-                    data.title = options.title;
+                if (options.label) {
+                    data.label = options.label;
                 }
                 if (options.type) {
                     data.type = options.type;
@@ -194,11 +194,11 @@ function IpWidget_IpForm(widgetObject) {
                 }
                 
                 $this.data('ipWidget_ipForm_field', {
-                    title : data.title,
+                    label : data.label,
                     type : data.type,
                     status : data.status
                 });
-                $this.find('.ipaFieldTitle').val(data.title);
+                $this.find('.ipaFieldLabel').val(data.label);
                 console.log(data.type);
                 $this.find('.ipaFieldType').val(data.type);
             }
@@ -215,9 +215,9 @@ function IpWidget_IpForm(widgetObject) {
         });
     },
     
-    getTitle : function() {
+    getLabel : function() {
         var $this = this;
-        return $this.find('.ipaFieldTitle').val();
+        return $this.find('.ipaFieldLabel').val();
     },
     
     getType : function() {

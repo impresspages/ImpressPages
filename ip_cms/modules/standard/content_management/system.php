@@ -239,6 +239,10 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select');
         $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox');
+        $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio');
+        $event->addField($newFieldType);
     }    
 
     

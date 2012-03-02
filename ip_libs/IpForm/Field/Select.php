@@ -24,13 +24,13 @@ class Select extends Field{
     public function render($doctype) {
         $attributesStr = '';
         $options = '';
-        foreach($this->getValues as $value) {
+        foreach($this->getValues() as $value) {
             if ($value[0]== $this->defaultValue) {
                 $selected = 'selected="selected"';
             } else {
                 $selected = '';
             }
-            $options .= '<option '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."/n";
+            $options .= '<option '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
         }
 $answer = 
 '
@@ -41,7 +41,18 @@ $answer =
         return $answer; 
     }
     
+    public function setValues($values) {
+        $this->values = $values;
+    }
+    
+    public function getValues() {
+        return $this->values;
+    }
+    
     
 
     
 }
+
+
+
