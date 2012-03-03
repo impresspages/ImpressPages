@@ -132,6 +132,7 @@ class Model{
         }
 
         $managementHtml = $widgetObject->managementHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']); 
         $data = array (
             'managementHtml' => $managementHtml,
             'widgetRecord' => $widgetRecord,

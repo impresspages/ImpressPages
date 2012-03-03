@@ -183,5 +183,7 @@ class Widget{
         return $answer;
     }
 
-
+    public function dataForJs($data) {
+        return $data;
+    }
 }
