@@ -21,17 +21,17 @@ class FieldType{
      * $jsOptionsFunction and $jsSaveOptionsFunction should both present or both be skipped.
      * @param string $fieldClass
      * @param string $title
-     * @param string $jsOptionsFunction
-     * @param string $jsSaveOptionsFunction
-     * @param array $jsData
+     * @param string $jsOptionsInitFunction
+     * @param string $jsOptionsSaveFunction
+     * @param array $jsOptionsHtml
      */
-    public function __construct($key, $fieldClass, $title, $jsOptionsFunction = null, $jsSaveOptionsFunction = null, $jsData = array()) {
+    public function __construct($key, $fieldClass, $title, $jsOptionsInitFunction = null, $jsOptionsSaveFunction = null, $jsOptionsHtml = null) {
         $this->key = $key;
         $this->fieldClass = $fieldClass;
         $this->title = $title;
-        $this->jsOptionsFunction = $jsOptionsFunction;
-        $this->jsSaveOptionsFunction = $jsSaveOptionsFunction;
-        $this->jsData = $jsData;
+        $this->jsOptionsInitFunction = $jsOptionsInitFunction;
+        $this->jsOptionsSaveFunction = $jsOptionsSaveFunction;
+        $this->jsOptionsHtml = $jsOptionsHtml;
     }
     
     /**
@@ -60,13 +60,13 @@ class FieldType{
     public function getTitle() {
         return $this->title;
     }
-    public function getJsOptionsFunction() {
-        return $this->jsOptionsFunction;
+    public function getJsOptionsInitFunction() {
+        return $this->jsOptionsInitFunction;
     }
-    public function getJsSaveOptionsFunction() {
-        return $this->jsSaveOptionsFunction;
+    public function getJsOptionsSaveFunction() {
+        return $this->jsOptionsSaveFunction;
     }
-    public function getJsData() {
-        return $this->jsData;
+    public function getJsOptionsHtml() {
+        return $this->jsOptionsHtml;
     }
 }

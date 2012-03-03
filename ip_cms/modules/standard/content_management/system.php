@@ -237,7 +237,7 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpTextarea', '\Library\IpForm\Field\Textarea', 'Textarea');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select');
+        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select', 'IpForm_InitSelectOptions', 'IpForm_SaveSelectOptions', '<textarea></textarea>');
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox');
         $event->addField($newFieldType);

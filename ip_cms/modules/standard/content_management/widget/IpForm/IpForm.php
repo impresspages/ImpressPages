@@ -27,7 +27,10 @@ class IpForm extends \Modules\standard\content_management\Widget{
         
         $fieldTypes = array ();
         foreach($fieldObjects as $fieldObject){
-            $fieldTypes[] = array('key' => $fieldObject->getKey(), 'title' => $fieldObject->getTitle());
+            $fieldTypes[] = array(
+                'key' => $fieldObject->getKey(),
+                'title' => $fieldObject->getTitle()
+            );
         }
         $data['fieldTypes'] = $fieldTypes;
         
@@ -80,5 +83,25 @@ class IpForm extends \Modules\standard\content_management\Widget{
         $data['form'] = $form;
         
         return parent::previewHtml($instanceId, $data, $layout);
+    }
+    
+    
+    public function dataForJs($data) {
+        //collect available field types
+        $fieldObjects = IpForm\Model::getAvailableFieldTypes();
+        
+        $fieldTypes = array ();
+        foreach($fieldObjects as $fieldObject){
+            $fieldTypes[$fieldObject->getKey()] = array(
+                'key' => $fieldObject->getKey(),
+                'title' => $fieldObject->getTitle(),
+                'optionsInitFunction' => $fieldObject->getJsOptionsInitFunction(),
+                'optionsSaveFunction' => $fieldObject->getJsOptionsSaveFunction(),
+                'optionsHtml' => $fieldObject->getJsOptionsHtml()
+            );
+        }
+        $data['fieldTypes'] = $fieldTypes;
+        
+        return $data;
     }    
 }
