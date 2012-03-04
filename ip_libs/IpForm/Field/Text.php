@@ -14,7 +14,7 @@ class Text extends Field{
         $attributesStr = '';
         
         
-        return '<input '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
+        return '<input name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
     }
     
 

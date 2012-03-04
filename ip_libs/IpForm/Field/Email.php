@@ -13,7 +13,7 @@ class Email extends Field{
     public function render($doctype) {
         $attributesStr = '';
         
-        return '<input '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
+        return '<input name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
     }
     
 

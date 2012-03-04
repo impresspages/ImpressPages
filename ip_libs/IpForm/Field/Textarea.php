@@ -13,7 +13,7 @@ class Textarea extends Field{
     public function render($doctype) {
         $attributesStr = '';
         
-        return '<textarea '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
+        return '<textarea name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
     }
     
 }
