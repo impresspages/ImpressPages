@@ -56,6 +56,7 @@ function IpWidget_IpForm(widgetObject) {
             var tmpField = new Object();
             tmpField.label = $this.ipWidget_ipForm_field('getLabel');
             tmpField.type = $this.ipWidget_ipForm_field('getType');
+            tmpField.options = $this.ipWidget_ipForm_field('getOptions');
             var status = $this.ipWidget_ipForm_field('getStatus');
             if (status != 'deleted') {
                 data.fields.push(tmpField);
@@ -97,6 +98,10 @@ function IpWidget_IpForm(widgetObject) {
                         optionsPopup : options.optionsPopup
                     });
                     
+                    if (! fields instanceof Array) {
+                        fields = new Array();
+                    }
+                    
                     for (var i in fields) {
                         $this.ipWidget_ipForm_container('addField', fields[i]); 
                     }
@@ -105,8 +110,8 @@ function IpWidget_IpForm(widgetObject) {
                         $fieldObject.ipWidget_ipForm_container('removeField', $fieldObject);
                     });
                     
-                    $this.find(".ipWidget_ipForm_container").sortable();
-                    $this.find(".ipWidget_ipForm_container").sortable('option', 'handle', '.ipaFieldMove');
+                    $this.sortable();
+                    $this.sortable('option', 'handle', '.ipaFieldMove');
                     
                 }
             });
@@ -114,6 +119,9 @@ function IpWidget_IpForm(widgetObject) {
         
         addField : function (fieldData) {
             var $this = this;
+            if (typeof fieldData !== 'object') {
+                fieldData = {};
+            }
             var data = fieldData;
             data.optionsPopup = $this.data('ipWidget_ipForm_container').optionsPopup;
             var $newFieldRecord = $this.data('ipWidget_ipForm_container').fieldTemplate.clone();
@@ -158,7 +166,7 @@ function IpWidget_IpForm(widgetObject) {
 
     var methods = {
         init : function(options) {
-            if (!options) {
+            if (typeof options !== 'object') {
                 options = {};
             }
             
@@ -174,7 +182,8 @@ function IpWidget_IpForm(widgetObject) {
                     var data = {
                         label : '',
                         type : '',
-                        status : 'new'
+                        status : 'new',
+                        options : null
                     };
                     if (options.label) {
                         data.label = options.label;
@@ -185,12 +194,16 @@ function IpWidget_IpForm(widgetObject) {
                     if (options.status) {
                         data.status = options.status;
                     }
+                    if (options.options) {
+                        data.options = options.options;
+                    }
                     
                     $this.data('ipWidget_ipForm_field', {
                         label : data.label,
                         type : data.type,
                         status : data.status,
-                        optionsPopup : options.optionsPopup
+                        optionsPopup : options.optionsPopup,
+                        options : data.options
                     });
                     $this.find('.ipaFieldLabel').val(data.label);
                     $this.find('.ipaFieldType').val(data.type);
@@ -216,9 +229,32 @@ function IpWidget_IpForm(widgetObject) {
         
         openOptionsPopup : function () {
             $this = this;
-            console.log(this);
             var data = $this.data('ipWidget_ipForm_field');
-            data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type);
+            $thisForEvent = $this;
+            data.optionsPopup.bind('saveOptions.ipWidget_ipForm', function(e,options){
+                $this = $(this); //we are in popup context
+                $this.unbind('saveOptions.ipWidget_ipForm') 
+                $thisForEvent.ipWidget_ipForm_field('setOptions', options);
+            });
+            
+            data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type, data.options);
+        },
+        
+        setOptions : function (options) {
+            var $this = this;
+            var data = $this.data('ipWidget_ipForm_field');
+            data.options = options;
+            $this.data('ipWidget_ipForm_field', data);
+        },
+        
+        getOptions : function () {
+            var $this = $(this);
+            var data = $this.data('ipWidget_ipForm_field');
+            if (data.options) {
+                return data.options;
+            } else {
+                return null;
+            }
         },
         
         getLabel : function() {
@@ -295,16 +331,21 @@ function IpWidget_IpForm(widgetObject) {
             var fieldType = $this.ipWidget_ipForm_options('getFieldType', fieldType);
             $this.html(fieldType.optionsHtml);
             $this.dialog({
+                modal: true,
                 buttons: {
-                    "Delete all items": function() {
-                        $( this ).dialog( "close" );
+                    "Save": function() {
+                        var $this = $(this);
+                        eval ('var options = ' + fieldType.optionsSaveFunction + '($this);');
+                        $this.dialog( "close" );
+                        $this.trigger('saveOptions.ipWidget_ipForm', [options]);
                     },
                     "Cancel": function() {
                         $( this ).dialog( "close" );
                     }
-                }                
+                }
                 
             });
+            eval ('' + fieldType.optionsInitFunction + '($this, currentOptions);');
         },
         
         
@@ -318,7 +359,7 @@ function IpWidget_IpForm(widgetObject) {
         optionsAvailable : function (fieldTypeKey) {
             var $this = this;
             var fieldType = $this.ipWidget_ipForm_options('getFieldType', fieldTypeKey);
-            return (fieldType.optionsInitFunction || fieldType.optionsHtml);
+            return (fieldType && (fieldType.optionsInitFunction || fieldType.optionsHtml));
             
         }
         

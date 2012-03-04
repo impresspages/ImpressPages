@@ -14,7 +14,7 @@ class FieldType{
     protected $title;
     protected $jsOptionsFunction;
     protected $jsSaveOptionsFunction;
-    protected $jsData;
+    protected $jsOptionsHtml;
     
     /**
      * 
@@ -37,15 +37,37 @@ class FieldType{
     /**
      * 
      * Create field that could be used in form class.
-     * @param array $options will be passed to field constructor
+     * @param array $fieldData will be passed to field constructor
      * @return \Library\IpForm\Field\Field
      */
-    public function createField($options) {
-        if (!$options || !is_array($options)) {
-            $options = array();
+    public function createField($fieldData) {
+        if (!isset($fieldData['label'])) {
+            $fieldData['label'] = '';
         }
+        
+        $fieldOptions = array(
+            'label' =>$fieldData['label']
+        );
+        
         $fieldClass = $this->getFieldClass();
-        $field = new $fieldClass($options);
+        
+        if (isset($fieldData['options'])) {
+            switch($fieldClass) {
+                case '\Library\IpForm\Field\Select':
+                    $selectValues = array();
+                    if (is_array($fieldData['options'])) {
+                        foreach($fieldData['options'] as $option) {
+                            $selectValues[] = array($option, $option);
+                        }
+                    }
+                    $fieldOptions['values'] = $selectValues;
+                default:
+                    //other classes do not have their options. If you write your custom field type, extend this class and change this behaviour
+                    break;
+            }
+        }
+        
+        $field = new $fieldClass($fieldOptions);
         return $field;
         
     }

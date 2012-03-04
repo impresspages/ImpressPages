@@ -50,25 +50,31 @@ class IpForm extends \Modules\standard\content_management\Widget{
     public function previewHtml($instanceId, $data, $layout) {
         $form = new \Library\IpForm\Form();
         
-        if (!$data['fields'] || !is_array($data['fields'])) {
+        if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();
-        }
+        }        
         foreach ($data['fields'] as $fieldKey => $field) {
-            if (!isset($field['type'])) {
+            if (!isset($field['type']) || !isset($field['label'])) {
                 continue;
+            }
+            if (!isset($field['options'])) {
+                $field['options'] = array();
             }
             if (!isset($field['options']) || !is_array($field['options'])) {
                 $field['options'] = array();
             }
             $fieldType = IpForm\Model::getFieldType($field['type']);
             if ($fieldType) {
-                $field['options']['label'] = $field['label'];
-                $field['options']['name'] = 'input_'.$fieldKey;
+                $fieldData = array (
+                    'label' => $field['label'],
+                    'options' => $field['options']
+                );
                 
-                $newField = $fieldType->createField($field['options']);
+                $newField = $fieldType->createField($fieldData);
                 $form->addField($newField);
             }
         }
+        
         
 
         $field = new \Library\IpForm\Field\Submit(
@@ -88,19 +94,30 @@ class IpForm extends \Modules\standard\content_management\Widget{
     
     public function dataForJs($data) {
         //collect available field types
-        $fieldObjects = IpForm\Model::getAvailableFieldTypes();
+        $fieldTypeObjects = IpForm\Model::getAvailableFieldTypes();
         
         $fieldTypes = array ();
-        foreach($fieldObjects as $fieldObject){
-            $fieldTypes[$fieldObject->getKey()] = array(
-                'key' => $fieldObject->getKey(),
-                'title' => $fieldObject->getTitle(),
-                'optionsInitFunction' => $fieldObject->getJsOptionsInitFunction(),
-                'optionsSaveFunction' => $fieldObject->getJsOptionsSaveFunction(),
-                'optionsHtml' => $fieldObject->getJsOptionsHtml()
+        foreach($fieldTypeObjects as $typeObject){
+            $fieldTypes[$typeObject->getKey()] = array(
+                'key' => $typeObject->getKey(),
+                'title' => $typeObject->getTitle(),
+                'optionsInitFunction' => $typeObject->getJsOptionsInitFunction(),
+                'optionsSaveFunction' => $typeObject->getJsOptionsSaveFunction(),
+                'optionsHtml' => $typeObject->getJsOptionsHtml()
             );
         }
         $data['fieldTypes'] = $fieldTypes;
+        
+        if (empty($data['fields'])) {
+            $data['fields'] = array();
+            $data['fields'][] = array (
+                'type' => 'IpText',
+                'label' => '',
+                'options' => array()
+            );
+        }
+        
+        
         
         return $data;
     }    

@@ -4,7 +4,7 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-// jQuery plugins for widgets
+// FAQ widget
 (function($) {
     $.fn.ipWidgetFaq = function() {
         return this.each(function() {
@@ -30,6 +30,45 @@
         });
     };
 })(jQuery);
+
+// IpForm widget select options
+
+IpForm_InitListOptions = function ($context, currentOptions) {
+    var addOption = function (value) {
+        var $newOption = $context.find('.ipaOptionTemplate').clone();
+        $newOption.removeClass('ipaOptionTemplate');
+        $newOption.find('.ipaOption').val(value);
+        $context.find('.ipaContainer').append($newOption);
+    };
+    
+    $context.find('.ipaAdd').bind('click', function () {
+        addOption();
+    });
+    
+    if (currentOptions) {
+        for(var i=0; i<currentOptions.length; i++) {
+            addOption(currentOptions[i]);
+        }
+    } else {
+        addOption(); //add first empty option
+    }
+    
+    $context.find(".ipaContainer").sortable();
+    $context.find(".ipaContainer").sortable('option', 'handle', '.ipaOptionMove');
+    
+    
+};
+
+IpForm_SaveListOptions = function ($context) {
+    var $options = $context.find('.ipaContainer .ipaOption');
+    var answer = new Array();
+    answer = new Array();
+    $options.each(function (i) {
+        var $this = $(this);
+        answer.push($this.val());
+    });
+    return answer;
+};
 
 // hook all widgets with plugins
 $(document).ready(function() {
