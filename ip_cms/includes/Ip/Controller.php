@@ -20,4 +20,17 @@ class Controller{
     public function allowAction($action){
         return true;
     }
+    
+    /**
+     * Do any initializatoin becore actual controller method
+     */
+    public function init() {
+    }
+    
+    public function returnJson($data) {
+        global $site;
+        header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+        $answer = json_encode($data);
+        $site->setOutput($answer);
+    }
 }

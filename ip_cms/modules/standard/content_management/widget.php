@@ -129,7 +129,24 @@ class Widget{
         return $postData;
     }
 
-    public function post ($instanceId, $postData, $data) {
+    /**
+     * 
+     * You can make posts directly to your widget. If you will pass following parameters:
+     * g=standard
+     * m=content_management
+     * a=widgetPost
+     * instanceId=actualWidgetInstanceId
+     * 
+     * then that post request will be redirected to this method.
+     * 
+     * Use $controller->returnJson($data) to return json includin correct headers and halt page parsing.
+     * 
+     * @param \Ip\Controller $controller
+     * @param int $instanceId
+     * @param array $postData untouched post data
+     * @param array $data widget data
+     */
+    public function post ($controller, $instanceId, $postData, $data) {
 
     }
 

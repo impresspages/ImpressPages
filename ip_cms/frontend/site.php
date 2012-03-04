@@ -679,6 +679,7 @@ class Site{
                         $function = $_REQUEST['a'];
                     }
                     if (method_exists($tmpModule, $function)) {
+                        $tmpModule->init();
                         if ($tmpModule->allowAction($function)) {
                             call_user_func(array($tmpModule, $function));
                         }
