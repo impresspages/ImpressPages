@@ -105,11 +105,6 @@ function IpWidget_IpForm(widgetObject) {
                     for (var i in fields) {
                         $this.ipWidget_ipForm_container('addField', fields[i]); 
                     }
-                    $this.bind('removeField.ipWidget_ipForm', function(event, fieldObject) {
-                        var $fieldObject = $(fieldObject);
-                        $fieldObject.ipWidget_ipForm_container('removeField', $fieldObject);
-                    });
-                    
                     $this.sortable();
                     $this.sortable('option', 'handle', '.ipaFieldMove');
                     
@@ -131,11 +126,7 @@ function IpWidget_IpForm(widgetObject) {
             
         },
         
-        removeField : function ($fieldObject) {
-            $fieldObject.hide();
-            $fieldObject.ipWidget_ipForm_field('setStatus', 'deleted');
-            
-        },
+
         
         getFields : function () {
             var $this = this;
@@ -216,13 +207,11 @@ function IpWidget_IpForm(widgetObject) {
                     
                 }
                 
+                $thisForEvent = $this;
                 $this.find('.ipaFieldRemove').bind('click', function(event){
+                    $thisForEvent.ipWidget_ipForm_field('setStatus', 'deleted');
+                    $thisForEvent.hide();
                     event.preventDefault();
-                    $this = $(this);
-                    $this.trigger('removeClick.ipWidget_ipForm');
-                });
-                $this.bind('removeClick.ipWidget_ipForm', function(event) {
-                    $this.trigger('removeField.ipWidget_ipForm', this);
                 });
                 return $this;
             });
@@ -254,7 +243,7 @@ function IpWidget_IpForm(widgetObject) {
         getOptions : function () {
             var $this = $(this);
             var data = $this.data('ipWidget_ipForm_field');
-            if (data.options[$this.ipWidget_ipForm_field('getType')]) {
+            if (data.options && data.options[$this.ipWidget_ipForm_field('getType')]) {
                 //store separte options for each type. Just to avoid accidental removal of options on type change
                 //nevertheless only one type options will be stored to the database
                 return data.options[$this.ipWidget_ipForm_field('getType')]; 
@@ -294,7 +283,7 @@ function IpWidget_IpForm(widgetObject) {
         },
         
         setStatus : function(newStatus) {
-            var $this = $this;
+            var $this = this;
             var tmpData = $this.data('ipWidget_ipForm_field');
             tmpData.status = newStatus;
             $this.data('ipWidget_ipForm_field', tmpData);
