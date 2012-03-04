@@ -83,7 +83,7 @@
 
 
 // IpForm widget select options
-IpForm_InitListOptions = function ($context, currentOptions) {
+ipForm_InitListOptions = function ($context, currentOptions) {
     var addOption = function (value) {
         var $newOption = $context.find('.ipgHide .ipaOptionTemplate').clone();
         $newOption.find('.ipaOption').val(value);
@@ -114,7 +114,7 @@ IpForm_InitListOptions = function ($context, currentOptions) {
     
 };
 
-IpForm_SaveListOptions = function ($context) {
+ipForm_SaveListOptions = function ($context) {
     var $options = $context.find('.ipaContainer .ipaOption');
     var answer = new Array();
     answer = new Array();
@@ -127,14 +127,14 @@ IpForm_SaveListOptions = function ($context) {
 
 
 //IpForm widget wysiwyg options
-IpForm_InitWysiwygOptions = function ($context, currentOptions) {
+ipForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
         $context.find(".ipaContainer").val(currentOptions.text);
     }
     $context.find(".ipaContainer").tinymce(ipTinyMceConfigMin);
 };
 
-IpForm_SaveWysiwygOptions = function ($context) {
+ipForm_SaveWysiwygOptions = function ($context) {
     return {text:$context.find('.ipaContainer').val()};
 };
 
