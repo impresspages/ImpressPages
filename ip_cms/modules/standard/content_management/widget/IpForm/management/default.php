@@ -10,6 +10,7 @@
                 <option value="<?php echo $this->esc($fieldType['key']); ?>"><?php echo $this->esc($fieldType['title']); ?></option>
             <?php } ?>
         </select>
+        <input type="checkbox" class="ipaFieldRequired" />
         <a href="#" class="ipaButton ipaFieldRemove"><?php echo $this->escPar('standard/content_management/widget_contact_form/remove') ?></a>
     </div>
     <div class="ipaOptionsPopup"></div>

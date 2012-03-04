@@ -4,7 +4,9 @@
  * @license GNU/GPL, see ip_license.html
  */
 
-// FAQ widget
+/************
+ * FAQ widget
+ ************/
 (function($) {
     $.fn.ipWidgetFaq = function() {
         return this.each(function() {
@@ -31,8 +33,60 @@
     };
 })(jQuery);
 
-// IpForm widget select options
+/*************
+ * IpForm widget
+ **************/
 
+(function($) {
+    $.fn.ipWidgetIpForm = function() {
+        return this.each(function() {
+            $ipForm = $(this);
+            
+            $ipForm.find('form').validator();
+            $ipForm.find('form').submit(function(e) {
+                var form = $(this);
+
+                // client-side validation OK.
+                if (!e.isDefaultPrevented()) {
+                    var data = form.serialize();
+                    if (data != '') {
+                        data = data + '&';
+                    }
+                    data = data + 'g=standard&m=content_management&a=widgetPost&instanceId=15'
+                    $.ajax({
+                        url: ip.baseUrl,
+                        dataType: 'json',
+                        type : 'POST',
+                        data: data,
+                        success: function (response){console.log(response);}
+                      });
+                    // submit with AJAX
+                    console.log(form.serialize());
+                    $.getJSON("server-fail.js?" + form.serialize(), function(json) {
+
+                        // everything is ok. (server returned true)
+                        if (json === true)  {
+                            form.load("success.php");
+
+                        // server-side validation failed. use invalidate() to show errors
+                        } else {
+                            form.data("validator").invalidate(json);
+                        }
+                    });
+
+                    // prevent default form submission logic
+                    e.preventDefault();
+                }
+            });
+
+        });
+    };
+})(jQuery);
+
+
+
+
+// IpForm widget select options
 IpForm_InitListOptions = function ($context, currentOptions) {
     var addOption = function (value) {
         var $newOption = $context.find('.ipgHide .ipaOptionTemplate').clone();
@@ -77,7 +131,6 @@ IpForm_SaveListOptions = function ($context) {
 
 
 //IpForm widget wysiwyg options
-
 IpForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
         $context.find(".ipaContainer").val(currentOptions.text);
@@ -89,8 +142,16 @@ IpForm_SaveWysiwygOptions = function ($context) {
     return {text:$context.find('.ipaContainer').val()};
 };
 
-// hook all widgets with plugins
+
+
+/*************
+ * hook all widgets with plugins
+ */
 $(document).ready(function() {
-    // handling all widgets by class
+    // FAQ widget
     $('.ipWidget-IpFaq').ipWidgetFaq();
+    
+    // IpForm widget
+    $('.ipWidget-IpForm').ipWidgetIpForm();
+
 });

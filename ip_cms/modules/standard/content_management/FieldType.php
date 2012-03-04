@@ -50,7 +50,8 @@ class FieldType{
         
         $fieldOptions = array(
             'label' =>$fieldData['label'],
-            'name' => $fieldData['name']
+            'name' => $fieldData['name'],
+            'required' => $fieldData['required']
         );
         
         $fieldClass = $this->getFieldClass();
@@ -82,6 +83,11 @@ class FieldType{
         }
         
         $field = new $fieldClass($fieldOptions);
+        
+        if (isset($fieldData['required']) && $fieldData['required']) {
+            $field->addValidator('required');
+        }
+        
         return $field;
         
     }

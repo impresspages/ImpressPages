@@ -63,11 +63,15 @@ class IpForm extends \Modules\standard\content_management\Widget{
             if (!isset($field['options']) || !is_array($field['options'])) {
                 $field['options'] = array();
             }
+            if (!isset($field['required'])) {
+                $field['required'] = false;
+            }
             $fieldType = IpForm\Model::getFieldType($field['type']);
             if ($fieldType) {
                 $fieldData = array (
                     'label' => $field['label'],
                     'name' => 'ipForm_field_'.$fieldKey,
+                    'required' => $field['required'],
                     'options' => $field['options']
                 );
                 

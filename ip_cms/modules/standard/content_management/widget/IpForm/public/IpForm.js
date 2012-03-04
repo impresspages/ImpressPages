@@ -57,6 +57,7 @@ function IpWidget_IpForm(widgetObject) {
             tmpField.label = $this.ipWidget_ipForm_field('getLabel');
             tmpField.type = $this.ipWidget_ipForm_field('getType');
             tmpField.options = $this.ipWidget_ipForm_field('getOptions');
+            tmpField.required = $this.ipWidget_ipForm_field('getRequired');
             var status = $this.ipWidget_ipForm_field('getStatus');
             if (status != 'deleted') {
                 data.fields.push(tmpField);
@@ -173,6 +174,7 @@ function IpWidget_IpForm(widgetObject) {
                     var data = {
                         label : '',
                         type : '',
+                        required : false,
                         status : 'new',
                         options : {}
                     };
@@ -182,12 +184,16 @@ function IpWidget_IpForm(widgetObject) {
                     if (options.type) {
                         data.type = options.type;
                     }
+                    if (options.required) {
+                        data.required = options.required;
+                    }
                     if (options.status) {
                         data.status = options.status;
                     }
                     $this.data('ipWidget_ipForm_field', {
                         label : data.label,
                         type : data.type,
+                        required : data.required,
                         status : data.status,
                         optionsPopup : options.optionsPopup
                     });
@@ -205,6 +211,9 @@ function IpWidget_IpForm(widgetObject) {
                         $this.ipWidget_ipForm_field('setOptions', options.options);
                     }
                     
+                    if (options.required) {
+                        $this.find('.ipaFieldRequired').attr('checked', options.required);
+                    }
                 }
                 
                 $thisForEvent = $this;
@@ -288,7 +297,16 @@ function IpWidget_IpForm(widgetObject) {
             tmpData.status = newStatus;
             $this.data('ipWidget_ipForm_field', tmpData);
             
+        },
+        
+        getRequired : function () {
+            $this = $(this);
+            return $this.find('.ipaFieldRequired').attr('checked');
         }
+        
+
+        
+        
     };
     
     
