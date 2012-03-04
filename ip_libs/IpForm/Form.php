@@ -26,6 +26,10 @@ class Form{
         $this->attributes = array();
     }
     
+    public function validate() {
+        
+    }
+    
     public function addPage(Page $page) {
         $this->pages[] = $page;
     }
@@ -50,7 +54,6 @@ class Form{
     }
     
     /**
-     * 
      * Return all pages
      */
     public function getPages() {
@@ -78,12 +81,30 @@ class Form{
         return $this->method;
     }
     
+    
     public function setAction($action) {
         $this->action = $action;
     }
     
     public function getAction() {
         return $this->action;
+    }
+    
+    public function render(\Ip\View $view = null) {
+        if (!$view) {
+            $view = \Ip\View::create('view/form.php');
+        }
+        $view->setData(array('form' => $this)); 
+        return $view->render();
+    }
+
+    public function getFields() {
+        $pages = $this->getPages();
+        $fields = array();
+        foreach ($pages as $page) {
+            array_merge($fields, $page->getFields());
+        }
+        return $fields;
     }
     
     /**
@@ -108,16 +129,11 @@ class Form{
         return $answer;
     }
 
-    public function render(\Ip\View $view = null) {
-        if (!$view) {
-            $view = \Ip\View::create('view/form.php');
-        }
-        $view->setData(array('form' => $this)); 
-        return $view->render();
-    }
+
     
     public function __toString() {
         $this->render();
     }
+    
     
 }

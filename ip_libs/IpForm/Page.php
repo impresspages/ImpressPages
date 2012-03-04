@@ -40,5 +40,18 @@ class Page{
         return $this->fieldsets;
     }
     
+    
+    /**
+     * Return all fields (from all fieldsets in one level array)
+     */
+    public function getPages() {
+        $fieldsets = $this->getFieldsets();
+        $fields = array();
+        foreach ($fieldsets as $fieldset) {
+            array_merge($fields, $fieldset->getFields());
+        }
+        return $fields;
+    }    
+    
 
 }
