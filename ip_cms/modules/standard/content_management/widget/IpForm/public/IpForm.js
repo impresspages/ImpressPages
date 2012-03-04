@@ -183,7 +183,7 @@ function IpWidget_IpForm(widgetObject) {
                         label : '',
                         type : '',
                         status : 'new',
-                        options : null
+                        options : {}
                     };
                     if (options.label) {
                         data.label = options.label;
@@ -194,17 +194,13 @@ function IpWidget_IpForm(widgetObject) {
                     if (options.status) {
                         data.status = options.status;
                     }
-                    if (options.options) {
-                        data.options = options.options;
-                    }
-                    
                     $this.data('ipWidget_ipForm_field', {
                         label : data.label,
                         type : data.type,
                         status : data.status,
-                        optionsPopup : options.optionsPopup,
-                        options : data.options
+                        optionsPopup : options.optionsPopup
                     });
+                    
                     $this.find('.ipaFieldLabel').val(data.label);
                     $this.find('.ipaFieldType').val(data.type);
                     $this.find('.ipaFieldType').bind('change', function() {$(this).trigger('changeType.ipWidget_ipForm', [$(this).val()]);});
@@ -213,6 +209,10 @@ function IpWidget_IpForm(widgetObject) {
                     });
                     
                     $(this).ipWidget_ipForm_field('setType', data.type);
+                    
+                    if (options.options) {
+                        $this.ipWidget_ipForm_field('setOptions', options.options);
+                    }
                     
                 }
                 
@@ -234,25 +234,30 @@ function IpWidget_IpForm(widgetObject) {
             $thisForEvent = $this;
             data.optionsPopup.bind('saveOptions.ipWidget_ipForm', function(e,options){
                 $this = $(this); //we are in popup context
-                $this.unbind('saveOptions.ipWidget_ipForm') 
+                $this.unbind('saveOptions.ipWidget_ipForm');
                 $thisForEvent.ipWidget_ipForm_field('setOptions', options);
             });
             
-            data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type, data.options);
+            data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type, $this.ipWidget_ipForm_field('getOptions'));
         },
         
         setOptions : function (options) {
             var $this = this;
             var data = $this.data('ipWidget_ipForm_field');
-            data.options = options;
+            if (!data.options) {
+                data.options = {};
+            }
+            data.options[$this.ipWidget_ipForm_field('getType')] = options; //store separte options for each type. Just to avoid accidental removal of options on type change
             $this.data('ipWidget_ipForm_field', data);
         },
         
         getOptions : function () {
             var $this = $(this);
             var data = $this.data('ipWidget_ipForm_field');
-            if (data.options) {
-                return data.options;
+            if (data.options[$this.ipWidget_ipForm_field('getType')]) {
+                //store separte options for each type. Just to avoid accidental removal of options on type change
+                //nevertheless only one type options will be stored to the database
+                return data.options[$this.ipWidget_ipForm_field('getType')]; 
             } else {
                 return null;
             }

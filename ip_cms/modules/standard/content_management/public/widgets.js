@@ -35,8 +35,7 @@
 
 IpForm_InitListOptions = function ($context, currentOptions) {
     var addOption = function (value) {
-        var $newOption = $context.find('.ipaOptionTemplate').clone();
-        $newOption.removeClass('ipaOptionTemplate');
+        var $newOption = $context.find('.ipgHide .ipaOptionTemplate').clone();
         $newOption.find('.ipaOption').val(value);
         $context.find('.ipaContainer').append($newOption);
     };
@@ -44,6 +43,12 @@ IpForm_InitListOptions = function ($context, currentOptions) {
     $context.find('.ipaAdd').bind('click', function () {
         addOption();
     });
+    
+    $context.delegate('.ipaRemove', 'click', function () {
+        $(this).closest('.ipaOptionTemplate').remove();
+        return false;
+    });
+    
     
     if (currentOptions && currentOptions.list) {
         for(var i=0; i<currentOptions.list.length; i++) {

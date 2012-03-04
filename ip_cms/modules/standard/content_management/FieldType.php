@@ -60,8 +60,8 @@ class FieldType{
                 case '\Library\IpForm\Field\Select':
                 case '\Library\IpForm\Field\Radio':
                     $selectValues = array();
-                    if (is_array($fieldData['options'])) {
-                        foreach($fieldData['options'] as $option) {
+                    if (isset($fieldData['options']['list']) && is_array($fieldData['options']['list'])) {
+                        foreach($fieldData['options']['list'] as $option) {
                             if (is_string($option)) {
                                 $selectValues[] = array($option, $option);
                             }
