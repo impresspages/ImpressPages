@@ -25,6 +25,9 @@ class Checkbox extends Field{
                 $this->checked = FALSE;
             }
         }
+        if (isset($options['text'])) {
+            $this->setText($options['text']);
+        }
         parent::__construct($options);
     }
     
@@ -38,7 +41,7 @@ class Checkbox extends Field{
         }
         $answer .= '<input type="checkbox" '.$attributes.' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($this->getDefaultValue()).'"/>'."\n";
         if ($this->getText()) {
-            $answer .= '<span>'.htmlspecialchars($this->getText()).'</span>';
+            $answer .= '<div>'.$this->getText().'</div>';
         }
     
         return $answer; 

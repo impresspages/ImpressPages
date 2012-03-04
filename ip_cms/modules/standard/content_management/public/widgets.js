@@ -45,9 +45,9 @@ IpForm_InitListOptions = function ($context, currentOptions) {
         addOption();
     });
     
-    if (currentOptions) {
-        for(var i=0; i<currentOptions.length; i++) {
-            addOption(currentOptions[i]);
+    if (currentOptions && currentOptions.list) {
+        for(var i=0; i<currentOptions.list.length; i++) {
+            addOption(currentOptions.list[i]);
         }
     } else {
         addOption(); //add first empty option
@@ -67,7 +67,21 @@ IpForm_SaveListOptions = function ($context) {
         var $this = $(this);
         answer.push($this.val());
     });
-    return answer;
+    return {list : answer};
+};
+
+
+//IpForm widget wysiwyg options
+
+IpForm_InitWysiwygOptions = function ($context, currentOptions) {
+    if (currentOptions && currentOptions.text) {
+        $context.find(".ipaContainer").val(currentOptions.text);
+    }
+    $context.find(".ipaContainer").tinymce(ipTinyMceConfigMin);
+};
+
+IpForm_SaveWysiwygOptions = function ($context) {
+    return {text:$context.find('.ipaContainer').val()};
 };
 
 // hook all widgets with plugins

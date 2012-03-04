@@ -239,11 +239,11 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select', 'IpForm_InitListOptions', 'IpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox');
+        $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox', 'IpForm_InitWysiwygOptions', 'IpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio', 'IpForm_InitListOptions', 'IpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-    }    
+    }
 
     
     public static function duplicatedRevision (\Ip\Event $event) {

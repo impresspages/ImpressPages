@@ -62,10 +62,18 @@ class FieldType{
                     $selectValues = array();
                     if (is_array($fieldData['options'])) {
                         foreach($fieldData['options'] as $option) {
-                            $selectValues[] = array($option, $option);
+                            if (is_string($option)) {
+                                $selectValues[] = array($option, $option);
+                            }
+                            
                         }
                     }
                     $fieldOptions['values'] = $selectValues;
+                    break;
+                case '\Library\IpForm\Field\Checkbox':
+                    if (isset($fieldData['options']['text']) && is_string($fieldData['options']['text'])) {
+                        $fieldOptions['text'] = $fieldData['options']['text'];
+                    }
                     break;
                 default:
                     //other classes do not have their options. If you write your custom field type, extend this class and change this behaviour
