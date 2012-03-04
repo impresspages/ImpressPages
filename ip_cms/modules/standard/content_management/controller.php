@@ -139,7 +139,7 @@ class Controller extends \Ip\Controller{
 
 
         if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising widgetId POST variable');
+            $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
         $instanceId = $_POST['instanceId'];
