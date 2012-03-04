@@ -11,7 +11,7 @@
                             break;
                         case \Library\IpForm\Field\Field::LAYOUT_BLANK:
                         default:
-                            echo $field;
+                            echo $field->render($this->getDoctype())."\n";
                             break;
                     }
                 ?>

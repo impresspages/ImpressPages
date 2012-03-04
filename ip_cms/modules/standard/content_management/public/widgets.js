@@ -48,18 +48,14 @@
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
-                    var data = form.serialize();
-                    if (data != '') {
-                        data = data + '&';
-                    }
-                    data = data + 'g=standard&m=content_management&a=widgetPost&instanceId=15'
                     $.ajax({
                         url: ip.baseUrl,
                         dataType: 'json',
                         type : 'POST',
-                        data: data,
+                        data: form.serialize(),
                         success: function (response){console.log(response);}
                       });
+                    return false;
                     // submit with AJAX
                     console.log(form.serialize());
                     $.getJSON("server-fail.js?" + form.serialize(), function(json) {

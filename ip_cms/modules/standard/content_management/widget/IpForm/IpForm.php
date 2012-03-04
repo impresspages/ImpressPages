@@ -18,6 +18,11 @@ class IpForm extends \Modules\standard\content_management\Widget{
         return $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'contact_form');
     }
     
+    public function post ($instanceId, $postData, $data) {
+        echo 'GERASk'; exit;
+    }
+    
+    
     public function managementHtml($instanceId, $data, $layout) {
         $addFieldForm = new \Library\IpForm\Form();
         $addFieldForm->addAttribute('class', 'ipaButton ipaFormAddField');
@@ -82,17 +87,43 @@ class IpForm extends \Modules\standard\content_management\Widget{
         
         
 
+        //special variables to post to widget controller
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'g',
+        'defaultValue' => 'standard'
+        ));
+        $form->addField($field);
+
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'm',
+        'defaultValue' => 'content_management'
+        ));
+        $form->addField($field);
+        
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'a',
+        'defaultValue' => 'widgetPost'
+        ));
+        $form->addField($field);
+        
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'instanceId',
+        'defaultValue' => $instanceId
+        ));
+        $form->addField($field);
+        
         $field = new \Library\IpForm\Field\Submit(
         array(
         'defaultValue' => 'Submit'
-        )
-        );
+        ));
 
         $form->addField($field);
-                
         
         $data['form'] = $form;
-        
         return parent::previewHtml($instanceId, $data, $layout);
     }
     
