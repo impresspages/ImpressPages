@@ -207,12 +207,13 @@ function IpWidget_IpForm(widgetObject) {
                     });
                     $this.find('.ipaFieldLabel').val(data.label);
                     $this.find('.ipaFieldType').val(data.type);
-                    if (options.optionsPopup.ipWidget_ipForm_options('optionsAvailable', data.type)) {
-                        $this.find('.ipaFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
-                        $this.bind('optionsClick.ipWidget_ipForm', function() {$(this).ipWidget_ipForm_field('openOptionsPopup');});
-                    } else {
-                        $this.find('.ipaFieldOptions').hide();
-                    }
+                    $this.find('.ipaFieldType').bind('change', function() {$(this).trigger('changeType.ipWidget_ipForm', [$(this).val()]);});
+                    $this.bind('changeType.ipWidget_ipForm', function(e, type) {
+                        $(this).ipWidget_ipForm_field('setType', type);
+                    });
+                    
+                    $(this).ipWidget_ipForm_field('setType', data.type);
+                    
                 }
                 
                 $this.find('.ipaFieldRemove').bind('click', function(event){
@@ -265,6 +266,20 @@ function IpWidget_IpForm(widgetObject) {
         getType : function() {
             var $this = this;
             return $this.find('.ipaFieldType').val();
+        },
+        
+        setType : function(type) {
+            var $this = this;
+            var data = $this.data('ipWidget_ipForm_field');
+            if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
+                $this.find('.ipaFieldOptions').show();
+                $this.find('.ipaFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
+                $this.bind('optionsClick.ipWidget_ipForm', function() {$(this).ipWidget_ipForm_field('openOptionsPopup');});
+            } else {
+                $this.find('.ipaFieldOptions').hide();
+            }
+            data.type = type;
+            $this.data('ipWidget_ipForm_field', data);
         },
             
         getStatus : function() {
