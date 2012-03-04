@@ -150,7 +150,7 @@ class Controller extends \Ip\Controller{
             if ($widgetRecord) {
                 $widgetObject = Model::getWidgetObject($widgetRecord['name']);
                 if ($widgetObject) {
-                    $widgetObject->post($instanceId, $_POST, $widgetRecord['data']);
+                    $widgetObject->post($this, $instanceId, $_POST, $widgetRecord['data']);
                 } else {
                     throw new Exception("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
                 }
