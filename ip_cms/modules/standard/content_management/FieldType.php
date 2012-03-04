@@ -44,9 +44,13 @@ class FieldType{
         if (!isset($fieldData['label'])) {
             $fieldData['label'] = '';
         }
+        if (!isset($fieldData['name'])) {
+            throw new \Exception('Field name not specified');
+        }
         
         $fieldOptions = array(
-            'label' =>$fieldData['label']
+            'label' =>$fieldData['label'],
+            'name' => $fieldData['name']
         );
         
         $fieldClass = $this->getFieldClass();
@@ -54,6 +58,7 @@ class FieldType{
         if (isset($fieldData['options'])) {
             switch($fieldClass) {
                 case '\Library\IpForm\Field\Select':
+                case '\Library\IpForm\Field\Radio':
                     $selectValues = array();
                     if (is_array($fieldData['options'])) {
                         foreach($fieldData['options'] as $option) {
@@ -61,6 +66,7 @@ class FieldType{
                         }
                     }
                     $fieldOptions['values'] = $selectValues;
+                    break;
                 default:
                     //other classes do not have their options. If you write your custom field type, extend this class and change this behaviour
                     break;

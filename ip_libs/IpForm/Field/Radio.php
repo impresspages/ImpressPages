@@ -30,8 +30,9 @@ class Radio extends Field{
             } else {
                 $checked = '';
             }
-            $answer .= '<radio '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'"/>'."\n";
-            $answer .= '<span>'.htmlspecialchars($value[1]).'</span>'."\n";
+            $id = 'ipForm_radio_'.rand(0, 2147483647);
+            $answer .= '<input id="'.$id.'" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'"/>'."\n";
+            $answer .= '<label for="'.$id.'">'.htmlspecialchars($value[1]).'</label>'."\n";
         }
 
         return $answer; 

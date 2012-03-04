@@ -241,7 +241,7 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio');
+        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio', 'IpForm_InitListOptions', 'IpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
     }    
 

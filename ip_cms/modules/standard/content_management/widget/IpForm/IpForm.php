@@ -67,6 +67,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
             if ($fieldType) {
                 $fieldData = array (
                     'label' => $field['label'],
+                    'name' => 'ipForm_field_'.$fieldKey,
                     'options' => $field['options']
                 );
                 
