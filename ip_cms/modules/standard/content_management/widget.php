@@ -174,11 +174,17 @@ class Widget{
         try {
             $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/'.self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
         } catch (\Ip\CoreException $e){
-            $tmpData = array(
-                'widgetName' => $this->name,
-                'layout' => $layout
-            );
-            $answer = \Ip\View::create('view/unknown_widget_layout.php', $tmpData)->render();
+            global $site;
+            
+            if ($site->managementState()) {
+                $tmpData = array(
+                    'widgetName' => $this->name,
+                    'layout' => $layout
+                );
+                $answer = \Ip\View::create('view/unknown_widget_layout.php', $tmpData)->render();
+            } else {
+                $answer = '';
+            }
         }
         return $answer;
     }
