@@ -137,7 +137,6 @@ class Controller extends \Ip\Controller{
     public function widgetPost() {
         global $site;
 
-
         if (!isset($_POST['instanceId'])) {
             $this->_errorAnswer('Mising instanceId POST variable');
             return;

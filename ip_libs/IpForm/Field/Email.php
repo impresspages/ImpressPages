@@ -10,6 +10,11 @@ namespace Library\IpForm\Field;
 
 class Email extends Field{
     
+    public function __construct($options) {
+        parent::__construct($options);
+        $this->addValidator('email');
+    }
+    
     public function render($doctype) {
         $attributesStr = '';
         

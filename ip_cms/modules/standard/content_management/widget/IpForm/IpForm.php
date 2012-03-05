@@ -18,8 +18,24 @@ class IpForm extends \Modules\standard\content_management\Widget{
         return $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'contact_form');
     }
     
-    public function post ($instanceId, $postData, $data) {
-        echo 'GERASk'; exit;
+    public function post ($controller, $instanceId, $postData, $data) {
+        
+        
+        $form = $this->createForm($instanceId, $data);
+        $errors = $form->validate($postData);
+        
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success'
+            );
+        }
+        
+        $controller->returnJson($data);
     }
     
     
@@ -53,6 +69,50 @@ class IpForm extends \Modules\standard\content_management\Widget{
     }
     
     public function previewHtml($instanceId, $data, $layout) {
+
+        $data['form'] = $this->createForm($instanceId, $data);
+        return parent::previewHtml($instanceId, $data, $layout);
+    }
+    
+    
+    public function dataForJs($data) {
+        //collect available field types
+        $fieldTypeObjects = IpForm\Model::getAvailableFieldTypes();
+        
+        $fieldTypes = array ();
+        foreach($fieldTypeObjects as $typeObject){
+            $fieldTypes[$typeObject->getKey()] = array(
+                'key' => $typeObject->getKey(),
+                'title' => $typeObject->getTitle(),
+                'optionsInitFunction' => $typeObject->getJsOptionsInitFunction(),
+                'optionsSaveFunction' => $typeObject->getJsOptionsSaveFunction(),
+                'optionsHtml' => $typeObject->getJsOptionsHtml()
+            );
+        }
+        $data['fieldTypes'] = $fieldTypes;
+        
+        if (empty($data['fields'])) {
+            $data['fields'] = array();
+            $data['fields'][] = array (
+                'type' => 'IpText',
+                'label' => '',
+                'options' => array()
+            );
+        }
+        
+        
+        
+        return $data;
+    }    
+    
+    /**
+     * 
+     * 
+     * @param unknown_type $instanceId
+     * @param unknown_type $data
+     * @return \Library\IpForm\Form
+     */
+    private function createForm($instanceId, $data) {
         $form = new \Library\IpForm\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {
@@ -122,39 +182,6 @@ class IpForm extends \Modules\standard\content_management\Widget{
         ));
 
         $form->addField($field);
-        
-        $data['form'] = $form;
-        return parent::previewHtml($instanceId, $data, $layout);
+        return $form;
     }
-    
-    
-    public function dataForJs($data) {
-        //collect available field types
-        $fieldTypeObjects = IpForm\Model::getAvailableFieldTypes();
-        
-        $fieldTypes = array ();
-        foreach($fieldTypeObjects as $typeObject){
-            $fieldTypes[$typeObject->getKey()] = array(
-                'key' => $typeObject->getKey(),
-                'title' => $typeObject->getTitle(),
-                'optionsInitFunction' => $typeObject->getJsOptionsInitFunction(),
-                'optionsSaveFunction' => $typeObject->getJsOptionsSaveFunction(),
-                'optionsHtml' => $typeObject->getJsOptionsHtml()
-            );
-        }
-        $data['fieldTypes'] = $fieldTypes;
-        
-        if (empty($data['fields'])) {
-            $data['fields'] = array();
-            $data['fields'][] = array (
-                'type' => 'IpText',
-                'label' => '',
-                'options' => array()
-            );
-        }
-        
-        
-        
-        return $data;
-    }    
 }

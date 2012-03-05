@@ -44,11 +44,11 @@ class Page{
     /**
      * Return all fields (from all fieldsets in one level array)
      */
-    public function getPages() {
+    public function getFields() {
         $fieldsets = $this->getFieldsets();
         $fields = array();
         foreach ($fieldsets as $fieldset) {
-            array_merge($fields, $fieldset->getFields());
+            $fields = array_merge($fields, $fieldset->getFields());
         }
         return $fields;
     }    

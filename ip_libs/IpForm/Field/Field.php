@@ -77,6 +77,27 @@ abstract class Field{
     }
     
     /**
+     * 
+     * Validate if field passes validation
+     * 
+     */
+    /**
+     * Validate field
+     * @param mixed $data usually string. But could be null or even array (eg. password confirmation field, or multiple file upload field)
+     * @return string return string on error or false on success
+     */
+    public function validate($value) {
+        $validators = $this->getValidators();
+        foreach($validators as $validator) {
+            $error = $validator->validate($value);
+            if ($error) {
+                return $error;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * Add validator to field
      * @param string $validator
      */

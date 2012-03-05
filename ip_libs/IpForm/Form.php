@@ -26,8 +26,27 @@ class Form{
         $this->attributes = array();
     }
     
-    public function validate() {
-        
+    /**
+     * 
+     * Check if data passes form validation rules
+     * @param array $data - post data from user or other source.
+     * @return array errors. Array key - error field name. Value - error message. Empty array means there are no errors.
+     */
+    public function validate($data) {
+        $fields = $this->getFields();
+        $errors = array();
+        foreach($fields as $field) {
+            if (isset($data[$field->getName()])) {
+                $postValue = $data[$field->getName()];
+            } else {
+                $postValue = null;
+            }
+            $error = $field->validate($postValue);
+            if ($error) {
+                $errors[$field->getName()] = $error;
+            }
+        }
+        return $errors;
     }
     
     public function addPage(Page $page) {
@@ -102,7 +121,7 @@ class Form{
         $pages = $this->getPages();
         $fields = array();
         foreach ($pages as $page) {
-            array_merge($fields, $page->getFields());
+            $fields = array_merge($fields, $page->getFields());
         }
         return $fields;
     }

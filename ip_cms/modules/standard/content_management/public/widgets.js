@@ -53,26 +53,21 @@
                         dataType: 'json',
                         type : 'POST',
                         data: form.serialize(),
-                        success: function (response){console.log(response);}
-                      });
-                    return false;
-                    // submit with AJAX
-                    console.log(form.serialize());
-                    $.getJSON("server-fail.js?" + form.serialize(), function(json) {
-
-                        // everything is ok. (server returned true)
-                        if (json === true)  {
-                            form.load("success.php");
-
-                        // server-side validation failed. use invalidate() to show errors
-                        } else {
-                            form.data("validator").invalidate(json);
+                        success: function (response){
+                            if (response.status && response.status == 'success') {
+                                $ipForm.find('.ipwThankYou').show();
+                                $ipForm.find('.ipwThankYou').height($ipForm.find('.ipwForm').height());
+                                $ipForm.find('.ipwForm').hide();
+                                //TODO find the way to override this bihaviour
+                            } else {
+                                if (response.errors) {
+                                    form.data("validator").invalidate(response.errors);
+                                }
+                            }
                         }
-                    });
-
-                    // prevent default form submission logic
-                    e.preventDefault();
+                      });
                 }
+                e.preventDefault();
             });
 
         });
