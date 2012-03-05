@@ -49,6 +49,23 @@ class Form{
         return $errors;
     }
     
+    /**
+     * 
+     * Filter data array. Return only those records that are expected according to form field names.
+     * @param array $data
+     * @return array
+     */
+    public function filterValues($data) {
+        $answer = array();
+        $fields = $this->getFields();
+        foreach($fields as $field) {
+            if (isset($data[$field->getName()])) {
+                $answer[$field->getName()] = $data[$field->getName()];
+            } 
+        }
+        return $answer;
+    }
+    
     public function addPage(Page $page) {
         $this->pages[] = $page;
     }

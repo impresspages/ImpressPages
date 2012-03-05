@@ -55,10 +55,13 @@
                         data: form.serialize(),
                         success: function (response){
                             if (response.status && response.status == 'success') {
-                                $ipForm.find('.ipwThankYou').show();
-                                $ipForm.find('.ipwThankYou').height($ipForm.find('.ipwForm').height());
-                                $ipForm.find('.ipwForm').hide();
-                                //TODO find the way to override this bihaviour
+                                if (typeof ipWidgetipForm_success == 'function'){ //custom handler exists
+                                    ipWidgetipForm_success($ipForm);
+                                } else { //default handler
+                                    $ipForm.find('.ipwThankYou').show();
+                                    $ipForm.find('.ipwThankYou').height($ipForm.find('.ipwForm').height());
+                                    $ipForm.find('.ipwForm').hide();
+                                }
                             } else {
                                 if (response.errors) {
                                     form.data("validator").invalidate(response.errors);
@@ -78,7 +81,7 @@
 
 
 // IpForm widget select options
-ipForm_InitListOptions = function ($context, currentOptions) {
+ipWidgetIpForm_InitListOptions = function ($context, currentOptions) {
     var addOption = function (value) {
         var $newOption = $context.find('.ipgHide .ipaOptionTemplate').clone();
         $newOption.find('.ipaOption').val(value);
@@ -109,7 +112,7 @@ ipForm_InitListOptions = function ($context, currentOptions) {
     
 };
 
-ipForm_SaveListOptions = function ($context) {
+ipWidgetipForm_SaveListOptions = function ($context) {
     var $options = $context.find('.ipaContainer .ipaOption');
     var answer = new Array();
     answer = new Array();
@@ -122,14 +125,14 @@ ipForm_SaveListOptions = function ($context) {
 
 
 //IpForm widget wysiwyg options
-ipForm_InitWysiwygOptions = function ($context, currentOptions) {
+ipWidgetipForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
         $context.find(".ipaContainer").val(currentOptions.text);
     }
     $context.find(".ipaContainer").tinymce(ipTinyMceConfigMin);
 };
 
-ipForm_SaveWysiwygOptions = function ($context) {
+ipWidgetipForm_SaveWysiwygOptions = function ($context) {
     return {text:$context.find('.ipaContainer').val()};
 };
 
