@@ -1323,7 +1323,7 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["main_parameters"]["closed_site"] = "0";
         $parameterType["standard"]["configuration"]["main_parameters"]["closed_site"] = "bool";
 
-        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template";
+        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template (deprecated. Use ip_cms/modules/standard/configuration/view/email.php instead)";
         $parameterValue["standard"]["configuration"]["main_parameters"]["email_template"] = "<table border=\"0\" width=\"100%\">
 <tbody>
 <tr>
@@ -1360,6 +1360,11 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["main_parameters"]["email_template"] = "0";
         $parameterType["standard"]["configuration"]["main_parameters"]["email_template"] = "lang_wysiwyg";
 
+        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_title"] = "Default email title";
+        $parameterValue["standard"]["configuration"]["main_parameters"]["email_title"] = "Hi,";
+        $parameterAdmin["standard"]["configuration"]["main_parameters"]["email_title"] = "0";
+        $parameterType["standard"]["configuration"]["main_parameters"]["email_title"] = "lang";
+        
         $parameterTitle["standard"]["configuration"]["main_parameters"]["email"] = "Site e-mail";
         $parameterValue["standard"]["configuration"]["main_parameters"]["email"] = "[[[[site_email]]]]";
         $parameterAdmin["standard"]["configuration"]["main_parameters"]["email"] = "0";

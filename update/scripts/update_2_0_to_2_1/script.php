@@ -259,7 +259,16 @@ class Script {
                 
             }
             
-
+            $module = \Db_100::getModule(null, 'standard', 'configuration');
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'main_parameters');
+            if ($group) {
+                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+                    \Db_100::addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,'));
+                }
+                
+            }
+            
+            
             
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');

@@ -71,6 +71,10 @@ abstract class Field{
         return $answer;
     }
     
+    public function getValueAsString($postedValue) {
+        return (string) $postedValue;
+    }
+    
     
     public function getValidators() {
         return $this->validators;

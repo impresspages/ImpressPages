@@ -15,7 +15,7 @@ class Email extends Validator {
         if (empty($value)) {
             return false;
         }
-        if (!preg_match('#^A[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $value)) {
+        if (!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $value)) {
             return 'Invalid email';
         } else {
             return false;

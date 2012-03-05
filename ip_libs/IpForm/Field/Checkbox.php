@@ -63,6 +63,13 @@ class Checkbox extends Field{
         return $this->text;
     }
     
+    public function getValueAsString($postedValue) {
+        if ($postedValue) {
+            return 'Yes';
+        } else {
+            return 'No';
+        }
+    }    
     
     
 }

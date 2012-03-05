@@ -30,12 +30,68 @@ class IpForm extends \Modules\standard\content_management\Widget{
                 'errors' => $errors
             );
         } else {
+            $this->sendEmail($form, $postData, $data);
+            
             $data = array(
                 'status' => 'success'
             );
         }
         
         $controller->returnJson($data);
+    }
+    
+    public function sendEmail ($form, $postData, $data) {
+        global $parametersMod;
+        global $site;
+        
+        $contentData = array();
+        foreach($form->getFields() as $fieldKey => $field) {
+            
+            if (get_class($field) != 'Library\IpForm\Field\Hidden' && get_class($field) != 'Library\IpForm\Field\Submit') {
+                if (!isset($postData[$field->getName()])) {
+                    $postData[$field->getName()] = null;
+                }
+                
+                $title = $field->getLabel();
+                $value = $field->getValueAsString($postData[$field->getName()]);
+                $contentData[] = array(
+                    'title' => $title,
+                    'value' => $value 
+                );
+            }
+        }
+        $content = \Ip\View::create('view/email_content.php', array('values' => $contentData))->render();
+        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'); 
+        
+        
+        $emailData = array(
+            'content' => $content,
+            'name' => $websiteName,
+            'email' => $websiteEmail
+        );
+        
+        $email = \Ip\View::create('view/email.php', $emailData)->render();
+        $to = $from = $websiteEmail;
+        
+        //get page where this widget sits :)
+        $fullWidgetRecord = \Modules\standard\content_management\Model::getWidgetFullRecord($postData['instanceId']);
+        $pageTitle = '';
+        if (isset($fullWidgetRecord['revisionId'])) {
+            $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
+            if (isset($revision['zoneName']) && $revision['pageId']) {
+                $pageTitle = $site->getZone($revision['zoneName'])->getElement($revision['pageId'])->getButtonTitle();
+            }
+        }
+        
+        $subject = $websiteName.': '.$pageTitle;
+        
+        $files = array(); //TODO file handling in IpForm widget is not implemented yet.
+        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
+
+        $emailQueue->send();
+        
     }
     
     
