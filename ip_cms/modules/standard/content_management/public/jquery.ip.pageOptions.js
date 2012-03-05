@@ -81,6 +81,7 @@
             data.url = $('#formSEO input[name="url"]').val();
             data.type = $('#formAdvanced input:checked[name="type"]').val();
             data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
+            data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
 
             return data;
         }
