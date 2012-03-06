@@ -18,4 +18,9 @@ class Submit extends Field{
         return self::LAYOUT_DEFAULT;
     }
     
+    
+    public function getType() {
+        return self::TYPE_SYSTEM;
+    }
+    
 }

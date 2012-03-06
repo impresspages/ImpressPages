@@ -20,6 +20,8 @@ class Hidden extends Field{
         return self::LAYOUT_BLANK;
     }
     
-    
+    public function getType() {
+        return self::TYPE_SYSTEM;
+    }    
     
 }

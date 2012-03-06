@@ -9,9 +9,15 @@ namespace Library\IpForm\Field;
 
 
 abstract class Field{
-
+    //layouts define how field should be treatet in the view
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
+    
+    //types define how field values should be used in controller. Eg. 'system' fields
+    //should not be sent by email as form post data. They are just helpers to deliver
+    //form to the controller (eg. hidden fields, submit button, captcha).
+    const TYPE_REGULAR = 'regular';
+    const TYPE_SYSTEM = 'system'; 
     
     protected $label;
     protected $note;
@@ -62,6 +68,9 @@ abstract class Field{
         return self::LAYOUT_DEFAULT;
     }
     
+    public function getType() {
+        return self::TYPE_REGULAR;
+    }
     
     public function getAttributesStr() {
         $answer = '';

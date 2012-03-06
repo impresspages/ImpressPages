@@ -47,7 +47,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         $contentData = array();
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if (get_class($field) != 'Library\IpForm\Field\Hidden' && get_class($field) != 'Library\IpForm\Field\Submit') {
+            if ($field->getType() == \Library\IpForm\Field\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
