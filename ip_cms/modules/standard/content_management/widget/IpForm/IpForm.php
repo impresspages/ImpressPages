@@ -109,6 +109,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
                 'title' => $fieldObject->getTitle()
             );
         }
+        uksort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
         
         //create add field button
@@ -249,5 +250,9 @@ class IpForm extends \Modules\standard\content_management\Widget{
     
 
         return $form;
+    }
+    
+    private function sortFieldTypes($a, $b) {
+        return strcasecmp($a['title'], $b['title']);
     }
 }
