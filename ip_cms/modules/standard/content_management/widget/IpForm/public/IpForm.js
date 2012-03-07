@@ -32,7 +32,9 @@ function IpWidget_IpForm(widgetObject) {
         container.ipWidget_ipForm_container(options);
         this.widgetObject.find(".ipaFormAddField").validator().submit(function (e){e.preventDefault(); $(this).trigger('addFieldClicked.ipForm');});
         this.widgetObject.bind('addFieldClicked.ipForm', this.addField);
-        
+        var customTinyMceConfig = ipTinyMceConfigMin;
+        customTinyMceConfig.height = 100;
+        this.widgetObject.find(".ipWidget_ipForm_thankYouMessage").tinymce(customTinyMceConfig);
         
     }
     
@@ -64,7 +66,8 @@ function IpWidget_IpForm(widgetObject) {
             }
 
         });
-
+        
+        data.thankYouMessage = this.widgetObject.find('.ipWidget_ipForm_thankYouMessage').html();
 
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
