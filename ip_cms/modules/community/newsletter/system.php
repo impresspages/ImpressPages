@@ -38,8 +38,8 @@ class System{
         ) {
             return;
         }
-        echo $site->getCurrentElement()->generateContent();
-        
+        return $site->getCurrentElement()->generateContent();
+        $event->addProcessed();
     }
     
     
