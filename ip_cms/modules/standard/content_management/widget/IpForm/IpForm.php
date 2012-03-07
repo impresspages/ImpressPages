@@ -231,13 +231,23 @@ class IpForm extends \Modules\standard\content_management\Widget{
         'defaultValue' => $instanceId
         ));
         $form->addField($field);
+
+        //antispam
+        $field = new \Library\IpForm\Field\Check(
+        array(
+        'name' => 'checkFieldield'
+        ));
+        $form->addField($field);
         
+        //submit
         $field = new \Library\IpForm\Field\Submit(
         array(
         'defaultValue' => 'Submit'
         ));
-
         $form->addField($field);
+        
+    
+
         return $form;
     }
 }
