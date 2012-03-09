@@ -49,7 +49,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
         /* we are in widgetObject context */
         var $this = $(this);
         var container = $this.find('.ipWidget_ipLogoGallery_container');
-        container.ipWidget_ipLogoGallery_container('addLogo', fileName, '', 'new');
+        container.ipWidget_ipLogoGallery_container('addLogo', fileName, '', '');
     }
     
 
