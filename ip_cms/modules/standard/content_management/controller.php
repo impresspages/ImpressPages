@@ -94,8 +94,15 @@ class Controller extends \Ip\Controller{
     public function initManagementData(){
         global $site;
 
-        $widgets = Model::getAvailableWidgetObjects();
-        $widgets = \Modules\developer\widgets\Model::sortWidgets($widgets);
+        $tmpWidgets = Model::getAvailableWidgetObjects();
+        $tmpWidgets = \Modules\developer\widgets\Model::sortWidgets($tmpWidgets);
+        $widgets = array();
+        foreach($tmpWidgets as $key => $widget) {
+            if (!$widget->getUnderTheHood()) {
+                $widgets[$key] = $widget;
+            }
+        }
+        
         $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
 
         $managementUrls = array();

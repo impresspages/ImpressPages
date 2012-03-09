@@ -12,6 +12,10 @@ class Widget{
     var $name;
     var $moduleGroup;
     var $moduleName;
+    
+    /**
+     * @var boolean - true if widget is installed by default
+     */
     var $core;
     const PREVIEW_DIR = 'preview';
     const MANAGEMENT_DIR = 'management';
@@ -49,7 +53,7 @@ class Widget{
     public function getCore() {
         return $this->core;
     }
-
+    
     public function getIcon() {
         if (file_exists(BASE_DIR.$this->widgetDir.self::PUBLIC_DIR.'/icon.png')) {
             return $this->widgetDir.self::PUBLIC_DIR.'/icon.png';
@@ -117,6 +121,16 @@ class Widget{
         return $layouts;
     }
 
+    /**
+     * Return true if you like to hide widget in administration panel.
+     * You will be able to access widget in your code.
+     */
+    public function getUnderTheHood() {
+        return false; //by default all widgets are visible; 
+    }
+
+    
+    
     /**
      *
      *
