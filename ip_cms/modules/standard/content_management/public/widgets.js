@@ -40,7 +40,7 @@
 (function($) {
     $.fn.ipWidgetIpForm = function() {
         return this.each(function() {
-            $ipForm = $(this);
+            var $ipForm = $(this);
             
             $ipForm.find('form').validator();
             $ipForm.find('form').submit(function(e) {
