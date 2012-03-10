@@ -129,6 +129,16 @@ abstract class Field{
         $this->validators[] = $validator;
     }
     
+    /**
+     * 
+     * Adds attribute to input field. Altenative way to setAttributes method.
+     * @param string $name
+     * @param string $value
+     */
+    public function addAttribute($name, $value) {
+        $this->attributes[$name] = $value;
+    }
+    
     public function getValidationAttributesStr() {
         $attributesStr = '';
         foreach($this->getValidators() as $validator) {
