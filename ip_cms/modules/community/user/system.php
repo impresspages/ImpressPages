@@ -7,7 +7,7 @@
 
 namespace Modules\community\user;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+if (!defined('CMS')) exit;
 
 global $site;
 $site->requireConfig('community/user/config.php');
@@ -15,7 +15,56 @@ $site->requireConfig('community/user/config.php');
 class System {
 
 
+    function init(){
+        global $site;
+        global $dispatcher;
 
+        $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
+        $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateLogin');
+        
+    }
+    
+    
+    
+    public static function generateContent (\Ip\Event $event) {
+        global $site;
+
+        $blockName = $event->getValue('blockName');
+        if (
+            $blockName != 'main' ||
+            $site->getCurrentZone()->getAssociatedModule() != 'user' ||
+            $site->getCurrentZone()->getAssociatedModuleGroup() != 'community'
+        ) {
+            return;
+        }
+        $event->setValue('content', $site->getCurrentElement()->generateContent() );
+        $event->addProcessed();
+        
+    }
+
+    public static function generateLogin (\Ip\Event $event) {
+        global $site;
+        $blockName = $event->getValue('blockName');
+        if ($blockName == 'ipUserLogin') {
+            $userZone = $site->getZoneByModule('community', 'user');
+            if (!$userZone) {
+                if ($site->managementState()) {
+                    $event->setValue('content', 'Please create new zone in Developer / zones with associated module group <b>community</b> and module <b>user</b>.' );
+                    $event->addProcessed();
+                    return;
+                } else { 
+                    return;
+                }
+            }
+            $loginBox = $userZone->generateLogin();
+            $event->setValue('content', $loginBox );
+            $event->addProcessed();
+        }
+    }
+    
+    /**
+     * Autologin
+     */
     public function catchEvent($moduleGroup, $moduleName, $event, $parameters) {
         global $session;
         global $parametersMod;

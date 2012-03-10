@@ -263,55 +263,8 @@ class Actions {
                     break;
 
                 case 'login':
-                    if($parametersMod->getValue('community','user','options','login_type') == 'login')
-                    $tmpUser = Db::userByLogin($_POST['login']);
-                    else
-                    $tmpUser = Db::userByEmail($_POST['email']);
-
-                    if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                        $tmp_password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
-                    } else {
-                        $tmp_password = $_POST['password'];
-                    }
-
-                    if($tmpUser && isset($_POST['password']) && $tmp_password == $tmpUser['password']) {
-                        $this->login($tmpUser);
-                        if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
-                            setCookie(
-                            Config::$autologinCookieName,
-                            json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
-                            time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
-                            Config::$autologinCookiePath,
-                            Config::getCookieDomain()
-                            );
-                        }
-
-                        $html = $this->redirectAfterLogin();
-
-
-                    } else {
-                        $standardForm = new \Library\Php\Form\Standard(\Modules\community\user\Config::getRegistrationFields());
-                        $errors = array();
-                        $globalError = null;
-                        $site->dispatchEvent('community', 'user', 'incorrect_login', array('post'=>$_POST));
-
-                        if($parametersMod->getValue('community','user','options','login_type') == 'login') {
-                            $globalError = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_login_data');
-                            $errors['login'] = '';
-                        }else {
-                            $globalError = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_email_data');
-                            $errors['email'] = '';
-                        }
-                        $errors['password'] = '';
-                        $log->log('community/user', 'incorrect frontend login', $_SERVER['REMOTE_ADDR']);
-                        $html = $standardForm->generateErrorAnswer($errors, $globalError);
-                    }
-
-                    echo $html;
-                    \Db::disconnect();
-                    exit;
+                    //refactored
                     break;
-
                 case 'registration_verification':
                     $current = Db::userById ($_REQUEST['id']);
                     if ($current) {

@@ -123,7 +123,7 @@ class Element extends \Frontend\Element {
 
         $answer = '';
 
-        $user = $site->getZone($this->zoneName);
+        $userZone = $site->getZone($this->zoneName);
 
         switch($this->getId()) {
             case 'password_reset':
@@ -134,7 +134,7 @@ class Element extends \Frontend\Element {
                     $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
                 }else {
                     if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
-                        $answer .= Template::passwordReset($user->generatePasswordReset());
+                        $answer .= Template::passwordReset($userZone->generatePasswordReset());
                     }else
                     $answer = '';
                 }
@@ -152,7 +152,7 @@ class Element extends \Frontend\Element {
                         else
                         $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
                     } else {
-                        $answer .= Template::passwordResetVerified($user->generateLogin());
+                        $answer .= Template::passwordResetVerified($userZone->generateLogin());
                     }
                 }
                 break;
@@ -178,7 +178,7 @@ class Element extends \Frontend\Element {
             <script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>
             ';
                 }else {
-                    $answer .= Template::registrationVerified($user->generateLogin());
+                    $answer .= Template::registrationVerified($userZone->generateLogin());
                 }
                 break;
             case 'registration_verification_error':
@@ -194,34 +194,17 @@ class Element extends \Frontend\Element {
                 $answer .= Template::newEmailVerificationError();
                 break;
             case 'login':
-                if($session->loggedIn()) {
-                    if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
-                    $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
-                    else
-                    $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
-                }else {
-                    if($parametersMod->getValue('community','user','options','allow_password_reset'))
-                    $resetLink = $user->getLinkPasswordReset();
-                    else
-                    $resetLink = '';
-
-                    if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration'))
-                    $registrationLink = $user->getLinkRegistration();
-                    else
-                    $registrationLink = '';
-
-                    $answer .= Template::login($user->generateLogin(), $resetLink, $registrationLink);
-                }
+                return $userZone->generateLogin();
                 break;
             case 'profile':
-                $answer .= Template::profile($user->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
+                $answer .= Template::profile($userZone->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
                 break;
             case 'registration':
                 if($session->loggedIn()) {
                     $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
                 } else {
                     if($parametersMod->getValue('community','user','options','enable_registration')) {
-                        $answer .= Template::registration($user->generateRegistration());
+                        $answer .= Template::registration($userZone->generateRegistration());
                     }else {
                         $answer .= Template::registrationDisabledError();
                     }

@@ -174,68 +174,89 @@ class Config{
     }
 
 
-    /** @var array fields, that are used for user login */
-    public static function getLoginFields(){
+    
+    public static function getLoginForm(){
         /** private*/
         global $parametersMod;
-        /** private*/
-        global $session;
 
-        $loginFields = array();
+        $form = new \Library\IpForm\Form();
+        
+
 
         /*hidden fields (required)*/
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'action';
-        $field->value = 'login';
-        $loginFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'a',
+        'defaultValue' => 'login'
+        ));
+        $form->addField($field);
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_group';
-        $field->value = 'community';
-        $loginFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'g',
+        'defaultValue' => 'community'
+        ));
+        $form->addField($field);
+        
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_name';
-        $field->value = 'user';
-        $loginFields[] = $field;
-
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'm',
+            'defaultValue' => 'user'
+        ));
+        $form->addField($field);
 
         /*predefined fields (required)*/
         if($parametersMod->getValue('community','user','options','login_type') == 'login'){
-            $field = new \Library\Php\Form\FieldText();
-            $field->name = 'login';
-            $field->caption = $parametersMod->getValue('community','user','translations','field_login');
-            $field->required = true;
-            $loginFields[] = $field;
+            $field = new \Library\IpForm\Field\Text(
+            array(
+                'name' => 'login',
+                'label' => $parametersMod->getValue('community','user','translations','field_login')
+            ));
+            $field->addValidator('required');
+            $form->addField($field);
         }else{
-            $field = new \Library\Php\Form\FieldEmail();
-            $field->name = 'email';
-            $field->caption = $parametersMod->getValue('community','user','translations','field_email');
-            $field->required = true;
-            $loginFields[] = $field;
+            $field = new \Library\IpForm\Field\Email(
+            array(
+                'name' => 'email',
+                'label' => $parametersMod->getValue('community','user','translations','field_email')
+            ));
+            $field->addValidator('required');
+            $form->addField($field);
         }
 
 
+        $field = new \Library\IpForm\Field\Password(
+        array(
+        'name' => 'password',
+        'label' => $parametersMod->getValue('community','user','translations','field_password')
+        ));
+        $field->addValidator('required');
+        $form->addField($field);
 
-        $field = new \Library\Php\Form\FieldPassword();
-        $field->name = 'password';
-        $field->caption = $parametersMod->getValue('community','user','translations','field_password');
-        $field->required = true;
-        $loginFields[] = $field;
-
-        /*predefined fields (required)*/
         if($parametersMod->getValue('community','user','options','enable_autologin')){
-            $field = new \Library\Php\Form\FieldCheckbox();
-            $field->name = 'autologin';
-            $field->caption = $parametersMod->getValue('community','user','translations','autologin');
-            $field->required = false;
-            $loginFields[] = $field;
+            $field = new \Library\IpForm\Field\Checkbox(
+            array(
+            'name' => 'autologin',
+            'label' => $parametersMod->getValue('community','user','translations','autologin')
+            ));
+            $form->addField($field);
         }
 
         /*add your additional fields*/
 
 
-        return $loginFields;
+        //Submit button
+        $field = new \Library\IpForm\Field\Submit(
+        array(
+        'name' => 'submit',
+        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_login')
+        ));
+        $form->addField($field);
+        
+        
+        
+        return $form;
     }
 
     /** @var array fields, that are used for user password reset */

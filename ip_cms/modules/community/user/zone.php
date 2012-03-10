@@ -157,18 +157,6 @@ class Zone extends \Frontend\Zone {
 
     }
 
-    function generateContent($element) {
-
-    }
-
-
-    function generateManagement($element) {
-        return $this->generateContent($element);
-    }
-
-
-
-
     /**
      * @return string html form
      */
@@ -180,7 +168,7 @@ class Zone extends \Frontend\Zone {
      * @return string html form
      */
     public static function generateLogin() {
-        return Template::loginForm(Config::getLoginFields());
+        return \Ip\View::create('view/login.php');
     }
 
     /**
