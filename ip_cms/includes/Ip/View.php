@@ -68,7 +68,7 @@ class View{
         return new \Ip\View($foundFile, $data);
     }
     
-    public function renderWidget($widgetName, $data, $layout = null) {
+    public function renderWidget($widgetName, $data = array(), $layout = null) {
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
         return $answer;
