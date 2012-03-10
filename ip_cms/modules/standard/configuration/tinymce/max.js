@@ -4,7 +4,7 @@ ipTinyMceConfigMax = {
     
     theme : "advanced",
     entity_encoding : "raw", 
-    plugins : "iplink,paste,safari,spellchecker,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,inlinepopups,media,contextmenu,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+    plugins : "iplink,paste,safari,spellchecker,pagebreak,style,layer,table,advhr,advimage,emotions,iespell,inlinepopups,media,contextmenu,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,simplebrowser,advhr",
     theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
     theme_advanced_buttons2 : "cut,copy,pastetext,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,forecolor,backcolor",
     theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr",
@@ -20,6 +20,8 @@ ipTinyMceConfigMax = {
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
     forced_root_block : "p",
 
+    file_browser_callback : "simplebrowser_browse", 
+    
     document_base_url : ip.baseUrl,
     remove_script_host : false,
     relative_urls : false,
