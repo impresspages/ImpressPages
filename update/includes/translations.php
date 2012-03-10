@@ -34,7 +34,7 @@ layout file (ip_themes/lt_pagan/main.php) before <b>generateJavascript()</b> lin
 <pre>
 &lt;?php
     $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/jquery/jquery.js\');
-    $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/colorbox/jquery.colorbox.js\', 2);
+    $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/colorbox/jquery.colorbox.js\');
 ?&gt;
 </pre>
 <p>

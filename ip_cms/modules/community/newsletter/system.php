@@ -18,7 +18,7 @@ class System{
         global $dispatcher;
 
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-        $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js', 2);
+        $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js');
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
 
