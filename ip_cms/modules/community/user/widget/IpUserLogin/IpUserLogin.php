@@ -36,22 +36,10 @@ class IpUserLogin extends \Modules\standard\content_management\Widget{
             //else
             //$answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
         }else {
-            if($parametersMod->getValue('community','user','options','allow_password_reset'))
-            $resetLink = $userZone->getLinkPasswordReset();
-            else
-            $resetLink = '';
-
-            if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration'))
-            $registrationLink = $userZone->getLinkRegistration();
-            else
-            $registrationLink = '';
-            
             $loginForm = \Modules\community\user\Config::getLoginForm();
             
             $data = array (
-                'loginForm' => $loginForm,
-                'passwordResetLink' => $resetLink,
-                'registrationLink' => $registrationLink 
+                'loginForm' => $loginForm
             );
             
             return parent::previewHtml($instanceId, $data, $layout);

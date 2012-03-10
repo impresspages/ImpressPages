@@ -126,6 +126,13 @@ class Element extends \Frontend\Element {
         $userZone = $site->getZone($this->zoneName);
 
         switch($this->getId()) {
+            case 'login':
+                return $userZone->generateLogin();
+                break;
+            case 'registration':
+                return $userZone->generateRegistration();
+                break;
+/*                
             case 'password_reset':
                 if($session->loggedIn()) {
                     if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
@@ -193,29 +200,17 @@ class Element extends \Frontend\Element {
             case 'new_email_verification_error':
                 $answer .= Template::newEmailVerificationError();
                 break;
-            case 'login':
-                return $userZone->generateLogin();
-                break;
+
             case 'profile':
                 $answer .= Template::profile($userZone->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
                 break;
-            case 'registration':
-                if($session->loggedIn()) {
-                    $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
-                } else {
-                    if($parametersMod->getValue('community','user','options','enable_registration')) {
-                        $answer .= Template::registration($userZone->generateRegistration());
-                    }else {
-                        $answer .= Template::registrationDisabledError();
-                    }
-                }
-                break;
+
             case 'renewed_registration':
                 $answer .= Template::renewedRegistration();
                 break;
             case 'renew_registration_error':
                 $answer .= Template::renewRegistrationError();
-                break;
+                break;*/
         }
 
 

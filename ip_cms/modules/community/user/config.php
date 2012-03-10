@@ -42,76 +42,95 @@ class Config{
     public static $autologinCookiePath = '/';
 
 
-    /** @var array fields, that are used for registration */
-    public static function getRegistrationFields(){
-        /** private*/
+    public static function getRegistrationForm(){
         global $parametersMod;
-        /** private*/
         global $session;
 
-        $registrationFields = array();
+        
+        $form = new \Library\IpForm\Form();
+        
 
         /*hidden fields (required)*/
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'action';
-        $field->value = 'register';
-        $registrationFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'a',
+        'defaultValue' => 'login'
+        ));
+        $form->addField($field);
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_group';
-        $field->value = 'community';
-        $registrationFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'g',
+        'defaultValue' => 'community'
+        ));
+        $form->addField($field);
+        
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_name';
-        $field->value = 'user';
-        $registrationFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'm',
+            'defaultValue' => 'user'
+        ));
+        $form->addField($field);
 
         /*predefined fields (required)*/
         if($parametersMod->getValue('community','user','options','login_type') == 'login'){
-            $field = new \Library\Php\Form\FieldText();
-            $field->name = 'login';
-            $field->dbField = 'login';
-            $field->caption = $parametersMod->getValue('community','user','translations','field_login');
-            $field->required = true;
-            $registrationFields[] = $field;
+            $field = new \Library\IpForm\Field\Text(
+            array(
+                'name' => 'login',
+                'label' => $parametersMod->getValue('community','user','translations','field_login')
+            ));
+            $field->addValidator('required');
+            $form->addField($field);
         }
 
+        $field = new \Library\IpForm\Field\Email(
+        array(
+            'name' => 'email',
+            'label' => $parametersMod->getValue('community','user','translations','field_email')
+        ));
+        $field->addValidator('required');
+        $form->addField($field);
 
-
-        $field = new \Library\Php\Form\FieldEmail();
-        $field->dbField = 'email';
-        $field->name = 'email';
-        $field->caption = $parametersMod->getValue('community','user','translations','field_email');
-        $field->required = true;
-        $registrationFields[] = $field;
-
-        $field = new \Library\Php\Form\FieldPassword();
-        $field->name = 'password';
-        $field->disableAutocomplete = true;
-        $field->caption = $parametersMod->getValue('community','user','translations','field_password');
-        $field->required = true;
-        $registrationFields[] = $field;
+        $field = new \Library\IpForm\Field\Password(
+        array(
+        'name' => 'password',
+        'label' => $parametersMod->getValue('community','user','translations','field_password')
+        ));
+        $field->addValidator('required');
+        $field->addAttribute('autocomplete', 'off');
+        $form->addField($field);
 
         if($parametersMod->getValue('community','user','options','type_password_twice')){
-            $field = new \Library\Php\Form\FieldPassword();
-            $field->name = 'confirm_password';
-            $field->disableAutocomplete = true;
-            $field->required = true;
-            $field->caption = $parametersMod->getValue('community','user','translations','field_confirm_password');
-            $registrationFields[] = $field;
+            $field = new \Library\IpForm\Field\Password(
+            array(
+            'name' => 'confirm_password',
+            'disableAutocomplete' => true,
+            'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+            ));
+            $field->addValidator('required');
+            $field->addAttribute('autocomplete', 'off');
+            $form->addField($field);
         }
 
-        /*add your additional fields*/
+        /*add your additional fields here*/
+        
 
-        return $registrationFields;
+        //Submit button
+        $field = new \Library\IpForm\Field\Submit(
+        array(
+        'name' => 'submit',
+        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_register')
+        ));
+        $form->addField($field);
+        
+        
+        
+        return $form;
     }
 
-    /** @var array fields, that are used for profile page */
     public static function getProfileFields(){
-        /** private*/
         global $parametersMod;
-        /** private*/
         global $session;
 
         $dbMod = new Db();
@@ -119,20 +138,28 @@ class Config{
         $profileFields = array();
 
         /*hidden fields (required)*/
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'action';
-        $field->value = 'update_profile';
-        $profileFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'a',
+        'defaultValue' => 'login'
+        ));
+        $form->addField($field);
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_group';
-        $field->value = 'community';
-        $profileFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+        'name' => 'g',
+        'defaultValue' => 'community'
+        ));
+        $form->addField($field);
+        
 
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_name';
-        $field->value = 'user';
-        $profileFields[] = $field;
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'm',
+            'defaultValue' => 'user'
+        ));
+        $form->addField($field);
+        
 
 
         /*predefined fields (required)*/
@@ -176,7 +203,6 @@ class Config{
 
     
     public static function getLoginForm(){
-        /** private*/
         global $parametersMod;
 
         $form = new \Library\IpForm\Form();

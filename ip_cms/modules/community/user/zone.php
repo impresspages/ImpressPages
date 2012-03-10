@@ -57,7 +57,7 @@ class Zone extends \Frontend\Zone {
 
             return $elements;
         } else {
-      return array();
+            return array();
         }
 
     }
@@ -161,20 +161,36 @@ class Zone extends \Frontend\Zone {
      * @return string html form
      */
     public static function generateRegistration() {
-        return Template::registrationForm(Config::getRegistrationFields());
+        global $parametersMod;
+        global $session;
+        
+        $data = array();
+
+        return \Ip\View::create('view/registration.php', $data);
     }
 
     /**
      * @return string html form
      */
-    public static function generateLogin() {
-        return \Ip\View::create('view/login.php');
+    public function generateLogin() {
+        global $parametersMod;
+        $data = array();
+        
+        if($parametersMod->getValue('community','user','options','allow_password_reset')) {
+            $data['passwordResetLink'] = $this::getLinkPasswordReset();
+        }
+
+        if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration')) {
+            $data['registrationLink'] = $this::getLinkRegistration();
+        }
+
+        return \Ip\View::create('view/login.php', $data);
     }
 
     /**
      * @return string html form
      */
-    public static function generatePasswordReset() {
+    public function generatePasswordReset() {
         return Template::passwordResetForm(Config::getPasswordResetFields());
     }
 
@@ -182,7 +198,7 @@ class Zone extends \Frontend\Zone {
     /**
      * @return string html form
      */
-    public static function generateProfile() {
+    public function generateProfile() {
         global $parametersMod;
         global $site;
         global $session;
@@ -190,8 +206,7 @@ class Zone extends \Frontend\Zone {
         if($session->loggedIn()) {
             return Template::profileForm(Config::getProfileFields());
         }else {
-            $userZone = $site->getZoneByModule('community', 'user');
-            return '<script type="text/javascript">document.location=\''.$site->generateUrl(null, $userZone->getName(), array(Config::$urlLogin)).'\'</script>';
+            return '<script type="text/javascript">document.location=\''.$site->generateUrl(null, $this->getName(), array(Config::$urlLogin)).'\'</script>';
         }
 
     }
@@ -199,40 +214,33 @@ class Zone extends \Frontend\Zone {
     /**
      * @return string link to registration page
      */
-    public static function getLinkRegistration() {
+    public function getLinkRegistration() {
         global $site;
-        $zone = $site->getZoneByModule('community', 'user');
-        if($zone)
-        return $site->generateUrl(null, $zone->getName(), array(Config::$urlRegistration));
+        return $site->generateUrl(null, $this->getName(), array(Config::$urlRegistration));
 
     }
 
     /**
      * @return string link to profile page
      */
-    public static function getLinkProfile() {
+    public function getLinkProfile() {
         global $site;
-        $zone = $site->getZoneByModule('community', 'user');
-        if($zone)
-        return $site->generateUrl(null, $zone->getName(), array(Config::$urlProfile));
-
+        return $site->generateUrl(null, $this->getName(), array(Config::$urlProfile));
     }
 
     /**
      * @return string link to login page
      */
-    public static  function getLinkLogin() {
+    public  function getLinkLogin() {
         global $site;
-        $zone = $site->getZoneByModule('community', 'user');
-        if($zone)
-        return $site->generateUrl(null, $zone->getName(), array(Config::$urlLogin));
+        return $site->generateUrl(null, $this->getName(), array(Config::$urlLogin));
 
     }
 
     /**
      * @return string link to logout
      */
-    public static function getLinkLogout() {
+    public function getLinkLogout() {
         global $site;
         return $site->generateUrl(null, null, null, array('module_group' => 'community', 'module_name' => 'user', 'action'=>'logout'));
     }
@@ -240,12 +248,9 @@ class Zone extends \Frontend\Zone {
     /**
      * @return string link to password reset service
      */
-    public static  function getLinkPasswordReset() {
+    public function getLinkPasswordReset() {
         global $site;
-        $zone = $site->getZoneByModule('community', 'user');
-        if($zone)
-        return $site->generateUrl(null, $zone->getName(), array(Config::$urlPasswordReset));
-
+        return $site->generateUrl(null, $this->getName(), array(Config::$urlPasswordReset));
     }
 
 
