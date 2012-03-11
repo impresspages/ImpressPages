@@ -18,6 +18,10 @@ class Controller extends \Ip\Controller{
     
     public function allowAction($action) {
         switch($action) {
+            case 'widgetPost':
+                return true;
+                
+                break;
             case 'getPageOptionsHtml':
                 if (\Ip\Backend::loggedIn()) {
                     return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management') || \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'menu_management');
