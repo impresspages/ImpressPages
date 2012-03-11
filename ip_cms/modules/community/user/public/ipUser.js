@@ -1,31 +1,33 @@
 (function($) {
-    $.fn.ipWidgetIpUser = function() {
+    $.fn.ipWidgetIpUserForm = function() {
         return this.each(function() {
-            $ipForm = $(this);
-            
-            $ipForm.find('form').validator();
-            $ipForm.find('form').submit(function(e) {
-                var form = $(this);
-
+            var $ipUserForm = $(this);
+            console.log('init');
+            $ipUserForm.find('form').validator();
+            $ipUserForm.find('form').submit(function(e) {
+                console.log('submit');
+                var $form = $(this);
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
                         url: ip.baseUrl,
                         dataType: 'json',
                         type : 'POST',
-                        data: form.serialize(),
+                        data: $form.serialize(),
                         success: function (response){
+                            if (!response) {
+                                return;
+                            }
                             if (response.status && response.status == 'success') {
-                                if (typeof ipWidgetipForm_success == 'function'){ //custom handler exists
-                                    ipWidgetipForm_success($ipForm);
-                                } else { //default handler
-                                    $ipForm.find('.ipwThankYou').show();
-                                    $ipForm.find('.ipwThankYou').height($ipForm.find('.ipwForm').height());
-                                    $ipForm.find('.ipwForm').hide();
+                                if (response.redirectUrl) {
+                                    document.location = response.redirectUrl;
+                                } else {
+                                    var curUrl = parent.window.location.href.split('#');
+                                    document.location = curUrl[0];
                                 }
                             } else {
                                 if (response.errors) {
-                                    form.data("validator").invalidate(response.errors);
+                                    $form.data("validator").invalidate(response.errors);
                                 }
                             }
                         }
@@ -42,6 +44,7 @@
 $(document).ready(function() {
     
     // IpUser widget
-    $('.ipWidget-IpUser').ipWidgetIpUser();
+    $('.ipWidget-IpUserLogin').ipWidgetIpUserForm();
+    $('.ipWidget-IpUserRegistration').ipWidgetIpUserForm();
 
 });

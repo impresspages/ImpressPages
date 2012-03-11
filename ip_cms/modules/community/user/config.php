@@ -54,7 +54,7 @@ class Config{
         $field = new \Library\IpForm\Field\Hidden(
         array(
         'name' => 'a',
-        'defaultValue' => 'login'
+        'defaultValue' => 'registration'
         ));
         $form->addField($field);
 
@@ -74,10 +74,17 @@ class Config{
         $form->addField($field);
 
         /*predefined fields (required)*/
+        $field = new \Library\IpForm\Field\Blank(
+        array(
+            'name' => 'globalError'
+        ));
+        $form->addField($field);
+        
         if($parametersMod->getValue('community','user','options','login_type') == 'login'){
             $field = new \Library\IpForm\Field\Text(
             array(
                 'name' => 'login',
+                'dbField' => 'login',
                 'label' => $parametersMod->getValue('community','user','translations','field_login')
             ));
             $field->addValidator('required');
@@ -87,6 +94,7 @@ class Config{
         $field = new \Library\IpForm\Field\Email(
         array(
             'name' => 'email',
+            'dbField' => 'email',
             'label' => $parametersMod->getValue('community','user','translations','field_email')
         ));
         $field->addValidator('required');
@@ -108,6 +116,7 @@ class Config{
             'disableAutocomplete' => true,
             'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
             ));
+            
             $field->addValidator('required');
             $field->addAttribute('autocomplete', 'off');
             $form->addField($field);

@@ -97,89 +97,7 @@ class Actions {
                     \Db::disconnect();
                     exit;
                     break;
-                case 'register':
 
-                    $html = '';
-
-                    if(!$parametersMod->getValue('community','user','options','enable_registration')) {
-                        \Db::disconnect();
-                        exit;
-                    }
-                    $standardForm = new \Library\Php\Form\Standard(\Modules\community\user\Config::getRegistrationFields());
-                    $errors = $standardForm->getErrors();
-
-                    $sameEmailUser = Db::userByEmail($_POST['email']);
-
-                    if($_POST['email'] && $sameEmailUser)
-                    $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
-
-
-                    if($parametersMod->getValue('community','user','options','login_type') == 'login') {
-                        $sameLoginUser = Db::userByLogin($_POST['login']);
-                        if($sameLoginUser)
-                        $errors['login'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
-                    }
-
-                    if($parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
-                        $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-                        $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-                    }
-
-
-
-                    if (sizeof($errors) > 0) {
-                        $html = $standardForm->generateErrorAnswer($errors);
-                    } else {
-                        $tmp_code = md5(uniqid(rand(), true));
-                        if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                            $password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
-                        } else {
-                            $password = $_POST['password'];
-                        }
-
-                        if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
-                            $verified = '0';
-                        } else {
-                            $verified = '1';
-                        }
-
-                        $insert_id = $standardForm->writeToDatabase(DB_PREF.'m_community_user', array('verified' => $verified, 'verification_code' => $tmp_code, 'password' => $password, 'last_login'=>date("Y-m-d"), 'language_id'=>$site->currentLanguage['id']));
-                        if($insert_id !== false) {
-                            $site->dispatchEvent('community', 'user', 'register', array('user_id'=>$insert_id));
-                            if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
-                                $this->sendVerificationLink($_POST['email'], $tmp_code, $insert_id);
-                                $html = "
-                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                    <script type=\"text/javascript\">
-                      parent.window.location = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationRequired))."';
-                    </script>
-                    </body></html>
-                  ";
-                            } else {
-                                if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
-                                    $tmpUser = Db::userById($insert_id);
-                                    if ($tmpUser) {
-                                        $this->login($tmpUser);
-                                        $html = $this->redirectAfterLogin();
-                                    }
-                                } else {
-                                    $html = "
-                      <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                      <script type=\"text/javascript\">
-                        parent.window.location.href = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified))."';
-                      </script>
-                      </body></html>
-                  ";                  
-                                }
-                            }
-                        } else {
-                            trigger_error("Cannot register new user");
-                        }
-                    }
-                    echo $html;
-                    \Db::disconnect();
-                    exit;
-                    break;
 
                 case 'update_profile':
                     if($session->loggedIn()) {
@@ -394,29 +312,7 @@ class Actions {
     }
 
 
-    function sendVerificationLink($email, $code, $userId) {
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/system_variables.php');
-        global $parametersMod;
-        global $site;
 
-        $emailQueue = new \Modules\administrator\email_queue\Module();
-        $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
-        $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "registration_verification", "id" => $userId, "code" => $code));
-        $emailHtml = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $emailHtml);
-
-        $emailHtml = \Library\Php\Text\SystemVariables::insert($emailHtml);
-        $emailHtml = \Library\Php\Text\SystemVariables::clear($emailHtml);
-
-        $emailQueue->addEmail(
-        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
-        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
-        $email,
-            '',
-        $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_registration'),
-        $emailHtml,
-        true, true, null);
-        $emailQueue->send();
-    }
 
     function sendUpdateVerificationLink($email, $code, $userId) {
         require_once(BASE_DIR.LIBRARY_DIR.'php/text/system_variables.php');
@@ -465,42 +361,7 @@ class Actions {
         return $html;
     }
 
-    function redirectAfterLogin () {
-        global $parametersMod;
-        global $site;
-        $html = '';
-        if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
-            $html = "
-          <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-          <script type=\"text/javascript\">
-            parent.window.location = '".$_SESSION['modules']['community']['user']['page_after_login']."';
-          </script>
-          </body></html>
-      ";
 
-            unset($_SESSION['modules']['community']['user']['page_after_login']);
-        } else {
-            if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
-                $html = "
-            <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-            <script type=\"text/javascript\">
-              parent.window.location = '".$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))."';
-            </script>
-            </body></html>
-        ";
-            } else {
-                $html = "
-            <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-            <script type=\"text/javascript\">
-              var ipUrl = parent.window.location.href.split('#');
-              parent.window.location.href = ipUrl[0];
-            </script>
-            </body></html>
-        ";
-            }
-        }
-        return $html;
-    }
 
     function login ($user) {
         global $log;
