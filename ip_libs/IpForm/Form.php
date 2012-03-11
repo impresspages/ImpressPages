@@ -160,7 +160,20 @@ class Form{
         return $answer;
     }
 
-    public function writeToDatabase($table, $data, $additionalValues = array()) {
+    /**
+     * 
+     * Store form data to the database
+     * @param string $table where data should be stored
+     * @param array $data posted or in the other way collected data
+     * @param array $additionalData additional data that hasn't been posted, but is required to be inserted
+     */
+    public function writeToDatabase($table, $data, $additionalData) {
+        $errors = $this->validate($data);
+        if (!empty($errors)) {
+            throw new \Exception("Data does not validate");
+        }
+        
+        
         if(count($this->getFields()) == 0 && count($additionalValues) == 0){
             return false;
         }
@@ -177,21 +190,21 @@ class Form{
                 } else {
                     $sqlValue = "'".mysql_real_escape_string($data[$field->getDbField()])."'";
                 }
-                $sql .= "`".mysql_real_escape_string($field->getDbKey())."` = ".$sqlValue." ";
+                $sql .= "`".mysql_real_escape_string($field->getDbField())."` = ".$sqlValue." ";
                 $first = false;
             }
         }
 
         
-        if($additionalValues)
-            foreach($additionalValues as $key => $additionalValue){
+        if($additionalData) {
+            foreach($additionalData as $key => $additionalValue){
                 if(!$first) {
                     $sql .= ', ';
                 }
-                if (!isset($data[$field->getDbField()])) {
+                if ($additionalValue === null) {
                     $sqlValue = 'NULL';
                 } else {
-                    $sqlValue = "'".mysql_real_escape_string($data[$field->getDbField()])."'";
+                    $sqlValue = "'".mysql_real_escape_string($additionalValue)."'";
                 }
                 $sql .= "`".mysql_real_escape_string($key)."` = ".$sqlValue." ";
                 $first = false;
@@ -200,14 +213,13 @@ class Form{
         }
         
         
-        if(!$first){ //if exist fields
-            return false;//there is no fields to be stored
+        if($first){ //if exist fields
+            throw new \Exception("There is no data to be stored");
         }
         
         $rs = mysql_query($sql);
         if(!$rs){
             throw new \Exception($sql." ".mysql_error());
-            return false;
         }else{
             return mysql_insert_id();
         }

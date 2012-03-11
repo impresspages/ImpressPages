@@ -23,6 +23,7 @@ abstract class Field{
     protected $note;
     protected $hint;
     protected $name;
+    protected $dbField; //where in db this value should be stored by the method writeToDatabase
     protected $defaultValue;
     protected $validators;
     protected $attributes;
@@ -47,6 +48,9 @@ abstract class Field{
         }
         if (!empty($options['name'])) {
             $this->setName($options['name']);
+        }
+        if (!empty($options['dbField'])) {
+            $this->setDbField($options['dbField']);
         }
         if (!empty($options['defaultValue'])) {
             $this->setDefaultValue($options['defaultValue']);
@@ -96,13 +100,14 @@ abstract class Field{
      */
     /**
      * Validate field
-     * @param mixed $data usually string. But could be null or even array (eg. password confirmation field, or multiple file upload field)
+     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
+     * @param string $valueKey This value key could not exist in values array.
      * @return string return string on error or false on success
      */
-    public function validate($value) {
+    public function validate($values, $valueKey) {
         $validators = $this->getValidators();
         foreach($validators as $validator) {
-            $error = $validator->validate($value);
+            $error = $validator->validate($values, $valueKey);
             if ($error) {
                 return $error;
             }
@@ -186,6 +191,14 @@ abstract class Field{
         $this->name = $name;
     }
 
+    public function getDbField() {
+        return $this->dbField;
+    }
+    
+    public function setDbField($dbField) {
+        $this->dbField = $dbField;
+    }
+    
     public function getDefaultValue() {
         return $this->defaultValue;
     }

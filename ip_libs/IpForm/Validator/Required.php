@@ -11,8 +11,8 @@ namespace Library\IpForm\Validator;
 
 class Required extends Validator {
     
-    public function validate($value) {
-        return empty($value);
+    public function validate($values, $valueKey) {
+        return empty($values[$valueKey]);
     }
     
     public function jtoolsArgs() {

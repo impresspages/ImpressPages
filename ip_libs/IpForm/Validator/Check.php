@@ -17,10 +17,11 @@ namespace Library\IpForm\Validator;
 
 class Check extends Validator {
     
-    public function validate($value) {
-        if (empty($value)) {
+    public function validate($values, $valueKey) {
+        if (empty($values[$valueKey])) {
             return 'error';
         }
+        $value = $values[$valueKey];
         
         if (!is_array($value) || count($value) != 2) {
             return 'error';

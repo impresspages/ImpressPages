@@ -20,6 +20,6 @@ namespace Library\IpForm\Field;
 class Blank extends Field{
     
     public function render($doctype) {
-        return '';
+        return '<input style="height: 0; width:0;" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
     }
 }
