@@ -25,6 +25,7 @@ class System{
         $blockName = $event->getValue('blockName');
         if (
             $blockName != 'main' ||
+            !$site->getCurrentZone() ||
             $site->getCurrentZone()->getAssociatedModule() != 'search' ||
             $site->getCurrentZone()->getAssociatedModuleGroup() != 'administrator'
         ) {

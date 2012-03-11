@@ -244,6 +244,10 @@ class Site{
     }
     
     private function error404() {
+        require_once(__DIR__.'/zone404.php');
+        $this->zones['auto_error404'] = array();
+        $this->zones['auto_error404']['object'] = new \Frontend\Zone404('auto_error404');
+        $this->currentZone = 'auto_error404';
         $this->error404 = true;
     }
     
@@ -258,41 +262,52 @@ class Site{
      *
      */
     private function configZones(){
-    if (defined('BACKEND') || defined('SITEMAP')) {
-            $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
-            foreach ($zones as $key => $zone) {
-                $this->zones[$zone['name']] = $zone;
-            }
-        } else {
-            $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
-             
+        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
+        foreach ($zones as $key => $zone) {
+            $this->zones[$zone['name']] = $zone;
+        }
+        
+        if (!defined('BACKEND') && !defined('SITEMAP')) {
             if (sizeof($zones) == 0) {
                 trigger_error('Please insert at least one zone.');
+                \Db::disconnect();
                 exit;
             }
-             
-            foreach ($zones as $key => $zone) {
-                $this->zones[$zone['name']] = $zone;
-                if($this->zoneUrl && $this->zoneUrl == $zone['url'])
-                $this->currentZone = $zone['name'];
-            }
-             
-            if (!$this->currentZone && $this->zoneUrl) {
-                $this->error404();
+            
+            if ($this->error404) {
+                //current zone set to auto_error404.
+                return;
             }
 
-            if (!$this->currentZone) {
+            //find current zone
+            if ($this->zoneUrl) {
+                foreach ($zones as $key => $zone) {
+                    if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
+                        $this->currentZone = $zone['name'];
+                        break;
+                    }
+                }
+            } else {
                 foreach ($this->zones as $key => $zone) { //find first zone.
                     $this->currentZone = $key;
                     break;
                 }
             }
-
+                
+            if (!$this->currentZone) {
+                $this->error404();
+            }
         }
-
     }
 
+    /*
+     * Check if current zone can find current page.
+     */
     public function checkError404(){
+        if ($this->error404) {
+            return; //error404 already has been registered because of incorrect language or zone url.
+        }
+        
         if (!$this->getZone($this->currentZone)->getCurrentElement()) {
             if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone have no pages.
                 $redirect = false;
@@ -325,6 +340,7 @@ class Site{
      *
      */
     public function getZone($zoneName){
+        //if refactoring, keep in mind auto_error404 zone!!!
         if(isset($this->zones[$zoneName]))
         {
             if(!isset($this->zones[$zoneName]['object']))
@@ -502,15 +518,7 @@ class Site{
      *
      */
     public function getLayout(){
-        global $parametersMod;
-
-        if ($this->error404 && $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template') != '') {
-            return $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template');
-        }
-
-        if(isset($this->currentZone)){
-            return($this->getCurrentZone()->getLayout());
-        }
+        return($this->getCurrentZone()->getLayout());
     }
 
     /**
@@ -700,7 +708,11 @@ class Site{
 
         }
 
-        $this->getZone($this->currentZone)->makeActions(); //old deprecated way. Need to refactor to actions
+        //old deprecated way. Need to refactor to controllers
+        $currentZone = $this->getZone($this->currentZone);
+        if ($currentZone) {
+            $currentZone->makeActions(); 
+        }
 
 
 
@@ -712,11 +724,16 @@ class Site{
      *
      */
     public function getTitle(){
-        $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
-        if($curEl && $curEl->getPageTitle() != '')
-        return $curEl->getPageTitle();
-        else
-        return $this->zones[$this->currentZone]['title'];
+        $curZone = $this->getCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        $curEl =  $curZone->getCurrentElement();
+        if($curEl && $curEl->getPageTitle() != '') {
+            return $curEl->getPageTitle();
+        } else {
+            return $curZone->getTitle();
+        }
     }
 
     /**
@@ -725,11 +742,16 @@ class Site{
      *
      */
     public function getDescription(){
-        $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
-        if($curEl && $curEl->getDescription() != '')
-        return $curEl->getDescription();
-        else
-        return $this->zones[$this->currentZone]['description'];
+        $curZone = $this->getCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        $curEl =  $curZone->getCurrentElement();
+        if($curEl && $curEl->getDescription() != '') {
+            return $curEl->getDescription();
+        } else {
+            return $curZone->getDescription();
+        }
     }
 
     /**
@@ -738,11 +760,17 @@ class Site{
      *
      */
     public function getUrl(){
-        $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
-        if($curEl && $curEl->getUrl() != '')
-        return $curEl->getUrl();
-        else
-        return $this->zones[$this->currentZone]['url'];
+        $curZone = $this->getCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        
+        $curEl =  $curZone->getCurrentElement();
+        if($curEl && $curEl->getUrl() != '') {
+            return $curEl->getUrl();
+        } else {
+            return $curZone->getUrl();
+        }
     }
 
     /**
@@ -751,11 +779,17 @@ class Site{
      *
      */
     public function getKeywords(){
-        $curEl =  $this->zones[$this->currentZone]['object']->getCurrentElement();
-        if($curEl && $curEl->getKeywords() != '')
-        return $curEl->getKeywords();
-        else
-        return $this->zones[$this->currentZone]['keywords'];
+        $curZone = $this->getCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        
+        $curEl = $curZone->getCurrentElement();
+        if($curEl && $curEl->getKeywords() != '') {
+            return $curEl->getKeywords();
+        } else {
+            return $curZone->getKeywords();
+        }
     }
 
     /**
@@ -862,6 +896,9 @@ class Site{
      */
     public function getBreadcrumb(){
         $zone = $this->getCurrentZone();
+        if (!$zone) {
+            return array();
+        }
         return $zone->getBreadcrumb();
     }
 
@@ -872,7 +909,9 @@ class Site{
      */
     public function getCurrentElement(){
         $zone = $this->getCurrentZone();
-        return $zone->getCurrentElement();
+        if ($zone) {
+            return $zone->getCurrentElement();
+        }
     }
 
     /**
