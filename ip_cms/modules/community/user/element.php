@@ -99,6 +99,10 @@ class Element extends \Frontend\Element {
                 $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
                 $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
                 break;
+            case 'logout':
+                $this->buttonTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+                $this->pageTitle = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+                break;
         }
 
         $this->zoneName = $zoneName;
@@ -132,6 +136,39 @@ class Element extends \Frontend\Element {
             case 'registration':
                 return $userZone->generateRegistration();
                 break;
+            case 'registration_verification_required':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_verification_required');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            case 'logout':
+                $answer = '<script>document.location=\''.str_replace('&amp;','&',$userZone->getLinkLogout()).'\';</script>';
+                echo $answer; exit;
+                break;
+            case 'verification_error_user_exist':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration_verification_error');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_user_exist_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            case 'registration_verified':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_verified');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            case 'new_email_verified':
+                if($session->loggedIn()) {
+                    $answer .= '
+                        <script type="text/javascript">document.location = \''.str_replace('&amp;','&',$userZone->getLinkProfile()).'\';</script>
+                    ';
+                }else {
+                    $answer .= '
+                        <script type="text/javascript">document.location = \''.str_replace('&amp;','&',$userZone->getLinkLogin()).'\';</script>
+                    ';
+                }
+                break;
+                
+                
+                
 /*                
             case 'password_reset':
                 if($session->loggedIn()) {
@@ -170,29 +207,13 @@ class Element extends \Frontend\Element {
                 }
                 break;
 
-            case 'registration_verification_required':
-                $answer .= Template::registrationVerificationRequired();
-                break;
 
             case 'new_email_verification_required':
                 $answer .= Template::newEmailVerificationRequired();
                 break;
 
-            case 'registration_verified':
-            case 'new_email_verified':
-                if($session->loggedIn()) {
-                    $answer .= '
-            <script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>
-            ';
-                }else {
-                    $answer .= Template::registrationVerified($userZone->generateLogin());
-                }
-                break;
             case 'registration_verification_error':
                 $answer .= Template::registrationVerificationError();
-                break;
-            case 'verification_error_user_exist':
-                $answer .= Template::verificationErrorUserExist();
                 break;
             case 'verification_error_email_exist':
                 $answer .= Template::verificationErrorEmailExist();

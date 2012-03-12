@@ -268,7 +268,23 @@ class Script {
                 
             }
             
+            $module = \Db_100::getModule(null, 'community', 'user');
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
+            if ($group) {
+                if(!\Db_100::getParameter('community', 'user', 'admin_translations', 'registration')) {
+                    \Db_100::addStringParameter($group['id'], 'Registration', 'registration', 'Registration', 1);
+                }
+                
+                
+            }
             
+
+            $group = $parametersRefractor->getParametersGroup($module['id'], 'translations');
+            if ($group) {
+                if(!\Db_100::getParameter('community', 'user', 'translations', 'text_registration_verified')) {
+                    \Db_100::addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.'));
+                }
+            }
             
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');

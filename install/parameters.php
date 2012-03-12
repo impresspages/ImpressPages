@@ -1697,6 +1697,11 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
         $parameterAdmin["community"]["user"]["admin_translations"]["error_email"] = "0";
         $parameterType["community"]["user"]["admin_translations"]["error_email"] = "string";
 
+        $parameterTitle["community"]["user"]["admin_translations"]["registration"] = "Registration";
+        $parameterValue["community"]["user"]["admin_translations"]["registration"] = "Registration";
+        $parameterAdmin["community"]["user"]["admin_translations"]["registration"] = "0";
+        $parameterType["community"]["user"]["admin_translations"]["registrartion"] = "string";
+        
     $parameterGroupTitle["community"]["user"]["email_messages"] = "E-mail messages";
     $parameterGroupAdmin["community"]["user"]["email_messages"] = "0";
 
@@ -2028,6 +2033,15 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
         $parameterAdmin["community"]["user"]["translations"]["text_account_renewal_error"] = "0";
         $parameterType["community"]["user"]["translations"]["text_account_renewal_error"] = "lang_wysiwyg";
 
+        $parameterTitle["community"]["user"]["translations"]["text_registration_verified"] = "Text - registration verified";
+        $parameterValue["community"]["user"]["translations"]["text_registration_verified"] = "Registration has been aproved. You can login now.";
+        $parameterAdmin["community"]["user"]["translations"]["text_registration_verified"] = "0";
+        $parameterType["community"]["user"]["translations"]["text_registration_verified"] = "lang_wysiwyg";
+
+        
+        
+        
+        
 $moduleGroupTitle["administrator"] = "Administrator";
 $moduleTitle["administrator"]["administrators"] = "Administrators";
 

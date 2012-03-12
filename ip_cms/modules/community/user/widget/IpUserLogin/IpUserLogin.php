@@ -30,17 +30,26 @@ class IpUserLogin extends \Modules\standard\content_management\Widget{
         }
         
         if($session->loggedIn()) {
-            //TODO
-            //if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
-            //$answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
-            //else
-            //$answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
+            $data = array ();
+            
+            $data['logoutUrl'] = $userZone->getLinkLogout(); 
+
+            return parent::previewHtml($instanceId, $data, $layout);
         }else {
             $loginForm = \Modules\community\user\Config::getLoginForm();
             
-            $data = array (
-                'loginForm' => $loginForm
-            );
+            $data = array ();
+            
+            $data['loginForm'] = $loginForm;
+            
+            if($parametersMod->getValue('community','user','options','allow_password_reset')) {
+                $data['passwordResetUrl'] = $userZone->getLinkPasswordReset();
+            }
+
+            if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration')) {
+                $data['registrationUrl'] = $userZone->getLinkRegistration();
+            }
+            
             
             return parent::previewHtml($instanceId, $data, $layout);
         }

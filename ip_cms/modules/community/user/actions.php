@@ -183,36 +183,6 @@ class Actions {
                 case 'login':
                     //refactored
                     break;
-                case 'registration_verification':
-                    $current = Db::userById ($_REQUEST['id']);
-                    if ($current) {
-                        $sameEmailUser = Db::userByEmail ($current['email']);
-                        $sameLoginUser = Db::userByLogin ($current['login']);
-                        if ($current['verification_code'] == $_REQUEST['code']) {
-                            if ($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
-                                header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlVerificationErrorEmailExist)));
-                            } elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser != $current['id']) {
-                                header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlVerificationErrorUserExist)));
-                            } else {
-                                Db::verify($current['id']);
-                                $site->dispatchEvent('community', 'user', 'registration_verification', array('user_id'=>$current['id']));
-
-                                if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
-                                    $this->login($current);
-                                    $this->redirectAfterLoginHeader();
-                                } else {
-                                    header ("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
-                                }
-                            }
-                        }else {
-                            header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationError)));
-                        }
-                    }else {
-                        header("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationError)));
-                    }
-                    \Db::disconnect();
-                    exit;
-                    break;
 
 
                 case 'new_email_verification':
@@ -247,24 +217,6 @@ class Actions {
                     exit;
                     break;
 
-                case 'logout':
-                    if($session->loggedIn()){
-                        $site->dispatchEvent('community', 'user', 'logout', array('user_id'=>$session->userId()));
-                    }
-                    $session->logout();
-                    if($parametersMod->getValue('community','user','options','enable_autologin')) {
-                        setCookie(
-                        Config::$autologinCookieName,
-                    '',
-                        time()-60,
-                        Config::$autologinCookiePath,
-                        Config::getCookieDomain()
-                        );
-                    }
-                    header('location: '.BASE_URL);
-                    \Db::disconnect();
-                    exit;
-                    break;
 
                 case 'renew_registration':
                     if(isset($_GET['id'])) {
@@ -340,40 +292,4 @@ class Actions {
     }
 
 
-
-    function redirectAfterLoginHeader () {
-        global $parametersMod;
-        global $site;
-
-
-        $html = '';
-        if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
-            header ("location: ".$_SESSION['modules']['community']['user']['page_after_login']);
-            unset($_SESSION['modules']['community']['user']['page_after_login']);
-        } else {
-            if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
-                header ("location: ".$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')));
-            } else {
-                $userZone = $site->getZoneByModule('community', 'user');
-                header ("location: ".$site->generateUrl(null, $userZone->getName(), array(Config::$urlProfile)));
-            }
-        }
-        return $html;
-    }
-
-
-
-    function login ($user) {
-        global $log;
-        global $session;
-        global $site;
-        $session->login($user['id']);
-        $site->dispatchEvent('community', 'user', 'login', array('user_id'=>$user['id']));
-        Db::loginTimestamp($user['id']);
-        $log->log('community/user', 'frontend login', $user['login']." ".$user['email']." ".$_SERVER['REMOTE_ADDR']);
-    }
-
 }
-
-
-

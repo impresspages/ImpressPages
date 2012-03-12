@@ -33,4 +33,11 @@ class Controller{
         $answer = json_encode($data);
         $site->setOutput($answer);
     }
+    
+    public function redirect ($url) {
+        header("location: ".$url);
+        \Db::disconnect();
+        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+        exit;
+    }
 }

@@ -146,6 +146,9 @@ class Zone extends \Frontend\Zone {
                 case Config::$urlVerificationErrorEmailExist:
                     return new Element('verification_error_email_exist', $this->name);
                     break;
+                case Config::$urlLogout:
+                    return new Element('logout', $this->name);
+                    break;
                 default:
                     return false;
                     break;
@@ -242,7 +245,7 @@ class Zone extends \Frontend\Zone {
      */
     public function getLinkLogout() {
         global $site;
-        return $site->generateUrl(null, null, null, array('module_group' => 'community', 'module_name' => 'user', 'action'=>'logout'));
+        return $site->generateUrl(null, null, null, array('g' => 'community', 'm' => 'user', 'a'=>'logout'));
     }
 
     /**

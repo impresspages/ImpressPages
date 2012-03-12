@@ -14,6 +14,16 @@ require_once __DIR__.'/db.php';
 
 class Controller  extends \Ip\Controller{
 
+    private $userZone;
+    
+    public function init() {
+        global $site;
+        $userZone = $site->getZoneByModule('community', 'user');
+        if(!$userZone) {
+            throw new \Exception("There is no user zone on ImpressPages system");
+        }  
+        $this->userZone = $userZone;
+    }
 
     public function login() {
 
@@ -86,15 +96,26 @@ class Controller  extends \Ip\Controller{
         break;
     }
 
+    public function logout() {
+        global $session;
+        global $parametersMod;
+
+        $session->logout();
+        if($parametersMod->getValue('community','user','options','enable_autologin')) {
+            setCookie(
+            Config::$autologinCookieName,
+            '',
+            time()-60,
+            Config::$autologinCookiePath,
+            Config::getCookieDomain()
+            );
+        }
+        $this->redirect(BASE_URL);
+    }
+    
     public function registration() {
         global $site;
         global $parametersMod;
-        
-        $userZone = $site->getZoneByModule('community', 'user');
-        if(!$userZone) {
-            throw new \Exception("There is no user zone on ImpressPages system");
-        }
-        
         
         $html = '';
 
@@ -171,7 +192,7 @@ class Controller  extends \Ip\Controller{
                 $this->sendVerificationLink($postData['email'], $tmp_code, $insertId);
                 $data = array (
                     'status' => 'success',
-                    'redirectUrl' => $site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerificationRequired))
+                    'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationRequired))
                 );
                 $this->returnJson($data);
                 return;
@@ -190,7 +211,7 @@ class Controller  extends \Ip\Controller{
                 } else {
                         $data = array (
                             'status' => 'success',
-                            'redirectUrl' => $site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified))
+                            'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified))
                         );
                         $this->returnJson($data);
                         return;
@@ -200,9 +221,59 @@ class Controller  extends \Ip\Controller{
     }
     
     
-    function redirectAfterLoginUrl () {
+    /**
+     * 
+     * Registration verification
+     */
+    public function verification() {
+        global $site;
+        global $parametersMod;
+        if (!isset($_REQUEST['id'])) {
+            throw new Exception('Missing request data');
+        }
+        $userId = $_REQUEST['id'];
+        
+        if (!isset($_REQUEST['code'])) {
+            throw new Exception('Missing request data');
+        }
+        $code = $_REQUEST['code'];
+        
+        
+        $current = Db::userById ($userId);
+        if ($current) {
+            $sameEmailUser = Db::userByEmail ($current['email']);
+            $sameLoginUser = Db::userByLogin ($current['login']);
+            if ($current['verification_code'] == $code) {
+                if ($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
+                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlVerificationErrorEmailExist)));
+                } elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser['id'] != $current['id']) {
+                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlVerificationErrorUserExist)));
+                } else {
+                    if (!$current['verified']) {
+                        Db::verify($current['id']);
+                        $site->dispatchEvent('community', 'user', 'registration_verification', array('user_id'=>$current['id']));
+                        if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
+                            $this->loginUser($current);
+                            $this->redirect($this->redirectAfterLoginUrl());
+                        }
+                    }
+
+                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
+                }
+            } else {
+                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationError)));
+            }
+        } else {
+            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationError)));
+        }
+    }
+    
+    
+    
+    private function redirectAfterLoginUrl () {
         global $parametersMod;
         global $site;
+        
         $html = '';
         if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
             $url = $_SESSION['modules']['community']['user']['page_after_login'];
@@ -211,10 +282,20 @@ class Controller  extends \Ip\Controller{
             if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
                 $url = $site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'));
             } else {
-                $url = '';
+                $url = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlProfile));
             }
         }
         return $url;
+    }    
+    
+
+    private function loginUser ($user) {
+        global $log;
+        global $session;
+        global $site;
+        $session->login($user['id']);
+        Db::loginTimestamp($user['id']);
+        $log->log('community/user', 'frontend login', $user['login']." ".$user['email']." ".$_SERVER['REMOTE_ADDR']);
     }    
     
     private function sendVerificationLink($to, $code, $userId) {
@@ -223,7 +304,7 @@ class Controller  extends \Ip\Controller{
 
         
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "registration_verification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "verification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
         
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');

@@ -38,6 +38,7 @@ class Config{
     public static $urlRenewRegistrationError = 'renew-registration-error';
     public static $urlVerificationErrorUserExist = 'verification-error-user-exist';
     public static $urlVerificationErrorEmailExist = 'verification-error-email-exist';
+    public static $urlLogout = 'logout';
     public static $autologinCookieName = 'ipAutologin';
     public static $autologinCookiePath = '/';
 

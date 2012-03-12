@@ -43,9 +43,13 @@ class Session{
      * @return void
      */
     function logout(){
-        if(isset($_SESSION['frontend_session']['user_id']))
-        unset($_SESSION['frontend_session']['user_id']);
+        global $site;
+        if(isset($_SESSION['frontend_session']['user_id'])) {
+            $site->dispatchEvent('community', 'user', 'logout', array('user_id'=>$_SESSION['frontend_session']['user_id']));
+            unset($_SESSION['frontend_session']['user_id']);
+        }
     }
+    
 
 
 
@@ -55,6 +59,8 @@ class Session{
      * @return void
      */
     function login($id){
+        global $site;
+        $site->dispatchEvent('community', 'user', 'login', array('user_id'=>$id));
         $_SESSION['frontend_session']['user_id'] = $id;
     }
 
