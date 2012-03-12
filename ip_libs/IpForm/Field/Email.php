@@ -12,7 +12,7 @@ class Email extends Field{
     
     public function __construct($options) {
         parent::__construct($options);
-        $this->addValidator('email');
+        $this->addValidator('Email');
     }
     
     public function render($doctype) {

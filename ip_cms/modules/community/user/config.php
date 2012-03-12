@@ -88,7 +88,7 @@ class Config{
                 'dbField' => 'login',
                 'label' => $parametersMod->getValue('community','user','translations','field_login')
             ));
-            $field->addValidator('required');
+            $field->addValidator('Required');
             $form->addField($field);
         }
 
@@ -98,7 +98,7 @@ class Config{
             'dbField' => 'email',
             'label' => $parametersMod->getValue('community','user','translations','field_email')
         ));
-        $field->addValidator('required');
+        $field->addValidator('Required');
         $form->addField($field);
 
         $field = new \Library\IpForm\Field\Password(
@@ -106,7 +106,7 @@ class Config{
         'name' => 'password',
         'label' => $parametersMod->getValue('community','user','translations','field_password')
         ));
-        $field->addValidator('required');
+        $field->addValidator('Required');
         $field->addAttribute('autocomplete', 'off');
         $form->addField($field);
 
@@ -118,7 +118,7 @@ class Config{
             'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
             ));
             
-            $field->addValidator('required');
+            $field->addValidator('Required');
             $field->addAttribute('autocomplete', 'off');
             $form->addField($field);
         }
@@ -249,7 +249,7 @@ class Config{
                 'name' => 'login',
                 'label' => $parametersMod->getValue('community','user','translations','field_login')
             ));
-            $field->addValidator('required');
+            $field->addValidator('Required');
             $form->addField($field);
         }else{
             $field = new \Library\IpForm\Field\Email(
@@ -257,7 +257,7 @@ class Config{
                 'name' => 'email',
                 'label' => $parametersMod->getValue('community','user','translations','field_email')
             ));
-            $field->addValidator('required');
+            $field->addValidator('Required');
             $form->addField($field);
         }
 
@@ -267,7 +267,7 @@ class Config{
         'name' => 'password',
         'label' => $parametersMod->getValue('community','user','translations','field_password')
         ));
-        $field->addValidator('required');
+        $field->addValidator('Required');
         $form->addField($field);
 
         if($parametersMod->getValue('community','user','options','enable_autologin')){

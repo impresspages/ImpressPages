@@ -85,7 +85,7 @@ class FieldType{
         $field = new $fieldClass($fieldOptions);
         
         if (isset($fieldData['required']) && $fieldData['required']) {
-            $field->addValidator('required');
+            $field->addValidator('Required');
         }
         
         return $field;

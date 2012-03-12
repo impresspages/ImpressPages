@@ -41,7 +41,7 @@ class Check extends Field{
     
     public function __construct($options) {
         parent::__construct($options);
-        $this->addValidator('check');
+        $this->addValidator('Check');
     }
     
     public function render($doctype) {
