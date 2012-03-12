@@ -35,6 +35,7 @@ class Controller{
     }
     
     public function redirect ($url) {
+        global $dispatcher;
         header("location: ".$url);
         \Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
