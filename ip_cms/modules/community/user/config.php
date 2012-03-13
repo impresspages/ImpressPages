@@ -220,6 +220,12 @@ class Config{
 
 
         /*hidden fields (required)*/
+        $field = new \Library\IpForm\Field\Blank(
+        array(
+                    'name' => 'globalError'
+        ));
+        $form->addField($field);
+        
         $field = new \Library\IpForm\Field\Hidden(
         array(
         'name' => 'a',

@@ -26,9 +26,10 @@ class Controller  extends \Ip\Controller{
     }
 
     public function login() {
-
+        global $parametersMod;
+        global $site;
+        global $log;
         $loginForm = Config::getLoginForm();
-
         $errors = $loginForm->validate($_POST);
 
         if ($errors) {
@@ -36,29 +37,26 @@ class Controller  extends \Ip\Controller{
                 'status' => 'error',
                 'errors' => $errors
             );
-        } else {
-            //$this->sendEmail($form, $postData, $data);
-
-            $data = array(
-            'status' => 'success'
-            );
+            $this->returnJson($data);
+            return;
         }
-
-        $this->returnJson($data);
-        return;
-        if($parametersMod->getValue('community','user','options','login_type') == 'login')
-        $tmpUser = Db::userByLogin($_POST['login']);
-        else
-        $tmpUser = Db::userByEmail($_POST['email']);
+        
+        if($parametersMod->getValue('community','user','options','login_type') == 'login') {
+	        $tmpUser = Db::userByLogin($_POST['login']);
+        } else {
+        	$tmpUser = Db::userByEmail($_POST['email']);
+        }
 
         if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
             $tmp_password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
         } else {
             $tmp_password = $_POST['password'];
         }
+        
 
         if($tmpUser && isset($_POST['password']) && $tmp_password == $tmpUser['password']) {
-            $this->login($tmpUser);
+            $this->loginUser($tmpUser);
+            
             if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
                 setCookie(
                 Config::$autologinCookieName,
@@ -69,31 +67,31 @@ class Controller  extends \Ip\Controller{
                 );
             }
 
-            $html = $this->redirectAfterLogin();
-
-
+            $answer = array(
+                'status' => 'success',
+                'redirectUrl' => $this->redirectAfterLoginUrl() 
+            );
+            $this->returnJson($answer);
+            return;
         } else {
-            $standardForm = new \Library\Php\Form\Standard(\Modules\community\user\Config::getRegistrationFields());
             $errors = array();
-            $globalError = null;
             $site->dispatchEvent('community', 'user', 'incorrect_login', array('post'=>$_POST));
 
             if($parametersMod->getValue('community','user','options','login_type') == 'login') {
-                $globalError = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_login_data');
-                $errors['login'] = '';
+                $errors['globalError'] = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_login_data');
             }else {
-                $globalError = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_email_data');
+                $errors['globalError'] = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_email_data');
                 $errors['email'] = '';
             }
-            $errors['password'] = '';
             $log->log('community/user', 'incorrect frontend login', $_SERVER['REMOTE_ADDR']);
-            $html = $standardForm->generateErrorAnswer($errors, $globalError);
+            $answer = array(
+                'status' => 'error',
+                'errors' => $errors 
+            );
+            $this->returnJson($answer);
+            return;
         }
 
-        echo $html;
-        \Db::disconnect();
-        exit;
-        break;
     }
 
     public function logout() {
