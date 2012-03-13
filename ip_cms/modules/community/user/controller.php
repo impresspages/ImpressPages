@@ -15,13 +15,13 @@ require_once __DIR__.'/db.php';
 class Controller  extends \Ip\Controller{
 
     private $userZone;
-    
+
     public function init() {
         global $site;
         $userZone = $site->getZoneByModule('community', 'user');
         if(!$userZone) {
             throw new \Exception("There is no user zone on ImpressPages system");
-        }  
+        }
         $this->userZone = $userZone;
     }
 
@@ -40,11 +40,11 @@ class Controller  extends \Ip\Controller{
             $this->returnJson($data);
             return;
         }
-        
+
         if($parametersMod->getValue('community','user','options','login_type') == 'login') {
-	        $tmpUser = Db::userByLogin($_POST['login']);
+            $tmpUser = Db::userByLogin($_POST['login']);
         } else {
-        	$tmpUser = Db::userByEmail($_POST['email']);
+            $tmpUser = Db::userByEmail($_POST['email']);
         }
 
         if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
@@ -52,11 +52,11 @@ class Controller  extends \Ip\Controller{
         } else {
             $tmp_password = $_POST['password'];
         }
-        
+
 
         if($tmpUser && isset($_POST['password']) && $tmp_password == $tmpUser['password']) {
             $this->loginUser($tmpUser);
-            
+
             if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
                 setCookie(
                 Config::$autologinCookieName,
@@ -110,20 +110,20 @@ class Controller  extends \Ip\Controller{
         }
         $this->redirect(BASE_URL);
     }
-    
+
     public function registration() {
         global $site;
         global $parametersMod;
-        
+
         $html = '';
 
         if(!$parametersMod->getValue('community','user','options','enable_registration')) {
             $site->setOutput('');
             return;
         }
-        
+
         $postData = $_POST;
-        
+
         $registrationForm = Config::getRegistrationForm();
 
         $errors = $registrationForm->validate($postData);
@@ -152,6 +152,7 @@ class Controller  extends \Ip\Controller{
                 'errors' => $errors
             );
             $this->returnJson($data);
+            return;
         } else {
             $tmp_code = md5(uniqid(rand(), true));
             if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
@@ -165,7 +166,7 @@ class Controller  extends \Ip\Controller{
             } else {
                 $verified = '1';
             }
-            
+
             $additionalData = array(
                 'verified' => $verified,
                 'verification_code' => $tmp_code,
@@ -173,7 +174,7 @@ class Controller  extends \Ip\Controller{
                 'last_login'=>date("Y-m-d"),
                 'language_id'=>$site->currentLanguage['id']
             );
-            
+
             $insertId = $registrationForm->writeToDatabase(DB_PREF.'m_community_user', $postData, $additionalData);
             if($insertId === false) {
                 $errors['globalError'] = 'Cannot register new user. Please contact administrator.';
@@ -184,7 +185,7 @@ class Controller  extends \Ip\Controller{
                 $this->returnJson($data);
                 return;
             }
-            
+
             $site->dispatchEvent('community', 'user', 'register', array('user_id'=>$insertId));
             if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
                 $this->sendVerificationLink($postData['email'], $tmp_code, $insertId);
@@ -205,22 +206,101 @@ class Controller  extends \Ip\Controller{
                             'redirectUrl' => $redirectUrl
                         );
                         $this->returnJson($data);
+                        return;
                     }
                 } else {
-                        $data = array (
+                    $data = array (
                             'status' => 'success',
                             'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified))
-                        );
-                        $this->returnJson($data);
-                        return;
+                    );
+                    $this->returnJson($data);
+                    return;
                 }
             }
         }
     }
-    
-    
+
+
+    public function updateProfile() {
+        global $session;
+        global $site;
+        global $parametersMod;
+        if(!$session->loggedIn()) {
+            $site->setOutput('');
+            return;
+        }
+            
+        $postData = $_POST;
+        $registrationForm = Config::getProfileForm();
+        $errors = $registrationForm->validate($postData);
+        $tmpUser = Db::userById($session->userId());
+
+        if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
+            $user_by_new_email = Db::userByEmail($_POST['email']);
+            if($user_by_new_email && $user_by_new_email['verified']) {
+                $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
+            }
+
+        }
+
+
+        if($parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
+            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+        }
+
+
+
+        if(count($errors) > 0) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+            $this->returnJson($data);
+            return;
+        } else {
+            if(!$tmpUser) {
+                throw new \Exception("User does not exist. ".$session->userId()." ".$_POST['email']);
+            }
+            $additionalFields = array();
+
+            if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
+                $tmp_code = md5(uniqid(rand(), true));
+                $additionalFields['new_email'] = $_POST['email'];
+                $additionalFields['verification_code'] = $tmp_code;
+            }
+
+            if(isset($_POST['password']) && $_POST['password'] != '') {
+                if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+                    $additionalFields['password'] =  md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
+                } else {
+                    $additionalFields['password'] =  $_POST['password'];
+                }
+            }
+
+
+            $insertId = $registrationForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], array(), $additionalFields);
+            $site->dispatchEvent('community', 'user', 'update_profile', array('user_id'=>$tmpUser['id']));
+
+
+            if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
+                $this->sendUpdateVerificationLink($_POST['email'], $tmp_code, $tmpUser['id']);
+                $redirectUrl = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlEmailVerificationRequired));
+            }else {
+                $redirectUrl = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlProfile), array("message"=>"updated"));
+            }
+            
+            $answer = array(
+                'status' => 'success',
+                'redirectUrl' => $redirectUrl
+            );
+            $this->returnJson($answer);
+            return;
+        }
+    }
+
     /**
-     * 
+     *
      * Registration verification
      */
     public function verification() {
@@ -230,13 +310,13 @@ class Controller  extends \Ip\Controller{
             throw new Exception('Missing request data');
         }
         $userId = $_REQUEST['id'];
-        
+
         if (!isset($_REQUEST['code'])) {
             throw new Exception('Missing request data');
         }
         $code = $_REQUEST['code'];
-        
-        
+
+
         $current = Db::userById ($userId);
         if ($current) {
             $sameEmailUser = Db::userByEmail ($current['email']);
@@ -265,13 +345,13 @@ class Controller  extends \Ip\Controller{
             $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationError)));
         }
     }
-    
-    
-    
+
+
+
     private function redirectAfterLoginUrl () {
         global $parametersMod;
         global $site;
-        
+
         $html = '';
         if(isset($_SESSION['modules']['community']['user']['page_after_login'])) {
             $url = $_SESSION['modules']['community']['user']['page_after_login'];
@@ -284,8 +364,8 @@ class Controller  extends \Ip\Controller{
             }
         }
         return $url;
-    }    
-    
+    }
+
 
     private function loginUser ($user) {
         global $log;
@@ -294,38 +374,70 @@ class Controller  extends \Ip\Controller{
         $session->login($user['id']);
         Db::loginTimestamp($user['id']);
         $log->log('community/user', 'frontend login', $user['login']." ".$user['email']." ".$_SERVER['REMOTE_ADDR']);
-    }    
-    
+    }
+
     private function sendVerificationLink($to, $code, $userId) {
         global $parametersMod;
         global $site;
 
-        
+
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration');
         $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "verification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
-        
+
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'); 
-        
-        
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+
+
         $emailData = array(
             'content' => $content,
             'name' => $websiteName,
             'email' => $websiteEmail
         );
-        
+
         $email = \Ip\View::create('view/email.php', $emailData)->render();
-        $to = $from = $websiteEmail;
-        
+        $from = $websiteEmail;
+
         $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_registration');
-        
-        $files = array();    
+
+        $files = array();
         $emailQueue = new \Modules\administrator\email_queue\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
 
         $emailQueue->send();
-    }    
+    }
+    
+    function sendUpdateVerificationLink($to, $code, $userId) {
+        global $parametersMod;
+        global $site;
+        
+        
+        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
+        $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "new_email_verification", "id" => $userId, "code" => $code));
+        $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
+        
+        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        
+        
+        $emailData = array(
+                    'content' => $content,
+                    'name' => $websiteName,
+                    'email' => $websiteEmail
+        );
+        
+        $email = \Ip\View::create('view/email.php', $emailData)->render();
+        $from = $websiteEmail;
+        
+        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email');
+        
+        $files = array();
+        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
+        
+        $emailQueue->send();
+
+    }
 
 
 

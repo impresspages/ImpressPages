@@ -167,8 +167,10 @@ class Zone extends \Frontend\Zone {
         global $parametersMod;
         global $session;
         
-        $data = array();
-
+        $data = array(
+            'loggedIn' => $session->loggedIn()
+        );
+        
         return \Ip\View::create('view/registration.php', $data);
     }
 
@@ -206,12 +208,13 @@ class Zone extends \Frontend\Zone {
         global $site;
         global $session;
 
-        if($session->loggedIn()) {
-            return Template::profileForm(Config::getProfileFields());
-        }else {
-            return '<script type="text/javascript">document.location=\''.$site->generateUrl(null, $this->getName(), array(Config::$urlLogin)).'\'</script>';
-        }
-
+        $data = array(
+            'loggedIn' => $session->loggedIn(),
+            'justUpdated' => isset($_REQUEST['message']) && $_REQUEST['message'] = 'updated'
+        );
+        
+        return \Ip\View::create('view/profile.php', $data);
+        
     }
 
     /**

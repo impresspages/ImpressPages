@@ -139,10 +139,12 @@ class Config{
         return $form;
     }
 
-    public static function getProfileFields(){
+    public static function getProfileForm(){
         global $parametersMod;
         global $session;
 
+        $form = new \Library\IpForm\Form();
+        
         $dbMod = new Db();
 
         $profileFields = array();
@@ -151,7 +153,7 @@ class Config{
         $field = new \Library\IpForm\Field\Hidden(
         array(
         'name' => 'a',
-        'defaultValue' => 'login'
+        'defaultValue' => 'updateProfile'
         ));
         $form->addField($field);
 
@@ -177,37 +179,52 @@ class Config{
             $user = $dbMod->userById($session->userId());
 
 
-            $field = new \Library\Php\Form\FieldEmail();
-            $field->name = 'email';
-            $field->caption = $parametersMod->getValue('community','user','translations','field_email');
-            $field->required = true;
-            $field->value = $user['email'];
-            $profileFields[] = $field;
-
-
-
-            $field = new \Library\Php\Form\FieldPassword();
-            $field->name = 'password';
-            $field->disableAutocomplete = true;
-            $field->caption = $parametersMod->getValue('community','user','translations','field_password');
-            $profileFields[] = $field;
-
+            $field = new \Library\IpForm\Field\Email(
+            array(
+                        'name' => 'email',
+                        'dbField' => 'email',
+                        'label' => $parametersMod->getValue('community','user','translations','field_email'),
+                        'defaultValue' => $user['email']
+            ));
+            $field->addValidator('Required');
+            $form->addField($field);
+            
+            $field = new \Library\IpForm\Field\Password(
+            array(
+                    'name' => 'password',
+                    'label' => $parametersMod->getValue('community','user','translations','field_password')
+            ));
+            $field->addAttribute('autocomplete', 'off');
+            $form->addField($field);
+            
             if($parametersMod->getValue('community','user','options','type_password_twice')){
-                $field = new \Library\Php\Form\FieldPassword();
-                $field->name = 'confirm_password';
-                $field->disableAutocomplete = true;
-                $field->caption = $parametersMod->getValue('community','user','translations','field_confirm_password');
-                $profileFields[] = $field;
-            }
-
-
+                $field = new \Library\IpForm\Field\Password(
+                array(
+                        'name' => 'confirm_password',
+                        'disableAutocomplete' => true,
+                        'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+                ));
+            
+                $field->addAttribute('autocomplete', 'off');
+                $form->addField($field);
+            }            
+            
 
         }
 
         /*add your additional fields*/
 
+        
+        //Submit button
+        $field = new \Library\IpForm\Field\Submit(
+        array(
+                'name' => 'submit',
+                'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_update')
+        ));
+        $form->addField($field);
+        
 
-        return $profileFields;
+        return $form;
     }
 
 

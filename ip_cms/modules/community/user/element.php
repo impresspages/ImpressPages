@@ -166,9 +166,19 @@ class Element extends \Frontend\Element {
                     ';
                 }
                 break;
-                
-                
-                
+            case 'profile':
+                if ($session->loggedIn()) {
+                    return $userZone->generateProfile();
+                } else {
+                    return '<script type="text/javascript">document.location = \''.str_replace('&amp;','&',$userZone->getLinkLogin()).'\';</script>';
+                }
+                break;
+            case 'new_email_verification_required':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_profile');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_new_email_verification_required');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            
 /*                
             case 'password_reset':
                 if($session->loggedIn()) {
@@ -208,9 +218,6 @@ class Element extends \Frontend\Element {
                 break;
 
 
-            case 'new_email_verification_required':
-                $answer .= Template::newEmailVerificationRequired();
-                break;
 
             case 'registration_verification_error':
                 $answer .= Template::registrationVerificationError();
@@ -222,9 +229,6 @@ class Element extends \Frontend\Element {
                 $answer .= Template::newEmailVerificationError();
                 break;
 
-            case 'profile':
-                $answer .= Template::profile($userZone->generateProfile(), isset($_REQUEST['message']) && $_REQUEST['message'] == 'updated');
-                break;
 
             case 'renewed_registration':
                 $answer .= Template::renewedRegistration();

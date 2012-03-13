@@ -99,90 +99,6 @@ class Actions {
                     break;
 
 
-                case 'update_profile':
-                    if($session->loggedIn()) {
-                        $standardForm = new \Library\Php\Form\Standard(\Modules\community\user\Config::getProfileFields());
-                        $errors = $standardForm->getErrors();
-
-                        $tmpUser = Db::userById($session->userId());
-
-                        if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
-                            $user_by_new_email = Db::userByEmail($_POST['email']);
-                            if($user_by_new_email && $user_by_new_email['verified'])
-                            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
-
-                        }
-
-
-                        if($parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
-                            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-                            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-                        }
-
-
-
-                        if(sizeof($errors) > 0)
-                        $html = $standardForm->generateErrorAnswer($errors);
-                        else {
-                            if($tmpUser) {
-                                $additionalFields = array();
-
-                                if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
-                                    $tmp_code = md5(uniqid(rand(), true));
-                                    $additionalFields['new_email'] = $_POST['email'];
-                                    $additionalFields['verification_code'] = $tmp_code;
-                                }
-
-                                if(isset($_POST['password']) && $_POST['password'] != '') {
-                                    if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                                        $additionalFields['password'] =  md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
-                                    } else {
-                                        $additionalFields['password'] =  $_POST['password'];
-                                    }
-                                }
-
-
-
-                                $standardForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], $additionalFields);
-                                $site->dispatchEvent('community', 'user', 'update_profile', array('user_id'=>$tmpUser['id']));
-
-
-                                if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
-                                    $this->sendUpdateVerificationLink($_POST['email'], $tmp_code, $tmpUser['id']);
-                                    $html = "
-                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                    <script type=\"text/javascript\">
-                      parent.window.location = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlEmailVerificationRequired))."';
-                    </script>
-                    </body></html>
-                  ";  
-
-                                }else {
-                                    $html = "
-                    <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" /></head><body>
-                    <script type=\"text/javascript\">
-                      parent.window.location = '".$site->generateUrl(null, $userZone->getName(), array(Config::$urlProfile), array("message"=>"updated"))."';
-                    </script>
-                    </body></html>
-                  ";  
-                                }
-
-                            }else {
-                                trigger_error("Something goes wrong. ".$session->userId()." ".$_POST['email']);
-                            }
-                        }
-                        echo $html;
-                        \Db::disconnect();
-                        exit;
-
-
-                    }
-
-                    break;
-
-                case 'login':
-                    //refactored
-                    break;
 
 
                 case 'new_email_verification':
@@ -266,30 +182,7 @@ class Actions {
 
 
 
-    function sendUpdateVerificationLink($email, $code, $userId) {
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/system_variables.php');
 
-        global $parametersMod;
-        global $site;
-
-        $emailQueue = new \Modules\administrator\email_queue\Module();
-        $emailHtml = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template'));
-        $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "new_email_verification", "id" => $userId, "code" => $code));
-        $emailHtml = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $emailHtml);
-
-        $emailHtml = \Library\Php\Text\SystemVariables::insert($emailHtml);
-        $emailHtml = \Library\Php\Text\SystemVariables::clear($emailHtml);
-
-        $emailQueue->addEmail(
-        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
-        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
-        $email,
-            '',
-        $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email'),
-        $emailHtml,
-        true, true, null);
-        $emailQueue->send();
-    }
 
 
 }

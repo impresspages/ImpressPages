@@ -131,9 +131,7 @@ class Manager {
         
         $answer = '';
         
-        $answer .= '<div>Users module is not yet compatible with ImpressPages 2.x</div>';
-        
-        //$answer .= $this->standard_module->manage(); 
+        $answer .= $this->standard_module->manage(); 
         return $answer;
 
     }
