@@ -28,6 +28,7 @@ class Controller{
     }
     
     public function returnJson($data) {
+        global $dispatcher;
         global $site;
         header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
         $answer = json_encode($data);

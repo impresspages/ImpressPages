@@ -163,6 +163,8 @@ class Form{
     /**
      * 
      * Store form data to the database
+     * Keep notice, that this method does not do the validation of data.
+     * So please validate submited data before writing to the database.* 
      * @param string $table where data should be stored
      * @param array $data posted or in the other way collected data
      * @param array $additionalData additional data that hasn't been posted, but is required to be inserted
@@ -178,7 +180,7 @@ class Form{
             return false;
         }
         
-        $sql = 'INSERT INTO '.$table.' SET ';
+        $sql = 'INSERT INTO `'.mysql_real_escape_string($table).'` SET ';
         $first = true;
         foreach($this->getFields() as $key => $field){
             if($field->getDbField()){
@@ -213,8 +215,8 @@ class Form{
         }
         
         
-        if($first){ //if exist fields
-            throw new \Exception("There is no data to be stored");
+        if ($first) { //if exist fields
+            return false;
         }
         
         $rs = mysql_query($sql);
@@ -224,6 +226,69 @@ class Form{
             return mysql_insert_id();
         }
         
+    }
+    
+    
+    /**
+     * 
+     * Update record in the database.
+     * Keep notice, that this method does not do the validation of data.
+     * So please validate submited data before writing to the database.
+     *  
+     * @param stsring$table table name
+     * @param string $id_field primary key field in the table
+     * @param mixed $id id of record that needs to be updated
+     * @param array $data posted data
+     * @param array $additionalData additional data you would like to store in the same row
+     * @throws \Exception
+     */
+    public function updateDatabase($table, $id_field, $id, $data, $additionalData){
+        
+        if(count($this->getFields()) == 0 && count($additionalValues) == 0){
+            return false;
+        }
+        
+        
+        $sql = 'UPDATE `'.mysql_real_escape_string($table).'` SET ';
+
+        $first = true;
+        foreach($this->getFields() as $key => $field){
+            if($field->getDbField() && isset($data[$field->getDbField()])){
+                if(!$first) {
+                    $sql .= ', ';
+                }
+                $sql .= "`".mysql_real_escape_string($field->getDbField())."` = '".mysql_real_escape_string($data[$field->getDbField()])."' ";
+                $first = false;
+            }
+        }
+
+        
+        if($additionalData) {
+            foreach($additionalData as $key => $additionalValue){
+                if(!$first) {
+                    $sql .= ', ';
+                }
+                if ($additionalValue === null) {
+                    $sqlValue = 'NULL';
+                } else {
+                    $sqlValue = "'".mysql_real_escape_string($additionalValue)."'";
+                }
+                $sql .= "`".mysql_real_escape_string($key)."` = ".$sqlValue." ";
+                $first = false;
+                
+            }
+        }
+            
+        $sql .= " WHERE `".mysql_real_escape_string($id_field)."` = '".mysql_real_escape_string($id)."' ";
+
+        if($first){
+            return false;
+        }        
+        
+        $rs = mysql_query($sql);
+        if(!$rs) {
+            throw new \Exception($sql." ".mysql_error());
+        }
     }
 
     public function __toString() {
