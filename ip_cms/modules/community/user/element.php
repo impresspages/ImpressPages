@@ -178,27 +178,34 @@ class Element extends \Frontend\Element {
                 $text = $parametersMod->getValue('community', 'user', 'translations', 'text_new_email_verification_required');
                 $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
-            
-/*                
             case 'password_reset':
-                if($session->loggedIn()) {
-                    if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
-                    $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
-                    else
-                    $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
-                }else {
+                if ($session->loggedIn()) {
+                    if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
+                        $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
+                    } else {
+                        $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';
+                    }
+                } else {
                     if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
-                        $answer .= Template::passwordReset($userZone->generatePasswordReset());
-                    }else
-                    $answer = '';
+                        $answer .= $userZone->generatePasswordReset();
+                    } else {
+                        $answer = '';
+                    }
                 }
                 break;
             case 'password_reset_sent_text':
-                if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
-                    $answer .= Template::passwordResetSentText();
-                }
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_password_reset_sent');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            case 'password_reset_verification_error':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_password_reset');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_password_verification_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
             case 'password_reset_verified':
+                $answer .= \Ip\View::create('view/password_verified.php');
+                break;
                 if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
                     if($session->loggedIn()) {
                         if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login'))
@@ -211,13 +218,9 @@ class Element extends \Frontend\Element {
                 }
                 break;
 
-            case 'password_reset_verification_error':
-                if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
-                    $answer .= Template::passwordResetVerificationError();
-                }
-                break;
 
 
+/*
 
             case 'registration_verification_error':
                 $answer .= Template::registrationVerificationError();

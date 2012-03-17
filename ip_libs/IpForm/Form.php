@@ -242,7 +242,7 @@ class Form{
      * @param array $additionalData additional data you would like to store in the same row
      * @throws \Exception
      */
-    public function updateDatabase($table, $id_field, $id, $data, $additionalData){
+    public function updateDatabase($table, $id_field, $id, $data, $additionalData = array()){
         
         if(count($this->getFields()) == 0 && count($additionalValues) == 0){
             return false;

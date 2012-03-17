@@ -45,5 +45,6 @@ $(document).ready(function() {
     $('.ipWidget-IpUserLogin').ipWidgetIpUserForm();
     $('.ipWidget-IpUserRegistration').ipWidgetIpUserForm();
     $('.ipWidget-IpUserProfile').ipWidgetIpUserForm();
+    $('.ipWidget-IpUserPasswordReset').ipWidgetIpUserForm();
 
 });

@@ -318,58 +318,90 @@ class Config{
         return $form;
     }
 
-    /** @var array fields, that are used for user password reset */
-    public static function getPasswordResetFields(){
-        /** private*/
+    public static function getPasswordResetForm(){
         global $parametersMod;
-        /** private*/
         global $session;
 
         $passwordResetFields = array();
 
+        $form = new \Library\IpForm\Form();
+        
+        
+        
         /*hidden fields (required)*/
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'action';
-        $field->value = 'password_reset';
-        $passwordResetFields[] = $field;
-
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_group';
-        $field->value = 'community';
-        $passwordResetFields[] = $field;
-
-        $field = new \Library\Php\Form\FieldHidden();
-        $field->name = 'module_name';
-        $field->value = 'user';
-        $passwordResetFields[] = $field;
+        $field = new \Library\IpForm\Field\Blank(
+        array(
+            'name' => 'globalError'
+        ));
+        $form->addField($field);
+        
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'a',
+            'defaultValue' => 'passwordReset'
+        ));
+        $form->addField($field);
+        
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'g',
+            'defaultValue' => 'community'
+        ));
+        $form->addField($field);
+        
+        
+        $field = new \Library\IpForm\Field\Hidden(
+        array(
+            'name' => 'm',
+            'defaultValue' => 'user'
+        ));
+        $form->addField($field);
+        
 
         /*predefined fields (required)*/
 
-        $field = new \Library\Php\Form\FieldEmail();
-        $field->db_field = 'email';
-        $field->name = 'email';
-        $field->caption = $parametersMod->getValue('community','user','translations','field_email');
-        $field->required = true;
-        $passwordResetFields[] = $field;
-
-
-        $field = new \Library\Php\Form\FieldPassword();
-        $field->name = 'password';
-        $field->caption = $parametersMod->getValue('community','user','translations','field_password');
-        $field->required = true;
-        $passwordResetFields[]  = $field;
+        $field = new \Library\IpForm\Field\Email(
+        array(
+            'name' => 'email',
+            'dbField' => 'email',
+            'label' => $parametersMod->getValue('community','user','translations','field_email')
+        ));
+        $field->addValidator('Required');
+        $form->addField($field);
+        
+        $field = new \Library\IpForm\Field\Password(
+        array(
+            'name' => 'password',
+            'disableAutocomplete' => true,
+            'label' => $parametersMod->getValue('community','user','translations','field_password')
+        ));
+        $field->addAttribute('autocomplete', 'off');
+        $form->addField($field);
+        
 
         if($parametersMod->getValue('community','user','options','type_password_twice')){
-            $field = new \Library\Php\Form\FieldPassword();
-            $field->name = 'confirm_password';
-            $field->required = true;
-            $field->caption = $parametersMod->getValue('community','user','translations','field_confirm_password');
-            $passwordResetFields[]  = $field;
+            $field = new \Library\IpForm\Field\Password(
+            array(
+                'name' => 'confirm_password',
+                'disableAutocomplete' => true,
+                'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+            ));
+            
+            $field->addAttribute('autocomplete', 'off');
+            $form->addField($field);
+            
         }
 
-        /*you are able to add additional fields, but i think you don't need to*/
-
-        return $passwordResetFields;
+        //Submit button
+        $field = new \Library\IpForm\Field\Submit(
+        array(
+        'name' => 'submit',
+        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_password_reset')
+        ));
+        $form->addField($field);
+        
+        
+        return $form;
     }
 
     public static function getCookieDomain() {

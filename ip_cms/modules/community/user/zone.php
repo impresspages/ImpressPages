@@ -196,7 +196,11 @@ class Zone extends \Frontend\Zone {
      * @return string html form
      */
     public function generatePasswordReset() {
-        return Template::passwordResetForm(Config::getPasswordResetFields());
+        global $session;
+        $data = array(
+            'loggedIn' => $session->loggedIn()
+        );
+        return \Ip\View::create('view/password_reset.php', $data);
     }
 
 

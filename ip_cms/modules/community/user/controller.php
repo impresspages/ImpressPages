@@ -347,7 +347,114 @@ class Controller  extends \Ip\Controller{
     }
 
 
+    public function newEmailVerification() {
+        if (!isset($_REQUEST['id']) || !isset($_REQUEST['code'])) {
+            return; //do nothing. Rendar as a regular page.
+        }
+    
+        $sameEmailUser = Db::userById($_REQUEST['id']);
+        if($sameEmailUser) {
+            if($sameEmailUser['verification_code'] == $_REQUEST['code']) {
+                $user_with_new_email = Db::userByEmail($sameEmailUser['new_email']);
+                if($user_with_new_email) {
+                    if($user_with_new_email['id'] == $sameEmailUser['id']) {
+                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                    } else {
+                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+                    }
+                }else {
+                    if($sameEmailUser['new_email'] == '') {
+                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                    }else {
+                        Db::verifyNewEmail($sameEmailUser['id']);
+                        $site->dispatchEvent('community', 'user', 'new_email_verification', array('user_id'=>$sameEmailUser['id']));
+    
+                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerified)));
+                    }
+                }
+            } else {
+                $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+            }
+        }else {
+            $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+        }
+    
+    
+    }
+    
+    
+    public function passwordReset() {
+        global $parametersMod;
+        global $site;
+        $postData = $_POST;
+        $passwordResetForm = Config::getPasswordResetForm();
+        $errors = $passwordResetForm->validate($postData);
+    
+        $tmpUser = Db::userByEmail($_POST['email']);
+        if (!$tmpUser) {
+            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_doesnt_exist');
+        }
+    
+        if(!isset($_POST['password']) || $_POST['password'] == '' || $parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
+            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+        }
+    
+    
+        if (sizeof($errors) > 0) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+            $this->returnJson($data);
+            return;
+        } else {
+            
+            $tmp_code = md5(uniqid(rand(), true));
+            if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+                $additionalFields['new_password'] = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
+            } else {
+                $additionalFields['new_password'] = $_POST['password'];
+            }
+            $additionalFields['verification_code'] = $tmp_code;
+            $insertId = $passwordResetForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], array(), $additionalFields);
+            $this->sendPasswordResetLink($_POST['email'], $tmp_code, $tmpUser['id']);
+            
+            $data = array(
+                'status' => 'success',
+                'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetSentText)) 
+            );
+            $this->returnJson($data);
+            return;
+        }
 
+    }
+    
+    public function passwordResetVerification () {
+        global $site;
+        $current = Db::userById($_REQUEST['id']);
+        if($current && $current['verified']) {
+            if($current['verification_code'] == $_REQUEST['code']) {
+                if($current['new_password'] != '') {
+                    if(Db::verifyNewPassword($current['id'])) {
+                        $site->dispatchEvent('community', 'user', 'password_reset', array('user_id'=>$current['id']));
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerified)));
+                    } else {
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+                    }
+                } else {
+                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerified)));
+                }
+            } else {
+                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+            }
+        } else {
+            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+        }
+    }
+    
+    
+    
     private function redirectAfterLoginUrl () {
         global $parametersMod;
         global $site;
@@ -407,13 +514,13 @@ class Controller  extends \Ip\Controller{
         $emailQueue->send();
     }
     
-    function sendUpdateVerificationLink($to, $code, $userId) {
+    private function sendUpdateVerificationLink($to, $code, $userId) {
         global $parametersMod;
         global $site;
         
         
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
-        $link = $site->generateUrl(null, null, array(), array("module_group" => "community", "module_name" => "user", "action" => "new_email_verification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "action" => "newEmailVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
         
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
@@ -438,6 +545,43 @@ class Controller  extends \Ip\Controller{
         $emailQueue->send();
 
     }
+    
+    function sendPasswordResetLink($to, $code, $userId) {
+        global $parametersMod;
+        global $site;
+    
+        $emailQueue = new \Modules\administrator\email_queue\Module();
+        
+        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
+        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "passwordResetVerification", "id" => $userId, "code" => $code));
+        $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
+        
+        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        
+        
+        $emailData = array(
+            'content' => $content,
+            'name' => $websiteName,
+            'email' => $websiteEmail
+        );
+        
+        $email = \Ip\View::create('view/email.php', $emailData)->render();
+        $from = $websiteEmail;
+        
+        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset');
+        
+        $files = array();
+        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
+        
+        $emailQueue->send();
+
+    }
+    
+    
+    
+    
 
 
 
