@@ -217,14 +217,16 @@ class Element extends \Frontend\Element {
                     }
                 }
                 break;
-
+            case 'registration_verification_error':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration_verification_error');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_verification_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
 
 
 /*
 
-            case 'registration_verification_error':
-                $answer .= Template::registrationVerificationError();
-                break;
+
             case 'verification_error_email_exist':
                 $answer .= Template::verificationErrorEmailExist();
                 break;
