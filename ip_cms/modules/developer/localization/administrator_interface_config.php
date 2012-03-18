@@ -1233,6 +1233,9 @@ $parameter["parameterValue/standard/menu_management/admin_translations/rss"] = "
 $parameter["parameterTitle/standard/menu_management/admin_translations/title"] = "Title";
 $parameter["parameterValue/standard/menu_management/admin_translations/title"] = "Title";
 
+$parameter["parameterTitle/standard/menu_management/admin_translations/copy"] = "Copy";
+$parameter["parameterValue/standard/menu_management/admin_translations/copy"] = "Copy";
+
 $parameter["parameterTitle/standard/menu_management/admin_translations/type"] = "Type";
 $parameter["parameterValue/standard/menu_management/admin_translations/type"] = "Type";
 
