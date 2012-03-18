@@ -178,6 +178,14 @@ class View{
         return $this->doctype;
     }
     
+    public function setLanguageId ($languageId) {
+        $this->languageId = $languageId;
+    }
+    
+    public function getLanguageId () {
+        return $this->languageId;
+    }    
+    
     public function doctypeDeclaration($doctype = null) {
         if ($doctype === null) {
             $doctype = $this->getDoctype();
