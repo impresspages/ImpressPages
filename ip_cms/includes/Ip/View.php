@@ -32,6 +32,7 @@ class View{
     private $file;
     private $data;
     private $doctype;
+    private $languageId;
 
 
     /**
@@ -40,9 +41,15 @@ class View{
      * @param string $file
      * @param array $data
      */
-    private function __construct($file, $data = array()) {
+    private function __construct($file, $data = array(), $languageId = null) {
+        global $site;
         $this->file = $file;
         $this->data = $data;
+        if ($languageId == null) {
+            $this->langaugeId = $site->getCurrentLanguage()->getId();
+        } else {
+            $this->languageId = $languageId;
+        }
         eval('$this->doctype = self::'.DEFAULT_DOCTYPE.';');
     }
     
@@ -106,7 +113,7 @@ class View{
                 return '';
             }
         }
-        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3]);
+        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
 
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
