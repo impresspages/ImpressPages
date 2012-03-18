@@ -151,9 +151,7 @@ class Element extends \Frontend\Element {
                 $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
             case 'registration_verified':
-                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
-                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_verified');
-                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                $answer .= \Ip\View::create('view/registration_verified.php')->render();
                 break;
             case 'new_email_verified':
                 if($session->loggedIn()) {
@@ -222,14 +220,15 @@ class Element extends \Frontend\Element {
                 $text = $parametersMod->getValue('community', 'user', 'translations', 'text_registration_verification_error');
                 $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
-
+            case 'verification_error_email_exist':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration_verification_error');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_email_exist_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
 
 /*
 
 
-            case 'verification_error_email_exist':
-                $answer .= Template::verificationErrorEmailExist();
-                break;
             case 'new_email_verification_error':
                 $answer .= Template::newEmailVerificationError();
                 break;
