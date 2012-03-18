@@ -303,21 +303,6 @@
 .ipWidget-IpFaq {
     padding-left: 30px;
 }
-.ipWidget-IpFaq .ipwContainer:before {
-    border: 1px solid #000;
-    font-size: 11px;
-    font-weight: bold;
-    color: #000;
-    content: '?';
-    display: block;
-    margin-left: -30px;
-    padding: 2px 4px;
-    position: absolute;
-}
-.ipWidget-IpFaq .ipwContainer.expanded:before {
-    background-color: #000;
-    color: #fff;
-}
 .ipWidget-IpFaq .ipwQuestion {
     color: #000;
     cursor: pointer;
@@ -328,10 +313,26 @@
 .ipWidget-IpFaq .ipwQuestion:hover {
     text-decoration: underline;
 }
+.ipWidget-IpFaq .ipwQuestion:before {
+    border: 1px solid #000;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    content: '?';
+    display: block;
+    margin-left: -30px;
+    padding: 2px 4px;
+    position: absolute;
+}
+.ipWidget-IpFaq .ipwExpanded .ipwQuestion:before {
+    background-color: #000;
+    color: #fff;
+}
 .ipWidget-IpFaq .ipwAnswer {
     margin-top: 5px;
 }
-.ipWidget-IpFaq .collapsed .ipwAnswer {
+.ipWidget-IpFaq .ipwCollapsed .ipwAnswer {
     display: none;
 }
 

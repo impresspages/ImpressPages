@@ -16,17 +16,17 @@
             var $answer = $faq.find('.ipwAnswer');
 
             // if container has 'disable' class, functionality is not added
-            if (!$container.hasClass('disabled')) {
+            if (!$container.hasClass('ipwDisabled')) {
                 // can start with expanded or collapsed, depending on the class found
-                if ($container.hasClass('expanded')) {
+                if ($container.hasClass('ipwExpanded')) {
                     $answer.show();
                 } else {
-                    $container.addClass('collapsed');
+                    $container.addClass('ipwCollapsed');
                     $answer.slideUp();
                 }
                 $question.click(function() {
                     $answer.slideToggle();
-                    $container.toggleClass('collapsed expanded');
+                    $container.toggleClass('ipwCollapsed ipwExpanded');
                 });
             }
         });
