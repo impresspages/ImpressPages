@@ -1,5 +1,5 @@
-<dl class="ipwContainer collapsed">
-    <dl class="ipwQuestion"><?php echo isset($question) ? htmlspecialchars($question) : ''; ?></dl>
+<dl class="ipwContainer ipwCollapsed">
+    <dt class="ipwQuestion"><?php echo isset($question) ? htmlspecialchars($question) : ''; ?></dt>
     <dd class="ipwAnswer">
 <?php echo isset($answer) ? $answer : ''; ?>
     </dd>
