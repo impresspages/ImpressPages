@@ -348,6 +348,7 @@ class Controller  extends \Ip\Controller{
 
 
     public function newEmailVerification() {
+        global $site;
         if (!isset($_REQUEST['id']) || !isset($_REQUEST['code'])) {
             return; //do nothing. Rendar as a regular page.
         }
@@ -358,25 +359,25 @@ class Controller  extends \Ip\Controller{
                 $user_with_new_email = Db::userByEmail($sameEmailUser['new_email']);
                 if($user_with_new_email) {
                     if($user_with_new_email['id'] == $sameEmailUser['id']) {
-                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
                     } else {
-                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
                     }
                 }else {
                     if($sameEmailUser['new_email'] == '') {
-                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlRegistrationVerified)));
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
                     }else {
                         Db::verifyNewEmail($sameEmailUser['id']);
                         $site->dispatchEvent('community', 'user', 'new_email_verification', array('user_id'=>$sameEmailUser['id']));
     
-                        $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerified)));
+                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerified)));
                     }
                 }
             } else {
-                $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
             }
         }else {
-            $this->redirect($site->generateUrl(null, $userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
         }
     
     
@@ -520,7 +521,7 @@ class Controller  extends \Ip\Controller{
         
         
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "action" => "newEmailVerification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "newEmailVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
         
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');

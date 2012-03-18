@@ -225,18 +225,20 @@ class Element extends \Frontend\Element {
                 $text = $parametersMod->getValue('community', 'user', 'translations', 'text_email_exist_error');
                 $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
-
+            case 'new_email_verification_error':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_new_email_verification_error');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_new_email_verification_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+            break;
+            case 'renewed_registration':
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_account_renewed');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
+            
 /*
 
 
-            case 'new_email_verification_error':
-                $answer .= Template::newEmailVerificationError();
-                break;
-
-
-            case 'renewed_registration':
-                $answer .= Template::renewedRegistration();
-                break;
             case 'renew_registration_error':
                 $answer .= Template::renewRegistrationError();
                 break;*/
