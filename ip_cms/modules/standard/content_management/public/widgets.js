@@ -112,7 +112,7 @@ ipWidgetIpForm_InitListOptions = function ($context, currentOptions) {
     
 };
 
-ipWidgetipForm_SaveListOptions = function ($context) {
+ipWidgetIpForm_SaveListOptions = function ($context) {
     var $options = $context.find('.ipaContainer .ipaOption');
     var answer = new Array();
     answer = new Array();
@@ -125,14 +125,14 @@ ipWidgetipForm_SaveListOptions = function ($context) {
 
 
 //IpForm widget wysiwyg options
-ipWidgetipForm_InitWysiwygOptions = function ($context, currentOptions) {
+ipWidgetIpForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
         $context.find(".ipaContainer").val(currentOptions.text);
     }
     $context.find(".ipaContainer").tinymce(ipTinyMceConfigMin);
 };
 
-ipWidgetipForm_SaveWysiwygOptions = function ($context) {
+ipWidgetIpForm_SaveWysiwygOptions = function ($context) {
     return {text:$context.find('.ipaContainer').val()};
 };
 

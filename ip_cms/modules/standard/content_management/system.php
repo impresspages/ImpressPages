@@ -236,11 +236,11 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpTextarea', '\Library\IpForm\Field\Textarea', 'Textarea');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select', 'ipWidgetipForm_InitListOptions', 'ipWidgetipForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox', 'ipWidgetipForm_InitWysiwygOptions', 'ipWidgetipForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $newFieldType = new FieldType('IpCheckbox', '\Library\IpForm\Field\Checkbox', 'Checkbox', 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio', 'ipWidgetipForm_InitListOptions', 'ipWidgetipForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
     }
 
