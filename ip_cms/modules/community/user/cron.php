@@ -43,11 +43,23 @@ class Cron {
 
                 foreach($soonOutdated as $key => $user) {
                     $site->dispatchEvent('community', 'user', 'warn_inactive_user', array('data'=>$user));
-                    $emailTemplate = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email_template', $user['language_id']);
-                    $email = str_replace('[[content]]', $parametersMod->getValue('community', 'user', 'email_messages', 'text_account_will_expire'), $emailTemplate);
-                    $email = str_replace('[[date]]', substr($user['valid_until'], 0, 10), $email);
-                    $link = $site->generateUrl($user['language_id'], null, null, array("module_group"=>"community","module_name"=>"user", "action"=>"renew_registration", "id"=>$user['id']));
-                    $email = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $email);
+                    
+                    $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_account_will_expire');
+                    $content = str_replace('[[date]]', substr($user['valid_until'], 0, 10), $content);
+                    $link = $site->generateUrl($user['language_id'], null, null, array("g"=>"community","m"=>"user", "a"=>"renewRegistration", "id"=>$user['id']));
+                    $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
+                    
+                    $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+                    $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+                    
+                    $emailData = array(
+                        'content' => $content,
+                        'name' => $websiteName,
+                        'email' => $websiteEmail
+                    );
+                    
+                    $email = \Ip\View::create('view/email.php', $emailData, $user['language_id'])->render();
+                    
                     $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), $user['email'], '', $parametersMod->getValue('community', 'user', 'email_messages', 'subject_account_will_expire'), $email, false, true);
                     $setWarned[] = $user['id'];
                     $log->log('community/user', 'account warned', 'Account information: '.implode(', ',$user));

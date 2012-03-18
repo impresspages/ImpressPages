@@ -580,7 +580,20 @@ class Controller  extends \Ip\Controller{
 
     }
     
-    
+    public function renewRegistration () {
+        global $site;//userById
+        if (isset($_GET['id']) && Db::userById($_GET['id'])) {
+            if(Db::renewRegistration($_GET['id']) == 1){
+                $site->dispatchEvent('community', 'user', 'renew_registration', array('user_id'=>$_GET['id']));
+                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewedRegistration)));
+            } else {
+                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
+            }
+        } else {
+            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
+        }
+        break;
+    }
     
     
 

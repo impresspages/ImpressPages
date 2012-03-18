@@ -22,12 +22,13 @@ class Db {
         $sql = "select * from ".DB_PREF."m_community_user where id  = '".mysql_real_escape_string($id)."' ";
 
         $rs = mysql_query($sql);
-        if($rs) {
-            if($lock = mysql_fetch_assoc($rs))
-            return $lock;
-            else
-            return false;
-        }else {
+        if ($rs) {
+            if($lock = mysql_fetch_assoc($rs)) {
+                return $lock;
+            } else {
+                return false;
+            }
+        } else {
             trigger_error($sql." ".mysql_error());
             return false;
         }
@@ -222,8 +223,9 @@ class Db {
         if(!$rs) {
             trigger_error($sql);
             return false;
-        }else
-        return true;
+        } else {
+            return true;
+        }
     }
 
 

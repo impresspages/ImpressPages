@@ -235,13 +235,11 @@ class Element extends \Frontend\Element {
                 $text = $parametersMod->getValue('community', 'user', 'translations', 'text_account_renewed');
                 $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
                 break;
-            
-/*
-
-
             case 'renew_registration_error':
-                $answer .= Template::renewRegistrationError();
-                break;*/
+                $title = $parametersMod->getValue('community', 'user', 'translations', 'title_registration');
+                $text = $parametersMod->getValue('community', 'user', 'translations', 'text_account_renewal_error');
+                $answer .= \Ip\View::create('view/text.php', array('title' => $title, 'text' => $text))->render();
+                break;
         }
 
 

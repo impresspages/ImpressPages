@@ -1825,7 +1825,7 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
         $parameterType["community"]["user"]["options"]["autologin_time"] = "integer";
 
         $parameterTitle["community"]["user"]["options"]["delete_expired_users"] = "Delete expired user";
-        $parameterValue["community"]["user"]["options"]["delete_expired_users"] = "1";
+        $parameterValue["community"]["user"]["options"]["delete_expired_users"] = "0";
         $parameterAdmin["community"]["user"]["options"]["delete_expired_users"] = "0";
         $parameterType["community"]["user"]["options"]["delete_expired_users"] = "bool";
 
