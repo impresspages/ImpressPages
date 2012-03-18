@@ -18,4 +18,15 @@ class System{
         Db::clearCache();
     }
 
+    
+    public function init() {
+        global $site;
+        
+        $curZone = $site->getCurrentZone();
+        if ($curZone && $curZone->getAssociatedModuleGroup() == 'administrator' && $curZone->getAssociatedModule() == 'rss') {
+            $site->setOutput($site->getCurrentElement()->generateContent() );
+        }
+    }
+    
+    
 }
