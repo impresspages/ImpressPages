@@ -13,10 +13,6 @@ if (!defined('CMS')) exit;
 class IpUserPasswordReset extends \Modules\standard\content_management\Widget{
 
 
-    public function getTitle() {
-        global $parametersMod;
-        return $parametersMod->getValue('community', 'user', 'admin_translations', 'password_reset');
-    }
     
     public function previewHtml($instanceId, $data, $layout) {
         global $session;
@@ -38,5 +34,14 @@ class IpUserPasswordReset extends \Modules\standard\content_management\Widget{
         );
         return parent::previewHtml($instanceId, $data, $layout);
         
+    }
+    
+    
+    /**
+    * Return true if you like to hide widget in administration panel.
+    * You will be able to access widget in your code.
+    */
+    public function getUnderTheHood() {
+        return true;
     }
 }

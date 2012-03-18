@@ -12,7 +12,6 @@ namespace Modules\community\user;
 if (!defined('CMS')) exit;
 
 global $site;
-$site->requireTemplate("community/user/template.php");
 
 require_once('element.php');
 

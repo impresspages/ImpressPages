@@ -38,4 +38,14 @@ class IpUserProfile extends \Modules\standard\content_management\Widget{
         return parent::previewHtml($instanceId, $data, $layout);
         
     }
+    
+    /**
+    * Return true if you like to hide widget in administration panel.
+    * You will be able to access widget in your code.
+    */
+    public function getUnderTheHood() {
+        return true;
+    }
+    
+    
 }
