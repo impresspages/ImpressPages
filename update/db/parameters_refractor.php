@@ -97,7 +97,7 @@ class ParametersRefractor {
 
   }
   
-  private function addModule($groupId, $moduleTranslation, $moduleName, $admin, $managed, $core, $version, $rowNumber = 0){
+  public function addModule($groupId, $moduleTranslation, $moduleName, $admin, $managed, $core, $version, $rowNumber = 0){
     $sql = "insert into `".DB_PREF."module`
     set
     group_id = '".(int)$groupId."',

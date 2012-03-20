@@ -286,6 +286,10 @@ class Script {
                 }
             }
             
+            $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
+            $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
+            
+            
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');
             }
