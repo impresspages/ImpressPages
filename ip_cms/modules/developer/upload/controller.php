@@ -129,7 +129,10 @@ class Controller extends \Ip\Controller{
 
                 if ($in) {
                     while ($buff = fread($in, 4096)) {
-                        set_time_limit(30);
+                        if(function_exists('set_time_limit'))
+                        {
+                            set_time_limit(30);
+                        }
                         fwrite($out, $buff);
                     }
                 } else
