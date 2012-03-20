@@ -103,8 +103,10 @@ class Module{
 
 
                 foreach($emails as $key => $email){
-                    set_time_limit((sizeof($emails) - $key)*10 + 100);
 
+                    if(function_exists('set_time_limit')) {
+                        set_time_limit((sizeof($emails) - $key)*10 + 100);
+                    }
 
                     $mail = new \PHPMailer();
                     /*          $mail->Sender = $email['from'];
