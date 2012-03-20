@@ -126,6 +126,11 @@ class IpImage extends \Modules\standard\content_management\Widget{
             \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
         }        
     }    
+    
+    
+    public function recreate($widgetId, $data) {
+        
+    }
    
 
 

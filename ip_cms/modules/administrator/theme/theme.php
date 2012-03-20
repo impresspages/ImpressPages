@@ -12,7 +12,8 @@ if (!defined('CMS')) exit;
 
 class Theme{
     const INSTALL_DIR = 'install/';
-
+    const PARAMETERS_FILE = 'parameters.php';
+    
     private $name;
     private $previewImage;
     

@@ -45,6 +45,12 @@ class Model{
         }
         
         self::writeThemeNameToConfig(BASE_DIR.'ip_config.php', $theme->getName());
+        
+        $parametersFile = BASE_DIR.THEME_DIR.$themeName.'/'.Theme::INSTALL_DIR.'/'.Theme::PARAMETERS_FILE; 
+        if (file_exists($parametersFile)) {
+            require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
+            \Modules\developer\localization\Manager::saveParameters($parametersFile);
+        }
     }
     
     private static function writeThemeNameToConfig($configFileName, $themeName){
