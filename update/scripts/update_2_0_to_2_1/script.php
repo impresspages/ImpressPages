@@ -289,6 +289,12 @@ class Script {
             $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
             $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
             
+            $sql = "ALTER TABLE  `".DB_PREF."m_administrator_repository_file` ADD INDEX (  `filename` )";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error($sql.' '.mysql_error());
+            }
+            
             
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');
