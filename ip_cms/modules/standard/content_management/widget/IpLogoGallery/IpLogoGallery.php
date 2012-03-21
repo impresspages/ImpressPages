@@ -260,6 +260,34 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
             \Modules\administrator\repository\Model::unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
         }
     }    
+    
+    /**
+    *
+    * Duplicate widget action. This function is executed after the widget is being duplicated.
+    * All widget data is duplicated automatically. This method is used only in case a widget
+    * needs to do some maintenance tasks on duplication.
+    * @param int $oldId old widget id
+    * @param int $newId duplicated widget id
+    * @param array $data data that has been duplicated from old widget to the new one
+    */
+    public function duplicate($oldId, $newId, $data) {
+        if (!isset($data['logos']) || !is_array($data['logos'])) {
+            return;
+        }
+        
+        foreach($data['logos'] as $logoKey => $logo) {
+            if (!is_array($logo)) {
+                return;
+            }
+            if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
+                \Modules\administrator\repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $newId);
+            }
+            if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+                \Modules\administrator\repository\Model::bindFile($logo['logoSmall'], 'standard/content_management', $newId);
+            }
+        };
+    
+    }    
 
 
 

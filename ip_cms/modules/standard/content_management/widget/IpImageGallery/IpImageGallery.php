@@ -296,7 +296,38 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         }
         if (isset($image['imageSmall']) && $image['imageSmall']) {
             \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
-        }        
+        }
+    }
+    
+    /**
+    *
+    * Duplicate widget action. This function is executed after the widget is being duplicated.
+    * All widget data is duplicated automatically. This method is used only in case a widget
+    * needs to do some maintenance tasks on duplication.
+    * @param int $oldId old widget id
+    * @param int $newId duplicated widget id
+    * @param array $data data that has been duplicated from old widget to the new one
+    */
+    public function duplicate($oldId, $newId, $data) {
+        if (!isset($data['images']) || !is_array($data['images'])) {
+            return;
+        }
+        
+        foreach($data['images'] as $imageKey => $image) {
+            if (!is_array($image)) {
+                return;
+            }
+            if (isset($image['imageOriginal']) && $image['imageOriginal']) {
+                \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $newId);
+            }
+            if (isset($image['imageBig']) && $image['imageBig']) {
+                \Modules\administrator\repository\Model::bindFile($image['imageBig'], 'standard/content_management', $newId);
+            }
+            if (isset($image['imageSmall']) && $image['imageSmall']) {
+                \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $newId);
+            }
+        }
+
     }
 
 }
