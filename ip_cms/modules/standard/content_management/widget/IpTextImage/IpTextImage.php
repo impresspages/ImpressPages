@@ -128,5 +128,29 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
         }        
     }        
+    
+    /**
+    *
+    * Duplicate widget action. This function is executed after the widget is being duplicated.
+    * All widget data is duplicated automatically. This method is used only in case a widget
+    * needs to do some maintenance tasks on duplication.
+    * @param int $oldId old widget id
+    * @param int $newId duplicated widget id
+    * @param array $data data that has been duplicated from old widget to the new one
+    */
+    public function duplicate($oldId, $newId, $data) {
+        if (!is_array($data)) {
+            return;
+        }
+        if (isset($data['imageOriginal']) && $data['imageOriginal']) {
+            \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
+        }
+        if (isset($data['imageBig']) && $data['imageBig']) {
+            \Modules\administrator\repository\Model::bindFile($data['imageBig'], 'standard/content_management', $newId);
+        }
+        if (isset($data['imageSmall']) && $data['imageSmall']) {
+            \Modules\administrator\repository\Model::bindFile($data['imageSmall'], 'standard/content_management', $newId);
+        }
+    }
 
 }

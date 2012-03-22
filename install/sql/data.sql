@@ -61,7 +61,8 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (435, 324, 7, 'breadcrumb', 1, 'Breadcrumb', 0, '1.00', 1),
 (437, 337, 1, 'user', 1, 'User', 1, '1.00', 1),
 (438, 336, 11, 'upload', 0, 'Upload', 0, '1.00', 1),
-(439, 323, 12, 'repository', 0, 'Repository', 0, '1.00', 1);
+(439, 323, 12, 'repository', 0, 'Repository', 0, '1.00', 1),
+(440, 323, 14, 'theme', 1, 'Theme', 1, 1.00, 1);
 
 -- Dumping data for table--
 
@@ -143,7 +144,8 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 (509, 8, 347),
 (508, 8, 327),
 (531, 8, 437),
-(532, 8, 439);
+(532, 8, 439),
+(533, 8, 440);
 
 -- Dumping data for table--
 

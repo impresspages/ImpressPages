@@ -108,12 +108,18 @@ class IpForm extends \Modules\standard\content_management\Widget{
         uksort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
+        
         return parent::managementHtml($instanceId, $data, $layout);
     }
     
     public function previewHtml($instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
+        
+        if (!isset($data['thankYouMessage'])) {
+            $data['thankYouMessage'] = '';
+        }
+        
         return parent::previewHtml($instanceId, $data, $layout);
     }
     
