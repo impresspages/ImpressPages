@@ -61,4 +61,11 @@ class Check extends Field{
         return self::TYPE_SYSTEM;
     }
     
+    /**
+    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+    */
+    public function getCssClass() {
+        return 'check';
+    }    
+    
 }

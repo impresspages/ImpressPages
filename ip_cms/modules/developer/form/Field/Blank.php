@@ -22,4 +22,11 @@ class Blank extends Field{
     public function render($doctype) {
         return '<input style="height: 0; width: 0;" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
+    
+    /**
+    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+    */
+    public function getCssClass() {
+        return 'blank';
+    }    
 }

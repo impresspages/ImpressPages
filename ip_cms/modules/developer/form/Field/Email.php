@@ -21,6 +21,11 @@ class Email extends Field{
         return '<input class="ipfControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
-
+    /**
+    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+    */
+    public function getCssClass() {
+        return 'email';
+    }
     
 }

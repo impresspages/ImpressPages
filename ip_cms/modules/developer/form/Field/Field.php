@@ -166,6 +166,12 @@ abstract class Field{
         return $attributesStr;
     }
     
+    /**
+     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+     */
+    public function getCssClass() {
+        return '';
+    }
     
     
     /* GETTERS AND SETTERS  */

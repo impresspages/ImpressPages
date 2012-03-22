@@ -16,4 +16,11 @@ class Textarea extends Field{
         return '<textarea class="ipfControlTextarea" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
     }
     
+    /**
+    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+    */
+    public function getCssClass() {
+        return 'textarea';
+    }
+    
 }
