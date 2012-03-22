@@ -116,8 +116,8 @@ class IpForm extends \Modules\standard\content_management\Widget{
 
         $data['form'] = $this->createForm($instanceId, $data);
         
-        if (!isset($data['thankYouMessage'])) {
-            $data['thankYouMessage'] = '';
+        if (!isset($data['success'])) {
+            $data['success'] = '';
         }
         
         return parent::previewHtml($instanceId, $data, $layout);
