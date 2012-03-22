@@ -229,17 +229,17 @@ class System{
     public static function collectFieldTypes(EventFormFields $event){
         global $site;
 
-        $newFieldType = new FieldType('IpText', '\Library\IpForm\Field\Text', 'Text');
+        $newFieldType = new FieldType('IpText', '\Modules\developer\form\Field\Text', 'Text');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpEmail', '\Library\IpForm\Field\Email', 'Email');
+        $newFieldType = new FieldType('IpEmail', '\Modules\developer\form\Field\Email', 'Email');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpTextarea', '\Library\IpForm\Field\Textarea', 'Textarea');
+        $newFieldType = new FieldType('IpTextarea', '\Modules\developer\form\Field\Textarea', 'Textarea');
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpSelect', '\Library\IpForm\Field\Select', 'Select', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpSelect', '\Modules\developer\form\Field\Select', 'Select', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpConfirm', '\Library\IpForm\Field\Confirm', 'Confirm', 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $newFieldType = new FieldType('IpConfirm', '\Modules\developer\form\Field\Confirm', 'Confirm', 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpRadio', '\Library\IpForm\Field\Radio', 'Radio', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpRadio', '\Modules\developer\form\Field\Radio', 'Radio', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
     }
 

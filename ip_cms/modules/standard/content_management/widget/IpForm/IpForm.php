@@ -47,7 +47,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         $contentData = array();
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if ($field->getType() == \Library\IpForm\Field\Field::TYPE_REGULAR) {
+            if ($field->getType() == \Modules\developer\form\Field\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
@@ -159,10 +159,10 @@ class IpForm extends \Modules\standard\content_management\Widget{
      * 
      * @param unknown_type $instanceId
      * @param unknown_type $data
-     * @return \Library\IpForm\Form
+     * @return \Modules\developer\form\Form
      */
     private function createForm($instanceId, $data) {
-        $form = new \Library\IpForm\Form();
+        $form = new \Modules\developer\form\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();
@@ -197,28 +197,28 @@ class IpForm extends \Modules\standard\content_management\Widget{
         
 
         //special variables to post to widget controller
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'g',
         'defaultValue' => 'standard'
         ));
         $form->addField($field);
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'm',
         'defaultValue' => 'content_management'
         ));
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'a',
         'defaultValue' => 'widgetPost'
         ));
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'instanceId',
         'defaultValue' => $instanceId
@@ -226,14 +226,14 @@ class IpForm extends \Modules\standard\content_management\Widget{
         $form->addField($field);
 
         //antispam
-        $field = new \Library\IpForm\Field\Check(
+        $field = new \Modules\developer\form\Field\Check(
         array(
         'name' => 'checkFieldield'
         ));
         $form->addField($field);
         
         //submit
-        $field = new \Library\IpForm\Field\Submit(
+        $field = new \Modules\developer\form\Field\Submit(
         array(
         'defaultValue' => 'Submit'
         ));

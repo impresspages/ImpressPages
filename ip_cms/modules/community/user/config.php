@@ -48,18 +48,18 @@ class Config{
         global $session;
 
         
-        $form = new \Library\IpForm\Form();
+        $form = new \Modules\developer\form\Form();
         
 
         /*hidden fields (required)*/
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'a',
         'defaultValue' => 'registration'
         ));
         $form->addField($field);
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'g',
         'defaultValue' => 'community'
@@ -67,7 +67,7 @@ class Config{
         $form->addField($field);
         
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'm',
             'defaultValue' => 'user'
@@ -75,14 +75,14 @@ class Config{
         $form->addField($field);
 
         /*predefined fields (required)*/
-        $field = new \Library\IpForm\Field\Blank(
+        $field = new \Modules\developer\form\Field\Blank(
         array(
             'name' => 'globalError'
         ));
         $form->addField($field);
         
         if($parametersMod->getValue('community','user','options','login_type') == 'login'){
-            $field = new \Library\IpForm\Field\Text(
+            $field = new \Modules\developer\form\Field\Text(
             array(
                 'name' => 'login',
                 'dbField' => 'login',
@@ -92,7 +92,7 @@ class Config{
             $form->addField($field);
         }
 
-        $field = new \Library\IpForm\Field\Email(
+        $field = new \Modules\developer\form\Field\Email(
         array(
             'name' => 'email',
             'dbField' => 'email',
@@ -101,7 +101,7 @@ class Config{
         $field->addValidator('Required');
         $form->addField($field);
 
-        $field = new \Library\IpForm\Field\Password(
+        $field = new \Modules\developer\form\Field\Password(
         array(
         'name' => 'password',
         'label' => $parametersMod->getValue('community','user','translations','field_password')
@@ -111,7 +111,7 @@ class Config{
         $form->addField($field);
 
         if($parametersMod->getValue('community','user','options','type_password_twice')){
-            $field = new \Library\IpForm\Field\Password(
+            $field = new \Modules\developer\form\Field\Password(
             array(
             'name' => 'confirm_password',
             'disableAutocomplete' => true,
@@ -127,7 +127,7 @@ class Config{
         
 
         //Submit button
-        $field = new \Library\IpForm\Field\Submit(
+        $field = new \Modules\developer\form\Field\Submit(
         array(
         'name' => 'submit',
         'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_register')
@@ -143,21 +143,21 @@ class Config{
         global $parametersMod;
         global $session;
 
-        $form = new \Library\IpForm\Form();
+        $form = new \Modules\developer\form\Form();
         
         $dbMod = new Db();
 
         $profileFields = array();
 
         /*hidden fields (required)*/
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'a',
         'defaultValue' => 'updateProfile'
         ));
         $form->addField($field);
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'g',
         'defaultValue' => 'community'
@@ -165,7 +165,7 @@ class Config{
         $form->addField($field);
         
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'm',
             'defaultValue' => 'user'
@@ -179,7 +179,7 @@ class Config{
             $user = $dbMod->userById($session->userId());
 
 
-            $field = new \Library\IpForm\Field\Email(
+            $field = new \Modules\developer\form\Field\Email(
             array(
                         'name' => 'email',
                         'dbField' => 'email',
@@ -189,7 +189,7 @@ class Config{
             $field->addValidator('Required');
             $form->addField($field);
             
-            $field = new \Library\IpForm\Field\Password(
+            $field = new \Modules\developer\form\Field\Password(
             array(
                     'name' => 'password',
                     'label' => $parametersMod->getValue('community','user','translations','field_password')
@@ -198,7 +198,7 @@ class Config{
             $form->addField($field);
             
             if($parametersMod->getValue('community','user','options','type_password_twice')){
-                $field = new \Library\IpForm\Field\Password(
+                $field = new \Modules\developer\form\Field\Password(
                 array(
                         'name' => 'confirm_password',
                         'disableAutocomplete' => true,
@@ -216,7 +216,7 @@ class Config{
 
         
         //Submit button
-        $field = new \Library\IpForm\Field\Submit(
+        $field = new \Modules\developer\form\Field\Submit(
         array(
                 'name' => 'submit',
                 'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_update')
@@ -232,25 +232,25 @@ class Config{
     public static function getLoginForm(){
         global $parametersMod;
 
-        $form = new \Library\IpForm\Form();
+        $form = new \Modules\developer\form\Form();
         
 
 
         /*hidden fields (required)*/
-        $field = new \Library\IpForm\Field\Blank(
+        $field = new \Modules\developer\form\Field\Blank(
         array(
                     'name' => 'globalError'
         ));
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'a',
         'defaultValue' => 'login'
         ));
         $form->addField($field);
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
         'name' => 'g',
         'defaultValue' => 'community'
@@ -258,7 +258,7 @@ class Config{
         $form->addField($field);
         
 
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'm',
             'defaultValue' => 'user'
@@ -267,7 +267,7 @@ class Config{
 
         /*predefined fields (required)*/
         if($parametersMod->getValue('community','user','options','login_type') == 'login'){
-            $field = new \Library\IpForm\Field\Text(
+            $field = new \Modules\developer\form\Field\Text(
             array(
                 'name' => 'login',
                 'label' => $parametersMod->getValue('community','user','translations','field_login')
@@ -275,7 +275,7 @@ class Config{
             $field->addValidator('Required');
             $form->addField($field);
         }else{
-            $field = new \Library\IpForm\Field\Email(
+            $field = new \Modules\developer\form\Field\Email(
             array(
                 'name' => 'email',
                 'label' => $parametersMod->getValue('community','user','translations','field_email')
@@ -285,7 +285,7 @@ class Config{
         }
 
 
-        $field = new \Library\IpForm\Field\Password(
+        $field = new \Modules\developer\form\Field\Password(
         array(
         'name' => 'password',
         'label' => $parametersMod->getValue('community','user','translations','field_password')
@@ -294,7 +294,7 @@ class Config{
         $form->addField($field);
 
         if($parametersMod->getValue('community','user','options','enable_autologin')){
-            $field = new \Library\IpForm\Field\Checkbox(
+            $field = new \Modules\developer\form\Field\Check(
             array(
             'name' => 'autologin',
             'label' => $parametersMod->getValue('community','user','translations','autologin')
@@ -306,7 +306,7 @@ class Config{
 
 
         //Submit button
-        $field = new \Library\IpForm\Field\Submit(
+        $field = new \Modules\developer\form\Field\Submit(
         array(
         'name' => 'submit',
         'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_login')
@@ -324,25 +324,25 @@ class Config{
 
         $passwordResetFields = array();
 
-        $form = new \Library\IpForm\Form();
+        $form = new \Modules\developer\form\Form();
         
         
         
         /*hidden fields (required)*/
-        $field = new \Library\IpForm\Field\Blank(
+        $field = new \Modules\developer\form\Field\Blank(
         array(
             'name' => 'globalError'
         ));
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'a',
             'defaultValue' => 'passwordReset'
         ));
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'g',
             'defaultValue' => 'community'
@@ -350,7 +350,7 @@ class Config{
         $form->addField($field);
         
         
-        $field = new \Library\IpForm\Field\Hidden(
+        $field = new \Modules\developer\form\Field\Hidden(
         array(
             'name' => 'm',
             'defaultValue' => 'user'
@@ -360,7 +360,7 @@ class Config{
 
         /*predefined fields (required)*/
 
-        $field = new \Library\IpForm\Field\Email(
+        $field = new \Modules\developer\form\Field\Email(
         array(
             'name' => 'email',
             'dbField' => 'email',
@@ -369,7 +369,7 @@ class Config{
         $field->addValidator('Required');
         $form->addField($field);
         
-        $field = new \Library\IpForm\Field\Password(
+        $field = new \Modules\developer\form\Field\Password(
         array(
             'name' => 'password',
             'disableAutocomplete' => true,
@@ -380,7 +380,7 @@ class Config{
         
 
         if($parametersMod->getValue('community','user','options','type_password_twice')){
-            $field = new \Library\IpForm\Field\Password(
+            $field = new \Modules\developer\form\Field\Password(
             array(
                 'name' => 'confirm_password',
                 'disableAutocomplete' => true,
@@ -393,7 +393,7 @@ class Config{
         }
 
         //Submit button
-        $field = new \Library\IpForm\Field\Submit(
+        $field = new \Modules\developer\form\Field\Submit(
         array(
         'name' => 'submit',
         'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_password_reset')
