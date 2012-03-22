@@ -252,6 +252,10 @@ class Script {
                 if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
                     \Db_100::addStringParameter($group['id'], 'Remove', 'remove', 'Remove', 1);
                 }
+
+                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'options')) {
+                    \Db_100::addStringParameter($group['id'], 'Options', 'options', 'Options', 1);
+                }
                 
                 if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
                     \Db_100::addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send'));
