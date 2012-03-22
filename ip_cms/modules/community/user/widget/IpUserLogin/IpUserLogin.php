@@ -54,5 +54,19 @@ class IpUserLogin extends \Modules\standard\content_management\Widget{
             return parent::previewHtml($instanceId, $data, $layout);
         }
         
+    }   
+
+    /**
+    * Return true if you like to hide widget in administration panel.
+    * You will be able to access widget in your code.
+    */
+    public function getUnderTheHood() {
+        global $site;
+        $userZone = $site->getZoneByModule('community', 'user');
+        if ($userZone) {
+            return false;
+        } else {
+            return true;
+        }
     }    
 }
