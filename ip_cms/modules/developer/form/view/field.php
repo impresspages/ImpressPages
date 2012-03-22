@@ -1,9 +1,9 @@
 <div class="ipfField ipfType-<?php //echo $field->getCssClass(); ?> clearfix">
     <label>
         <span class="ipfLabel"><?php echo $this->esc($field->getLabel()); ?></span>
-<?php //if($field->isRequired()) { ?>
+<?php if($field->isRequired()) { ?>
         <span class="ipfRequired">*</span>
-<?php //} ?>
+<?php } ?>
         <div class="ipfControl"><?php echo $field->render($this->getDoctype()); ?></div>
     </label>
 <?php if($field->getNote()) { ?>
