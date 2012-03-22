@@ -10,7 +10,7 @@
 namespace Library\IpForm\Field;
 
 
-class Checkbox extends Field{
+class Confirm extends Field{
 
     protected $checked;
     protected $text;
@@ -39,9 +39,9 @@ class Checkbox extends Field{
         } else {
             $attributes = '';
         }
-        $answer .= '<input name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($this->getDefaultValue()).'"/>'."\n";
+        $answer .= '<input class="ipfControlCheckbox" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($this->getDefaultValue()).'" />'."\n";
         if ($this->getText()) {
-            $answer .= '<div>'.$this->getText().'</div>';
+            $answer .= '<div class="ipfControlConfirmOptions">'.$this->getText().'</div>';
         }
     
         return $answer; 

@@ -1,13 +1,13 @@
-<form method="<?php echo $form->getMethod() ?>" <?php echo $form->getAttributesStr() ?>>
+<form class="ipForm" method="<?php echo $form->getMethod(); ?>" <?php echo $form->getAttributesStr(); ?>>
     <?php foreach ($form->getPages() as $pageKey => $page) { ?>
-    <div class="page">
+    <div class="ipfPage">
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>
-            <fieldset>
+        <fieldset class="ipfFieldset">
             <?php foreach ($fieldset->getFields() as $fieldKey => $field) { ?>
                 <?php 
                     switch ($field->getLayout()) {
                         case \Library\IpForm\Field\Field::LAYOUT_DEFAULT :
-                            echo $this->subview('field.php', array('field' => $field))->render();
+                            echo $this->subview('field.php', array('field' => $field))->render()."\n";
                             break;
                         case \Library\IpForm\Field\Field::LAYOUT_BLANK:
                         default:
@@ -16,7 +16,7 @@
                     }
                 ?>
             <?php } ?>
-            </fieldset>
+        </fieldset>
         <?php } ?>
     </div>
     <?php } ?>

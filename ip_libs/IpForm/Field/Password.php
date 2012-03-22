@@ -12,9 +12,8 @@ class Password extends Field{
     
     public function render($doctype) {
         $attributesStr = '';
-        
-        
-        return '<input name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="password" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
+
+        return '<input class="ipfControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="password" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
 

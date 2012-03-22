@@ -55,11 +55,11 @@
                         data: form.serialize(),
                         success: function (response){
                             if (response.status && response.status == 'success') {
-                                if (typeof ipWidgetipForm_success == 'function'){ //custom handler exists
-                                    ipWidgetipForm_success($ipForm);
+                                if (typeof ipWidgetIpFormSuccess == 'function'){ //custom handler exists
+                                    ipWidgetIpFormSuccess($ipForm);
                                 } else { //default handler
-                                    $ipForm.find('.ipwThankYou').show();
-                                    $ipForm.find('.ipwThankYou').height($ipForm.find('.ipwForm').height());
+                                    $ipForm.find('.ipwSuccess').show();
+                                    $ipForm.find('.ipwSuccess').height($ipForm.find('.ipwForm').height());
                                     $ipForm.find('.ipwForm').hide();
                                 }
                             } else {

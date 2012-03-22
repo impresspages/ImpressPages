@@ -71,7 +71,7 @@ class FieldType{
                     }
                     $fieldOptions['values'] = $selectValues;
                     break;
-                case '\Library\IpForm\Field\Checkbox':
+                case '\Library\IpForm\Field\Confirm':
                     if (isset($fieldData['options']['text']) && is_string($fieldData['options']['text'])) {
                         $fieldOptions['text'] = $fieldData['options']['text'];
                     }

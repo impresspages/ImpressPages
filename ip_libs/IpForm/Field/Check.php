@@ -48,8 +48,8 @@ class Check extends Field{
         $attributesStr = '';
         
         return '
-<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value=""/>
-<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'"/>
+<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value="" />
+<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
 ';
     }
     

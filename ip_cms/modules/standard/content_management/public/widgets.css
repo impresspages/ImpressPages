@@ -613,6 +613,24 @@
     margin-top: 20px;
 }
 
+/* Widget: IpForm */
+.ipAdminWidget-IpForm .ipaBody .ipaFieldTemplate {
+    margin-bottom: 5px;
+}
+.ipAdminWidget-IpForm .ipaBody .ipaButton {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 4px;
+}
+.ipAdminWidget-IpForm .ipaBody .ipAdminInput {
+    width: 40%;
+}
+.ipAdminWidget-IpForm .ipaOptions {
+    margin-top: 10px;
+}
+
 /* style that interfere with theme styles and potentially may cause issues */
 .ipWidget {
     min-height: 10px;

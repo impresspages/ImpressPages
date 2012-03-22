@@ -12,8 +12,8 @@ class Hidden extends Field{
     
     public function render($doctype) {
         $attributesStr = '';
-        
-        return '<input name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value="'.htmlspecialchars($this->getDefaultValue()).'"/>';
+
+        return '<input name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="hidden" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     public function getLayout() {

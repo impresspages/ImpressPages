@@ -30,11 +30,11 @@ function IpWidget_IpForm(widgetObject) {
         
         options.optionsPopup = this.widgetObject.find(".ipaOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.data.fieldTypes});
         container.ipWidget_ipForm_container(options);
-        this.widgetObject.find(".ipaFormAddField").validator().submit(function (e){e.preventDefault(); $(this).trigger('addFieldClicked.ipForm');});
+        this.widgetObject.find(".ipaFieldAdd").click(function (e){e.preventDefault(); $(this).trigger('addFieldClicked.ipForm');});
         this.widgetObject.bind('addFieldClicked.ipForm', this.addField);
         var customTinyMceConfig = ipTinyMceConfigMin;
         customTinyMceConfig.height = 100;
-        this.widgetObject.find(".ipWidget_ipForm_thankYouMessage").tinymce(customTinyMceConfig);
+        this.widgetObject.find(".ipWidgetIpFormSuccess").tinymce(customTinyMceConfig);
         
     }
     
@@ -67,7 +67,7 @@ function IpWidget_IpForm(widgetObject) {
 
         });
         
-        data.thankYouMessage = this.widgetObject.find('.ipWidget_ipForm_thankYouMessage').html();
+        data.success = this.widgetObject.find('.ipWidgetIpFormSuccess').html();
 
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }

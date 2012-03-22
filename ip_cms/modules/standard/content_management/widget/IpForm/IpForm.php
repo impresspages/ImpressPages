@@ -96,10 +96,6 @@ class IpForm extends \Modules\standard\content_management\Widget{
     
     
     public function managementHtml($instanceId, $data, $layout) {
-        $addFieldForm = new \Library\IpForm\Form();
-        $addFieldForm->addAttribute('class', 'ipaButton ipaFormAddField');
-        
-        //collect available field types
         $fieldObjects = IpForm\Model::getAvailableFieldTypes();
         
         $fieldTypes = array ();
@@ -111,17 +107,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         }
         uksort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
-        
-        //create add field button
-        $field = new \Library\IpForm\Field\Submit(
-        array(
-        'defaultValue' => 'Add'
-        )
-        );
-        $addFieldForm->addField($field);
-        
-        
-        $data['addFieldForm'] = $addFieldForm;
+
         return parent::managementHtml($instanceId, $data, $layout);
     }
     

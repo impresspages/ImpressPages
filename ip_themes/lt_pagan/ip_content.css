@@ -54,7 +54,8 @@
     box-shadow: none;
 }
 .ipModuleNewsletter .ipmButton, 
-.ipModuleSearch .ipmButton {
+.ipModuleSearch .ipmButton,
+.ipForm .ipfControlSubmit {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #f4f4f4; /* Old browsers */
     background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
@@ -75,7 +76,8 @@
     text-transform: uppercase;
 }
 .ipModuleNewsletter .ipmButton:hover,
-.ipModuleSearch .ipmButton:hover {
+.ipModuleSearch .ipmButton:hover,
+.ipForm .ipfControlSubmit:hover {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #e1e0e0; /* Old browsers */
     background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
@@ -112,6 +114,75 @@
 .ipModuleNewsletter .ipmError {
     color: #da0001;
 }
+/* Modules :: IpForm */
+.ipForm {}
+.ipForm .ipfPage {}
+.ipForm .ipfFieldset {}
+.ipForm .ipfField {
+    margin-bottom: 25px;
+}
+.ipForm .ipfField:last-child {
+    margin-bottom: 0;
+}
+.ipForm .ipfLabel {
+    display: block;
+    font-weight: bold;
+    float: left;
+    margin-right: 10px;
+    min-height: 1px; /* to keep the width when empty */
+    padding-top: 3px;
+    width: 85px;
+}
+.ipForm .ipfRequired {
+    display: block;
+    float: left;
+    margin: 7px 0 0 -15px;
+    position: absolute;
+}
+.ipForm .ipfControl {
+    float: left;
+    width: 385px;
+}
+.ipForm .ipfControlInput {
+    background-color: #f2f2f2;
+    border: 1px solid #a7a7a7;
+    height: 21px;
+    padding: 1px 2px;
+    width: 185px;
+}
+.ipForm .ipfControlTextarea {
+    background-color: #f2f2f2;
+    border: 1px solid #a7a7a7;
+    display: block;
+    height: 9.5em; /* height is relative to the font size to have full lines */
+    padding: 1px 2px;
+    overflow: auto; /* hiding scrolls if not necessary */
+    width: 98%; /* 100% goes outside the area because of border and padding (box model) */
+}
+.ipForm .ipfControlInput:focus,
+.ipForm .ipfControlTextarea:focus {
+    border-color: #000;
+}
+.ipForm .ipfControlSubmit {
+    margin-left: 0;
+    text-transform: none;
+}
+.ipForm .ipfControlSelect {
+    background-color: #f2f2f2;
+    border: 1px solid #a7a7a7;
+    height: 25px;
+    padding: 2px;
+    width: 185px;
+}
+.ipForm .ipfControlRadio {}
+.ipForm .ipfControlCheckbox {
+    float: left;
+}
+.ipForm .ipfControlCheckboxOptions {
+    margin-left: 25px;
+}
+.ipForm .ipfNote {}
+.ipForm .ipfHint {}
 
 /* Widgets :: main */
 .ipBlock.ipbEmpty {
@@ -334,6 +405,16 @@
 }
 .ipWidget-IpFaq .ipwCollapsed .ipwAnswer {
     display: none;
+}
+.ipWidget-IpForm {
+    border: 1px solid #888;
+    padding: 30px 25px 20px;
+}
+.ipWidget-IpForm .ipwForm {
+}
+.ipWidget-IpForm .ipwSuccess {
+    /*display: none;*/
+    opacity: 0.5;
 }
 
 /* Widgets :: side */
