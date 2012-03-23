@@ -44,8 +44,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             
             //new original image
             $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($postData['newImage'], 'standard/content_management', $widgetId);
-
-
+            
             //remove old big image
             if (isset($currentData['imageBig']) && $currentData['imageBig']) {
                 \Modules\administrator\repository\Model::unbindFile($currentData['imageBig'], 'standard/content_management', $widgetId);
@@ -53,50 +52,33 @@ class IpImage extends \Modules\standard\content_management\Widget{
             
             
             //new big image
-            $tmpBigImageName = \Library\Php\Image\Functions::resize(
-            $postData['newImage'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_width'),
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_height'),
-            TMP_IMAGE_DIR,
-            \Library\Php\Image\Functions::CROP_TYPE_FIT,
-            false,
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_quality')
-            );
+            $tmpBigImage = $this->cropBigImage($postData['newImage']);
             $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
+            //delete temporary file
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
 
-        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) ) {
+        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) && isset($postData['maxWidth'])) {
             //remove old file
             if(isset($currentData['imageSmall'])) {
                 \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
             }
             
+
             //new small image
-            $ratio = ($postData['cropX2'] - $postData['cropX1']) / ($postData['cropY2'] - $postData['cropY1']);
-            $requiredWidth = round($postData['maxWidth'] * $postData['scale']);
-            $requiredHeight = round($requiredWidth / $ratio);
-            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
-            $newData['imageOriginal'],
-            TMP_IMAGE_DIR,
-            $postData['cropX1'],
-            $postData['cropY1'],
-            $postData['cropX2'],
-            $postData['cropY2'],
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'quality'),
-            $requiredWidth,
-            $requiredHeight
-            );
-            
-            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
-            
-            $newData['scale'] = $postData['scale'];
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
             $newData['cropX2'] = $postData['cropX2'];
             $newData['cropY2'] = $postData['cropY2'];
-
+            $newData['scale'] = $postData['scale'];
+            $newData['maxWidth'] = $postData['maxWidth'];
+            
+            $tmpSmallImageName = $this->cropImage($newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $postData['maxWidth']);
+            
+            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
+            
+            //delete temporary file
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         }
 
 
@@ -152,12 +134,75 @@ class IpImage extends \Modules\standard\content_management\Widget{
         }
     }
     
-    
+    /**
+     * If theme has changed, we need to crop thumbnails again.
+     * @see Modules\standard\content_management.Widget::recreate()
+     */
     public function recreate($widgetId, $data) {
+        $newData = $data;
         
+        //crop big lightbox image from original. Remove old one.
+        if ($data['imageOriginal']) {
+            //remove old big image
+            if (isset($data['imageBig']) && $data['imageBig']) {
+                \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+            }
+            
+            //new big image
+            $tmpBigImage = $this->cropBigImage($data['imageOriginal']);
+            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
+            //delete temporary file
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
+        }
+        
+        //crop small image from original. Remove the old one.
+        if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['scale']) && isset($data['maxWidth'])) {
+            //remove old file
+            if(isset($currentData['imageSmall'])) {
+                \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
+            }
+            
+            $tmpSmallImageName = $this->cropImage($data['cropX1'], $data['cropY1'], $data['cropX2'], $data['cropY2'], $data['scale'], $data['maxWidth']);
+            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
+            
+            //delete temporary file
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
+        }
+        return $newData;
     }
    
 
-
+    private function cropBigImage($imageOriginal) {
+        global $parametersMod;
+        $bigImageName = \Library\Php\Image\Functions::resize(
+            $imageOriginal,
+            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_width'),
+            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_height'),
+            TMP_IMAGE_DIR,
+            \Library\Php\Image\Functions::CROP_TYPE_FIT,
+            false,
+            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_quality')
+        );
+        return $bigImageName;
+    }
+    
+    private function cropImage($imageOriginal, $cropX1, $cropY1, $cropX2, $cropY2, $scale, $maxWidth) {
+        global $parametersMod;
+        $ratio = ($cropX2 - $cropX1) / ($cropY2 - $cropY1);
+        $requiredWidth = round($maxWidth * $scale);
+        $requiredHeight = round($requiredWidth / $ratio);
+        $imageName = \Library\Php\Image\Functions::crop (
+            $imageOriginal,
+            TMP_IMAGE_DIR,
+            $cropX1,
+            $cropY1,
+            $cropX2,
+            $cropY2,
+            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'quality'),
+            $requiredWidth,
+            $requiredHeight
+        );
+        return $imageName;
+    }
 
 }

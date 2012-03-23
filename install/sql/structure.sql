@@ -240,11 +240,14 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
   `layout` varchar(25) NOT NULL,
   `data` text NOT NULL,
   `created` int(11) NOT NULL,
+  `recreated` int(11) NOT NULL COMMENT 'when last time the images were cropped freshly :)',
   `predecessor` int(11) DEFAULT NULL COMMENT 'Id of other widget that was duplicated to create this widget',
   PRIMARY KEY (`widgetId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
 
 -- Table structure
+
+
 
 DROP TABLE IF EXISTS `ip_cms_m_content_management_widget_instance`;
 

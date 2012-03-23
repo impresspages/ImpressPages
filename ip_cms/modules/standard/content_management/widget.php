@@ -235,6 +235,6 @@ class Widget{
      * might be changed.
      */
     public function recreate($widgetId, $data) {
-        
+        return $data;
     }
 }
