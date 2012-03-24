@@ -43,8 +43,9 @@ class DbSystem{    //system variables
         if ($rs) {
             if ($lock = mysql_fetch_assoc($rs)) {
                 return $lock['value'];
-            } else
-            return false;
+            } else {
+                throw new \Ip\CoreException("Unknown system variable ".$name, \Ip\CoreException::SYSTEM_VARIABLE);
+            }
         } else {
             trigger_error($sql." ".mysql_error());
             return false;

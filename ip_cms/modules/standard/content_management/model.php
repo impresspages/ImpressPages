@@ -9,6 +9,7 @@ if (!defined('CMS')) exit;
 
 require_once(__DIR__.'/event_widget.php');
 require_once(__DIR__.'/exception.php');
+require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
 
 
 class Model{
@@ -91,13 +92,29 @@ class Model{
     }
 
     private static function _generateWidgetPreview($widgetRecord, $managementState) {
+        //check if we don't need to recreate the widget
+        $themeChanged = \DbSystem::getSystemVariable('theme_changed');
+        if ($themeChanged > $widgetRecord['recreated']) {
+            $widgetData = $widgetRecord['data'];
+            if (!is_array($widgetData)) {
+                $widgetData = array();
+            }
+            $widgetObject = self::getWidgetObject($widgetRecord['name']);
+            $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
+            self::updateWidget($widgetRecord['widgetId'], array('recreated' => time()));
+            $widgetRecord = self::getWidgetFullRecord($widgetRecord['instanceId']);
+        }
+        
+        
+        
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
             $widgetData = array();
         }
 
+        
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
-
+        
         if (!$widgetObject) {
             throw new Exception('Widget does not exist. Widget name: '.$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
         }
@@ -429,6 +446,7 @@ class Model{
               `name` = '".mysql_real_escape_string($widgetName)."',
               `layout` = '".mysql_real_escape_string($layout)."',
               `created` = ".time().",
+              `recreated` = ".time().",
               `data` = '".mysql_real_escape_string(json_encode($data))."',
               `predecessor` = ".$predecessorSql."
               ";

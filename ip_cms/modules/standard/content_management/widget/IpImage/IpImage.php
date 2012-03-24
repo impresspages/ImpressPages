@@ -52,7 +52,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             
             
             //new big image
-            $tmpBigImage = $this->cropBigImage($postData['newImage']);
+            $tmpBigImageName = $this->cropBigImage($postData['newImage']);
             $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
             //delete temporary file
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
@@ -73,7 +73,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $newData['scale'] = $postData['scale'];
             $newData['maxWidth'] = $postData['maxWidth'];
             
-            $tmpSmallImageName = $this->cropImage($newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $postData['maxWidth']);
+            $tmpSmallImageName = $this->cropImage($newData['imageOriginal'], $newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $postData['maxWidth']);
             
             $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
             
@@ -149,26 +149,11 @@ class IpImage extends \Modules\standard\content_management\Widget{
             }
             
             //new big image
-            $tmpBigImage = $this->cropBigImage($data['imageOriginal']);
+            $tmpBigImageName = $this->cropBigImage($data['imageOriginal']);
             $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
             //delete temporary file
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
-        
-        //crop small image from original. Remove the old one.
-        if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['scale']) && isset($data['maxWidth'])) {
-            //remove old file
-            if(isset($currentData['imageSmall'])) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
-            }
-            
-            $tmpSmallImageName = $this->cropImage($data['cropX1'], $data['cropY1'], $data['cropX2'], $data['cropY2'], $data['scale'], $data['maxWidth']);
-            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
-            
-            //delete temporary file
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
-        }
-        return $newData;
     }
    
 

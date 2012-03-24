@@ -51,6 +51,9 @@ class Model{
             require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
+        
+        \DbSystem::setSystemVariable('theme_changed', time());
+        
     }
     
     private static function writeThemeNameToConfig($configFileName, $themeName){

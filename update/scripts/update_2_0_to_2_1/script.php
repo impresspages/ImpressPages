@@ -293,18 +293,25 @@ class Script {
             $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
             $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
             
-            $sql = "ALTER TABLE  `".DB_PREF."m_administrator_repository_file` ADD INDEX (  `filename` )";
+            $sql = "ALTER TABLE `".DB_PREF."m_administrator_repository_file` ADD INDEX (  `filename` )";
             $rs = mysql_query($sql);
             if (!$rs) {
                 trigger_error($sql.' '.mysql_error());
             }
             
-            $sql = "ALTER TABLE  `".DB_PREF."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly :)' AFTER `created`";
+            $sql = "ALTER TABLE `".DB_PREF."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly :)' AFTER `created`";
             $rs = mysql_query($sql);
             if (!$rs) {
                 trigger_error($sql.' '.mysql_error());
             }
             
+            $sql = "UPDATE `".DB_PREF."m_content_management_widget` SET recreated = created WHERE 1";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error($sql.' '.mysql_error());
+            }
+            
+            \Db_100::insertSystemVariable('theme_changed', time());
             
             
             if ($this->curStep == $this->stepCount){
