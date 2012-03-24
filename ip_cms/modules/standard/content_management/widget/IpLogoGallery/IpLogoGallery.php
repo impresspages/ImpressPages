@@ -212,6 +212,55 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
         return $answer;
 
     }
+    
+    
+    /**
+    * If theme has changed, we need to crop thumbnails again.
+    * @see Modules\standard\content_management.Widget::recreate()
+    */
+    public function recreate($widgetId, $data) {
+        global $parametersMod;
+        $newData = $data;
+    
+        
+        
+        if (!isset($data['logos']) || !is_array($data['logos'])) {
+            return $newData;
+        }
+    
+        foreach($newData['logos'] as $logoKey => &$logo) {
+    
+            if (!isset($logo['cropX1']) || !isset($logo['cropY1']) || !isset($logo['cropX2']) || !isset($logo['cropY2'])|| !isset($logo['logoOriginal'])) {
+                continue; //missing data. Better don't do anything
+            }
+    
+            //remove old big image
+            if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+                \Modules\administrator\repository\Model::unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
+            }
+    
+            
+            $imageInfo = getimagesize($logo['logoOriginal']);
+    
+            //create simplified small logo
+            $tmpLogoSmall = $this->_createSmallLogo(
+            $logo['logoOriginal'],
+            0,
+            0,
+            $imageInfo[0],
+            $imageInfo[1],
+            TMP_IMAGE_DIR
+            );
+            $logoSmall = \Modules\administrator\repository\Model::addFile($tmpLogoSmall, 'standard/content_management', $widgetId);
+            unlink(BASE_DIR.$tmpLogoSmall);
+            $logo['logoSmall'] = $logoSmall;
+    
+    
+        };
+    
+    
+        return $newData;    
+    }
 
     private function _findExistingLogo ($logoOriginalFile, $allLogos) {
 

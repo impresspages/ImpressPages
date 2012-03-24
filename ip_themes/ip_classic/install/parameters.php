@@ -23,8 +23,8 @@ $languageUrl = "en";
     $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "100"; // lightbox
 
     // Widget: IpLogoGallery
-    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["width"] = "160";
-    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["height"] = "160";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["width"] = "400";
+    $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["height"] = "400";
 
     // Widget: IpTextImage
     $parameterValue["standard"]["content_management"]["widget_text_image"]["width"] = "300"; // content
