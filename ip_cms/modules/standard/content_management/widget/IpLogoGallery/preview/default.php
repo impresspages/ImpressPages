@@ -7,9 +7,13 @@ foreach ($logos as $logoKey => $logo) {
     $curLink = isset($logo['link']) ? $logo['link'] : '';
 ?>
     <li>
-        <a href="<?php echo htmlspecialchars($curLink); ?>" title="<?php echo htmlspecialchars($curTitle); ?>">
+        <?php if ($curLink ) { ?>
+        <a href="<?php echo htmlspecialchars($curLink); ?>" title="<?php echo htmlspecialchars($curTitle); ?>" <?php if ($this->getDoctype() != \Ip\View::DOCTYPE_HTML4_STRICT) { ?>target="_blank"<?php } ?>>
             <img src="<?php echo htmlspecialchars(BASE_URL.$curLogo); ?>" alt="<?php htmlspecialchars($curTitle); ?>" />
         </a>
+        <?php } else { ?>
+        <img src="<?php echo htmlspecialchars(BASE_URL.$curLogo); ?>" alt="<?php htmlspecialchars($curTitle); ?>" />
+        <?php } ?>
     </li>
 <?php } ?>
 </ul>
