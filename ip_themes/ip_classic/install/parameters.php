@@ -17,10 +17,10 @@ $languageUrl = "en";
     $parameterValue["standard"]["content_management"]["widget_image"]["big_height"] = "300"; // lightbox
 
     // Widget: IpImageGallery
-    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["width"] = "160"; // content
-    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["height"] = "100"; // content
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["width"] = "220"; // content
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["height"] = "600"; // content
     $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_width"] = "800"; // lightbox
-    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "600"; // lightbox
+    $parameterValue["standard"]["content_management"]["widget_image_gallery"]["big_height"] = "100"; // lightbox
 
     // Widget: IpLogoGallery
     $parameterValue["standard"]["content_management"]["widget_logo_gallery"]["width"] = "160";
