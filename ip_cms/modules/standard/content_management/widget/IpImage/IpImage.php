@@ -154,6 +154,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
             //delete temporary file
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
+        return $newData;
     }
    
 

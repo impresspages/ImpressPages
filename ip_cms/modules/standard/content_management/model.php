@@ -100,8 +100,8 @@ class Model{
                 $widgetData = array();
             }
             $widgetObject = self::getWidgetObject($widgetRecord['name']);
-            $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
-            self::updateWidget($widgetRecord['widgetId'], array('recreated' => time()));
+            $newData = $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
+            self::updateWidget($widgetRecord['widgetId'], array('recreated' => time(), 'data' =>  $newData));
             $widgetRecord = self::getWidgetFullRecord($widgetRecord['instanceId']);
         }
         

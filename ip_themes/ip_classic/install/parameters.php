@@ -14,7 +14,7 @@ $languageUrl = "en";
     $parameterValue["standard"]["content_management"]["widget_image"]["width"] = "333"; // content
     $parameterValue["standard"]["content_management"]["widget_image"]["height"] = "342"; // content
     $parameterValue["standard"]["content_management"]["widget_image"]["big_width"] = "800"; // lightbox
-    $parameterValue["standard"]["content_management"]["widget_image"]["big_height"] = "600"; // lightbox
+    $parameterValue["standard"]["content_management"]["widget_image"]["big_height"] = "300"; // lightbox
 
     // Widget: IpImageGallery
     $parameterValue["standard"]["content_management"]["widget_image_gallery"]["width"] = "160"; // content
