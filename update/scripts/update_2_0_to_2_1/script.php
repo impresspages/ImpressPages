@@ -314,6 +314,14 @@ class Script {
             \Db_100::insertSystemVariable('theme_changed', time());
             
             
+            if (\Db_100::insertSystemVariable('last_system_message_sent') === false) {
+                \Db_100::insertSystemVariable('last_system_message_sent', '');
+            }
+            
+            if (\Db_100::insertSystemVariable('last_system_message_shown') === false) {
+                \Db_100::insertSystemVariable('last_system_message_shown', '');
+            }
+            
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');
             }
