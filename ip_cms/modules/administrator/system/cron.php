@@ -21,6 +21,14 @@ class Cron {
         global $dbSite;
         global $log;
         global $site;
+        
+        
+        if ($options->firstTimeThisDay) {
+            if ($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
+                \Ip\Revision::removeOldRevisions($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for'));
+            }
+        }        
+        
         if ($options->firstTimeThisWeek) {
             $module = new Module();
             $systemInfo = $module->getSystemInfo();
@@ -46,11 +54,11 @@ class Cron {
                         }
 
                         if ($onlyStatusMessages) {
-                            return;
+                            return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                         }
 
                     } else {
-                        return;
+                        return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                     }
 
                     if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
@@ -75,12 +83,7 @@ class Cron {
 
             }
         }
-        
-        if ($options->firstTimeThisDay) {
-            if ($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
-                \Ip\Revision::removeOldRevisions($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for'));
-            }
-        }
+
     }
 
 }
