@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
   `instanceId` int(11) NOT NULL COMMENT 'Unique identificator. Tells in which part of the module the file is used. Teoretically there could be two identical records. The same module binds the same file to the same instance. For example: gallery widget adds the same photo twice.',
   `date` int(11) NOT NULL COMMENT 'Date, when this module started to use this resource.',
   PRIMARY KEY (`fileId`),
-  KEY `filename` (`filenam`)
+  KEY `filename` (`filename`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files' AUTO_INCREMENT=7 ;
 
 -- Table structure
