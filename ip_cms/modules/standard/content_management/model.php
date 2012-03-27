@@ -64,6 +64,7 @@ class Model{
             'layout' => $layout,
             'data' => $data,
             'created' => time(),
+            'recreated' => time(),
             'predecessor' => null,
         
             'instanceId' => null,
