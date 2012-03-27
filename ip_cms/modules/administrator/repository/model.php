@@ -79,9 +79,7 @@ class Model{
         $whoUses = self::whoUsesFile($file);
         
         if (count($whoUses) == 0) {
-            if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
-                unlink(BASE_DIR.$file);
-            }
+            self::removeFile($file);
         }
     }
     
@@ -106,6 +104,23 @@ class Model{
             $answer[] = $lock;
         }
         return $answer;
+    }
+    
+    private static function removeFile($file) {
+        if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
+            $newFile = 'repository_'.basename($file);
+            $count = 0;
+            if (file_exists(BASE_DIR.TMP_FILE_DIR.$newFile)) {
+                $count++;
+                $newFile = 'repository_'.$count.'_'.basename($file);
+            }
+            $success = copy(BASE_DIR.$file, BASE_DIR.TMP_FILE_DIR.$newFile);
+            if (!$success) {
+                throw new \Exception('Can\'t unbind file from repository: '.BASE_DIR.$file);
+            }
+            unlink(BASE_DIR.$file);
+        }
+        
     }
     
     

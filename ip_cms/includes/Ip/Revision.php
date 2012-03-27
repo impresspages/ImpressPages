@@ -211,7 +211,7 @@ class Revision{
     public static function removeOldRevisions($days) {
         global $dispatcher;
         
-        $sqlWhere = "`created` < ".(time() - $days * 24 * 60 * 60)." AND NOT `published`";
+        $sqlWhere = "`created` < ".(time() + $days * 24 * 60 * 60)." AND NOT `published`";
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE ".$sqlWhere."

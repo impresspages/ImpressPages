@@ -322,6 +322,17 @@ class Script {
                 \Db_100::insertSystemVariable('last_system_message_shown', '');
             }
             
+            
+            //bind widget images to repository
+            $sql = "SELECT * FRMO ".DB_PREF."m_content_management_widget WHERE 1";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                throw new \Exception($sql . " " . mysql_error());
+            }
+            while($lock = mysql_fetch_assoc($rs)){
+                $this->bindToRepository($lock);
+            }
+            
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.1');
             }
@@ -334,6 +345,25 @@ class Script {
         }
 
         return $answer;
+    }
+    
+    private function bindToRepository($widgetRecord) {
+        switch($widgetRecord['name']) {
+            case 'IpImage':
+                break;
+            case 'IpTextImage':
+                break;
+            case 'IpImageGallery':
+                break;
+            case 'IpLogoGallery':
+                break;
+            case 'IpFile':
+                break;
+                
+            default:
+                //don't do anything with other widgets
+                
+        }
     }
 
 

@@ -227,7 +227,7 @@ class Cms {
                 // List all the files
                 while (false !== ($file = readdir($handle))) {
                     if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
-                        if (filectime($dir.$file) + 3600*24*7 < $now)  //delete if a file is created later than one week
+                        if (filectime($dir.$file) + 3600*24*7*2 < $now)  //delete if a file is created more than two weeks ago
                         unlink($dir.$file);
                     }
                 }

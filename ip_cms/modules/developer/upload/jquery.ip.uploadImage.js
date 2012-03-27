@@ -334,6 +334,11 @@
             var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
             var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
         
+            var data = $this.data('ipUploadImage');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadImage', data);
+            
+            
             $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
         },
         
@@ -388,6 +393,10 @@
             }
             
             if ($this.ipUploadImage('getNewImageUploaded')) { //new image uploaded. Center it.
+                var data = $this.data('ipUploadImage');
+                data.coordinatesChanged = true;
+                $this.data('ipUploadImage', data);
+                
                 $(this).ipUploadImage('autosize', data.autosizeType, true);
             } else { //current image loaded. Crop it as it was cropped before
                 $(this).ipUploadImage('restoreOriginalDimmensions');
@@ -564,10 +573,6 @@
             if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()){
                 $image.css('top', $dragContainer.height() - $image.height());
             }
-         
-            var data = $this.data('ipUploadImage');
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
 
             
         },

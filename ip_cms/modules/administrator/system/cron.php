@@ -24,7 +24,7 @@ class Cron {
         
         
         if ($options->firstTimeThisDay) {
-            if ($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
+            if (true || $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
                 \Ip\Revision::removeOldRevisions($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for'));
             }
         }        
