@@ -319,17 +319,17 @@ class Script {
             \Db_100::insertSystemVariable('theme_changed', time());
             
             
-            if (\Db_100::insertSystemVariable('last_system_message_sent') === false) {
+            if (\Db_100::getSystemVariable('last_system_message_sent') === false) {
                 \Db_100::insertSystemVariable('last_system_message_sent', '');
             }
             
-            if (\Db_100::insertSystemVariable('last_system_message_shown') === false) {
+            if (\Db_100::getSystemVariable('last_system_message_shown') === false) {
                 \Db_100::insertSystemVariable('last_system_message_shown', '');
             }
             
             
             //bind widget images to repository
-            $sql = "SELECT * FRMO ".DB_PREF."m_content_management_widget WHERE 1";
+            $sql = "SELECT * FROM ".DB_PREF."m_content_management_widget WHERE 1";
             $rs = mysql_query($sql);
             if (!$rs) {
                 throw new \Exception($sql . " " . mysql_error());
@@ -358,7 +358,7 @@ class Script {
         if (empty($data)) {
             return; //don't need to do anything
         }
-        $id = $widgetRecord['id'];
+        $id = $widgetRecord['widgetId'];
         switch($widgetRecord['name']) {
             case 'IpImage':
             case 'IpTextImage':
@@ -397,7 +397,7 @@ class Script {
                         }
                     }
                     if (isset($image['imageSmall']) && $image['imageSmall']) {
-                        if (!\Modules\administrator\repository\Model::isBind($data['imageSmall'], 'standard/content_management', $id)) {
+                        if (!\Modules\administrator\repository\Model::isBind($image['imageSmall'], 'standard/content_management', $id)) {
                             \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $id);
                         }
                     }
