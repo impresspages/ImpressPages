@@ -65,7 +65,7 @@ class ParametersRefractor {
     } 
   }
   
-  private function addPermissions($moduleId, $userId){
+  public function addPermissions($moduleId, $userId){
     $sql = "insert into `".DB_PREF."user_to_mod`
     set
     module_id = '".(int)$moduleId."',
@@ -81,7 +81,7 @@ class ParametersRefractor {
     }    
   }
   
-  private function getUsers(){
+  public function getUsers(){
     $answer = array();
     $sql = "select * from `".DB_PREF."user` where 1";
     $rs = mysql_query($sql);

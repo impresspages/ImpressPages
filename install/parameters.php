@@ -2277,7 +2277,7 @@ left";
         $parameterGroupAdmin["administrator"]["theme"]["admin_translations"] = "1";
         
         $parameterTitle["administrator"]["theme"]["admin_translations"]["successful_install"] = "Successful install";
-        $parameterValue["administrator"]["theme"]["admin_translations"]["successful_install"] = "New theme has been successfully installed. ";
+        $parameterValue["administrator"]["theme"]["admin_translations"]["successful_install"] = "New theme has been successfully installed.";
         $parameterAdmin["administrator"]["theme"]["admin_translations"]["successful_install"] = "1";
         $parameterType["administrator"]["theme"]["admin_translations"]["successful_install"] = "string";
         

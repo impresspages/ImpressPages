@@ -292,7 +292,17 @@ class Script {
             }
             
             $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
-            $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
+            if (!$parametersRefractor->getModuleId('administrator', 'theme')) {
+                $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
+                $users = $parametersRefractor->getUsers();
+                foreach($users as $user){
+                    $parametersRefractor->addPermissions($moduleId, $user['id']);
+                }
+            }
+            $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            \Db_100::addStringParameter($groupId, 'Successful install', 'successful_install', 'New theme has been successfully installed.', 1);
+            \Db_100::addStringParameter($groupId, 'Install', 'install', 'Install', 1);
+            \Db_100::addStringParameter($groupId, 'Title', 'title', 'Choose theme', 1);
             
             $sql = "ALTER TABLE `".DB_PREF."m_administrator_repository_file` ADD INDEX (  `filename` )";
             $rs = mysql_query($sql);
