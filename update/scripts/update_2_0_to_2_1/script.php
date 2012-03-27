@@ -9,6 +9,7 @@ namespace update_2_0_to_2_1;
 if (!defined('CMS')) exit;
 
 require_once('translations.php');
+require_once('repository.php');
 
 class Script {
     var $deleteFiles;
@@ -258,7 +259,7 @@ class Script {
                 }
                 
                 if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
-                    \Db_100::addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send'));
+                    \Db_100::addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send', 'comment' => ''));
                 }
                 
             }
@@ -267,7 +268,7 @@ class Script {
             $group = $parametersRefractor->getParametersGroup($module['id'], 'main_parameters');
             if ($group) {
                 if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
-                    \Db_100::addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,'));
+                    \Db_100::addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,', 'comment' => ''));
                 }
                 
             }
@@ -286,7 +287,7 @@ class Script {
             $group = $parametersRefractor->getParametersGroup($module['id'], 'translations');
             if ($group) {
                 if(!\Db_100::getParameter('community', 'user', 'translations', 'text_registration_verified')) {
-                    \Db_100::addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.'));
+                    \Db_100::addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.', 'comment' => ''));
                 }
             }
             
@@ -299,10 +300,14 @@ class Script {
                 trigger_error($sql.' '.mysql_error());
             }
             
-            $sql = "ALTER TABLE `".DB_PREF."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly :)' AFTER `created`";
-            $rs = mysql_query($sql);
-            if (!$rs) {
-                trigger_error($sql.' '.mysql_error());
+            $rs = mysql_query("SHOW COLUMNS FROM `".DB_PREF."m_content_management_widget` LIKE 'recreated'");
+            $columnExists = (mysql_num_rows($rs)) ? true : false;
+            if (!$columnExists) {
+                $sql = "ALTER TABLE `".DB_PREF."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly' AFTER `created`";
+                $rs = mysql_query($sql);
+                if (!$rs) {
+                    trigger_error($sql.' '.mysql_error());
+                }
             }
             
             $sql = "UPDATE `".DB_PREF."m_content_management_widget` SET recreated = created WHERE 1";
@@ -348,21 +353,92 @@ class Script {
     }
     
     private function bindToRepository($widgetRecord) {
+        
+        $data = json_decode($widgetRecord['data'], true);
+        if (empty($data)) {
+            return; //don't need to do anything
+        }
+        $id = $widgetRecord['id'];
         switch($widgetRecord['name']) {
             case 'IpImage':
-                break;
             case 'IpTextImage':
+                if (isset($data['imageOriginal']) && $data['imageOriginal']) {
+                    if (!\Modules\administrator\repository\Model::isBind($data['imageOriginal'], 'standard/content_management', $id)) {
+                        \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $id);
+                    }
+                }
+                if (isset($data['imageBig']) && $data['imageBig']) {
+                    if (!\Modules\administrator\repository\Model::isBind($data['imageBig'], 'standard/content_management', $id)) {
+                        \Modules\administrator\repository\Model::bindFile($data['imageBig'], 'standard/content_management', $id);
+                    }
+                }
+                if (isset($data['imageSmall']) && $data['imageSmall']) {
+                    if (!\Modules\administrator\repository\Model::isBind($data['imageSmall'], 'standard/content_management', $id)) {
+                        \Modules\administrator\repository\Model::bindFile($data['imageSmall'], 'standard/content_management', $id);
+                    }
+                }
                 break;
             case 'IpImageGallery':
+                if (!isset($data['images']) || !is_array($data['images'])) {
+                    break;
+                }
+                foreach($data['images'] as $imageKey => $image) {
+                    if (!is_array($image)) {
+                        break;
+                    }
+                    if (isset($image['imageOriginal']) && $image['imageOriginal']) {
+                        if (!\Modules\administrator\repository\Model::isBind($image['imageOriginal'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $id);
+                        }
+                    }
+                    if (isset($image['imageBig']) && $image['imageBig']) {
+                        if (!\Modules\administrator\repository\Model::isBind($image['imageBig'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($image['imageBig'], 'standard/content_management', $id);
+                        }
+                    }
+                    if (isset($image['imageSmall']) && $image['imageSmall']) {
+                        if (!\Modules\administrator\repository\Model::isBind($data['imageSmall'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $id);
+                        }
+                    }
+                }
+                
                 break;
             case 'IpLogoGallery':
+                if (!isset($data['logos']) || !is_array($data['logos'])) {
+                    break;
+                }
+                
+                foreach($data['logos'] as $logoKey => $logo) {
+                    if (!is_array($logo)) {
+                        break;
+                    }
+                    if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
+                        if (!\Modules\administrator\repository\Model::isBind($logo['logoOriginal'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $id);
+                        }
+                    }
+                    if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+                        if (!\Modules\administrator\repository\Model::isBind($logo['logoSmall'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($logo['logoSmall'], 'standard/content_management', $id);
+                        }
+                    }
+                };
                 break;
             case 'IpFile':
+                if (!isset($data['files']) || !is_array($data['files'])) {
+                    return;
+                }
+                foreach($data['files'] as $fileKey => $file) {
+                    if (isset($file['fileName']) && $file['fileName']) {
+                        if (!\Modules\administrator\repository\Model::isBind($file['fileName'], 'standard/content_management', $id)) {
+                            \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $id);
+                        }
+                    }
+                };
                 break;
-                
             default:
                 //don't do anything with other widgets
-                
         }
     }
 
