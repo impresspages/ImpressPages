@@ -41,7 +41,7 @@ class Manager{
             Template::error($error);
         }
         if ($message) {
-            Template::message($message);
+            $answer .= Template::message($message);
         }
         $answer.= Template::themes($themes);
         $answer.= Template::footer();
