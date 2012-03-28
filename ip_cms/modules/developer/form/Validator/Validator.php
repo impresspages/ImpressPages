@@ -13,7 +13,7 @@ abstract class Validator{
     
     /**
      * 
-     * Return true if validation passed
+     * Return false on success or string on error
      * Add extra params at the end if you need
      * 
      * @param array $values

@@ -24,9 +24,12 @@ class Confirm extends Field{
             } else {
                 $this->checked = FALSE;
             }
-        }
+        }       
         if (isset($options['text'])) {
             $this->setText($options['text']);
+        }
+        if (!isset($options['defaultValue'])) {
+            $this->setDefaultValue(1);
         }
         parent::__construct($options);
     }
