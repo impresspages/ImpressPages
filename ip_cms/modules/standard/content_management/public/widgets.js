@@ -87,7 +87,6 @@ $.tools.validator.localize("fi", {
                                     ipWidgetIpFormSuccess($ipForm);
                                 } else { //default handler
                                     $ipForm.find('.ipwSuccess').show();
-                                    $ipForm.find('.ipwSuccess').height($ipForm.find('.ipwForm').height());
                                     $ipForm.find('.ipwForm').hide();
                                 }
                             } else {
