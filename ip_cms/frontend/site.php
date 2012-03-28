@@ -1068,6 +1068,7 @@ class Site{
             'ipThemeDir' => THEME_DIR,
             'ipModuleDir' => MODULE_DIR,
             'ipTheme' => THEME,
+            'ipLanguageCode' => $this->getCurrentLanguage()->getCode(),
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement() ? $this->getCurrentElement()->getId() : null,
