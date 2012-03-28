@@ -339,13 +339,13 @@
     margin: 20px 0 0 20px; /* size should be equal with ul element but without minus sign */
 }
 .ipWidget-IpImageGallery li a,
-.ipWidget-IpLogoGallery li a {
+.ipWidget-IpLogoGallery li img {
     border: 1px solid #888;
     display: block;
     padding: 2px;
 }
 .ipWidget-IpImageGallery a:hover,
-.ipWidget-IpLogoGallery a:hover {
+.ipWidget-IpLogoGallery a:hover img {
     border-color: #000;
 }
 .ipWidget-IpFile ul {
