@@ -1,4 +1,4 @@
-<div class="ipfField ipfType-<?php //echo $field->getCssClass(); ?> clearfix">
+<div class="ipfField ipfType-<?php echo $field->getCssClass(); ?> clearfix">
     <label>
         <span class="ipfLabel"><?php echo $this->esc($field->getLabel()); ?></span>
 <?php if($field->isRequired()) { ?>

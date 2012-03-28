@@ -96,7 +96,6 @@ abstract class Field{
     public function isRequired() {
         $validators = $this->getValidators();
         foreach($validators as $validator) {
-            echo get_class($validator);
             if (get_class($validator) == 'Modules\developer\form\Validator\Required') {
                 return true;
             }
