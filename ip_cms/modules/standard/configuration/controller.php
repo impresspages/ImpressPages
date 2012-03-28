@@ -31,4 +31,13 @@ class Controller extends \Ip\Controller{
         $site->setOutput($answer);
     }
 
+    function validatorConfig() {
+        global $site;
+        $data = array(
+            'languageCode' => $site->getCurrentLanguage()->getCode()
+        );
+        $answer = '';
+        $answer .= \Ip\View::create('jquerytools/validator.js', $data)->render();
+        $site->setOutput($answer);
+    }    
 }

@@ -42,34 +42,6 @@
         return this.each(function() {
             var $ipForm = $(this);
             
-            var validatorConfig = {
-                'lang' : 'en',
-                'errorClass' : 'ipfControlError',
-                'messageClass' : 'ipfErrorMessage',
-                'position' : 'top left',
-                'offset' : [-3, 0],
-                'onFail' : function(e, errors) {
-                    $.each(errors, function() {
-                        var $control = this.input;
-                        $control.parents('.ipfField').addClass('ipfError');
-                    });
-                },
-                'onSuccess' : function(e, valids) {
-                    $.each(valids, function() {
-                        var $control = $(this);
-                        $control.parents('.ipfField').removeClass('ipfError');
-                    });
-                }
-            };
-            /*
-$.tools.validator.localize("fi", {
-    ':email'      : 'Virheellinen s&auml;hk&ouml;postiosoite',
-    ':number'     : 'Arvon on oltava numeerinen',
-    '[max]'       : 'Arvon on oltava pienempi, kuin $1',
-    '[min]'       : 'Arvon on oltava suurempi, kuin $1',
-    '[required]'  : 'Kent&auml;n arvo on annettava'
-});
-            */
             $ipForm.find('form').validator(validatorConfig);
             $ipForm.find('form').submit(function(e) {
                 var form = $(this);

@@ -36,6 +36,19 @@ class System{
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
+        $getVariables = array (
+                        'g' => 'standard',
+                        'm' => 'configuration',
+                        'a' => 'tinymceConfig'
+        );
+        $site->addJavascript(str_replace('&amp;', '&', $site->generateUrl(null, null, array(), $getVariables)));
+        
+        $getVariables = array (
+                        'g' => 'standard',
+                        'm' => 'configuration',
+                        'a' => 'validatorConfig'
+        );
+        $site->addJavascript(str_replace('&amp;', '&', $site->generateUrl(null, null, array(), $getVariables)));
         
         
         
@@ -61,14 +74,6 @@ class System{
 
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js');
-
-            $getVariables = array (
-                'g' => 'standard',
-                'm' => 'configuration',
-                'a' => 'tinymceConfig'
-            );
-
-            $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
 
