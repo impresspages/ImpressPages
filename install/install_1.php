@@ -2,7 +2,7 @@
 /**
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license	GNU/GPL, see license.html
+ * @license see license.html
  */
 if (!defined('INSTALL')) exit;
 

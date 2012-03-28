@@ -3,7 +3,7 @@
  * Implements language negotiation
  * @package		Library
  * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license	GNU/GPL, see ip_license.html
+ * @license see ip_license.html
  */
 namespace Library\Php\BrowserDetection;
 
