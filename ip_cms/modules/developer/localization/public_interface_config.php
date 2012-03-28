@@ -246,3 +246,24 @@ $parameter["parameterValue/community/user/translations/text_password_verificatio
 
 $parameter["parameterTitle/community/user/translations/text_account_renewal_error"] = "Text - account renewal error";
 $parameter["parameterValue/community/user/translations/text_account_renewal_error"] = "<p>Error occurred while renewing your account. Try to renew your account by logging in and out. If you can't do so, your account may be already deleted.</p>";
+
+$parameter["developer/form/error_messages/unknown"] = "Unknown";
+$parameter["developer/form/error_messages/unknown"] = "Please correct this value";
+
+$parameter["developer/form/error_messages/email"] = "Email";
+$parameter["developer/form/error_messages/email"] = "Please enter a valid email address";
+
+$parameter["developer/form/error_messages/number"] = "Number";
+$parameter["developer/form/error_messages/number"] = "Please enter a valid numeric value";
+
+$parameter["developer/form/error_messages/url"] = "Url";
+$parameter["developer/form/error_messages/url"] = "Please enter a valid URL";
+
+$parameter["developer/form/error_messages/max"] = "Max";
+$parameter["developer/form/error_messages/max"] = "Please enter a value no larger than $1";
+
+$parameter["developer/form/error_messages/min"] = "Min";
+$parameter["developer/form/error_messages/min"] = "Please enter a value of at least $1";
+
+$parameter["developer/form/error_messages/required"] = "Required";
+$parameter["developer/form/error_messages/required"] = "Please complete this mandatory field";

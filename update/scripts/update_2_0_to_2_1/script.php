@@ -292,14 +292,20 @@ class Script {
             }
             
             $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
-            if (!$parametersRefractor->getModuleId('administrator', 'theme')) {
+            $moduleId = $parametersRefractor->getModuleId('administrator', 'theme'); 
+            if ($moduleId === false) {
                 $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
                 $users = $parametersRefractor->getUsers();
                 foreach($users as $user){
                     $parametersRefractor->addPermissions($moduleId, $user['id']);
                 }
             }
-            $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+            if ($parametersGroup) {
+                $groupId = $parametersGroup['id'];
+            } else {
+                $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            }
             \Db_100::addStringParameter($groupId, 'Successful install', 'successful_install', 'New theme has been successfully installed.', 1);
             \Db_100::addStringParameter($groupId, 'Install', 'install', 'Install', 1);
             \Db_100::addStringParameter($groupId, 'Title', 'title', 'Choose theme', 1);
@@ -336,6 +342,47 @@ class Script {
             if (\Db_100::getSystemVariable('last_system_message_shown') === false) {
                 \Db_100::insertSystemVariable('last_system_message_shown', '');
             }
+            
+            
+            //add developer/form module
+            $moduleGroup = $parametersRefractor->getModuleGroup('developer');
+            $moduleId = $parametersRefractor->getModuleId('developer', 'form'); 
+            if ($moduleId === false) {
+                $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Form', 'form', false, true, true, '1.00');
+                $users = $parametersRefractor->getUsers();
+                foreach($users as $user){
+                    $parametersRefractor->addPermissions($moduleId, $user['id']);
+                }
+            }
+            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'error_messages');
+            if ($parametersGroup) {
+                $groupId = $parametersGroup['id'];
+            } else {
+                $groupId = $parametersRefractor->addParameterGroup($moduleId, 'error_messages', 'Error messages', 0);
+            }
+            
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'unknown')) {
+                \Db_100::addParameter($group['id'], array('name' => 'unknown', 'translation' => 'Unknown', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please correct this value', 'comment' => ''));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'email')) {
+                \Db_100::addParameter($group['id'], array('name' => 'email', 'translation' => 'Email', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid email address', 'comment' => ''));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'number')) {
+                \Db_100::addParameter($group['id'], array('name' => 'number', 'translation' => 'Number', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid numeric value', 'comment' => ''));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'url')) {
+                \Db_100::addParameter($group['id'], array('name' => 'url', 'translation' => 'Url', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid URL', 'comment' => ''));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'max')) {
+                \Db_100::addParameter($group['id'], array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'min')) {
+                \Db_100::addParameter($group['id'], array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => '', 'comment' => 'Please enter a value of at least $1'));
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'required')) {
+                \Db_100::addParameter($group['id'], array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
+            }
+            
             
             
             //bind widget images to repository

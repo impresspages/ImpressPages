@@ -2822,3 +2822,45 @@ $moduleTitle["developer"]["zones"] = "Zones";
         $parameterValue["developer"]["localization"]["admin_translations"]["public_interface"] = "Public interface";
         $parameterAdmin["developer"]["localization"]["admin_translations"]["public_interface"] = "1";
         $parameterType["developer"]["localization"]["admin_translations"]["public_interface"] = "string";
+
+        
+$moduleGroupTitle["developer"] = "Developer";
+$moduleTitle["developer"]["form"] = "Form";
+        
+    $parameterGroupTitle["developer"]["form"]["error_messages"] = "Error messages";
+    $parameterGroupAdmin["developer"]["form"]["error_messages"] = "0";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["unknown"] = "Unknown";
+        $parameterValue["developer"]["form"]["error_messages"]["unknown"] = "Please correct this value";
+        $parameterAdmin["developer"]["form"]["error_messages"]["unknown"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["unknown"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["email"] = "Email";
+        $parameterValue["developer"]["form"]["error_messages"]["email"] = "Please enter a valid email address";
+        $parameterAdmin["developer"]["form"]["error_messages"]["email"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["email"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["number"] = "Number";
+        $parameterValue["developer"]["form"]["error_messages"]["number"] = "Please enter a valid numeric value";
+        $parameterAdmin["developer"]["form"]["error_messages"]["number"] = "1";
+        $parameterType["developer"]["form"]["error_messages"]["number"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["url"] = "Url";
+        $parameterValue["developer"]["form"]["error_messages"]["url"] = "Please enter a valid URL";
+        $parameterAdmin["developer"]["form"]["error_messages"]["url"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["url"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["max"] = "Max";
+        $parameterValue["developer"]["form"]["error_messages"]["max"] = "Please enter a value no larger than $1";
+        $parameterAdmin["developer"]["form"]["error_messages"]["max"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["max"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["min"] = "Min";
+        $parameterValue["developer"]["form"]["error_messages"]["min"] = "Please enter a value of at least $1";
+        $parameterAdmin["developer"]["form"]["error_messages"]["min"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["min"] = "lang";
+        
+        $parameterTitle["developer"]["form"]["error_messages"]["required"] = "Required";
+        $parameterValue["developer"]["form"]["error_messages"]["required"] = "Please complete this mandatory field";
+        $parameterAdmin["developer"]["form"]["error_messages"]["required"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["required"] = "lang";
