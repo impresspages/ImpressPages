@@ -4,7 +4,7 @@
 /**
  * @package ImpressPages
  * @copyright   Copyright (C) 2012 ImpressPages LTD.
- * @license GNU/GPL, see ip_license.html
+ * @license see ip_license.html
  */
 
 namespace Modules\developer\form\Field;
