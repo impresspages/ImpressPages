@@ -332,6 +332,7 @@
     height: 27px;
     margin: -29px 0 0 -1px;
     position: absolute;
+    z-index: 9;
 }
 .ipAdminWidgetControls .ipaButton {
     background: #3b3b3b;
