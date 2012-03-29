@@ -30,11 +30,11 @@ class Select extends Field{
             } else {
                 $selected = '';
             }
-            $options .= '<option name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
+            $options .= '<option '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
         }
 $answer = 
 '
-<select class="ipmControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
+<select name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
 '.$options.'
 </select>
 ';
