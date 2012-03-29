@@ -41,14 +41,14 @@ class System{
                         'm' => 'configuration',
                         'a' => 'tinymceConfig'
         );
-        $site->addJavascript(str_replace('&amp;', '&', $site->generateUrl(null, null, array(), $getVariables)));
+        $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
         
         $getVariables = array (
                         'g' => 'standard',
                         'm' => 'configuration',
                         'a' => 'validatorConfig'
         );
-        $site->addJavascript(str_replace('&amp;', '&', $site->generateUrl(null, null, array(), $getVariables)));
+        $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
         
         
         

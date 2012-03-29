@@ -41,6 +41,7 @@ class Check extends Field{
     
     public function __construct($options) {
         parent::__construct($options);
+        $this->removeAttribute('id'); //this field has two inputs. We need to implement support of two different ID's or remove such feature :)
         $this->addValidator('Check');
     }
     

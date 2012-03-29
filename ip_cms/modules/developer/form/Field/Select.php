@@ -29,17 +29,23 @@ class Select extends Field{
     public function render($doctype) {
         $attributesStr = '';
         $options = '';
-        foreach($this->getValues() as $value) {
+        
+        foreach($this->getValues() as $key => $value) {
             if ($value[0]== $this->defaultValue) {
                 $selected = 'selected="selected"';
             } else {
                 $selected = '';
             }
-            $options .= '<option '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
+            
+            if ($doctype == \Ip\View::DOCTYPE_HTML5 && $key == 0 && $this->getAttribute('size') <= 1 && $this->getAttribute('multiple') === false && ($value[0] != '' && $value[1] != '')) {
+                $this->removeValidator('Required'); //HTML5 spec: The first child option element of a select element with a required attribute and without a multiple attribute, and whose size is 1, must have either an empty value attribute, or must have no text content.
+            }
+            
+            $options .= '<option '.$this->getAttributesStr().' '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
         }
 $answer = 
 '
-<select name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
+<select id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
 '.$options.'
 </select>
 ';

@@ -144,6 +144,17 @@ abstract class Field{
         
     }
     
+    public function removeValidator($validator) {
+        $validatorClass = 'Modules\\developer\\form\\Validator\\' . $validator;
+        $newValidatorsArray = array();
+        foreach($this->validators as $validator) {
+            if (get_class($validator) != $validatorClass) {
+                $newValidatorsArray[] = $validator;
+            }
+        }
+        $this->validators = $newValidatorsArray;
+    }
+    
     public function addCustomValidator(\Modules\developer\form\Validator $validator) {
         $this->validators[] = $validator;
     }
