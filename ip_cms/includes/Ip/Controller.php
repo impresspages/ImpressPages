@@ -31,7 +31,7 @@ class Controller{
         global $dispatcher;
         global $site;
         header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-        $answer = json_encode($data);
+        $answer = json_encode($this->utf8Encode($data));
         $site->setOutput($answer);
     }
     
@@ -42,4 +42,28 @@ class Controller{
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
         exit;
     }
+    
+    /**
+    *
+    *  Returns $dat encoded to UTF8
+    * @param mixed $dat array or string
+    */
+    private function utf8Encode($dat)
+    {
+        if (is_string($dat)) {
+            if (mb_check_encoding($dat, 'UTF-8')) {
+                return $dat;
+            } else {
+                return utf8_encode($dat);
+            }
+        }
+        if (is_array($dat)) {
+            $answer = array();
+            foreach($dat as $i=>$d) {
+                $answer[$i] = $this->utf8Encode($d);
+            }
+            return $answer;
+        }
+        return $dat;
+    }    
 }
