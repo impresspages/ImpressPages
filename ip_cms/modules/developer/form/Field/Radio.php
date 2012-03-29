@@ -30,7 +30,7 @@ class Radio extends Field{
             } else {
                 $checked = '';
             }
-            $answer .= '<label><input class="ipfControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
+            $answer .= '<label><input class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
         }
 
         return $answer; 

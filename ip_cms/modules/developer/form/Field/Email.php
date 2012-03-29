@@ -18,7 +18,7 @@ class Email extends Field{
     public function render($doctype) {
         $attributesStr = '';
 
-        return '<input class="ipfControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input class="ipmControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     /**

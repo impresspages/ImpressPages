@@ -11,7 +11,7 @@ namespace Modules\developer\form\Field;
 class Submit extends Field{
     
     public function render($doctype) {
-        return '<input class="ipfControlSubmit" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' type="submit" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input class="ipmControlSubmit" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' type="submit" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     public function getLayout() {

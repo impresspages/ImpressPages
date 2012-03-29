@@ -1,15 +1,15 @@
-<div class="ipfField ipfType-<?php echo $field->getCssClass(); ?> clearfix">
-    <label>
-        <span class="ipfLabel"><?php echo $this->esc($field->getLabel()); ?></span>
-<?php if($field->isRequired()) { ?>
-        <span class="ipfRequired">*</span>
-<?php } ?>
-        <div class="ipfControl"><?php echo $field->render($this->getDoctype()); ?></div>
+<div class="ipmField ipmType-<?php echo $field->getCssClass(); ?><?php if($field->isRequired()) { echo " ipmRequired"; } ?> clearfix">
+    <label class="ipmLabel" for="<?php //echo $field->getId(); ?>">
+        <?php echo $this->esc($field->getLabel()); ?>
+        <?php if($field->isRequired()) { ?>
+            <span class="ipmMarker">*</span>
+        <?php } ?>
     </label>
+    <div class="ipmControl"><?php echo $field->render($this->getDoctype()); ?></div>
 <?php if($field->getNote()) { ?>
-    <div class="ipfNote"><?php echo $field->getNote(); ?></div>
+    <div class="ipmNote"><?php echo $field->getNote(); ?></div>
 <?php } ?>
 <?php if($field->getHint()) { ?>
-    <div class="ipfHint"><?php echo $field->getHint(); ?></div>
+    <div class="ipmHint"><?php echo $field->getHint(); ?></div>
 <?php } ?>
 </div>

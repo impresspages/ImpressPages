@@ -1,19 +1,19 @@
 var validatorConfig = {
     'lang' : '<?php echo addslashes($languageCode); ?>',
-    'errorClass' : 'ipfControlError',
-    'messageClass' : 'ipfErrorMessage',
+    'errorClass' : 'ipmControlError',
+    'messageClass' : 'ipmErrorMessage',
     'position' : 'top left',
     'offset' : [-3, 0],
     'onFail' : function(e, errors) {
         $.each(errors, function() {
             var $control = this.input;
-            $control.parents('.ipfField').addClass('ipfError');
+            $control.parents('.ipmField').addClass('ipmError');
         });
     },
     'onSuccess' : function(e, valids) {
         $.each(valids, function() {
             var $control = $(this);
-            $control.parents('.ipfField').removeClass('ipfError');
+            $control.parents('.ipmField').removeClass('ipmError');
         });
     }
 };

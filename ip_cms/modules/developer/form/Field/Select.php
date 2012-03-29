@@ -34,7 +34,7 @@ class Select extends Field{
         }
 $answer = 
 '
-<select class="ipfControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
+<select class="ipmControlSelect" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >
 '.$options.'
 </select>
 ';

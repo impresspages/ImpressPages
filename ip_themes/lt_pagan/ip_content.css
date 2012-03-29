@@ -55,7 +55,7 @@
 }
 .ipModuleNewsletter .ipmButton, 
 .ipModuleSearch .ipmButton,
-.ipForm .ipfControlSubmit {
+.ipModuleForm .ipmControlSubmit {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #f4f4f4; /* Old browsers */
     background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
@@ -77,7 +77,7 @@
 }
 .ipModuleNewsletter .ipmButton:hover,
 .ipModuleSearch .ipmButton:hover,
-.ipForm .ipfControlSubmit:hover {
+.ipModuleForm .ipmControlSubmit:hover {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #e1e0e0; /* Old browsers */
     background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
@@ -114,44 +114,54 @@
 .ipModuleNewsletter .ipmError {
     color: #da0001;
 }
-/* Modules :: IpForm */
-.ipForm {}
-.ipForm .ipfPage {}
-.ipForm .ipfFieldset {}
-.ipForm .ipfField {
+/* Modules :: form */
+.ipModuleForm {
+    border: 1px solid #888;
+    padding: 20px 25px;
+}
+.ipModuleForm .ipmPage {}
+.ipModuleForm .ipmFieldset {}
+.ipModuleForm .ipmField {
     margin-bottom: 25px;
     position: relative; /* to position inner elements respectively to the field */
 }
-.ipForm .ipfField:last-child {
+.ipModuleForm .ipmType-blank:first-child { /* if blank is first field we'll remove it from the flow */
+    margin: -16px 0 0;
+    position: absolute;
+}
+.ipModuleForm .ipmField:last-child {
     margin-bottom: 0;
 }
-.ipForm .ipfLabel {
+.ipModuleForm .ipmField.ipmRequired {} /* change any styles if field is required */
+.ipModuleForm .ipmLabel {
     display: block;
     font-weight: bold;
     float: left;
-    margin-right: 10px;
+    margin: 0 10px 0 0;
     min-height: 1px; /* to keep the width when empty */
     padding-top: 3px;
     width: 85px;
 }
-.ipForm .ipfRequired {
-    display: block;
-    float: left;
-    margin: 7px 0 0 -15px;
-    position: absolute;
-}
-.ipForm .ipfControl {
+.ipModuleForm .ipmMarker {}
+.ipModuleForm .ipmControl {
     float: left;
     width: 393px; /* 488px (content width) - 85px (label) - 10px (margin) */
 }
-.ipForm .ipfControlInput {
+.ipModuleForm .ipmControlBlank {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    width: 0;
+}
+.ipModuleForm .ipmControlInput {
     background-color: #f2f2f2;
     border: 1px solid #a7a7a7;
     height: 21px;
     padding: 1px 2px;
     width: 185px;
 }
-.ipForm .ipfControlTextarea {
+.ipModuleForm .ipmControlTextarea {
     background-color: #f2f2f2;
     border: 1px solid #a7a7a7;
     display: block;
@@ -160,35 +170,36 @@
     overflow: auto; /* hiding scrolls if not necessary */
     width: 387px;
 }
-.ipForm .ipfControlInput:focus,
-.ipForm .ipfControlTextarea:focus {
+.ipModuleForm .ipmControlInput:focus,
+.ipModuleForm .ipmControlTextarea:focus {
     border-color: #000;
 }
-.ipForm .ipfControlSubmit {
+.ipModuleForm .ipmControlSubmit {
     margin-left: 0;
     text-transform: none;
 }
-.ipForm .ipfControlSelect {
+.ipModuleForm .ipmControlSelect {
     background-color: #f2f2f2;
     border: 1px solid #a7a7a7;
     height: 25px;
     padding: 2px;
     width: 191px; /* padding and borders doesn't expand the width */
 }
-.ipForm .ipfControlRadio {}
-.ipForm .ipfControlCheckbox {
+.ipModuleForm .ipmControlRadio {}
+.ipModuleForm .ipmControlCheckbox {}
+.ipModuleForm .ipmType-confirm .ipmControlCheckbox {
     float: left;
 }
-.ipForm .ipfControlCheckboxOptions {
+.ipModuleForm .ipmControlConfirmOptions {
     margin-left: 25px;
 }
-.ipForm .ipfNote {
+.ipModuleForm .ipmNote { /* always visible */
     color: #656565;
     font-size: 11px;
     margin: -15px 0 0 95px;
     position: absolute;
 }
-.ipForm .ipfHint {
+.ipModuleForm .ipmHint { /* to be shown on hover */
     background-color: #a7a7a7;
     color: #fff;
     display: none;
@@ -201,10 +212,10 @@
     width: 181px;
     z-index: 1;
 }
-.ipForm .ipfField:hover .ipfHint { /* hint is shown only on hover */
+.ipModuleForm .ipmField:hover .ipmHint { /* hint is shown only on hover */
     display: block;
 }
-.ipForm .ipfField.ipfType-textarea .ipfHint { /* for textarea hint goes below the field */
+.ipModuleForm .ipmType-textarea .ipmHint { /* for textarea hint goes below the field */
     bottom: 0;
     left: 95px;
     margin-bottom: -25px;
@@ -212,15 +223,15 @@
     right: auto;
     width: auto;
 }
-/* errors */
-.ipForm .ipfError {}
-.ipForm .ipfError .ipfLabel {
+/* Module :: form :: errors */
+.ipModuleForm .ipmError {}
+.ipModuleForm .ipmError .ipmLabel {
     color: #e44445;
 }
-.ipForm .ipfControlError {
+.ipModuleForm .ipmControlError {
     border-color: #e44445;
 }
-.ipfErrorMessage { /* this object is created globally next to each invalid field */
+.ipmErrorMessage { /* this object is created globally next to each invalid field */
     background-color: #fff;
     color: #da0001;
     font-size: 11px;
@@ -300,7 +311,7 @@
     line-height: 28px;
 }
 /* default text style on rich text editor */
-.ipPreviewWidget.signature,
+.ipPreviewWidget .signature,
 .mceContentBody .signature {
     color: #9a9a9a;
 }
@@ -448,20 +459,17 @@
 .ipWidget-IpFaq .ipwCollapsed .ipwAnswer {
     display: none;
 }
-.ipWidget-IpForm {
+.ipWidget-IpForm {}
+.ipWidget-IpForm .ipwForm {}
+.ipWidget-IpForm .ipwSuccess { /* mimicking the same styles as for form to keep message 'inside' the box */
     border: 1px solid #888;
-    padding: 30px 25px 20px;
-}
-.ipWidget-IpForm .ipwForm {
-}
-.ipWidget-IpForm .ipwSuccess {
     display: none;
+    padding: 20px 25px;
 }
-.manage .ipWidget-IpForm .ipwSuccess {
-    border-top: 1px dashed #888;
+.manage .ipWidget-IpForm .ipwSuccess { /* showing success message in management by default */
+    border-top: 1px dashed #fff;
     display: block;
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: -1px;
 }
 
 /* Widgets :: side */
@@ -514,6 +522,44 @@
 }
 .side .ipWidget-IpFile {
     padding: 15px 20px;
+}
+.side .ipModuleForm {
+    padding: 20px;
+}
+.side .ipModuleForm .ipmField {
+    margin-bottom: 15px;
+}
+.side .ipModuleForm .ipmField:last-child {
+    margin-bottom: 0;
+}
+.side .ipModuleForm .ipmLabel {
+    float: none;
+    margin: 0 0 3px 0;
+    width: auto;
+}
+.side .ipModuleForm .ipmMarker {
+    display: block;
+}
+.side .ipModuleForm .ipmControl {
+    width: 178px;
+}
+.side .ipModuleForm .ipmControlInput,
+.side .ipModuleForm .ipmControlTextarea {
+    width: 172px;
+}
+.side .ipModuleForm .ipmControlSelect {
+    width: 178px;
+}
+.side .ipModuleForm .ipmNote {
+    margin: 0;
+    position: static;
+}
+.side .ipModuleForm .ipmHint {
+    bottom: auto;
+    left: 198px;
+    right: auto;
+    top: 0;
+    width: 178px;
 }
 
 /* Admin */

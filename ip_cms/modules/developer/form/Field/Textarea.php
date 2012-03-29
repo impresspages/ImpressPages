@@ -13,7 +13,7 @@ class Textarea extends Field{
     public function render($doctype) {
         $attributesStr = '';
         
-        return '<textarea class="ipfControlTextarea" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
+        return '<textarea class="ipmControlTextarea" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' >'.htmlentities($this->getDefaultValue()).'</textarea>';
     }
     
     /**
