@@ -15,7 +15,13 @@ class Controller extends \Ip\Controller{
 
 
     public function init() {
-        header("Content-type: text/javascript");
+        header("Content-type: application/x-javascript");
+        $secondsToCache = 3600; //one hour
+        $ts = gmdate("D, d M Y H:i:s", time() + $secondsToCache) . " GMT";
+        header("Expires: $ts");
+        header("Pragma: cache");
+        header("Cache-Control: max-age=$secondsToCache");        
+        
     }
 
     public function allowAction($action) {
