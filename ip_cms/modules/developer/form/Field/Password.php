@@ -13,7 +13,7 @@ class Password extends Field{
     public function render($doctype) {
         $attributesStr = '';
 
-        return '<input class="ipmControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="password" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input class="ipmControlInput" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' type="password" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     /**

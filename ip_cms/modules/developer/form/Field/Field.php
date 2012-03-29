@@ -80,7 +80,7 @@ abstract class Field{
         return self::TYPE_REGULAR;
     }
     
-    public function getAttributesStr() {
+    public function getAttributesStr($doctype) {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
             $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
@@ -173,7 +173,7 @@ abstract class Field{
         unset($this->attributes[$name]);
     }
     
-    public function getValidationAttributesStr() {
+    public function getValidationAttributesStr($doctype) {
         $attributesStr = '';
         foreach($this->getValidators() as $validator) {
             $tmpArgs = $validator->jtoolsArgs();

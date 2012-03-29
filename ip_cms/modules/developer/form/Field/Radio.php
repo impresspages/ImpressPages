@@ -39,7 +39,7 @@ class Radio extends Field{
                 $id = '';
             }
             
-            $answer .= '<label><input '.$id.' class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
+            $answer .= '<label><input '.$id.' class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
         }
 
         return $answer; 

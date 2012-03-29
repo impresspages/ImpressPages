@@ -20,7 +20,7 @@ namespace Modules\developer\form\Field;
 class Blank extends Field{
     
     public function render($doctype) {
-        return '<input class="ipmControlBlank" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input class="ipmControlBlank" name="'.htmlspecialchars($this->getName()).'" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     /**

@@ -42,7 +42,7 @@ class Confirm extends Field{
         } else {
             $attributes = '';
         }
-        $answer .= '<input class="ipmControlCheckbox" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.' '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' value="'.htmlspecialchars($this->getDefaultValue()).'" />'."\n";
+        $answer .= '<input class="ipmControlCheckbox" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.' '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' value="'.htmlspecialchars($this->getDefaultValue()).'" />'."\n";
         if ($this->getText()) {
             $answer .= '<div class="ipmControlConfirmOptions">'.$this->getText().'</div>';
         }
