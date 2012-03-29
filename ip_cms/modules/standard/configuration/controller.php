@@ -13,7 +13,10 @@ if (!defined('CMS')) exit;
 
 class Controller extends \Ip\Controller{
 
-    
+
+    public function init() {
+        header("Content-type: text/javascript");
+    }
 
     public function allowAction($action) {
         return true;
