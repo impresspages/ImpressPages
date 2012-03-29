@@ -11,6 +11,8 @@ namespace Modules\developer\form\Field;
 class Select extends Field{
 
     private $values;
+    private $stolenId;
+    
     
     public function __construct($options = array()) {
         if (isset($options['values'])) {
@@ -19,6 +21,9 @@ class Select extends Field{
             $this->values = array();
         }
         parent::__construct($options);
+        $this->stolenId = $this->getAttribute('id');
+        $this->removeAttribute('id'); //we need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId;
+        
     }
     
     public function render($doctype) {
@@ -56,6 +61,10 @@ $answer =
     public function getCssClass() {
         return 'select';
     }
+    
+    public function getId() {
+        return $this->stolenId;
+    }    
     
 }
 

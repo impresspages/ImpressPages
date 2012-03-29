@@ -1,5 +1,5 @@
 <div class="ipmField ipmType-<?php echo $field->getCssClass(); ?><?php if($field->isRequired()) { echo " ipmRequired"; } ?> clearfix">
-    <label class="ipmLabel" for="<?php //echo $field->getId(); ?>">
+    <label class="ipmLabel" for="<?php echo $field->getId(); ?>">
         <?php echo $this->esc($field->getLabel()); ?>
         <?php if($field->isRequired()) { ?>
             <span class="ipmMarker">*</span>

@@ -60,6 +60,10 @@ abstract class Field{
         } else {
             $this->setAttributes(array());
         }
+        if (!isset($this->attributes['id'])) {
+            $this->addAttribute('id', 'field_'.rand(1, PHP_INT_MAX));
+        }
+        
     }
     
     public abstract function render($doctype);
@@ -154,6 +158,10 @@ abstract class Field{
         $this->attributes[$name] = $value;
     }
     
+    public function removeAttribute($name) {
+        unset($this->attributes[$name]);
+    }
+    
     public function getValidationAttributesStr() {
         $attributesStr = '';
         foreach($this->getValidators() as $validator) {
@@ -223,11 +231,23 @@ abstract class Field{
         $this->defaultValue = $defaultValue;
     }
     
+    public function getAttribute($attribute) {
+        if (isset($this->attributes[$attribute])) {
+            return $this->attributes[$attribute];
+        } else {
+            return false;
+        }
+    }
+    
     public function getAttributes() {
         return $this->attributes;
     }
     
     public function setAttributes($attributes) {
         $this->attributes = $attributes;
+    }
+    
+    public function getId() {
+        return $this->getAttribute('id');
     }
 }

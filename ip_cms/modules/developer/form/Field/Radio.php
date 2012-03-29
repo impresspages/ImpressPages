@@ -11,6 +11,7 @@ namespace Modules\developer\form\Field;
 class Radio extends Field{
 
     private $values;
+    private $stolenId;
     
     public function __construct($options = array()) {
         if (isset($options['values'])) {
@@ -19,18 +20,26 @@ class Radio extends Field{
             $this->values = array();
         }
         parent::__construct($options);
+        $this->stolenId = $this->getAttribute('id');
+        $this->removeAttribute('id'); //we need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId;
     }
     
     public function render($doctype) {
         $attributesStr = '';
         $answer = '';
-        foreach($this->getValues() as $value) {
+        foreach($this->getValues() as $key => $value) {
             if ($value[0]== $this->defaultValue) {
                 $checked = 'checked="checked"';
             } else {
                 $checked = '';
             }
-            $answer .= '<label><input class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
+            if ($key == 0) {
+                $id = 'id="'.$this->stolenId.'"';
+            } else {
+                $id = '';
+            }
+            
+            $answer .= '<label><input '.$id.' class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr().' '.$this->getValidationAttributesStr().' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
         }
 
         return $answer; 
@@ -52,4 +61,7 @@ class Radio extends Field{
         return 'radio';
     }
     
+    public function getId() {
+        return $this->stolenId;
+    }    
 }
