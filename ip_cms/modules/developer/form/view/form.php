@@ -1,4 +1,4 @@
-<form class="ipModuleForm" method="<?php echo $form->getMethod(); ?>" <?php echo $form->getAttributesStr(); ?>>
+<form <?php echo $form->getClassesStr(); ?> <?php echo $form->getAttributesStr(); ?> method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>">
     <?php foreach ($form->getPages() as $pageKey => $page) { ?>
     <div class="ipmPage">
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>

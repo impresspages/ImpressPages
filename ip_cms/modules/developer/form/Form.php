@@ -18,13 +18,16 @@ class Form{
     protected $method;
     protected $action;
     protected $attributes;
+    protected $classes;
 
     public function __construct() {
+        global $site;
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
-        $this->action = '';
+        $this->action = $site->getCurrentUrl();
         $this->pages = array();
         $this->attributes = array();
+        $this->classes = array('ipModuleForm' => 1);
     }
 
     /**
@@ -148,6 +151,10 @@ class Form{
     public function addAttribute($name, $value) {
         $this->attributes[$name] = $value;
     }
+    
+    public function removeAttribute($name) {
+        unset($this->attributes[$name]);
+    }    
 
     public function getAttributes() {
         return $this->attributes;
@@ -161,6 +168,31 @@ class Form{
         return $answer;
     }
 
+    /**
+    *
+    * Add CSS class to the form
+    * @param string $cssClass
+    */
+    public function addClass($cssClass) {
+        $this->classes[$cssClass] = 1;
+    }
+    
+    public function removeClass($cssClass) {
+        unset($this->classes[$cssClass]);
+    }
+    
+    public function getClasses() {
+        return array_keys($this->classes);
+    }
+    
+    public function getClassesStr() {
+        $answer = '';
+        foreach ($this->getClasses() as $class) {
+            $answer .= ' '.$class;
+        }
+        return 'class="'.$answer.'"';
+    }    
+    
     /**
      * 
      * Store form data to the database
