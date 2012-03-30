@@ -125,7 +125,7 @@
     margin-bottom: 25px;
     position: relative; /* to position inner elements respectively to the field */
 }
-.ipModuleForm .ipmType-blank:first-child { /* if blank is first field we'll remove it from the flow */
+.ipModuleForm .ipmType-blank { /* if blank we'll remove it from the flow */
     margin: -16px 0 0;
     position: absolute;
 }
