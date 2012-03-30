@@ -41,7 +41,7 @@ class Select extends Field{
         }
 $answer = 
 '
-<select id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' >
+<select '.$this->getAttributesStr($doctype).' id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect '.implode(' ',$this->getClasses()).'" '.$this->getValidationAttributesStr($doctype).' >
 '.$options.'
 </select>
 ';
@@ -60,7 +60,7 @@ $answer =
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
-    public function getCssClass() {
+    public function getTypeClaass() {
         return 'select';
     }
     

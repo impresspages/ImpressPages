@@ -39,7 +39,7 @@ class Radio extends Field{
                 $id = '';
             }
             
-            $answer .= '<label><input '.$id.' class="ipmControlRadio" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
+            $answer .= '<label><input '.$this->getAttributesStr($doctype).' '.$id.' class="ipmControlRadio '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getValidationAttributesStr($doctype).' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
         }
 
         return $answer; 
@@ -57,7 +57,7 @@ class Radio extends Field{
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
-    public function getCssClass() {
+    public function getTypeClaass() {
         return 'radio';
     }
     

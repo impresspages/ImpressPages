@@ -49,8 +49,8 @@ class Check extends Field{
         $attributesStr = '';
         
         return '
-<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' type="hidden" value="" />
-<input name="'.htmlspecialchars($this->getName()).'[]" '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
+<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="" />
+<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
 ';
     }
     
@@ -65,7 +65,7 @@ class Check extends Field{
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
-    public function getCssClass() {
+    public function getTypeClaass() {
         return 'check';
     }    
     

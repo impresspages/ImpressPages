@@ -42,7 +42,7 @@ class Confirm extends Field{
         } else {
             $attributes = '';
         }
-        $answer .= '<input class="ipmControlCheckbox" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.' '.$this->getAttributesStr($doctype).' '.$this->getValidationAttributesStr($doctype).' value="'.htmlspecialchars($this->getDefaultValue()).'" />'."\n";
+        $answer .= '<input '.$this->getAttributesStr($doctype).' class="ipmControlCheckbox '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.'  '.$this->getValidationAttributesStr($doctype).' value="'.htmlspecialchars($this->getDefaultValue()).'" />'."\n";
         if ($this->getText()) {
             $answer .= '<div class="ipmControlConfirmOptions">'.$this->getText().'</div>';
         }
@@ -77,7 +77,7 @@ class Confirm extends Field{
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
-    public function getCssClass() {
+    public function getTypeClaass() {
         return 'confirm';
     }    
     

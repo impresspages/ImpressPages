@@ -27,6 +27,7 @@ abstract class Field{
     protected $defaultValue;
     protected $validators;
     protected $attributes;
+    protected $classes; // CSS classes to be added to input field
     
     public function __construct($options) {
         $this->validators = array();
@@ -55,6 +56,15 @@ abstract class Field{
         if (!empty($options['defaultValue'])) {
             $this->setDefaultValue($options['defaultValue']);
         }
+        if (!empty($options['css'])) {
+            if (is_array($options['css'])) {
+                $this->setCssClasses($options['css']);
+            } else {
+                $this->classes = array($options['css']);
+            }
+        } else {
+            $this->classes = array();
+        }
         if (!empty($options['attributes'])) {
             $this->setAttributes($options['attributes']);
         } else {
@@ -63,6 +73,7 @@ abstract class Field{
         if (!isset($this->attributes['id'])) {
             $this->addAttribute('id', 'field_'.rand(1, PHP_INT_MAX));
         }
+        
         
     }
     
@@ -185,9 +196,10 @@ abstract class Field{
     }
     
     /**
-     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their constant value.
+     * This field is not used to identify fields by their type. So each extending class should return its own unique and constant string.
      */
-    public function getCssClass() {
+    public function getTypeClass() {
         return '';
     }
     
@@ -261,4 +273,30 @@ abstract class Field{
     public function getId() {
         return $this->getAttribute('id');
     }
+    
+    
+    /**
+    *
+    * Add CSS class to the input
+    * @param string $cssClass
+    */
+    public function addClass($cssClass) {
+        $this->classes[$cssClass] = 1;
+    }
+    
+    public function removeClass($cssClass) {
+        unset($this->classes[$cssClass]);
+    }
+    
+    public function getClasses() {
+        return array_keys($this->classes);
+    }
+    
+    public function getClassesStr() {
+        $answer = '';
+        foreach ($this->getClasses() as $class) {
+            $answer .= ' '.$class;
+        }
+        return 'class="'.$answer.'"';
+    }    
 }
