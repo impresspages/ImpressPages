@@ -176,7 +176,7 @@ function IpWidget_IpForm(widgetObject) {
                 if (!data) {
                     var data = {
                         label : '',
-                        type : '',
+                        type : 'IpText',
                         required : false,
                         status : 'new',
                         options : {}

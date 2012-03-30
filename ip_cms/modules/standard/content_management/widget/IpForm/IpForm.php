@@ -106,7 +106,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
                 'title' => $fieldObject->getTitle()
             );
         }
-        uksort($fieldTypes, array($this, 'sortFieldTypes'));
+        usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
         
