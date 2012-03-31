@@ -1,7 +1,7 @@
 <?php if (!defined('CMS')) exit; ?>
 <?php echo $this->doctypeDeclaration(); ?>
 
-<html<?php echo $this->htmlAttributes(); ?>>
+<html <?php echo $this->htmlAttributes(); ?>>
 <head>
 <?php
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
@@ -20,12 +20,9 @@
         <header class="grid_12">
             <a class="sitename" href="<?php echo $site->generateUrl(); ?>"><?php echo $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'); ?></a>
             <div class="languages">
-                <?php
-                    require_once (BASE_DIR.MODULE_DIR.'standard/languages/module.php');
-                    echo \Modules\standard\languages\Module::generateLanguageList();
-                ?>
+                <?php echo $site->generateBlock('ipLanguages'); ?>
             </div>
-            <?php echo $site->getZone('search')->generateSearchBox(); ?>
+            <?php echo $site->generateBlock('ipSearch'); ?>
             <img class="banner" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/img/header.jpg" alt="">
             <div class="topmenu clearfix">
                 <?php
@@ -37,10 +34,7 @@
         </header>
         <div class="main grid_7 right suffix_1">
             <div class="breadcrumb">
-                <?php
-                    require_once (BASE_DIR.MODULE_DIR.'standard/breadcrumb/module.php');
-                    echo \Modules\standard\breadcrumb\Module::generateBreadcrumb(' &rsaquo; ');
-                ?>
+               <?php echo $site->generateBlock('ipBreadcrumb'); ?>
             </div>
             <?php echo $site->generateBlock('main'); ?>
         </div>

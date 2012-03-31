@@ -21,8 +21,15 @@ class Module{
 
     public static function generateLanguageList(){
         global $site;
-        $site->requireTemplate('standard/languages/template_list.php');
-        return TemplateList::languages($site->getLanguages());
+        global $parametersMod;
+
+        if(!$parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+            return;
+        }
+         
+
+        
+        return \Ip\View::create('view/list.php', self::getViewData());
     }
 
 
@@ -36,17 +43,33 @@ class Module{
         global $site;
         global $parametersMod;
 
-        if(!$parametersMod->getValue('standard', 'languages', 'options', 'multilingual'))
-        return;
-         
-        $site->requireTemplate('standard/languages/template.php');
-        $languages = array();
-        foreach($site->languages as $language){
-            if($language['visible']){
-                $languages[] = $language;
-            }
+        if(!$parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+            return;
         }
-        return Template::languages($languages);
+        
+        return \Ip\View::create('view/links.php', self::getViewData());
+    }
+    
+    private static function getViewData() {
+        global $site;
+        $languages = array();
+        foreach($site->getLanguages() as $language){
+            if (!$language->getVisible()) {
+                continue;
+            }
+        
+            $tmpData = array();
+            $tmpData['shortTitle'] = $language->getShortDescription();
+            $tmpData['longTitle'] = $language->getLongDescription();
+            $tmpData['visible'] = $language->getVisible();
+            $tmpData['current'] = $language->getCurrent();
+            $tmpData['url'] = $site->generateUrl($language->getId());
+            $languages[] = $tmpData;
+        }
+        $data = array (
+            'languages' => $languages
+        );
+        return $data;
     }
 
 }

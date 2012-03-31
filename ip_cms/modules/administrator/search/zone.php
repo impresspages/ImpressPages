@@ -58,6 +58,37 @@ class Zone extends \Frontend\Zone {
         }
     }
 
+    
+    public function getForm() {
+        global $parametersMod;
+        global $site;
+        
+        $form = new \Modules\developer\form\Form();
+        $form->setMethod(\Modules\developer\form\Form::METHOD_GET);
+        
+        $field = new \Modules\developer\form\Field\Text(
+        array(
+            'name' => 'q',
+            'label' => ''
+        ));
+        if($site->currentZone == $this->name && isset($_GET['q'])){
+            $field->setDefaultValue($site->getVars['q']);
+        }
+        $form->addField($field);
+        
+        //Submit button
+        $field = new \Modules\developer\form\Field\Submit(
+        array(
+            'name' => 'submit',
+            'defaultValue' => $parametersMod->getValue('administrator','search','translations','search')
+        ));
+        $form->addField($field);
+        $form->removeClass('ipModuleForm');
+        $form->setAction($site->generateUrl(null, $this->getName()));
+        
+        return $form;
+    }
+    
     /**
      * Generate search field
      * @return string html search form.
@@ -70,11 +101,8 @@ class Zone extends \Frontend\Zone {
             'actionUrl' => $site->generateUrl(null, $this->getName())
         );
         
-        if($site->currentZone == $this->name && isset($_GET['q'])){
-            $data['searchValue'] = $site->getVars['q'];
-        } else {
-            $data['searchValue'] = '';
-        }
+        
+        $data['form'] = $this->getForm();
         
         $searchBox = \Ip\View::create('view/search_box.php', $data)->render();
 

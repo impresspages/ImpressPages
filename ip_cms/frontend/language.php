@@ -116,4 +116,17 @@ class Language{
         return $this->textDirection;
     }
 
+    
+    /**
+     * @returns boolean true if this language is the language of currently displpayed page 
+     * Enter description here ...
+     */
+    public function getCurrent() {
+        global $site;
+        if ($this->getId() == $site->getCurrentLanguage()->getId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

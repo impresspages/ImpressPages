@@ -244,9 +244,23 @@ class Site{
     }
     
     private function error404() {
+        global $parametersMod;
         require_once(__DIR__.'/zone404.php');
-        $this->zones['auto_error404'] = array();
-        $this->zones['auto_error404']['object'] = new \Frontend\Zone404('auto_error404');
+        $zone = array (
+            'id' => '',
+            'row_number' => 0,
+            'name' => 'auto_error404',
+            'template' => $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template'),
+            'translation' => 'Error404',
+            'associated_group' => '',
+            'associated_module' => '',
+            'url' => 'error404',
+            'description' => '',
+            'keywords' => '',
+            'title' => 'error404',
+            'object' => new \Frontend\Zone404('auto_error404')
+        );
+        $this->zones['auto_error404'] = $zone;
         $this->currentZone = 'auto_error404';
         $this->error404 = true;
     }

@@ -17,6 +17,7 @@ class System{
         global $dispatcher;
 
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
+        $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateSearchBox');
     }
 
 
@@ -32,10 +33,27 @@ class System{
             return;
         }
         
-        echo $site->getCurrentElement()->generateContent();
+        $event->setValue('content', $site->getCurrentElement()->generateContent());
+        $event->addProcessed();
         
     }
 
 
+    public static function generateSearchBox (\Ip\Event $event) {
+        global $site;
+        $blockName = $event->getValue('blockName');
+        if ( $blockName == 'ipSearch' ) {
+            $searchZone = $newsletterBox = $site->getZoneByModule('administrator', 'search');
+            if (!$searchZone) {
+                return;
+            }
+            
+            $event->setValue('content', $searchZone->generateSearchBox());
+            $event->addProcessed();
+        }
+    
+        
+    
+    }    
 
 }
