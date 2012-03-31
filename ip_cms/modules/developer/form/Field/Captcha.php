@@ -18,7 +18,7 @@ class Captcha extends Field{
               'tempfolder'     => BASE_DIR.TMP_IMAGE_DIR,
         
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-              'TTF_folder'     => BASE_DIR.LIBRARY_DIR.'php/form/hn_captcha/fonts/',
+              'TTF_folder'     => BASE_DIR.LIBRARY_DIR.'php/hn_captcha/fonts/',
         
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!
