@@ -41,7 +41,7 @@ class Form{
         $errors = array();
         foreach($fields as $field) {
             $error = $field->validate($data, $field->getName());
-            if ($error) {
+            if ($error !== false) {
                 $errors[$field->getName()] = $error;
             }
         }

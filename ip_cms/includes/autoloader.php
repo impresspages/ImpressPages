@@ -39,6 +39,15 @@ function __impressPagesAutoloader($name) {
             require_once(BASE_DIR.LIBRARY_DIR.$fileName);
             return true;
         }
+        
+        if (substr($fileName, 0, 4) == 'Php/') {
+            $fileName = 'php/' . substr($fileName, 4);
+        }
+        //second try
+        if (file_exists(BASE_DIR.LIBRARY_DIR.$fileName)) {
+            require_once(BASE_DIR.LIBRARY_DIR.$fileName);
+            return true;
+        }
     }
 
     return false;

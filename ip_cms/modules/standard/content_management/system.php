@@ -246,6 +246,8 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpRadio', '\Modules\developer\form\Field\Radio', 'Radio', 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpCaptcha', '\Modules\developer\form\Field\Captcha', 'Captcha');
+        $event->addField($newFieldType);
     }
 
     
