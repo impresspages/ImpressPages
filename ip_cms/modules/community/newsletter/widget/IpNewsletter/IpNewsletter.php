@@ -60,7 +60,6 @@ class IpNewsletter extends \Modules\standard\content_management\Widget{
             'label' => $parametersMod->getValue('community','newsletter','subscription_translations','label')
         ));
         $field->addValidator('Required');
-        $field->addClass('impInput');
         
         $form->addField($field);
     
