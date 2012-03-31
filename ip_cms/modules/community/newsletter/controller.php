@@ -20,7 +20,7 @@ class Controller  extends \Ip\Controller{
 
     }
 
-    public function subscribe() {
+    public function subscribe() { 
         global $site;
         global $parametersMod;
         global $log;
@@ -73,7 +73,7 @@ class Controller  extends \Ip\Controller{
         
         $log->log('community/newsletter', 'Start subscribtion', $_REQUEST['email']);
         
-        $this->_outputAnswer($data);
+        $this->returnJson($data);
 
     }
 
@@ -102,7 +102,7 @@ class Controller  extends \Ip\Controller{
                 'status' => 'success',
                 'redirectUrl' => $site->generateUrl(null, $zoneName, array("unsubscribed")) 
             );
-            $this->_outputAnswer($data);
+            $this->returnJson($data);
         } else {
             $this->_errorAnswer('Unsubscribtion disabled');
         }
@@ -121,15 +121,9 @@ class Controller  extends \Ip\Controller{
             'errorMessage' => $errorMessage
         );
 
-        $this->_outputAnswer($data);
+        $this->returnJson($data);
     }
 
-    private function _outputAnswer($data) {
-        global $site;
-        //header('Content-type: text/json; charset=utf-8'); throws save file dialog on firefox if iframe is used
-        $answer = json_encode($data);
-        $site->setOutput($answer);
-    }    
 
 }
 

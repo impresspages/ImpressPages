@@ -1,18 +1,16 @@
 
-
-$(document).ready(function($) {
-    var widgetOptions = new Object;
-    $('.ipModuleNewsletter').ipModuleNewsletter();
-    $('.ipModuleNewsletter').ipModuleNewsletter();
-});
-
-
-
 /**
  * @package ImpressPages
  * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license see ip_license.html
  */
+
+
+$(document).ready(function($) {
+    $('.ipWidget-IpNewsletter').ipModuleNewsletter();
+});
+
+
 
 (function($) {
 
@@ -32,53 +30,38 @@ $(document).ready(function($) {
 
                 $(this).data('ipModuleNewsletter', {'init' : true});
 
-                
-                //SUBSCRIBTION
-                $this.bind('subscribe.ipModuleNewsletter', function(event) {
-                    $(this).ipModuleNewsletter('subscribe');
+                $this.find('form').validator(validatorConfig);
+                $this.find('form').submit(function(e) {
+
+                    // client-side validation OK.
+                    if (!e.isDefaultPrevented()) {
+                        if ($(this).data('tmp').buttonClicked == 'subscribe') {
+                            $(this).ipModuleNewsletter('subscribe');
+                        } else  {
+                            $(this).ipModuleNewsletter('unsubscribe');
+                        }
+                    }
+                    e.preventDefault();
                 });
-                
-                $this.find('.ipmForm').bind('submit', function(event) {
-                    event.preventDefault();
-                    $(this).trigger('subscribe.ipModuleNewsletter');
-                });
-                
-                $this.find('.ipmSubscribe').bind('click', function(event) {
-                    event.preventDefault();
-                    $(this).trigger('subscribe.ipModuleNewsletter');
-                });
-                
-                
-                //UNSUBSCRIBTION
-                $this.find('.ipmUnsubscribe').bind('click', function(event) {
-                    event.preventDefault();
-                    $(this).trigger('unsubscribe.ipModuleNewsletter');
-                });
-                
-                $this.bind('unsubscribe.ipModuleNewsletter', function(event) {
-                    $(this).ipModuleNewsletter('unsubscribe');
-                });                
-                
 
             }
         });
     },
-    subscribe : function(newsletterUrl) {
+    subscribe : function() {
         var $this = this;
-        
         var data = Object();
         data.g = 'community';
         data.m = 'newsletter';
         data.a = 'subscribe';
-        data.email = $this.find('.ipmInput').val();
-        
+        data.email = $this.find('.ipmControlInput').val();
+        console.log(data);
         
         $.ajax({
             type : 'POST',
             url : ip.baseUrl,
             data : data,
             context : $this,
-            success : methods._subscribeAnswer,
+            success : $this.ipModuleNewsletter('_subscribeAnswer'),
             dataType : 'json'
         });
         return false;
@@ -90,7 +73,9 @@ $(document).ready(function($) {
             window.location = answer.redirectUrl;
         } else {
             if (answer.errorMessage) {
-                $this.find('.ipmError').text(answer.errorMessage);
+                console.log('sssss');
+                console.log(this);
+                $this.data("validator").invalidate({email:answer.errorMessage});
             }
         }
     },
@@ -103,14 +88,14 @@ $(document).ready(function($) {
         data.g = 'community';
         data.m = 'newsletter';
         data.a = 'unsubscribe';
-        data.email = $this.find('.ipmInput').val();
+        data.email = $this.find('input[name=email]').val();
         
         $.ajax({
         type : 'POST',
         url : ip.baseUrl,
         data : data,
         context : $this,
-        success : methods._unsubscribeAnswer,
+        success : $this.ipModuleNewsletter('_unsubscribeAnswer'),
         dataType : 'json'
         });
         return false;
@@ -122,7 +107,7 @@ $(document).ready(function($) {
             window.location = answer.redirectUrl;
         } else {
             if (answer.errorMessage) {
-                $this.find('.ipmError').text(answer.errorMessage);
+                $this.data("validator").invalidate({email:answer.errorMessage});
             }
         }
     }

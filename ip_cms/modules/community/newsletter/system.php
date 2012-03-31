@@ -18,7 +18,7 @@ class System{
         global $dispatcher;
 
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-        $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/newsletter.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/public/newsletter.js');
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
 
@@ -33,12 +33,12 @@ class System{
         $blockName = $event->getValue('blockName');
         if (
             $blockName != 'main' ||
-            $site->getCurrentZone()->getAssociatedModule() != 'newsletter' ||
-            $site->getCurrentZone()->getAssociatedModuleGroup() != 'community'
+            $site->getCurrentZone()->getAssociatedModuleGroup() != 'community' ||
+            $site->getCurrentZone()->getAssociatedModule() != 'newsletter' 
         ) {
             return;
         }
-        return $site->getCurrentElement()->generateContent();
+        $event->setValue('content', $site->getCurrentElement()->generateContent());
         $event->addProcessed();
     }
     
