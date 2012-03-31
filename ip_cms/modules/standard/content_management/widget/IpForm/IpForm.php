@@ -163,6 +163,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
      * @return \Modules\developer\form\Form
      */
     private function createForm($instanceId, $data) {
+        global $parametersMod;
         $form = new \Modules\developer\form\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {
@@ -236,7 +237,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         //submit
         $field = new \Modules\developer\form\Field\Submit(
         array(
-        'defaultValue' => 'Submit'
+        	'defaultValue' => $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'send')
         ));
         $form->addField($field);
         
