@@ -71,7 +71,6 @@ class IpNewsletter extends \Modules\standard\content_management\Widget{
             'name' => 'submit',
             'defaultValue' => $parametersMod->getValue('community','newsletter','subscription_translations','subscribe')
         ));
-        $field->addClass('ipmSubscribe');
         $field->addAttribute('onclick', '$(this).closest(\'form\').data(\'tmp\', {buttonClicked: \'subscribe\'});');
         $form->addField($field);
     
@@ -81,7 +80,6 @@ class IpNewsletter extends \Modules\standard\content_management\Widget{
                 'name' => 'submit',
                 'defaultValue' => $parametersMod->getValue('community','newsletter','subscription_translations','unsubscribe')
             ));
-            $field->addClass('ipmUnsubscribe');
             $field->addAttribute('onclick', '$(this).closest(\'form\').data(\'tmp\', {buttonClicked: \'unsubscribe\'});');
             $form->addField($field);
         }

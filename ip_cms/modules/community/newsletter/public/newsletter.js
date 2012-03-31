@@ -15,105 +15,106 @@ $(document).ready(function($) {
 (function($) {
 
     var methods = {
-    init : function(options) {
-
-        return this.each(function() {
-
-            var $this = $(this);
-            data = $this.data('ipModuleNewsletter');
-            // If the plugin hasn't been initialized yet
-            if (!data) {
-
-                /*
-                 * Do more setup stuff here
-                 */
-
-                $(this).data('ipModuleNewsletter', {'init' : true});
-
-                $this.find('form').validator(validatorConfig);
-                $this.find('form').submit(function(e) {
-
-                    // client-side validation OK.
-                    if (!e.isDefaultPrevented()) {
-                        if ($(this).data('tmp').buttonClicked == 'subscribe') {
-                            $(this).ipModuleNewsletter('subscribe');
-                        } else  {
-                            $(this).ipModuleNewsletter('unsubscribe');
+        init : function(options) {
+    
+            return this.each(function() {
+    
+                var $this = $(this);
+                data = $this.data('ipModuleNewsletter');
+                // If the plugin hasn't been initialized yet
+                if (!data) {
+    
+                    /*
+                     * Do more setup stuff here
+                     */
+    
+                    $(this).data('ipModuleNewsletter', {'init' : true});
+    
+                    $this.find('form').validator(validatorConfig);
+                    $this.find('form').submit(function(e) {
+    
+                        // client-side validation OK.
+                        if (!e.isDefaultPrevented()) {
+                            if ($(this).data('tmp').buttonClicked == 'subscribe') {
+                                $(this).ipModuleNewsletter('subscribe');
+                            } else  {
+                                $(this).ipModuleNewsletter('unsubscribe');
+                            }
                         }
-                    }
-                    e.preventDefault();
-                });
-
-            }
-        });
-    },
-    subscribe : function() {
-        var $this = this;
-        var data = Object();
-        data.g = 'community';
-        data.m = 'newsletter';
-        data.a = 'subscribe';
-        data.email = $this.find('.ipmControlInput').val();
-        console.log(data);
+                        e.preventDefault();
+                    });
+    
+                }
+            });
+        },
+        subscribe : function() {
+            var $this = this;
+            var data = Object();
+            data.g = 'community';
+            data.m = 'newsletter';
+            data.a = 'subscribe';
+            data.email = $this.find('input[name=email]').val();
+            
+            $.ajax({
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                context : $this,
+                success : _subscribeAnswer,
+                dataType : 'json'
+            });
+            return false;
+        },
         
-        $.ajax({
+
+        
+        unsubscribe : function(newsletterUrl, email) {
+    
+            var $this = this;
+            
+            var data = Object();
+            data.g = 'community';
+            data.m = 'newsletter';
+            data.a = 'unsubscribe';
+            data.email = $this.find('input[name=email]').val();
+            
+            $.ajax({
             type : 'POST',
             url : ip.baseUrl,
             data : data,
             context : $this,
-            success : $this.ipModuleNewsletter('_subscribeAnswer'),
+            success : _unsubscribeAnswer,
             dataType : 'json'
-        });
-        return false;
-    },
-    
-    _subscribeAnswer : function (answer) {
-        $this = this;
-        if (answer.status == 'success') {
-            window.location = answer.redirectUrl;
-        } else {
-            if (answer.errorMessage) {
-                console.log('sssss');
-                console.log(this);
-                $this.data("validator").invalidate({email:answer.errorMessage});
-            }
+            });
+            return false;
         }
-    },
     
-    unsubscribe : function(newsletterUrl, email) {
-
-        var $this = this;
-        
-        var data = Object();
-        data.g = 'community';
-        data.m = 'newsletter';
-        data.a = 'unsubscribe';
-        data.email = $this.find('input[name=email]').val();
-        
-        $.ajax({
-        type : 'POST',
-        url : ip.baseUrl,
-        data : data,
-        context : $this,
-        success : $this.ipModuleNewsletter('_unsubscribeAnswer'),
-        dataType : 'json'
-        });
-        return false;
-    },
-
-    _unsubscribeAnswer : function(answer) {
-        $this = this;
-        if (answer.status == 'success') {
-            window.location = answer.redirectUrl;
-        } else {
-            if (answer.errorMessage) {
-                $this.data("validator").invalidate({email:answer.errorMessage});
-            }
-        }
-    }
 
     };
 
+    var _unsubscribeAnswer = function(answer) {
+        var $this = this;
+        if (answer.status == 'success') {
+            window.location = answer.redirectUrl;
+        } else {
+            if (answer.errorMessage) {
+                $this.data("validator").invalidate({email:answer.errorMessage});
+            }
+        }
+    };
+    
+    var _subscribeAnswer = function (answer) {
+        var $this = this;
+        if (answer && answer.status == 'success') {
+            window.location = answer.redirectUrl;
+        } else {
+            if (answer && answer.errorMessage) {
+                $this.data("validator").invalidate({email:answer.errorMessage});
+            }
+        }
+    };
+    
+    
     $.fn.ipModuleNewsletter = function(method) {
 
         if (methods[method]) {
@@ -125,5 +126,7 @@ $(document).ready(function($) {
         }
 
     };
+    
+    
 
 })(jQuery);
