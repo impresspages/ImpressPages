@@ -1,7 +1,7 @@
 <?php if (!defined('CMS')) exit; ?>
 <?php echo $this->doctypeDeclaration(); ?>
 
-<html <?php echo $this->htmlAttributes(); ?>>
+<html<?php echo $this->htmlAttributes(); ?>>
 <head>
 <?php
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
