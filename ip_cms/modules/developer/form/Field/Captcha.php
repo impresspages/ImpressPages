@@ -74,12 +74,12 @@ class Captcha extends Field{
         $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
 
         if (!isset($_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key'])) {
-            return '';
+            return ''; //that means error. We just don't have the text
         }
         
         $code = strtolower($captcha->generate_private($_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key']));
         if(strtolower($values[$this->name])!== $code){
-            return '';
+            return ''; //that means error. We just don't have the text
         }
         
         return parent::validate($values, $valueKey);
