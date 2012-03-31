@@ -77,11 +77,6 @@ class Zone extends \Frontend\Zone{
         return (new Element(null, $this->zoneName));
     }
 
-    public function generateRegistrationBox(){
-        global $site;
-
-        return \Ip\View::create('view/registration.php')->render();
-    }
 
     public function makeActions(){
         require_once(__DIR__.'/actions.php');
