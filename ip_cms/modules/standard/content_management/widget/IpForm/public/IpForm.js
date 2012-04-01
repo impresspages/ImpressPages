@@ -278,11 +278,11 @@ function IpWidget_IpForm(widgetObject) {
             var $this = this;
             var data = $this.data('ipWidget_ipForm_field');
             if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
-                $this.find('.ipaFieldOptions').show();
+                $this.find('.ipaFieldOptions').css('visibility', 'visible');
                 $this.find('.ipaFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
                 $this.bind('optionsClick.ipWidget_ipForm', function() {$(this).ipWidget_ipForm_field('openOptionsPopup');});
             } else {
-                $this.find('.ipaFieldOptions').hide();
+                $this.find('.ipaFieldOptions').css('visibility', 'hidden');
             }
             data.type = type;
             $this.data('ipWidget_ipForm_field', data);

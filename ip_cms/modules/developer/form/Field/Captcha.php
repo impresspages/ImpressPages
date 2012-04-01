@@ -28,7 +28,7 @@ class Captcha extends Field{
               'TTF_RANGE'    => 'AUTO',
         
               'chars'          => 5,       // integer: number of chars to use for ID
-              'minsize'        => 20,      // integer: minimal size of chars
+              'minsize'        => 25,      // integer: minimal size of chars
               'maxsize'        => 30,      // integer: maximal size of chars
               'maxrotation'    => 25,      // integer: define the maximal angle for char-rotation, good results are between 0 and 30
               'use_only_md5'   => FALSE,   // boolean: use chars from 0-9 and A-F, or 0-9 and A-Z
@@ -58,8 +58,8 @@ class Captcha extends Field{
         
         $_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key'] = $captcha->public_key;
         return '
-        <img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
         <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" />
+        <img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
         ';
     }
     

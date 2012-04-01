@@ -348,7 +348,7 @@ class Script {
             $moduleGroup = $parametersRefractor->getModuleGroup('developer');
             $moduleId = $parametersRefractor->getModuleId('developer', 'form'); 
             if ($moduleId === false) {
-                $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Form', 'form', false, true, true, '1.00');
+                $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Form', 'form', false, false, true, '1.00');
                 $users = $parametersRefractor->getUsers();
                 foreach($users as $user){
                     $parametersRefractor->addPermissions($moduleId, $user['id']);
