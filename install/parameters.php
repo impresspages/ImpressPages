@@ -2827,6 +2827,44 @@ $moduleTitle["developer"]["zones"] = "Zones";
 $moduleGroupTitle["developer"] = "Developer";
 $moduleTitle["developer"]["form"] = "Form";
         
+    $parameterGroupTitle["developer"]["form"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["developer"]["form"]["admin_translations"] = "1";
+    
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_text"] = "Type text";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_text"] = "Text";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_text"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_text"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_captcha"] = "Type Captcha";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_captcha"] = "Captcha";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_captcha"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_captcha"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_confirm"] = "Type confirm";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_confirm"] = "Confirm";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_confirm"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_confirm"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_email"] = "Type email";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_email"] = "Email";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_email"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_email"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_radio"] = "Type radio";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_radio"] = "Radio";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_radio"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_radio"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_select"] = "Type select";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_select"] = "Select";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_select"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_select"] = "string";
+        
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_textarea"] = "Type textarea";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_textarea"] = "Textarea";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_textarea"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_textarea"] = "string";
+
     $parameterGroupTitle["developer"]["form"]["error_messages"] = "Error messages";
     $parameterGroupAdmin["developer"]["form"]["error_messages"] = "0";
         

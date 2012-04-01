@@ -39,6 +39,7 @@ $moduleTitle["developer"]["widgets"] = "Widgets";
 $moduleTitle["developer"]["modules"] = "Modules";
 $moduleTitle["developer"]["config_exp_imp"] = "Modules exp/imp";
 $moduleTitle["developer"]["localization"] = "Localization";
+$moduleTitle["developer"]["form"] = "Form";
 $moduleTitle["community"]["newsletter"] = "Newsletter";
 $moduleTitle["community"]["newsletter_subscribers"] = "Newsletter subscribers";
 $moduleTitle["community"]["user"] = "User";
@@ -74,6 +75,8 @@ $parameterGroupTitle["developer"]["modules_configuration"]["admin_translations"]
 $parameterGroupTitle["developer"]["std_mod"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["developer"]["std_mod"]["parameters"] = "Parameters";
 $parameterGroupTitle["developer"]["zones"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["developer"]["form"]["error_messages"] = "Error messages";
+$parameterGroupTitle["developer"]["form"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
 $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
 $parameterGroupTitle["standard"]["configuration"]["main_parameters"] = "Main parameters";
@@ -797,18 +800,6 @@ $parameter["parameterTitle/standard/content_management/widget_text_photo/quality
 
 $parameter["parameterTitle/standard/content_management/widget_text_photo/width"] = "Photo width";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_left"] = "Layout left";
-$parameter["parameterValue/standard/content_management/widget_text_photo/layout_left"] = "Left";
-
-$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_right"] = "Layout right";
-$parameter["parameterValue/standard/content_management/widget_text_photo/layout_right"] = "Right";
-
-$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_small_left"] = "Layout small left";
-$parameter["parameterValue/standard/content_management/widget_text_photo/layout_small_left"] = "Small left";
-
-$parameter["parameterTitle/standard/content_management/widget_text_photo/layout_small_right"] = "Layout small right";
-$parameter["parameterValue/standard/content_management/widget_text_photo/layout_small_right"] = "Small right";
-
 $parameter["parameterTitle/standard/content_management/widget_contact_form/button"] = "Button caption";
 $parameter["parameterValue/standard/content_management/widget_contact_form/button"] = "Button caption";
 
@@ -962,14 +953,14 @@ $parameter["parameterValue/standard/content_management/widget_logo_gallery/widge
 $parameter["parameterTitle/standard/content_management/widget_image/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
 $parameter["parameterValue/standard/content_management/widget_image/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
 
-$parameter["parameterTitle/standard/content_management/widget_image/current_photo"] = "Current photo";
-$parameter["parameterValue/standard/content_management/widget_image/current_photo"] = "Current photo";
+$parameter["parameterTitle/standard/content_management/widget_image/current_image"] = "Current image";
+$parameter["parameterValue/standard/content_management/widget_image/current_image"] = "Current image";
 
 $parameter["parameterTitle/standard/content_management/widget_image/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_image/layout_default"] = "Default";
 
-$parameter["parameterTitle/standard/content_management/widget_image/new_photo"] = "New photo";
-$parameter["parameterValue/standard/content_management/widget_image/new_photo"] = "New photo";
+$parameter["parameterTitle/standard/content_management/widget_image/new_image"] = "New image";
+$parameter["parameterValue/standard/content_management/widget_image/new_image"] = "New image";
 
 $parameter["parameterTitle/standard/content_management/widget_image/no_file"] = "No file";
 $parameter["parameterValue/standard/content_management/widget_image/no_file"] = "Please select the file";
@@ -977,8 +968,8 @@ $parameter["parameterValue/standard/content_management/widget_image/no_file"] = 
 $parameter["parameterTitle/standard/content_management/widget_image/partial"] = "Transfer failed. Try again.";
 $parameter["parameterValue/standard/content_management/widget_image/partial"] = "Transfer failed. Try again.";
 
-$parameter["parameterTitle/standard/content_management/widget_image/photo"] = "Photo";
-$parameter["parameterValue/standard/content_management/widget_image/photo"] = "Photo";
+$parameter["parameterTitle/standard/content_management/widget_image/image"] = "Image";
+$parameter["parameterValue/standard/content_management/widget_image/image"] = "Image";
 
 $parameter["parameterTitle/standard/content_management/widget_image/title"] = "Title";
 $parameter["parameterValue/standard/content_management/widget_image/title"] = "Title";
@@ -1004,8 +995,8 @@ $parameter["parameterValue/standard/content_management/widget_image_gallery/dele
 $parameter["parameterTitle/standard/content_management/widget_image_gallery/gallery"] = "Photo gallery";
 $parameter["parameterValue/standard/content_management/widget_image_gallery/gallery"] = "Photo gallery";
 
-$parameter["parameterTitle/standard/content_management/widget_image_gallery/new_photo"] = "New photo";
-$parameter["parameterValue/standard/content_management/widget_image_gallery/new_photo"] = "New photo";
+$parameter["parameterTitle/standard/content_management/widget_image_gallery/new_image"] = "New image";
+$parameter["parameterValue/standard/content_management/widget_image_gallery/new_image"] = "New image";
 
 $parameter["parameterTitle/standard/content_management/widget_image_gallery/no_file"] = "No file";
 $parameter["parameterValue/standard/content_management/widget_image_gallery/no_file"] = "Please select the file";
@@ -1052,35 +1043,35 @@ $parameter["parameterValue/standard/content_management/widget_text/menu_mod_text
 $parameter["parameterTitle/standard/content_management/widget_text/widget_title"] = "Widget title";
 $parameter["parameterValue/standard/content_management/widget_text/widget_title"] = "Text";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
-$parameter["parameterValue/standard/content_management/widget_text_photo/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+$parameter["parameterTitle/standard/content_management/widget_text_image/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
+$parameter["parameterValue/standard/content_management/widget_text_image/bad_type"] = "Incorrect file type. Acceptable file types: JPEG, GIF";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/current_photo"] = "Current photo";
-$parameter["parameterValue/standard/content_management/widget_text_photo/current_photo"] = "Current photo";
+$parameter["parameterTitle/standard/content_management/widget_text_image/current_image"] = "Current image";
+$parameter["parameterValue/standard/content_management/widget_text_image/current_image"] = "Current image";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/new_photo"] = "Upload photo";
-$parameter["parameterValue/standard/content_management/widget_text_photo/new_photo"] = "Upload photo";
+$parameter["parameterTitle/standard/content_management/widget_text_image/new_image"] = "Upload image";
+$parameter["parameterValue/standard/content_management/widget_text_image/new_image"] = "Upload image";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/no_file"] = "No file";
-$parameter["parameterValue/standard/content_management/widget_text_photo/no_file"] = "Please select the file";
+$parameter["parameterTitle/standard/content_management/v/no_file"] = "No file";
+$parameter["parameterValue/standard/content_management/widget_text_image/no_file"] = "Please select the file";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/partial"] = "Transfer failed. Try again.";
-$parameter["parameterValue/standard/content_management/widget_text_photo/partial"] = "Transfer failed. Try again.";
+$parameter["parameterTitle/standard/content_management/widget_text_image/partial"] = "Transfer failed. Try again.";
+$parameter["parameterValue/standard/content_management/widget_text_image/partial"] = "Transfer failed. Try again.";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/text_photo"] = "Text with photo";
-$parameter["parameterValue/standard/content_management/widget_text_photo/text_photo"] = "Text with photo";
+$parameter["parameterTitle/standard/content_management/widget_text_image/text_image"] = "Text with image";
+$parameter["parameterValue/standard/content_management/widget_text_image/text_image"] = "Text with image";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/title"] = "Title";
-$parameter["parameterValue/standard/content_management/widget_text_photo/title"] = "Title";
+$parameter["parameterTitle/standard/content_management/widget_text_image/title"] = "Title";
+$parameter["parameterValue/standard/content_management/widget_text_image/title"] = "Title";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/too_big"] = "The photo is too big";
-$parameter["parameterValue/standard/content_management/widget_text_photo/too_big"] = "The photo is too big";
+$parameter["parameterTitle/standard/content_management/widget_text_image/too_big"] = "The photo is too big";
+$parameter["parameterValue/standard/content_management/widget_text_image/too_big"] = "The photo is too big";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/unknown"] = "Unknown error. Check server configuration or contact administrator.";
-$parameter["parameterValue/standard/content_management/widget_text_photo/unknown"] = "Unknown error. Check server configuration or contact administrator.";
+$parameter["parameterTitle/standard/content_management/widget_text_image/unknown"] = "Unknown error. Check server configuration or contact administrator.";
+$parameter["parameterValue/standard/content_management/widget_text_image/unknown"] = "Unknown error. Check server configuration or contact administrator.";
 
-$parameter["parameterTitle/standard/content_management/widget_text_photo/widget_title"] = "Widget title";
-$parameter["parameterValue/standard/content_management/widget_text_photo/widget_title"] = "Text/photo";
+$parameter["parameterTitle/standard/content_management/widget_text_image/widget_title"] = "Widget title";
+$parameter["parameterValue/standard/content_management/widget_text_image/widget_title"] = "Text/photo";
 
 $parameter["parameterTitle/standard/content_management/widget_text_title/text"] = "Text";
 $parameter["parameterValue/standard/content_management/widget_text_title/text"] = "Text";
@@ -1390,3 +1381,46 @@ $parameter["parameterTitle/community/user/translations/title_registration"] = "T
 
 $parameter["parameterTitle/community/user/translations/title_registration_verification_error"] = "Title - registration verification error ";
 
+
+
+$parameter["parameterTitle/developer/form/admin_translations/type_text"] = "Type text";
+$parameter["parameterValue/developer/form/admin_translations/type_text"] = "Text";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_captcha"] = "Type Captcha";
+$parameter["parameterValue/developer/form/admin_translations/type_captcha"] = "Captcha";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_confirm"] = "Type confirm";
+$parameter["parameterValue/developer/form/admin_translations/type_confirm"] = "Confirm";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_email"] = "Type email";
+$parameter["parameterValue/developer/form/admin_translations/type_email"] = "Email";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_radio"] = "Type radio";
+$parameter["parameterValue/developer/form/admin_translations/type_radio"] = "Radio";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_select"] = "Type select";
+$parameter["parameterValue/developer/form/admin_translations/type_select"] = "Select";
+
+$parameter["parameterTitle/developer/form/admin_translations/type_textarea"] = "Type textarea";
+$parameter["parameterValue/developer/form/admin_translations/type_textarea"] = "Textarea";
+
+$parameter["parameterTitle/developer/form/error_messages/unknown"] = "Unknown";
+$parameter["parameterValue/developer/form/error_messages/unknown"] = "Please correct this value";
+
+$parameter["parameterTitle/developer/form/error_messages/email"] = "Email";
+$parameter["parameterValue/developer/form/error_messages/email"] = "Please enter a valid email address";
+
+$parameter["parameterTitle/developer/form/error_messages/number"] = "Number";
+$parameter["parameterValue/developer/form/error_messages/number"] = "Please enter a valid numeric value";
+
+$parameter["parameterTitle/developer/form/error_messages/url"] = "Url";
+$parameter["parameterValue/developer/form/error_messages/url"] = "Please enter a valid URL";
+
+$parameter["parameterTitle/developer/form/error_messages/max"] = "Max";
+$parameter["parameterValue/developer/form/error_messages/max"] = "Please enter a value no larger than $1";
+
+$parameter["parameterTitle/developer/form/error_messages/min"] = "Min";
+$parameter["parameterValue/developer/form/error_messages/min"] = "Please enter a value of at least $1";
+
+$parameter["parameterTitle/developer/form/error_messages/required"] = "Required";
+$parameter["parameterValue/developer/form/error_messages/required"] = "Please complete this mandatory field";

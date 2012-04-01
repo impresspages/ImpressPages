@@ -384,6 +384,36 @@ class Script {
             }
             
             
+            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+            if ($parametersGroup) {
+                $groupId = $parametersGroup['id'];
+            } else {
+                $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            }
+            
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_text')) {
+                \Db_100::addStringParameter($groupId, 'Type text', 'type_text', 'Text', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_captcha')) {
+                \Db_100::addStringParameter($groupId, 'Type captcha', 'type_captcha', 'Captcha', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_confirm')) {
+                \Db_100::addStringParameter($groupId, 'Type confirm', 'type_confirm', 'Confirm', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_email')) {
+                \Db_100::addStringParameter($groupId, 'Type email', 'type_email', 'Email', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_radio')) {
+                \Db_100::addStringParameter($groupId, 'Type radio', 'type_radio', 'Radio', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_select')) {
+                \Db_100::addStringParameter($groupId, 'Type select', 'type_select', 'Select', 0);
+            }
+            if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_textarea')) {
+                \Db_100::addStringParameter($groupId, 'Type textarea', 'type_textarea', 'Textarea', 0);
+            }
+            
+            
             
             //bind widget images to repository
             $sql = "SELECT * FROM ".DB_PREF."m_content_management_widget WHERE 1";
