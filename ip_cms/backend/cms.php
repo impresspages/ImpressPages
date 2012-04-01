@@ -12,6 +12,12 @@ if(!defined('BACKEND')) exit;
 require (__DIR__.'/html_output.php');
 require (__DIR__.'/session.php');
 
+if (file_exists(BASE_DIR.CONFIG_DIR.'admin/template.php')) {
+    require_once(BASE_DIR.CONFIG_DIR.'admin/template.php');
+} else {
+    require_once (__DIR__.'/template.php');
+}
+
 /**
  * ImpressPages main administration area class
  *
@@ -138,9 +144,9 @@ class Cms {
                 \db::disconnect();
                 exit;
             }
-            $this->html->headerLogin();
+            $this->html->html(Template::headerLogin());
             $this->html->html('<script type="text/javascript">if(parent.header && parent.content)parent.window.top.location=\'admin.php\';</script>');
-            $this->html->loginForm($this->loginError); //login window
+            $this->html->html(Template::loginForm($this->loginError)); //login window
             $this->html->footer();
         }
 
