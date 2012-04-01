@@ -17,10 +17,16 @@
 
 define('SITEMAP_MAX_LENGTH', 50000);
 
-define('CMS', true);
-define('FRONTEND', true);
-define('SITEMAP', true);
 
+if (!defined('CMS')) {
+    define('CMS', true); // make sure other files are accessed through this file.
+}
+if (!defined('BACKEND')) {
+    define('BACKEND', true); // make sure other files are accessed through this file.
+}
+if (!defined('SITEMAP')) {
+    define('SITEMAP', true);
+}
 
 if(is_file(__DIR__.'/ip_config.php')) {
     require (__DIR__.'/ip_config.php');

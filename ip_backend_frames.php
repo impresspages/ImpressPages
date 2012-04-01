@@ -11,9 +11,12 @@
 
 namespace Backend;
 
-/** @private */
-define('CMS', true); // make sure other files are accessed through this file.
-define('BACKEND', true); // make sure other files are accessed through this file.
+if (!defined('CMS')) {
+    define('CMS', true); // make sure other files are accessed through this file.
+}
+if (!defined('BACKEND')) {
+    define('BACKEND', true); // make sure other files are accessed through this file.
+}
 
 
 error_reporting(E_ALL|E_STRICT);

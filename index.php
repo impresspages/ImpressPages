@@ -12,9 +12,12 @@
 
 /** Make sure files are accessed through index. */
 
-
-define('CMS', true); // make sure other files are accessed through this file.
-define('FRONTEND', true); // make sure other files are accessed through this file.
+if (!defined('CMS')) {
+    define('CMS', true); // make sure other files are accessed through this file.
+}
+if (!defined('FRONTEND')) {
+    define('FRONTEND', true); // make sure other files are accessed through this file.
+}
 
 
 if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
