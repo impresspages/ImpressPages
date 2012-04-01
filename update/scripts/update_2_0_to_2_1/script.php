@@ -258,7 +258,7 @@ class Script {
                     \Db_100::addStringParameter($group['id'], 'Options', 'options', 'Options', 1);
                 }
                 
-                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'send')) {
                     \Db_100::addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send', 'comment' => ''));
                 }
                 
@@ -300,7 +300,7 @@ class Script {
                     $parametersRefractor->addPermissions($moduleId, $user['id']);
                 }
             }
-            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+            $parametersGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
             if ($parametersGroup) {
                 $groupId = $parametersGroup['id'];
             } else {
@@ -354,7 +354,7 @@ class Script {
                     $parametersRefractor->addPermissions($moduleId, $user['id']);
                 }
             }
-            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'error_messages');
+            $parametersGroup = \Db_100::getParameterGroup($moduleId, 'error_messages');
             if ($parametersGroup) {
                 $groupId = $parametersGroup['id'];
             } else {
@@ -384,7 +384,7 @@ class Script {
             }
             
             
-            $parameterGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+            $parametersGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
             if ($parametersGroup) {
                 $groupId = $parametersGroup['id'];
             } else {
