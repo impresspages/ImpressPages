@@ -2,7 +2,7 @@
     $.fn.ipWidgetIpUserForm = function() {
         return this.each(function() {
             var $ipUserForm = $(this);
-            $ipUserForm.find('form').validator();
+            $ipUserForm.find('form').validator(validatorConfig);
             $ipUserForm.find('form').submit(function(e) {
                 var $form = $(this);
                 // client-side validation OK.
