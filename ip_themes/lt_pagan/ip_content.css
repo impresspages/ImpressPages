@@ -88,31 +88,6 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
     box-shadow: 0 0 3px 0 #fff inset;
 }
-/* Modules :: newsletter */
-.ipModuleNewsletter .ipmForm {
-    background-color: #f3f3f3;
-    color: #000;
-    margin-top: -15px;
-    padding: 15px 20px;
-}
-.ipModuleNewsletter .ipmLabel {
-    line-height: 20px;
-}
-.ipModuleNewsletter .ipmInput {
-    float: none;
-    margin: 10px 0;
-    width: 174px;
-}
-.ipModuleNewsletter .ipmButtons {
-    clear: both;
-    margin-left: -5px;
-}
-.ipModuleNewsletter .ipmButton {
-    margin-top: 5px;
-}
-.ipModuleNewsletter .ipmError {
-    color: #da0001;
-}
 /* Modules :: form */
 .ipModuleForm {
     border: 1px solid #888;
