@@ -1,4 +1,4 @@
-<div class="ipmField ipmType-<?php echo $field->getTypeClaass(); ?><?php if($field->isRequired()) { echo " ipmRequired"; } ?> clearfix">
+<div class="ipmField ipmType-<?php echo $field->getTypeClaass(); ?><?php if($field->isRequired()) { echo " ipmRequired"; } ?>">
     <label class="ipmLabel" for="<?php echo $field->getId(); ?>">
         <?php echo $this->esc($field->getLabel()); ?>
         <?php if($field->isRequired()) { ?>

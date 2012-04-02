@@ -40,8 +40,10 @@
     float: right;
     margin-top: 20px;
 }
-.ipModuleNewsletter .ipmInput,
-.ipModuleSearch .ipmInput {
+.ipModuleSearch .ipmField {
+    float: left;
+}
+.ipModuleSearch .ipmControlInput {
     border: 1px solid #b3b3b3;
     box-shadow: 0 1px 2px -1px #b3b3b3 inset;
     float: left;
@@ -49,12 +51,10 @@
     padding: 1px 2px;
     width: 160px;
 }
-.ipModuleNewsletter .ipmInput:focus,
-.ipModuleSearch .ipmInput:focus {
+.ipModuleSearch .ipmControlInput:focus {
     box-shadow: none;
 }
-.ipModuleNewsletter .ipmButton, 
-.ipModuleSearch .ipmButton,
+.ipModuleSearch .ipmControlSubmit,
 .ipModuleForm .ipmControlSubmit {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #f4f4f4; /* Old browsers */
@@ -75,8 +75,7 @@
     padding: 0 6px;
     text-transform: uppercase;
 }
-.ipModuleNewsletter .ipmButton:hover,
-.ipModuleSearch .ipmButton:hover,
+.ipModuleSearch .ipmControlSubmit:hover,
 .ipModuleForm .ipmControlSubmit:hover {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
     background: #e1e0e0; /* Old browsers */
@@ -125,6 +124,7 @@
     margin-bottom: 25px;
     position: relative; /* to position inner elements respectively to the field */
 }
+.ipModuleForm .ipmField:after { /* clearing, see 960.css */ }
 .ipModuleForm .ipmType-blank { /* if blank we'll remove it from the flow */
     margin: -16px 0 0;
     position: absolute;

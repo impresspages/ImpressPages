@@ -329,6 +329,8 @@ body {
 
 .ipWidget:before,
 .ipWidget:after,
+.ipModuleForm .ipmField:before,
+.ipModuleForm .ipmField:after,
 .clearfix:before,
 .clearfix:after,
 .container_12:before,
@@ -344,6 +346,7 @@ body {
 }
 
 .ipWidget:after,
+.ipModuleForm .ipmField:after,
 .clearfix:after,
 .container_12:after {
   clear: both;
