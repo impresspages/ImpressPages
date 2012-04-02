@@ -1,1 +1,1 @@
-<textarea class="ipaContainer"></textarea>
+<textarea class="ipaFieldOptionsRichText"></textarea>

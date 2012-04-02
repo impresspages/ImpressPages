@@ -82,17 +82,18 @@
 // IpForm widget select options
 ipWidgetIpForm_InitListOptions = function ($context, currentOptions) {
     var addOption = function (value) {
-        var $newOption = $context.find('.ipgHide .ipaOptionTemplate').clone();
-        $newOption.find('.ipaOption').val(value);
-        $context.find('.ipaContainer').append($newOption);
+        var $newOption = $context.find('.ipgHide .ipaFieldOptionsTemplate').clone();
+        $newOption.find('.ipaOptionLabel').val(value);
+        $context.find('.ipaFieldOptionsContainer').append($newOption);
     };
     
-    $context.find('.ipaAdd').bind('click', function () {
+    $context.find('.ipaFieldOptionsAdd').bind('click', function (e) {
+        e.preventDefault();
         addOption();
     });
     
-    $context.delegate('.ipaRemove', 'click', function () {
-        $(this).closest('.ipaOptionTemplate').remove();
+    $context.delegate('.ipaOptionRemove', 'click', function () {
+        $(this).closest('.ipaFieldOptionsTemplate').remove();
         return false;
     });
     
@@ -105,14 +106,14 @@ ipWidgetIpForm_InitListOptions = function ($context, currentOptions) {
         addOption(); //add first empty option
     }
     
-    $context.find(".ipaContainer").sortable();
-    $context.find(".ipaContainer").sortable('option', 'handle', '.ipaOptionMove');
+    $context.find(".ipaFieldOptionsContainer").sortable();
+    $context.find(".ipaFieldOptionsContainer").sortable('option', 'handle', '.ipaOptionMove');
     
     
 };
 
 ipWidgetIpForm_SaveListOptions = function ($context) {
-    var $options = $context.find('.ipaContainer .ipaOption');
+    var $options = $context.find('.ipaFieldOptionsContainer .ipaOptionLabel');
     var answer = new Array();
     answer = new Array();
     $options.each(function (i) {
@@ -126,13 +127,13 @@ ipWidgetIpForm_SaveListOptions = function ($context) {
 //IpForm widget wysiwyg options
 ipWidgetIpForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
-        $context.find(".ipaContainer").val(currentOptions.text);
+        $context.find(".ipaFieldOptionsRichText").val(currentOptions.text);
     }
-    $context.find(".ipaContainer").tinymce(ipTinyMceConfigMin);
+    $context.find(".ipaFieldOptionsRichText").tinymce(ipTinyMceConfigMin);
 };
 
 ipWidgetIpForm_SaveWysiwygOptions = function ($context) {
-    return {text:$context.find('.ipaContainer').val()};
+    return {text:$context.find('.ipaFieldOptionsRichText').val()};
 };
 
 

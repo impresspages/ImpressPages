@@ -28,7 +28,7 @@ function IpWidget_IpForm(widgetObject) {
 
         options.fieldTemplate = this.widgetObject.find('.ipaFieldTemplate');
         
-        options.optionsPopup = this.widgetObject.find(".ipaOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.data.fieldTypes});
+        options.optionsPopup = this.widgetObject.find(".ipaFieldOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.data.fieldTypes});
         container.ipWidget_ipForm_container(options);
         this.widgetObject.find(".ipaFieldAdd").click(function (e){e.preventDefault(); $(this).trigger('addFieldClicked.ipForm');});
         this.widgetObject.bind('addFieldClicked.ipForm', this.addField);

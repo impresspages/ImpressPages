@@ -12,7 +12,7 @@
         <a href="#" class="ipaButton ipaFieldOptions"><?php echo $this->escPar('standard/content_management/widget_contact_form/options'); ?></a>
         <a href="#" class="ipaButton ipaFieldRemove"><?php echo $this->escPar('standard/content_management/widget_contact_form/remove'); ?></a>
     </div>
-    <div class="ipaOptionsPopup"></div>
+    <div class="ipaFieldOptionsPopup"></div>
 </div>
 <a href="#" class="ipAdminButton ipaFieldAdd">Add new</a>
 <div class="ipaOptions">

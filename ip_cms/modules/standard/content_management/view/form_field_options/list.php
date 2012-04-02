@@ -1,10 +1,9 @@
-<div class="ipaContainer">
-</div>
+<div class="ipaFieldOptionsContainer"></div>
 <div class="ipgHide">
-    <div class="ipaOptionTemplate">
+    <div class="ipaFieldOptionsTemplate">
         <a href="#" class="ipaButton ipaOptionMove"><?php echo $this->escPar('standard/content_management/widget_contact_form/move') ?></a>
-        <input type="text" class="ipAdminInput ipaOption" name="option" value="" />
-        <a href="#" class="ipaButton ipaRemove"><?php echo $this->escPar('standard/content_management/widget_contact_form/remove') ?></a>
+        <input type="text" class="ipAdminInput ipaOptionLabel" name="option" value="" />
+        <a href="#" class="ipaButton ipaOptionRemove"><?php echo $this->escPar('standard/content_management/widget_contact_form/remove') ?></a>
     </div>
 </div>
-<a class="ipaAdd">Add</a>
+<a href="#" class="ipAdminButton ipaFieldOptionsAdd">Add new</a>

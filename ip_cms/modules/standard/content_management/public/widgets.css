@@ -615,10 +615,12 @@
 }
 
 /* Widget: IpForm */
-.ipAdminWidget-IpForm .ipaBody .ipaFieldTemplate {
+.ipAdminWidget-IpForm .ipaBody .ipaFieldTemplate,
+.ipaFieldOptionsContainer .ipaFieldOptionsTemplate {
     margin-bottom: 5px;
 }
-.ipAdminWidget-IpForm .ipaBody .ipaButton {
+.ipAdminWidget-IpForm .ipaBody .ipaButton,
+.ipaFieldOptionsContainer .ipaButton {
     background-color: #000;
     color: #fff;
     display: inline-block;
@@ -630,6 +632,9 @@
 }
 .ipAdminWidget-IpForm .ipaOptions {
     margin-top: 10px;
+}
+.ipaFieldOptionsContainer .ipaOptionLabel {
+    width: 55%;
 }
 
 /* style that interfere with theme styles and potentially may cause issues */
