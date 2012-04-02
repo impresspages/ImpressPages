@@ -10,9 +10,15 @@
  * @license see ip_license.html
  */
 
-define('CMS', true); // make sure other files are accessed through this file.
-define('BACKEND', true); // make sure other files are accessed through this file.
-define('WORKER', true); //worker don't shows error. Even if it is set to show them in config.php
+if (!defined('CMS')) {
+    define('CMS', true); // make sure other files are accessed through this file.
+}
+if (!defined('BACKEND')) {
+    define('BACKEND', true); // make sure other files are accessed through this file.
+}
+if (!defined('WORKER')) {
+    define('WORKER', true); //worker don't show errors. Even if it is set to show them in config.php
+}
 
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');

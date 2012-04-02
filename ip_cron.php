@@ -11,10 +11,18 @@
  */
 
 /** @private */
-define('CMS', true); // make sure other files are accessed through this file.
-define('FRONTEND', true); // make sure other files are accessed through this file.
-define('BACKEND', true); // make sure other files are accessed through this file.
-define('CRON', true); // make sure other files are accessed through this file.
+if (!defined('CMS')) {
+    define('CMS', true); // make sure other files are accessed through this file.
+}
+if (!defined('BACKEND')) {
+    define('BACKEND', true); // make sure other files are accessed through this file.
+}
+if (!defined('FRONTEND')) {
+    define('FRONTEND', true); // make sure other files are accessed through this file.
+}
+if (!defined('CRON')) {
+    define('CRON', true);
+}
 
 
 if(is_file(__DIR__.'/ip_config.php')) {
