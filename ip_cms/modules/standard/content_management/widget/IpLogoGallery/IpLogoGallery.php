@@ -160,13 +160,10 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     if (!isset($logo['link'])) {
                         $logo['link'] = '';
                     }
-                                        
-                    $newLogo = array(
-                        'logoOriginal' => $existingLogoData['logoOriginal'],
-                        'logoSmall' => $existingLogoData['logoSmall'],
-                        'title' => $logo['title'],
-                        'link' => $logo['link']
-                    );
+
+                    $newLogo = $existingLogoData;
+                    $newLogo['title'] = $logo['title'];
+                    $newLogo['link'] = $logo['link'];
                     $newData['logos'][] = $newLogo;
 
                     break;
@@ -230,9 +227,32 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
     
         foreach($newData['logos'] as $logoKey => &$logo) {
     
-            if (!isset($logo['cropX1']) || !isset($logo['cropY1']) || !isset($logo['cropX2']) || !isset($logo['cropY2'])|| !isset($logo['logoOriginal'])) {
+            if (!isset($logo['logoOriginal'])) {
                 continue; //missing data. Better don't do anything
             }
+            
+            $imageInfo = getimagesize($logo['logoOriginal']);
+            if (!$imageInfo) {
+                continue; //missing data. Better don't do anything
+            }
+            $curWidth = $imageInfo[0];
+            $curHeight = $imageInfo[1];
+            $curRatio = $curWidth / $curHeight;
+            
+            //2.0 on update missed to store these values. But on IpLogoGallery they can be easily restored
+            if (!isset($logo['cropX1']) || true) {
+                $logo['cropX1'] = 0;
+            }
+            if (!isset($logo['cropX2'])|| true) {
+                $logo['cropX2'] = $curWidth;
+            }
+            if (!isset($logo['cropY1'])|| true) {
+                $logo['cropY1'] = 0;
+            }
+            if (!isset($logo['cropY2'])|| true) {
+                $logo['cropY2'] = $curHeight;
+            }
+            
     
             //remove old big image
             if (isset($logo['logoSmall']) && $logo['logoSmall']) {
@@ -240,15 +260,28 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
             }
     
             
-            $imageInfo = getimagesize($logo['logoOriginal']);
-    
+            $reqWidth = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width');
+            $reqHeight = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height');
+            $reqRatio = $reqWidth / $reqHeight;
+            if ($reqRatio > $curRatio) {
+                $cropY1 = 0;
+                $cropY2 = $curHeight;
+                $cropX1 = -round(($curHeight * $reqRatio - $curWidth) / 2);
+                $cropX2 = $curWidth + round(($curHeight * $reqRatio - $curWidth) / 2);
+            } else {
+                $cropX1 = 0;
+                $cropX2 = $curWidth;
+                $cropY1 = -round(($curWidth / $reqRatio - $curHeight) / 2);
+                $cropY2 = $curHeight + round(($curWidth / $reqRatio - $curHeight) / 2);
+            }
+            
             //create simplified small logo
             $tmpLogoSmall = $this->_createSmallLogo(
             $logo['logoOriginal'],
-            0,
-            0,
-            $imageInfo[0],
-            $imageInfo[1],
+            $cropX1,
+            $cropY1,
+            $cropX2,
+            $cropY2,
             TMP_IMAGE_DIR
             );
             $logoSmall = \Modules\administrator\repository\Model::addFile($tmpLogoSmall, 'standard/content_management', $widgetId);
@@ -270,7 +303,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
         $answer = false;
         foreach ($allLogos as $logoKey => $logo) {
-            if ($logo['logoOriginal'] == $logoOriginalFile) {
+            if (isset($logo['logoOriginal']) && $logo['logoOriginal'] == $logoOriginalFile) {
                 $answer = $logo;
                 break;
             }
