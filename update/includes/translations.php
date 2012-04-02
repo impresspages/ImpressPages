@@ -44,6 +44,18 @@ needs some Javascript, it includes it.
 
 </p>
 ');
+define ('IP_OLD_VERSION_VARNING2', '
+<hr/>
+<P><span style="color: red; font-weight: bold">ATTENTION</span></P>
+<p>You are updating from [[current_version]].
+IpForm widget has been introduced since then.
+You need manually replace your current ip_content.css file
+ (ip_themes/lt_pagan/ip_content.css) to one from  downloaded archive.
+ If you have made some changes to original files, please replicate them to the new one.
+</p>
+<p>If you are using other theme, you need manually tweek you CSS
+to style forms.</p>
+');
 define ('IP_STEP_BACKUP_UPDATE', 'Start Update');
 
 define ('IP_STEP_PROCESS', 'Update Process');
