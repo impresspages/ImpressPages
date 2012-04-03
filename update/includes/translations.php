@@ -24,7 +24,7 @@ define ('IP_STEP_BACKUP_INTRODUCTION', '
 <br/>
 <p>Update to <b>[[new_version]]</b></p>
 ');
-define ('IP_OLD_VERSION_VARNING', '
+define ('IP_OLD_VERSION_WARNING', '
 <hr/>
 <P><span style="color: red; font-weight: bold">ATTENTION</span></P>
 <p>You are updating from [[current_version]].
@@ -44,7 +44,7 @@ needs some Javascript, it includes it.
 
 </p>
 ');
-define ('IP_OLD_VERSION_VARNING2', '
+define ('IP_OLD_VERSION_WARNING2', '
 <hr/>
 <P><span style="color: red; font-weight: bold">ATTENTION</span></P>
 <p>You are updating from [[current_version]].

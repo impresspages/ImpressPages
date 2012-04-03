@@ -124,12 +124,12 @@ class Update {
         $answer .= $tmpHtml;
 
         if ($this->getCurrentVersion() == '2.0rc1' || $this->getCurrentVersion() == '2.0rc2') {
-            $tmpHtml = IP_OLD_VERSION_VARNING;
+            $tmpHtml = IP_OLD_VERSION_WARNING;
             $tmpHtml = str_replace("[[current_version]]", htmlspecialchars($this->getCurrentVersion()), $tmpHtml);
             $answer .= $tmpHtml;
         }
         if ($this->getCurrentVersion() == '2.0rc1' || $this->getCurrentVersion() == '2.0rc2' || $this->getCurrentVersion() == '2.0') {
-            $tmpHtml = IP_OLD_VERSION_VARNING2;
+            $tmpHtml = IP_OLD_VERSION_WARNING2;
             $tmpHtml = str_replace("[[current_version]]", htmlspecialchars($this->getCurrentVersion()), $tmpHtml);
             $answer .= $tmpHtml;
         }
