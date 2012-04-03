@@ -57,6 +57,9 @@ class Model{
     }
     
     private static function writeThemeNameToConfig($configFileName, $themeName){
+        if (!is_writable($configFileName)) {
+            throw new  \Exception("Error: ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
+        }
         $config = file_get_contents($configFileName);
 
         $count;

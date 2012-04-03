@@ -38,7 +38,7 @@ class Manager{
         $answer = Template::header();
         $answer.= Template::title();
         if ($error) {
-            Template::error($error);
+            $answer.= Template::error($error);
         }
         if ($message) {
             $answer .= Template::message($message);
