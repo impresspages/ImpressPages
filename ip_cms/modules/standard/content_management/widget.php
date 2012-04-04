@@ -110,7 +110,7 @@ class Widget{
             }
 
             if (empty($layouts)) {
-                throw new Exception('No layouts', self::NO_LAYOUTS);
+                throw new Exception('No layouts', Exception::NO_LAYOUTS);
             }
 
         } catch (Exception $e) {
