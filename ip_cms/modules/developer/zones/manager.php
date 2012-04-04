@@ -17,49 +17,11 @@ require_once (__DIR__.'/db.php');
 
 class ZonesArea extends \Library\Php\StandardModule\Area{
     function after_insert($id){
-        global $parametersMod;
-        global $site;
 
-
-        $zone = Db::getZone($id);
-
-        Db::createRootZonesElement($id, $zone['translation']);
-
-        if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
-            /* add menu management associated zones */
-            $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
-            $parametersMod->setValue('standard', 'menu_management', 'options', 'associated_zones', $newZonesStr);
-
-            $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'), $zone['name']);
-            $parametersMod->setValue('administrator', 'search', 'options', 'searchable_zones', $newZonesStr);
-
-            $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $zone['name']);
-            $parametersMod->setValue('administrator', 'sitemap', 'options', 'associated_zones', $newZonesStr);
-        }
-        $newZonesStr = $this->addToAssociatedZones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $zone['name']);
-        $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones', $newZonesStr);
-
-        $site->dispatchEvent('developer', 'zones', 'zone_created', array('zone_id'=>$id));
+        Db::afterInsert($id);
 
     }
 
-    function addToAssociatedZones($currentValue, $newZone, $depth = null){
-        $associatedZonesStr = $currentValue;
-        $associatedZones = explode("\n", $associatedZonesStr);
-        $found = false;
-        foreach($associatedZones as $key => $value){
-            if($this->getModuleKey($value) == $newZone)
-            $found = true;
-        }
-        if(!$found){
-            if($associatedZonesStr == '')
-            $associatedZonesStr = $this->makeZoneStr($newZone, $depth);
-            else
-            $associatedZonesStr .= "\n".$this->makeZoneStr($newZone, $depth);
-            return $associatedZonesStr;
-
-        }
-    }
 
 
     function removeFromAssociatedZones($currentValue, $deletedZone){
@@ -207,7 +169,7 @@ class Manager{
         $element->required = true;
 
 
-        $templates = $this->getAvailableTemplates();
+        $templates = Db::getAvailableTemplates();
         sort($templates);
         $values = array();
         $values[] = array("", "");
@@ -265,17 +227,5 @@ class Manager{
          
     }
 
-    function getAvailableTemplates(){
-        $answer = array();
-        if(is_dir(THEME_DIR.THEME)){
-            $handle = opendir(THEME_DIR.THEME);
-            if($handle !== false){
-                while (false !== ($file = readdir($handle))) {
-                    if(strtolower(substr($file, -4, 4)) == '.php' && file_exists(THEME_DIR.THEME.'/'.$file) && is_file(THEME_DIR.THEME.'/'.$file) && $file != '..' && $file != '.')
-                    $answer[$file] = $file;
-                }
-                return $answer;
-            }
-        }
-    }
+
 }
