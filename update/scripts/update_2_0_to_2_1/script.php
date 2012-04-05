@@ -362,25 +362,25 @@ class Script {
             }
             
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'unknown')) {
-                \Db_100::addParameter($group['id'], array('name' => 'unknown', 'translation' => 'Unknown', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please correct this value', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'unknown', 'translation' => 'Unknown', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please correct this value', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'email')) {
-                \Db_100::addParameter($group['id'], array('name' => 'email', 'translation' => 'Email', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid email address', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'email', 'translation' => 'Email', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid email address', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'number')) {
-                \Db_100::addParameter($group['id'], array('name' => 'number', 'translation' => 'Number', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid numeric value', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'number', 'translation' => 'Number', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid numeric value', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'url')) {
-                \Db_100::addParameter($group['id'], array('name' => 'url', 'translation' => 'Url', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid URL', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'url', 'translation' => 'Url', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid URL', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'max')) {
-                \Db_100::addParameter($group['id'], array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'min')) {
-                \Db_100::addParameter($group['id'], array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => '', 'comment' => 'Please enter a value of at least $1'));
+                \Db_100::addParameter($groupId, array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => '', 'comment' => 'Please enter a value of at least $1'));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'required')) {
-                \Db_100::addParameter($group['id'], array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
+                \Db_100::addParameter($groupId, array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
             }
             
             
