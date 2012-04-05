@@ -377,7 +377,7 @@ class Script {
                 \Db_100::addParameter($groupId, array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'min')) {
-                \Db_100::addParameter($groupId, array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => '', 'comment' => 'Please enter a value of at least $1'));
+                \Db_100::addParameter($groupId, array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value of at least $1', 'comment' => ''));
             }
             if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'required')) {
                 \Db_100::addParameter($groupId, array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
