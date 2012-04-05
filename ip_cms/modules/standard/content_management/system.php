@@ -36,21 +36,6 @@ class System{
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
-        $getVariables = array (
-                        'g' => 'standard',
-                        'm' => 'configuration',
-                        'a' => 'tinymceConfig'
-        );
-        $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
-        
-        $getVariables = array (
-                        'g' => 'standard',
-                        'm' => 'configuration',
-                        'a' => 'validatorConfig'
-        );
-        $site->addJavascript($site->generateUrl(null, null, array(), $getVariables));
-        
-        
         
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');

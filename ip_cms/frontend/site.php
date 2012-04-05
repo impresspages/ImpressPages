@@ -74,7 +74,7 @@ class Site{
 
     /** array required javascript files */
     private $requiredJavascript = array();
-
+    
     /** array required css files */
     private $requiredCss = array();
 
@@ -646,7 +646,7 @@ class Site{
                 $answer .= '?'.$key.'='.urlencode($value);
                 else
                 $answer .= '&amp;'.$key.'='.urlencode($value);
-                $first = false;
+                $first = false; 
             }
         }
 
@@ -1037,8 +1037,18 @@ class Site{
         }
     }
 
+    public function addJavascriptContent($key, $javascript, $stage = 1) {
+        $this->requiredJavascript[(int)$stage][$key] = array (
+            'type' => 'content', 
+            'value' => $javascript
+        );
+    }
+    
     public function addJavascript($file, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$file] = $file;
+        $this->requiredJavascript[(int)$stage][$file] = array (
+            'type' => 'file', 
+            'value' => $file
+        );
     }
 
     public function removeJavascript($file) {
@@ -1070,33 +1080,11 @@ class Site{
     }
 
     public function generateJavascript() {
-        $revision = $this->getRevision();
-
-
         ksort($this->requiredJavascript);
-        $javascriptFiles = array();
-        foreach($this->requiredJavascript as $levelKey => $level) {
-            $javascriptFiles = array_merge($javascriptFiles, $level);
-        }
-
-        
         $data = array (
-            'ipBaseUrl' => BASE_URL,
-            'ipLibraryDir' => LIBRARY_DIR,
-            'ipThemeDir' => THEME_DIR,
-            'ipModuleDir' => MODULE_DIR,
-            'ipTheme' => THEME,
-            'ipLanguageCode' => $this->getCurrentLanguage()->getCode(),
-            'ipManagementUrl' => $this->generateUrl(),
-            'ipZoneName' => $this->getCurrentZone()->getName(),
-            'ipPageId' => $this->getCurrentElement() ? $this->getCurrentElement()->getId() : null,
-            'ipRevisionId' => $revision['revisionId'],
-            'javascript' => $javascriptFiles
+            'javascript' => $this->requiredJavascript
         );
-
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
-
-
     }
 
 
