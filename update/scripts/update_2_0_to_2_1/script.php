@@ -267,7 +267,7 @@ class Script {
             $module = \Db_100::getModule(null, 'standard', 'configuration');
             $group = $parametersRefractor->getParametersGroup($module['id'], 'main_parameters');
             if ($group) {
-                if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+                if(!\Db_100::getParameter('standard', 'configuration', 'main_parameters', 'email_title')) {
                     \Db_100::addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,', 'comment' => ''));
                 }
                 
@@ -332,7 +332,9 @@ class Script {
                 trigger_error($sql.' '.mysql_error());
             }
             
-            \Db_100::insertSystemVariable('theme_changed', time());
+            if (\Db_100::getSystemVariable('theme_changed') === false) {
+                \Db_100::insertSystemVariable('theme_changed', time());
+            }
             
             
             if (\Db_100::getSystemVariable('last_system_message_sent') === false) {
