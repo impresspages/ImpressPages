@@ -37,6 +37,9 @@ class System{
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.js');
         
+        $site->addJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
+        $site->addJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
+        
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/ipContentManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.contentManagement.js');

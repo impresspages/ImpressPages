@@ -13,44 +13,88 @@ class System{
 
     public function init() {
         global $site;
+        global $dispatcher;
         
-
-        $revision = $site->getRevision();
-        $data = array (
-            'ipBaseUrl' => BASE_URL,
-            'ipLibraryDir' => LIBRARY_DIR,
-            'ipThemeDir' => THEME_DIR,
-            'ipModuleDir' => MODULE_DIR,
-            'ipTheme' => THEME,
-            'ipLanguageCode' => $site->getCurrentLanguage()->getCode(),
-            'ipManagementUrl' => $site->generateUrl(),
-            'ipZoneName' => $site->getCurrentZone() ? $site->getCurrentZone()->getName() : '',
-            'ipPageId' => $site->getCurrentElement() ? $site->getCurrentElement()->getId() : null,
-            'ipRevisionId' => $revision['revisionId']
-        );
-        $configJs = \Ip\View::create('view/config.php', $data)->render();
-        $site->addJavascriptContent('IpConfig', $configJs, 0);
-
+        $dispatcher->bind('site.beforeError404', array($this, 'catchConfig'));
         
+        $site->addJavascript($site->generateUrl(null, null, array('ipConfig.js')), 0);
+    }
+    
+    public function catchConfig(\Ip\Event $event) {
+        global $site;
         
-        if ($site->managementState()) {
-            $configJs = '';
-            $configJs .= \Ip\View::create('tinymce/paste_preprocess.js')->render();
-            $configJs .= \Ip\View::create('tinymce/min.js')->render();
-            $configJs .= \Ip\View::create('tinymce/med.js')->render();
-            $configJs .= \Ip\View::create('tinymce/max.js')->render();
-            $configJs .= \Ip\View::create('tinymce/table.js')->render();
-            $site->addJavascriptContent('TinyMceConfig', $configJs, 0);
-        };
-        
-        if (!$site->managementState()) {
-            $data = array(
-                'languageCode' => $site->getCurrentLanguage()->getCode()
-            );
-            $configJs = '';
-            $configJs .= \Ip\View::create('jquerytools/validator.js', $data)->render();
-            $site->addJavascriptContent('ValidatorConfig', $configJs, 0);
+        switch($site->getZoneUrl()) {
+            case 'ipConfig.js':
+                $site->setOutput($this::generateIpConfig());
+                $this->setJsHeader();
+                $event->addProcessed();
+                break;
+            case 'tinymceConfig.js':
+                $site->setOutput($this::generateTinyMceConfig());
+                $this->setJsHeader();
+                $event->addProcessed();
+                break;
+            case 'validatorConfig.js':
+                $site->setOutput($this::generateValidatorConfig());
+                $this->setJsHeader();
+                $event->addProcessed();
+                break;
+            default:
+                //do nothing;
+        }
+        if ($site->getZoneUrl() == 'ipConfig.js') {
         }
         
+    }
+    
+    
+    private function generateIpConfig() {
+        global $site;
+        $revision = $site->getRevision();
+        $data = array (
+                    'ipBaseUrl' => BASE_URL,
+                    'ipLibraryDir' => LIBRARY_DIR,
+                    'ipThemeDir' => THEME_DIR,
+                    'ipModuleDir' => MODULE_DIR,
+                    'ipTheme' => THEME,
+                    'ipLanguageCode' => $site->getCurrentLanguage()->getCode(),
+                    'ipManagementUrl' => $site->generateUrl(),
+                    'ipZoneName' => $site->getCurrentZone() ? $site->getCurrentZone()->getName() : '',
+                    'ipPageId' => $site->getCurrentElement() ? $site->getCurrentElement()->getId() : null,
+                    'ipRevisionId' => $revision['revisionId']
+        );
+        $configJs = \Ip\View::create('view/config.php', $data)->render();
+        return $configJs;
+    }
+    
+    
+    private function generateTinyMceConfig() {
+        $configJs = '';
+        $configJs .= \Ip\View::create('tinymce/paste_preprocess.js')->render();
+        $configJs .= \Ip\View::create('tinymce/min.js')->render();
+        $configJs .= \Ip\View::create('tinymce/med.js')->render();
+        $configJs .= \Ip\View::create('tinymce/max.js')->render();
+        $configJs .= \Ip\View::create('tinymce/table.js')->render();
+        return $configJs;
+    }
+    
+    private function generateValidatorConfig() {
+        global $site;
+        $configJs = '';
+        $data = array(
+            'languageCode' => $site->getCurrentLanguage()->getCode()
+        );
+        $configJs = '';
+        $configJs .= \Ip\View::create('jquerytools/validator.js', $data)->render();
+        return $configJs;
+    }    
+    
+    private function setJsHeader() {
+        header("Content-type: application/x-javascript");
+        $secondsToCache = 3600; //one hour
+        $ts = gmdate("D, d M Y H:i:s", time() + $secondsToCache) . " GMT";
+        header("Expires: $ts");
+        header("Pragma: cache");
+        header("Cache-Control: max-age=$secondsToCache");
     }
 }

@@ -258,7 +258,7 @@ class Site{
             'translation' => 'Error404',
             'associated_group' => '',
             'associated_module' => '',
-            'url' => 'error404',
+            'url' => (($this->zoneUrl) ? $this->zoneUrl.'asd' : 'error404'),
             'description' => '',
             'keywords' => '',
             'title' => 'error404',
@@ -271,7 +271,11 @@ class Site{
     
     private function dispatchError404() {
         global $dispatcher;
-        $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
+        $event = new \Ip\Event($this, 'site.beforeError404', null);
+        $dispatcher->notify($event);
+        if (!$event->getProcessed()) {
+            $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
+        }
     }
 
     /**
@@ -789,6 +793,15 @@ class Site{
         } else {
             return $curZone->getUrl();
         }
+    }
+    
+    /**
+     * This is very specific function that returns zone url string.
+     * You should use this only if you are doing something really complicated.
+     * Usually you would like to use $site->getCurrentZone()->getUrl() instead. 
+     */
+    public function getZoneUrl() {
+        return $this->zoneUrl;
     }
 
     /**
