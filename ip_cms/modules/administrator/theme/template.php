@@ -27,13 +27,13 @@ class Template{
         <script src="'.MODULE_DIR.'administrator/theme/public/ipTheme.js"></script>
         </head>
     <body>
-          ';
+        <div class="ipAdminWrapper ipAdminTheme">';
     }
     
     
     public static function title() {
         global $parametersMod;
-        $answer = '<h1>'.htmlspecialchars($parametersMod->getValue('administrator', 'theme', 'admin_translations', 'title')).'</h1>';
+        $answer = '<h1 class="ipaHeadline">'.htmlspecialchars($parametersMod->getValue('administrator', 'theme', 'admin_translations', 'title')).'</h1>';
         return $answer;
     }
     
@@ -42,20 +42,20 @@ class Template{
         global $cms;
         $answer = '';
 
-        $answer .= '<ul>';
+        $answer .= '<ul class="ipaList">';
         foreach($themes as $theme) {
             
             if ($theme->getPreviewImage()) {
-                $image = '<img width="800" src="'.BASE_URL.$theme->getPreviewImage().'" alt="'.htmlspecialchars($theme->getName()).'"/>';
+                $image = '<img class="ipaThumb" src="'.BASE_URL.$theme->getPreviewImage().'" alt="'.htmlspecialchars($theme->getName()).'" />';
             } else {
                 $image = '';
             }
             
             $answer .= '
 <li>
-    '.htmlspecialchars($theme->getName()).'
+    <span class="ipaTitle">'.htmlspecialchars($theme->getName()).'</span>
     '.$image.'
-    <a class="installTheme" data-themename="'.htmlspecialchars($theme->getName()).'" href="'.$cms->generateUrl($cms->curModId, 'action=changeTheme&themeName='.$theme->getName()).'">'.htmlspecialchars($parametersMod->getValue('administrator', 'theme', 'admin_translations', 'install')).'</a>
+    <a class="installTheme button" data-themename="'.htmlspecialchars($theme->getName()).'" href="'.$cms->generateUrl($cms->curModId, 'action=changeTheme&themeName='.$theme->getName()).'">'.htmlspecialchars($parametersMod->getValue('administrator', 'theme', 'admin_translations', 'install')).'</a>
 </li>
             ';
         }
@@ -66,17 +66,19 @@ class Template{
     
     
     public static function message($message) {
-        $answer = '<span class="note">'.htmlspecialchars($message).'</span>';
+        $answer = '<span class="ipaNote">'.htmlspecialchars($message).'</span>';
         return $answer;
     }
 
     public static function error($error) {
-        $answer = '<span class="note">'.htmlspecialchars($error).'</span>';
+        $answer = '<span class="ipaError">'.htmlspecialchars($error).'</span>';
         return $answer;
     }
     
     public static function footer(){
-        return "</body></html>";
+        return '
+        </div>
+    </body></html>';
     }
 
 }
