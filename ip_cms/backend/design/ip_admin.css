@@ -165,7 +165,7 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     color: #000;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
-    height: 71px;
+    height: 63px;
     min-width: 860px;
     width: 100%;
 }
@@ -236,7 +236,7 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     left: 8px;
     list-style: none;
     position: absolute;
-    top: 38px;
+    top: 35px;
 }
 .ipAdminNavLinks > ul > .ipaActive > ul {
     display: block;
@@ -251,8 +251,8 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     border-style: solid;
     border-width: 1px 1px 0 1px;
     display: inline-block;
-    line-height: 25px;
-    padding: 0 10px;
+    line-height: 20px;
+    padding: 0 8px 3px;
 }
 .ipAdminNavLinks ul ul a:hover {
     background-color: #444653;
@@ -264,9 +264,9 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     border-radius: 0;
     color: #000;
     font-weight: bold;
-    margin-top: -2px;
+    margin-top: -3px;
     padding-bottom: 8px;
-    padding-top: 2px;
+    padding-top: 3px;
     text-shadow: none;
 }
 
