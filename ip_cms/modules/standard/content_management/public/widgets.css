@@ -386,14 +386,19 @@
 .ipAdminWidgetControls .ipActionWidgetDelete:hover span {
     background-position: 7px -115px;
 }
+.ipAdminWidgetDrag {
+    height: 58px;
+    overflow: hidden;
+    margin-left: 100px;
+    width: 58px;
+    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+}
 .ipAdminWidgetMoveIcon {
-    background: url(../img/icon_widget.png) #fff;
-    border: 3px solid #878787;
+    background: url(../img/icon_drag.png) no-repeat;
     display: none;
-    height: 51px;
+    height: 58px;
     position: relative;
-    text-decoration: none;
-    width: 51px;
+    width: 58px;
 }
 .ipAdminWidgetDrag .ipAdminWidgetMoveIcon {
     display: block;
@@ -738,11 +743,4 @@
     padding-left: 5px;
     padding-right: 5px;
     width: auto;
-}
-.ipAdminWidgetDrag{
-    height: 50px;
-    background-color: green;
-    overflow: hidden;
-    margin-left: 100px;
-    width: 50px;
 }
