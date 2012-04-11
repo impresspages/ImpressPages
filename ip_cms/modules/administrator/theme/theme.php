@@ -29,8 +29,8 @@ class Theme{
         }
         
         $this->name = $name;
-        if (file_exists(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'preview.png')) {
-            $this->previewImage = THEME_DIR.$name.'/'.self::INSTALL_DIR.'preview.png';
+        if (file_exists(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'thumbnail.png')) {
+            $this->previewImage = THEME_DIR.$name.'/'.self::INSTALL_DIR.'thumbnail.png';
         }
         
         $configuration = new ConfigurationFile(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.ini');
