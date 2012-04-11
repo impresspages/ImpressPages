@@ -1,0 +1,39 @@
+.ipAdminTheme {}
+.ipAdminTheme .ipaHeadline {
+    margin-bottom: 20px;
+}
+.ipAdminTheme .ipaNote {
+    margin-top: -15px;
+    position: absolute;
+}
+.ipAdminTheme .ipaError {
+    color: #e53031;
+    margin-top: -15px;
+    position: absolute;
+}
+.ipAdminTheme .ipaList {
+    list-style: none;
+}
+.ipAdminTheme .ipaList li {
+    float: left;
+    margin: 10px;
+    text-align: center;
+    width: 164px;
+}
+.ipAdminTheme .ipaList .ipaTitle {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+.ipAdminTheme .ipaList .ipaThumb {
+    border: 1px solid #ccc;
+    display: block;
+    margin-bottom: 5px;
+    padding: 1px;
+    width: 160px;
+}
+.ipAdminTheme .ipaList .button {
+    display: inline-block;
+    float: none;
+}

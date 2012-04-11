@@ -22,6 +22,7 @@ class Template{
         <title>ImpressPages</title>
         <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/ip_admin.css">
         <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'administrator/system/style.css">
+        <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'administrator/theme/public/theme.css">
         <script src="'.LIBRARY_DIR.'js/default.js"></script>
         <script src="'.LIBRARY_DIR.'js/jquery/jquery.js"></script>
         <script src="'.MODULE_DIR.'administrator/theme/public/ipTheme.js"></script>
