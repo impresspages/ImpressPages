@@ -58,6 +58,10 @@ class Theme{
         return $this->name;
     }
     
+    public function getTitle() {
+        return $this->title;
+    }
+    
     public function getDoctype() {
         return $this->doctype;
     }

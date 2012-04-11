@@ -54,7 +54,7 @@ class Template{
             
             $answer .= '
 <li>
-    <span class="ipaTitle">'.htmlspecialchars($theme->getName()).'</span>
+    <span class="ipaTitle">'.htmlspecialchars($theme->getTitle()).'</span>
     '.$image.'
     <a class="installTheme button" data-themename="'.htmlspecialchars($theme->getName()).'" href="'.$cms->generateUrl($cms->curModId, 'action=changeTheme&themeName='.$theme->getName()).'">'.htmlspecialchars($parametersMod->getValue('administrator', 'theme', 'admin_translations', 'install')).'</a>
 </li>
