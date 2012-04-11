@@ -110,9 +110,10 @@ class Common {
                 $answer .= $html;
             }
         }else {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
-            trigger_error('Undefined zone. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
+            return ''; //changed bihaviour. 2012-04-11. Now theme developer can skip checking if zone exists.
+//             $backtrace = debug_backtrace();
+//             if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
+//             trigger_error('Undefined zone. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
         }
 
         return $answer;
