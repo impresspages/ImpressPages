@@ -21,7 +21,7 @@ class DbSystem{    //system variables
      * @access private
      */
     public static function setSystemVariable($name, $value){
-        if (self::getSystemVariable($name)) {
+        if (self::getSystemVariable($name) !== FALSE) {
             $sql = "update `".DB_PREF."variables` set `value` = '".mysql_real_escape_string($value)."' where
         `name` = '".mysql_real_escape_string($name)."'";
             $rs = mysql_query($sql);
