@@ -1094,7 +1094,17 @@ class Site{
 
     public function generateJavascript() {
         ksort($this->requiredJavascript);
+        $revision = $this->getRevision();
         $data = array (
+            'ipBaseUrl' => BASE_URL,
+            'ipLibraryDir' => LIBRARY_DIR,
+            'ipThemeDir' => THEME_DIR,
+            'ipModuleDir' => MODULE_DIR,
+            'ipTheme' => THEME,
+            'ipManagementUrl' => $this->generateUrl(),
+            'ipZoneName' => $this->getCurrentZone()->getName(),
+            'ipPageId' => $this->getCurrentElement()->getId(),
+            'ipRevisionId' => $revision['revisionId'],        
             'javascript' => $this->requiredJavascript
         );
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();

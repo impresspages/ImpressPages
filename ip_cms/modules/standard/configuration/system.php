@@ -16,19 +16,12 @@ class System{
         global $dispatcher;
         
         $dispatcher->bind('site.beforeError404', array($this, 'catchConfig'));
-        
-        $site->addJavascript($site->generateUrl(null, null, array('ipConfig.js')), 0);
     }
     
     public function catchConfig(\Ip\Event $event) {
         global $site;
         
         switch($site->getZoneUrl()) {
-            case 'ipConfig.js':
-                $site->setOutput($this::generateIpConfig());
-                $this->setJsHeader();
-                $event->addProcessed();
-                break;
             case 'tinymceConfig.js':
                 $site->setOutput($this::generateTinyMceConfig());
                 $this->setJsHeader();
@@ -47,26 +40,7 @@ class System{
         
     }
     
-    
-    private function generateIpConfig() {
-        global $site;
-        $revision = $site->getRevision();
-        $data = array (
-                    'ipBaseUrl' => BASE_URL,
-                    'ipLibraryDir' => LIBRARY_DIR,
-                    'ipThemeDir' => THEME_DIR,
-                    'ipModuleDir' => MODULE_DIR,
-                    'ipTheme' => THEME,
-                    'ipLanguageCode' => $site->getCurrentLanguage()->getCode(),
-                    'ipManagementUrl' => $site->generateUrl(),
-                    'ipZoneName' => $site->getCurrentZone() ? $site->getCurrentZone()->getName() : '',
-                    'ipPageId' => $site->getCurrentElement() ? $site->getCurrentElement()->getId() : null,
-                    'ipRevisionId' => $revision['revisionId']
-        );
-        $configJs = \Ip\View::create('view/config.php', $data)->render();
-        return $configJs;
-    }
-    
+
     
     private function generateTinyMceConfig() {
         $configJs = '';
