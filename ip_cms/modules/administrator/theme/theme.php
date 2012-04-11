@@ -7,6 +7,8 @@
 
 namespace Modules\administrator\theme;
 
+
+
 if (!defined('CMS')) exit;
 
 
@@ -15,6 +17,9 @@ class Theme{
     const PARAMETERS_FILE = 'parameters.php';
     
     private $name;
+    private $title;
+    private $doctype;
+    private $version;
     private $previewImage;
     
     public function __construct($name) {
@@ -27,6 +32,22 @@ class Theme{
         if (file_exists(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'preview.png')) {
             $this->previewImage = THEME_DIR.$name.'/'.self::INSTALL_DIR.'preview.png';
         }
+        
+        $configuration = new ConfigurationFile(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.ini');
+        if ($configuration->getThemeTitle()) {
+            $this->title = $configuration->getThemeTitle();
+        } else {
+            $this->title = $name;
+        }
+        
+        $this->version = $configuration->getThemeVersion();
+        
+        if (defined('\Ip\View::'.$configuration->getThemeDoctype())) {
+            $this->doctype = $configuration->getThemeDoctype();
+        } else {
+            $this->doctype = 'DOCTYPE_HTML5';
+        }
+        
     }
     
     public function getPreviewImage() {
@@ -35,6 +56,14 @@ class Theme{
     
     public function getName() {
         return $this->name;
+    }
+    
+    public function getDoctype() {
+        return $this->doctype;
+    }
+    
+    public function getVersion() {
+        return $this->version;
     }
     
 }

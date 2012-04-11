@@ -44,7 +44,9 @@ class Model{
             throw new \Exception("Theme '".$themeName."' does not exist.");
         }
         
-        self::writeThemeNameToConfig(BASE_DIR.'ip_config.php', $theme->getName());
+        $configModel = new \Modules\standard\configuration\Model();
+        $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
+        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
         
         $parametersFile = BASE_DIR.THEME_DIR.$themeName.'/'.Theme::INSTALL_DIR.'/'.Theme::PARAMETERS_FILE; 
         if (file_exists($parametersFile)) {
@@ -56,19 +58,4 @@ class Model{
         
     }
     
-    private static function writeThemeNameToConfig($configFileName, $themeName){
-        if (!is_writable($configFileName)) {
-            throw new  \Exception("Error: ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
-        }
-        $config = file_get_contents($configFileName);
-
-        $count;
-        $config = preg_replace('/[\'\"]THEME[\'\"][ \n]*,[ \n]*[\'\"]'.THEME.'[\'\"]/s', "'THEME', '".$themeName."'", $config, 1, $count);
-
-        if ($count != 1) {
-            throw new \Exception('Can\'t find theme definition in configuration file');
-        }
-        
-        file_put_contents($configFileName, $config);
-    }
 }
