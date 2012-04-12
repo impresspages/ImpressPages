@@ -49,8 +49,8 @@ define ('IP_OLD_VERSION_WARNING2', '
 <P><span style="color: red; font-weight: bold">ATTENTION</span></P>
 <p>You are updating from [[current_version]].
 IpForm widget has been introduced since then.
-You need manually replace your current ip_content.css file
- (ip_themes/lt_pagan/ip_content.css) to one from  downloaded archive.
+You need manually replace your current ip_content.css and 960.css files
+ (ip_themes/lt_pagan/) to ones from downloaded archive.
  If you have made some changes to original files, please replicate them to the new one.
 </p>
 <p>If you are using other theme, you need manually tweek you CSS
