@@ -26,7 +26,7 @@ define ('IP_STEP_BACKUP_INTRODUCTION', '
 ');
 define ('IP_OLD_VERSION_WARNING', '
 <hr/>
-<P><span style="color: red; font-weight: bold">ATTENTION</span></P>
+<P><span style="color: red;manual font-weight: bold">ATTENTION</span></P>
 <p>You are updating from [[current_version]].
 You need manually add these lines to your theme
 layout file (ip_themes/lt_pagan/main.php) before <b>generateJavascript()</b> line:
@@ -51,9 +51,9 @@ define ('IP_OLD_VERSION_WARNING2', '
 IpForm widget has been introduced since then.
 You need manually replace your current ip_content.css and 960.css files
  (ip_themes/lt_pagan/) to ones from downloaded archive.
- If you have made some changes to original files, please replicate them to the new one.
+ If you have made some changes to original files, please replicate those changes on new files.
 </p>
-<p>If you are using other theme, you need manually tweek you CSS
+<p>If you are using other theme, you need manually tweek your CSS
 to style forms.</p>
 ');
 define ('IP_STEP_BACKUP_UPDATE', 'Start Update');
