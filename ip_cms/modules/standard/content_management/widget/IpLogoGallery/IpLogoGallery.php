@@ -321,6 +321,18 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
+    public function previewHtml($instanceId, $data, $layout) {
+        if (!isset($data['logos']) || !is_array($data['logos'])){
+            $data['logos'] = array();echo 'test';
+        }
+        foreach ($data['logos'] as $logoKey => &$logo) {
+            if ($logo['link'] && stripos($logo['link'], 'http') !== 0) {
+                $logo['link'] = 'http://'.$logo['link'];
+            }
+        }
+        return parent::previewHtml($instanceId, $data, $layout);
+    }
+    
     public function delete($widgetId, $data) {
         if (!isset($data['logos']) || !is_array($data['logos'])) {
             return;
