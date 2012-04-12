@@ -70,6 +70,10 @@ class Captcha extends Field{
         return 'captcha';
     }
     
+    public function getType() {
+        return self::TYPE_SYSTEM;
+    }    
+    
     public function validate($values, $valueKey) {
         $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
 
