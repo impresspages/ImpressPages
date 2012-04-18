@@ -65,7 +65,7 @@ abstract class Zone{
         $this->name = $parameters['name'];
         $this->layout = $parameters['template'];
         $this->associatedModuleGroup = $parameters['associated_group'];
-        $this->assocaitedModule = $parameters['associated_module'];
+        $this->associatedModule = $parameters['associated_module'];
     }
 
     /**
