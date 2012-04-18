@@ -84,6 +84,7 @@
             var uploaderConfig = {
                     runtimes : 'gears,html5,flash,silverlight,browserplus',
                     browse_button : 'ipUploadButton_' + data.uniqueId,
+                    
                     max_file_size : data.maxFileSize,
                     url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                     multipart_params : {
@@ -91,8 +92,6 @@
                         m : 'upload',
                         a : 'upload'
                     },
-                    multipart: false,
-                    
                     flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
                     silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
             };
