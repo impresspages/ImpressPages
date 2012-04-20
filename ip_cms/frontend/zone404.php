@@ -25,7 +25,7 @@ class Zone404 extends \Frontend\Zone {
 
     
     public function findElement($urlVars, $getVars) {
-        return false;
+        return new Element(null, $this->getName());
     }
     
     

@@ -241,6 +241,10 @@ class Site{
         $this->configZones();
 
         $this->modulesInit();
+        
+        if (!defined('BACKEND')) {
+            $this->checkError404();
+        }
 
         if ($this->error404) {
             $this->dispatchError404();
@@ -261,9 +265,12 @@ class Site{
             'url' => (($this->zoneUrl) ? $this->zoneUrl.'asd' : 'error404'),
             'description' => '',
             'keywords' => '',
-            'title' => 'error404',
-            'object' => new \Frontend\Zone404('auto_error404')
+            'title' => 'error404'
         );
+        
+        
+        $zone['object'] = new \Frontend\Zone404($zone);
+        
         $this->zones['auto_error404'] = $zone;
         $this->currentZone = 'auto_error404';
         $this->error404 = true;
@@ -378,7 +385,7 @@ class Site{
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
                 } else {
                     require_once(FRONTEND_DIR.'default_zone.php');
-                    $tmpZoneObject = new \Frontend\DefaultZone($tmpZone['name']);
+                    $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
                 }
 
                 $tmpZoneObject->setId($tmpZone['id']);

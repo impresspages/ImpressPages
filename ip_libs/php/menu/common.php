@@ -196,14 +196,13 @@ class Common {
         $breadcrumb = $site->getBreadcrumb();
         array_pop($breadcrumb);
         foreach($breadcrumb as $key => $element) {
-      if($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
+            if($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
                 return true;
             }
         }
-
-    if ($link == $site->generateUrl(null, $site->getCurrentZone()->getName())) {
-        return true;
-    }
+        if ($link == $site->generateUrl(null, $site->getCurrentZone()->getName())) {
+            return true;
+        }
         return false;
     }
 
