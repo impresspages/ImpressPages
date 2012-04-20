@@ -207,7 +207,7 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["missing_layout"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["missing_layout"] = "string_wysiwyg";
 
-        $parameterTitle["standard"]["content_management"]["admin_translations"]["missing_widget"] = "Missig  widget";
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["missing_widget"] = "Missing  widget";
         $parameterValue["standard"]["content_management"]["admin_translations"]["missing_widget"] = "Controls for this widget does not exist. Widget name: [[widgetName]]";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["missing_widget"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["missing_widget"] = "string_wysiwyg";
