@@ -35,7 +35,7 @@ class Session{
      * @return bool true if user is logged in
      */
     function loggedIn(){
-        return isset($_SESSION['frontend_session']['user_id']) && $_SESSION['frontend_session']['user_id'] != null;
+        return isset($_SESSION['frontend_session']['user_id']);
     }
 
     /**
