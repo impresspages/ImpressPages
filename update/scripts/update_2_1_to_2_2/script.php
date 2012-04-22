@@ -234,6 +234,14 @@ class Script {
                 trigger_error("Can't remove form tab. ".$sql);
             }
             
+            
+            $sql = "ALTER TABLE  `".DB_PREF."m_content_management_widget` CHANGE  `recreated`  `recreated` INT( 11 ) NULL COMMENT 'when last time the images were cropped freshly";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can't update widget table. ".$sql);
+            }
+            
+            
             if ($this->curStep == $this->stepCount){
                 \Db_100::setSystemVariable('version','2.2');
             }
@@ -248,100 +256,6 @@ class Script {
         return $answer;
     }
     
-    private function bindToRepository($widgetRecord) {
-        
-        $data = json_decode($widgetRecord['data'], true);
-        if (empty($data)) {
-            return; //don't need to do anything
-        }
-        $id = $widgetRecord['widgetId'];
-        switch($widgetRecord['name']) {
-            case 'IpImage':
-            case 'IpTextImage':
-                if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageOriginal'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $id);
-                    }
-                }
-                if (isset($data['imageBig']) && $data['imageBig']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageBig'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageBig'], 'standard/content_management', $id);
-                    }
-                }
-                if (isset($data['imageSmall']) && $data['imageSmall']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageSmall'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageSmall'], 'standard/content_management', $id);
-                    }
-                }
-                break;
-            case 'IpImageGallery':
-                if (!isset($data['images']) || !is_array($data['images'])) {
-                    break;
-                }
-                foreach($data['images'] as $imageKey => $image) {
-                    if (!is_array($image)) {
-                        break;
-                    }
-                    if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageOriginal'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $id);
-                        }
-                    }
-                    if (isset($image['imageBig']) && $image['imageBig']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageBig'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageBig'], 'standard/content_management', $id);
-                        }
-                    }
-                    if (isset($image['imageSmall']) && $image['imageSmall']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageSmall'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $id);
-                        }
-                    }
-                }
-                
-                break;
-            case 'IpLogoGallery':
-                if (!isset($data['logos']) || !is_array($data['logos'])) {
-                    break;
-                }
-                
-                foreach($data['logos'] as $logoKey => $logo) {
-                    if (!is_array($logo)) {
-                        break;
-                    }
-                    if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-                        if (!\Modules\administrator\repository\Model::isBind($logo['logoOriginal'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $id);
-                        }
-                    }
-                    if (isset($logo['logoSmall']) && $logo['logoSmall']) {
-                        if (!\Modules\administrator\repository\Model::isBind($logo['logoSmall'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($logo['logoSmall'], 'standard/content_management', $id);
-                        }
-                    }
-                };
-                break;
-            case 'IpFile':
-                if (!isset($data['files']) || !is_array($data['files'])) {
-                    return;
-                }
-                foreach($data['files'] as $fileKey => $file) {
-                    if (isset($file['fileName']) && $file['fileName']) {
-                        if (!\Modules\administrator\repository\Model::isBind($file['fileName'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $id);
-                        }
-                    }
-                };
-                break;
-            default:
-                //don't do anything with other widgets
-        }
-    }
-
-
-
-
 
 
 }
-
