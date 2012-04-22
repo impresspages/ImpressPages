@@ -16,12 +16,15 @@ class ItemsArea extends \Modules\developer\std_mod\Area{  //extending standard d
             'dbTable' => 'm_developer_widget_sort',
             'title' => 'Widgets',
             'dbPrimaryKey' => 'sortId',
-            'searchable' => true,
+            'searchable' => false,
             'orderBy' => 'priority',
             'orderDirection' => 'asc',
             'sortable' => true,
             'sortField' => 'priority',
-            'sortType' => 'pointers'
+            'sortType' => 'pointers',
+            'allowInsert' => false,
+            'allowDelete' => false,
+            'allowUpdate' => false
         )
         );
          
