@@ -15,7 +15,9 @@
 /** @private */
 
 
-define('SITEMAP_MAX_LENGTH', 50000);
+if (!defined('SITEMAP_MAX_LENGTH')) {
+    define('SITEMAP_MAX_LENGTH', 50000);
+}
 
 
 if (!defined('CMS')) {
