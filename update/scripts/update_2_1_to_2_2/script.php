@@ -9,7 +9,6 @@ namespace update_2_1_to_2_2;
 if (!defined('CMS')) exit;
 
 require_once('translations.php');
-require_once('repository.php');
 
 class Script {
     var $deleteFiles;
