@@ -95,7 +95,7 @@ class Model {
         if($children){
             foreach($children as $key => $lock){
                 if(!isset($newPages[$lock['id']])){
-                    self::_copyPageRecursion($lock['id'], $newNodeId, $key, $newPages);
+                    self::_copyPageRecursion($zoneName, $lock['id'], $destinationZoneName, $newNodeId, $key, $newPages);
                 }
             }
         }
