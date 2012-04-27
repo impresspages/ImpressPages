@@ -501,9 +501,7 @@ class Controller extends \Ip\Controller{
             $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
             return;
         }
-        
-        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-        
+
         $data = array (
             'status' => 'success',
             'action' => '_savePageResponse',

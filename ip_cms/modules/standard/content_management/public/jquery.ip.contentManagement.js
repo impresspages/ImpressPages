@@ -136,8 +136,6 @@
             data.a = 'savePageOptions';
             data.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
             data.revisionId = ip.revisionId;
-            
-            $('.ipaPageOptionsTitle').val(data.pageOptions.buttonTitle);
 
             $.ajax({
                 type : 'POST',
@@ -229,8 +227,6 @@
                 data.g = 'standard';
                 data.m = 'content_management';
                 data.a = 'savePage';
-                data.pageOptions = new Object();
-                data.pageOptions.buttonTitle = $('.ipaPageOptionsTitle').val();
                 data.revisionId = ip.revisionId;
 
 
