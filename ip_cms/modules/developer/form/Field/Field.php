@@ -99,8 +99,12 @@ abstract class Field{
         return $answer;
     }
     
-    public function getValueAsString($postedValue) {
-        return (string) $postedValue;
+    /**
+     * @param array $values all posted form values
+     * @param string $valueKey this field name
+     */
+    public function getValueAsString($values, $valueKey) {
+        return (string) $values($valueKey);
     }
     
     

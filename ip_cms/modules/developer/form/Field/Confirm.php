@@ -66,8 +66,8 @@ class Confirm extends Field{
         return $this->text;
     }
     
-    public function getValueAsString($postedValue) {
-        if ($postedValue) {
+    public function getValueAsString($values, $valueKey) {
+        if ($values($valueKey)) {
             return 'Yes';
         } else {
             return 'No';

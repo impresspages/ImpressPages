@@ -53,7 +53,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
                 }
                 
                 $title = $field->getLabel();
-                $value = $field->getValueAsString($postData[$field->getName()]);
+                $value = $field->getValueAsString($postData, $field->getName());
                 $contentData[] = array(
                     'fieldClass' => get_class($field),
                     'title' => $title,
