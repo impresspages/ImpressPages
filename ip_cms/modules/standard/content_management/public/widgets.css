@@ -291,36 +291,43 @@
 .ipAdminWidgetsSearch {
     border-bottom: 1px solid #a8a8a8;
     margin-bottom: 8px;
-    padding: 8px;
+    padding: 8px 5px;
     text-align: right;
 }
 .ipAdminWidgetsSearch .ipaControls {
     background-color: #e6e6e6;
-    display: inline-block;
+    float: right;
     padding: 5px;
+    position: relative;
 }
 .ipAdminWidgetsSearch .ipaArrow {
     border-bottom: 19px solid transparent;
     border-right: 19px solid #e6e6e6;
     border-top: 19px solid transparent;
     height: 0;
-    margin: -5px 0 0 -24px;
+    left: 0;
+    margin: -5px 0 0 -19px;
     position: absolute;
     width: 0;
 }
 .ipAdminWidgetsSearch .ipaInput {
-    padding-right: 28px;
+    border-right: none;
+    float: left;
+    outline: none;
     width: 150px;
 }
 .ipAdminWidgetsSearch .ipaButton {
-    background: url(../img/icon_search.png) no-repeat center center;
-    height: 28px;
-    margin-left: -28px;
-    position: absolute;
+    background: #fff url(../img/icon_search.png) no-repeat center center;
+    border-color: #96979a;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    height: 26px;
+    float: left;
+    outline: none;
     width: 28px;
 }
 .ipAdminWidgetsSearch .ipaButton.ipaClear {
-    background: url(../../../../backend/design/images/icons_actions.png) no-repeat center 0;
+    background: #fff url(../../../../backend/design/images/icons_actions.png) no-repeat 7px -1px;
 }
 .ipAdminControls .ipAdminButton {
     float: left;

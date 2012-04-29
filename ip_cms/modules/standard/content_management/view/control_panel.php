@@ -1,6 +1,6 @@
 <div class="ipAdminPanel">
     <div class="ipAdminControls">
-        <div class="ipAdminWidgetsSearch">
+        <div class="ipAdminWidgetsSearch clearfix">
             <div class="ipaControls">
                 <span class="ipaArrow"></span>
                 <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->esc('standard/content_management/admin_translations/search_widgets') ?>" />
