@@ -54,5 +54,15 @@ class Page{
         return $fields;
     }    
     
+    public function getField($name) {
+        $allFields = $this->getFields();
+        foreach($allFields as $key => $field) {
+            if ($field->getName() == $name) {
+                return $field;
+            }
+        }
+        return false;
+    }    
+    
 
 }
