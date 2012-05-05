@@ -120,7 +120,11 @@ class ElementDate extends Element{ //data element in area
     function previewValue($record, $area){
         if($this->type == 'unix')
         {
-            $answer = htmlspecialchars(date("Y-m-d", $record[$this->dbField]));
+            if ($record[$this->dbField] != '') {
+                $answer = htmlspecialchars(date("Y-m-d", $record[$this->dbField]));
+            } else {
+                $answer = '';
+            }
         }
         else
         {
