@@ -10,6 +10,47 @@
  *
  */
 
+/*
+    Clearing floated elements
+*/
+/* http://sonspring.com/journal/clearing-floats */
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+.ipWidget:before,
+.ipWidget:after,
+.ipModuleForm .ipmField:before,
+.ipModuleForm .ipmField:after,
+.clearfix:before,
+.clearfix:after {
+    content: '.';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
+    height: 0;
+}
+.ipWidget:after,
+.ipModuleForm .ipmField:after,
+.clearfix:after {
+    clear: both;
+}
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+.clearfix {
+    zoom: 1;
+}
+
 /* Libraries */
 /* tiny mce :: rich text editor
     should be similar to text widgets or follow default styles of the <body>, including style reset

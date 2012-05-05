@@ -327,10 +327,6 @@ body {
 
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 
-.ipWidget:before,
-.ipWidget:after,
-.ipModuleForm .ipmField:before,
-.ipModuleForm .ipmField:after,
 .clearfix:before,
 .clearfix:after,
 .container_12:before,
@@ -345,8 +341,6 @@ body {
   height: 0;
 }
 
-.ipWidget:after,
-.ipModuleForm .ipmField:after,
 .clearfix:after,
 .container_12:after {
   clear: both;
