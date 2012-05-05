@@ -50,7 +50,7 @@ class Model{
         
         $parametersFile = BASE_DIR.THEME_DIR.$themeName.'/'.Theme::INSTALL_DIR.'/'.Theme::PARAMETERS_FILE; 
         if (file_exists($parametersFile)) {
-            require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
+            require_once(BASE_DIR.MODULE_DIR.'developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
         
