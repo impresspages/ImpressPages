@@ -242,6 +242,16 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["layout_default"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["layout_default"] = "string";
         
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["save_now_hint"] = "Save now hint";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["save_now_hint"] = "Save now - publish later";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["save_now_hint"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["save_now_hint"] = "string";
+        
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["search_widgets"] = "Search widgets";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["search_widgets"] = "Search widgets";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["search_widgets"] = "1";
+        $parameterType["standard"]["content_management"]["admin_translations"]["search_widgets"] = "string";
+        
     $parameterGroupTitle["standard"]["content_management"]["widget_contact_form"] = "Widget: Contact form";
     $parameterGroupAdmin["standard"]["content_management"]["widget_contact_form"] = "1";
 

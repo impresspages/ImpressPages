@@ -3,7 +3,7 @@
         <div class="ipAdminWidgetsSearch clearfix">
             <div class="ipaControls">
                 <span class="ipaArrow"></span>
-                <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->esc('standard/content_management/admin_translations/search_widgets') ?>" />
+                <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->escPar('standard/content_management/admin_translations/search_widgets') ?>" />
                 <a href="#" class="ipaButton"></a>
             </div>
         </div>
@@ -13,7 +13,7 @@
         <div class="ipAdminRevisions">
             <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
             <div class="ipaDropdownBlock">
-                <a href="#" class="ipAdminButton ipaSave ipActionSave"><?php echo $this->escPar('standard/content_management/admin_translations/save_now') ?></a>
+                <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->escPar('standard/content_management/admin_translations/save_now_hint'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/save_now') ?></a>
                 <ul>
 <?php foreach ($revisions as $revisionKey => $revision){
           $revisionClass = '';
