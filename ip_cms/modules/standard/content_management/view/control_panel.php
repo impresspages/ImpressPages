@@ -7,9 +7,9 @@
                 <a href="#" class="ipaButton"></a>
             </div>
         </div>
-        <a href="#" class="ipAdminButton ipaOptions ipActionOptions"><span>&nbsp;</span></a>
-        <a href="#" class="ipAdminButton ipaPreview ipActionPreview"><span>&nbsp;</span></a>
-        <a href="#" class="ipAdminButton ipaConfirm ipActionPublish"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
+        <a href="#" class="ipAdminButton ipaOptions ipActionOptions" title="<?php echo $this->escPar('standard/content_management/admin_translations/advanced'); ?>"><span>&nbsp;</span></a>
+        <a href="<?php echo str_replace('cms_action=manage', '', $site->generateCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->escPar('standard/content_management/admin_translations/preview'); ?>"><span>&nbsp;</span></a>
+        <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->escPar('standard/content_management/admin_translations/publish'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
         <div class="ipAdminRevisions">
             <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
             <div class="ipaDropdownBlock">
