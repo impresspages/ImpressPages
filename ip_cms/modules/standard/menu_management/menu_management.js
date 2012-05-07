@@ -597,12 +597,14 @@ function updatePageResponse(response) {
 function movePage(e, moveData) {
   moveData.rslt.o.each(function(i) {
     var data = Object();
-
+    
     data.pageId = $(this).attr("pageId");
     data.zoneName = $(this).attr('zoneName');
     data.languageId = $(this).attr('languageId');
-    data.websiteId = $(this).attr('websiteId');
+    data.websiteId = $(this).attr('websiteId');    
     data.type = $(this).attr('rel');
+    data.parentId = moveData.rslt.op.attr("pageId");
+    data.position = moveData.rslt.cop;
     data.destinationPageId = moveData.rslt.np.attr("pageId");
     data.destinationZoneName = moveData.rslt.np.attr("zoneName");
     data.destinationLanguageId = moveData.rslt.np.attr("languageId");
@@ -610,6 +612,16 @@ function movePage(e, moveData) {
     data.destinationPosition = moveData.rslt.cp + i;
     data.action = 'movePage';
 
+    //if we move withing the same parent, fix destination position value.
+    if (
+            data.zoneName == data.dstinationZoneName && 
+            data.languageId == data.destinationLanguageId &&
+            data.parentId == data.destinationPageId &&
+            data.data.destinationPositin > data.position
+        ) {
+        data.destinationPosition = data.destinationPosition - 1;
+    }
+    
     var tree = jQuery.jstree._reference('#tree');
     tree.destinationId = moveData.rslt.np.attr("id");
 

@@ -353,6 +353,25 @@ class Model{
     }
     
 
+    
+    public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName) {
+        $sql = "
+            UPDATE
+                `".DB_PREF."revision`
+            SET
+                 `zoneName` = '".mysql_real_escape_string($newZoneName)."'
+            WHERE
+                `zoneName` = '".mysql_real_escape_string($oldZoneName)."'
+                AND
+                `pageId` = ".(int)$pageId."
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t udpate revisions '.$sql.' '.mysql_error(), Exception::DB);
+        }
+        return mysql_affected_rows();
+    }
+    
 
     /**
      *

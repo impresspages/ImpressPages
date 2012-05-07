@@ -717,6 +717,7 @@ class BackendWorker {
     private function _movePage () {
         global $site;
         global $log;
+        global $dispatcher;
 
 
         if (!isset($_REQUEST['pageId'])) {
@@ -736,6 +737,13 @@ class BackendWorker {
             return false;
         }
         $languageId = $_REQUEST['languageId'];
+        
+        if (!isset($_REQUEST['position'])) {
+            trigger_error("Position is not set");
+            return false;
+        }
+        $position = $_REQUEST['position'];
+        
 
         if (!isset($_REQUEST['websiteId'])) {
             trigger_error("Website Id is not set");
@@ -801,10 +809,17 @@ class BackendWorker {
 
 
         //report url cange
-        $pageZone = $site->getZone($zoneName);
-        $page = $pageZone->getElement($pageId);
+        $page = $destinationZone->getElement($pageId);
         $oldUrl = $page->getLink(true);
         //report url change
+        
+        $movePageValues = array(
+            'pageId' => $pageId,
+                 
+        );
+        
+        $this->_notifyPageMove($pageId, $languageId, $zoneName, $page->getParentId(), $position, $destinationLanguageId, $destinationZoneName, $destinationPage->getParentId(), $destinationPosition);
+        
 
         $newParentChildren = Db::pageChildren($destinationPage->getId());
         $newIndex = 0; //initial value
@@ -842,6 +857,30 @@ class BackendWorker {
 
 
 
+    }
+    
+    /**
+     * Page is not moved yet. So we still can access all pages as they were before moving and throw move notifications
+     * @param unknown_type $pageId
+     * @param unknown_type $languageId
+     * @param unknown_type $zoneName
+     * @param unknown_type $parentId
+     * @param unknown_type $position
+     * @param unknown_type $destinationLanguageId
+     * @param unknown_type $destinationZoneName
+     * @param unknown_type $destinationParentId
+     * @param unknown_type $destinationPosition
+     */
+    private function _notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
+        global $site;
+        global $dispatcher;
+        $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
+        $dispatcher->notify($movePageEvent);
+        
+        $children = $site->getZone($zoneName)->getElements($languageId, $pageId);
+        foreach ($children as $key => $child) {
+            self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
+        }
     }
 
     /**
