@@ -226,6 +226,7 @@ class Script {
         $answer = '';
         if (\Db_100::getSystemVariable('version') != '2.3') {
             
+            $parametersRefractor = new \ParametersRefractor();
             
             $module = \Db_100::getModule(null, 'standard', 'content_management');
             
