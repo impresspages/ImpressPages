@@ -11,7 +11,7 @@ if (!defined('CMS')) exit;
 
 class Scripts {
   private $scripts;
-  const destinationVersion = '2.2';
+  const destinationVersion = '2.3';
   
   public function __construct(){
     $this->scripts = array();
@@ -19,6 +19,7 @@ class Scripts {
     $this->scripts[] = array("from" => "2.0rc2", "to" => "2.0", "script" => "update_2_0_rc2_to_2_0");
     $this->scripts[] = array("from" => "2.0", "to" => "2.1", "script" => "update_2_0_to_2_1");
     $this->scripts[] = array("from" => "2.1", "to" => "2.2", "script" => "update_2_1_to_2_2");
+    $this->scripts[] = array("from" => "2.2", "to" => "2.3", "script" => "update_2_2_to_2_3");
   }
 
   public function getScripts($fromVersion = "2.0rc1"){

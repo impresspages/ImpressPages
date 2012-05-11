@@ -46,7 +46,8 @@ if(Db::connect()){
   /*eof detect browser language*/
 
     /*check if the website is closed*/
-    if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()){
+    if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState() 
+            && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
         echo $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
         \Db::disconnect();
         exit;

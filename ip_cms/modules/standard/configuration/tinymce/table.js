@@ -14,7 +14,7 @@ ipTinyMceConfigTable = {
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_resizing : true,
     theme_advanced_resize_horizontal : false,
-    valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,table,tbody,thead,th,tr,td",
+    valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,table,tbody,thead,th,tr,td[colspan|rowspan]",
     height : 300,
     width : '100%',
     content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",

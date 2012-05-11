@@ -29,8 +29,11 @@ class System{
         
         $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
         
+        $dispatcher->bind(\Ip\Event\PageMoved::SITE_PAGE_MOVED, __NAMESPACE__ .'\System::pageMoved');
+        
         //IpForm widget
         $dispatcher->bind('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
+
         
         
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
@@ -269,6 +272,20 @@ class System{
         
         Model::removePageRevisions($zoneName, $pageId);
     }
+    
+    public static function pageMoved(\Ip\Event\PageMoved $event) {
+        $sourceZoneName = $event->getSourceZoneName();
+        $destinationZoneName = $event->getDestinationZoneName();
+        $pageId = $event->getPageId();
+        
+        if ($sourceZoneName != $destinationZoneName) {
+            //move revisions from one zone to another
+            Model::updatePageRevisionsZone($pageId, $sourceZoneName, $destinationZoneName);
+        } else {
+            // do nothing
+        }
+
+    }    
 
 }
 

@@ -171,6 +171,7 @@
 }
 .ipAdminWidgetsContainer {
     margin: 0 38px;
+    min-height: 81px;
 }
 .ipAdminWidgetsContainer:before {
     background-color: #fbfcfc;
