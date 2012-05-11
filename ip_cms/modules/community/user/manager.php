@@ -27,6 +27,17 @@ class Manager {
 
         $elements = array();
 
+        $element = new \Modules\developer\std_mod\elementNumber(
+        array(
+                    'title' => 'Id',
+                    'dbField' => 'id',
+                    'showOnList' => true,
+                    'searchable' => true,
+                    'required' => true
+        )
+        );
+        $elements[] = $element;        
+        
         $element = new \Modules\developer\std_mod\elementText(
         array(
                     'title' => $parametersMod->getValue('community', 'user', 'admin_translations', 'login'),
