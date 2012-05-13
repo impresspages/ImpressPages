@@ -67,7 +67,7 @@ class Confirm extends Field{
     }
     
     public function getValueAsString($values, $valueKey) {
-        if ($values($valueKey)) {
+        if (isset($values[$valueKey]) && $values[$valueKey]) {
             return 'Yes';
         } else {
             return 'No';

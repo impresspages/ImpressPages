@@ -104,7 +104,11 @@ abstract class Field{
      * @param string $valueKey this field name
      */
     public function getValueAsString($values, $valueKey) {
-        return (string) $values($valueKey);
+        if (isset($values[$valueKey])) {
+            return $values[$valueKey];
+        } else {
+            return '';
+        }
     }
     
     
