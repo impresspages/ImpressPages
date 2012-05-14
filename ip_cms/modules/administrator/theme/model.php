@@ -18,7 +18,7 @@ class Model{
         $answer = array();
         if ($handle = opendir(BASE_DIR.THEME_DIR)) {
             while (false !== ($file = readdir($handle))) {
-                if($file != '..' && $file != '.' && substr($file, 0, 1) != '.') {
+                if(is_dir(BASE_DIR.THEME_DIR.$file) && $file != '..' && $file != '.' && substr($file, 0, 1) != '.') {
                     $answer[] = new Theme($file);
                 }
             }
