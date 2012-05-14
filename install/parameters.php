@@ -2173,6 +2173,9 @@ $moduleTitle["administrator"]["administrators"] = "Administrators";
         $parameterAdmin["administrator"]["email_queue"]["options"]["emails_per_hour"] = "1";
         $parameterType["administrator"]["email_queue"]["options"]["emails_per_hour"] = "integer";
 
+    $parameterGroupTitle["administrator"]["search"]["options"] = "Options";
+    $parameterGroupAdmin["administrator"]["search"]["options"] = "1";
+        
         $parameterTitle["administrator"]["search"]["options"]["combined_zones"] = "Combined zones";
         $parameterValue["administrator"]["search"]["options"]["combined_zones"] = "left
 top";
@@ -2190,6 +2193,9 @@ left";
         $parameterAdmin["administrator"]["search"]["options"]["show_description"] = "1";
         $parameterType["administrator"]["search"]["options"]["show_description"] = "bool";
 
+    $parameterGroupTitle["administrator"]["search"]["translations"] = "Translations";
+    $parameterGroupAdmin["administrator"]["search"]["translations"] = "0";
+        
         $parameterTitle["administrator"]["search"]["translations"]["no_results"] = "No results";
         $parameterValue["administrator"]["search"]["translations"]["no_results"] = "<p>No pages containing your search term were found.</p>";
         $parameterAdmin["administrator"]["search"]["translations"]["no_results"] = "0";

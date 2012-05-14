@@ -53,7 +53,7 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (353, 323, 0, 'email_queue', 1, 'E-mail queue', 1, '1.00', 1),
 (354, 337, 0, 'newsletter', 0, 'Newsletter', 1, '1.00', 1),
 (355, 337, 0, 'newsletter_subscribers', 1, 'Newsletter subscribers', 1, '1.00', 1),
-(356, 323, 0, 'search', 1, 'Search', 0, '1.00', 1),
+(356, 323, 0, 'search', 0, 'Search', 0, '1.00', 1),
 (358, 323, 0, 'sitemap', 1, 'Sitemap', 0, '1.00', 1),
 (361, 336, 8, 'config_exp_imp', 1, 'Modules exp/imp', 1, '1.00', 1),
 (436, 336, 9, 'localization', 1, 'Localization', 1, '1.00', 1),
