@@ -51,7 +51,8 @@ class FieldType{
         $fieldOptions = array(
             'label' =>$fieldData['label'],
             'name' => $fieldData['name'],
-            'required' => $fieldData['required']
+            'required' => $fieldData['required'],
+            'options' => $fieldData['options']
         );
         
         $fieldClass = $this->getFieldClass();
