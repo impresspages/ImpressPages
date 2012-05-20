@@ -77,7 +77,7 @@ class Confirm extends Field{
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
-    public function getTypeClaass() {
+    public function getTypeClass() {
         return 'confirm';
     }    
     
