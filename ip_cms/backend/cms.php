@@ -58,7 +58,7 @@ class Cms {
         global $parametersMod;
 
         //log off
-        if(isset($_REQUEST['action']) && $_REQUEST['action'] == "logout" && !isset($_REQUEST['module_id'])) {
+        if(isset($_REQUEST['action']) && $_REQUEST['action'] == "logout" && !isset($_REQUEST['module_id']) && !(isset($_REQUEST['admin_module_group']) && isset($_REQUEST['admin_module_group']))) {
             $this->session->logout();
             $this->html->headerModules();
             $this->html->html('<script type="text/javascript">window.top.location=\'admin.php\';</script>');
@@ -91,10 +91,14 @@ class Cms {
             }
         }
         //eof log in
-
         if($this->session->loggedIn()) {  //login check
-
-
+            if (isset($_REQUEST['admin_module_group']) && $_REQUEST['admin_module_name']) {
+                $module = \Db::getModule(null, $_REQUEST['admin_module_group'], $_REQUEST['admin_module_name']);
+                if ($module) {
+                    $_GET['module_id'] = $module['id'];
+                    $_REQUEST['module_id'] = $module['id'];
+                }
+            }
             //create module
             if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $this->session->userId())) {
                 /*new module*/
@@ -107,7 +111,7 @@ class Cms {
                 $this->curModId = $newModule['id'];
                 eval('$this->module = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Manager();');
             }else {
-                if(isset($_GET['action']) && $_GET['action'] == 'first_module') {
+                if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'first_module') {
                     /*first module*/
                     $newModule = \Backend\Db::firstAllowedModule($this->session->userId());
                     if($newModule != false) {
@@ -119,9 +123,9 @@ class Cms {
                         }
                         eval('$this->module = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Manager();');
                     }
-                }elseif(isset($_GET['action']) && $_GET['action'] = 'ping') {
+                }elseif(isset($_REQUEST['action']) && $_REQUEST['action'] == 'ping') {
                     $this->html->html('');
-                }elseif(!isset($_GET['action'])) {
+                }elseif(!isset($_REQUEST['action'])) {
                     $this->html->html('<html><body><script type="text/javascript">parent.window.top.location=\'ip_backend_frames.php\';</script></body></html>');
                 }
             }
@@ -133,8 +137,9 @@ class Cms {
                 $this->html->modules(\Backend\Db::modules(true, $this->session->userId()));
                 $this->html->footer();
             }else {
-                if($this->module)
-                $this->html->html($this->module->manage());
+                if($this->module) {
+                    $this->html->html($this->module->manage());
+                }
             }
 
         }else {
@@ -160,6 +165,14 @@ class Cms {
         global $globalWorker;
         if($this->session->loggedIn()) {  //login check
             //deprecated way
+            if (isset($_REQUEST['admin_module_group']) && $_REQUEST['admin_module_name']) {
+                $module = \Db::getModule(null, $_GET['admin_module_group'], $_REQUEST['admin_module_name']);
+                if ($module) {
+                    $_GET['module_id'] = $module['id'];
+                    $_REQUEST['module_id'] = $module['id'];
+                }
+            }
+            
             if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())) {
                 $this->curModId = $_GET['module_id'];
                 $newModule = \Db::getModule($_GET['module_id']);

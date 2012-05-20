@@ -33,8 +33,8 @@ class Module{
 
         $errors = false;
     
-        if ($cachedUrl != BASE_URL) { //update robots.txt file.
-            $robotsFile = 'robots.txt';
+        $robotsFile = 'robots.txt';
+        if ($cachedUrl != BASE_URL && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach($data as $dataKey => $dataVal) {
@@ -48,7 +48,7 @@ class Module{
                 file_put_contents($robotsFile, $newData);
             } else {
                 trigger_error('robots.txt file need to be updated. Do it manually or make it writable and clear cache once again.');
-        $errors = true;
+                $errors = true;
             }
         }
 

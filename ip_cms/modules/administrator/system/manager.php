@@ -22,8 +22,8 @@ class Manager {
         global $log;
 
         $answer = '';
-        if(isset($_GET['action'])) {
-            switch($_GET['action']) {
+        if(isset($_REQUEST['action'])) {
+            switch($_REQUEST['action']) {
                 case "cache_clear":
                     $log->log('administrator/system', 'Cache was cleared');
                     $module = new Module;
@@ -31,12 +31,12 @@ class Manager {
 
 
                     $answer .= '
-      <div class="note">
-        '.$parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_cleared').'
-      </div>
-            ';      			
+                      <div class="note">
+                        '.$parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_cleared').'
+                      </div>
+            ';
 
-                    break;
+            break;
             }
         }
 
