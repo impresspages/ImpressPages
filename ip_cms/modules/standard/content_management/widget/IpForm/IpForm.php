@@ -158,8 +158,8 @@ class IpForm extends \Modules\standard\content_management\Widget{
     /**
      * 
      * 
-     * @param unknown_type $instanceId
-     * @param unknown_type $data
+     * @param int $instanceId
+     * @param array $data
      * @return \Modules\developer\form\Form
      */
     private function createForm($instanceId, $data) {
@@ -191,8 +191,14 @@ class IpForm extends \Modules\standard\content_management\Widget{
                     'options' => $field['options']
                 );
                 
-                $newField = $fieldType->createField($fieldData);
-                $form->addField($newField);
+                try {
+                    $newField = $fieldType->createField($fieldData);
+                    $form->addField($newField);
+                } catch (\Modules\standard\content_management\Exception $e) {
+                    global $log;
+                    $log->log('standard/content_management', 'create field', $e->getMessage());
+                }
+                
             }
         }
         
