@@ -292,12 +292,22 @@
 .mceContentBody ul {
     list-style-position: inside;
     list-style-type: square;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px 15px;
 }
 .ipPreviewWidget ol,
 .mceContentBody ol {
     list-style-position: inside;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px 15px;
+}
+.ipPreviewWidget ul ul,
+.ipPreviewWidget ol ol,
+.ipPreviewWidget ul ol,
+.ipPreviewWidget ol ul,
+.mceContentBody ul ul,
+.mceContentBody ol ol,
+.mceContentBody ul ol,
+.mceContentBody ol ul {
+    margin-bottom: 0; /* removing bottom spacing for inner lists */
 }
 .ipPreviewWidget li,
 .mceContentBody li {
