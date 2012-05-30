@@ -19,6 +19,7 @@ $languages['nl'] = 'Dutch';
 $languages['en'] = 'English';
 $languages['fr'] = 'French';
 $languages['de'] = 'Deutsch';
+$languages['ja'] = '日本語';
 $languages['lt'] = 'Lietuvių';
 $languages['pt'] = 'Portugues';
 $languages['pl'] = 'Polski';
