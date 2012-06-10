@@ -19,6 +19,10 @@ class Actions {
         if(isset($_REQUEST['action'])){
             switch($_REQUEST['action']){
                 case 'getSystemInfo':
+                    if (!defined('BACKEND')){
+                        exit;
+                    }
+                    
                     $module = new Module();
                     $systemInfo = $module->getSystemInfo();
 

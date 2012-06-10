@@ -78,3 +78,11 @@ div.parameterValue {
 #systemInfo {
 	padding-bottom: 0px;
 }
+
+h1 {
+    margin-bottom: 8px;
+}
+
+p {
+    margin-bottom: 8px;
+}
