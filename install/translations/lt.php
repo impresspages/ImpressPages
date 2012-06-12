@@ -61,7 +61,7 @@ define('IP_CONFIG_SITE_NAME', 'Svetainės pavadinimas');
 define('IP_CONFIG_SITE_EMAIL', 'Svetainės el. pašto adresas');
 define('IP_CONFIG_EMAIL', 'El. paštas klaidų pranešimams (pasirinktinai)');
 define('IP_CONFIG_LOGIN', 'Administratoriaus prisijungimo vardas');
-define('IP_CONFIG_PASS', 'Administratoriaus slaptžodis');
+define('IP_CONFIG_PASS', 'Administratoriaus slaptažodis');
 define('IP_CONFIG_TIMEZONE', 'Svetainės laiko juosta');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Prašome pasirinkti svetainės laiko juostą');
 
