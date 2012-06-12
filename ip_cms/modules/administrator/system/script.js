@@ -8,7 +8,12 @@ function mod_administrator_system_publish_updates(response){
       container.style.display = '';
       var i = 0;
       for (i=0; i<messages.length; i++){
-        container.innerHTML = container.innerHTML + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>';
+        container.innerHTML = container.innerHTML + '<div class="' + messages[i]['type'] + '">' + messages[i]['message']+'</div>';
+        
+        if (messages[i]['code'] == 'update') {
+            container.innerHTML = container.innerHTML + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="">Start update</a>';
+        }
+        container.innerHTML = container.innerHTML + '<div class="clear"></div>';
       }
     }
   }
