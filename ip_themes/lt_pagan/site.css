@@ -130,6 +130,7 @@ address {
     color: #000;
 }
 .wrapper > header .banner {
+    clear: both;
     display: block;
 }
 .topmenu {
