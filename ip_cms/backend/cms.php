@@ -73,20 +73,20 @@ class Cms {
 
 
         //log in
-        if(isset($_REQUEST['action']) && isset($_REQUEST['f_name']) && isset($_REQUEST['f_pass']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
+        if(isset($_REQUEST['action']) && isset($_POST['f_name']) && isset($_POST['f_pass']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
 
-            if(\Backend\Db::incorrectLoginCount($_REQUEST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+            if(\Backend\Db::incorrectLoginCount($_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
                 $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
-                \Backend\Db::log('system', 'backend login suspended', $_REQUEST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Backend\Db::log('system', 'backend login suspended', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }else {
-                $id = \Backend\Db::userId($_REQUEST['f_name'], $_REQUEST['f_pass']);
+                $id = \Backend\Db::userId($_POST['f_name'], $_POST['f_pass']);
                 if($id !== false) {
                     $this->session->login($id);
-                    \Backend\Db::log('system', 'backend login', $_REQUEST['f_name'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                    \Backend\Db::log('system', 'backend login', $_POST['f_name'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                     header("location:ip_backend_frames.php");
                 } else {
                     $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
-                    \Backend\Db::log('system', 'backend login incorrect', $_REQUEST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                    \Backend\Db::log('system', 'backend login incorrect', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 }
             }
         }
