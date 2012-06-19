@@ -61,11 +61,16 @@
 
 
 /*
+    Init
+*/
+.ipAdminWizardStep {
+    display: none;
+    z-index: 10000;
+}
+/*
     Step 1.
 */
-#ipAdminWizardStep-1 {
-    display: none;
-}
+#ipAdminWizardStep-1 {}
 #ipAdminWizardStep-1 .ipaWidget {
     width: 500px;
 }
