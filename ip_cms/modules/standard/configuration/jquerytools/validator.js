@@ -26,5 +26,5 @@ $.tools.validator.localize('<?php echo addslashes($languageCode); ?>', {
     ':url'        : '<?php echo addslashes($this->par('developer/form/error_messages/url')) ?>',
     '[max]'       : '<?php echo addslashes($this->par('developer/form/error_messages/max')) ?>',
     '[min]'       : '<?php echo addslashes($this->par('developer/form/error_messages/min')) ?>',
-    '[required]'  : '<?php echo addslashes($this->par('developer/form/error_messages/required')) ?>',
+    '[required]'  : '<?php echo addslashes($this->par('developer/form/error_messages/required')) ?>'
 });

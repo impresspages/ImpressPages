@@ -24,7 +24,7 @@
                 $this.prepend(options.widgetControlls);
                 
                 //parse widget record data
-                var instanceDataInput = $this.find('.ipAdminWidgetData')
+                var instanceDataInput = $this.find('.ipAdminWidgetData');
                 if (instanceDataInput){
                     data = $.parseJSON(instanceDataInput.val());
                     if (!data) {
