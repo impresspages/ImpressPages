@@ -30,3 +30,9 @@ function IpWidget_IpText(widgetObject) {
 
       
 
+/**
+ * Make links inside widgets preserve management state
+ */
+(function($) {
+	ipAddGetParameterToLink('#ipBlock-main .ipWidget-IpText', "^='" + ip.baseUrl + "'", 'cms_action', 'manage');
+})(jQuery);
