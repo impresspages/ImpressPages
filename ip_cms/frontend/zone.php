@@ -261,7 +261,7 @@ abstract class Zone{
     /** @return string Default description */
     public function getDescription(){return $this->description;}
     /** @param $description string */
-    public function setDescription($description){$this->inactiveIfParent=$description;}
+    public function setDescription($description){$this->description=$description;}
 
     /** @return string */
     public function getAssociatedModuleGroup(){return $this->associatedModuleGroup;}
