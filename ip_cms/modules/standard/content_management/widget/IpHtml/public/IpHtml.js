@@ -27,3 +27,11 @@ function IpWidget_IpHtml(widgetObject) {
 
 };
 
+
+
+/**
+ * Make links inside widgets preserve management state
+ */
+(function($) {
+	ipAddGetParameterToLink('#ipBlock-main .ipWidget-IpHtml', "^='" + ip.baseUrl + "'", 'cms_action', 'manage');
+})(jQuery);

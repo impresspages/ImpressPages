@@ -81,3 +81,11 @@ function IpWidget_IpTextImage(widgetObject) {
 
 };
 
+
+
+/**
+ * Make links inside widgets preserve management state
+ */
+(function($) {
+	ipAddGetParameterToLink('#ipBlock-main .ipWidget-IpTextImage', "^='" + ip.baseUrl + "'", 'cms_action', 'manage');
+})(jQuery);
