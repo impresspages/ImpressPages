@@ -210,35 +210,3 @@ function ipSaveJob(title, timeLeft) {
 }
 
 
-/**
- * 
- * Function used to add get parameters to links
- * 
- * the function doesn't add the parameter if it's already set
- * 
- * @param ancestor_selector
- *            selector for the element that contains the links
- * @param href_selector
- *            selector for the href tag
- * @param parameter
- *            name of the parameter to be added
- * @param value
- *            value of the parameter to be added
- * @returns nothing
- * 
- * 
- */
-function ipAddGetParameterToLink(ancestor_selector, href_selector, parameter, value) {
-	$(ancestor_selector + " a[href" + href_selector + "]").not("a[href*='" + parameter + "=']")
-		.attr('href', function(index, href) {
-	        if (href.charAt(href.length - 1) === '?') { // very unlikely
-	            return href + parameter + '=' + value;
-	        }
-	        else if (href.indexOf('?') > 0) {
-	            return href + '&' + parameter + '=' + value;
-	        }
-	        else {
-	            return href + '?' + parameter + '=' + value;
-	        }
-	    });
-}

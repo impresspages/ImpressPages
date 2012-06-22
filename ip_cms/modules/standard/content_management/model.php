@@ -122,6 +122,11 @@ class Model{
 
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
+        if ($managementState) {
+            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), BASE_URL)."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $previewHtml);
+            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), BASE_URL)."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $previewHtml);
+        }
+        
         $data = array (
             'html' => $previewHtml,
             'widgetRecord' => $widgetRecord,

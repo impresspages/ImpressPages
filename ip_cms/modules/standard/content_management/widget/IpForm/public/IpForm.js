@@ -412,10 +412,3 @@ function IpWidget_IpForm(widgetObject) {
 })(jQuery);
 
 
-
-/**
- * Make links inside widgets preserve management state
- */
-(function($) {
-	ipAddGetParameterToLink('#ipBlock-main .ipWidget-IpForm', "^='" + ip.baseUrl + "'", 'cms_action', 'manage');
-})(jQuery);
