@@ -6,7 +6,7 @@
  */
 
 
-namespace Update\Model;
+namespace Library;
 
 
 class Exception extends \Exception

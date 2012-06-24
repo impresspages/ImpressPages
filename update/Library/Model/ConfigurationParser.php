@@ -9,6 +9,7 @@ namespace Library\Model;
 
 class ConfigurationParser
 {
+    static $instancePrefix;
     public function parse($installationDir)
     {
         $uniquePrefix = $this->getUniqueInstancePrefix();
@@ -49,12 +50,12 @@ class ConfigurationParser
     
     private function getUniqueInstancePrefix() 
     {
-        if (isset($_SESSION['ipAutoUpdate']['instancePrefix'])) {
-            $_SESSION['ipAutoUpdate']['instancePrefix']++;
+        if (self::$instancePrefix) {
+            self::$instancePrefix++;
         } else {
-            $_SESSION['ipAutoUpdate']['instancePrefix'] = 1;
+            self::$instancePrefix = 1;
         }
-        return 'updateUniquePrefix'.$_SESSION['ipAutoUpdate']['instancePrefix'];
+        return 'updateUniquePrefix'.self::$instancePrefix;
     }    
     
     private function getAllConstants() 
