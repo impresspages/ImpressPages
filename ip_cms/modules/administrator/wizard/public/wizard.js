@@ -4,54 +4,13 @@
  * @license see ip_license.html
  */
 
+"use strict";
+
 $(document).ready(function() {
     $(document).bind('initFinished.ipContentManagement', ipWizardInit);
-
-/*
-    // global variable to keep states of all widgets
-    var widgetsState = new Array();
-
-    // defining default state of all widgets
-    $('.ipBlock').each(function(){
-        $(this).find('.ipWidget').each(function(){
-            var $widget = $(this);
-            widgetsState[$widget.attr('id')] = $widget.hasClass('ipAdminWidget') ? 'admin' : 'preview';
-        });
-    });
-
-    // widget confirmed/canceled (new or edited)
-    $('.ipBlock').bind('reinitRequired.ipWidget', function(event) {
-        var $block = $(event.currentTarget);
-        $block.find('.ipWidget').each(function(){
-            var $widget = $(this),
-                widgetId = $widget.attr('id'),
-                state = $widget.hasClass('ipAdminWidget') ? 'admin' : 'preview',
-                regexp = /ip(Admin|)Widget\-(.*)\s+/g,
-                found = regexp.exec($widget.attr('class')),
-                type = found[2];
-            if (state != widgetsState[widgetId]) { // state has been changed
-                //console.log('Event: modified; Block: #'+$block.attr('id')+'; Widget: #'+widgetId+'; State: '+state+'; Type: '+type);
-                alert('Event: modified; Block: #'+$block.attr('id')+'; Widget: #'+widgetId+'; State: '+state+'; Type: '+type);
-                widgetsState[widgetId] = state; // declaring new state
-            }
-        });
-    });
-
-    // widget deleted
-    $('.ipBlock').bind('deleteWidget.ipBlock', function(event, instanceId) {
-        var $block = $(event.currentTarget),
-            widgetId = 'ipWidget-'+instanceId;
-            $widget = $('#'+widgetId),
-            state = $widget.hasClass('ipAdminWidget') ? 'admin' : 'preview',
-            regexp = /ip(Admin|)Widget\-(.*)\s+/g,
-            found = regexp.exec($widget.attr('class')),
-            type = found[2];
-        //console.log('Event: deleted; Block: #'+$block.attr('id')+'; Widget: #'+widgetId+'; State: '+state+'; Type: '+type);
-        alert('Event: deleted; Block: #'+$block.attr('id')+'; Widget: #'+widgetId+'; State: '+state+'; Type: '+type);
-    });
-*/
 });
 
+// loading wizard content
 function ipWizardInit(event) {
     $.ajax({
         type : 'POST',
@@ -70,199 +29,260 @@ function ipWizardInit(event) {
     });
 }
 
-
-
+// binding all events
 function ipWizardBind(data) {
     // adding required wizard HTML to the body
-    $body = $('body');
+    var $body = $('body');
     $body.append(data);
 
-    // scrolling window to the top no matter what
-    $(document).scrollTop(0);
+    // defining tips
+    var $tip1 = $('#ipAdminWizardTip-1'),
+        $tip2 = $('#ipAdminWizardTip-2'),
+        $tip3 = $('#ipAdminWizardTip-3'),
+        $tip4 = $('#ipAdminWizardTip-4'),
+        $tip5 = $('#ipAdminWizardTip-5'),
+        $tip6 = $('#ipAdminWizardTip-6'),
+        isTip1 = $tip1.length ? true : false,
+        isTip2 = $tip2.length ? true : false,
+        isTip3 = $tip3.length ? true : false,
+        isTip4 = $tip4.length ? true : false,
+        isTip5 = $tip5.length ? true : false,
+        isTip6 = $tip6.length ? true : false;
 
-    // bind close
-    $('.ipAdminWizardTip .ipaClose').click(function(e){
+    // declaring required variables
+    var $allWidgets = $('.ipActionWidgetButton'),
+        $firstWidget = $allWidgets.eq(0),
+        $allBlocks = $('.ipBlock'),
+        $block = $('#ipBlock-main'),
+        $publishButton = $('.ipAdminControls .ipActionPublish');
+
+    // bind close on all tips
+    $('.ipAdminWizardTip .ui-dialog-titlebar-close').click(function(e){
         e.preventDefault();
+        var tipId = $(this).parent('.ipAdminWizardTip').attr('id').split('-')[1];
+        ipWizardTipDisable(tipId);
+    });
 
-        $.ajax({
-            type : 'POST',
-            url : ip.baseUrl,
-            data : {
-                g: 'administrator',
-                m: 'wizard',
-                a: 'closeWizard'
-            },
-            success : function(response) {
-                if (response.status == 'success') {
-                    window.location.reload();
-                } else {
-                    alert('An error occured. Reload the page. If you still see the wizard ask your administrator to turn in off manually.');
-                    window.location.reload();
-                }
-            },
-            dataType : 'json'
+    // show Tip 1 on start
+
+    // hide Tip 1 on start drag
+    // show Tip 2 on start drag
+
+    // show Tip 1 on failed drop
+    // hide Tip 2 on failed drop
+
+    // disable Tip 1 on successful drop
+    // disable Tip 2 on successful drop
+
+    // show Tip 3 on managament opened
+
+    // disable Tip 3 on click on opened widget
+    // show Tip 4 on click on opened widget
+
+    // disable Tip 4 on "Confirm" click/state change to preview
+    // show Tip 5 on "Confirm" click/state change to preview
+
+    // disable Tip 5 on "Publish" click
+    // ? show Tip 6 on "Publish" click
+    // ? disable but don't hide Tip 6 on "Publish" click
+
+    /*
+     * Tip 1
+     * */
+    if (isTip1) {
+        $firstWidget.tooltip({
+            events : { def : ',', tooltip: 'mouseenter' },
+            offset : [(-$(document).scrollTop()+20),((-$firstWidget.width() / 2) - 10 - 17)],
+            position: 'bottom right',
+            tip : '#ipAdminWizardTip-1'
         });
-    });
+        var tip1Data = $firstWidget.data('tooltip');
+        tip1Data.show();
+        tip1Data.getTip().css('position','fixed'); // fixing position because admin panel is also fixed
 
-    ipWizardStep_init();
-}
-
-function ipWizardShowStep(step) {
-    $('.ipAdminWizardStep').css('display','none');
-    $('#ipAdminWizardStep-'+step).css('display','block');
-    window["ipWizardStep_"+step]();
-}
-
-function ipWizardStep_init() {
-    $init = $("#ipAdminWizardStep-init");
-    $init.overlay({
-        top: 'center',
-        mask: {
-            color: '#fff',
-            loadSpeed: 200,
-            opacity: 0.5
-        },
-        closeOnClick: false,
-        load: true,
-        close: 'ipaStart'
-    });
-    var initOverlay = $init.data('overlay');
-    $init.find('.ipaStart').click(function(e){
-        e.preventDefault();
-        initOverlay.close();
-        ipWizardShowStep(1);
-    });
-}
-
-function ipWizardStep_1() {
-    // all about widget
-    var $widget = $('#ipAdminWidgetButton-IpTitle');
-    $widget.tooltip({
-        events : { def : ',', tooltip: 'mouseenter' },
-        offset : [-78,25],
-        position: 'bottom right',
-        tip : '#ipAdminWizardStep-1 .ipaWidget'
-    });
-    var widgetData = $widget.data('tooltip');
-    widgetData.show();
-    widgetData.getTip().css('position','fixed');
-
-    // all about block
-    var $block = $('#ipBlock-main');
-    var top2top = $('#ipAdminWizardStep-1 .ipaBlock').height();
-    $block.tooltip({
-        events : { def : ',', tooltip: 'mouseenter' },
-        offset : [top2top,-25],
-        position: 'top left',
-        tip : '#ipAdminWizardStep-1 .ipaBlock'
-    });
-    var blockData = $block.data('tooltip');
-    blockData.show();
-
-    // bind playback
-    $('#ipAdminWizardStep-1 .ipaPlay').click(function(e){
-        e.preventDefault();
-        var $stepTips = $('#ipAdminWizardStep-1 .ipAdminWizardTip');
-        var offset = $block.offset();
-        var dragX = offset.left + 10;
-        var distanceFromBottom = 280;
-        var viewportHeight = $(window).height();
-        if (viewportHeight - offset.top <= distanceFromBottom) {
-            $(document).scrollTop(offset.top + distanceFromBottom - viewportHeight);
-        }
-        var dragY = offset.top - $(document).scrollTop() + 10;
-        $widget.simulate("drag", {
-            dx: dragX,
-            dy: dragY,
-            delayStart: 1000, // delay in miliseconds
-            //delayExit: 0, // delay in miliseconds
-            onInit: function(){
-                $stepTips.slideToggle();
-            },
-            onDragStart: function() { // before mousedown
-                //alert('drag start');
-            },
-            onDragEnd: function() { // before mouseup
-                //alert('drag end');
-            },
-            onExit: function(){
-                $stepTips.slideToggle();
+        // bind playback
+        $('#ipAdminWizardTip-1 .ipaPlay').click(function(e){
+            e.preventDefault();
+            var offset = $block.offset(),
+                dragX = offset.left + 10,
+                distanceFromBottom = 280,
+                viewportHeight = $(window).height();
+            if (viewportHeight - offset.top <= distanceFromBottom) {
+                $(document).scrollTop(offset.top + distanceFromBottom - viewportHeight);
             }
+            var dragY = offset.top - $(document).scrollTop() + 10;
+            $firstWidget.simulate("drag", {
+                dx: dragX,
+                dy: dragY,
+                delayStart: 1000 // delay in miliseconds
+            });
         });
-    });
-    // bind next
-    $('#ipAdminWizardStep-1 .ipaNext').click(function(e){
-        e.preventDefault();
-        var $firstWidget = $block.find('.ipWidget').eq(0);
-        if ($firstWidget.hasClass('ipAdminWidget-IpTitle')) {
-            ipWizardShowStep(2);
+    }
+
+    /*
+     * Tip 2
+     * */
+    if (isTip2) {
+        $block.tooltip({
+            events : { def : ',', tooltip: 'mouseenter' },
+            offset : [-17,0], // touching by arrow
+            position: 'top center',
+            tip : '#ipAdminWizardTip-2'
+        });
+        var tip2Data = $block.data('tooltip');
+        tip2Data.show();
+        $tip2.hide();
+    }
+
+    /*
+     * Tip 3
+     * */
+    // bind to opened widget
+
+    /*
+     * Tip 4
+     * */
+    // bind to opened widget
+
+    /*
+     * Tip 5
+     * */
+    if (isTip5) {
+        $publishButton
+        .tooltip({
+            cancelDefault : false,
+            events : { def : ',', tooltip: 'mouseenter' },
+            offset : [(-$(document).scrollTop()+20),(($publishButton.width() / 2) + 10 + 17)],
+            position: 'bottom left',
+            tip : '#ipAdminWizardTip-5'
+        })
+        .bind('click',function(event){
+            ipWizardTipDisable(5);
+            isTip5 = false;
+        });
+        var tip5Data = $publishButton.data('tooltip');
+        tip5Data.show();
+        tip5Data.getTip().css('position','fixed');
+        if (!isTip4) {
+            $tip5.show();
         } else {
-            alert('You didn\'t finish Step 1. \n\nFirstly, drag a "Title" widget to the "Main" content area. \nOr click "Play it" button to do it automatically.');
+            $tip5.hide();
+        }
+    }
+
+    /*
+     * Tip 6
+     * */
+    // undefined
+
+
+    // binding event and action to all widgets
+    $allWidgets
+    .bind('dragstart',function(event,ui){
+        if (isTip1) { $tip1.hide(); }
+        if (isTip2) { $tip2.show(); }
+        if (isTip1 || isTip2) {
+            $block.expose({
+                zIndex: 998,
+                color: '#000'
+            });
+        }
+    })
+    .bind('dragstop',function(event,ui){
+        if (isTip1 || isTip2) {
+            $.mask.close();
+        }
+    })
+    .bind('unsuccessfulDrop.ipWidgetButton',function(event,data){
+        //data.widgetButton
+        if (isTip1) { $tip1.show(); }
+        if (isTip2) { $tip2.hide(); }
+    })
+    .bind('successfulDrop.ipWidgetButton',function(event,data){
+        //data.widgetButton
+        //data.block
+        if (isTip1) { ipWizardTipDisable(1); isTip1 = false; }
+        if (isTip2) { ipWizardTipDisable(2); isTip2 = false; }
+    });
+
+    // binding events to content blocks
+    $allBlocks
+    .bind('statePreview.ipWidget',function(event,data){
+        if (isTip3) { ipWizardTipDisable(3); isTip3 = false; }
+        if (isTip4) { ipWizardTipDisable(4); isTip4 = false; }
+    })
+    .bind('stateManagement.ipWidget',function(event,data){
+        var $openedWidget = $('#ipWidget-'+data.instanceId);
+        var $removingWidget = $openedWidget.prev();
+        if (isTip3) {
+            var $widgetBody = $openedWidget.find('.ipaBody');
+            $widgetBody.tooltip({
+                events : { def : ',', tooltip: 'mouseenter' },
+                offset : [(-$removingWidget.outerHeight(true)-17),0], // touching by arrow
+                position: 'top center',
+                tip : '#ipAdminWizardTip-3'
+            });
+            var tip3Data = $widgetBody.data('tooltip');
+            tip3Data.show();
+            $openedWidget.bind('click',function(event){
+                ipWizardTipDisable(3);
+                isTip3 = false;
+            });
+        }
+        if (isTip4) {
+            var $widgetConfirm = $openedWidget.find('.ipActionWidgetSave');
+            $widgetConfirm.tooltip({
+                events : { def : ',', tooltip: 'mouseenter' },
+                offset : [(-$removingWidget.outerHeight(true)+17),((-$widgetConfirm.outerWidth() / 2) - 10 - 17)],
+                position: 'bottom right',
+                tip : '#ipAdminWizardTip-4'
+            });
+            var tip4Data = $widgetConfirm.data('tooltip');
+            tip4Data.show();
+            $tip4.hide();
+            if (isTip3) {
+                $openedWidget.bind('click',function(event){
+                    $tip4.show();
+                });
+            } else {
+                $tip4.show();
+            }
+            $widgetConfirm.bind('click',function(event){
+                ipWizardTipDisable(4);
+                isTip4 = false;
+            });
+        }
+        if (isTip5) {
+            var $widgetConfirm = $openedWidget.find('.ipActionWidgetSave');
+            $widgetConfirm.bind('click',function(event){
+                $tip5.show();
+            });
         }
     });
+
 }
 
-function ipWizardStep_2() {
-    // all about widget
-    var $widget = $('#ipBlock-main').find('.ipWidget').eq(0);
-    var top2top = $('#ipAdminWizardStep-2 .ipaWidget').height();
-    $widget.tooltip({
-        events : { def : ',', tooltip: 'mouseenter' },
-        offset : [top2top,-25],
-        position: 'top left',
-        tip : '#ipAdminWizardStep-2 .ipaWidget'
-    });
-    var widgetData = $widget.data('tooltip');
-    widgetData.show();
-
-    // all about buttons
-    var $buttons = $widget.find('.ipaFooter');
-    var top2top = $('#ipAdminWizardStep-2 .ipaButtons').height();
-    $buttons.tooltip({
-        events : { def : ',', tooltip: 'mouseenter' },
-        offset : [top2top,25],
-        position: 'top right',
-        tip : '#ipAdminWizardStep-2 .ipaButtons'
-    });
-    var buttonsData = $buttons.data('tooltip');
-    buttonsData.show();
-
-    // bind playback
-    $('#ipAdminWizardStep-2 .ipaPlay').click(function(e){
-        e.preventDefault();
-        // inserting text
-        $widget.find('.ipaBody .ipAdminInput').val('My first title!');
-        // hitting 'Confirm'
-        $buttons.find('.ipActionWidgetSave').click();
-        // autoforward to Step 3
-        ipWizardShowStep(3);
-    });
-
-    // bind next
-    $('#ipAdminWizardStep-2 .ipaNext').click(function(e){
-        e.preventDefault();
-        ipWizardShowStep(3);
+function ipWizardTipDisable(tipId) {
+    $.ajax({
+        type : 'POST',
+        url : ip.baseUrl,
+        data : {
+            g: 'administrator',
+            m: 'wizard',
+            a: 'closeWizardTip',
+            id: tipId
+        },
+        success : ipWizardTipDisableResponse,
+        dataType : 'json'
     });
 }
 
-function ipWizardStep_3() {
-    // all about buttons
-    var $buttons = $('.ipAdminPanel .ipAdminControls');
-    var top2top = $('#ipAdminWizardStep-3 .ipaButtons').height()-$(document).scrollTop()+65;
-    $buttons.tooltip({
-        events : { def : ',', tooltip: 'mouseenter' },
-        offset : [top2top,-25],
-        position: 'top left',
-        tip : '#ipAdminWizardStep-3 .ipaButtons'
-    });
-    var buttonsData = $buttons.data('tooltip');
-    buttonsData.show();
-    buttonsData.getTip().css('position','fixed');
-
-    // bind next
-    $('#ipAdminWizardStep-3 .ipaPlay').click(function(e){
-        e.preventDefault();
-        // hitting 'Confirm'
-        $buttons.find('.ipActionPublish').click();
-    });
+function ipWizardTipDisableResponse(response) {
+    if (response.status == 'success') {
+        var tipId = response.tipId;
+        // additional actions to remove tip
+        $('#ipAdminWizardTip-'+tipId).remove();
+    } else {
+        alert('An error occured. Reload the page. If you still see the wizard ask your administrator to turn in off manually.');
+    }
 }

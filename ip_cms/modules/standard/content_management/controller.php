@@ -289,7 +289,8 @@ class Controller extends \Ip\Controller{
             'action' => '_createWidgetResponse',
             'widgetManagementHtml' => $widgetManagementHtml,
             'position' => $position,
-        	'widgetId' => $widgetId
+            'widgetId' => $widgetId,
+            'instanceId' => $instanceId
         );
 
         $this->_outputAnswer($data);
@@ -340,7 +341,8 @@ class Controller extends \Ip\Controller{
             'status' => 'success',
             'action' => '_manageWidgetResponse',
             'managementHtml' => $managementHtml,
-            'instanceId' => $instanceId
+            'instanceId' => $instanceId,
+            'newInstanceId' => $newInstanceId
         );
 
         $this->_outputAnswer($data);
@@ -398,6 +400,7 @@ class Controller extends \Ip\Controller{
                 'status' => 'success',
                 'action' => '_cancelWidgetResponse',
                 'previewHtml' => '',
+                'instanceId' => $instanceId,
                 'oldInstanceId' => ''
             );
 

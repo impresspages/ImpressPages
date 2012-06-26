@@ -111,11 +111,14 @@
                 });
 
                 $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event) {
-                    $(this).trigger('deleteWidget.ipBlock', $(this).data('ipWidget').instanceId);
+                    var instanceId = $(this).data('ipWidget').instanceId;
+                    $(this).trigger('deleteWidget.ipBlock', {
+                        'instanceId': instanceId
+                    });
                 });
 
-                $this.bind('deleteWidget.ipBlock', function(event, widgetId) {
-                    $(this).ipBlock('deleteWidget', widgetId);
+                $this.bind('deleteWidget.ipBlock', function(event, data) {
+                    $(this).ipBlock('deleteWidget', data.instanceId);
                 });
 
                 $this.bind('reinitRequired.ipWidget', function(event) {
@@ -235,6 +238,9 @@
                 $(response.widgetManagementHtml).insertAfter($secondChild);
             }
             $this.trigger('reinitRequired.ipWidget');
+            $this.trigger('stateManagement.ipWidget',{
+                'instanceId': response.instanceId
+            });
             // $this.ipBlock('reinit');
 
         }

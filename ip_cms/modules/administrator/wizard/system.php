@@ -15,8 +15,7 @@ class System{
         global $site;
         global $parametersMod;
 
-        $showWizard = $parametersMod->getValue('administrator', 'wizard', 'options', 'show_wizard');
-        if ($site->managementState() && $showWizard) {
+        if ($site->managementState() && Model::showWizard()) {
             // loading required Javascript libraries
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.tooltip.js',2);
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.overlay.js',2);
