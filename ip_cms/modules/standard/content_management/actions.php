@@ -20,13 +20,14 @@ class Actions {
                 case 'sitemap_list':
                     $list = $this->getSitemapInList();
                     echo $list;
+                    \Db::disconnect();
+                    exit;                    
                     break;
             }
 
         }
 
-        \Db::disconnect();
-        exit;
+
     }
 
 

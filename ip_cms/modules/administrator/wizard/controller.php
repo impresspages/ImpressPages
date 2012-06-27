@@ -45,7 +45,6 @@ class Controller extends \Ip\Controller{
     }
 
     public function closeWizardTip() {
-        global $site;
         require_once(__DIR__.'/model.php');
 
         $tipId = Model::disableWizardTip($_POST['id']);
@@ -54,8 +53,7 @@ class Controller extends \Ip\Controller{
             'tipId' => $tipId
         );
 
-        $answer = json_encode($data);
-        $site->setOutput($answer);
+        $this->returnJson($data);
     }
 
 }
