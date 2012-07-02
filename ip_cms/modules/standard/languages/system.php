@@ -28,6 +28,9 @@ class System{
             require_once (BASE_DIR.MODULE_DIR.'standard/languages/module.php');
             $event->setValue('content', \Modules\standard\languages\Module::generateLanguageList());
             $event->addProcessed();
+        } else {
+            $event->setValue('content', '');
+            $event->addProcessed();
         }
     }
 
