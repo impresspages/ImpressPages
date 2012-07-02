@@ -255,7 +255,6 @@
 
 /* Widgets :: main */
 .ipBlock.ipbEmpty {
-    background-color: #fff; /* required for element exposure */
     min-height: 30px;
     outline: #019bd4 dashed 1px;
 }

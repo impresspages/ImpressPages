@@ -182,40 +182,52 @@ function ipWizardBind(data) {
         if (isTip1) { $tip1.hide(); }
         if (isTip2) { $tip2.show(); }
         if (isTip1 || isTip2) {
-            $block.expose({
+            $block
+            .addClass('ipWizardExposeContent')
+            .expose({
                 zIndex: 998,
                 color: '#000'
             });
         }
     })
     .bind('dragstop',function(event,ui){
-        if (isTip1 || isTip2) {
-            $.mask.close();
-        }
+        //
     })
     .bind('unsuccessfulDrop.ipWidgetButton',function(event,data){
         //data.widgetButton
+        if (isTip1 || isTip2) {
+            $.mask.close();
+            $block.removeClass('ipWizardExposeContent');
+        }
         if (isTip1) { $tip1.show(); }
         if (isTip2) { $tip2.hide(); }
     })
     .bind('successfulDrop.ipWidgetButton',function(event,data){
         //data.widgetButton
         //data.block
+        if (isTip1 || isTip2) {
+            $.mask.close();
+            $block.removeClass('ipWizardExposeContent');
+        }
         if (isTip1) { ipWizardTipDisable(1); isTip1 = false; }
         if (isTip2) { ipWizardTipDisable(2); isTip2 = false; }
     });
 
     // binding events to content blocks
     $allBlocks
+    .bind('deleteClick.ipBlock cancelWidget.ipWidget',function(event,data){
+        if (isTip3) { $tip3.hide() }
+        if (isTip4) { $tip4.hide() }
+    })
     .bind('statePreview.ipWidget',function(event,data){
         if (isTip3) { ipWizardTipDisable(3); isTip3 = false; }
         if (isTip4) { ipWizardTipDisable(4); isTip4 = false; }
     })
     .bind('stateManagement.ipWidget',function(event,data){
         var $openedWidget = $('#ipWidget-'+data.instanceId);
+        var $widgetBody = $openedWidget.find('.ipaBody');
         var $removingWidget = $openedWidget.prev();
         if (isTip3) {
-            var $widgetBody = $openedWidget.find('.ipaBody');
             $widgetBody.tooltip({
                 events : { def : ',', tooltip: 'mouseenter' },
                 offset : [(-$removingWidget.outerHeight(true)-17),0], // touching by arrow
@@ -224,24 +236,27 @@ function ipWizardBind(data) {
             });
             var tip3Data = $widgetBody.data('tooltip');
             tip3Data.show();
-            $openedWidget.bind('click',function(event){
+            $widgetBody.bind('click',function(event){
                 ipWizardTipDisable(3);
                 isTip3 = false;
             });
         }
         if (isTip4) {
             var $widgetConfirm = $openedWidget.find('.ipActionWidgetSave');
+            $openedWidget.find('.ipaFooter').css('position','relative'); // adding position relative for tip possitioning
+            $widgetConfirm.after($tip4); // moving tip next to confirm button
             $widgetConfirm.tooltip({
                 events : { def : ',', tooltip: 'mouseenter' },
-                offset : [(-$removingWidget.outerHeight(true)+17),((-$widgetConfirm.outerWidth() / 2) - 10 - 17)],
+                offset : [17,((-$widgetConfirm.outerWidth() / 2) - 10 - 17)],
                 position: 'bottom right',
-                tip : '#ipAdminWizardTip-4'
+                tip : '#ipAdminWizardTip-4',
+                relative : true
             });
             var tip4Data = $widgetConfirm.data('tooltip');
             tip4Data.show();
             $tip4.hide();
             if (isTip3) {
-                $openedWidget.bind('click',function(event){
+                $widgetBody.bind('click',function(event){
                     $tip4.show();
                 });
             } else {
