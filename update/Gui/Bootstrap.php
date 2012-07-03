@@ -5,27 +5,25 @@
  * @license see ip_license.html
  */
 
+/**
+ * 
+ * Graphic User Interface bootstrap
+ *
+ */
+
 namespace Gui;
 
-class Bootstrap {
-    public function run() {
+class Bootstrap
+{
+    public function run()
+    {
         $this->fixMagicQuotes();
-
-        // define('CMS', true); // make sure other files are accessed through this file.
-        // define('BACKEND', true); // make sure other files are accessed through this file.
-        // define('UPDATE_INCLUDE_DIR', 'includes/');
-
-
-
-        // $navigation = new Navigation ();
-        // $scripts = new Scripts ();
-        // $update = new Update ();
-        // $htmlOutput = new HtmlOutput ();
-
-
-        // $update->execute();
-
-
+        
+        $request = Request::getInstance();
+        
+        $request->execute();
+        
+        $request->sendOutput();
     }
 
     private function fixMagicQuotes()

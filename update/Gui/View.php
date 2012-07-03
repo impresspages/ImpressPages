@@ -5,11 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Ip;
-
-
-if (!defined('CMS')) exit;
-
+namespace Gui;
 
 
 /**
@@ -18,17 +14,6 @@ if (!defined('CMS')) exit;
  *
  */
 class View{
-
-    
-    const DOCTYPE_XHTML1_STRICT = 1;
-    const DOCTYPE_XHTML1_TRANSITIONAL = 2;
-    const DOCTYPE_XHTML1_FRAMESET = 3;
-    const DOCTYPE_HTML4_STRICT = 4;
-    const DOCTYPE_HTML4_TRANSITIONAL = 5;
-    const DOCTYPE_HTML4_FRAMESET = 6;
-    const DOCTYPE_HTML5 = 7;
-    
-        
     private $file;
     private $data;
     private $doctype;
@@ -41,16 +26,10 @@ class View{
      * @param string $file
      * @param array $data
      */
-    private function __construct($file, $data = array(), $languageId = null) {
+    private function __construct($file, $data = array()) {
         global $site;
         $this->file = $file;
         $this->data = $data;
-        if ($languageId == null) {
-            $this->langaugeId = $site->getCurrentLanguage()->getId();
-        } else {
-            $this->languageId = $languageId;
-        }
-        eval('$this->doctype = self::'.DEFAULT_DOCTYPE.';');
     }
     
     /**
@@ -72,13 +51,7 @@ class View{
     public static function create($file, $data = array()) {
         $foundFile = self::findView($file);
         self::checkData($data);
-        return new \Ip\View($foundFile, $data);
-    }
-    
-    public function renderWidget($widgetName, $data = array(), $layout = null) {
-        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-        $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
-        return $answer;
+        return new View($foundFile, $data);
     }
     
     /**
@@ -95,36 +68,6 @@ class View{
         return htmlspecialchars($text);
     }
     
-    /**
-     * Escape and echo parameter
-     * @param string $parameterKey
-     */    
-    public function escPar($parameterKey, $variables = null){
-        return $this->esc($this->par($parameterKey), $variables);
-    }
-
-    public function par($parameterKey, $variables = null){
-        global $parametersMod;
-        $parts = explode('/', $parameterKey);
-        if (count($parts) != 4) {
-            if (DEVELOPMENT_ENVIRONMENT) {
-                throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
-            } else {
-                return '';
-            }
-        }
-        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
-
-        if (!empty($variables) && is_array($variables)) {
-            foreach($variables as $variableKey => $variableValue) {
-                $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
-            }
-        }
-        
-        return $value;
-    }
-
-
     
     /**
      * 
@@ -170,79 +113,6 @@ class View{
         return $this->render();
     }    
 
-    public function setDoctype ($doctype) {
-        $this->doctype = $doctype;
-    }
-    
-    public function getDoctype () {
-        return $this->doctype;
-    }
-    
-    public function setLanguageId ($languageId) {
-        $this->languageId = $languageId;
-    }
-    
-    public function getLanguageId () {
-        return $this->languageId;
-    }    
-    
-    public function doctypeDeclaration($doctype = null) {
-        if ($doctype === null) {
-            $doctype = $this->getDoctype();
-        }
-        switch ($doctype) {
-            case self::DOCTYPE_XHTML1_STRICT:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
-                break;   
-            case self::DOCTYPE_XHTML1_TRANSITIONAL:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-                break;
-            case self::DOCTYPE_XHTML1_FRAMESET:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_STRICT:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_TRANSITIONAL:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_FRAMESET:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
-                break;
-            case self::DOCTYPE_HTML5:
-                return '<!DOCTYPE html>';
-                break;
-            default:
-                throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
-        }
-    }
-    
-    
-    public function htmlAttributes($doctype = null) {
-        global $site;
-        if ($doctype === null) {
-            $doctype = $this->getDoctype();
-        }
-        switch ($doctype) {
-            case self::DOCTYPE_XHTML1_STRICT:
-            case self::DOCTYPE_XHTML1_TRANSITIONAL:
-            case self::DOCTYPE_XHTML1_FRAMESET:
-                $lang = $site->getCurrentLanguage()->getCode();
-                return ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
-                break;
-            case self::DOCTYPE_HTML4_STRICT:
-            case self::DOCTYPE_HTML4_TRANSITIONAL:
-            case self::DOCTYPE_HTML4_FRAMESET:
-            default:
-                return '';
-                break;
-            case self::DOCTYPE_HTML5:
-                $lang = $site->getCurrentLanguage()->getCode();
-                return ' lang="'.$lang.'"';
-                break;
-        }        
-       
-    }
 
     private static function findView($file) {
         $backtrace = debug_backtrace();
@@ -264,45 +134,12 @@ class View{
     }
     
     private static function findFile($file, $sourceFile) {
-        if (strpos($file, BASE_DIR) !== 0) {
-            $file = dirname($sourceFile).'/'.$file;
-        }
-
-
-
-        $moduleView = ''; //relative link to view according to modules root.
-        if (strpos($file, BASE_DIR.MODULE_DIR) === 0) {
-            $moduleView = substr($file, strlen(BASE_DIR.MODULE_DIR));
-        }
-
-        if ($moduleView == '' && strpos($file, BASE_DIR.PLUGIN_DIR) === 0) {
-            $moduleView = substr($file, strlen(BASE_DIR.PLUGIN_DIR));
-        }
-
-        if ($moduleView == '' && strpos($file, BASE_DIR.THEME_DIR.'modules/') === 0) {
-            $moduleView = substr($file, strlen(BASE_DIR.THEME_DIR.'modules/'));
-        }
-        if ($moduleView != '') {
-            if (file_exists(BASE_DIR.THEME_DIR.THEME.'/modules/'.$moduleView)) {
-                return BASE_DIR.THEME_DIR.THEME.'/modules/'.$moduleView;
-            }
-
-            if (file_exists(BASE_DIR.PLUGIN_DIR.$moduleView)) {
-                return(BASE_DIR.PLUGIN_DIR.$moduleView);
-            }
-
-            if (file_exists(BASE_DIR.MODULE_DIR.$moduleView)) {
-                return(BASE_DIR.MODULE_DIR.$moduleView);
-            }
-
+        $file = dirname($sourceFile).'/'.$file;
+        if (file_exists($file)) {
+            return $file;
         } else {
-            if (file_exists($file)) {
-                return $file;
-            } else {
-                return false;
-            }
+            return false;
         }
-
         return false;
     }
     
