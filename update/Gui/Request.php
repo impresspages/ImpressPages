@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Gui;
+namespace IpUpdate\Gui;
         
 
 class Request
@@ -26,10 +26,8 @@ class Request
         $controller = $this->getCurrentController();
         $action = $this->getCurrentAction();
         
-        ob_start();
         $controller->$action();
-        $this->output = ob_get_contents();
-        ob_end_clean();
+        $this->output = $controller->getOutput();
     }
     
     public function sendOutput()
@@ -43,18 +41,20 @@ class Request
     private function getCurrentController()
     {
         //default controller;
-        $controllerClass = 'Gui\Controller\Backup';
+        $controllerClass = 'IpUpdate\Gui\Controller\Overview';
         if (isset($_GET['controller'])) {
             switch (strtolower($_GET['controller'])) {
                 default :
-                case 'backup':
-                    $controllerClass = 'Gui\Controller\Backup';
+                case 'overview':
+                    $controllerClass = 'IpUpdate\Gui\Controller\Overview';
                     break;
                 case 'update':
-                    $controllerClass = 'Gui\Controller\Update';
+                    $controllerClass = 'Ip\UpdateGui\Controller\Update';
                     break;
             }
         }
+        
+        //if (file_exists())
         
         $controller = new $controllerClass();
         

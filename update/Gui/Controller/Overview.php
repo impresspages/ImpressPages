@@ -5,18 +5,15 @@
  * @license see ip_license.html
  */
 
-namespace Gui\Controller;
+namespace IpUpdate\Gui\Controller;
 
-class Backup
+class Overview extends \IpUpdate\Gui\Controller
 {
     
     public function indexAction() 
     {
-        echo 'oho';
+        $this->setOutput('test');
     }
     
-    public function testAction()
-    {
-        echo 'test';
-    }
+
 }

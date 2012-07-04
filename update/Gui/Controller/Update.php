@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Gui\Controller;
+namespace IpUpdate\Gui\Controller;
 
 class Update
 {

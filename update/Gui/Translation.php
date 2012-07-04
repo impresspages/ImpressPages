@@ -1,19 +1,19 @@
 <?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2012 ImpressPages LTD.
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
  * @license see ip_license.html
  */
 
+namespace IpUpdate\Gui;
 
-if (!defined('CMS')) exit;
 
 define('IP_OK', 'Yes');
 define('IP_ERROR', 'No');
 define('IP_NEXT', 'Next');
 define('IP_CHECK', 'Check again');
 
-define ('IP_INSTALLATION', 'ImpressPages CMS update wizard');
+
 
 
 define ('IP_STEP_BACKUP', 'Backup');
@@ -74,19 +74,49 @@ define ('IP_ERROR_COMPLETED', '
 ');
 define ('IP_ERROR_404', '<p>Requested page not found.</p>');
 define ('IP_ERROR_NO_INFORMATION', '<p>This script has no information about your system.</p>');
-define ('IP_ERROR_UNINSTALL_COPY_CONTENT', '
-<p>This ImpressPages CMS version duplicate all "Copy content" plugin functionallity. Please uninstall this plugin and try again.</p>
-<p>
-<b>Copy content plugin removal instructions:</b><br />
-<ul>
-	<li>Login to administration area</li>
-	<li>Open "Developer -> modules" tab</li>
-	<li>Press yellow icon on line "Standard"</li>
-	<li>Press trash icon on line "Copy content"</li>
-</ul>
-</p>
-<p>
-After you will delete "Copy content" plugin, come back here and proceed update process.
-</p>
-');
 
+
+
+
+
+class Translation
+{
+    private static $translations;
+    private static $instance;
+    
+    public function __construct()
+    {
+        self::$translations = array (
+            'global_title' => 'ImpressPages CMS update wizard'
+            
+        );
+    }
+    
+    
+    public static function getInstance()
+    {
+        if (!static::$instance)
+        {
+            static::$instance = new Translation() ;
+        }
+        return static::$instance;
+    }
+    
+
+    /**
+     * 
+     * @param string $key
+     * @return string
+     */
+    public function translate($key)
+    {
+        return self::$translations[$key];
+    }
+    
+    
+    
+    
+    
+    
+    
+}

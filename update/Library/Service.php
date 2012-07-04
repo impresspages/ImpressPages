@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Library;
+namespace IpUpdate\Library;
 
 
 class Service

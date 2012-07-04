@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Gui;
+namespace IpUpdate\Gui;
 
 class System
 {

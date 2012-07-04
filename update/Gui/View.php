@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Gui;
+namespace IpUpdate\Gui;
 
 
 /**
@@ -26,7 +26,8 @@ class View{
      * @param string $file
      * @param array $data
      */
-    private function __construct($file, $data = array()) {
+    private function __construct($file, $data = array())
+    {
         global $site;
         $this->file = $file;
         $this->data = $data;
@@ -39,7 +40,8 @@ class View{
      * @param string $file
      * @param array $data
      */
-    public function subview($file, $data = array()) {
+    public function subview($file, $data = array())
+    {
         $foundFile = self::findView($file);
         self::checkData($data);
         $view = new \Ip\View($foundFile, $data);
@@ -48,7 +50,8 @@ class View{
     }
 
 
-    public static function create($file, $data = array()) {
+    public static function create($file, $data = array())
+    {
         $foundFile = self::findView($file);
         self::checkData($data);
         return new View($foundFile, $data);
@@ -58,7 +61,8 @@ class View{
      * Escape and echo text
      * @param string $text
      */
-    public function esc($text, $variables = null){
+    public function esc($text, $variables = null)
+    {
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
                 $text = str_replace('[[' . $variableKey . ']]', $variableValue, $text);
@@ -69,21 +73,30 @@ class View{
     }
     
     
+    public function escTran($key)
+    {
+        $translation = \Gui\Translation::getInstance()->translate($key);
+        return $this->esc($translation);
+    }
+    
     /**
      * 
      * Set view data
      * @param array $data
      */
-    public function setData($data) {
+    public function setData($data)
+    {
         $this->data = $data;
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
 
-    public function render () {
+    public function render ()
+    {
         global $site;
         global $log;
         global $dispatcher;
@@ -114,7 +127,8 @@ class View{
     }    
 
 
-    private static function findView($file) {
+    private static function findView($file)
+    {
         $backtrace = debug_backtrace();
         if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
             throw new CoreException("Can't find caller", CoreException::VIEW);
@@ -133,7 +147,8 @@ class View{
         return $foundFile;
     }
     
-    private static function findFile($file, $sourceFile) {
+    private static function findFile($file, $sourceFile)
+    {
         $file = dirname($sourceFile).'/'.$file;
         if (file_exists($file)) {
             return $file;
@@ -143,7 +158,8 @@ class View{
         return false;
     }
     
-    private static function checkData ($data) {
+    private static function checkData ($data)
+    {
         foreach ($data as $key => $value) {
             if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
                 $source = '';

@@ -9,6 +9,6 @@ define ('FIXTURE_DIR', BASE_DIR.'Fixture/');
 session_start('ipUpdateuTest');
 
 require_once(UPDATE_DIR.'Library/Autoloader.php');
-$autoloader = new Library\Autoloader();
+$autoloader = new IpUpdate\Library\Autoloader();
 $autoloader->register(UPDATE_DIR);
 

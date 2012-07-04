@@ -11,7 +11,7 @@
  *
  */
 
-namespace Gui;
+namespace IpUpdate\Gui;
 
 class Bootstrap
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gui;
+namespace IpUpdate\Gui;
 
 /**
  * @package	ImpressPages
@@ -16,13 +16,18 @@ class Autoloader
     public function register($rootDir)
     {
         if (empty($dirs)) {
-            spl_autoload_register('Gui\Autoloader::load');
+            spl_autoload_register('IpUpdate\Gui\Autoloader::load');
         }
         static::$dirs[] = $rootDir;
     }
 
     public static function load($name)
     {
+        if (strpos($name, 'IpUpdate\\') === 0) {
+            $name = substr($name, 9);
+        } else {
+            return false;
+        }
         $fileName = str_replace('\\', '/', $name) . '.php';
         if($fileName[0] == '/') { //in some environments required class starts with slash. In that case remove the slash.
             $fileName = substr($fileName, 1);
