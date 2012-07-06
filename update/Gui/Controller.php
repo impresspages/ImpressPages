@@ -12,19 +12,20 @@ class Controller
     private $content;
     private $view;
     
-    public function __construct($defaultView)
+    public function __construct()
     {
-        $this->view = $defaultView;
+    }
+
+    /**
+     * @param \IpUpdate\Gui\View $view
+     */
+    public function setView(\IpUpdate\Gui\View $view)
+    {
     }
     
-    public function setOutput($output)
+    public function output()
     {
-        $this->output = $output;
-    }
-    
-    public function getOutput()
-    {
-        return $this->output;
+        echo $this->view->render();
     }
     
 }

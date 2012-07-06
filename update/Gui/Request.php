@@ -23,9 +23,23 @@ class Request
     
     public function execute()
     {
+        $controllerPath = $this->getCurrentControllerPath();
+        $controllerClass = 'IpUpdate\\Gui\\Controller\\'.$controllerPath;
+        
+        $controller = new $controllerClass();
+        
+        return $controller;
+        
         $controller = $this->getCurrentController();
         $action = $this->getCurrentAction();
         
+        $actionMethod = $action.'Action';
+        if (!method_exists($controller, $actionMethod) || !is_callable(array($controller, $actionMethod))) {
+            throw new \IpUpdate\Gui\Exception('Requested action does not exist');
+        } 
+        
+        $view = new \IpUpdate\Gui\View($controllerPath.'/'.$action.'.php');
+        $controller->setView($controllerPath.'/'.$action.'.php');
         $controller->$action();
         $this->output = $controller->getOutput();
     }
@@ -38,27 +52,24 @@ class Request
     }
         
     
-    private function getCurrentController()
+    private function getCurrentControllerPath()
     {
         //default controller;
-        $controllerClass = 'IpUpdate\Gui\Controller\Overview';
+        $path = 'Overview';
+        
+        
         if (isset($_GET['controller'])) {
             switch (strtolower($_GET['controller'])) {
                 default :
                 case 'overview':
-                    $controllerClass = 'IpUpdate\Gui\Controller\Overview';
+                    $path = 'Overview';
                     break;
                 case 'update':
-                    $controllerClass = 'Ip\UpdateGui\Controller\Update';
+                    $path = 'Update';
                     break;
             }
         }
-        
-        //if (file_exists())
-        
-        $controller = new $controllerClass();
-        
-        return $controller;
+        return $path;
     }
     
     private function getCurrentAction() 

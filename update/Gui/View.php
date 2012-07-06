@@ -75,7 +75,7 @@ class View{
     
     public function escTran($key)
     {
-        $translation = \Gui\Translation::getInstance()->translate($key);
+        $translation = \IpUpdate\Gui\Translation::getInstance()->translate($key);
         return $this->esc($translation);
     }
     

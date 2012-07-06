@@ -12,7 +12,8 @@ class Overview extends \IpUpdate\Gui\Controller
     
     public function indexAction() 
     {
-        $this->setOutput('test');
+        //$this->view->setData();
+        
     }
     
 
