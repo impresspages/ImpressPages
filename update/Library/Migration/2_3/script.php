@@ -6,7 +6,7 @@
  */
 namespace update_2_2_to_2_3;
 
-if (!defined('CMS')) exit;
+
 
 require_once('translations.php');
 

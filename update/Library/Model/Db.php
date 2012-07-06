@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Library\Model;
+namespace IpUpdate\Library\Model;
 
 
 class Db

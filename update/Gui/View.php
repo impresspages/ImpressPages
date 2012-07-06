@@ -7,7 +7,6 @@
 
 namespace IpUpdate\Gui;
 
-
 /**
  *
  * View class
@@ -18,6 +17,8 @@ class View{
     private $data;
     private $doctype;
     private $languageId;
+
+    
 
 
     /**
@@ -67,7 +68,6 @@ class View{
             foreach($variables as $variableKey => $variableValue) {
                 $text = str_replace('[[' . $variableKey . ']]', $variableValue, $text);
             }
-            
         }
         return htmlspecialchars($text);
     }
@@ -87,6 +87,11 @@ class View{
     public function setData($data)
     {
         $this->data = $data;
+    }
+    
+    public function assign($key, $value)
+    {
+        $this->data[$key] = $value;
     }
 
     public function getData()
@@ -131,7 +136,7 @@ class View{
     {
         $backtrace = debug_backtrace();
         if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-            throw new CoreException("Can't find caller", CoreException::VIEW);
+            throw new \IpUpdate\Gui\Exception("Can't find caller", \IpUpdate\Gui\Exception::VIEW);
         }
 
         $sourceFile = $backtrace[1]['file'];
@@ -142,7 +147,7 @@ class View{
 
         $foundFile = self::findFile($file, $sourceFile);
         if ($foundFile === false) {
-            throw new CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', CoreException::VIEW);
+            throw new \IpUpdate\Gui\Exception('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', \IpUpdate\Gui\Exception::VIEW);
         }    
         return $foundFile;
     }
@@ -166,7 +171,7 @@ class View{
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
-                throw new CoreException("Incorrect view variable name '".$key."' ".$source, CoreException::VIEW);
+                throw new \IpUpdate\Gui\Exception("Incorrect view variable name '".$key."' ".$source, \IpUpdate\Gui\Exception::VIEW);
             }
         }
     }

@@ -16,7 +16,7 @@ class Service
     public function __construct($installationDir)
     {
         $this->installationDir = $installationDir;
-        $configurationParser = new Model\ConfigurationParser();
+        $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $this->cf = $configurationParser->parse($installationDir);
     }
 

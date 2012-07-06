@@ -7,7 +7,6 @@
 
 namespace update_2_2_to_2_3;
 
-if (!defined('CMS')) exit;
 
 define ('REMOVE_DIRECTORIES','<p><b>Please remove following directories:</b></p>');
 define ('REMOVE_FILES','<p><b>Please remove following files:</b></p>');

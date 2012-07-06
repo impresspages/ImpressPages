@@ -6,7 +6,7 @@
  */
 
 
-namespace Library\Model;
+namespace IpUpdate\Library\Model;
 
 
 class Exception extends \Exception

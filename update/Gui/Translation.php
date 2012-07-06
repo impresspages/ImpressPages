@@ -17,13 +17,7 @@ define('IP_CHECK', 'Check again');
 
 
 define ('IP_STEP_BACKUP', 'Backup');
-define ('IP_STEP_BACKUP_INTRODUCTION', '
-<p>Backup all your files and database before starting the update process.</p>
-<br/>
-<p>Your current ImpressPages version is <b>[[current_version]]</b></p>
-<br/>
-<p>Update to <b>[[new_version]]</b></p>
-');
+
 define ('IP_OLD_VERSION_WARNING', '
 <hr/>
 <P><span style="color: red;manual font-weight: bold">ATTENTION</span></P>

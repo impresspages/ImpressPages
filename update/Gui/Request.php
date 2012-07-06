@@ -23,24 +23,23 @@ class Request
     
     public function execute()
     {
+        
         $controllerPath = $this->getCurrentControllerPath();
         $controllerClass = 'IpUpdate\\Gui\\Controller\\'.$controllerPath;
         
-        $controller = new $controllerClass();
-        
-        return $controller;
-        
-        $controller = $this->getCurrentController();
+        $controller = new $controllerClass($this);
+
         $action = $this->getCurrentAction();
         
         $actionMethod = $action.'Action';
         if (!method_exists($controller, $actionMethod) || !is_callable(array($controller, $actionMethod))) {
             throw new \IpUpdate\Gui\Exception('Requested action does not exist');
-        } 
+        }
         
-        $view = new \IpUpdate\Gui\View($controllerPath.'/'.$action.'.php');
-        $controller->setView($controllerPath.'/'.$action.'.php');
-        $controller->$action();
+        $view = \IpUpdate\Gui\View::create('View/'.$controllerPath.'/'.$action.'.php');
+        $controller->setView($view);
+        $controller->$actionMethod();
+        
         $this->output = $controller->getOutput();
     }
     
@@ -75,9 +74,9 @@ class Request
     private function getCurrentAction() 
     {
         //default controller;
-        $action = 'indexAction';
+        $action = 'index';
         if (isset($_GET['action']) && preg_match('/^[A-Za-z_\-0-9]+$/', $_REQUEST['action'])) {
-            $action = $_GET['action'].'Action';
+            $action = $_GET['action'];
         }
         return $action;
     }

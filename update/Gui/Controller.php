@@ -10,10 +10,12 @@ namespace IpUpdate\Gui;
 class Controller
 {
     private $content;
-    private $view;
+    public $view;
+    private $request;
     
-    public function __construct()
+    public function __construct(\IpUpdate\Gui\Request $request)
     {
+        $this->request = $request;
     }
 
     /**
@@ -21,11 +23,12 @@ class Controller
      */
     public function setView(\IpUpdate\Gui\View $view)
     {
+        $this->view = $view;
     }
     
-    public function output()
+    public function getOutput()
     {
-        echo $this->view->render();
+        return $this->view->render();
     }
     
 }
