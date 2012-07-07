@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Library\Migration;
+namespace IpUpdate\Library\Migration;
 
 
 abstract class General
@@ -16,6 +16,15 @@ abstract class General
      */
     public abstract function process();
     
-    public abstract function toVersion();
+    /**
+     * @return string
+     */
+    public abstract function getSourceVersion();
+    
+    /**
+     * @return string
+     */
+    public abstract function getDestinationVersion();
+    
     
 }

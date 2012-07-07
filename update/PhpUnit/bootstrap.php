@@ -1,4 +1,9 @@
 <?php
+/**
+ * @package	ImpressPages
+ * @copyright	Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
+ */
 
 define ('BASE_DIR', __DIR__.'/');
 define ('UPDATE_DIR', __DIR__.'/../');

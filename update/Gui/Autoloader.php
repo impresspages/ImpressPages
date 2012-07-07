@@ -13,6 +13,11 @@ class Autoloader
 {
     private static $dirs;
 
+    public function __construct()
+    {
+        $this->register(IUG_BASE_DIR);
+    }    
+    
     public function register($rootDir)
     {
         if (empty($dirs)) {
@@ -23,8 +28,8 @@ class Autoloader
 
     public static function load($name)
     {
-        if (strpos($name, 'IpUpdate\\') === 0) {
-            $name = substr($name, 9);
+        if (strpos($name, 'IpUpdate\\Gui\\') === 0) {
+            $name = substr($name, 13);
         } else {
             return false;
         }

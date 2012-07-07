@@ -12,19 +12,24 @@ namespace IpUpdate\Library;
 class Autoloader
 {
     private static $dirs;
+    
+    public function __construct()
+    {
+        $this->register(IUL_BASE_DIR);
+    }
 
     public function register($rootDir)
     {
         if (empty($dirs)) {
-            spl_autoload_register('Library\Autoloader::load');
+            spl_autoload_register('IpUpdate\Library\Autoloader::load');
         }
         static::$dirs[] = $rootDir;
     }
 
     public static function load($name)
     {
-        if (strpos($name, 'IpUpdate\\') === 0) {
-            $name = substr($name, 9);
+        if (strpos($name, 'IpUpdate\\Library\\') === 0) {
+            $name = substr($name, 17);
         } else {
             return false;
         }

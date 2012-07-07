@@ -25,8 +25,8 @@ class Service
     {
         $db = new Model\Db($this->cf);
         $conn = $db->connect();
-
-
+        
+        
         $db->disconnect();
     }
 
@@ -60,9 +60,15 @@ class Service
         $db->disconnect();
     }
 
-    public function availableVersions()
+    public function getAvailableVersions()
     {
-
+        $updateModel = new \IpUpdate\Library\Model\Update();
+        $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
+        $answer = array();
+        foreach($scripts as $script) {
+            $answer[] = $script->getDestinationVersion();
+        }
+        return $answer;
     }
 
      

@@ -15,10 +15,10 @@ class Overview extends \IpUpdate\Gui\Controller
         $updateService = new \IpUpdate\Library\Service(__DIR__.'/../../../');
         
         $currentVersion = $updateService->getCurrentVersion();
-        
-        
+        $availableVersions = $updateService->getAvailableVersions();
+        $newVersion = array_pop($availableVersions);
         $this->view->assign('currentVersion', $currentVersion);
-        $this->view->assign('newVersion', '2.x');
+        $this->view->assign('newVersion', $newVersion);
     }
     
 
