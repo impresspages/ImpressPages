@@ -22,6 +22,7 @@
                 <div id="content">
                     <?php echo $content ?>
                 </div>
+                
                 <div class="clear"></div>
             </div>
             <img class="border" src="public/cms_main_bottom.gif" alt="Design" />
@@ -29,6 +30,10 @@
         </div>
         <div class="footer">
             Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages LTD</a>
+        </div>
+    </div>
+    <div class="noDisplay">
+        <div class="loading">
         </div>
     </div>
     <script src="public/jquery.min.js"></script>

@@ -8,21 +8,24 @@ if (document.images) {
 
 $(function() {
     getStatus();
-    console.log('test');
 });
 
 
 
 var getStatus = function() {
- 
+    $('#content').html();
+    $('#content').append($('.noDisplay .loading').clone());
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=getStatus',
         success: successResponse
-      });
+    });
 };
 
 
 var successResponse = function(response) {
-    $('#content').html(response.html);
+    if (response && response.html) {
+        $('#content').html(response.html);
+    }
 };
+
