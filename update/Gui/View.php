@@ -144,7 +144,6 @@ class View{
             $sourceFile = str_replace(DIRECTORY_SEPARATOR, '/', $sourceFile);
         }
 
-
         $foundFile = self::findFile($file, $sourceFile);
         if ($foundFile === false) {
             throw new \IpUpdate\Gui\Exception('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', \IpUpdate\Gui\Exception::VIEW);
@@ -154,7 +153,8 @@ class View{
     
     private static function findFile($file, $sourceFile)
     {
-        $file = dirname($sourceFile).'/'.$file;
+        //$file = dirname($sourceFile).'/'.$file;
+        $file = IUG_BASE_DIR.IUG_VIEW_DIR.$file;
         if (file_exists($file)) {
             return $file;
         } else {

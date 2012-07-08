@@ -54,7 +54,7 @@ class Request
     public function sendOutput()
     {
         if ($this->layout) {
-            $view = View::create('Layout/main.php', array('content' => $this->output));
+            $view = View::create(IUG_LAYOUT_DIR.IUG_DEFAULT_LAYOUT, array('content' => $this->output));
             $output = $view->render();
         } else {
             $output = $this->output;

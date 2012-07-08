@@ -23,7 +23,7 @@ class TempStorage
     
     public function getValue($key)
     {
-        return \get_file_contents($this->getFileName($key));
+        return \file_get_contents($this->getFileName($key));
     }
     
     

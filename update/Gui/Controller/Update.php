@@ -12,8 +12,24 @@ class Update extends \IpUpdate\Gui\Controller
     
     public function getStatusAction() 
     {
-        $this->getRequest()->setLayout(null);
-        $data = array();
+        $updateService = new \IpUpdate\Library\Service(__DIR__.'/../../../');
+
+        if ($updateService->isLocked()) {
+            $html = '';
+        } else {
+            $currentVersion = $updateService->getCurrentVersion();
+            $view = \IpUpdate\Gui\View::create('Update/overview.php');
+            $availableVersions = $updateService->getAvailableVersions();
+            $newVersion = array_pop($availableVersions);
+            $view->assign('currentVersion', $currentVersion);
+            $view->assign('newVersion', $newVersion);
+            $html = $view->render();
+        }
+        
+        $data = array(
+            'html' => $html
+        );
+
         $this->returnJson($data);
     }
     

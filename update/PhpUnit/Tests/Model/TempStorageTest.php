@@ -41,7 +41,7 @@ class TempStorageTest extends PHPUnit_Framework_TestCase
                 }
             }
         }
-        if ($depth != 1) {
+        if ($depth != 0) {
             rmdir($dirPath);
         }
     }

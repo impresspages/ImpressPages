@@ -24,5 +24,5 @@ var getStatus = function() {
 
 
 var successResponse = function(response) {
-    console.log(response);
+    $('#content').html(response.html);
 };

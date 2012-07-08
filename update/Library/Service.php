@@ -12,16 +12,23 @@ class Service
 {
     private $cf;
     private $installationDir;
+    private $parameters;
 
     public function __construct($installationDir)
     {
         $this->installationDir = $installationDir;
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $this->cf = $configurationParser->parse($installationDir);
+        $this->parameters = new \IpUpdate\Library\Model\ConfigurationParser($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
     }
 
 
-    public function update ($destinationVersion)
+    /**
+     * Start or proceed update process. 
+     * @param string $destinationVersion
+     * @throws \IpUpdate\Library\UpdateException
+     */
+    public function proceed($destinationVersion)
     {
         $db = new Model\Db($this->cf);
         $conn = $db->connect();
@@ -30,8 +37,17 @@ class Service
         $db->disconnect();
     }
     
-    public function resetUpdateLock()
+    public function rollback()
     {
+    }
+    
+    /**
+     * Check if update process is in progress
+     * @return bool
+     */
+    public function isLocked()
+    {
+        return false;
     }
 
     public function getCurrentVersion()
