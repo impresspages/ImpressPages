@@ -29,6 +29,10 @@ class Service
         
         $db->disconnect();
     }
+    
+    public function resetUpdateLock()
+    {
+    }
 
     public function getCurrentVersion()
     {

@@ -15,7 +15,7 @@ class Update
     public function __construct()
     {
     }
-
+    
     public function getScriptsFromVersion($fromVersion){
         $answer = array();
         $currentScript = false;

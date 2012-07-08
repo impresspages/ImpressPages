@@ -7,11 +7,25 @@
 
 namespace IpUpdate\Gui\Controller;
 
-class Update
+class Update extends \IpUpdate\Gui\Controller
 {
     
-    public function indexAction() 
+    public function getStatusAction() 
     {
-        echo 'oho2';
+        $this->getRequest()->setLayout(null);
+        $data = array();
+        $this->returnJson($data);
     }
+    
+    
+    public function runAction()
+    {
+        
+    }
+    
+    public function rollbackAction()
+    {
+        
+    }
+    
 }

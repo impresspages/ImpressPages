@@ -12,13 +12,19 @@ class Request
 {
     private static $instance;
     private $output;
+    private $layout;
+
+    public function __construct()
+    {
+        $this->setLayout(IUG_DEFAULT_LAYOUT);
+    }
     
     public static function getInstance() 
     { 
         if (!self::$instance) { 
             self::$instance = new Request(); 
         } 
-        return self::$instance; 
+        return self::$instance;
     }
     
     public function execute()
@@ -33,11 +39,13 @@ class Request
         
         $actionMethod = $action.'Action';
         if (!method_exists($controller, $actionMethod) || !is_callable(array($controller, $actionMethod))) {
-            throw new \IpUpdate\Gui\Exception('Requested action does not exist');
+            throw new \IpUpdate\Gui\Exception('Requested action ('.$actionMethod.') does not exist in controller '.$controllerClass.'');
         }
         
-        $view = \IpUpdate\Gui\View::create('View/'.$controllerPath.'/'.$action.'.php');
-        $controller->setView($view);
+        if (file_exists(IUG_BASE_DIR.IUG_VIEW_DIR.$controllerPath.'/'.$action.'.php')) {
+            $view = \IpUpdate\Gui\View::create('View/'.$controllerPath.'/'.$action.'.php');
+            $controller->setView($view);
+        }
         $controller->$actionMethod();
         
         $this->output = $controller->getOutput();
@@ -45,10 +53,28 @@ class Request
     
     public function sendOutput()
     {
-        $view = View::create('Layout/main.php', array('content' => $this->output));
-        $output = $view->render();
+        if ($this->layout) {
+            $view = View::create('Layout/main.php', array('content' => $this->output));
+            $output = $view->render();
+        } else {
+            $output = $this->output;
+        }
         echo $output;
     }
+    
+    
+    /**
+     * @param string $layout
+     */
+    public function setLayout($layout)
+    {
+        if ($layout) {
+            $this->layout = IUG_LAYOUT_DIR.$layout;
+        } else {
+            $this->layout = null;
+        }
+    }
+    
         
     
     private function getCurrentControllerPath()
@@ -58,12 +84,12 @@ class Request
         
         
         if (isset($_GET['controller'])) {
-            switch (strtolower($_GET['controller'])) {
+            switch ($_GET['controller']) {
                 default :
-                case 'overview':
+                case 'Overview':
                     $path = 'Overview';
                     break;
-                case 'update':
+                case 'Update':
                     $path = 'Update';
                     break;
             }
@@ -80,4 +106,5 @@ class Request
         }
         return $action;
     }
+   
 }
