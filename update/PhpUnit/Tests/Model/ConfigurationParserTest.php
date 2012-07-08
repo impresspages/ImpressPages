@@ -4,7 +4,7 @@ class ConfigurationParserTest extends PHPUnit_Framework_TestCase
 {
     public function testParse()
     {
-        $configurationParser = new Library\Model\ConfigurationParser();
+        $configurationParser = new IpUpdate\Library\Model\ConfigurationParser();
         $configuration = $configurationParser->parse(FIXTURE_DIR.'Model/ConfigurationParser/');
 
         $this->assertEquals($configuration['SESSION_NAME'], 'ses328617118');

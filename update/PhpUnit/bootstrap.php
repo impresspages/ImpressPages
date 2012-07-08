@@ -13,7 +13,8 @@ define ('FIXTURE_DIR', BASE_DIR.'Fixture/');
 
 session_start('ipUpdateuTest');
 
-require_once(UPDATE_DIR.'Library/Autoloader.php');
-$autoloader = new IpUpdate\Library\Autoloader();
-$autoloader->register(UPDATE_DIR);
+//bootstrap IpUpbdate library
+require_once(UPDATE_DIR.'/Library/Bootstrap.php');
+$libraryBootstrap = new \IpUpdate\Library\Bootstrap();
+$libraryBootstrap->run();
 
