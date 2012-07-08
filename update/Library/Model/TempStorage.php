@@ -23,13 +23,13 @@ class TempStorage
     
     public function getValue($key)
     {
-        return get_file_content($this->getFileName($key));
+        return \get_file_contents($this->getFileName($key));
     }
     
     
     public function setValue($key, $value)
     {
-        file_put_contents($this->getFileName($key), $value);
+        \file_put_contents($this->getFileName($key), $value);
     }
     
     public function exist($key)
@@ -44,7 +44,7 @@ class TempStorage
     
     private function getFileName($key)
     {
-        return $storageDir.$key;
+        return $this->storageDir.$key;
     }
     
 }
