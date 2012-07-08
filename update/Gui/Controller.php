@@ -55,6 +55,12 @@ class Controller
         $this->output = $output;
     }
     
+    
+    public function registerAjaxErrorHandling()
+    {
+        \IpUpdate\Gui\AjaxErrorHandler::init();
+    }
+    
     /**
     *
     *  Returns $dat encoded to UTF8
@@ -77,6 +83,7 @@ class Controller
             return $answer;
         }
         return $dat;
-    }        
+    }
+    
 
 }

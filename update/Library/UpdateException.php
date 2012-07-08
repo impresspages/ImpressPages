@@ -12,7 +12,8 @@ namespace IpUpdate\Library;
 class UpdateException extends \Exception
 {
     //error codes
-    const WRITE_PERMISSION = 0;
+    const UNKNOWN = 0;
+    const WRITE_PERMISSION = 1;
     
     private $data;
     

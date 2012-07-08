@@ -1,20 +1,24 @@
 "use strict";
 
-if (document.images) {
-    var preload_image = new Image(); 
-    preload_image.src="public/cms_button_hover.gif"; 
-}
+
 
 
 $(function() {
+    $('#content').delegate('.actProceed', 'click', proceed);
+    
     getStatus();
+    
+    
+    if (document.images) {
+        var preload_image = new Image(); 
+        preload_image.src="public/cms_button_hover.gif"; 
+    }    
 });
 
 
 
 var getStatus = function() {
-    $('#content').html();
-    $('#content').append($('.noDisplay .loading').clone());
+    loading();
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=getStatus',
@@ -29,3 +33,17 @@ var successResponse = function(response) {
     }
 };
 
+
+var loading = function() {
+    $('#content').html('');
+    $('#content').append($('.noDisplay .loading').clone());
+}
+
+var proceed = function(event) {
+    loading();
+    $.ajax({
+        type: 'POST',
+        url: '?controller=Update&action=proceed',
+        success: successResponse
+    });
+}
