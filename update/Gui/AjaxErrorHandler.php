@@ -12,11 +12,12 @@ class AjaxErrorHandler
 
     public static function init()
     {
-        $oldErrorHandler = set_error_handler(array(__CLASS__, 'errorHandler'));
-        register_shutdown_function(array(__CLASS__, 'catchShutdownError'));
+        set_error_handler(array(__CLASS__, 'captureError'));
+        set_exception_handler(array( __CLASS__, 'captureException'));
+        register_shutdown_function(array(__CLASS__, 'captureShutdown'));
     }
 
-    public static function errorHandler($errno, $errstr, $errfile, $errline)
+    public static function captureError($errno, $errstr, $errfile, $errline)
     {
         if (ini_get('display_errors')) {
             $message = self::getErrorMessage($errno, $errstr, $errfile, $errline);
@@ -24,6 +25,31 @@ class AjaxErrorHandler
             exit;
         }
     }
+    
+    public static function captureException(\Exception $e)
+    {
+        if (ini_get('display_errors')) {
+            $message = self::getErrorMessage(1, $e->getMessage(), $e->getFile(), $e->getLine());
+            self::reportError($message);
+            exit;
+        }
+    }    
+    
+    public static function captureShutdown()
+    {
+        $error = error_get_last();
+        if (!$error) {
+            return;
+        }
+        
+        if (ini_get('display_errors')) {
+            ob_end_clean( );
+            $message = self::getErrorMessage($error['type'], $error['message'], $error['file'], $error['line']);
+            self::reportError($message);
+        }
+        return false;
+    }
+    
 
     public static function reportError($errorMessage)
     {
@@ -36,23 +62,6 @@ class AjaxErrorHandler
         $output = json_encode(self::utf8Encode($data));
         echo $output;
     }
-
-    
-    public static function catchShutdownError()
-    {
-        ob_end_clean( );
-        $error = error_get_last();
-        if (!$error) {
-            return;
-        }
-        
-        if (ini_get('display_errors')) {
-            $message = self::getErrorMessage($error['type'], $error['message'], $error['file'], $error['line']);
-            self::reportError($message);
-        }
-        return false;
-    }
-
 
     /**
      *

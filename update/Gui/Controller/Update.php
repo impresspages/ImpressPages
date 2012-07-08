@@ -15,7 +15,7 @@ class Update extends \IpUpdate\Gui\Controller
         $this->registerAjaxErrorHandling();
         try {
             $updateService = $this->getUpdateService();
-
+throw new \Exception('aaa');
             if ($updateService->isLocked()) {
                 $html = '';
             } else {
@@ -27,18 +27,15 @@ class Update extends \IpUpdate\Gui\Controller
                 $view->assign('newVersion', $newVersion);
                 $html = $view->render();
             }
-imagine_function( );
+
+
             $data = array(
                 'html' => $html
             );
             $this->returnJson($data);
         } catch (\IpUpdate\Library\UpdateException $e) {
             $this->returnError($e);
-        } catch (\Exception $e) {
-            $exception = new \IpUpdate\Library\UpdateException($e->getMessage(), \IpUpdate\Library\UpdateException::UNKNOWN, array());
-            $this->returnError($exception);
         }
-        
     }
 
 
@@ -51,9 +48,6 @@ imagine_function( );
             $updateService->proceed();
         } catch (\IpUpdate\Library\UpdateException $e) {
             $this->returnError($e);
-        } catch (\Exception $e) {
-            $exception = new \IpUpdate\Library\UpdateException($e->getMessage(), \IpUpdate\Library\UpdateException::UNKNOWN, array());
-            $this->returnError($exception);
         }
     }
 
