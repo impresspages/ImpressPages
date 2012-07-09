@@ -15,7 +15,7 @@ class Update extends \IpUpdate\Gui\Controller
         $this->registerAjaxErrorHandling();
         try {
             $updateService = $this->getUpdateService();
-throw new \Exception('aaa');
+
             if ($updateService->isLocked()) {
                 $html = '';
             } else {
