@@ -17,5 +17,5 @@
 <a href="#" class="ipAdminButton ipaFieldAdd">Add new</a>
 <div class="ipaOptions">
     <label class="ipAdminLabel"><?php echo $this->escPar('standard/content_management/widget_contact_form/thank_you'); ?></label>
-    <textarea class="ipWidgetIpFormSuccess"><?php echo htmlentities(isset($success) ? $success : ''); ?></textarea>
+    <textarea class="ipWidgetIpFormSuccess"><?php echo $this->esc(isset($success) ? $success : ''); ?></textarea>
 </div>
