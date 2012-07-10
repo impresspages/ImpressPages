@@ -27,6 +27,13 @@ class TempStorage
             $fileSystem = new \IpUpdate\Library\Model\FileSystem();
             $fileSystem->createFolder($this->storageDir);
         }
+        
+        if (!is_writable($this->storageDir)) {
+            $errorData = array (
+                'dir' => $this->storageDir
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write directory", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
     }
     
     public function getValue($key)

@@ -20,7 +20,7 @@ class Update
 
     public function proceed()
     {
-        $tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['TMP_FILE_DIR'].'update/');
+        $tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
         
         if ($tempStorage->exist('inProgress')) {
             throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS, $data);
