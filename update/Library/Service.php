@@ -28,13 +28,10 @@ class Service
      * @param string $destinationVersion
      * @throws \IpUpdate\Library\UpdateException
      */
-    public function proceed($destinationVersion)
+    public function proceed()
     {
-        $db = new Model\Db($this->cf);
-        $conn = $db->connect();
-        
-        
-        $db->disconnect();
+        $update = new \IpUpdate\Library\Model\Update($this->cf);
+        $update->proceed();
     }
     
     public function rollback()
@@ -82,7 +79,7 @@ class Service
 
     public function getAvailableVersions()
     {
-        $updateModel = new \IpUpdate\Library\Model\Update();
+        $updateModel = new \IpUpdate\Library\Model\Migration();
         $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
         $answer = array();
         foreach($scripts as $script) {

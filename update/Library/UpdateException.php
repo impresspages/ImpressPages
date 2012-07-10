@@ -14,6 +14,7 @@ class UpdateException extends \Exception
     //error codes
     const UNKNOWN = 0;
     const WRITE_PERMISSION = 1;
+    const IN_PROGRESS = 2;
     
     private $data;
     

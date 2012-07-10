@@ -7,7 +7,10 @@
 
 namespace IpUpdate\Library\Model;
 
-
+/**
+ * Store data in file system required for update process
+ *
+ */
 class TempStorage
 {
     private $scripts;
@@ -19,11 +22,20 @@ class TempStorage
             $storageDir .= '/';
         }
         $this->storageDir = $storageDir;
+        
+        if (!file_exists($this->storageDir) || !is_dir($this->storageDir)) {
+            $fileSystem = new \IpUpdate\Library\Model\FileSystem();
+            $fileSystem->createFolder($this->storageDir);
+        }
     }
     
     public function getValue($key)
     {
-        return \file_get_contents($this->getFileName($key));
+        if (\file_exists($this->getFileName($key))) {
+            return \file_get_contents($this->getFileName($key));
+        } else {
+            return false;
+        }
     }
     
     

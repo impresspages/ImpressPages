@@ -10,61 +10,31 @@ namespace IpUpdate\Library\Model;
 
 class Update
 {
-    private $scripts;
 
-    public function __construct()
-    {
-    }
+    private $cf;
     
-    public function getScriptsFromVersion($fromVersion){
-        $answer = array();
-        $currentScript = false;
-        while($currentScript = $this->getScriptFromVersion($fromVersion)){
-            $answer[] = $currentScript;
-            $fromVersion = $currentScript->getDestinationVersion();
-        }
-
-        return $answer;
-    }
-
-    public function getScriptFromVersion($fromVersion){
-        $answer = false;
-
-        foreach ($this->getScripts() as $script) {
-            if ($script->getSourceVersion() == $fromVersion){
-                $answer = $script;
-            }
-        }
-
-        return $answer;
-    }
-
-    
-    private function getScripts()
+    public function __construct($config)
     {
-        if (!$this->scripts) {
-            $scripts = array();
-            
-            $migrationDirListing = scandir(IUL_BASE_DIR.IUL_MIGRATION_DIR);
-            foreach ($migrationDirListing as $dir) {
-                if ($dir == '.' || $dir == '..') {
-                    continue;
-                }
-                
-                if (file_exists(IUL_BASE_DIR.IUL_MIGRATION_DIR.$dir.'/Script.php')) {
-                    $scriptName = 'IpUpdate\\Library\\Migration\\'.$dir.'\\Script';
-                    $scripts[] = new $scriptName();
-                }
-            } 
-            $this->scripts = $scripts;
-        }
-        return $this->scripts;
+        $this->cf = $config;
     }
 
-
+    public function proceed()
+    {
+        $tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['TMP_FILE_DIR'].'update/');
+        
+        if ($tempStorage->exist('inProgress')) {
+            throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS, $data);
+        }
+        
+        $tempStorage->setValue('inProgress', 1);
+        
+        $db = new Db();
+        $conn = $db->connect($this->cf);
+        
+        
+        //$tempStorage->remove('inProgress');
+        
+        $db->disconnect();
+        
+    }
 }
-
-
-
-
-

@@ -46,6 +46,10 @@ class Update extends \IpUpdate\Gui\Controller
         try {
             $updateService = $this->getUpdateService();
             $updateService->proceed();
+            $data = array(
+                'html' => 'SUCCESS'
+            );
+            $this->returnJson($data);
         } catch (\IpUpdate\Library\UpdateException $e) {
             $this->returnError($e);
         }
