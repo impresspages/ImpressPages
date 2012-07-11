@@ -34,6 +34,9 @@ class Service
         $update->proceed();
     }
     
+    /**
+     * @throws \IpUpdate\Library\UpdateException
+     */
     public function resetLock()
     {
         $update = new \IpUpdate\Library\Model\Update($this->cf);

@@ -37,8 +37,7 @@ class Update
         $conn = $db->connect($this->cf);
         
         
-        //$tempStorage->remove('inProgress');
-        
+        $tempStorage->remove('inProgress');
         $db->disconnect();
         
     }

@@ -78,6 +78,8 @@ class Update extends \IpUpdate\Gui\Controller
     private function returnError(\IpUpdate\Library\UpdateException $e)
     {
         $data = array(
+            'status' => 'error',
+            'errorCode' => $e->getCode(),
             'html' => $this->getErrorHtml($e)
         );
 
