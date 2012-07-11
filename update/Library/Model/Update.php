@@ -13,20 +13,25 @@ class Update
 
     private $cf;
     
+    
+    /**
+     * @var \IpUpdate\Library\Model\TempStorage
+     */
+    private $tempStorage;
+    
     public function __construct($config)
     {
         $this->cf = $config;
+        $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/'); 
     }
 
     public function proceed()
     {
-        $tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
-        
-        if ($tempStorage->exist('inProgress')) {
-            throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS, $data);
+        if ($this->tempStorage->exist('inProgress')) {
+            throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS);
         }
         
-        $tempStorage->setValue('inProgress', 1);
+        $this->tempStorage->setValue('inProgress', 1);
         
         $db = new Db();
         $conn = $db->connect($this->cf);
@@ -36,5 +41,10 @@ class Update
         
         $db->disconnect();
         
+    }
+    
+    public function resetLock()
+    {
+        $this->tempStorage->remove('inProgress');
     }
 }

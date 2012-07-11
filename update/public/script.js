@@ -5,6 +5,7 @@
 
 $(function() {
     $('#content').delegate('.actProceed', 'click', proceed);
+    $('#content').delegate('.actResetLock', 'click', resetLock);
     
     getStatus();
     
@@ -44,6 +45,15 @@ var proceed = function(event) {
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=proceed',
+        success: successResponse
+    });
+}
+
+var resetLock = function(event) {
+    loading();
+    $.ajax({
+        type: 'POST',
+        url: '?controller=Update&action=resetLock',
         success: successResponse
     });
 }

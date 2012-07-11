@@ -8,7 +8,9 @@
 
 namespace IpUpdate\Library;
 
-
+/**
+ * Update process error
+ */
 class UpdateException extends \Exception
 {
     //error codes
@@ -19,7 +21,7 @@ class UpdateException extends \Exception
     private $data;
     
     // Redefine the exception so message isn't optional
-    public function __construct($message, $code, $data, \Exception $previous = null) {
+    public function __construct($message, $code, $data = array(), \Exception $previous = null) {
         // make sure everything is assigned properly
         parent::__construct($message, $code, $previous);
         

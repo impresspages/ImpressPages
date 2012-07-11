@@ -34,19 +34,16 @@ class Service
         $update->proceed();
     }
     
+    public function resetLock()
+    {
+        $update = new \IpUpdate\Library\Model\Update($this->cf);
+        $update->resetLock();
+    }
+    
     public function rollback()
     {
     }
     
-    /**
-     * Check if update process is in progress
-     * @return bool
-     */
-    public function isLocked()
-    {
-        return false;
-    }
-
     public function getCurrentVersion()
     {
         $db = new Model\Db();
