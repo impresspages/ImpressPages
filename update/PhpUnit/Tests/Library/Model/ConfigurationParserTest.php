@@ -5,7 +5,7 @@ class ConfigurationParserTest extends PHPUnit_Framework_TestCase
     public function testParse()
     {
         $configurationParser = new IpUpdate\Library\Model\ConfigurationParser();
-        $configuration = $configurationParser->parse(FIXTURE_DIR.'Model/ConfigurationParser/');
+        $configuration = $configurationParser->parse(FIXTURE_DIR.'Library/Model/ConfigurationParser/');
 
         $this->assertEquals($configuration['SESSION_NAME'], 'ses328617118');
         $this->assertEquals($configuration['DB_SERVER'], 'localhost');
