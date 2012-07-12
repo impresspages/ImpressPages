@@ -1,6 +1,6 @@
 <?php
 
-class ConfigurationParserTest extends PHPUnit_Framework_TestCase
+class ConfigurationParserTest extends UpdateTestCase
 {
     public function testParse()
     {

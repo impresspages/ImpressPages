@@ -46,4 +46,25 @@ class Update
     {
         $this->tempStorage->remove('inProgress');
     }
+    
+    private function getFoldersToReplace() 
+    {
+        return array (
+            'ip_cms',
+            $this->cf['LIBRARY_DIR']
+        );
+    }
+    
+    private function getFilesToReplace()
+    {
+        return array (
+            'admin.php',
+            'index.php',
+            'ip_backend_frames.php',
+            'ip_backend_worker.php',
+            'ip_cron.php',
+            'ip_license.html',
+            'sitemap.php'
+        );
+    }
 }

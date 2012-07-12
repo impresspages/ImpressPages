@@ -11,7 +11,7 @@ namespace IpUpdate\Library\Model;
 class FileSystem
 {
 
-    public function createFolder($dir)
+    public function createWritableDir($dir)
     {
         if (substr($dir, 0, 1) != '/') {
             throw new \IpUpdate\Library\Exception('Absolute path required', \IpUpdate\Library\Exception::OTHER);
@@ -25,7 +25,7 @@ class FileSystem
          
         
         if (!file_exists($parentDir) || !is_dir($parentDir)) {
-            $this->createFolder($parentDir);
+            $this->createWritableDir($parentDir);
         }
 
         if (!is_writable($parentDir)) {
@@ -35,6 +35,45 @@ class FileSystem
         mkdir($dir);
     }
 
+    
+    /**
+     * Make directory and all subdirs and files writable
+     * @param string $dir
+     * @param int $permissions eg 0755. ZERO IS REQUIRED. Applied only to files and folders that are not writable.
+     * @return boolean
+     */
+    function makeDirectoryWritable($dir, $permissions)
+    {
+        $answer = true;
+        if(!file_exists($dir) || !is_dir($dir)) {
+            return false;
+        }
+    
+        if (!is_writable($dir)) {
+            $success = chmod($dir, $permissions);
+            if (!is_writable($dir)) {
+                $this->throwWritePermissionsError($dir);
+            }
+        }
+        
+        if ($handle = opendir($dir)) {
+            while (false !== ($file = readdir($handle))) {
+                if($file == ".." || $file == ".") {
+                    continue;
+                }
+                if (is_dir($dir.'/'.$file)) {
+                    $this->makeDirectoryWritable($dir.'/'.$file, $permissions);
+                } else {
+                    chmod($dir.'/'.$file, $permissions)
+                }
+            }
+            closedir($handle);
+        }
+            
+    
+        return $answer;
+    }    
+    
 
     private function throwWritePermissionsError($dir)
     {

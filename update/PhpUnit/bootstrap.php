@@ -19,3 +19,4 @@ require_once(UPDATE_DIR.'/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
 
+require_once('./UpdateTestCase.php');

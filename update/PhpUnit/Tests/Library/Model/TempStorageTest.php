@@ -1,11 +1,8 @@
 <?php
 
-class TempStorageTest extends PHPUnit_Framework_TestCase
+class TempStorageTest extends UpdateTestCase
 {
-    protected function setup()
-    {
-        $this->cleanDir(TMP_DIR);
-    }
+
 
     public function testStorage()
     {
@@ -24,26 +21,6 @@ class TempStorageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($tmpStorage->exist($key1), false);
     }
 
-    private function cleanDir($dirPath, $depth = 0) {
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException('$dirPath must be a directory');
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if ($file !== '.' && $file != '..') {
-                if (is_dir($file)) {
-                    $this->cleanDir($file, $depth + 1);
-                } else {
-                    unlink($file);
-                }
-            }
-        }
-        if ($depth != 0) {
-            rmdir($dirPath);
-        }
-    }
+
 
 }

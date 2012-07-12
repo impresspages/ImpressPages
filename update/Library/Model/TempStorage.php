@@ -25,7 +25,7 @@ class TempStorage
         
         if (!file_exists($this->storageDir) || !is_dir($this->storageDir)) {
             $fileSystem = new \IpUpdate\Library\Model\FileSystem();
-            $fileSystem->createFolder($this->storageDir);
+            $fileSystem->createWritableDir($this->storageDir);
         }
         
         if (!is_writable($this->storageDir)) {
