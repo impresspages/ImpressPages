@@ -68,8 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Strefa czasowa');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Proszę wybierz strefę czasową z poniższej listy');
 
 define('IP_FINISH_MESSAGE', '
-<p>Instalacja zakończona. Skasuj katalogi "install", "update".<br /><br />
-</p>
 <p>
 <a href="../">Strona główna</a>
 </p>

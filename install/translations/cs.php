@@ -68,7 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Časové pásmo stránek');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Zvolte prosím časové pásmo');
 
 define('IP_FINISH_MESSAGE', '
-<p>Smažte prosím složky "install" a "update".<br /><br /></p>
 <p>
 <a href="../">Titulní stránka</a>
 </p>

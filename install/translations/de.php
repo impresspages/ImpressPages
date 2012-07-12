@@ -68,7 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Webseiten Zeitzone');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Bitte wähle eine Zeitzone');
 
 define('IP_FINISH_MESSAGE', '
-<p>Bitte lösche die Verzeichnisse "install", "update".<br /><br /></p>
 <p>
 <a href="../">Zur Seite</a>
 </p>

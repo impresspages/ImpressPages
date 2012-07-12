@@ -68,8 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Timpul si zona site-ului');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Te rugam sa alegi timpul si zona pentru site');
 
 define('IP_FINISH_MESSAGE', '
-<p>Te rugam sa stergi directoarele "install", "update".<br /><br />
-</p>
 <p>
 <a href="../">Prima pagina</a>
 </p>

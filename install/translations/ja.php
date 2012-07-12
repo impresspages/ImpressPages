@@ -66,7 +66,6 @@ define('IP_CONFIG_TIMEZONE', 'サイトタイムゾーン');
 define('IP_CONFIG_SELECT_TIMEZONE', 'サイトタイムゾーンを選択して下さい');
 
 define('IP_FINISH_MESSAGE', '
-<p>"install" および "update" フォルダを削除して下さい。<br /><br /></p>
 <p>
 <a href="../">トップページ</a>
 </p>

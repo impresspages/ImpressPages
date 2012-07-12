@@ -66,7 +66,6 @@ define('IP_CONFIG_TIMEZONE', 'Tijdzone website');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Kies de tijdzone van de website');
 
 define('IP_FINISH_MESSAGE', '
-<p>Verwijder de "install", "update" map.<br /><br /></p>
 <p>
 <a href="../">Voorpagina</a>
 </p>

@@ -68,7 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Fuso hor&aacute;rio do site');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Por favor escolha o fuso hor&aacute;rio');
 
 define('IP_FINISH_MESSAGE', '
-<p>Por favor deletar os diret&oacute;rios "install", "update".<br /><br /></p>
 <p>
 <a href="../">P&aacute;gina Inicial</a>
 </p>

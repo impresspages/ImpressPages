@@ -68,7 +68,6 @@ define('IP_CONFIG_TIMEZONE', 'Fuseau horaire du site');
 define('IP_CONFIG_SELECT_TIMEZONE', 'Choisissez un fuseau horaire pour le site');
 
 define('IP_FINISH_MESSAGE', '
-<p>Par sécurité, supprimez immédiatement les dossiers "install" et "update" du serveur.<br /><br /></p>
 <p>
 <a href="../">Page d\'accueil</a>
 </p>
