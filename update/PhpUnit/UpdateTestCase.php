@@ -32,6 +32,6 @@ class UpdateTestCase extends \PHPUnit_Framework_TestCase
         if ($depth != 0) {
             rmdir($dirPath);
         }
-    }    
+    }
     
 }

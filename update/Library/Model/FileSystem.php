@@ -72,7 +72,7 @@ class FileSystem
             
     
         return $answer;
-    }    
+    }
     
 
     private function throwWritePermissionsError($dir)
