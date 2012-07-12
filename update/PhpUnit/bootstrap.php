@@ -14,9 +14,14 @@ define ('TMP_DIR', BASE_DIR.'Tmp/');
 
 session_start('ipUpdateuTest');
 
+require_once(BASE_DIR.'/Autoloader.php');
+$autoloader = new \IpUpdate\PhpUnit\Autoloader();
+$autoloader->register(BASE_DIR);
+
+
 //bootstrap IpUpbdate library
 require_once(UPDATE_DIR.'/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
 
-require_once('./UpdateTestCase.php');
+

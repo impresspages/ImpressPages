@@ -1,6 +1,6 @@
 <?php
 
-class ServiceTest extends UpdateTestCase
+class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
     public function testCurrentVersion()
     {

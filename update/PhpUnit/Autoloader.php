@@ -1,6 +1,6 @@
 <?php
 
-namespace IpUpdate\Library;
+namespace IpUpdate\PhpUnit;
 
 /**
  * @package	ImpressPages
@@ -16,14 +16,14 @@ class Autoloader
     public function register($rootDir)
     {
         if (empty($dirs)) {
-            spl_autoload_register('IpUpdate\Library\Autoloader::load');
+            spl_autoload_register('IpUpdate\PhpUnit\Autoloader::load');
         }
         static::$dirs[] = $rootDir;
     }
 
     public static function load($name)
     {
-        if (strpos($name, 'IpUpdate\\Library\\') === 0) {
+        if (strpos($name, 'IpUpdate\\PhpUnit\\') === 0) {
             $name = substr($name, 17);
         } else {
             return false;

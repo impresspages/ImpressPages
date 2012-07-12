@@ -1,6 +1,6 @@
 <?php
 
-class TempStorageTest extends UpdateTestCase
+class TempStorageTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
 
 

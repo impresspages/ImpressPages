@@ -1,6 +1,8 @@
 <?php
 
-class UpdateTestCase extends PHPUnit_Framework_TestCase
+namespace IpUpdate\PhpUnit;
+
+class UpdateTestCase extends \PHPUnit_Framework_TestCase
 {
     
     protected function setup()

@@ -1,6 +1,6 @@
 <?php
 
-class ConfigurationParserTest extends UpdateTestCase
+class ConfigurationParserTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
     public function testParse()
     {

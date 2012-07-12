@@ -1,6 +1,6 @@
 <?php
 
-class FileSystemTest extends UpdateTestCase
+class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
 
     public function testCreateWritableDir()

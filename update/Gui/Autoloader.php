@@ -13,10 +13,6 @@ class Autoloader
 {
     private static $dirs;
 
-    public function __construct()
-    {
-        $this->register(IUG_BASE_DIR);
-    }    
     
     public function register($rootDir)
     {

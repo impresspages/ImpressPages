@@ -20,6 +20,7 @@ class Bootstrap
         require_once(__DIR__.'/Config.php');
         require_once(IUL_BASE_DIR.'Autoloader.php');
         $autoloader = new \IpUpdate\Library\Autoloader();
+        $autoloader->register(IUL_BASE_DIR);
     }
 }
 
