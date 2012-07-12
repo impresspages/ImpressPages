@@ -24,11 +24,13 @@ class Autoloader
 
     public static function load($name)
     {
-        if (strpos($name, 'IpUpdate\\Gui\\') === 0) {
-            $name = substr($name, 13);
-        } else {
+        if (strpos($name, 'IpUpdate\\Gui\\') !== 0) {
             return false;
         }
+        
+        $name = substr($name, 13);
+        
+        
         $fileName = str_replace('\\', '/', $name) . '.php';
         if($fileName[0] == '/') { //in some environments required class starts with slash. In that case remove the slash.
             $fileName = substr($fileName, 1);
