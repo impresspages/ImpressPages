@@ -3,7 +3,7 @@
 class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
 
-    public function testCreateWritableDir()
+    public function testMakeDirectoryWritable()
     {
         $testDir = TMP_DIR.'FileSystemTest/';
         
@@ -41,6 +41,19 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $fileSystemHelper->rm($testDir);
     }
 
+    
+    public function testCreateWritableDir()
+    {
+        $testDir = TMP_DIR.'newWritableDir';
+        $fileSystem = new \IpUpdate\Library\Model\FileSystem();
+        $fileSystem->createWritableDir($testDir);
+        
+        $this->assertEquals(true, file_exists($testDir));
+        $this->assertEquals(true, is_writable($testDir));
+        
+        $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
+        $fileSystemHelper->rm($testDir);
+    }
 
 
 }
