@@ -40,7 +40,7 @@ class FileSystem
 
 
 
-    private function rm($dir, $depth = 0) {
+    public function rm($dir) {
         
         if (!file_exists($dir)) {
             return;
@@ -59,10 +59,11 @@ class FileSystem
                 }
                 closedir($handle);
             }
+            
+            rmdir($dir);
+        } else {
+            unlink($dir);
         }
-        
-        rm ($dir);
-
     }
 
 
@@ -93,4 +94,14 @@ class FileSystem
         return $answer;
     }
 
+    /**
+     * Format unix permissions to human readable format. Eg 755
+     * 
+     * @param oct $perms
+     * @return string
+     */
+    public function formatPermissions($perms)
+    {
+        return substr(decoct($perms),2);
+    }
 }

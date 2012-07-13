@@ -64,7 +64,9 @@ class FileSystem
                 if (is_dir($dir.'/'.$file)) {
                     $this->makeDirectoryWritable($dir.'/'.$file, $permissions);
                 } else {
-                    chmod($dir.'/'.$file, $permissions)
+                    if (!is_writable($dir.'/'.$file)) {
+                        chmod($dir.'/'.$file, $permissions);
+                    }
                 }
             }
             closedir($handle);

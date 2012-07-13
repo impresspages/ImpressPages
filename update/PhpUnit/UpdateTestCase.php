@@ -7,6 +7,8 @@ class UpdateTestCase extends \PHPUnit_Framework_TestCase
     
     protected function setup()
     {
+        $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
+        $fileSystemHelper->chmod(TMP_DIR, 0755);
         $this->cleanDir(TMP_DIR);
     }
     
