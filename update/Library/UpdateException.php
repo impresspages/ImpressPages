@@ -18,6 +18,7 @@ class UpdateException extends \Exception
     const WRITE_PERMISSION = 1;
     const IN_PROGRESS = 2;
     const UNKNOWN_VERSION = 3;
+    const CURL_REQUIRED = 4;
     
     private $data;
     

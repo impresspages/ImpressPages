@@ -130,7 +130,7 @@ class Update
     
     private function stepDownloadPackage()
     {
-
+        
     }
     
     private function stepCloseWebsite()
