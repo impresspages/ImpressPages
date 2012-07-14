@@ -32,7 +32,7 @@ class Update
     
     /**
      * 
-     * @var \IpUpdate\Library\Model\FileSystem
+     * @var \IpUpdate\Library\Helper\FileSystem
      */
     private $fs;
     
@@ -40,7 +40,7 @@ class Update
     {
         $this->cf = $config;
         $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/'); 
-        $this->fs = new \IpUpdate\Library\Model\FileSystem();
+        $this->fs = new \IpUpdate\Library\Helper\FileSystem();
     }
 
     public function proceed()
