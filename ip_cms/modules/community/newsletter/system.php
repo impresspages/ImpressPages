@@ -51,7 +51,7 @@ class System{
             if (!$newsletterZone) {
                 return;
             }
-            $newsletterBox = $newsletterZone->generateRegistrationBox();
+            $newsletterBox = \Ip\View::create('view/registration_box.php');
             $event->setValue('content', $newsletterBox );
             $event->addProcessed();
         }
