@@ -28,24 +28,13 @@ var getStatus = function() {
 };
 
 
-var successResponse = function(response) {
-    if (response && response.html) {
-        $('#content').html(response.html);
-    }
-};
-
-
-var loading = function() {
-    $('#content').html('');
-    $('#content').append($('.noDisplay .loading').clone());
-}
-
 var proceed = function(event) {
     loading();
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=proceed',
-        success: successResponse
+        success: successResponse,
+        error: errorResponse
     });
 }
 
@@ -54,6 +43,26 @@ var resetLock = function(event) {
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=resetLock',
-        success: successResponse
+        success: successResponse,
+        error: errorResponse
     });
+}
+
+
+
+var successResponse = function(response) {
+    if (response && response.html) {
+        $('#content').html(response.html);
+    }
+};
+
+var errorResponse = function(response) {
+    console.log('error');
+    document.location = document.location;
+};
+
+
+var loading = function() {
+    $('#content').html('');
+    $('#content').append($('.noDisplay .loading').clone());
 }

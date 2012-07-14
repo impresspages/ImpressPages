@@ -135,7 +135,8 @@ class Update
     
     private function stepCloseWebsite()
     {
-        $this->fs->makeWritable($this->cf['BASE_DIR'].'index.php');
+        $indexFile = $this->cf['BASE_DIR'].'index.php';
+        $this->fs->makeWritable($indexFile);
         $maintenanceMode = '<?php
 header("HTTP/1.1 503 Service Temporarily Unavailable");
 header("Status: 503 Service Temporarily Unavailable");
@@ -146,7 +147,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 }
 ';
 
-        file_put_contents($filename, $maintenanceMode);
+        file_put_contents($indexFile, $maintenanceMode);
         exit;        
 
     }
