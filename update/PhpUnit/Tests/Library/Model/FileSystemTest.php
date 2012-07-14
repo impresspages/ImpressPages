@@ -3,7 +3,7 @@
 class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
 
-    public function testMakeDirectoryWritable()
+    public function testMakeWritable()
     {
         $testDir = TMP_DIR.'FileSystemTest/';
         
@@ -25,7 +25,7 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt'));
         
         $fileSystem = new \IpUpdate\Library\Model\FileSystem();
-        $fileSystem->makeDirectoryWritable($testDir, 0755);
+        $fileSystem->makeWritable($testDir, 0755);
         
         //assert all dirs are now writable
         $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/'));

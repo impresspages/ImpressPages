@@ -58,7 +58,9 @@ class TempStorage
     
     public function remove($key)
     {
-        unlink($this->getFileName($key));
+        if (file_exists($this->getFileName($key))){
+            unlink($this->getFileName($key));
+        }
     }
     
     private function getFileName($key)
