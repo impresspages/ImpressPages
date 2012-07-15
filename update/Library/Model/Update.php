@@ -130,6 +130,9 @@ class Update
     
     private function stepDownloadPackage()
     {
+        $this->fs->rm();
+        $File = $this->cf['BASE_DIR'].'index.php';
+        $this->fs->makeWritable($indexFile);
         
     }
     

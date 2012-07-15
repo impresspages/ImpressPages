@@ -5,12 +5,7 @@
  * @license see ip_license.html
  */
 
-define ('BASE_DIR', __DIR__.'/');
-define ('UPDATE_DIR', __DIR__.'/../');
-define ('INSTALLATION_DIR', __DIR__.'/../../');
 
-define ('FIXTURE_DIR', BASE_DIR.'Fixture/');
-define ('TMP_DIR', BASE_DIR.'Tmp/');
 
 session_start('ipUpdateuTest');
 
