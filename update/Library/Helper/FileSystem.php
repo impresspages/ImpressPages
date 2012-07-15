@@ -109,7 +109,7 @@ class FileSystem
         } else {
             unlink($dir);
         }
-    }    
+    }
     
     public function getParentDir($path)
     {

@@ -31,7 +31,44 @@ class UpdateTestCase extends \PHPUnit_Framework_TestCase
     }    
     
     
-    private function cleanDir($dirPath, $depth = 0) {
+    public function cleanDir($dir, $depth = 0) {
+        
+        if (!file_exists($dir)) {
+            return;
+        }
+        
+        $dir = $this->removeTrailingSlash($dir);
+        
+        chmod($dir, 0777);
+        
+        if (is_dir($dir)) {
+            if ($handle = opendir($dir)) {
+                while (false !== ($file = readdir($handle))) {
+                    if($file == ".." || $file == ".") {
+                        continue;
+                    }
+                    
+                    $this->cleanDir($dir.'/'.$file, $depth + 1);
+                }
+                closedir($handle);
+            }
+            
+            if ($depth != 0) {
+                rmdir($dir);
+            }
+        } else {
+            if ($dir != TEST_TMP_DIR.'readme.txt') {
+                unlink($dir);
+            }
+        }
+    }    
+    
+    private function removeTrailingSlash($path)
+    {
+        return preg_replace('{/$}', '', $path);
+    }    
+    
+    private function cleanDir2($dirPath, $depth = 0) {
         if (! is_dir($dirPath)) {
             throw new InvalidArgumentException('$dirPath must be a directory');
         }

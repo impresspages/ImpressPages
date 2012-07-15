@@ -1,0 +1,581 @@
+html {
+	overflow: hidden;
+}
+
+body {
+	background-color: #d4d4d4;
+	margin: 0px;
+	font-family: Verdana;
+	font-size: 12px;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	border: none;
+}
+
+.red {
+	border: 1px red solid;
+}
+
+.all {
+	width: 100%;
+	margin: auto;
+	/*text-align: center;*/
+	background-color: #fbfcfc;
+	padding-top: 7px;
+	padding-bottom: 3px;
+	/* height: 500px;*/
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.bolder {
+	font-weight: bold;
+}
+
+.separator {
+	clear: both;
+	height: 15px;
+}
+
+#treeView { /*height: 400px;*/
+	/*width: 170px;*/
+	width: 15%;
+	border: 1px solid #c6c8cb;
+	overflow: auto;
+	float: left;
+	margin-left: 6px;
+	padding-top: 5px;
+	/*
+ min-height:600px;
+ height:auto !important;
+ height:600px;*/
+}
+
+#treeView div {
+	text-align: left;
+	/*width:500px;*/
+}
+
+.menu_tree {
+	height: 23px;
+	padding-top: 7px;
+	white-space: nowrap;
+	/* padding-left: 7px;*/
+}
+
+/*.menu_tree:hover{
+ background-color: #c0daf7;
+}*/
+.menu_tree div {
+	padding-left: 20px;
+}
+
+.menu_tree div.menu_tree_parent {
+	background-image: url('minus.png');
+	background-repeat: no-repeat;
+	background-position: 6px 3px;
+	cursor: default;
+}
+
+.menu_tree_parent {
+	
+}
+
+.menu_tree a {
+	text-decoration: none;
+	color: #505050;
+}
+
+.menu_tree_selected {
+	background-color: #8ebdf1;
+}
+
+.menu_tree_leaf {
+	cursor: pointer;
+}
+
+.menu_tree_leaf:hover {
+	background-color: #c0daf7;
+	cursor: pointer;
+}
+
+/*
+.meniu_tree li{
+ list-style: none inside url(pliusas.png);
+ height: 23px;
+ padding-top: 7px;
+ padding-left: 7px;
+}
+
+.meniu_tree li:hover{
+ background-color: #c0daf7;
+}
+*/
+
+/*status bar style to act as the bottom border of the div*/
+#splitterBar {
+	cursor: e-resize;
+	/*position:absolute;*/
+	display: block;
+	background-color: #dcdddd;
+	border: 1px solid #fbfcfc;
+	margin-top: 0px;
+	height: 150px;
+	padding: 0;
+	width: 3px;
+	float: left;
+	background-image: url('ruler.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	/*
+ min-height:600px;
+ height:auto !important;
+ height:600px;*/
+}
+
+#bodyView {
+	float: left;
+	border: 1px solid #fbfcfc;
+	/*height: 500px;*/
+	/* border: 1px solid red;*/
+	/* min-height:500px;
+ height:auto !important;
+ height:500px;*/
+}
+
+#backtrace_path {
+	text-align: left;
+	border-bottom: 1px solid #d6d9da;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+#backtrace_path a,#backtrace_path span {
+	color: #3c64c8;
+	text-decoration: none;
+	font-size: 18px;
+	line-height: 20px;
+}
+
+#backtrace_path a.navigation:hover {
+	text-decoration: underline;
+}
+
+.backtrace_path_img {
+	margin-left: 5px;
+	margin-right: 5px;
+	border: 0px;
+	vertical-align: middle;
+}
+
+.tabs {
+	height: 31px;
+	margin-top: 2px;
+
+	/* overflow: hidden;*/
+}
+
+.tabs ul {
+	list-style: none;
+	height: 32px;
+	margin: 0;
+	padding-top: 2px;
+	margin-left: 0px;
+	display: inline;
+}
+
+.tabs li {
+	height: 31px;
+	display: inline;
+	float: left;
+	margin: 0;
+	margin-top: 3px;
+	margin-right: 3px;
+	padding-bottom: 0px;
+	background: transparent url(tabs_white_right.png) no-repeat scroll right
+		top;
+}
+
+.tabs li:hover {
+	background: transparent url(tabs_right.png) no-repeat scroll right top;
+}
+
+.tabs li.selected {
+	height: 32px;
+	background: transparent url(tabs_selected_right.png) no-repeat scroll
+		right top;
+}
+
+.tabs li span {
+	cursor: pointer;
+	height: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #505050;
+	display: block;
+	padding-top: 0.65em;
+	padding-left: 0.95em;
+	padding-right: 0.95em;
+	text-decoration: none;
+	background: transparent url(tabs_white_left.png) no-repeat scroll left
+		top;
+}
+
+.tabs li:hover span {
+	background: transparent url(tabs_left.png) no-repeat scroll left top;
+}
+
+.tabs li.selected span {
+	background: transparent url(tabs_selected_left.png) no-repeat scroll
+		left top;
+}
+
+.paging {
+	float: right;
+	margin-top: 4px;
+	height: 23px;
+	padding: 0px;
+	vertical-align: middle;
+	text-align: right;
+}
+
+.paging select {
+	border: 1px solid #dedfe1;
+	height: 22px;
+	margin-right: 15px;
+}
+
+.paging .page_number {
+	width: 23px;
+	border: 1px solid #dedfe1;
+	padding: 1px;
+	margin-right: 3px;
+}
+
+.paging .page_number_n {
+	width: 22px;
+	height: 18px; /*dadeta*/
+	border: 0px;
+	padding: 2px;
+	background-color: #f5f5f5;
+}
+
+#content {
+	overflow: auto;
+	height: 465px;
+	border-top: 1px solid #c1c3c6;
+	border-left: 1px solid #c1c3c6;
+	border-right: 1px solid #c1c3c6;
+	border-bottom: 1px solid #c1c3c6;
+	background-color: #f5f5f5;
+	padding: 5px 5px 0 5px;
+}
+
+.search {
+	border: 1px solid #c1c3c6;
+	padding: 5px 15px 5px 0;
+	display: block;
+}
+
+.search .label {
+	color: #797979;
+	margin: 2px;
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
+.search input,.search select,.search textarea {
+	border: 1px solid #c0c0c0;
+	margin: 2px;
+	margin-left: 6px;
+	vertical-align: middle;
+	text-align: left;
+	width: 500px;
+}
+
+.search div.stdMod {
+	margin: 2px;
+	margin-left: 6px;
+}
+
+.search input.stdModBox,.search input.knob,.search input.stdModRadio,.search input.stdModFile
+	{
+	width: auto;
+}
+
+.search .calendar_icon {
+	background: transparent url(calendar_icon.png) no-repeat 0px 0px;
+	width: 23px;
+	height: 22px;
+	border: 0;
+	padding: 0px;
+	vertical-align: middle;
+	/*border: 1px solid red;*/
+}
+
+.search .calendar_icon:hover {
+	background: transparent url(calendar_icon_hover.png) no-repeat 0px 0px;
+}
+
+.search .knob {
+	background: transparent url(knob_background.png) repeat-x 0px 0px;
+	height: 22px;
+	border: 1px solid #ffbb44;
+	padding-left: 5px;
+	padding-right: 5px;
+	color: #264971;
+}
+
+.search .knob:hover {
+	background-image: none;
+	background-color: #f6e0b5;
+}
+
+.search br {
+	line-height: 8px;
+}
+
+.search p.error {
+	margin-left: 6px;
+	margin-top: 3px;
+	padding: 4px;
+	color: #e73031;
+	background-color: #fff5e1;
+	border: 1px solid #efa6a7;
+	width: 490px;
+}
+
+.sheet {
+	border-top: 1px solid #c1c3c6;
+	border-left: 1px solid #c1c3c6;
+	border-right: 1px solid #c1c3c6;
+	border-bottom: 1px solid #c1c3c6;
+}
+
+#sheet1 th {
+	background: #f3f3f3 url(fake_table_bg.gif) repeat-x left bottom;
+	height: 27px;
+	border-right: 1px solid #c1c3c6;
+	color: #797979;
+	padding-right: 8px;
+	margin: 0;
+	text-align: left;
+	padding: 0px 0.5em;
+	font-size: 12px;
+}
+
+#sheet1 th a {
+	display: block;
+	color: #797979;
+	text-decoration: none;
+	background: transparent url(nerikiuojama.png) no-repeat right;
+	padding-right: 15px;
+}
+
+#sheet1 th a.down {
+	background: transparent url(rikiuojama_mazejanciai.png) no-repeat right;
+}
+
+#sheet1 th a.move_up {
+	background: transparent url(rikiuojama_didejanciai.png) no-repeat right;
+}
+
+#sheet1	td {
+	border-bottom: 1px solid #ddebfb;
+	padding: 0.1em 0.6em;
+	height: 24px;
+	margin: 0;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+#sheet1	td a {
+	color: #3c64c8;
+}
+
+#sheet1	td a.edit {
+	background: transparent url(edit.png) no-repeat top right;
+	padding: 5px;
+	padding-top: 1px;
+	text-decoration: none;
+}
+
+#sheet1	td a.edit:hover {
+	background: transparent url(edit_hover.png) no-repeat top right;
+}
+
+#sheet1 	td a.goIn {
+	background: transparent url(go_in.png) no-repeat top right;
+	padding: 5px;
+	padding-top: 1px;
+	text-decoration: none;
+}
+
+#sheet1 	td a.goIn:hover {
+	background: transparent url(go_in2.png) no-repeat top right;
+}
+
+#sheet1 	td a.move_down {
+	cursor: pointer;
+	background: transparent url(down.png) no-repeat top center;
+	padding: 2px 6px;
+	padding-top: 0px;
+	text-decoration: none;
+}
+
+#sheet1 	td a.move_down:hover {
+	background: transparent url(down_hover.png) no-repeat top center;
+}
+
+#sheet1 	td a.move_up {
+	cursor: pointer;
+	background: transparent url(move_up.png) no-repeat top center;
+	padding: 2px 6px;
+	padding-top: 0px;
+	text-decoration: none;
+}
+
+#sheet1 	td a.move_up:hover {
+	background: transparent url(move_up_hover.png) no-repeat top center;
+}
+
+#sheet1 	td a.move_question {
+	cursor: pointer;
+	background: transparent url(question_mark.png) no-repeat top right;
+	padding: 2px 4px;
+	padding-top: 0px;
+	text-decoration: none;
+}
+
+#sheet1 	td a.move_question:hover {
+	background: transparent url(question_mark_hover.png) no-repeat top right;
+}
+
+#sheet1 	td a.delete {
+	background: transparent url(delete.png) no-repeat top right;
+	padding: 5px;
+	padding-top: 2px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#sheet1 	td a.delete:hover {
+	background: transparent url(delete_hover.png) no-repeat top right;
+}
+
+#sheet1 td.underneath {
+	border-bottom: 1px solid #c1c3c6;
+}
+
+#sheet1 td input {
+	border: 1px solid #c0c0c0;
+	margin: 2px;
+	vertical-align: middle;
+	color: black;
+}
+
+#sheet1 {
+	clear: both;
+	/*	border-collapse: collapse;*/
+	/*	border-right: 1px solid #c1c3c6;*/
+	background-color: #ffffff;
+}
+
+div.fake_table {
+	border: 1px solid #c1c3c6;
+	margin-top: 5px;
+	background: white url(fake_table_bg.gif) scroll repeat-x;
+}
+
+#sheet1div {
+	width: 100%;
+	float: left;
+	clear: both;
+}
+
+.clear {
+	clear: both;
+	height: 1px;
+}
+
+div.popup {
+	background-image: url(popup_bg.png);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 20;
+	display: none;
+}
+
+div.popup div.popup_border {
+	background-color: white;
+	border: 1px solid #A0A2A5;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 14px;
+	width: 850px;
+}
+
+div.popup div.popup_head {
+	background: #FFFFFF url(popup_head_bg.gif) repeat scroll 0 0;
+	border-bottom: 1px solid #DEDFE1;
+	color: #505050;
+	font-family: Verdana, Arial, Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px;
+}
+
+div.popup div.management {
+	background: #F5F5F5 url(module_management_bg.gif) repeat-x scroll left
+		bottom;
+	padding: 17px 17px 13px;
+	text-align: left;
+	overflow: auto;
+	height: 300px;
+}
+
+div.popup div.moduleControlButtons {
+	background-color: #F5F5F5;
+	padding: 5px;
+}
+
+div.popup  a.button {
+	color: #264971;
+	font-family: Verdana, Arial, Helvetica;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 3px 10px;
+	margin-right: 7px;
+	border: #ffbb44 1px solid;
+	float: left;
+	background: url(knob_background.png);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+div.popup  a.button:hover {
+	background-image: none;
+	background-color: #f6e0b5;
+}
+
+div.popup div.search {
+	border: none;
+	margin-left: -6px;
+	padding: 0;
+	background: transparent;
+}

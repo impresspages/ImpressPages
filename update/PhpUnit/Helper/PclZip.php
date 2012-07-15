@@ -1,6 +1,5 @@
 <?php
 
-namespace IpUpdate\PhpUnit\Helper;
 
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2
