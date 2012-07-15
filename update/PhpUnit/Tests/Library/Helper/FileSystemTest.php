@@ -43,7 +43,7 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $this->assertEquals('777', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt')));
         $this->assertEquals('777', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/WritableSubfolder')));
         
-        $fileSystemHelper->rm($testDir);
+        $fileSystem->rm($testDir);
     }
 
     
@@ -56,8 +56,7 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $this->assertEquals(true, file_exists($testDir));
         $this->assertEquals(true, is_writable($testDir));
         
-        $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->rm($testDir);
+        $fileSystem->rm($testDir);
     }
 
 

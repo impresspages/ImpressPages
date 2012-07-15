@@ -40,33 +40,6 @@ class FileSystem
 
 
 
-    public function rm($dir) {
-        
-        if (!file_exists($dir)) {
-            return;
-        }
-        
-        chmod($dir, 0777);
-        
-        if (is_dir($dir)) {
-            if ($handle = opendir($dir)) {
-                while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
-                        continue;
-                    }
-                    
-                    $this->rm($dir.'/'.$file);
-                }
-                closedir($handle);
-            }
-            
-            rmdir($dir);
-        } else {
-            unlink($dir);
-        }
-    }
-
-
     function chmod($dir, $permissions)
     {
         $answer = true;
