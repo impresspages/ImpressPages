@@ -11,7 +11,7 @@ class TempStorageTest extends \IpUpdate\PhpUnit\UpdateTestCase
 
     public function testStorage()
     {
-        $tmpStorage = new IpUpdate\Library\Model\TempStorage(TMP_DIR);
+        $tmpStorage = new IpUpdate\Library\Model\TempStorage(TEST_TMP_DIR);
         $key1 = 'key1';
         $val1 = 'val1';
 

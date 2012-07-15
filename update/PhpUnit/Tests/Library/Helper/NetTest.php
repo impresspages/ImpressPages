@@ -11,7 +11,7 @@ class NetTest extends \IpUpdate\PhpUnit\UpdateTestCase
     public function testDownloadFile()
     {
         $net = new \IpUpdate\Library\Helper\Net();
-        $destination = TMP_DIR.'netDownloadFileTest.txt';
+        $destination = TEST_TMP_DIR.'netDownloadFileTest.txt';
         $this->assertEquals(false, file_exists($destination));
         $success = $net->downloadFile('http://www.google.com/robots.txt', $destination);
         $this->assertEquals(true, $success);

@@ -2,14 +2,14 @@
 
 namespace IpUpdate\PhpUnit;
 
-class UpdateTestCase extends \PHPUnit_Extensions_Database_TestCase
+//class UpdateTestCase extends \PHPUnit_Extensions_Database_TestCase
+class UpdateTestCase extends \PHPUnit_Framework_TestCase
 {
-    
     protected function setup()
     {
         $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TMP_DIR, 0755);
-        $this->cleanDir(TMP_DIR);
+        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
+        $this->cleanDir(TEST_TMP_DIR);
     }
     
     
@@ -18,11 +18,8 @@ class UpdateTestCase extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getConnection()
     {
-        $this->config = new \PHPUnitConfig();
-        var_dump($this->config);
-       exit;
-        $pdo = new \PDO('mysql:host='.$cf['DB_SERVER'].';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
-        return $this->createDefaultDBConnection($pdo, ':memory:');
+//        $pdo = new \PDO('mysql:host='.$cf['DB_SERVER'].';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
+        //return $this->createDefaultDBConnection($pdo, ':memory:');
     }
 
     /**
@@ -47,7 +44,7 @@ class UpdateTestCase extends \PHPUnit_Extensions_Database_TestCase
                 if (is_dir($file)) {
                     $this->cleanDir($file, $depth + 1);
                 } else {
-                    if ($file != TMP_DIR.'readme.txt') {
+                    if ($file != TEST_TMP_DIR.'readme.txt') {
                         unlink($file);
                     }
                 }

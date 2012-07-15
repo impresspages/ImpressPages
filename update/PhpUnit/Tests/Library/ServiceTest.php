@@ -9,9 +9,14 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
 {
     public function testCurrentVersion()
     {
-        $service = new IpUpdate\Library\Service(INSTALLATION_DIR);
+        $service = new \IpUpdate\Library\Service(TEST_INSTALLATION_DIR);
         $version = $service->getCurrentVersion();
         
         $this->assertEquals('2.3', $version);
+    }
+    
+    public function processTest()
+    {
+        
     }
 }

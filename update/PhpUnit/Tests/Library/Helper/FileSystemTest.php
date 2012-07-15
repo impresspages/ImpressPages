@@ -10,10 +10,10 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
 
     public function testMakeWritable()
     {
-        $testDir = TMP_DIR.'FileSystemTest/';
+        $testDir = TEST_TMP_DIR.'FileSystemTest/';
         
         $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->cpDir(FIXTURE_DIR.'Library/Model/FileSystem/', $testDir);
+        $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'Library/Model/FileSystem/', $testDir);
         
         
         chmod($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt', 0777);
@@ -49,7 +49,7 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
     
     public function testCreateWritableDir()
     {
-        $testDir = TMP_DIR.'newWritableDir';
+        $testDir = TEST_TMP_DIR.'newWritableDir';
         $fileSystem = new \IpUpdate\Library\Helper\FileSystem();
         $fileSystem->createWritableDir($testDir);
         

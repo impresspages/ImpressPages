@@ -5,17 +5,17 @@
  * @license see ip_license.html
  */
 
-
+require_once('./config.php');
 
 session_start('ipUpdateuTest');
 
-require_once(BASE_DIR.'/Autoloader.php');
+require_once(TEST_BASE_DIR.'/Autoloader.php');
 $autoloader = new \IpUpdate\PhpUnit\Autoloader();
-$autoloader->register(BASE_DIR);
+$autoloader->register(TEST_BASE_DIR);
 
 
 //bootstrap IpUpbdate library
-require_once(UPDATE_DIR.'/Library/Bootstrap.php');
+require_once(TEST_UPDATE_DIR.'/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
 
