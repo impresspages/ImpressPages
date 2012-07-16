@@ -19,8 +19,15 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $installation->uninstall();
     }
     
-    public function processTest()
+    public function testProcess()
     {
-        
+        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.3');
+        $installation->install();
+
+        $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $version = $service->getCurrentVersion();
+        $this->assertEquals('2.3', $version);
+
+        $installation->uninstall();
     }
 }

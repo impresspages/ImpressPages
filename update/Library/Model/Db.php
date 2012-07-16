@@ -10,25 +10,18 @@ namespace IpUpdate\Library\Model;
 
 class Db
 {
-    private static $dbh;
     /**
      *
      * @param array $configuration configuration parsed using configuration parser
      */
     public function connect($cf)
     {
-        if (!self::$dbh) {
-            try {
-                self::$dbh = new \PDO('mysql:host='.$cf['DB_SERVER'].';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
-            } catch (PDOException $e) {
-                throw new Exception($e->getMessage());
-            }
+        try {
+            return new \PDO('mysql:host='.$cf['DB_SERVER'].';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
         }
-        return self::$dbh;
+
     }
 
-    public function disconnect()
-    {
-        self::$dbh = null;
-    }
 }

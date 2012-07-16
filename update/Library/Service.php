@@ -71,10 +71,10 @@ class Service
             $answer = $lock['value'];
             return $answer;
         } else {
-            throw new Exception("Can't find installation vesrion");
+            throw new Exception("Can't find installation vesrion ".$sql);
         }
         
-        $db->disconnect();
+
     }
 
     public function getAvailableVersions()
