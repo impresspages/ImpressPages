@@ -52,7 +52,7 @@ abstract class General
         $answer = json_decode($jsonAnswer);
         
         if ($answer === null) {
-            throw new Exception("Can't get version info about version ".$this->getDestinationVersion().". Server answer: ".$jsonAnswer." ", \IpUpdate\Library\UpdateException::UNKNOWN, array());
+            throw new \Exception("Can't get version info about version ".$this->getDestinationVersion().". Server answer: ".$jsonAnswer." ", \IpUpdate\Library\UpdateException::UNKNOWN, array());
         }
         return $answer->downloadUrl;
     }

@@ -44,6 +44,8 @@ class Installation
         $this->setSiteName('TestSite');
         $this->setSiteEmail('test@example.com');
         $this->setSiteTimeZone('Europe/London');
+        $this->setAdminLogin('admin');
+        $this->setAdminPass('admin');
 
         $this->installed = false;
     }
@@ -73,6 +75,8 @@ class Installation
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
         }
         
+        file_put_contents($this->getInstallationDir().'.htaccess', 'allow from all');
+        
         // INIT CURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -98,6 +102,7 @@ class Installation
         curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'install/worker.php');
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $answer = curl_exec($ch);
 
         // SETUP CONFIG FILE
@@ -120,12 +125,20 @@ class Installation
         curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'install/worker.php');
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        
         $answer = curl_exec($ch);
+
+        
 
         // RUN CRON
         curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'/ip_cron.php');
         curl_setopt($ch, CURLOPT_POST, count($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $answer = curl_exec($ch);
+        
+        $this->installed = true;
+        
     }
 
     public function uninstall()
@@ -195,6 +208,16 @@ class Installation
     public function setDbPrefix($dbPrefix)
     {
         $this->dbPrefix = $dbPrefix;
+    }
+    
+    public function setAdminLogin($adminLogin)
+    {
+        $this->adminLogin = $adminLogin;
+    }
+    
+    public function setAdminPass($adminPass)
+    {
+        $this->adminPass = $adminPass;
     }
 
     public function setSiteName($siteName)

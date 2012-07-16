@@ -15,7 +15,7 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.3', $version);
-exit;
+
         $installation->uninstall();
     }
     
