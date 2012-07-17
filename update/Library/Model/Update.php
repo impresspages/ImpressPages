@@ -43,7 +43,13 @@ class Update
         $this->fs = new \IpUpdate\Library\Helper\FileSystem();
     }
 
-    public function proceed()
+    /**
+     * 
+     * @param int $destinationStep - step after which script should terminate
+     * @throws \IpUpdate\Library\UpdateException
+     * @throws \IpUpdate\Library\Exception
+     */
+    public function proceed($destinationStep = self::SETP_FINISH)
     {
         if ($this->tempStorage->exist('inProgress')) {
             //existing inProgress variable means that some step is in progress at the moment or has failed. 
@@ -67,8 +73,7 @@ class Update
         
         $this->tempStorage->setValue('inProgress', 1);
 
-        $loop = 0;
-        while (true) {
+        while ($curStep <= $destinationStep) {
             switch($curStep) {
                 case self::STEP_START:
                         $this->stepStart();
@@ -102,19 +107,9 @@ class Update
             }
             $this->tempStorage->setValue('curStep', $curStep + 1);
             $curStep = $this->tempStorage->getValue('curStep');
-            $loop++;
-            if ($loop > 100) {
-                throw new \IpUpdate\Library\Exception("Infinite loop.");
-            }
         }
         
         $this->tempStorage->remove('inProgress');
-        
-//         $db = new Db();
-//         $conn = $db->connect($this->cf);
-        
-//         $db->disconnect();
-        
     }
     
     public function resetLock()
@@ -130,9 +125,6 @@ class Update
     
     private function stepDownloadPackage()
     {
-        $this->fs->rm();
-        $File = $this->cf['BASE_DIR'].'index.php';
-        $this->fs->makeWritable($indexFile);
         
     }
     
@@ -151,7 +143,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 ';
 
         file_put_contents($indexFile, $maintenanceMode);
-        exit;        
+
 
     }
     
