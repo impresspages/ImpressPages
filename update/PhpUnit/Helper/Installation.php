@@ -80,7 +80,6 @@ class Installation
         // INIT CURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIESESSION, true);
         curl_setopt($ch, CURLOPT_COOKIEJAR, "");
         curl_setopt($ch, CURLOPT_COOKIEFILE, "");

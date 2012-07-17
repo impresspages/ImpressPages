@@ -28,6 +28,8 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
 
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.3', $version);
+        $this->assertUrlResponse($installation->getInstallationUrl(), 200);
+        file_put_contents($installation->getInstallationDir().'maintenance.php', '<?p'.'hp echo \'MAINTENANCE\'; ?>');
         
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $cf = $configurationParser->parse($installation->getInstallationDir());
@@ -35,8 +37,30 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_CLOSE_WEBSITE);
         
         $version = $service->getCurrentVersion();
-        $this->assertEquals('2.4', $version);
+        $this->assertUrlResponse($installation->getInstallationUrl(), 503, 'MAINTENANCE');
+        //$this->assertEquals('2.4', $version);
         
         $installation->uninstall();
+    }
+    
+    private function assertUrlResponse($url, $responseCode = null, $content = null)
+    {
+        // INIT CURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $answer = curl_exec($ch);
+        
+        if ($responseCode !== null) {
+            $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $this->assertEquals($responseCode, $httpStatus);
+        }
+        
+        if ($content != null) {
+            $this->assertEquals($answer, $content);
+        }
+        
     }
 }

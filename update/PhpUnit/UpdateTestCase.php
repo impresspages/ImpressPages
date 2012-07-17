@@ -26,7 +26,7 @@ class UpdateTestCase extends \PHPUnit_Framework_TestCase
     public function getDataSet()
     {
         return $this->createFlatXMLDataSet(dirname(__FILE__).'/_files/guestbook-seed.xml');
-    }    
+    }
     
     
     public function cleanDir($dir, $depth = 0) {
