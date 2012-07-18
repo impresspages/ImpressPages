@@ -16,6 +16,16 @@ class Migration
     {
     }
     
+    /**
+     * @param string $sourceVersion
+     * @return IpUpdate\Library\Migration\General
+     */
+    public function getDestinationScript($sourceVersion) 
+    {
+        $scripts = $this->getScriptsFromVersion($sourceVersion);
+        return array_pop($scripts);
+    }
+    
     public function getScriptsFromVersion($fromVersion){
         $answer = array();
         $currentScript = false;

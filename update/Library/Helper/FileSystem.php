@@ -32,7 +32,12 @@ class FileSystem
             $this->throwWritePermissionsError($parentDir);
         }
 
-        mkdir($dir);
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        } else {
+            $this->makeWritable($dir);
+        }
+        
     }
 
 

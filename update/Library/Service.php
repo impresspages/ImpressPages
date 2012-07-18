@@ -49,43 +49,15 @@ class Service
     
     public function getCurrentVersion()
     {
-        $db = new Model\Db();
-        $dbh = $db->connect($this->cf);
-
-        $sql = '
-            SELECT
-                value
-            FROM
-                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
-            WHERE
-                `name` = :name
-        ';
-        
-        $params = array (
-            ':name' => 'version'
-        );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-
-        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            $answer = $lock['value'];
-            return $answer;
-        } else {
-            throw new Exception("Can't find installation vesrion ".$sql);
-        }
-        
-
+        $update = new \IpUpdate\Library\Model\Update($this->cf);
+        return $update->getCurrentVersion();
     }
 
-    public function getAvailableVersions()
+    public function getDestinationVersion()
     {
         $updateModel = new \IpUpdate\Library\Model\Migration();
-        $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
-        $answer = array();
-        foreach($scripts as $script) {
-            $answer[] = $script->getDestinationVersion();
-        }
-        return $answer;
+        $destinationScript = $updateModel->getDestinationScript($this->getCurrentVersion());
+        return $destinationScript->getDestinationVersion();
     }
 
      

@@ -21,6 +21,9 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
     
     public function testProcess()
     {
+        
+        //installl
+        
         $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.3');
         $installation->install();
 
@@ -29,17 +32,29 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.3', $version);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
-        file_put_contents($installation->getInstallationDir().'maintenance.php', '<?p'.'hp echo \'MAINTENANCE\'; ?>');
         
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $cf = $configurationParser->parse($installation->getInstallationDir());
         $updateModel = new \IpUpdate\Library\Model\Update($cf);
+        
+        //check new version download
+        $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_CLOSE_WEBSITE);
+        
+        //check maintenance mode
+        
+        file_put_contents($installation->getInstallationDir().'maintenance.php', '<?p'.'hp echo \'MAINTENANCE\'; ?>');
         $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_CLOSE_WEBSITE);
         
         $version = $service->getCurrentVersion();
         $this->assertUrlResponse($installation->getInstallationUrl(), 503, 'MAINTENANCE');
-        //$this->assertEquals('2.4', $version);
         
+        //update
+        
+        $service->proceed();
+        $version = $service->getCurrentVersion();
+        $this->assertEquals('2.4', $version);
+        
+        //clean up
         $installation->uninstall();
     }
     

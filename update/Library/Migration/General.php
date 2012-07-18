@@ -11,6 +11,8 @@ namespace IpUpdate\Library\Migration;
 abstract class General
 {
 
+    private $versionInfo;
+    
     /**
      * @return \Library\Migration\Result
      */
@@ -28,6 +30,17 @@ abstract class General
 
 
     public function getDownloadUrl()
+    {
+        return $this->getInfoValue('downloadUrl');
+    }
+    
+    public function getMd5()
+    {
+        return $this->getInfoValue('md5');
+    }
+    
+    
+    private function getVersionInfo()
     {
         if (!function_exists('curl_init')) {
             throw new \IpUpdate\Library\UpdateException("Can't get download URL", \IpUpdate\Library\UpdateException::CURL_REQUIRED);
@@ -54,6 +67,15 @@ abstract class General
         if ($answer === null) {
             throw new \Exception("Can't get version info about version ".$this->getDestinationVersion().". Server answer: ".$jsonAnswer." ", \IpUpdate\Library\UpdateException::UNKNOWN, array());
         }
-        return $answer->downloadUrl;
+        
+        $this->versionInfo = $answer;
+    }
+    
+    private function getInfoValue($key)
+    {
+        if (!$this->versionInfo) {
+            $this->getVersionInfo();
+        }
+        return $this->versionInfo->$key;
     }
 }

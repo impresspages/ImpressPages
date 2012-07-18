@@ -32,6 +32,12 @@ class Update
     
     /**
      * 
+     * @var \IpUpdate\Library\Migration\General
+     */
+    private $destinationScript;
+    
+    /**
+     * 
      * @var \IpUpdate\Library\Helper\FileSystem
      */
     private $fs;
@@ -41,8 +47,39 @@ class Update
         $this->cf = $config;
         $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/'); 
         $this->fs = new \IpUpdate\Library\Helper\FileSystem();
+        
+        $updateModel = new \IpUpdate\Library\Model\Migration();
+        $this->destinationScript = $updateModel->getDestinationScript($this->getCurrentVersion());
     }
 
+    public function getCurrentVersion()
+    {
+        $db = new \IpUpdate\Library\Model\Db();
+        $dbh = $db->connect($this->cf);
+
+        $sql = '
+            SELECT
+                value
+            FROM
+                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+            WHERE
+                `name` = :name
+        ';
+        
+        $params = array (
+            ':name' => 'version'
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
+            $answer = $lock['value'];
+            return $answer;
+        } else {
+            throw new Exception("Can't find installation vesrion ".$sql);
+        }
+    }
+    
     /**
      * 
      * @param int $destinationStep - step after which script should terminate
@@ -125,7 +162,25 @@ class Update
     
     private function stepDownloadPackage()
     {
-        
+        $archivePath = $this->getNewArchivePath();
+        $destinationVersion = $this->destinationScript->getDestinationVersion();
+        $scriptUrl = $this->destinationScript->getDownloadUrl();
+
+        if (file_exists($archivePath)) {
+            if (md5_file($archivePath) == $this->destinationScript->getMd5()) {
+                return; //everything is fine. We have the right archive in place
+            } else {
+                //archive checksum is wrong. Remove the arvhive;
+                $this->fs->rm($archivePath);
+            }
+        }
+
+        //download archive
+        $downloadHelper = new \IpUpdate\Library\Helper\Net();
+        $downloadHelper->downloadFile($scriptUrl, $archivePath);
+        if (md5_file($archivePath) != $this->destinationScript->getMd5()) {
+            throw new \IpUpdate\Library\UpdateException("Downloaded archive doesn't mach md5 checksum", \IpUpdate\Library\UpdateException::WRONG_CHECKSUM);
+        }
     }
     
     private function stepCloseWebsite()
@@ -155,7 +210,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function stepRunMigrations()
     {
-        
+        $this->setVersion($this->destinationScript->getDestinationVersion());
     }
     
     private function stepWriteNewFiles()
@@ -199,5 +254,43 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             'ip_license.html',
             'sitemap.php'
         );
+    }
+    
+    private function getNewArchivePath()
+    {
+        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/';
+        $this->fs->createWritableDir($dir);
+        return $dir.'ImpressPages.zip';
+    }
+    
+    /**
+     * 
+     * @param string $version
+     * @throws Exception
+     */
+    private function setVersion($version)
+    {
+        $db = new \IpUpdate\Library\Model\Db();
+        $dbh = $db->connect($this->cf);
+
+        $sql = '
+            UPDATE
+                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+            SET
+                `value` = :version 
+            WHERE
+                `name` = :name
+        ';
+        
+        $params = array (
+            ':version' => $version,
+            ':name' => 'version'
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+        
+        if ($this->getCurrentVersion() != $version){
+            throw new \Exception("Can't update system version to: ".$version);
+        }
     }
 }
