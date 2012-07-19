@@ -11,7 +11,6 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
     {
         $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.3');
         $installation->install();
-
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.3', $version);
@@ -48,11 +47,36 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $version = $service->getCurrentVersion();
         $this->assertUrlResponse($installation->getInstallationUrl(), 503, 'MAINTENANCE');
         
-        //update
+        //check if old files have been removed
+        $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_REMOVE_OLD_FILES);
+        $this->assertEquals(2, count(scandir($installation->getInstallationDir().'ip_cms')));
+        $this->assertEquals(2, count(scandir($installation->getInstallationDir().'ip_libs')));
+        $this->assertEquals('', file_get_contents($installation->getInstallationDir().'admin.php'));
+        $this->assertEquals('', file_get_contents($installation->getInstallationDir().'ip_backend_frames.php'));
+        $this->assertEquals('', file_get_contents($installation->getInstallationDir().'ip_backend_worker.php'));
+        $this->assertEquals('', file_get_contents($installation->getInstallationDir().'ip_license.html'));
+        $this->assertEquals('', file_get_contents($installation->getInstallationDir().'sitemap.php'));
         
-        $service->proceed();
+        //database migrations
+        $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.4', $version);
+        
+        //put new files
+        $service->proceed(\IpUpdate\Library\Model\Update::STEP_WRITE_NEW_FILES);
+        $this->assertEquals(true, count(scandir($installation->getInstallationDir().'ip_cms')) > 2);
+        $this->assertEquals(true, count(scandir($installation->getInstallationDir().'ip_libs')) > 2);
+        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'admin.php')) > 10);
+        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_backend_frames.php')) > 10);
+        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_backend_worker.php')) > 10);
+        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_license.html')) > 10);
+        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);
+
+        //publish website
+
+        
+        
+        
         
         //clean up
         $installation->uninstall();

@@ -37,7 +37,7 @@ class FileSystem
         } else {
             $this->makeWritable($dir);
         }
-        
+
     }
 
 
@@ -52,7 +52,7 @@ class FileSystem
         if ($permissions == null) {
             $permissions = $this->getParentPermissions($path);
         }
-        
+
         $answer = true;
         if(!file_exists($path)) {
             return false;
@@ -91,52 +91,97 @@ class FileSystem
     }
 
     public function rm($dir) {
-        
+
         if (!file_exists($dir)) {
             return;
         }
-        
+
         chmod($dir, 0777);
-        
+
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
                 while (false !== ($file = readdir($handle))) {
                     if($file == ".." || $file == ".") {
                         continue;
                     }
-                    
+
                     $this->rm($dir.'/'.$file);
                 }
                 closedir($handle);
             }
-            
+
             rmdir($dir);
         } else {
             unlink($dir);
         }
     }
-    
+
+    /**
+     * Remove everything from dir. Make it empty
+     * @var string $dir
+     */
+    public function clean($dir) {
+        if (!file_exists($dir) || !is_dir($dir)) {
+            throw new \Exception("Directory doesn't exist: ".$dir);
+        }
+
+        if ($handle = opendir($dir)) {
+            while (false !== ($file = readdir($handle))) {
+                if($file == ".." || $file == ".") {
+                    continue;
+                }
+                $this->rm($dir.'/'.$file);
+            }
+            closedir($handle);
+        }
+    }
+    /**
+     * This is special copy. It copies all content from source into destination directory. But not the source folder it self.
+     * @param string $source
+     * @param string $dest
+     * @throws \Exception
+     */
+    public function cpContent($source, $dest)
+    {
+        if (!is_dir($source) || !is_dir($dest)) {
+            throw new \Exception("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
+        }
+        
+        $dir_handle=opendir($source);
+        while($file=readdir($dir_handle)){
+            if($file!="." && $file!=".."){
+                if(is_dir($source."/".$file)){
+                    mkdir($dest."/".$file);
+                    $this->cpContent($source."/".$file, $dest."/".$file);
+                } else {
+                    copy($source."/".$file, $dest."/".$file);
+                }
+            }
+        }
+        closedir($dir_handle);
+    }
+
     public function getParentDir($path)
     {
         $path = $this->removeTrailingSlash($path);
         $parentDir = substr($path, 0, strrpos($path, '/') + 1);
         return $parentDir;
-    }    
+    }
 
     private function throwWritePermissionsError($dir)
     {
         $errorData = array (
-            'dir' => $dir
+                'dir' => $dir
         );
         throw new \IpUpdate\Library\UpdateException("Can't write directory", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
     }
-    
+
     private function getParentPermissions($path)
     {
         return fileperms($this->getParentDir($path));
     }
 
-    
+
     private function removeTrailingSlash($path)
     {
         return preg_replace('{/$}', '', $path);

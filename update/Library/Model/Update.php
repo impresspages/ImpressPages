@@ -204,7 +204,21 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function stepRemoveOldFiles()
     {
+        if (file_exists($this->cf['BASE_DIR'].'install') || is_dir($this->cf['BASE_DIR'].'install')) {
+            $this->fs->rm($this->cf['BASE_DIR'].'install');
+        }
         
+        $replaceFolders = $this->getFoldersToReplace();
+        $replaceFiles = $this->getFilesToReplace();
+        foreach($replaceFolders as $folder) {
+            $this->fs->makeWritable($this->cf['BASE_DIR'].$folder);
+            $this->fs->clean($this->cf['BASE_DIR'].$folder); //just clean the content to leave writable folder
+        }
+        
+        foreach($replaceFiles as $file) {
+            $this->fs->makeWritable($this->cf['BASE_DIR'].$file);
+            file_put_contents($this->cf['BASE_DIR'].$file, '');
+        }
     }
     
     
@@ -215,7 +229,23 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function stepWriteNewFiles()
     {
+        $archivePath = $this->getNewArchivePath();
+        $extractedPath = $this->getExtactedNewArchivePath();
+        if (!class_exists('PclZip')) {
+            require_once(IUL_BASE_DIR.'Helper/PclZip.php');
+        }
+        $zip = new \PclZip($archivePath);
+        $success = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->destinationScript->getDestinationVersion()));
+        $replaceFolders = $this->getFoldersToReplace();
+        $replaceFiles = $this->getFilesToReplace();
+        foreach($replaceFolders as $folder) {
+            $this->fs->cpContent($extractedPath.$folder, $this->cf['BASE_DIR'].$folder);
+        }
         
+        foreach($replaceFiles as $file) {
+            unlink($this->cf['BASE_DIR'].$file);
+            copy($extractedPath.$file, $this->cf['BASE_DIR'].$file);
+        }
     }
     
     private function stepPublishWebsite()
@@ -247,7 +277,6 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     {
         return array (
             'admin.php',
-            'index.php',
             'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_cron.php',
@@ -262,6 +291,18 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->fs->createWritableDir($dir);
         return $dir.'ImpressPages.zip';
     }
+    
+    private function getExtactedNewArchivePath()
+    {
+        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/excracted/';
+        $this->fs->createWritableDir($dir);
+        return $dir;
+    }  
+
+    public function getSubdir($version)
+    {
+        return 'ImpressPages_'.str_replace('.', '_', $version);
+    }    
     
     /**
      * 

@@ -60,14 +60,16 @@ class Installation
         if ($this->isInstalled()) {
             throw new \Exception("Already intalled");
         }
-        require_once(TEST_BASE_DIR.'Helper/PclZip.php');
-
+        
         $this->createDatabase($this->getDbName());
 
         $archive = $this->getArchiveFileName($this->getVersion());
 
         mkdir($this->getInstallationDir());
         
+        if (!class_exists('PclZip')) {
+            require_once(TEST_BASE_DIR.'Helper/PclZip.php');
+        }
         $zip = new \PclZip($archive);
         $success = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir(), PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->getVersion()));
 
