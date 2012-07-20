@@ -279,7 +279,14 @@ class Controller  extends \Ip\Controller{
             }
 
 
-            $insertId = $registrationForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], array(), $additionalFields);
+            //$data - all data that needs to be stored except standard fields which are handled separately.
+            $data = $registrationForm->filterValues($_POST);
+            $data['password'] = null;
+            $data['email'] = null;
+            $data['confirm_password'] = null;
+            $data['submit'] = null;
+            
+            $insertId = $registrationForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], $data, $additionalFields);
             $site->dispatchEvent('community', 'user', 'update_profile', array('user_id'=>$tmpUser['id']));
 
 

@@ -210,9 +210,10 @@ class Config{
             }            
             
 
+            /*add your additional fields*/
+
         }
 
-        /*add your additional fields*/
 
         
         //Submit button

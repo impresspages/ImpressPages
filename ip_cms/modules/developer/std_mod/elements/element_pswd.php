@@ -89,13 +89,17 @@ class ElementPswd extends Element{ //data element in area
         }
 
         if($this->visibleOnUpdate && !$this->disabledOnUpdate && $action == 'update'){
-            if($this->useHash){
-                $value = md5($_REQUEST[''.$prefix].$this->hashSalt);
+            if (isset($_REQUEST[''.$prefix]) && $_REQUEST[''.$prefix] != ""){
+                if($this->useHash){
+                    $value = md5($_REQUEST[''.$prefix].$this->hashSalt);
+                } else {
+                    $value = $_REQUEST[''.$prefix];
+                }
+    
+                return array("name"=>$this->dbField, "value"=>$value);
             } else {
-                $value = $_REQUEST[''.$prefix];
+                return false;
             }
-
-            return array("name"=>$this->dbField, "value"=>$value);
         }
 
 
