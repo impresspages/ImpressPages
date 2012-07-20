@@ -250,7 +250,9 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function stepPublishWebsite()
     {
-        
+        $extractedPath = $this->getExtactedNewArchivePath();
+        unlink($this->cf['BASE_DIR'].'index.php');
+        copy($extractedPath.'index.php', $this->cf['BASE_DIR'].'index.php');
     }
     
     private function stepFinish()

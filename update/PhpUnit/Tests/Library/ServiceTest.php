@@ -73,8 +73,8 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);
 
         //publish website
-
-        
+        $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
+        $this->assertUrlResponse($installation->getInstallationUrl(), 200);
         
         
         
