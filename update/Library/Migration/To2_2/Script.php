@@ -24,13 +24,13 @@ class Script extends \IpUpdate\Library\Migration\General{
         $sql = "update `".$this->dbPref."module` set `managed` = 0 where `name` = 'form'";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            trigger_error("Can't remove form tab. ".$sql);
+            throw new \IpUpdate\Library\UpdateException("Can't remove form tab. ".$sql, \IpUpdate\Library\UpdateException::SQL);
         }
 
         $sql = "ALTER TABLE  `".$this->dbPref."m_content_management_widget` CHANGE  `recreated`  `recreated` INT( 11 ) NULL COMMENT 'when last time the images were cropped freshly'";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            trigger_error("Can't update widget table. ".$sql);
+            throw new \IpUpdate\Library\UpdateException("Can't update widget table. ".$sql, \IpUpdate\Library\UpdateException::SQL);
         }
 
     }

@@ -80,7 +80,7 @@ class Script extends \IpUpdate\Library\Migration\General{
                 return false;
         }else
         {
-            trigger_error($sql." ".mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             return false;
         }
     }
@@ -98,7 +98,7 @@ class Script extends \IpUpdate\Library\Migration\General{
                 return false;
             }
         } else {
-            trigger_error($sql." ".mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             return false;
         }
 
@@ -108,7 +108,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     {
         $sql = "INSERT INTO `".$this->dbPref."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
         VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'string')";
-        $rs = mysql_query($sql);
+        $rs = mysql_query($sql, $this->conn);
         if($rs){
             $sql2 = "INSERT INTO `".$this->dbPref."par_string` (`value`, `parameter_id`)
             VALUES ('".mysql_real_escape_string($value)."', ".mysql_insert_id().");";
@@ -116,11 +116,11 @@ class Script extends \IpUpdate\Library\Migration\General{
             if($rs2) {
                 return true;
             } else {
-                trigger_error($sql2." ".mysql_error());
+                throw new \IpUpdate\Library\UpdateException($sql2." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
                 return false;
             }
         } else {
-            trigger_error($sql." ".mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             return false;
         }
 
@@ -139,7 +139,7 @@ class Script extends \IpUpdate\Library\Migration\General{
                 return false;
             }
         } else {
-            trigger_error($sql." ".mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             return false;
         }
     }

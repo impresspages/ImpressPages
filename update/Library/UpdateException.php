@@ -20,6 +20,7 @@ class UpdateException extends \Exception
     const UNKNOWN_VERSION = 3;
     const CURL_REQUIRED = 4;
     const WRONG_CHECKSUM = 5;
+    const SQL = 6;
     
     private $data;
     

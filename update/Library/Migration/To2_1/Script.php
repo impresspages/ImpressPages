@@ -18,198 +18,197 @@ class Script extends \IpUpdate\Library\Migration\General{
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
 
-        $parametersRefractor = new \ParametersRefractor();
 
-        $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_faq', 'title');
-        $parametersRefractor->deleteParameter('standard', 'content_management', 'widget_faq', 'text');
+        $this->deleteParameter('standard', 'content_management', 'widget_faq', 'title');
+        $this->deleteParameter('standard', 'content_management', 'widget_faq', 'text');
 
-        $module = \Db_100::getModule(null, 'standard', 'content_management');
+        $module = $this->getModule(null, 'standard', 'content_management');
 
-        $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_faq');
+        $group = $this->getParametersGroup($module['id'], 'widget_faq');
         if ($group) {
-            if(!\Db_100::getParameter('standard', 'content_management', 'widget_faq', 'question')) {
-                \Db_100::addStringParameter($group['id'], 'Question', 'question', 'Question', 1);
+            if(!$this->getParameter('standard', 'content_management', 'widget_faq', 'question')) {
+                $this->addStringParameter($group['id'], 'Question', 'question', 'Question', 1);
             }
-            if(!\Db_100::getParameter('standard', 'content_management', 'admin_translations', 'answer')) {
-                \Db_100::addStringParameter($group['id'], 'Answer', 'answer', 'Answer', 1);
+            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'answer')) {
+                $this->addStringParameter($group['id'], 'Answer', 'answer', 'Answer', 1);
             }
         }
 
-        $group = $parametersRefractor->getParametersGroup($module['id'], 'widget_contact_form');
+        $group = $this->getParametersGroup($module['id'], 'widget_contact_form');
         if ($group) {
-            if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'move')) {
-                \Db_100::addStringParameter($group['id'], 'Move', 'move', 'Move', 1);
+            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'move')) {
+                $this->addStringParameter($group['id'], 'Move', 'move', 'Move', 1);
             }
-            if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
-                \Db_100::addStringParameter($group['id'], 'Remove', 'remove', 'Remove', 1);
-            }
-
-            if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'options')) {
-                \Db_100::addStringParameter($group['id'], 'Options', 'options', 'Options', 1);
+            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+                $this->addStringParameter($group['id'], 'Remove', 'remove', 'Remove', 1);
             }
 
-            if(!\Db_100::getParameter('standard', 'content_management', 'widget_contact_form', 'send')) {
-                \Db_100::addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send', 'comment' => ''));
+            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'options')) {
+                $this->addStringParameter($group['id'], 'Options', 'options', 'Options', 1);
             }
 
-        }
-
-        $module = \Db_100::getModule(null, 'standard', 'configuration');
-        $group = $parametersRefractor->getParametersGroup($module['id'], 'main_parameters');
-        if ($group) {
-            if(!\Db_100::getParameter('standard', 'configuration', 'main_parameters', 'email_title')) {
-                \Db_100::addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,', 'comment' => ''));
+            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'send')) {
+                $this->addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send', 'comment' => ''));
             }
 
         }
 
-        $module = \Db_100::getModule(null, 'community', 'user');
-        $group = $parametersRefractor->getParametersGroup($module['id'], 'admin_translations');
+        $module = $this->getModule(null, 'standard', 'configuration');
+        $group = $this->getParametersGroup($module['id'], 'main_parameters');
         if ($group) {
-            if(!\Db_100::getParameter('community', 'user', 'admin_translations', 'registration')) {
-                \Db_100::addStringParameter($group['id'], 'Registration', 'registration', 'Registration', 1);
+            if(!$this->getParameter('standard', 'configuration', 'main_parameters', 'email_title')) {
+                $this->addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,', 'comment' => ''));
+            }
+
+        }
+
+        $module = $this->getModule(null, 'community', 'user');
+        $group = $this->getParametersGroup($module['id'], 'admin_translations');
+        if ($group) {
+            if(!$this->getParameter('community', 'user', 'admin_translations', 'registration')) {
+                $this->addStringParameter($group['id'], 'Registration', 'registration', 'Registration', 1);
             }
 
 
         }
 
 
-        $group = $parametersRefractor->getParametersGroup($module['id'], 'translations');
+        $group = $this->getParametersGroup($module['id'], 'translations');
         if ($group) {
-            if(!\Db_100::getParameter('community', 'user', 'translations', 'text_registration_verified')) {
-                \Db_100::addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.', 'comment' => ''));
+            if(!$this->getParameter('community', 'user', 'translations', 'text_registration_verified')) {
+                $this->addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.', 'comment' => ''));
             }
         }
 
-        $moduleGroup = $parametersRefractor->getModuleGroup('administrator');
-        $moduleId = $parametersRefractor->getModuleId('administrator', 'theme');
+        $moduleGroup = $this->getModuleGroup('administrator');
+        $moduleId = $this->getModuleId('administrator', 'theme');
         if ($moduleId === false) {
-            $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
-            $users = $parametersRefractor->getUsers();
+            $moduleId = $this->addModule($moduleGroup['id'], 'Theme', 'theme', true, true, true, '1.00');
+            $users = $this->getUsers();
             foreach($users as $user){
-                $parametersRefractor->addPermissions($moduleId, $user['id']);
+                $this->addPermissions($moduleId, $user['id']);
             }
         }
-        $parametersGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+        $parametersGroup = $this->getParameterGroup($moduleId, 'admin_translations');
         if ($parametersGroup) {
             $groupId = $parametersGroup['id'];
         } else {
-            $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
         }
-        \Db_100::addStringParameter($groupId, 'Successful install', 'successful_install', 'New theme has been successfully installed.', 1);
-        \Db_100::addStringParameter($groupId, 'Install', 'install', 'Install', 1);
-        \Db_100::addStringParameter($groupId, 'Title', 'title', 'Choose theme', 1);
+        $this->addStringParameter($groupId, 'Successful install', 'successful_install', 'New theme has been successfully installed.', 1);
+        $this->addStringParameter($groupId, 'Install', 'install', 'Install', 1);
+        $this->addStringParameter($groupId, 'Title', 'title', 'Choose theme', 1);
 
-        $sql = "ALTER TABLE `".DB_PREF."m_administrator_repository_file` ADD INDEX (  `filename` )";
-        $rs = mysql_query($sql);
+        $sql = "ALTER TABLE `".$this->dbPref."m_administrator_repository_file` ADD INDEX (  `filename` )";
+        $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            trigger_error($sql.' '.mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
-        $rs = mysql_query("SHOW COLUMNS FROM `".DB_PREF."m_content_management_widget` LIKE 'recreated'");
+        $rs = mysql_query("SHOW COLUMNS FROM `".$this->dbPref."m_content_management_widget` LIKE 'recreated'", $this->conn);
         $columnExists = (mysql_num_rows($rs)) ? true : false;
         if (!$columnExists) {
-            $sql = "ALTER TABLE `".DB_PREF."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly' AFTER `created`";
-            $rs = mysql_query($sql);
+            $sql = "ALTER TABLE `".$this->dbPref."m_content_management_widget` ADD  `recreated` INT NOT NULL COMMENT  'when last time the images were cropped freshly' AFTER `created`";
+            $rs = mysql_query($sql, $this->conn);
             if (!$rs) {
-                trigger_error($sql.' '.mysql_error());
+                throw new \IpUpdate\Library\UpdateException($sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             }
         }
 
-        $sql = "UPDATE `".DB_PREF."m_content_management_widget` SET recreated = created WHERE 1";
-        $rs = mysql_query($sql);
+        $sql = "UPDATE `".$this->dbPref."m_content_management_widget` SET recreated = created WHERE 1";
+        $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            trigger_error($sql.' '.mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
-        if (\Db_100::getSystemVariable('theme_changed') === false) {
-            \Db_100::insertSystemVariable('theme_changed', time());
+        if ($this->getSystemVariable('theme_changed') === false) {
+            \$this->insertSystemVariable('theme_changed', time());
         }
 
 
-        if (\Db_100::getSystemVariable('last_system_message_sent') === false) {
-            \Db_100::insertSystemVariable('last_system_message_sent', '');
+        if ($this->getSystemVariable('last_system_message_sent') === false) {
+            $this->insertSystemVariable('last_system_message_sent', '');
         }
 
-        if (\Db_100::getSystemVariable('last_system_message_shown') === false) {
-            \Db_100::insertSystemVariable('last_system_message_shown', '');
+        if ($this->getSystemVariable('last_system_message_shown') === false) {
+            $this->insertSystemVariable('last_system_message_shown', '');
         }
 
 
         //add developer/form module
-        $moduleGroup = $parametersRefractor->getModuleGroup('developer');
-        $moduleId = $parametersRefractor->getModuleId('developer', 'form');
+        $moduleGroup = $this->getModuleGroup('developer');
+        $moduleId = $this->getModuleId('developer', 'form');
         if ($moduleId === false) {
-            $moduleId = $parametersRefractor->addModule($moduleGroup['id'], 'Form', 'form', false, false, true, '1.00');
-            $users = $parametersRefractor->getUsers();
+            $moduleId = $this->addModule($moduleGroup['id'], 'Form', 'form', false, false, true, '1.00');
+            $users = $this->getUsers();
             foreach($users as $user){
-                $parametersRefractor->addPermissions($moduleId, $user['id']);
+                $this->addPermissions($moduleId, $user['id']);
             }
         }
-        $parametersGroup = \Db_100::getParameterGroup($moduleId, 'error_messages');
+        $parametersGroup = $this->getParameterGroup($moduleId, 'error_messages');
         if ($parametersGroup) {
             $groupId = $parametersGroup['id'];
         } else {
-            $groupId = $parametersRefractor->addParameterGroup($moduleId, 'error_messages', 'Error messages', 0);
+            $groupId = $this->addParameterGroup($moduleId, 'error_messages', 'Error messages', 0);
         }
 
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'unknown')) {
-            \Db_100::addParameter($groupId, array('name' => 'unknown', 'translation' => 'Unknown', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please correct this value', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'unknown')) {
+            $this->addParameter($groupId, array('name' => 'unknown', 'translation' => 'Unknown', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please correct this value', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'email')) {
-            \Db_100::addParameter($groupId, array('name' => 'email', 'translation' => 'Email', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid email address', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'email')) {
+            $this->addParameter($groupId, array('name' => 'email', 'translation' => 'Email', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid email address', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'number')) {
-            \Db_100::addParameter($groupId, array('name' => 'number', 'translation' => 'Number', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid numeric value', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'number')) {
+            $this->addParameter($groupId, array('name' => 'number', 'translation' => 'Number', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid numeric value', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'url')) {
-            \Db_100::addParameter($groupId, array('name' => 'url', 'translation' => 'Url', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid URL', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'url')) {
+            $this->addParameter($groupId, array('name' => 'url', 'translation' => 'Url', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a valid URL', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'max')) {
-            \Db_100::addParameter($groupId, array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'max')) {
+            $this->addParameter($groupId, array('name' => 'max', 'translation' => 'Max', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value no larger than $1', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'min')) {
-            \Db_100::addParameter($groupId, array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value of at least $1', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'min')) {
+            $this->addParameter($groupId, array('name' => 'min', 'translation' => 'Min', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please enter a value of at least $1', 'comment' => ''));
         }
-        if(!\Db_100::getParameter('developer', 'form', 'error_messages', 'required')) {
-            \Db_100::addParameter($groupId, array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
+        if(!$this->getParameter('developer', 'form', 'error_messages', 'required')) {
+            $this->addParameter($groupId, array('name' => 'required', 'translation' => 'Required', 'admin' => 0, 'type'=> 'lang', 'value' => 'Please complete this mandatory field', 'comment' => ''));
         }
 
 
-        $parametersGroup = \Db_100::getParameterGroup($moduleId, 'admin_translations');
+        $parametersGroup = $this->getParameterGroup($moduleId, 'admin_translations');
         if ($parametersGroup) {
             $groupId = $parametersGroup['id'];
         } else {
-            $groupId = $parametersRefractor->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
+            $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
         }
 
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_text')) {
-            \Db_100::addStringParameter($groupId, 'Type text', 'type_text', 'Text', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_text')) {
+            $this->addStringParameter($groupId, 'Type text', 'type_text', 'Text', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_captcha')) {
-            \Db_100::addStringParameter($groupId, 'Type captcha', 'type_captcha', 'Captcha', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_captcha')) {
+            $this->addStringParameter($groupId, 'Type captcha', 'type_captcha', 'Captcha', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_confirm')) {
-            \Db_100::addStringParameter($groupId, 'Type confirm', 'type_confirm', 'Confirm', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_confirm')) {
+            $this->addStringParameter($groupId, 'Type confirm', 'type_confirm', 'Confirm', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_email')) {
-            \Db_100::addStringParameter($groupId, 'Type email', 'type_email', 'Email', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_email')) {
+            $this->addStringParameter($groupId, 'Type email', 'type_email', 'Email', 0);
         }
-        if(!\Db_100::getParame3ter('developer', 'form', 'admin_translations', 'type_radio')) {
-            \Db_100::addStringParameter($groupId, 'Type radio', 'type_radio', 'Radio', 0);
+        if(!$this->getParame3ter('developer', 'form', 'admin_translations', 'type_radio')) {
+            $this->addStringParameter($groupId, 'Type radiopublic static', 'type_radio', 'Radio', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_select')) {
-            \Db_100::addStringParameter($groupId, 'Type select', 'type_select', 'Select', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_select')) {
+            $this->addStringParameter($groupId, 'Type select', 'type_select', 'Select', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_textarea')) {
-            \Db_100::addStringParameter($groupId, 'Type textarea', 'type_textarea', 'Textarea', 0);
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_textarea')) {
+            $this->addStringParameter($groupId, 'Type textarea', 'type_textarea', 'Textarea', 0);
         }
 
 
 
         //bind widget images to repository
-        $sql = "SELECT * FROM ".DB_PREF."m_content_management_widget WHERE 1";
-        $rs = mysql_query($sql);
+        $sql = "SELECT * FROM ".$this->dbPref."m_content_management_widget WHERE 1";
+        $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
             throw new \Exception($sql . " " . mysql_error());
         }
@@ -221,8 +220,8 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     /**
      * (non-PHPdoc)
-     * @see IpUpdate\Library\Migration.General::getSourceVersion()
-     */
+    * @see IpUpdate\Library\Migration.General::getSourceVersion()
+    */
     public function getSourceVersion()
     {
         return '2.0';
@@ -249,18 +248,18 @@ class Script extends \IpUpdate\Library\Migration\General{
             case 'IpImage':
             case 'IpTextImage':
                 if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageOriginal'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $id);
+                    if (!$this->isBind($data['imageOriginal'], 'standard/content_management', $id)) {
+                        $this->bindFile($data['imageOriginal'], 'standard/content_management', $id);
                     }
                 }
                 if (isset($data['imageBig']) && $data['imageBig']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageBig'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageBig'], 'standard/content_management', $id);
+                    if (!$this->isBind($data['imageBig'], 'standard/content_management', $id)) {
+                        $this->bindFile($data['imageBig'], 'standard/content_management', $id);
                     }
                 }
                 if (isset($data['imageSmall']) && $data['imageSmall']) {
-                    if (!\Modules\administrator\repository\Model::isBind($data['imageSmall'], 'standard/content_management', $id)) {
-                        \Modules\administrator\repository\Model::bindFile($data['imageSmall'], 'standard/content_management', $id);
+                    if (!$this->isBind($data['imageSmall'], 'standard/content_management', $id)) {
+                        $this->bindFile($data['imageSmall'], 'standard/content_management', $id);
                     }
                 }
                 break;
@@ -273,18 +272,18 @@ class Script extends \IpUpdate\Library\Migration\General{
                         break;
                     }
                     if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageOriginal'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $id);
+                        if (!$this->odel::isBind($image['imageOriginal'], 'standard/content_management', $id)) {
+                            $this->bindFile($image['imageOriginal'], 'standard/content_management', $id);
                         }
                     }
                     if (isset($image['imageBig']) && $image['imageBig']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageBig'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageBig'], 'standard/content_management', $id);
+                        if (!$this->isBind($image['imageBig'], 'standard/content_management', $id)) {
+                            $this->bindFile($image['imageBig'], 'standard/content_management', $id);
                         }
                     }
                     if (isset($image['imageSmall']) && $image['imageSmall']) {
-                        if (!\Modules\administrator\repository\Model::isBind($image['imageSmall'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $id);
+                        if (!$this->isBind($image['imageSmall'], 'standard/content_management', $id)) {
+                            $this->bindFile($image['imageSmall'], 'standard/content_management', $id);
                         }
                     }
                 }
@@ -300,13 +299,13 @@ class Script extends \IpUpdate\Library\Migration\General{
                         break;
                     }
                     if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-                        if (!\Modules\administrator\repository\Model::isBind($logo['logoOriginal'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $id);
+                        if (!$this->isBind($logo['logoOriginal'], 'standard/content_management', $id)) {
+                            $this->bindFile($logo['logoOriginal'], 'standard/content_management', $id);
                         }
                     }
                     if (isset($logo['logoSmall']) && $logo['logoSmall']) {
-                        if (!\Modules\administrator\repository\Model::isBind($logo['logoSmall'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($logo['logoSmall'], 'standard/content_management', $id);
+                        if (!$this->isBind($logo['logoSmall'], 'standard/content_management', $id)) {
+                            $this->bindFile($logo['logoSmall'], 'standard/content_management', $id);
                         }
                     }
                 };
@@ -317,8 +316,8 @@ class Script extends \IpUpdate\Library\Migration\General{
                 }
                 foreach($data['files'] as $fileKey => $file) {
                     if (isset($file['fileName']) && $file['fileName']) {
-                        if (!\Modules\administrator\repository\Model::isBind($file['fileName'], 'standard/content_management', $id)) {
-                            \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $id);
+                        if (!$this->isBind($file['fileName'], 'standard/content_management', $id)) {
+                            $this->bindFile($file['fileName'], 'standard/content_management', $id);
                         }
                     }
                 };
@@ -328,4 +327,358 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
     }
 
+    private function isBind($file, $module, $instanceId) {
+        $sql = "
+        SELECT
+        *
+        FROM
+        `".$this->dbPref."m_administrator_repository_file`
+        WHERE
+        `fileName` = '".mysql_real_escape_string($file)."' AND
+        `module` = '".mysql_real_escape_string($module)."' AND
+        `instanceId` = '".mysql_real_escape_string($instanceId)."'
+        ";
+
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs){
+            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+        }
+
+        if($lock = mysql_fetch_assoc($rs)) {
+            return $lock['date'];
+        } else {
+            return false;
+        }
+
+    }
+    
+    private function bindFile($file, $module, $instanceId) {
+        $sql = "
+        INSERT INTO
+        `".$this->dbPref."m_administrator_repository_file`
+        SET
+        `fileName` = '".mysql_real_escape_string($file)."',
+        `module` = '".mysql_real_escape_string($module)."',
+        `instanceId` = '".mysql_real_escape_string($instanceId)."',
+        `date` = '".time()."'
+        ";
+
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs){
+            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+        }
+
+    }
+    
+    private function deleteParameter($moduleGroup, $module, $parameterGroup, $parameterName){
+        $moduleId = $this->getModuleId($moduleGroup, $module);
+        $parameterGroup = $this->getParametersGroup($moduleId, $parameterGroup);
+        $parameter = $this->getParameter($parameterGroup['id'], $parameterName);
+
+        if($parameter){
+            $sql = false;
+            switch($parameter['type']){
+                case 'string_wysiwyg':
+                case 'string':
+                case 'textarea':
+                    $sql = "delete from `".$this->dbPref."par_string` where parameter_id = ".(int)$parameter['id']."";
+                    break;
+                case 'integer':
+                    $sql = "delete from `".$this->dbPref."par_integer` where parameter_id = ".(int)$parameter['id']."";
+                    break;
+                case 'bool':
+                    $sql = "delete from `".$this->dbPref."par_bool` where parameter_id = ".(int)$parameter['id']."";
+                    break;
+                case 'lang':
+                case 'lang_textarea':
+                case 'lang_wysiwyg':
+                    $sql = "delete from `".$this->dbPref."par_lang` where parameter_id = ".(int)$parameter['id']."";
+                    break;
+            }
+
+            if($sql){
+                $rs = mysql_query($sql, $this->conn);
+                if(!$rs)
+                    throw new \IpUpdate\Library\UpdateException($sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                $sql = "delete from `".$this->dbPref."parameter` where id = ".(int)$parameter['id']."";
+                $rs = mysql_query($sql, $this->conn);
+                if(!$rs)
+                    throw new \IpUpdate\Library\UpdateException($sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+
+            }
+        }
+    }
+
+    private function getModuleId($group_name, $module_name){
+        $answer = array();
+        $sql = "select m.id from `".$this->dbPref."module` m, `".$this->dbPref."module_group` g
+        where m.`group_id` = g.`id` and g.`name` = '".mysql_real_escape_string($group_name)."' and m.`name` = '".mysql_real_escape_string($module_name)."' ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock['id'];
+            } else {
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+    }
+
+    private function getParametersGroup($moduleId, $name)
+    {
+        $sql = "select * from `".$this->dbPref."parameter_group` where `module_id` = '".mysql_real_escape_string($moduleId)."' and `name` = '".mysql_real_escape_string($name)."' ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock;
+            } else {
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+
+    private function getParameter($moduleGroupName, $moduleName, $parameterGroupName, $parameterName)
+    {
+        $sql = "select * from `".$this->dbPref."module_group` mg, `".$this->dbPref."module` m, `".$this->dbPref."parameter_group` pg, `".$this->dbPref."parameter` p
+        where p.group_id = pg.id and pg.module_id = m.id and m.group_id = mg.id
+        and mg.name = '".mysql_real_escape_string($moduleGroupName)."' and m.name = '".mysql_real_escape_string($moduleName)."' and pg.name = '".mysql_real_escape_string($parameterGroupName)."' and p.name = '".mysql_real_escape_string($parameterName)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if ($rs) {
+            if($lock = mysql_fetch_assoc($rs)) {
+                return $lock;
+            } else {
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+    }
+
+    private function addParameter($groupId, $parameter) {
+        $sql = "insert into `".$this->dbPref."parameter`
+        set `name` = '".mysql_real_escape_string($parameter['name'])."',
+        `admin` = '".mysql_real_escape_string($parameter['admin'])."',
+        `group_id` = ".(int)$groupId.",
+        `translation` = '".mysql_real_escape_string($parameter['translation'])."',
+        `comment` = '".mysql_real_escape_string($parameter['comment'])."',
+        `type` = '".mysql_real_escape_string($parameter['type'])."'";
+
+        $rs = mysql_query($sql, $this->conn);
+        if($rs) {
+            $last_insert_id = mysql_insert_id();
+            switch($parameter['type']) {
+                case "string_wysiwyg":
+                    $sql = "insert into `".$this->dbPref."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql, $this->conn);
+                    if(!$rs)
+                        throw new \IpUpdate\Library\UpdateException("Can't insert parameter ".$sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    break;
+                case "string":
+                    $sql = "insert into `".$this->dbPref."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql, $this->conn);
+                    if(!$rs)
+                        throw new \IpUpdate\Library\UpdateException("Can't insert parameter ".$sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    break;
+                case "integer":
+                    $sql = "insert into `".$this->dbPref."par_integer` set `value` = ".mysql_real_escape_string($parameter['value']).", `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql, $this->conn);
+                    if(!$rs)
+                        throw new \IpUpdate\Library\UpdateException("Can't insert parameter ".$sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    break;
+                case "bool":
+                    $sql = "insert into `".$this->dbPref."par_bool` set `value` = ".mysql_real_escape_string($parameter['value']).", `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql, $this->conn);
+                    if(!$rs)
+                        throw new \IpUpdate\Library\UpdateException("Can't insert parameter ".$sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    break;
+                case "textarea":
+                    $sql = "insert into `".$this->dbPref."par_string` set `value` = '".mysql_real_escape_string($parameter['value'])."', `parameter_id` = ".$last_insert_id."";
+                    $rs = mysql_query($sql, $this->conn);
+                    if(!$rs)
+                        throw new \IpUpdate\Library\UpdateException("Can't insert parameter ".$sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    break;
+
+                case "lang":
+                    $languages = self::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".$this->dbPref."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3, $this->conn);
+                        if(!$rs3)
+                            throw new \IpUpdate\Library\UpdateException("Can't update parameter ".$sql3." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    }
+                    break;
+                case "lang_textarea":
+                    $languages = self::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".$this->dbPref."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3, $this->conn);
+                        if(!$rs3)
+                            throw new \IpUpdate\Library\UpdateException("Can't update parameter ".$sql3." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    }
+                    break;
+                case "lang_wysiwyg":
+                    $languages = self::getLanguages();
+                    foreach($languages as $key => $language) {
+                        $sql3 = "insert into `".$this->dbPref."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
+                        $rs3 = mysql_query($sql3, $this->conn);
+                        if(!$rs3)
+                            throw new \IpUpdate\Library\UpdateException("Can't update parameter ".$sql3." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                    }
+                    break;
+            }
+        }else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+        }
+    }
+
+    private function getModuleGroup($name){
+        $sql = "select * from `".$this->dbPref."module_group` where name = '".mysql_real_escape_string($name)."' ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock;
+            } else {
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    private function getModuleId($group_name, $module_name){
+        $answer = array();
+        $sql = "select m.id from `".$this->dbPref."module` m, `".$this->dbPref."module_group` g
+        where m.`group_id` = g.`id` and g.`name` = '".mysql_real_escape_string($group_name)."' and m.`name` = '".mysql_real_escape_string($module_name)."' ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock['id'];
+            } else {
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+    }
+
+    private function addModule($groupId, $moduleTranslation, $moduleName, $admin, $managed, $core, $version, $rowNumber = 0){
+        $sql = "insert into `".$this->dbPref."module`
+        set
+        group_id = '".(int)$groupId."',
+        name = '".mysql_real_escape_string($moduleName)."',
+        translation = '".mysql_real_escape_string($moduleTranslation)."',
+        admin = '".(int)$admin."',
+        managed = '".(int)$managed."',
+        core = '".(int)$core."',
+        row_number = '".(int)$rowNumber."',
+        version = '".mysql_real_escape_string($version)."'
+
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            return mysql_insert_id();
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    
+    private function getUsers(){
+        $answer = array();
+        $sql = "select * from `".$this->dbPref."user` where 1";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            while($lock = mysql_fetch_assoc($rs)){
+                $answer[] = $lock;
+            }
+            return $answer;
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+    }
+    
+    private function addPermissions($moduleId, $userId){
+        $sql = "insert into `".$this->dbPref."user_to_mod`
+        set
+        module_id = '".(int)$moduleId."',
+        user_id = '".(int)$userId."'
+
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            return mysql_insert_id();
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    private function getParameterGroup($module_id, $group_name){
+        $sql = "select * from `".$this->dbPref."parameter_group` where `module_id` = '".(int)$module_id."' and `name` = '".mysql_real_escape_string($group_name)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs))
+                return $lock;
+            else
+                return false;
+        }else{
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    private function addParameterGroup($moduleId, $name, $translation, $admin){
+        $sql = "insert into `".$this->dbPref."parameter_group`
+        set
+        `name` = '".mysql_real_escape_string($name)."',
+        `translation` = '".mysql_real_escape_string($translation)."',
+        `module_id` = '".(int)$moduleId."',
+        `admin` = '".(int)$admin."'
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            return mysql_insert_id();
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    private function getSystemVariable($name){
+        $sql = "select value from `".$this->dbPref."variables`  where `name` = '".mysql_real_escape_string($name)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if ($rs) {
+            if ($lock = mysql_fetch_assoc($rs)) {
+                return $lock['value'];
+            } else
+                return false;
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
+    private function insertSystemVariable($name, $value){
+        $sql = "insert into `".$this->dbPref."variables` set `value` = '".mysql_real_escape_string($value)."', `name` = '".mysql_real_escape_string($name)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs) {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+    
 }
