@@ -5,30 +5,39 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-namespace IpUpdate\Library\Migration\To2_3;
+namespace IpUpdate\Library\Migration\To2_4;
 
 
 class Script extends \IpUpdate\Library\Migration\General{
 
     private $conn;
     private $dbPref;
-
+    
     public function process($cf)
     {
-        
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
         $this->dbPref = $cf['DB_PREF'];
         
+        
+        $module = $this->getModule(null, 'standard', 'configuration');
+
+        $group = $this->getParametersGroup($module['id'], 'error_404');
+        if ($group) {
+            if(!$this->getParameter('standard', 'configuration', 'error_404', 'error_title')) {
+                $this->addStringParameter($group['id'], 'Error page title', 'error_title', 'Page not found', 0);
+            }
+        }
+
         $module = $this->getModule(null, 'standard', 'content_management');
 
         $group = $this->getParametersGroup($module['id'], 'admin_translations');
         if ($group) {
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'save_now_hint')) {
-                $this->addStringParameter($group['id'], 'Save now hint', 'save_now_hint', 'Save now - publish later', 1);
+            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'layout_default')) {
+                $this->addStringParameter($group['id'], 'Layout default', 'layout_default', 'Default', 1);
             }
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'search_widgets')) {
-                $this->addStringParameter($group['id'], 'Search widgets', 'search_widgets', 'Search widgets', 1);
+            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'layout_right')) {
+                $this->addStringParameter($group['id'], 'Layout right', 'layout_right', 'Right', 1);
             }
         }
     }
@@ -39,7 +48,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getSourceVersion()
     {
-        return '2.2';
+        return '2.3';
     }
 
     /**
@@ -48,10 +57,11 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getDestinationVersion()
     {
-        return '2.3';
+        return '2.4';
     }
-    
-    
+
+
+
     private function getModule($id=null, $groupName=null , $moduleName = null)
     {
         if($id != null)
@@ -73,7 +83,7 @@ class Script extends \IpUpdate\Library\Migration\General{
             return false;
         }
     }
-    
+
     private function getParameter($moduleGroupName, $moduleName, $parameterGroupName, $parameterName) 
     {
         $sql = "select * from `".$this->dbPref."module_group` mg, `".$this->dbPref."module` m, `".$this->dbPref."parameter_group` pg, `".$this->dbPref."parameter` p
@@ -92,23 +102,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
 
     }
-    
-    private function getParametersGroup($moduleId, $name)
-    {
-        $sql = "select * from `".$this->dbPref."parameter_group` where `module_id` = '".mysql_real_escape_string($moduleId)."' and `name` = '".mysql_real_escape_string($name)."' ";
-        $rs = mysql_query($sql, $this->conn);
-        if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
-                return $lock;
-            } else {
-                return false;
-            }
-        } else {
-            trigger_error($sql." ".mysql_error());
-            return false;
-        }
-    }
-    
+
     private function addStringParameter($groupId, $translation, $name, $value, $admin)
     {
         $sql = "INSERT INTO `".$this->dbPref."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
@@ -130,5 +124,24 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
 
     }
+
+
+
+    private function getParametersGroup($moduleId, $name)
+    {
+        $sql = "select * from `".$this->dbPref."parameter_group` where `module_id` = '".mysql_real_escape_string($moduleId)."' and `name` = '".mysql_real_escape_string($name)."' ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            if($lock = mysql_fetch_assoc($rs)){
+                return $lock;
+            } else {
+                return false;
+            }
+        } else {
+            trigger_error($sql." ".mysql_error());
+            return false;
+        }
+    }
+
 
 }

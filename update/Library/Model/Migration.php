@@ -26,6 +26,11 @@ class Migration
         return array_pop($scripts);
     }
     
+    /**
+     * 
+     * @param string $fromVersion
+     * @return \IpUpdate\Library\Migration\General[]
+     */
     public function getScriptsFromVersion($fromVersion){
         $answer = array();
         $currentScript = false;

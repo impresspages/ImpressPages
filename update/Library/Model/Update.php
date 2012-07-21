@@ -224,6 +224,13 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function stepRunMigrations()
     {
+        $updateModel = new \IpUpdate\Library\Model\Migration();
+        $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
+        
+        foreach ($scripts as $script) {
+            $script->process($this->cf);
+        }
+        
         $this->setVersion($this->destinationScript->getDestinationVersion());
     }
     
