@@ -11,6 +11,7 @@ namespace IpUpdate\Library\Migration;
 abstract class General
 {
 
+    private $versionInfo;
     /**
      * @param array $cf parsed installation configuration
      * @return \Library\Migration\Result

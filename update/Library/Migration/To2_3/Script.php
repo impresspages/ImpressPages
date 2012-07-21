@@ -16,6 +16,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     public function process($cf)
     {
         
+        $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
         $this->dbPref = $cf['DB_PREF'];

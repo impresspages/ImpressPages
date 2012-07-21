@@ -53,8 +53,27 @@ class Migration
 
         return $answer;
     }
+    
+    /**
+     * 
+     * @param string $version
+     * @return \IpUpdate\Library\Migration\General
+     */
+    public function getScriptToVersion($version)
+    {
+        $scripts = $this->getScripts();
+        foreach ($scripts as $script) {
+            if ($script->getDestinationVersion() == $version) {
+                return $script;
+            }
+        }
+        throw new \IpUpdate\Library\UpdateException("Can't find script to ".$version, \IpUpdate\Library\UpdateException::UNKNOWN);
+    }
 
     
+    /**
+     * @return \IpUpdate\Library\Migration\General[]
+     */
     private function getScripts()
     {
         if (!$this->scripts) {

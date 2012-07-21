@@ -63,7 +63,11 @@ class Installation
         
         $this->createDatabase($this->getDbName());
 
-        $archive = $this->getArchiveFileName($this->getVersion());
+        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
+        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $script = $migrationModel->getScriptToVersion($this->getVersion());
+        $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
         mkdir($this->getInstallationDir());
         

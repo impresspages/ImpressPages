@@ -23,13 +23,13 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         
         //installl
         
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.3');
+        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.1');
         $installation->install();
 
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
 
         $version = $service->getCurrentVersion();
-        $this->assertEquals('2.3', $version);
+        $this->assertEquals('2.1', $version);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
         
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();

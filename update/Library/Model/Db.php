@@ -30,7 +30,7 @@ class Db
             case self::DRIVER_MYSQL:
                 try {
                     $connection = mysql_connect($cf['DB_SERVER'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
-                    if (!$connection) {
+                    if ($connection) {
                         mysql_select_db($cf['DB_DATABASE']);
                         mysql_query("SET CHARACTER SET ".$cf['MYSQL_CHARSET']);
                         return $connection;

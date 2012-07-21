@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-namespace IpUpdate\Library\Migration\To2_4;
+namespace IpUpdate\Library\Migration\To2_0rc2;
 
 
 class Script extends \IpUpdate\Library\Migration\General{
@@ -14,6 +14,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     
     public function process($cf)
     {
+        $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
 
@@ -38,7 +39,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getSourceVersion()
     {
-        return '2.3';
+        return '2.0rc1';
     }
 
     /**
@@ -47,7 +48,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getDestinationVersion()
     {
-        return '2.4';
+        return '2.0rc2';
     }
 
 }

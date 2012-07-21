@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-namespace IpUpdate\Library\Migration\To2_4;
+namespace IpUpdate\Library\Migration\To2_1;
 
 
 class Script extends \IpUpdate\Library\Migration\General{
@@ -14,6 +14,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     public function process($cf)
     {
+        $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
 
@@ -194,7 +195,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_email')) {
             \Db_100::addStringParameter($groupId, 'Type email', 'type_email', 'Email', 0);
         }
-        if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_radio')) {
+        if(!\Db_100::getParame3ter('developer', 'form', 'admin_translations', 'type_radio')) {
             \Db_100::addStringParameter($groupId, 'Type radio', 'type_radio', 'Radio', 0);
         }
         if(!\Db_100::getParameter('developer', 'form', 'admin_translations', 'type_select')) {
@@ -224,7 +225,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getSourceVersion()
     {
-        return '2.3';
+        return '2.0';
     }
 
     /**
@@ -233,7 +234,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getDestinationVersion()
     {
-        return '2.4';
+        return '2.1';
     }
 
 
