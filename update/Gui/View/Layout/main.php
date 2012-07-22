@@ -18,7 +18,6 @@
             <div class="clear"></div>
             <img class="border" src="public/cms_main_top.gif" alt="Design" />
             <div id="main">
-                <div id="menu">'.HtmlOutput::generateMenu().'</div>
                 <div id="content">
                     <?php echo $content ?>
                 </div>

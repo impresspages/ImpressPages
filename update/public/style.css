@@ -9,7 +9,7 @@ img {
 
 body {
     background-color: #fbfcfc;
-    font-size: 12px;
+    font-size: 14px;
     font-family: Tahoma, Arial, sans-serif;
     color: #707070;
 }
@@ -47,58 +47,9 @@ img.border {
     float: right;
 }
 
-#menu {
-    width: 169px;
-    float: left;
-    margin-left: 23px;
-}
-
-#menu li {
-    list-style-type: none;
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
-    padding: 12px;
-    margin-bottom: 12px;
-    width: 145px;
-    /*cursor: pointer;*/
-}
-
-#menu li.completed {
-    background-color: #77ae09;
-}
-
-#menu li.current {
-    background-color: #f5a417;
-}
-
-#menu li.incompleted {
-    cursor: default;
-}
-
-#menu a {
-    font-family: Verdana;
-    text-decoration: none;
-    color: #212023;
-}
-
-#menu li:hover a { /*text-decoration: underline;*/
-    
-}
-
-#menu li.current a {
-    font-weight: bold;
-}
-
-#menu li.incompleted a {
-    text-decoration: none;
-    cursor: default;
-}
 
 #content {
-    width: 597px;
-    float: right;
-    margin-right: 23px;
+    margin: 0 23px;
 }
 
 #content td.label {
@@ -169,7 +120,7 @@ a:hover {
 }
 
 h1 {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
 }
