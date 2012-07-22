@@ -1623,7 +1623,7 @@ class StandardModule {
 
 
 
-        if($this->currentArea->allowDelete) {
+        if($this->currentArea->allowInsert) {
             //form for new element in current area
             $answer .= '
 				<div class="popup" id="std_mod_new_popup">
