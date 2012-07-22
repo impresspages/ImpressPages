@@ -22,13 +22,10 @@ class UpdateSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
     }
     
-    
-    /**
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
-     */
-    public function getDataSet()
+    protected function assertNoErrors() 
     {
-        return $this->createFlatXMLDataSet(dirname(__FILE__).'/_files/guestbook-seed.xml');
+        $this->assertTextNotPresent('error');
+        $this->assertTextNotPresent('warning');
+        $this->assertTextNotPresent('note');
     }
-    
 }

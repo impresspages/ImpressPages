@@ -157,6 +157,35 @@ class Installation
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->rm($this->getInstallationDir());
     }
+    
+    public function setupUpdate($destinationVersion) 
+    {
+        if (!$this->isInstalled()) {
+            throw new \Exception("system is not installed");
+        }
+        
+        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
+        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $script = $migrationModel->getScriptToVersion($destinationVersion);
+        $netHelper->downloadFile($script->getDownloadUrl(), $archive);
+
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs->rm($this->getInstallationDir().'update');
+        mkdir($this->getInstallationDir().'update');
+        
+        
+        if (!class_exists('PclZip')) {
+            require_once(TEST_BASE_DIR.'Helper/PclZip.php');
+        }
+        $zip = new \PclZip($archive);
+        $success = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
+
+        if ($success == 0) {
+            throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
+        }
+        
+    }
 
 
     public function getArchiveFileName($version)

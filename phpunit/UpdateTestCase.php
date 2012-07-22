@@ -19,13 +19,6 @@ class UpdateTestCase extends \PHPUnit_Framework_TestCase
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
     }
     
-    
-    /**
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
-     */
-    public function getDataSet()
-    {
-        return $this->createFlatXMLDataSet(dirname(__FILE__).'/_files/guestbook-seed.xml');
-    }
+
     
 }
