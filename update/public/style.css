@@ -173,20 +173,6 @@ form strong {
     display: none;
 }
 
-#installationNotice {
-    font-size: 16px;
-    color: #707070;
-    font-family: "trebuchet ms", arial, verdana;
-    float: right;
-    font-weight: bold;
-    margin-right: 8px;
-    margin-bottom: 2px;
-}
-
-#installationNotice span {
-    color: #a7a7aa;
-}
-
 div.clear {
     clear: both;
 }
