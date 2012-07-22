@@ -34,7 +34,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         
         
         //assert success    
-        $this->waitForText('Your system has been successfully updated');
+        $this->waitForElementPresent('css=.seleniumCompleted');
     }
     
 }
