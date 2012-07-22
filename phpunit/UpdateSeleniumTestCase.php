@@ -3,13 +3,16 @@
 namespace IpUpdate\PhpUnit;
 
 //class UpdateTestCase extends \PHPUnit_Extensions_Database_TestCase
-class UpdateTestCase extends \PHPUnit_Framework_TestCase
+class UpdateSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
     protected function setup()
     {
         $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
         $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
+        
+        $this->setBrowser('*firefox');
+        $this->setBrowserUrl('http://localhost/');
     }
     
     protected function tearDown()

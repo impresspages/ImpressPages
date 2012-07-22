@@ -14,8 +14,8 @@ class FileSystem
 
 
     public function cpDir( $source, $destination ) {
-        $source = preg_replace('{/$}', '', $source); //remove trailing slash
-        $destination = preg_replace('{/$}', '', $destination); //remove trailing slash
+        $source = $this->removeTrailingSlash($source);
+        $destination = $this->removeTrailingSlash($destination);
         
         if (is_dir( $source ) ) {
             @mkdir($destination);
@@ -77,4 +77,43 @@ class FileSystem
     {
         return substr(decoct($perms),2);
     }
+    
+    
+    
+    public function cleanDir($dir, $depth = 0) {
+        
+        if (!file_exists($dir)) {
+            return;
+        }
+        
+        $dir = $this->removeTrailingSlash($dir);
+        
+        chmod($dir, 0777);
+        
+        if (is_dir($dir)) {
+            if ($handle = opendir($dir)) {
+                while (false !== ($file = readdir($handle))) {
+                    if($file == ".." || $file == ".") {
+                        continue;
+                    }
+                    
+                    $this->cleanDir($dir.'/'.$file, $depth + 1);
+                }
+                closedir($handle);
+            }
+            
+            if ($depth != 0) {
+                rmdir($dir);
+            }
+        } else {
+            if ($dir != TEST_TMP_DIR.'readme.txt') {
+                unlink($dir);
+            }
+        }
+    }    
+    
+    private function removeTrailingSlash($path)
+    {
+        return preg_replace('{/$}', '', $path);
+    }        
 }
