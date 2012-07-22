@@ -29,11 +29,12 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $this->assertTextPresent('IpForm widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
 
-        $test->test();
-        $this->click('css=.actProceed');
         //start update process
+        $this->click('css=.actProceed');
         
         
+        //assert success    
+        $this->waitForText('Your system has been successfully updated');
     }
     
 }

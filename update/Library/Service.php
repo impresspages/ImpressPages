@@ -57,7 +57,11 @@ class Service
     {
         $updateModel = new \IpUpdate\Library\Model\Migration();
         $destinationScript = $updateModel->getDestinationScript($this->getCurrentVersion());
-        return $destinationScript->getDestinationVersion();
+        if (!$destinationScript) {
+            return false;
+        } else {
+            return $destinationScript->getDestinationVersion();
+        }
     }
 
     

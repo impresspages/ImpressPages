@@ -28,10 +28,10 @@ class Translation
             'step_completed_title' => 'Success',
             'step_completed_text' => '
 <p>Your system has been successfully updated.</p>
+
 <p>
 <a href="../">Front page</a>
-</p>
-<p>
+</p><p>
 <a href="../admin.php">Administration page</a>
 </p>
             '

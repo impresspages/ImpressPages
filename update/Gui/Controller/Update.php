@@ -15,21 +15,29 @@ class Update extends \IpUpdate\Gui\Controller
         $this->registerAjaxErrorHandling();
         try {
             $updateService = $this->getUpdateService();
+            $destinationVersion = $updateService->getDestinationVersion();
+
+            if ($destinationVersion) {
+                $currentVersion = $updateService->getCurrentVersion();
+                $view = \IpUpdate\Gui\View::create('Update/overview.php');
+                $view->assign('currentVersion', $currentVersion);
+                $view->assign('destinationVersion', $updateService->getDestinationVersion());
+                $view->assign('notes', $updateService->getUpdateNotes());
+                $html = $view->render();
+                $data = array(
+                    'html' => $html
+                );
+                $this->returnJson($data);
+            } else {
+                $data = array(
+                    'status' => 'success',
+                    'html' => \IpUpdate\Gui\View::create('Update/completed.php')->render()
+                );
+                $this->returnJson($data);
+            }
 
 
-            $currentVersion = $updateService->getCurrentVersion();
-            $view = \IpUpdate\Gui\View::create('Update/overview.php');
-            $view->assign('currentVersion', $currentVersion);
-            $view->assign('destinationVersion', $updateService->getDestinationVersion());
-            $view->assign('notes', $updateService->getUpdateNotes());
-            $html = $view->render();
 
-
-
-            $data = array(
-                'html' => $html
-            );
-            $this->returnJson($data);
         } catch (\IpUpdate\Library\UpdateException $e) {
             $this->returnError($e);
         }
@@ -44,7 +52,8 @@ class Update extends \IpUpdate\Gui\Controller
             $updateService = $this->getUpdateService();
             $updateService->proceed();
             $data = array(
-                'html' => 'SUCCESS'
+                'status' => 'success',
+                'action' => 'reload'
             );
             $this->returnJson($data);
         } catch (\IpUpdate\Library\UpdateException $e) {
@@ -61,7 +70,8 @@ class Update extends \IpUpdate\Gui\Controller
             $updateService->resetLock();
             $updateService->proceed();
             $data = array(
-                'html' => 'SUCCESS'
+                'status' => 'success',
+                'action' => 'reload'
             );
             $this->returnJson($data);
         } catch (\IpUpdate\Library\UpdateException $e) {

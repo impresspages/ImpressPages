@@ -72,11 +72,15 @@ class View{
         return htmlspecialchars($text);
     }
     
+    public function tran($key)
+    {
+        $translation = \IpUpdate\Gui\Translation::getInstance()->translate($key);
+        return $translation;
+    }
     
     public function escTran($key)
     {
-        $translation = \IpUpdate\Gui\Translation::getInstance()->translate($key);
-        return $this->esc($translation);
+        return $this->esc($this->tran($key));
     }
     
     /**
