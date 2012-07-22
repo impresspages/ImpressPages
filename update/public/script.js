@@ -58,7 +58,8 @@ var successResponse = function(response) {
     if (response && response.action) {
         switch(response.action) {
             case 'reload':
-                window.location = window.location;
+                var url = parent.window.location.href.split('#');
+                window.location = url[0];
             break;
         }
     }

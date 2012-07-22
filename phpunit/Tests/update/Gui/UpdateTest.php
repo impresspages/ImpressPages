@@ -9,7 +9,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
 {
 
  
-    public function testTitle()
+    public function testGeneral()
     {
         $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
