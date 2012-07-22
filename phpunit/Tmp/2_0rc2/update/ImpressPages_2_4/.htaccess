@@ -1,0 +1,9 @@
+#php_value upload_max_filesize 1000M
+#php_value post_max_size 1000M
+#php_value memory_limit 100M
+
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]

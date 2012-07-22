@@ -42,6 +42,20 @@ class FileSystem
 
     function chmod($dir, $permissions)
     {
+        if (is_link($dir)) {
+            /*
+             * symlinks are used to make some fake "unwritable" dirs for testing purposes. But ths function should overcome those fake restrictions.
+             * How it works:
+             * Unit tests creates all infractructure to test.
+             * Some tests need unwritable directories. And in these cases just chmod'ing is not enough
+             * as some scripts chmod them back automatically and we need to test scenario, when they can't chmod them.
+             * For such case symlinks to root owned directory are used.
+             */
+            unlink($dir); 
+            return true;
+        }
+        
+        
         $answer = true;
         if(!file_exists($dir)) {
             return false;
