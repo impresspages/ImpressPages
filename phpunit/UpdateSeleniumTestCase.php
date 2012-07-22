@@ -12,7 +12,7 @@ class UpdateSeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
         
         $this->setBrowser('*firefox');
-        $this->setBrowserUrl('http://localhost/');
+        $this->setBrowserUrl(TEST_TMP_URL);
     }
     
     protected function tearDown()
