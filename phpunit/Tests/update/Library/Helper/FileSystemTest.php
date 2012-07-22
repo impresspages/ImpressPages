@@ -13,7 +13,7 @@ class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $testDir = TEST_TMP_DIR.'FileSystemTest/';
         
         $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'Library/Model/FileSystem/', $testDir);
+        $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'update/Library/Model/FileSystem/', $testDir);
         
         
         chmod($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt', 0777);

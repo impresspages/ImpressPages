@@ -21,7 +21,7 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
     public function testProcess()
     {
         
-        //installl
+        //install
         
         $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
