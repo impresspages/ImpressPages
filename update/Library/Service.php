@@ -60,5 +60,17 @@ class Service
         return $destinationScript->getDestinationVersion();
     }
 
+    
+    public function getUpdateNotes()
+    {
+        $updateModel = new \IpUpdate\Library\Model\Migration();
+        $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
+        $notes = array();
+        foreach ($scripts as $script) {
+            $newNotes = $script->getNotes();
+            $notes = array_merge($notes, $newNotes);
+        }
+        return $notes;
+    }
      
 }

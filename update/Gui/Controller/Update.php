@@ -19,10 +19,9 @@ class Update extends \IpUpdate\Gui\Controller
 
             $currentVersion = $updateService->getCurrentVersion();
             $view = \IpUpdate\Gui\View::create('Update/overview.php');
-            $availableVersions = $updateService->getAvailableVersions();
-            $newVersion = array_pop($availableVersions);
             $view->assign('currentVersion', $currentVersion);
-            $view->assign('newVersion', $newVersion);
+            $view->assign('destinationVersion', $updateService->getDestinationVersion());
+            $view->assign('notes', $updateService->getUpdateNotes());
             $html = $view->render();
 
 

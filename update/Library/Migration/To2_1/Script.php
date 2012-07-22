@@ -11,12 +11,14 @@ namespace IpUpdate\Library\Migration\To2_1;
 class Script extends \IpUpdate\Library\Migration\General{
 
     private $conn;
+    private $dbPref;
 
     public function process($cf)
     {
         $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
+        $this->dbPref = $cf['DB_PREF'];
 
 
         $this->deleteParameter('standard', 'content_management', 'widget_faq', 'title');
@@ -122,7 +124,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
 
         if ($this->getSystemVariable('theme_changed') === false) {
-            \$this->insertSystemVariable('theme_changed', time());
+            $this->insertSystemVariable('theme_changed', time());
         }
 
 
@@ -194,7 +196,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_email')) {
             $this->addStringParameter($groupId, 'Type email', 'type_email', 'Email', 0);
         }
-        if(!$this->getParame3ter('developer', 'form', 'admin_translations', 'type_radio')) {
+        if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_radio')) {
             $this->addStringParameter($groupId, 'Type radiopublic static', 'type_radio', 'Radio', 0);
         }
         if(!$this->getParameter('developer', 'form', 'admin_translations', 'type_select')) {
@@ -218,6 +220,25 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     }
 
+    public function getNotes()
+    {
+        $note = 
+ '
+<P><span style="color: red;">ATTENTION</span></P>
+<p>You are updating from 2.0 or older.
+IpForm widget has been introduced since then.
+You need manually replace your current ip_content.css and 960.css files
+ (ip_themes/lt_pagan/) to ones from downloaded archive.
+ If you have made some changes to original files, please replicate those changes on new files.
+</p>
+<p>If you are using other theme, you need manually tweek your CSS
+to style forms.</p>
+    ';
+        $notes = array($note);
+        return $notes;
+    }
+    
+    
     /**
      * (non-PHPdoc)
     * @see IpUpdate\Library\Migration.General::getSourceVersion()
@@ -272,7 +293,7 @@ class Script extends \IpUpdate\Library\Migration\General{
                         break;
                     }
                     if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-                        if (!$this->odel::isBind($image['imageOriginal'], 'standard/content_management', $id)) {
+                        if (!$this->isBind($image['imageOriginal'], 'standard/content_management', $id)) {
                             $this->bindFile($image['imageOriginal'], 'standard/content_management', $id);
                         }
                     }
@@ -371,9 +392,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     }
     
     private function deleteParameter($moduleGroup, $module, $parameterGroup, $parameterName){
-        $moduleId = $this->getModuleId($moduleGroup, $module);
-        $parameterGroup = $this->getParametersGroup($moduleId, $parameterGroup);
-        $parameter = $this->getParameter($parameterGroup['id'], $parameterName);
+        $parameter = $this->getParameter($moduleGroup, $module, $parameterGroup, $parameterName);
 
         if($parameter){
             $sql = false;
@@ -554,23 +573,6 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
     }
     
-    private function getModuleId($group_name, $module_name){
-        $answer = array();
-        $sql = "select m.id from `".$this->dbPref."module` m, `".$this->dbPref."module_group` g
-        where m.`group_id` = g.`id` and g.`name` = '".mysql_real_escape_string($group_name)."' and m.`name` = '".mysql_real_escape_string($module_name)."' ";
-        $rs = mysql_query($sql, $this->conn);
-        if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
-                return $lock['id'];
-            } else {
-                return false;
-            }
-        } else {
-            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
-            return false;
-        }
-
-    }
 
     private function addModule($groupId, $moduleTranslation, $moduleName, $admin, $managed, $core, $version, $rowNumber = 0){
         $sql = "insert into `".$this->dbPref."module`
@@ -679,6 +681,63 @@ class Script extends \IpUpdate\Library\Migration\General{
             throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
             return false;
         }
+    }
+    
+    private function getModule($id=null, $groupName=null , $moduleName = null)
+    {
+        if($id != null)
+            $sql = "select m.core, m.id, g.name as g_name, m.name as m_name from `".$this->dbPref."module_group` g, `".$this->dbPref."module` m where m.id = '".mysql_real_escape_string($id)."' and  m.group_id = g.id order by g.row_number, m.row_number limit 1";
+        elseif($groupName != null && $moduleName != null)
+        $sql = "select m.core, m.id, g.name as g_name, m.name as m_name from `".$this->dbPref."module_group` g, `".$this->dbPref."module` m where g.name = '".mysql_real_escape_string($groupName)."' and m.group_id = g.id and m.name= '".mysql_real_escape_string($moduleName)."' order by g.row_number, m.row_number limit 1";
+        else
+            $sql = "select m.core, m.id, g.name as g_name, m.name as m_name from `".$this->dbPref."module_group` g, `".$this->dbPref."module` m where m.group_id = g.id order by g.row_number, m.row_number limit 1";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs)
+        {
+            if($lock = mysql_fetch_assoc($rs))
+                return $lock;
+            else
+                return false;
+        }else
+        {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+
+    private function addStringParameter($groupId, $translation, $name, $value, $admin)
+    {
+        $sql = "INSERT INTO `".$this->dbPref."parameter` (`name`, `admin`, `regexpression`, `group_id`, `translation`, `comment`, `type`)
+        VALUES ('".mysql_real_escape_string($name)."', ".(int)$admin.", '', ".(int)$groupId.", '".mysql_real_escape_string($translation)."', NULL, 'string')";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            $sql2 = "INSERT INTO `".$this->dbPref."par_string` (`value`, `parameter_id`)
+            VALUES ('".mysql_real_escape_string($value)."', ".mysql_insert_id().");";
+            $rs2 = mysql_query($sql2, $this->conn);
+            if($rs2) {
+                return true;
+            } else {
+                throw new \IpUpdate\Library\UpdateException($sql2." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+                return false;
+            }
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+    }
+    
+    private function getLanguages(){
+        $answer = array();
+        $sql = "select * from `".$this->dbPref."language` where 1 order by row_number";
+        $rs = mysql_query($sql);
+        if($rs){
+            while($lock = mysql_fetch_assoc($rs))
+                $answer[] = $lock;
+        }else{
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+        }
+        return $answer;
     }
     
 }

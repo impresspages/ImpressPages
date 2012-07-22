@@ -27,6 +27,11 @@ abstract class General
      * @return string
      */
     public abstract function getDestinationVersion();
+    
+    public function getNotes()
+    {
+        return array();
+    }
 
 
     public function getDownloadUrl()

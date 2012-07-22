@@ -42,6 +42,33 @@ class Script extends \IpUpdate\Library\Migration\General{
             }
         }
     }
+    
+    public function getNotes()
+    {
+        $note = 
+ '
+    <P><span style="color: red;manual font-weight: bold">ATTENTION</span></P>
+    <p>You are updating from 2.0rc2 or older.
+    You need manually add these lines to your theme
+    layout file (ip_themes/lt_pagan/main.php) before <b>generateJavascript()</b> line:
+    </p>
+    <pre>
+    &lt;?php
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/jquery/jquery.js\');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/colorbox/jquery.colorbox.js\');
+    ?&gt;
+    </pre>
+    <p>
+    This is done to gain more control over the website for theme designer.
+    Now ImpressPages core does not include any JavaScript by default. If theme
+    needs some Javascript, it includes it.
+    
+    </p>
+    ';
+        $notes = array($note);
+        return $notes;
+    }
+    
 
     /**
      * (non-PHPdoc)

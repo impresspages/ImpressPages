@@ -31,7 +31,7 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.0rc2', $version);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
-        
+
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $cf = $configurationParser->parse($installation->getInstallationDir());
         $updateModel = new \IpUpdate\Library\Model\Update($cf);
@@ -75,7 +75,6 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
         //publish website
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
-        
         
         
         //clean up
