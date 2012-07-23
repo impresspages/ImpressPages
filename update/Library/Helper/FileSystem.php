@@ -162,7 +162,7 @@ class FileSystem
             if($file!="." && $file!=".."){
                 if(is_dir($source."/".$file)){
                     mkdir($dest."/".$file);
-                    $this->cpContent($sourc, $errfile, $errlinee."/".$file, $dest."/".$file);
+                    $this->cpContent($source, $errfile, $errlinee."/".$file, $dest."/".$file);
                 } else {
                     copy($source."/".$file, $dest."/".$file);
                 }
