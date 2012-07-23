@@ -110,40 +110,45 @@ class Update
         
         $this->tempStorage->setValue('inProgress', 1);
 
-        while ($curStep <= $destinationStep) {
-            switch($curStep) {
-                case self::STEP_START:
-                        $this->stepStart();
-                    break;
-                case self::STEP_DOWNLOAD_PACKAGE:
-                        $this->stepDownloadPackage();
-                    break;
-                case self::STEP_CLOSE_WEBSITE:
-                        $this->stepCloseWebsite();
-                    break;
-                case self::STEP_REMOVE_OLD_FILES:
-                        $this->stepRemoveOldFiles();
-                    break;
-                case self::STEP_RUN_MIGRATIONS:
-                        $this->stepRunMigrations();
-                    break;
-                case self::STEP_WRITE_NEW_FILES:
-                        $this->stepWriteNewFiles();
-                    break;
-                case self::STEP_PUBLISH_WEBSITE:
-                        $this->stepPublishWebsite();
-                    break;
-                case self::SETP_FINISH:
-                        $this->stepFinish();
-                    break;
-                    
-                default:
-                    
-                    throw new \IpUpdate\Library\Exception("Unknown update state.");
-                    break;
+        try {
+            while ($curStep <= $destinationStep) {
+                switch($curStep) {
+                    case self::STEP_START:
+                            $this->stepStart();
+                        break;
+                    case self::STEP_DOWNLOAD_PACKAGE:
+                            $this->stepDownloadPackage();
+                        break;
+                    case self::STEP_CLOSE_WEBSITE:
+                            $this->stepCloseWebsite();
+                        break;
+                    case self::STEP_REMOVE_OLD_FILES:
+                            $this->stepRemoveOldFiles();
+                        break;
+                    case self::STEP_RUN_MIGRATIONS:
+                            $this->stepRunMigrations();
+                        break;
+                    case self::STEP_WRITE_NEW_FILES:
+                            $this->stepWriteNewFiles();
+                        break;
+                    case self::STEP_PUBLISH_WEBSITE:
+                            $this->stepPublishWebsite();
+                        break;
+                    case self::SETP_FINISH:
+                            $this->stepFinish();
+                        break;
+                        
+                    default:
+                        
+                        throw new \IpUpdate\Library\Exception("Unknown update state.");
+                        break;
+                }
+                $this->tempStorage->setValue('curStep', $curStep + 1);
+                $curStep = $this->tempStorage->getValue('curStep');
             }
-            $this->tempStorage->setValue('curStep', $curStep + 1);
-            $curStep = $this->tempStorage->getValue('curStep');
+        } catch (\IpUpdate\Library\UpdateException $e) {
+            $this->tempStorage->remove('inProgress');
+            throw $e;
         }
         
         $this->tempStorage->remove('inProgress');
@@ -248,7 +253,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         foreach($replaceFolders as $folder) {
             $this->fs->cpContent($extractedPath.$folder, $this->cf['BASE_DIR'].$folder);
         }
-        
+
         foreach($replaceFiles as $file) {
             unlink($this->cf['BASE_DIR'].$file);
             copy($extractedPath.$file, $this->cf['BASE_DIR'].$file);
@@ -277,7 +282,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function getFoldersToReplace() 
     {
         return array (
-            'ip_cms',
+            'ip_cms/',
             $this->cf['LIBRARY_DIR']
         );
     }

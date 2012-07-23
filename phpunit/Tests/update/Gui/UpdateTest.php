@@ -76,14 +76,19 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         
         //fix error
         unlink($installation->getInstallationDir().'ip_cms/unwritableDir');
-        
+
         //resume update process
         $this->click('css=.actProceed');
+        
+        
+        //assert success    
+        $this->waitForElementPresent('css=.seleniumCompleted');        
+        
         
         //check update was successful
         $this->open($url);
         $this->assertElementPresent('css=.sitename');
-        $this->assertNoErrors();        
+        $this->assertNoErrors();
     }
     
 }

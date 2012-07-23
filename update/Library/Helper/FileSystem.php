@@ -76,6 +76,7 @@ class FileSystem
         }
 
         if (is_dir($path)) {
+            $path = $this->removeTrailingSlash($path);
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
                     if($file == ".." || $file == ".") {
@@ -162,7 +163,7 @@ class FileSystem
             if($file!="." && $file!=".."){
                 if(is_dir($source."/".$file)){
                     mkdir($dest."/".$file);
-                    $this->cpContent($sourc."/".$file, $dest."/".$file);
+                    $this->cpContent($source."/".$file, $dest."/".$file);
                 } else {
                     copy($source."/".$file, $dest."/".$file);
                 }
