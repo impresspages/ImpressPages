@@ -55,7 +55,7 @@ Update process requires CURL module.
         
             self::$translations = $translations;
 
-        );
+        
     }
     
     

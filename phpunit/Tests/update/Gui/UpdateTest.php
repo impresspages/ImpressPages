@@ -142,7 +142,8 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         
         $url = $installation->getInstallationUrl();
         $dir = $installation->getInstallationDir();
-        
+
+        //setup unknown version number
         $conn = $installation->getDbConn();
         $sql = "
         UPDATE
@@ -157,19 +158,18 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
             throw new \Exception("Can't update installation version. ".mysql_error());
         }
         
+        
+        
         //setup update
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate('2.4');
+        
+        
         
         $this->open($url.'update');
         $this->assertNoErrors();
         $this->assertTextPresent('Your system has been successfully updated');
 
-
     }
-    
-    
 
-    
-    
 }
