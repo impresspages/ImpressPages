@@ -25,6 +25,7 @@ class Installation
     private $siteEmail;
     private $siteTimeZone;
     private $cf;
+    private $conn;
 
     private $installed;
     /**
@@ -211,6 +212,24 @@ class Installation
             $this->cf = $configurationParser->parse($this->getInstallationDir());
         }
         return $this->cf[$key];
+    }
+    
+    /**
+     * Return MySQL connection to the database
+     */
+    public function getDbConn()
+    {
+        if (!$this->conn) {
+            $connection = mysql_connect($this->getConfig('DB_SERVER'), $this->getConfig('DB_USERNAME'), $this->getConfig('DB_PASSWORD'));
+            if ($connection) {
+                mysql_select_db($this->getConfig('DB_DATABASE'));
+                mysql_query("SET CHARACTER SET ".$this->getConfig('MYSQL_CHARSET'));
+                $this->conn = $connection;
+            } else {
+                throw new \Exception("Can\'t connect to database.");
+            }
+        }
+        return $this->conn;
     }
     
     public function getSubdir($version)

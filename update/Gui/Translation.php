@@ -23,10 +23,11 @@ class Translation
     
     public function __construct()
     {
-        self::$translations = array (
-            'global_title' => 'ImpressPages CMS update wizard',
-            'step_completed_title' => 'Success',
-            'step_completed_text' => '
+        $translations = array ();
+        
+        $translations['global_title'] = 'ImpressPages CMS update wizard';
+        $translations['step_completed_title'] = 'Success';
+        $translations['step_completed_text'] = '
 <p>Your system has been successfully updated.</p>
 
 <p>
@@ -34,14 +35,17 @@ class Translation
 </p><p>
 <a href="../admin.php">Administration page</a>
 </p>
-            ',
-            'button_proceed' => 'Proceed',
-            'error_write_permission_title' => 'File write failed',
-            'error_write_permission_text' => '
+';
+        $translations['button_proceed'] = 'Proceed';
+        $translations['error_write_permission_title'] = 'File write failed';
+        $translations['error_write_permission_text'] = '
 <p>
 To proceed please make following directory or file writable <b>[[file]]</b>
 </p>
-            '
+';
+        
+            self::$translations = $translations;
+
         );
     }
     

@@ -104,39 +104,67 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
         
-        //checkupdate review page is fine
+        //setup update
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate($updateService->getDestinationVersion());
         
+        //fake another update process in progress
         $tmpStorageDir = $installation->getConfig('BASE_DIR').$installation->getConfig('TMP_FILE_DIR').'update/';
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->createWritableDir($tmpStorageDir);
         file_put_contents($tmpStorageDir.'inProgress', '1');
 
-        
-        
+        //open update page
         $this->open($url.'update');
         $this->click('css=.actProceed');
 
         //start update process
         $this->assertNoErrors();
         $this->assertTextPresent('Another update process in progress');
-
-        
-        
         
         //reset the lock
         $this->click('css=.actResetLock');
-
         
-        //assert success    
+        //assert success
         $this->waitForElementPresent('css=.seleniumCompleted');
-        
         
         //check update was successful
         $this->open($url);
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
-    }    
+    }
+    
+    
+    public function testUnknownVersionError()
+    {
+        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation->install();
+        
+        $url = $installation->getInstallationUrl();
+        $dir = $installation->getInstallationDir();
+        
+        $conn = $installation->getDbConn();
+        $sql = "
+        UPDATE
+            `".$installation->getConfig('DB_PREF')."variables`
+        SET
+            `value` = 'unknown'
+        WHERE
+            `name` = 'version'
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs) {
+            throw new \Exception("Can't update installation version. ".mysql_error());
+        }
+        
+        //setup update
+        $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $installation->setupUpdate('2.4');
+        
+        $this->open($url.'update');
+        $test->test();
+    }
+    
+    
     
 }

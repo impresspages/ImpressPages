@@ -14,7 +14,9 @@ class Update extends \IpUpdate\Gui\Controller
     {
         $this->registerAjaxErrorHandling();
         try {
+            
             $updateService = $this->getUpdateService();
+            
             $destinationVersion = $updateService->getDestinationVersion();
 
             if ($destinationVersion) {
