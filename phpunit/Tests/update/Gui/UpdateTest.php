@@ -25,6 +25,8 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate($updateService->getDestinationVersion());
         $this->open($url.'update');
+        $this->waitForElementPresent('css=.actProceed');
+        
         $this->assertNoErrors();
         $this->assertTextPresent('IpForm widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
@@ -64,6 +66,8 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         symlink(TEST_UNWRITABLE_DIR, $installation->getInstallationDir().'ip_cms/unwritableDir');
 
         $this->open($url.'update');
+        $this->waitForElementPresent('css=.actProceed');
+        
         $this->assertNoErrors();
         $this->assertTextPresent('IpForm widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
@@ -116,8 +120,8 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
 
         //open update page
         $this->open($url.'update');
+        $this->waitForElementPresent('css=.actProceed');
         $this->click('css=.actProceed');
-
         //start update process
         $this->assertNoErrors();
         $this->assertTextPresent('Another update process in progress');
@@ -167,6 +171,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         
         
         $this->open($url.'update');
+        $this->waitForElementPresent('css=.seleniumCompleted');
         $this->assertNoErrors();
         $this->assertTextPresent('Your system has been successfully updated');
 

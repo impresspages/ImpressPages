@@ -1,4 +1,4 @@
-<h1>Another update process in progress</h1>
-<p>Last update process failed or another update process is in progress.</p>
-<p>If you are sure that there is no another update instanace running, you can reset the lock and start over again.</p>
-<a class="button actResetLock" href="#">Reset the lock</a>
+<h1><?php echo $this->escTran('error_in_progress_title'); ?></h1>
+<p><?php echo $this->tran('error_in_progress_text'); ?></p>
+<a class="button actResetLock" href="#"><?php echo $this->tran('button_reset_lock') ?></a>
+<span class="seleniumWritePermission"></span>

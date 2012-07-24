@@ -51,6 +51,12 @@ Update process requires CURL module.
 </p>
 ';
         
+        $translations['error_in_progress_title'] = 'Another update process in progress';
+        $translations['error_in_progress_text'] = '
+<p>Last update process failed or another update process is in progress.</p>
+<p>If you are sure that there is no another update instanace running, you can reset the lock and start over again.</p>
+';
+        $translations['button_reset_lock'] = 'Reset the lock';
         
         
             self::$translations = $translations;
