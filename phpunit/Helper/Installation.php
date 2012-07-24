@@ -24,6 +24,7 @@ class Installation
     private $siteName;
     private $siteEmail;
     private $siteTimeZone;
+    private $cf;
 
     private $installed;
     /**
@@ -197,6 +198,19 @@ class Installation
         } else {
             throw new \Exception("Version ".$version." package does not exist");
         }
+    }
+    
+    /**
+     * 
+     * @param string $key configuration value constant
+     */
+    public function getConfig($key)
+    {
+        if (!$this->cf) {
+            $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
+            $this->cf = $configurationParser->parse($this->getInstallationDir());
+        }
+        return $this->cf[$key];
     }
     
     public function getSubdir($version)
