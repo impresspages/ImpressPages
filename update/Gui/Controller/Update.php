@@ -100,6 +100,8 @@ class Update extends \IpUpdate\Gui\Controller
     private function getErrorHtml(\IpUpdate\Library\UpdateException $e)
     {
         switch ($e->getCode()) {
+            case \IpUpdate\Library\UpdateException::SQL:
+            case \IpUpdate\Library\UpdateException::WRONG_CHECKSUM:
             case \IpUpdate\Library\UpdateException::UNKNOWN:
                 $view = \IpUpdate\Gui\View::create('Update/error_unknown.php', array('errorMessage' => $e->getMessage()));
                 return $view->render();
@@ -112,6 +114,11 @@ class Update extends \IpUpdate\Gui\Controller
                 $view = \IpUpdate\Gui\View::create('Update/error_in_progress.php', array('errorMessage' => $e->getMessage()));
                 return $view->render();
                 break;
+            case \IpUpdate\Library\UpdateException::CURL_REQUIRED:
+                $view = \IpUpdate\Gui\View::create('Update/error_curl_required.php', array('errorMessage' => $e->getMessage()));
+                return $view->render();
+                break;
+                
         }
     }
     

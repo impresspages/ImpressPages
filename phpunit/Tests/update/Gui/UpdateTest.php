@@ -162,9 +162,14 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $installation->setupUpdate('2.4');
         
         $this->open($url.'update');
-        $test->test();
+        $this->assertNoErrors();
+        $this->assertTextPresent('Your system has been successfully updated');
+
+
     }
     
+    
+
     
     
 }

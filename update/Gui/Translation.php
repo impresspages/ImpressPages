@@ -44,6 +44,15 @@ To proceed please make following directory or file writable <b>[[file]]</b>
 </p>
 ';
         
+        $translations['error_curl_required_title'] = 'CURL required';
+        $translations['error_curl_required_text'] = '
+<p>
+Update process requires CURL module.
+</p>
+';
+        
+        
+        
             self::$translations = $translations;
 
         );
