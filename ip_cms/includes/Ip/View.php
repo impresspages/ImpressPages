@@ -147,8 +147,8 @@ class View{
         global $parametersMod;
         global $session;
 
-        foreach ($this->data as $key => $value) {
-            eval(' $'.$key.' = $value;');
+        foreach ($this->data as $foreachDataKey => $foreachDataValue) {
+            eval(' $'.$foreachDataKey.' = $foreachDataValue;');
         }
 
 
