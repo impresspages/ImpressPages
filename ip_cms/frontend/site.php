@@ -988,8 +988,18 @@ class Site{
                     $dir = BASE_DIR.PLUGIN_DIR;
                 }
 
+                $systemFileExists = false;
                 if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
                     require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
+                    $systemFileExists = true;
+                }
+
+                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
+                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
+                    $systemFileExists = true;
+                }
+
+                if ($systemFileExists) {
                     eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
                     if(method_exists($moduleSystem, 'catchEvent')){
                         $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
@@ -1009,8 +1019,19 @@ class Site{
                 } else {
                     $dir = BASE_DIR.PLUGIN_DIR;
                 }
+
+                $systemFileExists = false;
                 if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
                     require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
+                    $systemFileExists = true;
+                }
+
+                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
+                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
+                    $systemFileExists = true;
+                }
+
+                if ($systemFileExists) {
                     eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
                     if(method_exists($moduleSystem, 'init')){
                         $moduleSystem->init();
@@ -1141,8 +1162,26 @@ class Site{
                 return '';
             }
         }
+    }
 
 
+
+    public function generateManagedString($key, $defaultValue = null, $cssClass = null)
+    {
+        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        return $inlineManagementService->generateManagedString($key, $defaultValue, $cssClass);
+    }
+
+    public function generateManagedText($key, $defaultValue = null, $cssClass = null)
+    {
+        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        return $inlineManagementService->generateManagedText($key, $defaultValue, $cssClass);
+    }
+
+    public function generateManagedImage($key, $defaultValue = null, $type = 'img', $cssClass = null)
+    {
+        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        return $inlineManagementService->generateManagedImage($key, $defaultValue, $type, $cssClass);
     }
 
     /**

@@ -18,7 +18,11 @@
 
     <div class="container_12 wrapper">
         <header class="grid_12">
-            <a class="sitename" href="<?php echo $site->generateUrl(); ?>"><?php echo htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name')); ?></a>
+            <a class="sitename" href="<?php echo $site->generateUrl(); ?>"><?php echo $site->generateManagedString('title', 'default
+            Value'); ?></a>
+            <?php //echo $site->generateManagedText('title', 'defaultValue'); ?>
+            <?php //echo $site->generateManagedImage('header', 'defaultValue.png', 'img/bg'); ?>
+            <!--<a class="sitename" href="<?php echo $site->generateUrl(); ?>"><?php echo htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name')); ?></a>-->
             <div class="languages">
                 <?php echo $site->generateBlock('ipLanguages'); ?>
             </div>

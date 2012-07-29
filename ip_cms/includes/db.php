@@ -33,7 +33,16 @@ class Db{
         }
     }
 
-
+    /**
+     * Get active MySQL connection
+     */
+    public static function getConnection() {
+        if (!self::$connection) {
+            self::connect();
+        }
+        return self::$connection;
+    } 
+    
 
     /**
      * Disconnect from database.

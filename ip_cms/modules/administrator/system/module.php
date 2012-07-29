@@ -57,8 +57,19 @@ class Module{
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
+
+                $systemFileExists = false;
                 if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
                     require_once(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
+                    $systemFileExists = true;
+                }
+
+                if(file_exists(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
+                    require_once(BASE_DIR.MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
+                    $systemFileExists = true;
+                }
+
+                if ($systemFileExists) {
                     eval('$module_system = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
                     if(method_exists($module_system, 'clearCache')){
                         $module_system->clearCache($cachedUrl);
