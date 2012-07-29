@@ -73,7 +73,7 @@ class ElementImage extends Element{ //data element in area
 
     $sizing = '';
 
-    if(file_exists(BASE_DIR.$this->copies[0]['destDir'].$value) && is_file(BASE_DIR.$this->copies[0]['destDir'].$value)
+    if(file_exists(BASE_DIR.$this->copies[0]['destDir'].$value) && is_file(BASE_DIR.$this->copies[0]['destDir'].$value))
     {
         $imageSize = getimagesize(BASE_DIR.$this->copies[0]['destDir'].$value);
 
