@@ -121,7 +121,17 @@ class ElementSelect extends Element{ //data element in area
         require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
 
         $answer = $record[$this->dbField];
-        eval ($this->phpCodeForPreview);
+
+        if ($this->phpCodeForPreview) {
+            eval ($this->phpCodeForPreview);
+        } else {
+            foreach($this->values as $valueSet) {
+                if ($valueSet[0] == $answer) {
+                    $answer = $valueSet[1];
+                    break;
+                }
+            }
+        }
 
         $answer = mb_substr($answer, 0, $this->previewLength);
         $answer = htmlspecialchars($answer);
@@ -138,11 +148,11 @@ class ElementSelect extends Element{ //data element in area
     }
 
     function printSearchField($level, $key, $area){
-        if (isset($_REQUEST['search'][$level][$key]))
-        $value = $_REQUEST['search'][$level][$key];
-        else
-        $value = '';
-        //return '<input name="search['.$level.']['.$key.']" value="'.htmlspecialchars($value).'" />';
+        if (isset($_REQUEST['search'][$level][$key])) {
+            $value = $_REQUEST['search'][$level][$key];
+        } else {
+            $value = '';
+        }
 
         $html = new StdModHtmlOutput();
         $html->inputSelect('search['.$level.']['.$key.']', $this->values, $value);
