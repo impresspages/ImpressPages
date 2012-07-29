@@ -118,7 +118,7 @@
                     $this.find('.ipaOptionsDialog').dialog('open');
                 } else {
                     $('.ipAdminPanel').append('<div class="ipaOptionsDialog" style="display: none;"></div>');
-                    $('.ipaOptionsDialog').dialog({width: 600, height : 450});
+                    $('.ipaOptionsDialog').dialog({width: 600, height : 450, modal: true});
                     $('.ipaOptionsDialog').ipPageOptions();
                     $('.ipaOptionsDialog').ipPageOptions('refreshPageData', ip.pageId, ip.zoneName);
                 }
