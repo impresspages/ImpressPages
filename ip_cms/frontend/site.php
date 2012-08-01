@@ -706,9 +706,17 @@ class Site{
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
                     if($newModule['core']){
-                        require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                        if (file_exists(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
+                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
+                        } else {
+                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                        }
                     } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                        if (file_exists(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
+                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
+                        } else {
+                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
+                        }
                     }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Controller();');
                     $function = 'index';
@@ -1165,6 +1173,11 @@ class Site{
     }
 
 
+    public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
+    {
+        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        return $inlineManagementService->generateManagedLogo($defaultText, $defaultImage, $cssClass);
+    }
 
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)
     {
