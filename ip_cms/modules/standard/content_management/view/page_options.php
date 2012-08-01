@@ -10,4 +10,5 @@
     <?php echo $tab['content'] ?>
 </div>
 <?php } ?>
-<a class="ipAdminButton ipaOptionsConfirm" href="#">Confirm</a><a class="ipAdminButton ipaOptionsCancel" href="#">Cancel</a>
+<a class="ipAdminButton ipaOptionsConfirm ipaConfirm" href="#">Confirm</a>
+<a class="ipAdminButton ipaOptionsCancel ipaCancel" href="#">Cancel</a>

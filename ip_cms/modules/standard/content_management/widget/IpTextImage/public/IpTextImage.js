@@ -34,7 +34,7 @@ function IpWidget_IpTextImage(widgetObject) {
         
         options.enableChangeHeight = true;
         options.enableChangeWidth = false;
-        
+        options.enableUnderscale = true;
 
         this.widgetObject.find('.ipaImage').ipUploadImage(options);
         this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);

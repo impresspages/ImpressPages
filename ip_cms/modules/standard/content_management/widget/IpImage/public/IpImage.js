@@ -39,6 +39,7 @@ function IpWidget_IpImage(widgetObject, contentBody) {
         options.maxWindowWidth = this.contentBody.width();
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
+        options.enableUnderscale = true;
 
         var $imageUploader = this.widgetObject.find('.ipaImage');
         $imageUploader.ipUploadImage(options);
