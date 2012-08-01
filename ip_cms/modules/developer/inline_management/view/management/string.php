@@ -1,1 +1,1 @@
-<div class="ipModuleInlineManagementString <?php echo $cssClass ?>" data-key="<?php echo $this->esc($key); ?>"><?php echo nl2br($this->esc($value)) ?></div>
+<div class="ipModuleInlineManagementString"><?php echo nl2br($this->esc($value)) ?></div>

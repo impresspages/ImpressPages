@@ -17,6 +17,34 @@ class Service
         $this->dao = new Dao();
     }
 
+    public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
+    {
+        global $site;
+        $curText = $this->dao->getCurrentValueLogo('text');
+        if ($curText === false) {
+            $curText = $defaultText;
+        }
+
+        $curImage = $this->dao->getCurrentValueLogo('image');
+        if ($curImage === false) {
+            $curImage = $defaultImage;
+        }
+
+        $data = array (
+            'link' => $site->generateUrl(),
+            'curText' => $curText,
+            'curImage' => $curImage,
+            'cssClass' => $cssClass
+        );
+
+        if ($site->managementState()) {
+            $view = \Ip\View::create('view/management/logo.php', $data);
+        } else {
+            $view = \Ip\View::create('view/display/logo.php', $data);
+        }
+        return $view->render();
+    }
+
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)
     {
         global $site;

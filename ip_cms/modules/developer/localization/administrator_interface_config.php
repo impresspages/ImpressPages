@@ -611,6 +611,15 @@ $parameter["parameterValue/developer/zones/admin_translations/template"] = "Temp
 $parameter["parameterTitle/developer/zones/admin_translations/zones"] = "Zones";
 $parameter["parameterValue/developer/zones/admin_translations/zones"] = "Zones";
 
+$parameter["parameterTitle/standard/configuration/admin_translations/edit"] = "Edit";
+$parameter["parameterValue/standard/configuration/admin_translations/edit"] = "Edit";
+
+$parameter["parameterTitle/standard/configuration/admin_translations/confirm"] = "Confirm";
+$parameter["parameterValue/standard/configuration/admin_translations/confirm"] = "Confirm";
+
+$parameter["parameterTitle/standard/configuration/admin_translations/cancel"] = "Cancel";
+$parameter["parameterValue/standard/configuration/admin_translations/cancle"] = "Cancel";
+
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/use_fake_cron"] = "Use fake cron";

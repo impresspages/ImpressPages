@@ -23,11 +23,11 @@
  * minWindowWidth
  * minWindowHeight
  * enableScale - allow user to scale image
- * enableUnderscale - allow user to minimize image without limits (false by default. Always true if autosizeType is 'fill')
+ * enableUnderscale - allow user to minimize image without limits (false by default. Always true if autosizeType is 'fit')
  * enableFraming - allow user to frame the image
  * enableChangeWidth - allow user to change container width
  * enableChangeHeight - allow user to change container height
- * autosizeType - how to resize image after upload. Available options: crop, fit, resize. Default - resize (tries to resize container to fint in the photo. Fall back to fit if impossible)
+ * autosizeType - how to resize image after upload. Available options: crop, fit, resize. Default - resize (tries to resize container to fit in the photo. Fall back to fit if impossible)
  * 
  * uploadHandler - link to PHP script that will accept uploads
  * 
@@ -268,7 +268,7 @@
                 data.coordinatesChanged = true;
                 $this.data('ipUploadImage', data);
             });
-            
+
             var uploader = new plupload.Uploader( {
                 runtimes : 'gears,html5,flash,silverlight,browserplus',
                 browse_button : 'ipUploadButton_' + data.uniqueId,

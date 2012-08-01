@@ -14,10 +14,16 @@ class Dao
     const PREFIX_STRING = 'str_';
     const PREFIX_TEXT = 'txt_';
     const PREFIX_IMAGE = 'img_';
+    const PREFIX_LOGO = 'logo_';
 
     public function __construct()
     {
         $this->inlineValueService = new \Modules\developer\inline_value\Service(self::MODULE_NAME);
+    }
+
+    public function getCurrentValueLogo($key)
+    {
+        return $this->getCurrentValue(self::PREFIX_LOGO.$key);
     }
 
     public function getCurrentValueString($key)

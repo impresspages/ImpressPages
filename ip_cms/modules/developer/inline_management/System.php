@@ -13,7 +13,18 @@ class System
     {
         global $site;
 
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+
         $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagement.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementLogo.js');
+
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
+
+        $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js');
+
     }
 }
 
