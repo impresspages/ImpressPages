@@ -42,7 +42,12 @@ function __impressPagesAutoloader($name) {
             require_once(BASE_DIR.LIBRARY_DIR.$fileName);
             return true;
         }
-        
+
+        if (substr($fileName, 0, 9) == 'Php/Text/') {
+            $fileName = 'php/text/' . substr($fileName, 9);
+        }
+
+
         if (substr($fileName, 0, 4) == 'Php/') {
             $fileName = 'php/' . substr($fileName, 4);
         }

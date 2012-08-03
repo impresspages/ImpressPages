@@ -31,7 +31,7 @@ class Utf8
         if (is_array($dat)) {
             $answer = array();
             foreach ($dat as $i => $d) {
-                $answer[$i] = $this->utf8Encode($d);
+                $answer[$i] = self::checkEncoding($d);
             }
             return $answer;
         }

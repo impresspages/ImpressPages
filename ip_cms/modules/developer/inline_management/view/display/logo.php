@@ -1,1 +1,1 @@
-<?php echo $this->esc($value) ?>
+<?php echo $this->esc(isset($value)? $value : '') ?>

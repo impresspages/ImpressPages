@@ -62,10 +62,10 @@ abstract class Zone{
 
 
     public function __construct($parameters){
-        $this->name = $parameters['name'];
-        $this->layout = $parameters['template'];
-        $this->associatedModuleGroup = $parameters['associated_group'];
-        $this->associatedModule = $parameters['associated_module'];
+        $this->name = isset($parameters['name']) ? $parameters['name'] : '';
+        $this->layout = isset($parameters['template']) ? $parameters['template'] : '';
+        $this->associatedModuleGroup = isset($parameters['associated_group']) ? $parameters['associated_group'] : '';
+        $this->associatedModule = isset($parameters['associated_module']) ? $parameters['associated_module'] : '';
     }
 
     /**

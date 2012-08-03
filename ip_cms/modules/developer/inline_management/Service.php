@@ -21,11 +21,12 @@ class Service
     {
         global $site;
         $logo = $this->dao->getValueLogo();
+        $curText = '';
+        $curImage = '';
         if ($curText === false) {
             $curText = $defaultText;
         }
 
-        $curImage = $this->dao->getValueLogo();
         if ($curImage === false) {
             $curImage = $defaultImage;
         }
@@ -43,7 +44,7 @@ class Service
             $view = \Ip\View::create('view/display/logo.php', $data);
         }
         return $view->render();
-    }$data
+    }
 
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)
     {
