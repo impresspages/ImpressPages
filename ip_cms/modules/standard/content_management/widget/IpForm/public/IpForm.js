@@ -50,7 +50,7 @@ function IpWidget_IpForm(widgetObject) {
     function prepareData() {
         var data = Object();
         var container = this.widgetObject.find('.ipWidget_ipForm_container');
-        
+
         data.fields = new Array();
         var $fields = container.ipWidget_ipForm_container('getFields');
         $fields.each(function(index) {
@@ -66,9 +66,8 @@ function IpWidget_IpForm(widgetObject) {
             }
 
         });
-        
-        data.success = this.widgetObject.find('.ipWidgetIpFormSuccess').html();
 
+        data.success = this.widgetObject.find('.ipWidgetIpFormSuccess').html();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 
@@ -304,7 +303,7 @@ function IpWidget_IpForm(widgetObject) {
         
         getRequired : function () {
             $this = $(this);
-            return $this.find('.ipaFieldRequired').attr('checked');
+            return $this.find('.ipaFieldRequired').is(':checked');
         }
         
 
