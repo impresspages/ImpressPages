@@ -6,10 +6,10 @@
  */
 
 
-namespace Modules\developer\inline_management;
+namespace Modules\developer\inline_management\Value;
 
 
-class Value
+abstract class General
 {
     const TYPE_GLOBAL = 'global';
     const TYPE_LANGUAGE = 'language';

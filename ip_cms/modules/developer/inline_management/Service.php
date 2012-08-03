@@ -20,12 +20,12 @@ class Service
     public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
     {
         global $site;
-        $curText = $this->dao->getCurrentValueLogo('text');
+        $logo = $this->dao->getValueLogo();
         if ($curText === false) {
             $curText = $defaultText;
         }
 
-        $curImage = $this->dao->getCurrentValueLogo('image');
+        $curImage = $this->dao->getValueLogo();
         if ($curImage === false) {
             $curImage = $defaultImage;
         }
@@ -43,12 +43,12 @@ class Service
             $view = \Ip\View::create('view/display/logo.php', $data);
         }
         return $view->render();
-    }
+    }$data
 
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getCurrentValueString($key);
+        $curValue = $this->dao->getValueString($key);
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -70,7 +70,7 @@ class Service
     public function generateManagedText($key, $defaultValue = null, $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getCurrentValueString($key);
+        $curValue = $this->dao->getValueString($key);
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -92,7 +92,7 @@ class Service
     public function generateManagedImage($key, $defaultValue = null, $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getCurrentValueString($key);
+        $curValue = $this->dao->getValueString($key);
         if ($curValue === false) {
             $curValue = $defaultValue;
         }

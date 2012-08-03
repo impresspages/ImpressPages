@@ -65,13 +65,17 @@ function sleep(milliSeconds){
 
             var $imageUploader = $this.find('.ipaImage');
             $imageUploader.ipUploadImage(options);
-            //$this.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+            $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
 
             $('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
-        
+
+        _addError : function(event, errorMessage) {
+            $(this).trigger('error.ipContentManagement', errorMessage);
+        },
+
         _confirm : function (event) {
             var $this = $(this);
             $this.trigger('ipInlineManagement.logoConfirm');

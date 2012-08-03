@@ -12,7 +12,8 @@ if (!defined('CMS')) exit;
 class Controller extends \Ip\Controller{
 
 
-    public function allowAction($action) {
+    public function allowAction($action)
+    {
         if (\Ip\Backend::loggedIn()) {
             return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
         } else {
@@ -20,7 +21,8 @@ class Controller extends \Ip\Controller{
         }
     }
 
-    public function getManagementPopup() {
+    public function getManagementPopup()
+    {
         $html = \Ip\View::create('view/popup/logo.php', array())->render();
 
         $data = array(
@@ -28,6 +30,34 @@ class Controller extends \Ip\Controller{
             "html" => $html
         );
         $this->returnJson($data);
+    }
+
+    public function saveLogo()
+    {
+
+
+
+        $dao = new Dao();
+        $value = new Value($type, $value);
+        $dao->setValueLogo($value)
+        //switch()
+    }
+
+    public function saveImage()
+    {
+
+    }
+
+
+    public function saveString()
+    {
+
+    }
+
+
+    public function saveText()
+    {
+
     }
 
 

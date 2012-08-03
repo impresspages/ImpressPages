@@ -21,28 +21,27 @@ class Dao
         $this->inlineValueService = new \Modules\developer\inline_value\Service(self::MODULE_NAME);
     }
 
-    public function getCurrentValueLogo($key)
+    // GET
+
+    public function getValueLogo()
     {
-        return $this->getCurrentValue(self::PREFIX_LOGO.$key);
+        return $this->getValue(self::PREFIX_LOGO);
     }
 
-    public function getCurrentValueString($key)
+    public function getValueString($key)
     {
-        return $this->getCurrentValue(self::PREFIX_STRING.$key);
+        return $this->getValue(self::PREFIX_STRING.$key);
     }
 
 
-    public function getCurrentValueText($key)
+    public function getValueText($key)
     {
-        return $this->getCurrentValue(self::PREFIX_TEXT.$key);
+        return $this->getValue(self::PREFIX_TEXT.$key);
     }
 
-    public function getCurrentValueGlobal($key)
-    {
-        return $this->getCurrentValue(self::PREFIX_GLOBAL.$key);
-    }
 
-    private function getCurrentValue($prefixedKey)
+
+    private function getValue($prefixedKey)
     {
         global $site;
 
@@ -77,5 +76,49 @@ class Dao
 
         return false;
     }
+
+    // SET
+
+    public function setValueLogo($key, Value $value)
+    {
+        return $this->getValue(self::PREFIX_LOGO.$key, $value);
+    }
+
+    public function setValueString($key, Value $value)
+    {
+        return $this->getValue(self::PREFIX_STRING.$key, $value);
+    }
+
+
+    public function setValueText($key, Value $value)
+    {
+        return $this->getValue(self::PREFIX_TEXT.$key, $value);
+    }
+
+
+    /**
+     * @param $prefixedKey
+     * @param Value $value
+     */
+    private function setValueGlobal($prefixedKey, Value $value)
+    {
+        switch($value->getType) {
+            case Value::TYPE_GLOBAL:
+                $this->inlineValueService->setGlobalValue($prefixedKey, $value);
+                break;
+            case Value::TYPE_LANGUAGE:
+                $this->inlineValueService->setLanguageValue($prefixedKey, $languageId, $value);
+                break;
+            case Value::TYPE_PARENT_PAGE:
+                $this->inlineValueService->setPageValue($prefixedKey, $zoneName, $pageId, $value);
+                break;
+            case Value::TYPE_PAGE:
+                $this->inlineValueService->setPageValue($prefixedKey, $zoneName, $pageId, $value);
+                break;
+        }
+    }
+
+
+
 
 }

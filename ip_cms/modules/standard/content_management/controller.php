@@ -602,34 +602,8 @@ class Controller extends \Ip\Controller{
         if (isset($data['managementHtml'])) {
            // $data['managementHtml'] = utf8_encode($data['managementHtml']);
         }
-        $answer = json_encode($this->utf8Encode($data));
+        $answer = json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
         $site->setOutput($answer);
     }
-
-    
-    /**
-     * 
-     *  Returns $dat encoded to UTF8
-     * @param mixed $dat array or string
-     */
-    private function utf8Encode($dat)
-    {
-        if (is_string($dat)) {
-            if (mb_check_encoding($dat, 'UTF-8')) {
-                return $dat;
-            } else {
-                return utf8_encode($dat);
-            }
-        }
-        if (is_array($dat)) {
-            $answer = array();
-            foreach($dat as $i=>$d) {
-                $answer[$i] = $this->utf8Encode($d);
-            }
-            return $answer;
-        }
-        return $dat;
-    }    
-     
 
 }
