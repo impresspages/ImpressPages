@@ -241,6 +241,14 @@ abstract class Field{
     public function getName() {
         return $this->name;
     }
+
+    /**
+     * If your input has many input fields. Eg. field[id], field[code], ... Return the name of input that should hold error message
+     * @return string
+     */
+    public function getValidationInputName(){
+        return $this->name;
+    }
     
     public function setName($name) {
         $this->name = $name;

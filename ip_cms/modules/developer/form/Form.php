@@ -42,7 +42,7 @@ class Form{
         foreach($fields as $field) {
             $error = $field->validate($data, $field->getName());
             if ($error !== false) {
-                $errors[$field->getName()] = $error;
+                $errors[$field->getValidationInputName()] = $error;
             }
         }
         return $errors;
