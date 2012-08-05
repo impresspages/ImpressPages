@@ -23,13 +23,17 @@ class Logo
     private $y2;
     private $requiredWidth;
 
+    private $text;
+    private $font;
+    private $color;
+
     /**
      * @param array|string $data
      */
     public function __construct($data)
     {
         global $parametersMod;
-        if(!is_string($data)) {
+        if(is_string($data)) {
             $data = $this->parseStr($data);
         }
 
@@ -67,10 +71,13 @@ class Logo
         }
 
         if (!empty($data['text'])) {
-            $this->text = $data['text'];
+            $this->setText($data['text']);
         } else {
-            $this->text = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+            $this->setText($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'));
         }
+
+        $this->setColor($data['color']);
+        $this->setFont($data['font']);
 
     }
 
@@ -85,10 +92,13 @@ class Logo
         $data['x2'] = $this->x2;
         $data['y2'] = $this->y2;
         $data['text'] = $this->text;
+        $data['color'] = $this->color;
+        $data['font'] = $this->font;
         $data['requiredWidth'] = $this->requiredWidth;
         return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
     }
 
+    //GETTERS
 
     public function getType()
     {
@@ -135,9 +145,79 @@ class Logo
         return $this->text;
     }
 
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    //SETTERS
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function setImageOrig($imageOrig)
+    {
+        $this->imageOrig = $imageOrig;
+    }
+
+    public function setX1($x1)
+    {
+        $this->x1 = $x1;
+    }
+
+    public function setY1($y1)
+    {
+        $this->y1 = $y1;
+    }
+
+    public function setX2($x2)
+    {
+        $this->x2 = $x2;
+    }
+
+    public function setY2($y2)
+    {
+        $this->y2 = $y2;
+    }
+
+    public function setRequiredWidth($requiredWidth)
+    {
+        $this->requiredWidth = $requiredWidth;
+    }
+
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
+    public function setFont($font)
+    {
+        $this->font = $font;
+    }
+
+    public function setColor($color)
+    {
+        $this->color = $color;
+    }
+
+    //---
+
+
     private function parseStr($str)
     {
-        return json_decode($str);
+        return json_decode($str, true);
     }
 
 }

@@ -63,15 +63,14 @@ class Controller extends \Ip\Controller{
             $this->jsonError("Missing post data");
         }
 
+        $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
+        $logo = new Entity\Logo($logoStr);
 
-        $dao = new Dao();
-        $logo = $dao->getValueLogo();
+        $logo->setText($_POST['text']);
+        $logo->setColor($_POST['color']);
+        $logo->setFont($_POST['font']);
 
-        $logo.setText($_POST['text']);
-        $logo.setColor($_POST['color']);
-        $logo.setFont($_POST['font']);
-
-        $dao->setValueLogo($logo);
+        $this->inlineValueService->setGlobalValue(self::PREFIX_LOGO, $logo->getValueStr());
 
         $data = array(
             "status" => "success"

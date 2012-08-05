@@ -173,7 +173,7 @@ function sleep(milliSeconds){
             data.a = 'saveLogo';
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
-            data.font = $this.data('fontSelect').css('background-color');
+            data.font = $this.data('fontSelect').css('font-family');
 
             $.ajax({
                 type : 'POST',

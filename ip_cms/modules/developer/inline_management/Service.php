@@ -33,10 +33,13 @@ class Service
         }
 
         $data = array (
+            'type' => $logo->getType(),
             'link' => $site->generateUrl(),
-            'curText' => $curText,
-            'curImage' => $curImage,
-            'cssClass' => $cssClass
+            'text' => $logo->getText() ? $logo->getText() : $defaultText,
+            'image' => $logo->getImage() ? $logo->getImage() : $defaultImage,
+            'font' => $logo->getFont(),
+            'color' => $logo->getColor(),
+            'cssClass' => $cssClass,
         );
 
         if ($site->managementState()) {
