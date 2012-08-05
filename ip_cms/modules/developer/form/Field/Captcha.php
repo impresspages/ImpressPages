@@ -56,9 +56,10 @@ class Captcha extends Field{
         
         $captcha->make_captcha();
         
-        $_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key'] = $captcha->public_key;
+        $_SESSION['developer']['form']['field']['captcha'][$this->getId()]['public_key'] = $captcha->public_key;
         return '
-        <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" />
+        <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
+        <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
         <img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
         ';
     }
@@ -75,18 +76,29 @@ class Captcha extends Field{
     }    
     
     public function validate($values, $valueKey) {
-        $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
 
-        if (!isset($_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key'])) {
+        if (!isset($values[$this->getName()]['id']) || !isset($values[$this->getName()]['code'])) {
             return ''; //that means error. We just don't have the text
         }
-        
-        $code = strtolower($captcha->generate_private($_SESSION['developer']['form']['field']['captcha'][$this->getName()]['public_key']));
-        if(strtolower($values[$this->name])!== $code){
+        $code = $values[$this->getName()]['code'];
+        $id = $values[$this->getName()]['id'];
+
+        $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
+
+        if (!isset($_SESSION['developer']['form']['field']['captcha'][$id]['public_key'])) {
+            return ''; //that means error. We just don't have the text
+        }
+
+        $realCode = strtolower($captcha->generate_private($_SESSION['developer']['form']['field']['captcha'][$id]['public_key']));
+        if(strtolower($code)!== $realCode){
             return ''; //that means error. We just don't have the text
         }
         
         return parent::validate($values, $valueKey);
     }    
-    
+
+    public function getValidationInputName() {
+        return $this->name.'[code]';
+    }
+
 }
