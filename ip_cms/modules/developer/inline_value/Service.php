@@ -22,6 +22,11 @@ class Service
     }
 
     // GET
+    public function getValue($key, $languageId, $zoneName, $pageId)
+    {
+        return $this->dao->getValue($key, $languageId, $zoneName, $pageId);
+    }
+
     public function getPageValue($key, $zoneName, $pageId)
     {
         return $this->dao->getPageValue($key, $zoneName, $pageId);
@@ -35,6 +40,15 @@ class Service
     public function getGlobalValue($key)
     {
         return $this->dao->getGlobalValue($key);
+    }
+
+    /**
+     * Last get operation scope
+     * @return int
+     */
+    public function getLastOperationScope()
+    {
+        return $this->dao->lastValueScope();
     }
 
     // SET

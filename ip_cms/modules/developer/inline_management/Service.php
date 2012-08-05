@@ -20,7 +20,8 @@ class Service
     public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
     {
         global $site;
-        $logo = $this->dao->getValueLogo();
+        $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
+        $logo = new Entity\Logo($logoStr);
         $curText = $logo->getText();
         $curImage = '';
         if ($curText === false) {

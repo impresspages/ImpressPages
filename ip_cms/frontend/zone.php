@@ -196,18 +196,22 @@ abstract class Zone{
      *
      */
 
-    public function getBreadcrumb(){
+    public function getBreadcrumb($pageId = null){
         global $site;
-        if ($site->currentZone == $this->name) {
-            if ($this->breadcrumb) {
-                return $this->breadcrumb;
-            } else {
-                if($this->getCurrentElement()){
-                    $this->breadcrumb = $this->getRoadToElement($this->getCurrentElement()->getId());
+        if ($site->getCurrentZone()->getName() == $this->name) {
+            if ($pageId == null) {
+                if ($this->breadcrumb) {
                     return $this->breadcrumb;
                 } else {
-                    return array();
+                    if($this->getCurrentElement()){
+                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentElement()->getId());
+                        return $this->breadcrumb;
+                    } else {
+                        return array();
+                    }
                 }
+            } else {
+                return $this->getRoadToElement($pageId);
             }
         }
         return array();

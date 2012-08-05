@@ -21,106 +21,60 @@ class Dao
         $this->inlineValueService = new \Modules\developer\inline_value\Service(self::MODULE_NAME);
     }
 
+
     // GET
-
-    public function getValueLogo()
+    public function getValue($prefix, $key, $languageId, $zoneName, $pageId)
     {
-        $logoValue = $this->getValue(self::PREFIX_LOGO);
-        $logo = new Entity\Logo($logoValue);
-        return $logo;
+        return $this->inlineValueService->getValue($prefix.$key, $languageId, $zoneName, $pageId);
     }
 
-    public function getValueString($key)
+    public function getPageValue($prefix, $key, $zoneName, $pageId)
     {
-        return $this->getValue(self::PREFIX_STRING.$key);
+        return $this->inlineValueService->getPageValue($prefix.$key, $zoneName, $pageId);
     }
 
-
-    public function getValueText($key)
+    public function getLanguageValue($prefix, $key, $languageId)
     {
-        return $this->getValue(self::PREFIX_TEXT.$key);
+        return $this->inlineValueService->getLanguageValue($prefix.$key, $languageId);
     }
 
-
-
-    private function getValue($prefixedKey)
+    public function getGlobalValue($prefix, $key)
     {
-        global $site;
-
-        //Find value in breadcrumb
-        $zoneName = $site->getCurrentZone()->getName();
-        $breadcrumb = $site->getBreadcrumb();
-        array_reverse($breadcrumb);
-
-        foreach ($breadcrumb as $key => $element) {
-            $value = $this->inlineValueService->getPageValue($prefixedKey, $zoneName, $element->getId());
-            if ($value !== false) {
-                if ($key == 0) {
-                    $type = Value::TYPE_PAGE;
-                } else {
-                    $type = Value::TYPE_PARENT_PAGE;
-                }
-                return new Value($type, $value);
-            }
-        }
-
-        //Find language value
-        $value = $this->inlineValueService->getLanguageValue($prefixedKey, $site->getCurrentLanguage()->getId());
-        if ($value !== false) {
-            return new Value(Value::TYPE_LANGUAGE, $value);
-        }
-
-        //Find global value
-        $value = $this->inlineValueService->getGlobalValue($prefixedKey);
-        if ($value !== false) {
-            return new Value(Value::TYPE_GLOBAL, $value);
-        }
-
-        return false;
+        return $this->inlineValueService->getGlobalValue($prefix.$key);
     }
 
     // SET
-
-    public function setValueLogo($key, Value $value)
+    public function setPageValue($prefix, $key, $zoneName, $pageId, $value)
     {
-        return $this->getValue(self::PREFIX_LOGO.$key, $value);
-    }
-
-    public function setValueString($key, Value $value)
-    {
-        return $this->getValue(self::PREFIX_STRING.$key, $value);
+        return $this->inlineValueService->setPageValue($prefix.$key, $zoneName, $pageId, $value);
     }
 
 
-    public function setValueText($key, Value $value)
+    public function setLanguageValue($prefix, $key, $languageId, $value)
     {
-        return $this->getValue(self::PREFIX_TEXT.$key, $value);
+        return $this->inlineValueService->setLanguageValue($prefix.$key, $languageId, $value);
     }
 
-
-    /**
-     * @param $prefixedKey
-     * @param Value $value
-     */
-    private function setValueGlobal($prefixedKey, Value $value)
+    public function setGlobalValue($prefix, $key, $value)
     {
-        switch($value->getType) {
-            case Value::TYPE_GLOBAL:
-                $this->inlineValueService->setGlobalValue($prefixedKey, $value);
-                break;
-            case Value::TYPE_LANGUAGE:
-                $this->inlineValueService->setLanguageValue($prefixedKey, $languageId, $value);
-                break;
-            case Value::TYPE_PARENT_PAGE:
-                $this->inlineValueService->setPageValue($prefixedKey, $zoneName, $pageId, $value);
-                break;
-            case Value::TYPE_PAGE:
-                $this->inlineValueService->setPageValue($prefixedKey, $zoneName, $pageId, $value);
-                break;
-        }
+        return $this->inlineValueService->setGlobalValue($prefix.$key, $value);
     }
 
+    // DELETE
+    public function deletePageValue($prefix, $key, $zoneName, $pageId)
+    {
+        $this->inlineValueService->deletePageValue($prefix.$key, $zoneName, $pageId);
+    }
 
+    public function deleteLanguageValue($prefix, $key, $languageId)
+    {
+        $this->inlineValueService->deleteLanguageValue($prefix.$key, $languageId);
+    }
+
+    public function deleteGlobalValue($prefix, $key)
+    {
+        $this->inlineValueService->deleteGlobalValue($prefix.$key);
+    }
 
 
 }

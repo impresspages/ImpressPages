@@ -11,6 +11,13 @@ namespace Modules\developer\inline_value;
 class Dao
 {
     private $module;
+    private $lastValueScope;
+
+    const SCOPE_PAGE = 1;
+    const SCOPE_PARENT_PAGE = 2;
+    const SCOPE_LANGUAGE = 3;
+    const SCOPE_GLOBAL = 4;
+
     /**
      * @param string $module
      */
@@ -20,8 +27,57 @@ class Dao
     }
 
     // GET
+    public function getValue($key, $languageId, $zoneName, $pageId)
+    {
+        global $site;
+
+        //Find value in breadcrumb
+        $breadcrumb = $site->getBreadcrumb($zoneName, $pageId);
+        array_reverse($breadcrumb);
+
+        foreach ($breadcrumb as $key => $element) {
+            $value = $this->getPageValue($key, $zoneName, $element->getId());
+            if ($value !== false) {
+                if ($key == 0) {
+                    $this->lastValueScope = self::SCOPE_PAGE;
+                } else {
+                    $this->lastValueScope = self::SCOPE_PARENT_PAGE;
+                }
+                return $value;
+            }
+        }
+
+        //Find language value
+        $value = $this->getLanguageValue($key, $languageId);
+        if ($value !== false) {
+            $this->lastValueScope = self::SCOPE_LANGUAGE;
+            return $value;
+        }
+
+        //Find global value
+        $value = $this->getGlobalValue($key);
+        if ($value !== false) {
+            $this->lastValueScope = self::SCOPE_GLOBAL;
+            return $value;
+        }
+
+        return false;
+    }
+
+    /**
+     * Last get operation scope
+     * @return int
+     */
+    public function getLastOperationScope()
+    {
+        return $this->lastValueScope;
+    }
+
+
     public function getPageValue($key, $zoneName, $pageId)
     {
+        $this->lastValueScope = self::SCOPE_PAGE;
+
         $dbh = \Ip\Db::getConnection();
         $sql = '
             SELECT
@@ -55,6 +111,8 @@ class Dao
 
     public function getLanguageValue($key, $languageId)
     {
+        $this->lastValueScope = self::SCOPE_LANGUAGE;
+
         $dbh = \Ip\Db::getConnection();
         $sql = '
             SELECT
@@ -86,6 +144,8 @@ class Dao
 
     public function getGlobalValue($key)
     {
+        $this->lastValueScope = self::SCOPE_GLOBAL;
+
         $dbh = \Ip\Db::getConnection();
         $sql = '
             SELECT

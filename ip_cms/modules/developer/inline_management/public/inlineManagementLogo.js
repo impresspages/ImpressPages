@@ -43,7 +43,7 @@ function sleep(milliSeconds){
                 dataType : 'json'
             });
         },
-        
+
         _refreshResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
@@ -167,6 +167,22 @@ function sleep(milliSeconds){
         _confirm : function (event) {
             var $this = $(this);
             $this.trigger('ipInlineManagement.logoConfirm');
+            var data = Object();
+            data.g = 'developer';
+            data.m = 'inline_management';
+            data.a = 'saveLogo';
+            data.text = $this.data('logoText').val();
+            data.color = $this.data('colorPicker').css('background-color');
+            data.font = $this.data('fontSelect').css('background-color');
+
+            $.ajax({
+                type : 'POST',
+                url : document.location,
+                data : data,
+                context : $this,
+                success : methods._refreshResponse,
+                dataType : 'json'
+            });
         },
         
         _cancel : function (event) {
