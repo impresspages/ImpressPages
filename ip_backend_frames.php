@@ -62,7 +62,8 @@ if(\Db::connect()){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link rel="SHORTCUT ICON" href="favicon.ico" />
+    <link rel="SHORTCUT ICON" href="favicon.ico" />
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
 </head>
 <frameset rows="64px,*" framespacing="0" border="0">
     <frame name="header" noresize="noresize" frameborder=0

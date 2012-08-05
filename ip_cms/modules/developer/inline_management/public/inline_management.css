@@ -1,0 +1,89 @@
+
+.ipModuleInlineManagementPopup .ipmType{
+    font-size: 14px;
+}
+
+
+.ipModuleInlineManagementPopup .ipmTextManagement input{
+    font-size: 32px;
+}
+
+
+
+
+/** Font selector **/
+
+
+
+.ipModuleInlineManagementPopup .ipmFontSelect * { margin: 0; padding: 0; }
+
+.ipModuleInlineManagementPopup .ipmFontSelect {
+    position: relative;
+    padding: 3px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+    margin: 3px;
+
+    width: 200px;
+
+    background-image: -webkit-linear-gradient(top, #f9f9f9, #f0f0f0);
+    background-image: -moz-linear-gradient(top, #f9f9f9, #f0f0f0);
+    background-image: -o-linear-gradient(top, #f9f9f9, #f0f0f0);
+    background-image: -ms-linear-gradient(top, #f9f9f9, #f0f0f0);
+    background-image: linear-gradient(top, #f9f9f9, #f0f0f0);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='$from', EndColorStr='$to');
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #cecece;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect span {
+    overflow: hidden;
+    margin-left: 5px;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect .arrow-down {
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+
+    border-top: 6px solid #AAA;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect ul {
+    list-style: none;
+    width: 200px;
+    background: #f9f9f9;
+    position: absolute;
+    left: 0;
+    top: 35px;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect li {
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0 10px;
+
+    font-size: 14px;
+
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect ul li:last-child {
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.ipModuleInlineManagementPopup .ipmFontSelect li:hover {
+    background: #DDD;
+}

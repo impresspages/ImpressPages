@@ -21,7 +21,7 @@ class Service
     {
         global $site;
         $logo = $this->dao->getValueLogo();
-        $curText = '';
+        $curText = $logo->getText();
         $curImage = '';
         if ($curText === false) {
             $curText = $defaultText;

@@ -168,7 +168,7 @@ class Controller extends \Ip\Controller{
                 throw new Exception("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
             }
         } catch (Exception $e) {
-            $this->_errorAnswer($e);
+            $this->_errorAnswer($e->getMessage());
         }
 
     }

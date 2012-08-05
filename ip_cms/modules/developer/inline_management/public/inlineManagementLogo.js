@@ -50,26 +50,98 @@ function sleep(milliSeconds){
                 $this.html(response.html);
             }
 
+            $this.data('typeSelect', $this.find('.ipmType'));
+            $this.data('textManagement', $this.find('.ipmTextManagement'));
+            $this.data('imageManagement', $this.find('.ipmImageManagement'));
+            $this.data('fontSelect', $this.find('.ipmFontSelect'));
+            $this.data('colorPicker', $this.find('.ipmColorPicker'));
+            $this.data('logoText', $this.find('.ipmLogoText'));
+
+
             //init image editing
             var options = new Object;
 
-            options.image = 'ip_themes/lt_pagan/img/icon_down.gif';
-            options.cropX1 = 0;
-            options.cropY1 = 0;
-            options.cropX2 = 5;
-            options.cropY2 = 5;
-            options.windowWidth = 200;
+            var logoData = response.logoData;
+
+            $this.data('curData', logoData);
+
+            options.image = logoData.imageOrig;
+            options.cropX1 = logoData.x1;
+            options.cropY1 = logoData.y1;
+            options.cropX2 = logoData.x2;
+            options.cropY2 = logoData.y2;
+            options.windowWidth = logoData.requiredWidth;
+            if (logoData.x2 && logoData.y2) {
+                var width = logoData.x2 - logoData.x1;
+                var height = logoData.y2 - logoData.y1;
+                var ratio = width / logoData.requiredWidth;
+                options.windowHeight = height * ratio;
+            } else {
+                options.windowHeight = 100;
+            }
             options.enableChangeHeight = true;
             options.enableChangeWidth = true;
             options.enableUnderscale = true;
+            options.minWindowWidth = 10;
+            options.minWindowHeight = 10;
 
             var $imageUploader = $this.find('.ipaImage');
             $imageUploader.ipUploadImage(options);
             $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
+            //init text management
+            $this.data('logoText').val(logoData.text);
 
-            $('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
-            $('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+            $this.data('fontSelect').ipInlineManagementFontSelector({
+                'hide_fallbacks' : true,
+                'initial' : 'Courier New,Courier New,Courier,monospace',
+                'selected' : function(style) {console.log(style);}
+            });
+
+            $this.data('colorPicker').ColorPicker({
+                color: '#0000ff',
+                onShow: function (colpkr) {
+                    console.log('show');
+                    $(colpkr).css('zIndex', 2000);
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(100);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $this.data('colorPicker').css('backgroundColor', '#' + hex);
+                }
+            });
+
+
+            //type selection
+
+            if (logoData.type == 'text') {
+                $this.data('typeSelect').val('text');
+            } else {
+                $this.data('typeSelect').val('image');
+            }
+
+            jQuery.proxy(methods._updateType, $this)();
+
+            $this.data('typeSelect').bind('change', jQuery.proxy(methods._updateType, $this));
+
+
+            $this.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
+            $this.find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+        },
+
+        _updateType : function() {
+            $this = this;
+            if ($this.data('typeSelect').val() == 'text') {
+                $this.data('textManagement').show();
+                $this.data('imageManagement').hide();
+            } else {
+                $this.data('textManagement').hide();
+                $this.data('imageManagement').show();
+            }
         },
 
         _addError : function(event, errorMessage) {
@@ -88,25 +160,7 @@ function sleep(milliSeconds){
         }
         
         
-//        getPageOptions : function () {
-//
-//            var data = Object();
-//
-//            data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
-//            data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
-//            data.createdOn = $('#formGeneral input[name="createdOn"]').val();
-//            data.lastModified = $('#formGeneral input[name="lastModified"]').val();
-//
-//            data.pageTitle = $('#formSEO input[name="pageTitle"]').val();
-//            data.keywords = $('#formSEO textarea[name="keywords"]').val();
-//            data.description = $('#formSEO textarea[name="description"]').val();
-//            data.url = $('#formSEO input[name="url"]').val();
-//            data.type = $('#formAdvanced input:checked[name="type"]').val();
-//            data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
-//            data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
-//
-//            return data;
-//        }
+
         
     };
     

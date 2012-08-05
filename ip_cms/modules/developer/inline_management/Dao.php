@@ -25,7 +25,9 @@ class Dao
 
     public function getValueLogo()
     {
-        return $this->getValue(self::PREFIX_LOGO);
+        $logoValue = $this->getValue(self::PREFIX_LOGO);
+        $logo = new Entity\Logo($logoValue);
+        return $logo;
     }
 
     public function getValueString($key)

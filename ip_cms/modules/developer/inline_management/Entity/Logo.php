@@ -9,7 +9,7 @@
 namespace Modules\developer\inline_management\Entity;
 
 
-abstract class Logo
+class Logo
 {
     const TYPE_TEXT = 'text';
     const TYPE_LOGO = 'logo';
@@ -28,6 +28,7 @@ abstract class Logo
      */
     public function __construct($data)
     {
+        global $parametersMod;
         if(!is_string($data)) {
             $data = $this->parseStr($data);
         }
@@ -48,7 +49,7 @@ abstract class Logo
                 break;
         }
 
-        if (!empty($image) && file_exists($image) && !empty($imageOrig) && file_exists($imageOrig) ) {
+        if (!empty($data['image']) && file_exists($data['image']) && !empty($data['imageOrig']) && file_exists($data['imageOrig']) ) {
             $this->image = $data['image'];
             $this->imageOrig = $data['imageOrig'];
 
@@ -65,6 +66,12 @@ abstract class Logo
             }
         }
 
+        if (!empty($data['text'])) {
+            $this->text = $data['text'];
+        } else {
+            $this->text = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        }
+
     }
 
     public function getValueStr()
@@ -77,6 +84,7 @@ abstract class Logo
         $data['y1'] = $this->y1;
         $data['x2'] = $this->x2;
         $data['y2'] = $this->y2;
+        $data['text'] = $this->text;
         $data['requiredWidth'] = $this->requiredWidth;
         return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
     }
@@ -120,6 +128,16 @@ abstract class Logo
     public function getRequiredWidth()
     {
         return $this->requiredWidth;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    private function parseStr($str)
+    {
+        return json_decode($str);
     }
 
 }
