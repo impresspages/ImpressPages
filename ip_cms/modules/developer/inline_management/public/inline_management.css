@@ -61,6 +61,8 @@
     position: absolute;
     left: 0;
     top: 35px;
+    height: 250px;
+    overflow: auto;
 }
 
 .ipModuleInlineManagementPopup .ipmFontSelect li {

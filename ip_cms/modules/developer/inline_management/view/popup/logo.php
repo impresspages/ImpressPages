@@ -30,8 +30,8 @@
         </div>
         <br/><br/>
         <div class="ipmColorPicker colorPickerSelector"></div>
+        <br/><br/>
     </div>
-    <br/><br/>
     <div class="ipmImageManagement">
         <div class="ipaImage"></div>
     </div>

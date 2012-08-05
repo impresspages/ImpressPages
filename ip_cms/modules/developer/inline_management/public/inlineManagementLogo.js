@@ -56,6 +56,11 @@ function sleep(milliSeconds){
             $this.data('fontSelect', $this.find('.ipmFontSelect'));
             $this.data('colorPicker', $this.find('.ipmColorPicker'));
             $this.data('logoText', $this.find('.ipmLogoText'));
+            $this.data('previewText', $('.ipmLogo'));
+
+            var curColor = $this.data('previewText').css('color');
+            var curFont = $this.data('previewText').css('font-family');
+            var curText = $this.data('previewText').html();
 
 
             //init image editing
@@ -90,28 +95,31 @@ function sleep(milliSeconds){
             $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
             //init text management
-            $this.data('logoText').val(logoData.text);
+            $this.data('logoText').val(curText);
+            $this.data('logoText').bind('keyup', $.proxy(methods._preview, $this));
 
             $this.data('fontSelect').ipInlineManagementFontSelector({
                 'hide_fallbacks' : true,
                 'initial' : 'Courier New,Courier New,Courier,monospace',
-                'selected' : function(style) {console.log(style);}
+                'selected' : function(style) {$.proxy(methods._preview, $this)();}
             });
 
+            $this.data('colorPicker').css('backgroundColor', curColor);
             $this.data('colorPicker').ColorPicker({
-                color: '#0000ff',
+                color: curColor,
                 onShow: function (colpkr) {
                     console.log('show');
                     $(colpkr).css('zIndex', 2000);
-                    $(colpkr).fadeIn(500);
+                    $(colpkr).fadeIn(300);
                     return false;
                 },
                 onHide: function (colpkr) {
-                    $(colpkr).fadeOut(100);
+                    $(colpkr).fadeOut(300);
                     return false;
                 },
                 onChange: function (hsb, hex, rgb) {
                     $this.data('colorPicker').css('backgroundColor', '#' + hex);
+                    $.proxy(methods._preview, $this)();
                 }
             });
 
@@ -132,6 +140,14 @@ function sleep(milliSeconds){
             $this.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $this.find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
+
+        _preview : function() {
+            $this = this;
+            $('.ipmLogo').text($this.data('logoText').val());
+            $('.ipmLogo').css('color', $this.data('colorPicker').css('background-color'));
+            $('.ipmLogo').css('font-family', $this.data('font-select').find('span').css('font-family'));
+        },
+
 
         _updateType : function() {
             $this = this;
