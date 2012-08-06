@@ -56,11 +56,11 @@ function sleep(milliSeconds){
             $this.data('fontSelect', $this.find('.ipmFontSelect'));
             $this.data('colorPicker', $this.find('.ipmColorPicker'));
             $this.data('logoText', $this.find('.ipmLogoText'));
-            $this.data('previewText', $('.ipmLogo'));
+            $this.data('previewText', $('.sitename'));
 
             var curColor = $this.data('previewText').css('color');
             var curFont = $this.data('previewText').css('font-family');
-            var curText = $this.data('previewText').html();
+            var curText = $.trim($this.data('previewText').html());
 
 
             //init image editing
@@ -143,9 +143,9 @@ function sleep(milliSeconds){
 
         _preview : function() {
             $this = this;
-            $('.ipmLogo').text($this.data('logoText').val());
-            $('.ipmLogo').css('color', $this.data('colorPicker').css('background-color'));
-            $('.ipmLogo').css('font-family', $this.data('font-select').find('span').css('font-family'));
+            $this.data('previewText').text($this.data('logoText').val());
+            $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
+            $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
         },
 
 

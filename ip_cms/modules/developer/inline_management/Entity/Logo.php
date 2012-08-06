@@ -12,7 +12,7 @@ namespace Modules\developer\inline_management\Entity;
 class Logo
 {
     const TYPE_TEXT = 'text';
-    const TYPE_LOGO = 'logo';
+    const TYPE_IMAGE = 'image';
 
     private $type;
     private $image;
@@ -45,8 +45,8 @@ class Logo
             case self::TYPE_TEXT:
                 $this->type = self::TYPE_TEXT;
                 break;
-            case self::TYPE_LOGO:
-                $this->type = self::TYPE_LOGO;
+            case self::TYPE_IMAGE:
+                $this->type = self::TYPE_IMAGE;
                 break;
             default:
                 $this->type = self::TYPE_TEXT;

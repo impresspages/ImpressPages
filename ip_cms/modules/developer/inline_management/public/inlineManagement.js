@@ -20,8 +20,8 @@ $(document).ready(function () {
             return this.each(function () {
                 var $this = $(this);
 
-                $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModInlineManagement.openEditPopup');});
-                $this.bind('ipModInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
+                $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModuleInlineManagement.openEditPopup');});
+                $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
 
             });
         },
@@ -40,8 +40,6 @@ $(document).ready(function () {
                 var $popup = $this.find('.ipModuleInlineManagementPopup');
                 $popup.dialog({width: 600, height : 450, modal: false}); //modal true - makes plupload browse button don't work
                 $popup.ipInlineManagementLogo('refresh');
-
-
 
             });
 

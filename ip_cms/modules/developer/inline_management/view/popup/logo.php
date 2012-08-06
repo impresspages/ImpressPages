@@ -10,22 +10,10 @@
         <div class="ipmFontSelect">
             <span>Arial</span>
             <div class="arrow-down"></div>
-
             <ul>
-                <li>Arial,Arial,Helvetica,sans-serif</li>
-                <li>Arial Black,Arial Black,Gadget,sans-serif</li>
-                <li>Comic Sans MS,Comic Sans MS,cursive</li>
-                <li>Courier New,Courier New,Courier,monospace</li>
-                <li>Georgia,Georgia,serif</li>
-                <li>Impact,Charcoal,sans-serif</li>
-                <li>Lucida Console,Monaco,monospace</li>
-                <li>Lucida Sans Unicode,Lucida Grande,sans-serif</li>
-                <li>Palatino Linotype,Book Antiqua,Palatino,serif</li>
-                <li>Tahoma,Geneva,sans-serif</li>
-                <li>Times New Roman,Times,serif</li>
-                <li>Trebuchet MS,Helvetica,sans-serif</li>
-                <li>Verdana,Geneva,sans-serif</li>
-                <li>Gill Sans,Geneva,sans-serif</li>
+                <?php if (isset($availableFonts) && is_array($availableFonts)) foreach($availableFonts as $font) { ?>
+                    <li><?php echo $this->esc($font) ?></li>
+                <?php } ?>
             </ul>
         </div>
         <br/><br/>

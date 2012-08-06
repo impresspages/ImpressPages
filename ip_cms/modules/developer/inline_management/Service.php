@@ -22,15 +22,6 @@ class Service
         global $site;
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
-        $curText = $logo->getText();
-        $curImage = '';
-        if ($curText === false) {
-            $curText = $defaultText;
-        }
-
-        if ($curImage === false) {
-            $curImage = $defaultImage;
-        }
 
         $data = array (
             'type' => $logo->getType(),
@@ -42,12 +33,19 @@ class Service
             'cssClass' => $cssClass,
         );
 
+        $logoHtml = \Ip\View::create('view/display/logo.php', $data)->render();
+
+
+
         if ($site->managementState()) {
-            $view = \Ip\View::create('view/management/logo.php', $data);
+            $managementData = array(
+                'logoHtml' => $logoHtml
+            );
+            return \Ip\View::create('view/management/logo.php', $managementData)->render();
         } else {
-            $view = \Ip\View::create('view/display/logo.php', $data);
+            return $logoHtml;
         }
-        return $view->render();
+
     }
 
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)

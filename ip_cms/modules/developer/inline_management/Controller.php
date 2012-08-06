@@ -33,7 +33,14 @@ class Controller extends \Ip\Controller{
 
     public function getManagementPopup()
     {
-        $html = \Ip\View::create('view/popup/logo.php', array())->render();
+        $config = new Config();
+        $availableFonts = $config->getAvailableFonts();
+
+        $popupData = array(
+            'availableFonts' => $availableFonts
+        );
+
+        $html = \Ip\View::create('view/popup/logo.php', $popupData)->render();
 
         $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
         $logo = new Entity\Logo($logoStr);
