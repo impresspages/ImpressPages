@@ -33,6 +33,7 @@ class Controller extends \Ip\Controller{
 
     public function getManagementPopup()
     {
+        global $parametersMod;
         $config = new Config();
         $availableFonts = $config->getAvailableFonts();
 

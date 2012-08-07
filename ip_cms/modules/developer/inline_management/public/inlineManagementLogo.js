@@ -59,9 +59,15 @@ function sleep(milliSeconds){
             $this.data('previewText', $('.sitename'));
 
             var curColor = $this.data('previewText').css('color');
-            var curFont = $this.data('previewText').css('font-family');
             var curText = $.trim($this.data('previewText').html());
-
+            var curFont = $this.data('previewText').css('font-family');
+            $this.data('previewText').css('font-family', ''); //remove font
+            var defaultFont = $this.data('previewText').css('font-family'); //get default font
+            $this.data('previewText').css('font-family', curFont); //restore font
+            $this.find('ul li.ipmDefaultFont').css('font-family', defaultFont);
+            if (curFont.indexOf(',') == false) {
+                curFont = curFont + ',sans-serif';
+            }
 
             //init image editing
             var options = new Object;
@@ -98,11 +104,16 @@ function sleep(milliSeconds){
             $this.data('logoText').val(curText);
             $this.data('logoText').bind('keyup', $.proxy(methods._preview, $this));
 
+
+
+
+console.log(curFont);
             $this.data('fontSelect').ipInlineManagementFontSelector({
                 'hide_fallbacks' : true,
-                'initial' : 'Courier New,Courier New,Courier,monospace',
+                'initial' : curFont,
                 'selected' : function(style) {$.proxy(methods._preview, $this)();}
             });
+
 
             $this.data('colorPicker').css('backgroundColor', curColor);
             $this.data('colorPicker').ColorPicker({
@@ -132,7 +143,7 @@ function sleep(milliSeconds){
                 $this.data('typeSelect').val('image');
             }
 
-            jQuery.proxy(methods._updateType, $this)();
+            jQuery.proxy(methods._updateType, $this)(); //initialize current type tab
 
             $this.data('typeSelect').bind('change', jQuery.proxy(methods._updateType, $this));
 
@@ -145,6 +156,7 @@ function sleep(milliSeconds){
             $this = this;
             $this.data('previewText').text($this.data('logoText').val());
             $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
+            console.log($this.data('font-select').ipInlineManagementFontSelector('getFont'));
             $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
         },
 
@@ -173,7 +185,7 @@ function sleep(milliSeconds){
             data.a = 'saveLogo';
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
-            data.font = $this.data('fontSelect').css('font-family');
+            data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
 
             $.ajax({
                 type : 'POST',

@@ -71,6 +71,9 @@ class Script extends \IpUpdate\Library\Migration\General{
                 $this->addStringParameter($groupId, 'Image logo', 'type_image', 'Image logo', 1);
             }
 
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'default')) {
+                $this->addStringParameter($groupId, 'Default', 'default', 'Default', 1);
+            }
 
         $parametersGroup = $this->getParameterGroup($moduleId, 'options');
         if ($parametersGroup) {
@@ -82,7 +85,6 @@ class Script extends \IpUpdate\Library\Migration\General{
                 $fonts = 
 'Arial,Arial,Helvetica,sans-serif
 Arial Black,Arial Black,Gadget,sans-serif
-Comic Sans MS,Comic Sans MS,cursive
 Courier New,Courier New,Courier,monospace
 Georgia,Georgia,serif
 Impact,Charcoal,sans-serif

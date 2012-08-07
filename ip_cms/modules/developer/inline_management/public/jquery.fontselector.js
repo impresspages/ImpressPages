@@ -3,6 +3,8 @@
  *
  * Copyright (c) 2012 Chris Dyer
  *
+ * Modified by Mangirdas Skripka 2012-08-07
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following
@@ -24,6 +26,15 @@
 
 jQuery.fn.ipInlineManagementFontSelector = function (options) {
 
+    if (options == 'getFont') {
+        var root = $(this);
+        if (root.css('font-family') == root.find('li.ipmDefaultFont').css('font-family')) {
+            return '';
+        } else {
+            return root.css('font-family');
+        }
+    }
+
     var settings = $.extend({
         'hide_fallbacks':false,
         'selected':function (style) {
@@ -39,12 +50,23 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
         var visible = false;
 
         if (settings['initial'] != '') {
-            if (settings['hide_fallbacks'])
-                root.find('span').html(settings['initial'].substr(0, settings['initial'].indexOf(',')));
-            else
-                root.find('span').html(settings['initial']);
-
-            root.css('font-family', settings['initial']);
+            var curFontExists = false;
+            var initialBaseFont = $.trim(settings['initial'].substr(0, settings['initial'].indexOf(',')).replace(/\'/g, ''));
+            root.find('li').each(function () {
+                var font = $(this).text();
+                var baseFont = $.trim(font.substr(0, font.indexOf(',')).replace(/\'/g, ''));
+                if (baseFont.toLowerCase() == initialBaseFont.toLowerCase()) {
+                    curFontExists = true;
+                }
+            });
+            if (!curFontExists) {
+                var defaultFontLabel =  root.find('li.ipmDefaultFont').html();
+                root.find('span').html(defaultFontLabel.substr(0, defaultFontLabel.indexOf(',')));
+                root.css('font-family', root.find('li.ipmDefaultFont').css('font-family'));
+            } else {
+                root.find('span').html(initialBaseFont);
+                root.css('font-family', settings['initial']);
+            }
         }
 
         ul.find('li').each(function () {
@@ -68,7 +90,11 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
             root.find('span').html($(this).text());
             root.css('font-family', $(this).css('font-family'));
 
-            settings['selected']($(this).css('font-family'));
+            if ($(this).hasClass('ipmDefaultFont')) {
+                settings['selected']('');
+            } else {
+                settings['selected']($(this).css('font-family'));
+            }
         });
 
         $(this).click(function (event) {

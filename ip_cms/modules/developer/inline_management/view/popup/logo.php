@@ -11,6 +11,7 @@
             <span>Arial</span>
             <div class="arrow-down"></div>
             <ul>
+                <li class="ipmDefaultFont"><?php echo $this->escPar('developer/inline_management/admin_translations/default') ?>,</li>
                 <?php if (isset($availableFonts) && is_array($availableFonts)) foreach($availableFonts as $font) { ?>
                     <li><?php echo $this->esc($font) ?></li>
                 <?php } ?>
