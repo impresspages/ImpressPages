@@ -198,7 +198,7 @@ abstract class Zone{
 
     public function getBreadcrumb($pageId = null){
         global $site;
-        if ($site->getCurrentZone()->getName() == $this->name) {
+        if ($site->getCurrentZone()&& $site->getCurrentZone()->getName() == $this->name) {
             if ($pageId == null) {
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;
