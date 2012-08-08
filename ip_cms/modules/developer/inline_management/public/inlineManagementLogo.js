@@ -21,7 +21,8 @@ function sleep(milliSeconds){
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.data('ipInlineManagementLogo', {
-                    }); 
+                        'originalLogo' : $('.sitename').clone()
+                    });
                 }
             });
         },
@@ -50,6 +51,7 @@ function sleep(milliSeconds){
                 $this.html(response.html);
             }
 
+            var data = $this.data('ipInlineManagementLogo');
             $this.data('typeSelect', $this.find('.ipmType'));
             $this.data('textManagement', $this.find('.ipmTextManagement'));
             $this.data('imageManagement', $this.find('.ipmImageManagement'));
@@ -104,10 +106,6 @@ function sleep(milliSeconds){
             $this.data('logoText').val(curText);
             $this.data('logoText').bind('keyup', $.proxy(methods._preview, $this));
 
-
-
-
-console.log(curFont);
             $this.data('fontSelect').ipInlineManagementFontSelector({
                 'hide_fallbacks' : true,
                 'initial' : curFont,
@@ -119,7 +117,6 @@ console.log(curFont);
             $this.data('colorPicker').ColorPicker({
                 color: curColor,
                 onShow: function (colpkr) {
-                    console.log('show');
                     $(colpkr).css('zIndex', 2000);
                     $(colpkr).fadeIn(300);
                     return false;
@@ -156,7 +153,6 @@ console.log(curFont);
             $this = this;
             $this.data('previewText').text($this.data('logoText').val());
             $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
-            console.log($this.data('font-select').ipInlineManagementFontSelector('getFont'));
             $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
         },
 
@@ -183,22 +179,50 @@ console.log(curFont);
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'saveLogo';
+
+            //TEXT LOGO
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
             data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
 
+
+            //IMAGE LOGO
+            var ipUploadImage = $this.find('.ipaImage');
+            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
+                var newImage = ipUploadImage.ipUploadImage('getCurImage');
+                if (newImage) {
+                    data.newImage = newImage;
+                }
+            }
+
+            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
+                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
+                if (cropCoordinates) {
+                    data.cropX1 = cropCoordinates.x1;
+                    data.cropY1 = cropCoordinates.y1;
+                    data.cropX2 = cropCoordinates.x2;
+                    data.cropY2 = cropCoordinates.y2;
+                }
+            }
+
+            //SAVE
             $.ajax({
                 type : 'POST',
                 url : document.location,
                 data : data,
                 context : $this,
-                success : methods._refreshResponse,
+                success : methods._confirmResponse,
                 dataType : 'json'
             });
         },
-        
+
+        _confirmResponse : function () {
+            $this.dialog('close');
+        },
+
         _cancel : function (event) {
             var $this = $(this);
+            $('.sitename').replaceWith($this.data('ipInlineManagementLogo').originalLogo);
             $this.trigger('ipInlineManagement.logoCancel');
             $this.dialog('close');
         }

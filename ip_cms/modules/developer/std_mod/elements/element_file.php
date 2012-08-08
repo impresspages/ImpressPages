@@ -165,7 +165,7 @@ class ElementFile extends Element{ //data element in area
 
             if(isset($this->memFile) && $this->memFile != ''){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
-                $newName = \Library\Php\File\Functions::genUnocupiedName($this->memFile, $this->destDir);
+                $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
                 if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                     $rs = mysql_query($sql);
@@ -204,7 +204,7 @@ class ElementFile extends Element{ //data element in area
              
             if(isset($this->memFile) && $this->memFile != ''){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
-                $newName = \Library\Php\File\Functions::genUnocupiedName($this->memFile, $this->destDir);
+                $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
                 if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                     $rs = mysql_query($sql);

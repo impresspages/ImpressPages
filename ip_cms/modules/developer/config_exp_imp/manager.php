@@ -300,7 +300,7 @@ class Manager{
             }
         }
 
-        $fileName = \Library\Php\File\Functions::genUnocupiedName($fileName, TMP_FILE_DIR);
+        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, TMP_FILE_DIR);
         $fh = fopen(TMP_FILE_DIR.$fileName, 'w');
         if($fh){
             fwrite($fh, $this->generateConfigurationFile($parameters));

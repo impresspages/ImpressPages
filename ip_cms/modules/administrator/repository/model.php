@@ -33,7 +33,7 @@ class Model{
      **/
     public static function addFile($file, $module, $instanceId) {
         $destinationDir = FILE_DIR;
-        $unocupiedName = \Library\Php\File\Functions::genUnocupiedName($file, $destinationDir);
+        $unocupiedName = \Library\Php\File\Functions::genUnoccupiedName($file, $destinationDir);
         copy(BASE_DIR.$file, BASE_DIR.$destinationDir.$unocupiedName);
         self::bindFile($destinationDir.$unocupiedName, $module, $instanceId);
         return $destinationDir.$unocupiedName;

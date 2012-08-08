@@ -71,6 +71,7 @@ class Controller extends \Ip\Controller{
             $this->jsonError("Missing post data");
         }
 
+        //STORE TEXT LOGO
         $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
         $logo = new Entity\Logo($logoStr);
 
@@ -78,7 +79,63 @@ class Controller extends \Ip\Controller{
         $logo->setColor($_POST['color']);
         $logo->setFont($_POST['font']);
 
+        //STORE IMAGE LOGO
+        if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
+
+            if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
+                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non temporary folder.");
+            }
+
+            //remove old image
+            if ($logo->getImageOrig() && file_exists(BASE_DIR.FILE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.FILE_DIR.$logo->getImageOrig())) {
+                unlink($logo->getImageOrig());
+            }
+
+            $fileFunctions = new Library\Php\File\Functions();
+            $fileFunctions->
+            $logo->setImage();
+            //new original image
+            $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($_POST['newImage'], 'standard/content_management', $widgetId);
+
+            //remove old big image
+            if (isset($currentData['imageBig']) && $currentData['imageBig']) {
+                \Modules\administrator\repository\Model::unbindFile($currentData['imageBig'], 'standard/content_management', $widgetId);
+            }
+
+
+            //new big image
+            $tmpBigImageName = $this->cropBigImage($_POST['newImage']);
+            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
+            //delete temporary file
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
+        }
+
+        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['scale']) && isset($_POST['maxWidth'])) {
+            //remove old file
+            if ($logo->getImage() && file_exists(BASE_DIR.FILE_DIR.$logo->getImage()) && is_file(BASE_DIR.FILE_DIR.$logo->getImage())) {
+                unlink($logo->getImage());
+            }
+
+
+            //new small image
+            $newData['cropX1'] = $_POST['cropX1'];
+            $newData['cropY1'] = $_POST['cropY1'];
+            $newData['cropX2'] = $_POST['cropX2'];
+            $newData['cropY2'] = $_POST['cropY2'];
+            $newData['scale'] = $_POST['scale'];
+            $newData['maxWidth'] = $_POST['maxWidth'];
+
+            $tmpSmallImageName = $this->cropImage($newData['imageOriginal'], $newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $_POST['maxWidth']);
+
+            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
+
+            //delete temporary file
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
+        }
+
+
         $this->inlineValueService->setGlobalValue(self::PREFIX_LOGO, $logo->getValueStr());
+
 
         $data = array(
             "status" => "success"

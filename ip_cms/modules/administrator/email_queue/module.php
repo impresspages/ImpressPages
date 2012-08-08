@@ -51,7 +51,7 @@ class Module{
         if($files)
         foreach($files as $key => $file){
             $new_name = 'contact_form_'.rand();
-            $new_name = \Library\Php\File\Functions::genUnocupiedName($new_name, TMP_FILE_DIR);
+            $new_name = \Library\Php\File\Functions::genUnoccupiedName($new_name, TMP_FILE_DIR);
             if(copy($file['real_name'], TMP_FILE_DIR.$new_name)){
                 $cached_files[] = TMP_FILE_DIR.$new_name;
                 $cached_file_names[] = $file['required_name'];

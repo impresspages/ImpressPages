@@ -184,7 +184,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
 
     private function _createOriginalLogo ($sourceFile, $destinationDir){
-        $destinationFilename = \Library\Php\File\Functions::genUnocupiedName($sourceFile, BASE_DIR.$destinationDir);
+        $destinationFilename = \Library\Php\File\Functions::genUnoccupiedName($sourceFile, BASE_DIR.$destinationDir);
         copy($sourceFile, BASE_DIR.$destinationDir.$destinationFilename);
         $answer = $destinationDir.$destinationFilename;
         return $answer;

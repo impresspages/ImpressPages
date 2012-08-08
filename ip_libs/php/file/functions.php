@@ -14,7 +14,7 @@ class Functions{
      * @param string $dest_dir directory where new file will be placed
      * @return string new (or the same) file name that don't colide with existing files in specified directory
      */
-    public static function genUnocupiedName($file, $dest_dir){
+    public static function genUnoccupiedName($file, $dest_dir){
         require_once (LIBRARY_DIR.'php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");

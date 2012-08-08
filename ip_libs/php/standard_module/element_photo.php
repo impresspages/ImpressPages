@@ -139,7 +139,7 @@ class element_photo extends Element{ //data element in area
         if(sizeof($this->mem_images) == sizeof($this->copies)){
             require_once(LIBRARY_DIR.'php/file/functions.php');
             foreach($this->copies as $key => $copy){
-                $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_images[$key], $copy['dest_dir']);
+                $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_images[$key], $copy['dest_dir']);
                 if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
                     $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".mysql_real_escape_string($new_name)."' where ".$area->get_db_key()." = '".$id."' ";
                     $rs = mysql_query($sql);
@@ -197,7 +197,7 @@ class element_photo extends Element{ //data element in area
         if(sizeof($this->mem_images) == sizeof($this->copies)){
             require_once(LIBRARY_DIR.'php/file/functions.php');
             foreach($this->copies as $key => $copy){
-                $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_images[$key], $copy['dest_dir']);
+                $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_images[$key], $copy['dest_dir']);
                 if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
                     $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
                     $rs = mysql_query($sql);

@@ -146,7 +146,7 @@ class element_file extends Element{ //data element in area
 
         if(isset($this->mem_file) && $this->mem_file != ''){
             require_once(LIBRARY_DIR.'php/file/functions.php');
-            $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_file, $this->dest_dir);
+            $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_file, $this->dest_dir);
             if(copy(TMP_FILE_DIR.$this->mem_file,$this->dest_dir.$new_name)){
                 $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
                 $rs = mysql_query($sql);
@@ -182,7 +182,7 @@ class element_file extends Element{ //data element in area
          
         if(isset($this->mem_file) && $this->mem_file != ''){
             require_once(LIBRARY_DIR.'php/file/functions.php');
-            $new_name = \Library\Php\File\Functions::genUnocupiedName($this->mem_file, $this->dest_dir);
+            $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_file, $this->dest_dir);
             if(copy(TMP_FILE_DIR.$this->mem_file,$this->dest_dir.$new_name)){
                 $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$this->db_field."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
                 $rs = mysql_query($sql);
