@@ -246,6 +246,7 @@
 
             $this.bind('imageScaleDown.ipUploadImage', function(event) {
                 $(this).ipUploadImage('_scaleDown', event);
+                $this.trigger();
             });
             
             
@@ -259,9 +260,12 @@
                 $this.ipUploadImage('_imageResized', event, imageCenterXPercentage, imageCenterYPercentage);
             });
             
-            
-            
-            $this.find('.ipUploadImage').draggable({ containment: "parent", disabled: !data.enableFraming });
+            $this.find('.ipUploadImage').draggable({
+                containment: "parent",
+                disabled: !data.enableFraming,
+                stop: jQuery.proxy(function(event, ui) { $(this).trigger('imageFramed.ipUploadImage'); }, $this)
+            });
+
             $this.bind( "dragstop", function(event, ui) {
                 $this = $(this);
                 var data = $this.data('ipUploadImage');
@@ -574,7 +578,7 @@
                 $image.css('top', $dragContainer.height() - $image.height());
             }
 
-            
+
         },
         
         _uploadImage : function(e){
@@ -825,7 +829,10 @@
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
-            return methods.init.apply(this, arguments);
+            this.css({ position: "absolute", display: "block" });
+            $answer = methods.init.apply(this, arguments);
+            this.css({ position: "", visibility: "", display: "" });
+            return $answer;
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.ipUploadImage');
         }

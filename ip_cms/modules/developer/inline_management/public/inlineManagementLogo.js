@@ -55,6 +55,7 @@
             $this.data('colorPicker', $this.find('.ipmColorPicker'));
             $this.data('logoText', $this.find('.ipmLogoText'));
             $this.data('previewText', $('.ipModuleInlineManagement .ipmText .sitename'));
+            $this.data('previewImage', $('.ipModuleInlineManagement .ipmImage .sitename'));
 
             var curColor = $this.data('previewText').css('color');
             var curText = $.trim($this.data('previewText').html());
@@ -151,15 +152,26 @@
         },
 
         _preview : function() {
-            $this = this;
-            $this.data('previewText').text($this.data('logoText').val());
-            $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
-            $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
+            var $this = this;
+
+            if ($this.data('typeSelect').val() == 'text') {
+                $this.data('previewText').text($this.data('logoText').val());
+                $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
+                $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
+            } else {
+                var $imageUploader = $this.find('.ipaImage');
+                $this.data('previewImage').html('');
+                $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
+                $this.data('previewImage').find('.ipUploadButtons').remove();
+                this.data('previewImage').find('.ui-resizable-handle').remove();
+                console.log('resize');
+            }
+
         },
 
 
         _updateType : function() {
-            $this = this;
+            var $this = this;
             if ($this.data('typeSelect').val() == 'text') {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
@@ -168,16 +180,21 @@
                 $this.data('imageManagement').show();
 
                 if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
-                    console.log('init');
                     var $imageUploader = $this.find('.ipaImage');
                     $imageUploader.ipUploadImage($this.data('ipUploadImageOptions'));
                     $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
                     var data = $this.data('ipInlineManagementLogo');
                     data.imageUploadInitialized = true;
                     $this.data('ipInlineManagementLogo', data);
+
+                    $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                    $imageUploader.bind('imageFramed.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                    $imageUploader.bind('imageScaleUp.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                    $imageUploader.bind('imageScaleDown.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 }
             }
         },
+
 
         _addError : function(event, errorMessage) {
             $(this).trigger('error.ipContentManagement', errorMessage);
@@ -235,6 +252,7 @@
         },
 
         _confirmResponse : function () {
+            $this = this;
             $this.dialog('close');
         },
 
