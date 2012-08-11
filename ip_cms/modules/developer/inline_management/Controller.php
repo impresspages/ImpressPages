@@ -46,9 +46,10 @@ class Controller extends \Ip\Controller{
         $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
         $logo = new Entity\Logo($logoStr);
         $logoData = array(
-            'image' => $logo->getImage(),
-            'imageOrig' => $logo->getImageOrig(),
+            'image' => IMAGE_DIR.$logo->getImage(),
+            'imageOrig' => IMAGE_DIR.$logo->getImageOrig(),
             'requiredWidth' => $logo->getRequiredWidth(),
+            'requiredHeight' => $logo->getRequiredHeight(),
             'type' => $logo->getType(),
             'x1' => $logo->getX1(),
             'y1' => $logo->getY1(),
@@ -87,49 +88,48 @@ class Controller extends \Ip\Controller{
             }
 
             //remove old image
-            if ($logo->getImageOrig() && file_exists(BASE_DIR.FILE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.FILE_DIR.$logo->getImageOrig())) {
-                unlink($logo->getImageOrig());
+            if ($logo->getImageOrig() && file_exists(BASE_DIR.IMAGE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.IMAGE_DIR.$logo->getImageOrig())) {
+                unlink(BASE_DIR.IMAGE_DIR.$logo->getImageOrig());
             }
 
-            $fileFunctions = new Library\Php\File\Functions();
-            $fileFunctions->
-            $logo->setImage();
-            //new original image
-            $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($_POST['newImage'], 'standard/content_management', $widgetId);
+            $destDir = BASE_DIR.IMAGE_DIR;
+            $newName = \Library\Php\File\Functions::genUnoccupiedName($_POST['newImage'], $destDir);
+            copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
+            $logo->setImageOrig($newName);
 
-            //remove old big image
-            if (isset($currentData['imageBig']) && $currentData['imageBig']) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageBig'], 'standard/content_management', $widgetId);
-            }
-
-
-            //new big image
-            $tmpBigImageName = $this->cropBigImage($_POST['newImage']);
-            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
-            //delete temporary file
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
 
-        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['scale']) && isset($_POST['maxWidth'])) {
+        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
             //remove old file
-            if ($logo->getImage() && file_exists(BASE_DIR.FILE_DIR.$logo->getImage()) && is_file(BASE_DIR.FILE_DIR.$logo->getImage())) {
-                unlink($logo->getImage());
+            if ($logo->getImage() && file_exists(BASE_DIR.IMAGE_DIR.$logo->getImage()) && is_file(BASE_DIR.IMAGE_DIR.$logo->getImage())) {
+                unlink(BASE_DIR.IMAGE_DIR.$logo->getImage());
             }
 
 
             //new small image
-            $newData['cropX1'] = $_POST['cropX1'];
-            $newData['cropY1'] = $_POST['cropY1'];
-            $newData['cropX2'] = $_POST['cropX2'];
-            $newData['cropY2'] = $_POST['cropY2'];
-            $newData['scale'] = $_POST['scale'];
-            $newData['maxWidth'] = $_POST['maxWidth'];
+            $logo->setX1($_POST['cropX1']);
+            $logo->setY1($_POST['cropY1']);
+            $logo->setX2($_POST['cropX2']);
+            $logo->setY2($_POST['cropY2']);
+            $logo->setRequiredWidth($_POST['windowWidth']);
+            $logo->setRequiredHeight($_POST['windowHeight']);
 
-            $tmpSmallImageName = $this->cropImage($newData['imageOriginal'], $newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $_POST['maxWidth']);
+            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
+                BASE_DIR.IMAGE_DIR.$logo->getImageOrig(),
+                TMP_IMAGE_DIR,
+                $logo->getX1(),
+                $logo->getY1(),
+                $logo->getX2(),
+                $logo->getY2(),
+                100,
+                $logo->getRequiredWidth(),
+                $logo->getRequiredHeight()
+            );
 
-            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
-
-            //delete temporary file
+            $destDir = BASE_DIR.IMAGE_DIR;
+            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir);
+            copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
+            $logo->setImage($newName);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         }
 
@@ -170,6 +170,7 @@ class Controller extends \Ip\Controller{
         );
         $this->returnJson($data);
     }
+
 
 
 }

@@ -22,6 +22,7 @@ class Logo
     private $x2;
     private $y2;
     private $requiredWidth;
+    private $requiredHeight;
 
     private $text;
     private $font;
@@ -53,7 +54,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['image']) && file_exists($data['image']) && !empty($data['imageOrig']) && file_exists($data['imageOrig']) ) {
+        if (!empty($data['image']) && file_exists(BASE_DIR.IMAGE_DIR.$data['image']) && !empty($data['imageOrig']) && file_exists(BASE_DIR.IMAGE_DIR.$data['imageOrig']) ) {
             $this->image = $data['image'];
             $this->imageOrig = $data['imageOrig'];
 
@@ -66,7 +67,12 @@ class Logo
                 if (empty($data['requiredWidth'])) {
                     $data['requiredWidth'] = $this->x2 - $this->x1;
                 }
+                if (empty($data['requiredHeight'])) {
+                    $data['requiredHeight'] = $this->y2 - $this->y1;
+                }
+
                 $this->requiredWidth = $data['requiredWidth'];
+                $this->requiredHeight = $data['requiredHeight'];
             }
         }
 
@@ -95,6 +101,7 @@ class Logo
         $data['color'] = $this->color;
         $data['font'] = $this->font;
         $data['requiredWidth'] = $this->requiredWidth;
+        $data['requiredHeight'] = $this->requiredHeight;
         return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
     }
 
@@ -138,6 +145,11 @@ class Logo
     public function getRequiredWidth()
     {
         return $this->requiredWidth;
+    }
+
+    public function getRequiredHeight()
+    {
+        return $this->requiredHeight;
     }
 
     public function getText()
@@ -195,6 +207,11 @@ class Logo
     public function setRequiredWidth($requiredWidth)
     {
         $this->requiredWidth = $requiredWidth;
+    }
+
+    public function setRequiredHeight($requiredHeight)
+    {
+        $this->requiredHeight = $requiredHeight;
     }
 
     public function setText($text)

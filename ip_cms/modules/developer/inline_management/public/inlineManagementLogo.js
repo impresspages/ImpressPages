@@ -21,7 +21,8 @@ function sleep(milliSeconds){
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.data('ipInlineManagementLogo', {
-                        'originalLogo' : $('.sitename').clone()
+                        'originalLogo' : $('.sitename').clone(),
+                        'imageUploadInitialized' : false
                     });
                 }
             });
@@ -84,23 +85,28 @@ function sleep(milliSeconds){
             options.cropX2 = logoData.x2;
             options.cropY2 = logoData.y2;
             options.windowWidth = logoData.requiredWidth;
-            if (logoData.x2 && logoData.y2) {
-                var width = logoData.x2 - logoData.x1;
-                var height = logoData.y2 - logoData.y1;
-                var ratio = width / logoData.requiredWidth;
-                options.windowHeight = height * ratio;
-            } else {
-                options.windowHeight = 100;
+            options.windowHeight = logoData.requiredHeight;
+            if (logoData.x2 && !options.windowWidth) {
+                options.windowWidth = logoData.x2 - logoData.x1;
             }
+            if (logoData.y2 && !options.windowHeight) {
+                options.windowHeight = logoData.y2 - logoData.y1;
+            }
+            if(!options.windowWidth) {
+                options.windowWidth = 400; //default width;
+            }
+            if(!options.windowHeight) {
+                options.windowHeight= 100; //default height;
+            }
+            options.maxWindowWidth = 2000;
+            options.maxWindowHeight = 2000;
             options.enableChangeHeight = true;
             options.enableChangeWidth = true;
             options.enableUnderscale = true;
             options.minWindowWidth = 10;
             options.minWindowHeight = 10;
 
-            var $imageUploader = $this.find('.ipaImage');
-            $imageUploader.ipUploadImage(options);
-            $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
+            $this.data('ipUploadImageOptions', options);
 
             //init text management
             $this.data('logoText').val(curText);
@@ -165,6 +171,16 @@ function sleep(milliSeconds){
             } else {
                 $this.data('textManagement').hide();
                 $this.data('imageManagement').show();
+
+                if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
+                    console.log('init');
+                    var $imageUploader = $this.find('.ipaImage');
+                    $imageUploader.ipUploadImage($this.data('ipUploadImageOptions'));
+                    $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
+                    var data = $this.data('ipInlineManagementLogo');
+                    data.imageUploadInitialized = true;
+                    $this.data('ipInlineManagementLogo', data);
+                }
             }
         },
 
@@ -202,6 +218,8 @@ function sleep(milliSeconds){
                     data.cropY1 = cropCoordinates.y1;
                     data.cropX2 = cropCoordinates.x2;
                     data.cropY2 = cropCoordinates.y2;
+                    data.windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
+                    data.windowHeight = ipUploadImage.ipUploadImage('getWindowHeight');
                 }
             }
 
