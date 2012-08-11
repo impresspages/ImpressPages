@@ -101,6 +101,8 @@
             options.enableUnderscale = true;
             options.minWindowWidth = 10;
             options.minWindowHeight = 10;
+            options.maxWindowWidth = 574;
+            options.maxWindowHeight = 310;
 
             $this.data('ipUploadImageOptions', options);
 
@@ -163,7 +165,7 @@
                 $this.data('previewImage').html('');
                 $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
                 $this.data('previewImage').find('.ipUploadButtons').remove();
-                this.data('previewImage').find('.ui-resizable-handle').remove();
+                $this.data('previewImage').find('.ui-resizable-handle').remove();
                 console.log('resize');
             }
 
@@ -175,9 +177,13 @@
             if ($this.data('typeSelect').val() == 'text') {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
+                $this.data('previewText').parent().show();
+                $this.data('previewImage').parent().hide();
             } else {
                 $this.data('textManagement').hide();
                 $this.data('imageManagement').show();
+                $this.data('previewText').parent().hide();
+                $this.data('previewImage').parent().show();
 
                 if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
                     var $imageUploader = $this.find('.ipaImage');
@@ -191,7 +197,7 @@
                     $imageUploader.bind('imageFramed.ipUploadImage', jQuery.proxy(methods._preview, $this));
                     $imageUploader.bind('imageScaleUp.ipUploadImage', jQuery.proxy(methods._preview, $this));
                     $imageUploader.bind('imageScaleDown.ipUploadImage', jQuery.proxy(methods._preview, $this));
-                }
+                    }
             }
         },
 
@@ -251,15 +257,24 @@
             });
         },
 
-        _confirmResponse : function () {
+        _confirmResponse : function (answer) {
             $this = this;
-            $this.dialog('close');
+
+            if (answer && answer.status == 'success') {
+                if (answer.logoHtml) {
+                    $('.ipModuleInlineManagement').replaceWith(answer.logoHtml);
+                }
+                $('.ipModuleInlineManagement').ipModuleInlineManagement();
+                $this.trigger('ipInlineManagement.logoConfirm');
+                $this.dialog('close');
+            }
         },
 
         _cancel : function (event) {
             var $this = $(this);
             $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
             $this.trigger('ipInlineManagement.logoCancel');
+            $('.ipModuleInlineManagement').ipModuleInlineManagement();
             $this.dialog('close');
         }
         

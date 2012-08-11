@@ -144,8 +144,12 @@ class Controller extends \Ip\Controller{
         $this->inlineValueService->setGlobalValue(self::PREFIX_LOGO, $logo->getValueStr());
 
 
+        $inlineManagementService = new Service();
+
+
         $data = array(
-            "status" => "success"
+            "status" => "success",
+            "logoHtml" => $inlineManagementService->generateManagedLogo()
         );
         $this->returnJson($data);
     }
