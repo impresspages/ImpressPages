@@ -94,14 +94,12 @@
             if(!options.windowHeight) {
                 options.windowHeight= 100; //default height;
             }
-            options.maxWindowWidth = 2000;
-            options.maxWindowHeight = 2000;
             options.enableChangeHeight = true;
             options.enableChangeWidth = true;
             options.enableUnderscale = true;
             options.minWindowWidth = 10;
             options.minWindowHeight = 10;
-            options.maxWindowWidth = 574;
+            options.maxWindowWidth = 774;
             options.maxWindowHeight = 310;
 
             $this.data('ipUploadImageOptions', options);
