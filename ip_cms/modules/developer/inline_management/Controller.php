@@ -46,6 +46,7 @@ class Controller extends \Ip\Controller{
         $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
         $logo = new Entity\Logo($logoStr);
         $logoData = array(
+            'type' => $logo->getType(),
             'image' => IMAGE_DIR.$logo->getImage(),
             'imageOrig' => IMAGE_DIR.$logo->getImageOrig(),
             'requiredWidth' => $logo->getRequiredWidth(),
@@ -68,7 +69,7 @@ class Controller extends \Ip\Controller{
 
     public function saveLogo()
     {
-        if (!isset($_POST['text']) || !isset($_POST['color']) || !isset($_POST['font'])) {
+        if (!isset($_POST['text']) || !isset($_POST['color']) || !isset($_POST['font']) || !isset($_POST['type'])) {
             $this->jsonError("Missing post data");
         }
 
@@ -79,6 +80,12 @@ class Controller extends \Ip\Controller{
         $logo->setText($_POST['text']);
         $logo->setColor($_POST['color']);
         $logo->setFont($_POST['font']);
+        if ($_POST['type'] == Entity\Logo::TYPE_IMAGE) {
+            $logo->setType(Entity\Logo::TYPE_IMAGE);
+        } else {
+            $logo->setType(Entity\Logo::TYPE_TEXT);
+        }
+
 
         //STORE IMAGE LOGO
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {

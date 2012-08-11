@@ -5,11 +5,6 @@
  */
 
 
-function sleep(milliSeconds){
-    var startTime = new Date().getTime(); // get the current time
-    while (new Date().getTime() < startTime + milliSeconds); // hog cpu
-}
-
 
 (function($) {
 
@@ -21,7 +16,7 @@ function sleep(milliSeconds){
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.data('ipInlineManagementLogo', {
-                        'originalLogo' : $('.sitename').clone(),
+                        'originalLogoHtml' : $('.ipModuleInlineManagement').clone(),
                         'imageUploadInitialized' : false
                     });
                 }
@@ -59,7 +54,7 @@ function sleep(milliSeconds){
             $this.data('fontSelect', $this.find('.ipmFontSelect'));
             $this.data('colorPicker', $this.find('.ipmColorPicker'));
             $this.data('logoText', $this.find('.ipmLogoText'));
-            $this.data('previewText', $('.sitename'));
+            $this.data('previewText', $('.ipModuleInlineManagement .ipmText .sitename'));
 
             var curColor = $this.data('previewText').css('color');
             var curText = $.trim($this.data('previewText').html());
@@ -196,6 +191,8 @@ function sleep(milliSeconds){
             data.m = 'inline_management';
             data.a = 'saveLogo';
 
+            data.type = $this.data('typeSelect').val();
+
             //TEXT LOGO
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
@@ -203,25 +200,28 @@ function sleep(milliSeconds){
 
 
             //IMAGE LOGO
-            var ipUploadImage = $this.find('.ipaImage');
-            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
-                var newImage = ipUploadImage.ipUploadImage('getCurImage');
-                if (newImage) {
-                    data.newImage = newImage;
+            if ($this.data('ipInlineManagementLogo').imageUploadInitialized) {
+                var ipUploadImage = $this.find('.ipaImage');
+                if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
+                    var newImage = ipUploadImage.ipUploadImage('getCurImage');
+                    if (newImage) {
+                        data.newImage = newImage;
+                    }
+                }
+
+                if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
+                    var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
+                    if (cropCoordinates) {
+                        data.cropX1 = cropCoordinates.x1;
+                        data.cropY1 = cropCoordinates.y1;
+                        data.cropX2 = cropCoordinates.x2;
+                        data.cropY2 = cropCoordinates.y2;
+                        data.windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
+                        data.windowHeight = ipUploadImage.ipUploadImage('getWindowHeight');
+                    }
                 }
             }
 
-            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
-                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
-                if (cropCoordinates) {
-                    data.cropX1 = cropCoordinates.x1;
-                    data.cropY1 = cropCoordinates.y1;
-                    data.cropX2 = cropCoordinates.x2;
-                    data.cropY2 = cropCoordinates.y2;
-                    data.windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
-                    data.windowHeight = ipUploadImage.ipUploadImage('getWindowHeight');
-                }
-            }
 
             //SAVE
             $.ajax({
@@ -240,7 +240,7 @@ function sleep(milliSeconds){
 
         _cancel : function (event) {
             var $this = $(this);
-            $('.sitename').replaceWith($this.data('ipInlineManagementLogo').originalLogo);
+            $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
             $this.trigger('ipInlineManagement.logoCancel');
             $this.dialog('close');
         }

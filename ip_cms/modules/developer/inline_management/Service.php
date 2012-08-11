@@ -27,19 +27,24 @@ class Service
             'type' => $logo->getType(),
             'link' => $site->generateUrl(),
             'text' => $logo->getText() ? $logo->getText() : $defaultText,
-            'image' => $logo->getImage() ? $logo->getImage() : $defaultImage,
+            'image' => $logo->getImage() ? BASE_URL.IMAGE_DIR.$logo->getImage() : $defaultImage,
             'font' => $logo->getFont(),
             'color' => $logo->getColor(),
             'cssClass' => $cssClass,
         );
 
-        $logoHtml = \Ip\View::create('view/display/logo.php', $data)->render();
+        $data['type'] = Entity\Logo::TYPE_TEXT;
+        $logoTextHtml = \Ip\View::create('view/display/logo.php', $data)->render();
+        $data['type'] = Entity\Logo::TYPE_IMAGE;
+        $logoImageHtml = \Ip\View::create('view/display/logo.php', $data)->render();
 
 
 
         if ($site->managementState()) {
             $managementData = array(
-                'logoHtml' => $logoHtml
+                'type' => $logo->getType(),
+                'logoTextHtml' => $logoTextHtml,
+                'logoImageHtml' => $logoImageHtml
             );
             return \Ip\View::create('view/management/logo.php', $managementData)->render();
         } else {
