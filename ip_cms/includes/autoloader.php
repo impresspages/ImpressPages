@@ -47,6 +47,13 @@ function __impressPagesAutoloader($name) {
             $fileName = 'php/text/' . substr($fileName, 9);
         }
 
+        if (substr($fileName, 0, 19) == 'Php/Image/Functions') {
+            $fileName = 'php/image/functions' . substr($fileName, 19);
+        }
+
+        if (substr($fileName, 0, 18) == 'Php/File/Functions') {
+            $fileName = 'php/file/functions' . substr($fileName, 18);
+        }
 
         if (substr($fileName, 0, 4) == 'Php/') {
             $fileName = 'php/' . substr($fileName, 4);
