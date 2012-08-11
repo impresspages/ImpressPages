@@ -33,14 +33,15 @@ class Service
             'cssClass' => $cssClass,
         );
 
-        $data['type'] = Entity\Logo::TYPE_TEXT;
-        $logoTextHtml = \Ip\View::create('view/display/logo.php', $data)->render();
-        $data['type'] = Entity\Logo::TYPE_IMAGE;
-        $logoImageHtml = \Ip\View::create('view/display/logo.php', $data)->render();
 
 
 
         if ($site->managementState()) {
+            $data['type'] = Entity\Logo::TYPE_TEXT;
+            $logoTextHtml = \Ip\View::create('view/display/logo.php', $data)->render();
+            $data['type'] = Entity\Logo::TYPE_IMAGE;
+            $logoImageHtml = \Ip\View::create('view/display/logo.php', $data)->render();
+
             $managementData = array(
                 'type' => $logo->getType(),
                 'logoTextHtml' => $logoTextHtml,
@@ -48,6 +49,7 @@ class Service
             );
             return \Ip\View::create('view/management/logo.php', $managementData)->render();
         } else {
+            $logoHtml = \Ip\View::create('view/display/logo.php', $data)->render();
             return $logoHtml;
         }
 
