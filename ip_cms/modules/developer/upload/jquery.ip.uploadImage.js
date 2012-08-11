@@ -94,7 +94,7 @@
                         options.minWindowHeight = options.windowHeight;
                         options.maxWindowHeight = options.windowHeight;
                     }
-                    if (typeof options.enableScale == 'undefined') {
+                    if (typeof options.aspectRatio == 'undefined') {
                         options.aspectRatio = true;
                     }
                     
