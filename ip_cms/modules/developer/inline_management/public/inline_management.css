@@ -1,6 +1,6 @@
 
 .ipModuleInlineManagementPopup .ipmType{
-    font-size: 14px;
+    font-size: 20px;
 }
 
 
@@ -9,6 +9,19 @@
 }
 
 
+.ui-dialog .ipModuleInlineManagementPopup {
+    padding: 1em;
+}
+
+.ipModuleInlineManagementPopup .ipmTypeSelect *{
+    float: left;
+    margin-right: 0 10px 0 0;
+    font-size: 17px;
+}
+
+.ipModuleInlineManagementPopup .ipmTypeSelect input{
+    width: auto;
+}
 
 
 /** Font selector **/

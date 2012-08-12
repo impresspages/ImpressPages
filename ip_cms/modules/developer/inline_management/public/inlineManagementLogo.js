@@ -48,7 +48,8 @@
             }
 
             var data = $this.data('ipInlineManagementLogo');
-            $this.data('typeSelect', $this.find('.ipmType'));
+            $this.data('typeSelectText', $this.find('.ipmTypeSelect input[value=text]'));
+            $this.data('typeSelectImage', $this.find('.ipmTypeSelect input[value=image]'));
             $this.data('textManagement', $this.find('.ipmTextManagement'));
             $this.data('imageManagement', $this.find('.ipmImageManagement'));
             $this.data('fontSelect', $this.find('.ipmFontSelect'));
@@ -135,18 +136,19 @@
 
 
             //type selection
-
             if (logoData.type == 'text') {
-                $this.data('typeSelect').val('text');
+                $this.data('typeSelectText').attr('checked', 'checked');
             } else {
-                $this.data('typeSelect').val('image');
+                $this.data('typeSelectImage').attr('checked', 'checked');
             }
+
+
+            $this.find('.ipmType').buttonset();
 
             jQuery.proxy(methods._updateType, $this)(); //initialize current type tab
 
-            $this.data('typeSelect').bind('change', jQuery.proxy(methods._updateType, $this));
-
-
+            $this.data('typeSelectText').bind('change', jQuery.proxy(methods._updateType, $this));
+            $this.data('typeSelectImage').bind('change', jQuery.proxy(methods._updateType, $this));
             $this.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $this.find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
@@ -154,7 +156,7 @@
         _preview : function() {
             var $this = this;
 
-            if ($this.data('typeSelect').val() == 'text') {
+            if ($this.data('typeSelectText').attr("checked") != undefined) {
                 $this.data('previewText').text($this.data('logoText').val());
                 $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
                 $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
@@ -164,7 +166,6 @@
                 $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
                 $this.data('previewImage').find('.ipUploadButtons').remove();
                 $this.data('previewImage').find('.ui-resizable-handle').remove();
-                console.log('resize');
             }
 
         },
@@ -172,7 +173,7 @@
 
         _updateType : function() {
             var $this = this;
-            if ($this.data('typeSelect').val() == 'text') {
+            if ($this.data('typeSelectText').attr("checked") != undefined) {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
                 $this.data('previewText').parent().show();
@@ -212,7 +213,12 @@
             data.m = 'inline_management';
             data.a = 'saveLogo';
 
-            data.type = $this.data('typeSelect').val();
+            if ($this.data('typeSelectText').attr("checked") != undefined) {
+                data.type = 'text';
+            } else {
+                data.type = 'image';
+            }
+
 
             //TEXT LOGO
             data.text = $this.data('logoText').val();

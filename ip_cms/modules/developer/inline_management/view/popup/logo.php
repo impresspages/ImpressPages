@@ -1,9 +1,12 @@
 <form onsubmit="return false;">
-    <select class="ipmType">
-        <option value="text"><?php echo $this->escPar('developer/inline_management/admin_translations/type_text'); ?></option>
-        <option value="image"><?php echo $this->escPar('developer/inline_management/admin_translations/type_image'); ?></option>
-    </select>
-    <br/><br/>
+    <div class="ipmTypeSelect">
+        <label><?php echo $this->escPar('developer/inline_management/admin_translations/type_text'); ?><input type="radio" name="type" value="text" /></label>
+        <div>&nbsp;&nbsp;&nbsp;</div>
+        <label><?php echo $this->escPar('developer/inline_management/admin_translations/type_image'); ?><input type="radio" name="type" value="image" /></label>
+    </div>
+    <br/>
+    <br/>
+    <br/>
     <div class="ipmTextManagement">
         <input class="ipmLogoText" type="text" value="" />
         <br/><br/>

@@ -22,7 +22,6 @@ $(document).ready(function () {
 
                 $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModuleInlineManagement.openEditPopup');});
                 $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
-
             });
         },
 
