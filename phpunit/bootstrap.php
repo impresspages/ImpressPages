@@ -14,7 +14,7 @@ $autoloader = new \IpUpdate\PhpUnit\Autoloader();
 $autoloader->register(TEST_BASE_DIR);
 
 
-//bootstrap IpUpbdate library
+//bootstrap IpUpdate library
 require_once(TEST_UPDATE_DIR.'/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
