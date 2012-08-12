@@ -91,6 +91,8 @@ class Installation
         curl_setopt($ch, CURLOPT_COOKIESESSION, true);
         curl_setopt($ch, CURLOPT_COOKIEJAR, "");
         curl_setopt($ch, CURLOPT_COOKIEFILE, "");
+        curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
+
 
         // INSTALL DATABASE
         $data = array (
