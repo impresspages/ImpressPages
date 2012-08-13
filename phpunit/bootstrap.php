@@ -15,7 +15,7 @@ $autoloader->register(TEST_BASE_DIR);
 
 
 //bootstrap IpUpdate library
-require_once(TEST_UPDATE_DIR.'/Library/Bootstrap.php');
+require_once(CODEBASE_DIR.'update/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
 

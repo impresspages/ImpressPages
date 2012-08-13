@@ -7,5 +7,9 @@
 
 class InstallTest extends \PhpUnit\SeleniumTestCase
 {
-
+    public function testInstallCurrent()
+    {
+        $fs = new \PhpUnit\Helper\FileSystem();
+        $fs->cpDir('');
+    }
 }
