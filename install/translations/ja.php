@@ -3,6 +3,8 @@
 
 define('IP_PHP_VERSION', 'PHP バージョン 5.3 以上');
 define('IP_MOD_REWRITE', 'Apache モジュール "mod_rewrite"');
+define('IP_HTACCESS', '.htaccess file');
+define('IP_MOD_PDO', 'PHP module "PDO"');
 define('IP_GD_LIB', 'GD グラフィックライブラリ');
 define('IP_MAGIC_QUOTES', 'magic quotes (off 推奨)');
 

@@ -139,7 +139,7 @@ Gill Sans,Geneva,sans-serif';
     }
 
     public function addModule($groupId, $moduleTranslation, $moduleName, $admin, $managed, $core, $version, $rowNumber = 0){
-        $sql = "insert into `".DB_PREF."module`
+        $sql = "insert into `".$this->dbPref."module`
                 set
                 group_id = '".(int)$groupId."',
                 name = '".mysql_real_escape_string($moduleName)."',
@@ -161,7 +161,7 @@ Gill Sans,Geneva,sans-serif';
     }
 
     public function getModuleGroup($name){
-        $sql = "select * from `".DB_PREF."module_group` where name = '".mysql_real_escape_string($name)."' ";
+        $sql = "select * from `".$this->dbPref."module_group` where name = '".mysql_real_escape_string($name)."' ";
         $rs = mysql_query($sql);
         if($rs){
             if($lock = mysql_fetch_assoc($rs)){
@@ -177,7 +177,7 @@ Gill Sans,Geneva,sans-serif';
 
     public function getUsers(){
         $answer = array();
-        $sql = "select * from `".DB_PREF."user` where 1";
+        $sql = "select * from `".$this->dbPref."user` where 1";
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
@@ -192,7 +192,7 @@ Gill Sans,Geneva,sans-serif';
     }
 
     public function addPermissions($moduleId, $userId){
-        $sql = "insert into `".DB_PREF."user_to_mod`
+        $sql = "insert into `".$this->dbPref."user_to_mod`
     set
     module_id = '".(int)$moduleId."',
     user_id = '".(int)$userId."'

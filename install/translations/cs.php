@@ -3,6 +3,8 @@
 
 define('IP_PHP_VERSION', 'Verze PHP >= 5.3');
 define('IP_MOD_REWRITE', 'Apache modul "mod_rewrite"');
+define('IP_HTACCESS', '.htaccess file');
+define('IP_MOD_PDO', 'PHP module "PDO"');
 define('IP_GD_LIB', 'Grafická knihovna GD');
 define('IP_MAGIC_QUOTES', 'Kouzelné citace (mimo doporučené)');
 

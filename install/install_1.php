@@ -44,6 +44,15 @@ if(function_exists('apache_get_modules') ) {
     $error['mod_rewrite'] = 1;
 }
 
+if(!class_exists('PDO')) {
+    $error['mod_pdo'] = 1;
+}
+
+if (!file_exists('./../.htaccess')) {
+    $error['htaccess'] = 1;
+}
+
+
 if (!extension_loaded('gd') || !function_exists('gd_info')) {
     $error['gd_lib'] = 1;
 }
@@ -70,6 +79,12 @@ else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
 
 
+$table[] = IP_MOD_PDO;
+if(isset($error['mod_pdo']))
+    $table[] = '<span class="error">'.IP_ERROR."</span>";
+else
+    $table[] = '<span class="correct">'.IP_OK.'</span>';
+
 $table[] = IP_GD_LIB;
 if(isset($error['gd_lib']))
 $table[] = '<span class="error">'.IP_ERROR."</span>";
@@ -77,11 +92,21 @@ else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
 
 
+$table[] = IP_HTACCESS;
+if(isset($error['htaccess']))
+    $table[] = '<span class="error">'.IP_ERROR."</span>";
+else
+    $table[] = '<span class="correct">'.IP_OK.'</span>';
+
+
+
 $table[] = IP_MAGIC_QUOTES;
 if(isset($warning['magic_quotes']))
 $table[] = '<span class="error">'.IP_ERROR."</span>";
 else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
+
+
 
 $table[] = '';
 $table[] = '';

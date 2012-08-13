@@ -3,6 +3,8 @@
 
 define('IP_PHP_VERSION', 'PHP versija >= 5.3');
 define('IP_MOD_REWRITE', 'Apache modulis "mod_rewrite"');
+define('IP_HTACCESS', '.htaccess failas');
+define('IP_MOD_PDO', 'PHP modulis "PDO"');
 define('IP_GD_LIB', 'GD grafinė biblioteka');
 define('IP_MAGIC_QUOTES', '"Magic quotes" rekomenduojama išjungti.');
 
