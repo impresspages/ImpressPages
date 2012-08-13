@@ -1,6 +1,6 @@
 <?php
 
-namespace IpUpdate\PhpUnit\Helper;
+namespace PhpUnit\Helper;
 
 /**
  * @package	ImpressPages

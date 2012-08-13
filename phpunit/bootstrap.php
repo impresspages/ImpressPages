@@ -10,7 +10,7 @@ require_once('./config.php');
 session_start('ipUpdateuTest');
 
 require_once(TEST_BASE_DIR.'/Autoloader.php');
-$autoloader = new \IpUpdate\PhpUnit\Autoloader();
+$autoloader = new \PhpUnit\Autoloader();
 $autoloader->register(TEST_BASE_DIR);
 
 

@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class TempStorageTest extends \IpUpdate\PhpUnit\UpdateTestCase
+class TempStorageTest extends \PhpUnit\UpdateTestCase
 {
 
 

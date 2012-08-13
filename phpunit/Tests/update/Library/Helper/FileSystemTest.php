@@ -5,14 +5,14 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class FileSystemTest extends \IpUpdate\PhpUnit\UpdateTestCase
+class FileSystemTest extends \PhpUnit\UpdateTestCase
 {
 
     public function testMakeWritable()
     {
         $testDir = TEST_TMP_DIR.'FileSystemTest/';
         
-        $fileSystemHelper = new \IpUpdate\PhpUnit\Helper\FileSystem();
+        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
         $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'update/Library/Model/FileSystem/', $testDir);
         
         

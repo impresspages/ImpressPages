@@ -1,6 +1,6 @@
 <?php
 
-namespace IpUpdate\PhpUnit;
+namespace PhpUnit;
 
 /**
  * @package	ImpressPages
@@ -16,18 +16,18 @@ class Autoloader
     public function register($rootDir)
     {
         if (empty($dirs)) {
-            spl_autoload_register('IpUpdate\PhpUnit\Autoloader::load');
+            spl_autoload_register('PhpUnit\\Autoloader::load');
         }
         static::$dirs[] = $rootDir;
     }
 
     public static function load($name)
     {
-        if (strpos($name, 'IpUpdate\\PhpUnit\\') !== 0) {
+        if (strpos($name, 'PhpUnit\\') !== 0) {
             return false;
         }
         
-        $name = substr($name, 17);
+        $name = substr($name, 8);
         
         $fileName = str_replace('\\', '/', $name) . '.php';
         if($fileName[0] == '/') { //in some environments required class starts with slash. In that case remove the slash.

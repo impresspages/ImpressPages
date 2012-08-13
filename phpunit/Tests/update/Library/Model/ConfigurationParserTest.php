@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class ConfigurationParserTest extends \IpUpdate\PhpUnit\UpdateTestCase
+class ConfigurationParserTest extends \PhpUnit\UpdateTestCase
 {
     public function testParse()
     {

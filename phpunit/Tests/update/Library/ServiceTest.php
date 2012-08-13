@@ -5,11 +5,14 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
+class ServiceTest extends \PhpUnit\UpdateTestCase
 {
+    /**
+     * @large
+     */
     public function testCurrentVersion()
     {
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.3');
+        $installation = new \PhpUnit\Helper\Installation('2.3');
         $installation->install();
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $version = $service->getCurrentVersion();
@@ -17,13 +20,16 @@ class ServiceTest extends \IpUpdate\PhpUnit\UpdateTestCase
 
         $installation->uninstall();
     }
-    
+
+    /**
+     * @large
+     */
     public function testProcess()
     {
         
         //install
         
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
 
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());

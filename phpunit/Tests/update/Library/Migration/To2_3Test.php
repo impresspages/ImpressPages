@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class To2_3Test extends \IpUpdate\PhpUnit\UpdateTestCase
+class To2_3Test extends \PhpUnit\UpdateTestCase
 {
 
     public function testGetDownloadUrl()

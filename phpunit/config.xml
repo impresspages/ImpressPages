@@ -1,4 +1,6 @@
-<phpunit backupGlobals="true" backupStaticAttributes="false"
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="false"
     bootstrap="bootstrap.php"
     cacheTokens="true"
     colors="true"
@@ -6,13 +8,13 @@
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
     forceCoversAnnotation="false"
-    mapTestClassNameToCoveredClassName="false"
+    mapTestClassNameToCoveredClassName="true"
     printerClass="PHPUnit_TextUI_ResultPrinter"
     processIsolation="false"
     stopOnError="false"
     stopOnFailure="false"
     stopOnIncomplete="false"
     stopOnSkipped="false"
-    strict="false"
-    verbose="false">
+    strict="true"
+    verbose="true">
 </phpunit>

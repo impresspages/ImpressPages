@@ -5,13 +5,13 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
+class UpdateTest extends \PhpUnit\SeleniumTestCase
 {
 
  
     public function testGeneral()
     {
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
         
         $url = $installation->getInstallationUrl();
@@ -27,7 +27,6 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         
-        $this->assertNoErrors();
         $this->assertTextPresent('IpForm widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
 
@@ -47,7 +46,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
     
     public function testWritePermissionError()
     {
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
         
         $url = $installation->getInstallationUrl();
@@ -68,7 +67,6 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         
-        $this->assertNoErrors();
         $this->assertTextPresent('IpForm widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
 
@@ -97,7 +95,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
     
     public function testInProgressError()
     {
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
         
         $url = $installation->getInstallationUrl();
@@ -123,7 +121,6 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         $this->waitForElementPresent('css=.actProceed');
         $this->click('css=.actProceed');
         //start update process
-        $this->assertNoErrors();
         $this->assertTextPresent('Another update process in progress');
         
         //reset the lock
@@ -141,7 +138,7 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
     
     public function testUnknownVersionError()
     {
-        $installation = new \IpUpdate\PhpUnit\Helper\Installation('2.0rc2');
+        $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
         
         $url = $installation->getInstallationUrl();
@@ -165,14 +162,12 @@ class UpdateTest extends \IpUpdate\PhpUnit\UpdateSeleniumTestCase
         
         
         //setup update
-        $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate('2.4');
         
         
         
         $this->open($url.'update');
         $this->waitForElementPresent('css=.seleniumCompleted');
-        $this->assertNoErrors();
         $this->assertTextPresent('Your system has been successfully updated');
 
     }

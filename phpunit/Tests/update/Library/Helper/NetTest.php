@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class NetTest extends \IpUpdate\PhpUnit\UpdateTestCase
+class NetTest extends \PhpUnit\UpdateTestCase
 {
 
     public function testDownloadFile()
