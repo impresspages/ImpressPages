@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class ServiceTest extends \PhpUnit\UpdateTestCase
+class ServiceTest extends \PhpUnit\GeneralTextCase
 {
     /**
      * @large
