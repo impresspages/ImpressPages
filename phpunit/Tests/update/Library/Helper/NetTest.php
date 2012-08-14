@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class NetTest extends \PhpUnit\GeneralTextCase
+class NetTest extends \PhpUnit\GeneralTestCase
 {
 
     public function testDownloadFile()

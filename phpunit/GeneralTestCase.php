@@ -2,8 +2,8 @@
 
 namespace PhpUnit;
 
-//class GeneralTextCase extends \PHPUnit_Extensions_Database_TestCase
-class GeneralTextCase extends \PHPUnit_Framework_TestCase
+//class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
+class GeneralTestCase extends \PHPUnit_Framework_TestCase
 {
     protected function setup()
     {

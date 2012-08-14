@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class TempStorageTest extends \PhpUnit\GeneralTextCase
+class TempStorageTest extends \PhpUnit\GeneralTestCase
 {
 
 

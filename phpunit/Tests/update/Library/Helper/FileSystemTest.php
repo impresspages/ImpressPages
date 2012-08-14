@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class FileSystemTest extends \PhpUnit\GeneralTextCase
+class FileSystemTest extends \PhpUnit\GeneralTestCase
 {
 
     public function testMakeWritable()

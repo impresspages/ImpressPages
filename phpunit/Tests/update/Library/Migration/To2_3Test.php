@@ -5,9 +5,12 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class To2_3Test extends \PhpUnit\GeneralTextCase
+class To2_3Test extends \PhpUnit\GeneralTestCase
 {
 
+    /**
+     * @large
+     */
     public function testGetDownloadUrl()
     {
         $script = new \IpUpdate\Library\Migration\To2_3\Script();

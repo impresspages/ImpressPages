@@ -26,6 +26,7 @@ class Installation
     private $siteTimeZone;
     private $cf;
     private $conn;
+    private $testDbHelper;
 
     private $installed;
     /**
@@ -41,7 +42,6 @@ class Installation
         $this->setDbHost('localhost');
         $this->setDbUser(TEST_DB_USER);
         $this->setDbPass(TEST_DB_PASS);
-        $this->setDbName('test_'.time());
         $this->setDbPrefix('ipt_');
         $this->setSiteName('TestSite');
         $this->setSiteEmail('test@example.com');
@@ -62,8 +62,13 @@ class Installation
         if ($this->isInstalled()) {
             throw new \Exception("Already intalled");
         }
-        
-        $this->createDatabase($this->getDbName());
+
+        $testDbHelper = new \PhpUnit\Helper\TestDb();
+        $this->setDbName($testDbHelper->getDbName());
+        $this->setDbHost($testDbHelper->getDbHost());
+        $this->setDbUser($testDbHelper->getDbUser());
+        $this->setDbPass($testDbHelper->getDbPass());
+        $this->testDbHelper = $testDbHelper; //database will be destroyed on this object destruction;
 
         $netHelper = new \IpUpdate\Library\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
@@ -155,8 +160,6 @@ class Installation
         if (!$this->isInstalled()) {
             throw new \Exception("system is not installed");
         }
-
-        $this->dropDatabase($this->getDbName());
 
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->rm($this->getInstallationDir());
@@ -373,36 +376,6 @@ class Installation
         return $this->siteTimeZone;
     }
 
-    //
-    // private methods
-    //
-
-    private function createDatabase($dbName)
-    {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
-        }
-
-        mysql_query("CREATE DATABASE `".$dbName."` CHARACTER SET utf8", $connection);
-        mysql_query("ALTER DATABASE `".$dbName."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;", $connection);
-
-        mysql_close($connection);
-    }
-
-
-    private function dropDatabase($dbName)
-    {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
-        }
-
-        mysql_query("DROP DATABASE `".$dbName."`", $connection);
-
-        mysql_close($connection);
-
-    }
 
 
 

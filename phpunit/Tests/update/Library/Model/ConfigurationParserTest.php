@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class ConfigurationParserTest extends \PhpUnit\GeneralTextCase
+class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
 {
     public function testParse()
     {
