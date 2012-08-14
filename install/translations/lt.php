@@ -7,6 +7,7 @@ define('IP_HTACCESS', '.htaccess failas');
 define('IP_MOD_PDO', 'PHP modulis "PDO"');
 define('IP_GD_LIB', 'GD grafinė biblioteka');
 define('IP_MAGIC_QUOTES', '"Magic quotes" rekomenduojama išjungti.');
+define('IP_INDEX_HTML', 'index.html ištrintas');
 
 define('IP_OK', 'Taip');
 define('IP_ERROR', 'Ne');

@@ -52,6 +52,9 @@ if (!file_exists('./../.htaccess')) {
     $error['htaccess'] = 1;
 }
 
+if (file_exists('./../index.html')) {
+    $error['index.html'] = 1;
+}
 
 if (!extension_loaded('gd') || !function_exists('gd_info')) {
     $error['gd_lib'] = 1;
@@ -98,6 +101,12 @@ if(isset($error['htaccess']))
 else
     $table[] = '<span class="correct">'.IP_OK.'</span>';
 
+
+$table[] = IP_INDEX_HTML;
+if(isset($error['index.html']))
+    $table[] = '<span class="error">'.IP_ERROR."</span>";
+else
+    $table[] = '<span class="correct">'.IP_OK.'</span>';
 
 
 $table[] = IP_MAGIC_QUOTES;

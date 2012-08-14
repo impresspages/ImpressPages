@@ -50,14 +50,38 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
 
     }
 
-    public function testNoHtAccess() {
+    public function testSystemCheck() {
         $this->prepareForInstallation();
+        $this->clickAndWait('css=.button_act');
+
+        $this->open(TEST_TMP_URL.'install/?step=1');
+        sleep(5);
+        $this->assertElementNotPresent('css=span.error');
 
         unlink(TEST_TMP_DIR.'.htaccess');
-        $this->clickAndWait('css=.button_act');
+        $this->open(TEST_TMP_URL.'install/?step=1');
+        sleep(5);
         $this->assertVisible('css=span.error');
-        sleep(50);
+        file_put_contents(TEST_TMP_DIR.'.htaccess', '');
+        $this->open(TEST_TMP_URL.'install/?step=1');
+        sleep(5);
+        $this->assertElementNotPresent('css=span.error');
+
+
+        file_put_contents(TEST_TMP_DIR.'index.html', '');
+        $this->open(TEST_TMP_URL.'install/?step=1');
+        sleep(5);
+        $this->assertVisible('css=span.error');
+        unlink(TEST_TMP_DIR.'index.html');
+        $this->open(TEST_TMP_URL.'install/?step=1');
+        sleep(5);
+        $this->assertElementNotPresent('css=span.error');
+
+
+
     }
+
+
 
     private function prepareForInstallation()
     {

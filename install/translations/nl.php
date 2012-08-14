@@ -7,6 +7,7 @@ define('IP_HTACCESS', '.htaccess file');
 define('IP_MOD_PDO', 'PHP module "PDO"');
 define('IP_GD_LIB', 'GD Graphics Library');
 define('IP_MAGIC_QUOTES', 'Magic quotes off');
+define('IP_INDEX_HTML', 'index.html removed');
 
 define('IP_OK', 'Ja');
 define('IP_ERROR', 'Nee');

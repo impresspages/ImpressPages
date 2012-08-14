@@ -7,6 +7,7 @@ define('IP_HTACCESS', '.htaccess file');
 define('IP_MOD_PDO', 'PHP module "PDO"');
 define('IP_GD_LIB', 'Grafická knihovna GD');
 define('IP_MAGIC_QUOTES', 'Kouzelné citace (mimo doporučené)');
+define('IP_INDEX_HTML', 'index.html removed');
 
 define('IP_OK', 'Ano');
 define('IP_ERROR', 'Ne');
