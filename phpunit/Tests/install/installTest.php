@@ -70,9 +70,34 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
 
         $this->clickAndWait('css=.button_act');
+        $this->assertText('css=h1', 'Database installation');
+        //$this->assertNoErrors(); //there is hidden error message
+
+        $testDbHelper = new \PhpUnit\Helper\TestDb();
+        $this->type('css=#db_server', $testDbHelper->getDbHost());
+        $this->type('css=#db_user', $testDbHelper->getDbUser());
+        $this->type('css=#db_pass', $testDbHelper->getDbPass());
+        $this->type('css=#db_db', $testDbHelper->getDbName());
+        $this->click('css=.button_act');
+        $this->waitForVisible('css=#config_site_name');
+        //$this->assertNoErrors();  //there is hidden error message
 
 
-        sleep(100000);
+        $this->type('css=#config_site_name', 'TestSiteName');
+        $this->type('css=#config_site_email', 'test@example.com');
+        $this->type('css=#config_login', 'admin');
+        $this->type('css=#config_pass', 'admin');
+        $this->type('css=#config_email', 'test@example.com');
+        $this->select('css=#config_timezone', 'value=Europe/London');
+        $this->clickAndWait('css=.button_act');
+        $this->assertText('css=h1', 'ImpressPages CMS successfully installed.');
+        $this->assertNoErrors();
+
+
+        $this->clickAndWait('css=#content a');
+        $this->assertNoErrors();
+        $this->assertText('css=.sitename', 'TestSiteName');
+
 
 
     }

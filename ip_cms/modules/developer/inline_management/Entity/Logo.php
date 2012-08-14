@@ -82,8 +82,12 @@ class Logo
             $this->setText($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'));
         }
 
-        $this->setColor($data['color']);
-        $this->setFont($data['font']);
+        if (isset($data['color'])) {
+            $this->setColor($data['color']);
+        }
+        if (isset($data['font'])) {
+            $this->setFont($data['font']);
+        }
 
     }
 
