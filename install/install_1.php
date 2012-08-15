@@ -64,6 +64,59 @@ if(get_magic_quotes_gpc()){
     $warning['magic_quotes'] = 1;
 }
 
+
+if (!function_exists('curl_init')) {
+    $warning['curl'] = 1;
+}
+
+
+if (function_exists('curl_init')) {
+    $ch = curl_init();
+    $url = get_url();
+    $urlParts = explode('?', $url);
+    $url = $urlParts[0].'worker.php';
+
+    $fields = array(
+        'action'=>'sessionSetTest'
+    );
+    $fieldsString = '';
+    foreach($fields as $key=>$value) { $fieldsString .= $key.'='.$value.'&'; }
+    rtrim($fieldsString,'&');
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_REFERER, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    curl_setopt($ch, CURLOPT_POST, count($fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "");
+    curl_setopt($ch, CURLOPT_COOKIEFILE, "");
+    curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
+    $jsonAnswer = curl_exec($ch);
+
+    $fields = array(
+        'action'=>'sessionGetTest'
+    );
+    $fieldsString = '';
+    foreach($fields as $key=>$value) { $fieldsString .= $key.'='.$value.'&'; }
+    rtrim($fieldsString,'&');
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_REFERER, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    curl_setopt($ch, CURLOPT_POST, count($fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "");
+    curl_setopt($ch, CURLOPT_COOKIEFILE, "");
+    curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
+    $jsonAnswer = curl_exec($ch);
+    $answer = json_decode($jsonAnswer, true);
+    if (!$answer || !isset($answer['status']) || $answer['status'] != 'success') {
+        $error['session'] = 1;
+    }
+}
+
+
+
 $answer = '';
 $answer = '<h1>'.IP_STEP_CHECK_LONG."</h1>";
 
@@ -94,6 +147,15 @@ $table[] = '<span class="error">'.IP_ERROR."</span>";
 else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
 
+//sessions are checked using curl. If there is no curl, session availability hasn't been checked
+if (!isset($warning['curl'])) {
+    $table[] = IP_SESSION;
+    if(isset($error['session'])) {
+        $table[] = '<span class="error">'.IP_ERROR."</span>";
+    } else {
+        $table[] = '<span class="correct">'.IP_OK.'</span>';
+    }
+}
 
 $table[] = IP_HTACCESS;
 if(isset($error['htaccess']))
@@ -114,6 +176,15 @@ if(isset($warning['magic_quotes']))
 $table[] = '<span class="error">'.IP_ERROR."</span>";
 else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
+
+$table[] = IP_CURL;
+if(isset($warning['curl'])) {
+    $table[] = '<span class="error">'.IP_ERROR."</span>";
+} else {
+    $table[] = '<span class="correct">'.IP_OK.'</span>';
+}
+
+
 
 
 
@@ -189,4 +260,15 @@ $answer .= "<br>";
 output($answer);
 
 
-?>
+function get_url() {
+    $pageURL = 'http';
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+    $pageURL .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+        $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+
+    return $pageURL;
+}

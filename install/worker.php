@@ -23,6 +23,24 @@ if(!install_available()) {
 
 ini_set('display_errors', '0');
 session_start();
+
+if(isset($_POST['action']) && $_POST['action'] == 'sessionSetTest'){
+    $_SESSION['test'] = 'value';
+    echo '{"status":"success"}';
+    exit;
+}
+
+if(isset($_POST['action']) && $_POST['action'] == 'sessionGetTest'){
+    if (isset($_SESSION['test']) && $_SESSION['test'] == 'value') {
+        echo '{"status":"success"}';
+        exit;
+    } else {
+        echo '{"status":"error"}';
+        exit;
+    }
+}
+
+
 if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     if (strlen($_POST['prefix']) > strlen('ip_cms_')) {
         echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
