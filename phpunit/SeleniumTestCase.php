@@ -12,8 +12,9 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
         
-        $this->setBrowser('*firefox');
+        $this->setBrowser('*googlechrome');
         $this->setBrowserUrl(TEST_TMP_URL);
+
     }
     
     protected function tearDown()

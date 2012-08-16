@@ -76,5 +76,18 @@ class Service
         }
         return $notes;
     }
-     
+
+
+    public static function getLatestVersion()
+    {
+        $curVersion = '2.0';
+        $updateModel = new \IpUpdate\Library\Model\Migration();
+        $scripts = $updateModel->getScriptsFromVersion($curVersion);
+        $latestVersion = $curVersion;
+        foreach ($scripts as $script) {
+            $latestVersion = $script->getDestinationVersion();
+        }
+        return $latestVersion;
+    }
+
 }

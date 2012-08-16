@@ -28,14 +28,26 @@ class Installation
     private $conn;
     private $testDbHelper;
 
+    /**
+     * @var true if this installation represents current development version
+     */
+    private $developmentVersion;
+
     private $installed;
     /**
      * @param string$version
      */
-    public function __construct($version)
+    public function __construct($version = null)
     {
+        if ($version === null) {
+            $this->developmentVersion = true;
+            $version = \IpUpdate\Library\Service::getLatestVersion();
+        } else {
+            $this->developmentVersion = false;
+        }
+
         $versionDir = str_replace('.', '_', $version);
-        $this->version = $version; //version dosen't have a setter, because it can't be changed after object has been created.
+        $this->version = $version; //version doesn't have a setter, because it can't be changed after object has been created.
 
         $this->setInstallationDir(TEST_TMP_DIR.$versionDir.'/');
         $this->setInstallationUrl(TEST_TMP_URL.$versionDir.'/');
@@ -70,26 +82,8 @@ class Installation
         $this->setDbPass($testDbHelper->getDbPass());
         $this->testDbHelper = $testDbHelper; //database will be destroyed on this object destruction;
 
-        $netHelper = new \IpUpdate\Library\Helper\Net();
-        $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
-        $script = $migrationModel->getScriptToVersion($this->getVersion());
-        $netHelper->downloadFile($script->getDownloadUrl(), $archive);
+        $this->putInstallationFiles($this->getInstallationDir());
 
-        mkdir($this->getInstallationDir());
-        
-        if (!class_exists('PclZip')) {
-            require_once(TEST_BASE_DIR.'Helper/PclZip.php');
-        }
-        $zip = new \PclZip($archive);
-        $success = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir(), PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->getVersion()));
-
-        if ($success == 0) {
-            throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
-        }
-        
-        file_put_contents($this->getInstallationDir().'.htaccess', 'allow from all');
-        
         // INIT CURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -154,6 +148,7 @@ class Installation
         $this->installed = true;
         
     }
+
 
     public function uninstall()
     {
@@ -377,7 +372,98 @@ class Installation
     }
 
 
+    private function putInstallationFiles($destinationDir)
+    {
+        if ($this->developmentVersion) {
+            $this->putInstallationFilesDevelopment($destinationDir);
+        } else {
+            $this->putInstallationFilesPackage($destinationDir);
+        }
+
+    }
+
+    /**
+     * Copy current development sources
+     * @param string $destination
+     */
+    private function putInstallationFilesDevelopment($destination)
+    {
+        mkdir($destination);
+
+        $folders = array(
+            'audio',
+            'file',
+            'image',
+            'install',
+            'ip_cms',
+            'ip_configs',
+            'ip_libs',
+            'ip_plugins',
+            'ip_themes',
+            'update',
+            'video'
+        );
+
+        $files = array(
+            'admin.php',
+            'favicon.ico',
+            'index.php',
+            'ip_backend_frames.php',
+            'ip_backend_worker.php',
+            'ip_config.php',
+            'ip_cron.php',
+            'ip_license.html',
+            'readme.txt',
+            'robots.txt',
+            'sitemap.php',
+            '.htaccess'
+        );
 
 
+        $fs = new \PhpUnit\Helper\FileSystem();
+        foreach($folders as $folder) {
+            $fs->cpDir(CODEBASE_DIR.$folder, $destination.$folder);
+        }
+        foreach($files as $file) {
+            copy(CODEBASE_DIR.$file, $destination.$file);
+        }
 
+        file_put_contents($destination.'robots.txt', '');
+        file_put_contents($destination.'ip_config.php',
+            '<?php
+
+ if(!isset($_GET[\'install\']))
+    header("location: install/?install=1");
+        ');
+
+
+    }
+
+
+    /**
+     * Download sources from the internet
+     * @param string $destination
+     * @throws \Exception
+     */
+    private function putInstallationFilesPackage($destination)
+    {
+        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
+        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $script = $migrationModel->getScriptToVersion($this->getVersion());
+        $netHelper->downloadFile($script->getDownloadUrl(), $archive);
+
+        mkdir($destination);
+
+        if (!class_exists('PclZip')) {
+            require_once(TEST_BASE_DIR.'Helper/PclZip.php');
+        }
+        $zip = new \PclZip($archive);
+        $success = $zip->extract(PCLZIP_OPT_PATH, $destination, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->getVersion()));
+
+        if ($success == 0) {
+            throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
+        }
+
+    }
 }
