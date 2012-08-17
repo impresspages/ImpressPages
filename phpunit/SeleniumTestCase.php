@@ -26,8 +26,10 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     
     protected function assertNoErrors() 
     {
-        $this->assertTextNotPresent('error');
-        $this->assertTextNotPresent('warning');
-        $this->assertTextNotPresent('note');
+        $this->assertTextNotPresent('Error');
+        $this->assertTextNotPresent('Warning');
+        $this->assertTextNotPresent('Notice');
+        $this->assertTextNotPresent('NOTICE');
+        $this->assertTextNotPresent('NOTICE ');
     }
 }

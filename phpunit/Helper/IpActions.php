@@ -9,6 +9,9 @@ namespace PhpUnit\Helper;
  */
 
 
+/**
+ * Class to manipulate widgets. Supports only one managed widget at the time
+ */
 class IpActions
 {
     /**
@@ -25,9 +28,17 @@ class IpActions
      * @param string $widgetName
      * @param string $block
      */
-    public function addWidget($widgetName, $block = 'main') {
+    public function addWidget($widgetName, $block = 'main')
+    {
         $this->testCase->waitForElementPresent('css=#ipAdminWidgetButton-'.$widgetName);
         $this->testCase->dragAndDropToObject('css=#ipAdminWidgetButton-'.$widgetName, 'css=#ipBlock-'.$block);
+        $this->testCase->waitForElementPresent('css=.ipActionWidgetCancel');
+    }
+
+    public function cancelWidget()
+    {
+        $this->testCase->click('css=.ipActionWidgetCancel');
+        $this->testCase->waitForElementNotPresent('css=.ipActionWidgetCancel');
     }
 
 
