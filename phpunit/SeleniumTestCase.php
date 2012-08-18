@@ -5,6 +5,7 @@ namespace PhpUnit;
 class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
 
+    private $installation;
 
     protected function setup()
     {
@@ -26,10 +27,21 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     
     protected function assertNoErrors() 
     {
-        $this->assertTextNotPresent('Error');
-        $this->assertTextNotPresent('Warning');
-        $this->assertTextNotPresent('Notice');
-        $this->assertTextNotPresent('NOTICE');
-        $this->assertTextNotPresent('NOTICE ');
+        $this->assertElementNotPresent('css=.error');
+        $this->assertElementNotPresent('css=.warning');
+        $this->assertElementNotPresent('css=.notice');
+    }
+
+    /**
+     * @return \PhpUnit\Helper\Installation
+     */
+    public function getInstallation()
+    {
+        if (!$this->installation) {
+           $installation = new \PhpUnit\Helper\Installation(); //development version
+           $installation->install();
+            $this->installation = $installation;
+        }
+        return $this->installation;
     }
 }

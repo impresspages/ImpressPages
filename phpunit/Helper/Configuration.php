@@ -1,30 +1,28 @@
 <?php
+
 /**
  * @package	ImpressPages
- * @copyright	Copyright (C) 2012 ImpressPages LTD.
+ * @copyright	Copyright (C) 2011 ImpressPages LTD.
  * @license see ip_license.html
  */
 
-namespace Modules\standard\configuration;
+namespace PhpUnit\Helper;
 
-if (!defined('CMS')) exit;
-
-
-class Model{
+class Configuration{
 
     const CONFIG_FILE_NAME = 'ip_config.php';
-    
+
     /**
-     * 
+     *
      * Change constant value in ip_config.php file
      * @param stsring $constantName
      * @param string $curValue
      * @param string $newValue
      * @throws \Exception
      */
-    public function changeConfigurationConstantValue($constantName, $curValue, $newValue) {
-        $configFile = $this->getConfigFileName();
-        
+    public function changeConfigurationConstantValue(\PhpUnit\Helper\Installation $installation, $constantName, $curValue, $newValue) {
+        $configFile = $installation->getInstallationDir().self::CONFIG_FILE_NAME;
+
         if (!is_writable($configFile)) {
             throw new  \Exception("Error: ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
         }
@@ -39,15 +37,9 @@ class Model{
         if ($count != 1) {
             throw new \Exception('Can\'t find theme definition in configuration file');
         }
-        
+
         file_put_contents($configFile, $config);
     }
-    
-    public function getConfigFileName() {
-        if (! defined('CONFIGURATION_FILE_DIR')) {
-            return BASE_DIR.self::CONFIG_FILE_NAME;
-        } else {
-            return CONFIGURATION_FILE_DIR.self::CONFIG_FILE_NAME;
-        }
-    }
+
+
 }

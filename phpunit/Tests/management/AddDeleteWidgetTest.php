@@ -9,23 +9,16 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
 {
     public function testInstallCurrent()
     {
-        $installation = new \PhpUnit\Helper\Installation(); //development version
-        $installation->install();
-        $this->open($installation->getInstallationUrl().'admin.php');
-
-
-        $this->type('css=.loginInput:eq(0)', $installation->getAdminLogin());
-        $this->type('css=.loginInput:eq(1)', $installation->getAdminLogin());
-
-        $this->clickAndWait('css=.loginSubmit');
+        $installation = $this->getInstallation();
 
         $ipActions = new \PhpUnit\Helper\IpActions($this);
+        $ipActions->login($installation);
 
-        $ipActions->addWidget('IpText');
+        $ipActions->addWidget('IpTitle');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
-        $ipActions->addWidget('IpTitle');
+        $ipActions->addWidget('IpText');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
