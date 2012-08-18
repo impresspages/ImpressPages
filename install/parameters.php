@@ -1242,6 +1242,24 @@ top";
         $parameterAdmin["standard"]["seo"]["admin_translations"]["title"] = "1";
         $parameterType["standard"]["seo"]["admin_translations"]["title"] = "string";
 
+    $parameterGroupTitle["standard"]["configuration"]["admin_translations"] = "Admin Translations";
+    $parameterGroupAdmin["standard"]["configuration"]["admin_translations"] = "1";
+
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["edit"] = "Edit";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["edit"] = "Edit";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["edit"] = "1";
+        $parameterType["standard"]["configuration"]["admin_translations"]["edit"] = "string";
+
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["confirm"] = "Confirm";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["confirm"] = "Confirm";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["confirm"] = "1";
+        $parameterType["standard"]["configuration"]["admin_translations"]["confirm"] = "string";
+
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["cancel"] = "Cancel";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["cancel"] = "Cancel";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["cancel"] = "1";
+        $parameterType["standard"]["configuration"]["admin_translations"]["cancel"] = "string";
+
     $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
     $parameterGroupAdmin["standard"]["configuration"]["advanced_options"] = "1";
 
@@ -2307,8 +2325,54 @@ left";
         $parameterAdmin["administrator"]["theme"]["admin_translations"]["title"] = "1";
         $parameterType["administrator"]["theme"]["admin_translations"]["title"] = "string";
 
+
+
 $moduleGroupTitle["developer"] = "Developer";
-$moduleTitle["developer"]["zones"] = "Zones";
+$moduleTitle["developer"]["inline_management"] = "Inline Management";
+
+    $parameterGroupTitle["developer"]["inline_management"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["developer"]["inline_management"]["admin_translations"] = "1";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["type_text"] = "Text logo";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["type_text"] = "Text logo";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["type_text"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["type_text"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["type_image"] = "Image logo";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["type_image"] = "Image logo";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["type_image"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["type_image"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["default"] = "Default";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["default"] = "Default";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["default"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["default"] = "string";
+
+    $parameterGroupTitle["developer"]["inline_management"]["options"] = "Options";
+    $parameterGroupAdmin["developer"]["inline_management"]["options"] = "1";
+
+        $parameterTitle["developer"]["inline_management"]["options"]["available_fonts"] = "Available fonts";
+        $parameterValue["developer"]["inline_management"]["options"]["available_fonts"] = "Arial,Arial,Helvetica,sans-serif
+Arial Black,Arial Black,Gadget,sans-serif
+Comic Sans MS,Comic Sans MS,cursive
+Courier New,Courier New,Courier,monospace
+Georgia,Georgia,serif
+Impact,Charcoal,sans-serif
+Lucida Console,Monaco,monospace
+Lucida Sans Unicode,Lucida Grande,sans-serif
+Palatino Linotype,Book Antiqua,Palatino,serif
+Tahoma,Geneva,sans-serif
+Times New Roman,Times,serif
+Trebuchet MS,Helvetica,sans-serif
+Verdana,Geneva,sans-serif
+Gill Sans,Geneva,sans-serif";
+        $parameterAdmin["developer"]["inline_management"]["options"]["available_fonts"] = "1";
+        $parameterType["developer"]["inline_management"]["options"]["available_fonts"] = "textarea";
+
+
+
+    $moduleGroupTitle["developer"] = "Developer";
+    $moduleTitle["developer"]["zones"] = "Zones";
 
     $parameterGroupTitle["developer"]["zones"]["admin_translations"] = "Admin translations";
     $parameterGroupAdmin["developer"]["zones"]["admin_translations"] = "1";
