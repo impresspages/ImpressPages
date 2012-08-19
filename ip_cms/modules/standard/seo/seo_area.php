@@ -129,7 +129,9 @@ class SeoArea extends \Modules\developer\std_mod\Area {
 
                 $oldUrl = $this->makeUrl($language['url'], $this->urlsBeforeUpdate[$language['id']]);
                 $newUrl = $this->makeUrl($language['url'], $parameter['url']);
-                $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
+
+                global $dispatcher;
+                $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
             }
 

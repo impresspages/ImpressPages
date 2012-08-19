@@ -27,7 +27,18 @@ class Manager {
                 case "cache_clear":
                     $log->log('administrator/system', 'Cache was cleared');
                     $module = new Module;
-                    $module->clearCache();
+                    $cachedUrl = \DbSystem::getSystemVariable('cached_base_url'); // get system variable
+
+                    $module->clearCache($cachedUrl);
+
+                    $success = $module->updateRobotsTxt($cachedUrl);
+                    if (!$success) {
+                        $answer .= '
+                        <div class="note">
+                           '.$parametersMod->getValue('administrator', 'system', 'admin_translations', 'robots_txt_update_failed').'
+                        </div>
+                        ';
+                    }
 
 
                     $answer .= '

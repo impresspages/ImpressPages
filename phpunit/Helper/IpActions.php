@@ -18,19 +18,24 @@ class IpActions
      * @var \PHPUnit_Extensions_SeleniumTestCase
      */
     private $testCase;
+    private $installation;
 
-
-    public function __construct(\PHPUnit_Extensions_SeleniumTestCase $testCase) {
+    /**
+     * @param \PHPUnit_Extensions_SeleniumTestCase $testCase
+     * @param Installation $installation
+     */
+    public function __construct(\PHPUnit_Extensions_SeleniumTestCase $testCase, \PhpUnit\Helper\Installation $installation) {
         $this->testCase = $testCase;
+        $this->installation = $installation;
     }
 
 
     /**
      * @param Installation $installation
      */
-    public function login(\PhpUnit\Helper\Installation $installation)
+    public function login()
     {
-        $this->testCase->open($installation->getInstallationUrl().'admin.php');
+        $this->testCase->open($this->installation->getInstallationUrl().'admin.php');
         $loggedIn = true;
 
         try  {
@@ -39,8 +44,8 @@ class IpActions
             $loggedIn = false;
         }
         if (!$loggedIn) {
-            $this->testCase->type('css=.loginInput:eq(0)', $installation->getAdminLogin());
-            $this->testCase->type('css=.loginInput:eq(1)', $installation->getAdminPass());
+            $this->testCase->type('css=.loginInput:eq(0)', $this->installation->getAdminLogin());
+            $this->testCase->type('css=.loginInput:eq(1)', $this->installation->getAdminPass());
             $this->testCase->clickAndWait('css=.loginSubmit');
         }
         $this->testCase->waitForElementPresent('css=.ipActionPublish');
@@ -75,6 +80,24 @@ class IpActions
     {
         $this->testCase->clickAndWait('css=.ipActionPublish');
         $this->testCase->waitForElementNotPresent('css=.ipActionPublish');
+    }
+
+    /**
+     * @param string $module
+     */
+    public function openModule($module)
+    {
+        switch ($module) {
+            case 'system':
+                $this->testCase->open($this->installation->getInstallationUrl());
+                $this->testCase->storeAttribute('css=.ipAdminNavLinks ul > li:eq(2) > ul > li:eq(3) > a@href', 'systemModuleLink');
+                $systemModuleLink = $this->getExpression('${systemModuleLink}');
+                $this->testCase->open($systemModuleLink);
+                break;
+            default:
+                throw new \Exception("Unknown error");
+                break;
+        }
     }
 
 }

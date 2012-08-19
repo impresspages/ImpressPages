@@ -556,18 +556,7 @@ class BackendWorker {
 
 
         if (empty($answer['errors'])) {
-            $zone = $site->getZone($_POST['zoneName']);
-            $oldPage = $zone->getElement($_POST['pageId']);
-            $oldUrl = $oldPage->getLink(true);
-
             Db::updatePage($_POST['zoneName'], $_POST['pageId'], $_POST);
-
-            if($oldPage->getUrl() != $_POST['url']){
-                $newPage = $zone->getElement($_POST['pageId']);
-                $newUrl = $newPage->getLink(true);
-                $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
-            }
-
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
@@ -846,7 +835,9 @@ class BackendWorker {
         $pageZone = $site->getZone($zoneName);
         $page = $pageZone->getElement($pageId);
         $newUrl = $page->getLink(true);
-        $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
+
+        global $dispatcher;
+        $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
         //report url change
 
 

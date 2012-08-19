@@ -68,6 +68,17 @@ class DbSystem{    //system variables
 
 
     public static function replaceUrls($oldUrl, $newUrl){
+
+        if ($oldUrl == '' || $newUrl == '') {
+            trigger_error('Can\'t update URL');
+        }
+
+        $oldUrlParts = explode('?', $oldUrl);
+        $oldUrl = $oldUrlParts[0];
+
+        $newUrlParts = explode('?', $newUrl);
+        $newUrl = $newUrlParts[0];
+
         $sql = "update `".DB_PREF."par_string` set value = REPLACE(`value`, '".mysql_real_escape_string($oldUrl)."', '".mysql_real_escape_string($newUrl)."') where 1";
         $rs = mysql_query($sql);
         

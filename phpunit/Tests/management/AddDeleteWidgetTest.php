@@ -11,8 +11,8 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
     {
         $installation = $this->getInstallation();
 
-        $ipActions = new \PhpUnit\Helper\IpActions($this);
-        $ipActions->login($installation);
+        $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
+        $ipActions->login();
 
         $ipActions->addWidget('IpTitle');
         $this->assertNoErrors();

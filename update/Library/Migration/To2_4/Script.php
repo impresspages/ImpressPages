@@ -21,6 +21,18 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->dbPref = $cf['DB_PREF'];
 
 
+        $moduleId = $this->getModuleId('administrator', 'system');
+
+        $parametersGroup = $this->getParameterGroup($moduleId, 'admin_translations');
+        $groupId = $parametersGroup['id'];
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'robots_txt_update_failed')) {
+                $this->addStringParameter($groupId, 'robots.txt update failed', 'robots_txt_update_failed', 'robots.txt file needs to be updated manually.', 0);
+            }
+
+
+
+
         $moduleId = $this->getModuleId('standard', 'configuration');
         $parametersGroup = $this->getParameterGroup($moduleId, 'admin_translations');
         if ($parametersGroup) {

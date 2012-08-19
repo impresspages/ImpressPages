@@ -213,6 +213,9 @@ $parameter["parameterValue/administrator/system/admin_translations/cache"] = "Ca
 $parameter["parameterTitle/administrator/system/admin_translations/cache_clear"] = "Cache clear";
 $parameter["parameterValue/administrator/system/admin_translations/cache_clear"] = "Clear cache";
 
+$parameter["parameterTitle/administrator/system/admin_translations/robots_txt_update_failed"] = "robots.txt update failed";
+$parameter["parameterValue/administrator/system/admin_translations/robots_txt_update_failed"] = "robots.txt file needs to be updated manually.";
+
 $parameter["parameterTitle/community/newsletter/admin_translations/newsletter"] = "Newsletter";
 $parameter["parameterValue/community/newsletter/admin_translations/newsletter"] = "Newsletter";
 

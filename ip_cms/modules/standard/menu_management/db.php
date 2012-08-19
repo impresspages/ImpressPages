@@ -189,6 +189,7 @@ class Db {
         }
         
         $oldPage = $zone->getElement($pageId);
+        $oldUrl = $oldPage->getLink(true);
         
         if (isset($params['buttonTitle']))
         $values[] = 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
@@ -265,7 +266,9 @@ class Db {
             
             if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
                 $newPage = $zone->getElement($pageId);
-                $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldPage->getLink(true), 'new_url'=>$newPage->getLink(true)));
+                $newUrl = $newPage->getLink(true);
+                global $dispatcher;
+                $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
             }
             
             

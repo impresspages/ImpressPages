@@ -19,7 +19,7 @@ class System{
     public function init(){
         global $dispatcher;
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');
-        
+        $dispatcher->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
     }
     
     /**
@@ -31,6 +31,12 @@ class System{
         self::$enableError404Output = $value;
     }
 
+
+    public static function urlChanged (\Ip\Event\UrlChanged $event)
+    {
+        require_once (BASE_DIR . INCLUDE_DIR . 'db_system.php');
+        \DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
+    }
     
     public static function catchError404 (\Ip\Event $event) {
         global $parametersMod;

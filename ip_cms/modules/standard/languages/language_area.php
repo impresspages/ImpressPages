@@ -161,7 +161,9 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
             $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
             $newUrl = BASE_URL.$tmpLanguage['url'].'/';
-            $site->dispatchEvent('administrator', 'system', 'url_change', array('old_url'=>$oldUrl, 'new_url'=>$newUrl));
+            global $dispatcher;
+            $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
+
         }
 
         $site->dispatchEvent('standard', 'languages', 'language_updated', array('language_id'=>$id));    //deprecated

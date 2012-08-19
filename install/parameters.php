@@ -2302,9 +2302,14 @@ left";
         $parameterValue["administrator"]["system"]["admin_translations"]["cache_cleared"] = "<p>Cache was cleared.</p>";
         $parameterAdmin["administrator"]["system"]["admin_translations"]["cache_cleared"] = "0";
         $parameterType["administrator"]["system"]["admin_translations"]["cache_cleared"] = "string_wysiwyg";
-        
-    
-    $moduleGroupTitle["administrator"] = "Administrator";
+
+        $parameterTitle["administrator"]["system"]["admin_translations"]["robots_txt_update_failed"] = "robots.txt update failed";
+        $parameterValue["administrator"]["system"]["admin_translations"]["robots_txt_update_failed"] = "robots.txt file needs to be updated manually.";
+        $parameterAdmin["administrator"]["system"]["admin_translations"]["robots_txt_update_failed"] = "0";
+        $parameterType["administrator"]["system"]["admin_translations"]["robots_txt_update_failed"] = "string";
+
+
+$moduleGroupTitle["administrator"] = "Administrator";
     $moduleTitle["administrator"]["theme"] = "Theme";
         
         $parameterGroupTitle["administrator"]["theme"]["admin_translations"] = "Admin translations";
