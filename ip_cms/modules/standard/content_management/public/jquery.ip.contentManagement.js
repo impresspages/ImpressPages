@@ -23,8 +23,10 @@
  
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
-                        optionsChanged : false
-                    }); 
+                        optionsChanged : false,
+                        postUrl : document.location
+                    });
+                    var data = $this.data('ipContentManagement');
                     
                     
                     if ($(".ipAdminPanelContainer").length == 0) {
@@ -32,15 +34,15 @@
                         $('body').prepend($controlsBgDiv);
                     }
                 
-                    var data = Object();
-                    data.g = 'standard';
-                    data.m = 'content_management';
-                    data.a = 'initManagementData';
+                    var postData = Object();
+                    postData.g = 'standard';
+                    postData.m = 'content_management';
+                    postData.a = 'initManagementData';
             
                     $.ajax({
                         type : 'POST',
-                        url : document.location,
-                        data : data,
+                        url : data.postUrl,
+                        data : postData,
                         context : $this,
                         success : methods.initResponse,
                         dataType : 'json'
@@ -130,17 +132,17 @@
             var $this = $(this);
             var data = $this.data('ipContentManagement');
             
-            var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'savePageOptions';
-            data.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
-            data.revisionId = ip.revisionId;
+            var postData = Object();
+            postData.g = 'standard';
+            postData.m = 'content_management';
+            postData.a = 'savePageOptions';
+            postData.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
+            postData.revisionId = ip.revisionId;
 
             $.ajax({
                 type : 'POST',
-                url : document.location,
-                data : data,
+                url : data.postUrl,
+                data : postData,
                 context : $this,
                 success : methods._savePageOptionsResponse,
                 dataType : 'json'
@@ -149,8 +151,15 @@
         },
         
         _savePageOptionsResponse : function (response) {
+            $this = this;
             if (response.status == 'success') {
                 $('.ipaOptionsDialog').remove();
+                if (response.newUrl && response.newUrl != '') {
+                    var data = $this.data('ipContentManagement');
+                    data.postUrl = response.newUrl;
+                    $this.data('ipContentManagement', data);
+                    $('a[href="' + response.oldUrl + '"]').attr('href', response.newUrl);
+                }
             } else {
                 alert(response.errorMessage);
             }
@@ -223,19 +232,17 @@
                 }
                 
                 
-                var data = Object();
-                data.g = 'standard';
-                data.m = 'content_management';
-                data.a = 'savePage';
-                data.revisionId = ip.revisionId;
+                var postData = Object();
+                postData.g = 'standard';
+                postData.m = 'content_management';
+                postData.a = 'savePage';
+                postData.revisionId = ip.revisionId;
 
 
-                refreshLocation = document.location
-                
                 $.ajax({
                     type : 'POST',
-                    url : document.location,
-                    data : data,
+                    url : data.postUrl,
+                    data : postData,
                     context : $this,
                     success : methods._savePageResponse,
                     dataType : 'json'
@@ -244,20 +251,20 @@
         },
         
         _savePageResponse: function(response) {
-            $this = $(this);
+            var $this = $(this);
             var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
                 if (data.publishAfterSave) {
-                    var data = Object();
-                    data.g = 'standard';
-                    data.m = 'content_management';
-                    data.a = 'publishPage';
-                    data.revisionId = response.newRevisionId;
+                    var postData = Object();
+                    postData.g = 'standard';
+                    postData.m = 'content_management';
+                    postData.a = 'publishPage';
+                    postData.revisionId = response.newRevisionId;
 
                     $.ajax({
                         type : 'POST',
-                        url : document.location,
-                        data : data,
+                        url : data.postUrl,
+                        data : postData,
                         context : $this,
                         success : methods._publishPageResponse,
                         dataType : 'json'
@@ -311,7 +318,7 @@
         },
     
         publishStart : function (event) {
-            $this = $(this);
+            var $this = $(this);
             var tmpData = $this.data('ipContentManagement'); 
             tmpData.publishAfterSave = true;
             $this.data('ipContentManagement', tmpData);

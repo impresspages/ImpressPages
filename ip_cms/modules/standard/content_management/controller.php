@@ -106,17 +106,17 @@ class Controller extends \Ip\Controller{
                 $widgets[$key] = $widget;
             }
         }
-        
+
         $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
 
         $managementUrls = array();
-        foreach($revisions as $revisionKey => $revision) {
+        foreach($revisions as $revision) {
             $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId'];
         }
 
         $revision = $site->getRevision();
 
-        $manageableRevision = $revisions[0]['revisionId'] == $revision['revisionId'];
+        $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
         
         $page = $site->getCurrentElement();
 
@@ -515,6 +515,7 @@ class Controller extends \Ip\Controller{
     
     
     public function savePageOptions () {
+        global $site;
         if (empty($_POST['revisionId'])) {
             $this->_errorAnswer('Mising revisionId POST variable');
             return;
@@ -534,13 +535,37 @@ class Controller extends \Ip\Controller{
             $this->_errorAnswer('Can\'t find revision. RvisionId \''.$revisionId.'\'');
             return;
         }
-        
+
+        $page = \Modules\standard\menu_management\Db::getPage($revision['pageId']);
+        if (isset($pageOptions['url']) && $pageOptions['url'] != $page['url']) {
+            $changedUrl = true;
+        } else {
+            $changedUrl = false;
+        }
+
+        if ($changedUrl) {
+            $zone = $site->getZone($revision['zoneName']);
+            $oldElement = $zone->getElement($revision['pageId']);
+            $oldUrl = $oldElement->getLink();
+        }
+
         \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-        
+
+        if ($changedUrl) {
+            $newElement = $zone->getElement($revision['pageId']);
+            $newUrl = $newElement->getLink();
+        }
+
         $data = array (
             'status' => 'success',
             'action' => '_savePageOptionsResponse'
         );
+
+        if ($changedUrl) {
+            $data['oldUrl'] = $oldUrl;
+            $data['newUrl'] = $newUrl;
+        }
+
 
         $this->_outputAnswer($data);
         

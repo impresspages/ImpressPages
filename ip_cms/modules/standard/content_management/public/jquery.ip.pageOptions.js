@@ -48,11 +48,11 @@
                 $this.tabs('destroy');
                 $this.tabs();
             }
-            
+
             $('.ipaOptionsConfirm').bind('click', methods._confirm);
             $('.ipaOptionsCancel').bind('click', methods._cancel);
-            
-            
+
+
         },
         
         _confirm : function (event) {
