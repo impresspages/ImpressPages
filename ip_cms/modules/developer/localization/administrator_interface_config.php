@@ -621,7 +621,7 @@ $parameter["parameterTitle/standard/configuration/admin_translations/confirm"] =
 $parameter["parameterValue/standard/configuration/admin_translations/confirm"] = "Confirm";
 
 $parameter["parameterTitle/standard/configuration/admin_translations/cancel"] = "Cancel";
-$parameter["parameterValue/standard/configuration/admin_translations/cancle"] = "Cancel";
+$parameter["parameterValue/standard/configuration/admin_translations/cancel"] = "Cancel";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
@@ -1436,3 +1436,15 @@ $parameter["parameterValue/developer/form/error_messages/min"] = "Please enter a
 
 $parameter["parameterTitle/developer/form/error_messages/required"] = "Required";
 $parameter["parameterValue/developer/form/error_messages/required"] = "Please complete this mandatory field";
+
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/type_text"] = "Logo type text";
+$parameter["parameterValue/developer/inline_management/admin_translations/type_text"] = "Text logo";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/type_image"] = "Logo type image";
+$parameter["parameterValue/developer/inline_management/admin_translations/type_image"] = "Image logo";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/default"] = "Default";
+$parameter["parameterValue/developer/inline_management/admin_translations/default"] = "Default";
+
+$parameter["parameterTitle/developer/inline_management/options/available_fonts"] = "Available fonts";
