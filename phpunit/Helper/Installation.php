@@ -160,12 +160,44 @@ class Installation
         $fs->rm($this->getInstallationDir());
     }
     
-    public function setupUpdate($destinationVersion) 
+    public function setupUpdate($destinationVersion = null)
     {
         if (!$this->isInstalled()) {
             throw new \Exception("system is not installed");
         }
+
+        if ($destinationVersion === null) {
+            $this->setupDevelopmentFiles();
+        } else {
+            $this->setupPackageFiles($destinationVersion);
+        }
         
+
+        
+    }
+
+    private function setupDevelopmentFiles()
+    {
+
+        $folders = array(
+            'update',
+        );
+
+
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        foreach($folders as $folder) {
+            $fs->rm($this->getInstallationDir().$folder);
+        }
+
+        $fs = new \PhpUnit\Helper\FileSystem();
+        foreach($folders as $folder) {
+            $fs->cpDir(CODEBASE_DIR.$folder, $this->getInstallationDir().$folder);
+        }
+
+    }
+
+    private function setupPackageFiles($destinationVersion)
+    {
         $netHelper = new \IpUpdate\Library\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
         $migrationModel = new \IpUpdate\Library\Model\Migration();
@@ -175,18 +207,17 @@ class Installation
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->rm($this->getInstallationDir().'update');
         mkdir($this->getInstallationDir().'update');
-        
-        
+
+
         if (!class_exists('PclZip')) {
             require_once(TEST_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archive);
-        $success = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
+        $status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
 
-        if ($success == 0) {
+        if (!$status) {
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
         }
-        
     }
 
 
@@ -234,7 +265,21 @@ class Installation
     
     public function getSubdir($version)
     {
-        return 'ImpressPages_'.str_replace('.', '_', $version);
+        $oldVersions = array(
+            '2.0rc1',
+            '2.0rc2',
+            '2.0',
+            '2.1',
+            '2.2',
+            '2.3'
+        );
+
+        if (in_array($version, $oldVersions)) {
+            return 'ImpressPages_'.str_replace('.', '_', $version);
+        } else {
+            return 'ImpressPages';
+        }
+
     }
 
     public function isInstalled()

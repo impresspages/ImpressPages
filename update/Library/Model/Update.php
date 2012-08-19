@@ -168,14 +168,13 @@ class Update
     private function stepDownloadPackage()
     {
         $archivePath = $this->getNewArchivePath();
-        $destinationVersion = $this->destinationScript->getDestinationVersion();
         $scriptUrl = $this->destinationScript->getDownloadUrl();
 
         if (file_exists($archivePath)) {
             if (md5_file($archivePath) == $this->destinationScript->getMd5()) {
                 return; //everything is fine. We have the right archive in place
             } else {
-                //archive checksum is wrong. Remove the arvhive;
+                //archive checksum is wrong. Remove the archive;
                 $this->fs->rm($archivePath);
             }
         }
@@ -236,7 +235,6 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             $script->process($this->cf);
         }
         
-        $this->setVersion($this->destinationScript->getDestinationVersion());
     }
     
     private function stepWriteNewFiles()
@@ -247,7 +245,12 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             require_once(IUL_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archivePath);
-        $success = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->destinationScript->getDestinationVersion()));
+        $status = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->destinationScript->getDestinationVersion()));
+
+        if (!$status) {
+            throw new \IpUpdate\Library\UpdateException("Archive extraction failed. Error: $status", \IpUpdate\Library\UpdateException::EXTRACT_FAILURE);
+        }
+
         $replaceFolders = $this->getFoldersToReplace();
         $replaceFiles = $this->getFilesToReplace();
         foreach($replaceFolders as $folder) {
@@ -270,6 +273,8 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function stepFinish()
     {
         $this->cleanUp();
+        $this->setVersion($this->destinationScript->getDestinationVersion());
+
     }
     
     private function cleanUp()
@@ -315,7 +320,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
     public function getSubdir($version)
     {
-        return 'ImpressPages_'.str_replace('.', '_', $version);
+        return 'ImpressPages';
     }    
     
     /**

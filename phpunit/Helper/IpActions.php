@@ -89,9 +89,10 @@ class IpActions
     {
         switch ($module) {
             case 'system':
-                $this->testCase->open($this->installation->getInstallationUrl());
+                $this->testCase->open($this->installation->getInstallationUrl().'admin.php');
+                $this->testCase->waitForElementPresent('css=.ipAdminNavLinks ul > li:eq(2) > ul > li:eq(3) > a');
                 $this->testCase->storeAttribute('css=.ipAdminNavLinks ul > li:eq(2) > ul > li:eq(3) > a@href', 'systemModuleLink');
-                $systemModuleLink = $this->getExpression('${systemModuleLink}');
+                $systemModuleLink = $this->testCase->getExpression('${systemModuleLink}');
                 $this->testCase->open($systemModuleLink);
                 break;
             default:

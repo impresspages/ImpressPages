@@ -20,7 +20,8 @@ class UpdateException extends \Exception
     const CURL_REQUIRED = 3;
     const WRONG_CHECKSUM = 4;
     const SQL = 5;
-    
+    const EXTRACT_FAILURE = 6;
+
     private $data;
     
     // Redefine the exception so message isn't optional

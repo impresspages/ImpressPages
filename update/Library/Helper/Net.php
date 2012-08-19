@@ -15,7 +15,7 @@ class Net
     {
         
         if (!function_exists('curl_init')) {
-            throw new \IpUpdate\Library\UpdateException("Can't get download URL", \IpUpdate\Library\UpdateException::CURL_REQUIRED);
+            throw new \IpUpdate\Library\UpdateException("CURL is not installed. Please download this file $url and put it in following directory $fileName manually.", \IpUpdate\Library\UpdateException::CURL_REQUIRED);
         }
         
         $fs = new \IpUpdate\Library\Helper\FileSystem();
@@ -28,7 +28,7 @@ class Net
         
         $options = array(
             CURLOPT_FILE => $fh,
-            CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout on big files
+            CURLOPT_TIMEOUT => 1800, // set this to 30 min so we don't timeout on big files
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_URL => $url
         );
