@@ -313,7 +313,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     
     private function getExtactedNewArchivePath()
     {
-        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/excracted/';
+        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
         $this->fs->createWritableDir($dir);
         return $dir;
     }  

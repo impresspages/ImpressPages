@@ -24,8 +24,12 @@ class HtmlOutput{
     <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/ip_admin.css">
     <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'administrator/system/style.css">
     <script src="'.LIBRARY_DIR.'js/default.js"></script>
+    <script src="'.LIBRARY_DIR.'js/jquery/jquery.js"></script>
 </head>
 <body>
+    <script>
+    var BASE_URL = \''.BASE_URL.'\';
+    </script>
       ';
     }
 

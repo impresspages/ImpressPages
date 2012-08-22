@@ -65,6 +65,14 @@ function __impressPagesAutoloader($name) {
         }
     }
 
+
+    if ($fileName == 'PclZip.php') {
+        if (file_exists(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php')) {
+            require_once(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php');
+            return true;
+        }
+    }
+
     return false;
 }
 

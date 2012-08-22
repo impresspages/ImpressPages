@@ -36,7 +36,7 @@ class Actions {
                             if($systemInfo && (!$md5 || $md5 != md5($systemInfo)) ) { //we have a new message
                                 $newMessage = false;
 
-                                foreach(json_decode($systemInfo) as $infoKey => $infoValue) {
+                                foreach(json_decode($systemInfo) as $infoValue) {
                                     if($infoValue->type != 'status') {
                                         $newMessage = true;
                                     }
