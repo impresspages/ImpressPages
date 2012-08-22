@@ -31,7 +31,7 @@ class Controller extends \Ip\Controller{
             $this->returnJson($data);
         }
 
-
+echo 'success';
 
     }
 

@@ -25,7 +25,7 @@ class UpdateModel
         }
 
         $this->downloadArchive($updateVersionInfo['downloadUrl'], $updateVersionInfo['md5'], BASE_DIR.TMP_FILE_DIR.'update/ImpressPages.zip');
-        $this->extractArchive(BASE_DIR.TMP_FILE_DIR.'ImpressPages.zip', BASE_DIR.TMP_FILE_DIR.'update/extracted/');
+        $this->extractArchive(BASE_DIR.TMP_FILE_DIR.'update/ImpressPages.zip', BASE_DIR.TMP_FILE_DIR.'update/extracted/');
 
         $fs = new Helper\FileSystem();
         $fs->rm(BASE_DIR.'update');
@@ -62,9 +62,9 @@ class UpdateModel
         $fs->clean($extractedPath);
 
         $zip = new \PclZip($archivePath);
-        $success = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, 'ImpressPages');
+        $status = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, 'ImpressPages');
 
-        if ($success !== 0) {
+        if (!$status) {
             throw new UpdateException("Archive extraction failed");
         }
 

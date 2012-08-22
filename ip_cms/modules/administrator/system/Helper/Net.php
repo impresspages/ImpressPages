@@ -15,12 +15,14 @@ class Net
     {
         
         if (!function_exists('curl_init')) {
-            throw new \IpUpdate\Library\UpdateException("CURL is not installed. Please download this file $url and put it in following directory $fileName manually.", \IpUpdate\Library\UpdateException::CURL_REQUIRED);
+            throw new \Exception("CURL is not installed. Please download this file $url and put it in following directory $fileName manually.");
         }
         
         $fs = new FileSystem();
-        
-        $fs->makeWritable($fs->getParentDir($fileName));
+
+        $destinationDir = $fs->getParentDir($fileName);
+        $fs->createWritableDir($destinationDir);
+        $fs->makeWritable($destinationDir);
 
         $ch = curl_init();
         
