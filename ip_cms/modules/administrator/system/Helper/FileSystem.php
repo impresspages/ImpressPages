@@ -13,7 +13,7 @@ class FileSystem
     public function createWritableDir($dir)
     {
         if (substr($dir, 0, 1) != '/') {
-            throw new \IpUpdate\Library\Exception('Absolute path required', \IpUpdate\Library\Exception::OTHER);
+            throw new \Modules\administrator\system\UpdateException('Absolute path required');
         }
         if ($dir == '/' && !is_writable($dir)) {
             $this->throwWritePermissionsError($dir);
@@ -132,7 +132,7 @@ class FileSystem
      */
     public function clean($dir) {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \Exception("Directory doesn't exist: ".$dir);
+            throw new \Modules\administrator\system\UpdateException("Directory doesn't exist: ".$dir);
         }
 
         if ($handle = opendir($dir)) {
@@ -154,7 +154,7 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \Exception("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
+            throw new \Modules\administrator\system\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
         }
 
         $dir_handle=opendir($source);
@@ -180,10 +180,7 @@ class FileSystem
 
     private function throwWritePermissionsError($dir)
     {
-        $errorData = array (
-            'file' => $dir
-        );
-        throw new \IpUpdate\Library\UpdateException("Can't write directory", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        throw new \Modules\administrator\system\UpdateException("Can't write directory ".$dir);
     }
 
     private function getParentPermissions($path)
@@ -201,12 +198,7 @@ class FileSystem
 
     public static function handleError($errno, $errstr, $errfile, $errline, array $errcontext)
     {
-        // error was suppressed with the @-operator
-        if (0 === error_reporting()) {
-            return false;
-        }
-
-        throw new FileSystemException($errstr, $errno);
+        throw new \Modules\administrator\system\UpdateException($errstr);
     }
 
 
