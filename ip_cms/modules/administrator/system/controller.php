@@ -31,8 +31,12 @@ class Controller extends \Ip\Controller{
             $this->returnJson($data);
         }
 
-echo 'success';
 
+        $data = array (
+            'status' => 'success',
+            'redirectUrl' => BASE_URL.'update'
+        );
+        $this->returnJson($data);
     }
 
 

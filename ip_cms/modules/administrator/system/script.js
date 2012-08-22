@@ -45,7 +45,9 @@ function startUpdate(e)
                 return;
             }
             if (response.status && response.status == 'success') {
-                console.log('success');
+                if (response.redirectUrl) {
+                    parent.document.location = response.redirectUrl;
+                }
             } else {
                 if (response.error) {
                     alert(response.error);
