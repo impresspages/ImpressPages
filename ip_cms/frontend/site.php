@@ -317,9 +317,11 @@ class Site{
                     }
                 }
             } else {
-                foreach ($this->zones as $key => $zone) { //find first zone.
+                foreach ($this->zones as $key => $zone) { //find first not empty zone.
                     $this->currentZone = $key;
-                    break;
+                    if ($this->getZone($key)->getCurrentElement()) {
+                        break;
+                    }
                 }
             }
                 
@@ -336,9 +338,9 @@ class Site{
         if ($this->error404) {
             return; //error404 already has been registered because of incorrect language or zone url.
         }
-        
+
         if (!$this->getZone($this->currentZone)->getCurrentElement()) {
-            if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone have no pages.
+            if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
                 $redirect = false;
                 foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
                     $tmpZone = $this->getZone($key);
