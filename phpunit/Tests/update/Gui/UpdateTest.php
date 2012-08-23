@@ -173,4 +173,29 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
 
     }
 
+
+    public function testUpdateButtonOnSystemTab()
+    {
+        $installation = new \PhpUnit\Helper\Installation();
+        $installation->install();
+
+        $conn = $installation->getDbConn();
+
+        $sql = "update `".$installation->getDbPrefix()."variables` set `value` = '2.3' where
+        `name` = 'version'";
+        $rs = mysql_query($sql, $conn);
+        if (!$rs) {
+            throw new \Exception($sql." ".mysql_error());
+        }
+
+        $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
+        $ipActions->login();
+        $ipActions->openModule('system');
+        $this->waitForElementPresent('css=.actStartUpdate');
+        $this->click('css=.actStartUpdate');
+        $this->waitForText('css=h1', 'Overview');
+        $this->assertNoErrors();
+
+    }
+
 }
