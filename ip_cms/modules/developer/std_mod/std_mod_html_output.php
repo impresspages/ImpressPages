@@ -165,7 +165,7 @@ class stdModHtmlOutput{
         $disabledStr = ' ';
 
 
-        $this->html .= '<textarea cols="50" rows="10" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" >'.$value.'</textarea>' ;
+        $this->html .= '<textarea cols="50" rows="10" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" >'.htmlentities($value, ENT_QUOTES, "UTF-8").'</textarea>' ;
     }
 
     function inputFile($name, $disabled = false){
