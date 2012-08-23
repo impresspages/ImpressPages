@@ -59,7 +59,11 @@ function IpWidget_IpForm(widgetObject) {
             tmpField.label = $this.ipWidget_ipForm_field('getLabel');
             tmpField.type = $this.ipWidget_ipForm_field('getType');
             tmpField.options = $this.ipWidget_ipForm_field('getOptions');
-            tmpField.required = $this.ipWidget_ipForm_field('getRequired');
+            if ($this.ipWidget_ipForm_field('getRequired')) {
+                tmpField.required = 1;
+            } else {
+                tmpField.required = 0;
+            }
             var status = $this.ipWidget_ipForm_field('getStatus');
             if (status != 'deleted') {
                 data.fields.push(tmpField);
@@ -185,9 +189,11 @@ function IpWidget_IpForm(widgetObject) {
                     }
                     if (options.type) {
                         data.type = options.type;
-                    }
-                    if (options.required) {
-                        data.required = options.required;
+                    }console.log(options);
+                    if (options.required && options.required != '0' && options.required != 'false') {
+                        data.required = 1;
+                    } else {
+                        data.required = 0;
                     }
                     if (options.status) {
                         data.status = options.status;
@@ -212,8 +218,8 @@ function IpWidget_IpForm(widgetObject) {
                     if (options.options) {
                         $this.ipWidget_ipForm_field('setOptions', options.options);
                     }
-                    
-                    if (options.required) {
+
+                    if (options.required && options.required != 0) {
                         $this.find('.ipaFieldRequired').attr('checked', options.required);
                     }
                 }

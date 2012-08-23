@@ -45,6 +45,13 @@ class IpForm extends \Modules\standard\content_management\Widget{
         global $site;
         
         $contentData = array();
+
+        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+
+
+        $to = $from = $websiteEmail;
+
         foreach($form->getFields() as $fieldKey => $field) {
             
             if ($field->getType() == \Modules\developer\form\Field\Field::TYPE_REGULAR) {
@@ -60,11 +67,18 @@ class IpForm extends \Modules\standard\content_management\Widget{
                     'value' => $value 
                 );
             }
+
+            if (get_class($field) == 'Modules\developer\form\Field\Email') {
+                $userFrom = $field->getValueAsString($postData, $field->getName());
+                if ($userFrom != '') {
+                    $from = $userFrom;
+                }
+            }
+
+
         }
         $content = \Ip\View::create('view/email_content.php', array('values' => $contentData))->render();
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'); 
-        
+
         
         $emailData = array(
             'content' => $content,
@@ -73,7 +87,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         );
         
         $email = \Ip\View::create('view/email.php', $emailData)->render();
-        $to = $from = $websiteEmail;
+
         
         //get page where this widget sits :)
         $fullWidgetRecord = \Modules\standard\content_management\Model::getWidgetFullRecord($postData['instanceId']);
