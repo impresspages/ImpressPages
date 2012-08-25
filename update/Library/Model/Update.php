@@ -241,6 +241,10 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     {
         $archivePath = $this->getNewArchivePath();
         $extractedPath = $this->getExtactedNewArchivePath();
+
+        $this->fs->createWritableDir($dir);
+        $this->fs->clean($dir);
+
         if (!class_exists('PclZip')) {
             require_once(IUL_BASE_DIR.'Helper/PclZip.php');
         }
@@ -315,8 +319,6 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function getExtactedNewArchivePath()
     {
         $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
-        $this->fs->createWritableDir($dir);
-        $this->fs->clean($dir);
         return $dir;
     }  
 
