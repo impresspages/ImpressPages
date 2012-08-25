@@ -111,6 +111,52 @@ Gill Sans,Geneva,sans-serif';
                 $this->addTextareaParameter($groupId, 'Available fonts', 'available_fonts', $fonts, 1);
             }
 
+
+        $sql = "
+            CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_global` (
+                `module` varchar(100) NOT NULL,
+                `key` varchar(255) NOT NULL,
+                `value` text NOT NULL,
+                PRIMARY KEY (`module`,`key`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs) {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+        }
+
+        $sql = "
+            CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_language` (
+                `module` varchar(100) NOT NULL,
+                `key` varchar(255) NOT NULL,
+                `langaugeId` int(11) NOT NULL,
+                `value` text NOT NULL,
+                PRIMARY KEY (`module`,`key`,`langaugeId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs) {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+        }
+
+
+        $sql = "
+            CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_page` (
+                    `module` varchar(100) NOT NULL,
+              `key` varchar(255) NOT NULL,
+              `zoneName` varchar(30) NOT NULL,
+              `pageId` int(11) NOT NULL,
+              `value` text NOT NULL,
+              PRIMARY KEY (`module`,`key`,`zoneName`,`pageId`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs) {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+        }
+
+
+
     }
 
     /**
