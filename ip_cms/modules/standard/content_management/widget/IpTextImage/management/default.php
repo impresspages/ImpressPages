@@ -8,6 +8,6 @@
 
 <div class="ipaTextarea">
     <textarea name="text">
-<?php echo isset($text) ? $text : ''; ?>
+<?php echo isset($text) ? htmlentities($text, (ENT_COMPAT), 'UTF-8') : ''; ?>
     </textarea>
 </div>
