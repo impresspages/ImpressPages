@@ -316,6 +316,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     {
         $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
         $this->fs->createWritableDir($dir);
+        $this->fs->clean($dir);
         return $dir;
     }  
 
