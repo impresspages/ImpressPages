@@ -17,7 +17,8 @@
                 if ( ! data ) {
                     $this.data('ipInlineManagementLogo', {
                         'originalLogoHtml' : $('.ipModuleInlineManagement').clone(),
-                        'imageUploadInitialized' : false
+                        'imageUploadInitialized' : false,
+                        'cssClass' : options.cssClass
                     });
                 }
             });
@@ -48,6 +49,7 @@
             }
 
             var data = $this.data('ipInlineManagementLogo');
+
             $this.data('typeSelectText', $this.find('.ipmTypeSelect input[value=text]'));
             $this.data('typeSelectImage', $this.find('.ipmTypeSelect input[value=image]'));
             $this.data('textManagement', $this.find('.ipmTextManagement'));
@@ -212,6 +214,8 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'saveLogo';
+
+            data.cssClass = $this.data('ipInlineManagementLogo').cssClass;
 
             if ($this.data('typeSelectText').attr("checked") != undefined) {
                 data.type = 'text';

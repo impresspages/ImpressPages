@@ -1188,10 +1188,10 @@ class Site{
     }
 
 
-    public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
+    public function generateManagedLogo($defaultLogo = null, $cssClass = null)
     {
         $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedLogo($defaultText, $defaultImage, $cssClass);
+        return $inlineManagementService->generateManagedLogo($defaultLogo, $cssClass);
     }
 
     public function generateManagedString($key, $defaultValue = null, $cssClass = null)

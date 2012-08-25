@@ -18,7 +18,7 @@
 
     <div class="container_12 wrapper">
         <header class="grid_12">
-            <?php echo $site->generateManagedLogo('LOGO', 'logo.jpg'); ?>
+            <?php echo $site->generateManagedLogo(); ?>
             <?php //echo $site->generateManagedString('title', 'default Value'); ?>
             <?php //echo $site->generateManagedText('title', 'defaultValue'); ?>
             <?php //echo $site->generateManagedImage('header', 'defaultValue.png', 'img/bg'); ?>

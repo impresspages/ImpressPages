@@ -17,17 +17,17 @@ class Service
         $this->dao = new Dao();
     }
 
-    public function generateManagedLogo($defaultText = null, $defaultImage = null, $cssClass = null)
+        public function generateManagedLogo($defaultLogo = null, $cssClass = null)
     {
         global $site;
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
-        $logo = new Entity\Logo($logoStr);
+        $logo = new Entity\Logo($logoStr, $defaultLogo);
 
         $data = array (
             'type' => $logo->getType(),
             'link' => $site->generateUrl(),
-            'text' => $logo->getText() ? $logo->getText() : $defaultText,
-            'image' => $logo->getImage() ? BASE_URL.IMAGE_DIR.$logo->getImage() : $defaultImage,
+            'text' => $logo->getText(),
+            'image' => $logo->getImage() ? $logo->getImage() : '',
             'font' => $logo->getFont(),
             'color' => $logo->getColor(),
             'cssClass' => $cssClass,
@@ -45,7 +45,8 @@ class Service
             $managementData = array(
                 'type' => $logo->getType(),
                 'logoTextHtml' => $logoTextHtml,
-                'logoImageHtml' => $logoImageHtml
+                'logoImageHtml' => $logoImageHtml,
+                'cssClass' => $cssClass
             );
             return \Ip\View::create('view/management/logo.php', $managementData)->render();
         } else {

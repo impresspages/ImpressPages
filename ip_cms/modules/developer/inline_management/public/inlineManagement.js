@@ -20,8 +20,16 @@ $(document).ready(function () {
             return this.each(function () {
                 var $this = $(this);
 
-                $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModuleInlineManagement.openEditPopup');});
-                $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
+                var data = $this.data('ipModuleInlineManagement');
+                // If the plugin hasn't been initialized yet
+                if ( ! data ) {
+                    $this.data('ipModuleInlineManagement', {
+                    });
+                    $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModuleInlineManagement.openEditPopup');});
+                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
+
+                }
+
             });
         },
 
@@ -38,7 +46,13 @@ $(document).ready(function () {
 
                 var $popup = $this.find('.ipModuleInlineManagementPopup');
                 $popup.dialog({width: 800, height : 450, modal: false}); //modal true - makes plupload browse button don't work
-                $popup.ipInlineManagementLogo();
+
+                var options = {
+                    cssClass: $this.data('cssclass')
+                };
+
+
+                $popup.ipInlineManagementLogo(options);
                 $popup.ipInlineManagementLogo('refresh');
 
 

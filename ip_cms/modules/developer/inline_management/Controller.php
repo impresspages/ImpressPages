@@ -47,8 +47,8 @@ class Controller extends \Ip\Controller{
         $logo = new Entity\Logo($logoStr);
         $logoData = array(
             'type' => $logo->getType(),
-            'image' => IMAGE_DIR.$logo->getImage(),
-            'imageOrig' => IMAGE_DIR.$logo->getImageOrig(),
+            'image' => $logo->getImage() ? $logo->getImage() : '',
+            'imageOrig' => $logo->getImageOrig() ? $logo->getImageOrig() : '',
             'requiredWidth' => $logo->getRequiredWidth(),
             'requiredHeight' => $logo->getRequiredHeight(),
             'type' => $logo->getType(),
@@ -95,21 +95,21 @@ class Controller extends \Ip\Controller{
             }
 
             //remove old image
-            if ($logo->getImageOrig() && file_exists(BASE_DIR.IMAGE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.IMAGE_DIR.$logo->getImageOrig())) {
-                unlink(BASE_DIR.IMAGE_DIR.$logo->getImageOrig());
+            if ($logo->getImageOrig() && file_exists(BASE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.$logo->getImageOrig())) {
+                unlink(BASE_DIR.$logo->getImageOrig());
             }
 
             $destDir = BASE_DIR.IMAGE_DIR;
             $newName = \Library\Php\File\Functions::genUnoccupiedName($_POST['newImage'], $destDir);
             copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
-            $logo->setImageOrig($newName);
+            $logo->setImageOrig(IMAGE_DIR.$newName);
 
         }
 
         if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
             //remove old file
-            if ($logo->getImage() && file_exists(BASE_DIR.IMAGE_DIR.$logo->getImage()) && is_file(BASE_DIR.IMAGE_DIR.$logo->getImage())) {
-                unlink(BASE_DIR.IMAGE_DIR.$logo->getImage());
+            if ($logo->getImage() && file_exists(BASE_DIR.$logo->getImage()) && is_file(BASE_DIR.$logo->getImage())) {
+                unlink(BASE_DIR.$logo->getImage());
             }
 
 
@@ -122,7 +122,7 @@ class Controller extends \Ip\Controller{
             $logo->setRequiredHeight($_POST['windowHeight']);
 
             $tmpSmallImageName = \Library\Php\Image\Functions::crop (
-                BASE_DIR.IMAGE_DIR.$logo->getImageOrig(),
+                BASE_DIR.$logo->getImageOrig(),
                 TMP_IMAGE_DIR,
                 $logo->getX1(),
                 $logo->getY1(),
@@ -136,7 +136,7 @@ class Controller extends \Ip\Controller{
             $destDir = BASE_DIR.IMAGE_DIR;
             $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir);
             copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
-            $logo->setImage($newName);
+            $logo->setImage(IMAGE_DIR.$newName);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         }
 
@@ -147,9 +147,14 @@ class Controller extends \Ip\Controller{
         $inlineManagementService = new Service();
 
 
+        $cssClass = null;
+        if (isset($_POST['cssClass'])) {
+            $cssClass = $_POST['cssClass'];
+        }
+
         $data = array(
             "status" => "success",
-            "logoHtml" => $inlineManagementService->generateManagedLogo()
+            "logoHtml" => $inlineManagementService->generateManagedLogo(null, $cssClass)
         );
         $this->returnJson($data);
     }

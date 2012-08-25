@@ -31,7 +31,7 @@ class Logo
     /**
      * @param array|string $data
      */
-    public function __construct($data)
+    public function __construct($data, $defaultLogo = null)
     {
         global $parametersMod;
         if(is_string($data)) {
@@ -39,7 +39,11 @@ class Logo
         }
 
         if (!isset($data['type'])) {
-            $data['type'] = self::TYPE_TEXT;
+            if ($defaultLogo) {
+                $data['type'] = self::TYPE_IMAGE;
+            } else {
+                $data['type'] = self::TYPE_TEXT;
+            }
         }
 
         switch($data['type']) {
@@ -54,7 +58,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['image']) && file_exists(BASE_DIR.IMAGE_DIR.$data['image']) && !empty($data['imageOrig']) && file_exists(BASE_DIR.IMAGE_DIR.$data['imageOrig']) ) {
+        if (!empty($data['image']) && file_exists(BASE_DIR.$data['image']) && !empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
             $this->image = $data['image'];
             $this->imageOrig = $data['imageOrig'];
 
@@ -74,6 +78,8 @@ class Logo
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
             }
+        } else {
+            $this->image = $defaultLogo;
         }
 
         if (!empty($data['text'])) {
