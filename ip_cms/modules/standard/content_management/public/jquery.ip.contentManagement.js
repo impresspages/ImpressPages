@@ -51,6 +51,11 @@
                     
 
                 }
+
+                $this.bind('initFinished.ipContentManagement', $.proxy(methods.initBlocks, $this));
+                $this.bind('pageSaveStart.ipContentManagement', $.proxy(methods.saveBlocksStart, $this));
+
+
             });
         },
         
@@ -72,6 +77,10 @@
                     options.widgetControlsHtml = response.widgetControlsHtml;
                     options.contentManagementObject = $this;
                     options.manageableRevision = response.manageableRevision;
+
+                    var data = $this.data('ipContentManagement');
+                    data.initInfo = options;
+                    $this.data('ipContentManagement', data);
 
                     $('.ipActionWidgetButton').ipAdminWidgetButton();
                     
@@ -102,6 +111,21 @@
             });
         },
 
+
+        saveBlocksStart : function() {
+            var $this = this;console.log('savestart');
+            $('.ipBlock').ipBlock('pageSaveStart');
+        },
+
+        initBlocks : function() {
+            var $this = this;
+            var data = $this.data('ipContentManagement');
+            var options = data.initInfo;
+            if (options.manageableRevision) {
+                $('.ipBlock').ipBlock(options);
+            }
+
+        },
         
         addError : function (errorMessage) {
             var $newError = $('.ipAdminErrorSample .ipAdminError').clone();

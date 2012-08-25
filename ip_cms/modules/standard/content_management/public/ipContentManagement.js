@@ -8,7 +8,6 @@ $(document).ready(function() {
 
     $ipObject = $(document);
 
-    $ipObject.bind('initFinished.ipContentManagement', ipInitBlocks);
     $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
     $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
     $(window).bind('resizeEnd',                        ipAdminWidgetsScroll);
@@ -30,16 +29,6 @@ $(window).resize(function() {
 });
 
 
-function ipInitBlocks(event, options) {
-    if (options.manageableRevision) {
-        $('.ipBlock').ipBlock(options);
-        $ipObject.bind('pageSaveStart.ipContentManagement', ipActionSaveStart);
-    }
-}
-
-function ipActionSaveStart(event) {
-    $('.ipBlock').ipBlock('pageSaveStart');
-}
 
 /**
  * 
