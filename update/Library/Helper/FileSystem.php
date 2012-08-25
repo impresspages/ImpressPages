@@ -13,9 +13,9 @@ class FileSystem
 
     public function createWritableDir($dir)
     {
-        if (substr($dir, 0, 1) != '/') {
-            throw new \IpUpdate\Library\Exception('Absolute path required', \IpUpdate\Library\Exception::OTHER);
-        }
+        //if (substr($dir, 0, 1) != '/') {
+            //throw new \IpUpdate\Library\Exception('Absolute path required', \IpUpdate\Library\Exception::OTHER);
+        //}
         if ($dir == '/' && !is_writable($dir)) {
             $this->throwWritePermissionsError($dir);
         }
