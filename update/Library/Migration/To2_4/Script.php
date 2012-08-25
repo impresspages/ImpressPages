@@ -142,12 +142,12 @@ Gill Sans,Geneva,sans-serif';
 
         $sql = "
             CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_page` (
-                    `module` varchar(100) NOT NULL,
-              `key` varchar(255) NOT NULL,
-              `zoneName` varchar(30) NOT NULL,
-              `pageId` int(11) NOT NULL,
-              `value` text NOT NULL,
-              PRIMARY KEY (`module`,`key`,`zoneName`,`pageId`)
+                `module` varchar(100) NOT NULL,
+                `key` varchar(255) NOT NULL,
+                `zoneName` varchar(30) NOT NULL,
+                `pageId` int(11) NOT NULL,
+                `value` text NOT NULL,
+                PRIMARY KEY (`module`,`key`,`zoneName`,`pageId`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         ";
         $rs = mysql_query($sql, $this->conn);

@@ -99,9 +99,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['value'];
         } else {
@@ -132,9 +129,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['value'];
         } else {
@@ -163,10 +157,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
-
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['value'];
         } else {
@@ -198,9 +188,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['value'];
         } else {
@@ -231,10 +218,6 @@ class Dao
             ':languageId' => $languageId
         );
         $q = $dbh->prepare($sql);
-        $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['value'];
         } else {
@@ -263,14 +246,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
-        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            return $lock['value'];
-        } else {
-            return false;
-        }
     }
 
     // DELETE
@@ -295,9 +270,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
     }
 
     public function deleteLanguageValue($key, $languageId)
@@ -319,9 +291,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
     }
 
     public function deleteGlobalValue($key)
@@ -341,9 +310,6 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if (!$q) {
-            throw new \Exception($q->errorInfo());
-        }
     }
 
 
