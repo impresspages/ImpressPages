@@ -24,8 +24,8 @@ class Net
 
         $ch = curl_init();
         
-        $fh = fopen($fileName, 'w'); 
-        
+        $fh = fopen($fileName, 'w');
+        set_time_limit(1800);
         $options = array(
             CURLOPT_FILE => $fh,
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we don't timeout on big files
