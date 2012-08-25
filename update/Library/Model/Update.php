@@ -242,8 +242,8 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $archivePath = $this->getNewArchivePath();
         $extractedPath = $this->getExtactedNewArchivePath();
 
-        $this->fs->createWritableDir($dir);
-        $this->fs->clean($dir);
+        $this->fs->createWritableDir($extractedPath);
+        $this->fs->clean($extractedPath);
 
         if (!class_exists('PclZip')) {
             require_once(IUL_BASE_DIR.'Helper/PclZip.php');
