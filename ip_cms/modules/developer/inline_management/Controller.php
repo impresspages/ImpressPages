@@ -216,6 +216,26 @@ class Controller extends \Ip\Controller{
 
     public function saveText()
     {
+        $inlineManagementService = new Service();
+
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
+            throw new \Exception("Required parameters missing");
+        }
+        $key = $_POST['key'];
+        $tag = $_POST['htmlTag'];
+        $cssClass = $_POST['cssClass'];
+        $values = $_POST['values'];
+
+
+        foreach($values as $languageId => $value) {
+            $this->dao->setLanguageValue(Dao::PREFIX_TEXT, $key, $languageId, $value);
+        }
+
+        $data = array(
+            "status" => "success",
+            "stringHtml" => $inlineManagementService->generateManagedText($key, $tag, null, $cssClass)
+        );
+        $this->returnJson($data);
 
     }
 

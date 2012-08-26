@@ -79,10 +79,11 @@ class Service
         return $view->render();
     }
 
-    public function generateManagedText($key, $defaultValue = null, $cssClass = null)
+    public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getValueString($key);
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $site->getCurrentLanguage()->getId());
+
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -90,6 +91,7 @@ class Service
         $data = array (
             'value' => $curValue,
             'key' => $key,
+            'tag' => $tag,
             'cssClass' => $cssClass
         );
 

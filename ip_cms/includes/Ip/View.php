@@ -325,10 +325,10 @@ class View{
         return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
     }
 
-    public function generateManagedText($key, $defaultValue = null, $cssClass = null)
+    public function generateManagedText($key, $tag = 'div', $defaultValue = null, $cssClass = null)
     {
         $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedText($key, $defaultValue, $cssClass);
+        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
     }
 
     public function generateManagedImage($key, $defaultValue = null, $type = 'img', $cssClass = null)
