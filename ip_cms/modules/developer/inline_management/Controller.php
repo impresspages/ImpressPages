@@ -192,7 +192,7 @@ class Controller extends \Ip\Controller{
     {
         $inlineManagementService = new Service();
 
-        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  || !isset($_POST['values']) || !is_array($_POST['values'])) {
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
             throw new \Exception("Required parameters missing");
         }
         $key = $_POST['key'];
@@ -207,7 +207,7 @@ class Controller extends \Ip\Controller{
 
         $data = array(
             "status" => "success",
-            "stringHtml" => $inlineManagementService->generateManagedString($key, $tag, '', $cssClass)
+            "stringHtml" => $inlineManagementService->generateManagedString($key, $tag, null, $cssClass)
         );
         $this->returnJson($data);
 
