@@ -9,6 +9,7 @@
 
 $(document).ready(function () {
     $('.ipModuleInlineManagement').ipModuleInlineManagement();
+    $('.ipModuleInlineManagementString').ipModuleInlineManagementString();
 });
 
 

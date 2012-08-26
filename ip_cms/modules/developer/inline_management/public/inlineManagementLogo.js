@@ -25,16 +25,19 @@
         },
         
         
-        refresh : function (pageId, zoneName) {
+        refresh : function () {
             var $this = this;
             var data = Object();
             data.g = 'developer';
             data.m = 'inline_management';
-            data.a = 'getManagementPopup';
+            data.a = 'getManagementPopupLogo';
+
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
 
             $.ajax({
                 type : 'POST',
-                url : document.location,
+                url : postUrl,
                 data : data,
                 context : $this,
                 success : methods._refreshResponse,
@@ -208,6 +211,7 @@
         },
 
         _confirm : function (event) {
+            event.preventDefault();
             var $this = $(this);
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
@@ -253,11 +257,13 @@
                 }
             }
 
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
 
             //SAVE
             $.ajax({
                 type : 'POST',
-                url : document.location,
+                url : postUrl,
                 data : data,
                 context : $this,
                 success : methods._confirmResponse,
@@ -279,7 +285,8 @@
         },
 
         _cancel : function (event) {
-            var $this = $(this);
+            event.preventDefault();
+            var $this = this;
             $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
             $this.trigger('ipInlineManagement.logoCancel');
             $('.ipModuleInlineManagement').ipModuleInlineManagement();

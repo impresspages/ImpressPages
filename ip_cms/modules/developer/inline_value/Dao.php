@@ -170,7 +170,7 @@ class Dao
         $dbh = \Ip\Db::getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_global`
+                `'.DB_PREF.'m_inline_value_page`
             SET
                 `module` = :module,
                 `key` = :key,
@@ -188,11 +188,7 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            return $lock['value'];
-        } else {
-            return false;
-        }
+
     }
 
 
@@ -201,7 +197,7 @@ class Dao
         $dbh = \Ip\Db::getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_global`
+                `'.DB_PREF.'m_inline_value_language`
             SET
                 `module` = :module,
                 `key` = :key,
@@ -218,11 +214,7 @@ class Dao
             ':languageId' => $languageId
         );
         $q = $dbh->prepare($sql);
-        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            return $lock['value'];
-        } else {
-            return false;
-        }
+        $q->execute($params);
     }
 
     public function setGlobalValue($key, $value)

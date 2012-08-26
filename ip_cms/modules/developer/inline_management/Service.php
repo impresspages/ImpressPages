@@ -17,7 +17,7 @@ class Service
         $this->dao = new Dao();
     }
 
-        public function generateManagedLogo($defaultLogo = null, $cssClass = null)
+    public function generateManagedLogo($defaultLogo = null, $cssClass = null)
     {
         global $site;
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
@@ -56,10 +56,10 @@ class Service
 
     }
 
-    public function generateManagedString($key, $defaultValue = null, $cssClass = null)
+    public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getValueString($key);
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $site->getCurrentLanguage()->getId());
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -67,6 +67,7 @@ class Service
         $data = array (
             'value' => $curValue,
             'key' => $key,
+            'tag' => $tag,
             'cssClass' => $cssClass
         );
 
