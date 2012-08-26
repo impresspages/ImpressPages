@@ -1,6 +1,6 @@
 <?php if (isset($type) && $type == 'image') { ?>
     <a href="<?php echo isset($link) ? $link : '' ?>" class="sitename <?php echo $cssClass ?>" style="<?php echo !empty($color) ? 'color: '.htmlspecialchars($color).';' : '' ?> <?php echo !empty($font) ? 'font-family: '.htmlspecialchars($font).';' : '' ?>">
-        <img src="<?php echo BASE_URL.($this->esc(isset($image) ? $image : '')) ?>" alt="<?php echo $this->escPar('standard/configuration/main_parameters/name'); ?>" />
+        <img src="<?php echo BASE_URL.($this->esc(!empty($image) ? $image : MODULE_DIR.'developer/inline_management/public/empty.gif')) ?>" alt="<?php echo $this->escPar('standard/configuration/main_parameters/name'); ?>" />
     </a>
 <?php } else { ?>
     <a href="<?php echo isset($link) ? $link : '' ?>" class="sitename <?php echo $cssClass ?>" style="<?php echo !empty($color) ? 'color: '.htmlspecialchars($color).';' : '' ?> <?php echo !empty($font) ? 'font-family: '.htmlspecialchars($font).';' : '' ?>">
