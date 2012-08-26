@@ -1188,29 +1188,6 @@ class Site{
     }
 
 
-    public function generateManagedLogo($defaultLogo = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedLogo($defaultLogo, $cssClass);
-    }
-
-    public function generateManagedString($key, $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedString($key, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedText($key, $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedText($key, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedImage($key, $defaultValue = null, $type = 'img', $cssClass = null)
-    {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedImage($key, $defaultValue, $type, $cssClass);
-    }
 
     /**
      * If we are in the management state and last revision is published, then create new revision.
