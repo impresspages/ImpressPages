@@ -1,4 +1,35 @@
-
+.ipModuleInlineManagementControls {
+    position: absolute;
+    z-index: 99;
+}
+.ipModuleInlineManagementControls .ipAdminWidgetControls {
+    margin: -2px 0 0 -1px;
+}
+.ipModuleInlineManagementControls .ipAdminWidgetControls .ipaButton {
+    visibility: visible;
+}
+.ipModuleInlineManagementBox {
+    display: none;
+    height: 0;
+    position: absolute;
+    width: 0;
+    z-index: 999;
+}
+.ipModuleInlineManagementBox.ipmT {
+    border-top: 1px dotted #000;
+}
+.ipModuleInlineManagementBox.ipmR {
+    border-right: 1px dotted #000;
+}
+.ipModuleInlineManagementBox.ipmB {
+    border-bottom: 1px dotted #000;
+}
+.ipModuleInlineManagementBox.ipmL {
+    border-left: 1px dotted #000;
+}
+.ipModuleInlineManagementBox.ipmShow {
+    display: block;
+}
 .ipModuleInlineManagementPopup .ipmType{
     font-size: 20px;
 }
