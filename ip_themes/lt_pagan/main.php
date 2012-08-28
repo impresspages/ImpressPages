@@ -18,15 +18,11 @@
 
     <div class="container_12 wrapper">
         <header class="grid_12">
-            <?php echo $site->generateManagedLogo(); ?>
-            <?php //echo $site->generateManagedString('title', 'default Value'); ?>
-            <?php //echo $site->generateManagedText('title', 'defaultValue'); ?>
-            <?php //echo $site->generateManagedImage('header', 'defaultValue.png', 'img/bg'); ?>
-            <!--<a class="sitename" href="<?php echo $site->generateUrl(); ?>"><?php echo htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name')); ?></a>-->
+            <?php echo $this->generateManagedLogo(); ?>
             <div class="languages">
-                <?php echo $site->generateBlock('ipLanguages'); ?>
+                <?php echo $this->generateBlock('ipLanguages'); ?>
             </div>
-            <?php echo $site->generateBlock('ipSearch'); ?>
+            <?php echo $this->generateBlock('ipSearch'); ?>
             <img class="banner" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/img/header.jpg" alt="">
             <div class="topmenu clearfix">
                 <?php
@@ -38,7 +34,7 @@
         </header>
         <div class="main grid_7 right suffix_1">
             <div class="breadcrumb">
-               <?php echo $site->generateBlock('ipBreadcrumb'); ?>
+               <?php echo $this->generateBlock('ipBreadcrumb'); ?>
             </div>
             <?php echo $site->generateBlock('main'); ?>
         </div>
@@ -51,14 +47,15 @@
                 ?>
             </nav>
             <aside>
-                <?php echo $site->generateBlock('side'); ?>
+                <?php echo $this->generateBlock('side'); ?>
             </aside>
         </div>
         <div class="clear"></div>
         <footer class="clearfix">
             <div class="grid_12 clearfix">
-                <p class="left">Theme "LT pagan"</p>
-                <p class="right">Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a></p>
+                <?php echo $this->generateManagedString('ipThemeName', 'p', 'Theme "LT pagan"', 'left'); ?>
+                <?php echo $this->generateManagedText('ipSlogan', 'div', 'Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a>', 'right'); ?>
+                <?php //echo $this->generateManagedImage('header', 'defaultValue.png', 'img/bg', 'cssClass'); ?>
             </div>
         </footer>
     </div>

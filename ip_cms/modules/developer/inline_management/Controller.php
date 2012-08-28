@@ -11,15 +11,12 @@ if (!defined('CMS')) exit;
 
 class Controller extends \Ip\Controller{
 
-    const MODULE_NAME = 'inline_management';
-    const PREFIX_STRING = 'str_';
-    const PREFIX_TEXT = 'txt_';
-    const PREFIX_IMAGE = 'img_';
-    const PREFIX_LOGO = 'logo_';
+    var $dao;
 
     public function __construct()
     {
-        $this->inlineValueService = new \Modules\developer\inline_value\Service(self::MODULE_NAME);
+
+        $this->dao = new Dao();
     }
 
     public function allowAction($action)
@@ -31,9 +28,10 @@ class Controller extends \Ip\Controller{
         }
     }
 
-    public function getManagementPopup()
+    public function getManagementPopupLogo()
     {
         global $parametersMod;
+        global $site;
         $config = new Config();
         $availableFonts = $config->getAvailableFonts();
 
@@ -43,7 +41,7 @@ class Controller extends \Ip\Controller{
 
         $html = \Ip\View::create('view/popup/logo.php', $popupData)->render();
 
-        $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
+        $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
         $logoData = array(
             'type' => $logo->getType(),
@@ -67,6 +65,37 @@ class Controller extends \Ip\Controller{
         $this->returnJson($data);
     }
 
+    public function getManagementPopupString()
+    {
+        global $site;
+
+        if (!isset($_POST['key'])) {
+            throw new \Exception("Required parameter not set");
+        }
+
+        $key = $_POST['key'];
+
+        $languages = $site->getLanguages();
+
+        $values = array();
+        foreach ($languages as $language) {
+            $values[] = array(
+                'language' => $language->getCode(),
+                'languageId' => $language->getId(),
+                'text' => $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $language->getId())
+            );
+        }
+
+
+        $html = \Ip\View::create('view/popup/string.php', array('values' => $values))->render();
+
+        $data = array(
+            "status" => "success",
+            "html" => $html
+        );
+        $this->returnJson($data);
+    }
+
     public function saveLogo()
     {
         if (!isset($_POST['text']) || !isset($_POST['color']) || !isset($_POST['font']) || !isset($_POST['type'])) {
@@ -74,7 +103,7 @@ class Controller extends \Ip\Controller{
         }
 
         //STORE TEXT LOGO
-        $logoStr = $this->inlineValueService->getGlobalValue(self::PREFIX_LOGO);
+        $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
 
         $logo->setText($_POST['text']);
@@ -141,7 +170,7 @@ class Controller extends \Ip\Controller{
         }
 
 
-        $this->inlineValueService->setGlobalValue(self::PREFIX_LOGO, $logo->getValueStr());
+        $this->dao->setGlobalValue(Dao::PREFIX_LOGO, '', $logo->getValueStr());
 
 
         $inlineManagementService = new Service();
@@ -159,22 +188,64 @@ class Controller extends \Ip\Controller{
         $this->returnJson($data);
     }
 
-    public function saveImage()
-    {
-
-    }
-
-
     public function saveString()
     {
+        $inlineManagementService = new Service();
+
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
+            throw new \Exception("Required parameters missing");
+        }
+        $key = $_POST['key'];
+        $tag = $_POST['htmlTag'];
+        $cssClass = $_POST['cssClass'];
+        $values = $_POST['values'];
+
+
+        foreach($values as $languageId => $value) {
+            $this->dao->setLanguageValue(Dao::PREFIX_STRING, $key, $languageId, $value);
+        }
+
+        $data = array(
+            "status" => "success",
+            "stringHtml" => $inlineManagementService->generateManagedString($key, $tag, null, $cssClass)
+        );
+        $this->returnJson($data);
 
     }
 
 
     public function saveText()
     {
+        $inlineManagementService = new Service();
+
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
+            throw new \Exception("Required parameters missing");
+        }
+        $key = $_POST['key'];
+        $tag = $_POST['htmlTag'];
+        $cssClass = $_POST['cssClass'];
+        $values = $_POST['values'];
+
+
+        foreach($values as $languageId => $value) {
+            $this->dao->setLanguageValue(Dao::PREFIX_TEXT, $key, $languageId, $value);
+        }
+
+        $data = array(
+            "status" => "success",
+            "stringHtml" => $inlineManagementService->generateManagedText($key, $tag, null, $cssClass)
+        );
+        $this->returnJson($data);
 
     }
+
+
+    public function saveImage()
+    {
+
+    }
+
+
 
 
 
