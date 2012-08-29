@@ -35,6 +35,9 @@ class System
         $site->addCSS(BASE_URL.LIBRARY_DIR.'js/jquery-colorpicker/colorpicker.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-colorpicker/colorpicker.js');
 
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.tooltip.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.toolbox.expose.js');
+
     }
 }
 

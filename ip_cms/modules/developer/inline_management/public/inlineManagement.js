@@ -23,12 +23,41 @@ $(document).ready(function () {
             return this.each(function () {
                 var $this = $(this);
 
+                // Creating global controls block
+                if (!$('.ipModuleInlineManagementControls').length) {
+                    $('body')
+                    .append('\
+                            <div class="ipModuleInlineManagementControls">\
+                                <div class="ipAdminWidgetControls">\
+                                    <a class="ipaButton ipActionWidgetManage" href="#"><span>Edit</span></a>\
+                                </div>\
+                            </div>\
+                    ');
+                }
+                // Enabling controls as tooltip
+                $this.tooltip({
+                    position : 'top left',
+                    tip : '.ipModuleInlineManagementControls',
+                    onShow : function() {
+                        $this.expose({
+                            zIndex: 98
+                        });
+                    },
+                    onHide : function() {
+                        $.mask.close();
+                    }
+                });
+
                 var data = $this.data('ipModuleInlineManagement');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipModuleInlineManagement', {
+                    var $controls = $('.ipModuleInlineManagementControls');
+                    $this.mouseenter(function(event){
+                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
+                            event.preventDefault();
+                            $this.trigger('ipModuleInlineManagement.openEditPopup');
+                        });
                     });
-                    $this.find('.ipmEdit').bind('click', function(event){ event.preventDefault(); $(this).trigger('ipModuleInlineManagement.openEditPopup');});
                     $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
 
                 }
