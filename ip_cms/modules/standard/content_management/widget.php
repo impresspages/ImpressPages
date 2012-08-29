@@ -229,7 +229,7 @@ class Widget{
     }
     
     /**
-     * Thismethod is called when widget options has been changed.
+     * This method is called when widget options has been changed.
      * Do any maintenance job needed.
      * Eg. if widget has cropped images, they need to be cropped once again, because cropping options
      * might be changed.

@@ -28,6 +28,8 @@ class Controller extends \Ip\Controller{
         }
     }
 
+
+
     public function getManagementPopupLogo()
     {
         global $parametersMod;
@@ -65,6 +67,7 @@ class Controller extends \Ip\Controller{
         $this->returnJson($data);
     }
 
+
     public function getManagementPopupString()
     {
         global $site;
@@ -91,6 +94,70 @@ class Controller extends \Ip\Controller{
 
         $data = array(
             "status" => "success",
+            "html" => $html
+        );
+        $this->returnJson($data);
+    }
+
+    public function getManagementPopupText()
+    {
+        global $site;
+
+        if (!isset($_POST['key'])) {
+            throw new \Exception("Required parameter not set");
+        }
+
+        $key = $_POST['key'];
+
+        $languages = $site->getLanguages();
+
+        $values = array();
+        foreach ($languages as $language) {
+            $values[] = array(
+                'language' => $language->getCode(),
+                'languageId' => $language->getId(),
+                'text' => $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $language->getId())
+            );
+        }
+
+
+        $html = \Ip\View::create('view/popup/string.php', array('values' => $values))->render();
+
+        $data = array(
+            "status" => "success",
+            "html" => $html
+        );
+        $this->returnJson($data);
+    }
+
+    public function getManagementPopupImage()
+    {
+        if (!isset($_POST['key'])) {
+            throw new \Exception("Required parameter not set");
+        }
+
+        $key = $_POST['key'];
+
+        $html = \Ip\View::create('view/popup/image.php')->render();
+
+
+
+        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+        $image = new Entity\Logo($imageStr);
+        $imageData = array(
+            'image' => $image->getImage() ? $image->getImage() : '',
+            'imageOrig' => $image->getImageOrig() ? $image->getImageOrig() : '',
+            'requiredWidth' => $image->getRequiredWidth(),
+            'requiredHeight' => $image->getRequiredHeight(),
+            'x1' => $image->getX1(),
+            'y1' => $image->getY1(),
+            'x2' => $image->getX2(),
+            'y2' => $image->getY2()
+        );
+
+        $data = array(
+            "status" => "success",
+            "imageData" => $imageData,
             "html" => $html
         );
         $this->returnJson($data);
@@ -243,6 +310,84 @@ class Controller extends \Ip\Controller{
     public function saveImage()
     {
 
+        if (!isset($_POST['key'])) {
+            throw new \Exception("Required parameter not set");
+        }
+
+        $key = $_POST['key'];
+
+        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+        $image = new Entity\Image($imageStr);
+
+
+        //STORE IMAGE LOGO
+        if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
+
+            if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
+                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non temporary folder.");
+            }
+
+            //remove old image
+            if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
+                unlink(BASE_DIR.$image->getImageOrig());
+            }
+
+            $destDir = BASE_DIR.IMAGE_DIR;
+            $newName = \Library\Php\File\Functions::genUnoccupiedName($_POST['newImage'], $destDir);
+            copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
+            $image->setImageOrig(IMAGE_DIR.$newName);
+
+        }
+
+        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
+            //remove old file
+            if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
+                unlink(BASE_DIR.$image->getImage());
+            }
+
+
+            //new small image
+            $image->setX1($_POST['cropX1']);
+            $image->setY1($_POST['cropY1']);
+            $image->setX2($_POST['cropX2']);
+            $image->setY2($_POST['cropY2']);
+            $image->setRequiredWidth($_POST['windowWidth']);
+            $image->setRequiredHeight($_POST['windowHeight']);
+
+            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
+                BASE_DIR.$image->getImageOrig(),
+                TMP_IMAGE_DIR,
+                $image->getX1(),
+                $image->getY1(),
+                $image->getX2(),
+                $image->getY2(),
+                100,
+                $image->getRequiredWidth(),
+                $image->getRequiredHeight()
+            );
+
+            $destDir = BASE_DIR.IMAGE_DIR;
+            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir);
+            copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
+            $image->setImage(IMAGE_DIR.$newName);
+            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
+        }
+
+
+        $this->dao->setGlobalValue(Dao::PREFIX_IMAGE, $key, $image->getValueStr());
+
+
+
+        $cssClass = null;
+        if (isset($_POST['cssClass'])) {
+            $cssClass = $_POST['cssClass'];
+        }
+
+        $data = array(
+            "status" => "success",
+            "imageSrc" => BASE_URL.$image->getImage()
+        );
+        $this->returnJson($data);
     }
 
 

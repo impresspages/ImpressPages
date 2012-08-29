@@ -829,10 +829,7 @@
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
-            this.css({ position: "absolute", display: "block" });
-            $answer = methods.init.apply(this, arguments);
-            this.css({ position: "", visibility: "", display: "" });
-            return $answer;
+            return methods.init.apply(this, arguments);
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.ipUploadImage');
         }

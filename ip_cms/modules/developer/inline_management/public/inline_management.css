@@ -1,4 +1,6 @@
 
+/* logo management */
+
 .ipModuleInlineManagementPopup .ipmType{
     font-size: 20px;
 }
@@ -23,8 +25,12 @@
     width: auto;
 }
 
+.ipModuleInlineManagementPopup .ipUploadImageButton {
+    z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
+}
 
-/** Font selector **/
+
+/* Font selector */
 
 
 
@@ -104,9 +110,20 @@
 }
 
 
-/** string management **/
+/* string management */
 
 .ipModuleInlineManagementPopupString textarea {
     width: 100%;
     height: 100px;
 }
+
+/* image management */
+
+.ipModuleInlineManagementPopupImage .ipUploadImageButton {
+    z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
+}
+
+.ipModuleInlineManagementPopupImage .ipaImage {
+    margin-bottom: 10px;
+}
+

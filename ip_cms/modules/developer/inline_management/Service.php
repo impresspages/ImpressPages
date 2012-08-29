@@ -103,17 +103,18 @@ class Service
         return $view->render();
     }
 
-    public function generateManagedImage($key, $defaultValue = null, $cssClass = null)
+    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
         global $site;
-        $curValue = $this->dao->getValueString($key);
-        if ($curValue === false) {
-            $curValue = $defaultValue;
-        }
+
+        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+        $image = new Entity\Image($imageStr, $defaultValue);
+
 
         $data = array (
-            'value' => $curValue,
+            'value' => $image->getImage(),
             'key' => $key,
+            'options' => $options,
             'cssClass' => $cssClass
         );
 

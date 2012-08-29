@@ -11,6 +11,7 @@ $(document).ready(function () {
     $('.ipModuleInlineManagement').ipModuleInlineManagement();
     $('.ipModuleInlineManagementString').ipModuleInlineManagementString();
     $('.ipModuleInlineManagementText').ipModuleInlineManagementText();
+    $('.ipModuleInlineManagementImage').ipModuleInlineManagementImage();
 });
 
 
@@ -47,7 +48,7 @@ $(document).ready(function () {
 
 
                 var $popup = $this.find('.ipModuleInlineManagementPopup');
-                $popup.dialog({width: 800, height : 450, modal: false}); //modal true - makes plupload browse button don't work
+                $popup.dialog({width: 800, height : 450, modal: true});
 
                 var options = {
                     cssClass: $this.data('cssclass')

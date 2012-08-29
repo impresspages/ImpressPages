@@ -1,1 +1,1 @@
-<?php echo $this->esc($value) ?>
+<img class="<?php echo $this->esc($cssClass) ?>" src="<?php echo BASE_URL.$this->esc($value) ?>" alt="" />

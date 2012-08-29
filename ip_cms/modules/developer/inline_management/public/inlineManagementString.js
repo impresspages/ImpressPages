@@ -4,6 +4,7 @@
  * @license see ip_license.html
  */
 
+"use strict";
 
 
 (function($) {
@@ -27,8 +28,8 @@
         
 
         openPopup : function () {
-            $this = this;
-            $this.find('.ipModuleInlineManagementPopup').remove();
+            var $this = this;
+            $this.find('.ipModuleInlineManagementPopupString').remove();
 
             $this.append('<div class="ipModuleInlineManagementPopupString" ></div>');
 
@@ -129,9 +130,7 @@
         _cancel : function (event) {
             event.preventDefault();
             var $this = this;
-            $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementString').originalLogoHtml);
-            $this.trigger('ipInlineManagement.logoCancel');
-            $('.ipModuleInlineManagement').ipModuleInlineManagement();
+            $this.trigger('ipInlineManagement.stringCancel');
             $('.ipModuleInlineManagementPopupString').dialog('close');
         }
         

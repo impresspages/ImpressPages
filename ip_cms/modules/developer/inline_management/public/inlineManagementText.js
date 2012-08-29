@@ -5,6 +5,7 @@
  */
 
 
+"use strict";
 
 (function($) {
 
@@ -27,7 +28,7 @@
         
 
         openPopup : function () {
-            $this = this;
+            var $this = this;
             $this.find('.ipModuleInlineManagementPopupText').remove();
 
             $this.append('<div class="ipModuleInlineManagementPopupText" ></div>');
@@ -44,7 +45,7 @@
             var data = Object();
             data.g = 'developer';
             data.m = 'inline_management';
-            data.a = 'getManagementPopupString';
+            data.a = 'getManagementPopupText';
 
             data.key = $this.data('ipInlineManagementText').key;
 
@@ -129,9 +130,7 @@
         _cancel : function (event) {
             event.preventDefault();
             var $this = this;
-            $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementText').originalLogoHtml);
-            $this.trigger('ipInlineManagement.logoCancel');
-            $('.ipModuleInlineManagement').ipModuleInlineManagement();
+            $this.trigger('ipInlineManagement.textCancel');
             $('.ipModuleInlineManagementPopupText').dialog('close');
         }
         

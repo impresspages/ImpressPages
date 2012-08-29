@@ -23,7 +23,7 @@
                 <?php echo $this->generateBlock('ipLanguages'); ?>
             </div>
             <?php echo $this->generateBlock('ipSearch'); ?>
-            <img class="banner" src="<?php echo BASE_URL.THEME_DIR.THEME; ?>/img/header.jpg" alt="">
+            <?php echo $this->generateManagedImage('ipThemeBanner/lt_pagan', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
             <div class="topmenu clearfix">
                 <?php
                     require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
@@ -55,7 +55,6 @@
             <div class="grid_12 clearfix">
                 <?php echo $this->generateManagedString('ipThemeName', 'p', 'Theme "LT pagan"', 'left'); ?>
                 <?php echo $this->generateManagedText('ipSlogan', 'div', 'Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a>', 'right'); ?>
-                <?php //echo $this->generateManagedImage('header', 'defaultValue.png', 'img/bg', 'cssClass'); ?>
             </div>
         </footer>
     </div>

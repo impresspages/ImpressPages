@@ -4,6 +4,7 @@
  * @license see ip_license.html
  */
 
+"use strict";
 
 
 (function($) {
@@ -155,7 +156,8 @@
             $this.data('typeSelectText').bind('change', jQuery.proxy(methods._updateType, $this));
             $this.data('typeSelectImage').bind('change', jQuery.proxy(methods._updateType, $this));
             $this.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
-            $this.find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+            $this.find('.ipaCancel').bind('click', function(event){$this.dialog('close');});
+            $this.bind('dialogclose', jQuery.proxy(methods._cancel, $this));
         },
 
         _preview : function() {
@@ -290,7 +292,7 @@
             $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
             $this.trigger('ipInlineManagement.logoCancel');
             $('.ipModuleInlineManagement').ipModuleInlineManagement();
-            $this.dialog('close');
+
         }
         
         

@@ -1,1 +1,1 @@
-<?php echo $this->esc($value) ?>
+<img data-key='<?php echo $key ?>' data-options='<?php echo json_encode($options); ?>' class="ipModuleInlineManagementImage <?php echo $this->esc($cssClass) ?>" src="<?php echo BASE_URL.$this->esc($value) ?>" alt="" />
