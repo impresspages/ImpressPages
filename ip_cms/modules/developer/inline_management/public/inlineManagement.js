@@ -26,22 +26,16 @@ $(document).ready(function () {
                 // Creating global controls block
                 if (!$('.ipModuleInlineManagementControls').length) {
                     $('body')
-                    .append('\
-                            <div class="ipModuleInlineManagementControls">\
-                                <div class="ipAdminWidgetControls">\
-                                    <a class="ipaButton ipActionWidgetManage" href="#"><span>Edit</span></a>\
-                                </div>\
-                            </div>\
-                    ');
+                    .append(ipModInlineManagementControls);
                 }
                 // Enabling controls as tooltip
                 $this.tooltip({
                     position : 'top left',
                     tip : '.ipModuleInlineManagementControls',
                     onShow : function() {
-                        $this.expose({
-                            zIndex: 98
-                        });
+//                        $this.expose({
+//                            zIndex: 98
+//                        });
                     },
                     onHide : function() {
                         $.mask.close();

@@ -274,7 +274,7 @@
         },
 
         _confirmResponse : function (answer) {
-            $this = this;
+            var $this = this;
 
             if (answer && answer.status == 'success') {
                 if (answer.logoHtml) {
