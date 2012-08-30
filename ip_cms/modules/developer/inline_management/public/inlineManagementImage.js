@@ -19,13 +19,33 @@
                     $this.data('ipInlineManagementImage', {
                         key: $this.data('key')
                     });
-                    $this.bind('click', $.proxy(methods.openPopup, $this));
+
+
+                    // Enabling controls as tooltip
+                    $this.tooltip({
+                        position : 'top left',
+                        tip : '.ipModuleInlineManagementControls',
+                        onShow : function() {
+                        },
+                        onHide : function() {
+                            $.mask.close();
+                        }
+                    });
+
+                    var $controls = $('.ipModuleInlineManagementControls');
+                    $this.mouseenter(function(event){
+                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
+                            event.preventDefault();
+                            $this.trigger('ipModuleInlineManagement.openEditPopup');
+                        });
+                    });
+                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
                 }
             });
         },
         
 
-        openPopup : function () {console.log('popup');
+        openPopup : function () {
             var $this = this;
 
             var data = Object();
@@ -132,13 +152,25 @@
 
                 var $imageUploader = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
+                $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
+
             }
 
             $('.ipModuleInlineManagementPopupImage').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $('.ipModuleInlineManagementPopupImage').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
 
+        _preview : function(event) {
+            var $this = this;
+
+            var $imageUploader = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
+
+            var vindowHeight = $imageUploader.ipUploadImage('getWindowHeight');
+            var vindowWidth = $imageUploader.ipUploadImage('getWindowWidth');
+            $this.css('width', vindowWidth + 'px');
+            $this.css('height', vindowHeight + 'px');
+        },
 
         _confirm : function (event) {
             event.preventDefault();
@@ -200,6 +232,8 @@
                 data.overlay.remove();
                 data.popup.remove();
 
+                $this.css('width', 'auto');
+                $this.css('height', 'auto');
             }
         },
 
@@ -209,6 +243,9 @@
             var data = $this.data('ipInlineManagementImage');
             data.overlay.remove();
             data.popup.remove();
+
+            $this.css('width', 'auto');
+            $this.css('height', 'auto');
         }
         
         
