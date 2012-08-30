@@ -1,7 +1,15 @@
 
 
-/* logo management */
+/* general*/
 
+
+.ui-dialog .ipModuleInlineManagementPopupLogo,
+.ui-dialog .ipModuleInlineManagementPopupString,
+.ui-dialog .ipModuleInlineManagementPopupText,
+.ui-dialog .ipModuleInlineManagementPopupImage
+{
+    padding: 1em;
+}
 
 .ipModuleInlineManagementControls {
     position: absolute;
@@ -36,32 +44,32 @@
     display: block;
 }
 
+/* logo management */
 
-.ipModuleInlineManagementPopup .ipmType{
+
+
+.ipModuleInlineManagementPopupLogo .ipmType{
     font-size: 20px;
 }
 
 
-.ipModuleInlineManagementPopup .ipmTextManagement input{
+.ipModuleInlineManagementPopupLogo .ipmTextManagement input{
     font-size: 32px;
 }
 
 
-.ui-dialog .ipModuleInlineManagementPopup {
-    padding: 1em;
-}
 
-.ipModuleInlineManagementPopup .ipmTypeSelect *{
+.ipModuleInlineManagementPopupLogo .ipmTypeSelect *{
     float: left;
     margin-right: 0 10px 0 0;
     font-size: 17px;
 }
 
-.ipModuleInlineManagementPopup .ipmTypeSelect input{
+.ipModuleInlineManagementPopupLogo .ipmTypeSelect input{
     width: auto;
 }
 
-.ipModuleInlineManagementPopup .ipUploadImageButton {
+.ipModuleInlineManagementPopupLogo .ipUploadImageButton {
     z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
 }
 
@@ -70,9 +78,9 @@
 
 
 
-.ipModuleInlineManagementPopup .ipmFontSelect * { margin: 0; padding: 0; }
+.ipModuleInlineManagementPopupLogo .ipmFontSelect * { margin: 0; padding: 0; }
 
-.ipModuleInlineManagementPopup .ipmFontSelect {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect {
     position: relative;
     padding: 3px;
     height: 28px;
@@ -94,12 +102,12 @@
     border: 1px solid #cecece;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect span {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect span {
     overflow: hidden;
     margin-left: 5px;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect .arrow-down {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect .arrow-down {
     position: absolute;
     right: 10px;
     top: 14px;
@@ -109,7 +117,7 @@
     border-top: 6px solid #AAA;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect ul {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect ul {
     list-style: none;
     width: 200px;
     background: #f9f9f9;
@@ -120,7 +128,7 @@
     overflow: auto;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect li {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect li {
     height: 24px;
     line-height: 24px;
     overflow: hidden;
@@ -133,7 +141,7 @@
     border-right: 1px solid #f0f0f0;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect ul li:last-child {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect ul li:last-child {
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
@@ -141,12 +149,15 @@
     border-bottom: 1px solid #EEEEEE;
 }
 
-.ipModuleInlineManagementPopup .ipmFontSelect li:hover {
+.ipModuleInlineManagementPopupLogo .ipmFontSelect li:hover {
     background: #DDD;
 }
 
 
 /* string management */
+
+
+
 
 .ipModuleInlineManagementPopupString textarea {
     width: 100%;
@@ -154,6 +165,7 @@
 }
 
 /* image management */
+
 
 .ipModuleInlineManagementPopupImage .ipUploadImageButton {
     z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */

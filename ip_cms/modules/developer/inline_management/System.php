@@ -18,12 +18,12 @@ class System
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
 
-            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagement.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementLogo.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementString.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementText.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementImage.js');
             $site->addJavascriptContent('test', \Ip\View::create('view/management/edit_button.php')->render());
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagement.js');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
