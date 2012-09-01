@@ -18,11 +18,12 @@ class System
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
 
+            $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementControls.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementLogo.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementString.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementText.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagementImage.js');
-            $site->addJavascriptContent('test', \Ip\View::create('view/management/edit_button.php')->render());
+            $site->addJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/inline_management/public/inlineManagement.js');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
@@ -36,9 +37,6 @@ class System
 
             $site->addCSS(BASE_URL.LIBRARY_DIR.'js/jquery-colorpicker/colorpicker.css');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-colorpicker/colorpicker.js');
-
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.ui.tooltip.js');
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.toolbox.expose.js');
         }
     }
 }

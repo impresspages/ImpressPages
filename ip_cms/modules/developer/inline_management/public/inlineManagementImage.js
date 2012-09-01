@@ -4,7 +4,6 @@
  * @license see ip_license.html
  */
 
-
 "use strict";
 
 (function($) {
@@ -16,30 +15,16 @@
                 var data = $this.data('ipInlineManagementImage');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipInlineManagementImage', {
+                    $this
+                    .data('ipInlineManagementImage', {
                         key: $this.data('key')
-                    });
-
-
-                    // Enabling controls as tooltip
-                    $this.tooltip({
-                        position : 'top left',
-                        tip : '.ipModuleInlineManagementControls',
-                        onShow : function() {
-                        },
-                        onHide : function() {
-                            $.mask.close();
-                        }
-                    });
-
-                    var $controls = $('.ipModuleInlineManagementControls');
-                    $this.mouseenter(function(event){
-                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
-                            event.preventDefault();
+                    })
+                    .ipModuleInlineManagementControls({
+                        'Manage' : function() {
                             $this.trigger('ipModuleInlineManagement.openEditPopup');
-                        });
-                    });
-                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
+                        }
+                    })
+                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
                 }
             });
         },
@@ -67,9 +52,7 @@
                 dataType : 'json'
             });
 
-
         },
-
 
         _openPopupResponse : function (response) {
             var $this = this;
@@ -145,10 +128,8 @@
 
                 //loop and assign all inline options assigned by theme author
                 jQuery.each($this.data('options'), function(name, value) {
-                    console.log(name + ' '  + value);
                     options[name] = value;
                 });
-
 
                 var $imageUploader = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
@@ -183,7 +164,6 @@
 
             data.key = $this.data('ipInlineManagementImage').key;
 
-
             //IMAGE
             var ipUploadImage = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
             if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
@@ -205,10 +185,8 @@
                 }
             }
 
-
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
-
 
             //SAVE
             $.ajax({
@@ -247,13 +225,8 @@
             $this.css('width', 'auto');
             $this.css('height', 'auto');
         }
-        
-        
 
-        
     };
-    
-    
 
     $.fn.ipModuleInlineManagementImage = function(method) {
         if (methods[method]) {
@@ -264,7 +237,5 @@
             $.error('Method ' + method + ' does not exist on jQuery.ipInlineManagementImage');
         }
     };
-    
-    
 
 })(jQuery);
