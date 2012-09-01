@@ -111,7 +111,7 @@ if (function_exists('curl_init')) {
     $jsonAnswer = curl_exec($ch);
     $answer = json_decode($jsonAnswer, true);
     if (!$answer || !isset($answer['status']) || $answer['status'] != 'success') {
-        $error['session'] = 1;
+        $warning['session'] = 1;
     }
 }
 
@@ -150,7 +150,7 @@ $table[] = '<span class="correct">'.IP_OK.'</span>';
 //sessions are checked using curl. If there is no curl, session availability hasn't been checked
 if (!isset($warning['curl'])) {
     $table[] = IP_SESSION;
-    if(isset($error['session'])) {
+    if(isset($warning['session'])) {
         $table[] = '<span class="error">'.IP_ERROR."</span>";
     } else {
         $table[] = '<span class="correct">'.IP_OK.'</span>';

@@ -138,6 +138,8 @@
 
             }
 
+            //$.proxy(methods._preview, $this)();
+
             $('.ipModuleInlineManagementPopupImage').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $('.ipModuleInlineManagementPopupImage').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
@@ -145,12 +147,18 @@
         _preview : function(event) {
             var $this = this;
 
-            var $imageUploader = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
+            var $popup = $('.ipModuleInlineManagementPopupImage');
 
-            var vindowHeight = $imageUploader.ipUploadImage('getWindowHeight');
-            var vindowWidth = $imageUploader.ipUploadImage('getWindowWidth');
-            $this.css('width', vindowWidth + 'px');
-            $this.css('height', vindowHeight + 'px');
+            var $imageUploader = $popup.find('.ipaImage');
+
+            var windowHeight = $imageUploader.ipUploadImage('getWindowHeight');
+            var windowWidth = $imageUploader.ipUploadImage('getWindowWidth');
+
+            $popup.find('.ipaControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
+
+
+            $this.css('width', windowWidth + 'px');
+            $this.css('height', (windowHeight + $popup.find('.ipaControls').height() + 20) + 'px'); //20 - padding
         },
 
         _confirm : function (event) {
@@ -180,8 +188,8 @@
                     data.cropY1 = cropCoordinates.y1;
                     data.cropX2 = cropCoordinates.x2;
                     data.cropY2 = cropCoordinates.y2;
-                    data.windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
-                    data.windowHeight = ipUploadImage.ipUploadImage('getWindowHeight');
+                    data.windowWidth = ipUploadImage.ipUploadImage('getImageWidth');
+                    data.windowHeight = ipUploadImage.ipUploadImage('getImageHeight');
                 }
             }
 
@@ -204,7 +212,7 @@
 
             if (answer && answer.status == 'success') {
                 if (answer.imageSrc) {
-                    $this.attr('src', answer.imageSrc);
+                    $this.attr('src', answer.imageSrc + '?rnd=' + Math.floor((Math.random()*10000000)+1));
                 }
                 var data = $this.data('ipInlineManagementImage');
                 data.overlay.remove();
