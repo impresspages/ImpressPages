@@ -116,7 +116,7 @@ class Controller extends \Ip\Controller{
             $values[] = array(
                 'language' => $language->getCode(),
                 'languageId' => $language->getId(),
-                'text' => $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $language->getId())
+                'text' => $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $language->getId())
             );
         }
 
