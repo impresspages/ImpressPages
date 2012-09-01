@@ -714,16 +714,25 @@
             coordinates.y2 = Math.round(coordinates.y1 + $window.height() / scale);
             return coordinates;
         },
-        
+
+        getImageWidth : function() {
+            var $this = this;
+            return $this.find('.ipUploadWindow').width();
+        },
+
+        getImageHeight : function() {
+            var $this = this;
+            return $this.find('.ipUploadWindow').height();
+        },
+
         getWindowWidth : function () {
             var $this = this;
-            //return $this.find('.ipUploadWindow').width() + $this.find('.ipUploadWindow').css('border');
             return $this.find('.ipUploadWindow').outerWidth(true);
         },
         
         getWindowHeight : function () {
             var $this = this;
-            return $this.find('.ipUploadWindow').height();
+            return $this.find('.ipUploadWindow').outerHeight();
         },
         
         restoreOriginalDimmensions : function(){
