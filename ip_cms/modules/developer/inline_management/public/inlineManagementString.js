@@ -21,7 +21,29 @@
                         cssClass: $this.data('cssclass'),
                         htmlTag: $this.data('htmltag')
                     });
-                    $this.closest('.ipmEdit').bind('click', $.proxy(methods.openPopup, $this));
+
+
+                    // Enabling controls as tooltip
+                    $this.tooltip({
+                        position : 'top left',
+                        tip : '.ipModuleInlineManagementControls',
+                        onShow : function() {
+                        },
+                        onHide : function() {
+                            $.mask.close();
+                        }
+                    });
+
+                    var $controls = $('.ipModuleInlineManagementControls');
+                    $this.mouseenter(function(event){
+                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
+                            event.preventDefault();
+                            $this.trigger('ipModuleInlineManagement.openEditPopup');
+                        });
+                    });
+                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
+
+
                 }
             });
         },
@@ -116,11 +138,13 @@
         },
 
         _confirmResponse : function (answer) {
-            $this = this;
+            var $this = this;
 
             if (answer && answer.status == 'success') {
                 if (answer.stringHtml) {
-                    $this.closest('.ipmEdit').replaceWith(answer.stringHtml);
+                    var $newElement = $(answer.stringHtml)
+                    $this.replaceWith($newElement);
+                    $newElement.ipModuleInlineManagementString();
                 }
                 $this.trigger('ipInlineManagement.stringConfirm');
                 $('.ipModuleInlineManagementPopupString').dialog('close');
