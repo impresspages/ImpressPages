@@ -303,7 +303,7 @@ DROP TABLE IF EXISTS `ip_cms_m_inline_value_language`;
 CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
   `module` varchar(100) NOT NULL,
   `key` varchar(255) NOT NULL,
-  `langaugeId` int(11) NOT NULL,
+  `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`module`,`key`,`langaugeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
