@@ -157,7 +157,10 @@ class Controller extends \Ip\Controller{
             $scopeTitle = str_replace('[[page]]', $pageName, $scopeTitle);
             $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
-        $types[Scope::SCOPE_LANGUAGE] = array('title' => 'All XX pages', 'value' => Scope::SCOPE_LANGUAGE);
+
+        $scopeTitle = 'All [[language]] pages';
+        $scopeTitle = str_replace('[[language]]', $site->getCurrentLanguage()->getLongDescription(), $scopeTitle);
+        $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => 'All pages', 'value' => Scope::SCOPE_GLOBAL);
 
 
