@@ -129,10 +129,16 @@
 }
 
 
-.ipModuleInlineManagementPopupImage select,
-.ipModuleInlineManagementPopupImage option {
-    font-zise: 18px;
-    margin-bottom: 8px;
+.ipModuleInlineManagementPopupImage .ipaType,
+.ipModuleInlineManagementPopupImage .ipaType option {
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
+.ipModuleInlineManagementPopupImage .ipaRemove {
+    float: right;
+}
 
+.ipModuleInlineManagementPopupImage .ipaRemoveConfirm {
+    display: none;
+}

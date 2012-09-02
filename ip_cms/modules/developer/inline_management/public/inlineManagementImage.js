@@ -142,7 +142,52 @@
 
             $('.ipModuleInlineManagementPopupImage').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $('.ipModuleInlineManagementPopupImage').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+
+            $('.ipModuleInlineManagementPopupImage').find('.ipaRemove').bind('click', jQuery.proxy(methods._removeImage, $this));
         },
+
+        _removeImage : function(event) {
+            event.preventDefault();
+            var $this = this;
+            var data = Object();
+            data.g = 'developer';
+            data.m = 'inline_management';
+            data.a = 'removeImage';
+
+            data.key = $this.data('ipInlineManagementImage').key;
+
+            //SAVE
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
+            $.ajax({
+                type : 'POST',
+                url : postUrl,
+                data : data,
+                context : $this,
+                success : methods._removeResponse,
+                dataType : 'json'
+            });
+
+        },
+
+        _removeResponse : function (answer) {
+            var $this = this;
+
+            if (answer && answer.status == 'success') {
+                if (answer.imageSrc) {
+                    $this.attr('src', answer.imageSrc + '?rnd=' + Math.floor((Math.random()*10000000)+1));
+                } else {
+                    $this.attr('src', ip.baseUrl + $this.data('defaultvalue'));
+                }
+                var data = $this.data('ipInlineManagementImage');
+                data.overlay.remove();
+                data.popup.remove();
+
+                $this.css('width', 'auto');
+                $this.css('height', 'auto');
+            }
+        },
+
 
         _preview : function(event) {
             var $this = this;

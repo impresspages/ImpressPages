@@ -258,12 +258,12 @@ class Dao
         $dbh = \Ip\Db::getConnection();
         $sql = '
             DELETE FROM
-                `'.DB_PREF.'m_inline_value_global`
+                `'.DB_PREF.'m_inline_value_page`
             WHERE
-                `module` = :module,
-                `key` = :key
-                `zoneName` = :zoneName,
-                `pageId` = :pageId
+                `module` = :module
+                AND `key` = :key
+                AND `zoneName` = :zoneName
+                AND `pageId` = :pageId
         ';
 
         $params = array (
@@ -304,8 +304,8 @@ class Dao
             DELETE FROM
                 `'.DB_PREF.'m_inline_value_global`
             WHERE
-                `module` = :module,
-                `key` = :key
+                `module` = :module
+                AND `key` = :key
         ';
 
         $params = array (

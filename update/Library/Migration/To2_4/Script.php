@@ -87,6 +87,15 @@ class Script extends \IpUpdate\Library\Migration\General{
                 $this->addStringParameter($groupId, 'Default', 'default', 'Default', 1);
             }
 
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'remove_image')) {
+                $this->addStringParameter($groupId, 'Remove image', 'remove_image', 'Remove this image', 1);
+            }
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'remove_image_confirm')) {
+                $this->addStringParameter($groupId, 'Remove image confirm', 'remove_image_confirm', 'There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?', 1);
+            }
+
+
         $parametersGroup = $this->getParameterGroup($moduleId, 'options');
         if ($parametersGroup) {
             $groupId = $parametersGroup['id'];

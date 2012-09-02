@@ -365,22 +365,6 @@ class Controller extends \Ip\Controller{
 
         $sameScope = $scope && $scope->getType() == $type;
 
-//        if ($sameScope) {
-//            switch($type) {
-//                case Scope::SCOPE_PAGE:
-//                    //
-//                    $sameScope = $site->getCurrentZone()->getName() == $scope->getZoneName() && $site->getCurrentElement()->getId();
-//                    break;
-//                case Scope::SCOPE_PARENT_PAGE:
-//                    break;
-//                case Scope::SCOPE_LANGUAGE:
-//                    break;
-//                case Scope::SCOPE_GLOBAL:
-//                    break;
-//            }
-//
-//        }
-
 
         //STORE IMAGE LOGO
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
@@ -486,6 +470,59 @@ class Controller extends \Ip\Controller{
     }
 
 
+
+    public function removeImage()
+    {
+        global $site;
+        if (!isset($_POST['key'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $key = $_POST['key'];
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $image = new Entity\Image($imageStr);
+        $scope = $this->dao->getLastOperationScope();
+
+        if ($scope) {
+            switch($scope->getType()) {
+                case Scope::SCOPE_PAGE:
+                case Scope::SCOPE_PARENT_PAGE:
+                    $this->dao->deletePageValue(Dao::PREFIX_IMAGE, $key, $scope->getZoneName(), $scope->getPageId());
+                    break;
+                case Scope::SCOPE_LANGUAGE:
+                    $this->dao->deleteLanguageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId());
+                    break;
+                case Scope::SCOPE_GLOBAL:
+                    $this->dao->deleteGlobalValue(Dao::PREFIX_IMAGE, $key);
+                    break;
+            }
+            if ($image) {
+                if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
+                    unlink(BASE_DIR.$image->getImageOrig());
+                }
+                if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
+                    unlink(BASE_DIR.$image->getImage());
+                }
+            }
+        }
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $image = new Entity\Image($imageStr);
+
+        $imageSrc = '';
+
+        if ($image->getImage()) {
+            $imageSrc = BASE_URL.$image->getImage();
+        }
+
+
+        $data = array(
+            "status" => "success",
+            "imageSrc" => $imageSrc
+        );
+        $this->returnJson($data);
+
+    }
 
 
 

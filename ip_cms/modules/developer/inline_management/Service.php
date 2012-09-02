@@ -107,12 +107,17 @@ class Service
     {
         global $site;
 
+        if ($defaultValue === null) {
+            $defaultValue = MODULE_DIR.'inline_management/public/empty.gif';
+        }
+
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
 
         $data = array (
             'value' => $image->getImage(),
+            'defaultValue' => $defaultValue,
             'key' => $key,
             'options' => $options,
             'cssClass' => $cssClass

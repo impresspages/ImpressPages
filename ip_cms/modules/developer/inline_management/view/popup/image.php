@@ -6,11 +6,9 @@
         <?php foreach ($types as $key => $type){ ?>
             <option value="<?php echo $this->esc($type['value']) ?>" <?php echo !empty($type['selected']) ? 'selected="selected"' : '' ?>><?php echo $this->esc($type['title']) ?></option>
         <?php } ?>
-        <!-- <option value="default">Page "Services" and sub-pages</option>
-        <option value="default">This page and sub-pages</option>
-        <option value="default">All "EN" pages</option>
-        <option value="default">All pages</option> -->
     </select>
+    <a class="ipAdminButton ipaRemove" href="#"><?php echo $this->escPar('developer/inline_management/admin_translations/remove_image'); ?></a>
+    <div class="ipaRemoveConfirm"><?php echo $this->escPar('developer/inline_management/admin_translations/remove_image_confirm'); ?></div>
     <br/>
     <a class="ipAdminButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm'); ?></a>
     <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel'); ?></a>
