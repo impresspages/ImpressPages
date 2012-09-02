@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 namespace Modules\developer\inline_management;
-if (!defined('CMS')) exit;
+use Modules\developer\inline_value\Entity\Scope as Scope;
 
 
 
@@ -32,8 +32,7 @@ class Controller extends \Ip\Controller{
 
     public function getManagementPopupLogo()
     {
-        global $parametersMod;
-        global $site;
+
         $config = new Config();
         $availableFonts = $config->getAvailableFonts();
 
@@ -132,17 +131,42 @@ class Controller extends \Ip\Controller{
 
     public function getManagementPopupImage()
     {
+        global $site;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
-
         $key = $_POST['key'];
 
-        $html = \Ip\View::create('view/popup/image.php')->render();
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $scope = $this->dao->getLastOperationScope();
+
+        $types = array();
+
+        $types[Scope::SCOPE_PAGE] = array('title' => 'Current page and sub-gages', 'value' => Scope::SCOPE_PAGE);
+        if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
+            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => 'Page "Products" and all sub-pages', 'value' => Scope::SCOPE_PARENT_PAGE);
+        }
+        $types[Scope::SCOPE_LANGUAGE] = array('title' => 'All XX pages', 'value' => Scope::SCOPE_LANGUAGE);
+        $types[Scope::SCOPE_GLOBAL] = array('title' => 'All pages', 'value' => Scope::SCOPE_GLOBAL);
+
+
+        if ($scope && isset($types[$scope->getType()])) {
+            $types[$scope->getType()]['selected'] = true;
+        } else {
+            $types[Scope::SCOPE_GLOBAL]['selected'] = true;
+        }
+
+
+        $popupData = array(
+            'types' => $types
+        );
+
+        $html = \Ip\View::create('view/popup/image.php', $popupData)->render();
 
 
 
-        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+
         $image = new Entity\Logo($imageStr);
         $imageData = array(
             'image' => $image->getImage() ? $image->getImage() : '',
@@ -309,15 +333,22 @@ class Controller extends \Ip\Controller{
 
     public function saveImage()
     {
+        global $site;
 
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
-
         $key = $_POST['key'];
 
-        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+        if (!isset($_POST['type'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $type = $_POST['type'];
+
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr);
+        $scope = $this->dao->getLastOperationScope();
 
 
         //STORE IMAGE LOGO
@@ -329,7 +360,9 @@ class Controller extends \Ip\Controller{
 
             //remove old image
             if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                unlink(BASE_DIR.$image->getImageOrig());
+                if ($scope && $scope->getType() === $type) { //if we are saving in the same scope
+                    unlink(BASE_DIR.$image->getImageOrig());
+                }
             }
 
             $destDir = BASE_DIR.IMAGE_DIR;
@@ -337,12 +370,23 @@ class Controller extends \Ip\Controller{
             copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
             $image->setImageOrig(IMAGE_DIR.$newName);
 
-        }
+        } else {
+            if ($scope && $scope->getType() == $type) { //duplicate original image if we are resaving it in different scope
+                if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
+                    $destDir = BASE_DIR.IMAGE_DIR;
+                    $newName = \Library\Php\File\Functions::genUnoccupiedName($image->getImageOrig(), $destDir);
+                    copy(BASE_DIR.$image->getImageOrig(), $destDir.$newName);
+                    $image->setImageOrig(IMAGE_DIR.$newName);
+                }
+            }
+         }
 
         if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
             //remove old file
             if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
-                unlink(BASE_DIR.$image->getImage());
+                if ($scope && $scope->getType() === $type) { //if we are saving in the same scope
+                    unlink(BASE_DIR.$image->getImage());
+                }
             }
 
 
@@ -374,14 +418,24 @@ class Controller extends \Ip\Controller{
         }
 
 
-        $this->dao->setGlobalValue(Dao::PREFIX_IMAGE, $key, $image->getValueStr());
-
-
-
-        $cssClass = null;
-        if (isset($_POST['cssClass'])) {
-            $cssClass = $_POST['cssClass'];
+        switch($type) {
+            case Scope::SCOPE_PAGE:
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId(), $image->getValueStr());
+                break;
+            case Scope::SCOPE_PARENT_PAGE:
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
+                break;
+            case Scope::SCOPE_LANGUAGE:
+                $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $image->getValueStr());
+                break;
+            case Scope::SCOPE_GLOBAL:
+            default:
+                $this->dao->setGlobalValue(Dao::PREFIX_IMAGE, $key, $image->getValueStr());
+                break;
         }
+
+
+
 
         $data = array(
             "status" => "success",

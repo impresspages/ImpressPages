@@ -13,10 +13,6 @@ class Dao
     private $module;
     private $lastValueScope;
 
-    const SCOPE_PAGE = 1;
-    const SCOPE_PARENT_PAGE = 2;
-    const SCOPE_LANGUAGE = 3;
-    const SCOPE_GLOBAL = 4;
 
     /**
      * @param string $module
@@ -35,13 +31,21 @@ class Dao
         $breadcrumb = $site->getBreadcrumb($zoneName, $pageId);
         array_reverse($breadcrumb);
 
-        foreach ($breadcrumb as $key => $element) {
+        foreach ($breadcrumb as $position => $element) {
             $value = $this->getPageValue($key, $zoneName, $element->getId());
             if ($value !== false) {
-                if ($key == 0) {
-                    $this->lastValueScope = self::SCOPE_PAGE;
+                if ($position == 0) {
+                    $scope = new Entity\Scope();
+                    $scope->settype(Entity\Scope::SCOPE_PAGE);
+                    $scope->setPageId($element->getId());
+                    $scope->setZoneName($zoneName);
+                    $this->lastValueScope = $scope;
                 } else {
-                    $this->lastValueScope = self::SCOPE_PARENT_PAGE;
+                    $scope = new Entity\Scope();
+                    $scope->settype(Entity\Scope::SCOPE_PARENT_PAGE);
+                    $scope->setPageId($element->getId());
+                    $scope->setZoneName($zoneName);
+                    $this->lastValueScope = $scope;
                 }
                 return $value;
             }
@@ -50,17 +54,23 @@ class Dao
         //Find language value
         $value = $this->getLanguageValue($key, $languageId);
         if ($value !== false) {
-            $this->lastValueScope = self::SCOPE_LANGUAGE;
+            $scope = new Entity\Scope();
+            $scope->settype(Entity\Scope::SCOPE_LANGUAGE);
+            $scope->setLanguageId($languageId);
+            $this->lastValueScope = $scope;
             return $value;
         }
 
         //Find global value
         $value = $this->getGlobalValue($key);
         if ($value !== false) {
-            $this->lastValueScope = self::SCOPE_GLOBAL;
+            $scope = new Entity\Scope();
+            $scope->settype(Entity\Scope::SCOPE_GLOBAL);
+            $this->lastValueScope = $scope;
             return $value;
         }
 
+        $this->lastValueScope = false;
         return false;
     }
 
@@ -76,7 +86,7 @@ class Dao
 
     public function getPageValue($key, $zoneName, $pageId)
     {
-        $this->lastValueScope = self::SCOPE_PAGE;
+        $this->lastValueScope = Service::SCOPE_PAGE;
 
         $dbh = \Ip\Db::getConnection();
         $sql = '
@@ -108,7 +118,7 @@ class Dao
 
     public function getLanguageValue($key, $languageId)
     {
-        $this->lastValueScope = self::SCOPE_LANGUAGE;
+        $this->lastValueScope = Service::SCOPE_LANGUAGE;
 
         $dbh = \Ip\Db::getConnection();
         $sql = '
@@ -138,7 +148,7 @@ class Dao
 
     public function getGlobalValue($key)
     {
-        $this->lastValueScope = self::SCOPE_GLOBAL;
+        $this->lastValueScope = Service::SCOPE_GLOBAL;
 
         $dbh = \Ip\Db::getConnection();
         $sql = '
@@ -174,6 +184,8 @@ class Dao
             SET
                 `module` = :module,
                 `key` = :key,
+                `zoneName` = :zoneName,
+                `pageId` = :pageId,
                 `value` = :value
             ON DUPLICATE KEY UPDATE
                 `value` = :value
@@ -210,8 +222,8 @@ class Dao
         $params = array (
             ':module' => $this->module,
             ':key' => $key,
-            ':value' => $value,
-            ':languageId' => $languageId
+            ':languageId' => $languageId,
+            ':value' => $value
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);

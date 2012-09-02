@@ -10,6 +10,7 @@ namespace Modules\developer\inline_management;
 
 class Dao
 {
+
     const MODULE_NAME = 'inline_management';
     const PREFIX_STRING = 'str_';
     const PREFIX_TEXT = 'txt_';
@@ -76,5 +77,13 @@ class Dao
         $this->inlineValueService->deleteGlobalValue($prefix.$key);
     }
 
+    /**
+     * Last get operation scope
+     * @return int
+     */
+    public function getLastOperationScope()
+    {
+        return $this->inlineValueService->getLastOperationScope();
+    }
 
 }

@@ -107,7 +107,7 @@ class Service
     {
         global $site;
 
-        $imageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
 

@@ -10,6 +10,11 @@ namespace Modules\developer\inline_value;
 
 class Service
 {
+    const SCOPE_PAGE = 1;
+    const SCOPE_PARENT_PAGE = 2;
+    const SCOPE_LANGUAGE = 3;
+    const SCOPE_GLOBAL = 4;
+
     private $module;
     private $dao;
     /**
@@ -48,7 +53,7 @@ class Service
      */
     public function getLastOperationScope()
     {
-        return $this->dao->lastValueScope();
+        return $this->dao->getLastOperationScope();
     }
 
     // SET

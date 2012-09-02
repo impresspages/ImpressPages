@@ -145,7 +145,6 @@
 
                 //loop and assign all inline options assigned by theme author
                 jQuery.each($this.data('options'), function(name, value) {
-                    console.log(name + ' '  + value);
                     options[name] = value;
                 });
 
@@ -183,6 +182,7 @@
         _confirm : function (event) {
             event.preventDefault();
             var $this = $(this);
+            var $popup = $('.ipModuleInlineManagementPopupImage');
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
             data.g = 'developer';
@@ -190,6 +190,7 @@
             data.a = 'saveImage';
 
             data.key = $this.data('ipInlineManagementImage').key;
+            data.type = $popup.find('.ipaType').val();
 
 
             //IMAGE

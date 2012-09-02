@@ -171,7 +171,14 @@
     z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
 }
 
-.ipModuleInlineManagementPopupImage .ipaImage {
-    margin-bottom: 10px;
+.ipModuleInlineManagementPopupImage .ipaControls {
+    padding: 10px;
+    background-color: #ccc;
 }
 
+
+.ipModuleInlineManagementPopupImage select,
+.ipModuleInlineManagementPopupImage option {
+    font-zise: 18px;
+    margin-bottom: 8px;
+}
