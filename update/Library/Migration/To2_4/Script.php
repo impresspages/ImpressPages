@@ -95,6 +95,28 @@ class Script extends \IpUpdate\Library\Migration\General{
                 $this->addStringParameter($groupId, 'Remove image confirm', 'remove_image_confirm', 'There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?', 1);
             }
 
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'image_assignment_type')) {
+                $this->addStringParameter($groupId, 'Image assignment type', 'image_assignment_type', 'Apply to', 1);
+            }
+
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_page')) {
+                $this->addStringParameter($groupId, 'Assign to page', 'assign_to_page', 'Current page and sub-gages', 1);
+            }
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_parent_page')) {
+                $this->addStringParameter($groupId, 'Assigne to parent page', 'assign_to_parent_page', 'Page "[[page]]" and all sub-pages', 1);
+            }
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_language')) {
+                $this->addStringParameter($groupId, 'Assign to language', 'assign_to_language', 'All [[language]] pages', 1);
+            }
+
+
+            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_all_pages')) {
+                $this->addStringParameter($groupId, 'Assign to all pages', 'assign_to_all_pages', 'All pages', 1);
+            }
+
 
         $parametersGroup = $this->getParameterGroup($moduleId, 'options');
         if ($parametersGroup) {
@@ -124,10 +146,10 @@ Gill Sans,Geneva,sans-serif';
         $sql = "
             CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_global` (
                 `module` varchar(100) NOT NULL,
-                `key` varchar(255) NOT NULL,
+                `key` varchar(100) NOT NULL,
                 `value` text NOT NULL,
                 PRIMARY KEY (`module`,`key`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
         ";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
@@ -137,11 +159,11 @@ Gill Sans,Geneva,sans-serif';
         $sql = "
             CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_language` (
                 `module` varchar(100) NOT NULL,
-                `key` varchar(255) NOT NULL,
+                `key` varchar(100) NOT NULL,
                 `languageId` int(11) NOT NULL,
                 `value` text NOT NULL,
                 PRIMARY KEY (`module`,`key`,`languageId`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
         ";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
@@ -152,13 +174,13 @@ Gill Sans,Geneva,sans-serif';
         $sql = "
             CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_inline_value_page` (
                 `module` varchar(100) NOT NULL,
-                `key` varchar(255) NOT NULL,
+                `key` varchar(100) NOT NULL,
                 `languageId` int(11) NOT NULL,
                 `zoneName` varchar(30) NOT NULL,
                 `pageId` int(11) NOT NULL,
                 `value` text NOT NULL,
-                PRIMARY KEY (`module`,`key`,`zoneName`,`zoneName`,`pageId`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                PRIMARY KEY (`module`,`key`,`languageId`,`zoneName`,`pageId`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
         ";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {

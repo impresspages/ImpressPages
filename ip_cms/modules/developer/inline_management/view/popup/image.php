@@ -1,7 +1,7 @@
 <div class="ipaImage"></div>
 <div class="clear" style="clear: both;"><!-- --></div>
 <div class="ipaControls">
-    Apply to
+    <?php echo $this->escPar('developer/inline_management/admin_translations/image_assignment_type'); ?>
     <select class="ipaType">
         <?php foreach ($types as $key => $type){ ?>
             <option value="<?php echo $this->esc($type['value']) ?>" <?php echo !empty($type['selected']) ? 'selected="selected"' : '' ?>><?php echo $this->esc($type['title']) ?></option>

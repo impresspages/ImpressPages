@@ -132,6 +132,7 @@ class Controller extends \Ip\Controller{
     public function getManagementPopupImage()
     {
         global $site;
+        global $parametersMod;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
@@ -143,7 +144,12 @@ class Controller extends \Ip\Controller{
 
         $types = array();
 
-        $types[Scope::SCOPE_PAGE] = array('title' => 'Current page and sub-gages', 'value' => Scope::SCOPE_PAGE);
+        $scopePageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_page');
+        $scopeParentPageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_parent_page');
+        $scopeLanguageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_language');
+        $scopeAllPagesTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_all_pages');
+
+        $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
             $pageName = '';
             $zone = $site->getZone($scope->getZoneName());
@@ -153,15 +159,13 @@ class Controller extends \Ip\Controller{
                     $pageName = $element->getButtonTitle();
                 }
             }
-            $scopeTitle = 'Page "[[page]]" and all sub-pages';
-            $scopeTitle = str_replace('[[page]]', $pageName, $scopeTitle);
-            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
+            $scopeParentPageTitle = str_replace('[[page]]', $pageName, $scopeParentPageTitle);
+            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
 
-        $scopeTitle = 'All [[language]] pages';
-        $scopeTitle = str_replace('[[language]]', $site->getCurrentLanguage()->getLongDescription(), $scopeTitle);
-        $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeTitle, 'value' => Scope::SCOPE_LANGUAGE);
-        $types[Scope::SCOPE_GLOBAL] = array('title' => 'All pages', 'value' => Scope::SCOPE_GLOBAL);
+        $scopeLanguageTitle = str_replace('[[language]]', $site->getCurrentLanguage()->getLongDescription(), $scopeLanguageTitle);
+        $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
+        $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 
 
         if ($scope && isset($types[$scope->getType()])) {

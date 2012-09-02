@@ -289,7 +289,7 @@ DROP TABLE IF EXISTS `ip_cms_m_inline_value_global`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
   `module` varchar(100) NOT NULL,
-  `key` varchar(255) NOT NULL,
+  `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`module`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -302,7 +302,7 @@ DROP TABLE IF EXISTS `ip_cms_m_inline_value_language`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
   `module` varchar(100) NOT NULL,
-  `key` varchar(255) NOT NULL,
+  `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`module`,`key`,`languageId`)
@@ -316,7 +316,7 @@ DROP TABLE IF EXISTS `ip_cms_m_inline_value_page`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_page` (
   `module` varchar(100) NOT NULL,
-  `key` varchar(255) NOT NULL,
+  `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
   `zoneName` varchar(30) NOT NULL,
   `pageId` int(11) NOT NULL,

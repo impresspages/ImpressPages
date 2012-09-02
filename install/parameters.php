@@ -2353,6 +2353,43 @@ $moduleTitle["developer"]["inline_management"] = "Inline Management";
         $parameterAdmin["developer"]["inline_management"]["admin_translations"]["default"] = "1";
         $parameterType["developer"]["inline_management"]["admin_translations"]["default"] = "string";
 
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["remove_image"] = "Remove image";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["remove_image"] = "Remove this image";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["remove_image"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["remove_image"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["remove_image_confirm"] = "Remove image confirm";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["remove_image_confirm"] = "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["remove_image_confirm"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["remove_image_confirm"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["image_assignment_type"] = "Image assignment type";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["image_assignment_type"] = "Apply to";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["image_assignment_type"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["image_assignment_type"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "Assign to page";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "Current page and sub-gages";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["assign_to_parent_page"] = "Assigne to parent page";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_parent_page"] = "Page \"[[page]]\" and all sub-pages";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["assign_to_parent_page"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["assign_to_parent_page"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["assign_to_language"] = "Assign to language";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_language"] = "All [[language]] pages";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["assign_to_language"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["assign_to_language"] = "string";
+
+        $parameterTitle["developer"]["inline_management"]["admin_translations"]["assign_to_all_pages"] = "Assign to all pages";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_all_pages"] = "All pages";
+        $parameterAdmin["developer"]["inline_management"]["admin_translations"]["assign_to_all_pages"] = "1";
+        $parameterType["developer"]["inline_management"]["admin_translations"]["assign_to_all_pages"] = "string";
+
+
+
     $parameterGroupTitle["developer"]["inline_management"]["options"] = "Options";
     $parameterGroupAdmin["developer"]["inline_management"]["options"] = "1";
 
