@@ -846,7 +846,8 @@ class Site{
      *
      */
     public function managementState(){
-        return (isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
+        $backendLoggedIn = isset($_SESSION['backend_session']['user_id']) && $_SESSION['backend_session']['user_id'] != null;
+        return ($backendLoggedIn && isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
     }
 
     /**
