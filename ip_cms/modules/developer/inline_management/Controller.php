@@ -145,7 +145,17 @@ class Controller extends \Ip\Controller{
 
         $types[Scope::SCOPE_PAGE] = array('title' => 'Current page and sub-gages', 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
-            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => 'Page "Products" and all sub-pages', 'value' => Scope::SCOPE_PARENT_PAGE);
+            $pageName = '';
+            $zone = $site->getZone($scope->getZoneName());
+            if ($zone) {
+                $element = $zone->getElement($scope->getPageId());
+                if ($element) {
+                    $pageName = $element->getButtonTitle();
+                }
+            }
+            $scopeTitle = 'Page "[[page]]" and all sub-pages';
+            $scopeTitle = str_replace('[[page]]', $pageName, $scopeTitle);
+            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
         $types[Scope::SCOPE_LANGUAGE] = array('title' => 'All XX pages', 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => 'All pages', 'value' => Scope::SCOPE_GLOBAL);
@@ -350,6 +360,24 @@ class Controller extends \Ip\Controller{
         $image = new Entity\Image($imageStr);
         $scope = $this->dao->getLastOperationScope();
 
+        $sameScope = $scope && $scope->getType() == $type;
+
+//        if ($sameScope) {
+//            switch($type) {
+//                case Scope::SCOPE_PAGE:
+//                    //
+//                    $sameScope = $site->getCurrentZone()->getName() == $scope->getZoneName() && $site->getCurrentElement()->getId();
+//                    break;
+//                case Scope::SCOPE_PARENT_PAGE:
+//                    break;
+//                case Scope::SCOPE_LANGUAGE:
+//                    break;
+//                case Scope::SCOPE_GLOBAL:
+//                    break;
+//            }
+//
+//        }
+
 
         //STORE IMAGE LOGO
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
@@ -360,7 +388,7 @@ class Controller extends \Ip\Controller{
 
             //remove old image
             if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                if ($scope && $scope->getType() === $type) { //if we are saving in the same scope
+                if ($sameScope) { //otherwise we need to leave image for original scope
                     unlink(BASE_DIR.$image->getImageOrig());
                 }
             }
@@ -371,7 +399,7 @@ class Controller extends \Ip\Controller{
             $image->setImageOrig(IMAGE_DIR.$newName);
 
         } else {
-            if ($scope && $scope->getType() == $type) { //duplicate original image if we are resaving it in different scope
+            if (!$sameScope) { //duplicate original image if we are resaving it in different scope
                 if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
                     $destDir = BASE_DIR.IMAGE_DIR;
                     $newName = \Library\Php\File\Functions::genUnoccupiedName($image->getImageOrig(), $destDir);
@@ -384,7 +412,7 @@ class Controller extends \Ip\Controller{
         if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
             //remove old file
             if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
-                if ($scope && $scope->getType() === $type) { //if we are saving in the same scope
+                if ($sameScope) { //if we are saving in the same scope, replace image. Otherwise leave old one for original scope
                     unlink(BASE_DIR.$image->getImage());
                 }
             }

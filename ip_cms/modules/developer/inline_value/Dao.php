@@ -29,7 +29,7 @@ class Dao
 
         //Find value in breadcrumb
         $breadcrumb = $site->getBreadcrumb($zoneName, $pageId);
-        array_reverse($breadcrumb);
+        $breadcrumb = array_reverse($breadcrumb);
 
         foreach ($breadcrumb as $position => $element) {
             $value = $this->getPageValue($key, $zoneName, $element->getId());
