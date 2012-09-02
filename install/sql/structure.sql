@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
   `key` varchar(255) NOT NULL,
   `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`,`langaugeId`)
+  PRIMARY KEY (`module`,`key`,`languageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Table structure
