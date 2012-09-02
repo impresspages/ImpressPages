@@ -149,6 +149,13 @@
         _removeImage : function(event) {
             event.preventDefault();
             var $this = this;
+            var $popup = $('.ipModuleInlineManagementPopupImage');
+
+
+            if (!confirm($popup.find('.ipaRemoveConfirm').text())) {
+                return;
+            }
+
             var data = Object();
             data.g = 'developer';
             data.m = 'inline_management';
