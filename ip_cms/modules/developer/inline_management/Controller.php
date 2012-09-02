@@ -446,6 +446,16 @@ class Controller extends \Ip\Controller{
             copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
             $image->setImage(IMAGE_DIR.$newName);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
+        } else {
+            if (!$sameScope) { //duplicate cropped image
+                if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
+                    $destDir = BASE_DIR.IMAGE_DIR;
+                    $newName = \Library\Php\File\Functions::genUnoccupiedName($image->getImage(), $destDir);
+                    copy(BASE_DIR.$image->getImage(), $destDir.$newName);
+                    $image->setImage(IMAGE_DIR.$newName);
+                }
+
+            }
         }
 
 
