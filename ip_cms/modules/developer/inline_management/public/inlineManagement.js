@@ -4,7 +4,6 @@
  * @license see ip_license.html
  */
 
-
 "use strict";
 
 $(document).ready(function () {
@@ -14,11 +13,3 @@ $(document).ready(function () {
     $('.ipModuleInlineManagementText').ipModuleInlineManagementText();
     $('.ipModuleInlineManagementImage').ipModuleInlineManagementImage();
 });
-
-// Creating global controls block
-if (!$('.ipModuleInlineManagementControls').length) {
-    $('body').append(ipModInlineManagementControls);
-}
-
-
-

@@ -6,7 +6,6 @@
 
 "use strict";
 
-
 (function($) {
 
     var methods = {
@@ -16,32 +15,19 @@
                 var data = $this.data('ipInlineManagementLogo');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipInlineManagementLogo', {
+                    $this
+                    .data('ipInlineManagementLogo', {
                         'originalLogoHtml' : $('.ipModuleInlineManagementLogo').clone(),
                         'imageUploadInitialized' : false,
                         'cssClass' : $this.data('cssClass')
-                    });
-
-
-                    // Enabling controls as tooltip
-                    $this.tooltip({
-                        position : 'top left',
-                        tip : '.ipModuleInlineManagementControls',
-                        onShow : function() {
-                        },
-                        onHide : function() {
-                            $.mask.close();
+                    })
+                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
+                    $this.find('.sitename')
+                    .ipModuleInlineManagementControls({
+                        'Manage' : function() {
+                            $this.trigger('ipModuleInlineManagement.openEditPopup');
                         }
                     });
-
-                    var $controls = $('.ipModuleInlineManagementControls');
-                    $this.mouseenter(function(event){
-                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
-                            event.preventDefault();
-                            $this.trigger('ipModuleInlineManagement.openEditPopup');
-                        });
-                    });
-                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
                 }
             });
         },
@@ -53,7 +39,6 @@
             $('.ipModuleInlineManagementPopupLogo').remove();
 
             $('body').append('<div class="ipModuleInlineManagementPopupLogo" ></div>');
-
 
             var $popup = $('.ipModuleInlineManagementPopupLogo');
             $popup.dialog({width: 800, height : 450, modal: true});
@@ -80,10 +65,7 @@
                 dataType : 'json'
             });
 
-
-
         },
-
 
         _popupContentResponse:function(response) {
 
@@ -164,7 +146,6 @@
                 'selected' : function(style) {$.proxy(methods._preview, $this)();}
             });
 
-
             $this.data('colorPicker').css('backgroundColor', curColor);
             $this.data('colorPicker').ColorPicker({
                 color: curColor,
@@ -183,14 +164,12 @@
                 }
             });
 
-
             //type selection
             if (logoData.type == 'text') {
                 $this.data('typeSelectText').attr('checked', 'checked');
             } else {
                 $this.data('typeSelectImage').attr('checked', 'checked');
             }
-
 
             $this.find('.ipmType').buttonset();
 
@@ -202,11 +181,7 @@
             $popup.find('.ipaCancel').bind('click', function(event){$popup.dialog('close');});
             $this.bind('dialogclose', jQuery.proxy(methods._cancel, $this));
 
-
-
         },
-
-
 
         _preview : function() {
             var $this = this;
@@ -223,9 +198,7 @@
                 $this.data('previewImage').find('.ipUploadButtons').remove();
                 $this.data('previewImage').find('.ui-resizable-handle').remove();
             }
-
         },
-
 
         _updateType : function() {
             var $this = this;
@@ -257,7 +230,6 @@
             }
         },
 
-
         _addError : function(event, errorMessage) {
             $(this).trigger('error.ipContentManagement', errorMessage);
         },
@@ -280,12 +252,10 @@
                 data.type = 'image';
             }
 
-
             //TEXT LOGO
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
             data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
-
 
             //IMAGE LOGO
             if ($this.data('ipInlineManagementLogo').imageUploadInitialized) {
@@ -343,15 +313,9 @@
             $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
             $this.trigger('ipInlineManagement.logoCancel');
             $('.ipModuleInlineManagement').ipModuleInlineManagement();
-
         }
-        
-        
 
-        
     };
-    
-    
 
     $.fn.ipModuleInlineManagementLogo = function(method) {
         if (methods[method]) {
@@ -362,7 +326,5 @@
             $.error('Method ' + method + ' does not exist on jQuery.ipInlineManagementLogo');
         }
     };
-    
-    
 
 })(jQuery);

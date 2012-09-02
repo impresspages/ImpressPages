@@ -4,7 +4,6 @@
  * @license see ip_license.html
  */
 
-
 "use strict";
 
 (function($) {
@@ -16,43 +15,28 @@
                 var data = $this.data('ipInlineManagementText');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipInlineManagementText', {
+                    $this
+                    .data('ipInlineManagementText', {
                         key: $this.data('key'),
                         cssClass: $this.data('cssclass'),
                         htmlTag: $this.data('htmltag')
-                    });
-
-                    // Enabling controls as tooltip
-                    $this.tooltip({
-                        position : 'top left',
-                        tip : '.ipModuleInlineManagementControls',
-                        onShow : function() {
-                        },
-                        onHide : function() {
-                            $.mask.close();
-                        }
-                    });
-
-                    var $controls = $('.ipModuleInlineManagementControls');
-                    $this.mouseenter(function(event){
-                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
-                            event.preventDefault();
+                    })
+                    .ipModuleInlineManagementControls({
+                        'Manage' : function() {
                             $this.trigger('ipModuleInlineManagement.openEditPopup');
-                        });
-                    });
-                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
+                        }
+                    })
+                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
 
                 }
             });
         },
-        
 
         openPopup : function () {
             var $this = this;
             $this.find('.ipModuleInlineManagementPopupText').remove();
 
             $this.append('<div class="ipModuleInlineManagementPopupText" ></div>');
-
 
             var $popup = $this.find('.ipModuleInlineManagementPopupText');
             $popup.dialog({width: 800, height : 450, modal: true});
@@ -97,7 +81,6 @@
             $('.ipModuleInlineManagementPopupText').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
 
-
         _confirm : function (event) {
             event.preventDefault();
             var $this = $(this);
@@ -122,7 +105,6 @@
 
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
-
 
             //SAVE
             $.ajax({
@@ -155,13 +137,8 @@
             $this.trigger('ipInlineManagement.textCancel');
             $('.ipModuleInlineManagementPopupText').dialog('close');
         }
-        
-        
 
-        
     };
-    
-    
 
     $.fn.ipModuleInlineManagementText = function(method) {
         if (methods[method]) {
@@ -172,7 +149,5 @@
             $.error('Method ' + method + ' does not exist on jQuery.ipInlineManagementText');
         }
     };
-    
-    
 
 })(jQuery);

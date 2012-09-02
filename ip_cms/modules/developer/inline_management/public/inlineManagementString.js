@@ -6,7 +6,6 @@
 
 "use strict";
 
-
 (function($) {
 
     var methods = {
@@ -16,45 +15,28 @@
                 var data = $this.data('ipInlineManagementString');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipInlineManagementString', {
+                    $this
+                    .data('ipInlineManagementString', {
                         key: $this.data('key'),
                         cssClass: $this.data('cssclass'),
                         htmlTag: $this.data('htmltag')
-                    });
-
-
-                    // Enabling controls as tooltip
-                    $this.tooltip({
-                        position : 'top left',
-                        tip : '.ipModuleInlineManagementControls',
-                        onShow : function() {
-                        },
-                        onHide : function() {
-                            $.mask.close();
-                        }
-                    });
-
-                    var $controls = $('.ipModuleInlineManagementControls');
-                    $this.mouseenter(function(event){
-                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
-                            event.preventDefault();
+                    })
+                    .ipModuleInlineManagementControls({
+                        'Manage' : function() {
                             $this.trigger('ipModuleInlineManagement.openEditPopup');
-                        });
-                    });
-                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
-
+                        }
+                    })
+                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
 
                 }
             });
         },
-        
 
         openPopup : function () {
             var $this = this;
             $this.find('.ipModuleInlineManagementPopupString').remove();
 
             $this.append('<div class="ipModuleInlineManagementPopupString" ></div>');
-
 
             var $popup = $this.find('.ipModuleInlineManagementPopupString');
             $popup.dialog({width: 800, height : 250, modal: true});
@@ -87,18 +69,14 @@
         _refreshResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
-
                 $('.ipModuleInlineManagementPopupString').html(response.html);
                 $('.ipModuleInlineManagementPopupString').tabs('destroy');
                 $('.ipModuleInlineManagementPopupString').tabs();
-
-
             }
 
             $('.ipModuleInlineManagementPopupString').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $('.ipModuleInlineManagementPopupString').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
-
 
         _confirm : function (event) {
             event.preventDefault();
@@ -124,7 +102,6 @@
 
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
-
 
             //SAVE
             $.ajax({
@@ -157,13 +134,8 @@
             $this.trigger('ipInlineManagement.stringCancel');
             $('.ipModuleInlineManagementPopupString').dialog('close');
         }
-        
-        
 
-        
     };
-    
-    
 
     $.fn.ipModuleInlineManagementString = function(method) {
         if (methods[method]) {
@@ -174,7 +146,5 @@
             $.error('Method ' + method + ' does not exist on jQuery.ipInlineManagementString');
         }
     };
-    
-    
 
 })(jQuery);

@@ -4,7 +4,6 @@
  * @license see ip_license.html
  */
 
-
 "use strict";
 
 (function($) {
@@ -16,30 +15,16 @@
                 var data = $this.data('ipInlineManagementImage');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this.data('ipInlineManagementImage', {
+                    $this
+                    .data('ipInlineManagementImage', {
                         key: $this.data('key')
-                    });
-
-
-                    // Enabling controls as tooltip
-                    $this.tooltip({
-                        position : 'top left',
-                        tip : '.ipModuleInlineManagementControls',
-                        onShow : function() {
-                        },
-                        onHide : function() {
-                            $.mask.close();
-                        }
-                    });
-
-                    var $controls = $('.ipModuleInlineManagementControls');
-                    $this.mouseenter(function(event){
-                        $controls.find('.ipActionWidgetManage').unbind('click').bind('click', function(event){
-                            event.preventDefault();
+                    })
+                    .ipModuleInlineManagementControls({
+                        'Manage' : function() {
                             $this.trigger('ipModuleInlineManagement.openEditPopup');
-                        });
-                    });
-                    $this.bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
+                        }
+                    })
+                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
                 }
             });
         },
@@ -67,9 +52,7 @@
                 dataType : 'json'
             });
 
-
         },
-
 
         _openPopupResponse : function (response) {
             var $this = this;
@@ -148,7 +131,6 @@
                     options[name] = value;
                 });
 
-
                 var $imageUploader = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
@@ -192,7 +174,6 @@
             data.key = $this.data('ipInlineManagementImage').key;
             data.type = $popup.find('.ipaType').val();
 
-
             //IMAGE
             var ipUploadImage = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
             if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
@@ -214,10 +195,8 @@
                 }
             }
 
-
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
-
 
             //SAVE
             $.ajax({
@@ -256,13 +235,8 @@
             $this.css('width', 'auto');
             $this.css('height', 'auto');
         }
-        
-        
 
-        
     };
-    
-    
 
     $.fn.ipModuleInlineManagementImage = function(method) {
         if (methods[method]) {
@@ -273,7 +247,5 @@
             $.error('Method ' + method + ' does not exist on jQuery.ipInlineManagementImage');
         }
     };
-    
-    
 
 })(jQuery);
