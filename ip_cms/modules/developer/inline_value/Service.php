@@ -32,9 +32,9 @@ class Service
         return $this->dao->getValue($key, $languageId, $zoneName, $pageId);
     }
 
-    public function getPageValue($key, $zoneName, $pageId)
+    public function getPageValue($key, $languageId, $zoneName, $pageId)
     {
-        return $this->dao->getPageValue($key, $zoneName, $pageId);
+        return $this->dao->getPageValue($key, $languageId, $zoneName, $pageId);
     }
 
     public function getLanguageValue($key, $languageId)
@@ -57,9 +57,9 @@ class Service
     }
 
     // SET
-    public function setPageValue($key, $zoneName, $pageId, $value)
+    public function setPageValue($key, $languageId, $zoneName, $pageId, $value)
     {
-        return $this->dao->setPageValue($key, $zoneName, $pageId, $value);
+        return $this->dao->setPageValue($key, $languageId, $zoneName, $pageId, $value);
     }
 
 

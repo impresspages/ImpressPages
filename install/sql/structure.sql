@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`module`,`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
   `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`module`,`key`,`languageId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
@@ -317,12 +317,12 @@ DROP TABLE IF EXISTS `ip_cms_m_inline_value_page`;
 CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_page` (
   `module` varchar(100) NOT NULL,
   `key` varchar(255) NOT NULL,
+  `languageId` int(11) NOT NULL,
   `zoneName` varchar(30) NOT NULL,
   `pageId` int(11) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`,`zoneName`,`pageId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+  PRIMARY KEY (`module`,`key`,`languageId`,`zoneName`,`pageId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 -- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_parameter`;

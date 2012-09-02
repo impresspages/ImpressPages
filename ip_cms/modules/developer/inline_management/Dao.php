@@ -29,9 +29,9 @@ class Dao
         return $this->inlineValueService->getValue($prefix.$key, $languageId, $zoneName, $pageId);
     }
 
-    public function getPageValue($prefix, $key, $zoneName, $pageId)
+    public function getPageValue($prefix, $key, $languageId, $zoneName, $pageId)
     {
-        return $this->inlineValueService->getPageValue($prefix.$key, $zoneName, $pageId);
+        return $this->inlineValueService->getPageValue($prefix.$key, $languageId, $zoneName, $pageId);
     }
 
     public function getLanguageValue($prefix, $key, $languageId)
@@ -45,9 +45,9 @@ class Dao
     }
 
     // SET
-    public function setPageValue($prefix, $key, $zoneName, $pageId, $value)
+    public function setPageValue($prefix, $key, $languageId, $zoneName, $pageId, $value)
     {
-        return $this->inlineValueService->setPageValue($prefix.$key, $zoneName, $pageId, $value);
+        return $this->inlineValueService->setPageValue($prefix.$key, $languageId, $zoneName, $pageId, $value);
     }
 
 

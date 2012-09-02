@@ -366,7 +366,7 @@ class Controller extends \Ip\Controller{
         $sameScope = $scope && $scope->getType() == $type;
 
 
-        //STORE IMAGE LOGO
+        //STORE IMAGE
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
             if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
@@ -443,12 +443,42 @@ class Controller extends \Ip\Controller{
         }
 
 
+
+        if (!$sameScope) {
+            //we are trying to save into different scope. We need to delete any images that could exist there
+            switch($type) {
+                case Scope::SCOPE_PAGE:
+                    //this always should return false. But just in case JS part would change, we implement it.
+                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+                    break;
+                case Scope::SCOPE_PARENT_PAGE:
+                    trigger_error("developer/inline_management", "Unexpected situation"); //there is no option to save to parent if $sameScope is true.
+                    break;
+                case Scope::SCOPE_LANGUAGE:
+                    $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId());
+                    break;
+                case Scope::SCOPE_GLOBAL:
+                    $oldImageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
+                    break;
+            }
+
+            if ($oldImageStr) {
+                $oldScope = $this->dao->getLastOperationScope();
+                if ($oldScope->getType() == $type) { //if really have old image in this scope. If $oldScope != $type, we got global image - not from the scope we are saving in
+                    $oldImage = new Entity\Image($oldImageStr);
+                    $this->removeImageRecord($oldImage, $key, $oldScope);
+                }
+            }
+        }
+
+
+
         switch($type) {
             case Scope::SCOPE_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId(), $image->getValueStr());
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_PARENT_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId(), $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_LANGUAGE:
                 $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $image->getValueStr());
@@ -480,9 +510,32 @@ class Controller extends \Ip\Controller{
         $key = $_POST['key'];
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
-        $image = new Entity\Image($imageStr);
-        $scope = $this->dao->getLastOperationScope();
+        if ($imageStr) {
+            $image = new Entity\Image($imageStr);
+            $scope = $this->dao->getLastOperationScope();
+            $this->removeImageRecord($image, $key, $scope);
+        }
 
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $image = new Entity\Image($imageStr);
+
+        $imageSrc = '';
+
+        if ($image->getImage()) {
+            $imageSrc = BASE_URL.$image->getImage();
+        }
+
+
+        $data = array(
+            "status" => "success",
+            "imageSrc" => $imageSrc
+        );
+        $this->returnJson($data);
+
+    }
+
+    private function removeImageRecord($image, $key, $scope)
+    {
         if ($scope) {
             switch($scope->getType()) {
                 case Scope::SCOPE_PAGE:
@@ -505,23 +558,6 @@ class Controller extends \Ip\Controller{
                 }
             }
         }
-
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
-        $image = new Entity\Image($imageStr);
-
-        $imageSrc = '';
-
-        if ($image->getImage()) {
-            $imageSrc = BASE_URL.$image->getImage();
-        }
-
-
-        $data = array(
-            "status" => "success",
-            "imageSrc" => $imageSrc
-        );
-        $this->returnJson($data);
-
     }
 
 
