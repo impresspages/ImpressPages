@@ -98,14 +98,19 @@ address {
 /*
     Styles
 */
-.sitename {
-    color: #000;
+
+
+.logo {
+    margin: 25px 0;
     display: block;
     float: left;
+}
+
+.logo a {
+    color: #000;
     font-family: Georgia, serif;
     font-size: 45px;
     font-weight: bold;
-    margin: 25px 0;
 }
 .languages {
     float: right;

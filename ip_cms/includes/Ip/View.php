@@ -313,10 +313,10 @@ class View{
         return $site->generateBlock($blockName);
     }
 
-    public function generateManagedLogo($defaultLogo = null, $cssClass = null)
+    public function generateManagedLogo($cssClass = null)
     {
         $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedLogo($defaultLogo, $cssClass);
+        return $inlineManagementService->generateManagedLogo($cssClass);
     }
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)

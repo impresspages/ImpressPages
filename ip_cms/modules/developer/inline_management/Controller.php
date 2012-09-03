@@ -32,6 +32,11 @@ class Controller extends \Ip\Controller{
 
     public function getManagementPopupLogo()
     {
+        $cssClass = '';
+        if (isset($_POST['cssClass'])) {
+            $cssClass = $_POST['cssClass'];
+        }
+
 
         $config = new Config();
         $availableFonts = $config->getAvailableFonts();
@@ -58,13 +63,19 @@ class Controller extends \Ip\Controller{
             'text' => $logo->getText()
         );
 
+
+        $service = new Service();
+
         $data = array(
-            "status" => "success",
-            "logoData" => $logoData,
-            "html" => $html
+            'status' => 'success',
+            'logoData' => $logoData,
+            'html' => $html,
+            'textPreview' => $service->generateTextLogo($cssClass),
+            'imagePreview' => $service->generateImageLogo($cssClass)
         );
         $this->returnJson($data);
     }
+
 
 
     public function getManagementPopupString()
@@ -291,7 +302,7 @@ class Controller extends \Ip\Controller{
 
         $data = array(
             "status" => "success",
-            "logoHtml" => $inlineManagementService->generateManagedLogo(null, $cssClass)
+            "logoHtml" => $inlineManagementService->generateManagedLogo($cssClass)
         );
         $this->returnJson($data);
     }

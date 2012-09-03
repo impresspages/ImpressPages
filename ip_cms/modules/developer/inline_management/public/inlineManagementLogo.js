@@ -15,17 +15,17 @@
                 var data = $this.data('ipInlineManagementLogo');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    $this
-                    .data('ipInlineManagementLogo', {
-                        'originalLogoHtml' : $('.ipModuleInlineManagementLogo').clone(),
+                    $this.data('ipInlineManagementLogo', {
+                        'originalLogo' : $this.clone(),
                         'imageUploadInitialized' : false,
                         'cssClass' : $this.data('cssClass')
                     })
-                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openEditPopup, $this ));
-                    $this.find('.sitename')
-                    .ipModuleInlineManagementControls({
+
+                    $this.bind('ipModuleInlineManagementLogo.openEditPopup', $.proxy(methods.openEditPopup, $this ));
+
+                    $this.ipModuleInlineManagementControls({
                         'Manage' : function() {
-                            $this.trigger('ipModuleInlineManagement.openEditPopup');
+                            $this.trigger('ipModuleInlineManagementLogo.openEditPopup');
                         }
                     });
                 }
@@ -52,6 +52,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'getManagementPopupLogo';
+            data.cssClass = $this.data('cssclass');
 
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
@@ -86,15 +87,20 @@
             $this.data('fontSelect', $popup.find('.ipmFontSelect'));
             $this.data('colorPicker', $popup.find('.ipmColorPicker'));
             $this.data('logoText', $popup.find('.ipmLogoText'));
-            $this.data('previewText', $('.ipModuleInlineManagementLogo .ipmText .sitename'));
-            $this.data('previewImage', $('.ipModuleInlineManagementLogo .ipmImage .sitename'));
+            console.log(response)
+            $this.data('previewText', $(response.textPreview));
+            $this.data('previewImage', $(response.imagePreview));
+            $this.after($this.data('previewText'));
+            $this.after($this.data('previewImage'));
+            $this.data('previewImage').hide();
+            $this.data('previewText').hide();
 
-            var curColor = $this.data('previewText').css('color');
-            var curText = $.trim($this.data('previewText').html());
-            var curFont = $this.data('previewText').css('font-family');
-            $this.data('previewText').css('font-family', ''); //remove font
-            var defaultFont = $this.data('previewText').css('font-family'); //get default font
-            $this.data('previewText').css('font-family', curFont); //restore font
+            var curColor = $this.data('previewText').find('a').css('color');
+            var curText = $.trim($this.data('previewText').find('a').text());
+            var curFont = $this.data('previewText').find('a').css('font-family');
+            $this.data('previewText').find('a').css('font-family', ''); //remove font
+            var defaultFont = $this.data('previewText').find('a').css('font-family'); //get default font
+            $this.data('previewText').find('a').css('font-family', curFont); //restore font
             $this.find('ul li.ipmDefaultFont').css('font-family', defaultFont);
             if (curFont.indexOf(',') == false) {
                 curFont = curFont + ',sans-serif';
@@ -179,7 +185,7 @@
             $this.data('typeSelectImage').bind('change', jQuery.proxy(methods._updateType, $this));
             $popup.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
             $popup.find('.ipaCancel').bind('click', function(event){$popup.dialog('close');});
-            $this.bind('dialogclose', jQuery.proxy(methods._cancel, $this));
+            $popup.bind('dialogclose', jQuery.proxy(methods._cancel, $this));
 
         },
 
@@ -187,11 +193,18 @@
             var $this = this;
             var $popup = $('.ipModuleInlineManagementPopupLogo');
 
+            $this.hide();
+
             if ($this.data('typeSelectText').attr("checked") != undefined) {
-                $this.data('previewText').text($this.data('logoText').val());
-                $this.data('previewText').css('color', $this.data('colorPicker').css('background-color'));
-                $this.data('previewText').css('font-family', $this.data('font-select').find('span').css('font-family'));
+                $this.data('previewImage').hide();
+                $this.data('previewText').show();
+                $this.data('previewText').find('a').text($this.data('logoText').val());
+                $this.data('previewText').find('a').css('color', $this.data('colorPicker').css('background-color'));
+                $this.data('previewText').find('a').css('font-family', $this.data('font-select').find('span').css('font-family'));
+                $this.data('logoText').css('font-family', $this.data('font-select').find('span').css('font-family'));
             } else {
+                $this.data('previewText').hide();
+                $this.data('previewImage').show();
                 var $imageUploader = $popup.find('.ipaImage');
                 $this.data('previewImage').html('');
                 $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
@@ -206,13 +219,9 @@
             if ($this.data('typeSelectText').attr("checked") != undefined) {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
-                $this.data('previewText').parent().show();
-                $this.data('previewImage').parent().hide();
             } else {
                 $this.data('textManagement').hide();
                 $this.data('imageManagement').show();
-                $this.data('previewText').parent().hide();
-                $this.data('previewImage').parent().show();
 
                 if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
                     var $imageUploader = $popup.find('.ipaImage');
@@ -228,6 +237,7 @@
                     $imageUploader.bind('imageScaleDown.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 }
             }
+            jQuery.proxy(methods._preview, $this)();
         },
 
         _addError : function(event, errorMessage) {
@@ -298,21 +308,26 @@
             var $this = this;
             var $popup = $('.ipModuleInlineManagementPopupLogo');
             if (answer && answer.status == 'success') {
-                if (answer.logoHtml) {
-                    $('.ipModuleInlineManagementLogo').replaceWith(answer.logoHtml);
-                }
-                $('.ipModuleInlineManagementLogo').ipModuleInlineManagementLogo();
-                $this.trigger('ipInlineManagement.logoConfirm');
                 $popup.dialog('close');
+
+                if (answer.logoHtml) {
+                    var $newLogo = $(answer.logoHtml);
+                    $this.replaceWith($newLogo);
+                    $newLogo.ipModuleInlineManagementLogo();
+
+                }
+                $this.trigger('ipInlineManagement.logoConfirm');
+
             }
         },
 
         _cancel : function (event) {
             event.preventDefault();
             var $this = this;
-            $('.ipModuleInlineManagement').replaceWith($this.data('ipInlineManagementLogo').originalLogoHtml);
+            $this.show();
+            $this.data('previewText').remove();
+            $this.data('previewImage').remove();
             $this.trigger('ipInlineManagement.logoCancel');
-            $('.ipModuleInlineManagement').ipModuleInlineManagement();
         }
 
     };

@@ -17,43 +17,43 @@ class Service
         $this->dao = new Dao();
     }
 
-    public function generateManagedLogo($defaultLogo = null, $cssClass = null)
+    public function generateManagedLogo($cssClass = null)
     {
         global $site;
-        $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
-        $logo = new Entity\Logo($logoStr, $defaultLogo);
 
-        $data = array (
-            'type' => $logo->getType(),
-            'link' => $site->generateUrl(),
-            'text' => $logo->getText(),
-            'image' => $logo->getImage() ? $logo->getImage() : '',
-            'font' => $logo->getFont(),
-            'color' => $logo->getColor(),
-            'cssClass' => $cssClass,
-        );
-
-
-
+        $data = $this->getLogoData();
+        $data['cssClass'] = $cssClass;
 
         if ($site->managementState()) {
-            $data['type'] = Entity\Logo::TYPE_TEXT;
-            $logoTextHtml = \Ip\View::create('view/display/logo.php', $data)->render();
-            $data['type'] = Entity\Logo::TYPE_IMAGE;
-            $logoImageHtml = \Ip\View::create('view/display/logo.php', $data)->render();
-
-            $managementData = array(
-                'type' => $logo->getType(),
-                'logoTextHtml' => $logoTextHtml,
-                'logoImageHtml' => $logoImageHtml,
-                'cssClass' => $cssClass
-            );
-            return \Ip\View::create('view/management/logo.php', $managementData)->render();
+            return \Ip\View::create('view/management/logo.php', $data)->render();
         } else {
-            $logoHtml = \Ip\View::create('view/display/logo.php', $data)->render();
-            return $logoHtml;
+            return \Ip\View::create('view/display/logo.php', $data)->render();
         }
 
+    }
+
+    /**
+     * Use if you watn to generate image logo. No mather what has been chosen by the user.
+     * @param $cssClass
+     */
+    public function generateImageLogo($cssClass = null)
+    {
+        $data = $this->getLogoData();
+        $data['type']  = Entity\Logo::TYPE_IMAGE;
+        $data['cssClass'] = $cssClass;
+        return \Ip\View::create('view/display/logo.php', $data)->render();
+    }
+
+    /**
+     * Use if you watn to generate text logo. No mather what has been chosen by the user.
+     * @param $cssClass
+     */
+    public function generateTextLogo($cssClass)
+    {
+        $data = $this->getLogoData();
+        $data['type']  = Entity\Logo::TYPE_TEXT;
+        $data['cssClass'] = $cssClass;
+        return \Ip\View::create('view/display/logo.php', $data)->render();
     }
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
@@ -129,6 +129,24 @@ class Service
             $view = \Ip\View::create('view/display/image.php', $data);
         }
         return $view->render();
+    }
+
+
+    private function getLogoData()
+    {
+        global $site;
+        $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
+        $logo = new Entity\Logo($logoStr);
+
+        $data = array (
+            'type' => $logo->getType(),
+            'link' => $site->generateUrl(),
+            'text' => $logo->getText(),
+            'image' => $logo->getImage() ? $logo->getImage() : '',
+            'font' => $logo->getFont(),
+            'color' => $logo->getColor()
+        );
+        return $data;
     }
 
 
