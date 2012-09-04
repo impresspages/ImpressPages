@@ -20,6 +20,8 @@ ipTinyMceConfigMax = {
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
     forced_root_block : "p",
 
+    gecko_spellcheck : true,
+    
     file_browser_callback : "simplebrowser_browse", 
     
     document_base_url : ip.baseUrl,
