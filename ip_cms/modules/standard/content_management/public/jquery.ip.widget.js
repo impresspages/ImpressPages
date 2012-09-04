@@ -129,12 +129,13 @@
             data.m = 'content_management';
             data.a = 'manageWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
-            
 
 
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
             $.ajax( {
             type : 'POST',
-            url : ip.baseUrl,
+            url : postUrl,
             data : data,
             context : $this,
             success : methods._manageWidgetResponse,
@@ -216,9 +217,11 @@
             data.widgetData = widgetData;
             data.layout = $this.find('.ipaLayouts').val();
 
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
             $.ajax( {
             type : 'POST',
-            url : ip.baseUrl,
+            url : postUrl,
             data : data,
             context : $this,
             success : methods._saveDataResponse,
@@ -260,9 +263,11 @@
             data.a = 'cancelWidget';
             data.instanceId = $this.data('ipWidget').instanceId;
 
+            var urlParts = window.location.href.split('#');
+            var postUrl = urlParts[0];
             $.ajax( {
                 type : 'POST',
-                url : ip.baseUrl,
+                url : postUrl,
                 data : data,
                 context : $this,
                 success : methods._cancelResponse,
