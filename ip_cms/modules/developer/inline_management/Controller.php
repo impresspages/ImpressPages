@@ -187,7 +187,8 @@ class Controller extends \Ip\Controller{
 
 
         $popupData = array(
-            'types' => $types
+            'types' => $types,
+            'showRemoveLink' => $imageStr !== false
         );
 
         $html = \Ip\View::create('view/popup/image.php', $popupData)->render();
