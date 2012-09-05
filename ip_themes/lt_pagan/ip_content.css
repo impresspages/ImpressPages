@@ -492,11 +492,7 @@
     display: none;
     padding: 20px 25px;
 }
-.manage .ipWidget-IpForm .ipwSuccess { /* showing success message in management by default */
-    border-top: 1px dashed #fff;
-    display: block;
-    margin-top: -1px;
-}
+
 
 /* Widgets :: side */
 .side .ipWidget {
