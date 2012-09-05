@@ -1447,4 +1447,25 @@ $parameter["parameterValue/developer/inline_management/admin_translations/type_i
 $parameter["parameterTitle/developer/inline_management/admin_translations/default"] = "Default";
 $parameter["parameterValue/developer/inline_management/admin_translations/default"] = "Default";
 
+$parameter["parameterTitle/developer/inline_management/admin_translations/remove_image"] = "Remove image";
+$parameter["parameterValue/developer/inline_management/admin_translations/remove_image"] = "Remove this image";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/remove_image_confirm"] = "Remove image confirm";
+$parameter["parameterValue/developer/inline_management/admin_translations/remove_image_confirm"] = "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/image_assignment_type"] = "Image assignment type";
+$parameter["parameterValue/developer/inline_management/admin_translations/image_assignment_type"] = "Apply to";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_page"] = "Assign to page";
+$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_page"] = "Current page and sub-gages";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_parent_page"] = "Assigne to parent page";
+$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_parent_page"] = "Page \"[[page]]\" and all sub-pages";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_language"] = "Assign to language";
+$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_language"] = "All [[language]] pages";
+
+$parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_all_pages"] = "Assign to all pages";
+$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_all_pages"] = "All pages";
+
 $parameter["parameterTitle/developer/inline_management/options/available_fonts"] = "Available fonts";
