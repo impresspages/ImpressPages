@@ -84,8 +84,7 @@ class Migration
                 if ($dir == '.' || $dir == '..') {
                     continue;
                 }
-                
-                if (file_exists(IUL_BASE_DIR.IUL_MIGRATION_DIR.$dir.'/Script.php')) {
+                if (is_dir(IUL_BASE_DIR.IUL_MIGRATION_DIR.$dir) && file_exists(IUL_BASE_DIR.IUL_MIGRATION_DIR.$dir.'/Script.php')) {
                     $scriptName = 'IpUpdate\\Library\\Migration\\'.$dir.'\\Script';
                     $scripts[] = new $scriptName();
                 }
