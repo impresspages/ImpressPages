@@ -43,7 +43,9 @@ class AjaxErrorHandler
         }
         
         if (ini_get('display_errors')) {
-            ob_end_clean( );
+            if (!headers_sent()) {
+                ob_end_clean( );
+            }
             $message = self::getErrorMessage($error['type'], $error['message'], $error['file'], $error['line']);
             self::reportError($message);
         }
@@ -53,14 +55,18 @@ class AjaxErrorHandler
 
     public static function reportError($errorMessage)
     {
-        header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
         $view = \IpUpdate\Gui\View::create('Update/error_unknown.php', array('errorMessage' => $errorMessage));
         $html = $view->render();
-        $data = array(
+        if (headers_sent()) {
+            echo $html;
+        } else {
+            header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+            $data = array(
                 'html' => $html
-        );
-        $output = json_encode(self::utf8Encode($data));
-        echo $output;
+            );
+            $output = json_encode(self::utf8Encode($data));
+            echo $output;
+        }
     }
 
     /**
