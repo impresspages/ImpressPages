@@ -29,7 +29,6 @@ class Net
         $options = array(
             CURLOPT_FILE => $fh,
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we don't timeout on big files
-            CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_URL => $url
         );
         
