@@ -23,7 +23,8 @@ var getStatus = function() {
     $.ajax({
         type: 'POST',
         url: '?controller=Update&action=getStatus',
-        success: successResponse
+        success: successResponse,
+        error: errorResponse
     });
 };
 
@@ -68,7 +69,11 @@ var successResponse = function(response) {
 
 var errorResponse = function(response) {
     console.log('error');
-    document.location = document.location;
+    console.log(response);
+    if (response.responseText) {
+        $('#content').text(response.responseText);
+    }
+
 };
 
 
