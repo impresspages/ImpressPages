@@ -19,7 +19,15 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     public function process($cf)
     {
-        file_put_contents($cf['BASE_DIR'].'devtest.txt', 'TEST');
+
+
+
+
+
+
+
+        
+
 
     }
 
