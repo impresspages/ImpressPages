@@ -287,6 +287,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->tempStorage->remove('inProgress');
         $this->tempStorage->remove('curStep');
         $this->tempStorage->remove('scriptVersion');
+        $this->fs->clean($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
     }
     
     private function getFoldersToReplace() 

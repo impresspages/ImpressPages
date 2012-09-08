@@ -24,7 +24,7 @@ class Bootstrap
         $autoloader = new \IpUpdate\Gui\Autoloader();
         $autoloader->register(IUG_BASE_DIR);
 
-        //bootstrap IpUbdate library
+        //bootstrap IpUpdate library
         require_once(__DIR__.'/../Library/Bootstrap.php');
         $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
         $libraryBootstrap->run();

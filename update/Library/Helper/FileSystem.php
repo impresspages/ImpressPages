@@ -86,7 +86,13 @@ class FileSystem
                         $this->makeWritable($path.'/'.$file, $permissions);
                     } else {
                         if (!is_writable($path.'/'.$file)) {
-                            chmod($path.'/'.$file, $permissions);
+                            $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
+                            try {
+                                chmod($path.'/'.$file, $permissions);
+                            } catch (FileSystemException $e) {
+                                //do nothing. This is just the way to avoid warnings
+                            }
+                            set_error_handler($oldErrorHandler);
                         }
                         if (!is_writable($path.'/'.$file)) {
                             $this->throwWritePermissionsError($path.'/'.$file);
@@ -107,7 +113,9 @@ class FileSystem
             return;
         }
 
-        chmod($dir, 0777);
+        if (!is_writable($dir)) {
+            $this->makeWritable($dir, 0777);
+        }
 
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
@@ -121,6 +129,9 @@ class FileSystem
                 closedir($handle);
             }
 
+            if (!is_writable($this->getParentDir($dir))) {
+                $this->makeWritable($this->getParentDir($dir), 0777);
+            }
             rmdir($dir);
         } else {
             unlink($dir);
