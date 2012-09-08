@@ -151,6 +151,9 @@
                 $newWidget = $(response.managementHtml); 
                 $newWidget.insertAfter($this);
                 $newWidget.trigger('reinitRequired.ipWidget');
+                $newWidget.trigger('stateManagement.ipWidget',{
+                    'instanceId': response.newInstanceId
+                });
 
                 $this.remove();
                 
@@ -237,6 +240,9 @@
             $newWidget = $(response.previewHtml); 
             $($newWidget).insertAfter($this);
             $newWidget.trigger('reinitRequired.ipWidget');
+            $newWidget.trigger('statePreview.ipWidget',{
+                'instanceId': response.instanceId
+            });
             
             var tmpData = $newWidget.data('ipWidget');
             tmpData.state = IP_WIDGET_STATE_PREVIEW;
@@ -285,10 +291,17 @@
                     $newWidget = $(response.previewHtml); 
                     $($newWidget).insertAfter($this);
                     $newWidget.trigger('reinitRequired.ipWidget');
-                    //change state to managed
+                    $newWidget.trigger('statePreview.ipWidget',{
+                        'instanceId': response.oldInstanceId
+                    });
+                    //change state to preview
                     var tmpData = $newWidget.data('ipWidget');
                     tmpData.state = IP_WIDGET_STATE_PREVIEW;
                     $newWidget.data('ipWidget', tmpData);
+                } else {
+                    $this.trigger('deleteWidget.ipBlock', {
+                        'instanceId': response.instanceId
+                    });
                 }
                 $block = $this.parent('.ipBlock');
                 $this.remove();

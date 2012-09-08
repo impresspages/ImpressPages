@@ -1,0 +1,71 @@
+/*
+    global
+*/
+.ipAdminWizardTip {
+    background-color: #ddd;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #000;
+    color: #000;
+    display: none;
+    padding: 10px 30px 10px 10px;
+    position: absolute;
+    z-index: 999; /* just below admin panel */
+}
+#ipAdminWizardTip-1,
+#ipAdminWizardTip-5 {
+    z-index: 10000; /* on top of everything */
+}
+.ipAdminWizardTip .ui-dialog-titlebar-close {
+    background-color: #ddd;
+    border: 1px solid #aaa;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.ipAdminWizardTip .ui-dialog-titlebar-close:hover {
+    border-color: #ddd;
+}
+.ipAdminWizardTip .ipaArrowTop,
+.ipAdminWizardTip .ipaArrowRight,
+.ipAdminWizardTip .ipaArrowBottom,
+.ipAdminWizardTip .ipaArrowLeft {
+    border-color: transparent;
+    border-style: solid;
+    border-width: 17px;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+.ipAdminWizardTip .ipaArrowTop {
+    border-bottom-color: #ddd;
+    border-top-width: 0;
+    margin-top: -17px;
+    top: 0;
+}
+.ipAdminWizardTip .ipaArrowRight {
+    border-left-color: #ddd;
+    border-right-width: 0;
+    margin-right: -17px;
+    margin-top: -10px;
+    right: 0;
+}
+.ipAdminWizardTip .ipaArrowBottom {
+    border-bottom-width: 0;
+    border-top-color: #ddd;
+    bottom: 0;
+    margin-bottom: -17px;
+}
+.ipAdminWizardTip .ipaArrowLeft {
+    border-left-width: 0;
+    border-right-color: #ddd;
+    left: 0;
+    margin-left: -17px;
+    margin-top: -10px;
+}
+#ipAdminWizardTip-5 .ipaArrowTop {
+    right: 10px;
+}
+.ipWizardExposeContent {
+    background-color: #fff;
+}

@@ -17,7 +17,22 @@
                 if ( ! data ) {
                     $this.draggable({
                         connectToSortable : '.ipBlock',
-                        revert : 'invalid',
+                        revert : function(droppable) {
+                            if(droppable === false) {
+                                // drop was unsuccessful
+                                $this.trigger('unsuccessfulDrop.ipWidgetButton',{
+                                    widgetButton: $this
+                                });
+                                return true;
+                            } else {
+                                // drop was successful
+                                $this.trigger('successfulDrop.ipWidgetButton',{
+                                    widgetButton: $this,
+                                    block: droppable
+                                });
+                                return false;
+                            }
+                        },
                         helper : 'clone',
                         stop: function(event, ui) { }
                     });
