@@ -26,7 +26,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
 
 
-        
+
 
 
     }

@@ -36,18 +36,16 @@ function ipWizardBind(data) {
     $body.append(data);
 
     // defining tips
-    var $tip1 = $('#ipAdminWizardTip-1'),
-        $tip2 = $('#ipAdminWizardTip-2'),
-        $tip3 = $('#ipAdminWizardTip-3'),
-        $tip4 = $('#ipAdminWizardTip-4'),
-        $tip5 = $('#ipAdminWizardTip-5'),
-        $tip6 = $('#ipAdminWizardTip-6'),
+    var $tip1 = $('#ipAdminWizardTip-dragWidget'),
+        $tip2 = $('#ipAdminWizardTip-dropWidget'),
+        $tip3 = $('#ipAdminWizardTip-changeWidgetContent'),
+        $tip4 = $('#ipAdminWizardTip-confirmWidget'),
+        $tip5 = $('#ipAdminWizardTip-publish'),
         isTip1 = $tip1.length ? true : false,
         isTip2 = $tip2.length ? true : false,
         isTip3 = $tip3.length ? true : false,
         isTip4 = $tip4.length ? true : false,
-        isTip5 = $tip5.length ? true : false,
-        isTip6 = $tip6.length ? true : false;
+        isTip5 = $tip5.length ? true : false;
 
     // declaring required variables
     var $allWidgets = $('.ipActionWidgetButton'),
@@ -94,7 +92,7 @@ function ipWizardBind(data) {
             events : { def : ',', tooltip: 'mouseenter' },
             offset : [(-$(document).scrollTop()+20),((-$firstWidget.width() / 2) - 10 - 17)],
             position: 'bottom right',
-            tip : '#ipAdminWizardTip-1'
+            tip : '#ipAdminWizardTip-dragWidget'
         });
         var tip1Data = $firstWidget.data('tooltip');
         tip1Data.show();
@@ -127,7 +125,7 @@ function ipWizardBind(data) {
             events : { def : ',', tooltip: 'mouseenter' },
             offset : [-17,0], // touching by arrow
             position: 'top center',
-            tip : '#ipAdminWizardTip-2'
+            tip : '#ipAdminWizardTip-dropWidget'
         });
         var tip2Data = $block.data('tooltip');
         tip2Data.show();
@@ -154,10 +152,10 @@ function ipWizardBind(data) {
             events : { def : ',', tooltip: 'mouseenter' },
             offset : [(-$(document).scrollTop()+20),(($publishButton.width() / 2) + 10 + 17)],
             position: 'bottom left',
-            tip : '#ipAdminWizardTip-5'
+            tip : '#ipAdminWizardTip-publish'
         })
         .bind('click',function(event){
-            ipWizardTipDisable(5);
+            ipWizardTipDisable('publish');
             isTip5 = false;
         });
         var tip5Data = $publishButton.data('tooltip');
@@ -170,10 +168,6 @@ function ipWizardBind(data) {
         }
     }
 
-    /*
-     * Tip 6
-     * */
-    // undefined
 
 
     // binding event and action to all widgets
@@ -209,8 +203,8 @@ function ipWizardBind(data) {
             $.mask.close();
             $block.removeClass('ipWizardExposeContent');
         }
-        if (isTip1) { ipWizardTipDisable(1); isTip1 = false; }
-        if (isTip2) { ipWizardTipDisable(2); isTip2 = false; }
+        if (isTip1) { ipWizardTipDisable('dragWidget'); isTip1 = false; }
+        if (isTip2) { ipWizardTipDisable('dropWidget'); isTip2 = false; }
     });
 
     // binding events to content blocks
@@ -220,8 +214,8 @@ function ipWizardBind(data) {
         if (isTip4) { $tip4.hide() }
     })
     .bind('statePreview.ipWidget',function(event,data){
-        if (isTip3) { ipWizardTipDisable(3); isTip3 = false; }
-        if (isTip4) { ipWizardTipDisable(4); isTip4 = false; }
+        if (isTip3) { ipWizardTipDisable('changeWidgetContent'); isTip3 = false; }
+        if (isTip4) { ipWizardTipDisable('confirmWidget'); isTip4 = false; }
     })
     .bind('stateManagement.ipWidget',function(event,data){
         var $openedWidget = $('#ipWidget-'+data.instanceId);
@@ -232,12 +226,12 @@ function ipWizardBind(data) {
                 events : { def : ',', tooltip: 'mouseenter' },
                 offset : [(-$removingWidget.outerHeight(true)-17),0], // touching by arrow
                 position: 'top center',
-                tip : '#ipAdminWizardTip-3'
+                tip : '#ipAdminWizardTip-changeWidgetContent'
             });
             var tip3Data = $widgetBody.data('tooltip');
             tip3Data.show();
             $widgetBody.bind('click',function(event){
-                ipWizardTipDisable(3);
+                ipWizardTipDisable('changeWidgetContent');
                 isTip3 = false;
             });
         }
@@ -249,7 +243,7 @@ function ipWizardBind(data) {
                 events : { def : ',', tooltip: 'mouseenter' },
                 offset : [17,((-$widgetConfirm.outerWidth() / 2) - 10 - 17)],
                 position: 'bottom right',
-                tip : '#ipAdminWizardTip-4',
+                tip : '#ipAdminWizardTip-confirmWidget',
                 relative : true
             });
             var tip4Data = $widgetConfirm.data('tooltip');
@@ -263,7 +257,7 @@ function ipWizardBind(data) {
                 $tip4.show();
             }
             $widgetConfirm.bind('click',function(event){
-                ipWizardTipDisable(4);
+                ipWizardTipDisable('confirmWidget');
                 isTip4 = false;
             });
         }
@@ -298,6 +292,6 @@ function ipWizardTipDisableResponse(response) {
         // additional actions to remove tip
         $('#ipAdminWizardTip-'+tipId).remove();
     } else {
-        alert('An error occured. Reload the page. If you still see the wizard ask your administrator to turn in off manually.');
+        console.log('An error occurred while disabling the wizard.');
     }
 }

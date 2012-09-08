@@ -6,7 +6,6 @@
  */
 namespace Modules\administrator\wizard;
 
-if (!defined('CMS')) exit;
 
 class Controller extends \Ip\Controller{
 
@@ -14,12 +13,11 @@ class Controller extends \Ip\Controller{
         global $site;
         global $parametersMod;
         $viewData = array (
-            'tip1' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_1'),
-            'tip2' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_2'),
-            'tip3' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_3'),
-            'tip4' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_4'),
-            'tip5' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_5'),
-            'tip6' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_6')
+            'tip_dragWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_dragWidget'),
+            'tip_dropWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_dropWidget'),
+            'tip_changeWidgetContent' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_changeWidgetContent'),
+            'tip_confirmWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_confirmWidget'),
+            'tip_publish' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_publish')
         );
         $content = \Ip\View::create('view/content.php', $viewData)->render();
 
@@ -31,23 +29,21 @@ class Controller extends \Ip\Controller{
         $site->setOutput($answer);
     }
 
-    public function closeWizard() {
-        global $site;
-        require_once(__DIR__.'/model.php');
-
-        $isDisabled = Model::disableWizard();
-        $data = array(
-            'status' => $isDisabled ? 'success' : 'error'
-        );
-
-        $answer = json_encode($data);
-        $site->setOutput($answer);
-    }
 
     public function closeWizardTip() {
-        require_once(__DIR__.'/model.php');
+        if (!isset($_POST['id'])) {
+            trigger_error("Required parameter missing");
+        }
+        $tipId = $_POST['id'];
 
-        $tipId = Model::disableWizardTip($_POST['id']);
+        $model = new Model();
+
+        if (!in_array($tipId, $model->getTipIds())) {
+            trigger_error("Unknown tip id");
+        }
+
+        $model->disableWizardTip($tipId);
+
         $data = array(
             'status' => $tipId ? 'success' : 'error',
             'tipId' => $tipId
