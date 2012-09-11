@@ -127,17 +127,28 @@ class Controller extends \Ip\Controller{
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
-
         $key = $_POST['key'];
+
+        if (!isset($_POST['defaultValue'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $defaultValue = $_POST['defaultValue'];
 
         $languages = $site->getLanguages();
 
         $values = array();
         foreach ($languages as $language) {
+            $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $language->getId());
+            if($curValue !== false) {
+                $text = $curValue;
+            } else {
+                $text = $defaultValue;
+            }
+
             $values[] = array(
                 'language' => $language->getCode(),
                 'languageId' => $language->getId(),
-                'text' => $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $language->getId())
+                'text' => $text
             );
         }
 

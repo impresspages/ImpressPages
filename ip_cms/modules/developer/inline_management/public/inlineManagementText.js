@@ -19,7 +19,8 @@
                     .data('ipInlineManagementText', {
                         key: $this.data('key'),
                         cssClass: $this.data('cssclass'),
-                        htmlTag: $this.data('htmltag')
+                        htmlTag: $this.data('htmltag'),
+                        defaultValue: $this.data('defaultvalue')
                     })
                     .ipModuleInlineManagementControls({
                         'Manage' : function() {
@@ -52,6 +53,7 @@
             data.a = 'getManagementPopupText';
 
             data.key = $this.data('ipInlineManagementText').key;
+            data.defaultValue = $this.data('ipInlineManagementText').defaultValue;
 
             var urlParts = window.location.href.split('#');
             var postUrl = urlParts[0];
