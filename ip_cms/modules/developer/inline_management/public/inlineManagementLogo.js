@@ -327,6 +327,9 @@
             $this.show();
             $this.data('previewText').remove();
             $this.data('previewImage').remove();
+            var data = $this.data('ipInlineManagementLogo');
+            data.imageUploadInitialized = false;
+            $this.data('ipInlineManagementLogo', data);
             $this.trigger('ipInlineManagement.logoCancel');
         }
 
