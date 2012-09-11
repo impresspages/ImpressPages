@@ -65,6 +65,7 @@ class Service
         }
 
         $data = array (
+            'defaultValue' => $defaultValue,
             'value' => $curValue,
             'key' => $key,
             'tag' => $tag,

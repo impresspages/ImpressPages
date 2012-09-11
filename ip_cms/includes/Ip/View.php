@@ -92,7 +92,7 @@ class View{
             }
             
         }
-        return htmlspecialchars($text);
+        return htmlspecialchars($text, ENT_QUOTES);
     }
     
     /**
