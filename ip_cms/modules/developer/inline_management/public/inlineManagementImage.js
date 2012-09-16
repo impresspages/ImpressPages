@@ -228,6 +228,14 @@
 
             //IMAGE
             var ipUploadImage = $('.ipModuleInlineManagementPopupImage').find('.ipaImage');
+
+
+            if (ipUploadImage.ipUploadImage('getCurImage') == undefined) {
+                $.proxy(methods._cancel, $this)(event);
+                return;
+            }
+
+
             if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
                 var newImage = ipUploadImage.ipUploadImage('getCurImage');
                 if (newImage) {
