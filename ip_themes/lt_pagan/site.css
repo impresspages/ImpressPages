@@ -257,6 +257,7 @@ address {
     border-bottom: 1px solid #9e9e9e;
 }
 .breadcrumb {
+    font-size: 12px;
     margin-bottom: 15px;
 }
 .breadcrumb a {
