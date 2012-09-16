@@ -584,5 +584,10 @@
     width: 178px;
 }
 
+/* Inline Management */
+.ipModuleInlineManagement.ipmEmpty {
+    outline: #019bd4 dashed 1px;
+}
+
 /* Admin */
 /* here should go styles for admin tools if you want to override the default styles */

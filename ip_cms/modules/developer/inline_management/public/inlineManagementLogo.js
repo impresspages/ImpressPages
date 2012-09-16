@@ -36,11 +36,11 @@
             event.preventDefault();
             var $this = $(this);
 
-            $('.ipModuleInlineManagementPopupLogo').remove();
+            $('.ipModuleInlineManagementPopup.ipmLogo').remove();
 
-            $('body').append('<div class="ipModuleInlineManagementPopupLogo" ></div>');
+            $('body').append('<div class="ipModuleInlineManagementPopup ipmLogo" ></div>');
 
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
             $popup.dialog({width: 800, height : 450, modal: true});
 
             var options = {
@@ -72,7 +72,7 @@
 
             var $this = this;
 
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
 
             if (response.status == 'success') {
                 $popup.html(response.html);
@@ -191,7 +191,7 @@
 
         _preview : function() {
             var $this = this;
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
 
             $this.hide();
 
@@ -215,7 +215,7 @@
 
         _updateType : function() {
             var $this = this;
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
             if ($this.data('typeSelectText').attr("checked") != undefined) {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
@@ -247,7 +247,7 @@
         _confirm : function (event) {
             event.preventDefault();
             var $this = $(this);
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
             data.g = 'developer';
@@ -306,7 +306,7 @@
 
         _confirmResponse : function (answer) {
             var $this = this;
-            var $popup = $('.ipModuleInlineManagementPopupLogo');
+            var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
             if (answer && answer.status == 'success') {
                 $popup.dialog('close');
 
