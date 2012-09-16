@@ -14,6 +14,8 @@
         methods = {
         init : function(options) {
             return this.each(function() {
+                var $this = $(this);
+
                 // Creating global controls block
                 if (!$('.'+controlsClass).length) {
                     $('body').append(ipModInlineManagementControls);
@@ -24,10 +26,9 @@
                     clearTimeout(hideTimer);
                 })
                 .off('mouseleave').on('mouseleave',function(event){
-                    hideTimer = setTimeout(function(){ $controls.hide();$this.removeClass(hiliteClass); },30);
+                    hideTimer = setTimeout(function(){ $controls.hide();$('.'+hiliteClass).removeClass(hiliteClass); },30);
                 });
 
-                var $this = $(this);
                 var data = $this.data('ipModuleInlineManagementControls');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
@@ -58,7 +59,7 @@
                         }
                     })
                     .mouseleave(function(e){
-                        hideTimer = setTimeout(function(){ $controls.hide();$this.removeClass(hiliteClass); },30);
+                        hideTimer = setTimeout(function(){ $controls.hide();$('.'+hiliteClass).removeClass(hiliteClass); },30);
                     });
                 }
             });

@@ -98,14 +98,12 @@ address {
 /*
     Styles
 */
-
-
 .logo {
     margin: 25px 0;
     display: block;
     float: left;
+    max-width: 620px;
 }
-
 .logo a {
     color: #000;
     font-family: Georgia, serif;

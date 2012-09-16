@@ -8,8 +8,8 @@
 
 $(document).ready(function () {
     //$('.ipModuleInlineManagement').ipModuleInlineManagement();
-    $('.ipModuleInlineManagementLogo').ipModuleInlineManagementLogo();
-    $('.ipModuleInlineManagementString').ipModuleInlineManagementString();
-    $('.ipModuleInlineManagementText').ipModuleInlineManagementText();
-    $('.ipModuleInlineManagementImage').ipModuleInlineManagementImage();
+    $('.ipModuleInlineManagement.ipmLogo').ipModuleInlineManagementLogo();
+    $('.ipModuleInlineManagement.ipmString').ipModuleInlineManagementString();
+    $('.ipModuleInlineManagement.ipmText').ipModuleInlineManagementText();
+    $('.ipModuleInlineManagement.ipmImage').ipModuleInlineManagementImage();
 });

@@ -35,11 +35,11 @@
 
         openPopup : function () {
             var $this = this;
-            $this.find('.ipModuleInlineManagementPopupString').remove();
+            $this.find('.ipModuleInlineManagementPopup.ipmString').remove();
 
-            $this.append('<div class="ipModuleInlineManagementPopupString" ></div>');
+            $this.append('<div class="ipModuleInlineManagementPopup ipmString" ></div>');
 
-            var $popup = $this.find('.ipModuleInlineManagementPopupString');
+            var $popup = $this.find('.ipModuleInlineManagementPopup.ipmString');
             $popup.dialog({width: 800, height : 250, modal: true});
 
             $.proxy(methods.refresh, $this)();
@@ -71,13 +71,13 @@
         _refreshResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
-                $('.ipModuleInlineManagementPopupString').html(response.html);
-                $('.ipModuleInlineManagementPopupString').tabs('destroy');
-                $('.ipModuleInlineManagementPopupString').tabs();
+                $('.ipModuleInlineManagementPopup.ipmString').html(response.html);
+                $('.ipModuleInlineManagementPopup.ipmString').tabs('destroy');
+                $('.ipModuleInlineManagementPopup.ipmString').tabs();
             }
 
-            $('.ipModuleInlineManagementPopupString').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopupString').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopup.ipmString').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopup.ipmString').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
         },
 
         _confirm : function (event) {
@@ -93,7 +93,7 @@
             data.key = $this.data('ipInlineManagementString').key;
             data.htmlTag = $this.data('ipInlineManagementString').htmlTag;
 
-            $('.ipModuleInlineManagementPopupString').find('textarea').each(
+            $('.ipModuleInlineManagementPopup.ipmString').find('textarea').each(
                 function () {
                     if (data['values'] == undefined) {
                         data['values'] = {};
@@ -126,7 +126,7 @@
                     $newElement.ipModuleInlineManagementString();
                 }
                 $this.trigger('ipInlineManagement.stringConfirm');
-                $('.ipModuleInlineManagementPopupString').dialog('close');
+                $('.ipModuleInlineManagementPopup.ipmString').dialog('close');
             }
         },
 
@@ -134,7 +134,7 @@
             event.preventDefault();
             var $this = this;
             $this.trigger('ipInlineManagement.stringCancel');
-            $('.ipModuleInlineManagementPopupString').dialog('close');
+            $('.ipModuleInlineManagementPopup.ipmString').dialog('close');
         }
 
     };
