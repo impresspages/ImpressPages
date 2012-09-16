@@ -58,7 +58,7 @@
 .mceContentBody {
     color: #333;
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
 }
 .mceContentBody p,
 .mceContentBody ul,
@@ -278,14 +278,14 @@
     font-size: 36px;
 }
 .ipPreviewWidget h2 {
-    font-size: 24px;
+    font-size: 28px;
 }
 .ipPreviewWidget h3 {
-    font-size: 18px;
+    font-size: 22px;
 }
 .ipPreviewWidget p,
 .mceContentBody p {
-    line-height: 20px;
+    line-height: 24px;
     margin-bottom: 20px;
 }
 .ipPreviewWidget ul,
@@ -311,7 +311,7 @@
 }
 .ipPreviewWidget li,
 .mceContentBody li {
-    line-height: 20px;
+    line-height: 24px;
     margin-bottom: 4px;
 }
 .ipPreviewWidget p+ul,
@@ -333,19 +333,25 @@
 .mceContentBody .caption {
     color: #000;
     font-family: Georgia, serif;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 28px;
 }
 /* default text style on rich text editor */
 .ipPreviewWidget .signature,
 .mceContentBody .signature {
-    color: #9a9a9a;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
 }
 /* default text style on rich text editor */
 .ipPreviewWidget .note,
 .mceContentBody .note {
     color: #000;
+    display: block;
     font-family: Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    margin: 0 30px 25px;
 }
 .ipWidget-IpImage img,
 .ipWidget-IpImageGallery img {
@@ -353,11 +359,11 @@
 }
 .ipWidget-IpTextImage .ipwImage {
     float: left;
-    width: 300px;
+    width: 220px;
 }
 .ipWidget-IpTextImage .ipwText {
     float: right;
-    width: 220px;
+    width: 300px;
 }
 .ipWidget-IpTextImage.ipLayout-right .ipwImage {
     float: right;
@@ -387,9 +393,12 @@
 }
 .ipWidget-IpFile ul {
     list-style: none;
+    margin-left: 0;
 }
 .ipWidget-IpFile li {
+    background: url(img/icon_download.gif) no-repeat left center;
     margin-bottom: 4px;
+    padding-left: 25px;
 }
 .ipWidget-IpFile a {
     color: #019bd4;
@@ -426,7 +435,7 @@
     background-color: #000;
     border: none;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 .ipPreviewWidget thead+tbody tr:first-child td,
@@ -434,7 +443,7 @@
     background-color: transparent;
     border-bottom: 1px solid #b2b2b2;
     color: inherit;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
 }
 .ipPreviewWidget td:first-child,
@@ -471,9 +480,12 @@
     color: #000;
     content: '?';
     display: block;
-    margin-left: -30px;
-    padding: 2px 4px;
+    margin: 3px 0 0 -30px;
+    padding: 1px 2px;
     position: absolute;
+}
+.ipWidget-IpFaq .ipwQuestion:hover:before {
+    background-color: #f3f3f3;
 }
 .ipWidget-IpFaq .ipwExpanded .ipwQuestion:before {
     background-color: #000;
@@ -503,7 +515,7 @@
 .side .ipPreviewWidget h3 {
     background-color: #000;
     color: #fff;
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 1px;
     padding: 7px 20px;
 }
@@ -520,6 +532,9 @@
     background-color: #f3f3f3;
     color: #000;
     display: block;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    font-style: normal;
     margin-left: -20px; /* aligning background with box side */
     margin-right: -20px; /* aligning background with box side */
     margin-top: -15px; /* pushing up to stick to headline */
@@ -528,6 +543,9 @@
 .side .ipWidget-IpTextImage .ipwImage,
 .side .ipWidget-IpImage img {
     max-width: 100%;
+}
+.side .ipWidget-IpTextImage .ipwText {
+    width: 220px;
 }
 .side .ipWidget-IpImageGallery ul,
 .side .ipWidget-IpLogoGallery ul {
@@ -543,7 +561,7 @@
     width: 96px;
 }
 .side .ipWidget-IpFile {
-    padding: 15px 20px;
+    padding: 15px 0;
 }
 .side .ipModuleForm {
     padding: 20px;
