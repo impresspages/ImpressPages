@@ -10,7 +10,7 @@
  * @license see ip_license.html
  *
  * @fonts:
- * text: 12px Verdana, Geneva, sans-serif
+ * text: 14px Verdana, Geneva, sans-serif
  * headlines: Georgia, serif
  * other messages: Arial, Helvetica, sans-serif
  *
@@ -38,11 +38,11 @@ body {
     background-color: #e5e5e5;
     color: #333;
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
 }
 input, select, textarea, option, table {
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
 }
 table {
     border-collapse: collapse;
@@ -51,7 +51,7 @@ a {
     text-decoration: none;
 }
 h1, h2, h3 {
-    font-size: 12px;
+    font-size: 14px;
 }
 address {
     font-style: normal;
@@ -138,6 +138,7 @@ address {
 }
 .topmenu {
     background-color: #000;
+    font-size: 13px;
     padding: 1px 0 0 15px;
 }
 .topmenu ul {
@@ -174,6 +175,7 @@ address {
     background-color: #f3f3f3;
     border: 1px solid #000;
     display: none;
+    font-size: 12px;
     margin: -1px 0 0 -1px;
     min-width: 100%;
     padding: 2px 0;
@@ -193,6 +195,7 @@ address {
     text-decoration: underline;
 }
 .side nav {
+    font-size: 12px;
     margin-bottom: 25px;
 }
 .side nav ul {
