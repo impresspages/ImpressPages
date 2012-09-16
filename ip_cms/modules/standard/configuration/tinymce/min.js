@@ -10,7 +10,7 @@ ipTinyMceConfigMin = {
     theme_advanced_buttons3 : "bullist,numlist,outdent,indent,link,unlink,sub,sup",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
-    theme_advanced_statusbar_location : "bottom",
+    theme_advanced_statusbar_location : 0,
     theme_advanced_resizing : false,
     theme_advanced_resize_horizontal : false,
     valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",

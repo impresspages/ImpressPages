@@ -76,7 +76,10 @@
                 $('.ipModuleInlineManagementPopupText').tabs('destroy');
                 $('.ipModuleInlineManagementPopupText').tabs();
 
-                $('.ipModuleInlineManagementPopupText').find('textarea').tinymce(ipTinyMceConfigMed);
+                var tinyMceConfig = ipTinyMceConfigMed;
+                tinyMceConfig.plugins = tinyMceConfig.plugins.replace(',autoresize', '').replace('autoresize,', '').replace('autoresize', '');
+                tinyMceConfig.height = 300;
+                $('.ipModuleInlineManagementPopupText').find('textarea').tinymce(tinyMceConfig);
             }
 
             $('.ipModuleInlineManagementPopupText').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));

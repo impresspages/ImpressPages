@@ -58,7 +58,7 @@ $parameterAdmin["administrator"]["wizard"]["admin_translations"]["tip_changeWidg
 $parameterType["administrator"]["wizard"]["admin_translations"]["tip_changeWidgetContent"] = "string";
 
 $parameterTitle["administrator"]["wizard"]["admin_translations"]["tip_confirmWidget"] = "Tip: confirm widget";
-$parameterValue["administrator"]["wizard"]["admin_translations"]["tip_confirmWidget"] = "Confirm your changes";
+$parameterValue["administrator"]["wizard"]["admin_translations"]["tip_confirmWidget"] = "Confirm your changes.";
 $parameterAdmin["administrator"]["wizard"]["admin_translations"]["tip_confirmWidget"] = "0";
 $parameterType["administrator"]["wizard"]["admin_translations"]["tip_confirmWidget"] = "string";
 
