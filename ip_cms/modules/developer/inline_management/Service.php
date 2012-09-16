@@ -22,6 +22,18 @@ class Service
         global $site;
 
         $data = $this->getLogoData();
+
+        if (empty($data['type'])) {
+            $data['type'] = 'text';
+        }
+
+        if ($data['type'] == 'text') {
+            $text = str_replace(' ', '', $data['text']);
+            $data['empty'] = $text == '';
+        } else {
+            $data['empty'] = empty($data['image']);
+        }
+
         $data['cssClass'] = $cssClass;
 
         if ($site->managementState()) {
