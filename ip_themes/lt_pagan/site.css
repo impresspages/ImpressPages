@@ -91,6 +91,7 @@ address {
 .wrapper > footer {
     border-top: 2px solid #000;
     color: #000;
+    font-size: 12px;
     margin: 40px -20px 0;
     padding: 12px 20px;
 }
