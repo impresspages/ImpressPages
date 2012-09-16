@@ -12,8 +12,8 @@
     position: absolute;
     z-index: 999; /* just below admin panel */
 }
-#ipAdminWizardTip-1,
-#ipAdminWizardTip-5 {
+#ipAdminWizardTip-dragWidget,
+#ipAdminWizardTip-publish {
     z-index: 10000; /* on top of everything */
 }
 .ipAdminWizardTip .ui-dialog-titlebar-close {
@@ -63,7 +63,7 @@
     margin-left: -17px;
     margin-top: -10px;
 }
-#ipAdminWizardTip-5 .ipaArrowTop {
+#ipAdminWizardTip-publish .ipaArrowTop {
     right: 10px;
 }
 .ipWizardExposeContent {

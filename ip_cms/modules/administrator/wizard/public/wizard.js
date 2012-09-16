@@ -224,7 +224,7 @@ function ipWizardBind(data) {
         if (isTip3) {
             $widgetBody.tooltip({
                 events : { def : ',', tooltip: 'mouseenter' },
-                offset : [(-$removingWidget.outerHeight(true)-17),0], // touching by arrow
+                offset : [-17,0], // touching by arrow
                 position: 'top center',
                 tip : '#ipAdminWizardTip-changeWidgetContent'
             });

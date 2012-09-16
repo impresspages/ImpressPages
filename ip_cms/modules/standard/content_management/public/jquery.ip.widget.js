@@ -150,13 +150,11 @@
             if (response.status == 'success') {
                 $newWidget = $(response.managementHtml); 
                 $newWidget.insertAfter($this);
+                $this.remove();
                 $newWidget.trigger('reinitRequired.ipWidget');
                 $newWidget.trigger('stateManagement.ipWidget',{
                     'instanceId': response.newInstanceId
                 });
-
-                $this.remove();
-                
             } else {
                 alert(response.errorMessage);
                 var tmpData = $this.data('ipWidget');
