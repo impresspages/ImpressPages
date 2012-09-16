@@ -10,6 +10,7 @@
     display: none;
     padding: 10px 30px 10px 10px;
     position: absolute;
+    white-space: nowrap;
     z-index: 999; /* just below admin panel */
 }
 #ipAdminWizardTip-dragWidget,
