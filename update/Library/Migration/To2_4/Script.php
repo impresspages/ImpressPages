@@ -101,7 +101,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
 
             if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_page')) {
-                $this->addStringParameter($groupId, 'Assign to page', 'assign_to_page', 'Current page and sub-gages', 1);
+                $this->addStringParameter($groupId, 'Assign to page', 'assign_to_page', 'Current page and sub-pages', 1);
             }
 
             if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_parent_page')) {

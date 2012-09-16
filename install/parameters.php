@@ -2369,7 +2369,7 @@ $moduleTitle["developer"]["inline_management"] = "Inline Management";
         $parameterType["developer"]["inline_management"]["admin_translations"]["image_assignment_type"] = "string";
 
         $parameterTitle["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "Assign to page";
-        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "Current page and sub-gages";
+        $parameterValue["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "Current page and sub-pages";
         $parameterAdmin["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "1";
         $parameterType["developer"]["inline_management"]["admin_translations"]["assign_to_page"] = "string";
 

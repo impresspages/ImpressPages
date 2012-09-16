@@ -1457,7 +1457,7 @@ $parameter["parameterTitle/developer/inline_management/admin_translations/image_
 $parameter["parameterValue/developer/inline_management/admin_translations/image_assignment_type"] = "Apply to";
 
 $parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_page"] = "Assign to page";
-$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_page"] = "Current page and sub-gages";
+$parameter["parameterValue/developer/inline_management/admin_translations/assign_to_page"] = "Current page and sub-pages";
 
 $parameter["parameterTitle/developer/inline_management/admin_translations/assign_to_parent_page"] = "Assigne to parent page";
 $parameter["parameterValue/developer/inline_management/admin_translations/assign_to_parent_page"] = "Page \"[[page]]\" and all sub-pages";
