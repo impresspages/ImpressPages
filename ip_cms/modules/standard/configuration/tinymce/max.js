@@ -13,7 +13,6 @@ ipTinyMceConfigMax = {
     theme_advanced_toolbar_align : "left",
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_resizing : false,
-    height : 300,
     width : '100%',
     content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
