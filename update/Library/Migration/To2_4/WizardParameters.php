@@ -13,27 +13,27 @@ $parameterGroupTitle["administrator"]["wizard"]["options"] = "Options";
 $parameterGroupAdmin["administrator"]["wizard"]["options"] = "1";
 
 $parameterTitle["administrator"]["wizard"]["options"]["tip_dragWidget"] = "Show tip: drag widgets";
-$parameterValue["administrator"]["wizard"]["options"]["tip_dragWidget"] = "1";
+$parameterValue["administrator"]["wizard"]["options"]["tip_dragWidget"] = "0";
 $parameterAdmin["administrator"]["wizard"]["options"]["tip_dragWidget"] = "0";
 $parameterType["administrator"]["wizard"]["options"]["tip_dragWidget"] = "bool";
 
 $parameterTitle["administrator"]["wizard"]["options"]["tip_dropWidget"] = "Show tip: drop widget";
-$parameterValue["administrator"]["wizard"]["options"]["tip_dropWidget"] = "1";
+$parameterValue["administrator"]["wizard"]["options"]["tip_dropWidget"] = "0";
 $parameterAdmin["administrator"]["wizard"]["options"]["tip_dropWidget"] = "0";
 $parameterType["administrator"]["wizard"]["options"]["tip_dropWidget"] = "bool";
 
 $parameterTitle["administrator"]["wizard"]["options"]["tip_changeWidgetContent"] = "Show tip: change widget content";
-$parameterValue["administrator"]["wizard"]["options"]["tip_changeWidgetContent"] = "1";
+$parameterValue["administrator"]["wizard"]["options"]["tip_changeWidgetContent"] = "0";
 $parameterAdmin["administrator"]["wizard"]["options"]["tip_changeWidgetContent"] = "0";
 $parameterType["administrator"]["wizard"]["options"]["tip_changeWidgetContent"] = "bool";
 
 $parameterTitle["administrator"]["wizard"]["options"]["tip_confirmWidget"] = "Show tip: confirm widget";
-$parameterValue["administrator"]["wizard"]["options"]["tip_confirmWidget"] = "1";
+$parameterValue["administrator"]["wizard"]["options"]["tip_confirmWidget"] = "0";
 $parameterAdmin["administrator"]["wizard"]["options"]["tip_confirmWidget"] = "0";
 $parameterType["administrator"]["wizard"]["options"]["tip_confirmWidget"] = "bool";
 
 $parameterTitle["administrator"]["wizard"]["options"]["tip_publish"] = "Show tip: publish";
-$parameterValue["administrator"]["wizard"]["options"]["tip_publish"] = "1";
+$parameterValue["administrator"]["wizard"]["options"]["tip_publish"] = "0";
 $parameterAdmin["administrator"]["wizard"]["options"]["tip_publish"] = "0";
 $parameterType["administrator"]["wizard"]["options"]["tip_publish"] = "bool";
 
