@@ -46,7 +46,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
 
         $this->clickAndWait('css=#content a');
         $this->assertNoErrors();
-        $this->assertText('css=.sitename', 'TestSiteName');
+        $this->assertText('css=.logo a', 'TestSiteName');
 
     }
 
