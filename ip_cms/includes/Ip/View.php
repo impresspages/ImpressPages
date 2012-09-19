@@ -331,10 +331,10 @@ class View{
         return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
     }
 
-    public function generateManagedImage($key, $defaultValue = null, $type = 'img', $cssClass = null)
+    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
         $inlineManagementService = new \Modules\developer\inline_management\Service();
-        return $inlineManagementService->generateManagedImage($key, $defaultValue, $type, $cssClass);
+        return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
     }
 
     private static function checkData ($data) {
