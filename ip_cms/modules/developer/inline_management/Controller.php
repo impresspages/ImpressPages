@@ -104,7 +104,7 @@ class Controller extends \Ip\Controller{
             }
 
             $values[] = array(
-                'language' => $language->getCode(),
+                'language' => $language->getShortDescription(),
                 'languageId' => $language->getId(),
                 'text' => $text
             );
@@ -114,8 +114,9 @@ class Controller extends \Ip\Controller{
         $html = \Ip\View::create('view/popup/string.php', array('values' => $values))->render();
 
         $data = array(
-            "status" => "success",
-            "html" => $html
+            'status' => 'success',
+            'curLanguageId' => $site->getCurrentLanguage()->getId(),
+            'html' => $html
         );
         $this->returnJson($data);
     }
