@@ -75,6 +75,8 @@
                 $('.ipModuleInlineManagementPopupText').html(response.html);
                 $('.ipModuleInlineManagementPopupText').tabs('destroy');
                 $('.ipModuleInlineManagementPopupText').tabs();
+                $('.ipModuleInlineManagementPopupText').tabs('select', 'ipInlineManagementTextTabs-' + response.curLanguageId);
+
 
                 var tinyMceConfig = ipTinyMceConfigMed;
                 tinyMceConfig.plugins = tinyMceConfig.plugins.replace(',autoresize', '').replace('autoresize,', '').replace('autoresize', '');

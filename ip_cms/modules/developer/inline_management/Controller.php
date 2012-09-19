@@ -147,17 +147,18 @@ class Controller extends \Ip\Controller{
             }
 
             $values[] = array(
-                'language' => $language->getCode(),
+                'language' => $language->getShortDescription(),
                 'languageId' => $language->getId(),
                 'text' => $text
             );
         }
 
 
-        $html = \Ip\View::create('view/popup/string.php', array('values' => $values))->render();
+        $html = \Ip\View::create('view/popup/text.php', array('values' => $values))->render();
 
         $data = array(
             "status" => "success",
+            'curLanguageId' => $site->getCurrentLanguage()->getId(),
             "html" => $html
         );
         $this->returnJson($data);
