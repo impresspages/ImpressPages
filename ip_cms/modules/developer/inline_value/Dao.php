@@ -28,7 +28,12 @@ class Dao
         global $site;
 
         //Find value in breadcrumb
-        $breadcrumb = $site->getBreadcrumb($zoneName, $pageId);
+        if ($pageId === null) {
+            //we can't get breadcrumb if page id is null
+            $breadcrumb = array();
+        } else {
+            $breadcrumb = $site->getBreadcrumb($zoneName, $pageId);
+        }
         $breadcrumb = array_reverse($breadcrumb);
 
         foreach ($breadcrumb as $position => $element) {
