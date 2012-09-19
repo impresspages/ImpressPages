@@ -14,27 +14,27 @@ class Functions{
      * @param string $dest_dir directory where new file will be placed
      * @return string new (or the same) file name that don't colide with existing files in specified directory
      */
-    public static function genUnoccupiedName($file, $dest_dir){
+    public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
         require_once (LIBRARY_DIR.'php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");
         $new_extension = substr($new_name, $ext_pos, strlen($file));
         $new_name = substr($new_name, 0, $ext_pos);
-        global $log;
 
         $new_name = \Library\Php\Text\Transliteration::transform($new_name);
         $new_name = utf8_decode($new_name);
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ".", ",", "!", ":", "\"", "?", "|");
         $new_name = str_replace($spec, "_", $new_name);
 
-        if($new_name == "")
-        $new_name = "file_";
+        if($new_name == "") {
+            $new_name = "file_";
+        }
         if (file_exists($dest_dir.$new_name.$new_extension)){
             $i = 1;
-            while(file_exists($dest_dir.$new_name.'_'.$i.$new_extension)){
+            while(file_exists($dest_dir.$new_name.'_'.$i.$suffix.$new_extension)){
                 $i++;
             }
-            $new_name = $new_name.'_'.$i;
+            $new_name = $new_name.'_'.$i.$suffix;
         }
         $new_name .= $new_extension;
         return $new_name;

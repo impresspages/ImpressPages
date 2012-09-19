@@ -398,6 +398,20 @@ class Controller extends \Ip\Controller{
         }
         $type = $_POST['type'];
 
+        if (!isset($_POST['cssClass'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $cssClass = $_POST['cssClass'];
+
+        if (!isset($_POST['defaultValue'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $defaultValue = $_POST['defaultValue'];
+
+        if (!isset($_POST['options'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $options = $_POST['options'];
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr);
@@ -466,7 +480,7 @@ class Controller extends \Ip\Controller{
             );
 
             $destDir = BASE_DIR.IMAGE_DIR;
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir);
+            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir, substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 1, 4)); //without shuffle, browser caches old image when user changes cropping coordinates
             copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
             $image->setImage(IMAGE_DIR.$newName);
             unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
@@ -531,10 +545,12 @@ class Controller extends \Ip\Controller{
 
 
 
+        $inlineManagementService = new Service();
+        $newHtml = $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
 
         $data = array(
             "status" => "success",
-            "imageSrc" => BASE_URL.$image->getImage()
+            "newHtml" => $newHtml
         );
         $this->returnJson($data);
     }
@@ -548,6 +564,21 @@ class Controller extends \Ip\Controller{
             throw new \Exception("Required parameter not set");
         }
         $key = $_POST['key'];
+
+        if (!isset($_POST['cssClass'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $cssClass = $_POST['cssClass'];
+
+        if (!isset($_POST['defaultValue'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $defaultValue = $_POST['defaultValue'];
+
+        if (!isset($_POST['options'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $options = $_POST['options'];
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         if ($imageStr) {
@@ -565,10 +596,13 @@ class Controller extends \Ip\Controller{
             $imageSrc = BASE_URL.$image->getImage();
         }
 
+        $inlineManagementService = new Service();
+        $newHtml = $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
+
 
         $data = array(
             "status" => "success",
-            "imageSrc" => $imageSrc
+            "newHtml" => $newHtml
         );
         $this->returnJson($data);
 

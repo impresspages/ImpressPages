@@ -86,7 +86,6 @@ class Functions{
      *
      */
     public static function crop ($imageFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
-        global $parametersMod;
 
         if ($widthDest === null) {
             $widthDest = $x2 - $x1;

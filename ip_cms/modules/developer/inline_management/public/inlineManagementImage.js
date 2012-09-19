@@ -17,7 +17,10 @@
                 if ( ! data ) {
                     $this
                     .data('ipInlineManagementImage', {
-                        key: $this.data('key')
+                        key: $this.data('key'),
+                        cssClass: $this.data('cssclass'),
+                        options: $this.data('options'),
+                        defaultValue: $this.data('defaultvalue')
                     })
                     .ipModuleInlineManagementControls({
                         'Manage' : function() {
@@ -32,6 +35,11 @@
 
         openPopup : function () {
             var $this = this;
+
+
+
+            $this.css('width', '');
+            $this.css('height', '');
 
             var data = Object();
             data.g = 'developer';
@@ -72,7 +80,7 @@
                 $popup.css($this.offset());
 
 
-                var data = $this.data('ipInlineManagementImage');
+                var data = $this.data('ipInlineManagementImage');console.log('data');console.log(data);
                 data.popup = $popup;
                 data.overlay = $overlay;
                 $this.data('ipInlineManagementImage', data);
@@ -131,7 +139,7 @@
                     options[name] = value;
                 });
 
-                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
+                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');console.log('openpopup'); console.log(options);
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
@@ -162,6 +170,12 @@
             data.a = 'removeImage';
 
             data.key = $this.data('ipInlineManagementImage').key;
+            data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;
+            data.options = $this.data('ipInlineManagementImage').options;
+            data.cssClass = $this.data('ipInlineManagementImage').cssClass;
+
+
+            data.key = $this.data('ipInlineManagementImage').key;
 
             //SAVE
             var urlParts = window.location.href.split('#');
@@ -181,17 +195,19 @@
             var $this = this;
 
             if (answer && answer.status == 'success') {
-                if (answer.imageSrc) {
-                    $this.attr('src', answer.imageSrc + '?rnd=' + Math.floor((Math.random()*10000000)+1));
-                } else {
-                    $this.attr('src', ip.baseUrl + $this.data('defaultvalue'));
-                }
                 var data = $this.data('ipInlineManagementImage');
                 data.overlay.remove();
                 data.popup.remove();
 
-                $this.css('width', 'auto');
-                $this.css('height', 'auto');
+                $this.css('width', '');
+                $this.css('height', '');
+
+                if (answer.newHtml) {
+                    var $newHtml = $(answer.newHtml);
+                    $this.replaceWith($newHtml);
+                    $newHtml.ipModuleInlineManagementImage();
+                }
+
             }
         },
 
@@ -224,6 +240,9 @@
             data.a = 'saveImage';
 
             data.key = $this.data('ipInlineManagementImage').key;
+            data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;
+            data.options = $this.data('ipInlineManagementImage').options;
+            data.cssClass = $this.data('ipInlineManagementImage').cssClass;
             data.type = $popup.find('.ipaType').val();
 
             //IMAGE
@@ -272,15 +291,18 @@
             var $this = this;
 
             if (answer && answer.status == 'success') {
-                if (answer.imageSrc) {
-                    $this.attr('src', answer.imageSrc + '?rnd=' + Math.floor((Math.random()*10000000)+1));
-                }
                 var data = $this.data('ipInlineManagementImage');
                 data.overlay.remove();
                 data.popup.remove();
 
-                $this.css('width', 'auto');
-                $this.css('height', 'auto');
+                $this.css('width', '');
+                $this.css('height', '');
+
+                if (answer.newHtml) {
+                    var $newHtml = $(answer.newHtml);
+                    $this.replaceWith($newHtml);
+                    $newHtml.ipModuleInlineManagementImage();
+                }
             }
         },
 
@@ -291,8 +313,8 @@
             data.overlay.remove();
             data.popup.remove();
 
-            $this.css('width', 'auto');
-            $this.css('height', 'auto');
+            $this.css('width', '');
+            $this.css('height', '');
         }
 
     };

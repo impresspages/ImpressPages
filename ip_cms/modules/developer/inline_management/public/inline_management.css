@@ -122,3 +122,8 @@
 .ipModuleInlineManagementPopup.ipmImage .ipaRemoveConfirm {
     display: none;
 }
+
+.ipModuleInlineManagement.ipmImage.ipmEmpty {
+    width: 100%;
+    height: 50px;
+}
