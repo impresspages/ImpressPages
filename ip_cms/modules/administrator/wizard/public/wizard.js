@@ -51,7 +51,7 @@ function ipWizardBind(data) {
     var $allWidgets = $('.ipActionWidgetButton'),
         $firstWidget = $allWidgets.eq(0),
         $allBlocks = $('.ipBlock'),
-        $block = $('#ipBlock-main'),
+        $block = $('#ipBlock-main').length ? $('#ipBlock-main') : false, // if main block doesn't exist we return false
         $publishButton = $('.ipAdminControls .ipActionPublish');
 
     // bind close on all tips
@@ -87,7 +87,7 @@ function ipWizardBind(data) {
     /*
      * Tip 1
      * */
-    if (isTip1) {
+    if (isTip1 && $block) { // if main block doesn't exist this doesn't make sense to learn from 
         $firstWidget.tooltip({
             events : { def : ',', tooltip: 'mouseenter' },
             offset : [(-$(document).scrollTop()+20),((-$firstWidget.width() / 2) - 10 - 17)],
@@ -120,7 +120,7 @@ function ipWizardBind(data) {
     /*
      * Tip 2
      * */
-    if (isTip2) {
+    if (isTip2 && $block) { // if main block doesn't exist this doesn't make sense to learn from
         $block.tooltip({
             events : { def : ',', tooltip: 'mouseenter' },
             offset : [-17,0], // touching by arrow
