@@ -1018,7 +1018,7 @@ class Site{
                     $systemFileExists = true;
                 }
 
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
+                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
                     require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
                     $systemFileExists = true;
                 }
@@ -1050,7 +1050,7 @@ class Site{
                     $systemFileExists = true;
                 }
 
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
+                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
                     require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
                     $systemFileExists = true;
                 }
