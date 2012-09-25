@@ -66,7 +66,7 @@ class Module
                     $systemFileExists = true;
                 }
 
-                if (file_exists(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/System.php")) {
+                if (!$systemFileExists && file_exists(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/System.php")) {
                     require_once(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/System.php");
                     $systemFileExists = true;
                 }
