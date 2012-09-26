@@ -64,7 +64,9 @@ class Manager {
         $answer .= '</div>';
         $answer .= '<div id="systemInfo" class="content" style="display: none;">';
         $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message')).'</h1>';
-        $answer .= ' <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'administrator/system/script.js"></script>';
+        if (!defined('MULTISITE_WEBSITES_DIR')) { //disable update in MultiSite installation
+            $answer .= ' <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'administrator/system/script.js"></script>';
+        }
         $answer .= '</div>';
         $answer .= HtmlOutput::footer();
 
