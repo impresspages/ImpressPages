@@ -30,8 +30,15 @@
 	ini_set('display_errors', '1');
 	
 
-	define("BACKEND", "true");  // make sure files are accessed through admin. 
-	require_once ('../../../../../../../ip_config.php');
+	define("BACKEND", "true");  // make sure files are accessed through admin.
+
+    if(file_exists('../../../../../../../../../ms_config.php')) {
+        require_once ('../../../../../../../../../ms_config.php');
+    } elseif (is_file('../../../../../../../ip_config.php')) {
+        require_once ('../../../../../../../ip_config.php');
+    } else {
+        require_once ('../../../../../../../../ip_config.php');
+    }
 
   session_name(SESSION_NAME); 
   session_start();

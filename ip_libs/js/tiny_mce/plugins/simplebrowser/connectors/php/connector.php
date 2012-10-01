@@ -29,7 +29,11 @@
 	error_reporting(E_ALL|E_STRICT);
 	ini_set('display_errors', '1');
 	define("BACKEND", "true");  // make sure files are accessed through admin.
-    if(is_file('../../../../../../../ip_config.php')) {
+    define("CMS", "true");  // make sure files are accessed through admin.
+
+    if(file_exists('../../../../../../../../../ms_config.php')) {
+        require_once ('../../../../../../../../../ms_config.php');
+    } elseif (is_file('../../../../../../../ip_config.php')) {
         require_once ('../../../../../../../ip_config.php');
     } else {
         require_once ('../../../../../../../../ip_config.php');
