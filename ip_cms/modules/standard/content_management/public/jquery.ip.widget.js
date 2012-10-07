@@ -53,7 +53,8 @@
                     var widgetName = data.name;
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                         var $content = $this.find('.ipaBody');
-                        eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
+                        var widgetPluginObject;
+                        eval('widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
                         data = $this.data('ipWidget');
                         data.state = IP_WIDGET_STATE_MANAGEMENT;
                         $this.data('ipWidget', data);
@@ -184,8 +185,9 @@
                 $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
                 
                 var $content = $this.find('.ipaBody');
-                
-                eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
+
+                var widgetPluginObject;
+                eval('widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
                 $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
                 widgetPluginObject.prepareData();
             } else {
