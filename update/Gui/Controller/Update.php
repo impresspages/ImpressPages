@@ -103,6 +103,8 @@ class Update extends \IpUpdate\Gui\Controller
             case \IpUpdate\Library\UpdateException::SQL:
             case \IpUpdate\Library\UpdateException::WRONG_CHECKSUM:
             case \IpUpdate\Library\UpdateException::UNKNOWN:
+            case \IpUpdate\Library\UpdateException::EXTRACT_FAILURE:
+            default:
                 $view = \IpUpdate\Gui\View::create('Update/error_unknown.php', array('errorMessage' => $e->getMessage()));
                 return $view->render();
                 break;
