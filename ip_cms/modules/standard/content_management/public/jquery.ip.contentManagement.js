@@ -113,7 +113,7 @@
 
 
         saveBlocksStart : function() {
-            var $this = this;console.log('savestart');
+            var $this = this;
             $('.ipBlock').ipBlock('pageSaveStart');
         },
 

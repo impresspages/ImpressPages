@@ -4,11 +4,13 @@
  * @license see ip_license.html
  */
 
+"use strict";
+
 (function($) {
-    IP_WIDGET_STATE_MANAGEMENT = 'management';
-    IP_WIDGET_STATE_SAVE_PROGRESS = 'save_progress';
-    IP_WIDGET_STATE_PREVIEW = 'preview';
-    IP_WIDGET_STATE_WAITING_MANAGEMENT = 'aquiring_management';
+    var IP_WIDGET_STATE_MANAGEMENT = 'management';
+    var IP_WIDGET_STATE_SAVE_PROGRESS = 'save_progress';
+    var IP_WIDGET_STATE_PREVIEW = 'preview';
+    var IP_WIDGET_STATE_WAITING_MANAGEMENT = 'aquiring_management';
     var methods = {
     init : function(options) {
 
@@ -48,7 +50,7 @@
                 $this.data('ipWidget', data);
 
                 if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
-                    widgetName = data.name;
+                    var widgetName = data.name;
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                         var $content = $this.find('.ipaBody');
                         eval('var widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
@@ -94,17 +96,19 @@
                 $this.bind('saveProgress.ipWidget', function(event, progress, timeLeft) {
                     $(this).ipWidget('_saveProgress', progress, timeLeft);
                 });
-                
+
             }
         });
     },
 
-    //return all instances that are in mangement state
+    //return all instances that are in management state
     fetchManaged : function () {
         var answer = new Array();
         this.each(function() {
-            if ($(this).data('ipWidget').state == IP_WIDGET_STATE_MANAGEMENT){
-                answer.push($(this));
+            if ($(this).data('ipWidget')) { //if we are browsing older revision, widget might be not initialized
+                if ( $(this).data('ipWidget').state == IP_WIDGET_STATE_MANAGEMENT){
+                    answer.push($(this));
+                }
             }
         });
         return $(answer);
@@ -148,7 +152,7 @@
         return this.each(function() {
             var $this = $(this);
             if (response.status == 'success') {
-                $newWidget = $(response.managementHtml); 
+                var $newWidget = $(response.managementHtml);
                 $newWidget.insertAfter($this);
                 $this.remove();
                 $newWidget.trigger('reinitRequired.ipWidget');
@@ -174,7 +178,7 @@
             }
             
             
-            widgetName = $this.data('ipWidget').name;
+            var widgetName = $this.data('ipWidget').name;
             if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                 var saveJob = new ipSaveJob(widgetName, 1);
                 $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
@@ -235,7 +239,7 @@
     _saveDataResponse : function(response) {
         return this.each(function() {
             var $this = $(this);
-            $newWidget = $(response.previewHtml); 
+            var $newWidget = $(response.previewHtml);
             $($newWidget).insertAfter($this);
             $newWidget.trigger('reinitRequired.ipWidget');
             $newWidget.trigger('statePreview.ipWidget',{
@@ -286,7 +290,7 @@
             var $this = $(this);
             if (response.status == 'success') {
                 if (response.oldInstanceId){
-                    $newWidget = $(response.previewHtml); 
+                    var $newWidget = $(response.previewHtml);
                     $($newWidget).insertAfter($this);
                     $newWidget.trigger('reinitRequired.ipWidget');
                     $newWidget.trigger('statePreview.ipWidget',{
@@ -301,7 +305,7 @@
                         'instanceId': response.instanceId
                     });
                 }
-                $block = $this.parent('.ipBlock');
+                var $block = $this.parent('.ipBlock');
                 $this.remove();
                 if ($block.children('.ipWidget').length == 0) {
                     $block.addClass('ipbEmpty');
