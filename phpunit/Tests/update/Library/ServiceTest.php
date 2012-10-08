@@ -66,7 +66,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         //database migrations
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
         $version = $service->getCurrentVersion();
-        $this->assertEquals('2.4', $version);
+        $this->assertEquals('2.5', $version);
         
         //put new files
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_WRITE_NEW_FILES);
