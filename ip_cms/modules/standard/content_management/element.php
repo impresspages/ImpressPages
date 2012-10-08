@@ -65,12 +65,7 @@ class Element extends \Frontend\Element {
     }
 
 
-    public function generateManagement() {
-        global $parametersMod;
-        global $site;
 
-        return $site->generateBlock('main');
-    }
 
     public function getDynamicModules() {
         return $this->dynamicModules;

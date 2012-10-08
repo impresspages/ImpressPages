@@ -96,18 +96,7 @@ class Element{
     public function generateContent () {
     }
 
-    /**
-     *
-     * This function returns the content of page. Typically you should use $this->getId() to know whish content to output.
-     *
-     * The difference of this function from generateContent is that generateManagement() is thrown when website is in management state.
-     * So, you can add some management tools. Eg. delete functionality for comments.
-     *
-     * @return string - page content.
-     *
-     */
-    public function generateManagement () {
-    }
+
 
 
     /**

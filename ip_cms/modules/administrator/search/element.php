@@ -162,9 +162,7 @@ class Element extends \Frontend\Element{
         return $pageTitleRank*0.6 + $textRank*0.2 + $buttonTitleRank*0.17 + $keywordsRank*0.02 + $descriptionRank*0.01;
     }
 
-    public function generateManagement(){
-        return $this->generateContent();
-    }
+
 }
 
 

@@ -71,10 +71,6 @@ class Element extends \Frontend\Element{
     }
 
 
-    public function generateManagement(){
-        return $this->generateContent();
-    }
-    
     
     public function makeActions(){
        require_once(__DIR__.'/actions.php');
