@@ -110,11 +110,10 @@ class Manager{
         if(isset($_REQUEST['action'])) {
             switch($_REQUEST['action']) {
                 case "add_permissions":
-                    if (!isset($_POST['module_group']) || !isset($_POST['module_name'])) {
+                    if (!isset($_POST['module_group']) || !isset($_POST['module'])) {
                         break;
                     }
-
-                    $module = \Db::getModule(null, $_POST['module_group'], $_POST['module_name']);
+                    $module = \Db::getModule(null, $_POST['module_group'], $_POST['module']);
 
                     $users = \Db::getAllUsers();
 

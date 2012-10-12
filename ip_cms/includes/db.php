@@ -160,7 +160,7 @@ class Db{
 
     public static function addPermissions($userId, $moduleId)
     {
-        $sql = "insert into ".DB_PREF."user_to_mod set user_di = ".(int)$userId.", module_id = ".(int)$moduleId." ";
+        $sql = "insert into ".DB_PREF."user_to_mod set user_id = ".(int)$userId.", module_id = ".(int)$moduleId." ";
         $rs = mysql_query($sql);
         if ($rs) {
             return mysql_insert_id();
