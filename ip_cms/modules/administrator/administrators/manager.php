@@ -104,6 +104,37 @@ class Manager{
         $this->standard_module = new \Library\Php\StandardModule\StandardModule($area0);
     }
     function manage(){
+
+
+
+        if(isset($_REQUEST['action'])) {
+            switch($_REQUEST['action']) {
+                case "add_permissions":
+                    if (!isset($_POST['module_group']) || !isset($_POST['module_name'])) {
+                        break;
+                    }
+
+                    $module = \Db::getModule(null, $_POST['module_group'], $_POST['module_name']);
+
+                    $users = \Db::getAllUsers();
+
+                    foreach ($users as $user) {
+                        \Db::addPermissions($user['id'], $module['id']);
+                    }
+
+
+                    $answer = array(
+                        'status' => 'success'
+                    );
+                    echo json_encode($answer);
+                    \Db::disconnect();
+                    exit;
+                break;
+            }
+        }
+
+
+
         return $this->standard_module->manage();
          
     }

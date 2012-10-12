@@ -158,6 +158,35 @@ class Db{
     }
 
 
+    public static function addPermissions($userId, $moduleId)
+    {
+        $sql = "insert into ".DB_PREF."user_to_mod set user_di = ".(int)$userId.", module_id = ".(int)$moduleId." ";
+        $rs = mysql_query($sql);
+        if ($rs) {
+            return mysql_insert_id();
+        } else {
+            trigger_error($sql." ".mysql_error());
+        }
+
+    }
+
+    public static function getAllUsers()
+    {
+        $answer = array();
+        $sql = "select * from `".DB_PREF."user` where 1";
+        $rs = mysql_query($sql);
+        $answer = array();
+        if ($rs) {
+            while($lock = mysql_fetch_assoc($rs)){
+                $answer[] = $lock;
+            }
+        } else {
+            trigger_error($sql." ".mysql_error());
+        }
+        return $answer;
+    }
+
+
 
 
     /**

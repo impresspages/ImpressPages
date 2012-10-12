@@ -21,7 +21,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         //$this->assertNoErrors(); 2.0rc2 throws warnings on PHP 5.4
         
-        //checkupdate review page is fine
+        //check update review page is fine
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate();
         $this->open($url.'update');
@@ -33,8 +33,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //start update process
         $this->click('css=.actProceed');
         
-        
-        //assert success    
+        //assert success
         $this->waitForElementPresent('css=.seleniumCompleted');
         
         //check update was successful
