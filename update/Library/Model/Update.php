@@ -83,11 +83,15 @@ class Update
     /**
      * 
      * @param int $destinationStep - step after which script should terminate
-     * @throws \IpUpdate\Library\UpdateException
+     * @throws \IpUpdate\Library\Options
      * @throws \IpUpdate\Library\Exception
      */
-    public function proceed($destinationStep = self::SETP_FINISH)
+    public function proceed($destinationStep = self::SETP_FINISH, \IpUpdate\Library\Options $options = null)
     {
+        if (!$this->destinationScript) {
+            throw new \IpUpdate\Library\UpdateException("No update available", \IpUpdate\Library\UpdateException::NO_UPDATE);
+        }
+
         if ($this->tempStorage->exist('inProgress')) {
             //existing inProgress variable means that some step is in progress at the moment or has failed. 
             throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS);
@@ -114,28 +118,28 @@ class Update
             while ($curStep <= $destinationStep) {
                 switch($curStep) {
                     case self::STEP_START:
-                            $this->stepStart();
+                            $this->stepStart($options);
                         break;
                     case self::STEP_DOWNLOAD_PACKAGE:
-                            $this->stepDownloadPackage();
+                            $this->stepDownloadPackage($options);
                         break;
                     case self::STEP_CLOSE_WEBSITE:
-                            $this->stepCloseWebsite();
+                            $this->stepCloseWebsite($options);
                         break;
                     case self::STEP_REMOVE_OLD_FILES:
-                            $this->stepRemoveOldFiles();
+                            $this->stepRemoveOldFiles($options);
                         break;
                     case self::STEP_RUN_MIGRATIONS:
-                            $this->stepRunMigrations();
+                            $this->stepRunMigrations($options);
                         break;
                     case self::STEP_WRITE_NEW_FILES:
-                            $this->stepWriteNewFiles();
+                            $this->stepWriteNewFiles($options);
                         break;
                     case self::STEP_PUBLISH_WEBSITE:
-                            $this->stepPublishWebsite();
+                            $this->stepPublishWebsite($options);
                         break;
                     case self::SETP_FINISH:
-                            $this->stepFinish();
+                            $this->stepFinish($options);
                         break;
                         
                     default:
@@ -160,13 +164,17 @@ class Update
     }
     
     
-    private function stepStart()
+    private function stepStart(\IpUpdate\Library\Options $options = null)
     {
         //do nothing
     }
     
-    private function stepDownloadPackage()
+    private function stepDownloadPackage(\IpUpdate\Library\Options $options = null)
     {
+        if ($options && $options->ignoreFiles()) {
+            return;
+        }
+
         $archivePath = $this->getNewArchivePath();
         $scriptUrl = $this->destinationScript->getDownloadUrl();
 
@@ -187,8 +195,12 @@ class Update
         }
     }
     
-    private function stepCloseWebsite()
+    private function stepCloseWebsite(\IpUpdate\Library\Options $options = null)
     {
+        if ($options && $options->ignoreFiles()) {
+            return;
+        }
+
         $indexFile = $this->cf['BASE_DIR'].'index.php';
         $this->fs->makeWritable($indexFile);
         $maintenanceMode = '<?php
@@ -206,8 +218,13 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
     }
     
-    private function stepRemoveOldFiles()
+    private function stepRemoveOldFiles(\IpUpdate\Library\Options $options = null)
     {
+
+        if ($options && $options->ignoreFiles()) {
+            return;
+        }
+
         if (file_exists($this->cf['BASE_DIR'].'install') || is_dir($this->cf['BASE_DIR'].'install')) {
             $this->fs->rm($this->cf['BASE_DIR'].'install');
         }
@@ -226,7 +243,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     }
     
     
-    private function stepRunMigrations()
+    private function stepRunMigrations(\IpUpdate\Library\Options $options = null)
     {
         $updateModel = new \IpUpdate\Library\Model\Migration();
         $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
@@ -237,8 +254,12 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         
     }
     
-    private function stepWriteNewFiles()
+    private function stepWriteNewFiles(\IpUpdate\Library\Options $options = null)
     {
+        if ($options && $options->ignoreFiles()) {
+            return;
+        }
+
         $archivePath = $this->getNewArchivePath();
         $extractedPath = $this->getExtactedNewArchivePath();
 
@@ -246,7 +267,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->fs->clean($extractedPath);
 
         if (!class_exists('PclZip')) {
-            require_once(IUL_BASE_DIR.'Helper/PclZip.php');
+            require_once(IUL_BASE_DIR . 'Helper/PclZip.php');
         }
         $zip = new \PclZip($archivePath);
         set_time_limit(90);
@@ -268,14 +289,17 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         }
     }
     
-    private function stepPublishWebsite()
+    private function stepPublishWebsite(\IpUpdate\Library\Options $options = null)
     {
+        if ($options && $options->ignoreFiles()) {
+            return;
+        }
         $extractedPath = $this->getExtactedNewArchivePath();
         unlink($this->cf['BASE_DIR'].'index.php');
         copy($extractedPath.'index.php', $this->cf['BASE_DIR'].'index.php');
     }
     
-    private function stepFinish()
+    private function stepFinish(\IpUpdate\Library\Options $options = null)
     {
         $this->cleanUp();
         $this->setVersion($this->destinationScript->getDestinationVersion());

@@ -24,14 +24,15 @@ class Service
 
 
     /**
-     * Start or proceed update process. 
-     * @param string $destinationVersion
+     * Start or proceed update process.
+     * @param string $step
+     * @param \IpUpdate\Library\Options $options
      * @throws \IpUpdate\Library\UpdateException
      */
-    public function proceed()
+    public function proceed($step = \IpUpdate\Library\Model\Update::SETP_FINISH, \IpUpdate\Library\Options $options = null)
     {
         $update = new \IpUpdate\Library\Model\Update($this->cf);
-        $update->proceed();
+        $update->proceed(\IpUpdate\Library\Model\Update::SETP_FINISH, $options);
     }
     
     /**

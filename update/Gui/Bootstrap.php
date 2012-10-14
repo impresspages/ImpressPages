@@ -17,15 +17,15 @@ class Bootstrap
 {
     public function run()
     {
-        require_once(__DIR__.'/Config.php');
+        require_once(__DIR__ . '/Config.php');
         
         $this->fixMagicQuotes();
-        require_once(IUG_BASE_DIR.'Autoloader.php');
+        require_once(IUG_BASE_DIR . 'Autoloader.php');
         $autoloader = new \IpUpdate\Gui\Autoloader();
         $autoloader->register(IUG_BASE_DIR);
 
         //bootstrap IpUpdate library
-        require_once(__DIR__.'/../Library/Bootstrap.php');
+        require_once(__DIR__ . '/../Library/Bootstrap.php');
         $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
         $libraryBootstrap->run();
         

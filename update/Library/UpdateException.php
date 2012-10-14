@@ -21,6 +21,7 @@ class UpdateException extends \Exception
     const WRONG_CHECKSUM = 4;
     const SQL = 5;
     const EXTRACT_FAILURE = 6;
+    const NO_UPDATE = 7;
 
     private $data;
     
