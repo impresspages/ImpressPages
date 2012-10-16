@@ -32,7 +32,7 @@ class Service
     public function proceed($step = \IpUpdate\Library\Model\Update::SETP_FINISH, \IpUpdate\Library\Options $options = null)
     {
         $update = new \IpUpdate\Library\Model\Update($this->cf);
-        $update->proceed(\IpUpdate\Library\Model\Update::SETP_FINISH, $options);
+        $update->proceed($step, $options);
     }
     
     /**

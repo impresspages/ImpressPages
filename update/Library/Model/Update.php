@@ -83,6 +83,7 @@ class Update
     /**
      * 
      * @param int $destinationStep - step after which script should terminate
+     * @throws \IpUpdate\Library\UpdateException
      * @throws \IpUpdate\Library\Options
      * @throws \IpUpdate\Library\Exception
      */
