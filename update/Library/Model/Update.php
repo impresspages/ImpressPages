@@ -76,7 +76,7 @@ class Update
             $answer = $lock['value'];
             return $answer;
         } else {
-            throw new Exception("Can't find installation vesrion ".$sql);
+            throw new Exception("Can't find installation version ".$sql);
         }
     }
     
@@ -102,12 +102,12 @@ class Update
         }
         
         if ($this->tempStorage->getValue('version') != self::UPDATE_SCRIPT_VERSION) {
-            //if script version value is wrong, some other script is executing the upadte. Should be very rare case.
+            //if script version value is wrong, some other script is executing the update. Should be very rare case.
             throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS);
         }
         
         if ($this->tempStorage->getValue('version') === false) {
-            $this->tempStorage->setValue('vesrion', self::UPDATE_SCRIPT_VERSION);
+            $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
             $this->tempStorage->setValue('curStep', self::STEP_START);
         }
         $curStep = (int)$this->tempStorage->getValue('curStep');
