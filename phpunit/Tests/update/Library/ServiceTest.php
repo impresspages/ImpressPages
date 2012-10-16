@@ -65,9 +65,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         
         //database migrations
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
-        $version = $service->getCurrentVersion();
-        $this->assertEquals('2.6', $version);
-        
+
         //put new files
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_WRITE_NEW_FILES);
         $this->assertEquals(true, count(scandir($installation->getInstallationDir().'ip_cms')) > 2);
@@ -79,9 +77,12 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);
 
         //publish website
-        $service->proceed(\IpUpdate\Library\Model\Update::STEP_RUN_MIGRATIONS);
+        $service->proceed(\IpUpdate\Library\Model\Update::SETP_FINISH);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
-        
+
+        $version = $service->getCurrentVersion();
+        $this->assertEquals('2.6', $version);
+
         
         //clean up
         $installation->uninstall();
