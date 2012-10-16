@@ -29,7 +29,8 @@ class UpdateModel
 
         $fs = new Helper\FileSystem();
         $fs->rm(BASE_DIR.'update');
-        $fs->createWritableDir(BASE_DIR.'update');
+        $fs->createWritableDir(BASE_DIR.'update/extracted/update');
+        $fs->clean(BASE_DIR.'update/extracted/update');
         $fs->cpContent(BASE_DIR.TMP_FILE_DIR.'update/extracted/update', BASE_DIR.'update');
     }
 

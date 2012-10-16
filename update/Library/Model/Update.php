@@ -22,7 +22,7 @@ class Update
     const STEP_PUBLISH_WEBSITE = 6;
     const SETP_FINISH = 7;
     
-    const UPDATE_SCRIPT_VERSION = 1;
+    const UPDATE_SCRIPT_VERSION = '2.6';
     
     
     /**
@@ -304,14 +304,13 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     {
         $this->cleanUp();
         $this->setVersion($this->destinationScript->getDestinationVersion());
-
     }
     
     private function cleanUp()
     {
         $this->tempStorage->remove('inProgress');
         $this->tempStorage->remove('curStep');
-        $this->tempStorage->remove('scriptVersion');
+        $this->tempStorage->remove('version');
         $this->fs->clean($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
     }
     
