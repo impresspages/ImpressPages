@@ -62,7 +62,7 @@
                         data.position = position;
                         data.blockName = $this.data('ipBlock').name;
                         data.revisionId = $this.data('ipBlock').revisionId;
-                        if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
+                        if ($(ui.item).ipWidget('managementState')) {
                             data.managementState = 1;
                         } else {
                             data.managementState = 0;
