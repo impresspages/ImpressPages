@@ -109,7 +109,13 @@
         });
         return $(answer);
     },
-    
+
+
+    managementState : function() {
+        return $(this).data('ipWidget').state == IP_WIDGET_STATE_MANAGEMENT;
+    },
+
+
     manage : function() {
         return this.each(function() {
             
