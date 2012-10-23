@@ -343,7 +343,7 @@ class Db {
         if (isset($params['cached_html']))
         $values .= ', `cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
 
-        if (isset($params['rowNumber']))
+        if (isset($params['cached_text']))
         $values .= ', `cached_text` = \''.mysql_real_escape_string($params['cached_text']).'\'';
 
         
