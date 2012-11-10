@@ -28,11 +28,7 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
 
     if (options == 'getFont') {
         var root = $(this);
-        if (root.css('font-family') == root.find('li.ipmDefaultFont').css('font-family')) {
-            return '';
-        } else {
-            return root.css('font-family');
-        }
+        return root.css('font-family');
     }
 
     var settings = $.extend({
