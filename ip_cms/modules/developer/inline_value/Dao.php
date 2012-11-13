@@ -306,8 +306,8 @@ class Dao
             DELETE FROM
                 `'.DB_PREF.'m_inline_value_language`
             WHERE
-                `module` = :module,
-                `key` = :key,
+                `module` = :module and
+                `key` = :key and
                 `languageId` = :languageId
         ';
 
