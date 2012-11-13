@@ -87,7 +87,6 @@
             $this.data('fontSelect', $popup.find('.ipmFontSelect'));
             $this.data('colorPicker', $popup.find('.ipmColorPicker'));
             $this.data('logoText', $popup.find('.ipmLogoText'));
-            console.log(response)
             $this.data('previewText', $(response.textPreview));
             $this.data('previewImage', $(response.imagePreview));
             $this.after($this.data('previewText'));
@@ -101,7 +100,7 @@
             $this.data('previewText').find('a').css('font-family', ''); //remove font
             var defaultFont = $this.data('previewText').find('a').css('font-family'); //get default font
             $this.data('previewText').find('a').css('font-family', curFont); //restore font
-            $this.find('ul li.ipmDefaultFont').css('font-family', defaultFont);
+            $popup.find('ul li.ipmDefaultFont').css('font-family', defaultFont);
             if (curFont.indexOf(',') == false) {
                 curFont = curFont + ',sans-serif';
             }
@@ -266,7 +265,6 @@
             data.text = $this.data('logoText').val();
             data.color = $this.data('colorPicker').css('background-color');
             data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
-
             //IMAGE LOGO
             if ($this.data('ipInlineManagementLogo').imageUploadInitialized) {
                 var ipUploadImage = $popup.find('.ipaImage');

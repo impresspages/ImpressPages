@@ -409,9 +409,10 @@ class Controller extends \Ip\Controller{
         $defaultValue = $_POST['defaultValue'];
 
         if (!isset($_POST['options'])) {
-            throw new \Exception("Required parameter not set");
+            $options = array();
+        } else {
+            $options = $_POST['options'];
         }
-        $options = $_POST['options'];
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr);
@@ -576,9 +577,10 @@ class Controller extends \Ip\Controller{
         $defaultValue = $_POST['defaultValue'];
 
         if (!isset($_POST['options'])) {
-            throw new \Exception("Required parameter not set");
+            $options = array();
+        } else {
+            $options = $_POST['options'];
         }
-        $options = $_POST['options'];
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         if ($imageStr) {
