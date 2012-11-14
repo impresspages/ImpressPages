@@ -131,7 +131,7 @@
                 }
                 if (inlineOptions.height) {
                     options.windowHeight = inlineOptions.height;
-                    options.enableChangeHeiht = false;
+                    options.enableChangeHeight = false;
                 }
 
                 //loop and assign all inline options assigned by theme author
