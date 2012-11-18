@@ -64,6 +64,8 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.full.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.browserplus.js');
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/plupload.gears.js');
+            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
+
 
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js');

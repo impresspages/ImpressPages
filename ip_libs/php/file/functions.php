@@ -9,6 +9,39 @@ namespace Library\Php\File;
 
 
 class Functions{
+
+    /**
+     * Check if file is in one of publicly accessible directories.
+     */
+    public static function isFileInPublicDir($fileName)
+    {
+        $fileName = realpath($fileName);
+        $publicDirs = array(
+            FILE_DIR,
+            TMP_FILE_DIR,
+            FILE_REPOSITORY_DIR,
+            IMAGE_DIR,
+            TMP_IMAGE_DIR,
+            IMAGE_REPOSITORY_DIR,
+            AUDIO_DIR,
+            TMP_AUDIO_DIR,
+            AUDIO_REPOSITORY_DIR,
+            VIDEO_DIR,
+            TMP_VIDEO_DIR,
+            VIDEO_REPOSITORY_DIR
+        );
+
+        foreach ($publicDirs as $publicDir) {
+            //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
+            $tmpPath = realpath($publicDir);
+            if (strpos($fileName, $tmpPath) === 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     /**
      * @param string $file required file name
      * @param string $dest_dir directory where new file will be placed

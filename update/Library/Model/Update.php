@@ -20,9 +20,9 @@ class Update
     const STEP_RUN_MIGRATIONS = 4;
     const STEP_WRITE_NEW_FILES = 5;
     const STEP_PUBLISH_WEBSITE = 6;
-    const SETP_FINISH = 7;
+    const STEP_FINISH = 7;
     
-    const UPDATE_SCRIPT_VERSION = '2.6';
+    const UPDATE_SCRIPT_VERSION = '2.7';
     
     
     /**
@@ -87,7 +87,7 @@ class Update
      * @throws \IpUpdate\Library\Options
      * @throws \IpUpdate\Library\Exception
      */
-    public function proceed($destinationStep = self::SETP_FINISH, \IpUpdate\Library\Options $options = null)
+    public function proceed($destinationStep = self::STEP_FINISH, \IpUpdate\Library\Options $options = null)
     {
         if (!$this->destinationScript) {
             throw new \IpUpdate\Library\UpdateException("No update available", \IpUpdate\Library\UpdateException::NO_UPDATE);
@@ -139,7 +139,7 @@ class Update
                     case self::STEP_PUBLISH_WEBSITE:
                             $this->stepPublishWebsite($options);
                         break;
-                    case self::SETP_FINISH:
+                    case self::STEP_FINISH:
                             $this->stepFinish($options);
                         break;
                         

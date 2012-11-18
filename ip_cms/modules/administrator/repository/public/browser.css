@@ -1,0 +1,39 @@
+
+/*#ipModRepositoryTabRecent {*/
+    /*height: 200px;*/
+    /*background-color: #455;*/
+/*}*/
+
+.stopScrolling {
+    height: 100%;
+    overflow: hidden;
+}
+
+
+
+#ipModRepositoryDragContainer{
+    height: 318px;
+}
+
+#ipModRepositoryTabUpload{
+    overflow: hidden;
+}
+
+
+#ipModRepositoryDragContainer .ipaButton {
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 4px;
+}
+
+#ipModRepositoryDragContainer .ipaFileMove {
+    cursor: move;
+}
+#ipModRepositoryDragContainer .ipaFileTemplate {
+    margin-bottom: 7px;
+}
+#ipModRepositoryDragContainer .ipaFileTitle {
+    width: 50%;
+}

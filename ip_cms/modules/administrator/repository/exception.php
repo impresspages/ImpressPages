@@ -8,7 +8,6 @@
 namespace Modules\administrator\repository;
 
 
-if (!defined('CMS')) exit;
 
 /**
  * IpCmsException class

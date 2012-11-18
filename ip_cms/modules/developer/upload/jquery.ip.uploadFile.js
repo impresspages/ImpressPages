@@ -79,98 +79,32 @@
             
 
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
-            
-            
-            var uploaderConfig = {
-                    runtimes : 'gears,html5,flash,silverlight,browserplus',
-                    browse_button : 'ipUploadButton_' + data.uniqueId,
-                    
-                    max_file_size : data.maxFileSize,
-                    url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
-                    multipart_params : {
-                        g : 'developer',
-                        m : 'upload',
-                        a : 'upload'
-                    },
-                    
-                    //if you add "multipart: false," IE fails.
-                    
-                    flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
-                    silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
-            };
 
-            if (data.filterExtensions) {
-                uploaderConfig.filters = [{title : "Filtered files", extensions : data.filterExtensions.join(',')}];
+
+            var callback = function(urls) {
+                if (urls instanceof Array) {
+                    for (var i in urls)
+                    {
+                        var file = urls[i].replace(ip.baseUrl, '');
+                        $this.ipUploadFile('_uploadedNewFile', file);
+                    }
+
+                } else {
+                    var file = urls.replace(ip.baseUrl, '');
+                    $this.ipUploadFile('_uploadedNewFile', file);
+                }
+
             }
 
-            var uploader = new plupload.Uploader(uploaderConfig);
+            ipModuleRepositoryFileBrowser(callback);
 
-            
-            uploader.bind('Init', function(up, params) {
-            });
-            
-            
-            uploader.init();
-
-            
-            uploader.bind('FilesAdded', function(up, files) {
-                
-                $.each(files, function(i, file) {
-                    $this.trigger('fileAdded.ipUploadFile', file);
-                    $this.ipUploadFile('_fileAdded', up, file)
-                    //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
-                });
-                up.refresh(); // Reposition Flash/Silverlight
-                up.start();
-            });
-
-            uploader.bind('UploadProgress', function(up, file) {
-                $this.ipUploadFile('_fileProgress', up, file)
-                $this.trigger('uploadProgress.ipUploadFile', file);
-                //$('#' + file.id + " b").html(file.percent + "%");
-            });
-
-            uploader.bind('Error', function(up, err) {
-                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
-                var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
-                $this.trigger('error.ipUploadFile', errorMessage);
-                up.refresh(); // Reposition Flash/Silverlight
-            });
-            
-            uploader.bind('FileUploaded', function(up, file, response) {
-                $this.ipUploadFile('_uploadedNewFile', up, file, response);
-            });
 
         },
         
-        _fileProgress : function (up, file) {
-            $this.find('#ipUpload_' + file.id + ' .ipUploadProgressbar').progressbar({value : file.percent});
-        },
-        
-        _fileAdded : function (up, file) {
-            $this = $(this);
-            
-            var $newFileProgressbar = $this.find('.ipUploadProgressItemSample .ipUploadProgressItem').clone();
-            $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
-            $newFileProgressbar.find('.ipUploadTitle').text(file.name);
-            $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
-            $this.find('.ipUploadProgressContainer').append($newFileProgressbar);
-            //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
-        },
-        
-        _uploadedNewFile : function (up, file, response) {
+        _uploadedNewFile : function (file) {
             var $this = $(this);
-            var answer = jQuery.parseJSON(response.response);
-            
-            if (answer.error) {
-                $this.trigger('error.ipUploadFile', answer.error.message);
-            } else {
-                var data = $this.data('ipUploadFile');
-                $this.data('ipUploadFile', data);
-                $this.trigger('fileUploaded.ipUploadFile', [answer.fileName]);
-            }
-            
-            $this.find('#ipUpload_' + file.id).remove();
+
+            $this.trigger('fileUploaded.ipUploadFile', [file]);
         }
         
 

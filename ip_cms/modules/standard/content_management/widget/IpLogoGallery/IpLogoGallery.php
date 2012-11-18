@@ -55,7 +55,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     //security check
-                    if (TMP_FILE_DIR.basename($logo['fileName']) != $logo['fileName']) {
+                    if (!\Library\Php\File\Functions::isFileInPublicDir($logo['fileName'])) {
                         throw new \Exception("Security notice. Try to access a file (".$logo['fileName'].") from a non temporary folder.");
                     }
 

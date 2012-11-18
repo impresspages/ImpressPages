@@ -36,7 +36,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
                     switch($file['status']){
                         case 'new':
                             if (file_exists(BASE_DIR.$file['fileName'])) {
-                                if (TMP_FILE_DIR.basename($file['fileName']) != $file['fileName']) {
+                                if (!\Library\Php\File\Functions::isFileInPublicDir($file['fileName'])) {
                                     throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non temporary folder.");
                                 }
                                 

@@ -3,26 +3,18 @@
 .ipAdminWidget {
     font: 14px Arial, Helvetica, sans-serif;
 }
-.ipgLeft {
-    float: left;
-}
-.ipgRight {
-    float: right;
-}
 .ipAdminPanelContainer:after,
 .ipAdminPanelContainer:before,
 .ipAdminWidgets:after,
-.ipWidget:after,
-.ipgClear:after {
+.ipWidget:after {
     clear: both;
     content: ".";
     display: block;
     height: 0;
     visibility: hidden;
 }
-.ipgHide {
-    display: none;
-}
+
+
 .ipAdminLabel {
     color: #000;
     display: block;

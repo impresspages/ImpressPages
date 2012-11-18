@@ -16,6 +16,7 @@ class System{
         global $dispatcher;
         
         $dispatcher->bind('site.beforeError404', array($this, 'catchConfig'));
+        $site->addCss(BASE_URL.MODULE_DIR.'standard/configuration/public/global.css');
     }
     
     public function catchConfig(\Ip\Event $event) {

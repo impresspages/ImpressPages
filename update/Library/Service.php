@@ -29,7 +29,7 @@ class Service
      * @param \IpUpdate\Library\Options $options
      * @throws \IpUpdate\Library\UpdateException
      */
-    public function proceed($step = \IpUpdate\Library\Model\Update::SETP_FINISH, \IpUpdate\Library\Options $options = null)
+    public function proceed($step = \IpUpdate\Library\Model\Update::STEP_FINISH, \IpUpdate\Library\Options $options = null)
     {
         $update = new \IpUpdate\Library\Model\Update($this->cf);
         $update->proceed($step, $options);

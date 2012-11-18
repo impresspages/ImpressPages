@@ -20,7 +20,7 @@ ipTinyMceConfigMax = {
 
     gecko_spellcheck : true,
 
-    file_browser_callback : "simplebrowser_browse", 
+    file_browser_callback : "elFinderBrowser",
     
     document_base_url : ip.baseUrl,
     remove_script_host : false,

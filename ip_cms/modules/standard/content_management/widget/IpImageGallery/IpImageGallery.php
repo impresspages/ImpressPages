@@ -75,7 +75,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     //security check
-                    if (TMP_FILE_DIR.basename($image['fileName']) != $image['fileName']) {
+                    if (!\Library\Php\File\Functions::isFileInPublicDir($image['fileName'])) {
                         throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non temporary folder.");
                     }
 

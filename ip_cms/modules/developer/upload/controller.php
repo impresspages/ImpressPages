@@ -149,11 +149,11 @@ class Controller extends \Ip\Controller{
             "jsonrpc" => "2.0",
             "result" => null, 
             "id" => "id",
-            "fileName" => TMP_FILE_DIR.$fileName
+            "fileName" => $fileName,
+            "file" => TMP_FILE_DIR.$fileName
         );
-        $answer =  json_encode($answerArray);
-        $site->setOutput($answer);
-        //die('{"jsonrpc" : "2.0", "result" : , "id" : "id"}');
+
+        $this->returnJson($answerArray);
 
     }
 
