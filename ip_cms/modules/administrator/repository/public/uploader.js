@@ -12,7 +12,7 @@
 
                 var $this = $(this);
 
-                var data = $this.data('ipRepositoryFileContainer');
+                var data = $this.data('ipRepositoryUploader');
                 if (!data) {
 
 
@@ -53,8 +53,21 @@
 
                     $( ".ipmFiles" ).sortable();
                     $( ".ipmFiles" ).sortable('option', 'handle', '.ipaFileMove');
+
+                    $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
+                    $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
                 }
             });
+        },
+
+        _confirm : function (e) {
+            var $this = $(this);
+            var files = $.proxy(methods._getFiles, this)();
+
+        },
+
+        _cancel : function() {
+            alert('cancel');
         },
 
         _error : function(up, err) {
@@ -98,6 +111,9 @@
                 $fileRecord.removeClass('ipgHide');
                 $fileRecord.removeClass('ipmFileSample');
                 $fileRecord.find('.ipaFileTitle').val(answer.fileName);
+                $fileRecord.data('fileName', answer.fileName);
+                $fileRecord.data('dir', answer.dir);
+                $fileRecord.data('file', answer.file);
                 $this.find('.ipmFiles').append($fileRecord);
             }
 
@@ -106,22 +122,32 @@
 
 
 
-        getFiles : function () {
-            var $this = this;
-            return $this.find('.ipaFileTemplate');
+        _getFiles : function () {
+            var $this = $(this);
+            var files = new Array();
+            $this.find('.ipmFiles div').each(function(){
+
+                var $this = $(this);
+                files.push({
+                    fileName : $this.data('fileName'),
+                    file : $this.data('file'),
+                    dir : $this.data('dir')
+                });
+            });
+            return files;
         }
 
 
 
     };
 
-    $.fn.ipRepositoryFileContainer = function(method) {
+    $.fn.ipRepositoryUploader = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipRepositoryUploader');
         }
 
     };

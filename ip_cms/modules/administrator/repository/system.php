@@ -22,6 +22,7 @@ class System{
             $site->addCss(BASE_URL.MODULE_DIR.'administrator/repository/public/elfinder/css/theme.css');
             $site->addCss(BASE_URL.MODULE_DIR.'administrator/repository/public/browser.css');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/uploader.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/recent.js');
 
         }
     }

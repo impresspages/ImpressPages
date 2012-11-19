@@ -150,6 +150,7 @@ class Controller extends \Ip\Controller{
             "result" => null, 
             "id" => "id",
             "fileName" => $fileName,
+            "dir" => TMP_FILE_DIR,
             "file" => TMP_FILE_DIR.$fileName
         );
 
