@@ -75,7 +75,6 @@
             $newError.text(err.message);
             setTimeout(function(){$newError.remove();}, 3000);
             $(this).find('.ipmCurErrors').append($newError);
-            console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
             up.refresh(); // Reposition Flash/Silverlight
         },
 
@@ -87,7 +86,6 @@
                 $newFileProgressbar.find('.ipUploadTitle').text(file.name);
                 $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
                 $this.find('.ipUploadProgressContainer').append($newFileProgressbar);
-                //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
             });
             up.refresh(); // Reposition Flash/Silverlight
             up.start();

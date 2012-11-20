@@ -189,7 +189,7 @@ function IpWidget_IpForm(widgetObject) {
                     }
                     if (options.type) {
                         data.type = options.type;
-                    }console.log(options);
+                    }
                     if (options.required && options.required != '0' && options.required != 'false') {
                         data.required = 1;
                     } else {

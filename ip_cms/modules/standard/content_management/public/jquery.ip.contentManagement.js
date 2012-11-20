@@ -381,8 +381,7 @@
                 var overallProgress = timeSpent / (timeLeft + timeSpent);
                 
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', overallProgress*100);
-                
-                // console.log('Time spent ' + timeSpent + ' TimeLeft ' + timeLeft );
+
             });
         }
 

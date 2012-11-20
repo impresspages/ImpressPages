@@ -78,8 +78,6 @@ var successResponse = function(response) {
 };
 
 var errorResponse = function(response) {
-    console.log('error');
-    console.log(response);
     if (response.responseText) {
         $('#content').text(response.responseText);
     }

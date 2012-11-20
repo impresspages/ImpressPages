@@ -292,6 +292,6 @@ function ipWizardTipDisableResponse(response) {
         // additional actions to remove tip
         $('#ipAdminWizardTip-'+tipId).remove();
     } else {
-        console.log('An error occurred while disabling the wizard.');
+        // TODO: throw error
     }
 }

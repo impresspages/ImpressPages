@@ -27,7 +27,6 @@ $('.actStartUpdate').live('click', startUpdate);
 
 function startUpdate(e)
 {
-    console.log('startupdate');
     e.preventDefault();
 
     var postData = Object();

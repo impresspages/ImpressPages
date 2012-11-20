@@ -41,8 +41,6 @@ function ipModuleRepositoryFileBrowser(callback) {
         success : browserPopupHtmlResponse,
         error : function(e, x) {
             alert(e.responseText);
-            console.log(e);
-            console.log(x);
         },
         dataType : 'json'
     });

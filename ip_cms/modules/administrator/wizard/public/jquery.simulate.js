@@ -290,9 +290,6 @@ $.extend( $.simulate.prototype, {
 var dragObject = dragObject || {};
 
 function animateDrag(obj) {
-    //console.log(dragObject.currentFrame);
-    //coord = { clientX: obj.x, clientY: obj.y };
-    //console.log(coord);
     var pixelsPerFrameX = 5;
     var pixelsPerFrameY = pixelsPerFrameX * obj.dy / obj.dx;
     var msPerFrame = 30;
@@ -313,11 +310,9 @@ function animateDrag(obj) {
         obj.el.simulateEvent( obj.el.target, "mousedown", coord );
     } else if (obj.currentFrame > 1 && obj.currentFrame < totalFrames) { // dragging
         coord = { clientX: obj.x + Math.floor(obj.currentFrame * pixelsPerFrameX), clientY: obj.y + Math.floor(obj.currentFrame * pixelsPerFrameY) };
-        //console.log(coord);
         obj.el.simulateEvent( document, "mousemove", coord );
     } else if (obj.currentFrame == totalFrames) { // end animation
         coord = { clientX: obj.x + obj.dx, clientY: obj.y + obj.dy };
-        //console.log(coord);
         obj.el.simulateEvent( document, "mousemove", coord );
         obj.el.simulateEvent( document, "mousemove", coord );
 

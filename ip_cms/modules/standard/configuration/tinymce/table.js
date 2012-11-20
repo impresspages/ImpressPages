@@ -34,8 +34,6 @@ ipTinyMceConfigTable = {
     paste_text_use_dialog : true,    
     
     paste_preprocess : function(pl, o) {
-    console.log(pl);
-    console.log(o);
         ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note'));
     }
     

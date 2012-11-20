@@ -80,7 +80,7 @@
                 $popup.css($this.offset());
 
 
-                var data = $this.data('ipInlineManagementImage');console.log('data');console.log(data);
+                var data = $this.data('ipInlineManagementImage');
                 data.popup = $popup;
                 data.overlay = $overlay;
                 $this.data('ipInlineManagementImage', data);
@@ -139,7 +139,7 @@
                     options[name] = value;
                 });
 
-                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');console.log('openpopup'); console.log(options);
+                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);

@@ -27,7 +27,7 @@
                             }
                         },
                         error: function () {
-                            console.log('error');
+                            // TODO: throw error
                         }
                       });
                 }
