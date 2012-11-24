@@ -1108,6 +1108,13 @@ class Site{
             'value' => $javascript
         );
     }
+
+    public function addJavascriptVar($name, $value, $stage = 1) {
+        $this->requiredJavascript[(int)$stage][$name] = array (
+            'type' => 'variable',
+            'value' => $value
+        );
+    }
     
     public function addJavascript($file, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = array (
@@ -1123,6 +1130,8 @@ class Site{
             }
         }
     }
+
+
 
     public function generateHead() {
 

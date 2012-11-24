@@ -16,18 +16,17 @@ function ipModuleRepositoryFileBrowser(callback) {
         $popup.find('.tabs').tabs();
 
 
-        $('#ipModRepositoryTabUpload').ipRepositoryUploader();
+        $('#ipModRepositoryTabUpload').ipRepositoryUploader({returnFunction: returnSelectedFiles});
 
-        $('#ipModRepositoryTabRecent').ipRepositoryRecent();
+        $('#ipModRepositoryTabRecent').ipRepositoryRecent({returnFunction: returnSelectedFiles});
 
 
         $('body').addClass('stopScrolling');
         $popup.bind('dialogclose', function(){$('.ipModRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
+    }
 
-
-
-        //$('body').addClass('stopScrolling');
-
+    function returnSelectedFiles(files) {
+        callback(files);
     }
 
     $.ajax({
