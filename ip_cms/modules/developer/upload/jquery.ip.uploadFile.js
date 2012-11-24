@@ -81,30 +81,18 @@
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
 
-            var callback = function(urls) {
-                if (urls instanceof Array) {
-                    for (var i in urls)
-                    {
-                        var file = urls[i].replace(ip.baseUrl, '');
-                        $this.ipUploadFile('_uploadedNewFile', file);
-                    }
 
-                } else {
-                    var file = urls.replace(ip.baseUrl, '');
-                    $this.ipUploadFile('_uploadedNewFile', file);
-                }
-
-            }
-
-            ipModuleRepositoryFileBrowser(callback);
-
+            var repository = new ipRepository();
+            repository.bind('ipRepository.filesSelected', $.proxy(methods._uploadedNewFiles, this));
 
         },
         
-        _uploadedNewFile : function (file) {
-            var $this = $(this);
+        _uploadedNewFiles : function (e, files) {
+            $this = $(this);
+            for (index in files) {
+                $this.trigger('fileUploaded.ipUploadFile', files[index].file);
+            }
 
-            $this.trigger('fileUploaded.ipUploadFile', [file]);
         }
         
 

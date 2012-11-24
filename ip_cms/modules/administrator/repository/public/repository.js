@@ -6,43 +6,34 @@
 
 "use strict";
 
-function ipModuleRepositoryFileBrowser(callback) {
+var ipRepository = function () {
+    if ($('.ipModRepositoryPopup').length) {
+        return; //repository window is already open. Do nothing.
+    }
 
+
+    $('body').append(ipRepositoryHtml);
+    var $popup = $('.ipModRepositoryPopup');
+    $popup.dialog({modal: true, width: 800, height: 450, top: 50});
+    $popup.find('.tabs').tabs();
+
+
+    $popup.find('#ipModRepositoryTabUpload').ipRepositoryUploader({returnFunction: function(){}});
+
+    $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent({returnFunction: function(){}});
+
+
+    $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]);});
+
+
+    $('body').addClass('stopScrolling');
+    $popup.bind('dialogclose', function(){$('.ipModRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
+
+    return $popup;
 
     function browserPopupHtmlResponse(response) {
-        $('body').append(response.html);
-        var $popup = $('.ipModRepositoryPopup');
-        $popup.dialog({modal: true, width: 800, height: 450, top: 50});
-        $popup.find('.tabs').tabs();
-
-
-        $('#ipModRepositoryTabUpload').ipRepositoryUploader({returnFunction: returnSelectedFiles});
-
-        $('#ipModRepositoryTabRecent').ipRepositoryRecent({returnFunction: returnSelectedFiles});
-
-
-        $('body').addClass('stopScrolling');
-        $popup.bind('dialogclose', function(){$('.ipModRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
     }
 
-    function returnSelectedFiles(files) {
-        callback(files);
-    }
-
-    $.ajax({
-        type : 'POST',
-        url : ip.baseUrl,
-        data : {
-            g: 'administrator',
-            m: 'repository',
-            a: 'browserPopupHtml'
-        },
-        success : browserPopupHtmlResponse,
-        error : function(e, x) {
-            alert(e.responseText);
-        },
-        dataType : 'json'
-    });
 
 
-}
+};

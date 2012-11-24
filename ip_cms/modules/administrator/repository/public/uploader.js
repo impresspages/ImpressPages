@@ -15,7 +15,11 @@
                 var data = $this.data('ipRepositoryUploader');
                 if (!data) {
 
+                    $this.data('ipRepositoryUploader',
+                        {
 
+                        }
+                    )
 
                     var uploaderConfig = {
                         runtimes : 'gears,html5,flash,silverlight,browserplus',
@@ -63,7 +67,8 @@
         _confirm : function (e) {
             var $this = $(this);
             var files = $.proxy(methods._getFiles, this)();
-
+            var data = $this.data('ipRepositoryUploader');
+            $this.trigger('ipModRepository.confirm', [files]);
         },
 
         _cancel : function() {
