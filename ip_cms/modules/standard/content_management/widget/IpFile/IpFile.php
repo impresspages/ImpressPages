@@ -37,7 +37,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
                         case 'new':
                             if (file_exists(BASE_DIR.$file['fileName'])) {
                                 if (!\Library\Php\File\Functions::isFileInPublicDir($file['fileName'])) {
-                                    throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non temporary folder.");
+                                    throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non public folder.");
                                 }
                                 
                                 $repositoryFilename = \Modules\administrator\repository\Model::addFile($file['fileName'], 'standard/content_management', $widgetId);

@@ -33,7 +33,7 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
         if (isset($postData['newImage']) && file_exists(BASE_DIR.$postData['newImage']) && is_file(BASE_DIR.$postData['newImage'])) {
 
             if (!\Library\Php\File\Functions::isFileInPublicDir($postData['newImage'])) {
-                throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non temporary folder.");
+                throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non public folder.");
             }
 
             //remove old image

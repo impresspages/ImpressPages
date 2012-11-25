@@ -264,7 +264,7 @@ class Controller extends \Ip\Controller{
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
             if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
-                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non temporary folder.");
+                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non public folder.");
             }
 
             //remove old image
@@ -425,7 +425,7 @@ class Controller extends \Ip\Controller{
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
             if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
-                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non temporary folder.");
+                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non public folder.");
             }
 
             //remove old image
