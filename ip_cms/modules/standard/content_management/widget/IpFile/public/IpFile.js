@@ -33,7 +33,12 @@ function IpWidget_IpFile(widgetObject) {
         
         this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
         this.widgetObject.bind('error.ipUploadFile', this.addError);
-        
+
+        var widgetObject = this.widgetObject;
+        this.widgetObject.find('.ipmBrowseButton').click(function(){
+            var repository = new ipRepository();
+            repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
+        });
         
     }
     
@@ -42,12 +47,14 @@ function IpWidget_IpFile(widgetObject) {
     }
 
     
-    function fileUploaded(event, fileName) {
+    function fileUploaded(event, files) {
         /* we are in widgetObject context */
         var $this = $(this);
-        $title = fileName.split('/').pop();
+
         var container = $this.find('.ipWidget_ipFile_container');
-        container.ipWidget_ipFile_container('addFile', fileName, $title, 'new');
+        for(var index in files) {
+            container.ipWidget_ipFile_container('addFile', files[index].file, files[index].file, 'new');
+        }
     }
     
 

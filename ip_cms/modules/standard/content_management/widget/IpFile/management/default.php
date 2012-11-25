@@ -8,5 +8,4 @@
         <a href="#" class="ipaButton ipaFileRemove"><?php echo $this->escPar('standard/content_management/widget_file/remove') ?></a>
     </div>
 </div>
-
-<div class="ipaUpload"></div>
+<a href="#" class="ipAdminButton ipmBrowseButton"><?php echo $this->escPar('standard/configuration/system_translations/add_new'); ?></a>

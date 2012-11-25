@@ -323,7 +323,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
     public function previewHtml($instanceId, $data, $layout) {
         if (!isset($data['logos']) || !is_array($data['logos'])){
-            $data['logos'] = array();echo 'test';
+            $data['logos'] = array();
         }
         foreach ($data['logos'] as $logoKey => &$logo) {
             if ($logo['link'] && stripos($logo['link'], 'http') !== 0) {
