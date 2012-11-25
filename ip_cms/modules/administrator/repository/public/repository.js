@@ -23,10 +23,11 @@ var ipRepository = function () {
     $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent({returnFunction: function(){}});
 
 
-    $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]);});
+    $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]); $(this).dialog('close');});
 
 
     $('body').addClass('stopScrolling');
+
     $popup.bind('dialogclose', function(){$('.ipModRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
 
     return $popup;

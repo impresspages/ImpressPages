@@ -68,7 +68,33 @@
             var $this = $(this);
             var files = $.proxy(methods._getFiles, this)();
             var data = $this.data('ipRepositoryUploader');
-            $this.trigger('ipModRepository.confirm', [files]);
+
+            var data = Object();
+            data.g = 'administrator';
+            data.m = 'repository';
+            data.a = 'storeNewFiles';
+            data.files = files;
+
+            $.ajax ({
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                context : $this,
+                success : $.proxy(methods._storeFilesResponse, this),
+                dataType : 'json'
+            });
+
+        },
+
+        _storeFilesResponse : function(response) {
+            var $this = $(this);
+
+            if (!response || !response.status || response.status == 'error') {
+                //incorrect response
+            }
+
+            $this.trigger('ipModRepository.confirm', [response.files]);
+
         },
 
         _cancel : function() {
@@ -113,7 +139,7 @@
                 var $fileRecord = $this.find('.ipmFileSample').clone();
                 $fileRecord.removeClass('ipgHide');
                 $fileRecord.removeClass('ipmFileSample');
-                $fileRecord.find('.ipaFileTitle').val(answer.fileName);
+                $fileRecord.find('.ipaRenameTo').val(answer.fileName);
                 $fileRecord.data('fileName', answer.fileName);
                 $fileRecord.data('dir', answer.dir);
                 $fileRecord.data('file', answer.file);
@@ -134,6 +160,7 @@
                 files.push({
                     fileName : $this.data('fileName'),
                     file : $this.data('file'),
+                    renameTo : $this.find('.ipaRenameTo').val(),
                     dir : $this.data('dir')
                 });
             });

@@ -20,6 +20,10 @@
 }
 
 
+#ipModRepositoryDragContainer .ipmFile {
+    margin-bottom: 10px;
+}
+
 #ipModRepositoryDragContainer .ipaButton {
     background-color: #000;
     color: #fff;
@@ -34,6 +38,11 @@
 #ipModRepositoryDragContainer .ipaFileTemplate {
     margin-bottom: 7px;
 }
-#ipModRepositoryDragContainer .ipaFileTitle {
-    width: 50%;
+#ipModRepositoryDragContainer .ipaRenameTo {
+    width: 400px;
 }
+
+#ipModRepositoryDragContainer .ipaFileMove {
+    cursor: move;
+}
+

@@ -45,7 +45,7 @@ class Functions{
     /**
      * @param string $file required file name
      * @param string $dest_dir directory where new file will be placed
-     * @return string new (or the same) file name that don't colide with existing files in specified directory
+     * @return string new (or the same) file name that don't collide with existing files in specified directory
      */
     public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
         require_once (LIBRARY_DIR.'php/text/transliteration.php');
