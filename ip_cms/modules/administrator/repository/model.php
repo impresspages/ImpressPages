@@ -147,6 +147,40 @@ class Model{
         }
         
     }
+
+    /**
+     * Find all files bind to particular module
+     */
+    public function findFiles($module, $instanceId = null)
+    {
+        $dbh = \Ip\Db::getConnection();
+        $sql = '
+            SELECT
+                *
+            FROM
+                `'.DB_PREF.'m_administrator_repository_file`
+            WHERE
+                `module` = :module
+        ';
+
+        $params = array (
+            ':module' => $module
+        );
+
+        if ($instanceId !== null) {
+            $sql .= ' and `instanceId` = :instanceId ';
+            $params = array_merge($params, array(instanceId));
+        }
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+        $answer = array();
+        while ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
+            $answer = $lock;
+        }
+        return $answer;
+    }
     
     
 }
