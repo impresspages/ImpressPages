@@ -78,8 +78,10 @@ class IpActions
 
     public function publish()
     {
-        $this->testCase->clickAndWait('css=.ipActionPublish');
-        $this->testCase->waitForElementNotPresent('css=.ipActionPublish');
+        $this->testCase->click('css=.ipActionPublish');
+        $this->testCase->waitForElementPresent('css=.ipSeleniumProgress');
+        $this->testCase->waitForNotVisible('css=.ipSeleniumProgress');
+        $this->testCase->waitForElementPresent('css=.ipActionPublish');
     }
 
     /**
