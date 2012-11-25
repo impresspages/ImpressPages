@@ -133,13 +133,13 @@ class Model{
     
     private static function removeFile($file) {
         if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
-            $newFile = 'repository_'.basename($file);
-            $count = 0;
-            if (file_exists(BASE_DIR.TMP_FILE_DIR.$newFile)) {
-                $count++;
-                $newFile = 'repository_'.$count.'_'.basename($file);
+            $deletedDir = FILE_DIR.'deleted/';
+            if (!file_exists($deletedDir) || !is_dir($deletedDir)) {
+                mkdir($deletedDir);
             }
-            $success = copy(BASE_DIR.$file, BASE_DIR.TMP_FILE_DIR.$newFile);
+            $newFileName = \Library\Php\File\Functions::genUnoccupiedName($file, $deletedDir);
+
+            $success = copy(BASE_DIR.$file, BASE_DIR.$deletedDir.$newFileName);
             if (!$success) {
                 throw new \Exception('Can\'t unbind file from repository: '.BASE_DIR.$file);
             }
