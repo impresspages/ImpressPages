@@ -40,7 +40,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
                                     throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non public folder.");
                                 }
                                 
-                                $repositoryFilename = \Modules\administrator\repository\Model::addFile($file['fileName'], 'standard/content_management', $widgetId);
+                                $repositoryFilename = \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
                                 
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
