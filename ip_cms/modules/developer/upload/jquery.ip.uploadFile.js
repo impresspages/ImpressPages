@@ -34,59 +34,17 @@
                     }
 
 
-                        
-                    var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
-                    
-                    $this.data('ipUploadFile', {
-                        maxFileSize : options.maxFileSize,
-                        filterExtensions : options.filterExtensions,
-                        uniqueId : uniqueId
-                        
-                    }); 
-                    
-                    var data = Object();
-                    data.g = 'developer';
-                    data.m = 'upload';
-                    data.a = 'getFileContainerHtml';
-                    
-                    $.ajax({
-                        type : 'POST',
-                        url : ip.baseUrl,
-                        data : data,
-                        context : $this,
-                        success : methods._containerHtmlResponse,
-                        dataType : 'json'
+                    $this.click(function(){
+                        var repository = new ipRepository();
+                        repository.bind('ipRepository.filesSelected', $.proxy(methods._uploadedNewFiles, this));
                     });
-                    
                     
 
                 }
             });
 
         },
-        
 
-        
-        _containerHtmlResponse : function (response) {
-            var $this = this;
-            
-            if (response.status != 'success') {
-                return;
-            }
-            
-            $this.html(response.html);
-            var data = $this.data('ipUploadFile');
-            
-
-            $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
-
-
-
-            var repository = new ipRepository();
-            repository.bind('ipRepository.filesSelected', $.proxy(methods._uploadedNewFiles, this));
-
-        },
-        
         _uploadedNewFiles : function (e, files) {
             $this = $(this);
             for (index in files) {
