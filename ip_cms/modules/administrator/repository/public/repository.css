@@ -1,15 +1,12 @@
 
-/*#ipModRepositoryTabRecent {*/
-    /*height: 200px;*/
-    /*background-color: #455;*/
-/*}*/
-
 .stopScrolling {
     height: 100%;
     overflow: hidden;
 }
 
-
+/*
+UPLOADER
+*/
 
 #ipModRepositoryDragContainer{
     height: 318px;
@@ -46,3 +43,10 @@
     cursor: move;
 }
 
+/*
+RECENT
+*/
+#ipModRepositoryTabRecent .ipmBrowser{
+    height: 305px;
+    margin-bottom: 10px;
+}

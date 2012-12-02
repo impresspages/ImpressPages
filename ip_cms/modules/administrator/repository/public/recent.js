@@ -14,24 +14,24 @@
 
                 var data = $this.data('ipRepositoryRecent');
                 if (!data) {
-                    var $elFinder = $this.find('.ipmElFinder');
-                    var elf = $elFinder.elfinder({
-                        url : ip.baseUrl + ip.moduleDir + 'administrator/repository/elfinder/php/connector.php',  // connector URL (REQUIRED)
-                        commandsOptions : {
-                            getfile : {
-                                multiple : true,
-                                oncomplete : 'destroy'
-                            }
-                        },
-                        commands : [
-                            'upload', 'search', 'sort'
-                        ],
-                        resizable: false,
-                        ui : ['toolbar'],
-                        contextmenu : false,
-                        height: 330,
-                        getFileCallback: function(){}
-                    }).elfinder('instance');
+//                    var $elFinder = $this.find('.ipmElFinder');
+//                    var elf = $elFinder.elfinder({
+//                        url : ip.baseUrl + ip.moduleDir + 'administrator/repository/elfinder/php/connector.php',  // connector URL (REQUIRED)
+//                        commandsOptions : {
+//                            getfile : {
+//                                multiple : true,
+//                                oncomplete : 'destroy'
+//                            }
+//                        },
+//                        commands : [
+//                            'upload', 'search', 'sort'
+//                        ],
+//                        resizable: false,
+//                        ui : ['toolbar'],
+//                        contextmenu : false,
+//                        height: 330,
+//                        getFileCallback: function(){}
+//                    }).elfinder('instance');
 
 
 //                    $elFinder.bind('upload', __ipModuleRepositoryFileBrowserDestroy);

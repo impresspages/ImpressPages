@@ -32,7 +32,7 @@
 
         </div>
         <div id="ipModRepositoryTabRecent">
-            <div class="ipmElFinder"></div>
+            <div class="ipmBrowser"></div>
             <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>

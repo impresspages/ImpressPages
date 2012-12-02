@@ -15,12 +15,19 @@ var ipRepository = function () {
     $('body').append(ipRepositoryHtml);
     var $popup = $('.ipModRepositoryPopup');
     $popup.dialog({modal: true, width: 800, height: 450, top: 50});
-    $popup.find('.tabs').tabs();
+    console.log('gtest');
+    $popup.find('.tabs').tabs({
+        activate: function( event, ui ) {
+            console.log('gtest');
+            console.log(ui.newTab);
+        }
+    });
 
+    //$popup.find('.tabs').on( "tabsactivate", function( event, ui ) {console.log(ui.newTab);} );
 
-    $popup.find('#ipModRepositoryTabUpload').ipRepositoryUploader({returnFunction: function(){}});
+    $popup.find('#ipModRepositoryTabUpload').ipRepositoryUploader();
 
-    $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent({returnFunction: function(){}});
+    $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent();
 
 
     $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]); $(this).dialog('close');});
