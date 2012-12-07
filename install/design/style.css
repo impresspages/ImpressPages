@@ -164,6 +164,15 @@ a:hover {
     text-decoration: underline;
 }
 
+a.selected {
+    color: #ffffff;
+    background-color: #00a8da;
+}
+
+a.selected:hover {
+    text-decoration: none;
+}
+
 #content p {
     margin-bottom: 10px;
 }
