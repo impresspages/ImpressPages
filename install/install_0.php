@@ -11,7 +11,7 @@ complete_step(0);
 
 $answer = '<h1>'.IP_STEP_LANGUAGE_LONG."</h1>";
 
-
+$selected_language = (isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en');
 
 $languages = array();
 $languages['cs'] = 'Čeština';
@@ -26,7 +26,11 @@ $languages['pl'] = 'Polski';
 $languages['ro'] = 'Română';
 
 foreach($languages as $key => $language){
-    $answer .= '<a href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
+    if ($key == $selected_language) {
+        $answer .= '<a class="selected" href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
+    } else {
+        $answer .= '<a href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
+    }
 }
 
 $answer .= '<br/><br/>';
