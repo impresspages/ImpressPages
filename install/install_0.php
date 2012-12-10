@@ -35,7 +35,7 @@ foreach($languages as $key => $language){
 
 $answer .= '<br/><br/>';
 
-output($answer.'<a class="button_act" href="?step=2">'.IP_NEXT.'</a>'
+output($answer.'<a class="button_act" href="?step=1">'.IP_NEXT.'</a>'
 );
 
 
