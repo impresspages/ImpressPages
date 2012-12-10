@@ -27,13 +27,13 @@ define('IP_OPTIONAL', '(pasirinktinai)');
 
 define('IP_STEP_LANGUAGE', 'Kalbos pasirinkimas');
 define('IP_STEP_CHECK', 'Sistemos patikra');
-define('IP_STEP_LICENSE', 'Licensija');
+define('IP_STEP_LICENSE', 'Licenzija');
 define('IP_STEP_DB', 'Duomenų bazė');
 define('IP_STEP_CONFIGURATION', 'Konfigūracija');
 define('IP_STEP_COMPLETED', 'Pabaiga');
 define('IP_STEP_LANGUAGE_LONG', 'Diegimo vedlio kalbos pasirinkimas');
 define('IP_STEP_CHECK_LONG', 'Sistemos patikra');
-define('IP_STEP_LICENSE_LONG', 'ImpressPages licensija');
+define('IP_STEP_LICENSE_LONG', 'ImpressPages licenzija');
 define('IP_STEP_DB_LONG', 'Duomenų bazės diegimas');
 define('IP_STEP_CONFIGURATION_LONG', 'Sistemos konfigūracija');
 define('IP_STEP_COMPLETED_LONG', 'ImpressPages TVS sėkmingai įdiegta.');
