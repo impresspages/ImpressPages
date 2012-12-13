@@ -17,6 +17,7 @@
 
             // If the plugin hasn't been initialized yet
             if (!data) {
+                $this.find('.ipActionWidgetMove').live('click', function(e){e.preventDefault();});
                 $this.sortable( {
                     connectWith : '.ipBlock',
                     revert : true,
