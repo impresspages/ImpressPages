@@ -47,7 +47,6 @@
             var $this = this;
             if (response.status == 'success') {
                 $this.html(response.optionsHtml);
-                $this.tabs('destroy');
                 $this.tabs();
             }
 

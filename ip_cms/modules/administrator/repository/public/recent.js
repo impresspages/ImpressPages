@@ -14,6 +14,8 @@
 
                 var data = $this.data('ipRepositoryRecent');
                 if (!data) {
+                    $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
+                    $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
                     $this.data('ipRepositoryRecent', {});
 
@@ -50,7 +52,8 @@
 
             for(var i in files) {
                 var $newItem = $('<li></li>');
-                $newItem.append($template.clone().removeClass('ipgHide').attr('src', ip.baseUrl + files[i]));
+                $newItem.append($template.clone().removeClass('ipgHide').attr('src', ip.baseUrl + files[i].file));
+                $newItem.data('fileData', files[i]);
                 $browserContainer.append($newItem);
             }
 
@@ -60,9 +63,27 @@
 //            }).selectable();
             $browserContainer.selectable();
 
+        },
+
+        _confirm : function (e) {
+
+            var $this = $(this);
+
+            var files = new Array();
+
+            $this.find('li.ui-selected').each(function(){
+                var $this = $(this);
+                files.push($this.data('fileData'));
+            });
+
+            $this.trigger('ipModRepository.confirm', [files]);
+
+        },
+
+        _cancel : function(e) {
+            e.preventDefault();
+            $(this).trigger('ipModRepository.cancel');
         }
-
-
 
     };
 

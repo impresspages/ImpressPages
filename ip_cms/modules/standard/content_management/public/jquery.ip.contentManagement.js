@@ -379,7 +379,8 @@
                 }
                 
                 var overallProgress = timeSpent / (timeLeft + timeSpent);
-                
+
+                $( "#ipSaveProgress .ipMainProgressbar" ).progressbar();
                 $( "#ipSaveProgress .ipMainProgressbar" ).progressbar('value', overallProgress*100);
 
             });

@@ -185,7 +185,11 @@ class Controller extends \Ip\Controller{
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer['files']) < $limit) {
             if ($iterator->isFile()) {
-                $answer['files'][] = FILE_DIR.$iterator->getFilename();
+                $answer['files'][] = array(
+                    'fileName' => $iterator->getFilename(),
+                    'dir' => FILE_DIR,
+                    'file' => FILE_DIR.$iterator->getFilename()
+                );
             }
             $iterator->next();
         }
