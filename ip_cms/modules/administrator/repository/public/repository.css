@@ -54,15 +54,25 @@ RECENT
 }
 
 #ipModRepositoryTabRecent .ipmBrowserContainer{
-    margin-left: -20px;
-    margin-top: -20px;
+    margin-left: -15px;
+    margin-top: -15px;
 }
 
-#ipModRepositoryTabRecent .ipmFile{
+#ipModRepositoryTabRecent .ipmBrowserContainer li{
     width: 100px;
     height: 100px;
     float: left;
     margin-left: 20px;
     margin-top: 20px;
+    list-style: none;
 }
 
+#ipModRepositoryTabRecent .ipmBrowserContainer li img{
+    width: 100px;
+    height: 100px;
+}
+
+
+
+#ipModRepositoryTabRecent .ipmBrowserContainer .ui-selecting { outline: #F1C06B solid 5px; }
+#ipModRepositoryTabRecent .ipmBrowserContainer .ui-selected { outline: #F5A417 solid 5px; } /*rgb(206, 206, 206)*/

@@ -33,13 +33,13 @@
         </div>
         <div id="ipModRepositoryTabRecent">
             <div class="ipmBrowser clearfix">
-                <div class="ipmBrowserContainer">
+                <ul class="ipmBrowserContainer">
 
-                </div>
+                </ul>
                 <div class="ipgClear"><!-- --></div>
             </div>
 
-            <img class="ipsFileTemplate ipgHide ipmFile" src="" alt="file"/>
+            <img class="ipsFileTemplate ipgHide" src="" alt="file"/>
             <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>

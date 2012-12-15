@@ -49,10 +49,16 @@
             var $template = $this.find('.ipsFileTemplate');
 
             for(var i in files) {
-                var $newItem = $template.clone().removeClass('ipgHide');
-                $newItem.attr('src', ip.baseUrl + files[i]);
+                var $newItem = $('<li></li>');
+                $newItem.append($template.clone().removeClass('ipgHide').attr('src', ip.baseUrl + files[i]));
                 $browserContainer.append($newItem);
             }
+
+
+//            $browserContainer.bind("mousedown", function(e) {
+//                e.metaKey = true;
+//            }).selectable();
+            $browserContainer.selectable();
 
         }
 
