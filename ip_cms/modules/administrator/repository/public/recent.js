@@ -14,31 +14,46 @@
 
                 var data = $this.data('ipRepositoryRecent');
                 if (!data) {
-//                    var $elFinder = $this.find('.ipmElFinder');
-//                    var elf = $elFinder.elfinder({
-//                        url : ip.baseUrl + ip.moduleDir + 'administrator/repository/elfinder/php/connector.php',  // connector URL (REQUIRED)
-//                        commandsOptions : {
-//                            getfile : {
-//                                multiple : true,
-//                                oncomplete : 'destroy'
-//                            }
-//                        },
-//                        commands : [
-//                            'upload', 'search', 'sort'
-//                        ],
-//                        resizable: false,
-//                        ui : ['toolbar'],
-//                        contextmenu : false,
-//                        height: 330,
-//                        getFileCallback: function(){}
-//                    }).elfinder('instance');
 
+                    $this.data('ipRepositoryRecent', {});
 
-//                    $elFinder.bind('upload', __ipModuleRepositoryFileBrowserDestroy);
+                    var data = Object();
+                    data.g = 'administrator';
+                    data.m = 'repository';
+                    data.a = 'getRecent';
 
+                    $.ajax ({
+                        type : 'POST',
+                        url : ip.baseUrl,
+                        data : data,
+                        context : this,
+                        //success : $.proxy(methods._storeFilesResponse, this),
+                        success : methods._getRecentFilesResponse,
+                        error : function(){}, //TODO report error
+                        dataType : 'json'
+                    });
 
                 }
             });
+        },
+
+        _getRecentFilesResponse : function(response) {
+            var $this = $(this);
+
+            if (!response || !response.files) {
+                return; //TODO report error
+            }
+
+            var files = response.files;
+            var $browserContainer = $this.find('.ipmBrowserContainer');
+            var $template = $this.find('.ipsFileTemplate');
+
+            for(var i in files) {
+                var $newItem = $template.clone().removeClass('ipgHide');
+                $newItem.attr('src', ip.baseUrl + files[i]);
+                $browserContainer.append($newItem);
+            }
+
         }
 
 

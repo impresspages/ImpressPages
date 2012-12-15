@@ -47,6 +47,22 @@ UPLOADER
 RECENT
 */
 #ipModRepositoryTabRecent .ipmBrowser{
-    height: 305px;
-    margin-bottom: 10px;
+    height: 295px;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
+
+#ipModRepositoryTabRecent .ipmBrowserContainer{
+    margin-left: -20px;
+    margin-top: -20px;
+}
+
+#ipModRepositoryTabRecent .ipmFile{
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+

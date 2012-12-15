@@ -53,7 +53,8 @@ class Controller extends \Ip\Controller{
     }
 
 
-    public function upload(){
+    public function upload()
+    {
         global $site;
 
         if (!isset($_SESSION['backend_session']['user_id'])) {
@@ -164,6 +165,35 @@ class Controller extends \Ip\Controller{
 
         $this->returnJson($answerArray);
 
+    }
+
+    public function getRecent()
+    {
+
+        if(isset($_POST['seek'])) {
+            $seek = (int) $_POST['seek'];
+        } else {
+            $seek = 0;
+        }
+
+        $limit = 100;
+
+        $answer = array();
+        $answer['files'] = array();
+
+        $iterator = new \DirectoryIterator(BASE_DIR.FILE_DIR);
+        $iterator->seek($seek);
+        while ($iterator->valid() && count($answer['files']) < $limit) {
+            if ($iterator->isFile()) {
+                $answer['files'][] = FILE_DIR.$iterator->getFilename();
+            }
+            $iterator->next();
+        }
+
+
+
+
+        $this->returnJson($answer);
     }
 
 }
