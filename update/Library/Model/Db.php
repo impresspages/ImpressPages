@@ -13,9 +13,12 @@ class Db
     const DRIVER_PDO_MYSQL = 0; 
     const DRIVER_MYSQL = 1;
     
+
     /**
-     *
-     * @param array $configuration configuration parsed using configuration parser
+     * @param $cf configuration parsed using configuration parser
+     * @param int $driver
+     * @return \PDO int
+     * @throws \Exception
      */
     public function connect($cf, $driver = self::DRIVER_PDO_MYSQL)
     {

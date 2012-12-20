@@ -13,6 +13,9 @@ class Controller extends \Ip\Controller{
         return \Ip\Backend::loggedIn();
     }
 
+    /**
+     * Move files from temporary folder to repository.
+     */
     public function storeNewFiles()
     {
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
@@ -21,9 +24,17 @@ class Controller extends \Ip\Controller{
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
 
+
+        foreach ($files as $key => $file) {
+            if ($file['dir'] != TMP_FILE_DIR) {
+                throw new \Exception("File is outside TMP dir.");
+            }
+        }
+
+
         $newFiles = array();
 
-        $destination = BASE_DIR.FILE_DIR;
+        $destination = BASE_DIR.FILE_REPOSITORY_DIR;
         foreach ($files as $key => $file) {
             $newName = \Library\Php\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
             copy(BASE_DIR.$file['file'], $destination.$newName);
@@ -40,7 +51,7 @@ class Controller extends \Ip\Controller{
             $newFile = array(
                 'fileName' => $newName,
                 'dir' => $destination,
-                'file' => FILE_DIR.$newName
+                'file' => FILE_REPOSITORY_DIR.$newName
             );
             $newFiles[] = $newFile;
         }
@@ -53,6 +64,9 @@ class Controller extends \Ip\Controller{
     }
 
 
+    /**
+     * Upload file to temporary folder
+     */
     public function upload()
     {
         global $site;
@@ -181,14 +195,14 @@ class Controller extends \Ip\Controller{
         $answer = array();
         $answer['files'] = array();
 
-        $iterator = new \DirectoryIterator(BASE_DIR.FILE_DIR);
+        $iterator = new \DirectoryIterator(BASE_DIR.FILE_REPOSITORY_DIR);
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer['files']) < $limit) {
             if ($iterator->isFile()) {
                 $answer['files'][] = array(
                     'fileName' => $iterator->getFilename(),
-                    'dir' => FILE_DIR,
-                    'file' => FILE_DIR.$iterator->getFilename()
+                    'dir' => FILE_REPOSITORY_DIR,
+                    'file' => FILE_REPOSITORY_DIR.$iterator->getFilename()
                 );
             }
             $iterator->next();

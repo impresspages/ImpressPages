@@ -11,6 +11,7 @@ namespace IpUpdate\Library\Migration\To2_7;
 class Script extends \IpUpdate\Library\Migration\General{
 
     private $conn;
+    private $dbh;
     private $dbPref;
 
     public function process($cf)
@@ -18,8 +19,12 @@ class Script extends \IpUpdate\Library\Migration\General{
         $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
+        $dbh = $db->connect($cf);
+        $this->dbh = $dbh;
+
         $this->dbPref = $cf['DB_PREF'];
 
+        $this->addReflectionTable();
         $this->importParameters('newParameters.php');
     }
 
@@ -41,6 +46,28 @@ class Script extends \IpUpdate\Library\Migration\General{
         return '2.7';
     }
 
+
+    private function addReflectionTable()
+    {
+        $sql = "
+CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_administrator_repository_reflection` (
+  `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
+  `optionsKey` varchar(32) NOT NULL COMMENT 'unique cropping options key',
+  `original` varchar(255) NOT NULL,
+  `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of image or otherwise duplicated original file.',
+  `created` int(11) NOT NULL,
+  PRIMARY KEY (`reflectionId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file or otherwise duplicated repository files' AUTO_INCREMENT=1 ;
+
+
+        ";
+
+        if ($this->dbh->exec($sql) === FALSE) {
+            $errorInfo = $this->dbh->errorInfo();
+            throw new \IpUpdate\Library\UpdateException($sql." ".$errorInfo[0]." ".$errorInfo[1]." ".$errorInfo[2], \IpUpdate\Library\UpdateException::SQL);
+        }
+
+    }
 
     private function importParameters($file)
     {
