@@ -21,7 +21,7 @@ class Cron{
             $repositoryAssociatedFiles = $model->findFiles('administrator/repository', 0);
             foreach($repositoryAssociatedFiles as $file) {
                 if ($file['date'] + 60*60*24 < time()){ //older than one day
-                    \Modules\administrator\repository\Model::unbindFile($file['fileName'], 'administrator/repository', 0);
+                    \Modules\administrator\repository\Model::unbindFile($file['filename'], 'administrator/repository', 0);
                 }
             }
         }

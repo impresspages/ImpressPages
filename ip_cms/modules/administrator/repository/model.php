@@ -169,7 +169,7 @@ class Model{
 
         if ($instanceId !== null) {
             $sql .= ' and `instanceId` = :instanceId ';
-            $params = array_merge($params, array(instanceId));
+            $params = array_merge($params, array('instanceId' => $instanceId));
         }
 
         $q = $dbh->prepare($sql);
@@ -177,7 +177,7 @@ class Model{
 
         $answer = array();
         while ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            $answer = $lock;
+            $answer[] = $lock;
         }
         return $answer;
     }

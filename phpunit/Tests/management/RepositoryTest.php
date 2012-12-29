@@ -14,8 +14,6 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $installation = new \PhpUnit\Helper\Installation();
         $installation->install();
 
-        $url = $installation->getInstallationUrl();
-
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
         $ipActions->login();
         $ipActions->addWidget('IpFile');
@@ -23,7 +21,22 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->click('css=.ipAdminWidget-IpFile .ipmBrowseButton');
         $this->waitForElementPresent('css=.ipModRepositoryPopup .ipmBrowseButton');
 
-        $this->type("css=.plupload input", "/var/www/index.html");
+
+
+        //try to upload file
+        $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'testFile.txt'), FALSE);
+        $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
+        $this->waitForElementPresent('css=#ipModRepositoryTabUpload .ipmFiles .ipmFile');
+        $this->click('css=#ipModRepositoryTabUpload .ipaConfirm');
+        sleep(1);
+        $this->assertElementNotPresent('css=#ipModRepositoryTabUpload');
+        $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'testFile.txt'), TRUE);
+
+        //check if file is automatically removed if not used
+        exec('sudo date +%N -s "@'.(time() + 60*60*24*7 + 1).'"'); //+7 days and 1s.
+        $this->open($installation->getInstallationUrl().'ip_cron.php');
+        $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'testFile.txt'), FALSE);
+
 
 //        script to display plupload file input
 //        $this->getEval( "
