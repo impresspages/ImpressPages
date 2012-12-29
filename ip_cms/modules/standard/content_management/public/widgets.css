@@ -664,9 +664,10 @@
 
 /* Widget: IpImageGallery
    Widget: IpLogoGallery */
-.ipAdminWidget-IpImageGallery .ipaUpload,
-.ipAdminWidget-IpLogoGallery .ipaUpload {
+.ipAdminWidget-IpImageGallery .ipmBrowseButton,
+.ipAdminWidget-IpLogoGallery .ipmBrowseButton {
     clear: both;
+    float: left;
 }
 .ipAdminWidget-IpImageGallery .ipaImageTemplate,
 .ipAdminWidget-IpLogoGallery .ipaLogoTemplate {

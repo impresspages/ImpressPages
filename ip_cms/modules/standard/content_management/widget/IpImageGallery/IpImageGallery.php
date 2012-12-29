@@ -230,7 +230,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
     private function _createSmallImage ($sourceFile, $x1, $y1, $x2, $y2, $destinationDir) {
         global $parametersMod;
-        $ratio = ($x1 - $x2 / ($y1 - $y2));
+
         $destinationFilename = \Library\Php\Image\Functions::crop (
         $sourceFile,
         BASE_DIR.$destinationDir,
@@ -338,14 +338,18 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
             $this->_fixCoordinates($image, $requiredProportions);
             
             //create simplified small image (thumbnail)
-            $tmpImageSmall = self::_createSmallImage(
-            $image['imageOriginal'],
-            $image['cropX1'],
-            $image['cropY1'],
-            $image['cropX2'],
-            $image['cropY2'],
-            TMP_IMAGE_DIR
+            try {
+                $tmpImageSmall = self::_createSmallImage(
+                $image['imageOriginal'],
+                $image['cropX1'],
+                $image['cropY1'],
+                $image['cropX2'],
+                $image['cropY2'],
+                TMP_IMAGE_DIR
             );
+            } catch (\Exception $e) {
+                echo 'test'; exit;
+            }
             $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
             unlink(BASE_DIR.$tmpImageSmall);
             $image['imageSmall'] = $imageSmall;

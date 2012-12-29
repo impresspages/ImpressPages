@@ -1,5 +1,5 @@
 <div class="ipWidget_ipImageGallery_container">
-    <div class="ipaUpload"></div>
+    <a href="#" class="ipAdminButton ipmBrowseButton"><?php echo $this->escPar('standard/configuration/system_translations/add_new'); ?></a>
 </div>
 <div class="ipgHide">
     <div class="ipaImageTemplate">

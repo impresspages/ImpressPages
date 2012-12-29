@@ -8,7 +8,7 @@
  * FAQ widget
  ************/
 (function($) {
-    $.fn.ipWidgetFaq = function() {
+    $.fn    .ipWidgetFaq = function() {
         return this.each(function() {
             var $faq = $(this);
             var $container = $faq.find('.ipwContainer');

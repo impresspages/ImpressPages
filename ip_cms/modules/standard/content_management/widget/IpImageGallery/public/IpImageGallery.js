@@ -17,10 +17,12 @@ function IpWidget_IpImageGallery(widgetObject) {
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         
-        var uploader = this.widgetObject.find('.ipaUpload');
-        var options = new Object;
-        options.filterExtensions = ['jpg','gif','png'];
-        uploader.ipUploadFile(options);
+        this.widgetObject.find('.ipmBrowseButton').click(function(e){
+            e.preventDefault();
+            var repository = new ipRepository();
+            repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
+        });
+
         
         var container = this.widgetObject.find('.ipWidget_ipImageGallery_container');
         var options = new Object;
@@ -47,14 +49,18 @@ function IpWidget_IpImageGallery(widgetObject) {
     function addError(event, errorMessage) {
         $(this).trigger('error.ipContentManagement', [errorMessage]);
     }
-    
-    function fileUploaded(event, fileName) {
+
+
+    function fileUploaded(event, files) {
         /* we are in widgetObject context */
         var $this = $(this);
+
         var container = $this.find('.ipWidget_ipImageGallery_container');
-        container.ipWidget_ipImageGallery_container('addImage', fileName, '', 'new');
+        for(var index in files) {
+            container.ipWidget_ipImageGallery_container('addImage', files[index].file, '', 'new');
+        }
     }
-    
+
 
     
     function prepareData() {
@@ -143,7 +149,7 @@ function IpWidget_IpImageGallery(widgetObject) {
         var data = $this.data('ipWidget_ipImageGallery_container');
         var $newImageRecord = $this.data('ipWidget_ipImageGallery_container').imageTemplate.clone();
         $newImageRecord.ipWidget_ipImageGallery_image({'smallImageWidth' : data.smallImageWidth, 'smallImageHeight' : data.smallImageHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'coordinates' : coordinates});
-        var $uploader = $this.find('.ipaUpload');
+        var $uploader = $this.find('.ipmBrowseButton');
         if ($uploader.length > 0) {
             $($uploader).before($newImageRecord);
         } else {
