@@ -33,9 +33,16 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'testFile.txt'), TRUE);
 
         //check if file is automatically removed if not used
-        exec('sudo date +%N -s "@'.(time() + 60*60*24*7 + 1).'"'); //+7 days and 1s.
-        $this->open($installation->getInstallationUrl().'ip_cron.php');
+        \PhpUnit\Helper\Time::changeTime(60*60*24*7 + 1); //+7 days and 1s.
+        $this->open($installation->getInstallationUrl().'ip_cron.php'); //cron should remove our file because it is not used by any widget yet
+        \PhpUnit\Helper\Time::restoreTime(); //+7 days and 1s.
         $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'testFile.txt'), FALSE);
+
+
+
+    }
+
+
 
 
 //        script to display plupload file input
@@ -52,5 +59,10 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
 //        ");
 
 
-    }
 }
+
+
+
+
+
+
