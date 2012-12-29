@@ -25,6 +25,7 @@ var ipRepository = function () {
 
     $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]); $(this).dialog('close');});
 
+    $popup.bind('ipModRepository.cancel', function(e) {$(this).dialog('close');});
 
     $('body').addClass('stopScrolling');
 

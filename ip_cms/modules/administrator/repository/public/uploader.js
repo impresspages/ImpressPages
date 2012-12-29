@@ -65,6 +65,7 @@
         },
 
         _confirm : function (e) {
+            e.preventDefault();
             var $this = $(this);
             var files = $.proxy(methods._getFiles, this)();
             var data = $this.data('ipRepositoryUploader');
@@ -97,8 +98,9 @@
 
         },
 
-        _cancel : function() {
-            alert('cancel');
+        _cancel : function(e) {
+            e.preventDefault();
+            $(this).trigger('ipModRepository.cancel');
         },
 
         _error : function(up, err) {

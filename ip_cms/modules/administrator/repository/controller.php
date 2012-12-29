@@ -19,7 +19,7 @@ class Controller extends \Ip\Controller{
             $this->returnJson(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
         }
 
-        $files = $_POST['files'];
+        $files = isset($_POST['files']) ? $_POST['files'] : array();
 
         $newFiles = array();
 
@@ -35,7 +35,7 @@ class Controller extends \Ip\Controller{
              * file is removed.
              */
             \Modules\administrator\repository\Model::bindFile(FILE_DIR.$newName, 'administrator/repository', 0);
-            
+
             unlink(BASE_DIR.$file['file']);
             $newFile = array(
                 'fileName' => $newName,
@@ -44,7 +44,6 @@ class Controller extends \Ip\Controller{
             );
             $newFiles[] = $newFile;
         }
-
         $answer = array(
             'status' => 'success',
             'files' => $newFiles
