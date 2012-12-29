@@ -1251,6 +1251,15 @@ $parameter["parameterValue/standard/menu_management/admin_translations/url"] = "
 $parameter["parameterTitle/standard/menu_management/admin_translations/visible"] = "Visible";
 $parameter["parameterValue/standard/menu_management/admin_translations/visible"] = "Visible";
 
+$parameter["parameterTitle/standard/menu_management/admin_translations/seo"] = "SEO";
+$parameter["parameterValue/standard/menu_management/admin_translations/seo"] = "SEO";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/advanced"] = "Advanced";
+$parameter["parameterValue/standard/menu_management/admin_translations/advanced"] = "Advanced";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/general"] = "General";
+$parameter["parameterValue/standard/menu_management/admin_translations/general"] = "General";
+
 $parameter["parameterTitle/standard/menu_management/options/associated_zones"] = "Associated zones ";
 
 $parameter["parameterTitle/standard/menu_management/options/auto_rss_zones"] = "Auto RSS";
