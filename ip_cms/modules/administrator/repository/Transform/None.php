@@ -14,9 +14,4 @@ class None extends Base
         copy($sourceFile, $destinationFile);
     }
 
-    public function getParamStr()
-    {
-        return '';
-    }
-
 }

@@ -11,7 +11,11 @@ abstract class Base
 {
     public abstract function transform($sourceFile, $destinationFile);
 
-    public abstract function getParamStr();
+    public function getParamStr()
+    {
+        return serialize(get_object_vars($this));
+
+    }
 
     final public function getFingerprint()
     {

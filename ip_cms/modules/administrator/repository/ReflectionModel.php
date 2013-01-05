@@ -40,10 +40,10 @@ class ReflectionModel
     /**
      * @param string $file - absolute path to image which reflection is requested
      * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
-     * @param Transform $transform - file transformation class
+     * @param Transform\Base $transform - file transformation class
      * @return string - file name
      */
-    public function getReflection($file, $desiredName = null, Transform $transform = null)
+    public function getReflection($file, $desiredName = null, Transform\Base $transform = null)
     {
         if (!$transform) {
             $transform = new Transform\None();
@@ -59,15 +59,55 @@ class ReflectionModel
         return $reflection;
     }
 
-    private function createReflection($file, $desiredName, $transform)
+    /**
+     * @param string $file
+     * @param string $desiredName
+     * @param Transform\Base $transform
+     */
+    private function createReflection($file, $desiredName, Transform\Base $transform)
     {
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        echo $ext; exit;
-        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$ext)) {
 
+        $suffix = '';
+        $suffixId = 0;
+        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$suffix.$ext)) {
+            $suffixId++;
+            $suffix = '_'.$suffixId;
         }
+        $reflection = FILE_DIR.$desiredName.$suffix.$ext;
+        $transform->transform($file, BASE_DIR.$reflection);
+
+        $transformFingerprint = $transform->getFingerprint();
+        $this->storeReflectionRecord($file, $reflection, $transformFingerprint);
+
+        return $reflection;
     }
 
+
+    private function storeReflectionRecord($file, $reflection, $transformFingerprint)
+    {
+        $dbh = \Ip\Db::getConnection();
+        $sql = "
+        INSERT INTO
+          ".DB_PREF."m_administrator_repository_reflection
+        SET
+          original = :original,
+          reflection = :reflection,
+          transformFingerprint = :transformFingerprint,
+          created = :created
+        ";
+
+        $params = array(
+            'original' => $file,
+            'reflection' => $reflection,
+            'transformFingerprint' => $transformFingerprint,
+            'created' => time()
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+    }
 
     private function getReflectionRecord($file, $transformFingerprint)
     {

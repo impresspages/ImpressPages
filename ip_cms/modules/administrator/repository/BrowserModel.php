@@ -76,7 +76,9 @@ class BrowserModel{
      */
     private function createPreview($file)
     {
-        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $pathInfo = pathinfo($file);
+        $ext = strtolower($pathInfo['extension']);
+        $baseName = $pathInfo['basename'];
 
         switch($ext) {
             case 'jpg':
@@ -84,7 +86,10 @@ class BrowserModel{
             case 'gif':
             case 'png':
             case 'bmp':
-                return MODULE_DIR.'administrator/repository/public/icons/general.png';
+                $reflectionModel = ReflectionModel::instance();
+                $transform = new Transform\ImageFit(100, 100, null, TRUE);
+                $reflection = $reflectionModel->getReflection($file, $baseName, $transform);
+                return $reflection;
                 break;
             default:
                 return MODULE_DIR.'administrator/repository/public/icons/general.png';
