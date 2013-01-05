@@ -52,7 +52,9 @@
 
             for(var i in files) {
                 var $newItem = $('<li></li>');
-                $newItem.append($template.clone().removeClass('ipgHide').attr('src', ip.baseUrl + files[i].file));
+                $newItem.append($template.clone().removeClass('ipgHide'));
+                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview)
+                $newItem.find('.name').text(files[i].fileName);
                 $newItem.data('fileData', files[i]);
                 $browserContainer.append($newItem);
             }

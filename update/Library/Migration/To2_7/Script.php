@@ -52,11 +52,12 @@ class Script extends \IpUpdate\Library\Migration\General{
         $sql = "
 CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_administrator_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
-  `optionsKey` varchar(32) NOT NULL COMMENT 'unique cropping options key',
+  `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
   `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of image or otherwise duplicated original file.',
   `created` int(11) NOT NULL,
-  PRIMARY KEY (`reflectionId`)
+  PRIMARY KEY (`reflectionId`),
+  KEY `transformFingerprint` (`transformFingerprint`,`original`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file or otherwise duplicated repository files' AUTO_INCREMENT=1 ;
 
 

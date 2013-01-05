@@ -38,34 +38,38 @@ class ReflectionModel
 
 
     /**
-     * @param string $file relative to website root
-     * @param string $optionsKey
-     * @return string
+     * @param string $file - absolute path to image which reflection is requested
+     * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param Transform $transform - file transformation class
+     * @return string - file name
      */
-    public function getReflection($file, $cropOptions)
+    public function getReflection($file, $desiredName = null, Transform $transform = null)
     {
-        if ($cropOptions) {
-            $key = $this->getOptionsKey($cropOptions);
-        } else {
-            $key = '';
+        if (!$transform) {
+            $transform = new Transform\None();
         }
 
-        $reflection = $this->getReflectionRecord($file, $key);
+        $fingerprint = $transform->getFingerprint();
+        $reflection = $this->getReflectionRecord($file, $fingerprint);
 
         if (!$reflection) {
-            $reflection = $this->createReflection($file, $key, $cropOptions);
+            $reflection = $this->createReflection($file, $desiredName, $transform);
         }
 
         return $reflection;
     }
 
-    private function createReflection($file, $key, $cropOptions)
+    private function createReflection($file, $desiredName, $transform)
     {
-        
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        echo $ext; exit;
+        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$ext)) {
+
+        }
     }
 
 
-    private function getReflectionRecord($file, $optionsKey)
+    private function getReflectionRecord($file, $transformFingerprint)
     {
         $dbh = \Ip\Db::getConnection();
         $sql = "
@@ -76,12 +80,12 @@ class ReflectionModel
         WHERE
           original = :original
           AND
-          optionsKey = :optionsKey
+          transformFingerprint = :transformFingerprint
         ";
 
         $params = array(
             'original' => $file,
-            'optionsKey' => $optionsKey
+            'transformFingerprint' => $transformFingerprint
         );
 
         $q = $dbh->prepare($sql);
@@ -92,18 +96,6 @@ class ReflectionModel
         }
     }
 
-    private function getOptionsKey($cropOptions)
-    {
-        $allOptions = array(
-            $cropOptions->getSourceX1(),
-            $cropOptions->getSourceX2(),
-            $cropOptions->getSourceY1(),
-            $cropOptions->getSourceY2(),
-            $cropOptions->getDestinationWidth(),
-            $cropOptions->getDestinationHeight()
-        );
-        $optionsStr = implode(' ', $allOptions);
-        return md5($optionsStr);
-    }
+
 
 }

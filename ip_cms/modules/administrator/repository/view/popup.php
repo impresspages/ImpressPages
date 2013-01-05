@@ -39,7 +39,10 @@
                 <div class="ipgClear"><!-- --></div>
             </div>
 
-            <img class="ipsFileTemplate ipgHide" src="" alt="file"/>
+            <div class="ipsFileTemplate ipgHide">
+                <img class="" src="" alt="file"/>
+                <span class="name"></span>
+            </div>
             <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>

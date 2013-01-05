@@ -192,23 +192,9 @@ class Controller extends \Ip\Controller{
 
         $limit = 100;
 
-        $answer = array();
-        $answer['files'] = array();
 
-        $iterator = new \DirectoryIterator(BASE_DIR.FILE_REPOSITORY_DIR);
-        $iterator->seek($seek);
-        while ($iterator->valid() && count($answer['files']) < $limit) {
-            if ($iterator->isFile()) {
-                $answer['files'][] = array(
-                    'fileName' => $iterator->getFilename(),
-                    'dir' => FILE_REPOSITORY_DIR,
-                    'file' => FILE_REPOSITORY_DIR.$iterator->getFilename()
-                );
-            }
-            $iterator->next();
-        }
-
-
+        $browserModel = BrowserModel::instance();
+        $answer = $browserModel->getAvailableFiles($seek, $limit);
 
 
         $this->returnJson($answer);

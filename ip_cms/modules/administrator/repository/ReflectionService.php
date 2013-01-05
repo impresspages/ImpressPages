@@ -16,7 +16,7 @@ namespace Modules\administrator\repository;
  * large but smaller than orignial
  * ...
  *
- * It could become a pain to manage all those copies. Old copie should be removed
+ * It could become a pain to manage all those copies. Old copies should be removed
  * when user crops original photo differently. Or default image sizes changes after theme change.
  *
  * Reflection service takes care of this process. Every time you need a cropped version of
@@ -27,7 +27,7 @@ namespace Modules\administrator\repository;
  *
  * WARNING
  * you can use this class only for images stored in repository (uploaded using default ImpressPages CMS
- * functionallity). Otherwise automatic removal is not going to work.
+ * functionality). Otherwise automatic removal is not going to work.
  *
  *
  * @author Mangirdas
@@ -51,7 +51,7 @@ class ReflectionService
      * Get singleton instance
      * @return ReflectionService
      */
-    public function instance()
+    public static function instance()
     {
         if (!self::$instance) {
             self::$instance = new ReflectionService();
@@ -65,21 +65,18 @@ class ReflectionService
      * @param string $file - absolute path to image which reflection is requested
      * @param $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param CropOptions $cropOptions - how to crop the image. Leave null if you want original file to be reflected.
-     * @param int $quality - from 0 (biggest compression) to  100 (best quality)
+     * @return string - file name
      */
-    public function getImageReflection($file, $desiredName = null, CropOptions $cropOptions = null, $quality)
+    public function getReflection($file, $desiredName = null, Transform $transform = null)
     {
         $reflectionModel = ReflectionModel::instance();
-        $reflection = $reflectionModel->getReflection($file, $cropOptions);
+        $reflection = $reflectionModel->getReflection($file, $desiredName, $transform);
         return $reflection;
     }
 
-    public function getFileReflection($file, $desiredName = null)
-    {
-        throw new \Exception("Implementation missing");
-    }
 
 
+//* @param int $quality - from 0 (biggest compression) to  100 (best quality)
 
 
 }
