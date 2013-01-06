@@ -85,7 +85,6 @@ class BrowserModel{
             case 'jpeg':
             case 'gif':
             case 'png':
-            case 'bmp':
                 $reflectionModel = ReflectionModel::instance();
                 $transform = new Transform\ImageFit(100, 100, null, TRUE);
                 $reflection = $reflectionModel->getReflection($file, $baseName, $transform);
