@@ -66,15 +66,22 @@ class ReflectionModel
      */
     private function createReflection($file, $desiredName, Transform\Base $transform)
     {
-        $ext = pathinfo($file, PATHINFO_EXTENSION);
+        $pathInfo = pathinfo($file);
+
+        $ext = $transform->getNewExtension($file, $pathInfo['extension']);
+
+        if ($desiredName == '') {
+            $desiredName = $pathInfo['filename'];
+        }
+
 
         $suffix = '';
         $suffixId = 0;
-        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$suffix.$ext)) {
+        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$suffix.'.'.$ext)) {
             $suffixId++;
             $suffix = '_'.$suffixId;
         }
-        $reflection = FILE_DIR.$desiredName.$suffix.$ext;
+        $reflection = FILE_DIR.$desiredName.$suffix.'.'.$ext;
         $transform->transform($file, BASE_DIR.$reflection);
 
         $transformFingerprint = $transform->getFingerprint();

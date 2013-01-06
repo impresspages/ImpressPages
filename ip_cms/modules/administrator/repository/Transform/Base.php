@@ -9,7 +9,22 @@ namespace Modules\administrator\repository\Transform;
 
 abstract class Base
 {
+    /**
+     * @param string $sourceFile original file
+     * @param string $destinationFile destination file with extension provided by getNewExtension
+     * @return mixed
+     */
     public abstract function transform($sourceFile, $destinationFile);
+
+    /**
+     * Transform function might want to change file extension.
+     * @param string $sourceFile original file
+     * @param string $ext original file extension
+     */
+    public function getNewExtension($sourceFile, $ext)
+    {
+        return $ext; //by default extension doesn't change. Overwrite this method to return different extension
+    }
 
     public function getParamStr()
     {

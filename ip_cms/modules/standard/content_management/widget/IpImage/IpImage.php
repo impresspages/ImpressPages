@@ -45,26 +45,9 @@ class IpImage extends \Modules\standard\content_management\Widget{
             //new original image
             $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($postData['newImage'], 'standard/content_management', $widgetId);
             
-            //remove old big image
-            if (isset($currentData['imageBig']) && $currentData['imageBig']) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageBig'], 'standard/content_management', $widgetId);
-            }
-            
-            
-            //new big image
-            $tmpBigImageName = $this->cropBigImage($postData['newImage']);
-            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
-            //delete temporary file
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
         }
 
         if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) && isset($postData['maxWidth'])) {
-            //remove old file
-            if(isset($currentData['imageSmall'])) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageSmall'], 'standard/content_management', $widgetId);
-            }
-            
-
             //new small image
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
@@ -73,12 +56,6 @@ class IpImage extends \Modules\standard\content_management\Widget{
             $newData['scale'] = $postData['scale'];
             $newData['maxWidth'] = $postData['maxWidth'];
             
-            $tmpSmallImageName = $this->cropImage($newData['imageOriginal'], $newData['cropX1'], $newData['cropY1'], $newData['cropX2'], $newData['cropY2'], $newData['scale'], $postData['maxWidth']);
-            
-            $newData['imageSmall'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpSmallImageName, 'standard/content_management', $widgetId);
-            
-            //delete temporary file
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         }
 
 
@@ -101,13 +78,7 @@ class IpImage extends \Modules\standard\content_management\Widget{
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
             \Modules\administrator\repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
-        if (isset($data['imageBig']) && $data['imageBig']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
-        }
-        if (isset($data['imageSmall']) && $data['imageSmall']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
-        }        
-    }    
+    }
     
     
     /**
@@ -126,37 +97,34 @@ class IpImage extends \Modules\standard\content_management\Widget{
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
             \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
         }
-        if (isset($data['imageBig']) && $data['imageBig']) {
-            \Modules\administrator\repository\Model::bindFile($data['imageBig'], 'standard/content_management', $newId);
-        }
-        if (isset($data['imageSmall']) && $data['imageSmall']) {
-            \Modules\administrator\repository\Model::bindFile($data['imageSmall'], 'standard/content_management', $newId);
-        }
     }
-    
-    /**
-     * If theme has changed, we need to crop thumbnails again.
-     * @see Modules\standard\content_management.Widget::recreate()
-     */
-    public function recreate($widgetId, $data) {
-        $newData = $data;
-        
-        //crop big lightbox image from original. Remove old one.
-        if ($data['imageOriginal']) {
-            //remove old big image
-            if (isset($data['imageBig']) && $data['imageBig']) {
-                \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
-            }
-            
-            //new big image
-            $tmpBigImageName = $this->cropBigImage($data['imageOriginal']);
-            $newData['imageBig'] = \Modules\administrator\repository\Model::addFile(TMP_IMAGE_DIR.$tmpBigImageName, 'standard/content_management', $widgetId);
-            //delete temporary file
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpBigImageName);
+
+
+
+    public function previewHtml($instanceId, $data, $layout) {
+        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+
+        if (isset($data['imageOriginal'])) {
+            $transformBig = new \Modules\administrator\repository\Transform\None();
+            $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformBig);
+
+            $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
+            $requiredWidth = round($data['maxWidth'] * $data['scale']);
+            $requiredHeight = round($requiredWidth / $ratio);
+
+
+            $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                $data['cropX1'],
+                $data['cropY1'],
+                $data['cropX2'],
+                $data['cropY2'],
+                $requiredWidth,
+                $requiredHeight
+            );
+            $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
         }
-        return $newData;
+        return parent::previewHtml($instanceId, $data, $layout);
     }
-   
 
     private function cropBigImage($imageOriginal) {
         global $parametersMod;

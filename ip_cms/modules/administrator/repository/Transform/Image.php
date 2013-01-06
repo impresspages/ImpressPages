@@ -18,7 +18,7 @@ abstract class Image extends Base
     protected function createImageImage($imageFile){
 
         $this->getMemoryNeeded($imageFile);
-        $mime = self::getMimeType($imageFile);
+        $mime = $this->getMimeType($imageFile);
 
         switch ($mime) {
             case IMAGETYPE_JPEG:
@@ -138,6 +138,7 @@ abstract class Image extends Base
      * @throws \Modules\administrator\repository\TransformException
      */
     protected function saveImage ($imageNew, $newFile, $quality, $mime){
+        self::savePng($imageNew, $newFile, $quality);return;
         switch ($mime) {
             case IMAGETYPE_GIF:
             case IMAGETYPE_PNG:

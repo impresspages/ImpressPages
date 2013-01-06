@@ -14,6 +14,12 @@ class ImageFit extends Image
     protected $quality;
     protected $forced;
 
+    /**
+     * @param int $width width of area where image should fit
+     * @param int $height height of area where image should fit
+     * @param int $quality image quoality from 0 to 100
+     * @param bool $forced if true, and supplied image has different proportions, resulting image will have white edges to make image exactly $Width x $height
+     */
     public function __construct($width, $height, $quality = null, $forced = false)
     {
         global $parametersMod;
@@ -39,11 +45,51 @@ class ImageFit extends Image
         //modify image
         $image = $this->createImageImage($sourceFile);
         $croppedImage = $this->crop($image, $this->width, $this->height, $this->forced);
-        $mime = $this->getMimeType($sourceFile);
+
+        if ($this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
+            /*transparency required. Transform to png*/
+            $mime = IMAGETYPE_PNG;
+        } else {
+            $mime = $this->getMimeType($sourceFile);
+        }
         self::saveImage($croppedImage, $destinationFile, $this->quality, $mime);
     }
 
+    /**
+     * If cropping area goes out of image, jpg is converted to png to make transparent edges
+     * @param string $file original file
+     * @param string $ext original file extension
+     * @return string
+     */
+    public function getNewExtension($sourceFile, $ext)
+    {
+        switch ($ext) {
+            case 'png':
+            case 'gif':
+                return 'png';
+                break;
+            case 'jpeg':
+            case 'jpg':
+                if ($this->forced && $this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
+                    return 'png';
+                } else {
+                    return $ext;
+                }
+                break;
+            default:
+                return 'png';
+        }
 
+    }
+
+    private function croppingGoesOutOfImage($sourceFile, $destWidth, $destHeight)
+    {
+        $imageInfo = getimagesize($sourceFile);
+        $sourceWidth = $imageInfo[0];
+        $sourceHeight = $imageInfo[1];
+        $goesOut = $sourceWidth / $sourceHeight != $destWidth / $destHeight;
+        return $goesOut;
+    }
 
     public function crop($image, $widthDest, $heightDest, $forced)
     {
