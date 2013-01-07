@@ -23,36 +23,12 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
     
 
     public function update($widgetId, $postData, $currentData) {
-        global $parametersMod;
-        $answer = '';
-
-
-        $destinationDir = BASE_DIR.IMAGE_DIR;
-
         $newData = $currentData;
 
         //check if images array is set
         if (!isset($postData['images']) && !is_array($postData['images'])) {
             return $newData;
         }
-        
-        //delete images that does not exist in posted array
-        //Usually it should not happen ever. But just in case we are checking it and eleting unused images.
-        if (isset($currentData['images']) && is_array($currentData['images'])) {
-            //loop all current images 
-            foreach ($currentData['images'] as $curImageKey => &$curImage) {
-                //loop posted images
-                $found = false;
-                foreach ($postData['images'] as $postImageKey => &$postImage) {
-                    $found = true;
-                }
-                if (!$found) {
-                    //old image does not exist in new posted array. Lets delete it.
-                    \Modules\administrator\repository\Model::unbindFile($curImage['fileName'], 'standard/content_management', $widgetId);
-                }
-            }
-        }
-        
         
 
         $newData['images'] = array(); //we will create new images array.
@@ -133,6 +109,8 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
 
                     break;
+
+
                 case 'present': //picture not changed
                     $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
                     if (!$existingImageData) {
@@ -172,6 +150,17 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
             }
         }
 
+
+        //delete images that does not exist in posted array
+        //Usually it should not happen ever. But just in case we are checking it and deleting unused images.
+        if (isset($currentData['images']) && is_array($currentData['images'])) {
+            //loop all current images
+            foreach ($currentData['images'] as $curImage) {
+                if (!$this->_findExistingImage($curImage, $widgetId)) {
+                    $this->_deleteOneImage($curImage, $widgetId);
+                }
+            }
+        }
 
 
         return $newData;
@@ -243,59 +232,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                 }
             }
         }
-
-//        private function _createBigImage ($sourceFile, $destinationDir) {
-//        global $parametersMod;
-//        $destinationFilename = \Library\Php\Image\Functions::resize(
-//            $sourceFile,
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width'),
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height'),
-//            BASE_DIR.$destinationDir,
-//            \Library\Php\Image\Functions::CROP_TYPE_FIT,
-//            false,
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_quality')
-//        );
-//        $answer = $destinationDir.$destinationFilename;
-//        return $answer;
-//    }
-//
-//        private function _createSmallImage ($sourceFile, $x1, $y1, $x2, $y2, $destinationDir) {
-//        global $parametersMod;
-//
-//        $destinationFilename = \Library\Php\Image\Functions::crop (
-//            $sourceFile,
-//            BASE_DIR.$destinationDir,
-//            $x1,
-//            $y1,
-//            $x2,
-//            $y2,
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality'),
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
-//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height')
-//        );
-//        $answer = $destinationDir.$destinationFilename;
-//        return $answer;
-//
-//    }
-
-//        //create simplified big image
-//        $tmpImageBig = self::_createBigImage($image['fileName'], TMP_IMAGE_DIR);
-//        $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);
-//        unlink(BASE_DIR.$tmpImageBig);
-//
-//
-//        //create simplified small image (thumbnail)
-//        $tmpImageSmall = self::_createSmallImage(
-//            $image['fileName'],
-//            $image['cropX1'],
-//            $image['cropY1'],
-//            $image['cropX2'],
-//            $image['cropY2'],
-//            TMP_IMAGE_DIR
-//        );
-//        $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
-//        unlink(BASE_DIR.$tmpImageSmall);
-
         return parent::previewHtml($instanceId, $data, $layout);
     }
 
