@@ -263,7 +263,7 @@ class Controller extends \Ip\Controller{
         //STORE IMAGE LOGO
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
-            if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
+            if (!\Library\Php\File\Functions::isFileInPublicDir($_POST['newImage'])) {
                 throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non public folder.");
             }
 
