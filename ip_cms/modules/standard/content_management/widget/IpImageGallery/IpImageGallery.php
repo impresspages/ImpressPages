@@ -79,27 +79,10 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                         throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non public folder.");
                     }
 
-                    //create a copy of original(uploaded) file
-                    $imageOriginal = \Modules\administrator\repository\Model::addFile($image['fileName'], 'standard/content_management', $widgetId);
+                    //bind new image to the widget
+                    \Modules\administrator\repository\Model::bindFile($image['fileName'], 'standard/content_management', $widgetId);
 
-                    
-                    //create simplified big image
-                    $tmpImageBig = self::_createBigImage($image['fileName'], TMP_IMAGE_DIR);
-                    $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);
-                    unlink(BASE_DIR.$tmpImageBig);
-                    
 
-                    //create simplified small image (thumbnail)
-                    $tmpImageSmall = self::_createSmallImage(
-                    $image['fileName'],
-                    $image['cropX1'],
-                    $image['cropY1'],
-                    $image['cropX2'],
-                    $image['cropY2'],
-                    TMP_IMAGE_DIR
-                    );
-                    $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
-                    unlink(BASE_DIR.$tmpImageSmall);
 
                     //find image title
                     if ($image['title'] == '') {
@@ -109,9 +92,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     }
 
                     $newImage = array(
-                        'imageOriginal' => $imageOriginal,
-                        'imageBig' => $imageBig,
-                        'imageSmall' => $imageSmall,
+                        'imageOriginal' => $image['fileName'],
                         'title' => $title,
                         'cropX1' => $image['cropX1'],
                         'cropY1' => $image['cropY1'],
@@ -132,21 +113,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     if (!$existingImageData) {
                         break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
                     }
-                    //remove current existing image. New will be created.
-                    \Modules\administrator\repository\Model::unbindFile($existingImageData['imageSmall'], 'standard/content_management', $widgetId);
-
-                    //create simplified small image (thumbnail)
-                    $tmpImageSmall = self::_createSmallImage(
-                    $image['fileName'],
-                    $image['cropX1'],
-                    $image['cropY1'],
-                    $image['cropX2'],
-                    $image['cropY2'],
-                    TMP_IMAGE_DIR
-                    );
-                    $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
-                    unlink(BASE_DIR.$tmpImageSmall);
-                    
 
                     //find image title
                     if ($image['title'] == '') {
@@ -157,8 +123,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
                     $newImage = array(
                         'imageOriginal' => $existingImageData['imageOriginal'],
-                        'imageBig' => $existingImageData['imageBig'],
-                        'imageSmall' => $imageSmall,
                         'title' => $title,
                         'cropX1' => $image['cropX1'],
                         'cropY1' => $image['cropY1'],
@@ -169,7 +133,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
 
                     break;
-                case 'present': //picure not changed
+                case 'present': //picture not changed
                     $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
                     if (!$existingImageData) {
                         break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
@@ -185,9 +149,12 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
                     $newImage = array(
                         'imageOriginal' => $existingImageData['imageOriginal'],
-                        'imageBig' => $existingImageData['imageBig'],
-                        'imageSmall' => $existingImageData['imageSmall'],
-                        'title' => $title
+                        'title' => $title,
+                        'cropX1' => $existingImageData['cropX1'],
+                        'cropY1' => $existingImageData['cropY1'],
+                        'cropX2' => $existingImageData['cropX2'],
+                        'cropY2' => $existingImageData['cropY2'],
+
                     );
                     $newData['images'][] = $newImage;
 
@@ -213,39 +180,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
 
 
-    private function _createBigImage ($sourceFile, $destinationDir) {
-        global $parametersMod;
-        $destinationFilename = \Library\Php\Image\Functions::resize(
-        $sourceFile,
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height'),
-        BASE_DIR.$destinationDir,
-        \Library\Php\Image\Functions::CROP_TYPE_FIT,
-        false,
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_quality')
-        );
-        $answer = $destinationDir.$destinationFilename;
-        return $answer;
-    }
 
-    private function _createSmallImage ($sourceFile, $x1, $y1, $x2, $y2, $destinationDir) {
-        global $parametersMod;
-
-        $destinationFilename = \Library\Php\Image\Functions::crop (
-        $sourceFile,
-        BASE_DIR.$destinationDir,
-        $x1,
-        $y1,
-        $x2,
-        $y2,
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
-        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height')
-        );
-        $answer = $destinationDir.$destinationFilename;
-        return $answer;
-
-    }
 
     private function _findExistingImage ($imageOriginalFile, $allImages) {
 
@@ -273,6 +208,97 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
+    public function previewHtml($instanceId, $data, $layout)
+    {
+        global $parametersMod;
+
+        if (isset($data['images']) && is_array($data['images'])) {
+            //loop all current images
+            foreach ($data['images'] as $curImageKey => &$curImage) {
+                if (empty($curImage['imageOriginal'])) {
+                    continue;
+                }
+                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+                $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
+
+                //create big image reflection
+                $bigWidth = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width');
+                $bigHeight = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height');
+                $transformBig = new \Modules\administrator\repository\Transform\ImageFit($bigWidth, $bigHeight);
+                $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
+
+
+                if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
+                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                        $curImage['cropX1'],
+                        $curImage['cropY1'],
+                        $curImage['cropX2'],
+                        $curImage['cropY2'],
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
+                    );
+                    $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
+
+                }
+            }
+        }
+
+//        private function _createBigImage ($sourceFile, $destinationDir) {
+//        global $parametersMod;
+//        $destinationFilename = \Library\Php\Image\Functions::resize(
+//            $sourceFile,
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width'),
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height'),
+//            BASE_DIR.$destinationDir,
+//            \Library\Php\Image\Functions::CROP_TYPE_FIT,
+//            false,
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_quality')
+//        );
+//        $answer = $destinationDir.$destinationFilename;
+//        return $answer;
+//    }
+//
+//        private function _createSmallImage ($sourceFile, $x1, $y1, $x2, $y2, $destinationDir) {
+//        global $parametersMod;
+//
+//        $destinationFilename = \Library\Php\Image\Functions::crop (
+//            $sourceFile,
+//            BASE_DIR.$destinationDir,
+//            $x1,
+//            $y1,
+//            $x2,
+//            $y2,
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality'),
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
+//            $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height')
+//        );
+//        $answer = $destinationDir.$destinationFilename;
+//        return $answer;
+//
+//    }
+
+//        //create simplified big image
+//        $tmpImageBig = self::_createBigImage($image['fileName'], TMP_IMAGE_DIR);
+//        $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);
+//        unlink(BASE_DIR.$tmpImageBig);
+//
+//
+//        //create simplified small image (thumbnail)
+//        $tmpImageSmall = self::_createSmallImage(
+//            $image['fileName'],
+//            $image['cropX1'],
+//            $image['cropY1'],
+//            $image['cropX2'],
+//            $image['cropY2'],
+//            TMP_IMAGE_DIR
+//        );
+//        $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
+//        unlink(BASE_DIR.$tmpImageSmall);
+
+        return parent::previewHtml($instanceId, $data, $layout);
+    }
+
     
     public function delete($widgetId, $data) {
         if (!isset($data['images']) || !is_array($data['images'])) {
@@ -291,156 +317,11 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         if (isset($image['imageOriginal']) && $image['imageOriginal']) {
             \Modules\administrator\repository\Model::unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
         }
-        if (isset($image['imageBig']) && $image['imageBig']) {
-            \Modules\administrator\repository\Model::unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
-        }
-        if (isset($image['imageSmall']) && $image['imageSmall']) {
-            \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
-        }
     }
     
-    /**
-    * If theme has changed, we need to crop thumbnails again.
-    * @see Modules\standard\content_management.Widget::recreate()
-    */
-    public function recreate($widgetId, $data) {
-        global $parametersMod;
-        $newData = $data;
-        
-        if (!isset($data['images']) || !is_array($data['images'])) {
-            return $newData;
-        }
-        
-        foreach($newData['images'] as $imageKey => &$image) {
-            
-            if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])|| !isset($image['imageOriginal'])) {
-                continue; //missing data. Better don't do anything
-            }
 
-            
-            
-            //remove old big image
-            if (isset($image['imageBig']) && $image['imageBig']) {
-                \Modules\administrator\repository\Model::unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
-            }
-            
-            //create simplified big image
-            $tmpImageBig = self::_createBigImage($image['imageOriginal'], TMP_IMAGE_DIR);
-            $imageBig = \Modules\administrator\repository\Model::addFile($tmpImageBig, 'standard/content_management', $widgetId);
-            $image['imageBig'] = $imageBig;
-            unlink(BASE_DIR.$tmpImageBig);
-                        
-            
-            //remove curren t small image. New will be created.
-            \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
-            
-            $requiredProportions = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width') / $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height');
-            $this->_fixCoordinates($image, $requiredProportions);
-            
-            //create simplified small image (thumbnail)
-            try {
-                $tmpImageSmall = self::_createSmallImage(
-                $image['imageOriginal'],
-                $image['cropX1'],
-                $image['cropY1'],
-                $image['cropX2'],
-                $image['cropY2'],
-                TMP_IMAGE_DIR
-            );
-            } catch (\Exception $e) {
-                echo 'test'; exit;
-            }
-            $imageSmall = \Modules\administrator\repository\Model::addFile($tmpImageSmall, 'standard/content_management', $widgetId);
-            unlink(BASE_DIR.$tmpImageSmall);
-            $image['imageSmall'] = $imageSmall;
-            
-            
-        };
-        
     
-        return $newData;
-    }
-    
-    /**
-     * 
-     * If widget options has been changed, we need to fix cropping coordinates to new proportions.
-     * 
-     * It is done by putting current cropping area into circle and finding new rectangular that fits in the same
-     * circle and has required proportions.
-     * 
-     * Then if new rectangular goes out of image edges, then it is scaled to fit.
-     * 
-     * @param array $image
-     * @param float $requiredProportions
-     */
-    private function _fixCoordinates(&$image, $requiredProportions) {
-        if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])|| !isset($image['imageOriginal'])) {
-            return; //missing data. Better don't do anything
-        }
-        
-        $x = $image['cropX2'] - $image['cropX1'];
-        $y = $image['cropY2'] - $image['cropY1'];
-        
-        //d - diameter
-        $d = sqrt($x*$x + $y*$y);
-        
-        //height of new rectangular
-        $newY = $d / sqrt (1 + $requiredProportions * $requiredProportions);
-        
-        //width of new rectangular
-        $newX = $newY * $requiredProportions;
-                
-        $xDifference = ($newX - ($image['cropX2'] - $image['cropX1'])) / 2;
-        $newX1 = round($image['cropX1'] - $xDifference);
-        $newX2 = round($image['cropX2'] + $xDifference);
-        
-        $yDifference = ($newY - ($image['cropY2'] - $image['cropY1'])) / 2;
-        $newY1 = round($image['cropY1'] - $yDifference);
-        $newY2 = round($image['cropY2'] + $yDifference);
-        
-        //resize if new rectangle goes out of image edges
-        $resizeFactor = 0; //no resize
-        if ($newX1 < 0) {
-            $tmpResizeFactor = abs(($newX1 - 0) / ($newX2 - $newX1));
-            if ($tmpResizeFactor > $resizeFactor) {
-                $resizeFactor = $tmpResizeFactor;
-            }
-        }
-        if ($newY1 < 0) {
-            $tmpResizeFactor = abs(($newY1 - 0) / ($newY2 - $newY1));
-            if ($tmpResizeFactor > $resizeFactor) {
-                $resizeFactor = $tmpResizeFactor;
-            }
-        }
-        
-        $imageInfo = getimagesize($image['imageOriginal']);
-        
-        
-        if ($newX2 > $imageInfo[0]) {
-            $tmpResizeFactor = abs(($imageInfo[0] - $newX2) / ($newX2 - $newX1));
-            if ($tmpResizeFactor > $resizeFactor) {
-                $resizeFactor = $tmpResizeFactor;
-            }
-        }
-        if ($newY2 > $imageInfo[1]) {
-            $tmpResizeFactor = abs(($imageInfo[1] - $newY2) / ($newY2 - $newY1));
-            if ($tmpResizeFactor > $resizeFactor) {
-                $resizeFactor = $tmpResizeFactor;
-            }
-        }
-        
-        $finalX1 = $newX1 + ($newX2 - $newX1) * $resizeFactor;
-        $finalX2 = $newX2 - ($newX2 - $newX1) * $resizeFactor;
-        
-        $finalY1 = $newY1 + ($newY2 - $newY1) * $resizeFactor;
-        $finalY2 = $newY2 - ($newY2 - $newY1) * $resizeFactor;
-        
-        $image['cropX1'] = $finalX1;
-        $image['cropX2'] = $finalX2;
-        $image['cropY1'] = $finalY1;
-        $image['cropY2'] = $finalY2;
-        
-    }
+
     
     /**
     *
@@ -462,12 +343,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
             }
             if (isset($image['imageOriginal']) && $image['imageOriginal']) {
                 \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $newId);
-            }
-            if (isset($image['imageBig']) && $image['imageBig']) {
-                \Modules\administrator\repository\Model::bindFile($image['imageBig'], 'standard/content_management', $newId);
-            }
-            if (isset($image['imageSmall']) && $image['imageSmall']) {
-                \Modules\administrator\repository\Model::bindFile($image['imageSmall'], 'standard/content_management', $newId);
             }
         }
 
