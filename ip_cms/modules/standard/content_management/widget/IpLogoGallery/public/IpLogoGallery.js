@@ -15,11 +15,14 @@ function IpWidget_IpLogoGallery(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        
-        var uploader = this.widgetObject.find('.ipaUpload');
-        var options = new Object;
-        options.filterExtensions = ['jpg','gif','png'];
-        uploader.ipUploadFile(options);
+
+        this.widgetObject.find('.ipmBrowseButton').click(function(e){
+            e.preventDefault();
+            var repository = new ipRepository();
+            repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
+        });
+
+
         
         var container = this.widgetObject.find('.ipWidget_ipLogoGallery_container');
         var options = new Object;
@@ -45,11 +48,14 @@ function IpWidget_IpLogoGallery(widgetObject) {
         $(this).trigger('error.ipContentManagement', [errorMessage]);
     }    
     
-    function fileUploaded(event, fileName) {
-        /* we are in widgetObject context */
+    function fileUploaded(event, files) {
         var $this = $(this);
+
         var container = $this.find('.ipWidget_ipLogoGallery_container');
-        container.ipWidget_ipLogoGallery_container('addLogo', fileName, '', '');
+        for(var index in files) {
+            container.ipWidget_ipLogoGallery_container('addLogo', files[index].file, '', '');
+        }
+
     }
     
 
@@ -142,7 +148,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
         var data = $this.data('ipWidget_ipLogoGallery_container');
         var $newLogoRecord = $this.data('ipWidget_ipLogoGallery_container').logoTemplate.clone();
         $newLogoRecord.ipWidget_ipLogoGallery_logo({'logoWidth' : data.logoWidth, 'logoHeight' : data.logoHeight, 'status' : status, 'fileName' : fileName, 'title' : title, 'link' : link, 'coordinates' : coordinates});
-        var $uploader = $this.find('.ipaUpload');
+        var $uploader = $this.find('.ipmBrowseButton');
         if ($uploader.length > 0) {
             $($uploader).before($newLogoRecord);
         } else {

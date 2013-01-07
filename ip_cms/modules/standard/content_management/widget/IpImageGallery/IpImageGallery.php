@@ -200,6 +200,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
     public function previewHtml($instanceId, $data, $layout)
     {
         global $parametersMod;
+        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
 
         if (isset($data['images']) && is_array($data['images'])) {
             //loop all current images
@@ -207,7 +208,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                 if (empty($curImage['imageOriginal'])) {
                     continue;
                 }
-                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
                 $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
 
                 //create big image reflection

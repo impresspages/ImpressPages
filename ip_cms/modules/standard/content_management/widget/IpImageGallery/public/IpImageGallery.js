@@ -16,7 +16,7 @@ function IpWidget_IpImageGallery(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        
+
         this.widgetObject.find('.ipmBrowseButton').click(function(e){
             e.preventDefault();
             var repository = new ipRepository();
@@ -52,7 +52,6 @@ function IpWidget_IpImageGallery(widgetObject) {
 
 
     function fileUploaded(event, files) {
-        /* we are in widgetObject context */
         var $this = $(this);
 
         var container = $this.find('.ipWidget_ipImageGallery_container');
