@@ -102,26 +102,30 @@ class IpImage extends \Modules\standard\content_management\Widget{
 
 
     public function previewHtml($instanceId, $data, $layout) {
-        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
 
         if (isset($data['imageOriginal'])) {
+            $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+            $desiredName = isset($data['title']) ? $data['title'] : '';
+
             $transformBig = new \Modules\administrator\repository\Transform\None();
-            $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformBig);
+            $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
-            $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
-            $requiredWidth = round($data['maxWidth'] * $data['scale']);
-            $requiredHeight = round($requiredWidth / $ratio);
+            if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['maxWidth']) && isset($data['scale'])) {
+                $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
+                $requiredWidth = round($data['maxWidth'] * $data['scale']);
+                $requiredHeight = round($requiredWidth / $ratio);
 
 
-            $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
-                $data['cropX1'],
-                $data['cropY1'],
-                $data['cropX2'],
-                $data['cropY2'],
-                $requiredWidth,
-                $requiredHeight
-            );
-            $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $data['cropX1'],
+                    $data['cropY1'],
+                    $data['cropX2'],
+                    $data['cropY2'],
+                    $requiredWidth,
+                    $requiredHeight
+                );
+                $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+            }
         }
         return parent::previewHtml($instanceId, $data, $layout);
     }

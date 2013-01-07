@@ -70,7 +70,7 @@ class ImageFit extends Image
                 break;
             case 'jpeg':
             case 'jpg':
-                if ($this->forced && $this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
+                if ($this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
                     return 'png';
                 } else {
                     return $ext;
@@ -84,6 +84,9 @@ class ImageFit extends Image
 
     private function croppingGoesOutOfImage($sourceFile, $destWidth, $destHeight)
     {
+        if (!$this->forced) {
+            return false;
+        }
         $imageInfo = getimagesize($sourceFile);
         $sourceWidth = $imageInfo[0];
         $sourceHeight = $imageInfo[1];
