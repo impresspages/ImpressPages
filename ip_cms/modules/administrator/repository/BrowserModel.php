@@ -77,7 +77,7 @@ class BrowserModel{
     private function createPreview($file)
     {
         $pathInfo = pathinfo($file);
-        $ext = strtolower($pathInfo['extension']);
+        $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
 
         switch($ext) {

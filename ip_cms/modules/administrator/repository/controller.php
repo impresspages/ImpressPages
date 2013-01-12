@@ -88,21 +88,12 @@ class Controller extends \Ip\Controller{
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
 
         // Clean the fileName for security reasons
-        $fileName = preg_replace('/[^\w\._]+/', '', $fileName);
+        $fileName = \Library\Php\File\Functions::cleanupFileName($fileName);
 
         // Make sure the fileName is unique but only if chunking is disabled
         if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
-            $ext = strrpos($fileName, '.');
-            $fileName_a = substr($fileName, 0, $ext);
-            $fileName_b = substr($fileName, $ext);
-
-            $count = 1;
-            while (file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName_a . '_' . $count . $fileName_b))
-                $count++;
-
-            $fileName = $fileName_a . '_' . $count . $fileName_b;
+            $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, $targetDir. DIRECTORY_SEPARATOR);
         }
-
 
         //security check Mangirdas 2011-12-15
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));

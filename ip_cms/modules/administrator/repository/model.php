@@ -24,6 +24,7 @@ class Model{
 
     
     /**
+     * @deprecated
      * Add new file to the repository. Defined file will be duplicated. File name of dupliace will be returned. 
      * 
      * @param string $file file to be added. Relative to BASE_DIR. E.g. file/tmp/file.doc

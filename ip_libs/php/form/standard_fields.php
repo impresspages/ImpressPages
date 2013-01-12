@@ -272,7 +272,6 @@ class FieldWysiwyg extends Field{
     //	theme_advanced_resizing  : true,
     //	theme_advanced_resize_horizontal : true,
   	theme_advanced_path_location : "none",
-  	content_css : "design/style.css",	
   	extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
   	height : "300",
   	content_css : "'.BASE_URL.THEME_DIR.THEME.'/" + "ip_content.css",

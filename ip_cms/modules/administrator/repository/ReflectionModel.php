@@ -75,13 +75,7 @@ class ReflectionModel
         }
 
 
-        $suffix = '';
-        $suffixId = 0;
-        while(file_exists(BASE_DIR.FILE_DIR.$desiredName.$suffix.'.'.$ext)) {
-            $suffixId++;
-            $suffix = '_'.$suffixId;
-        }
-        $reflection = FILE_DIR.$desiredName.$suffix.'.'.$ext;
+        $reflection = FILE_DIR.\Library\Php\File\Functions::genUnoccupiedName($desiredName.'.'.$ext, FILE_DIR);
         $transform->transform($file, BASE_DIR.$reflection);
 
         $transformFingerprint = $transform->getFingerprint();

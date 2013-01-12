@@ -14,7 +14,7 @@ var ipRepository = function () {
 
     $('body').append(ipRepositoryHtml);
     var $popup = $('.ipModRepositoryPopup');
-    $popup.dialog({modal: true, width: 800, height: 450, top: 50});
+    $popup.dialog({modal: true, width: 800, height: 450, top: 50, zIndex: 99000});
 
     //initialize first tab
     $popup.find('#ipModRepositoryTabUpload').ipRepositoryUploader();

@@ -54,10 +54,7 @@ class Functions{
         $new_extension = substr($new_name, $ext_pos, strlen($file));
         $new_name = substr($new_name, 0, $ext_pos);
 
-        $new_name = \Library\Php\Text\Transliteration::transform($new_name);
-        $new_name = utf8_decode($new_name);
-        $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ".", ",", "!", ":", "\"", "?", "|");
-        $new_name = str_replace($spec, "_", $new_name);
+        $new_name = self::cleanupFileName($new_name);
 
         if($new_name == "") {
             $new_name = "file_";
@@ -71,6 +68,22 @@ class Functions{
         }
         $new_name .= $new_extension;
         return $new_name;
+    }
+
+
+    /**
+     * @param string $file file name
+     * @return string new (or the same) file without special characters
+     */
+    public static function cleanupFileName($fileName){
+        require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        $fileName = \Library\Php\Text\Transliteration::transform($fileName);
+        $fileName = utf8_decode($fileName);
+        $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
+        $fileName = str_replace($spec, "_", $fileName);
+        $fileName = preg_replace('/[^\w\._]+/', '_', $fileName); //it overlaps with above replace file. But for historical reasons let it be
+        $fileName = preg_replace('/_+/', '_', $fileName);
+        return $fileName;
     }
 
 
