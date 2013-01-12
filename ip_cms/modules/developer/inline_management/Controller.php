@@ -263,28 +263,18 @@ class Controller extends \Ip\Controller{
         //STORE IMAGE LOGO
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
-            if (!\Library\Php\File\Functions::isFileInPublicDir($_POST['newImage'])) {
-                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non public folder.");
-            }
 
             //remove old image
-            if ($logo->getImageOrig() && file_exists(BASE_DIR.$logo->getImageOrig()) && is_file(BASE_DIR.$logo->getImageOrig())) {
-                unlink(BASE_DIR.$logo->getImageOrig());
+            if ($logo->getImageOrig()) {
+                \Modules\administrator\repository\Model::unbindFile($logo->getImageOrig(), 'developer/inline_management', 1); //1 means logo
             }
 
-            $destDir = BASE_DIR.IMAGE_DIR;
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($_POST['newImage'], $destDir);
-            copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
-            $logo->setImageOrig(IMAGE_DIR.$newName);
+            \Modules\administrator\repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', 1); //1 means logo
+            $logo->setImageOrig($_POST['newImage']);
 
         }
 
         if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
-            //remove old file
-            if ($logo->getImage() && file_exists(BASE_DIR.$logo->getImage()) && is_file(BASE_DIR.$logo->getImage())) {
-                unlink(BASE_DIR.$logo->getImage());
-            }
-
 
             //new small image
             $logo->setX1($_POST['cropX1']);
@@ -293,24 +283,6 @@ class Controller extends \Ip\Controller{
             $logo->setY2($_POST['cropY2']);
             $logo->setRequiredWidth($_POST['windowWidth']);
             $logo->setRequiredHeight($_POST['windowHeight']);
-
-            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
-                BASE_DIR.$logo->getImageOrig(),
-                TMP_IMAGE_DIR,
-                $logo->getX1(),
-                $logo->getY1(),
-                $logo->getX2(),
-                $logo->getY2(),
-                100,
-                $logo->getRequiredWidth(),
-                $logo->getRequiredHeight()
-            );
-
-            $destDir = BASE_DIR.IMAGE_DIR;
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir);
-            copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
-            $logo->setImage(IMAGE_DIR.$newName);
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         }
 
 
@@ -424,42 +396,27 @@ class Controller extends \Ip\Controller{
         //STORE IMAGE
         if (isset($_POST['newImage']) && file_exists(BASE_DIR.$_POST['newImage']) && is_file(BASE_DIR.$_POST['newImage'])) {
 
-            if (TMP_FILE_DIR.basename($_POST['newImage']) != $_POST['newImage']) {
-                throw new \Exception("Security notice. Try to access an image (".$_POST['newImage'].") from a non public folder.");
-            }
 
             //remove old image
             if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
                 if ($sameScope) { //otherwise we need to leave image for original scope
-                    unlink(BASE_DIR.$image->getImageOrig());
+                    \Modules\administrator\repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
             }
 
-            $destDir = BASE_DIR.IMAGE_DIR;
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($_POST['newImage'], $destDir);
-            copy(BASE_DIR.$_POST['newImage'], $destDir.$newName);
-            $image->setImageOrig(IMAGE_DIR.$newName);
 
+            \Modules\administrator\repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', $image->getId()); //1 means logo
+            $image->setImageOrig($_POST['newImage']);
         } else {
             if (!$sameScope) { //duplicate original image if we are resaving it in different scope
                 if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                    $destDir = BASE_DIR.IMAGE_DIR;
-                    $newName = \Library\Php\File\Functions::genUnoccupiedName($image->getImageOrig(), $destDir);
-                    copy(BASE_DIR.$image->getImageOrig(), $destDir.$newName);
-                    $image->setImageOrig(IMAGE_DIR.$newName);
+                    \Modules\administrator\repository\Model::bindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    $image->setImageOrig($image->getImageOrig());
                 }
             }
          }
 
         if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
-            //remove old file
-            if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
-                if ($sameScope) { //if we are saving in the same scope, replace image. Otherwise leave old one for original scope
-                    unlink(BASE_DIR.$image->getImage());
-                }
-            }
-
-
             //new small image
             $image->setX1($_POST['cropX1']);
             $image->setY1($_POST['cropY1']);
@@ -467,33 +424,9 @@ class Controller extends \Ip\Controller{
             $image->setY2($_POST['cropY2']);
             $image->setRequiredWidth($_POST['windowWidth']);
             $image->setRequiredHeight($_POST['windowHeight']);
-
-            $tmpSmallImageName = \Library\Php\Image\Functions::crop (
-                BASE_DIR.$image->getImageOrig(),
-                TMP_IMAGE_DIR,
-                $image->getX1(),
-                $image->getY1(),
-                $image->getX2(),
-                $image->getY2(),
-                100,
-                $image->getRequiredWidth(),
-                $image->getRequiredHeight()
-            );
-
-            $destDir = BASE_DIR.IMAGE_DIR;
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpSmallImageName, $destDir, substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 1, 4)); //without shuffle, browser caches old image when user changes cropping coordinates
-            copy(TMP_IMAGE_DIR.$tmpSmallImageName, $destDir.$newName);
-            $image->setImage(IMAGE_DIR.$newName);
-            unlink(BASE_DIR.TMP_IMAGE_DIR.$tmpSmallImageName);
         } else {
-            if (!$sameScope) { //duplicate cropped image
-                if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
-                    $destDir = BASE_DIR.IMAGE_DIR;
-                    $newName = \Library\Php\File\Functions::genUnoccupiedName($image->getImage(), $destDir);
-                    copy(BASE_DIR.$image->getImage(), $destDir.$newName);
-                    $image->setImage(IMAGE_DIR.$newName);
-                }
-
+            if (!$sameScope) {
+                //in this place cropped image should be duplicated. But after implementation of reflection service it is not used
             }
         }
 
@@ -627,10 +560,7 @@ class Controller extends \Ip\Controller{
             }
             if ($image) {
                 if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                    unlink(BASE_DIR.$image->getImageOrig());
-                }
-                if ($image->getImage() && file_exists(BASE_DIR.$image->getImage()) && is_file(BASE_DIR.$image->getImage())) {
-                    unlink(BASE_DIR.$image->getImage());
+                    \Modules\administrator\repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
             }
         }

@@ -11,7 +11,6 @@ namespace Modules\developer\inline_management\Entity;
 
 class Image
 {
-    private $image;
     private $imageOrig;
     private $x1;
     private $y1;
@@ -19,6 +18,8 @@ class Image
     private $y2;
     private $requiredWidth;
     private $requiredHeight;
+    /** @var randomly created hopefully unique id   */
+    private $id;
 
     /**
      * @param array|string $data
@@ -29,8 +30,7 @@ class Image
             $data = $this->parseStr($data);
         }
 
-        if (!empty($data['image']) && file_exists(BASE_DIR.$data['image']) && !empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
-            $this->image = $data['image'];
+        if (!empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
             $this->imageOrig = $data['imageOrig'];
 
             if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {
@@ -48,16 +48,33 @@ class Image
 
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
+
+                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+                $transform = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $this->getX1(),
+                    $this->getY1(),
+                    $this->getX2(),
+                    $this->getY2(),
+                    $this->getRequiredWidth(),
+                    $this->getRequiredHeight()
+                );
+                $this->image = $reflectionService->getReflection($this->getImageOrig(), null, $transform);
+
+
             }
         } else {
             $this->image = $defaultImage;
+        }
+        if ($data['id']) {
+            $this->id = $data['id'];
+        } else {
+            $this->id = mt_rand(2, 2147483647); //1 used for inline logo
         }
     }
 
     public function getValueStr()
     {
         $data = array();
-        $data['image'] = $this->image;
         $data['imageOrig'] = $this->imageOrig;
         $data['x1'] = $this->x1;
         $data['y1'] = $this->y1;
@@ -65,6 +82,7 @@ class Image
         $data['y2'] = $this->y2;
         $data['requiredWidth'] = $this->requiredWidth;
         $data['requiredHeight'] = $this->requiredHeight;
+        $data['id'] = $this->id;
         return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
     }
 
@@ -110,13 +128,13 @@ class Image
         return $this->requiredHeight;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
 
     //SETTERS
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
 
     public function setImageOrig($imageOrig)
     {

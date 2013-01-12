@@ -301,7 +301,6 @@
         
         _uploadedNewFile : function (event, files) {
             var $this = this;
-            console.log(this);
             var data = $this.data('ipUploadImage');
 
 

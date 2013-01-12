@@ -15,7 +15,6 @@ class Logo
     const TYPE_IMAGE = 'image';
 
     private $type;
-    private $image;
     private $imageOrig;
     private $x1;
     private $y1;
@@ -58,8 +57,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['image']) && file_exists(BASE_DIR.$data['image']) && !empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
-            $this->image = $data['image'];
+        if (!empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
             $this->imageOrig = $data['imageOrig'];
 
             if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {
@@ -77,6 +75,19 @@ class Logo
 
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
+
+                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+                $transform = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $this->getX1(),
+                    $this->getY1(),
+                    $this->getX2(),
+                    $this->getY2(),
+                    $this->getRequiredWidth(),
+                    $this->getRequiredHeight(),
+                    100
+                );
+                $requestedName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+                $this->image = $reflectionService->getReflection($this->getImageOrig(), $requestedName, $transform);
             }
         } else {
             $this->image = $defaultLogo;
@@ -101,7 +112,6 @@ class Logo
     {
         $data = array();
         $data['type'] = $this->type;
-        $data['image'] = $this->image;
         $data['imageOrig'] = $this->imageOrig;
         $data['x1'] = $this->x1;
         $data['y1'] = $this->y1;
@@ -182,11 +192,6 @@ class Logo
     public function setType($type)
     {
         $this->type = $type;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     public function setImageOrig($imageOrig)

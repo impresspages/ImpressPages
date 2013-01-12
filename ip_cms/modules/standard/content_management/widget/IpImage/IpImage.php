@@ -32,18 +32,14 @@ class IpImage extends \Modules\standard\content_management\Widget{
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
         if (isset($postData['newImage']) && file_exists(BASE_DIR.$postData['newImage']) && is_file(BASE_DIR.$postData['newImage'])) {
-
-            if (!\Library\Php\File\Functions::isFileInPublicDir($postData['newImage'])) {
-                throw new \Exception("Security notice. Try to access an image (".$postData['newImage'].") from a non public folder.");
-            }
-
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Modules\administrator\repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
             }
             
             //new original image
-            $newData['imageOriginal'] = \Modules\administrator\repository\Model::addFile($postData['newImage'], 'standard/content_management', $widgetId);
+            \Modules\administrator\repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
+            $newData['imageOriginal'] = $postData['newImage'];
             
         }
 

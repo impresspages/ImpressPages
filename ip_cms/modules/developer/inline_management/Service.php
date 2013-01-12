@@ -45,7 +45,7 @@ class Service
     }
 
     /**
-     * Use if you watn to generate image logo. No mather what has been chosen by the user.
+     * Use if you want to generate image logo. No mather what has been chosen by the user.
      * @param $cssClass
      */
     public function generateImageLogo($cssClass = null)
