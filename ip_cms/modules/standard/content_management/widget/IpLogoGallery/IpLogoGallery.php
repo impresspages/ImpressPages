@@ -50,10 +50,6 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                         break;
                     }
 
-                    //security check
-                    if (!\Library\Php\File\Functions::isFileInPublicDir($logo['fileName'])) {
-                        throw new \Exception("Security notice. Try to access a file (".$logo['fileName'].") from a non public folder.");
-                    }
 
                     //bind to original file
                     \Modules\administrator\repository\Model::bindFile($logo['fileName'], 'standard/content_management', $widgetId);

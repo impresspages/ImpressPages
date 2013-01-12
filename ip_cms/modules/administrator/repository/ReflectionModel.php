@@ -63,9 +63,15 @@ class ReflectionModel
      * @param string $file
      * @param string $desiredName
      * @param Transform\Base $transform
+     * @throws \Exception
      */
     private function createReflection($file, $desiredName, Transform\Base $transform)
     {
+        if (!\Library\Php\File\Functions::isFileInPublicDir($file)) {
+            throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non public folder.");
+        }
+
+
         $pathInfo = pathinfo($file);
 
         $ext = $transform->getNewExtension($file, $pathInfo['extension']);

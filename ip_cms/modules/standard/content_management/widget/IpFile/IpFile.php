@@ -20,11 +20,6 @@ class IpFile extends \Modules\standard\content_management\Widget{
     }
 
     public function update($widgetId, $postData, $currentData) {
-        global $parametersMod;
-        $answer = '';
-
-
-        $destinationDir = BASE_DIR.FILE_DIR;
 
         $newData = $currentData;
 
@@ -36,11 +31,8 @@ class IpFile extends \Modules\standard\content_management\Widget{
                     switch($file['status']){
                         case 'new':
                             if (file_exists(BASE_DIR.$file['fileName'])) {
-                                if (!\Library\Php\File\Functions::isFileInPublicDir($file['fileName'])) {
-                                    throw new \Exception("Security notice. Try to access a file (".$file['fileName'].") from a non public folder.");
-                                }
-                                
-                                $repositoryFilename = \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
+
+                                \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
                                 
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
@@ -48,7 +40,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
                                     $title = $file['title'];
                                 }
                                 $newFile = array(
-                                    'fileName' => $repositoryFilename,
+                                    'fileName' => $file['fileName'],
                                     'title' => $title
                                 );
                                 $newData['files'][] = $newFile;

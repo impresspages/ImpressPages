@@ -54,7 +54,7 @@ function IpWidget_IpFile(widgetObject) {
 
         var container = $this.find('.ipWidget_ipFile_container');
         for(var index in files) {
-            container.ipWidget_ipFile_container('addFile', files[index].file, files[index].file, 'new');
+            container.ipWidget_ipFile_container('addFile', files[index].file, files[index].fileName, 'new');
         }
     }
     

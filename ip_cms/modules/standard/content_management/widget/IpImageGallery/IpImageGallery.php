@@ -50,11 +50,6 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                         break;
                     }
 
-                    //security check
-                    if (!\Library\Php\File\Functions::isFileInPublicDir($image['fileName'])) {
-                        throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non public folder.");
-                    }
-
                     //bind new image to the widget
                     \Modules\administrator\repository\Model::bindFile($image['fileName'], 'standard/content_management', $widgetId);
 
