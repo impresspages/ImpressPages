@@ -93,7 +93,7 @@
             if (!response || !response.status || response.status == 'error') {
                 //incorrect response
             }
-console.log(response.files);
+
             $this.trigger('ipModRepository.confirm', [response.files]);
 
         },

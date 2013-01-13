@@ -17,7 +17,13 @@ class System{
     }
 
     public function init(){
+        global $site;
         global $dispatcher;
+
+        if ($site->managementState()) {
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/system.js', 0);
+        }
+
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');
         $dispatcher->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
     }
