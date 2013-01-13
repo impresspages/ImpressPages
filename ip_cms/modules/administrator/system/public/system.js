@@ -8,4 +8,3 @@ if (typeof console === "undefined") {
         groupEnd: function () {}
     };
 }
-alert('test');
