@@ -172,6 +172,37 @@ class Controller extends \Ip\Controller{
 
     }
 
+    public function deleteTmpFile()
+    {
+        if (!isset($_POST['file'])) {
+            $answer = array(
+                'status' => 'error',
+                'error' => 'Missing post variable'
+            );
+            $this->returnJson($answer);
+        }
+
+        $file = realpath($_POST['file']);
+
+        if (strpos($file, BASE_DIR.TMP_FILE_DIR) !== 0) {
+            $answer = array(
+                'status' => 'error',
+                'error' => 'Trying to access file outside temporary dir'
+            );
+            $this->returnJson($answer);
+        }
+
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $answer = array(
+            'status' => 'success'
+        );
+        $this->returnJson($answer);
+    }
+
     public function getRecent()
     {
 

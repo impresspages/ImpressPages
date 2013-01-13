@@ -145,6 +145,27 @@
                 $fileRecord.data('fileName', answer.fileName);
                 $fileRecord.data('dir', answer.dir);
                 $fileRecord.data('file', answer.file);
+                $fileRecord.find('.ipaFileRemove').click(function(e){
+                    e.preventDefault();
+                    $fileRecord.hide();
+                    $fileRecord.data('deleted', true);
+
+                    var data = Object();
+                    data.g = 'administrator';
+                    data.m = 'repository';
+                    data.a = 'deleteTmpFile';
+                    data.file = answer.file;
+
+                    $.ajax ({
+                        type : 'POST',
+                        url : ip.baseUrl,
+                        data : data,
+                        context : $this,
+                        success : $.proxy(methods._storeFilesResponse, this),
+                        dataType : 'json'
+                    });
+
+                });
                 $this.find('.ipmFiles').append($fileRecord);
             }
 
@@ -159,6 +180,11 @@
             $this.find('.ipmFiles div').each(function(){
 
                 var $this = $(this);
+
+                if ($this.data('deleted')) {
+                    return;
+                }
+
                 files.push({
                     fileName : $this.data('fileName'),
                     file : $this.data('file'),
