@@ -59,7 +59,7 @@ oConnector.ResourceType		= GetUrlParam( 'Type' ) ;
 oConnector.ShowAllTypes		= ( oConnector.ResourceType.length == 0 ) ;
 
 if ( oConnector.ShowAllTypes )
-	oConnector.ResourceType = 'Image' ;
+	oConnector.ResourceType = 'File' ;
 
 oConnector.SendCommand = function( command, params, callBackFunction )
 {

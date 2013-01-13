@@ -57,7 +57,7 @@ $Config['SecureImageUploads'] = true;
 $Config['ConfigAllowedCommands'] = array('QuickUpload', 'FileUpload', 'GetFolders', 'GetFoldersAndFiles', 'CreateFolder') ;
 
 // Allowed Resource Types
-$Config['ConfigAllowedTypes'] = array('Image', 'File', 'Flash', 'Media') ;
+$Config['ConfigAllowedTypes'] = array('File') ;
 
 // For security, HTML is allowed in the first Kb of data for files having the
 // following extensions only.
@@ -115,26 +115,37 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 		
 */
 
+$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'].FILE_DIR.'manual/';
+$manualRepositoryPath = $Config['UserFilesPath'].FILE_DIR.'manual/';
+if (!file_exists($manualRepositoryAbsolutePath) || !is_dir($manualRepositoryAbsolutePath)) {
+    mkdir($manualRepositoryAbsolutePath);
+}
+
+
+
+
+// FILES DIR HAS BEEN DISABLED TO AVOID COLLISION WITH NATIVE REPOSITORY MANAGER
 $Config['AllowedExtensions']['File']	= array('7z', 'aiff', 'asf', 'avi', 'bmp', 'csv', 'doc', 'fla', 'flv', 'gif', 'gz', 'gzip', 'jpeg', 'jpg', 'mid', 'mov', 'mp3', 'mp4', 'mpc', 'mpeg', 'mpg', 'ods', 'odt', 'pdf', 'png', 'ppt', 'pxd', 'qt', 'ram', 'rar', 'rm', 'rmi', 'rmvb', 'rtf', 'sdc', 'sitd', 'swf', 'sxc', 'sxw', 'tar', 'tgz', 'tif', 'tiff', 'txt', 'vsd', 'wav', 'wma', 'wmv', 'xls', 'xml', 'zip') ;
 $Config['DeniedExtensions']['File']		= array() ;
-$Config['FileTypesPath']['File']		= $Config['UserFilesPath'] . FILE_REPOSITORY_DIR ;
-$Config['FileTypesAbsolutePath']['File']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].FILE_REPOSITORY_DIR ;
+$Config['FileTypesPath']['File']		= $manualRepositoryPath ;
+$Config['FileTypesAbsolutePath']['File']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $manualRepositoryAbsolutePath ;
 $Config['QuickUploadPath']['File']		= $Config['UserFilesPath'] ;
 $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 
-$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
-$Config['DeniedExtensions']['Image']	= array() ;
-$Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . IMAGE_REPOSITORY_DIR;
-$Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].IMAGE_REPOSITORY_DIR ;
-$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
-$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
+//$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
+//$Config['DeniedExtensions']['Image']	= array() ;
+//$Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . IMAGE_REPOSITORY_DIR;
+//$Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].IMAGE_REPOSITORY_DIR ;
+//$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
+//$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
+//
+//$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
+//$Config['DeniedExtensions']['Flash']	= array() ;
+//$Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . VIDEO_REPOSITORY_DIR;
+//$Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].VIDEO_REPOSITORY_DIR ;
+//$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
+//$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 
-$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
-$Config['DeniedExtensions']['Flash']	= array() ;
-$Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . VIDEO_REPOSITORY_DIR;
-$Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].VIDEO_REPOSITORY_DIR ;
-$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
-$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 /*
 $Config['AllowedExtensions']['Media']	= array('aiff', 'asf', 'avi', 'bmp', 'fla', 'flv', 'gif', 'jpeg', 'jpg', 'mid', 'mov', 'mp3', 'mp4', 'mpc', 'mpeg', 'mpg', 'png', 'qt', 'ram', 'rm', 'rmi', 'rmvb', 'swf', 'tif', 'tiff', 'wav', 'wma', 'wmv') ;
 $Config['DeniedExtensions']['Media']	= array() ;
