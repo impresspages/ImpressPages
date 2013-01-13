@@ -11,7 +11,7 @@
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
                     <div class="ipmCurUploads"></div>
-                    <a href="#" style="z-index: 2500;" class="ipAdminButton ipmBrowseButton" id="ipModRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/system_translations/add_new'); ?></a>
+                    <a href="#" style="z-index: 99100;" class="ipAdminButton ipmBrowseButton" id="ipModRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/system_translations/add_new'); ?></a>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
                     <div class="ipUploadProgressItem">
