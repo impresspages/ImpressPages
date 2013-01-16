@@ -28,6 +28,11 @@ var ipRepository = function () {
                 case '#ipModRepositoryTabRecent':
                     $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent();
                     break;
+                case '#ipModRepositoryTabBuy':
+                    $popup.find('#ipModRepositoryTabBuy').ipRepositoryBuy();
+
+                    //bigStockInit();
+                    break;
             }
         }
     });

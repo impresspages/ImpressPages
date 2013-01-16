@@ -13,7 +13,7 @@ define('TARGET_VERSION', '2.6');
 
 date_default_timezone_set('Europe/Vilnius'); //PHP 5 requires timezone to be set.
 
-
+throw new \Exception("Installation of 2.7 is not prepared yet"); //todo add parameters from update to install script
 if (get_magic_quotes_gpc()) { //fix magic quotes option
     $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
     while (list($key, $val) = each($process)) {

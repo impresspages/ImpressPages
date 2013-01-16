@@ -20,6 +20,7 @@ class System{
             $site->addCss(BASE_URL.MODULE_DIR.'administrator/repository/public/repository.css');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/uploader.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/recent.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/buy.js');
             $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php')->render());
         }
     }

@@ -83,3 +83,32 @@ RECENT
 
 #ipModRepositoryTabRecent .ipmBrowserContainer .ui-selecting img{ outline: #F1C06B solid 5px; }
 #ipModRepositoryTabRecent .ipmBrowserContainer .ui-selected img{ outline: #F5A417 solid 5px; } /*rgb(206, 206, 206)*/
+
+
+
+/*
+BUY
+*/
+
+/* make modal larger */
+.modal {
+    width:700px
+}
+
+/* put the categories in two columns */
+#categories ul {
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    column-count: 2;
+}
+
+/* make the thumbnail grid pretty */
+.thumbnails {
+    text-align: justify;
+}
+
+.thumbnails li{
+    height:180px;
+    display: inline-block;
+    float:none;
+}
