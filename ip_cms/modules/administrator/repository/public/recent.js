@@ -14,6 +14,7 @@
 
                 var data = $this.data('ipRepositoryRecent');
                 if (!data) {
+                    var $popup = $('.ipModRepositoryPopup');
                     $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
                     $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
@@ -35,6 +36,9 @@
                         dataType : 'json'
                     });
 
+                    $(window).bind("resize.ipRepositoryRecent", $.proxy(methods._resize, this));
+                    $popup.bind('ipModRepository.close', $.proxy(methods._teardown, this));
+                    $.proxy(methods._resize, this)();
                 }
             });
         },
@@ -85,6 +89,16 @@
         _cancel : function(e) {
             e.preventDefault();
             $(this).trigger('ipModRepository.cancel');
+        },
+
+        // set back our element
+        _teardown: function() {
+            $(window).unbind('resize.ipRepositoryRecent');
+        },
+
+        _resize : function(e) {
+            var $this = $(this);
+            $this.find('.ipmBrowser').height((parseInt($(window).height()) - 110) + 'px');
         }
 
     };

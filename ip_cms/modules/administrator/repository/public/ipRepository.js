@@ -34,8 +34,6 @@ var ipRepository = function () {
                     break;
                 case '#ipModRepositoryTabBuy':
                     $popup.find('#ipModRepositoryTabBuy').ipRepositoryBuy();
-
-                    //bigStockInit();
                     break;
             }
         }
@@ -44,14 +42,27 @@ var ipRepository = function () {
     //$popup.find('.tabs').on( "tabsactivate", function( event, ui ) {console.log(ui.newTab);} );
 
 
-    $popup.bind('ipModRepository.confirm', function(e, files) {$(this).trigger('ipRepository.filesSelected', [files]); $(this).dialog('close');});
+    $popup.bind('ipModRepository.confirm', function(e, files) {
+        $(this).trigger('ipRepository.filesSelected', [files]);
+        $(this).trigger('ipModRepository.close');
+    });
 
     $popup.bind('ipModRepository.cancel', function(e) {
-        /*$(this).dialog('close');*/
+        $(this).trigger('ipModRepository.close');
+    });
+
+    $popup.bind('ipModRepository.close', function(e) {
         top.document.getElementById('adminFrameset').rows = $(this).data('originalTopFrameRows');
+        $(document).off('keyup', ipRepositoryESC);
         $('.ipModRepositoryPopup').remove();
         $('body').removeClass('stopScrolling');
-    });
+    })
+
+    $popup.find('.ipaClose').hover(function(){$(this).addClass('ui-state-hover');}, function(){$(this).removeClass('ui-state-hover');});
+
+    $popup.find('.ipaClose').click(function(e){$(this).trigger('ipModRepository.cancel');  e.preventDefault();});
+
+    $(document).on('keyup', ipRepositoryESC);
 
     $('body').addClass('stopScrolling');
 
@@ -65,3 +76,11 @@ var ipRepository = function () {
 
 
 };
+
+
+var ipRepositoryESC = function(e) {
+    var $popup = $('.ipModRepositoryPopup');
+    if (e.keyCode == 27) {
+        $popup.trigger('ipModRepository.cancel');
+    }
+}

@@ -1,10 +1,13 @@
 <div class="ipModRepositoryPopup">
     <div class="tabs">
         <ul>
-            <li><a href="#ipModRepositoryTabUpload">Upload files</a></li>
-            <li><a href="#ipModRepositoryTabRecent">Recent files</a></li>
-            <li><a href="#ipModRepositoryTabBuy">Buy</a></li>
+            <li><a href="#ipModRepositoryTabUpload">Upload files xxx</a></li>
+            <li><a href="#ipModRepositoryTabRecent">Recent files xxx</a></li>
+            <li><a href="#ipModRepositoryTabBuy">Buy xxx</a></li>
         </ul>
+
+        <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a>
+
         <div id="ipModRepositoryTabUpload">
             <div id="ipModRepositoryDragContainer">
                 <div class="ipmFiles"></div>

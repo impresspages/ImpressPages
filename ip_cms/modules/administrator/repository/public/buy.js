@@ -11,11 +11,17 @@
         init : function(options) {
 
             return this.each(function() {
-
                 var $this = $(this);
+
+
 
                 var data = $this.data('ipRepositoryBuy');
                 if (!data) {
+                    var $popup = $('.ipModRepositoryPopup');
+
+                    $(window).bind("resize.ipRepositoryBuy", $.proxy(methods._resize, this));
+                    $popup.bind('ipModRepository.close', $.proxy(methods._teardown, this));
+
 
                     $this.data('ipRepositoryBuy', {
                         accountId : '370291'
@@ -26,26 +32,21 @@
                     $this.find(".ipaSearchForm").bind('submit', $.proxy(methods._search, this));
 
 
-
-
-
-
-
-
                     //show a loading message when the search button is clicked
                     //$this.on("submit", ".ipaSearchForm", )
-
-
 
 
                     //when a user clicks on a thumbnail
                     //$("#results").on("click", "a", );
 
-
-
-
+                    $.proxy(methods._resize, this)();
                 }
             });
+        },
+
+        // set back our element
+        _teardown: function() {
+            $(window).unbind('resize.ipRepositoryBuy');
         },
 
         _search :   function (e){
@@ -74,6 +75,8 @@
             var params = {};
             if(val.category != "") params.category = val.category;
             params.q = search_term;
+            params.vectors = 'n';
+            params.safesearch = 'n';
             params.page = val.page;
 
             $.getJSON("http://api.bigstockphoto.com/2/"+accountId+"/search/?callback=?", params, $.proxy(methods._searchResponse, this));
@@ -112,11 +115,13 @@
                     $(".detail-template").dialog();
                 }
             });
+        },
+
+
+        _resize : function(e) {
+            var $this = $(this);
+            $this.find('.ipaResults').height((parseInt($(window).height()) - 150) + 'px');
         }
-
-
-
-
 
 
 
