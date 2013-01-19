@@ -48,7 +48,7 @@
         </div>
         <div id="ipModRepositoryTabBuy">
             <form class="ipaSearchForm">
-                <input type="text" class="ipAdminInput" >
+                <input type="text" class="ipAdminInput ipaSearchTerm" >
                 <button type="submit" class="ipAdminButton">Search</button>
             </form>
             <div class="ipmContent ipaContent ipgHide">
@@ -56,6 +56,7 @@
                 <ul class="ipmResults ipaResults">
                     <?php /*populated using JS*/ ?>
                 </ul>
+                <div class="clear"><!-- --></div>
                 <?php echo \Ip\View::create('buyPagination.php'); ?>
             </div>
 

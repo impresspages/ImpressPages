@@ -1,4 +1,18 @@
 
+/*
+POPUP
+*/
+.ipModRepositoryPopup {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:99000;
+}
+
+
+
 .stopScrolling {
     height: 100%;
     overflow: hidden;
@@ -89,26 +103,23 @@ RECENT
 /*
 BUY
 */
-
-/* make modal larger */
-.modal {
-    width:700px
+#ipModRepositoryTabBuy ul.ipmResults {
+    list-style-type: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
-/* put the categories in two columns */
-#categories ul {
-    -moz-column-count: 2;
-    -webkit-column-count: 2;
-    column-count: 2;
+#ipModRepositoryTabBuy ul.ipmResults li {
+    float: left;
+    height: 178px;
+    width: 178px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-/* make the thumbnail grid pretty */
-.thumbnails {
-    text-align: justify;
-}
-
-.thumbnails li{
-    height:180px;
-    display: inline-block;
-    float:none;
+#ipModRepositoryTabBuy ul.ipmResults li img{
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 3px;
 }

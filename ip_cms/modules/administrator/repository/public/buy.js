@@ -63,7 +63,7 @@
 
             var val = val || {};
 
-            var search_term = $(".search-query").val();
+            var search_term = $this.find(".ipaSearchTerm").val();
 
 
             var val = val || {};
@@ -73,7 +73,7 @@
             //setup the paramaters for the JSONP request
             var params = {};
             if(val.category != "") params.category = val.category;
-            params.q = val.q;
+            params.q = search_term;
             params.page = val.page;
 
             $.getJSON("http://api.bigstockphoto.com/2/"+accountId+"/search/?callback=?", params, $.proxy(methods._searchResponse, this));
@@ -87,10 +87,11 @@
 
             $this.find('.ipaLoading').show();
             var $results = $this.find('.ipaResults');
+
+
             if(data && data.data && data.data.images) {
                 $.each(data.data.images, function(i, v){
-                    //console.log(v);
-                    var $newItem = $this.find('.ipaSearchResultItemTemplate').clone().detach();
+                    var $newItem = $this.find('.ipaSearchResultItemTemplate').clone().removeClass('ipaSearchResultItemTemplate').detach();
                     $newItem.show();
                     $newItem.find('img').attr("src",v.small_thumb.url);
                     $newItem.find("a").data('id', v.id);
@@ -100,7 +101,7 @@
                 //results.append("<li id=\"oops\"><div class=\"alert alert-error\">OOOPS! We found no results. Please try another search.</div></li>");
             }
 
-            //$this.find(".ipaContent").show();
+            $this.find(".ipaContent").show();
         },
 
         _clickThumbnail : function(e){
