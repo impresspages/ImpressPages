@@ -96,7 +96,8 @@
                 $.each(data.data.images, function(i, v){
                     var $newItem = $this.find('.ipaSearchResultItemTemplate').clone().removeClass('ipaSearchResultItemTemplate').detach();
                     $newItem.show();
-                    $newItem.find('img').attr("src",v.small_thumb.url);
+                    $newItem.find("a").css('background-image', 'url(\'' + v.small_thumb.url + '\')');
+                    //$newItem.find('img').attr("src",v.small_thumb.url);
                     $newItem.find("a").data('id', v.id);
                     $results.append($newItem);
                 });

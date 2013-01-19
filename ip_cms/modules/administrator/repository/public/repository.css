@@ -123,16 +123,18 @@ BUY
 }
 
 #ipModRepositoryTabBuy ul.ipmResults li {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+#ipModRepositoryTabBuy ul.ipmResults li a{
     float: left;
     height: 178px;
     width: 178px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-#ipModRepositoryTabBuy ul.ipmResults li img{
-    margin: auto;
+    background-repeat:no-repeat;
+    background-position:center;
     border: 1px solid #ccc;
     padding: 3px;
 }
+

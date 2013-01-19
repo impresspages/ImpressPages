@@ -66,7 +66,7 @@
             <!-- search results item template -->
             <ul class="ipgHide">
                 <li class="ipaSearchResultItemTemplate">
-                    <a href="#" class="ipmThumbnail"><img></a>
+                    <a href="#" class="ipmThumbnail"></a>
                 </li>
             </ul>
 
