@@ -17,27 +17,18 @@
 
                 var data = $this.data('ipRepositoryBuy');
                 if (!data) {
-                    var $popup = $('.ipModRepositoryPopup');
-
-                    $(window).bind("resize.ipRepositoryBuy", $.proxy(methods._resize, this));
-                    $popup.bind('ipModRepository.close', $.proxy(methods._teardown, this));
-
-
                     $this.data('ipRepositoryBuy', {
                         accountId : '370291'
                     });
 
 
 
+                    var $popup = $('.ipModRepositoryPopup');
+
+                    $(window).bind("resize.ipRepositoryBuy", $.proxy(methods._resize, this));
+                    $popup.bind('ipModRepository.close', $.proxy(methods._teardown, this));
+
                     $this.find(".ipaSearchForm").bind('submit', $.proxy(methods._search, this));
-
-
-                    //show a loading message when the search button is clicked
-                    //$this.on("submit", ".ipaSearchForm", )
-
-
-                    //when a user clicks on a thumbnail
-                    //$("#results").on("click", "a", );
 
                     $.proxy(methods._resize, this)();
                 }
@@ -87,18 +78,20 @@
 
         _searchResponse : function(data){
             var $this = $(this);
+            var context = this;
 
             $this.find('.ipaLoading').show();
             var $results = $this.find('.ipaResults');
 
+            $results.find('li').remove();
 
             if(data && data.data && data.data.images) {
                 $.each(data.data.images, function(i, v){
                     var $newItem = $this.find('.ipaSearchResultItemTemplate').clone().removeClass('ipaSearchResultItemTemplate').detach();
                     $newItem.show();
                     $newItem.find("a").css('background-image', 'url(\'' + v.small_thumb.url + '\')');
-                    //$newItem.find('img').attr("src",v.small_thumb.url);
                     $newItem.find("a").data('id', v.id);
+                    $newItem.on('click', $.proxy(methods._clickThumbnail, context));
                     $results.append($newItem);
                 });
             } else {
@@ -109,17 +102,27 @@
         },
 
         _clickThumbnail : function(e){
-            $.getJSON("http://api.bigstockphoto.com/2/"+account_id+"/image/"+$(this).attr("href").substring(1)+"/?callback=?", function(data){
+            var $this = $(this);
+            var photoId = $(e.currentTarget).find('a').data('id');
+
+            var accountId = $this.data('ipRepositoryBuy').accountId;
+            $.getJSON("http://api.bigstockphoto.com/2/"+accountId+"/image/"+photoId+"/?callback=?", function(data){
+                console.log(data);
                 if(data && data.data && data.data.image) {
-                    console.log(data);
-                    $(".detail-template img").attr('src', data.data.image);
-                    $(".detail-template").dialog();
+                    var $dialog = $this.find('.ipmPreviewDialog');
+
+
+                    $dialog.ipRepositoryBuyPreview({
+                        accountId: accountId,
+                        previewImageUrl: data.data.image.preview.url
+                    });
+
                 }
             });
+            e.preventDefault();
         },
 
-
-        _resize : function(e) {
+        _resize: function(e) {
             var $this = $(this);
             $this.find('.ipaResults').height((parseInt($(window).height()) - 150) + 'px');
         }

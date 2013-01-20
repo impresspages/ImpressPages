@@ -6,7 +6,7 @@
             <li><a href="#ipModRepositoryTabBuy">Buy xxx</a></li>
         </ul>
 
-        <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a>
+        <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
         <div id="ipModRepositoryTabUpload">
             <div id="ipModRepositoryDragContainer">
@@ -14,7 +14,7 @@
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
                     <div class="ipmCurUploads"></div>
-                    <a href="#" style="z-index: 99100;" class="ipAdminButton ipmBrowseButton" id="ipModRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/system_translations/add_new'); ?></a>
+                    <a href="#" style="z-index: 99100;" class="ipAdminButton ipmBrowseButton" id="ipModRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
                     <div class="ipUploadProgressItem">
@@ -50,11 +50,12 @@
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
         <div id="ipModRepositoryTabBuy">
-            <form class="ipaSearchForm">
-                <input type="text" class="ipAdminInput ipaSearchTerm" >
-                <button type="submit" class="ipAdminButton">Search</button>
-            </form>
-            <div class="ipmContent ipaContent ipgHide">
+
+            <div class="ipmContent ipaContent">
+                <form class="ipaSearchForm">
+                    <input type="text" class="ipAdminInput ipaSearchTerm" >
+                    <button type="submit" class="ipAdminButton">Search</button>
+                </form>
                 <?php echo \Ip\View::create('buyPagination.php'); ?>
                 <ul class="ipmResults ipaResults">
                     <?php /*populated using JS*/ ?>
@@ -71,12 +72,17 @@
             </ul>
 
             <!-- image detail template -->
-            <div class="ipmBuyDialog ipgHide">
-                <img src="" alt="Image" />
-                <a href="#">Buy XXX</a>
+            <div class="ipmPreviewDialog ipgHide">
+                <div class="ipmPreviewLoading">
+                    <img src="<?php echo BASE_URL.MODULE_DIR.'administrator/repository/public/loading.gif' ?>" alt="Loading" />
+                </div>
+                <div class="ipmPreviewLoaded">
+                    <img class="ipmPreviewImage" src="" alt="Image" />
+                    <div  class="ipmPreviewDetails">
+                        <a href="#" class="ipAdminButton ipaConfirm">Buy XXX</a>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>

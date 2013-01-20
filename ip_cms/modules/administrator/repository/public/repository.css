@@ -19,6 +19,10 @@ POPUP
     font-size: 10px;
 }
 
+.ipModRepositoryPopup .ipmBuyDialog {
+    z-index:99001;
+}
+
 .ipModRepositoryPopup .ipmClose{
     margin-top: -24px;
     margin-right: 9px;
@@ -138,3 +142,20 @@ BUY
     padding: 3px;
 }
 
+
+#ipModRepositoryTabBuy .ipmPreviewDialog {
+    border: 20px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 99001;
+    display: none;
+}
+
+#ipModRepositoryTabBuy .ipmPreviewDialog  .ipmPreviewImage {
+    float: left;
+}
+
+#ipModRepositoryTabBuy .ipmPreviewDialog  .ipmPreviewDetails {
+    float: left;
+    margin-left: 15px;
+}

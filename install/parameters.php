@@ -1456,11 +1456,6 @@ newsletter";
         $parameterType["standard"]["configuration"]["system_translations"]["help"] = "string";
 
 
-        $parameterTitle["standard"]["configuration"]["system_translations"]["add_new"] = "Add new";
-        $parameterValue["standard"]["configuration"]["system_translations"]["add_new"] = "Add new";
-        $parameterAdmin["standard"]["configuration"]["system_translations"]["add_new"] = "0";
-        $parameterType["standard"]["configuration"]["system_translations"]["add_new"] = "string";
-
     $parameterGroupTitle["standard"]["configuration"]["translations"] = "Translations";
     $parameterGroupAdmin["standard"]["configuration"]["translations"] = "0";
 
