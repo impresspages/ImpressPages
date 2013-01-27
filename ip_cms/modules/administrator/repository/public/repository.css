@@ -117,45 +117,11 @@ RECENT
 
 
 
-/*
-BUY
+/**
+TAB BUY
 */
-#ipModRepositoryTabBuy ul.ipmResults {
-    list-style-type: none;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
 
-#ipModRepositoryTabBuy ul.ipmResults li {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    float: left;
-}
-
-#ipModRepositoryTabBuy ul.ipmResults li a{
-    float: left;
-    height: 178px;
-    width: 178px;
-    background-repeat:no-repeat;
-    background-position:center;
-    border: 1px solid #ccc;
-    padding: 3px;
-}
-
-
-#ipModRepositoryTabBuy .ipmPreviewDialog {
-    border: 20px solid #ccc;
-    background-color: #fff;
-    padding: 20px;
-    z-index: 99001;
-    display: none;
-}
-
-#ipModRepositoryTabBuy .ipmPreviewDialog  .ipmPreviewImage {
-    float: left;
-}
-
-#ipModRepositoryTabBuy .ipmPreviewDialog  .ipmPreviewDetails {
-    float: left;
-    margin-left: 15px;
+#ipModRepositoryTabBuy iframe{
+    width: 100%;
+    overflow: hidden;
 }

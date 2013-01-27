@@ -50,39 +50,7 @@
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
         <div id="ipModRepositoryTabBuy">
-
-            <div class="ipmContent ipaContent">
-                <form class="ipaSearchForm">
-                    <input type="text" class="ipAdminInput ipaSearchTerm" >
-                    <button type="submit" class="ipAdminButton">Search</button>
-                </form>
-                <?php echo \Ip\View::create('buyPagination.php'); ?>
-                <ul class="ipmResults ipaResults">
-                    <?php /*populated using JS*/ ?>
-                </ul>
-                <div class="clear"><!-- --></div>
-                <?php echo \Ip\View::create('buyPagination.php'); ?>
-            </div>
-
-            <!-- search results item template -->
-            <ul class="ipgHide">
-                <li class="ipaSearchResultItemTemplate">
-                    <a href="#" class="ipmThumbnail"></a>
-                </li>
-            </ul>
-
-            <!-- image detail template -->
-            <div class="ipmPreviewDialog ipgHide">
-                <div class="ipmPreviewLoading">
-                    <img src="<?php echo BASE_URL.MODULE_DIR.'administrator/repository/public/loading.gif' ?>" alt="Loading" />
-                </div>
-                <div class="ipmPreviewLoaded">
-                    <img class="ipmPreviewImage" src="" alt="Image" />
-                    <div  class="ipmPreviewDetails">
-                        <a href="#" class="ipAdminButton ipaConfirm">Buy XXX</a>
-                    </div>
-                </div>
-            </div>
+            <iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />
         </div>
     </div>
 </div>

@@ -21,8 +21,13 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/uploader.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/recent.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/buy.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/buyPreview.js');
-            $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php')->render());
+
+            $marketUrl = 'http://market.impresspages.org/en/images-v1/';
+            $popupData = array(
+                'marketUrl' => $marketUrl
+            );
+
+            $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
         }
     }
 
