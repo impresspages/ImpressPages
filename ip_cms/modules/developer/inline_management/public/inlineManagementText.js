@@ -73,7 +73,6 @@
             if (response.status == 'success') {
 
                 $('.ipModuleInlineManagementPopupText').html(response.html);
-                $('.ipModuleInlineManagementPopupText').tabs('destroy');
                 $('.ipModuleInlineManagementPopupText').tabs();
                 $('.ipModuleInlineManagementPopupText').tabs('select', 'ipInlineManagementTextTabs-' + response.curLanguageId);
 

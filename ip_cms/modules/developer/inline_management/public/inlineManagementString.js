@@ -72,7 +72,6 @@
             var $this = this;
             if (response.status == 'success') {
                 $('.ipModuleInlineManagementPopup.ipmString').html(response.html);
-                $('.ipModuleInlineManagementPopup.ipmString').tabs('destroy');
                 $('.ipModuleInlineManagementPopup.ipmString').tabs();
                 $('.ipModuleInlineManagementPopup.ipmString').tabs('select', 'ipInlineManagementStringTabs-' + response.curLanguageId);
 
