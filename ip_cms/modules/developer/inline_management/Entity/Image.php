@@ -65,7 +65,7 @@ class Image
         } else {
             $this->image = $defaultImage;
         }
-        if ($data['id']) {
+        if (!empty($data['id'])) {
             $this->id = $data['id'];
         } else {
             $this->id = mt_rand(2, 2147483647); //1 used for inline logo
