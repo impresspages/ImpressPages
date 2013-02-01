@@ -15,8 +15,10 @@ var ipRepository = function () {
     $('body').append(ipRepositoryHtml);
     var $popup = $('.ipModRepositoryPopup');
     $popup.css('top', $(document).scrollTop() + 'px');
-    $popup.data('originalTopFrameRows', top.document.getElementById('adminFrameset').rows);
-    top.document.getElementById('adminFrameset').rows = "0px,*";
+    if (top.document.getElementById('adminFrameset')) {
+        $popup.data('originalTopFrameRows', top.document.getElementById('adminFrameset').rows);
+        top.document.getElementById('adminFrameset').rows = "0px,*";
+    }
     //$popup.dialog({modal: true, width: 853, height: 450, top: 50, zIndex: 99000});
 
 
@@ -52,7 +54,9 @@ var ipRepository = function () {
     });
 
     $popup.bind('ipModRepository.close', function(e) {
-        top.document.getElementById('adminFrameset').rows = $(this).data('originalTopFrameRows');
+        if (top.document.getElementById('adminFrameset')) {
+            top.document.getElementById('adminFrameset').rows = $(this).data('originalTopFrameRows');
+        }
         $(document).off('keyup', ipRepositoryESC);
         $('.ipModRepositoryPopup').remove();
         $('body').removeClass('stopScrolling');
