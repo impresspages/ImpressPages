@@ -203,7 +203,7 @@ class Controller extends \Ip\Controller{
         $this->returnJson($answer);
     }
 
-    public function getRecent()
+    public function getAll()
     {
 
         if(isset($_POST['seek'])) {

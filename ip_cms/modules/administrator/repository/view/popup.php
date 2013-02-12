@@ -1,20 +1,22 @@
-<div class="ipModRepositoryPopup">
+<div class="ipModuleRepositoryPopup">
     <div class="tabs">
         <ul>
-            <li><a href="#ipModRepositoryTabUpload">Upload files xxx</a></li>
-            <li><a href="#ipModRepositoryTabRecent">Recent files xxx</a></li>
-            <li><a href="#ipModRepositoryTabBuy">Buy xxx</a></li>
+            <li><a href="#ipModuleRepositoryTabUpload">{{Upload new}}</a></li>
+            <li><a href="#ipModuleRepositoryTabAll">{{All files}}</a></li>
+            <li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a></li>
         </ul>
 
         <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
-        <div id="ipModRepositoryTabUpload">
-            <div id="ipModRepositoryDragContainer">
+        <div id="ipModuleRepositoryTabUpload" class="ipmTabUpload">
+            <div id="ipModuleRepositoryDragContainer" class="impContainer">
                 <div class="ipmFiles"></div>
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
-                    <div class="ipmCurUploads"></div>
-                    <a href="#" style="z-index: 99100;" class="ipAdminButton ipmBrowseButton" id="ipModRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
+                    <div class="ipmBrowseButtonWrapper">
+                        <span class="impDragdropNotice">{{Drag&drop files here or click a button to upload.}}</span>
+                        <a href="#" class="ipAdminButton ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
+                    </div>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
                     <div class="ipUploadProgressItem">
@@ -34,7 +36,7 @@
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
 
         </div>
-        <div id="ipModRepositoryTabRecent">
+        <div id="ipModuleRepositoryTabAll" class="ipmTabAll">
             <div class="ipmBrowser clearfix">
                 <ul class="ipmBrowserContainer">
 
@@ -49,7 +51,7 @@
             <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
-        <div id="ipModRepositoryTabBuy">
+        <div id="ipModuleRepositoryTabBuy" class="ipmTabBuy">
             <iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />
         </div>
     </div>

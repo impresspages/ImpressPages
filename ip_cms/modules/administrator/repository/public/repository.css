@@ -1,127 +1,120 @@
-
-
 .stopScrolling {
     height: 100%;
     overflow: hidden;
 }
 
-
-/*
-POPUP
-*/
-.ipModRepositoryPopup {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:99000;
+/* Popup */
+.ipModuleRepositoryPopup {
     font-size: 10px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 99000;
 }
-
-.ipModRepositoryPopup .ipmBuyDialog {
-    z-index:99001;
+.ipModuleRepositoryPopup .ipmBuyDialog {
+    z-index: 99001;
 }
-
-.ipModRepositoryPopup .ipmClose{
-    margin-top: -24px;
-    margin-right: 9px;
+.ipModuleRepositoryPopup .ipmClose {
     float: right;
+    margin-right: 9px;
+    margin-top: -24px;
 }
-
-.ipModRepositoryPopup .ui-tabs{
+.ipModuleRepositoryPopup .ui-tabs {
     height: 100%;
 }
 
-
-
-/*
-UPLOADER
-*/
-
-#ipModRepositoryDragContainer{
-    height: 318px;
-}
-
-#ipModRepositoryTabUpload{
+/* Tab Upload */
+.ipModuleRepositoryPopup .ipmTabUpload {
     overflow: hidden;
 }
-
-
-#ipModRepositoryDragContainer .ipmFile {
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+    height: 295px;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .impDragdropNotice {
+    display: none;
     margin-bottom: 10px;
 }
-
-#ipModRepositoryDragContainer .ipaButton {
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop {
+    background-color: #d5d5d5;
+    background-image: url(bg_upload.png);
+    padding: 20px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop.hover {
+    background-color: #f9f9f9;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop .ipmBrowseButtonWrapper {
+    padding: 50px;
+    text-align: center;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop .impDragdropNotice {
+    display: block;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipmFile {
+    margin-bottom: 10px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaButton {
     background-color: #000;
     color: #fff;
     display: inline-block;
     font-size: 10px;
     padding: 2px 4px;
 }
-
-#ipModRepositoryDragContainer .ipaFileMove {
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaFileMove {
     cursor: move;
 }
-#ipModRepositoryDragContainer .ipaFileTemplate {
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaFileTemplate {
     margin-bottom: 7px;
 }
-#ipModRepositoryDragContainer .ipaRenameTo {
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaRenameTo {
     width: 400px;
 }
-
-#ipModRepositoryDragContainer .ipaFileMove {
-    cursor: move;
+.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipmBrowseButton {
+    z-index: 99100;
 }
 
-/*
-RECENT
-*/
-#ipModRepositoryTabRecent .ipmBrowser{
-    height: 295px;
+/* Tab All */
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowser {
     margin-bottom: 20px;
+    min-height: 295px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
-
-#ipModRepositoryTabRecent .ipmBrowserContainer{
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer {
     margin-left: -15px;
     margin-top: -25px;
 }
-
-#ipModRepositoryTabRecent .ipmBrowserContainer li{
-    width: 100px;
-    height: 100px;
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li {
     float: left;
+    height: 100px;
+    list-style: none;
     margin-left: 20px;
     margin-top: 30px;
-    list-style: none;
-}
-
-#ipModRepositoryTabRecent .ipmBrowserContainer li img{
     width: 100px;
+}
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li img {
     height: 100px;
-}
-
-#ipModRepositoryTabRecent .ipmBrowserContainer li .name{
-    float: left;
     width: 100px;
+}
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li .name {
+    float: left;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100px;
+}
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selecting img {
+    outline: #f1c06b solid 5px;
+}
+.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selected img {
+    outline: #f5a417 solid 5px; /*rgb(206, 206, 206)*/
 }
 
-
-
-#ipModRepositoryTabRecent .ipmBrowserContainer .ui-selecting img{ outline: #F1C06B solid 5px; }
-#ipModRepositoryTabRecent .ipmBrowserContainer .ui-selected img{ outline: #F5A417 solid 5px; } /*rgb(206, 206, 206)*/
-
-
-
-/**
-TAB BUY
-*/
-
-#ipModRepositoryTabBuy iframe{
-    width: 100%;
+/* Tab Buy */
+.ipModuleRepositoryPopup .ipmTabBuy iframe {
     overflow: hidden;
+    width: 100%;
 }

@@ -18,9 +18,9 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/ipRepository.js');
             $site->addCss(BASE_URL.MODULE_DIR.'administrator/repository/public/repository.css');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/uploader.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/recent.js');
-            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/buy.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/ipRepositoryUploader.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/ipRepositoryAll.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/ipRepositoryBuy.js');
 
             $marketUrl = 'http://market.impresspages.org/en/images-v1/';
             $popupData = array(

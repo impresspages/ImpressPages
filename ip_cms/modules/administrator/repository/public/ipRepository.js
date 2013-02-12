@@ -7,13 +7,13 @@
 "use strict";
 
 var ipRepository = function () {
-    if ($('.ipModRepositoryPopup').length) {
+    if ($('.ipModuleRepositoryPopup').length) {
         return; //repository window is already open. Do nothing.
     }
 
 
     $('body').append(ipRepositoryHtml);
-    var $popup = $('.ipModRepositoryPopup');
+    var $popup = $('.ipModuleRepositoryPopup');
     $popup.css('top', $(document).scrollTop() + 'px');
     if (top.document.getElementById('adminFrameset')) {
         $popup.data('originalTopFrameRows', top.document.getElementById('adminFrameset').rows);
@@ -23,7 +23,7 @@ var ipRepository = function () {
 
 
     //initialize first tab
-    $popup.find('#ipModRepositoryTabUpload').ipRepositoryUploader();
+    $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryUploader();
 
 
     //initialize other tabs on first use
@@ -31,11 +31,11 @@ var ipRepository = function () {
         activate: function( event, ui ) {
             var tabHref = ui.newTab.find('a').attr('href');
             switch(tabHref) {
-                case '#ipModRepositoryTabRecent':
-                    $popup.find('#ipModRepositoryTabRecent').ipRepositoryRecent();
+                case '#ipModuleRepositoryTabAll':
+                    $popup.find('#ipModuleRepositoryTabAll').ipRepositoryAll();
                     break;
-                case '#ipModRepositoryTabBuy':
-                    $popup.find('#ipModRepositoryTabBuy').ipRepositoryBuy();
+                case '#ipModuleRepositoryTabBuy':
+                    $popup.find('#ipModuleRepositoryTabBuy').ipRepositoryBuy();
                     break;
             }
         }
@@ -44,33 +44,33 @@ var ipRepository = function () {
     //$popup.find('.tabs').on( "tabsactivate", function( event, ui ) {console.log(ui.newTab);} );
 
 
-    $popup.bind('ipModRepository.confirm', function(e, files) {
+    $popup.bind('ipModuleRepository.confirm', function(e, files) {
         $(this).trigger('ipRepository.filesSelected', [files]);
-        $(this).trigger('ipModRepository.close');
+        $(this).trigger('ipModuleRepository.close');
     });
 
-    $popup.bind('ipModRepository.cancel', function(e) {
-        $(this).trigger('ipModRepository.close');
+    $popup.bind('ipModuleRepository.cancel', function(e) {
+        $(this).trigger('ipModuleRepository.close');
     });
 
-    $popup.bind('ipModRepository.close', function(e) {
+    $popup.bind('ipModuleRepository.close', function(e) {
         if (top.document.getElementById('adminFrameset')) {
             top.document.getElementById('adminFrameset').rows = $(this).data('originalTopFrameRows');
         }
         $(document).off('keyup', ipRepositoryESC);
-        $('.ipModRepositoryPopup').remove();
+        $('.ipModuleRepositoryPopup').remove();
         $('body').removeClass('stopScrolling');
-    })
+    });
 
     $popup.find('.ipaClose').hover(function(){$(this).addClass('ui-state-hover');}, function(){$(this).removeClass('ui-state-hover');});
 
-    $popup.find('.ipaClose').click(function(e){$(this).trigger('ipModRepository.cancel');  e.preventDefault();});
+    $popup.find('.ipaClose').click(function(e){$(this).trigger('ipModuleRepository.cancel');  e.preventDefault();});
 
     $(document).on('keyup', ipRepositoryESC);
 
     $('body').addClass('stopScrolling');
 
-    //$popup.bind('dialogclose', function(){$('.ipModRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
+    //$popup.bind('dialogclose', function(){$('.ipModuleRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
 
     return $popup;
 
@@ -83,8 +83,8 @@ var ipRepository = function () {
 
 
 var ipRepositoryESC = function(e) {
-    var $popup = $('.ipModRepositoryPopup');
+    var $popup = $('.ipModuleRepositoryPopup');
     if (e.keyCode == 27) {
-        $popup.trigger('ipModRepository.cancel');
+        $popup.trigger('ipModuleRepository.cancel');
     }
-}
+};

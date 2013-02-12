@@ -1,4 +1,8 @@
-
+/**
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
+ */
 
 "use strict";
 
@@ -12,18 +16,18 @@
 
                 var $this = $(this);
 
-                var data = $this.data('ipRepositoryRecent');
+                var data = $this.data('ipRepositoryAll');
                 if (!data) {
-                    var $popup = $('.ipModRepositoryPopup');
+                    var $popup = $('.ipModuleRepositoryPopup');
                     $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
                     $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
-                    $this.data('ipRepositoryRecent', {});
+                    $this.data('ipRepositoryAll', {});
 
                     var data = Object();
                     data.g = 'administrator';
                     data.m = 'repository';
-                    data.a = 'getRecent';
+                    data.a = 'getAll';
 
                     $.ajax ({
                         type : 'POST',
@@ -31,19 +35,19 @@
                         data : data,
                         context : this,
                         //success : $.proxy(methods._storeFilesResponse, this),
-                        success : methods._getRecentFilesResponse,
+                        success : methods._getAllFilesResponse,
                         error : function(){}, //TODO report error
                         dataType : 'json'
                     });
 
-                    $(window).bind("resize.ipRepositoryRecent", $.proxy(methods._resize, this));
-                    $popup.bind('ipModRepository.close', $.proxy(methods._teardown, this));
+                    $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
+                    $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $.proxy(methods._resize, this)();
                 }
             });
         },
 
-        _getRecentFilesResponse : function(response) {
+        _getAllFilesResponse : function(response) {
             var $this = $(this);
 
             if (!response || !response.files) {
@@ -63,7 +67,6 @@
                 $browserContainer.append($newItem);
             }
 
-
 //            $browserContainer.bind("mousedown", function(e) {
 //                e.metaKey = true;
 //            }).selectable();
@@ -82,39 +85,38 @@
                 files.push($this.data('fileData'));
             });
 
-            $this.trigger('ipModRepository.confirm', [files]);
+            $this.trigger('ipModuleRepository.confirm', [files]);
 
         },
 
         _cancel : function(e) {
             e.preventDefault();
-            $(this).trigger('ipModRepository.cancel');
+            $(this).trigger('ipModuleRepository.cancel');
         },
 
         // set back our element
         _teardown: function() {
-            $(window).unbind('resize.ipRepositoryRecent');
+            $(window).unbind('resize.ipRepositoryAll');
         },
 
         _resize : function(e) {
             var $this = $(this);
-            $this.find('.ipmBrowser').height((parseInt($(window).height()) - 110) + 'px');
+            var $block = $this.find('.ipmBrowser');
+            var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
+            $block.height((parseInt($(window).height()) - (110 + padding)) + 'px');
         }
 
     };
 
-    $.fn.ipRepositoryRecent = function(method) {
+    $.fn.ipRepositoryAll = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipRepositoryRecent');
+            $.error('Method ' + method + ' does not exist on jQuery.ipRepositoryAll');
         }
 
     };
 
 })(jQuery);
-
-
-

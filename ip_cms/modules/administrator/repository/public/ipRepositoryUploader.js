@@ -1,4 +1,8 @@
-
+/**
+ * @package ImpressPages
+ * @copyright   Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
+ */
 
 "use strict";
 
@@ -14,16 +18,12 @@
 
                 var data = $this.data('ipRepositoryUploader');
                 if (!data) {
-
-                    $this.data('ipRepositoryUploader',
-                        {
-
-                        }
-                    )
+                    var $popup = $('.ipModuleRepositoryPopup');
+                    $this.data('ipRepositoryUploader', {});
 
                     var uploaderConfig = {
                         runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : 'ipModRepositoryUploadButton',
+                        browse_button : 'ipModuleRepositoryUploadButton',
 
                         max_file_size : '10000Mb',
                         chunk_size : '1mb',
@@ -40,26 +40,43 @@
                         silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap',
 
                         button_browse_hover : true,
-                        drop_element : "ipModRepositoryDragContainer",
+                        drop_element : "ipModuleRepositoryDragContainer",
                         autostart : true,
-                        container: "ipModRepositoryTabUpload"
+                        container: "ipModuleRepositoryTabUpload"
                     };
 
-
                     var uploader = new plupload.Uploader(uploaderConfig);
-                    uploader.init();
-
-
+                    uploader.bind('Init', function(up) {
+                        // if dragdrop is possible, we'll enhance UI
+                        if (up.features.dragdrop) {
+                            $('#'+uploaderConfig.drop_element)
+                                .addClass('dragdrop')
+                                .bind('dragover', function(){
+                                    $(this).addClass('hover');
+                                })
+                                .bind('dragexit drop', function(){
+                                    $(this).removeClass('hover');
+                                });
+                        }
+                    });
                     uploader.bind('Error', $.proxy(methods._error, this));
-                    uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
                     uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
                     uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, this));
+                    uploader.init();
 
-                    $( ".ipmFiles" ).sortable();
-                    $( ".ipmFiles" ).sortable('option', 'handle', '.ipaFileMove');
+                    // for handling method to work uploader needs to be initialised first
+                    uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
+
+                    $( ".ipmFiles" ).sortable({
+                        handle: '.ipaFileMove'
+                    });
 
                     $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
                     $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
+
+                    $(window).bind("resize.ipRepositoryUploader", $.proxy(methods._resize, this));
+                    $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
+                    $.proxy(methods._resize, this)();
                 }
             });
         },
@@ -94,13 +111,13 @@
                 //incorrect response
             }
 
-            $this.trigger('ipModRepository.confirm', [response.files]);
+            $this.trigger('ipModuleRepository.confirm', [response.files]);
 
         },
 
         _cancel : function(e) {
             e.preventDefault();
-            $(this).trigger('ipModRepository.cancel');
+            $(this).trigger('ipModuleRepository.cancel');
         },
 
         _error : function(up, err) {
@@ -118,7 +135,7 @@
                 $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
                 $newFileProgressbar.find('.ipUploadTitle').text(file.name);
                 $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
-                $this.find('.ipUploadProgressContainer').append($newFileProgressbar);
+                $this.find('.ipUploadProgressContainer .ipmBrowseButtonWrapper').before($newFileProgressbar);
             });
             up.refresh(); // Reposition Flash/Silverlight
             up.start();
@@ -172,8 +189,6 @@
             $this.find('#ipUpload_' + file.id).remove();
         },
 
-
-
         _getFiles : function () {
             var $this = $(this);
             var files = new Array();
@@ -193,9 +208,19 @@
                 });
             });
             return files;
+        },
+
+        // set back our element
+        _teardown: function() {
+            $(window).unbind('resize.ipRepositoryUploader');
+        },
+
+        _resize : function(e) {
+            var $this = $(this);
+            var $block = $this.find('.impContainer');
+            var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
+            $block.height((parseInt($(window).height()) - (110 + padding)) + 'px');
         }
-
-
 
     };
 
@@ -211,6 +236,3 @@
     };
 
 })(jQuery);
-
-
-
