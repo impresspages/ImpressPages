@@ -32,8 +32,8 @@
                 </div>
                 <p class="ipmErrorSample ipgError ipgHide"></p>
             </div>
-            <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
-            <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
+            <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
+            <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
 
         </div>
         <div id="ipModuleRepositoryTabAll" class="ipmTabAll">
@@ -48,8 +48,8 @@
                 <img class="" src="" alt="file"/>
                 <span class="name"></span>
             </div>
-            <a class="ipgAdminButton ipgConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
-            <a class="ipgAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
+            <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
+            <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
         <div id="ipModuleRepositoryTabBuy" class="ipmTabBuy">
             <iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />
