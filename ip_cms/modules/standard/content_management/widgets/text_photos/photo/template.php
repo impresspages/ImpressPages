@@ -23,7 +23,7 @@ class Template {
                     $info = getimagesize($localPhoto);
                     return '
 <div class="ipWidget ipWidgetPhoto">
-  <img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" alt="'.htmlspecialchars($title).'" src="'.$photo.'" />
+  <img width="'.$info[0].'" height="'.$info[1].'" class="ipWidgetPhotoImage" title="'.htmlspecialchars($title).'" alt="'.htmlspecialchars($title).'" src="'.$photo.'" />
 </div>
 ';
                 }

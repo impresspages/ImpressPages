@@ -50,7 +50,11 @@ class Template{
 					$childrenHtml = Template::tepElements($zone, $children, $curDepth+1, $maxDepth); 
 					$link = $element->getLink();
 					if ($link) {
-						$elementHtml .= '<a class="modAdministratorSitemapLink" href="'.$link.'">'.htmlspecialchars($element->getButtonTitle()).'</a>';
+					    if ($element->getType() == 'inactive') {
+					        $elementHtml .= '<span class="modAdministratorSitemapLink">'.htmlspecialchars($element->getButtonTitle()).'</span>';
+					    } else {
+						    $elementHtml .= '<a class="modAdministratorSitemapLink" href="'.$link.'">'.htmlspecialchars($element->getButtonTitle()).'</a>';
+					    }
 					} else {
 					  if ($childrenHtml != '') {
   						$elementHtml .= '<a class="modAdministratorSitemapLink">'.htmlspecialchars($element->getButtonTitle()).'</a>';

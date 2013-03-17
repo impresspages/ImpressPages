@@ -192,7 +192,7 @@ class Module extends \Modules\standard\content_management\Widget{
     $rs = mysql_query($sql);
     if ($rs){
       if ($lock = mysql_fetch_assoc($rs)){
-        return Template::generateHtml($lock['text'], true, $layout);
+        return Template::generateHtml($lock['text'], false, $layout);
       }
     }else
     trigger_error("Can't get text to create HTML ".$sql);

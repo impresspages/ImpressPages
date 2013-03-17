@@ -402,7 +402,7 @@ INSERT INTO `ip_cms_parameter` (`id`, `name`, `admin`, `row_number`, `regexpress
 (806, 'sort_field', 1, 0, '', 352, 'Sort field', '', 'string'),
 (807, 'modules', 1, 0, '', 379, 'Modules', '', 'string'),
 (808, 'new_page', 1, 0, '', 478, 'New page', '', 'string'),
-(809, 'question_delete', 1, 0, '', 478, 'Are you realy wish to delete?', '', 'string'),
+(809, 'question_delete', 1, 0, '', 478, 'Do you really wish to delete?', '', 'string'),
 (810, 'enter_title', 1, 0, '', 478, 'Please enter the title', '', 'string'),
 (812, 'title', 1, 0, '', 478, 'Title', '', 'string'),
 (813, 'new_subpage', 1, 0, '', 478, 'New sub page', '', 'string'),
@@ -1162,7 +1162,7 @@ INSERT INTO `ip_cms_par_string` (`id`, `value`, `parameter_id`) VALUES
 (620, 'Sort', 806),
 (621, 'Modules', 807),
 (622, 'New page', 808),
-(623, 'Are you realy wish to delete?', 809),
+(623, 'Do you really wish to delete?', 809),
 (624, 'Please enter the title', 810),
 (625, 'Title', 812),
 (626, 'New sub page', 813),
@@ -1442,7 +1442,7 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '1.0.14', '2010-01-13 21:38:44'),
+(40, 'version', '1.0.15', '2010-01-13 21:38:44'),
 (41, 'cached_base_url', '[[[[base_url]]]]', '2009-08-01 23:03:17');
 
 -- Dumping data for table--

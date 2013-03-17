@@ -386,7 +386,7 @@ class ModulesInstallation{
             $handle = opendir($dir);
             if($handle !== false){
                 while (false !== ($file = readdir($handle))) {
-                    if(is_dir($dir.$file) && $file != '..' && $file != '.')
+                    if(is_dir($dir.$file) && $file != '..' && $file != '.' && substr($file, 0, 1) != '.')
                     $answer[$file] = array();
                 }
                 return $answer;
