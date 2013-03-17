@@ -283,6 +283,7 @@ class FieldWysiwyg extends Field{
   	content_css : "'.BASE_URL.THEME_DIR.THEME.'/" + "ip_content.css",
   	theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
   	forced_root_block : "p",
+  	gecko_spellcheck : true,
   	
     paste_auto_cleanup_on_paste : true,
     paste_retain_style_properties: false,

@@ -75,6 +75,8 @@ class Config // extends MimeType
       theme_advanced_styles : "'.$tinyMceStylesStr.'",
       forced_root_block : "p",
 
+      gecko_spellcheck : true,
+
       document_base_url : "'.BASE_URL.'",
       remove_script_host : false,
       relative_urls : false,
@@ -192,6 +194,7 @@ class Config // extends MimeType
       content_css : "'.BASE_URL.THEME_DIR.THEME.'/ip_content.css",
       theme_advanced_styles : "'.$tinyMceStylesStr.'",
       forced_root_block : "p",
+      gecko_spellcheck : true,
 
       document_base_url : "'.BASE_URL.'",
       remove_script_host : false,

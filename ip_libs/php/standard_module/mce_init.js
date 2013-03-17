@@ -25,6 +25,7 @@ tinyMCE.init({
 	content_css : global_config_base_url + global_config_template_url + global_config_template + "/ip_content.css",
 	theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
 	forced_root_block : "p",
+        gecko_spellcheck : true,
 
 
 	document_base_url : global_config_base_url,
