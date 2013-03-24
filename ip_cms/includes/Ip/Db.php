@@ -41,6 +41,9 @@ class Db
                         self::$pdoConnection = new \PDO('mysql:host='.DB_SERVER.';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                        $dt = new \DateTime();
+                        $offset = $dt->format("P");
+                        self::$pdoConnection->exec("SET time_zone='$offset';");
                     } catch (\PDOException $e) {
                         throw new \Ip\CoreException("Can't connect to database", \Ip\CoreException::DB, $e);
                     }

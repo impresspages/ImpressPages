@@ -1,6 +1,7 @@
 <script>
 var ip = {
     baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
+    languageUrl : <?php echo json_encode($ipLanguageUrl) ?>,
     libraryDir : <?php echo json_encode($ipLibraryDir) ?>,
     themeDir : <?php echo json_encode($ipThemeDir) ?>,
     moduleDir : <?php echo json_encode($ipModuleDir) ?>,
@@ -9,6 +10,11 @@ var ip = {
     pageId : <?php echo json_encode($ipPageId) ?>,
     revisionId : <?php echo json_encode($ipRevisionId) ?>
 };
+</script>
+<script>
+<?php foreach ($javascriptVariables as $name => $variable) { ?>
+    var <?php echo $name ?> = <?php echo json_encode($variable); ?>;
+<?php } ?>
 </script>
 <?php foreach ($javascript as $levelKey => $level) { ?>
     <?php foreach ($level as $recordKey => $record) { ?>

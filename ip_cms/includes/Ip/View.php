@@ -46,7 +46,7 @@ class View{
         $this->file = $file;
         $this->data = $data;
         if ($languageId == null) {
-            $this->langaugeId = $site->getCurrentLanguage()->getId();
+            $this->languageId = $site->getCurrentLanguage()->getId();
         } else {
             $this->languageId = $languageId;
         }
@@ -336,6 +336,39 @@ class View{
         $inlineManagementService = new \Modules\developer\inline_management\Service();
         return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
     }
+
+
+    /**
+     * @param int $price in cents
+     * @param string $currency three letter currency code
+     */
+    public function formatPrice($price, $currency)
+    {
+        global $dispatcher;
+        global $site;
+
+        $data = array (
+            'price' => $price,
+            'currency' => $currency
+        );
+        $event = new \Ip\Event($this, 'global.formatCurrency', $data);
+        $dispatcher->notifyUntil($event);
+        if ($event->issetValue('formattedPrice')) {
+            $formattedPrice = $event->getValue('formattedPrice');
+        } else {
+            if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
+                $language = $site->getLanguageById($this->getLanguageId());
+                $locale = str_replace('-', '_', $language->getCode());
+                $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
+
+                $formattedPrice = numfmt_format_currency($fmt, $price / 100, $currency);
+            } else {
+                $formattedPrice = ($data['price']/100).' '.$data['currency'];
+            }
+        }
+        return $formattedPrice;
+    }
+
 
     private static function checkData ($data) {
         foreach ($data as $key => $value) {

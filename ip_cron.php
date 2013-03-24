@@ -56,16 +56,22 @@ $db = new db();
 if($db->connect()){
 
     $log = new \Modules\administrator\log\Module();
-    $dispatcher = new \Ip\Dispatcher();
-    $parametersMod = new ParametersMod();
-    $session = new Frontend\Session();
+    try {
+        $dispatcher = new \Ip\Dispatcher();
+        $parametersMod = new ParametersMod();
+        $session = new Frontend\Session();
 
-    $site = new \Site();
-    $site->init();
+        $site = new \Site();
+        $site->init();
 
-    $cron = new Cron();
-    $cron->execute();
-    $db->disconnect();
+        $cron = new Cron();
+        $cron->execute();
+        $db->disconnect();
+    } catch (\Exception $e) {
+        $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+        throw $e;
+    }
+
 }else   trigger_error('Database access');
 
 

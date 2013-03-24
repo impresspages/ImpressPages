@@ -29,6 +29,9 @@ class Db{
         }else{
             mysql_select_db(DB_DATABASE);
             mysql_query("SET CHARACTER SET ".MYSQL_CHARSET);
+            $dt = new DateTime();
+            $offset = $dt->format("P");
+            mysql_query('SET time_zone = \''.$offset.'\'');
             return true;
         }
     }
