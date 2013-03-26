@@ -241,6 +241,11 @@ class Site{
         $this->configZones();
 
         $this->modulesInit();
+
+        if ($curElement = $this->getCurrentElement()) {
+            $controller = new \Ip\Controller();
+            $curElement->init($controller);
+        }
         
         if (!defined('BACKEND')) {
             $this->checkError404();
@@ -966,7 +971,7 @@ class Site{
 
     /**
      *
-     * @return Element - Current page
+     * @return \Frontend\Element - Current page
      *
      */
     public function getCurrentElement(){
@@ -1188,12 +1193,17 @@ class Site{
         } else {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
             $revision = $this->getRevision();
-             
+
+            if ($blockName == 'main' && $site->getCurrentElement()) {
+                return $site->getCurrentElement()->generateContent();
+            }
+
             if ($revision != false) {
                 return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
             } else {
                 return '';
             }
+
         }
     }
 

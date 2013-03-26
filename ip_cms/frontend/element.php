@@ -78,7 +78,8 @@ class Element{
     /** Element - previous sibling element */
     protected $previousElement;
 
-    public function __construct($id, $zoneName){
+    public function __construct($id, $zoneName)
+    {
         $this->id = $id;
         $this->zoneName = $zoneName;
     }
@@ -93,10 +94,26 @@ class Element{
      * @return string - page content.
      *
      */
-    public function generateContent () {
+    public function generateContent ()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $revision = $site->getRevision();
+        if ($revision) {
+            return \Modules\standard\content_management\Model::generateBlock('main', $revision['revisionId'], $site->managementState());
+        } else {
+            return '';
+        }
     }
 
 
+    /**
+     * This function is being executed every time before this element page is being displayed.
+     * @param \Ip\Controller $controller
+     */
+    public function init(\Ip\Controller $controller)
+    {
+        //by default do nothing. Override to do something
+    }
 
 
     /**
@@ -104,7 +121,8 @@ class Element{
      * Find and cache previous and next elements in elements list.
      *
      */
-    private function findPreviousAndNextElements(){
+    private function findPreviousAndNextElements()
+    {
         global $site;
         $zone = $site->getZone($this->zoneName);
         $elements = $zone->getElements(null, $this->parentId);
@@ -129,7 +147,8 @@ class Element{
      * @return Element or false if next element doesn't exist
      *
      */
-    public function getNextElement(){
+    public function getNextElement()
+    {
         global $site;
         if($this->nextElement === null){
             $this->findPreviousAndNextElements();
@@ -142,7 +161,8 @@ class Element{
      * @return Element or false if previous element doesn't exist
      *
      */
-    public function getPreviousElement(){
+    public function getPreviousElement()
+    {
         global $site;
         if($this->previousElement === null){
             $this->findPreviousAndNextElements();
