@@ -1,4 +1,10 @@
 <?php if (!defined('CMS')) exit; ?>
+<?php
+/**
+ * This comment block is used just to make IDE suggestions to work
+ * @var $this \Ip\View
+ */
+?>
 <?php echo $this->doctypeDeclaration(); ?>
 
 <html<?php echo $this->htmlAttributes(); ?>>
