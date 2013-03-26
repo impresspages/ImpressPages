@@ -49,11 +49,17 @@ $parametersMod = new parametersMod();
 if(\Db::connect()){
     $log = new \Modules\administrator\log\Module();
 
-    $site = new \Site(); /*to generate links to site and get other data about frontend*/
-    $site->init();
+    try {
+        $site = new \Site(); /*to generate links to site and get other data about frontend*/
+        $site->init();
 
-    $cms = new \Backend\Cms();
-    $cms->worker();
+        $cms = new \Backend\Cms();
+        $cms->worker();
+    } catch (\Exception $e) {
+        $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+        throw $e;
+    }
+
 
 
     \Db::disconnect();

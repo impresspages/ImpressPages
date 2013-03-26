@@ -57,26 +57,32 @@ require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
 if(\Db::connect()){
     $log = new \Modules\administrator\log\Module();
 
-    $dispatcher = new \Ip\Dispatcher();
-     
-    $parametersMod = new ParametersMod();
-    $session = new \Frontend\Session();
+    try {
+        $dispatcher = new \Ip\Dispatcher();
+
+        $parametersMod = new ParametersMod();
+        $session = new \Frontend\Session();
 
 
-    $site = new \Site();
-    $site->init();
+        $site = new \Site();
+        $site->init();
 
 
-    $sitemap = new Sitemap();
+        $sitemap = new Sitemap();
 
-    if(isset($_GET['nr']) && isset($_GET['lang']) && isset($_GET['zone'])){
-        echo $sitemap->getSitemap($_GET['zone'], $_GET['lang'], $_GET['nr']);
-    }else{
-        echo $sitemap->getSitemapIndex();
+        if(isset($_GET['nr']) && isset($_GET['lang']) && isset($_GET['zone'])){
+            echo $sitemap->getSitemap($_GET['zone'], $_GET['lang'], $_GET['nr']);
+        }else{
+            echo $sitemap->getSitemapIndex();
+        }
+
+
+        \Db::disconnect();
+    } catch (\Exception $e) {
+        $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+        throw $e;
     }
 
-
-    \Db::disconnect();
 }else   trigger_error('Database access');
 
 

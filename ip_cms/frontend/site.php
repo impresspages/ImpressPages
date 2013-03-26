@@ -69,8 +69,8 @@ class Site{
     /** @deprecated use getCurrentLanguage() instead */
     public $currentLanguage;
 
-    /** array javascript files, required by current page */
-    private $_requiredJs;
+    /** array js variables */
+    private $javascriptVariables = array();
 
     /** array required javascript files */
     private $requiredJavascript = array();
@@ -139,7 +139,7 @@ class Site{
 
     /**
      *
-     * @return Language
+     * @return \Frontend\Language
      *
      */
     public function getLanguageById($id){
@@ -386,6 +386,10 @@ class Site{
                 if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
                     if (file_exists(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php')) {
                         require_once(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
+                    } elseif (file_exists(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
+                        require_once(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
+                    } elseif (file_exists(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
+                        require_once(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
                     } else {
                         require_once(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
@@ -417,7 +421,7 @@ class Site{
 
     /**
      *
-     * @return Zone Current zone object
+     * @return \Frontend\Zone Current zone object
      *
      */
     public function getCurrentZone(){
@@ -450,7 +454,7 @@ class Site{
      * Find website zone by module group and name.
      * @param $group Module group name (string)
      * @param $module Module name (string)
-     * @return Zone
+     * @return \Frontend\Zone
      */
     public function getZoneByModule($group, $module){
         $answer = false;
@@ -1107,6 +1111,15 @@ class Site{
         }
     }
 
+    public function getCss() {
+        ksort($this->requiredCss);
+        $cssFiles = array();
+        foreach($this->requiredCss as $levelKey => $level) {
+            $cssFiles = array_merge($cssFiles, $level);
+        }
+        return $cssFiles;
+    }
+
     public function addJavascriptContent($key, $javascript, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$key] = array (
             'type' => 'content', 
@@ -1130,7 +1143,7 @@ class Site{
 
     public function removeJavascript($file) {
         foreach($this->requiredJavascript as $levelKey => &$level) {
-            if (isset($this->requiredJavascript[$levelKey][$file])) {
+            if (isset($this->requiredJavascript[$levelKey][$file]) && $this->requiredJavascript[$levelKey][$file]['type'] == 'file') {
                 unset($this->requiredJavascript[$levelKey][$file]);
             }
         }
@@ -1138,13 +1151,38 @@ class Site{
 
 
 
-    public function generateHead() {
-
-        ksort($this->requiredCss);
-        $cssFiles = array();
-        foreach($this->requiredCss as $levelKey => $level) {
-            $cssFiles = array_merge($cssFiles, $level);
+    public function removeJavascriptContent($key) {
+        foreach($this->requiredJavascript as $levelKey => &$level) {
+            if (isset($this->requiredJavascript[$levelKey][$key]) && $this->requiredJavascript[$levelKey][$key]['type'] == 'content') {
+                unset($this->requiredJavascript[$levelKey][$key]);
+            }
         }
+    }
+
+    public function getJavascript() {
+        ksort($this->requiredJavascript);
+        return $this->requiredJavascript;
+    }
+
+    public function addJavascriptVariable($name, $value) {
+        $this->javascriptVariables[$name] = $value;
+    }
+
+    public function removeJavascriptVariable($name) {
+        if (isset($this->javascriptVariables[$name])) {
+            unset($this->javascriptVariables[$name]);
+        }
+    }
+
+    public function getJavascriptVariables() {
+        return $this->javascriptVariables;
+    }
+
+
+
+
+    public function generateHead() {
+        $cssFiles = $this->getCss();
 
         $data = array (
             'title' => $this->getTitle(),
@@ -1159,10 +1197,11 @@ class Site{
     }
 
     public function generateJavascript() {
-        ksort($this->requiredJavascript);
+        $javascriptFiles = $this->getJavascript();
         $revision = $this->getRevision();
         $data = array (
             'ipBaseUrl' => BASE_URL,
+            'ipLanguageUrl' => $this->generateUrl(),
             'ipLibraryDir' => LIBRARY_DIR,
             'ipThemeDir' => THEME_DIR,
             'ipModuleDir' => MODULE_DIR,
@@ -1171,7 +1210,8 @@ class Site{
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
             'ipRevisionId' => $revision['revisionId'],        
-            'javascript' => $this->requiredJavascript
+            'javascript' => $javascriptFiles,
+            'javascriptVariables' => $this->getJavascriptVariables()
         );
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
     }
