@@ -372,7 +372,7 @@ class Site{
     /**
      *
      * @param $zoneName Name of zone you wish to get
-     * @return Zone
+     * @return \Frontend\Zone
      *
      */
     public function getZone($zoneName){
