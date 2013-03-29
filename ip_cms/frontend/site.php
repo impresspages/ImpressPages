@@ -601,9 +601,11 @@ class Site{
      *   Array of additional url variables. Eg. array('var1', 'var2')
      * @param $getVars
      *   Array of additional get variables. Eg. array('var1'='val1', 'val2'='val2')
+     * @param $escape
+     *   Escape & with &amp;
      * @return string - requested link or link to first page of current language if all parameters are not specified or null
      */
-    public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null){
+    public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
         global $parametersMod;
          
         if($languageId == null){
@@ -661,13 +663,21 @@ class Site{
             foreach($urlVars as $key => $value)
             $answer .= urlencode($value).'/';
         }
+
+
+        if ($escape) {
+            $amp = '&amp;';
+        } else {
+            $amp = '&';
+        }
+
         if($getVars && sizeof($getVars) > 0){
             $first = true;
             foreach($getVars as $key => $value){
                 if($first)
                 $answer .= '?'.$key.'='.urlencode($value);
                 else
-                $answer .= '&amp;'.$key.'='.urlencode($value);
+                $answer .= $amp.$key.'='.urlencode($value);
                 $first = false; 
             }
         }
