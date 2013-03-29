@@ -65,4 +65,18 @@ class ServiceLocator
         global $session;
         return $session;
     }
+
+
+
+    /**
+     * @return \ParametersMod
+     */
+    public static function getParametersMod()
+    {
+        /**
+         * @var $session \ParametersMod
+         */
+        global $parametersMod;
+        return $parametersMod;
+    }
 }

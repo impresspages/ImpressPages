@@ -30,7 +30,6 @@ class Backend{
     }
 
     public static function logout(){
-        $this->user = null;
         if(isset($_SESSION['backend_session']['user_id'])){
             unset($_SESSION['backend_session']['user_id']);
         }
