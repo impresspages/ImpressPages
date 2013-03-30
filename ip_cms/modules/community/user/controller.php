@@ -29,6 +29,7 @@ class Controller  extends \Ip\Controller{
         global $parametersMod;
         global $site;
         global $log;
+        global $dispatcher;
         $loginForm = Config::getLoginForm();
         $errors = $loginForm->validate($_POST);
 
@@ -56,6 +57,9 @@ class Controller  extends \Ip\Controller{
 
         if($tmpUser && isset($_POST['password']) && $tmp_password == $tmpUser['password']) {
             $this->loginUser($tmpUser);
+
+            $data = array('userId' => $tmpUser['id']);
+            $dispatcher->notify(new Event($this, Event::LOGIN, $data));
 
             if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
                 setCookie(
@@ -97,8 +101,17 @@ class Controller  extends \Ip\Controller{
     public function logout() {
         global $session;
         global $parametersMod;
+        global $dispatcher;
+
+        $userId = $session->userId();
 
         $session->logout();
+
+        if ($userId) {
+            $data = array('userId' => $userId);
+            $dispatcher->notify(new Event($this, Event::LOGOUT, $data));
+        }
+
         if($parametersMod->getValue('community','user','options','enable_autologin')) {
             setCookie(
             Config::$autologinCookieName,
@@ -114,6 +127,7 @@ class Controller  extends \Ip\Controller{
     public function registration() {
         global $site;
         global $parametersMod;
+        global $dispatcher;
 
         $html = '';
 
@@ -186,7 +200,14 @@ class Controller  extends \Ip\Controller{
                 return;
             }
 
+            //deprecated event
             $site->dispatchEvent('community', 'user', 'register', array('user_id'=>$insertId));
+
+            //new event
+            $data = array('userId' => $insertId);
+            $dispatcher->notify(new Event($this, Event::REGISTRATION, $data));
+
+
             if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
                 $this->sendVerificationLink($postData['email'], $tmp_code, $insertId);
                 $data = array (
@@ -225,6 +246,7 @@ class Controller  extends \Ip\Controller{
         global $session;
         global $site;
         global $parametersMod;
+        global $dispatcher;
         if(!$session->loggedIn()) {
             $site->setOutput('');
             return;
@@ -287,7 +309,13 @@ class Controller  extends \Ip\Controller{
             $data['submit'] = null;
             
             $insertId = $registrationForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], $data, $additionalFields);
+
+            //deprecated event
             $site->dispatchEvent('community', 'user', 'update_profile', array('user_id'=>$tmpUser['id']));
+
+            //new event
+            $data = array('userId' => $insertId, 'profileData' => array_merge($data, $additionalFields));
+            $dispatcher->notify(new Event($this, Event::PROFILE_UPDATE, $data));
 
 
             if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
@@ -313,6 +341,7 @@ class Controller  extends \Ip\Controller{
     public function verification() {
         global $site;
         global $parametersMod;
+        global $dispatcher;
         if (!isset($_REQUEST['id'])) {
             throw new Exception('Missing request data');
         }
@@ -336,7 +365,14 @@ class Controller  extends \Ip\Controller{
                 } else {
                     if (!$current['verified']) {
                         Db::verify($current['id']);
+
+                        //deprecated event
                         $site->dispatchEvent('community', 'user', 'registration_verification', array('user_id'=>$current['id']));
+
+                        //new event
+                        $data = array('userId' => $current['id']);
+                        $dispatcher->notify(new Event($this, Event::REGISTRATION_VERIFICATION, $data));
+
                         if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
                             $this->loginUser($current);
                             $this->redirect($this->redirectAfterLoginUrl());
@@ -356,6 +392,7 @@ class Controller  extends \Ip\Controller{
 
     public function newEmailVerification() {
         global $site;
+        global $dispatcher;
         if (!isset($_REQUEST['id']) || !isset($_REQUEST['code'])) {
             return; //do nothing. Rendar as a regular page.
         }
@@ -375,7 +412,13 @@ class Controller  extends \Ip\Controller{
                         $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
                     }else {
                         Db::verifyNewEmail($sameEmailUser['id']);
+
+                        //deprecated event
                         $site->dispatchEvent('community', 'user', 'new_email_verification', array('user_id'=>$sameEmailUser['id']));
+
+                        //new event
+                        $data = array('userId' => $sameEmailUser['id']);
+                        $dispatcher->notify(new Event($this, Event::NEW_EMAIL_VERIFICATION, $data));
     
                         $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerified)));
                     }
@@ -394,6 +437,7 @@ class Controller  extends \Ip\Controller{
     public function passwordReset() {
         global $parametersMod;
         global $site;
+        global $dispatcher;
         $postData = $_POST;
         $passwordResetForm = Config::getPasswordResetForm();
         $errors = $passwordResetForm->validate($postData);
@@ -427,6 +471,9 @@ class Controller  extends \Ip\Controller{
             $additionalFields['verification_code'] = $tmp_code;
             $insertId = $passwordResetForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], array(), $additionalFields);
             $this->sendPasswordResetLink($_POST['email'], $tmp_code, $tmpUser['id']);
+
+            $data = array('userId' => $tmpUser['id']);
+            $dispatcher->notify(new Event($this, Event::PASSWORD_RESET, $data));
             
             $data = array(
                 'status' => 'success',
@@ -440,12 +487,18 @@ class Controller  extends \Ip\Controller{
     
     public function passwordResetVerification () {
         global $site;
+        global $dispatcher;
         $current = Db::userById($_REQUEST['id']);
         if($current && $current['verified']) {
             if($current['verification_code'] == $_REQUEST['code']) {
                 if($current['new_password'] != '') {
                     if(Db::verifyNewPassword($current['id'])) {
+                        //deprecated event
                         $site->dispatchEvent('community', 'user', 'password_reset', array('user_id'=>$current['id']));
+                        //new event
+                        $data = array('userId' => $current['id']);
+                        $dispatcher->notify(new Event($this, Event::PASSWORD_RESET_VERIFICATION, $data));
+
                         $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerified)));
                     } else {
                         $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
@@ -589,9 +642,15 @@ class Controller  extends \Ip\Controller{
     
     public function renewRegistration () {
         global $site;//userById
+        global $dispatcher;
         if (isset($_GET['id']) && Db::userById($_GET['id'])) {
             if(Db::renewRegistration($_GET['id']) == 1){
+                //deprecated event
                 $site->dispatchEvent('community', 'user', 'renew_registration', array('user_id'=>$_GET['id']));
+                //new event
+                $data = array('userId' => $_GET['id']);
+                $dispatcher->notify(new Event($this, Event::RENEW_REGISTRATION, $data));
+
                 $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewedRegistration)));
             } else {
                 $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
@@ -599,7 +658,6 @@ class Controller  extends \Ip\Controller{
         } else {
             $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
         }
-        break;
     }
     
     
