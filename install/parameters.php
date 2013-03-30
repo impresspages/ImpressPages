@@ -2046,8 +2046,8 @@ $moduleTitle["community"]["newsletter"] = "Newsletter";
         $parameterAdmin["community"]["user"]["translations"]["text_registration_successful"] = "0";
         $parameterType["community"]["user"]["translations"]["text_registration_successful"] = "lang_wysiwyg";
 
-        $parameterTitle["community"]["user"]["translations"]["text_password_reset_sent"] = "Text - password reset instructions was sent";
-        $parameterValue["community"]["user"]["translations"]["text_password_reset_sent"] = "<p>Password reset instructions was sent to your e-mail address.</p>";
+        $parameterTitle["community"]["user"]["translations"]["text_password_reset_sent"] = "Text - password reset instructions were sent";
+        $parameterValue["community"]["user"]["translations"]["text_password_reset_sent"] = "<p>Password reset instructions were sent to your e-mail address.</p>";
         $parameterAdmin["community"]["user"]["translations"]["text_password_reset_sent"] = "0";
         $parameterType["community"]["user"]["translations"]["text_password_reset_sent"] = "lang_wysiwyg";
 
