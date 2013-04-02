@@ -20,6 +20,7 @@
                 if (!data) {
                     var $popup = $('.ipModuleRepositoryPopup');
                     $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
+                    $this.find('.ipmBrowser').dblclick($.proxy(methods._confirm, this));
                     $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
                     $this.data('ipRepositoryAll', {});
