@@ -12,8 +12,8 @@ class PageDeleted extends \Ip\Event{
     
     const SITE_PAGE_DELETED = 'site.pageDeleted';
     
-    private $zoneName;
-    private $pageId;
+    protected $zoneName;
+    protected $pageId;
 
     public function __construct($object, $zoneName, $pageId) {
         $this->zoneName = $zoneName;
