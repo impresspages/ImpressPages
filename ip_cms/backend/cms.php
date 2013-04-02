@@ -241,18 +241,36 @@ class Cms {
         $dirs[] = BASE_DIR.TMP_AUDIO_DIR;
 
         foreach($dirs as $key => $dir) {
-            if ($handle = opendir($dir)) {
-                $now = time();
-                // List all the files
-                while (false !== ($file = readdir($handle))) {
-                    if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
-                        if (filectime($dir.$file) + 3600*24*7*2 < $now)  //delete if a file is created more than two weeks ago
-                        unlink($dir.$file);
+            $this->cleanDirRecursive($dir);
+        }
+    }
+
+    private function cleanDirRecursive($dir)
+    {
+        if ($handle = opendir($dir)) {
+            $now = time();
+            // List all the files
+            while (false !== ($file = readdir($handle))) {
+                if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
+                    if (filectime($dir.$file) + 3600*24*7*2 < $now){  //delete if a file is created more than two weeks ago
+                        if (is_dir($dir.$file)) {
+                            $this->cleanDirRecursive($dir.$file.'/');
+                            if ($this->dirIsEmpty($dir.$file)) {
+                                rmdir($dir.$file);
+                            }
+                        } else {
+                            unlink($dir.$file);
+                        }
                     }
                 }
-                closedir($handle);
             }
+            closedir($handle);
         }
+    }
+
+    private function dirIsEmpty($dir) {
+        if (!is_readable($dir)) return NULL;
+        return (count(scandir($dir)) == 2);
     }
 
     public static function usedUrl($url) {
