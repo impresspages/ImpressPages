@@ -69,7 +69,7 @@ class Event{
     }
 
     public function getValue ($key) {
-        if (isset($this->values[$key])) {
+        if (array_key_exists($key, $this->values)) {
             return $this->values[$key];
         }
 
