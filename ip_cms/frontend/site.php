@@ -1214,6 +1214,7 @@ class Site{
             'ipLanguageUrl' => $this->generateUrl(),
             'ipLibraryDir' => LIBRARY_DIR,
             'ipThemeDir' => THEME_DIR,
+            'ipPluginDir' => PLUGIN_DIR,
             'ipModuleDir' => MODULE_DIR,
             'ipTheme' => THEME,
             'ipManagementUrl' => $this->generateUrl(),
