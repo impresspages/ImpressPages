@@ -30,14 +30,14 @@ class Controller  extends \Ip\Controller{
         if(!$newsletterZone)
         return;
 
-        if(isset($_REQUEST['email']) && Db::subscribed($_REQUEST['email'], $site->currentLanguage['id'])) {
+        if (isset($_REQUEST['email']) && Db::subscribed($_REQUEST['email'], $site->currentLanguage['id'])) {
             $status = 'success';
             $step = 'subscribed';
             $url = $site->generateUrl(null, $zoneName, array("subscribed"));
-        }elseif(!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_REQUEST['email'])) {
+        } elseif(!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $_REQUEST['email'])) {
             $this->_errorAnswer($parametersMod->getValue('community', 'newsletter', 'subscription_translations', 'text_incorrect_email'));
             return;
-        }else {
+        } else {
             $site->requireTemplate('community/newsletter/template.php');
 
             if($_REQUEST['email'] && !Db::registeredAndNotActivated($_REQUEST['email'], $site->currentLanguage['id']))

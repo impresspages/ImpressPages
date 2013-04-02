@@ -57,7 +57,7 @@ $(document).ready(function($) {
             
             $.ajax({
                 type : 'POST',
-                url : ip.baseUrl,
+                url : ip.languageUrl,
                 data : data,
                 context : $this,
                 success : _subscribeAnswer,
