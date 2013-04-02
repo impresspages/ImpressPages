@@ -415,7 +415,6 @@
                             //resize container to exact image width / height
                             $window.width($image.width());
                             $window.height($image.height());
-                            console.log('image height ' + $image.height());
                         }
                         
                         break;
@@ -485,8 +484,8 @@
             }
             
             
-            var imageCenterX = Math.round($image.width() * imageCenterXPercentage / 100);
-            var imageCenterY = Math.round($image.height() * imageCenterYPercentage / 100);
+            var imageCenterX = $image.width() * imageCenterXPercentage / 100;
+            var imageCenterY = $image.height() * imageCenterYPercentage / 100;
             marginHorizontal = $image.width() - $window.width();
             if (marginHorizontal < 0) {
                 marginHorizontal = 0;
@@ -495,7 +494,7 @@
             $dragContainer.css('margin-left', -marginHorizontal);
             $dragContainer.css('margin-right', -marginHorizontal);
             $dragContainer.width($window.width() + marginHorizontal*2);
-            $image.css('left', $dragContainer.width() / 2 - imageCenterX);
+            $image.css('left', Math.round($dragContainer.width() / 2 - imageCenterX));
             if (parseInt($image.css('left')) < 0){
                 $image.css('left', 0);
             }
@@ -513,7 +512,7 @@
             $dragContainer.css('margin-top', -marginVertical);
             $dragContainer.css('margin-bottom', -marginVertical);
             $dragContainer.height($window.height() + marginVertical*2);
-            $image.css('top', $dragContainer.height() / 2 - imageCenterY);
+            $image.css('top', Math.round($dragContainer.height() / 2 - imageCenterY));
             if (parseInt($image.css('top')) < 0){
                 $image.css('top', 0);
             }
