@@ -111,10 +111,13 @@ function showPreviewImage( win, u, st )
 		prev.innerHTML = '';
 		return;
 	}
-	prev.innerHTML = '';
 
-	var html = '<img id="previewImg" src="' + u + '" border="0" onload="ImageDialog.updateImageData(this, 1);" />'; 
-	prev.innerHTML += html;
+    if (prev) {
+        prev.innerHTML = '';
+        var html = '<img id="previewImg" src="' + u + '" border="0" onload="ImageDialog.updateImageData(this, 1);" />';
+
+        prev.innerHTML += html;
+    }
 }
 
 function LoadResources( resourceType, folderPath )
