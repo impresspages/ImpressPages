@@ -5,4 +5,4 @@
         <p class="ipUploadTitle"></p>
     </div>
 </div>
-<a href="#" class="ipAdminButton ipUploadBrowseButton">Add new</a>
+<a href="#" class="ipAdminButton ipUploadBrowseButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
