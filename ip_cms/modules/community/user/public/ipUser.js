@@ -5,6 +5,7 @@
             $ipUserForm.find('form').validator(validatorConfig);
             $ipUserForm.find('form').submit(function(e) {
                 var $form = $(this);
+                $form.find('input[type=submit]').attr('disabled', 'disabled');
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
@@ -23,6 +24,7 @@
                             } else {
                                 if (response.errors) {
                                     $form.data("validator").invalidate(response.errors);
+                                    $form.find('input[type=submit]').removeAttr('disabled');
                                 }
                             }
                         },
@@ -30,6 +32,8 @@
                             // TODO: throw error
                         }
                       });
+                } else {
+                    $form.find('input[type=submit]').removeAttr('disabled');
                 }
                 e.preventDefault();
             });
