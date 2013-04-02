@@ -284,7 +284,8 @@ function IpWidget_IpLogoGallery(widgetObject) {
                 $this = $(this);
                 var data = $this.data('ipWidget_ipLogoGallery_logo');
                 var newLink;
-                if (newLink = prompt('Where this logo should link?', data.link)) {
+                newLink = prompt('Where this logo should link?', data.link)
+                if (newLink !== null) {
                     data.link = newLink;
                     $this.data('ipWidget_ipLogoGallery_logo', data);
                 }

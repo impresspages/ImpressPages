@@ -193,7 +193,7 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
             $data['logos'] = array();
         }
         foreach ($data['logos'] as $logoKey => &$logo) {
-            if ($logo['link'] && stripos($logo['link'], 'http') !== 0) {
+            if ($logo['link'] && stripos($logo['link'], 'http') !== 0 && stripos($logo['link'], '#') !== 0) {
                 $logo['link'] = 'http://'.$logo['link'];
             }
         }
