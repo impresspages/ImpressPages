@@ -69,7 +69,7 @@ class Controller extends \Ip\Controller{
      */
     public function upload()
     {
-        global $site;
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         if (!isset($_SESSION['backend_session']['user_id'])) {
             die('{"jsonrpc" : "2.0", "error" : {"code": 201, "message": "Try to upload image to temporary directory without permission."}, "id" : "id"}');
@@ -95,9 +95,12 @@ class Controller extends \Ip\Controller{
             $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, $targetDir. DIRECTORY_SEPARATOR);
         }
 
-        //security check Mangirdas 2011-12-15
+        //security check
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
-        $disallow = array('htaccess','php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
+
+        $event = new Event\ForbiddenExtensions($this);
+        $dispatcher->notify($event);
+        $disallow = $event->getForbiddenExtensions();
         if (in_array($fileExtension, $disallow)) {
             //security risk
             die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Forbidden file extension: '.$fileExtension.'."}, "id" : "id"}');
