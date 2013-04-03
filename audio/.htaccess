@@ -1,3 +1,27 @@
-<Files *.php *.phtml *.php3 *.php4 *.php5 *.php6 *.php7 *.php *.phps *.jsp *.asp *.cgi *.py>
+<Files *.php>
+deny from all
+</Files>
+<Files *.php5>
+deny from all
+</Files>
+<Files *.php6>
+deny from all
+</Files>
+<Files *.php7>
+deny from all
+</Files>
+<Files *.jsp>
+deny from all
+</Files>
+<Files *.phps>
+deny from all
+</Files>
+<Files *.asp>
+deny from all
+</Files>
+<Files *.cgi>
+deny from all
+</Files>
+<Files *.py>
 deny from all
 </Files>
