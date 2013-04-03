@@ -123,7 +123,7 @@
         _error : function(up, err) {
             var $newError = $(this).find('.ipmErrorSample').clone().removeClass('ipmErrorSample').removeClass('ipgHide');
             $newError.text(err.message);
-            setTimeout(function(){$newError.remove();}, 3000);
+            setTimeout(function(){$newError.remove();}, 9000);
             $(this).find('.ipmCurErrors').append($newError);
             up.refresh(); // Reposition Flash/Silverlight
         },

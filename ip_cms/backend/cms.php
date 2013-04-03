@@ -245,8 +245,11 @@ class Cms {
         }
     }
 
-    private function cleanDirRecursive($dir)
+    private function cleanDirRecursive($dir, $depth = 0)
     {
+        if ($depth > 100) {
+            return;
+        }
         if ($handle = opendir($dir)) {
             $now = time();
             // List all the files
@@ -254,12 +257,14 @@ class Cms {
                 if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
                     if (filectime($dir.$file) + 3600*24*7*2 < $now){  //delete if a file is created more than two weeks ago
                         if (is_dir($dir.$file)) {
-                            $this->cleanDirRecursive($dir.$file.'/');
+                            $this->cleanDirRecursive($dir.$file.'/', $depth + 1);
                             if ($this->dirIsEmpty($dir.$file)) {
                                 rmdir($dir.$file);
                             }
                         } else {
-                            unlink($dir.$file);
+                            if ($file != '.htaccess' && ($file != 'readme.txt' || $depth > 0)) {
+                                unlink($dir.$file);
+                            }
                         }
                     }
                 }

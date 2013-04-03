@@ -1,0 +1,3 @@
+<Files *.php *.phtml *.php3 *.php4 *.php5 *.php6 *.php7 *.php *.phps *.jsp *.asp *.cgi *.py>
+deny from all
+</Files>

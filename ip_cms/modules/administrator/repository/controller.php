@@ -103,7 +103,7 @@ class Controller extends \Ip\Controller{
         $disallow = $event->getForbiddenExtensions();
         if (in_array($fileExtension, $disallow)) {
             //security risk
-            die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Forbidden file extension: '.$fileExtension.'."}, "id" : "id"}');
+            die('{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Sorry, this file type is not permitted for security reasons: '.$fileExtension.'."}, "id" : "id"}');
         }
 
         //end security check
@@ -121,6 +121,7 @@ class Controller extends \Ip\Controller{
             if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
                 // Open temp file
                 $out = fopen($targetDir . $fileName, $chunk == 0 ? "wb" : "ab");
+
                 if ($out) {
                     // Read binary input stream and append it to temp file
                     $in = fopen($_FILES['file']['tmp_name'], "rb");
