@@ -330,7 +330,11 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             'ip_backend_worker.php',
             'ip_cron.php',
             'ip_license.html',
-            'sitemap.php'
+            'sitemap.php',
+            $this->cf['FILE_DIR'].'.htaccess',
+            $this->cf['IMAGE_DIR'].'.htaccess',
+            $this->cf['AUDIO_DIR'].'.htaccess',
+            $this->cf['VIDEO_DIR'].'.htaccess'
         );
     }
     
