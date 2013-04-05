@@ -30,7 +30,6 @@ class System{
             $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
         }
 
-        $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/fileUpload.js');
 
     }
 
