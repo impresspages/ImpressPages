@@ -81,7 +81,6 @@
 
                     $('#ipModuleRepositoryUploadButton').trigger('click');
 
-                    alert('test');
                     $this.find('.ipaCancel').trigger('click');
                     $this.find('.ipaCancel')[0].click();
                 }
