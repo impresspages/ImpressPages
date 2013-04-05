@@ -91,7 +91,7 @@ class BrowserModel{
                 return $reflection;
                 break;
             default:
-                return MODULE_DIR.'administrator/repository/public/icons/general.png';
+                return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
         }
     }
 
