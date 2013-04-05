@@ -79,10 +79,6 @@
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $.proxy(methods._resize, this)();
 
-                    $('#ipModuleRepositoryUploadButton').trigger('click');
-
-                    $this.find('.ipaCancel').trigger('click');
-                    $this.find('.ipaCancel')[0].click();
                 }
             });
         },
