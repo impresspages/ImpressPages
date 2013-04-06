@@ -26,6 +26,10 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->addReflectionTable();
         $this->importParameters('newParameters.php');
+
+        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'repository/');
+        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'repository/tmp/');
+        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'manual/');
     }
 
     /**

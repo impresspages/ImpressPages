@@ -334,7 +334,8 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             $this->cf['FILE_DIR'].'.htaccess',
             $this->cf['IMAGE_DIR'].'.htaccess',
             $this->cf['AUDIO_DIR'].'.htaccess',
-            $this->cf['VIDEO_DIR'].'.htaccess'
+            $this->cf['VIDEO_DIR'].'.htaccess',
+            $this->cf['FILE_DIR'].'sercure/.htaccess'
         );
     }
     
