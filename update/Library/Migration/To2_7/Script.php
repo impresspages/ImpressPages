@@ -27,9 +27,36 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->addReflectionTable();
         $this->importParameters('newParameters.php');
 
-        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'repository/');
-        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'repository/tmp/');
+        $this->createNewDirs($cf);
+    }
+
+    private function createNewDirs($cf)
+    {
+        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'secure/');
+        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'secure/tmp/');
         mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'manual/');
+
+        $ipConfigPath = $cf['BASE_DIR'].'ip_config.php';
+        $errorData = array (
+            'file' => $ipConfigPath
+        );
+
+        $myFile = "testFile.txt";
+        $fh = fopen($myFile, 'a');
+
+        if (!$fh) {
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$ipConfigPath, \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
+
+        $data = "
+
+      define('SECURE_DIR', 'file/secure/'); //directory not accessible from the Internet
+      define('TMP_SECURE_DIR', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
+      define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
+";
+        fwrite($fh, $data);
+        fclose($fh);
+
     }
 
     /**

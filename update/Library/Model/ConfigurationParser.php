@@ -29,7 +29,7 @@ class ConfigurationParser
             }
         }
         
-        //rename all constnats to avoid conflicts
+        //rename all constants to avoid conflicts
         foreach($oldConstants as $key => $constant) {
             $configSource = str_replace('"'.$constant.'"', '"'.$newConstants[$key].'"', $configSource);
             $configSource = str_replace("'".$constant."'", "'".$newConstants[$key]."'", $configSource);
@@ -42,7 +42,8 @@ class ConfigurationParser
 
         $configurationValues = array();
         foreach($newConstants as $key => $constant) {
-            eval('$configurationValues[\''.$oldConstants[$key].'\'] = '.$constant.';' );
+            //we check if constant exists becase early 2.x versions had no constants like: SECURE_DIR, TMP_SECURE_DIR, MANUAL_DIR
+            eval('$configurationValues[\''.$oldConstants[$key].'\'] = defined(\''.$constant.'\') ? '.$constant.' : \'\';' );
         }
         return $configurationValues;
     }
@@ -75,6 +76,8 @@ class ConfigurationParser
             'FILE_DIR',
             'TMP_FILE_DIR',
             'FILE_REPOSITORY_DIR',
+            'SECURE_DIR',
+            'TMP_SECURE_DIR',
             'VIDEO_DIR',
             'TMP_VIDEO_DIR',
             'VIDEO_REPOSITORY_DIR',

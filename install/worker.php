@@ -211,7 +211,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
       define('IMAGE_REPOSITORY_DIR', 'image/repository/'); //images repository. Used for TinyMCE and others where user can browse the images.
       define('FILE_DIR', 'file/'); //uploded files directory
       define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory
-      define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.
+      define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository.
+      define('SECURE_DIR', 'file/secure/'); //directory not accessible from the Internet
+      define('TMP_SECURE_DIR', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
+      define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
       define('VIDEO_DIR', 'video/'); //uploaded video directory
       define('TMP_VIDEO_DIR', 'video/tmp/'); //temporary video directory
       define('VIDEO_REPOSITORY_DIR', 'video/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.

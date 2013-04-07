@@ -239,6 +239,7 @@ class Cms {
         $dirs[] = BASE_DIR.TMP_VIDEO_DIR;
         $dirs[] = BASE_DIR.TMP_FILE_DIR;
         $dirs[] = BASE_DIR.TMP_AUDIO_DIR;
+        $dirs[] = BASE_DIR.TMP_SECURE_DIR;
 
         foreach($dirs as $key => $dir) {
             $this->cleanDirRecursive($dir);
