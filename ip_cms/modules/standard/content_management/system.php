@@ -252,6 +252,8 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpCaptcha', '\Modules\developer\form\Field\Captcha', $typeCaptcha);
         $event->addField($newFieldType);
+        $newFieldType = new FieldType('IpFile', '\Modules\developer\form\Field\File', '{{File}}');
+        $event->addField($newFieldType);
     }
 
     

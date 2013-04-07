@@ -1,4 +1,4 @@
-<form <?php echo $form->getClassesStr(); ?> <?php echo $form->getAttributesStr(); ?> method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>">
+<form <?php echo $form->getClassesStr(); ?> <?php echo $form->getAttributesStr(); ?> method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>" enctype="multipart/form-data">
     <?php foreach ($form->getPages() as $pageKey => $page) { ?>
     <div class="ipmPage">
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>

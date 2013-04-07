@@ -51,6 +51,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
 
 
         $to = $from = $websiteEmail;
+        $files = array();
 
         foreach($form->getFields() as $fieldKey => $field) {
             
@@ -76,6 +77,9 @@ class IpForm extends \Modules\standard\content_management\Widget{
             }
 
 
+            if (get_class($field) == 'Modules\developer\form\Field\File') {
+                $files[] = $field->getValueAsString($postData, $field->getName());
+            }
         }
         $content = \Ip\View::create('view/email_content.php', array('values' => $contentData))->render();
 
@@ -100,7 +104,7 @@ class IpForm extends \Modules\standard\content_management\Widget{
         }
         
         $subject = $websiteName.': '.$pageTitle;
-        
+
         $files = array(); //TODO file handling in IpForm widget is not implemented yet.
         $emailQueue = new \Modules\administrator\email_queue\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
