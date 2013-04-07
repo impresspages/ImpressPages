@@ -174,7 +174,7 @@ abstract class Field{
         $this->validators = $newValidatorsArray;
     }
     
-    public function addCustomValidator(\Modules\developer\form\Validator $validator) {
+    public function addCustomValidator(\Modules\developer\form\Validator\Validator $validator) {
         $this->validators[] = $validator;
     }
     
