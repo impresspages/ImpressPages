@@ -24,15 +24,20 @@
 
  
  /*ImpressPages security*/
-	
+
+
+
+
 
 	error_reporting(E_ALL|E_STRICT);
 	ini_set('display_errors', '1');
 	define("BACKEND", "true");  // make sure files are accessed through admin.
     define("CMS", "true");  // make sure files are accessed through admin.
 
-    if(file_exists('../../../../../../../../../ms_config.php')) {
-        require_once ('../../../../../../../../../ms_config.php');
+    $msConfigPath = '../../../../../../../../../ms_config.php';
+
+    if(inOpenBasedir($msConfigPath) && file_exists($msConfigPath)) {
+        require_once ($msConfigPath);
     } elseif (is_file('../../../../../../../ip_config.php')) {
         require_once ('../../../../../../../ip_config.php');
     } else {
@@ -118,4 +123,44 @@ function DoResponse()
 
 	exit ;
 }
+
+
+function inOpenBasedir($dir) {
+    $openBasedir = ini_get('open_basedir');
+    if (empty($openBasedir)) {
+        return true;
+    }
+
+    foreach (explode(':', $openBasedir) as $basedir)
+    {
+        if( strlen($basedir) > strlen($dir) )
+        {
+            // Check, if only a '\' is needed at the end of $dir
+            if( $basedir == ($dir . "/") )
+            {
+                return true;
+            }
+        }
+        else
+        {
+            // Check if basedir and dir are the same..
+            if( $basedir == $dir )
+            {
+                return true;
+            }
+            else
+            {
+                // open_basedir can be a prefix -> checking whether
+                // dir starts with basedir or not
+                if( strncmp($basedir, $dir, strlen($basedir)) == 0)
+                {
+                    return true;
+                }
+
+            }
+        }
+    }
+    return false;
+}
+
 ?>
