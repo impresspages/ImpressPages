@@ -28,34 +28,45 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->importParameters('newParameters.php');
 
         $this->createNewDirs($cf);
+
+        $this->importParameters('newParameters.php');
     }
 
     private function createNewDirs($cf)
     {
-        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'secure/');
-        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'secure/tmp/');
-        mkdir($cf['BASE_DIR'].$cf['FILE_DIR'].'manual/');
+        $secureDir = $cf['BASE_DIR'].$cf['FILE_DIR'].'secure/';
+        $secureTmpDir = $cf['BASE_DIR'].$cf['FILE_DIR'].'secure/tmp/';
+        $manualDir = $cf['BASE_DIR'].$cf['FILE_DIR'].'manual/';
 
-        $ipConfigPath = $cf['BASE_DIR'].'ip_config.php';
-        $errorData = array (
-            'file' => $ipConfigPath
-        );
-
-        $myFile = "testFile.txt";
-        $fh = fopen($myFile, 'a');
-
-        if (!$fh) {
-            throw new \IpUpdate\Library\UpdateException("Can't write to ".$ipConfigPath, \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        if (!file_exists($secureDir) || !is_dir($secureDir)) {
+            mkdir($secureDir);
+        }
+        if (!file_exists($secureTmpDir) || !is_dir($secureTmpDir)) {
+            mkdir($secureTmpDir);
+        }
+        if (!file_exists($manualDir) || !is_dir($manualDir)) {
+            mkdir($manualDir);
         }
 
-        $data = "
+        if (!isset($cf['SECURE_DIR'])) {
 
+            $ipConfigPath = $cf['BASE_DIR'].'ip_config.php';
+            $fh = fopen($ipConfigPath, 'a');
+            if (!$fh) {
+                $errorData = array (
+                    'file' => $ipConfigPath
+            );
+                throw new \IpUpdate\Library\UpdateException("Can't write to ".$ipConfigPath, \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+            }
+
+            $data = "
       define('SECURE_DIR', 'file/secure/'); //directory not accessible from the Internet
       define('TMP_SECURE_DIR', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
       define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
 ";
-        fwrite($fh, $data);
-        fclose($fh);
+            fwrite($fh, $data);
+            fclose($fh);
+        }
 
     }
 
@@ -170,6 +181,23 @@ CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_administrator_repository_reflecti
 
                 }
             }
+        }
+    }
+
+    private function addParameterGroup($moduleId, $name, $translation, $admin){
+        $sql = "insert into `".$this->dbPref."parameter_group`
+        set
+        `name` = '".mysql_real_escape_string($name)."',
+        `translation` = '".mysql_real_escape_string($translation)."',
+        `module_id` = '".(int)$moduleId."',
+        `admin` = '".(int)$admin."'
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if($rs){
+            return mysql_insert_id();
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
         }
     }
 

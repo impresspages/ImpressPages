@@ -7,17 +7,24 @@
 namespace Modules\administrator\repository;
 
 
+/**
+ * Repository controller to handle file uploads and supply
+ * data about repository files to frontend.
+ *
+ * Files can be uploaded from frontend and backend.
+ * But files from frontend can be uploaded only to
+ * secured folder not accessible from the Internet
+ */
 class Controller extends \Ip\Controller{
 
-    public function allowAction($action) {
-        return \Ip\Backend::loggedIn();
-    }
 
     /**
      * Move files from temporary folder to repository.
      */
     public function storeNewFiles()
     {
+        $this->backendOnly();
+
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
             $this->returnJson(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
         }
@@ -69,6 +76,14 @@ class Controller extends \Ip\Controller{
      */
     public function upload()
     {
+        if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
+            //upload to secure publicly not accessible folder.
+
+        } else {
+            $this->backendOnly();
+        }
+
+
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         if (!isset($_SESSION['backend_session']['user_id'])) {
@@ -178,6 +193,8 @@ class Controller extends \Ip\Controller{
 
     public function deleteTmpFile()
     {
+        $this->backendOnly();
+
         if (!isset($_POST['file'])) {
             $answer = array(
                 'status' => 'error',
@@ -209,6 +226,7 @@ class Controller extends \Ip\Controller{
 
     public function getAll()
     {
+        $this->backendOnly();
 
         if(isset($_POST['seek'])) {
             $seek = (int) $_POST['seek'];
@@ -224,6 +242,14 @@ class Controller extends \Ip\Controller{
 
 
         $this->returnJson($answer);
+    }
+
+
+    protected function backendOnly()
+    {
+        if (!\Ip\Backend::loggedIn()) {
+            throw new \Exception('This controller can be accessed only by administrator');
+        }
     }
 
 }
