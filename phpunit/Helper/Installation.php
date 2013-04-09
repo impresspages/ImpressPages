@@ -72,7 +72,7 @@ class Installation
     public function install()
     {
         if ($this->isInstalled()) {
-            throw new \Exception("Already intalled");
+            throw new \Exception("Already installed");
         }
 
         $testDbHelper = new \PhpUnit\Helper\TestDb();
@@ -468,18 +468,22 @@ class Installation
         $fs = new \PhpUnit\Helper\FileSystem();
         foreach($folders as $folder) {
             $fs->cpDir(CODEBASE_DIR.$folder, $destination.$folder);
+            $fs->chmod($destination.$folder, 0777);
         }
         foreach($files as $file) {
             copy(CODEBASE_DIR.$file, $destination.$file);
+            $fs->chmod($destination.$file, 0777);
         }
 
         file_put_contents($destination.'robots.txt', '');
+        $fs->chmod($destination.'robots.txt', 0777);
         file_put_contents($destination.'ip_config.php',
             '<?php
 
  if(!isset($_GET[\'install\']))
     header("location: install/?install=1");
         ');
+        $fs->chmod($destination.'ip_config.php', 0777);
 
 
     }
