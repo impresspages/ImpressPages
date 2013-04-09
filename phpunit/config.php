@@ -13,3 +13,6 @@ define ('TEST_DB_HOST', 'localhost');
 define ('TEST_DB_USER', 'test');
 define ('TEST_DB_PASS', 'test');
 
+define ('CAPTURE_SCREENSHOT_ON_FAILURE', true);
+define ('SCREENSHOT_PATH', '/var/www/ImpressPagesTestScreenshot/');
+define ('SCREENSHOT_URL', 'http://localhost/ImpressPagesTestSceenshot');

@@ -121,18 +121,22 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $fs = new \PhpUnit\Helper\FileSystem();
         foreach($folders as $folder) {
             $fs->cpDir(CODEBASE_DIR.$folder, $tmpInstallDir.$folder);
+            $fs->chmod($tmpInstallDir.$folder, 0777);
         }
         foreach($files as $file) {
             copy(CODEBASE_DIR.$file, $tmpInstallDir.$file);
+            $fs->chmod($tmpInstallDir.$folder, 0777);
         }
 
         file_put_contents($tmpInstallDir.'robots.txt', '');
+        $fs->chmod($tmpInstallDir.'robots.txt', 0777);
         file_put_contents($tmpInstallDir.'ip_config.php',
             '<?php
 
  if(!isset($_GET[\'install\']))
     header("location: install/?install=1");
         ');
+        $fs->chmod($tmpInstallDir.'ip_config.php', 0777);
 
         $this->open($testUrl);
         $this->assertNoErrors();
