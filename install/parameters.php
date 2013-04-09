@@ -1260,6 +1260,13 @@ top";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["cancel"] = "1";
         $parameterType["standard"]["configuration"]["admin_translations"]["cancel"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["add_new"] = "Add new";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["add_new"] = "Add new";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["add_new"] = "0";
+        $parameterType["standard"]["configuration"]["admin_translations"]["add_new"] = "string";
+
+
+
     $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
     $parameterGroupAdmin["standard"]["configuration"]["advanced_options"] = "1";
 
@@ -1287,6 +1294,11 @@ newsletter";
         $parameterValue["standard"]["configuration"]["advanced_options"]["keep_old_revisions_for"] = "30";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["keep_old_revisions_for"] = "1";
         $parameterType["standard"]["configuration"]["advanced_options"]["keep_old_revisions_for"] = "integer";
+
+        $parameterTitle["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "Default image quality (0 - 100)";
+        $parameterValue["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "80";
+        $parameterAdmin["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "1";
+        $parameterType["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "integer";
 
     $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
     $parameterGroupAdmin["standard"]["configuration"]["error_404"] = "0";
@@ -2331,6 +2343,17 @@ $moduleGroupTitle["administrator"] = "Administrator";
         $parameterAdmin["administrator"]["theme"]["admin_translations"]["title"] = "1";
         $parameterType["administrator"]["theme"]["admin_translations"]["title"] = "string";
 
+
+$moduleGroupTitle["developer"] = "Developer";
+$moduleTitle["developer"]["repository"] = "Repository";
+
+    $parameterGroupTitle["administrator"]["repository"]["options"] = "Options";
+    $parameterGroupAdmin["administrator"]["repository"]["options"] = "0";
+
+        $parameterTitle["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "Allow public file upload";
+        $parameterValue["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
+        $parameterAdmin["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
+        $parameterType["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "bool";
 
 
 $moduleGroupTitle["developer"] = "Developer";
