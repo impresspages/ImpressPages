@@ -48,7 +48,7 @@ class Script extends \IpUpdate\Library\Migration\General{
             mkdir($manualDir);
         }
 
-        if (!isset($cf['SECURE_DIR'])) {
+        if (empty($cf['SECURE_DIR'])) {
 
             $ipConfigPath = $cf['BASE_DIR'].'ip_config.php';
             $fh = fopen($ipConfigPath, 'a');
