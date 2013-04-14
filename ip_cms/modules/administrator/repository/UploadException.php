@@ -20,6 +20,7 @@ class UploadException extends \Exception
     const INPUT_STREAM_ERROR = 3;
     const OUTPUT_STREAM_ERROR = 4;
     const FAILED_TO_MOVE_UPLOADED_FILE = 5;
+    const SESSION_NOT_FOUND = 6;
 
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null) {

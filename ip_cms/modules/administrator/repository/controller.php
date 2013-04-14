@@ -118,10 +118,13 @@ class Controller extends \Ip\Controller{
             "jsonrpc" => "2.0",
             "result" => null,
             "id" => "id",
-            "fileName" => $fileName,
-            "dir" => $targetDir,
-            "file" => $file
+            "fileName" => $fileName
         );
+
+        if (!$secureFolder) {
+            $answerArray['dir'] = $targetDir;
+            $answerArray['file'] = $file;
+        }
 
         $this->returnJson($answerArray);
 

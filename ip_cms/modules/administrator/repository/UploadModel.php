@@ -203,4 +203,17 @@ class UploadModel{
     }
 
 
+    /**
+     * return path to uploaded file relative to BASE_DIR
+     * @return string
+     */
+    public function getUploadedFilePath($fileName)
+    {
+        if ($this->isFileUploadedByCurrentUser($fileName)) {
+            return TMP_SECURE_DIR.$fileName;
+        } else {
+            throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
+        }
+    }
+
 }
