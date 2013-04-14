@@ -1,4 +1,4 @@
-<div class="ipmFileContainer">
+<div class="ipmFileContainer" data-inputname='<?php echo addslashes($inputName) ?>'>
     <a <?php echo $attributesStr ?> class="ipmControlInput ipmFileAddButton <?php echo $classes ?>" href="#" >{{Upload}}</a>
     <div class="ipmFiles">
 

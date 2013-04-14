@@ -17,7 +17,8 @@ class File extends Field{
     public function render($doctype) {
         $data = array (
             'attributesStr' => $this->getAttributesStr($doctype),
-            'classes' => implode(' ',$this->getClasses())
+            'classes' => implode(' ',$this->getClasses()),
+            'inputName' => $this->getName()
         );
 
         $view = \Ip\View::create('../view/field/File.php', $data);
@@ -38,14 +39,27 @@ class File extends Field{
     /**
      * @param array $values all posted form values
      * @param string $valueKey this field name
+     * @return string
      */
     public function getValueAsString($values, $valueKey) {
-        var_dump($_FILES);
-        echo $valueKey;
-        if (isset($_FILES[$valueKey]["tmp_name"])) {
-            return $_FILES[$valueKey]["tmp_name"];
+        if (isset($values[$valueKey])) {
+            return implode(', ',$values[$valueKey]);
         } else {
             return '';
+        }
+    }
+
+
+    /**
+     * @param array $values all posted form values
+     * @param string $valueKey this field name
+     * @return string[]
+     */
+    public function getFiles($values, $valueKey) {
+        if (isset($values[$valueKey]) && is_array($values[$valueKey])) {
+            return $values[$valueKey];
+        } else {
+            return array();
         }
     }
 }

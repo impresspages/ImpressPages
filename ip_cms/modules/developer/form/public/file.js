@@ -44,7 +44,8 @@
                         multipart_params : {
                             g : 'administrator',
                             m : 'repository',
-                            a : 'upload'
+                            a : 'upload',
+                            secureFolder : 1
                         },
 
                         //if you add "multipart: false," IE fails.
@@ -82,7 +83,8 @@
                     uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
 
                     $this.data('ipFormFile', {
-                        uniqueNumber: uniqueNumber
+                        uniqueNumber: uniqueNumber,
+                        inputName: $this.data('inputname')
                     });
                 }
             });
@@ -90,11 +92,14 @@
 
 
         _error : function(up, err) {
-            var $newError = $(this).find('.ipmErrorSample').clone().removeClass('ipmErrorSample').removeClass('ipgHide');
-            $newError.text(err.message);
-            setTimeout(function(){$newError.remove();}, 9000);
-            $(this).find('.ipmCurErrors').append($newError);
-            up.refresh(); // Reposition Flash/Silverlight
+            alert(err.message);
+//            var $newError = $(this).find('.ipmErrorSample').clone().removeClass('ipmErrorSample').removeClass('ipgHide');
+//            $newError.text(err.message);
+//            setTimeout(function(){$newError.remove();}, 9000);
+//            $(this).find('.ipmCurErrors').append($newError);
+//            up.refresh(); // Reposition Flash/Silverlight
+
+
         },
 
         _filesAdded : function(up, files) {
@@ -121,39 +126,17 @@
             var $this = $(this);
 
             var answer = jQuery.parseJSON(response.response);
-console.log(answer);
+
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
             } else {
-                var $fileRecord = $this.find('.ipmFileSample').clone();
-                $fileRecord.removeClass('ipgHide');
-                $fileRecord.removeClass('ipmFileSample');
-                $fileRecord.find('.ipaRenameTo').val(answer.fileName);
-                $fileRecord.data('fileName', answer.fileName);
-                $fileRecord.data('dir', answer.dir);
-                $fileRecord.data('file', answer.file);
-                $fileRecord.find('.ipaFileRemove').click(function(e){
-                    e.preventDefault();
-                    $fileRecord.hide();
-                    $fileRecord.data('deleted', true);
-
-                    var data = Object();
-                    data.g = 'administrator';
-                    data.m = 'repository';
-                    data.a = 'deleteTmpFile';
-                    data.file = answer.file;
-
-                    $.ajax ({
-                        type : 'POST',
-                        url : ip.baseUrl,
-                        data : data,
-                        context : $this,
-                        success : $.proxy(methods._storeFilesResponse, this),
-                        dataType : 'json'
-                    });
-
-                });
-                $this.find('.ipmFiles').append($fileRecord);
+                console.log('completed');
+                console.log(file);
+                console.log(answer.fileName); return;
+                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[\'file\']" type="hidden" value="' + answer.fileName + '" />');
+                $this.append($fileInput);
+                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[\'originalFileName\']" type="hidden" value="' + answer.fileName + '" />');
+                $this.append($fileInput);
             }
 
             $this.find('#ipUpload_' + file.id).remove();
