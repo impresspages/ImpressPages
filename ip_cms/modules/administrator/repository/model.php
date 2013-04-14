@@ -5,8 +5,6 @@
  * @license see ip_license.html
  */
 namespace Modules\administrator\repository;
-if (!defined('CMS')) exit;
-
 
 
 /**
@@ -22,10 +20,36 @@ if (!defined('CMS')) exit;
  */
 class Model{
 
+
+    protected static $instance;
+
+    protected function __construct()
+    {
+
+    }
+
+    protected function __clone()
+    {
+
+    }
+
+    /**
+     * Get singleton instance
+     * @return BrowserModel
+     */
+    public static function instance()
+    {
+        if (!self::$instance) {
+            self::$instance = new Model();
+        }
+
+        return self::$instance;
+    }
+
     
     /**
      * @deprecated
-     * Add new file to the repository. Defined file will be duplicated. File name of dupliace will be returned. 
+     * Add new file to the repository. Defined file will be duplicated. File name of duplicate will be returned.
      * 
      * @param string $file file to be added. Relative to BASE_DIR. E.g. file/tmp/file.doc
      * @param string $module module that uses this file (eg. standard/content_management)
