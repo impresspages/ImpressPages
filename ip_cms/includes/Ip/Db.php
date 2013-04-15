@@ -38,7 +38,7 @@ class Db
             case self::TYPE_PDO:
                 if (!self::$pdoConnection) {
                     try {
-                        self::$pdoConnection = new \PDO('mysql:host='.DB_SERVER.';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+                        self::$pdoConnection = new \PDO('mysql:host='.str_replace(':', ';port=', DB_SERVER).';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                         $dt = new \DateTime();
