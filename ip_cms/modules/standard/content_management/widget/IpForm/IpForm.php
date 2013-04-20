@@ -78,7 +78,16 @@ class IpForm extends \Modules\standard\content_management\Widget{
 
 
             if (get_class($field) == 'Modules\developer\form\Field\File') {
-                $files[] = $field->getFiles($postData, $field->getName());
+                /**
+                 * @var $uploadedFiles \Modules\developer\form\Field\Helper\UploadedFile[]
+                 */
+                $uploadedFiles = $field->getFiles($postData, $field->getName());
+                foreach($uploadedFiles as $uploadedFile) {
+                    $files[] = array(
+                        'real_name' => $uploadedFile->getFile(),
+                        'required_name' => $uploadedFile->getOriginalFileName()
+                    );
+                }
             }
         }
         $content = \Ip\View::create('view/email_content.php', array('values' => $contentData))->render();

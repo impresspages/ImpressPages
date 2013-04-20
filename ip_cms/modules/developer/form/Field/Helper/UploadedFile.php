@@ -24,12 +24,12 @@ class UploadedFile{
 
     public function getFile()
     {
-        return $this->file();
+        return $this->file;
     }
 
     public function getOriginalFileName()
     {
-        return $this->getOriginalFileName();
+        return $this->originalFileName;
     }
 
 }

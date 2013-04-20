@@ -58,8 +58,7 @@
                         autostart : true,
                         container: $uploadContainer.attr('id')
                     };
-                    console.log(uploaderConfig);
-                    var uploader = new plupload.Uploader(uploaderConfig);console.log(uploader);
+                    var uploader = new plupload.Uploader(uploaderConfig);
                     uploader.bind('Init', function(up) {
                         // if dragdrop is possible, we'll enhance UI
 //                        if (up.features.dragdrop) {
@@ -130,12 +129,9 @@
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
             } else {
-                console.log('completed');
-                console.log(file);
-                console.log(answer.fileName); return;
-                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[\'file\']" type="hidden" value="' + answer.fileName + '" />');
+                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
                 $this.append($fileInput);
-                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[\'originalFileName\']" type="hidden" value="' + answer.fileName + '" />');
+                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '\[originalFileName][]" type="hidden" value="' + file.name + '" />');
                 $this.append($fileInput);
             }
 
