@@ -3,12 +3,15 @@
  *
  * ImpressPages CMS main frontend file
  *
- * This file iniciates required variables and outputs the content.
+ * This file initiates required variables and outputs the content.
  *
  * @package	ImpressPages
  * @copyright	Copyright (C) 2011 JSC Apro media.
  * @license see ip_license.html
  */
+
+
+
 
 /** Make sure files are accessed through index. */
 
@@ -33,8 +36,8 @@ if(is_file(__DIR__.'/ip_config.php')) {
 }
 
 
-error_reporting(E_ALL|E_STRICT);
-if (DEVELOPMENT_ENVIRONMENT){ 
+if (DEVELOPMENT_ENVIRONMENT){
+    error_reporting(E_ALL|E_STRICT);
     ini_set('display_errors', '1');
 } else {
     ini_set('display_errors', '0');
@@ -42,17 +45,8 @@ if (DEVELOPMENT_ENVIRONMENT){
 
 
 
-require (BASE_DIR.INCLUDE_DIR.'parameters.php');
-require (BASE_DIR.INCLUDE_DIR.'db.php');
-
-require (BASE_DIR.FRONTEND_DIR.'db.php');
-require (BASE_DIR.FRONTEND_DIR.'site.php');
-require (BASE_DIR.FRONTEND_DIR.'session.php');
-require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
-require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
-require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
-
 try {
+    require_once(BASE_DIR.FRONTEND_DIR.'init.php');
     require_once(BASE_DIR.FRONTEND_DIR.'bootstrap.php');
 } catch (\Exception $e) {
     $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());

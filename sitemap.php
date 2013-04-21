@@ -44,15 +44,7 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require (INCLUDE_DIR.'parameters.php');
-require (INCLUDE_DIR.'db.php');
-
-require (FRONTEND_DIR.'db.php');
-require (FRONTEND_DIR.'site.php');
-require (FRONTEND_DIR.'session.php');
-require (MODULE_DIR.'administrator/log/module.php');
-require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
-require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
+require_once(BASE_DIR.FRONTEND_DIR.'init.php');
 
 if(\Db::connect()){
     $log = new \Modules\administrator\log\Module();
