@@ -191,7 +191,7 @@ class Installation
 
         $fs = new \PhpUnit\Helper\FileSystem();
         foreach($folders as $folder) {
-            $fs->cpDir(CODEBASE_DIR.$folder, $this->getInstallationDir().$folder);
+            $fs->cpDir(TEST_CODEBASE_DIR.$folder, $this->getInstallationDir().$folder);
         }
 
     }
@@ -467,11 +467,11 @@ class Installation
 
         $fs = new \PhpUnit\Helper\FileSystem();
         foreach($folders as $folder) {
-            $fs->cpDir(CODEBASE_DIR.$folder, $destination.$folder);
+            $fs->cpDir(TEST_CODEBASE_DIR.$folder, $destination.$folder);
             $fs->chmod($destination.$folder, 0777);
         }
         foreach($files as $file) {
-            copy(CODEBASE_DIR.$file, $destination.$file);
+            copy(TEST_CODEBASE_DIR.$file, $destination.$file);
             $fs->chmod($destination.$file, 0777);
         }
 

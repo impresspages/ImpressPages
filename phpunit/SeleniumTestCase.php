@@ -12,9 +12,9 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 
     protected function setup()
     {
-        $this->captureScreenshotOnFailure = CAPTURE_SCREENSHOT_ON_FAILURE;
-        $this->screenshotPath = SCREENSHOT_PATH;
-        $this->screenshotUrl = SCREENSHOT_URL;
+        $this->captureScreenshotOnFailure = TEST_CAPTURE_SCREENSHOT_ON_FAILURE;
+        $this->screenshotPath = TEST_SCREENSHOT_PATH;
+        $this->screenshotUrl = TEST_SCREENSHOT_URL;
 
 
         $fileSystemHelper = new \PhpUnit\Helper\FileSystem();

@@ -120,11 +120,11 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
 
         $fs = new \PhpUnit\Helper\FileSystem();
         foreach($folders as $folder) {
-            $fs->cpDir(CODEBASE_DIR.$folder, $tmpInstallDir.$folder);
+            $fs->cpDir(TEST_CODEBASE_DIR.$folder, $tmpInstallDir.$folder);
             $fs->chmod($tmpInstallDir.$folder, 0777);
         }
         foreach($files as $file) {
-            copy(CODEBASE_DIR.$file, $tmpInstallDir.$file);
+            copy(TEST_CODEBASE_DIR.$file, $tmpInstallDir.$file);
             $fs->chmod($tmpInstallDir.$folder, 0777);
         }
 

@@ -2,7 +2,7 @@
 
 
 define ('TEST_BASE_DIR', __DIR__.'/');
-define ('CODEBASE_DIR', __DIR__.'/../');
+define ('TEST_CODEBASE_DIR', __DIR__.'/../');
 
 define ('TEST_FIXTURE_DIR', TEST_BASE_DIR.'Fixture/');
 define ('TEST_TMP_DIR', TEST_BASE_DIR.'Tmp/');
@@ -13,6 +13,6 @@ define ('TEST_DB_HOST', 'localhost');
 define ('TEST_DB_USER', 'test');
 define ('TEST_DB_PASS', 'test');
 
-define ('CAPTURE_SCREENSHOT_ON_FAILURE', true);
-define ('SCREENSHOT_PATH', '/var/www/ImpressPagesTestScreenshot/');
-define ('SCREENSHOT_URL', 'http://localhost/ImpressPagesTestSceenshot');
+define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
+define ('TEST_SCREENSHOT_PATH', '/var/www/ImpressPagesTestScreenshot/');
+define ('TEST_SCREENSHOT_URL', 'http://localhost/ImpressPagesTestSceenshot');

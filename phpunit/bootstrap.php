@@ -14,9 +14,11 @@ $autoloader = new \PhpUnit\Autoloader();
 $autoloader->register(TEST_BASE_DIR);
 
 
+
+
+
 //bootstrap IpUpdate library
-require_once(CODEBASE_DIR.'update/Library/Bootstrap.php');
+require_once(TEST_CODEBASE_DIR.'update/Library/Bootstrap.php');
 $libraryBootstrap = new \IpUpdate\Library\Bootstrap();
 $libraryBootstrap->run();
-
-
+//end IpUpdate bootstrap

@@ -18,7 +18,7 @@ class GeneralTestCase extends \PHPUnit_Framework_TestCase
         $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);
     }
-    
 
-    
+
+
 }
