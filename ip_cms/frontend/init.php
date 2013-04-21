@@ -9,3 +9,18 @@ require (BASE_DIR.FRONTEND_DIR.'session.php');
 require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
 require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
+
+if(!Db::connect()){
+    trigger_error("Database access");
+}
+
+global $log;
+$log = new Modules\Administrator\Log\Module();
+global $dispatcher;
+$dispatcher = new \Ip\Dispatcher();
+global $parametersMod;
+$parametersMod = new parametersMod();
+global $session;
+$session = new Frontend\Session();
+global $site;
+$site = new \Site();

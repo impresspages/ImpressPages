@@ -1,13 +1,6 @@
 <?php
 
-if(Db::connect()){
-    $log = new Modules\Administrator\Log\Module();
-    $dispatcher = new \Ip\Dispatcher();
 
-    $parametersMod = new parametersMod();
-    $session = new Frontend\Session();
-
-    $site = new \Site();
 
     $dispatcher->notify(new \Ip\Event($site, 'site.beforeInit', null));
     $site->init();
@@ -95,7 +88,4 @@ if(Db::connect()){
 
 
 
-} else {
-    trigger_error("Database access");
-}
 

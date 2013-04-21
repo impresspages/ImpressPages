@@ -14,7 +14,7 @@ class Cron{
     function execute($options){
 
         if ($options->firstTimeThisWeek) {
-            $model = new Model();
+            $model = Model::instance();
             //repository binds files only on new uploads. Just to track new uploaded files.
             //this function unbinds those files. If within 24h none of modules has bind new files,
             //they are deleted

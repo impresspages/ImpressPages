@@ -384,18 +384,18 @@ class Site{
                 //initialize zone object
                 $tmpZone = $this->zones[$zoneName];
                 if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
-                    if (file_exists(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php')) {
-                        require_once(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
-                    } elseif (file_exists(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
-                        require_once(MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    } elseif (file_exists(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
-                        require_once(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
+                    if (file_exists(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php')) {
+                        require_once(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
+                    } elseif (file_exists(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
+                        require_once(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
+                    } elseif (file_exists(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
+                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
                     } else {
-                        require_once(PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
+                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
                 } else {
-                    require_once(FRONTEND_DIR.'default_zone.php');
+                    require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
                     $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
                 }
 

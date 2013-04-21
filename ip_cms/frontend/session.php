@@ -17,8 +17,10 @@ if (!defined('CMS')) exit;
 class Session{
 
     function __construct(){
-        session_name(SESSION_NAME);
-        session_start();
+        if(session_id() == '') { //if session hasn't been started yet
+            session_name(SESSION_NAME);
+            session_start();
+        }
     }
 
     /**
