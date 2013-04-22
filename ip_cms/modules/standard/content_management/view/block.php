@@ -4,10 +4,8 @@
         $showEmpty = true;
     }
 ?>
-<div id="ipBlock-<?php echo $blockName; ?>" class="ipBlock<?php echo ($showEmpty ? ' ipbEmpty' : ''); ?>">
-<?php
+<div id="ipBlock-<?php echo $blockName; ?>" class="ipBlock<?php echo ($showEmpty ? ' ipbEmpty' : ''); ?>"><?php
     foreach($widgetsHtml as $key => $widgetHtml) {
         echo $widgetHtml;
     }
-?>
-</div>
+?></div>
