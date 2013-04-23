@@ -28,3 +28,20 @@ $parameterTitle["administrator"]["repository"]["options"]["allow_anonymous_uploa
 $parameterValue["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
 $parameterAdmin["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
 $parameterType["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "bool";
+
+
+
+$parameterGroupTitle["developer"]["form"]["translations"] = "Translations";
+$parameterGroupAdmin["developer"]["form"]["translations"] = "0";
+
+$parameterTitle["developer"]["form"]["translations"]["upload"] = "Add new";
+$parameterValue["developer"]["form"]["translations"]["upload"] = "Add new";
+$parameterAdmin["developer"]["form"]["translations"]["upload"] = "0";
+$parameterType["developer"]["form"]["translations"]["upload"] = "lang";
+
+
+$parameterTitle["developer"]["form"]["error_messages"]["file_upload_session"] = "File upload session has ended";
+$parameterValue["developer"]["form"]["error_messages"]["file_upload_session"] = "Session has ended. Please remove and re-upload files";
+$parameterAdmin["developer"]["form"]["error_messages"]["file_upload_session"] = "0";
+$parameterType["developer"]["form"]["error_messages"]["file_upload_session"] = "lang";
+

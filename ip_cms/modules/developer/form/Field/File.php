@@ -72,7 +72,8 @@ class File extends Field
             foreach($values[$valueKey]['file'] as $key => $file) {
                 $uploadModel = \Modules\administrator\repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file)) {
-                    return 'Session has ended. Please remove and re-upload files';
+                    $parametersMod = \Ip\ServiceLocator::getParametersMod();
+                    return $parametersMod->getValue("developer", "form", "error_messages", "file_upload_session");
                 }
             }
         }

@@ -18,7 +18,8 @@ class Email extends Validator {
         $value = $values[$valueKey];
         
         if (!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $value)) {
-            return 'Invalid email';
+            $parametersMod = \Ip\ServiceLocator::getParametersMod();
+            return $parametersMod->getValue("developer", "form", "error_messages", "email");
         } else {
             return false;
         }
