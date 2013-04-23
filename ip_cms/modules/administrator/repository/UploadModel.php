@@ -170,6 +170,9 @@ class UploadModel{
      * @return bool
      */
     public function isFileUploadedByCurrentUser($file) {
+        if (!isset($_SESSION['modules']['administrator']['repository']['userFiles'])) {
+            return false;
+        }
         $isUploaded = in_array($file, $_SESSION['modules']['administrator']['repository']['userFiles']);
         return $isUploaded;
     }
