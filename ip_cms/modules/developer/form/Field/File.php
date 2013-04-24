@@ -27,8 +27,6 @@ class File extends Field
         $view = \Ip\View::create('../view/field/File.php', $data);
 
         return $view->render();
-
-        //<input type="file"  name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     /**
@@ -71,7 +69,7 @@ class File extends Field
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             foreach($values[$valueKey]['file'] as $key => $file) {
                 $uploadModel = \Modules\administrator\repository\UploadModel::instance();
-                if (!$uploadModel->isFileUploadedByCurrentUser($file)) {
+                if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     $parametersMod = \Ip\ServiceLocator::getParametersMod();
                     return $parametersMod->getValue("developer", "form", "error_messages", "file_upload_session");
                 }
@@ -97,10 +95,10 @@ class File extends Field
                 }
 
                 $uploadModel = \Modules\administrator\repository\UploadModel::instance();
-                if (!$uploadModel->isFileUploadedByCurrentUser($file)) {
+                if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     throw new \Exception("Security risk. Current user doesn't seem to have uploaded this file");
                 }
-                $uploadedFile = new Helper\UploadedFile($uploadModel->getTargetDir().$file, $originalFileName);
+                $uploadedFile = new Helper\UploadedFile($uploadModel->getUploadedFilePath($file, true), $originalFileName);
                 $answer[] = $uploadedFile;
             }
             return $answer;

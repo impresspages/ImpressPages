@@ -158,7 +158,7 @@ function IpWidget_IpForm(widgetObject) {
 
 
 /**
- * Genral Field
+ * General Field
  */
 (function($) {
 

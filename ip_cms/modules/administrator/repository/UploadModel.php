@@ -167,13 +167,19 @@ class UploadModel{
 
     /**
      * @param string $file relative to BASE_DIR.
+     * @param bool $secure true if we are checking file, uploaded to secure folder. False otherwise
      * @return bool
      */
-    public function isFileUploadedByCurrentUser($file) {
+    public function isFileUploadedByCurrentUser($file, $secure) {
         if (!isset($_SESSION['modules']['administrator']['repository']['userFiles'])) {
             return false;
         }
-        $isUploaded = in_array($file, $_SESSION['modules']['administrator']['repository']['userFiles']);
+        if ($secure) {
+            $targetDir = TMP_SECURE_DIR;
+        } else {
+            $targetDir = TMP_FILE_DIR;
+        }
+        $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
         return $isUploaded;
     }
 
@@ -208,11 +214,12 @@ class UploadModel{
 
     /**
      * return path to uploaded file relative to BASE_DIR
+     * @param bool $secure true if we are checking file, uploaded to secure folder. False otherwise*
      * @return string
      */
-    public function getUploadedFilePath($fileName)
+    public function getUploadedFilePath($fileName, $secure)
     {
-        if ($this->isFileUploadedByCurrentUser($fileName)) {
+        if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
             return TMP_SECURE_DIR.$fileName;
         } else {
             throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);

@@ -41,7 +41,7 @@ $parameterType["developer"]["form"]["translations"]["upload"] = "lang";
 
 
 $parameterTitle["developer"]["form"]["error_messages"]["file_upload_session"] = "File upload session has ended";
-$parameterValue["developer"]["form"]["error_messages"]["file_upload_session"] = "Session has ended. Please remove and re-upload files";
+$parameterValue["developer"]["form"]["error_messages"]["file_upload_session"] = "Session has ended. Please remove and re-upload files.";
 $parameterAdmin["developer"]["form"]["error_messages"]["file_upload_session"] = "0";
 $parameterType["developer"]["form"]["error_messages"]["file_upload_session"] = "lang";
 

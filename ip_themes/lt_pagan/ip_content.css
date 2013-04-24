@@ -247,6 +247,15 @@
 .ipModuleForm .ipmControlError {
     border-color: #e44445;
 }
+.ipModuleForm .ipmFileContainer .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.ipModuleForm .ipmFileContainer .ipmHiddenInput input { /* margins on input makes error message to appear lower than it should. */
+    margin: 0;
+    padding: 0;
+}
 .ipmErrorMessage { /* this object is created globally next to each invalid field */
     background-color: #fff;
     color: #da0001;
