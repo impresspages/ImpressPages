@@ -25,7 +25,7 @@ class Db
         switch($driver) {
             case self::DRIVER_PDO_MYSQL:
                 try {
-                    return new \PDO('mysql:host='.$cf['DB_SERVER'].';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
+                    return new \PDO('mysql:host='.str_replace(':', ';port=', $cf['DB_SERVER']).';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
                 } catch (PDOException $e) {
                     throw new \Exception($e->getMessage());
                 }
