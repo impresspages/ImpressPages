@@ -76,7 +76,6 @@ class ReflectionService
 
 
 
-//* @param int $quality - from 0 (biggest compression) to  100 (best quality)
 
 
 }
