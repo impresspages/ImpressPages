@@ -256,6 +256,14 @@
     margin: 0;
     padding: 0;
 }
+.ipModuleForm .ipmFileContainer .ipmFileProgress {
+    border: 1px solid #333;
+    height: 3px;
+}
+.ipModuleForm .ipmFileContainer .ipmFileProgressValue {
+    background-color: #ccc;
+    height: 3px;
+}
 .ipmErrorMessage { /* this object is created globally next to each invalid field */
     background-color: #fff;
     color: #da0001;
