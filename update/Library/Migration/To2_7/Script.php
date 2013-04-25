@@ -25,7 +25,6 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->dbPref = $cf['DB_PREF'];
 
         $this->addReflectionTable();
-        $this->importParameters('newParameters.php');
 
         $this->createNewDirs($cf);
 

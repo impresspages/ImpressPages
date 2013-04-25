@@ -38,6 +38,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->assertElementNotPresent('css=.error');
         $this->assertElementNotPresent('css=.warning');
         $this->assertElementNotPresent('css=.notice');
+        $this->assertTextNotPresent('on line');
     }
 
     /**

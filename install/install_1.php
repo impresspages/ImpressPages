@@ -71,46 +71,7 @@ if (!function_exists('curl_init')) {
 
 
 if (function_exists('curl_init')) {
-    $ch = curl_init();
-    $url = get_url();
-    $urlParts = explode('?', $url);
-    $url = $urlParts[0].'worker.php';
-
-    $fields = array(
-        'action'=>'sessionSetTest'
-    );
-    $fieldsString = '';
-    foreach($fields as $key=>$value) { $fieldsString .= $key.'='.$value.'&'; }
-    rtrim($fieldsString,'&');
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_REFERER, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-    curl_setopt($ch, CURLOPT_POST, count($fields));
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "");
-    curl_setopt($ch, CURLOPT_COOKIEFILE, "");
-    curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
-    $jsonAnswer = curl_exec($ch);
-
-    $fields = array(
-        'action'=>'sessionGetTest'
-    );
-    $fieldsString = '';
-    foreach($fields as $key=>$value) { $fieldsString .= $key.'='.$value.'&'; }
-    rtrim($fieldsString,'&');
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_REFERER, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-    curl_setopt($ch, CURLOPT_POST, count($fields));
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, "");
-    curl_setopt($ch, CURLOPT_COOKIEFILE, "");
-    curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
-    $jsonAnswer = curl_exec($ch);
-    $answer = json_decode($jsonAnswer, true);
-    if (!$answer || !isset($answer['status']) || $answer['status'] != 'success') {
+    if (session_id() == '') { //session hasn't been started
         $warning['session'] = 1;
     }
 }
