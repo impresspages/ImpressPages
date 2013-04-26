@@ -212,7 +212,10 @@ class ImageCrop extends Image
         $heightT = $this->heightDest;
 
         $resizeRequired = $widthS != $widthT || $heightS != $heightT;
+        $resizeRequired = $resizeRequired || $this->x1 != 0 || $this->x2 != 0 || $this->x2 != $imageInfo[0] || $this->y2 != $imageInfo[1];
+
         return $resizeRequired;
+
     }
 
 }
