@@ -50,6 +50,50 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
 
     }
 
+
+    public function testCustomPort()
+    {
+        $this->prepareForInstallation();
+
+        $this->clickAndWait('css=.button_act');
+        $this->assertText ('css=h1', 'System check');
+        $this->assertNoErrors();
+
+        $this->clickAndWait('css=.button_act');
+        $this->assertText('css=h1', 'ImpressPages Legal Notices');
+        $this->assertNoErrors();
+
+        $this->clickAndWait('css=.button_act');
+        $this->assertText('css=h1', 'Database installation');
+        //$this->assertNoErrors(); //there is hidden error message
+
+        $testDbHelper = new \PhpUnit\Helper\TestDb();
+        $this->type('css=#db_server', $testDbHelper->getDbHost().':3306');
+        $this->type('css=#db_user', $testDbHelper->getDbUser());
+        $this->type('css=#db_pass', $testDbHelper->getDbPass());
+        $this->type('css=#db_db', $testDbHelper->getDbName());
+        $this->click('css=.button_act');
+        $this->waitForVisible('css=#config_site_name');
+        //$this->assertNoErrors();  //there is hidden error message
+
+
+        $this->type('css=#config_site_name', 'TestSiteName');
+        $this->type('css=#config_site_email', 'test@example.com');
+        $this->type('css=#config_login', 'admin');
+        $this->type('css=#config_pass', 'admin');
+        $this->type('css=#config_email', 'test@example.com');
+        $this->select('css=#config_timezone', 'value=Europe/London');
+        $this->clickAndWait('css=.button_act');
+        $this->assertText('css=h1', 'ImpressPages CMS successfully installed.');
+        $this->assertNoErrors();
+
+
+        $this->clickAndWait('css=#content a');
+        $this->assertNoErrors();
+        $this->assertText('css=.logo a', 'TestSiteName');
+
+    }
+
     public function testSystemCheck() {
         $this->prepareForInstallation();
         $this->clickAndWait('css=.button_act');
