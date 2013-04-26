@@ -10,9 +10,11 @@ define('IP_CURL', 'PHP module "Curl" (optional)');
 define('IP_SESSION', 'PHP sessions');
 define('IP_MAGIC_QUOTES', '"Magic Quotes" désactivés (recommandé)');
 define('IP_INDEX_HTML', 'index.html removed');
+define('IP_MEMORY_LIMIT', 'PHP memory limit ([[memory_limit]])');
 
 define('IP_OK', 'OK');
 define('IP_ERROR', 'Non');
+define('IP_WARNING', 'Warning');
 define('IP_WRITABLE', 'inscriptible');
 define('IP_CHECK_AGAIN', 'Revérifier');
 define('IP_BACK', 'Précédent');

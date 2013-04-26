@@ -140,10 +140,17 @@ $table[] = '<span class="correct">'.IP_OK.'</span>';
 
 $table[] = IP_CURL;
 if(isset($warning['curl'])) {
-    $table[] = '<span class="error">'.IP_ERROR."</span>";
+    $table[] = '<span class="warning">'.IP_WARNING."</span>";
 } else {
     $table[] = '<span class="correct">'.IP_OK.'</span>';
 }
+
+    $table[] = str_replace('[[memory_limit]]', ini_get('memory_limit'), IP_MEMORY_LIMIT);
+    if ((integer) ini_get('memory_limit') < 100){
+        $table[] = '<span class="warning">'.IP_WARNING."</span>";
+    } else {
+        $table[] = '<span class="correct">'.IP_OK."</span>";
+    }
 
 
 

@@ -6,13 +6,15 @@ define('IP_MOD_REWRITE', 'Apache module "mod_rewrite"');
 define('IP_HTACCESS', '.htaccess file');
 define('IP_MOD_PDO', 'PHP module "PDO"');
 define('IP_GD_LIB', 'GD Graphics Library');
-define('IP_CURL', 'PHP module "Curl" (optional)');
+define('IP_CURL', 'PHP module "Curl"');
 define('IP_SESSION', 'PHP sessions');
 define('IP_MAGIC_QUOTES', 'Magic quotes off (optional)');
 define('IP_INDEX_HTML', 'index.html removed');
+define('IP_MEMORY_LIMIT', 'PHP memory limit ([[memory_limit]])');
 
 define('IP_OK', 'Yes');
 define('IP_ERROR', 'No');
+define('IP_WARNING', 'Warning');
 define('IP_WRITABLE', 'writable');
 define('IP_CHECK_AGAIN', 'Check again');
 define('IP_BACK', 'Back');

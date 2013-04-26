@@ -27,9 +27,9 @@ $languages['ro'] = 'Română';
 
 foreach($languages as $key => $language){
     if ($key == $selected_language) {
-        $answer .= '<a class="selected" href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
+        $answer .= '<a class="selected" href="index.php?step=2&lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
     } else {
-        $answer .= '<a href="index.php?lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
+        $answer .= '<a href="index.php?step=2&lang='.htmlspecialchars($key).'">'.htmlspecialchars($language).'</a><br/>';
     }
 }
 

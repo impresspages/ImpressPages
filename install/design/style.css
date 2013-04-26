@@ -115,6 +115,10 @@ img.border {
     color: #e73031;
 }
 
+.warning {
+    color: rgb(245, 164, 23);
+}
+
 .correct {
     color: #77ae09;
 }

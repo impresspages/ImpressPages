@@ -10,9 +10,11 @@ define('IP_CURL', 'PHP modulis "Curl" (neprivaloma)');
 define('IP_SESSION', 'PHP sesijos');
 define('IP_MAGIC_QUOTES', '"Magic quotes" išjungta (neprivaloma)');
 define('IP_INDEX_HTML', 'index.html ištrintas');
+define('IP_MEMORY_LIMIT', 'PHP atminties limitas ([[memory_limit]])');
 
 define('IP_OK', 'Taip');
 define('IP_ERROR', 'Ne');
+define('IP_WARNING', 'Pastaba');
 define('IP_WRITABLE', 'įrašoma');
 define('IP_CHECK_AGAIN', 'Tikrinti dar kartą');
 define('IP_BACK', 'Atgal');
