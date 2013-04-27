@@ -472,7 +472,7 @@ class Model{
               `layout` = '".mysql_real_escape_string($layout)."',
               `created` = ".time().",
               `recreated` = ".time().",
-              `data` = '".mysql_real_escape_string(json_encode(self::utf8Encode($data)))."',
+              `data` = '".mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($data)))."',
               `predecessor` = ".$predecessorSql."
               ";
 
@@ -499,7 +499,7 @@ class Model{
             }
 
             if ($key == 'data') {
-                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode(self::utf8Encode($value)))."' ";
+                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($value)))."' ";
             } else {
                 $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
             }
@@ -710,28 +710,6 @@ class Model{
     }
 
 
-    /**
-     *
-     *  Returns $dat encoded to UTF8
-     * @param mixed $dat array or string
-     */
-    private static function utf8Encode($dat)
-    {
-        if (is_string($dat)) {
-            if (mb_check_encoding($dat, 'UTF-8')) {
-                return $dat;
-            } else {
-                return utf8_encode($dat);
-            }
-        }
-        if (is_array($dat)) {
-            $answer = array();
-            foreach($dat as $i=>$d) {
-                $answer[$i] = self::utf8Encode($d);
-            }
-            return $answer;
-        }
-        return $dat;
-    }
+
 
 }
