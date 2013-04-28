@@ -76,7 +76,6 @@ class Controller extends \Ip\Controller{
      */
     public function upload()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
@@ -173,7 +172,7 @@ class Controller extends \Ip\Controller{
             $seek = 0;
         }
 
-        $limit = 100;
+        $limit = 10000;
 
 
         $browserModel = BrowserModel::instance();
