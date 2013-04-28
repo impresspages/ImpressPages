@@ -96,11 +96,9 @@ class Model{
             1
         ";
         //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
-        
-        $rs = mysql_query($sql);
-        if (!$rs){
-            throw new Exception('Can\'t file instance '.$sql.' '.mysql_error(), Exception::DB);
-        }
+        $dbh = \Ip\Db::getConnection();
+        $dbh->exec($sql);
+
         $whoUses = self::whoUsesFile($file);
         
         if (count($whoUses) == 0) {
@@ -140,17 +138,18 @@ class Model{
         FROM
             `".DB_PREF."m_administrator_repository_file`
         WHERE
-            `fileName` = '".mysql_real_escape_string($file)."'
+            `fileName` = :file
         ";
-        
-        $rs = mysql_query($sql);
-        if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
-        }
+
+        $dbh = \Ip\Db::getConnection();
+        $q = $dbh->prepare($sql);
+        $q->execute(array(
+            'file' => $file
+        ));
         
         $answer = array();
         
-        while($lock = mysql_fetch_assoc($rs)) {
+        while($lock = $q->fetch()) {
             $answer[] = $lock;
         }
         return $answer;

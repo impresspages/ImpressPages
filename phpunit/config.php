@@ -12,6 +12,7 @@ define ('TEST_UNWRITABLE_DIR', '/var/tmp/testDir'); //root owned empty dir which
 define ('TEST_DB_HOST', 'localhost');
 define ('TEST_DB_USER', 'test');
 define ('TEST_DB_PASS', 'test');
+define ('TEST_DB_NAME', 'test');
 
 define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
 define ('TEST_SCREENSHOT_PATH', '/var/www/ImpressPagesTestScreenshot/');

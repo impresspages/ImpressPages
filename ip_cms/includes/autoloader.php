@@ -6,7 +6,7 @@
  * @license see ip_license.html
  */
 
-if (!defined('CMS')) exit;
+
 /**
  * Autoloader class
  */
