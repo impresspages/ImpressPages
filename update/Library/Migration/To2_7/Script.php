@@ -26,10 +26,142 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->addReflectionTable();
 
+
         $this->createNewDirs($cf);
 
         $this->importParameters('newParameters.php');
+
+        $this->migrateWidgets($cf);
+
     }
+
+    public function migrateWidgets($cf)
+    {
+        $this->dbPref = $cf['DB_PREF'];
+        $db = new \IpUpdate\Library\Model\Db();
+        $conn = $db->connect($cf);
+
+        $widgetsToMigrate = array(
+            'IpImage',
+            'IpImageGallery',
+            'IpLogoGallery',
+            'IpTextImage'
+        );
+
+        foreach($widgetsToMigrate as $widgetName) {
+            $sql = "
+            SELECT
+                `widgetId`, `data`
+            FROM
+                `".$this->dbPref."m_content_management_widget`
+            where
+                name = :name
+            ";
+            $params = array(
+                'name' => $widgetName
+            );
+            $q = $conn->prepare($sql);
+            try {
+                $q->execute($params);
+            } catch (\PDOException $e) {
+                echo 'exception '.$e->getMessage();
+            }
+            $widgetsData = $q->fetchAll();
+            $migrateFunction = 'migrate'.$widgetName;
+            foreach($widgetsData as $widgetData) {
+
+                $newData = $this->$migrateFunction($widgetData['widgetId'], json_decode($widgetData['data'], true));
+                $sql = "
+                    UPDATE
+                        `".$this->dbPref."m_content_management_widget`
+                    SET
+                        `data` = :data
+                    WHERE
+                        `widgetId` = :widgetId
+                ";
+
+                $params = array (
+                    'data' => json_encode($this->checkEncoding($newData)),
+                    'widgetId' => $widgetData['widgetId']
+                );
+                $q = $conn->prepare($sql);
+                $q->execute($params);
+            }
+
+
+
+        }
+    }
+
+
+
+    private function migrateIpImage($widgetId, $data)
+    {
+        $repository = \Modules\administrator\repository\Model::instance();
+        if (isset($data['imageBig']) && $data['imageBig']) {
+            $repository->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+            unset($data['imageBig']);
+        }
+        if (isset($data['imageSmall']) && $data['imageSmall']) {
+            $repository->unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
+            unset($data['imageSmall']);
+        }
+        return $data;
+    }
+
+    private function migrateIpImageGallery($widgetId, $data)
+    {
+        if (isset($data['images']) && is_array($data['images'])) {
+            foreach($data['images'] as $imageKey => &$image) {
+                if (!is_array($image)) {
+                    continue;
+                }
+                if (isset($image['imageBig']) && $image['imageBig']) {
+                    \Modules\administrator\repository\Model::unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
+                    unset($image['imageBig']);
+                }
+                if (isset($image['imageSmall']) && $image['imageSmall']) {
+                    \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
+                    unset($image['imageSmall']);
+                }
+
+
+            };
+        }
+
+        return $data;
+    }
+
+    private function migrateIpLogoGallery($widgetId, $data)
+    {
+        if (isset($data['logos']) && is_array($data['logos'])) {
+            foreach($data['logos'] as $logoKey => $logo) {
+                if (!is_array($logo)) {
+                    continue;
+                }
+                if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+                    \Modules\administrator\repository\Model::unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
+                    unset($logo['logoSmall']);
+                }
+            };
+        }
+        return $data;
+    }
+
+    private function migrateIpTextImage($widgetId, $data)
+    {
+        if (isset($data['imageBig']) && $data['imageBig']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+            unset($data['imageBig']);
+        }
+        if (isset($data['imageSmall']) && $data['imageSmall']) {
+            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
+            unset($data['imageSmall']);
+        }
+        return $data;
+    }
+
+
 
     private function createNewDirs($cf)
     {
@@ -355,6 +487,31 @@ CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_administrator_repository_reflecti
             return false;
         }
 
+    }
+
+    /**
+     *
+     *  Returns $data encoded in UTF8. Very useful before json_encode as it fails if some strings are not utf8 encoded
+     * @param mixed $dat array or string
+     * @return array
+     */
+    private function checkEncoding($dat)
+    {
+        if (is_string($dat)) {
+            if (mb_check_encoding($dat, 'UTF-8')) {
+                return $dat;
+            } else {
+                return utf8_encode($dat);
+            }
+        }
+        if (is_array($dat)) {
+            $answer = array();
+            foreach ($dat as $i => $d) {
+                $answer[$i] = $this->checkEncoding($d);
+            }
+            return $answer;
+        }
+        return $dat;
     }
 
 

@@ -25,7 +25,9 @@ class Db
         switch($driver) {
             case self::DRIVER_PDO_MYSQL:
                 try {
-                    return new \PDO('mysql:host='.str_replace(':', ';port=', $cf['DB_SERVER']).';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
+                    $pdo = new \PDO('mysql:host='.str_replace(':', ';port=', $cf['DB_SERVER']).';dbname='.$cf['DB_DATABASE'], $cf['DB_USERNAME'], $cf['DB_PASSWORD']);
+                    $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                    return $pdo;
                 } catch (PDOException $e) {
                     throw new \Exception($e->getMessage());
                 }
