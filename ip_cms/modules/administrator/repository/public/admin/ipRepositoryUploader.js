@@ -164,6 +164,7 @@
                 $fileRecord.data('fileName', answer.fileName);
                 $fileRecord.data('dir', answer.dir);
                 $fileRecord.data('file', answer.file);
+                $fileRecord.find('.ipaFileLink').attr('href', ip.baseUrl + answer.file);
                 $fileRecord.find('.ipaFileRemove').click(function(e){
                     e.preventDefault();
                     $fileRecord.hide();
