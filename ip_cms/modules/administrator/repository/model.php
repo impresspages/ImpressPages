@@ -35,7 +35,7 @@ class Model{
 
     /**
      * Get singleton instance
-     * @return BrowserModel
+     * @return Model
      */
     public static function instance()
     {
@@ -157,13 +157,13 @@ class Model{
     
     private static function removeFile($file) {
         if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
-            $deletedDir = FILE_DIR.'deleted/';
+            $deletedDir = BASE_DIR.FILE_DIR.'deleted/';
             if (!file_exists($deletedDir) || !is_dir($deletedDir)) {
                 mkdir($deletedDir);
             }
             $newFileName = \Library\Php\File\Functions::genUnoccupiedName($file, $deletedDir);
 
-            $success = copy(BASE_DIR.$file, BASE_DIR.$deletedDir.$newFileName);
+            $success = copy(BASE_DIR.$file, $deletedDir.$newFileName);
             if (!$success) {
                 throw new \Exception('Can\'t unbind file from repository: '.BASE_DIR.$file);
             }
