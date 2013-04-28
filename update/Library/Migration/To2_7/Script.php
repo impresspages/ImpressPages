@@ -144,7 +144,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     private function migrateIpLogoGallery($widgetId, $data)
     {
         if (isset($data['logos']) && is_array($data['logos'])) {
-            foreach($data['logos'] as $logoKey => $logo) {
+            foreach($data['logos'] as $logoKey => &$logo) {
                 if (!is_array($logo)) {
                     continue;
                 }
