@@ -176,10 +176,22 @@ class Controller extends \Ip\Controller{
 
 
         $browserModel = BrowserModel::instance();
-        $answer = $browserModel->getAvailableFiles($seek, $limit);
+        $files = $browserModel->getAvailableFiles($seek, $limit);
 
+        usort ($files , array($this, 'sortFiles') );
+
+        $answer = array(
+            'files' => $files
+        );
 
         $this->returnJson($answer);
+    }
+
+    private function sortFiles($a, $b) {
+        if ($a['modified'] == $b['modified']) {
+            return 0;
+        }
+        return ($a['modified'] > $b['modified']) ? -1 : 1;
     }
 
 

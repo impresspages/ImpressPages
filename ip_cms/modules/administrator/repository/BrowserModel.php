@@ -50,19 +50,20 @@ class BrowserModel{
      */
     public function getAvailableFiles($seek, $limit)
     {
-        $answer = array();
-        $answer['files'] = array();
+        $answer = array();;
 
         $iterator = new \DirectoryIterator(BASE_DIR.FILE_REPOSITORY_DIR);
         $iterator->seek($seek);
-        while ($iterator->valid() && count($answer['files']) < $limit) {
+        while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
-                $answer['files'][] = array(
+                $answer[] = array(
                     'fileName' => $iterator->getFilename(),
                     'dir' => FILE_REPOSITORY_DIR,
                     'file' => FILE_REPOSITORY_DIR.$iterator->getFilename(),
-                    'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$iterator->getFilename())
+                    'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$iterator->getFilename()),
+                    'modified' => $iterator->getMTime()
                 );
+//                echo $iterator->getMTime()."\n";
             }
             $iterator->next();
         }

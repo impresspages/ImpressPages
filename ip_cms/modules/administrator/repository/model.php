@@ -99,11 +99,6 @@ class Model{
         $dbh = \Ip\Db::getConnection();
         $dbh->exec($sql);
 
-        $whoUses = self::whoUsesFile($file);
-        
-        if (count($whoUses) == 0) {
-            self::removeFile($file);
-        }
     }
     
     public static function isBind($file, $module, $instanceId) {
@@ -157,16 +152,6 @@ class Model{
     
     private static function removeFile($file) {
         if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
-            $deletedDir = BASE_DIR.TMP_SECURE_DIR.'deleted/';
-            if (!file_exists($deletedDir) || !is_dir($deletedDir)) {
-                mkdir($deletedDir);
-            }
-            $newFileName = \Library\Php\File\Functions::genUnoccupiedName($file, $deletedDir);
-
-            $success = copy(BASE_DIR.$file, $deletedDir.$newFileName);
-            if (!$success) {
-                throw new \Exception('Can\'t unbind file from repository: '.BASE_DIR.$file);
-            }
             unlink(BASE_DIR.$file);
         }
         
