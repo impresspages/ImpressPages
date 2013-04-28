@@ -17,12 +17,18 @@ class IpImageMigrationTest extends \PhpUnit\MigrationTestCase
 
     public function testIpImageMigration()
     {
-        $dataSet = $this->getConnection()->createDataSet(array('ip_m_content_management_widget'));
+        $config = $this->getInstallationConfig();
 
+        $myFile = $config['BASE_DIR'].$config['FILE_DIR']."simple.gif";
+        $fh = fopen($myFile, 'w');
+        $myFile = $config['BASE_DIR'].$config['FILE_DIR']."simple_1.gif";
+        $fh = fopen($myFile, 'w');
+        $myFile = $config['BASE_DIR'].$config['FILE_DIR']."simple_2.gif";
+        $fh = fopen($myFile, 'w');
 
         $this->assertEquals(1, $this->getConnection()->getRowCount('ip_m_content_management_widget'), "Pre-Condition");
         $migrationScript = new \IpUpdate\Library\Migration\To2_7\Script();
-        $migrationScript->migrateWidgets($this->getInstallationConfig());
+        $migrationScript->migrateWidgets($config);
 
 
         /**
@@ -31,35 +37,12 @@ class IpImageMigrationTest extends \PhpUnit\MigrationTestCase
         $sourceTable = $this->getConnection()->createQueryTable('ip_m_content_management_widget', 'SELECT * FROM ip_m_content_management_widget');
         $expectedTable = $this->createXMLDataSet(TEST_FIXTURE_DIR.'update/Library/Migration/To2_7/ipImageResult.xml')->getTable("ip_m_content_management_widget");
 
-//        echo  $sourceTable->getValue(0, 'data');echo "\n";
-//        echo  $expectedTable->getValue(0, 'data');exit;
         $this->assertTablesEqual($expectedTable, $sourceTable);
 
 
-//        $this->assertEquals(1, $this->getConnection()->getRowCount('ip_m_content_management_widget'), "Pre-Condition");
-
-
-//        $guestbook = new Guestbook();
-//        $guestbook->addEntry("suzy", "Hello world!");
-//
-//        $this->assertEquals(3, $this->getConnection()->getRowCount('guestbook'), "Inserting failed");
-//
-//
-//        $test->test();
-
-
-
-//        $newData = $migrationScript->migrateIpImage(1, array(
-//            'imageOrignal' => 'original.jpg',
-//            'imageBig' => 'big.jpg',
-//            'imageSmall' => 'small.jpg'
-//        ));
-//
-//        $this->assertEqual('original.jpg', $newData['imageOriginal']);
-//        $this->assertEqual(false, isset($newData['imageBig']));
-//        $this->assertEqual(false, isset($newData['imageSmall']));
-
-
+        $this->assertEquals(true, file_exists($config['BASE_DIR'].$config['FILE_DIR']."simple.gif"));
+        $this->assertEquals(false, file_exists($config['BASE_DIR'].$config['FILE_DIR']."simple_1.gif"));
+        $this->assertEquals(false, file_exists($config['BASE_DIR'].$config['FILE_DIR']."simple_2.gif"));
     }
 
 

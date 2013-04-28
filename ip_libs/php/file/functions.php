@@ -48,7 +48,7 @@ class Functions{
      * @return string new (or the same) file name that don't collide with existing files in specified directory
      */
     public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
-        require_once (LIBRARY_DIR.'php/text/transliteration.php');
+        require_once (BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");
         $new_extension = substr($new_name, $ext_pos, strlen($file));
