@@ -157,7 +157,7 @@ class Model{
     
     private static function removeFile($file) {
         if (file_exists(BASE_DIR.$file) && !is_dir(BASE_DIR.$file) ) {
-            $deletedDir = BASE_DIR.FILE_DIR.'deleted/';
+            $deletedDir = BASE_DIR.TMP_SECURE_DIR.'deleted/';
             if (!file_exists($deletedDir) || !is_dir($deletedDir)) {
                 mkdir($deletedDir);
             }

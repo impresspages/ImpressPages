@@ -38,7 +38,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return new PHPUnit_Extensions_Database_DataSet_IDataSet();
+        return $this->createXMLDataSet(TEST_FIXTURE_DIR.'empty.xml');
     }
 
     protected function setup()

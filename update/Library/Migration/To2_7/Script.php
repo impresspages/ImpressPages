@@ -28,11 +28,20 @@ class Script extends \IpUpdate\Library\Migration\General{
 
 
         $this->createNewDirs($cf);
+        $this->removeDeletedDir($cf);
+
 
         $this->importParameters('newParameters.php');
 
         $this->migrateWidgets($cf);
 
+    }
+
+    public function removeDeletedDir($cf)
+    {
+        //move deleted dir to secure folder
+        $fileSystem = new \IpUpdate\Library\Helper\FileSystem();
+        $fileSystem->rm($cf['BASE_DIR'].$cf['FILE_DIR'].'deleted/');
     }
 
     public function migrateWidgets($cf)

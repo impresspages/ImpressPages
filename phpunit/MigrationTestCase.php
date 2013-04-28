@@ -30,9 +30,9 @@ class MigrationTestCase extends GeneralTestCase
             'AUDIO_DIR' => 'phpunit/Tmp/audio/',
             'VIDEO_DIR' => 'phpunit/Tmp/video/',
 
-            'SECURE_DIR' => '',
-            'TMP_SECURE_DIR' => '',
-            'MANUAL_DIR' => ''
+            'SECURE_DIR' => 'phpunit/Tmp/securefile/',
+            'TMP_SECURE_DIR' => 'phpunit/Tmp/securefile/tmp',
+            'MANUAL_DIR' => 'phpunit/Tmp/manual'
             //Add others when needed
         );
     }
@@ -41,11 +41,13 @@ class MigrationTestCase extends GeneralTestCase
     {
         parent::setup();
         $configMock = $this->getInstallationConfig();
-        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
         mkdir(TEST_CODEBASE_DIR.$configMock['FILE_DIR']);
         mkdir(TEST_CODEBASE_DIR.$configMock['AUDIO_DIR']);
         mkdir(TEST_CODEBASE_DIR.$configMock['IMAGE_DIR']);
         mkdir(TEST_CODEBASE_DIR.$configMock['VIDEO_DIR']);
+        mkdir(TEST_CODEBASE_DIR.$configMock['SECURE_DIR']);
+        mkdir(TEST_CODEBASE_DIR.$configMock['TMP_SECURE_DIR']);
+        mkdir(TEST_CODEBASE_DIR.$configMock['MANUAL_DIR']);
     }
 
 }
