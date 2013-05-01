@@ -8,6 +8,7 @@
     </div>
     <div class="ipmFileTemplate ipmFile ipgHide">
         <div class="ipmRemove"></div>
+        <div class="ipmUploadError"></div>
         <div class="ipmFileName"></div>
         <div class="ipmFileProgress">
             <div class="ipmFileProgressValue"></div>

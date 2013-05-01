@@ -260,10 +260,27 @@
     border: 1px solid #333;
     height: 3px;
 }
+.ipModuleForm .ipmFileContainer .ipmFile {
+    margin-top: 5px;
+    background-color: #f2f2f2;
+    padding: 5px;
+}
 .ipModuleForm .ipmFileContainer .ipmFileProgressValue {
     background-color: #ccc;
     height: 3px;
 }
+.ipModuleForm .ipmFileContainer .ipmRemove {
+    width: 9px;
+    height: 9px;
+    background: url(img/fileRemove.png) no-repeat;
+    float: right;
+    cursor: pointer;
+}
+.ipModuleForm .ipmFileContainer .ipmUploadError {
+    color: #da0001;
+    font-size: 11px;
+}
+
 .ipmErrorMessage { /* this object is created globally next to each invalid field */
     background-color: #fff;
     color: #da0001;

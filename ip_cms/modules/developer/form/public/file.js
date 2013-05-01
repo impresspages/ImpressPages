@@ -106,9 +106,6 @@
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipmFileName').text(file.name);
                     $this.find('.ipmFiles').append($newFile);
-                } else {
-                    console.log('exist ' + file.name);
-
                 }
             });
             up.refresh(); // Reposition Flash/Silverlight
@@ -122,7 +119,7 @@
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
-        _fileUploaded : function(up, file, response) {console.log(response);
+        _fileUploaded : function(up, file, response) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
 
