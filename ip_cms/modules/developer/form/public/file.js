@@ -116,7 +116,8 @@
 
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
-                $file.remove();
+                $file.find('.ipmUploadError').text(answer.error.message);
+                //$file.remove();
             } else {
                 var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
                 $this.append($fileInput);

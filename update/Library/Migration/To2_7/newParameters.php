@@ -45,3 +45,15 @@ $parameterValue["developer"]["form"]["error_messages"]["file_upload_session"] = 
 $parameterAdmin["developer"]["form"]["error_messages"]["file_upload_session"] = "0";
 $parameterType["developer"]["form"]["error_messages"]["file_upload_session"] = "lang";
 
+
+$parameterTitle["developer"]["form"]["error_messages"]["server"] = "Server error";
+$parameterValue["developer"]["form"]["error_messages"]["server"] = "Server error has occurred. Please contact administrator.";
+$parameterAdmin["developer"]["form"]["error_messages"]["server"] = "0";
+$parameterType["developer"]["form"]["error_messages"]["server"] = "lang";
+
+
+
+$parameterTitle["developer"]["form"]["error_messages"]["file_type"] = "File type";
+$parameterValue["developer"]["form"]["error_messages"]["file_type"] = "Incorrect file type.";
+$parameterAdmin["developer"]["form"]["error_messages"]["file_type"] = "0";
+$parameterType["developer"]["form"]["error_messages"]["file_type"] = "lang";

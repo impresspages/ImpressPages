@@ -97,15 +97,33 @@ class Controller extends \Ip\Controller{
             $uploadModel->handlePlupload($secureFolder);
         } catch (UploadException $e) {
             // Return JSON-RPC response
+
+            switch($e->getCode()){
+                case UploadException::FORBIDDEN_FILE_EXTENSION:
+                    $message = $parametersMod->getValue("developer", "form", "error_messages", "file_type");
+                    break;
+                case UploadException::FAILED_TO_MOVE_UPLOADED_FILE:
+                case UploadException::NO_PERMISSION:
+                case UploadException::INPUT_STREAM_ERROR:
+                case UploadException::OUTPUT_STREAM_ERROR:
+                default:
+                    $log = \Ip\ServiceLocator::getLog();
+                    $log->log('administrator/repository', 'File upload error', 'Error: '.$e->getMessage().' ('.$e->getCode().')');
+                    $message = $parametersMod->getValue("developer", "form", "error_messages", "server");
+                    break;
+
+            }
+
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
                     'code' => $e->getCode(),
-                    'message' => $e->getMessage(),
+                    'message' => $message,
                     'id' => 'id'
                 )
             );
             $this->returnJson($answer);
+            return;
         }
         $fileName = $uploadModel->getUploadedFileName();
         $file = $uploadModel->getUploadedFile();

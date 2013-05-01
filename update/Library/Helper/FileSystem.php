@@ -68,8 +68,9 @@ class FileSystem
             catch (FileSystemException $e) {
                 //do nothing. This is just the way to avoid warnings
             }
-            set_error_handler($oldErrorHandler);
-
+            if ($oldErrorHandler) { //dev tools has no oldErrorHandler error handler. So we have to check.
+                set_error_handler($oldErrorHandler);
+            }
             if (!is_writable($path)) {
                 $this->throwWritePermissionsError($path);
             }
@@ -92,7 +93,9 @@ class FileSystem
                             } catch (FileSystemException $e) {
                                 //do nothing. This is just the way to avoid warnings
                             }
-                            set_error_handler($oldErrorHandler);
+                            if ($oldErrorHandler) { //dev tools has no oldErrorHandler error handler. So we have to check.
+                                set_error_handler($oldErrorHandler);
+                            }
                         }
                         if (!is_writable($path.'/'.$file)) {
                             $this->throwWritePermissionsError($path.'/'.$file);

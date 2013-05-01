@@ -81,7 +81,7 @@ class Model{
         }
         
     }
-    
+
     public static function unbindFile($file, $module, $instanceId) {
 
         
@@ -96,8 +96,10 @@ class Model{
             1
         ";
         //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
-        $dbh = \Ip\Db::getConnection();
-        $dbh->exec($sql);
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+        }
 
     }
     

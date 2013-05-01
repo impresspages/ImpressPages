@@ -3050,6 +3050,31 @@ $moduleTitle["developer"]["form"] = "Form";
         $parameterType["developer"]["form"]["error_messages"]["required"] = "lang";
 
 
+        $parameterTitle["developer"]["form"]["error_messages"]["file_upload_session"] = "File upload session has ended";
+        $parameterValue["developer"]["form"]["error_messages"]["file_upload_session"] = "Session has ended. Please remove and re-upload files.";
+        $parameterAdmin["developer"]["form"]["error_messages"]["file_upload_session"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["file_upload_session"] = "lang";
+
+
+        $parameterTitle["developer"]["form"]["error_messages"]["server"] = "Server error";
+        $parameterValue["developer"]["form"]["error_messages"]["server"] = "Server error has occurred. Please contact administrator.";
+        $parameterAdmin["developer"]["form"]["error_messages"]["server"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["server"] = "lang";
+
+
+
+        $parameterTitle["developer"]["form"]["error_messages"]["file_type"] = "File type";
+        $parameterValue["developer"]["form"]["error_messages"]["file_type"] = "Incorrect file type.";
+        $parameterAdmin["developer"]["form"]["error_messages"]["file_type"] = "0";
+        $parameterType["developer"]["form"]["error_messages"]["file_type"] = "lang";
+
+    $parameterGroupTitle["developer"]["form"]["translations"] = "Translations";
+    $parameterGroupAdmin["developer"]["form"]["translations"] = "0";
+
+        $parameterTitle["developer"]["form"]["translations"]["upload"] = "Add new";
+        $parameterValue["developer"]["form"]["translations"]["upload"] = "Add new";
+        $parameterAdmin["developer"]["form"]["translations"]["upload"] = "0";
+        $parameterType["developer"]["form"]["translations"]["upload"] = "lang";
 
 
 $moduleGroupTitle["administrator"] = "Administrator";
