@@ -86,7 +86,7 @@ class UploadModel{
         $disallow = $event->getForbiddenExtensions();
         if (in_array($fileExtension, $disallow)) {
             //security risk
-            throw new UploadException("Sorry, this file type is not permitted for security reasons: $fileExtension.", UploadException::FORBIDDEN_FILE_EXTENSION);
+            throw new UploadException("Files with extension (.".$fileExtension.") are not permitted for security reasons.", UploadException::FORBIDDEN_FILE_EXTENSION);
         }
 
         //end security check
