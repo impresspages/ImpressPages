@@ -106,13 +106,12 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpImage($widgetId, $data)
     {
-        $repository = \Modules\administrator\repository\Model::instance();
         if (isset($data['imageBig']) && $data['imageBig']) {
-            $repository->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+            $this->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
             unset($data['imageBig']);
         }
         if (isset($data['imageSmall']) && $data['imageSmall']) {
-            $repository->unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
+            $this->unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
             unset($data['imageSmall']);
         }
         return $data;
@@ -126,11 +125,11 @@ class Script extends \IpUpdate\Library\Migration\General{
                     continue;
                 }
                 if (isset($image['imageBig']) && $image['imageBig']) {
-                    \Modules\administrator\repository\Model::unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
+                    $this->unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
                     unset($image['imageBig']);
                 }
                 if (isset($image['imageSmall']) && $image['imageSmall']) {
-                    \Modules\administrator\repository\Model::unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
+                    $this->unbindFile($image['imageSmall'], 'standard/content_management', $widgetId);
                     unset($image['imageSmall']);
                 }
 
@@ -149,7 +148,7 @@ class Script extends \IpUpdate\Library\Migration\General{
                     continue;
                 }
                 if (isset($logo['logoSmall']) && $logo['logoSmall']) {
-                    \Modules\administrator\repository\Model::unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
+                    $this->unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
                     unset($logo['logoSmall']);
                 }
             };
@@ -160,16 +159,37 @@ class Script extends \IpUpdate\Library\Migration\General{
     private function migrateIpTextImage($widgetId, $data)
     {
         if (isset($data['imageBig']) && $data['imageBig']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
+            $this->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
             unset($data['imageBig']);
         }
         if (isset($data['imageSmall']) && $data['imageSmall']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
+            $this->unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
             unset($data['imageSmall']);
         }
         return $data;
     }
 
+
+    private function unbindFile($file, $module, $instanceId) {
+
+
+        $sql = "
+        DELETE FROM
+            `".$this->dbPref."m_administrator_repository_file`
+        WHERE
+            `fileName` = '".mysql_real_escape_string($file)."' AND
+            `module` = '".mysql_real_escape_string($module)."' AND
+            `instanceId` = '".mysql_real_escape_string($instanceId)."'
+        LIMIT
+            1
+        ";
+        //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
+        $rs = mysql_query($sql);
+        if (!$rs){
+            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+        }
+
+    }
 
 
     private function createNewDirs($cf)
