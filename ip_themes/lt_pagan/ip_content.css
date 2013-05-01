@@ -270,9 +270,9 @@
     height: 3px;
 }
 .ipModuleForm .ipmFileContainer .ipmRemove {
-    width: 9px;
-    height: 9px;
-    background: url(img/fileRemove.png) no-repeat;
+    width: 13px;
+    height: 13px;
+    background: url(img/file_remove.png) no-repeat;
     float: right;
     cursor: pointer;
 }
