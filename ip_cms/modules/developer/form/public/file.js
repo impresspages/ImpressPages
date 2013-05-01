@@ -59,19 +59,6 @@
                         container: $uploadContainer.attr('id')
                     };
                     var uploader = new plupload.Uploader(uploaderConfig);
-                    uploader.bind('Init', function(up) {
-                        // if dragdrop is possible, we'll enhance UI
-//                        if (up.features.dragdrop) {
-//                            $('#'+uploaderConfig.drop_element)
-//                                .addClass('dragdrop')
-//                                .bind('dragover', function(){
-//                                    $(this).addClass('hover');
-//                                })
-//                                .bind('dragexit drop', function(){
-//                                    $(this).removeClass('hover');
-//                                });
-//                        }
-                    });
 
                     uploader.bind('Error', $.proxy(methods._error, this));
                     uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
@@ -123,16 +110,19 @@
 
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
+            var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
 
             var answer = jQuery.parseJSON(response.response);
 
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
+                $file.remove();
             } else {
                 var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
                 $this.append($fileInput);
                 var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '\[originalFileName][]" type="hidden" value="' + file.name + '" />');
                 $this.append($fileInput);
+                $file.find('.ipmFileProgress').hide();
             }
 
             $this.find('#ipUpload_' + file.id).remove();
