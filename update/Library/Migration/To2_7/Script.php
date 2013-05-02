@@ -256,11 +256,11 @@ CREATE TABLE IF NOT EXISTS `".$this->dbPref."m_administrator_repository_reflecti
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
-  `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of image or otherwise duplicated original file.',
+  `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of original file.',
   `created` int(11) NOT NULL,
   PRIMARY KEY (`reflectionId`),
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file or otherwise duplicated repository files' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file' AUTO_INCREMENT=1 ;
 
 
         ";
