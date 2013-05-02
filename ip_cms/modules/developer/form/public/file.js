@@ -105,6 +105,10 @@
                     $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipmFileName').text(file.name);
+                    $newFile.find('.ipmRemove').click(function(e){
+                        var $this = $(this);
+                        $this.closest('.ipmFile').remove();
+                    });
                     $this.find('.ipmFiles').append($newFile);
                 }
             });
@@ -119,21 +123,29 @@
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
+        _remove : function(fileId) {
+            var $this = $(this);
+            var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
+            $file.remove();
+        },
+
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
+            if (!$file.length) {
+                return; //file has been removed by user
+            }
 
             var answer = jQuery.parseJSON(response.response);
 
             if (answer.error) {
                 $.proxy(methods._displayError, this)(file.id, answer.error.message);
             } else {
-                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
+                var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
                 $this.append($fileInput);
-                var $fileInput = $('<input name="' + $this.data('ipFormFile').inputName + '[originalFileName][]" type="hidden" value="' + file.name + '" />');
-                $this.append($fileInput);
+                var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[originalFileName][]" type="hidden" value="' + file.name + '" />');
+                $file.append($fileInput);
                 $file.find('.ipmFileProgress').remove();
-
             }
 
         },
