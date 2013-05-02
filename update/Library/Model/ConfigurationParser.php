@@ -100,7 +100,10 @@ class ConfigurationParser
             'CHARSET',
             'MYSQL_CHARSET',
             'THEME',
-            'DEFAULT_DOCTYPE'
+            'DEFAULT_DOCTYPE',
+            'SECURE_DIR',
+            'TMP_SECURE_DIR',
+            'MANUAL_DIR'
         );    
         return $constants;
     }
