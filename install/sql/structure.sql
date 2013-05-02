@@ -159,6 +159,24 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
   KEY `filename` (`filename`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files' AUTO_INCREMENT=7 ;
 
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_reflection`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
+  `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
+  `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
+  `original` varchar(255) NOT NULL,
+  `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of original file.',
+  `created` int(11) NOT NULL,
+  PRIMARY KEY (`reflectionId`),
+  KEY `transformFingerprint` (`transformFingerprint`,`original`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file' AUTO_INCREMENT=1 ;
+
+
 -- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_m_administrator_rss`;
