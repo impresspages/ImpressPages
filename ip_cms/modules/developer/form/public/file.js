@@ -69,7 +69,8 @@
 
                     $this.data('ipFormFile', {
                         uniqueNumber: uniqueNumber,
-                        inputName: $this.data('inputname')
+                        inputName: $this.data('inputname'),
+                        uploader: uploader
                     });
                 }
             });
@@ -102,12 +103,22 @@
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
                     var $newFile = $this.find('.ipmFileTemplate').clone();
+                    $newFile.data('fileId', file.id);
                     $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipmFileName').text(file.name);
                     $newFile.find('.ipmRemove').click(function(e){
                         var $this = $(this);
-                        $this.closest('.ipmFile').remove();
+                        var $file = $this.closest('.ipmFile');
+                        var fileId = $file.data('fileId');
+
+                        /* Seems that removeFile method is used just for files that are not started to be upload
+                        var uploader = $this.closest('.ipmFileContainer').data('ipFormFile').uploader;
+                        var uploaderFile = uploader.getFile(fileId)
+                        uploader.removeFile(uploaderFile);
+                        */
+
+                        $file.remove();
                     });
                     $this.find('.ipmFiles').append($newFile);
                 }
@@ -123,11 +134,6 @@
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
-        _remove : function(fileId) {
-            var $this = $(this);
-            var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
-            $file.remove();
-        },
 
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
@@ -142,7 +148,7 @@
                 $.proxy(methods._displayError, this)(file.id, answer.error.message);
             } else {
                 var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
-                $this.append($fileInput);
+                $file.append($fileInput);
                 var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[originalFileName][]" type="hidden" value="' + file.name + '" />');
                 $file.append($fileInput);
                 $file.find('.ipmFileProgress').remove();
