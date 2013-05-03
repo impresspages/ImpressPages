@@ -63,3 +63,23 @@ $parameterTitle["developer"]["form"]["admin_translations"]["type_file"] = "Type 
 $parameterValue["developer"]["form"]["admin_translations"]["type_file"] = "File";
 $parameterAdmin["developer"]["form"]["admin_translations"]["type_file"] = "0";
 $parameterType["developer"]["form"]["admin_translations"]["type_file"] = "string";
+
+
+$parameterGroupTitle["administrator"]["repository"]["admin_translations"] = "Admin translations";
+$parameterGroupAdmin["administrator"]["repository"]["admin_translations"] = "0";
+
+$parameterTitle["administrator"]["repository"]["admin_translations"]["upload_description"] = "Upload window description";
+$parameterValue["administrator"]["repository"]["admin_translations"]["upload_description"] = "Drag&drop files here or click a button to upload.";
+$parameterAdmin["administrator"]["repository"]["admin_translations"]["upload_description"] = "0";
+$parameterType["administrator"]["repository"]["admin_translations"]["upload_description"] = "string";
+
+$parameterTitle["administrator"]["repository"]["admin_translations"]["tab_upload"] = "Tab upload";
+$parameterValue["administrator"]["repository"]["admin_translations"]["tab_upload"] = "Upload new";
+$parameterAdmin["administrator"]["repository"]["admin_translations"]["tab_upload"] = "0";
+$parameterType["administrator"]["repository"]["admin_translations"]["tab_upload"] = "string";
+
+$parameterTitle["administrator"]["repository"]["admin_translations"]["tab_files"] = "Tab files";
+$parameterValue["administrator"]["repository"]["admin_translations"]["tab_files"] = "All files";
+$parameterAdmin["administrator"]["repository"]["admin_translations"]["tab_files"] = "0";
+$parameterType["administrator"]["repository"]["admin_translations"]["tab_files"] = "string";
+

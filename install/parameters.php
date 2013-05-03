@@ -2322,38 +2322,55 @@ left";
         $parameterType["administrator"]["system"]["admin_translations"]["robots_txt_update_failed"] = "string";
 
 
-$moduleGroupTitle["administrator"] = "Administrator";
+    $moduleGroupTitle["administrator"] = "Administrator";
     $moduleTitle["administrator"]["theme"] = "Theme";
         
         $parameterGroupTitle["administrator"]["theme"]["admin_translations"] = "Admin translations";
         $parameterGroupAdmin["administrator"]["theme"]["admin_translations"] = "1";
         
-        $parameterTitle["administrator"]["theme"]["admin_translations"]["successful_install"] = "Successful install";
-        $parameterValue["administrator"]["theme"]["admin_translations"]["successful_install"] = "New theme has been successfully installed.";
-        $parameterAdmin["administrator"]["theme"]["admin_translations"]["successful_install"] = "1";
-        $parameterType["administrator"]["theme"]["admin_translations"]["successful_install"] = "string";
-        
-        $parameterTitle["administrator"]["theme"]["admin_translations"]["install"] = "Install";
-        $parameterValue["administrator"]["theme"]["admin_translations"]["install"] = "Install";
-        $parameterAdmin["administrator"]["theme"]["admin_translations"]["install"] = "1";
-        $parameterType["administrator"]["theme"]["admin_translations"]["install"] = "string";
-        
-        $parameterTitle["administrator"]["theme"]["admin_translations"]["title"] = "Title";
-        $parameterValue["administrator"]["theme"]["admin_translations"]["title"] = "Choose theme";
-        $parameterAdmin["administrator"]["theme"]["admin_translations"]["title"] = "1";
-        $parameterType["administrator"]["theme"]["admin_translations"]["title"] = "string";
+            $parameterTitle["administrator"]["theme"]["admin_translations"]["successful_install"] = "Successful install";
+            $parameterValue["administrator"]["theme"]["admin_translations"]["successful_install"] = "New theme has been successfully installed.";
+            $parameterAdmin["administrator"]["theme"]["admin_translations"]["successful_install"] = "1";
+            $parameterType["administrator"]["theme"]["admin_translations"]["successful_install"] = "string";
 
+            $parameterTitle["administrator"]["theme"]["admin_translations"]["install"] = "Install";
+            $parameterValue["administrator"]["theme"]["admin_translations"]["install"] = "Install";
+            $parameterAdmin["administrator"]["theme"]["admin_translations"]["install"] = "1";
+            $parameterType["administrator"]["theme"]["admin_translations"]["install"] = "string";
 
-$moduleGroupTitle["developer"] = "Developer";
-$moduleTitle["developer"]["repository"] = "Repository";
+            $parameterTitle["administrator"]["theme"]["admin_translations"]["title"] = "Title";
+            $parameterValue["administrator"]["theme"]["admin_translations"]["title"] = "Choose theme";
+            $parameterAdmin["administrator"]["theme"]["admin_translations"]["title"] = "1";
+            $parameterType["administrator"]["theme"]["admin_translations"]["title"] = "string";
 
-    $parameterGroupTitle["administrator"]["repository"]["options"] = "Options";
-    $parameterGroupAdmin["administrator"]["repository"]["options"] = "0";
+    $moduleGroupTitle["administrator"] = "Administrator";
+    $moduleTitle["administrator"]["repository"] = "Repository";
 
-        $parameterTitle["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "Allow public file upload";
-        $parameterValue["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
-        $parameterAdmin["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
-        $parameterType["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "bool";
+        $parameterGroupTitle["administrator"]["repository"]["options"] = "Options";
+        $parameterGroupAdmin["administrator"]["repository"]["options"] = "0";
+
+            $parameterTitle["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "Allow public file upload";
+            $parameterValue["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
+            $parameterAdmin["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "1";
+            $parameterType["administrator"]["repository"]["options"]["allow_anonymous_uploads"] = "bool";
+
+        $parameterGroupTitle["administrator"]["repository"]["admin_translations"] = "Admin translations";
+        $parameterGroupAdmin["administrator"]["repository"]["admin_translations"] = "0";
+
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["upload_description"] = "Upload window description";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["upload_description"] = "Drag&drop files here or click a button to upload.";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["upload_description"] = "0";
+            $parameterType["administrator"]["repository"]["admin_translations"]["upload_description"] = "string";
+
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["tab_upload"] = "Tab upload";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["tab_upload"] = "Upload new";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["tab_upload"] = "0";
+            $parameterType["administrator"]["repository"]["admin_translations"]["tab_upload"] = "string";
+
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["tab_files"] = "Tab files";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["tab_files"] = "All files";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["tab_files"] = "0";
+            $parameterType["administrator"]["repository"]["admin_translations"]["tab_files"] = "string";
 
 
 $moduleGroupTitle["developer"] = "Developer";

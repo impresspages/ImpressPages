@@ -1,8 +1,8 @@
 <div class="ipModuleRepositoryPopup">
     <div class="tabs">
         <ul>
-            <li><a href="#ipModuleRepositoryTabUpload">{{Upload new}}</a></li>
-            <li><a href="#ipModuleRepositoryTabAll">{{All files}}</a></li>
+            <li><a href="#ipModuleRepositoryTabUpload"><?php echo $this->escPar('administrator/repository/admin_translations/tab_upload') ?></a></li>
+            <li><a href="#ipModuleRepositoryTabAll"><?php echo $this->escPar('administrator/repository/admin_translations/tab_files') ?></a></li>
             <?php //<li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a></li> ?>
         </ul>
 
@@ -14,7 +14,7 @@
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
                     <div class="ipmBrowseButtonWrapper">
-                        <span class="impDragdropNotice">{{Drag&drop files here or click a button to upload.}}</span>
+                        <span class="impDragdropNotice"><?php echo $this->escPar('administrator/repository/admin_translations/upload_description') ?></span>
                         <a href="#" class="ipAdminButton ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
                     </div>
                 </div>
