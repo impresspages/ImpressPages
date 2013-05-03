@@ -3011,6 +3011,12 @@ $moduleTitle["developer"]["form"] = "Form";
         $parameterAdmin["developer"]["form"]["admin_translations"]["type_textarea"] = "0";
         $parameterType["developer"]["form"]["admin_translations"]["type_textarea"] = "string";
 
+
+        $parameterTitle["developer"]["form"]["admin_translations"]["type_file"] = "Type file";
+        $parameterValue["developer"]["form"]["admin_translations"]["type_file"] = "File";
+        $parameterAdmin["developer"]["form"]["admin_translations"]["type_file"] = "0";
+        $parameterType["developer"]["form"]["admin_translations"]["type_file"] = "string";
+
     $parameterGroupTitle["developer"]["form"]["error_messages"] = "Error messages";
     $parameterGroupAdmin["developer"]["form"]["error_messages"] = "0";
         

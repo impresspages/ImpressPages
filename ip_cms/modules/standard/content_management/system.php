@@ -237,7 +237,8 @@ class System{
         $typeConfirm = $parametersMod->getValue('developer','form','admin_translations','type_confirm');
         $typeRadio = $parametersMod->getValue('developer','form','admin_translations','type_radio');
         $typeCaptcha = $parametersMod->getValue('developer','form','admin_translations','type_captcha');
-        
+        $typeFile = $parametersMod->getValue('developer','form','admin_translations','type_file');
+
         $newFieldType = new FieldType('IpText', '\Modules\developer\form\Field\Text', $typeText);
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpEmail', '\Modules\developer\form\Field\Email', $typeEmail);
@@ -252,7 +253,7 @@ class System{
         $event->addField($newFieldType);
         $newFieldType = new FieldType('IpCaptcha', '\Modules\developer\form\Field\Captcha', $typeCaptcha);
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpFile', '\Modules\developer\form\Field\File', '{{File}}');
+        $newFieldType = new FieldType('IpFile', '\Modules\developer\form\Field\File', $typeFile);
         $event->addField($newFieldType);
     }
 

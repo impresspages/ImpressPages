@@ -57,3 +57,9 @@ $parameterTitle["developer"]["form"]["error_messages"]["file_type"] = "File type
 $parameterValue["developer"]["form"]["error_messages"]["file_type"] = "Incorrect file type.";
 $parameterAdmin["developer"]["form"]["error_messages"]["file_type"] = "0";
 $parameterType["developer"]["form"]["error_messages"]["file_type"] = "lang";
+
+
+$parameterTitle["developer"]["form"]["admin_translations"]["type_file"] = "Type file";
+$parameterValue["developer"]["form"]["admin_translations"]["type_file"] = "File";
+$parameterAdmin["developer"]["form"]["admin_translations"]["type_file"] = "0";
+$parameterType["developer"]["form"]["admin_translations"]["type_file"] = "string";
