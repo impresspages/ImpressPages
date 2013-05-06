@@ -49,17 +49,17 @@ class FileSystem
      */
     function makeWritable($path, $permissions = null)
     {
-        if ($permissions == null) {
-            $permissions = $this->getParentPermissions($path);
-        }
+
 
         $answer = true;
         if(!file_exists($path)) {
             return false;
         }
 
-        if (!is_writable($path)) {
-
+        if (!is_writable($path) || $permissions) {
+            if ($permissions == null) {
+                $permissions = $this->getParentPermissions($path);
+            }
             $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
 
             try {
@@ -86,7 +86,12 @@ class FileSystem
                     if (is_dir($path.'/'.$file)) {
                         $this->makeWritable($path.'/'.$file, $permissions);
                     } else {
-                        if (!is_writable($path.'/'.$file)) {
+                        if (!is_writable($path.'/'.$file) || $permissions) {
+                            if ($permissions == null) {
+                                $permissions = $this->getParentPermissions($path);
+                            }
+
+
                             $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
                             try {
                                 chmod($path.'/'.$file, $permissions);

@@ -8,6 +8,11 @@
 namespace IpUpdate\Library;
 
 
+/**
+ * Class Service
+ * Service to execute update
+ * @package IpUpdate\Library
+ */
 class Service
 {
     private $cf;
@@ -72,7 +77,7 @@ class Service
         $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
         $notes = array();
         foreach ($scripts as $script) {
-            $newNotes = $script->getNotes();
+            $newNotes = $script->getNotes($this->cf);
             $notes = array_merge($notes, $newNotes);
         }
         return $notes;

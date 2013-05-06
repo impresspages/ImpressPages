@@ -30,7 +30,7 @@ class ValidatorTest extends \PhpUnit\CoreTestCase
     {
         $fileField = new \Modules\developer\form\Field\File(array());
         $result = $fileField->validate(array('fieldKey' => array('file' => array('unexisting'))), 'fieldKey');
-        $this->assertEquals('Session has ended. Please remove and re-upload files', $result);
+        $this->assertEquals('Session has ended. Please remove and re-upload files.', $result);
     }
 
 }

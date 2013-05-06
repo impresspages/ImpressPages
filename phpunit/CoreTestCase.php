@@ -27,23 +27,23 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
      */
     public function initInstallation()
     {
-        if (true || self::$init) {
-            if (!self::$init) {
+        if (static::$init) {
+            if (!static::$init) {
                 $this->initConstants();
             }
-            self::$init = true;
+            static::$init = true;
             if (!defined('CMS')) {
                 define('CMS', true); // make sure other files are accessed through this file.
             }
             if (!defined('FRONTEND')) {
                 define('FRONTEND', true); // make sure other files are accessed through this file.
             }
-        }
-
         //because of PHPUnit magic, we have to repeat it on every test
         require_once(BASE_DIR.FRONTEND_DIR.'init.php');
+        }
         global $parametersMod;
         $parametersMod = new Mock\ParametersMod();
+
     }
 
 

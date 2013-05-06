@@ -84,7 +84,7 @@ class UpdateModel
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
-            CURLOPT_URL => 'http://service.impresspages.org',
+            CURLOPT_URL => \Modules\administrator\system\Model::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion='.$curVersion
         );

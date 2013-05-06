@@ -28,7 +28,7 @@ abstract class General
      */
     public abstract function getDestinationVersion();
     
-    public function getNotes()
+    public function getNotes($cf)
     {
         return array();
     }
@@ -58,7 +58,7 @@ abstract class General
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
-            CURLOPT_URL => 'http://service.impresspages.org',
+            CURLOPT_URL => \IpUpdate\Library\Model\Environment::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getVersionInfo&version='.$this->getDestinationVersion()
         );

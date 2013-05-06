@@ -238,8 +238,10 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         }
         
         foreach($replaceFiles as $file) {
-            $this->fs->makeWritable($this->cf['BASE_DIR'].$file);
-            file_put_contents($this->cf['BASE_DIR'].$file, '');
+            if (file_exists($this->cf['BASE_DIR'].$file)) {
+                $this->fs->makeWritable($this->cf['BASE_DIR'].$file);
+                file_put_contents($this->cf['BASE_DIR'].$file, '');
+            }
         }
     }
     
@@ -285,7 +287,9 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         }
 
         foreach($replaceFiles as $file) {
-            unlink($this->cf['BASE_DIR'].$file);
+            if (file_exists($this->cf['BASE_DIR'].$file)) {
+                unlink($this->cf['BASE_DIR'].$file);
+            }
             copy($extractedPath.$file, $this->cf['BASE_DIR'].$file);
         }
     }
@@ -335,7 +339,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             $this->cf['IMAGE_DIR'].'.htaccess',
             $this->cf['AUDIO_DIR'].'.htaccess',
             $this->cf['VIDEO_DIR'].'.htaccess',
-            $this->cf['FILE_DIR'].'sercure/.htaccess'
+            $this->cf['FILE_DIR'].'secure/.htaccess'
         );
     }
     

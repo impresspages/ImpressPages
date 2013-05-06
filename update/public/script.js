@@ -52,6 +52,7 @@ var resetLock = function(event) {
 
 
 var successResponse = function(response) {
+
     if (response && response.html) {
         $('#content').html(response.html);
     }
@@ -74,13 +75,27 @@ var successResponse = function(response) {
 
         }
     }
+
+    //display fatal PHP error
+    if (response && !response.html && !response.action) {
+        //this is an error. Response has no reload option nor HTML to display. Let's put the answer itself
+        var $paragraph = $('<p>Error</p>');
+        $paragraph.text(JSON.stringify(response));
+
+        $('#content').html($paragraph);
+    }
     
 };
 
 var errorResponse = function(response) {
     if (response.responseText) {
         $('#content').text(response.responseText);
+    } else {
+        if (response) {
+            $('#content').text(response);
+        }
     }
+
 
 };
 

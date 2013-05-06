@@ -171,8 +171,14 @@ class Installation
         } else {
             $this->setupPackageFiles($destinationVersion);
         }
-        
 
+
+        //set test mode
+        $configFile = $this->getInstallationDir()."update/Library/Config.php";
+        $fh = fopen($configFile, 'a') or die("can't open file");
+        $stringData = "\ndefine('IUL_TESTMODE', true);";
+        fwrite($fh, $stringData);
+        fclose($fh);
         
     }
 
@@ -424,6 +430,11 @@ class Installation
         } else {
             $this->putInstallationFilesPackage($destinationDir);
         }
+
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs->makeWritable($destinationDir, 0777);
+
+
 
     }
 

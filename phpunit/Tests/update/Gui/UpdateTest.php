@@ -13,9 +13,9 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
-        
+
         $url = $installation->getInstallationUrl();
-        
+
         //check installation successful
         $this->open($url);
         $this->assertElementPresent('css=.sitename');
@@ -24,6 +24,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //check update review page is fine
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate();
+        $test->test();
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         

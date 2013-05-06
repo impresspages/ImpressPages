@@ -220,7 +220,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     }
 
-    public function getNotes()
+    public function getNotes($cf)
     {
         $note = 
  '
@@ -231,7 +231,7 @@ You need manually replace your current ip_content.css and 960.css files
  (ip_themes/lt_pagan/) to ones from downloaded archive.
  If you have made some changes to original files, please replicate those changes on new files.
 </p>
-<p>If you are using other theme, you need manually tweek your CSS
+<p>If you are using other theme, you need manually tweak your CSS
 to style forms.</p>
     ';
         $notes = array($note);

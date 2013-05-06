@@ -43,7 +43,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
     }
     
-    public function getNotes()
+    public function getNotes($cf)
     {
         $note = 
  '

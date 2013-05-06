@@ -66,7 +66,7 @@ class ModulesInstallation{
         $answer = '';
         if(function_exists('curl_init')){
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, 'http://service.impresspages.org');
+            curl_setopt($ch, CURLOPT_URL, \Modules\administrator\system\Model::instance()->getImpressPagesAPIUrl());
             curl_setopt($ch, CURLOPT_POST, 1);
 
             $postFields = 'module_name=communication&module_group=service&action=checkCompatability&newModuleGroup='.$moduleGroup.'&newModuleName='.$moduleName.'&newModuleVersion='.$version.'&version=1';

@@ -8,6 +8,8 @@
 namespace IpUpdate\Library\Migration\To2_7;
 
 
+use IpUpdate\Library\UpdateException;
+
 class Script extends \IpUpdate\Library\Migration\General{
 
     private $conn;
@@ -35,6 +37,75 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->migrateWidgets($cf);
 
+        $this->addNewCSS($cf);
+        $this->uploadNewImage($cf);
+
+    }
+
+    private function uploadNewImage($cf)
+    {
+        $themeImgDir = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/img/';
+        $fileSystem = new \IpUpdate\Library\Helper\FileSystem();
+        $fileSystem->makeWritable($themeImgDir);
+        if (file_exists($themeImgDir) && is_dir($themeImgDir)) {
+            $fileSystem->makeWritable($themeImgDir);
+            copy(__DIR__.'/file_remove.png', $themeImgDir.'file_remove.png');
+        }
+    }
+
+    private function addNewCSS($cf)
+    {
+        $cssFile = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css';
+        if(!file_exists($cssFile)) {
+            return;
+        }
+
+        $fileSystem = new \IpUpdate\Library\Helper\FileSystem();
+        $fileSystem->makeWritable($cssFile);
+
+        $fh = fopen($cssFile, 'a');
+        if (!$fh) {
+            throw new UpdateException("Can't open file to write. File: ".$cssFile, UpdateException::UNKNOWN);
+        }
+
+        $data = '
+.ipModuleForm .ipmFileContainer .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.ipModuleForm .ipmFileContainer .ipmHiddenInput input { /* margins on input makes error message to appear lower than it should. */
+    margin: 0;
+    padding: 0;
+}
+.ipModuleForm .ipmFileContainer .ipmFileProgress {
+    border: 1px solid #333;
+    height: 3px;
+}
+.ipModuleForm .ipmFileContainer .ipmFile {
+    margin-top: 5px;
+    background-color: #f2f2f2;
+    padding: 5px;
+}
+.ipModuleForm .ipmFileContainer .ipmFileProgressValue {
+    background-color: #ccc;
+    height: 3px;
+}
+.ipModuleForm .ipmFileContainer .ipmRemove {
+    width: 13px;
+    height: 13px;
+    background: url(img/file_remove.png) no-repeat;
+    float: right;
+    cursor: pointer;
+}
+.ipModuleForm .ipmFileContainer .ipmUploadError {
+    color: #da0001;
+    font-size: 11px;
+}
+        ';
+
+        fwrite($fh, $data);
+        fclose($fh);
     }
 
     public function removeDeletedDir($cf)
@@ -102,6 +173,65 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
     }
 
+    public function getNotes($cf)
+    {
+        if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css')) {
+            $note =
+                '
+               <P><span style="color: red;">ATTENTION</span></P>
+               <p>You are updating from 2.6 or older. Contact Form widget now has file input type which comes with its own CSS rules.
+               Update script will automatically add required rules to your CSS:
+               </p>
+           ';
+        } else {
+            $note =
+                '
+               <P><span style="color: red;">ATTENTION</span></P>
+               <p>You are updating from 2.6 or older. Contact Form widget now has file input type which comes with its own CSS rules.
+               Please add following CSS to your theme manually before proceeding:
+               </p>
+           ';
+        }
+    $note .= '
+               <p>
+    .ipModuleForm .ipmFileContainer .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/<br/>
+        width: 0;<br/>
+        height: 0;<br/>
+        overflow: hidden;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmHiddenInput input { /* margins on input makes error message to appear lower than it should. */<br/>
+        margin: 0;<br/>
+        padding: 0;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmFileProgress {<br/>
+        border: 1px solid #333;<br/>
+        height: 3px;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmFile {<br/>
+        margin-top: 5px;<br/>
+        background-color: #f2f2f2;<br/>
+        padding: 5px;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmFileProgressValue {<br/>
+        background-color: #ccc;<br/>
+        height: 3px;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmRemove {<br/>
+        width: 13px;<br/>
+        height: 13px;<br/>
+        background: url(img/file_remove.png) no-repeat;<br/>
+        float: right;<br/>
+        cursor: pointer;<br/>
+    }<br/>
+    .ipModuleForm .ipmFileContainer .ipmUploadError {<br/>
+        color: #da0001;<br/>
+        font-size: 11px;<br/>
+    }<br/>
+               </p>
+                   ';
+        $notes = array($note);
+        return $notes;
+    }
 
 
     private function migrateIpImage($widgetId, $data)
