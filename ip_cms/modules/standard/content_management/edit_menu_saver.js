@@ -70,6 +70,7 @@
          
         
         var form = document.getElementById('worker_form');
+        form.innerHTML = '';
         
         for (var paragraph_key=0; paragraph_key<paragraphs.length;paragraph_key++)
         {
