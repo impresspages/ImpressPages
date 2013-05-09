@@ -103,7 +103,9 @@ class ConfigurationParser
             'DEFAULT_DOCTYPE',
             'SECURE_DIR',
             'TMP_SECURE_DIR',
-            'MANUAL_DIR'
+            'MANUAL_DIR',
+            'TEST_MODE',
+            'MISSING_CONSTANT_USED_FOR_TESTING_TO_CHECK_IF_CODE_WORKS_IF_SOME_CONSTANTS_ARE_MISSING'
         );    
         return $constants;
     }

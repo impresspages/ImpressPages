@@ -144,7 +144,22 @@ class Installation
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $answer = curl_exec($ch);
-        
+
+
+        //Put instalation into test mode:
+        $configFile = $this->getInstallationDir()."ip_config.php";
+        $fh = fopen($configFile, 'a') or die("can't open file");
+        $data = "
+            define('TEST_MODE', 1);
+        ";
+        fwrite($fh, $data);
+        fclose($fh);
+
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs->rm($this->getInstallationDir().'update/');
+        $fs->rm($this->getInstallationDir().'install/');
+
+
         $this->installed = true;
         
     }
@@ -179,7 +194,10 @@ class Installation
         $stringData = "\ndefine('IUL_TESTMODE', true);";
         fwrite($fh, $stringData);
         fclose($fh);
-        
+
+
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs->makeWritable($this->getInstallationDir()."update", 0777);
     }
 
     private function setupDevelopmentFiles()
@@ -199,6 +217,8 @@ class Installation
         foreach($folders as $folder) {
             $fs->cpDir(TEST_CODEBASE_DIR.$folder, $this->getInstallationDir().$folder);
         }
+
+        $fs->chmod($this->getInstallationDir().$folder, 0777);
 
     }
 

@@ -43,6 +43,9 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
     protected function setup()
     {
+        if (!defined('IUL_TESTMODE')) {
+            define('IUL_TESTMODE', 1);
+        }
         $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
         $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
         $fileSystemHelper->cleanDir(TEST_TMP_DIR);

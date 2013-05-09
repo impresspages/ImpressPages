@@ -24,7 +24,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //check update review page is fine
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate();
-        $test->test();
+
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         
@@ -105,16 +105,17 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->open($url);
         $this->assertElementPresent('css=.sitename');
         //$this->assertNoErrors(); 2.0rc2 throws warnings on PHP 5.4
-        
+
         //setup update
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate();
-        
+
         //fake another update process in progress
         $tmpStorageDir = $installation->getConfig('BASE_DIR').$installation->getConfig('TMP_FILE_DIR').'update/';
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->createWritableDir($tmpStorageDir);
         file_put_contents($tmpStorageDir.'inProgress', '1');
+        $fs->makeWritable($tmpStorageDir, 0777);
 
         //open update page
         $this->open($url.'update');
@@ -123,13 +124,13 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //start update process
         $this->waitForElementPresent('css=h1');
         $this->assertTextPresent('Another update process in progress');
-        
+
         //reset the lock
         $this->click('css=.actResetLock');
-        
+
         //assert success
         $this->waitForElementPresent('css=.seleniumCompleted');
-        
+
         //check update was successful
         $this->open($url);
         $this->assertElementPresent('css=.sitename');
@@ -192,6 +193,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $ipActions->login();
         $ipActions->openModule('system');
         $this->waitForElementPresent('css=.actStartUpdate');
+
         $this->click('css=.actStartUpdate');
         $this->waitForText('css=h1', 'Overview');
         $this->assertNoErrors();

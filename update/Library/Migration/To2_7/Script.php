@@ -121,6 +121,8 @@ class Script extends \IpUpdate\Library\Migration\General{
         $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf);
 
+        $this->conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
+
         $widgetsToMigrate = array(
             'IpImage',
             'IpImageGallery',
@@ -314,9 +316,9 @@ class Script extends \IpUpdate\Library\Migration\General{
             1
         ";
         //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
-        $rs = mysql_query($sql);
+        $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new \Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error());
         }
 
     }
