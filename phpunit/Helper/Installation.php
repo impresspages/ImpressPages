@@ -451,8 +451,8 @@ class Installation
             $this->putInstallationFilesPackage($destinationDir);
         }
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->makeWritable($destinationDir, 0777);
+        $fs = new FileSystem();
+        $fs->chmod($destinationDir, 0777);
 
 
 
