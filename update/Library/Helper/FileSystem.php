@@ -56,7 +56,7 @@ class FileSystem
             return false;
         }
 
-        if (!is_writable($path) || $permissions) {
+        if (!is_writable($path)) {
             if ($permissions == null) {
                 $permissions = $this->getParentPermissions($path);
             }
@@ -86,7 +86,7 @@ class FileSystem
                     if (is_dir($path.'/'.$file)) {
                         $this->makeWritable($path.'/'.$file, $permissions);
                     } else {
-                        if (!is_writable($path.'/'.$file) || $permissions) {
+                        if (!is_writable($path.'/'.$file)) {
                             if ($permissions == null) {
                                 $permissions = $this->getParentPermissions($path);
                             }

@@ -15,9 +15,11 @@ class Script extends \IpUpdate\Library\Migration\General{
     private $conn;
     private $dbh;
     private $dbPref;
+    private $cf;
 
     public function process($cf)
     {
+        $this->cf = $cf;
         $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
         $this->conn = $conn;
@@ -117,6 +119,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     public function migrateWidgets($cf)
     {
+        $this->cf = $cf; //duplicates constructor as this method could be called directly from tests
         $this->dbPref = $cf['DB_PREF'];
         $db = new \IpUpdate\Library\Model\Db();
         $conn = $db->connect($cf);
@@ -321,6 +324,9 @@ class Script extends \IpUpdate\Library\Migration\General{
             throw new \Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error());
         }
 
+        if (file_exists($this->cf['BASE_DIR'].$file)){
+            unlink($this->cf['BASE_DIR'].$file);
+        }
     }
 
 
