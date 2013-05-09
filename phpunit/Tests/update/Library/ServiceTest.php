@@ -77,7 +77,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);
 
         //publish website
-        $service->proceed(\IpUpdate\Library\Model\Update::SETP_FINISH);
+        $service->proceed(\IpUpdate\Library\Model\Update::STEP_FINISH);
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
 
         $version = $service->getCurrentVersion();
