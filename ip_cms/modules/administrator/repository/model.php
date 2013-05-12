@@ -47,23 +47,6 @@ class Model{
     }
 
     
-    /**
-     * @deprecated
-     * Add new file to the repository. Defined file will be duplicated. File name of duplicate will be returned.
-     * 
-     * @param string $file file to be added. Relative to BASE_DIR. E.g. file/tmp/file.doc
-     * @param string $module module that uses this file (eg. standard/content_management)
-     * @param int $id Unique identificator. Tells in which part of the module the file is used.
-     * @return string where duplicated file is being stored. 
-     **/
-    public static function addFile($file, $module, $instanceId) {
-        $destinationDir = FILE_DIR;
-        $unocupiedName = \Library\Php\File\Functions::genUnoccupiedName($file, $destinationDir);
-        copy(BASE_DIR.$file, BASE_DIR.$destinationDir.$unocupiedName);
-        self::bindFile($destinationDir.$unocupiedName, $module, $instanceId);
-        return $destinationDir.$unocupiedName;
-    }
-    
     public static function bindFile($file, $module, $instanceId) {
         $dbh = \Ip\Db::getConnection();
         $sql = "
