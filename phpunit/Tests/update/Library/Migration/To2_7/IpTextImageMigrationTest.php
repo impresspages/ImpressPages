@@ -11,7 +11,7 @@ class IpTextImageMigrationTest extends \PhpUnit\MigrationTestCase
 
     public function getDataSet()
     {
-        return $this->createXMLDataSet(TEST_FIXTURE_DIR.'update/Library/Migration/To2_7/ipTextImage.xml');
+        return $this->createXMLDataSet(TEST_FIXTURE_DIR.'update/Library/Migration/To3_0/ipTextImage.xml');
     }
 
 
@@ -27,7 +27,7 @@ class IpTextImageMigrationTest extends \PhpUnit\MigrationTestCase
         $fh = fopen($myFile, 'w');
 
         $this->assertEquals(1, $this->getConnection()->getRowCount('ip_m_content_management_widget'), "Pre-Condition");
-        $migrationScript = new \IpUpdate\Library\Migration\To2_7\Script();
+        $migrationScript = new \IpUpdate\Library\Migration\To3_0\Script();
         $migrationScript->migrateWidgets($config);
 
 
@@ -35,7 +35,7 @@ class IpTextImageMigrationTest extends \PhpUnit\MigrationTestCase
          * @var $sourceTable \PHPUnit_Extensions_Database_DataSet_QueryTable
          */
         $sourceTable = $this->getConnection()->createQueryTable('ip_m_content_management_widget', 'SELECT * FROM ip_m_content_management_widget');
-        $expectedTable = $this->createXMLDataSet(TEST_FIXTURE_DIR.'update/Library/Migration/To2_7/ipTextImageResult.xml')->getTable("ip_m_content_management_widget");
+        $expectedTable = $this->createXMLDataSet(TEST_FIXTURE_DIR.'update/Library/Migration/To3_0/ipTextImageResult.xml')->getTable("ip_m_content_management_widget");
 
         $this->assertTablesEqual($expectedTable, $sourceTable);
 

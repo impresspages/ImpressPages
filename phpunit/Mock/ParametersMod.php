@@ -15,7 +15,7 @@ class ParametersMod
     public function __construct()
     {
         require(BASE_DIR.'install/parameters.php');
-        require(BASE_DIR.'update/Library/Migration/To2_7/newParameters.php');
+        require(BASE_DIR.'update/Library/Migration/To3_0/newParameters.php');
         $this->parameters = $parameterValue;
     }
 

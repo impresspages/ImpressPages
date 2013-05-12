@@ -12,7 +12,7 @@ class RemoveDeletedDirTest extends \PhpUnit\MigrationTestCase
     {
 
         $config = $this->getInstallationConfig();
-        $migrationScript = new \IpUpdate\Library\Migration\To2_7\Script();
+        $migrationScript = new \IpUpdate\Library\Migration\To3_0\Script();
         $migrationScript->removeDeletedDir($config);
 
 
@@ -28,7 +28,7 @@ class RemoveDeletedDirTest extends \PhpUnit\MigrationTestCase
         $fh = fopen($myFile, 'w');
         fclose($fh);
 
-        $migrationScript = new \IpUpdate\Library\Migration\To2_7\Script();
+        $migrationScript = new \IpUpdate\Library\Migration\To3_0\Script();
         $migrationScript->removeDeletedDir($config);
 
 

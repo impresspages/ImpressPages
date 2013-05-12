@@ -84,8 +84,9 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $newInstallation->setInstallationUrl(str_replace($baseName, $newSubdir, $installation->getInstallationUrl()));
         $configurationHelper = new \PhpUnit\Helper\Configuration();
 
+
         $configurationHelper->changeConfigurationConstantValue($newInstallation, 'BASE_URL', $installation->getInstallationUrl(), $newInstallation->getInstallationUrl());
-        $configurationHelper->changeConfigurationConstantValue($newInstallation, 'BASE_DIR', $installation->getInstallationDir(), $newInstallation->getInstallationDir());
+        $configurationHelper->changeConfigurationConstantValue($newInstallation, 'BASE_DIR', TEST_BASE_DIR.$installation->getInstallationDir(), TEST_BASE_DIR.$newInstallation->getInstallationDir());
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $newInstallation);
         $ipActions->login();
