@@ -184,7 +184,7 @@ class Script extends \IpUpdate\Library\Migration\General{
             $note =
                 '
                <P><span style="color: red;">ATTENTION</span></P>
-               <p>You are updating from 2.6 or older. Contact Form widget now has file input type which comes with its own CSS rules.
+               <p>You are updating from 2.6 or older. "Contact Form" widget now has file input type which comes with its own CSS rules.
                Update script will automatically add required rules to your CSS:
                </p>
            ';
@@ -192,7 +192,7 @@ class Script extends \IpUpdate\Library\Migration\General{
             $note =
                 '
                <P><span style="color: red;">ATTENTION</span></P>
-               <p>You are updating from 2.6 or older. Contact Form widget now has file input type which comes with its own CSS rules.
+               <p>You are updating from 2.6 or older. "Contact Form" widget now has file input type which comes with its own CSS rules.
                Please add following CSS to your theme manually before proceeding:
                </p>
            ';
