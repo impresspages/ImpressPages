@@ -2,10 +2,16 @@
 
 namespace PhpUnit;
 
-//class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
+/**
+ * class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
+ * Class CoreTestCase
+ * @deprecated
+ * @package PhpUnit
+ */
 class CoreTestCase extends \PHPUnit_Framework_TestCase
 {
     static $init;
+    static $connection;
 
     protected function setup()
     {
@@ -27,19 +33,17 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
      */
     public function initInstallation()
     {
-        if (static::$init) {
-            if (!static::$init) {
-                $this->initConstants();
-            }
+        if (!static::$init) {
             static::$init = true;
+            $this->initConstants();
             if (!defined('CMS')) {
                 define('CMS', true); // make sure other files are accessed through this file.
             }
             if (!defined('FRONTEND')) {
                 define('FRONTEND', true); // make sure other files are accessed through this file.
             }
-        //because of PHPUnit magic, we have to repeat it on every test
-        require_once(BASE_DIR.FRONTEND_DIR.'init.php');
+            //because of PHPUnit magic, we have to repeat it on every test
+            require_once(BASE_DIR.FRONTEND_DIR.'init.php');
         }
         global $parametersMod;
         $parametersMod = new Mock\ParametersMod();
@@ -51,17 +55,17 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
     {
 
 
-
 //constants for unit tests
         define('SESSION_NAME', 'testsession');  //prevents session conflict when two sites runs on the same server
 // END GLOBAL
 
+        self::$connection = new \PhpUnit\Helper\TestDb();
 // DB
-        define('DB_SERVER', ''); // eg, localhost
-        define('DB_USERNAME', '');
-        define('DB_PASSWORD', '');
-        define('DB_DATABASE', '');
-        define('DB_PREF', '');
+        define('DB_SERVER', self::$connection->getDbHost()); // eg, localhost
+        define('DB_USERNAME', self::$connection->getDbUser());
+        define('DB_PASSWORD', self::$connection->getDbPass());
+        define('DB_DATABASE', self::$connection->getDbName());
+        define('DB_PREF', 'ip_');
 // END DB
 
 // GLOBAL

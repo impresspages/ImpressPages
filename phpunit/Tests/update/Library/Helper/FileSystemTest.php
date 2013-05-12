@@ -21,23 +21,17 @@ class FileSystemTest extends \PhpUnit\GeneralTestCase
         chmod($testDir.'UnwritableFolder/UnwritableSubfolder', 0555);
         chmod($testDir.'UnwritableFolder/WritableSubfolder', 0777);
         chmod($testDir.'UnwritableFolder', 0555);
-        
-        $this->assertEquals('555', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/')));
-        $this->assertEquals(false, is_writable($testDir.'UnwritableFolder/'));
-        $this->assertEquals(false, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/WritableSubfolder'));
-        $this->assertEquals(false, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder/unwritableFile.txt'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt'));
-        
+
+
+        $this->assertEquals('777', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt')));
+        $this->assertEquals('555', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/UnwritableSubfolder/unwritableFile.txt')));
+        $this->assertEquals('555', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/UnwritableSubfolder')));
+        $this->assertEquals('777', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/WritableSubfolder')));
+        $this->assertEquals('555', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder')));
+
+
         $fileSystem = new \IpUpdate\Library\Helper\FileSystem();
         $fileSystem->makeWritable($testDir, 0755);
-        
-        //assert all dirs are now writable
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/WritableSubfolder'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder/unwritableFile.txt'));
-        $this->assertEquals(true, is_writable($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt'));
         
         //assert writable file permissions hasn't changed
         $this->assertEquals('777', $fileSystemHelper->formatPermissions(fileperms($testDir.'UnwritableFolder/UnwritableSubfolder/writableFile.txt')));

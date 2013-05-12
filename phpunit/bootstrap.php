@@ -16,12 +16,12 @@ $autoloader->register(TEST_BASE_DIR);
 
 //bootstrap core
 
-define('CMS', true);
-define('FRONTEND', true);
-define('BACKEND', true);
-require_once(TEST_CODEBASE_DIR.'ip_config.php');
-require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
-//end bootstrap core
+//define('CMS', true);
+//define('FRONTEND', true);
+//define('BACKEND', true);
+//require_once(TEST_CODEBASE_DIR.'ip_config.php');
+//require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
+////end bootstrap core
 
 
 //bootstrap IpUpdate library

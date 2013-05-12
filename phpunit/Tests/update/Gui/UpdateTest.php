@@ -112,10 +112,10 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
 
         //fake another update process in progress
         $tmpStorageDir = $installation->getConfig('BASE_DIR').$installation->getConfig('TMP_FILE_DIR').'update/';
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->createWritableDir($tmpStorageDir);
+        $fs = new \PhpUnit\Helper\FileSystem();
+        mkdir($tmpStorageDir);
         file_put_contents($tmpStorageDir.'inProgress', '1');
-        $fs->makeWritable($tmpStorageDir, 0777);
+        $fs->chmod($tmpStorageDir, 0777);
 
         //open update page
         $this->open($url.'update');

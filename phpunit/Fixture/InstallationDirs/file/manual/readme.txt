@@ -1,0 +1,1 @@
+Directory to store files uploaded via TinyMCE file browser or other tools where user manually controls files.

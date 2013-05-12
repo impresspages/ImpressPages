@@ -40,14 +40,14 @@ class MigrationTestCase extends GeneralTestCase
     protected function setup()
     {
         parent::setup();
-        $configMock = $this->getInstallationConfig();
-        mkdir(TEST_CODEBASE_DIR.$configMock['FILE_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['AUDIO_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['IMAGE_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['VIDEO_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['SECURE_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['TMP_SECURE_DIR']);
-        mkdir(TEST_CODEBASE_DIR.$configMock['MANUAL_DIR']);
+//        $configMock = $this->getInstallationConfig();
+//        mkdir(TEST_CODEBASE_DIR.$configMock['FILE_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['AUDIO_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['IMAGE_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['VIDEO_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['SECURE_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['TMP_SECURE_DIR']);
+//        mkdir(TEST_CODEBASE_DIR.$configMock['MANUAL_DIR']);
     }
 
 }

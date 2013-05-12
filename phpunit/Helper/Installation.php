@@ -196,8 +196,8 @@ class Installation
         fclose($fh);
 
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->makeWritable($this->getInstallationDir()."update", 0777);
+        $fs = new \PhpUnit\Helper\FileSystem();
+        $fs->chmod($this->getInstallationDir()."update", 0777);
     }
 
     private function setupDevelopmentFiles()

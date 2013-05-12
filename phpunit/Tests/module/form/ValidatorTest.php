@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-class ValidatorTest extends \PhpUnit\CoreTestCase
+class ValidatorTest extends \PhpUnit\GeneralTestCase
 {
 
     public function testEmail()
