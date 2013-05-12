@@ -643,3 +643,38 @@
 
 /* Admin */
 /* here should go styles for admin tools if you want to override the default styles */
+
+.ipModuleForm .ipmFileContainer .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.ipModuleForm .ipmFileContainer .ipmHiddenInput input { /* margins on input makes error message to appear lower than it should. */
+    margin: 0;
+    padding: 0;
+}
+.ipModuleForm .ipmFileContainer .ipmFileProgress {
+    border: 1px solid #333;
+    height: 3px;
+}
+.ipModuleForm .ipmFileContainer .ipmFile {
+    margin-top: 5px;
+    background-color: #f2f2f2;
+    padding: 5px;
+}
+.ipModuleForm .ipmFileContainer .ipmFileProgressValue {
+    background-color: #ccc;
+    height: 3px;
+}
+.ipModuleForm .ipmFileContainer .ipmRemove {
+    width: 13px;
+    height: 13px;
+    background: url(img/file_remove.png) no-repeat;
+    float: right;
+    cursor: pointer;
+}
+.ipModuleForm .ipmFileContainer .ipmUploadError {
+    color: #da0001;
+    font-size: 11px;
+}
+        
