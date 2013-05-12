@@ -23,15 +23,15 @@ abstract class Image extends Base
         switch ($mime) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
-                $image = imagecreatefromjpeg($imageFile);
+                $image = imagecreatefromjpeg(BASE_DIR.$imageFile);
                 break;
             case IMAGETYPE_GIF:
-                $image = imagecreatefromgif($imageFile);
+                $image = imagecreatefromgif(BASE_DIR.$imageFile);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
             case IMAGETYPE_PNG:
-                $image = imagecreatefrompng($imageFile);
+                $image = imagecreatefrompng(BASE_DIR.$imageFile);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -49,7 +49,7 @@ abstract class Image extends Base
      * @return bool true on success
      */
     protected function getMemoryNeeded($imageFile){
-        $imageInfo = getimagesize($imageFile);
+        $imageInfo = getimagesize(BASE_DIR.$imageFile);
         if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;
         }
@@ -120,7 +120,7 @@ abstract class Image extends Base
      * @throws \Modules\administrator\repository\TransformException
      */
     protected function getMimeType($imageFile) {
-        $imageInfo = getimagesize($imageFile);
+        $imageInfo = getimagesize(BASE_DIR.$imageFile);
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
         } else {

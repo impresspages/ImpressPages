@@ -65,40 +65,58 @@ class Model{
     }
     
     public static function bindFile($file, $module, $instanceId) {
+        $dbh = \Ip\Db::getConnection();
         $sql = "
         INSERT INTO
             `".DB_PREF."m_administrator_repository_file`
         SET
-            `fileName` = '".mysql_real_escape_string($file)."',
-            `module` = '".mysql_real_escape_string($module)."',
-            `instanceId` = '".mysql_real_escape_string($instanceId)."',
-            `date` = '".time()."'
+            `fileName` = :file,
+            `module` = :module,
+            `instanceId` = :instanceId,
+            `date` = :date
         ";
-        
-        $rs = mysql_query($sql);
-        if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
-        }
+
+        $params = array(
+            'file' => $file,
+            'module' => $module,
+            'instanceId' => $instanceId,
+            'date' => time()
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
         
     }
 
     public static function unbindFile($file, $module, $instanceId) {
-
+        $dbh = \Ip\Db::getConnection();
         
         $sql = "
         DELETE FROM
             `".DB_PREF."m_administrator_repository_file`
         WHERE
-            `fileName` = '".mysql_real_escape_string($file)."' AND
-            `module` = '".mysql_real_escape_string($module)."' AND
-            `instanceId` = '".mysql_real_escape_string($instanceId)."'
+            `fileName` = :file AND
+            `module` = :module AND
+            `instanceId` = :instanceId
         LIMIT
             1
         ";
-        //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
-        $rs = mysql_query($sql);
-        if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+
+        $params = array(
+            'file' => $file,
+            'module' => $module,
+            'instanceId' => $instanceId
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+
+        $usages = self::whoUsesFile($file);
+        if (empty($usages)) {
+            $reflectionModel = ReflectionModel::instance();
+            $reflectionModel->removeReflections($file);
         }
 
     }

@@ -59,16 +59,29 @@ class ReflectionModel
         return $reflection;
     }
 
+    public function removeReflections($file)
+    {
+        $reflections = $this->getReflections($file);
+        foreach ($reflections as $reflection) {
+            if (file_exists(BASE_DIR.$reflection['reflection'])) {
+                unlink(BASE_DIR.$reflection['reflection']);
+            }
+        }
+
+    }
+
     /**
      * @param string $file
      * @param string $desiredName
      * @param Transform\Base $transform
+     * @return string
      * @throws \Exception
      */
+
     private function createReflection($file, $desiredName, Transform\Base $transform)
     {
         if (!\Library\Php\File\Functions::isFileInPublicDir($file)) {
-            throw new \Exception("Security notice. Try to access a file (".$image['fileName'].") from a non public folder.");
+            throw new \Exception("Security notice. Try to access a file (".$file.") from a non public folder.");
         }
 
 
@@ -144,5 +157,27 @@ class ReflectionModel
     }
 
 
+    private function getReflections($file)
+    {
+        $dbh = \Ip\Db::getConnection();
+        $sql = "
+        SELECT
+          reflection
+        FROM
+          ".DB_PREF."m_administrator_repository_reflection
+        WHERE
+          original = :original
+        ";
+
+        $params = array(
+            'original' => $file
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+        $answer = $q->fetchAll(\PDO::FETCH_ASSOC);
+        return $answer;
+    }
 
 }
