@@ -5,7 +5,7 @@
  * @license   GNU/GPL, see ip_license.html
  */
 
-namespace IpUpdate\Library\Migration\To2_7;
+namespace IpUpdate\Library\Migration\To3_0;
 
 
 use IpUpdate\Library\UpdateException;
@@ -383,7 +383,7 @@ class Script extends \IpUpdate\Library\Migration\General{
      */
     public function getDestinationVersion()
     {
-        return '2.7';
+        return '3.0';
     }
 
 
