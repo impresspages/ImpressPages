@@ -472,7 +472,7 @@ class Controller  extends \Ip\Controller{
             $insertId = $passwordResetForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], array(), $additionalFields);
             $this->sendPasswordResetLink($_POST['email'], $tmp_code, $tmpUser['id']);
 
-            $data = array('userId' => $tmpUser['id']);
+            $data = array('userId' => $tmpUser['id'], 'password' => $_POST['password']);
             $dispatcher->notify(new Event($this, Event::PASSWORD_RESET, $data));
             
             $data = array(
