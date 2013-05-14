@@ -204,7 +204,7 @@ class Controller  extends \Ip\Controller{
             $site->dispatchEvent('community', 'user', 'register', array('user_id'=>$insertId));
 
             //new event
-            $data = array('userId' => $insertId);
+            $data = array('userId' => $insertId, 'password' => $postData['password']);
             $dispatcher->notify(new Event($this, Event::REGISTRATION, $data));
 
 
@@ -314,7 +314,7 @@ class Controller  extends \Ip\Controller{
             $site->dispatchEvent('community', 'user', 'update_profile', array('user_id'=>$tmpUser['id']));
 
             //new event
-            $data = array('userId' => $insertId, 'profileData' => array_merge($data, $additionalFields));
+            $data = array('userId' => $insertId, $postData['password'] => $_POST['password'], 'profileData' => array_merge($data, $additionalFields));
             $dispatcher->notify(new Event($this, Event::PROFILE_UPDATE, $data));
 
 
