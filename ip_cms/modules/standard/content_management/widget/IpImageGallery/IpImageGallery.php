@@ -222,9 +222,16 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
                     );
-                    $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
+
+                } else {
+                    $transformSmall = new \Modules\administrator\repository\Transform\ImageFit(
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
+                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
+                    );
 
                 }
+                $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
             }
         }
         return parent::previewHtml($instanceId, $data, $layout);
