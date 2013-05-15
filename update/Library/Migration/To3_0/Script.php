@@ -241,6 +241,17 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpImage($widgetId, $data)
     {
+        if (isset($data['imageOriginal']) &&
+            file_exists($data['imageOriginal']) &&
+            is_writable($this->cf['BASE_DIR'].$data['imageOriginal']) &&
+            is_writable($this->cf['FILE_REPOSITORY_DIR']) &&
+            !file_exists($this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']))
+        ) {
+            copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
+            rm($this->cf['BASE_DIR'].$data['imageOriginal']);
+            $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
+        }
+
         if (isset($data['imageBig']) && $data['imageBig']) {
             $this->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
             unset($data['imageBig']);
@@ -259,6 +270,19 @@ class Script extends \IpUpdate\Library\Migration\General{
                 if (!is_array($image)) {
                     continue;
                 }
+
+                if (isset($image['imageOriginal']) &&
+                    file_exists($image['imageOriginal']) &&
+                    is_writable($this->cf['BASE_DIR'].$image['imageOriginal']) &&
+                    is_writable($this->cf['FILE_REPOSITORY_DIR']) &&
+                    !file_exists($this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']))
+                ) {
+                    copy($this->cf['BASE_DIR'].$image['imageOriginal'], $this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']));
+                    rm($this->cf['BASE_DIR'].$image['imageOriginal']);
+                    $image['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']);
+                }
+
+
                 if (isset($image['imageBig']) && $image['imageBig']) {
                     $this->unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
                     unset($image['imageBig']);
@@ -282,6 +306,18 @@ class Script extends \IpUpdate\Library\Migration\General{
                 if (!is_array($logo)) {
                     continue;
                 }
+
+                if (isset($image['logoOriginal']) &&
+                    file_exists($image['logoOriginal']) &&
+                    is_writable($this->cf['BASE_DIR'].$image['logoOriginal']) &&
+                    is_writable($this->cf['FILE_REPOSITORY_DIR']) &&
+                    !file_exists($this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']))
+                ) {
+                    copy($this->cf['BASE_DIR'].$image['logoOriginal'], $this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']));
+                    rm($this->cf['BASE_DIR'].$image['logoOriginal']);
+                    $image['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']);
+                }
+
                 if (isset($logo['logoSmall']) && $logo['logoSmall']) {
                     $this->unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
                     unset($logo['logoSmall']);
