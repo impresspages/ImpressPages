@@ -76,7 +76,7 @@
         },
 
         _confirm : function (e) {
-
+            e.preventDefault();
             var $this = $(this);
 
             var files = new Array();

@@ -120,15 +120,8 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                         $title = $image['title'];
                     }
 
-                    $newImage = array(
-                        'imageOriginal' => $existingImageData['imageOriginal'],
-                        'title' => $title,
-                        'cropX1' => $existingImageData['cropX1'],
-                        'cropY1' => $existingImageData['cropY1'],
-                        'cropX2' => $existingImageData['cropX2'],
-                        'cropY2' => $existingImageData['cropY2'],
-
-                    );
+                    $newImage = array_intersect_key($existingImageData, array('imageOriginal' => 1, 'title' => 1, 'cropX1' => 1, 'cropY1' => 1, 'cropX2' => 1, 'cropY2' => 1));
+                    $newImage['title'] = $title;
                     $newData['images'][] = $newImage;
 
                     break;
@@ -174,7 +167,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
 
         $answer = false;
         foreach ($allImages as $imageKey => $image) {
-            if ($image['imageOriginal'] == $imageOriginalFile) {
+            if (isset($image['imageOriginal']) && $image['imageOriginal'] == $imageOriginalFile) {
                 $answer = $image;
                 break;
             }
