@@ -100,6 +100,7 @@ class Update
         
         if (!$this->tempStorage->exist('version')) {
             $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
+            $this->tempStorage->setValue('curStep', self::STEP_START);
         }
         
         if ($this->tempStorage->getValue('version') != self::UPDATE_SCRIPT_VERSION) {
@@ -112,9 +113,11 @@ class Update
             $this->tempStorage->setValue('curStep', self::STEP_START);
         }
         $curStep = (int)$this->tempStorage->getValue('curStep');
-        
-        $this->tempStorage->setValue('inProgress', 1);
+        if ($curStep > $destinationStep) {
+            $this->stepFinish($options);
+        }
 
+        $this->tempStorage->setValue('inProgress', 1);
         try {
             while ($curStep <= $destinationStep) {
                 switch($curStep) {
