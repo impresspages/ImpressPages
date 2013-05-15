@@ -32,7 +32,9 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Modules\administrator\repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
             }
-            
+            //new original image
+            \Modules\administrator\repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
+            $newData['imageOriginal'] = $postData['newImage'];
             
         }
 
