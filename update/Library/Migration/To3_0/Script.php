@@ -180,19 +180,27 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     public function getNotes($cf)
     {
+        $note =
+            '
+           <P><span style="color: red;">ATTENTION</span></P>
+           <p>You are updating from 2.6 or older.</p>
+           <p>
+           If you have your own custom build widgets operating
+            with images or files, they likely to stop working after this update. Default image and file widgets will be updated automatically.
+           </p>
+       ';
+
         if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css')) {
-            $note =
+            $note .=
                 '
-               <P><span style="color: red;">ATTENTION</span></P>
-               <p>You are updating from 2.6 or older. "Contact Form" widget now has file input type which comes with its own CSS rules.
+               <p>"Contact Form" widget now has file input type which comes with its own CSS rules.
                Update script will automatically add required rules to your CSS:
                </p>
            ';
         } else {
-            $note =
+            $note .=
                 '
-               <P><span style="color: red;">ATTENTION</span></P>
-               <p>You are updating from 2.6 or older. "Contact Form" widget now has file input type which comes with its own CSS rules.
+               <p>"Contact Form" widget now has file input type which comes with its own CSS rules.
                Please add following CSS to your theme manually before proceeding:
                </p>
            ';
@@ -309,15 +317,15 @@ class Script extends \IpUpdate\Library\Migration\General{
                     continue;
                 }
 
-                if (isset($image['logoOriginal']) &&
-                    file_exists($this->cf['BASE_DIR'].$image['logoOriginal']) &&
-                    is_writable($this->cf['BASE_DIR'].$image['logoOriginal']) &&
+                if (isset($logo['logoOriginal']) &&
+                    file_exists($this->cf['BASE_DIR'].$logo['logoOriginal']) &&
+                    is_writable($this->cf['BASE_DIR'].$logo['logoOriginal']) &&
                     is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']))
+                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']))
                 ) {
-                    copy($this->cf['BASE_DIR'].$image['logoOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']));
-                    unlink($this->cf['BASE_DIR'].$image['logoOriginal']);
-                    $image['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['logoOriginal']);
+                    copy($this->cf['BASE_DIR'].$logo['logoOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']));
+                    unlink($this->cf['BASE_DIR'].$logo['logoOriginal']);
+                    $logo['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']);
                 }
 
                 if (isset($logo['logoSmall']) && $logo['logoSmall']) {

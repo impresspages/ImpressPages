@@ -99,8 +99,8 @@ class Update
         }
         
         if (!$this->tempStorage->exist('version')) {
-            $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
             $this->tempStorage->setValue('curStep', self::STEP_START);
+            $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
         }
         
         if ($this->tempStorage->getValue('version') != self::UPDATE_SCRIPT_VERSION) {
@@ -109,8 +109,8 @@ class Update
         }
         
         if ($this->tempStorage->getValue('version') === false) {
-            $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
             $this->tempStorage->setValue('curStep', self::STEP_START);
+            $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
         }
         $curStep = (int)$this->tempStorage->getValue('curStep');
         if ($curStep > $destinationStep) {
