@@ -30,6 +30,7 @@ var getStatus = function() {
 
 
 var proceed = function(event) {
+    event.preventDefault();
     loading();
     $.ajax({
         type: 'POST',
@@ -40,6 +41,7 @@ var proceed = function(event) {
 }
 
 var resetLock = function(event) {
+    event.preventDefault();
     loading();
     $.ajax({
         type: 'POST',

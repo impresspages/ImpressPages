@@ -6,6 +6,7 @@
  */
 
 namespace IpUpdate\Library\Model;
+use Modules\administrator\system\UpdateException;
 
 /**
  * Store data in file system required for update process
@@ -48,6 +49,13 @@ class TempStorage
     
     public function setValue($key, $value)
     {
+        $valueFile = $this->getFileName($key);
+        if (file_exists($valueFile) && !is_writable($valueFile) || !file_exists($valueFile) && !is_writable(dirname($valueFile))) {
+            $errorData = array (
+                'file' => $valueFile
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write file", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
         \file_put_contents($this->getFileName($key), $value);
     }
     
@@ -58,7 +66,14 @@ class TempStorage
     
     public function remove($key)
     {
-        if (file_exists($this->getFileName($key))){
+        $valueFile = $this->getFileName($key);
+        if (file_exists($valueFile)){
+            if (!is_writable($valueFile)) {
+                $errorData = array (
+                    'file' => $valueFile
+                );
+                throw new \IpUpdate\Library\UpdateException("Can't write file", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+            }
             unlink($this->getFileName($key));
         }
     }
