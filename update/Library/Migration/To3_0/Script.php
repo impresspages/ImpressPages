@@ -258,7 +258,6 @@ class Script extends \IpUpdate\Library\Migration\General{
         ) {
             copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
             $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-            unlink($this->cf['BASE_DIR'].$data['imageOriginal']);
             $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
             $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
@@ -292,7 +291,6 @@ class Script extends \IpUpdate\Library\Migration\General{
                 ) {
                     copy($this->cf['BASE_DIR'].$image['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']));
                     $this->unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
-                    unlink($this->cf['BASE_DIR'].$image['imageOriginal']);
                     $image['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']);
                     $this->bindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
                 }
@@ -330,7 +328,6 @@ class Script extends \IpUpdate\Library\Migration\General{
                 ) {
                     copy($this->cf['BASE_DIR'].$logo['logoOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']));
                     $this->unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
-                    unlink($this->cf['BASE_DIR'].$logo['logoOriginal']);
                     $logo['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']);
                     $this->bindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
                 }
@@ -354,7 +351,6 @@ class Script extends \IpUpdate\Library\Migration\General{
         ) {
             copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
             $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-            unlink($this->cf['BASE_DIR'].$data['imageOriginal']);
             $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
             $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
 
@@ -378,8 +374,8 @@ class Script extends \IpUpdate\Library\Migration\General{
             return;
         }
 
-        foreach($data['files'] as $fileKey => $file) {
-                if ($file['fileName']) &&
+        foreach($data['files'] as $fileKey => &$file) {
+                if (isset($file['fileName']) &&
                     file_exists($this->cf['BASE_DIR'].$file['fileName']) &&
                     is_writable($this->cf['BASE_DIR'].$file['fileName']) &&
                     is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
@@ -387,7 +383,6 @@ class Script extends \IpUpdate\Library\Migration\General{
                 ) {
                     copy($this->cf['BASE_DIR'].$file['fileName'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']));
                     $this->unbindFile($file['fileName'], 'standard/content_management', $widgetId);
-                    unlink($this->cf['BASE_DIR'].$file['fileName']);
                     $file['fileName'] = $this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']);
                     $this->bindFile($file['fileName'], 'standard/content_management', $widgetId);
                 }
@@ -420,6 +415,31 @@ class Script extends \IpUpdate\Library\Migration\General{
         if (file_exists($this->cf['BASE_DIR'].$file)){
             unlink($this->cf['BASE_DIR'].$file);
         }
+    }
+
+    private function bindFile($file, $module, $instanceId) {
+        $dbh = $this->dbh;
+        $sql = "
+        INSERT INTO
+            `".$this->dbPref."m_administrator_repository_file`
+        SET
+            `fileName` = :file,
+            `module` = :module,
+            `instanceId` = :instanceId,
+            `date` = :date
+        ";
+
+        $params = array(
+            'file' => $file,
+            'module' => $module,
+            'instanceId' => $instanceId,
+            'date' => time()
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+
+
     }
 
 
