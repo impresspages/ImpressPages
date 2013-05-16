@@ -223,7 +223,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     );
 
                 } else {
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageFit(
+                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCropCenter(
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
