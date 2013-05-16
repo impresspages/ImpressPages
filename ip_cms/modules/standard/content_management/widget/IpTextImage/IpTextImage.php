@@ -66,7 +66,11 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
 
             $desiredName = isset($data['title']) ? $data['title'] : '';
 
-            $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
+            try {
+                $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
+            } catch (\Modules\administrator\repository\Exception $e) {
+                //do nothing
+            }
 
 
             if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2'])) {
@@ -83,7 +87,12 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
                     $requiredWidth,
                     $requiredHeight
                 );
-                $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                try {
+                    $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                } catch (\Modules\administrator\repository\Exception $e) {
+                    //do nothing
+                }
+
             }
 
         }

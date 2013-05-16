@@ -81,7 +81,7 @@ class ReflectionModel
     private function createReflection($file, $desiredName, Transform\Base $transform)
     {
         if (!\Library\Php\File\Functions::isFileInPublicDir($file)) {
-            throw new \Exception("Security notice. Try to access a file (".$file.") from a non public folder.");
+            throw new Exception("Security notice. Try to access a file (".$file.") from a non public folder.", Exception::SECURITY);
         }
 
 

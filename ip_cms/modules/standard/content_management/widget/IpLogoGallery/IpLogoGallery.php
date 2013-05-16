@@ -209,7 +209,12 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
                         $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'quality'),
                         true
                     );
-                    $curLogo['logoSmall'] = $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall);
+                    try {
+                        $curLogo['logoSmall'] = $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall);
+                    } catch (\Modules\administrator\repository\Exception $e) {
+                        //do nothing
+                    }
+
 
                 }
             }

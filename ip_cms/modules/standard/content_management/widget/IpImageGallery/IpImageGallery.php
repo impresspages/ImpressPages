@@ -202,7 +202,13 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                 $bigWidth = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width');
                 $bigHeight = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height');
                 $transformBig = new \Modules\administrator\repository\Transform\ImageFit($bigWidth, $bigHeight);
-                $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
+
+                try {
+                    $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
+                } catch (\Modules\administrator\repository\Exception $e) {
+                    //do nothing
+                }
+
 
 
                 if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
@@ -224,7 +230,12 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
                     );
 
                 }
-                $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
+                try {
+                    $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
+                } catch (\Modules\administrator\repository\Exception $e) {
+                    //do nothing
+                }
+
             }
         }
         return parent::previewHtml($instanceId, $data, $layout);
