@@ -130,7 +130,8 @@ class Script extends \IpUpdate\Library\Migration\General{
             'IpImage',
             'IpImageGallery',
             'IpLogoGallery',
-            'IpTextImage'
+            'IpTextImage',
+            'IpFile'
         );
 
         foreach($widgetsToMigrate as $widgetName) {
@@ -256,8 +257,10 @@ class Script extends \IpUpdate\Library\Migration\General{
             !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']))
         ) {
             copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
+            $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
             unlink($this->cf['BASE_DIR'].$data['imageOriginal']);
             $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
+            $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
 
 
@@ -288,8 +291,10 @@ class Script extends \IpUpdate\Library\Migration\General{
                     !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']))
                 ) {
                     copy($this->cf['BASE_DIR'].$image['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']));
+                    $this->unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
                     unlink($this->cf['BASE_DIR'].$image['imageOriginal']);
                     $image['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']);
+                    $this->bindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
                 }
 
 
@@ -324,8 +329,10 @@ class Script extends \IpUpdate\Library\Migration\General{
                     !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']))
                 ) {
                     copy($this->cf['BASE_DIR'].$logo['logoOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']));
+                    $this->unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
                     unlink($this->cf['BASE_DIR'].$logo['logoOriginal']);
                     $logo['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']);
+                    $this->bindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
                 }
 
                 if (isset($logo['logoSmall']) && $logo['logoSmall']) {
@@ -346,8 +353,11 @@ class Script extends \IpUpdate\Library\Migration\General{
             !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']))
         ) {
             copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
+            $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
             unlink($this->cf['BASE_DIR'].$data['imageOriginal']);
             $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
+            $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
+
         }
 
         if (isset($data['imageBig']) && $data['imageBig']) {
@@ -358,6 +368,32 @@ class Script extends \IpUpdate\Library\Migration\General{
             $this->unbindFile($data['imageSmall'], 'standard/content_management', $widgetId);
             unset($data['imageSmall']);
         }
+        return $data;
+    }
+
+    private function migrateIpFile($widgetId, $data)
+    {
+
+        if (!isset($data['files']) || !is_array($data['files'])) {
+            return;
+        }
+
+        foreach($data['files'] as $fileKey => $file) {
+                if ($file['fileName']) &&
+                    file_exists($this->cf['BASE_DIR'].$file['fileName']) &&
+                    is_writable($this->cf['BASE_DIR'].$file['fileName']) &&
+                    is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
+                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']))
+                ) {
+                    copy($this->cf['BASE_DIR'].$file['fileName'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']));
+                    $this->unbindFile($file['fileName'], 'standard/content_management', $widgetId);
+                    unlink($this->cf['BASE_DIR'].$file['fileName']);
+                    $file['fileName'] = $this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']);
+                    $this->bindFile($file['fileName'], 'standard/content_management', $widgetId);
+                }
+        };
+
+
         return $data;
     }
 
