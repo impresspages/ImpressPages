@@ -12,7 +12,7 @@ class ImageCropCenter extends Image
     protected $widthDest;
     protected $heightDest;
     protected $quality;
-    protected $version = 2; //to make fingerprint change when algorithm changes.
+    protected $version = 3; //to make fingerprint change when algorithm changes.
 
     /**
      * @param int $x1 left top coordinate of source
@@ -65,8 +65,8 @@ class ImageCropCenter extends Image
             //cut top and bottom edges
             $x1 = 0;
             $x2 = $widthSource;
-            $y1 = round($heightSource/2 - $destinationProportions / $widthSource / 2);
-            $y2 = round($heightSource/2 + $destinationProportions / $widthSource / 2);
+            $y1 = round($heightSource/2 - $widthSource / $destinationProportions / 2);
+            $y2 = round($heightSource/2 + $widthSource / $destinationProportions / 2);
         }
 
 
