@@ -77,13 +77,14 @@ function ajaxMessage(url, parameters){
           case \'ERROR_INCORRECT_PREFIX\':
             document.getElementById(\'errorIncorrectPrefix\').style.display = \'block\';
           break;
+          case \'OK\':
+            document.location= \'index.php?step=4\';
+          break;
 					default:
 						document.getElementById(\'errorQuery\').style.display = \'block\';
 					break;
 				}
 			
-			} else {
-				document.location= \'index.php?step=4\';
 			}
 		}
 	}

@@ -104,14 +104,14 @@ function ajaxMessage(url, parameters){
   					case \'ERROR_TIME_ZONE\':
   						document.getElementById(\'errorTimeZone\').style.display = \'block\';						
   					break;
+  					case \'OK\':
+  					    document.location= \'index.php?step=5\';
+  					break;
   				}
   			
   			}			
       }  			
 			
-      if (response == \'\') {
-				document.location= \'index.php?step=5\';
-		  }
 		}
 	}
 

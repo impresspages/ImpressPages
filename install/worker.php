@@ -364,3 +364,5 @@ function get_parent_dir() {
 
     return $dir;
 }
+
+echo 'OK';
