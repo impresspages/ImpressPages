@@ -29,6 +29,7 @@ class MigrationTestCase extends GeneralTestCase
             'IMAGE_DIR' => 'phpunit/Tmp/image/',
             'AUDIO_DIR' => 'phpunit/Tmp/audio/',
             'VIDEO_DIR' => 'phpunit/Tmp/video/',
+            'FILE_REPOSITORY_DIR' => 'phpunit/Tmp/file/repository/',
 
             'SECURE_DIR' => 'phpunit/Tmp/securefile/',
             'TMP_SECURE_DIR' => 'phpunit/Tmp/securefile/tmp',
