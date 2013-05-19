@@ -41,15 +41,14 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $cf = $configurationParser->parse($installation->getInstallationDir());
         $updateModel = new \IpUpdate\Library\Model\Update($cf);
-        
+
         //check new version download
         $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_CLOSE_WEBSITE);
         
         //check maintenance mode
-        
+
         file_put_contents($installation->getInstallationDir().'maintenance.php', '<?p'.'hp echo \'MAINTENANCE\'; ?>');
-        $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_CLOSE_WEBSITE);
-        
+
         $version = $service->getCurrentVersion();
         $this->assertUrlResponse($installation->getInstallationUrl(), 503, 'MAINTENANCE');
         
@@ -81,7 +80,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
 
         $version = $service->getCurrentVersion();
-        $this->assertEquals('3.0', $version);
+        $this->assertEquals('3.1', $version);
 
         
         //clean up
