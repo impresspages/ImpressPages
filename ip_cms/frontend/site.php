@@ -1228,7 +1228,7 @@ class Site{
     }
 
 
-    public function generateBlock($blockName) {
+    public function generateBlock($blockName, $static = false) {
         global $dispatcher;
         global $site;
         $data = array (
@@ -1243,17 +1243,23 @@ class Site{
             return $event->getValue('content');
         } else {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-            $revision = $this->getRevision();
+
+            if ($static) {
+                $revisionId = null;
+            } else {
+                $revision = $this->getRevision();
+                if ($revision) {
+                $revisionId = $revision['revisionId'];
+                } else {
+                    return '';
+                }
+            }
 
             if ($blockName == 'main' && $site->getCurrentElement()) {
                 return $site->getCurrentElement()->generateContent();
             }
 
-            if ($revision != false) {
-                return \Modules\standard\content_management\Model::generateBlock($blockName, $revision['revisionId'], $this->managementState());
-            } else {
-                return '';
-            }
+            return \Modules\standard\content_management\Model::generateBlock($blockName, $revisionId, $this->managementState());
 
         }
     }

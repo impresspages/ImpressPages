@@ -53,7 +53,7 @@
                 ?>
             </nav>
             <aside>
-                <?php echo $this->generateBlock('side'); ?>
+                <?php echo $this->generateBlock('side', true); ?>
             </aside>
         </div>
         <div class="clear"></div>

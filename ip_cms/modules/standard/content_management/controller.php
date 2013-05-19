@@ -242,35 +242,39 @@ class Controller extends \Ip\Controller{
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
 
+        if ($revisionId == '') {
+            //Static block;
+            $revisionId = null;
+        } else {
+            //check revision consistency
+            $revisionRecord = \Ip\Revision::getRevision($revisionId);
 
-        $revisionRecord = \Ip\Revision::getRevision($revisionId);
+            if ($revisionRecord === false) {
+                throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
+            }
 
-        if ($revisionRecord === false) {
-            throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
+            $zoneName = $revisionRecord['zoneName'];
+            $pageId = $revisionRecord['pageId'];
+
+
+            $zone = $site->getZone($zoneName);
+            if ($zone === false) {
+                $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
+                return;
+            }
+
+            $page = $zone->getElement($pageId);
+            if ($page === false) {
+                $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
+                return;
+            }
+
         }
-
-        $zoneName = $revisionRecord['zoneName'];
-        $pageId = $revisionRecord['pageId'];
-
-
         $widgetObject = Model::getWidgetObject($widgetName);
         if ($widgetObject === false) {
             $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
             return;
         }
-
-        $zone = $site->getZone($zoneName);
-        if ($zone === false) {
-            $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
-            return;
-        }
-
-        $page = $zone->getElement($pageId);
-        if ($page === false) {
-            $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
-            return;
-        }
-
 
 
         try {

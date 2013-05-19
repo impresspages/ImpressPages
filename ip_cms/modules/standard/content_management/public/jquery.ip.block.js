@@ -99,7 +99,7 @@
                 
                 $this.data('ipBlock', {
                     name : $this.attr('id').substr(8),
-                    revisionId : options.revisionId,
+                    revisionId : $this.data('revisionid'),
                     widgetControlsHtml : options.widgetControlsHtml,
                     contenManagementObject : options.contentManagementObject
                 });

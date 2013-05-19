@@ -307,10 +307,10 @@ class View{
     }
 
 
-    public function generateBlock($blockName)
+    public function generateBlock($blockName, $static = false)
     {
         global $site;
-        return $site->generateBlock($blockName);
+        return $site->generateBlock($blockName, $static);
     }
 
     public function generateManagedLogo($cssClass = null)
