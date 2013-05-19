@@ -43,7 +43,13 @@ function install_available(){
 
 
 
-function output($html){
+function output($html, $requiredJs = array()){
+
+    $jsHtml = '';
+    foreach($requiredJs as $jsFile) {
+        $jsHtml .= '<script type="text/javascript" src="'.$jsFile.'"></script>'."\n";
+    }
+
     echo
 	'
 <!DOCTYPE html>
@@ -79,15 +85,9 @@ function output($html){
         <div class="footer">Copyright 2009-'.date("Y").' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
     </div>
 
-    <script>
-    <!--
-    if (document.images)
-    {
-        preload_image = new Image(); 
-        preload_image.src="design/cms_button_hover.gif"; 
-    }
-    //-->
-    </script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    '.$jsHtml.'
 
 </body>';
 }
