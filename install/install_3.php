@@ -34,6 +34,7 @@ output('
 
 <script type="text/javascript">
 function ajaxMessage(url, parameters){
+    parameters = \'manual=1&\' + parameters;
 	var xmlHttp;
 	try	{// Firefox, Opera 8.0+, Safari
 		xmlHttp=new XMLHttpRequest();
@@ -77,7 +78,7 @@ function ajaxMessage(url, parameters){
           case \'ERROR_INCORRECT_PREFIX\':
             document.getElementById(\'errorIncorrectPrefix\').style.display = \'block\';
           break;
-          case \'OK\':
+          case \'ERROR_OK\':
             document.location= \'index.php?step=4\';
           break;
 					default:

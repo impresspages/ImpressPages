@@ -337,7 +337,7 @@ Sitemap: '.get_parent_url().'sitemap.php';
     if ($_SESSION['step'] < 4) {
         $_SESSION['step'] = 4;
     }
-    exit;
+
 }
 
 
@@ -365,4 +365,8 @@ function get_parent_dir() {
     return $dir;
 }
 
-echo 'OK';
+if (isset($_POST['manual'])) {
+    echo '{errorCode:"ERROR_OK", error:""}';
+} else {
+    //keeping compatability for installatron and softaculous
+}

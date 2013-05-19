@@ -42,6 +42,8 @@ $answer .= '
 <script type="text/javascript">
 function ajaxMessage(url, parameters){
 	var xmlHttp;
+    parameters = \'manual=1&\' + parameters;
+
 	try	{// Firefox, Opera 8.0+, Safari
 		xmlHttp=new XMLHttpRequest();
 	}catch (e){// Internet Explorer
@@ -104,8 +106,11 @@ function ajaxMessage(url, parameters){
   					case \'ERROR_TIME_ZONE\':
   						document.getElementById(\'errorTimeZone\').style.display = \'block\';						
   					break;
-  					case \'OK\':
+  					case \'ERROR_OK\':
   					    document.location= \'index.php?step=5\';
+  					break;
+  					default:
+  					    alert(\'Server gave no answer\');
   					break;
   				}
   			
