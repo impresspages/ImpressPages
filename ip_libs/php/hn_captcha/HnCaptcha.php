@@ -645,7 +645,7 @@ class HnCaptcha
             // keep params from original GET-request
             if($this->form_action_method !== 'GET')
             {
-                $this->QUERY_STRING = strlen(trim($_SERVER['QUERY_STRING'])) > 0 ? '?'.strip_tags($_SERVER['QUERY_STRING']) : '';
+                $this->QUERY_STRING = strlen(trim(isset($_SERVER['QUERY_STRING'])? $_SERVER['QUERY_STRING'] : '')) > 0 ? '?'.strip_tags($_SERVER['QUERY_STRING']) : '';
                 $refresh = $_SERVER['PHP_SELF'].$this->QUERY_STRING;
                 if($this->debug) echo "\n<br>-Captcha-Debug: Keep this params from original GET-request: (".$this->QUERY_STRING.")";
             }
