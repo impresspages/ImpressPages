@@ -26,7 +26,7 @@ class IpImageGallery extends \Modules\standard\content_management\Widget{
         $newData = $currentData;
 
         //check if images array is set
-        if (!isset($postData['images']) && !is_array($postData['images'])) {
+        if (!isset($postData['images']) || !is_array($postData['images'])) {
             return $newData;
         }
         
