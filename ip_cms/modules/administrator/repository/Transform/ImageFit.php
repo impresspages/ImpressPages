@@ -46,13 +46,7 @@ class ImageFit extends Image
         $image = $this->createImageImage($sourceFile);
         $croppedImage = $this->crop($image, $this->width, $this->height, $this->forced);
 
-        if ($this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
-            /*transparency required. Transform to png*/
-            $mime = IMAGETYPE_PNG;
-        } else {
-            $mime = $this->getMimeType($sourceFile);
-        }
-        self::saveImage($croppedImage, $destinationFile, $this->quality, $mime);
+        self::saveImage($croppedImage, $destinationFile, $this->quality);
     }
 
     /**

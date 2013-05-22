@@ -67,15 +67,7 @@ class ImageCrop extends Image
             $this->heightDest
         );
 
-        if ($this->croppingGoesOutOfImage($sourceFile, $this->x1, $this->y1, $this->x2, $this->y2)) {
-            /*transparency required. Transform to png*/
-            $mime = IMAGETYPE_PNG;
-        } else {
-            $mime = $this->getMimeType($sourceFile);
-        }
-
-
-        self::saveImage($croppedImage, $destinationFile, $this->quality, $mime);
+        self::saveImage($croppedImage, $destinationFile, $this->quality);
     }
 
 

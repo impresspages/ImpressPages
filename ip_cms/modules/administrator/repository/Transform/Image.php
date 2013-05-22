@@ -134,14 +134,14 @@ abstract class Image extends Base
      * @param resource $imageNew
      * @param string $newFile
      * @param int $quality from 0 to 100
-     * @param int $mime
      * @throws \Modules\administrator\repository\TransformException
      */
-    protected function saveImage ($imageNew, $newFile, $quality, $mime){
-        self::savePng($imageNew, $newFile, $quality);return;
-        switch ($mime) {
-            case IMAGETYPE_GIF:
-            case IMAGETYPE_PNG:
+    protected function saveImage ($imageNew, $newFile, $quality){
+
+        $pathInfo = pathinfo($file);
+
+        switch (strtowoler($pathInfo['extension'])) {
+            case 'png':
                     //fill transparent places with white.
                     /*$width = imagesx($imageNew);
                     $height = imagesy($imageNew);
@@ -156,8 +156,8 @@ abstract class Image extends Base
                     */
                     self::savePng($imageNew, $newFile, $quality);
                 break;
-            case IMAGETYPE_JPEG2000:
-            case IMAGETYPE_JPEG:
+            case 'jpg':
+            case 'jpeg':
             default:
                     self::saveJpeg($imageNew, $newFile, $quality);
                 break;

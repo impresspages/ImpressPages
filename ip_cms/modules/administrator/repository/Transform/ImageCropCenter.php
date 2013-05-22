@@ -82,10 +82,7 @@ class ImageCropCenter extends Image
             $this->heightDest
         );
 
-        $mime = $this->getMimeType($sourceFile);
-
-
-        self::saveImage($croppedImage, $destinationFile, $this->quality, $mime);
+        self::saveImage($croppedImage, $destinationFile, $this->quality);
     }
 
 
