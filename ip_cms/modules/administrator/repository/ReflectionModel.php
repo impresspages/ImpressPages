@@ -84,6 +84,12 @@ class ReflectionModel
             throw new Exception("Security notice. Try to access a file (".$file.") from a non public folder.", Exception::SECURITY);
         }
 
+        //if desired name ends with .jpg, .gif, etc., remove extension
+        $desiredPathInfo = pathinfo($desiredName);
+        if (!empty($desiredPathInfo['filename']) && isset($desiredPathInfo['extension']) && strlen($desiredPathInfo['extension']) <= 4) {
+            $desiredName = $desiredPathInfo['filename'];
+        }
+
 
         $pathInfo = pathinfo($file);
 
