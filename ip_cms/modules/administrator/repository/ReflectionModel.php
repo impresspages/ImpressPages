@@ -87,14 +87,21 @@ class ReflectionModel
 
         $pathInfo = pathinfo($file);
 
-        $ext = $transform->getNewExtension($file, $pathInfo['extension']);
+        if (isset($pathInfo['extension'])) {
+            $ext = $transform->getNewExtension($file, $pathInfo['extension']);
+        } else {
+            $ext = '';
+        }
 
         if ($desiredName == '') {
             $desiredName = $pathInfo['filename'];
         }
 
 
-        $reflection = FILE_DIR.\Library\Php\File\Functions::genUnoccupiedName($desiredName.'.'.$ext, FILE_DIR);
+        if ($ext != '') {
+            $desiredName = $desiredName.'.'.$ext;
+        }
+        $reflection = FILE_DIR.\Library\Php\File\Functions::genUnoccupiedName($desiredName, FILE_DIR);
         $transform->transform($file, BASE_DIR.$reflection);
 
         $transformFingerprint = $transform->getFingerprint();

@@ -138,9 +138,9 @@ abstract class Image extends Base
      */
     protected function saveImage ($imageNew, $newFile, $quality){
 
-        $pathInfo = pathinfo($file);
+        $pathInfo = pathinfo($newFile);
 
-        switch (strtowoler($pathInfo['extension'])) {
+        switch (strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '')) {
             case 'png':
                     //fill transparent places with white.
                     /*$width = imagesx($imageNew);
