@@ -276,7 +276,9 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             require_once(IUL_BASE_DIR . 'Helper/PclZip.php');
         }
         $zip = new \PclZip($archivePath);
-        set_time_limit(90);
+        if(function_exists('set_time_limit')) {
+            set_time_limit(90);
+        }
         $status = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->destinationScript->getDestinationVersion()));
 
         if (!$status) {
