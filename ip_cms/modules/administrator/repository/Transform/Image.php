@@ -95,14 +95,8 @@ abstract class Image extends Base
      * @return bool
      * @throws \Modules\administrator\repository\TransformException
      */
-    protected function savePng($image, $fileName, $quality) {
-        //png quality is from 0 (no compression) to 9
-        $tmpQuality = $quality/10;
-        $tmpQuality = 9 - $tmpQuality;
-        if($tmpQuality < 0) {
-            $tmpQuality = 0;
-        }
-        if (!imagepng($image, $fileName, $tmpQuality)) {
+    protected function savePng($image, $fileName, $compression) {
+        if (!imagepng($image, $fileName, $compression)) {
             throw new \Modules\administrator\repository\TransformException("Can't write to file: ".$fileName , \Modules\administrator\repository\TransformException::WRITE_PERMISSION);
         }
         return true;
@@ -154,7 +148,7 @@ abstract class Image extends Base
                     imagefilledrectangle ( $imageBg, 0, 0, $width, $height, $color );
                     imagecopymerge($imageBg, $imageNew, 0, 0, 0, 0, $width, $height, 50);
                     */
-                    self::savePng($imageNew, $newFile, $quality);
+                    self::savePng($imageNew, $newFile, 9); //9 - maximum compression. PNG is always lossless
                 break;
             case 'jpg':
             case 'jpeg':

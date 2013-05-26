@@ -79,7 +79,7 @@ class ImageCrop extends Image
      */
     public function getNewExtension($sourceFile, $ext)
     {
-        switch ($ext) {
+        switch (strtolower($ext)) {
             case 'png':
             case 'gif':
                 return 'png';
