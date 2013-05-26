@@ -448,7 +448,7 @@ class Functions{
                     imagefilledrectangle ( $imageBg, 0, 0, $width, $height, $color );
                     imagecopymerge($imageBg, $imageNew, 0, 0, 0, 0, $width, $height, 50);
                     */
-                    self::savePng($imageNew, $newFile, $quality);
+                    self::savePng($imageNew, $newFile, 9); //9 - maximum compression. PNG is always lossless
                 } catch (\Exceptin $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
                 }
