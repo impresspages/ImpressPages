@@ -27,7 +27,7 @@
  * enableFraming - allow user to frame the image
  * enableChangeWidth - allow user to change container width
  * enableChangeHeight - allow user to change container height
- * autosizeType - how to resize image after upload. Available options: crop, fit, resize. Default - resize (tries to resize container to fit in the photo. Fall back to fit if impossible)
+ * autosizeType - how to resize image after upload. Available options: crop, fit, resize. Default - resize (tries to resize container to fit in the photo. Fall back to crop if impossible)
  * 
  * uploadHandler - link to PHP script that will accept uploads
  * 
@@ -377,14 +377,14 @@
                             //resize to maximum container size
                             if (maxAspectRatio < imageAspectRatio) {
                                 $window.width(data.maxWindowWidth);
-                                var tmpHeight = Math.round(data.maxWindowWidth / imageAspectRatio);
+                                var tmpHeight = Math.floor(data.maxWindowWidth / imageAspectRatio);
                                 if (tmpHeight < data.minWindowHeight) { //we are sure it is not more than max. But we need to check if it is not less than min 
                                     tmpHeight = data.minWindowHeight;
                                 }
                                 $window.height(tmpHeight);
                             } else {
                                 $window.height(data.maxWindowHeight);
-                                var tmpWidth = Math.round(data.maxWindowHeight * imageAspectRatio);
+                                var tmpWidth = Math.floor(data.maxWindowHeight * imageAspectRatio);
                                 
                                 if (tmpWidth < data.minWindowWidth) { //we are sure it is not more than max. But we need to check if it is not less than min
                                     tmpWidth = data.minWindowWidth;
@@ -396,7 +396,7 @@
                             //resize to minimum container size
                             if (minAspectRatio < imageAspectRatio) {
                                 $window.height(data.minWindowHeight);
-                                var tmpWidth = Math.round(data.minWindowHeight * imageAspectRatio);
+                                var tmpWidth = Math.floor(data.minWindowHeight * imageAspectRatio);
                                 
                                 if (tmpWidth > data.maxWindowWidth) { //we are sure it is not less than min. But we need to check if it is not less than max
                                     tmpWidth = data.maxWindowWidth;
@@ -404,7 +404,7 @@
                                 $window.width(tmpWidth);
                             } else {
                                 $window.width(data.minWindowWidth);
-                                var tmpHeight = Math.round(data.minWindowWidth / imageAspectRatio);
+                                var tmpHeight = Math.floor(data.minWindowWidth / imageAspectRatio);
                                 if (tmpHeight > data.maxWindowHeight) { //we are sure it is not less than min. But we need to check if it is not less than max 
                                     tmpHeight = data.maxWindowHeight;
                                 }
@@ -426,29 +426,29 @@
             //image resizing
             containerAspectRatio = $window.width() / $window.height();
             switch (data.autosizeType) {
+                case 'resize' :
                 case 'crop' :
                     if (containerAspectRatio > imageAspectRatio) {
                         $image.width($window.width());
                         $image.height('auto');
-                        $image.height(Math.round($image.height())); //set exact value made by automatic scale
+                        $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
                         
                     } else {
                         $image.height($window.height());
                         $image.width('auto');
-                        $image.width(Math.round($image.width())); //set exact value made by automatic scale
+                        $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
                     }
-                    
-                case 'resize' :
+                    break;
                 case 'fit' :
                     if (containerAspectRatio < imageAspectRatio) {
                         $image.width($window.width());
                         $image.height('auto');
-                        $image.height(Math.round($image.height())); //set exact value made by automatic scale
+                        $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
                         
                     } else {
                         $image.height($window.height());
                         $image.width('auto');
-                        $image.width(Math.round($image.width())); //set exact value made by automatic scale
+                        $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
                     }
                     break;
 
