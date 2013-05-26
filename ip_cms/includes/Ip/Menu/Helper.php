@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Ip;
+namespace Ip\Menu;
 
 
 /**
@@ -13,7 +13,7 @@ namespace Ip;
  * Get menu item arrays for menu generation
  *
  */
-class MenuHelper
+class Helper
 {
 
     public static function getZoneItems($zoneName, $depthFrom, $depthTo)

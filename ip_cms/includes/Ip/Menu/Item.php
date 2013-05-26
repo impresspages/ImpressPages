@@ -5,7 +5,7 @@
  * @license see ip_license.html
  */
 
-namespace Ip;
+namespace Ip\Menu;
 
 
 /**
@@ -13,7 +13,7 @@ namespace Ip;
  * Menu item element class.
  *
  */
-class MenuItem{
+class Item{
 
     /**
      * @var string
