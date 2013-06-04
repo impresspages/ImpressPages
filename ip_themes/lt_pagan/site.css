@@ -158,9 +158,6 @@ address {
     line-height: 34px;
     padding: 0 20px;
 }
-.topmenu .level1 > li:hover .level2 {
-    display: block;
-}
 .topmenu .level1 > li:hover > a,
 .topmenu .level1 > li > a:hover {
     background-color: #606060;
@@ -172,7 +169,10 @@ address {
     border-color: #fff;
     color: #000;
 }
-.topmenu .level2 {
+.topmenu li:hover > ul {
+    display: block;
+}
+.topmenu .level1 ul {
     background-color: #f3f3f3;
     border: 1px solid #000;
     display: none;
@@ -183,6 +183,10 @@ address {
     position: absolute;
     z-index: 10; /* should be higher than widget controls */
 }
+.topmenu .level2 ul { /* infinite number of levels down */
+    margin-left: 100%;
+    top: 0;
+}
 .topmenu .level2 a {
     color: #1a1a1a;
     display: block;
@@ -191,6 +195,11 @@ address {
 }
 .topmenu .level2 a:hover {
     background-color: #c8c8c8;
+}
+.topmenu .level2 .subnodes > a:after {
+    content: '\25BC';
+    position: absolute;
+    right: 5px;
 }
 .topmenu .level2 .current a {
     text-decoration: underline;
