@@ -185,7 +185,11 @@ address {
 }
 .topmenu .level2 ul { /* infinite number of levels down */
     margin-left: 100%;
+    min-width: 0;
     top: 0;
+}
+.topmenu .level2 ul li {
+    position: relative;
 }
 .topmenu .level2 a {
     color: #1a1a1a;
