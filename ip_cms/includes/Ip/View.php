@@ -370,6 +370,22 @@ class View{
     }
 
 
+    /**
+     * @param string $menuKey any unique string that identifies this menu within this theme.
+     * @param string | \Ip\Menu\Item[] $items zone name as string or array of menu items
+     */
+    public function generateMenu($menuKey, $items)
+    {
+        if(is_string($items)) {
+            $items = \Ip\Menu\Helper::getZoneItems($items);
+        }
+        $data = array(
+            'items' => $items
+        );
+        $view = self::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/menu.php', $data);
+        return $view->render();
+    }
+
     private static function checkData ($data) {
         foreach ($data as $key => $value) {
             if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {

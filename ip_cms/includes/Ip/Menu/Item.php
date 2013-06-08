@@ -23,6 +23,11 @@ class Item{
     /**
      * @var string
      */
+    protected $pageTitle;
+
+    /**
+     * @var string
+     */
     protected $url;
 
     /**
@@ -45,6 +50,16 @@ class Item{
      */
     protected $children;
 
+    /**
+     * @var int
+     */
+    protected $depth;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
 
     public function getTitle(){
         return $this->title;
@@ -52,6 +67,14 @@ class Item{
 
     public function setTitle($title){
         $this->title = $title;
+    }
+
+    public function getPageTitle(){
+        return $this->pageTitle;
+    }
+
+    public function setPageTitle($pageTitle){
+        $this->pageTitle = $pageTitle;
     }
 
     public function getUrl(){
@@ -71,27 +94,48 @@ class Item{
     }
 
     public function getSelected(){
-        return $this->selected;
+        return (bool) $this->selected;
     }
 
     public function setSelected($selected){
-        $this->selected = $selected;
+        $this->selected = (bool) $selected;
     }
 
     public function getCurrent(){
-        return $this->current;
+        return (bool) $this->current;
     }
 
     public function setCurrent($current){
-        $this->current = $current;
+        $this->current = (bool) $current;
     }
 
     public function getChildren(){
+        if (!is_array($this->children)) {
+            return array();
+        }
         return $this->children;
     }
 
     public function setChildren($children){
+        if (!is_array($children)) {
+            throw new \Exception("SetChildren expects array of \\Ip\\Menu\\Item");
+        }
         $this->children = $children;
     }
 
+    public function getDepth(){
+        return (int) $this->depth;
+    }
+
+    public function setDepth($depth){
+        $this->depth = $depth;
+    }
+
+    public function getType(){
+        return $this->type;
+    }
+
+    public function setType($type){
+        $this->type = $type;
+    }
 }

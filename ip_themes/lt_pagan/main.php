@@ -32,9 +32,7 @@
             <?php echo $this->generateManagedImage('ipThemeBanner/lt_pagan', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
             <div class="topmenu clearfix">
                 <?php
-                    require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
-                    $menuTop = new Library\Php\Menu\Common();
-                    echo $menuTop->generateSubmenu('top', null, 2); //$zoneName, $parentElementId, $depthLimit
+                    echo $this->generateMenu('top', 'top');
                 ?>
             </div>
         </header>
@@ -47,9 +45,7 @@
         <div class="side grid_3 left">
             <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
                 <?php
-                    require_once (BASE_DIR.LIBRARY_DIR.'php/menu/common.php');
-                    $menuLeft = new Library\Php\Menu\Common();
-                    echo $menuLeft->generateSubmenu('left', null, 2);  //$zoneName, $parentElementId, $depthLimit
+                    echo $this->generateMenu('left', 'left');
                 ?>
             </nav>
             <aside>
