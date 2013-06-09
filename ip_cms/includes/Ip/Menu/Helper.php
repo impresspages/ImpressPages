@@ -16,6 +16,12 @@ namespace Ip\Menu;
 class Helper
 {
 
+    /**
+     * @param string $zoneName
+     * @param int $depthFrom
+     * @param int $depthTo
+     * @return Item[]
+     */
     public static function getZoneItems($zoneName, $depthFrom = 1, $depthTo = 1000)
     {
         //variable check
@@ -61,9 +67,33 @@ class Helper
     }
 
 
-    public static function getChildItems($zoneName, $elementId)
+    /**
+     * Get child items of currently open page.
+     * $zoneName and $elementId should both be defined or leaved blank.
+     * @param string | null $zoneName zone name
+     * @param int | null $elementId
+     * @param int $depthTo limit depth of generated menu
+     * @return Item[]
+     */
+    public static function getChildItems($zoneName = null, $pageId = null, $depthTo = 10000)
     {
-        return array();
+        $site = \Ip\ServiceLocator::getSite();
+        if ($zoneName === null || $pageId === null) { //in case zone is set, but elementId is null
+            $zoneName = $site->getCurrentZone()->getName();
+        }
+        if ($pageId === null) {
+            $pageId = $site->getCurrentElement()->getId();
+        }
+        $zone = $site->getZone($zoneName);
+
+        $pages = $zone->getElements(null, $pageId);
+        $items = array();
+        if(isset($pages) && sizeof($pages) > 0) {
+            $curDepth = $pages[0]->getDepth();
+            $items = self::getSubElementsData($pages, $zoneName, $depthTo - 1, $curDepth);
+        }
+
+        return $items;
     }
 
 
