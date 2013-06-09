@@ -32,6 +32,7 @@
             <?php echo $this->generateManagedImage('ipThemeBanner/lt_pagan', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
             <div class="topmenu clearfix">
                 <?php
+                    //first argument is unique identificator of this menu within your theme. Next argument is zone name.
                     echo $this->generateMenu('top', 'top');
                 ?>
             </div>
@@ -45,6 +46,7 @@
         <div class="side grid_3 left">
             <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
                 <?php
+                    //first argument is unique identificator of this menu within your theme. Next argument is zone name.
                     echo $this->generateMenu('left', 'left');
                 ?>
             </nav>
