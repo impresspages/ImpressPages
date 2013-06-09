@@ -141,6 +141,7 @@ class View{
 
 
     public function render () {
+        //don't delete these globals. They might be used in the view
         global $site;
         global $log;
         global $dispatcher;
