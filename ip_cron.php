@@ -169,7 +169,7 @@ class cronInformation{
 		";
         $rs = mysql_query($sql);
         if($rs){
-            if(($lock = mysql_fetch_assoc($rs)) && !isset($_GET['test'])){
+            if(($lock = mysql_fetch_assoc($rs)) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['user_id']))){
                 if($lock['same_year'])
                 $this->firstTimeThisYear = false;
                 if($lock['same_year'] && $lock['same_month'])
