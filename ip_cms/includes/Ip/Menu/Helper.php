@@ -51,6 +51,7 @@ class Helper
         } elseif (isset($breadcrumb[$depthFrom-2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
             $elements = $zone->getElements(null, $breadcrumb[$depthFrom-2]->getId());
         }
+        $items = array();
         if(isset($elements) && sizeof($elements) > 0) {
             $curDepth = $elements[0]->getDepth();
             $items = self::getSubElementsData($elements, $zoneName, $depthTo - 1, $curDepth);

@@ -380,7 +380,8 @@ class View{
             $items = \Ip\Menu\Helper::getZoneItems($items);
         }
         $data = array(
-            'items' => $items
+            'items' => $items,
+            'depth' => 1
         );
         $view = self::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/menu.php', $data);
         return $view->render();
