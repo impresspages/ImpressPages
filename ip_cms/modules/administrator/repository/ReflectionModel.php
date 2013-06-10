@@ -62,11 +62,13 @@ class ReflectionModel
     public function removeReflections($file)
     {
         $reflections = $this->getReflections($file);
+        $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
             if (file_exists(BASE_DIR.$reflection['reflection'])) {
                 unlink(BASE_DIR.$reflection['reflection']);
             }
         }
+
 
     }
 
@@ -191,6 +193,24 @@ class ReflectionModel
 
         $answer = $q->fetchAll(\PDO::FETCH_ASSOC);
         return $answer;
+    }
+
+    private function removeReflectionRecords($file)
+    {
+        $dbh = \Ip\Db::getConnection();
+        $sql = "
+        DELETE FROM
+          ".DB_PREF."m_administrator_repository_reflection
+        WHERE
+          original = :original
+        ";
+
+        $params = array(
+            'original' => $file
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
     }
 
 }
