@@ -28,8 +28,49 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->dbPref = $cf['DB_PREF'];
 
+        $this->removeMissingReflectionRecordsFromDB();
 
 
+    }
+
+    private function removeMissingReflectionRecordsFromDB()
+    {
+        $sql = "
+         SELECT
+             *
+         FROM
+            `".$this->dbPref."m_administrator_repository_reflection`
+         WHERE
+            1
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if(!$rs){
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
+        while($lock = mysql_fetch_assoc($rs)) {
+            if(!file_exists($lock['reflection'])) {
+                $this->removeReflectionRecord($lock['reflectionId']);
+            }
+
+        }
+
+    }
+
+    private function removeReflectionRecord($id)
+    {
+        $sql = "
+         DELETE FROM
+            `".$this->dbPref."m_administrator_repository_reflection`
+         WHERE
+            reflectionId = ".(int)$id."
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if(!$rs){
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
 
     }
 
