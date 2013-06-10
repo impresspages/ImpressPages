@@ -669,12 +669,18 @@
 
         getWindowWidth : function () {
             var $this = this;
-            return $this.find('.ipUploadWindow').outerWidth(true);
+            $this.find('.ipUploadButtons').hide();
+            var answer = $this.find('.ipUploadWindow').width();
+            $this.find('.ipUploadButtons').show();
+            return answer;
         },
         
         getWindowHeight : function () {
             var $this = this;
-            return $this.find('.ipUploadWindow').outerHeight();
+            $this.find('.ipUploadButtons').hide();
+            var answer = $this.find('.ipUploadWindow').height();
+            $this.find('.ipUploadButtons').show();
+            return answer;
         },
         
         restoreOriginalDimmensions : function(){
