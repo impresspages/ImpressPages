@@ -50,7 +50,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
 
         while($lock = mysql_fetch_assoc($rs)) {
-            if(!file_exists($lock['reflection'])) {
+            if(!file_exists($this->cf['BASE_DIR'].$lock['reflection'])) {
                 $this->removeReflectionRecord($lock['reflectionId']);
             }
 
