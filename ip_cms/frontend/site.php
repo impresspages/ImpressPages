@@ -16,7 +16,13 @@ require_once (__DIR__.'/language.php');
 
 
 //this is not the right place for such config. But it si temporary solution while we don't have single bootstrap for front/back-end.
-if (!defined('IP_CONFIG_FILE')) { 
+/**
+ * @internal
+ */
+if (!defined('IP_CONFIG_FILE')) {
+    /**
+     * @internal
+     */
     define('IP_CONFIG_FILE', BASE_DIR.'ip_config.php'); //where ip_config file is located
 }
 

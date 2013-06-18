@@ -34,12 +34,26 @@ class View{
     private $doctype;
     private $languageId;
 
+    /**
+     * Construct view object using specified file and date
+     * @param string $file path to view file. Relative to file where this constructor is executed from.
+     * @param array $data array of data to pass to view
+     * @param int $languageId language in which to render the view. Current language by default
+     */
+    public static function create($file, $data = array(), $languageId = null) {
+        $foundFile = self::findView($file);
+        self::checkData($data);
+        return new \Ip\View($foundFile, $data, $languageId = null);
+    }
+
+
 
     /**
-     * 
-     * Create view file
-     * @param string $file
-     * @param array $data
+     * Construct view object using specified file and date
+     * @internal
+     * @param string $file path to view file. Relative to file where this constructor is executed from.
+     * @param array $data array of data to pass to view
+     * @param int $languageId language in which to render the view. Current language by default
      */
     private function __construct($file, $data = array(), $languageId = null) {
         global $site;
@@ -57,8 +71,8 @@ class View{
      * 
      * Create new view object with the same doctype, but different view file and data
      * Use it to include another view file within the view
-     * @param string $file
-     * @param array $data
+     * @param string $file path to view file relative to current view
+     * @param array $data associative array of data to pass to the view
      */
     public function subview($file, $data = array()) {
         $foundFile = self::findView($file);
@@ -69,12 +83,6 @@ class View{
     }
 
 
-    public static function create($file, $data = array()) {
-        $foundFile = self::findView($file);
-        self::checkData($data);
-        return new \Ip\View($foundFile, $data);
-    }
-    
     public function renderWidget($widgetName, $data = array(), $layout = null) {
         require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
         $answer = \Modules\standard\content_management\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
