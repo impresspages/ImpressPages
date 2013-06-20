@@ -31,6 +31,23 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->removeMissingReflectionRecordsFromDB();
 
 
+        $this->allowNullInWidgetInstances();
+    }
+
+    private function allowNullInWidgetInstances()
+    {
+        $sql = "
+         ALTER TABLE
+             `".$this->dbPref."m_content_management_widget_instance`
+         CHANGE
+             `revisionId`  `revisionId` int(11) NULL
+        ";
+        $rs = mysql_query($sql, $this->conn);
+        if(!$rs){
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+
     }
 
     private function removeMissingReflectionRecordsFromDB()
