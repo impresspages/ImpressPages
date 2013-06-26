@@ -273,7 +273,7 @@ DROP TABLE IF EXISTS `ip_cms_m_content_management_widget_instance`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
   `instanceId` int(11) NOT NULL AUTO_INCREMENT,
-  `revisionId` int(11) NULL,
+  `revisionId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
   `position` double NOT NULL,
   `blockName` varchar(25) NOT NULL,
