@@ -60,7 +60,7 @@ class Helper
         $items = array();
         if(isset($elements) && sizeof($elements) > 0) {
             $curDepth = $elements[0]->getDepth();
-            $items = self::getSubElementsData($elements, $zoneName, $depthTo - 1, $curDepth);
+            $items = self::getSubElementsData($elements, $zoneName, $depthTo, $curDepth);
         }
 
         return $items;
@@ -90,7 +90,7 @@ class Helper
         $items = array();
         if(isset($pages) && sizeof($pages) > 0) {
             $curDepth = $pages[0]->getDepth();
-            $items = self::getSubElementsData($pages, $zoneName, $depthTo - 1, $curDepth);
+            $items = self::getSubElementsData($pages, $zoneName, $depthTo+1, $curDepth);
         }
 
         return $items;
