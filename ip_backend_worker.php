@@ -5,9 +5,9 @@
  *
  * This file handles AJAX and POST (GET) requests.
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 if (!defined('CMS')) {

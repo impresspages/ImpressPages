@@ -1,8 +1,8 @@
 <?php
 /**
  * @package   Library
- * @copyright Copyright (C) 2011 ImpressPages LTD.
- * @license   GNU/GPL, see ip_license.html
+ *
+ *
  */
 namespace Modules\developer\std_mod;
 

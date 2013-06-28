@@ -2,7 +2,7 @@
 /**
  * @package ImpressPages
  * @copyright   Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ *
  */
 namespace Modules\developer\inline_management;
 use Modules\developer\inline_value\Entity\Scope as Scope;

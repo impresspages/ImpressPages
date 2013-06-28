@@ -6,9 +6,9 @@
  * Parameter "emails_per_hour" defines how mutch emails can be send in one hour.
  * If required amount of emails is bigger than this parameter, part of messages will wait until next hour.
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 namespace Modules\administrator\email_queue;

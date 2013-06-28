@@ -1,8 +1,8 @@
 <?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 namespace Backend;
@@ -23,7 +23,7 @@ if (file_exists(BASE_DIR.CONFIG_DIR.'admin/template.php')) {
  *
  * Manages session, logins, rights, loads managemenet tools
  *
- * @package	ImpressPages
+ * @package ImpressPages
  */
 class Cms {
     var $module;  //current module object

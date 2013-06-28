@@ -4,9 +4,8 @@
  * Upgrade from 2.0rc2 to latest 2.x version
  *
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2012 UAB AproMedia
- * @license see ip_license.html
+ * @package ImpressPages
+ *
  */
  
  *** EN ***

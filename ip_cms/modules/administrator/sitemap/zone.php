@@ -1,8 +1,8 @@
 <?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 namespace Modules\administrator\sitemap;
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;

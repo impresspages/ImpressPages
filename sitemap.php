@@ -5,9 +5,9 @@
  *
  * This file generates sitemap index and sitemaps.
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 /** @private */

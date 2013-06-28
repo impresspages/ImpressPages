@@ -1,7 +1,7 @@
 <?php
 /**
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
+ * @package ImpressPages
+ *
  * @license see license.html
  */
 if (!defined('INSTALL')) exit;

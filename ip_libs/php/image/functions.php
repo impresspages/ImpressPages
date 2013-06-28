@@ -2,7 +2,7 @@
 /**
  * @package     Library
  * @copyright   Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ *
  */
 
 namespace Library\Php\Image;

@@ -2,11 +2,11 @@
 /**
  * ImpressPages CMS main backend file
  *
- * This file iniciates required variables and outputs backend content.
+ * This file initiates required variables and outputs backend content.
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 namespace Backend;

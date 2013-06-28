@@ -5,9 +5,9 @@
  *
  * This file initiates required variables and outputs the content.
  *
- * @package	ImpressPages
- * @copyright	Copyright (C) 2011 JSC Apro media.
- * @license see ip_license.html
+ * @package ImpressPages
+ *
+ *
  */
 
 

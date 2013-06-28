@@ -2,8 +2,8 @@
 
 /**
  * @package		Library
- * @copyright	Copyright (C) 2011 ImpressPages LTD.
- * @license see ip_license.html
+ *
+ *
  */
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;

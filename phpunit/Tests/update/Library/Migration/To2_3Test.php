@@ -1,8 +1,8 @@
 <?php
 /**
  * @package   ImpressPages
- * @copyright Copyright (C) 2012 ImpressPages LTD.
- * @license   GNU/GPL, see ip_license.html
+ *
+ *
  */
 
 class To2_3Test extends \PhpUnit\GeneralTestCase
