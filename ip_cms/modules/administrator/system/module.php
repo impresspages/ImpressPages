@@ -84,6 +84,11 @@ class Module
         \DbSystem::setSystemVariable('cached_base_url', BASE_URL); // update system variable
 
 
+        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
+        \DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
+
+
+
         //throw event in 2.X style
         $dispatcher->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, BASE_URL));
 
