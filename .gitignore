@@ -1,14 +1,16 @@
 /.project
 /.buildpath
-/.settings/
+/.settings
+/.idea
 /project
-/video/
-/audio/
-/image/
-/file/
+/video
+/audio
+/image
+/file
 /ip_config.php
 /robots.txt
 /.idea
 
-/phpunit/Tmp/
+/phpunit/Tmp
+
 
