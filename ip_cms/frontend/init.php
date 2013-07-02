@@ -1,4 +1,5 @@
 <?php
+define('IP_VERSION', '3.2');
 
 require (BASE_DIR.INCLUDE_DIR.'parameters.php');
 require (BASE_DIR.INCLUDE_DIR.'db.php');
