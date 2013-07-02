@@ -1,1 +1,8 @@
+# Files managed through CMS
+/audio
+/file
+/image
+/video
+
+# PhpStorm project directory
 /.idea
