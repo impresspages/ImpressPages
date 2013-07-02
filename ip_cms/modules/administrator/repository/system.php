@@ -22,7 +22,12 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/admin/ipRepositoryAll.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/repository/public/admin/ipRepositoryBuy.js');
 
-            $marketUrl = 'http://market.impresspages.org/en/images-v1/';
+            if (defined('TEST_MARKET_URL')) {
+                $marketUrl = TEST_MARKET_URL;
+            } else {
+                $marketUrl = 'http://market.impresspages.org/en/images-v1/';
+            }
+
             $popupData = array(
                 'marketUrl' => $marketUrl
             );
