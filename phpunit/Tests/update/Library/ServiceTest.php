@@ -80,7 +80,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $this->assertUrlResponse($installation->getInstallationUrl(), 200);
 
         $version = $service->getCurrentVersion();
-        $this->assertEquals('3.2', $version);
+        $this->assertEquals(RECENT_VERSION, $version);
 
         
         //clean up

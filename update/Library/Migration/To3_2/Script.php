@@ -30,6 +30,9 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->removeMissingReflectionRecordsFromDB();
 
+        if ($this->getSystemVariable('cache_version') === false) {
+            $this->insertSystemVariable('cache_version', 1);
+        }
 
     }
 
@@ -364,6 +367,29 @@ class Script extends \IpUpdate\Library\Migration\General{
             return $answer;
         }
         return $dat;
+    }
+
+    private function getSystemVariable($name){
+        $sql = "select value from `".$this->dbPref."variables`  where `name` = '".mysql_real_escape_string($name)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if ($rs) {
+            if ($lock = mysql_fetch_assoc($rs)) {
+                return $lock['value'];
+            } else
+                return false;
+        } else {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
+    }
+
+    private function insertSystemVariable($name, $value){
+        $sql = "insert into `".$this->dbPref."variables` set `value` = '".mysql_real_escape_string($value)."', `name` = '".mysql_real_escape_string($name)."'";
+        $rs = mysql_query($sql, $this->conn);
+        if (!$rs) {
+            throw new \IpUpdate\Library\UpdateException($sql." ".mysql_error(), \IpUpdate\Library\UpdateException::SQL);
+            return false;
+        }
     }
 
 

@@ -1198,8 +1198,11 @@ class Site{
 
 
     public function generateHead() {
+        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
         $cssFiles = $this->getCss();
-
+        foreach($cssFiles as &$file) {
+            $file .= '?'.$cacheVersion;
+        }
         $data = array (
             'title' => $this->getTitle(),
             'keywords' => $this->getKeywords(),
@@ -1213,7 +1216,15 @@ class Site{
     }
 
     public function generateJavascript() {
+        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
         $javascriptFiles = $this->getJavascript();
+        foreach($javascriptFiles as &$level) {
+            foreach($level as &$file) {
+                if ($file['type'] == 'file') {
+                    $file['value'] .= '?'.$cacheVersion;
+                }
+            }
+        }
         $revision = $this->getRevision();
         $data = array (
             'ipBaseUrl' => BASE_URL,

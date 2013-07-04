@@ -160,7 +160,8 @@ INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
 (41, 'cached_base_url', '[[[[base_url]]]]', '0000-00-00 00:00:00'),
 (42, 'last_system_message_sent', '', '0000-00-00 00:00:00'),
 (43, 'last_system_message_shown', '', '0000-00-00 00:00:00'),
-(44, 'theme_changed', '0', '0000-00-00 00:00:00');
+(44, 'theme_changed', '0', '0000-00-00 00:00:00'),
+(45, 'cache_version', '1', '0000-00-00 00:00:00');
 
 -- Dumping data for table--
 
