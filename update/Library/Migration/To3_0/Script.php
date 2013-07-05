@@ -39,6 +39,147 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->addNewCSS($cf);
         $this->uploadNewImage($cf);
+        $this->fixDbEncoding($cf);
+
+    }
+
+    private function fixDbEncoding($cf)
+    {
+
+
+
+        $db = new \IpUpdate\Library\Model\Db();
+        $dt = new \DateTime();
+        $offset = $dt->format("P");
+
+        $connNoUtf = $db->connect($cf);
+        $connNoUtf->exec("SET time_zone='$offset';");
+
+
+        $connUtf = $db->connect($cf);
+        $connUtf->exec("SET time_zone='$offset';");
+        $connUtf->exec("SET time_zone='$offset';");
+        $connUtf->exec("SET CHARACTER SET ".$cf['MYSQL_CHARSET']);
+
+
+
+        //ENCODE GLOBAL VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_global`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_global`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key']
+                )
+            );
+        }
+
+
+        //ENCODE LANGUAGE VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `languageId`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_language`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_language`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+                AND
+                `languageId` = :languageId
+
+
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key'],
+                    'languageId' => $record['languageId']
+                )
+            );
+        }
+
+        //ENCODE PAGE VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `languageId`, `zoneName`, `pageId`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_page`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_page`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+                AND
+                `languageId` = :languageId
+                AND
+                `zoneName` = :zoneName
+                AND
+                `pageId` = :pageId
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key'],
+                    'languageId' => $record['languageId'],
+                    'zoneName' => $record['zoneName'],
+                    'pageId' => $record['pageId']
+                )
+            );
+        }
 
     }
 
