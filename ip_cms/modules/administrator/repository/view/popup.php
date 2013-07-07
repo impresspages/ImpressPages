@@ -51,25 +51,26 @@
             <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
-        <div id="ipModuleRepositoryTabBuy" class="ipmTabBuy">
-            <script src="/ip_libs/js/easyXDM/easyXDM.debug.js" type="text/javascript"/>
-            <script>
+
+        <script>
+            $(document).ready(function() {
+
 
                 var socket = new easyXDM.Socket({
-                    remote: "<?php echo $marketUrl ?>",
+                    remote: "<?php echo $marketUrl ?>",//"http://localhost/tmp2013-07-05-1/provider.html",//
+                    container: "ipModuleRepositoryTabBuy",
                     onMessage: function(message, origin){
                         alert("Received '" + message + "' from '" + origin + "'");
                     },
                     onReady: function() {
-                        // socket.postMessage("Yay, it works!");
+                        //DO NOTHING
                     }
                 });
 
-                function ipOrderCompleted(orderId) {
-                    aler("IP 3.x order completed #" + orderId);
-                }
-            </script>
-            <iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />
+            });
+        </script>
+        <div id="ipModuleRepositoryTabBuy" class="ipmTabBuy">
+            <!--<iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />-->
         </div>
     </div>
 </div>
