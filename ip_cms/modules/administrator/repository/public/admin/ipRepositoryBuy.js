@@ -24,7 +24,21 @@
                     $(window).bind("resize.ipRepositoryBuy", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
 
+                    //create crossdomain socket connection
+                    var socket = new easyXDM.Socket({
+                        remote: $('#ipModuleRepositoryTabBuy').data('marketurl'),
+                        container: "ipModuleRepositoryTabBuy",
+                        onMessage: function(message, origin){
+                            alert("Received '" + message + "' from '" + origin + "'");
+                        },
+                        onReady: function() {
+                            //DO NOTHING
+                        }
+                    });
+
                     $.proxy(methods._resize, this)();
+
+
                 }
             });
         },

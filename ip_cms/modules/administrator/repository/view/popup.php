@@ -52,25 +52,7 @@
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
 
-        <script>
-            $(document).ready(function() {
-
-
-                var socket = new easyXDM.Socket({
-                    remote: "<?php echo $marketUrl ?>",//"http://localhost/tmp2013-07-05-1/provider.html",//
-                    container: "ipModuleRepositoryTabBuy",
-                    onMessage: function(message, origin){
-                        alert("Received '" + message + "' from '" + origin + "'");
-                    },
-                    onReady: function() {
-                        //DO NOTHING
-                    }
-                });
-
-            });
-        </script>
-        <div id="ipModuleRepositoryTabBuy" class="ipmTabBuy">
-            <!--<iframe src="<?php echo $marketUrl ?>" scrolling="no" frameBorder="0" />-->
+        <div id="ipModuleRepositoryTabBuy" data-marketurl='<?php echo $marketUrl ?>' class="ipmTabBuy">
         </div>
     </div>
 </div>
