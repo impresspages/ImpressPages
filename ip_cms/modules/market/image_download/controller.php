@@ -42,12 +42,10 @@ class Controller extends \Ip\Controller
 
         unlink($img_tmp_path);
 
-        $result = array(
-            'fileName' => $img_new_filename,
-            'dir' => $destination,
-            'file' => FILE_REPOSITORY_DIR . $img_new_filename,
-        );
+        $browser_model = \Modules\administrator\repository\BrowserModel::instance();
 
-        $site->setOutput(json_encode($result));
+        $file = $browser_model->getFile($img_new_filename);
+
+        $site->setOutput(json_encode($file));
     }
 }
