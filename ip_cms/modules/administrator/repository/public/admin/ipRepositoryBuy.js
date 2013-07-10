@@ -14,6 +14,7 @@
 
             return this.each(function() {
                 var $this = $(this);
+                var buyTab = this;
 
                 var data = $this.data('ipRepositoryBuy');
                 if (!data) {
@@ -25,22 +26,38 @@
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
 
                     //create crossdomain socket connection
-                    var socket = new easyXDM.Socket({
+                    var remote = new easyXDM.Rpc({
                         remote: $('#ipModuleRepositoryTabBuy').data('marketurl'),
                         container: "ipModuleRepositoryTabBuy",
                         onMessage: function(message, origin){
-                            alert("Received '" + message + "' from '" + origin + "'");
+                            //DO NOTHING
                         },
                         onReady: function() {
                             //DO NOTHING
                         }
-                    });
+                    },
+                    {
+                        remote: {
+                        },
+                        local: {
+                            selectFiles: function(files){
+                                $.proxy(methods._confirm, this, [files])
+                            }
+                        }
+                    }
+
+                    );
 
                     $.proxy(methods._resize, this)();
 
 
                 }
             });
+        },
+
+
+        _confirm : function (files) {
+            $this.trigger('ipModuleRepository.confirm', [files]);
         },
 
         // set back our element

@@ -56,18 +56,36 @@ class BrowserModel{
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
-                $answer[] = array(
-                    'fileName' => $iterator->getFilename(),
-                    'dir' => FILE_REPOSITORY_DIR,
-                    'file' => FILE_REPOSITORY_DIR.$iterator->getFilename(),
-                    'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$iterator->getFilename()),
-                    'modified' => $iterator->getMTime()
-                );
-//                echo $iterator->getMTime()."\n";
+                $answer[] = $this->getFileData($iterator->getFilename());
             }
             $iterator->next();
         }
         return $answer;
+    }
+
+    /**
+     * @param $fileName file within FILE_REPOSITORY_DIR
+     */
+    public function getFile($fileName)
+    {
+        return $this->getFileData($fileName);
+    }
+
+    private function getFileData($fileName)
+    {
+        $file = BASE_DIR.FILE_REPOSITORY_DIR.$fileName;
+        if (!file_exists($file) || !is_file($file)) {
+            throw new Exception("File doesn't exist ".$file);
+        }
+        $data = array(
+            'fileName' => $fileName,
+            'dir' => FILE_REPOSITORY_DIR,
+            'file' => FILE_REPOSITORY_DIR.$fileName,
+            'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$fileName),
+            'modified' => filemtime($file)
+        );
+        return $data;
+
     }
 
     /**

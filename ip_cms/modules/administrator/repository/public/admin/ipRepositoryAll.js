@@ -80,7 +80,6 @@
             var $this = $(this);
 
             var files = new Array();
-
             $this.find('li.ui-selected').each(function(){
                 var $this = $(this);
                 files.push($this.data('fileData'));
