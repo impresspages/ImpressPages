@@ -49,8 +49,7 @@ class Controller extends \Ip\Controller{
              * plugin which uses repository had no chance to bind this file yet.
              * But repository requires all files to be bind. So repository automatically
              * binds all new files to itself. Later cron automatically unbinds all files
-             * that are bind to repository. If file is not bind to any other module / plugin at that time,
-             * file is removed.
+             * that are bind to repository.
              */
             \Modules\administrator\repository\Model::bindFile(FILE_DIR.$newName, 'administrator/repository', 0);
 
