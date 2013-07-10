@@ -6,7 +6,7 @@
  */
 define('INSTALL', 'true');
 
-define('TARGET_VERSION', '3.2');
+define('TARGET_VERSION', '3.3');
 
 //$_SESSION['step'] - stores the value of completed steps
 

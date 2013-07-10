@@ -1,8 +1,6 @@
 <?php
 /**
  * @package   ImpressPages
- *
- *
  */
 
 namespace IpUpdate\Library\Migration\To3_0;
@@ -41,6 +39,147 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $this->addNewCSS($cf);
         $this->uploadNewImage($cf);
+        $this->fixDbEncoding($cf);
+
+    }
+
+    private function fixDbEncoding($cf)
+    {
+
+
+
+        $db = new \IpUpdate\Library\Model\Db();
+        $dt = new \DateTime();
+        $offset = $dt->format("P");
+
+        $connNoUtf = $db->connect($cf);
+        $connNoUtf->exec("SET time_zone='$offset';");
+
+
+        $connUtf = $db->connect($cf);
+        $connUtf->exec("SET time_zone='$offset';");
+        $connUtf->exec("SET time_zone='$offset';");
+        $connUtf->exec("SET CHARACTER SET ".$cf['MYSQL_CHARSET']);
+
+
+
+        //ENCODE GLOBAL VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_global`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_global`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key']
+                )
+            );
+        }
+
+
+        //ENCODE LANGUAGE VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `languageId`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_language`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_language`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+                AND
+                `languageId` = :languageId
+
+
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key'],
+                    'languageId' => $record['languageId']
+                )
+            );
+        }
+
+        //ENCODE PAGE VALUES
+        $sql = "
+        SELECT
+            `module`, `key`, `languageId`, `zoneName`, `pageId`, `value`
+        FROM
+            `".$this->dbPref."m_inline_value_page`
+        WHERE
+            1
+        ";
+        $q = $connNoUtf->prepare($sql);
+        $q->execute(array());
+        $data = $q->fetchAll();
+
+        foreach($data as $record) {
+            $sql = "
+            UPDATE
+                `".$this->dbPref."m_inline_value_page`
+            SET
+                `value` = :value
+            WHERE
+                `module` = :module
+                AND
+                `key` = :key
+                AND
+                `languageId` = :languageId
+                AND
+                `zoneName` = :zoneName
+                AND
+                `pageId` = :pageId
+            ";
+            $q = $connUtf->prepare($sql);
+            $q->execute(
+                array(
+                    'value' => $record['value'],
+                    'module' => $record['module'],
+                    'key' => $record['key'],
+                    'languageId' => $record['languageId'],
+                    'zoneName' => $record['zoneName'],
+                    'pageId' => $record['pageId']
+                )
+            );
+        }
 
     }
 
@@ -250,19 +389,19 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpImage($widgetId, $data)
     {
-        if (isset($data['imageOriginal']) &&
-            file_exists($this->cf['BASE_DIR'].$data['imageOriginal']) &&
-            is_writable($this->cf['BASE_DIR'].$data['imageOriginal']) &&
-            is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-            !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']))
-        ) {
-            copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
-            $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-            $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
-            $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
+        if (!is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'])) {
+            $errorData = array (
+                'file' => $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'], \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
         }
 
-
+        if (!empty($image['imageOriginal'])) {
+            $newFile = $this->moveToRepository($image['imageOriginal']);
+            $this->unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+            $image['imageOriginal'] = $newFile;
+            $this->bindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+        }
 
         if (isset($data['imageBig']) && $data['imageBig']) {
             $this->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
@@ -277,24 +416,26 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpImageGallery($widgetId, $data)
     {
+        if (!is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'])) {
+            $errorData = array (
+                'file' => $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']
+            );
+
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'], \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
+
         if (isset($data['images']) && is_array($data['images'])) {
             foreach($data['images'] as $imageKey => &$image) {
                 if (!is_array($image)) {
                     continue;
                 }
 
-                if (isset($image['imageOriginal']) &&
-                    file_exists($this->cf['BASE_DIR'].$image['imageOriginal']) &&
-                    is_writable($this->cf['BASE_DIR'].$image['imageOriginal']) &&
-                    is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']))
-                ) {
-                    copy($this->cf['BASE_DIR'].$image['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']));
+                if (!empty($image['imageOriginal'])) {
+                    $newFile = $this->moveToRepository($image['imageOriginal']);
                     $this->unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
-                    $image['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($image['imageOriginal']);
+                    $image['imageOriginal'] = $newFile;
                     $this->bindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
                 }
-
 
                 if (isset($image['imageBig']) && $image['imageBig']) {
                     $this->unbindFile($image['imageBig'], 'standard/content_management', $widgetId);
@@ -314,25 +455,28 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpLogoGallery($widgetId, $data)
     {
+        if (!is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'])) {
+            $errorData = array (
+                'file' => $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'], \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
+
+
         if (isset($data['logos']) && is_array($data['logos'])) {
             foreach($data['logos'] as $logoKey => &$logo) {
                 if (!is_array($logo)) {
                     continue;
                 }
 
-                if (isset($logo['logoOriginal']) &&
-                    file_exists($this->cf['BASE_DIR'].$logo['logoOriginal']) &&
-                    is_writable($this->cf['BASE_DIR'].$logo['logoOriginal']) &&
-                    is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']))
-                ) {
-                    copy($this->cf['BASE_DIR'].$logo['logoOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']));
+                if (!empty($logo['logoOriginal'])) {
+                    $newFile = $this->moveToRepository($logo['logoOriginal']);
                     $this->unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
-                    $logo['logoOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($logo['logoOriginal']);
+                    $logo['logoOriginal'] = $newFile;
                     $this->bindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
                 }
 
-                if (isset($logo['logoSmall']) && $logo['logoSmall']) {
+                if (!empty($logo['logoSmall'])) {
                     $this->unbindFile($logo['logoSmall'], 'standard/content_management', $widgetId);
                     unset($logo['logoSmall']);
                 }
@@ -341,20 +485,23 @@ class Script extends \IpUpdate\Library\Migration\General{
         return $data;
     }
 
+
     private function migrateIpTextImage($widgetId, $data)
     {
-        if (isset($data['imageOriginal']) &&
-            file_exists($this->cf['BASE_DIR'].$data['imageOriginal']) &&
-            is_writable($this->cf['BASE_DIR'].$data['imageOriginal']) &&
-            is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-            !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']))
-        ) {
-            copy($this->cf['BASE_DIR'].$data['imageOriginal'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']));
-            $this->unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-            $data['imageOriginal'] = $this->cf['FILE_REPOSITORY_DIR'].basename($data['imageOriginal']);
-            $this->bindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
-
+        if (!is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'])) {
+            $errorData = array (
+                'file' => $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'], \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
         }
+
+        if (!empty($image['imageOriginal'])) {
+            $newFile = $this->moveToRepository($image['imageOriginal']);
+            $this->unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+            $image['imageOriginal'] = $newFile;
+            $this->bindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+        }
+
 
         if (isset($data['imageBig']) && $data['imageBig']) {
             $this->unbindFile($data['imageBig'], 'standard/content_management', $widgetId);
@@ -369,23 +516,24 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function migrateIpFile($widgetId, $data)
     {
+        if (!is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'])) {
+            $errorData = array (
+                'file' => $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']
+            );
+            throw new \IpUpdate\Library\UpdateException("Can't write to ".$this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'], \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        }
 
         if (!isset($data['files']) || !is_array($data['files'])) {
             return;
         }
 
         foreach($data['files'] as $fileKey => &$file) {
-                if (isset($file['fileName']) &&
-                    file_exists($this->cf['BASE_DIR'].$file['fileName']) &&
-                    is_writable($this->cf['BASE_DIR'].$file['fileName']) &&
-                    is_writable($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR']) &&
-                    !file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']))
-                ) {
-                    copy($this->cf['BASE_DIR'].$file['fileName'], $this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']));
-                    $this->unbindFile($file['fileName'], 'standard/content_management', $widgetId);
-                    $file['fileName'] = $this->cf['FILE_REPOSITORY_DIR'].basename($file['fileName']);
-                    $this->bindFile($file['fileName'], 'standard/content_management', $widgetId);
-                }
+            if (!empty($file['fileName'])) {
+                $newFile = $this->moveToRepository($file['fileName']);
+                $this->unbindFile($file['fileName'], 'standard/content_management', $widgetId);
+                $file['fileName'] = $newFile;
+                $this->bindFile($file['fileName'], 'standard/content_management', $widgetId);
+            }
         };
 
 
@@ -393,8 +541,29 @@ class Script extends \IpUpdate\Library\Migration\General{
     }
 
 
+    private function moveToRepository($original)
+    {
+        if (file_exists($this->cf['BASE_DIR'].$this->cf['FILE_REPOSITORY_DIR'].basename($original))) {
+            //already moved
+            return $this->cf['FILE_REPOSITORY_DIR'].basename($original);
+        }
+
+        if (!file_exists($this->cf['BASE_DIR'].$original)) {
+            //original doesn't exist
+            return '';
+        }
+
+        $newFile = $this->cf['FILE_REPOSITORY_DIR'].basename($original);
+        copy($this->cf['BASE_DIR'].$original, $this->cf['BASE_DIR'].$newFile);
+        return $newFile;
+
+    }
+
     private function unbindFile($file, $module, $instanceId) {
 
+        if ($file == '') {
+            return;
+        }
 
         $sql = "
         DELETE FROM
@@ -413,6 +582,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         }
 
         if (file_exists($this->cf['BASE_DIR'].$file)){
+
             unlink($this->cf['BASE_DIR'].$file);
         }
     }
@@ -466,7 +636,7 @@ class Script extends \IpUpdate\Library\Migration\General{
             if (!$fh) {
                 $errorData = array (
                     'file' => $ipConfigPath
-            );
+                );
                 throw new \IpUpdate\Library\UpdateException("Can't write to ".$ipConfigPath, \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
             }
 
