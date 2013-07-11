@@ -41,10 +41,10 @@
                         },
                         local: {
                             downloadImages: function(images){
-                                console.log('downloadImages(%O)', images);
                                 // TODOX make it work with multiple files
-                                //var jqxhr = $.getJSON("http://local.ip3.x.org/?g=market&m=image_download&a=download&img_url=http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {var jqxhr = $.getJSON("http://local.ip3.x.org/?g=market&m=image_download&a=download&img_url=http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {
-                                var jqxhr = $.getJSON('http://local.ip3.x.org/?g=market&m=image_download&a=download&img_filename=image.jpg&img_url=' + encodeURIComponent(images[0].downloadUrl), function() {
+                                // TODOX save good filename
+
+                                var jqxhr = $.getJSON('http://local.ip3.x.org/?g=administrator&m=repository&a=addFromUrl&img_filename=image.jpg&img_url=' + encodeURIComponent(images[0].downloadUrl), function() {
                                     console.log( "success" );
                                 })
                                     .done(function(data) {
