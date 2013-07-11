@@ -41,18 +41,17 @@
                         },
                         local: {
                             downloadImages: function(images){
-
-                                var jqxhr = $.getJSON("http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {
+                                console.log('downloadImages(%O)', images);
+                                // TODOX make it work with multiple files
+                                //var jqxhr = $.getJSON("http://local.ip3.x.org/?g=market&m=image_download&a=download&img_url=http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {var jqxhr = $.getJSON("http://local.ip3.x.org/?g=market&m=image_download&a=download&img_url=http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {
+                                var jqxhr = $.getJSON('http://local.ip3.x.org/?g=market&m=image_download&a=download&img_filename=image.jpg&img_url=' + encodeURIComponent(images[0].downloadUrl), function() {
                                     console.log( "success" );
                                 })
                                     .done(function(data) {
-                                        console.log(data);
-                                        $.proxy(methods._confirm, this, [data]);
+                                        $.proxy(methods._confirm, buyTab, [data])();
                                     })
-                                    .fail(function() { console.log( "error" ); })
+                                    .fail(function() { console.error(); })
                                     .always(function() { console.log( "complete" ); });
-
-                                // $.proxy(methods._confirm, this, [files])
                             }
                         }
                     }
@@ -68,6 +67,7 @@
 
 
         _confirm : function (files) {
+            var $this = $(this);
             $this.trigger('ipModuleRepository.confirm', [files]);
         },
 

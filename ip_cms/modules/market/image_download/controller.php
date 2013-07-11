@@ -28,7 +28,7 @@ class Controller extends \Ip\Controller
         $img_url = $_GET['img_url'];
 
         if (!empty($_GET['img_filename'])) {
-            // XTODO validate
+            // TODOX validate
             $img_filename = $_GET['img_filename'];
         } else {
             $img_url_path = parse_url($img_url, PHP_URL_PATH);
@@ -36,10 +36,10 @@ class Controller extends \Ip\Controller
         }
 
         $img_tmp_path = BASE_DIR . TMP_FILE_DIR . $img_filename;
-        // XTODO add to library a method to download files safely
-        // XTODO if there is no extension, detect by headers
+        // TODOX add to library a method to download files safely
+        // TODOX if there is no extension, detect by headers
         file_put_contents($img_tmp_path, fopen($img_url, 'r'));
-        // XTODO check $http_response_header
+        // TODOX check $http_response_header
 
         $destination = BASE_DIR.FILE_REPOSITORY_DIR;
         $img_real_filename = \Library\Php\File\Functions::genUnoccupiedName($img_tmp_path, $destination);
