@@ -3,7 +3,7 @@
         <ul>
             <li><a href="#ipModuleRepositoryTabUpload"><?php echo $this->escPar('administrator/repository/admin_translations/tab_upload') ?></a></li>
             <li><a href="#ipModuleRepositoryTabAll"><?php echo $this->escPar('administrator/repository/admin_translations/tab_files') ?></a></li>
-            <?php //<li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a> ?>
+            <li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a>
         </ul>
 
         <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
