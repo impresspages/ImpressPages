@@ -41,17 +41,20 @@
                         },
                         local: {
                             downloadImages: function(images){
-                                // TODOX make it work with multiple files
-                                // TODOX save good filename
 
-                                var jqxhr = $.getJSON('http://local.ip3.x.org/?g=administrator&m=repository&a=addFromUrl&img_filename=image.jpg&img_url=' + encodeURIComponent(images[0].downloadUrl), function() {
-                                    console.log( "success" );
-                                })
+                                for (var i = 0; i < images.length; i++) {
+
+                                    // TODOX save good filename
+
+                                    var jqxhr = $.getJSON('http://local.ip3.x.org/?g=administrator&m=repository&a=addFromUrl&filename=image.jpg&url=' + encodeURIComponent(images[i].downloadUrl), function() {
+                                        // success
+                                    })
                                     .done(function(data) {
                                         $.proxy(methods._confirm, buyTab, [data])();
                                     })
-                                    .fail(function() { console.error(); })
-                                    .always(function() { console.log( "complete" ); });
+                                    .fail(function() { })
+                                    .always(function() { });
+                                }
                             }
                         }
                     }
