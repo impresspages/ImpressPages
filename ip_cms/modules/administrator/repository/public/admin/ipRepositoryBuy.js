@@ -40,8 +40,19 @@
                         remote: {
                         },
                         local: {
-                            selectFiles: function(files){
-                                $.proxy(methods._confirm, this, [files])
+                            downloadImages: function(images){
+
+                                var jqxhr = $.getJSON("http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png", function() {
+                                    console.log( "success" );
+                                })
+                                    .done(function(data) {
+                                        console.log(data);
+                                        $.proxy(methods._confirm, this, [data]);
+                                    })
+                                    .fail(function() { console.log( "error" ); })
+                                    .always(function() { console.log( "complete" ); });
+
+                                // $.proxy(methods._confirm, this, [files])
                             }
                         }
                     }
