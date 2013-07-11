@@ -146,43 +146,45 @@ class Controller extends \Ip\Controller{
 
     }
 
+    /**
+     * Downloads file from $_GET['url'] and stores it in repository as $_GET['filename']. If desired filename is taken,
+     * selects some alternative unoccupied name.
+     *
+     * Outputs repository file properties in JSON format.
+     *
+     * @throws \Ip\CoreException
+     */
     public function addFromUrl() {
 
         $this->backendOnly();
 
         global $site;
 
-        if (empty($_GET['img_url'])) {
-            throw new \Exception("img_url parameter is missing.");
+        if (empty($_GET['url']) || empty($_GET['filename'])) {
+            throw new \Ip\CoreException('Invalid parameters.');
         }
 
-        // download file to tmp folder
-        $img_url = $_GET['img_url'];
-
-        if (!empty($_GET['img_filename'])) {
-            // TODOX validate
-            $img_filename = $_GET['img_filename'];
-        } else {
-            $img_url_path = parse_url($img_url, PHP_URL_PATH);
-            $img_filename = basename($img_url_path);
+        // validate filename
+        if (pathinfo($_GET['filename'], PATHINFO_FILENAME) == '.') {
+            throw new \Ip\CoreException('Invalid filename parameter.');
         }
 
-        $img_tmp_path = BASE_DIR . TMP_FILE_DIR . $img_filename;
+        $tmp_path = BASE_DIR . TMP_FILE_DIR . $_GET['filename'];
 
         $net = new \Modules\administrator\system\Helper\Net();
-        $net->downloadFile($img_url, $img_tmp_path);
+        $net->downloadFile($_GET['url'], $tmp_path);
 
-        $destination = BASE_DIR.FILE_REPOSITORY_DIR;
-        $img_real_filename = \Library\Php\File\Functions::genUnoccupiedName($img_tmp_path, $destination);
-        copy($img_tmp_path, $destination . $img_real_filename);
+        $destination_dir = BASE_DIR.FILE_REPOSITORY_DIR;
+        $filename = \Library\Php\File\Functions::genUnoccupiedName($tmp_path, $destination_dir);
+        copy($tmp_path, $destination_dir . $filename);
 
-        \Modules\administrator\repository\Model::bindFile(FILE_DIR . $img_real_filename, 'administrator/repository', 0);
+        \Modules\administrator\repository\Model::bindFile(FILE_DIR . $filename, 'administrator/repository', 0);
 
-        unlink($img_tmp_path);
+        unlink($tmp_path);
 
         $browser_model = \Modules\administrator\repository\BrowserModel::instance();
 
-        $file = $browser_model->getFile($img_real_filename);
+        $file = $browser_model->getFile($filename);
 
         $site->setOutput(json_encode($file));
     }
