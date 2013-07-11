@@ -46,7 +46,7 @@
 
                                     // TODOX save good filename
 
-                                    var jqxhr = $.getJSON('http://local.ip3.x.org/?g=administrator&m=repository&a=addFromUrl&filename=image.jpg&url=' + encodeURIComponent(images[i].downloadUrl), function() {
+                                    var jqxhr = $.getJSON(ip.baseUrl + '?g=administrator&m=repository&a=addFromUrl&filename=image.jpg&url=' + encodeURIComponent(images[i].downloadUrl), function() {
                                         // success
                                     })
                                     .done(function(data) {
