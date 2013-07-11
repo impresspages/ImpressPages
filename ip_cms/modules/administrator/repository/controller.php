@@ -168,10 +168,9 @@ class Controller extends \Ip\Controller{
         }
 
         $img_tmp_path = BASE_DIR . TMP_FILE_DIR . $img_filename;
-        // TODOX add to library a method to download files safely
-        // TODOX if there is no extension, detect by headers
-        file_put_contents($img_tmp_path, fopen($img_url, 'r'));
-        // TODOX check $http_response_header
+
+        $net = new \Modules\administrator\system\Helper\Net();
+        $net->downloadFile($img_url, $img_tmp_path);
 
         $destination = BASE_DIR.FILE_REPOSITORY_DIR;
         $img_real_filename = \Library\Php\File\Functions::genUnoccupiedName($img_tmp_path, $destination);
