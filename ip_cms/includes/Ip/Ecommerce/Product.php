@@ -1,8 +1,6 @@
 <?php
 /**
  * @package   ImpressPages
- *
- *
  */
 
 namespace Ip\Ecommerce;
@@ -22,45 +20,60 @@ class Product
     /**
      * @var int in cents
      */
-    private $price;
+    protected $price;
     /**
      * @var string currency code. Eg. EUR USD
      */
-    private $currency;
-    private $title;
+    protected $currency;
+    protected $title;
     /**
      * @var string plane text description
      */
-    private $description;
-    private $module;
-    private $id;
+    protected $description;
+    protected $module;
+    protected $id;
     /**
      * @var int $weight in grams (1000 grams = 1 kilo)
      */
-    private $weight;
-    private $stockCount;
+    protected $weight;
+    protected $stockCount;
     /**
      * @var int (millimeters)
      */
-    private $width;
+    protected $width;
     /**
      * @var int (millimeters)
      */
-    private $height;
+    protected $height;
     /**
      * @var int (millimeters)
      */
-    private $depth;
+    protected $depth;
     /**
      * @var ProductOption[]
      */
-    private $options;
-    private $url;
+    protected $options;
+    /**
+     * @var string product page url
+     */
+    protected $url;
     /**
      * @var string absolute url to image. Could be remote domain.
      */
-    private $image;
-    private $type;
+    protected $image;
+    /**
+     * @var TYPE_DOWNLOADABLE | TYPE_PHYSICAL | TYPE_VIRTUAL
+     */
+    protected $type;
+    /**
+     * @var string Makes sense only for downloadable products. Relative path to file within SECURE_DIR directory
+     */
+    protected $file;
+
+    /**
+     * @var string File name displayed to the user on download
+     */
+    protected $downloadFileName;
 
 
     /**
@@ -331,4 +344,26 @@ class Product
                 break;
         }
     }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file= $file;
+    }
+
+    public function getDownloadFileName()
+    {
+        return $this->downloadFileName;
+    }
+
+    public function setDownloadFileName($downloadFileName)
+    {
+        $this->downloadFileName = $downloadFileName;
+    }
+
+
 }
