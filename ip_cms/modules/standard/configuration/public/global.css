@@ -40,15 +40,6 @@ global ImpressPages CMS CSS rules used across many modules / plugins
     background: #c0c0c0;
 }
 
-.ipgClear:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-
-
 .ui-widget-content a.ipgConfirmButton,
 .ipgConfirmButton{
     background: #77b000;
