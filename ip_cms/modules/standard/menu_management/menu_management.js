@@ -17,6 +17,15 @@ $(document).ready(function() {
 
   $('#tree').bind('select_node.jstree', updatePageForm);
   $('#tree').bind('close_node.jstree', closeNode);
+  $('#tree').bind('select_node.jstree', function (e, data) {
+    // expands menu item when it is selected (shows children)
+    $('#tree').jstree('toggle_node', data.rslt.obj);
+  });
+
+  $('#tree').bind('refresh.jstree', function(e, data) {
+      // when new page is created, this method immediately shows it by opening parent node
+      $('#tree').jstree('open_node', data.rslt.obj);
+  });
 
   $('#controlls').delegate('#buttonNewPage', 'click', createPageForm);
   $('#controlls').delegate('#buttonDeletePage', 'click', deletePageConfirm);
