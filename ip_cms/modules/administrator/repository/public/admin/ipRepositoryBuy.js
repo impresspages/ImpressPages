@@ -44,16 +44,16 @@
 
                                 for (var i = 0; i < images.length; i++) {
 
-                                    // TODOX save good filename
-
-                                    var jqxhr = $.getJSON(ip.baseUrl + '?g=administrator&m=repository&a=addFromUrl&filename=image.jpg&url=' + encodeURIComponent(images[i].downloadUrl), function() {
-                                        // success
-                                    })
-                                    .done(function(data) {
-                                        $.proxy(methods._confirm, buyTab, [data])();
-                                    })
-                                    .fail(function() { })
-                                    .always(function() { });
+                                    $.ajax(ip.baseUrl, {
+                                        'type': 'POST',
+                                        // TODOX save good filename
+                                        'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'filename': 'image.jpg', 'url': images[i].downloadUrl},
+                                        'dataType': 'json',
+                                        'success': function (data) {
+                                            $.proxy(methods._confirm, buyTab, [data])();
+                                        },
+                                        'error': function () { alert('Download failed.'); }
+                                    });
                                 }
                             }
                         }

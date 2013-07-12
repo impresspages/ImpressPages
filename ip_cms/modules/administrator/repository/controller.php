@@ -147,7 +147,7 @@ class Controller extends \Ip\Controller{
     }
 
     /**
-     * Downloads file from $_GET['url'] and stores it in repository as $_GET['filename']. If desired filename is taken,
+     * Downloads file from $_POST['url'] and stores it in repository as $_POST['filename']. If desired filename is taken,
      * selects some alternative unoccupied name.
      *
      * Outputs repository file properties in JSON format.
@@ -158,27 +158,26 @@ class Controller extends \Ip\Controller{
 
         $this->backendOnly();
 
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
 
-        if (empty($_GET['url']) || empty($_GET['filename'])) {
+        if (empty($_POST['url']) || empty($_POST['filename'])) {
             throw new \Ip\CoreException('Invalid parameters.');
         }
 
         // validate filename
-        if (pathinfo($_GET['filename'], PATHINFO_FILENAME) == '.') {
+        $desired_filename = pathinfo($_POST['filename'], PATHINFO_BASENAME);
+        if ($desired_filename == '.') {
             throw new \Ip\CoreException('Invalid filename parameter.');
         }
 
-        $tmp_path = BASE_DIR . TMP_FILE_DIR . $_GET['filename'];
+        $tmp_path = BASE_DIR . TMP_FILE_DIR . $desired_filename;
 
         $net = new \Modules\administrator\system\Helper\Net();
-        $net->downloadFile($_GET['url'], $tmp_path);
+        $net->downloadFile($_POST['url'], $tmp_path);
 
         $destination_dir = BASE_DIR.FILE_REPOSITORY_DIR;
         $filename = \Library\Php\File\Functions::genUnoccupiedName($tmp_path, $destination_dir);
         copy($tmp_path, $destination_dir . $filename);
-
-        \Modules\administrator\repository\Model::bindFile(FILE_DIR . $filename, 'administrator/repository', 0);
 
         unlink($tmp_path);
 
@@ -186,7 +185,7 @@ class Controller extends \Ip\Controller{
 
         $file = $browser_model->getFile($filename);
 
-        $site->setOutput(json_encode($file));
+        $this->returnJson($file);
     }
 
     public function deleteTmpFile()
