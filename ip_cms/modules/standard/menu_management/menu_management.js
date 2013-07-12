@@ -17,6 +17,10 @@ $(document).ready(function() {
 
   $('#tree').bind('select_node.jstree', updatePageForm);
   $('#tree').bind('close_node.jstree', closeNode);
+  $("#tree").bind("select_node.jstree", function (e, data) {
+    $("#tree").jstree("toggle_node", data.rslt.obj);
+    $("#tree").jstree("deselect_node", data.rslt.obj);
+  });
 
   $('#controlls').delegate('#buttonNewPage', 'click', createPageForm);
   $('#controlls').delegate('#buttonDeletePage', 'click', deletePageConfirm);
