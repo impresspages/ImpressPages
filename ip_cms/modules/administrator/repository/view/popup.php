@@ -53,6 +53,5 @@
         </div>
         <div id="ipModuleRepositoryTabBuy" data-marketurl='<?php echo $marketUrl ?>' class="ipmTabBuy">
         </div>
-        */ ?>
     </div>
 </div>

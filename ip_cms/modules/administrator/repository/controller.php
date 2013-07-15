@@ -154,38 +154,66 @@ class Controller extends \Ip\Controller{
      *
      * @throws \Ip\CoreException
      */
-    public function addFromUrl() {
+    public function addFromUrl()
+    {
 
         $this->backendOnly();
 
         $site = \Ip\ServiceLocator::getSite();
 
-        if (empty($_POST['url']) || empty($_POST['filename'])) {
+        if (!isset($_POST['files']) || !is_array($_POST['files'])) {
             throw new \Ip\CoreException('Invalid parameters.');
         }
+        $files = $_POST['files'];
 
-        // validate filename
-        $desired_filename = pathinfo($_POST['filename'], PATHINFO_BASENAME);
-        if ($desired_filename == '.') {
-            throw new \Ip\CoreException('Invalid filename parameter.');
+        if (function_exists('set_time_limit')) {
+            set_time_limit(count($files) * 60 + 30);
         }
 
-        $tmp_path = BASE_DIR . TMP_FILE_DIR . $desired_filename;
+        $answer = array();
+        foreach($files as $file) {
+            if (!empty($file['url']) && !empty($file['name'])) {
+                $answer[] = $this->downloadFile($file['url'], $file['name']);
+            }
 
-        $net = new \Modules\administrator\system\Helper\Net();
-        $net->downloadFile($_POST['url'], $tmp_path);
+        }
 
-        $destination_dir = BASE_DIR.FILE_REPOSITORY_DIR;
-        $filename = \Library\Php\File\Functions::genUnoccupiedName($tmp_path, $destination_dir);
-        copy($tmp_path, $destination_dir . $filename);
+        $this->returnJson($answer);
 
-        unlink($tmp_path);
 
-        $browser_model = \Modules\administrator\repository\BrowserModel::instance();
+    }
 
-        $file = $browser_model->getFile($filename);
+    /**
+     * @param string $url
+     * @return string
+     */
+    protected function downloadFile($url, $desiredFilename)
+    {
+        // validate filename
+        $desiredFilename = pathinfo($desiredFilename, PATHINFO_BASENAME);
+        if ($desiredFilename == '.') {
+            $desiredFilename = pathinfo($desiredFilename, PATHINFO_BASENAME);
+            if ($desiredFilename == '.') {
+                $desiredFilename = 'file';
+            }
+        }
 
-        $this->returnJson($file);
+        $desiredFilename = \Library\Php\File\Functions::genUnoccupiedName($desiredFilename, BASE_DIR . TMP_FILE_DIR);
+        $tmpPath = BASE_DIR . TMP_FILE_DIR . $desiredFilename;
+
+        $net = new \Modules\administrator\system\Helper\Net();  // TODOX pažeistas modulių atsietumo principas
+        $net->downloadFile($url, $tmpPath);
+
+        $destinationDir = BASE_DIR.FILE_REPOSITORY_DIR;
+        $filename = \Library\Php\File\Functions::genUnoccupiedName($tmpPath, $destinationDir);
+        copy($tmpPath, $destinationDir . $filename);
+
+        unlink($tmpPath);
+
+        $browserModel = \Modules\administrator\repository\BrowserModel::instance();
+
+        $file = $browserModel->getFile($filename);
+        return $file;
     }
 
     public function deleteTmpFile()
