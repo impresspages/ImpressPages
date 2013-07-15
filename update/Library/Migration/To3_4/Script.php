@@ -26,6 +26,25 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->dbPref = $cf['DB_PREF'];
 
+        $this->createPageLayoutTable();
+
+    }
+
+    private function createPageLayoutTable($cf)
+    {
+        $dbh = $this->dbh;
+        $sql = "
+        CREATE TABLE IF NOT EXISTS `{$this->dbPref}page_layout` (
+          `group_name` varchar(128) NOT NULL,
+          `module_name` varchar(128) NOT NULL,
+          `page_id` int(11) unsigned NOT NULL,
+          `layout` varchar(255) NOT NULL,
+          UNIQUE KEY `group_name` (`group_name`,`module_name`,`page_id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Custom page layouts';
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
     }
 
 
