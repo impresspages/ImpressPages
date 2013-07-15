@@ -88,12 +88,19 @@
     overflow-y: auto;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
-    margin-left: -15px;
-    margin-top: -25px;
+    /*margin-left: -15px;*/
+    /*margin-top: -25px;*/
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer h2 {
+    clear: both;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer ul {
+    clear: both;
+    margin-bottom: 20px;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li {
     float: left;
-    height: 100px;
+    height: 116px;
     list-style: none;
     margin-left: 20px;
     margin-top: 30px;
@@ -104,7 +111,6 @@
     width: 100px;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li .name {
-    float: left;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100px;

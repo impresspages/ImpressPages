@@ -267,8 +267,14 @@ class Controller extends \Ip\Controller{
 
         usort ($files , array($this, 'sortFiles') );
 
+        $fileGroups = array();
+        foreach($files as $file) {
+            $fileGroups[date("Y-m-d", $file['modified'])][] = $file;
+        }
+
+
         $answer = array(
-            'files' => $files
+            'fileGroups' => $fileGroups
         );
 
         $this->returnJson($answer);

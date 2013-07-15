@@ -33,14 +33,18 @@
                 <p class="ipmErrorSample ipgError ipgHide"></p>
             </div>
             <div class="ipmBrowser clearfix">
-                <ul class="ipmBrowserContainer">
+                <div class="ipmBrowserContainer">
 
-                </ul>
+                </div>
                 <div class="ipgClear"><!-- --></div>
             </div>
             <div class="ipsFileTemplate ipgHide">
                 <img class="" src="" alt="file"/>
                 <span class="name"></span>
+            </div>
+            <div class="ipgHide">
+                <ul class="ipsListTemplate"></ul>
+                <h2 class="ipsListTitleTemplate"></h2>
             </div>
             <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>

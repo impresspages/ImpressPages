@@ -51,27 +51,49 @@
         _getAllFilesResponse : function(response) {
             var $this = $(this);
 
-            if (!response || !response.files) {
+            if (!response || !response.fileGroups) {
                 return; //TODO report error
             }
 
-            var files = response.files;
+            var fileGroups = response.fileGroups;
             var $browserContainer = $this.find('.ipmBrowserContainer');
             var $template = $this.find('.ipsFileTemplate');
+            var $listTemplate = $this.find('.ipsListTemplate');
+            var $titleTemplate = $this.find('.ipsListTitleTemplate');
 
-            for(var i in files) {
-                var $newItem = $('<li></li>');
-                $newItem.append($template.clone().removeClass('ipgHide'));
-                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview)
-                $newItem.find('.name').text(files[i].fileName);
-                $newItem.data('fileData', files[i]);
-                $browserContainer.append($newItem);
+
+//            var fileGroups = new Array();
+//            console.log(files);
+//            for(var i in files) {
+//                var modified = new Date(files[i].modified*1000);
+//                console.log(modified.getFullYear() + modified.getHours());
+//                //fileGroups[]
+//            }
+
+
+            for(var gi in fileGroups) {
+                var $newList = $listTemplate.clone().detach().removeClass('ipsListTemplate');
+                var $newTitle = $titleTemplate.clone().detach().removeClass('ipsListTitleTemplate');
+                $newTitle.text(gi);
+                for(var i in fileGroups[gi]) {
+                    var files = fileGroups[gi];
+                    var $newItem = $('<li></li>');
+                    $newItem.append($template.clone().removeClass('ipgHide'));
+                    $newItem.find('img').attr('src', ip.baseUrl + files[i].preview)
+                    $newItem.find('.name').text(files[i].fileName);
+                    $newItem.data('fileData', files[i]);
+                    $newList.append($newItem);
+
+                }
+                $newList.selectable();
+                $browserContainer.append($newTitle);
+                $browserContainer.append($newList);
+
             }
 
 //            $browserContainer.bind("mousedown", function(e) {
 //                e.metaKey = true;
 //            }).selectable();
-            $browserContainer.selectable();
 
         },
 
