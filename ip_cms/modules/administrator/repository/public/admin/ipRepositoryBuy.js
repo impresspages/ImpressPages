@@ -41,20 +41,27 @@
                         },
                         local: {
                             downloadImages: function(images){
+                                var toDownload = new Array();
 
                                 for (var i = 0; i < images.length; i++) {
-
-                                    $.ajax(ip.baseUrl, {
-                                        'type': 'POST',
-                                        // TODOX save good filename
-                                        'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'filename': 'image.jpg', 'url': images[i].downloadUrl},
-                                        'dataType': 'json',
-                                        'success': function (data) {
-                                            $.proxy(methods._confirm, buyTab, [data])();
-                                        },
-                                        'error': function () { alert('Download failed.'); }
+                                    toDownload.push({
+                                        url: images[i].downloadUrl,
+                                        name: 'image.jpg'
                                     });
                                 }
+
+                                $.ajax(ip.baseUrl, {
+                                    'type': 'POST',
+                                    // TODOX save good filename
+                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'filename': 'image.jpg', 'files': toDownload},
+                                    'dataType': 'json',
+                                    'success': function (data) {
+                                        $.proxy(methods._confirm, buyTab, data)();
+                                    },
+                                    'error': function () { alert('Download failed.'); }
+                                });
+
+
                             }
                         }
                     }
