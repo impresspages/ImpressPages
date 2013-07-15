@@ -564,7 +564,17 @@ class Site{
      *
      */
     public function getLayout(){
-        return($this->getCurrentZone()->getLayout());
+
+        $zone = $this->getCurrentZone();
+        $element = $this->getCurrentElement();
+
+        $layout = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
+
+        if (!$layout || !file_exists(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
+            $layout = $zone->getLayout();
+        }
+
+        return $layout;
     }
 
     /**

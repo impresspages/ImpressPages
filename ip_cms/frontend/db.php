@@ -127,4 +127,29 @@ class Db {
         return $answer;
     }
 
+    /**
+     * @param string $groupName
+     * @param string $moduleName
+     * @param string $pageId
+     * @return string|false
+     */
+    public static function getPageLayout($groupName, $moduleName, $pageId)
+    {
+        $sql = 'SELECT `layout`
+                FROM `' . DB_PREF . 'page_layout`
+                WHERE group_name    = :groupName
+                    AND module_name = :moduleName
+                    AND `page_id`   = :pageId';
+
+        $dbh = \Ip\Db::getConnection();
+        $q = $dbh->prepare($sql);
+        $q->execute(array(
+            'groupName' => $zone->getAssociatedModuleGroup(),
+            'moduleName' => $zone->getAssociatedModule(),
+            'pageId' => $element->getId(),
+        ));
+
+        return $q->fetchColumn(0);
+    }
+
 }
