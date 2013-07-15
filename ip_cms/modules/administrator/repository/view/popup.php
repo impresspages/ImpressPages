@@ -9,7 +9,7 @@
         <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
         <div id="ipModuleRepositoryTabUpload" class="ipmTabUpload">
-            <div id="ipModuleRepositoryDragContainer" class="impContainer">
+            <div id="ipModuleRepositoryDragContainer" class="impContainer" >
                 <div class="ipmFiles"></div>
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
@@ -31,6 +31,16 @@
                     <a href="#" class="ipaButton ipaFileRemove"><?php echo $this->escPar('standard/content_management/widget_file/remove') ?></a>
                 </div>
                 <p class="ipmErrorSample ipgError ipgHide"></p>
+            </div>
+            <div class="ipmBrowser clearfix">
+                <ul class="ipmBrowserContainer">
+
+                </ul>
+                <div class="ipgClear"><!-- --></div>
+            </div>
+            <div class="ipsFileTemplate ipgHide">
+                <img class="" src="" alt="file"/>
+                <span class="name"></span>
             </div>
             <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>

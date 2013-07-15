@@ -49,6 +49,9 @@ abstract class Image extends Base
      * @return bool true on success
      */
     protected function getMemoryNeeded($imageFile){
+        if (!file_exists(BASE_DIR.$imageFile)) {
+            return 0;
+        }
         $imageInfo = getimagesize(BASE_DIR.$imageFile);
         if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;

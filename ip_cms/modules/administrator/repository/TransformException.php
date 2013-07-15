@@ -18,6 +18,7 @@ class TransformException extends \Exception
     const UNKNOWN_MIME_TYPE  = 1;
     const TOO_BIG_IMAGE = 2;
     const WRITE_PERMISSION = 3;
+    const MISSING_FILE = 4;
 
 
     // Redefine the exception so message isn't optional

@@ -30,10 +30,12 @@
     overflow: hidden;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+    width: 250px;
     height: 295px;
     margin-bottom: 20px;
     overflow-x: hidden;
     overflow-y: auto;
+    float: left;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer .impDragdropNotice {
     display: none;
@@ -78,17 +80,18 @@
 }
 
 /* Tab All */
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowser {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
     margin-bottom: 20px;
+    margin-left: 300px;
     min-height: 295px;
     overflow-x: hidden;
     overflow-y: auto;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
     margin-left: -15px;
     margin-top: -25px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li {
     float: left;
     height: 100px;
     list-style: none;
@@ -96,20 +99,20 @@
     margin-top: 30px;
     width: 100px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li img {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li img {
     height: 100px;
     width: 100px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li .name {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li .name {
     float: left;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selecting img {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ui-selecting img {
     outline: #f1c06b solid 5px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selected img {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ui-selected img {
     outline: #f5a417 solid 5px; /*rgb(206, 206, 206)*/
 }
 

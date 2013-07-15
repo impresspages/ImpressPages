@@ -29,6 +29,16 @@ namespace Modules\administrator\repository;
  * you can use this class only for images stored in repository (uploaded using default ImpressPages CMS
  * functionality). Otherwise automatic removal is not going to work.
  *
+ * Usage example:
+ *
+ * $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+ * $transform = new \Modules\administrator\repository\Transform\ImageFit(100, 100, null, TRUE);
+ * $reflection = $reflectionService->getReflection($file, $desiredName, $transform);
+ * if (!$reflection){
+ *     echo $reflectionService->getLastException()->getMessage();
+ *     //do something
+ * }
+ *
  *
  * @author Mangirdas
  *
@@ -36,6 +46,7 @@ namespace Modules\administrator\repository;
 class ReflectionService
 {
     protected static $instance;
+    protected $lastException = null;
 
     protected function __construct()
     {
@@ -66,12 +77,34 @@ class ReflectionService
      * @param $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param Transform\Base $transform - how to crop the image. Leave null if you want original file to be reflected.
      * @return string - file name
+     * @throws TransformException
      */
     public function getReflection($file, $desiredName = null, Transform\Base $transform = null)
     {
+        if (!file_exists(BASE_DIR.$file) || !is_file(BASE_DIR.$file)) {
+            $this->lastException = new TransformException("File doesn't exist", TransformException::MISSING_FILE);
+            return false;
+        }
         $reflectionModel = ReflectionModel::instance();
-        $reflection = $reflectionModel->getReflection($file, $desiredName, $transform);
+        try {
+            $reflection = $reflectionModel->getReflection($file, $desiredName, $transform);
+        } catch (TransformException $e) {
+            $this->lastException = $e;
+            return false;
+        } catch (\Ip\PhpException $e) {
+            $this->lastExceptin = $e;
+            return false;
+        }
+
         return $reflection;
+    }
+
+    /**
+     * @return TransformException
+     */
+    public function getLastException()
+    {
+        return $this->lastException;
     }
 
 
