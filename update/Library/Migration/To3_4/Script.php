@@ -30,7 +30,7 @@ class Script extends \IpUpdate\Library\Migration\General
 
     }
 
-    private function createPageLayoutTable($cf)
+    private function createPageLayoutTable()
     {
         $dbh = $this->dbh;
         $sql = "
