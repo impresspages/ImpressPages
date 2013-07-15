@@ -6,7 +6,7 @@
  *
  */
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+
 /**
  * Error handler for all errors and warnings. Depending on configuration he
  * prints error to output, sends by the email and logs to database.
@@ -50,14 +50,18 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         case E_COMPILE_ERROR:
             $message .= 'ERROR ';
             break;
+        default:
+            $message .= 'UNKNOWN EXCEPTION ';
+            break;
     }
 
 
-    $message = '<b>'.$message.'</b> '.htmlspecialchars($errstr).'<br /> in '.$errfile.' on line '.$errline.'';
-    if($log) //if log module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-    $log->log('system', 'error', $message);
+    $message = $message.' '.$errstr.' in '.$errfile.' on line '.$errline.'';
+    if ($log){ //if log module not initialized yet, it will only throw new error. So, use it only if it is initialized
+        $log->log('system', 'error', $message);
+    }
     if(ERRORS_SHOW){
-        echo '<p class="error">'.$message."</p>";
+        throw new \Ip\PhpException($message, $errno);
     }
     if($log && defined('ERRORS_SEND') && ERRORS_SEND != ''){
         require_once(BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
