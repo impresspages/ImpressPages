@@ -144,9 +144,9 @@ class Db {
         $dbh = \Ip\Db::getConnection();
         $q = $dbh->prepare($sql);
         $q->execute(array(
-            'groupName' => $zone->getAssociatedModuleGroup(),
-            'moduleName' => $zone->getAssociatedModule(),
-            'pageId' => $element->getId(),
+            'groupName' => $groupName,
+            'moduleName' => $moduleName,
+            'pageId' => $pageId,
         ));
 
         return $q->fetchColumn(0);
