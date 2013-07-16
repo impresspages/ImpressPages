@@ -34,7 +34,8 @@
             </div>
             <div class="ipmBrowser clearfix">
                 <div class="ipmBrowserContainer">
-
+                    <h2 class="ipgHide ipaRecentTitle">{{Recent}}</h2>
+                    <ul class="ipgHide ipaRecentList"></ul>
                 </div>
                 <div class="ipgHide ipmRepositoryActions">
                     <a class="ipAdminButton ipConfirmButton ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
@@ -47,8 +48,8 @@
                 <span class="name"></span>
             </div>
             <div class="ipgHide">
-                <ul class="ipsListTemplate"></ul>
                 <h2 class="ipsListTitleTemplate"></h2>
+                <ul class="ipsListTemplate"></ul>
             </div>
             <?php //these buttons are only for new uploaded files ?>
             <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>

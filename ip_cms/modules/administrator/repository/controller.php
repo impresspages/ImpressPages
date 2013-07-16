@@ -45,20 +45,9 @@ class Controller extends \Ip\Controller{
         foreach ($files as $key => $file) {
             $newName = \Library\Php\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
             copy(BASE_DIR.$file['file'], $destination.$newName);
-            /*
-             * plugin which uses repository had no chance to bind this file yet.
-             * But repository requires all files to be bind. So repository automatically
-             * binds all new files to itself. Later cron automatically unbinds all files
-             * that are bind to repository.
-             */
-            \Modules\administrator\repository\Model::bindFile(FILE_DIR.$newName, 'administrator/repository', 0);
-
-            unlink(BASE_DIR.$file['file']);
-            $newFile = array(
-                'fileName' => $newName,
-                'dir' => $destination,
-                'file' => FILE_REPOSITORY_DIR.$newName
-            );
+            unlink(BASE_DIR.$file['file']); //this is a temporary file
+            $browserModel = \Modules\administrator\repository\BrowserModel::instance();
+            $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;
         }
         $answer = array(

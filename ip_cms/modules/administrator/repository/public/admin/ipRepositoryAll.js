@@ -45,6 +45,25 @@
             });
         },
 
+        addRecentFiles : function (files) {
+            var $this = $(this);
+            $this.find('.ipaRecentTitle').removeClass('ipgHide');
+            $this.find('.ipaRecentList').removeClass('ipgHide');
+
+            var $template = $this.find('.ipsFileTemplate');
+            var $newList = $this.find('.ipaRecentList');
+
+            for(var i in files) {
+                var $newItem = $('<li></li>');
+                $newItem.append($template.clone().removeClass('ipgHide').removeClass('ipsFileTemplate'));
+                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
+                $newItem.find('.name').text(files[i].fileName);
+                $newItem.data('fileData', files[i]);
+                $newList.append($newItem);
+            }
+
+        },
+
         _getAllFilesResponse : function(response) {
             var $this = $(this);
             var repositoryContainer = this;
@@ -67,8 +86,8 @@
                 for(var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
                     var $newItem = $('<li></li>');
-                    $newItem.append($template.clone().removeClass('ipgHide'));
-                    $newItem.find('img').attr('src', ip.baseUrl + files[i].preview)
+                    $newItem.append($template.clone().removeClass('ipgHide').removeClass('ipsFileTemplate'));
+                    $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
                     $newItem.find('.name').text(files[i].fileName);
                     $newItem.data('fileData', files[i]);
                     $newList.append($newItem);
@@ -82,7 +101,7 @@
             $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this))
             $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this))
 
-            $browserContainer.find('li').click(function(e){
+            $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');
                 $.proxy(methods._startSelect, repositoryContainer)();
             });
