@@ -105,12 +105,14 @@
     margin-left: 20px;
     margin-top: 30px;
     width: 100px;
+    cursor: pointer;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li img {
     height: 100px;
     width: 100px;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li .name {
+    float: left;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100px;

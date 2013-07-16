@@ -19,9 +19,6 @@
                 var data = $this.data('ipRepositoryAll');
                 if (!data) {
                     var $popup = $('.ipModuleRepositoryPopup');
-                    $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
-                    $this.find('.ipmBrowser').dblclick($.proxy(methods._confirm, this));
-                    $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
                     $this.data('ipRepositoryAll', {});
 
@@ -50,6 +47,7 @@
 
         _getAllFilesResponse : function(response) {
             var $this = $(this);
+            var repositoryContainer = this;
 
             if (!response || !response.fileGroups) {
                 return; //TODO report error
@@ -60,15 +58,6 @@
             var $template = $this.find('.ipsFileTemplate');
             var $listTemplate = $this.find('.ipsListTemplate');
             var $titleTemplate = $this.find('.ipsListTitleTemplate');
-
-
-//            var fileGroups = new Array();
-//            console.log(files);
-//            for(var i in files) {
-//                var modified = new Date(files[i].modified*1000);
-//                console.log(modified.getFullYear() + modified.getHours());
-//                //fileGroups[]
-//            }
 
 
             for(var gi in fileGroups) {
@@ -85,16 +74,31 @@
                     $newList.append($newItem);
 
                 }
-                $newList.selectable();
                 $browserContainer.append($newTitle);
                 $browserContainer.append($newList);
 
             }
 
-//            $browserContainer.bind("mousedown", function(e) {
-//                e.metaKey = true;
-//            }).selectable();
+            $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this))
+            $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this))
 
+            $browserContainer.find('li').click(function(e){
+                $(this).toggleClass('ui-selected');
+                $.proxy(methods._startSelect, repositoryContainer)();
+            });
+
+        },
+
+        _startSelect : function(e) {
+            var $this = $(this);
+            $this.find('.ipmRepositoryActions').removeClass('ipgHide');
+
+        },
+
+        _stopSelect : function(e) {
+            var $this = $(this);
+            $this.find('.ipmRepositoryActions').addClass('ipgHide');
+            $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
         },
 
         _confirm : function (e) {
