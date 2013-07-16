@@ -41,6 +41,12 @@ class Functions{
 
     }
 
+    public static function isFileInDir($filename, $directory)
+    {
+        $realPath = realpath($directory . DIRECTORY_SEPARATOR . $filename);
+        return strpos($directory, $realPath) === 0;
+    }
+
     /**
      * @param string $file required file name
      * @param string $dest_dir directory where new file will be placed
