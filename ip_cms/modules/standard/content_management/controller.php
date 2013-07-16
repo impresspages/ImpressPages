@@ -84,8 +84,24 @@ class Controller extends \Ip\Controller{
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
         $content = \Ip\View::create('view/page_options_advanced.php', $data)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
-        
-        
+
+        //$title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'layout'); // TODOX add translation
+        $layouts = Model::getThemeLayouts();
+        $data['layouts'] = array(
+            '' => 'Default zone layout: ' . $zone->getLayout(), // TODOX translate
+        );
+        foreach ($layouts as $layoutFilename) {
+            $data['layouts'][$layoutFilename]= 'Custom layout: ' . $layoutFilename; // TODOX translate
+        }
+
+        $data['layout'] = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
+        if (!$data['layout']) {
+            $data['layout'] = '';
+        }
+
+        $content = \Ip\View::create('view/page_options_layout.php', $data)->render();
+        $tabs[] = array('title' => "Layout", 'content' => $content); // TODOX translate
+
         $optionsHtml = \Ip\View::create('view/page_options.php', array('tabs' => $tabs))->render();
         $answer = array(
             'status' => 'success',
@@ -539,7 +555,7 @@ class Controller extends \Ip\Controller{
         $revision = \Ip\Revision::getRevision($revisionId);
         
         if (!$revision) {
-            $this->_errorAnswer('Can\'t find revision. RvisionId \''.$revisionId.'\'');
+            $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
             return;
         }
 
@@ -565,7 +581,8 @@ class Controller extends \Ip\Controller{
 
         $data = array (
             'status' => 'success',
-            'action' => '_savePageOptionsResponse'
+            'action' => '_savePageOptionsResponse',
+            'pageOptions' => $pageOptions,
         );
 
         if ($changedUrl) {

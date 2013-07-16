@@ -548,8 +548,25 @@ class Model{
         return true;
     }
 
+    /**
+     * Returns possible layout pages
+     * @param string $theme
+     * @return array layouts (e.g. ['main.php', 'blank.php'])
+     */
+    public static function getThemeLayouts($theme = THEME) {
+        $themeDir = BASE_DIR . THEME_DIR . $theme;
 
+        $files = scandir($themeDir);
+        $layouts = array();
 
+        foreach ($files as $filename) {
+            if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
+                $layouts[]= $filename;
+            }
+        }
+
+        return $layouts;
+    }
 
     public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible) {
 
