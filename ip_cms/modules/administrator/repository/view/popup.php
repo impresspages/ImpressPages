@@ -24,12 +24,6 @@
                         <p class="ipUploadTitle"></p>
                     </div>
                 </div>
-                <div class="ipmFile ipmFileSample ipgHide">
-                    <a href="#" class="ipaButton ipaFileMove"><?php echo $this->escPar('standard/content_management/widget_file/move') ?></a>
-                    <input type="text" class="ipAdminInput ipaRenameTo" name="title" value="" />
-                    <a href="#" class="ipaButton ipaFileLink" target="_blank"><?php echo $this->escPar('standard/content_management/widget_file/preview') ?></a>
-                    <a href="#" class="ipaButton ipaFileRemove"><?php echo $this->escPar('standard/content_management/widget_file/remove') ?></a>
-                </div>
                 <p class="ipmErrorSample ipgError ipgHide"></p>
             </div>
             <div class="ipmBrowser clearfix">
@@ -51,8 +45,6 @@
                 <h2 class="ipsListTitleTemplate"></h2>
                 <ul class="ipsListTemplate"></ul>
             </div>
-            <?php //these buttons are only for new uploaded files ?>
-            <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
 
         </div>

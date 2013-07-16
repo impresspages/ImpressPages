@@ -72,7 +72,6 @@
                         handle: '.ipaFileMove'
                     });
 
-                    $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
                     $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
                     $(window).bind("resize.ipRepositoryUploader", $.proxy(methods._resize, this));
@@ -83,10 +82,6 @@
             });
         },
 
-        _confirm : function (e) {
-
-
-        },
 
         _storeFilesResponse : function(response) {
             var $this = $(this);
@@ -164,60 +159,9 @@
                     dataType : 'json'
                 });
 
-//                var $fileRecord = $this.find('.ipmFileSample').clone();
-//                $fileRecord.removeClass('ipgHide');
-//                $fileRecord.removeClass('ipmFileSample');
-//                $fileRecord.find('.ipaRenameTo').val(answer.fileName);
-//                $fileRecord.data('fileName', answer.fileName);
-//                $fileRecord.data('dir', answer.dir);
-//                $fileRecord.data('file', answer.file);
-//                $fileRecord.find('.ipaFileLink').attr('href', ip.baseUrl + answer.file);
-//                $fileRecord.find('.ipaFileRemove').click(function(e){
-//                    e.preventDefault();
-//                    $fileRecord.hide();
-//                    $fileRecord.data('deleted', true);
-//
-//                    var data = Object();
-//                    data.g = 'administrator';
-//                    data.m = 'repository';
-//                    data.a = 'deleteTmpFile';
-//                    data.file = answer.file;
-//
-//                    $.ajax ({
-//                        type : 'POST',
-//                        url : ip.baseUrl,
-//                        data : data,
-//                        context : $this,
-//                        success : $.proxy(methods._storeFilesResponse, this),
-//                        dataType : 'json'
-//                    });
-//
-//                });
-//                $this.find('.ipmFiles').append($fileRecord);
             }
 
             $this.find('#ipUpload_' + file.id).remove();
-        },
-
-        _getFiles : function () {
-            var $this = $(this);
-            var files = new Array();
-            $this.find('.ipmFiles div').each(function(){
-
-                var $this = $(this);
-
-                if ($this.data('deleted')) {
-                    return;
-                }
-
-                files.push({
-                    fileName : $this.data('fileName'),
-                    file : $this.data('file'),
-                    renameTo : $this.find('.ipaRenameTo').val(),
-                    dir : $this.data('dir')
-                });
-            });
-            return files;
         },
 
         // set back our element
