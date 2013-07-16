@@ -59,8 +59,12 @@
                 $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
                 $newItem.find('.name').text(files[i].fileName);
                 $newItem.data('fileData', files[i]);
+
+                $newItem.toggleClass('ui-selected');
                 $newList.append($newItem);
             }
+            $.proxy(methods._startSelect, this)();
+
 
         },
 

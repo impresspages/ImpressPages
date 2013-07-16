@@ -2,7 +2,6 @@
     <div class="tabs">
         <ul>
             <li><a href="#ipModuleRepositoryTabUpload"><?php echo $this->escPar('administrator/repository/admin_translations/tab_upload') ?></a></li>
-            <li><a href="#ipModuleRepositoryTabAll"><?php echo $this->escPar('administrator/repository/admin_translations/tab_files') ?></a></li>
             <li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a>
         </ul>
 
@@ -47,21 +46,6 @@
             </div>
             <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
 
-        </div>
-        <div id="ipModuleRepositoryTabAll" class="ipmTabAll">
-            <div class="ipmBrowser clearfix">
-                <ul class="ipmBrowserContainer">
-
-                </ul>
-                <div class="ipgClear"><!-- --></div>
-            </div>
-
-            <div class="ipsFileTemplate ipgHide">
-                <img class="" src="" alt="file"/>
-                <span class="name"></span>
-            </div>
-            <a class="ipAdminButton ipConfirmButton ipaConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
-            <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
         </div>
         <div id="ipModuleRepositoryTabBuy" data-marketurl='<?php echo $marketUrl ?>' class="ipmTabBuy">
         </div>
