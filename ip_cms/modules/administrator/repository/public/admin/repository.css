@@ -13,13 +13,17 @@
     width: 100%;
     z-index: 99000;
 }
+.ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
 .ipModuleRepositoryPopup .ipmBuyDialog {
     z-index: 99001;
 }
 .ipModuleRepositoryPopup .ipmClose {
+    border: 1px solid transparent;
     float: right;
-    margin-right: 9px;
-    margin-top: -24px;
+    margin-right: 7px;
+    margin-top: -26px;
 }
 .ipModuleRepositoryPopup .ui-tabs {
     height: 100%;

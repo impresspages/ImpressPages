@@ -88,7 +88,7 @@
 
         _resize: function(e) {
             var $this = $(this);
-            $this.find('iframe').height((parseInt($(window).height()) - 55) + 'px');
+            $this.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
         }
 
     };
