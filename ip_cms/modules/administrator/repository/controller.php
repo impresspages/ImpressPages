@@ -162,7 +162,11 @@ class Controller extends \Ip\Controller{
         $answer = array();
         foreach($files as $file) {
             if (!empty($file['url']) && !empty($file['name'])) {
-                $answer[] = $this->downloadFile($file['url'], $file['name']);
+                $fileData = $this->downloadFile($file['url'], $file['name']);
+                if ($fileData) {
+                    $answer[] = $fileData;
+                }
+
             }
 
         }
@@ -187,17 +191,18 @@ class Controller extends \Ip\Controller{
             }
         }
 
-        $desiredFilename = \Library\Php\File\Functions::genUnoccupiedName($desiredFilename, BASE_DIR . TMP_FILE_DIR);
-        $tmpPath = BASE_DIR . TMP_FILE_DIR . $desiredFilename;
-
-        $net = new \Modules\administrator\system\Helper\Net();  // TODOX pažeistas modulių atsietumo principas
-        $net->downloadFile($url, $tmpPath);
+        $net = \Library\Php\Net::instance();
+        $resultFilename = $net->downloadFile($url, BASE_DIR.TMP_FILE_DIR, $desiredFilename);
+        if (!$resultFilename) {
+            return;
+        }
+        $tmpPath = TMP_FILE_DIR.$resultFilename;
 
         $destinationDir = BASE_DIR.FILE_REPOSITORY_DIR;
-        $filename = \Library\Php\File\Functions::genUnoccupiedName($tmpPath, $destinationDir);
-        copy($tmpPath, $destinationDir . $filename);
+        $filename = \Library\Php\File\Functions::genUnoccupiedName(BASE_DIR . $tmpPath, $destinationDir);
+        copy(BASE_DIR . $tmpPath, $destinationDir . $filename);
 
-        unlink($tmpPath);
+        unlink(BASE_DIR . $tmpPath);
 
         $browserModel = \Modules\administrator\repository\BrowserModel::instance();
 
