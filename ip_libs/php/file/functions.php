@@ -41,10 +41,23 @@ class Functions{
 
     }
 
-    public static function isFileInDir($filename, $directory)
+    /**
+     * Checks whether file exists in specified directory.
+     *
+     * @param string $filename (example.php)
+     * @param string $dir (/var/www/example.com/ or /var/www/example.com)
+     * @return bool
+     */
+    public static function isFileInDir($filename, $dir)
     {
-        $realPath = realpath($directory . DIRECTORY_SEPARATOR . $filename);
-        return strpos($directory, $realPath) === 0;
+        $realDir = realpath($dir);
+        $realPath = realpath($realDir . DIRECTORY_SEPARATOR . $filename);
+
+        if (!is_file($realPath)) {
+            return false;
+        }
+
+        return strpos($realPath, $realDir) === 0;
     }
 
     /**
