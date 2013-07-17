@@ -36,7 +36,6 @@
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer {
     width: 250px;
     height: 295px;
-    margin-bottom: 20px;
     overflow-x: hidden;
     overflow-y: auto;
     float: left;
@@ -85,47 +84,64 @@
 
 /* Tab All */
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
-    margin-bottom: 20px;
     margin-left: 300px;
     min-height: 295px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
-    /*margin-left: -15px;*/
-    /*margin-top: -25px;*/
+    padding-bottom: 55px; /* space for action buttons */
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer h2 {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmListTitle {
+    background: url(icon_clock.png) no-repeat;
     clear: both;
+    color: #2f313f;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 21px;
+    margin-top: 15px;
+    padding-left: 30px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer ul {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList {
     clear: both;
-    margin-bottom: 20px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li {
-    float: left;
-    height: 116px;
     list-style: none;
-    margin-left: 20px;
-    margin-top: 30px;
-    width: 100px;
+    margin: 0 0 20px -9px; /* leaving 1px for selected outline */
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
+    float: left;
+    margin: 10px 0 0 10px;
     cursor: pointer;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li img {
-    height: 100px;
-    width: 100px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer li .name {
-    float: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li img {
+    border: 1px solid #e7e7e7;
+    display: block;
+    height: 140px;
+    width: 140px;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ui-selecting img {
     outline: #f1c06b solid 5px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ui-selected img {
-    outline: #f5a417 solid 5px; /*rgb(206, 206, 206)*/
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected img {
+    border-color: #019bd4;
+    outline: #019bd4 solid 1px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
+    background-color: #fff;
+    border: 3px solid #019bd4;
+    padding: 10px 20px;
+    text-align: center;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmTitle {
+    color: #2f313f;
+    float: left;
+    font-size: 14px;
+    line-height: 26px; /* to match height with buttons; float removes title from the regular flow */
 }
 
 /* Tab Buy */

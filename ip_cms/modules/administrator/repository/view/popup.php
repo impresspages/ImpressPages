@@ -31,23 +31,24 @@
                     <ul class="ipgHide ipaRecentList"></ul>
                 </div>
                 <div class="ipgHide ipmRepositoryActions">
-                    <a class="ipAdminButton ipConfirmButton ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
-                    <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
+                    <div class="ipmInner">
+                        <span class="ipmTitle">{{Selection}}</span>
+                        <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
+                        <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
+                    </div>
                 </div>
                 <div class="ipgClear"><!-- --></div>
             </div>
-            <div class="ipsFileTemplate ipgHide">
-                <img class="" src="" alt="file"/>
-                <span class="name"></span>
-            </div>
+            <ul class="ipgHide">
+                <li class="ipmFileTemplate ipgHide">
+                    <img rc="" alt="" title="" />
+                </li>
+            </ul>
             <div class="ipgHide">
-                <h2 class="ipsListTitleTemplate"></h2>
-                <ul class="ipsListTemplate"></ul>
+                <h2 class="ipsListTitleTemplate ipmListTitle"></h2>
+                <ul class="ipsListTemplate ipmList clearfix"></ul>
             </div>
-            <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
-
         </div>
-        <div id="ipModuleRepositoryTabBuy" data-marketurl='<?php echo $marketUrl ?>' class="ipmTabBuy">
-        </div>
+        <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy"></div>
     </div>
 </div>

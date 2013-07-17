@@ -72,8 +72,6 @@
                         handle: '.ipaFileMove'
                     });
 
-                    $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
-
                     $(window).bind("resize.ipRepositoryUploader", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $.proxy(methods._resize, this)();
@@ -173,7 +171,7 @@
             var $this = $(this);
             var $block = $this.find('.impContainer');
             var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
-            $block.height((parseInt($(window).height()) - (110 + padding)) + 'px');
+            $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
         }
 
     };
