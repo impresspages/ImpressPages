@@ -567,7 +567,7 @@ class Model{
                 if ($includeHidden) {
                     $layouts[]= $filename;
                 } elseif ($filename != 'blank.php' && $filename[0] != '_') {
-                        $layouts[]= $filename;
+                    $layouts[]= $filename;
                 }
             }
         }
