@@ -113,6 +113,13 @@
     clear: both;
     list-style: none;
     margin: 0 0 20px -9px; /* leaving 1px for selected outline */
+    /* making elements non-selectable */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
     cursor: pointer;
@@ -136,6 +143,7 @@
     top: 50%;
     width: 35px;
 }
+.ipModuleRepositoryPopup .ipmTabUpload .ui-selecting .ipmList li:after,
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
     background: url(icon_selecting.png) no-repeat center center;
 }
@@ -143,7 +151,8 @@
     border-color: #019bd4;
     outline: #019bd4 solid 1px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover:after {
     background: url(icon_selected.png) no-repeat center center;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {

@@ -37,7 +37,7 @@
             </div>
             <div class="ipgHide ipmRepositoryActions">
                 <div class="ipmInner">
-                    <span class="ipmTitle">{{Selection}}</span>
+                    <span class="ipmTitle">{{Selected:}} <strong class="ipmSelectionCount"></strong></span>
                     <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
                     <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
                 </div>

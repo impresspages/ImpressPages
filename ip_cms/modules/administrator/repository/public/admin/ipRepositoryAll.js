@@ -107,12 +107,18 @@
 
             }
 
-            $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this))
-            $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this))
+            $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this));
+            $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this));
 
             $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');
-                $.proxy(methods._startSelect, repositoryContainer)();
+                var count = $this.find('li.ui-selected').length;
+                if (count) {
+                    $.proxy(methods._startSelect, repositoryContainer)();
+                } else {
+                    $.proxy(methods._stopSelect, repositoryContainer)();
+                }
+                $this.find('.ipmRepositoryActions .ipmSelectionCount').text(count);
             });
 
         },
@@ -120,14 +126,15 @@
         _startSelect : function(e) {
             var $this = $(this);
             $this.find('.ipmRepositoryActions').removeClass('ipgHide');
-
+            $this.find('.ipmBrowserContainer').addClass('ui-selecting');
         },
 
         _stopSelect : function(e) {
-            e.preventDefault();
+            if (e) { e.preventDefault(); }
             var $this = $(this);
             $this.find('.ipmRepositoryActions').addClass('ipgHide');
             $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
+            $this.find('.ipmBrowserContainer').removeClass('ui-selecting');
         },
 
         _confirm : function (e) {
