@@ -1211,7 +1211,7 @@ class Site{
         $cacheVersion = \DbSystem::getSystemVariable('cache_version');
         $cssFiles = $this->getCss();
         foreach($cssFiles as &$file) {
-            $file .= '?'.$cacheVersion;
+            $file .= (strpos($file, '?') ? '&' : '?') . $cacheVersion;
         }
         $data = array (
             'title' => $this->getTitle(),
@@ -1231,7 +1231,7 @@ class Site{
         foreach($javascriptFiles as &$level) {
             foreach($level as &$file) {
                 if ($file['type'] == 'file') {
-                    $file['value'] .= '?'.$cacheVersion;
+                    $file['value'] .= (strpos($file['value'], '?') ? '&' : '?') . $cacheVersion;
                 }
             }
         }
