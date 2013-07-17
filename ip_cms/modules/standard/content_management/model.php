@@ -549,11 +549,14 @@ class Model{
     }
 
     /**
-     * Returns possible layout pages
+     * Returns possible layout pages.
+     * blank.php and files starting with underscore (for example, _layout.php) are considered hidden.
+     *
      * @param string $theme
+     * @param bool $includeHidden true - returns all layouts, false - only public layouts
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
-    public static function getThemeLayouts($theme = THEME) {
+    public static function getThemeLayouts($theme = THEME, $includeHidden = false) {
         $themeDir = BASE_DIR . THEME_DIR . $theme;
 
         $files = scandir($themeDir);
@@ -561,7 +564,11 @@ class Model{
 
         foreach ($files as $filename) {
             if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
-                $layouts[]= $filename;
+                if ($includeHidden) {
+                    $layouts[]= $filename;
+                } elseif ($filename != 'blank.php' && $filename[0] != '_') {
+                        $layouts[]= $filename;
+                }
             }
         }
 

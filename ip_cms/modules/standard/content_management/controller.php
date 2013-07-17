@@ -85,14 +85,8 @@ class Controller extends \Ip\Controller{
         $content = \Ip\View::create('view/page_options_advanced.php', $data)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        //$title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'layout'); // TODOX add translation
-        $layouts = Model::getThemeLayouts();
-        $data['layouts'] = array(
-            '' => 'Default zone layout: ' . $zone->getLayout(), // TODOX translate
-        );
-        foreach ($layouts as $layoutFilename) {
-            $data['layouts'][$layoutFilename]= 'Custom layout: ' . $layoutFilename; // TODOX translate
-        }
+        $data['defaultLayout'] = $zone->getLayout();
+        $data['layouts'] = Model::getThemeLayouts();
 
         $data['layout'] = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
         if (!$data['layout']) {
