@@ -27,7 +27,7 @@
             </div>
             <div class="ipmBrowser">
                 <div class="ipmBrowserContainer clearfix">
-                    <h2 class="ipgHide ipmListTitle ipmRecentTitle">{{Recent}}</h2>
+                    <h2 class="ipgHide ipmListTitle ipmRecentTitle">{{Recent files}}</h2>
                     <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>
                 </div>
             </div>
