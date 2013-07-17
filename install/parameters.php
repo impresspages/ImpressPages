@@ -2424,6 +2424,10 @@ left";
             $parameterAdmin["administrator"]["repository"]["admin_translations"]["recent_files"] = "1";
             $parameterType ["administrator"]["repository"]["admin_translations"]["recent_files"] = "string";
 
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["selected"] = "Selected";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["selected"] = "Selected:";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["selected"] = "1";
+            $parameterType ["administrator"]["repository"]["admin_translations"]["selected"] = "string";
 
 $moduleGroupTitle["developer"] = "Developer";
 $moduleTitle["developer"]["inline_management"] = "Inline Management";
