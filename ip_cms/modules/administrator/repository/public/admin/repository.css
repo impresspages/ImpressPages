@@ -102,6 +102,11 @@
     margin-top: 15px;
     padding-left: 30px;
 }
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmRecentTitle {
+    background: none;
+    font-weight: bold;
+    padding-left: 0;
+}
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList {
     clear: both;
     list-style: none;

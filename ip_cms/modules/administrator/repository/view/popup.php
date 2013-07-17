@@ -27,8 +27,8 @@
             </div>
             <div class="ipmBrowser">
                 <div class="ipmBrowserContainer clearfix">
-                    <h2 class="ipgHide ipmListTitle ipaRecentTitle">{{Recent}}</h2>
-                    <ul class="ipgHide ipmList ipaRecentList"></ul>
+                    <h2 class="ipgHide ipmListTitle ipmRecentTitle">{{Recent}}</h2>
+                    <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>
                 </div>
             </div>
             <div class="ipgHide ipmRepositoryActions">
