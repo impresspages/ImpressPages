@@ -10,7 +10,7 @@
 
 if (!defined('BACKEND')) exit;
 
-//$parameterValue ["standard"]["configuration"]["advanced_options"]["administrator_interface_language"] = "en" //insert RFC 4646 code of language into whish you are translating now
+//$parameter["parameterValue"] ["standard"]["configuration"]["advanced_options"]["administrator_interface_language"] = "en" //insert RFC 4646 code of language into whish you are translating now
 
 
 $moduleGroupTitle["standard"] = "Standard";
@@ -1259,6 +1259,31 @@ $parameter["parameterValue/standard/menu_management/admin_translations/advanced"
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/general"] = "General";
 $parameter["parameterValue/standard/menu_management/admin_translations/general"] = "General";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/design"] = "Design";
+$parameter["parameterValue/standard/menu_management/admin_translations/design"] = "Design";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/page_layout"] = "Page layout";
+$parameter["parameterValue/standard/menu_management/admin_translations/page_layout"] = "Page layout";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/default_zone_layout_option"] = "Default zone layout option";
+$parameter["parameterValue/standard/menu_management/admin_translations/default_zone_layout_option"] = "Default zone layout: [[layout]]";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/custom_page_layout_option"] = "Custom page layout option";
+$parameter["parameterValue/standard/menu_management/admin_translations/custom_page_layout_option"] = "Custom page layout: [[layout]]";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/page_layout_instructions"] = "Page layout instructions";
+$parameter["parameterValue/standard/menu_management/admin_translations/page_layout_instructions"] = "<p>After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.</p>\n"
+    . "<p>If you want to hide some layout from this list, add underscore before filename (for example _simple.php).</p>";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/page_layout_add_layout_instructions"] = "How to add custom page layout";
+$parameter["parameterValue/standard/menu_management/admin_translations/page_layout_add_layout_instructions"] = "You have only one layout in your theme. If you wish to add more layouts, please,"
+    . "<ol>"
+    . "    <li>find main.php in your theme directory (for example, ip_themes/main.php);</li>"
+    . "    <li>copy and paste it under new name (for example, simple.php);</li>"
+    . "   <li>come here and select it;</li>"
+    . "   <li>modify it according to your needs.</li>"
+    . "</ol>";
 
 $parameter["parameterTitle/standard/menu_management/options/associated_zones"] = "Associated zones ";
 

@@ -7,6 +7,7 @@ namespace IpUpdate\Library\Migration\To3_4;
 
 
 use IpUpdate\Library\UpdateException;
+use IpUpdate\Library\Migration\To3_4\ParameterImporter as ParameterImporter;
 
 class Script extends \IpUpdate\Library\Migration\General
 {
@@ -27,6 +28,10 @@ class Script extends \IpUpdate\Library\Migration\General
         $this->dbPref = $cf['DB_PREF'];
 
         $this->createPageLayoutTable();
+
+        $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
+
+        $parameterImporter->importParameters('layoutParameters.php');
 
         $this->cleanupRepositoryTable();
 

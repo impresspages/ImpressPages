@@ -47,11 +47,11 @@
 
         addRecentFiles : function (files) {
             var $this = $(this);
-            $this.find('.ipaRecentTitle').removeClass('ipgHide');
-            $this.find('.ipaRecentList').removeClass('ipgHide');
+            $this.find('.ipmRecentTitle').removeClass('ipgHide');
+            $this.find('.ipmRecentList').removeClass('ipgHide');
 
             var $template = $this.find('.ipmFileTemplate');
-            var $newList = $this.find('.ipaRecentList');
+            var $newList = $this.find('.ipmRecentList');
 
             for(var i in files) {
                 var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');

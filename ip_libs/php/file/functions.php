@@ -42,6 +42,25 @@ class Functions{
     }
 
     /**
+     * Checks whether file exists in specified directory.
+     *
+     * @param string $filename (example.php)
+     * @param string $dir (/var/www/example.com/ or /var/www/example.com)
+     * @return bool
+     */
+    public static function isFileInDir($filename, $dir)
+    {
+        $realDir = realpath($dir);
+        $realPath = realpath($realDir . DIRECTORY_SEPARATOR . $filename);
+
+        if (!is_file($realPath)) {
+            return false;
+        }
+
+        return strpos($realPath, $realDir) === 0;
+    }
+
+    /**
      * @param string $file required file name
      * @param string $dest_dir directory where new file will be placed
      * @return string new (or the same) file name that don't collide with existing files in specified directory
