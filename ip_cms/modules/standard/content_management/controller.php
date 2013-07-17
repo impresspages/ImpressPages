@@ -93,8 +93,9 @@ class Controller extends \Ip\Controller{
             $data['layout'] = '';
         }
 
-        $content = \Ip\View::create('view/page_options_layout.php', $data)->render();
-        $tabs[] = array('title' => "Layout", 'content' => $content); // TODOX translate
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
+        $content = \Ip\View::create('view/page_options_design.php', $data)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
 
         $optionsHtml = \Ip\View::create('view/page_options.php', array('tabs' => $tabs))->render();
         $answer = array(
