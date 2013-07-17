@@ -14,7 +14,11 @@
                     <div class="ipmCurErrors"></div>
                     <div class="ipmBrowseButtonWrapper">
                         <span class="impDragdropNotice"><?php echo $this->escPar('administrator/repository/admin_translations/upload_description') ?></span>
-                        <a href="#" class="ipAdminButton ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
+                        <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
+                    </div>
+                    <div class="ipmBrowseButtonWrapper">
+                        <span class="impDragdropNotice">{{Need more images? Browse and choose from thousands of them.}}</span>
+                        <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton">{{Buy images}}</a>
                     </div>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
@@ -38,14 +42,15 @@
                     <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
                 </div>
             </div>
-            <ul class="ipgHide">
-                <li class="ipmFileTemplate ipgHide">
-                    <img rc="" alt="" title="" />
-                </li>
-            </ul>
+            <? // hidden templates for dynamic elements ?>
             <div class="ipgHide">
-                <h2 class="ipsListTitleTemplate ipmListTitle"></h2>
-                <ul class="ipsListTemplate ipmList clearfix"></ul>
+                <h2 class="ipmListTitleTemplate ipmListTitle"></h2>
+                <ul class="ipmListTemplate ipmList clearfix"></ul>
+                <ul>
+                    <li class="ipmFileTemplate">
+                        <img rc="" alt="" title="" />
+                    </li>
+                </ul>
             </div>
         </div>
         <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy"></div>

@@ -38,6 +38,11 @@
                         dataType : 'json'
                     });
 
+                    $('#ipModuleRepositoryBuyButton').on('click', function(e){
+                        e.preventDefault();
+                        $popup.find('a[href*=ipModuleRepositoryTabBuy]').click();
+                    });
+
                     $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $.proxy(methods._resize, this)();
@@ -54,7 +59,7 @@
             var $newList = $this.find('.ipmRecentList');
 
             for(var i in files) {
-                var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
+                var $newItem = $template.clone().removeClass('ipmFileTemplate');
                 $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
                 $newItem.find('.name').text(files[i].fileName);
                 $newItem.data('fileData', files[i]);
@@ -78,17 +83,17 @@
             var fileGroups = response.fileGroups;
             var $browserContainer = $this.find('.ipmBrowserContainer');
             var $template = $this.find('.ipmFileTemplate');
-            var $listTemplate = $this.find('.ipsListTemplate');
-            var $titleTemplate = $this.find('.ipsListTitleTemplate');
+            var $listTemplate = $this.find('.ipmListTemplate');
+            var $titleTemplate = $this.find('.ipmListTitleTemplate');
 
 
             for(var gi in fileGroups) {
-                var $newList = $listTemplate.clone().detach().removeClass('ipsListTemplate');
-                var $newTitle = $titleTemplate.clone().detach().removeClass('ipsListTitleTemplate');
+                var $newList = $listTemplate.clone().detach().removeClass('ipmListTemplate');
+                var $newTitle = $titleTemplate.clone().detach().removeClass('ipmListTitleTemplate');
                 $newTitle.text(gi);
                 for(var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
-                    var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
+                    var $newItem = $template.clone().removeClass('ipmFileTemplate');
                     $newItem.find('img')
                         .attr('src', ip.baseUrl + files[i].preview)
                         .attr('alt', files[i].fileName)
