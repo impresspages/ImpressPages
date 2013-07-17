@@ -50,12 +50,11 @@
             $this.find('.ipaRecentTitle').removeClass('ipgHide');
             $this.find('.ipaRecentList').removeClass('ipgHide');
 
-            var $template = $this.find('.ipsFileTemplate');
+            var $template = $this.find('.ipmFileTemplate');
             var $newList = $this.find('.ipaRecentList');
 
             for(var i in files) {
-                var $newItem = $('<li></li>');
-                $newItem.append($template.clone().removeClass('ipgHide').removeClass('ipsFileTemplate'));
+                var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
                 $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
                 $newItem.find('.name').text(files[i].fileName);
                 $newItem.data('fileData', files[i]);
@@ -78,7 +77,7 @@
 
             var fileGroups = response.fileGroups;
             var $browserContainer = $this.find('.ipmBrowserContainer');
-            var $template = $this.find('.ipsFileTemplate');
+            var $template = $this.find('.ipmFileTemplate');
             var $listTemplate = $this.find('.ipsListTemplate');
             var $titleTemplate = $this.find('.ipsListTitleTemplate');
 
@@ -89,10 +88,11 @@
                 $newTitle.text(gi);
                 for(var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
-                    var $newItem = $('<li></li>');
-                    $newItem.append($template.clone().removeClass('ipgHide').removeClass('ipsFileTemplate'));
-                    $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
-                    $newItem.find('.name').text(files[i].fileName);
+                    var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
+                    $newItem.find('img')
+                        .attr('src', ip.baseUrl + files[i].preview)
+                        .attr('alt', files[i].fileName)
+                        .attr('title', files[i].fileName);
                     $newItem.data('fileData', files[i]);
                     $newList.append($newItem);
 
@@ -152,7 +152,7 @@
             var $this = $(this);
             var $block = $this.find('.ipmBrowser');
             var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
-            $block.height((parseInt($(window).height()) - (110 + padding)) + 'px');
+            $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
         }
 
     };
