@@ -49,6 +49,6 @@ try {
     require_once(BASE_DIR.FRONTEND_DIR.'init.php');
     require_once(BASE_DIR.FRONTEND_DIR.'bootstrap.php');
 } catch (\Exception $e) {
-    $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+    $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
     throw $e;
 }

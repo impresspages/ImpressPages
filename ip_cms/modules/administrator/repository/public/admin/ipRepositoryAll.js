@@ -19,9 +19,6 @@
                 var data = $this.data('ipRepositoryAll');
                 if (!data) {
                     var $popup = $('.ipModuleRepositoryPopup');
-                    $this.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, this));
-                    $this.find('.ipmBrowser').dblclick($.proxy(methods._confirm, this));
-                    $this.find('.ipaCancel').bind('click', $.proxy(methods._cancel, this));
 
                     $this.data('ipRepositoryAll', {});
 
@@ -48,31 +45,83 @@
             });
         },
 
+        addRecentFiles : function (files) {
+            var $this = $(this);
+            $this.find('.ipmRecentTitle').removeClass('ipgHide');
+            $this.find('.ipmRecentList').removeClass('ipgHide');
+
+            var $template = $this.find('.ipmFileTemplate');
+            var $newList = $this.find('.ipmRecentList');
+
+            for(var i in files) {
+                var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
+                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
+                $newItem.find('.name').text(files[i].fileName);
+                $newItem.data('fileData', files[i]);
+
+                $newItem.toggleClass('ui-selected');
+                $newList.append($newItem);
+            }
+            $.proxy(methods._startSelect, this)();
+
+
+        },
+
         _getAllFilesResponse : function(response) {
             var $this = $(this);
+            var repositoryContainer = this;
 
-            if (!response || !response.files) {
+            if (!response || !response.fileGroups) {
                 return; //TODO report error
             }
 
-            var files = response.files;
+            var fileGroups = response.fileGroups;
             var $browserContainer = $this.find('.ipmBrowserContainer');
-            var $template = $this.find('.ipsFileTemplate');
+            var $template = $this.find('.ipmFileTemplate');
+            var $listTemplate = $this.find('.ipsListTemplate');
+            var $titleTemplate = $this.find('.ipsListTitleTemplate');
 
-            for(var i in files) {
-                var $newItem = $('<li></li>');
-                $newItem.append($template.clone().removeClass('ipgHide'));
-                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview)
-                $newItem.find('.name').text(files[i].fileName);
-                $newItem.data('fileData', files[i]);
-                $browserContainer.append($newItem);
+
+            for(var gi in fileGroups) {
+                var $newList = $listTemplate.clone().detach().removeClass('ipsListTemplate');
+                var $newTitle = $titleTemplate.clone().detach().removeClass('ipsListTitleTemplate');
+                $newTitle.text(gi);
+                for(var i in fileGroups[gi]) {
+                    var files = fileGroups[gi];
+                    var $newItem = $template.clone().removeClass('ipgHide ipmFileTemplate');
+                    $newItem.find('img')
+                        .attr('src', ip.baseUrl + files[i].preview)
+                        .attr('alt', files[i].fileName)
+                        .attr('title', files[i].fileName);
+                    $newItem.data('fileData', files[i]);
+                    $newList.append($newItem);
+
+                }
+                $browserContainer.append($newTitle);
+                $browserContainer.append($newList);
+
             }
 
-//            $browserContainer.bind("mousedown", function(e) {
-//                e.metaKey = true;
-//            }).selectable();
-            $browserContainer.selectable();
+            $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this))
+            $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this))
 
+            $browserContainer.delegate('li', 'click', function(e){
+                $(this).toggleClass('ui-selected');
+                $.proxy(methods._startSelect, repositoryContainer)();
+            });
+
+        },
+
+        _startSelect : function(e) {
+            var $this = $(this);
+            $this.find('.ipmRepositoryActions').removeClass('ipgHide');
+
+        },
+
+        _stopSelect : function(e) {
+            var $this = $(this);
+            $this.find('.ipmRepositoryActions').addClass('ipgHide');
+            $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
         },
 
         _confirm : function (e) {
@@ -103,7 +152,7 @@
             var $this = $(this);
             var $block = $this.find('.ipmBrowser');
             var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
-            $block.height((parseInt($(window).height()) - (110 + padding)) + 'px');
+            $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
         }
 
     };

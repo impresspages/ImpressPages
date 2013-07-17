@@ -24,6 +24,7 @@ var ipRepository = function () {
 
     //initialize first tab
     $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryUploader();
+    $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryAll();
 
 
     //initialize other tabs on first use

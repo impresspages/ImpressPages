@@ -13,13 +13,17 @@
     width: 100%;
     z-index: 99000;
 }
+.ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
 .ipModuleRepositoryPopup .ipmBuyDialog {
     z-index: 99001;
 }
 .ipModuleRepositoryPopup .ipmClose {
+    border: 1px solid transparent;
     float: right;
-    margin-right: 9px;
-    margin-top: -24px;
+    margin-right: 7px;
+    margin-top: -26px;
 }
 .ipModuleRepositoryPopup .ui-tabs {
     height: 100%;
@@ -30,10 +34,11 @@
     overflow: hidden;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+    width: 250px;
     height: 295px;
-    margin-bottom: 20px;
     overflow-x: hidden;
     overflow-y: auto;
+    float: left;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer .impDragdropNotice {
     display: none;
@@ -78,39 +83,84 @@
 }
 
 /* Tab All */
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowser {
-    margin-bottom: 20px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
+    margin-left: 300px;
     min-height: 295px;
     overflow-x: hidden;
     overflow-y: auto;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer {
-    margin-left: -15px;
-    margin-top: -25px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
+    padding-bottom: 55px; /* space for action buttons */
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li {
-    float: left;
-    height: 100px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmListTitle {
+    background: url(icon_clock.png) no-repeat;
+    clear: both;
+    color: #2f313f;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 21px;
+    margin-top: 15px;
+    padding-left: 30px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmRecentTitle {
+    background: none;
+    font-weight: bold;
+    padding-left: 0;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList {
+    clear: both;
     list-style: none;
-    margin-left: 20px;
-    margin-top: 30px;
-    width: 100px;
+    margin: 0 0 20px -9px; /* leaving 1px for selected outline */
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li img {
-    height: 100px;
-    width: 100px;
-}
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer li .name {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
+    cursor: pointer;
     float: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100px;
+    margin: 10px 0 0 10px;
+    position: relative;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selecting img {
-    outline: #f1c06b solid 5px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li img {
+    border: 1px solid #e7e7e7;
+    display: block;
+    height: 140px;
+    width: 140px;
 }
-.ipModuleRepositoryPopup .ipmTabAll .ipmBrowserContainer .ui-selected img {
-    outline: #f5a417 solid 5px; /*rgb(206, 206, 206)*/
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:after {
+    /*background: url(icon_selecting.png) no-repeat center center;*/
+    content: '';
+    height: 35px;
+    left: 50%;
+    margin: -17px;
+    position: absolute;
+    top: 50%;
+    width: 35px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
+    background: url(icon_selecting.png) no-repeat center center;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected img {
+    border-color: #019bd4;
+    outline: #019bd4 solid 1px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after {
+    background: url(icon_selected.png) no-repeat center center;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
+    background-color: #fff;
+    border: 3px solid #019bd4;
+    margin: 0 20px 0 300px; /* left as .ipmBrowser; right for scrollbar */
+    padding: 10px 20px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmTitle {
+    color: #2f313f;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 50px;
 }
 
 /* Tab Buy */

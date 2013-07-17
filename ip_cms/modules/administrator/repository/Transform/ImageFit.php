@@ -49,44 +49,7 @@ class ImageFit extends Image
         self::saveImage($croppedImage, $destinationFile, $this->quality);
     }
 
-    /**
-     * If cropping area goes out of image, jpg is converted to png to make transparent edges
-     * @param string $file original file
-     * @param string $ext original file extension
-     * @return string
-     */
-    public function getNewExtension($sourceFile, $ext)
-    {
-        switch ($ext) {
-            case 'png':
-            case 'gif':
-                return 'png';
-                break;
-            case 'jpeg':
-            case 'jpg':
-                if ($this->croppingGoesOutOfImage($sourceFile, $this->width, $this->height)) {
-                    return 'png';
-                } else {
-                    return $ext;
-                }
-                break;
-            default:
-                return 'png';
-        }
 
-    }
-
-    private function croppingGoesOutOfImage($sourceFile, $destWidth, $destHeight)
-    {
-        if (!$this->forced) {
-            return false;
-        }
-        $imageInfo = getimagesize($sourceFile);
-        $sourceWidth = $imageInfo[0];
-        $sourceHeight = $imageInfo[1];
-        $goesOut = $sourceWidth / $sourceHeight != $destWidth / $destHeight;
-        return $goesOut;
-    }
 
     public function crop($image, $widthDest, $heightDest, $forced)
     {
@@ -133,7 +96,7 @@ class ImageFit extends Image
 
     private function resizeRequired($imageFile)
     {
-        $imageInfo = getimagesize($imageFile);
+        $imageInfo = @getimagesize($imageFile);
         $widthS = $imageInfo[0];
         $heightS = $imageInfo[1];
         $widthT = $this->width;

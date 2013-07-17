@@ -99,14 +99,18 @@ class BrowserModel{
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
 
+
         switch($ext) {
             case 'jpg':
             case 'jpeg':
             case 'gif':
             case 'png':
                 $reflectionService = ReflectionService::instance();
-                $transform = new Transform\ImageFit(100, 100, null, TRUE);
+                $transform = new Transform\ImageFit(140, 140, null, TRUE);
                 $reflection = $reflectionService->getReflection($file, $baseName, $transform);
+                if (!$reflection){
+                    return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
+                }
                 return $reflection;
                 break;
             default:

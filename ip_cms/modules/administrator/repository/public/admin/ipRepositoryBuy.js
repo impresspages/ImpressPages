@@ -53,7 +53,7 @@
                                 $.ajax(ip.baseUrl, {
                                     'type': 'POST',
                                     // TODOX save good filename
-                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'filename': 'image.jpg', 'files': toDownload},
+                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
                                     'dataType': 'json',
                                     'success': function (data) {
                                         $.proxy(methods._confirm, buyTab, data)();
@@ -88,7 +88,7 @@
 
         _resize: function(e) {
             var $this = $(this);
-            $this.find('iframe').height((parseInt($(window).height()) - 55) + 'px');
+            $this.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
         }
 
     };

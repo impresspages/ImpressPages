@@ -32,6 +32,9 @@ class Script extends \IpUpdate\Library\Migration\General
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
 
         $parameterImporter->importParameters('layoutParameters.php');
+
+        $this->cleanupRepositoryTable();
+
     }
 
     private function createPageLayoutTable()
@@ -45,6 +48,17 @@ class Script extends \IpUpdate\Library\Migration\General
           `layout` varchar(255) NOT NULL,
           UNIQUE KEY `group_name` (`group_name`,`module_name`,`page_id`)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Custom page layouts';
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
+    }
+
+    private function cleanupRepositoryTable()
+    {
+        $dbh = $this->dbh;
+        $sql = "
+        DELETE FROM `{$this->dbPref}m_administrator_repository_file` WHERE `module` = 'administrator/repository';
         ";
 
         $q = $dbh->prepare($sql);
