@@ -262,21 +262,111 @@ class Db {
         
         $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.implode(', ', $values).' WHERE `id` = '.(int)$pageId.' ';
         $rs = mysql_query($sql);
-        if ($rs) {
-            
-            if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
-                $newPage = $zone->getElement($pageId);
-                $newUrl = $newPage->getLink(true);
-                global $dispatcher;
-                $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
-            }
-            
-            
-            return true;
-        } else {
+        if (!$rs) {
             trigger_error($sql.' '.mysql_error());
             return false;
         }
+
+        if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
+            $newPage = $zone->getElement($pageId);
+            $newUrl = $newPage->getLink(true);
+            global $dispatcher;
+            $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
+        }
+
+        if (!empty($params['layout']) && \Library\Php\File\Functions::isFileInDir($params['layout'], BASE_DIR . THEME_DIR . THEME)) {
+            $layout = $params['layout'];
+        } else {
+            $layout = false;
+        }
+
+        self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
+
+        return true;
+    }
+
+    /**
+     * @param $groupName
+     * @param $moduleName
+     * @param $pageId
+     * @param $newLayout
+     * @return bool whether layout was changed or not
+     */
+    private static function changePageLayout($groupName, $moduleName, $pageId, $newLayout) {
+        $dbh = \Ip\Db::getConnection();
+
+        $sql = 'SELECT `layout`
+                FROM `' . DB_PREF . 'page_layout`
+                WHERE group_name    = :groupName
+                    AND module_name = :moduleName
+                    AND `page_id`   = :pageId';
+        $q = $dbh->prepare($sql);
+        $q->execute(
+            array(
+                'groupName' => $groupName,
+                'moduleName' => $moduleName,
+                'pageId' => $pageId,
+            )
+        );
+        $oldLayout = $q->fetchColumn(0);
+
+        $wasLayoutChanged = false;
+
+        if (empty($newLayout)) {
+            if ($oldLayout) {
+                $sql = 'DELETE FROM `' . DB_PREF . 'page_layout`
+                        WHERE `group_name` = :groupName
+                            AND `module_name` = :moduleName
+                            AND `page_id` = :pageId';
+                $q = $dbh->prepare($sql);
+                $result = $q->execute(
+                    array(
+                        'groupName' => $groupName,
+                        'moduleName' => $moduleName,
+                        'pageId' => $pageId,
+                    )
+                );
+                $wasLayoutChanged = true;
+            }
+        } elseif ($newLayout != $oldLayout && file_exists(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $newLayout)) {
+            if (!$oldLayout) {
+                $sql = 'INSERT IGNORE INTO `' . DB_PREF . 'page_layout`
+                        (`group_name`, `module_name`, `page_id`, `layout`)
+                        VALUES
+                        (:groupName, :moduleName, :pageId, :layout)';
+
+
+                $q = $dbh->prepare($sql);
+                $result = $q->execute(
+                    array(
+                        'groupName' => $groupName,
+                        'moduleName' => $moduleName,
+                        'pageId' => $pageId,
+                        'layout' => $newLayout,
+                    )
+                );
+                $wasLayoutChanged = true;
+            } else {
+                $sql = 'UPDATE `' . DB_PREF . 'page_layout`
+                        SET `layout` = :layout
+                        WHERE `group_name` = :groupName
+                            AND `module_name` = :moduleName
+                            AND `page_id` = :pageId';
+
+                $q = $dbh->prepare($sql);
+                $result = $q->execute(
+                    array(
+                        'groupName' => $groupName,
+                        'moduleName' => $moduleName,
+                        'pageId' => $pageId,
+                        'layout' => $newLayout,
+                    )
+                );
+                $wasLayoutChanged = true;
+            }
+        }
+
+        return $wasLayoutChanged;
     }
 
     /**
