@@ -108,9 +108,10 @@
     margin: 0 0 20px -9px; /* leaving 1px for selected outline */
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
+    cursor: pointer;
     float: left;
     margin: 10px 0 0 10px;
-    cursor: pointer;
+    position: relative;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li img {
     border: 1px solid #e7e7e7;
@@ -118,12 +119,25 @@
     height: 140px;
     width: 140px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ui-selecting img {
-    outline: #f1c06b solid 5px;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:after {
+    /*background: url(icon_selecting.png) no-repeat center center;*/
+    content: '';
+    height: 35px;
+    left: 50%;
+    margin: -17px;
+    position: absolute;
+    top: 50%;
+    width: 35px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
+    background: url(icon_selecting.png) no-repeat center center;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected img {
     border-color: #019bd4;
     outline: #019bd4 solid 1px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after {
+    background: url(icon_selected.png) no-repeat center center;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
     bottom: 0;
@@ -134,14 +148,14 @@
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
     background-color: #fff;
     border: 3px solid #019bd4;
+    margin: 0 20px 0 300px; /* left as .ipmBrowser; right for scrollbar */
     padding: 10px 20px;
-    text-align: center;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmTitle {
     color: #2f313f;
-    float: left;
+    display: inline-block;
     font-size: 14px;
-    line-height: 26px; /* to match height with buttons; float removes title from the regular flow */
+    margin-right: 50px;
 }
 
 /* Tab Buy */

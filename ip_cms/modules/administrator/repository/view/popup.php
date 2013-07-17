@@ -25,19 +25,18 @@
                 </div>
                 <p class="ipmErrorSample ipgError ipgHide"></p>
             </div>
-            <div class="ipmBrowser clearfix">
-                <div class="ipmBrowserContainer">
-                    <h2 class="ipgHide ipaRecentTitle">{{Recent}}</h2>
-                    <ul class="ipgHide ipaRecentList"></ul>
+            <div class="ipmBrowser">
+                <div class="ipmBrowserContainer clearfix">
+                    <h2 class="ipgHide ipmListTitle ipaRecentTitle">{{Recent}}</h2>
+                    <ul class="ipgHide ipmList ipaRecentList"></ul>
                 </div>
-                <div class="ipgHide ipmRepositoryActions">
-                    <div class="ipmInner">
-                        <span class="ipmTitle">{{Selection}}</span>
-                        <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
-                        <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
-                    </div>
+            </div>
+            <div class="ipgHide ipmRepositoryActions">
+                <div class="ipmInner">
+                    <span class="ipmTitle">{{Selection}}</span>
+                    <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
+                    <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
                 </div>
-                <div class="ipgClear"><!-- --></div>
             </div>
             <ul class="ipgHide">
                 <li class="ipmFileTemplate ipgHide">
