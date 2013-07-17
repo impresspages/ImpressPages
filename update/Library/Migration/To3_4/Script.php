@@ -32,6 +32,7 @@ class Script extends \IpUpdate\Library\Migration\General
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
 
         $parameterImporter->importParameters('layoutParameters.php');
+        $parameterImporter->importParameters('repositoryParameters.php');
 
         $this->cleanupRepositoryTable();
 
