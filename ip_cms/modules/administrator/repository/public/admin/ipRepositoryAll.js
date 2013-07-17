@@ -119,6 +119,7 @@
         },
 
         _stopSelect : function(e) {
+            e.preventDefault();
             var $this = $(this);
             $this.find('.ipmRepositoryActions').addClass('ipgHide');
             $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
