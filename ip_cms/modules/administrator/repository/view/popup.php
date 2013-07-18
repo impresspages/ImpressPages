@@ -48,11 +48,18 @@
                 <ul class="ipmListTemplate ipmList clearfix"></ul>
                 <ul>
                     <li class="ipmFileTemplate">
-                        <img rc="" alt="" title="" />
+                        <img src="" alt="" title="" />
                     </li>
                 </ul>
             </div>
         </div>
-        <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy"></div>
+        <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy">
+            <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
+            <div class="ipgHide ipmLoading">
+                <span class="ipmLoadingText">
+                    {{Your images are being downloaded to your website. It may take some time to finish. Please wait.}}
+                </span>
+            </div>
+        </div>
     </div>
 </div>

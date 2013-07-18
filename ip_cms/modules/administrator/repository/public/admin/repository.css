@@ -179,7 +179,30 @@
 }
 
 /* Tab Buy */
-.ipModuleRepositoryPopup .ipmTabBuy iframe {
+.ipModuleRepositoryPopup .ipmTabBuy {
+    position: relative;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmContainer iframe {
     overflow: hidden;
     width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmLoading {
+    background: rgba(255,255,255,0.95);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmLoadingText {
+    background: url(loading.gif) no-repeat center top;
+    display: inline-block;
+    height: 40px;
+    left: 50%;
+    margin: -30px 0 0 -150px;
+    padding-top: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 300px;
 }
