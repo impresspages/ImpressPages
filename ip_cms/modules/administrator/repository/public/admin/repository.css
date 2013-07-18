@@ -187,7 +187,7 @@
     width: 100%;
 }
 .ipModuleRepositoryPopup .ipmTabBuy .ipmLoading {
-    background: rgba(255,255,255,0.95);
+    background: #fff;
     height: 100%;
     left: 0;
     position: absolute;
