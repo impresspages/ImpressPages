@@ -191,6 +191,8 @@ $parameter["parameterValue/administrator/repository/admin_translations/buy_image
 $parameter["parameterTitle/administrator/repository/admin_translations/recent_files"] = "Recent files";
 $parameter["parameterValue/administrator/repository/admin_translations/recent_files"] = "Recent files";
 
+$parameter["parameterTitle/administrator/repository/admin_translations/selected"] = "Selected";
+$parameter["parameterValue/administrator/repository/admin_translations/selected"] = "Selected:";
 
 $parameter["parameterTitle/administrator/rss/options/description"] = "Description";
 
