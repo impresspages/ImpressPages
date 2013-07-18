@@ -641,9 +641,9 @@ class Script extends \IpUpdate\Library\Migration\General{
             }
 
             $data = "
-      define('SECURE_DIR', 'file/secure/'); //directory not accessible from the Internet
-      define('TMP_SECURE_DIR', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
-      define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
+      define('SECURE_DIR', '".$secureDir."'); //directory not accessible from the Internet
+      define('TMP_SECURE_DIR', '".$secureTmpDir."'); //directory for temporary files. Not accessible from the Internet.
+      define('MANUAL_DIR', '".$manualDir."'); //Used for TinyMCE file browser and others tools where user manually controls all files.
 ";
             fwrite($fh, $data);
             fclose($fh);
