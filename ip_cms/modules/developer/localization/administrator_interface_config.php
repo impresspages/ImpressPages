@@ -195,7 +195,7 @@ $parameter["parameterTitle/administrator/repository/admin_translations/selected"
 $parameter["parameterValue/administrator/repository/admin_translations/selected"] = "Selected:";
 
 $parameter["parameterTitle/administrator/repository/admin_translations/download_in_progress"] = "Download in progress";
-$parameter["parameterValue/administrator/repository/admin_translations/download_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.:";
+$parameter["parameterValue/administrator/repository/admin_translations/download_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.";
 
 $parameter["parameterTitle/administrator/rss/options/description"] = "Description";
 
