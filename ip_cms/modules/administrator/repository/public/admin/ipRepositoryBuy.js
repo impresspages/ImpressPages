@@ -28,7 +28,7 @@
                     //create crossdomain socket connection
                     var remote = new easyXDM.Rpc({
                         remote: $('#ipModuleRepositoryTabBuy').data('marketurl'),
-                        container: "ipModuleRepositoryTabBuy",
+                        container: "ipModuleRepositoryTabBuyContainer",
                         onMessage: function(message, origin){
                             //DO NOTHING
                         },
@@ -61,7 +61,7 @@
                                     'error': function () { alert('Download failed.'); }
                                 });
 
-
+                                $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('ipgHide');
                             }
                         }
                     }

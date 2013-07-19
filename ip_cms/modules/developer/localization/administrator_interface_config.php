@@ -173,6 +173,27 @@ $parameter["parameterValue/administrator/log/admin_translations/value_str"] = "V
 
 $parameter["parameterTitle/administrator/log/parameters/log_size_in_days"] = "Log size in days";
 
+$parameter["parameterTitle/administrator/repository/admin_translations/upload_description"] = "Upload window description";
+$parameter["parameterValue/administrator/repository/admin_translations/upload_description"] = "Drag&drop files here or click a button to upload.";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/tab_upload"] = "Tab upload";
+$parameter["parameterValue/administrator/repository/admin_translations/tab_upload"] = "Upload new";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/tab_files"] = "Tab files";
+$parameter["parameterValue/administrator/repository/admin_translations/tab_files"] = "All files";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/buy_images"] = "Buy images";
+$parameter["parameterValue/administrator/repository/admin_translations/buy_images"] = "Buy images";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/buy_images_invitation"] = "Buy images invitation";
+$parameter["parameterValue/administrator/repository/admin_translations/buy_images_invitation"] = "Need more images? Browse and choose from thousands of them.";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/recent_files"] = "Recent files";
+$parameter["parameterValue/administrator/repository/admin_translations/recent_files"] = "Recent files";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/selected"] = "Selected";
+$parameter["parameterValue/administrator/repository/admin_translations/selected"] = "Selected:";
+
 $parameter["parameterTitle/administrator/rss/options/description"] = "Description";
 
 $parameter["parameterTitle/administrator/rss/options/size"] = "Size";

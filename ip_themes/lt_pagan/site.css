@@ -234,7 +234,7 @@ address {
 .side nav .level1 > li > a {
     font-weight: bold;
 }
-.side nav .level1 > .subnodes > a {
+.side nav .level1 .subnodes > a {
     background-image: url(img/icon_down.gif);
     background-position: 5px center;
     background-repeat: no-repeat;
@@ -243,29 +243,29 @@ address {
 .side nav .level1 > .selected > a {
     background-color: #f3f3f3;
 }
-.side nav .level2 {
+.side nav .level1 ul {
     margin-left: 20px;
 }
-.side nav .level2 > li > a {
+.side nav .level1 ul > li > a {
     border-top-color: #e5e5e5;
 }
-.side nav .level2 > li:first-child > a {
+.side nav .level1 ul > li:first-child > a {
     border-top: none;
 }
-.side nav.collapse .level2 { /* "collapse" class force menu to hide 2nd level until parent or child is not selected */
+.side nav.collapse .level1 ul { /* "collapse" class force menu to hide 2nd level until parent or child is not selected */
     display: none;
 }
-.side nav.collapse .current .level2,
-.side nav.collapse .selected .level2 { /* displaying 2nd level */
+.side nav.collapse .current > ul,
+.side nav.collapse .selected > ul { /* displaying 2nd level */
     display: block;
 }
-.side nav.collapse .level1 > .subnodes > a { /* fixing style when collapsed */
+.side nav.collapse .level1 .subnodes > a { /* fixing style when collapsed */
     background-image: url(img/icon_right.gif);
     background-position: 8px center;
     border-bottom: none;
 }
-.side nav.collapse .level1 > .subnodes.current > a,
-.side nav.collapse .level1 > .subnodes.selected > a { /* fixing style when not collapsed */
+.side nav.collapse .level1 .subnodes.current > a,
+.side nav.collapse .level1 .subnodes.selected > a { /* fixing style when not collapsed */
     background-image: url(img/icon_down.gif);
     background-position: 5px center;
     border-bottom: 1px solid #9e9e9e;

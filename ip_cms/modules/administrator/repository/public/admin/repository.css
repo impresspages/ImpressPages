@@ -113,6 +113,13 @@
     clear: both;
     list-style: none;
     margin: 0 0 20px -9px; /* leaving 1px for selected outline */
+    /* making elements non-selectable */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
     cursor: pointer;
@@ -136,6 +143,7 @@
     top: 50%;
     width: 35px;
 }
+.ipModuleRepositoryPopup .ipmTabUpload .ui-selecting .ipmList li:after,
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
     background: url(icon_selecting.png) no-repeat center center;
 }
@@ -143,7 +151,8 @@
     border-color: #019bd4;
     outline: #019bd4 solid 1px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover:after {
     background: url(icon_selected.png) no-repeat center center;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
@@ -170,7 +179,30 @@
 }
 
 /* Tab Buy */
-.ipModuleRepositoryPopup .ipmTabBuy iframe {
+.ipModuleRepositoryPopup .ipmTabBuy {
+    position: relative;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmContainer iframe {
     overflow: hidden;
     width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmLoading {
+    background: #fff;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ipModuleRepositoryPopup .ipmTabBuy .ipmLoadingText {
+    background: url(loading.gif) no-repeat center top;
+    display: inline-block;
+    height: 40px;
+    left: 50%;
+    margin: -30px 0 0 -150px;
+    padding-top: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 300px;
 }

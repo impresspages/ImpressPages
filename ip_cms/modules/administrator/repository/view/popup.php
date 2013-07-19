@@ -2,7 +2,7 @@
     <div class="tabs">
         <ul>
             <li><a href="#ipModuleRepositoryTabUpload"><?php echo $this->escPar('administrator/repository/admin_translations/tab_upload') ?></a></li>
-            <li><a href="#ipModuleRepositoryTabBuy">{{Buy images}}</a>
+            <li><a href="#ipModuleRepositoryTabBuy"><?php echo $this->escPar('administrator/repository/admin_translations/buy_images') ?></a>
         </ul>
 
         <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
@@ -17,8 +17,8 @@
                         <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
                     </div>
                     <div class="ipmBrowseButtonWrapper">
-                        <span class="impDragdropNotice">{{Need more images? Browse and choose from thousands of them.}}</span>
-                        <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton">{{Buy images}}</a>
+                        <span class="impDragdropNotice"><?php echo $this->escPar('administrator/repository/admin_translations/buy_images_invitation') ?></span>
+                        <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php echo $this->escPar('administrator/repository/admin_translations/buy_images') ?></a>
                     </div>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
@@ -31,13 +31,13 @@
             </div>
             <div class="ipmBrowser">
                 <div class="ipmBrowserContainer clearfix">
-                    <h2 class="ipgHide ipmListTitle ipmRecentTitle">{{Recent files}}</h2>
+                    <h2 class="ipgHide ipmListTitle ipmRecentTitle"><?php echo $this->escPar('administrator/repository/admin_translations/recent_files') ?></h2>
                     <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>
                 </div>
             </div>
             <div class="ipgHide ipmRepositoryActions">
                 <div class="ipmInner">
-                    <span class="ipmTitle">{{Selection}}</span>
+                    <span class="ipmTitle"><?php echo $this->escPar('administrator/repository/admin_translations/selected') ?> <strong class="ipmSelectionCount"></strong></span>
                     <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
                     <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
                 </div>
@@ -48,11 +48,18 @@
                 <ul class="ipmListTemplate ipmList clearfix"></ul>
                 <ul>
                     <li class="ipmFileTemplate">
-                        <img rc="" alt="" title="" />
+                        <img src="" alt="" title="" />
                     </li>
                 </ul>
             </div>
         </div>
-        <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy"></div>
+        <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy">
+            <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
+            <div class="ipgHide ipmLoading">
+                <span class="ipmLoadingText">
+                    {{Your images are being downloaded to your website. It may take some time to finish. Please wait.}}
+                </span>
+            </div>
+        </div>
     </div>
 </div>
