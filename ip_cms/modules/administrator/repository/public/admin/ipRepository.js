@@ -42,8 +42,6 @@ var ipRepository = function () {
         }
     });
 
-    //$popup.find('.tabs').on( "tabsactivate", function( event, ui ) {console.log(ui.newTab);} );
-
 
     $popup.bind('ipModuleRepository.confirm', function(e, files) {
         $(this).trigger('ipRepository.filesSelected', [files]);
