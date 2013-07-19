@@ -161,8 +161,8 @@ class Controller extends \Ip\Controller{
 
         $answer = array();
         foreach($files as $file) {
-            if (!empty($file['url']) && !empty($file['name'])) {
-                $fileData = $this->downloadFile($file['url'], $file['name']);
+            if (!empty($file['url']) && !empty($file['title'])) {
+                $fileData = $this->downloadFile($file['url'], $file['title']);
                 if ($fileData) {
                     $answer[] = $fileData;
                 }
@@ -180,33 +180,69 @@ class Controller extends \Ip\Controller{
      * @param string $url
      * @return string
      */
-    protected function downloadFile($url, $desiredFilename)
+    protected function downloadFile($url, $title)
     {
-        // validate filename
-        $desiredFilename = pathinfo($desiredFilename, PATHINFO_BASENAME);
-        if ($desiredFilename == '.') {
-            $desiredFilename = pathinfo($desiredFilename, PATHINFO_BASENAME);
-            if ($desiredFilename == '.') {
-                $desiredFilename = 'file';
-            }
-        }
 
+        //download image to TMP dir and get $resultFilename
         $net = \Library\Php\Net::instance();
-        $resultFilename = $net->downloadFile($url, BASE_DIR.TMP_FILE_DIR, $desiredFilename);
-        if (!$resultFilename) {
+        $tmpDir = BASE_DIR.TMP_FILE_DIR;
+        $tmpFilename = $net->downloadFile($url, $tmpDir, 'bigstock_'.time());
+        if (!$tmpFilename) {
             return;
         }
-        $tmpPath = TMP_FILE_DIR.$resultFilename;
 
+
+        //find out file mime type to know required extension
+        try {
+            $mime = \Library\Php\File\Functions::getMimeType($tmpDir.$tmpFilename);
+            switch($mime) {
+                case 'image/png':
+                    $ext = '.jpg';
+                    break;
+                case 'image/gif':
+                    $ext = '.gif';
+                    break;
+                case 'image/bmp':
+                    $ext = '.bmp';
+                    break;
+                case 'image/pjpeg':
+                case 'image/jpeg':
+                default:
+                    $ext = '.jpg';
+                    break;
+            }
+
+        } catch (\Ip\PhpException $e) {
+            $ext = '.jpg';
+        }
+
+        //get real nice new file name
+        $title = \Library\Php\File\Functions::cleanupFileName($title);
+        $words = explode(' ', $title);
+        $cleanTitle = '';
+        foreach($words as $word) { //limit file name to 30 symbols
+            if (strlen($cleanTitle.'_'.$word) > 30) {
+                break;
+            }
+            if ($cleanTitle != '') {
+                $cleanTitle .= '_';
+            }
+            $cleanTitle .= $word;
+        }
+        if ($cleanTitle == '') {
+            $cleanTitle = 'file';
+        }
+
+        $niceFileName = $cleanTitle.$ext;
         $destinationDir = BASE_DIR.FILE_REPOSITORY_DIR;
-        $filename = \Library\Php\File\Functions::genUnoccupiedName(BASE_DIR . $tmpPath, $destinationDir);
-        copy(BASE_DIR . $tmpPath, $destinationDir . $filename);
+        $destinationFileName = \Library\Php\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
-        unlink(BASE_DIR . $tmpPath);
+        copy($tmpDir . $tmpFilename, $destinationDir . $destinationFileName);
+
+        unlink($tmpDir . $tmpFilename);
 
         $browserModel = \Modules\administrator\repository\BrowserModel::instance();
-
-        $file = $browserModel->getFile($filename);
+        $file = $browserModel->getFile($destinationFileName);
         return $file;
     }
 

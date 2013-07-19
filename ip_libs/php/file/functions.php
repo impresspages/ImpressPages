@@ -101,6 +101,9 @@ class Functions{
         $fileName = str_replace($spec, "_", $fileName);
         $fileName = preg_replace('/[^\w\._]+/', '_', $fileName); //it overlaps with above replace file. But for historical reasons let it be
         $fileName = preg_replace('/_+/', '_', $fileName);
+        if ($fileName == '') {
+            $fileName = 'file';
+        }
         return $fileName;
     }
 

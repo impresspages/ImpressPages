@@ -46,7 +46,7 @@
                                 for (var i = 0; i < images.length; i++) {
                                     toDownload.push({
                                         url: images[i].downloadUrl,
-                                        name: 'image.jpg'
+                                        title: images[i].title
                                     });
                                 }
 
