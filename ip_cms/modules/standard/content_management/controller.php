@@ -86,7 +86,7 @@ class Controller extends \Ip\Controller{
         $tabs[] = array('title' => $title, 'content' => $content);
 
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
-        $content = $this->_getPageDesignOptionsHtml($zone, $element);
+        $content = $this->_getPageDesignOptionsHtml($zone, $element, array('show_confirm_notification' => true));
         $tabs[] = array('title' => $title, 'content' => $content);
 
         $optionsHtml = \Ip\View::create('view/page_options.php', array('tabs' => $tabs))->render();
@@ -99,19 +99,18 @@ class Controller extends \Ip\Controller{
 
     /**
      * @param $zone
-     * @param $element
+     * @param $page
      * @return string content
      */
-    private function _getPageDesignOptionsHtml($zone, $element)
+    private function _getPageDesignOptionsHtml($zone, $page, $data)
     {
-        $data = array();
         $data['defaultLayout'] = $zone->getLayout();
-        $data['layouts'] = Model::getThemeLayouts();
+        $data['layouts'] = \Modules\standard\content_management\Model::getThemeLayouts();
 
         $data['layout'] = \Frontend\Db::getPageLayout(
             $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
-            $element->getId()
+            $page->getId()
         );
         if (!$data['layout']) {
             $data['layout'] = '';

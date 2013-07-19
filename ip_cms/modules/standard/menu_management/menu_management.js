@@ -555,6 +555,7 @@ function updatePage() {
   data.type = $('#formAdvanced input:checked[name="type"]').val();
   data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
   data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
+  data.layout = $('#formLayout select[name="layout"]').val();
 
   data.action = 'updatePage';
 
@@ -787,7 +788,7 @@ function closeInternalLinkingTree() {
 /**
  * Custom function to overcome some jsTree bug.
  * @param treeId
- * @returns
+ * @return node
  */
 function treeSelectedNode(treeId) {
     var tree = jQuery.jstree._reference(treeId);

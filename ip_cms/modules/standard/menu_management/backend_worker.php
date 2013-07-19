@@ -387,6 +387,10 @@ class BackendWorker {
         $content = Template::generateTabAdvanced();
         $tabs[] = array('title' => $title, 'content' => $content);
 
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
+        $content = $this->_getPageDesignOptionsHtml($zone, $page, array('show_submit_button' => true));
+        $tabs[] = array('title' => $title, 'content' => $content);
+
 
         $answer = array();
         $answer['page'] = array();
@@ -411,6 +415,28 @@ class BackendWorker {
         $answer['html'] = Template::generatePageProperties($tabs);
 
         $this->_printJson ($answer);
+    }
+
+    /**
+     * @param $zone
+     * @param $page
+     * @return string content
+     */
+    private function _getPageDesignOptionsHtml($zone, $page, $data)
+    {
+        $data['defaultLayout'] = $zone->getLayout();
+        $data['layouts'] = \Modules\standard\content_management\Model::getThemeLayouts();
+
+        $data['layout'] = \Frontend\Db::getPageLayout(
+            $zone->getAssociatedModuleGroup(),
+            $zone->getAssociatedModule(),
+            $page->getId()
+        );
+        if (!$data['layout']) {
+            $data['layout'] = '';
+        }
+
+        return \Ip\View::create('view/page_options_design.php', $data)->render();
     }
 
 

@@ -1273,8 +1273,10 @@ $parameter["parameterTitle/standard/menu_management/admin_translations/custom_pa
 $parameter["parameterValue/standard/menu_management/admin_translations/custom_page_layout_option"] = "Custom page layout: [[layout]]";
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/page_layout_instructions"] = "Page layout instructions";
-$parameter["parameterValue/standard/menu_management/admin_translations/page_layout_instructions"] = "<p>After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.</p>\n"
-    . "<p>If you want to hide some layout from this list, add underscore before filename (for example _simple.php).</p>";
+$parameter["parameterValue/standard/menu_management/admin_translations/page_layout_instructions"] = "If you want to hide some layout from this list, add underscore before filename (for example _simple.php).";
+
+$parameter["parameterTitle/standard/menu_management/admin_translations/page_design_confirm_notification"] = 'Page options > Design confirm notification';
+$parameter["parameterValue/standard/menu_management/admin_translations/page_design_confirm_notification"] = "After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.";
 
 $parameter["parameterTitle/standard/menu_management/admin_translations/page_layout_add_layout_instructions"] = "How to add custom page layout";
 $parameter["parameterValue/standard/menu_management/admin_translations/page_layout_add_layout_instructions"] = "You have only one layout in your theme. If you wish to add more layouts, please,"

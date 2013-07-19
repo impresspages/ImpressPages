@@ -26,11 +26,14 @@ $parameterAdmin['standard']['menu_management']['admin_translations']['custom_pag
 $parameterType ['standard']['menu_management']['admin_translations']['custom_page_layout_option'] = 'string';
 
 $parameterTitle['standard']['menu_management']['admin_translations']['page_layout_instructions'] = 'Page layout instructions';
-$parameterValue['standard']['menu_management']['admin_translations']['page_layout_instructions'] = "<p>After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.</p>\n"
-    . '<p>If you want to hide some layout from this list, add underscore before filename (for example _simple.php).</p>';
+$parameterValue['standard']['menu_management']['admin_translations']['page_layout_instructions'] = "If you want to hide some layout from this list, add underscore before filename (for example _simple.php).";
 $parameterAdmin['standard']['menu_management']['admin_translations']['page_layout_instructions'] = '1';
 $parameterType ['standard']['menu_management']['admin_translations']['page_layout_instructions'] = 'textarea';
 
+$parameterTitle['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = 'Page options > Design confirm notification';
+$parameterValue['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = "After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.";
+$parameterAdmin['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = '1';
+$parameterType ['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = 'textarea';
 
 $parameterTitle['standard']['menu_management']['admin_translations']['page_layout_add_layout_instructions'] = 'How to add custom page layout';
 $parameterValue['standard']['menu_management']['admin_translations']['page_layout_add_layout_instructions'] = 'You have only one layout in your theme. If you wish to add more layouts, please,'
