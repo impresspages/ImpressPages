@@ -52,7 +52,6 @@
 
                                 $.ajax(ip.baseUrl, {
                                     'type': 'POST',
-                                    // TODOX save good filename
                                     'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
                                     'dataType': 'json',
                                     'success': function (data) {
