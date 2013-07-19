@@ -24,3 +24,9 @@ $parameterTitle['administrator']['repository']['admin_translations']['selected']
 $parameterValue['administrator']['repository']['admin_translations']['selected'] = 'Selected:';
 $parameterAdmin['administrator']['repository']['admin_translations']['selected'] = '1';
 $parameterType ['administrator']['repository']['admin_translations']['selected'] = 'string';
+
+$parameterTitle["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "Download in progress";
+$parameterValue["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.:";
+$parameterAdmin["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "1";
+$parameterType ["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "string";
+

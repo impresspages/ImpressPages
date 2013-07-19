@@ -57,7 +57,7 @@
             <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
             <div class="ipgHide ipmLoading">
                 <span class="ipmLoadingText">
-                    {{Your images are being downloaded to your website. It may take some time to finish. Please wait.}}
+                    <?php echo $this->escPar('administrator/repository/admin_translations/download_in_progress') ?>
                 </span>
             </div>
         </div>
