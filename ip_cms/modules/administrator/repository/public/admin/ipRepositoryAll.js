@@ -67,7 +67,7 @@
                 $newItem.toggleClass('ui-selected');
                 $newList.append($newItem);
             }
-            $.proxy(methods._startSelect, this)();
+            $.proxy(methods._countSelected, this)();
 
 
         },
@@ -112,15 +112,21 @@
 
             $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');
-                var count = $this.find('li.ui-selected').length;
-                if (count) {
-                    $.proxy(methods._startSelect, repositoryContainer)();
-                } else {
-                    $.proxy(methods._stopSelect, repositoryContainer)();
-                }
-                $this.find('.ipmRepositoryActions .ipmSelectionCount').text(count);
+                $.proxy(methods._countSelected, repositoryContainer)();
             });
 
+        },
+
+
+        _countSelected : function(e) {
+            var $this = $(this);
+            var count = $this.find('li.ui-selected').length;
+            if (count) {
+                $.proxy(methods._startSelect, this)();
+            } else {
+                $.proxy(methods._stopSelect, this)();
+            }
+            $this.find('.ipmRepositoryActions .ipmSelectionCount').text(count);
         },
 
         _startSelect : function(e) {
