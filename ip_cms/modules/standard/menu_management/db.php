@@ -275,12 +275,9 @@ class Db {
         }
 
         if (!empty($params['layout']) && \Library\Php\File\Functions::isFileInDir($params['layout'], BASE_DIR . THEME_DIR . THEME)) {
-            $layout = $params['layout'];
-        } else {
-            $layout = false;
+            $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
+            self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
         }
-
-        self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
 
         return true;
     }

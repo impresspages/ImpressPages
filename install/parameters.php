@@ -1208,15 +1208,10 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["menu_management"]["admin_translations"]["page_layout"] = "1";
         $parameterType ["standard"]["menu_management"]["admin_translations"]["page_layout"] = "string";
         
-        $parameterTitle["standard"]["menu_management"]["admin_translations"]["default_zone_layout_option"] = "Default zone layout option";
-        $parameterValue["standard"]["menu_management"]["admin_translations"]["default_zone_layout_option"] = "Default zone layout: [[layout]]";
-        $parameterAdmin["standard"]["menu_management"]["admin_translations"]["default_zone_layout_option"] = "1";
-        $parameterType ["standard"]["menu_management"]["admin_translations"]["default_zone_layout_option"] = "string";
-        
-        $parameterTitle["standard"]["menu_management"]["admin_translations"]["custom_page_layout_option"] = "Custom page layout option";
-        $parameterValue["standard"]["menu_management"]["admin_translations"]["custom_page_layout_option"] = "Custom page layout: [[layout]]";
-        $parameterAdmin["standard"]["menu_management"]["admin_translations"]["custom_page_layout_option"] = "1";
-        $parameterType ["standard"]["menu_management"]["admin_translations"]["custom_page_layout_option"] = "string";
+        $parameterTitle["standard"]["menu_management"]["admin_translations"]["default_layout_label"] = "Default layout label";
+        $parameterValue["standard"]["menu_management"]["admin_translations"]["default_layout_label"] = "default";
+        $parameterAdmin["standard"]["menu_management"]["admin_translations"]["default_layout_label"] = "1";
+        $parameterType ["standard"]["menu_management"]["admin_translations"]["default_layout_label"] = "string";
         
         $parameterTitle["standard"]["menu_management"]["admin_translations"]["page_layout_instructions"] = "Page layout instructions";
         $parameterValue["standard"]["menu_management"]["admin_translations"]["page_layout_instructions"] = "If you want to hide some layout from this list, add underscore before filename (for example _simple.php).";
@@ -1224,7 +1219,7 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterType ["standard"]["menu_management"]["admin_translations"]["page_layout_instructions"] = "textarea";
 
         $parameterTitle['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = 'Page options > Design confirm notification';
-        $parameterValue['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = "After you click Confirm, you will not see the new layout. You will see it after page refresh. Site visitors will see the new layout immediately.";
+        $parameterValue['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = "Changes will be visible after page refresh. Site visitors will see the new layout after you click Confirm.";
         $parameterAdmin['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = '1';
         $parameterType ['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = 'textarea';
 
