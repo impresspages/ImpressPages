@@ -1,0 +1,29 @@
+<theme>
+    <version>2.00</version>
+    <title>LT Pagan</title>
+    <doctype>DOCTYPE_HTML5</doctype>
+    <optionGroup>
+        <name>Specific Options</name>
+        <option>
+            <name>show_sidebar</name>
+            <defaultValue>1</defaultValue>
+            <type>Checkbox</type>
+        </option>
+        <option>
+            <name>footer_color_font</name>
+            <defaultValue>Arial</defaultValue>
+            <type>Font</type>
+        </option>
+        <option>
+            <name>show_sidebar</name>
+            <defaultValue>1</defaultValue>
+            <type>Checkbox</type>
+        </option>
+        <option>
+            <name>show_sidebar</name>
+            <defaultValue>1</defaultValue>
+            <type>Checkbox</type>
+        </option>
+
+    </optionGroup>
+</theme>
