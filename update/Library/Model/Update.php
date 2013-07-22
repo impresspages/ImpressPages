@@ -313,6 +313,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     {
         $this->cleanUp();
         $this->setVersion($this->destinationScript->getDestinationVersion());
+        $this->increaseCacheNumber();
     }
     
     private function cleanUp()
@@ -395,5 +396,26 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         if ($this->getCurrentVersion() != $version){
             throw new \Exception("Can't update system version to: ".$version);
         }
+    }
+
+    private function increaseCacheNumber()
+    {
+        $db = new \IpUpdate\Library\Model\Db();
+        $dbh = $db->connect($this->cf);
+
+        $sql = '
+            UPDATE
+                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+            SET
+                `value` = `value` + 1
+            WHERE
+                `name` = :name
+        ';
+
+        $params = array (
+            ':name' => 'cache_version'
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
     }
 }
