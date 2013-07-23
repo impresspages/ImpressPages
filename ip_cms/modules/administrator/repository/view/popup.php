@@ -48,7 +48,9 @@
                 <ul class="ipmListTemplate ipmList clearfix"></ul>
                 <ul>
                     <li class="ipmFileTemplate">
+                        <i class=""></i>
                         <img src="" alt="" title="" />
+                        <span></span>
                     </li>
                 </ul>
             </div>

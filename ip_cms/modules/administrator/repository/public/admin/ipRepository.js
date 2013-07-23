@@ -1,15 +1,13 @@
-/**
- * @package ImpressPages
- * @copyright   Copyright (C) 2011 ImpressPages LTD.
- *
- */
-
 "use strict";
 
 var ipRepository = function (options) {
     if ($('.ipModuleRepositoryPopup').length) {
         return; //repository window is already open. Do nothing.
     }
+
+    // define options defaults
+    options.preview = options.preview || 'list';
+    options.filter = options.filter || null;
 
 
     $('body').append(ipRepositoryHtml);
@@ -24,7 +22,7 @@ var ipRepository = function (options) {
 
     //initialize first tab
     $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryUploader();
-    $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryAll();
+    $popup.find('#ipModuleRepositoryTabUpload').ipRepositoryAll(options);
 
 
     //initialize other tabs on first use

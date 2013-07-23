@@ -111,8 +111,8 @@
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList {
     clear: both;
+    font-size: 14px;
     list-style: none;
-    margin: 0 0 20px -9px; /* leaving 1px for selected outline */
     /* making elements non-selectable */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -123,37 +123,74 @@
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
     cursor: pointer;
-    float: left;
-    margin: 10px 0 0 10px;
     position: relative;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li img {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:after {
+    content: '\f14a';
+    display: none;
+    font-family: 'FontAwesome';
+    font-size: 20px;
+    position: absolute;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover {
+    color: #000;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ui-selecting .ipmList li:after,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
+    display: block;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover {
+    color: #019bd4;
+    font-weight: bold;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover:after {
+    font-weight: normal;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li {
+    border-bottom: 1px solid #e4e4e4;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding: 10px 2px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li:after {
+    left: 0;
+    margin: -10px 0 0 -30px;
+    top: 50%;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li i {
+    display: inline-block;
+    min-width: 25px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails {
+    margin: 0 0 20px -9px; /* leaving 1px for selected outline */
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li {
+    float: left;
+    margin: 10px 0 0 10px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li:after {
+    font-size: 36px;
+    left: 50%;
+    margin: -16px 0 0 -16px;
+    text-shadow: 0 0 10px #fff;
+    top: 50%;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li img {
     border: 1px solid #e7e7e7;
     display: block;
     height: 140px;
     width: 140px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:after {
-    /*background: url(icon_selecting.png) no-repeat center center;*/
-    content: '';
-    height: 35px;
-    left: 50%;
-    margin: -17px;
-    position: absolute;
-    top: 50%;
-    width: 35px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .ui-selecting .ipmList li:after,
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
-    background: url(icon_selecting.png) no-repeat center center;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected img {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails .ui-selected img {
     border-color: #019bd4;
     outline: #019bd4 solid 1px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after,
-.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover:after {
-    background: url(icon_selected.png) no-repeat center center;
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li i,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li span,
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li img {
+    display: none; /* hiding irrelevant elements */
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
     bottom: 0;

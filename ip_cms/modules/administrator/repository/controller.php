@@ -283,17 +283,12 @@ class Controller extends \Ip\Controller{
     {
         $this->backendOnly();
 
-        if(isset($_POST['seek'])) {
-            $seek = (int) $_POST['seek'];
-        } else {
-            $seek = 0;
-        }
-
+        $seek = isset($_POST['seek']) ? (int) $_POST['seek'] : 0;
         $limit = 10000;
-
+        $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
 
         $browserModel = BrowserModel::instance();
-        $files = $browserModel->getAvailableFiles($seek, $limit);
+        $files = $browserModel->getAvailableFiles($seek, $limit, $filter);
 
         usort ($files , array($this, 'sortFiles') );
 
