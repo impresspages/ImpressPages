@@ -27,9 +27,35 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->dbPref = $cf['DB_PREF'];
 
-
+        $this->addDesignModule();
 
     }
+
+
+    protected function addDesignModule()
+    {
+        $moduleModel = new ModuleModel($this->conn, $this->dbPref);
+        $userModel = new UserModel($this->conn, $this->dbPref);
+        $moduleGroup = $moduleModel->getModuleGroup('standard');
+        $moduleId = $moduleModel->getModuleId('standard', 'design');
+        if ($moduleId === false) {
+            $groupModules = $moduleModel->getGroupModules($moduleGroup['id']);
+            if (empty($groupModules)) {
+                $newRowNumber = 1;
+            } else {
+                $lastModule = end($groupModules);
+                $newRowNumber = $lastModule['row_number'] + 1;
+            }
+
+            $moduleId = $moduleModel->addModule($moduleGroup['id'], 'Design', 'design', true, true, true, '1.00', $newRowNumber);
+            $users = $userModel->getUsers();
+            foreach($users as $user){
+                $userModel->addPermissions($moduleId, $user['id']);
+            }
+        }
+
+    }
+
 
     /**
      * (non-PHPdoc)
