@@ -112,8 +112,9 @@ class Controller extends \Ip\Controller{
             $zone->getAssociatedModule(),
             $page->getId()
         );
+
         if (!$data['layout']) {
-            $data['layout'] = '';
+            $data['layout'] = $data['defaultLayout'];
         }
 
         return \Ip\View::create('view/page_options_design.php', $data)->render();
