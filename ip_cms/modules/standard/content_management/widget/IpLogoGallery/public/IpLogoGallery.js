@@ -18,7 +18,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
 
         this.widgetObject.find('.ipmBrowseButton').click(function(e){
             e.preventDefault();
-            var repository = new ipRepository();
+            var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
             repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
         });
 

@@ -6,7 +6,7 @@
 
 "use strict";
 
-var ipRepository = function () {
+var ipRepository = function (options) {
     if ($('.ipModuleRepositoryPopup').length) {
         return; //repository window is already open. Do nothing.
     }
