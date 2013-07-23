@@ -1,6 +1,6 @@
 <?php
 
-namespace IpUpdate\Library\Migration\To3_4;
+namespace IpUpdate\Library\Migration\To3_5;
 
 use IpUpdate\Library\UpdateException;
 
