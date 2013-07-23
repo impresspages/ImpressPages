@@ -37,7 +37,7 @@ function IpWidget_IpFile(widgetObject) {
         var widgetObject = this.widgetObject;
         this.widgetObject.find('.ipmBrowseButton').click(function(e){
             e.preventDefault();
-            var repository = new ipRepository();
+            var repository = new ipRepository({preview: 'list'});
             repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
         });
         
