@@ -18,4 +18,4 @@ define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
 define ('TEST_SCREENSHOT_PATH', '/var/www/ImpressPagesTestScreenshot/');
 define ('TEST_SCREENSHOT_URL', 'http://localhost/ImpressPagesTestScreenshot');
 
-define('RECENT_VERSION', '3.4');
+define('RECENT_VERSION', '3.5');
