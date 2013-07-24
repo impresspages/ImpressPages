@@ -174,7 +174,7 @@
     font-size: 36px;
     left: 50%;
     margin: -16px 0 0 -16px;
-    text-shadow: 0 0 10px #fff;
+    text-shadow: -2px 0 rgba(255,255,255,0.8), 0 2px rgba(255,255,255,0.8), 2px 0 rgba(255,255,255,0.8), 0 -2px rgba(255,255,255,0.8);
     top: 50%;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li img {
