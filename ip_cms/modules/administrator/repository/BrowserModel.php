@@ -19,6 +19,8 @@ if (!defined('CMS')) exit;
 class BrowserModel{
     protected static $instance;
 
+    protected $supportedImageExtensions = array('jpg','jpeg','gif','png');
+
     protected function __construct()
     {
 
@@ -46,17 +48,28 @@ class BrowserModel{
      * Get list of files for file browser
      * @param int $seek
      * @param int $limit
+     * @param string $filter
      * @return array
      */
-    public function getAvailableFiles($seek, $limit)
+    public function getAvailableFiles($seek, $limit, $filter)
     {
-        $answer = array();;
+        $answer = array();
 
         $iterator = new \DirectoryIterator(BASE_DIR.FILE_REPOSITORY_DIR);
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
-                $answer[] = $this->getFileData($iterator->getFilename());
+                $fileData = $this->getFileData($iterator->getFilename());
+                switch ($filter) {
+                    case 'image':
+                        if (in_array($fileData['ext'], $this->supportedImageExtensions)) {
+                            $answer[] = $fileData;
+                        }
+                        break;
+                    default:
+                        $answer[] = $fileData;
+                        break;
+                }
             }
             $iterator->next();
         }
@@ -77,10 +90,15 @@ class BrowserModel{
         if (!file_exists($file) || !is_file($file)) {
             throw new Exception("File doesn't exist ".$file);
         }
+
+        $pathInfo = pathinfo($file);
+        $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
+
         $data = array(
             'fileName' => $fileName,
             'dir' => FILE_REPOSITORY_DIR,
             'file' => FILE_REPOSITORY_DIR.$fileName,
+            'ext' => $ext,
             'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$fileName),
             'modified' => filemtime($file)
         );
@@ -99,23 +117,16 @@ class BrowserModel{
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
 
-
-        switch($ext) {
-            case 'jpg':
-            case 'jpeg':
-            case 'gif':
-            case 'png':
-                $reflectionService = ReflectionService::instance();
-                $transform = new Transform\ImageFit(140, 140, null, TRUE);
-                $reflection = $reflectionService->getReflection($file, $baseName, $transform);
-                if (!$reflection){
-                    return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
-                }
+        if (in_array($ext, $this->supportedImageExtensions)) {
+            $reflectionService = ReflectionService::instance();
+            $transform = new Transform\ImageFit(140, 140, null, TRUE);
+            $reflection = $reflectionService->getReflection($file, $baseName, $transform);
+            if ($reflection){
                 return $reflection;
-                break;
-            default:
-                return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
+            }
         }
+
+        return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
     }
 
     

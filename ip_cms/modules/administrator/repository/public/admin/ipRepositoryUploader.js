@@ -111,7 +111,7 @@
                 $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
                 $newFileProgressbar.find('.ipUploadTitle').text(file.name);
                 $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
-                $this.find('.ipUploadProgressContainer .ipmBrowseButtonWrapper').before($newFileProgressbar);
+                $this.find('.ipUploadProgressContainer .ipmBrowseButtonWrapper').first().after($newFileProgressbar);
             });
             up.refresh(); // Reposition Flash/Silverlight
             up.start();

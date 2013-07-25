@@ -88,7 +88,9 @@ class Cron{
     function execute(){
         global $log;
 
-        ignore_user_abort(true);
+        if (function_exists('ignore_user_abort')) {
+            ignore_user_abort(true);
+        }
 
         $log->log('system/cron', 'start');
 

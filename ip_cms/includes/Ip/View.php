@@ -370,7 +370,7 @@ class View{
                 $locale = str_replace('-', '_', $language->getCode());
                 $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
 
-                $formattedPrice = numfmt_format_currency($fmt, $price / 100, $currency);
+                $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
             } else {
                 $formattedPrice = ($data['price']/100).' '.$data['currency'];
             }

@@ -1,16 +1,16 @@
-/**
- * @package ImpressPages
- * @copyright   Copyright (C) 2011 ImpressPages LTD.
- *
- */
-
 "use strict";
 
 (function($) {
 
+    var settings = {};
+
     var methods = {
 
         init : function(options) {
+
+            // defaults are set in ipRepository.js
+            // otherwise here we should extend defaults with custom options
+            settings = options;
 
             return this.each(function() {
 
@@ -26,6 +26,7 @@
                     data.g = 'administrator';
                     data.m = 'repository';
                     data.a = 'getAll';
+                    data.filter = settings.filter;
 
                     $.ajax ({
                         type : 'POST',
@@ -57,12 +58,11 @@
 
             var $template = $this.find('.ipmFileTemplate');
             var $newList = $this.find('.ipmRecentList');
+            $newList.addClass('ipmPreview-'+settings.preview);
 
             for(var i in files) {
                 var $newItem = $template.clone().removeClass('ipmFileTemplate');
-                $newItem.find('img').attr('src', ip.baseUrl + files[i].preview);
-                $newItem.find('.name').text(files[i].fileName);
-                $newItem.data('fileData', files[i]);
+                methods._addFileData($newItem,files[i]);
 
                 $newItem.toggleClass('ui-selected');
                 $newList.append($newItem);
@@ -70,6 +70,73 @@
             $.proxy(methods._countSelected, this)();
 
 
+        },
+
+        _addFileData : function($file, data) {
+            // icon
+            var iconClass = 'icon-file-alt';
+            switch (data.ext) {
+                case 'gif':
+                case 'jpeg':
+                case 'jpg':
+                case 'png':
+                    iconClass = 'icon-picture';
+                    break;
+                case 'pdf':
+                    iconClass = 'icon-print';
+                    break;
+                case 'txt':
+                    iconClass = 'icon-file-text-alt';
+                    break;
+                case 'exe':
+                    iconClass = 'icon-windows';
+                    break;
+                case '7z':
+                case 'apk':
+                case 'arc':
+                case 'arj':
+                case 'cab':
+                case 'gz':
+                case 'iso':
+                case 'rar':
+                case 'tar':
+                case 'tar.gz':
+                case 'tgz':
+                case 'zip':
+                    iconClass = 'icon-archive';
+                    break;
+                case 'aac':
+                case 'cda':
+                case 'm4a':
+                case 'mp3':
+                case 'mp4':
+                case 'ogg':
+                case 'wav':
+                case 'wma':
+                    iconClass = 'icon-music';
+                    break;
+                case 'aaf':
+                case 'avi':
+                case 'flv':
+                case 'm4v':
+                case 'mkv':
+                case 'mpeg':
+                case 'mpg':
+                case 'mov':
+                case 'wmv':
+                    iconClass = 'icon-film';
+                    break;
+            }
+            $file.find('i').addClass(iconClass);
+            // thumbnail
+            $file.find('img')
+                .attr('src', ip.baseUrl + data.preview)
+                .attr('alt', data.fileName)
+                .attr('title', data.fileName);
+            // filename
+            $file.find('span').text(data.fileName);
+            // file data
+            $file.data('fileData', data);
         },
 
         _getAllFilesResponse : function(response) {
@@ -86,21 +153,16 @@
             var $listTemplate = $this.find('.ipmListTemplate');
             var $titleTemplate = $this.find('.ipmListTitleTemplate');
 
-
             for(var gi in fileGroups) {
                 var $newList = $listTemplate.clone().detach().removeClass('ipmListTemplate');
+                $newList.addClass('ipmPreview-'+settings.preview);
                 var $newTitle = $titleTemplate.clone().detach().removeClass('ipmListTitleTemplate');
                 $newTitle.text(gi);
                 for(var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
                     var $newItem = $template.clone().removeClass('ipmFileTemplate');
-                    $newItem.find('img')
-                        .attr('src', ip.baseUrl + files[i].preview)
-                        .attr('alt', files[i].fileName)
-                        .attr('title', files[i].fileName);
-                    $newItem.data('fileData', files[i]);
+                    methods._addFileData($newItem,files[i]);
                     $newList.append($newItem);
-
                 }
                 $browserContainer.append($newTitle);
                 $browserContainer.append($newList);
