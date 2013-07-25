@@ -67,5 +67,15 @@ class Model{
         \DbSystem::setSystemVariable('theme_changed', time());
         
     }
+
+    public function getMarketUrl()
+    {
+        if (defined('TEST_MARKET_URL')) {
+            $marketUrl = TEST_MARKET_URL.'en/themes-v1/';
+        } else {
+            $marketUrl = 'http://market.impresspages.org/en/themes-v1/';
+        }
+        return $marketUrl;
+    }
     
 }

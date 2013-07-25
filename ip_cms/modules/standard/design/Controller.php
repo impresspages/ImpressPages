@@ -30,11 +30,12 @@ class Controller extends \Ip\Controller
         }
 
 
+
         $data = array(
             'previewUrl' => BASE_URL,
-            'themeName' => $curTheme->getName(),
-            'themeVersion' => $curTheme->getVersion(),
-            'themePreviewImage' => $curTheme->getPreviewImage()
+            'themeName' => $curTheme ? $curTheme->getName() : '',
+            'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
+            'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : ''
         );
         $view = \Ip\View::create('view/layout.php', $data);
         $site->setOutput($view->render());
