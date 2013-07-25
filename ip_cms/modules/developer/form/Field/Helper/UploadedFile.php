@@ -1,8 +1,7 @@
 <?php
     /**
      * @package ImpressPages
-     * @copyright   Copyright (C) 2012 ImpressPages LTD.
-     *
+         *
      */
 
 namespace Modules\developer\form\Field\Helper;

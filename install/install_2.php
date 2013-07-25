@@ -18,7 +18,7 @@ output('
 <h1>'.IP_STEP_LICENSE_LONG.'</h1>	
 <p>
 ImpressPages - Content Management System<br/>
-Copyright '.date("Y").' by <a href="http://www.impresspages.org">ImpressPages LTD</a>
+Copyright '.date("Y").' by <a href="http://www.impresspages.org">ImpressPages UAB</a>
 </p>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the <a href="../ip_license.html">GNU General Public License or MIT License</a>.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>

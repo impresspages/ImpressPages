@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Library
- * @copyright   Copyright (C) 2011 ImpressPages LTD.
+
  *
  */
 

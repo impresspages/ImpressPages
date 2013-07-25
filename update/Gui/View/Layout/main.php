@@ -23,7 +23,7 @@
             <div class="clear"></div>
         </div>
         <div class="footer">
-            Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages LTD</a>
+            Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages UAB</a>
         </div>
     </div>
     <div class="noDisplay">

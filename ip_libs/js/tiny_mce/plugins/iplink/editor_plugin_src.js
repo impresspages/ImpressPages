@@ -1,7 +1,6 @@
 /**
  * $Id: editor_plugin_src.js 1 2009.12.18 20:56:59 Audrius $
  *
- * @author ImpressPages LTD
  * @copyright Copyright © 2011 ImpressPages LTD , All rights reserved.
  */
 

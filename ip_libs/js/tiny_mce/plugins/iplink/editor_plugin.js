@@ -1,8 +1,7 @@
 /**
  * $Id: editor_plugin_src.js 1 2009.12.18 20:56:59 Audrius $
  *
- * @author ImpressPages LTD
- * @copyright Copyright © 2011 ImpressPages LTD , All rights reserved.
+ * @copyright Copyright © 2011 ImpressPages UAB , All rights reserved.
  */
 
 (function() {
@@ -45,7 +44,7 @@
 		getInfo : function() {
 			return {
 				longname : 'ImpressPages link',
-				author : 'ImpressPages LTD',
+				author : 'ImpressPages UAB',
 				authorurl : 'http://www.impresspages.org',
 				infourl : 'http://www.impresspages.org',
 				version : tinymce.majorVersion + "." + tinymce.minorVersion

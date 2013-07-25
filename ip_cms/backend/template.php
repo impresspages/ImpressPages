@@ -58,7 +58,7 @@ class Template {
                     <input class="loginSubmit" type="submit" value="' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_login')) . '">
                 </form>
             </div>
-            <div class="loginFooter">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org/">ImpressPages LTD</a></div>
+            <div class="loginFooter">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
             <script>
             //<![CDATA[
               document.getElementById(\'login_name\').focus();

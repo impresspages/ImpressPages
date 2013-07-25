@@ -82,7 +82,7 @@ function output($html, $requiredJs = array()){
             <img class="border" src="design/cms_main_bottom.gif" alt="Design">
             <div class="clear"></div>
         </div>
-        <div class="footer">Copyright 2009-'.date("Y").' by <a href="http://www.impresspages.org">ImpressPages LTD</a></div>
+        <div class="footer">Copyright 2009-'.date("Y").' by <a href="http://www.impresspages.org">ImpressPages UAB</a></div>
     </div>
 
     <script type="text/javascript" src="js/jquery.js"></script>
