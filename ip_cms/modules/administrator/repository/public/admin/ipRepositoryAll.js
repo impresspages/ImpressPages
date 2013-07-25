@@ -136,6 +136,7 @@
             // filename
             $file.find('span').text(data.fileName);
             // file data
+            $file.attr('data-file', data.file); // unique attribute to recognize required element
             $file.data('fileData', data);
         },
 
@@ -171,6 +172,7 @@
 
             $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this));
             $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this));
+            $this.find('.ipmRepositoryActions .ipaSelectionDelete').click($.proxy(methods._delete, this));
 
             $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');
@@ -178,7 +180,6 @@
             });
 
         },
-
 
         _countSelected : function(e) {
             var $this = $(this);
@@ -216,7 +217,6 @@
             });
 
             $this.trigger('ipModuleRepository.confirm', [files]);
-
         },
 
         _cancel : function(e) {
@@ -224,8 +224,64 @@
             $(this).trigger('ipModuleRepository.cancel');
         },
 
+        _delete : function(e) {
+            e.preventDefault();
+
+            if (confirm(ipRepositoryTranslate_confirm)) {
+                var $this = $(this);
+
+                var files = new Array();
+                $this.find('li.ui-selected').each(function(){
+                    var $this = $(this);
+                    files.push($this.data('fileData'));
+                });
+
+                var data = Object();
+                data.g = 'administrator';
+                data.m = 'repository';
+                data.a = 'deleteFiles';
+                data.files = files;
+
+                $.ajax ({
+                    type : 'POST',
+                    url : ip.baseUrl,
+                    data : data,
+                    context : this,
+                    //success : $.proxy(methods._storeFilesResponse, this),
+                    success : methods._getDeleteFilesResponse,
+                    error : function(){}, //TODO report error
+                    dataType : 'json'
+                });
+            }
+        },
+
+        _getDeleteFilesResponse : function(response) {
+            var $this = $(this);
+            var repositoryContainer = this;
+
+            if (!response || !response.success) {
+                return; //TODO report error
+            }
+
+            // notify that not all files were deleted
+            if (parseInt(response.notRemovedCount) > 0) {
+                alert(ipRepositoryTranslate_notRemoved);
+            }
+
+            // remove deleted files
+            var deletedFiles = response.deletedFiles;
+            var $browser = $this.find('.ipmBrowser');
+            for(var i in deletedFiles) {
+                $browser.find("li[data-file='"+deletedFiles[i]+"']").slideUp('slow', function() {
+                    $(this).remove();
+                    // recalculating selected files
+                    $.proxy(methods._countSelected, repositoryContainer)();
+                });
+            }
+        },
+
         // set back our element
-        _teardown: function() {
+        _teardown : function() {
             $(window).unbind('resize.ipRepositoryAll');
         },
 

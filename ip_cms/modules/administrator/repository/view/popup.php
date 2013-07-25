@@ -40,6 +40,7 @@
                     <span class="ipmTitle"><?php echo $this->escPar('administrator/repository/admin_translations/selected') ?> <strong class="ipmSelectionCount"></strong></span>
                     <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/confirm') ?></a>
                     <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
+                    <a class="ipAdminButton ipaSelectionDelete" href="#">{{Delete}} <i class="icon-trash"></i></a>
                 </div>
             </div>
             <? // hidden templates for dynamic elements ?>

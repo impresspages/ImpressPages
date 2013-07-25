@@ -305,7 +305,33 @@ class Controller extends \Ip\Controller{
         $this->returnJson($answer);
     }
 
-    private function sortFiles($a, $b) {
+    public function deleteFiles()
+    {
+        $this->backendOnly();
+
+        $files = isset($_POST['files']) ? $_POST['files'] : null;
+        $deletedFiles = array();
+        $notRemovedCount = 0;
+
+        foreach ($files as $file) {
+            if (true) {
+                $deletedFiles[] = $file['file'];
+            } else {
+                $notRemovedCount++;
+            }
+        }
+
+        $answer = array(
+            'success' => true,
+            'deletedFiles' => $deletedFiles,
+            'notRemovedCount' => $notRemovedCount
+        );
+
+        $this->returnJson($answer);
+    }
+
+    private function sortFiles($a, $b)
+    {
         if ($a['modified'] == $b['modified']) {
             return 0;
         }

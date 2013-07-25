@@ -35,6 +35,8 @@ class System{
             );
 
             $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
+            $site->addJavascriptVar('ipRepositoryTranslate_confirm', '{{Are you sure you want to delete selected files?}}');
+            $site->addJavascriptVar('ipRepositoryTranslate_notRemoved', '{{Some of the selected files cannot be deleted because they are used by at least one module.}}');
         }
 
 

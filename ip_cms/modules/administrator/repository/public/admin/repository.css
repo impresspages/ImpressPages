@@ -214,6 +214,9 @@
     line-height: 26px; /* keeping same baseline for text; absolute removes element from flow */
     position: absolute; /* to make buttons centered */
 }
+.ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipAdminButton {
+    margin-right: 15px;
+}
 
 /* Tab Buy */
 .ipModuleRepositoryPopup .ipmTabBuy {
