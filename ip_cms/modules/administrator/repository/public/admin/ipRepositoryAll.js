@@ -272,7 +272,13 @@
             var deletedFiles = response.deletedFiles;
             var $browser = $this.find('.ipmBrowser');
             for(var i in deletedFiles) {
-                $browser.find("li[data-file='"+deletedFiles[i]+"']").slideUp('slow', function() {
+                var direction = 'up';
+                switch (settings.preview) {
+                    case 'thumbnails':
+                        direction = 'left';
+                        break;
+                }
+                $browser.find("li[data-file='"+deletedFiles[i]+"']").hide('slide', {direction: direction}, 'slow', function() {
                     $(this).remove();
                     // recalculating selected files
                     $.proxy(methods._countSelected, repositoryContainer)();
