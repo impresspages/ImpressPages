@@ -35,7 +35,8 @@ class Controller extends \Ip\Controller
             'previewUrl' => BASE_URL,
             'themeName' => $curTheme ? $curTheme->getName() : '',
             'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
-            'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : ''
+            'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : '',
+            'marketUrl' => $model->getMarketUrl()
         );
         $view = \Ip\View::create('view/layout.php', $data);
         $site->setOutput($view->render());
