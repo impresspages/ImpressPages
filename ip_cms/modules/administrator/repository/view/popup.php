@@ -30,6 +30,14 @@
                 <p class="ipmErrorSample ipgError ipgHide"></p>
             </div>
             <div class="ipmBrowser">
+                <div class="ipmBrowserControls">
+                    <div class="ipmBrowserSearch">
+                        <form class="ipmForm" action="">
+                            <input type="text" class="ipAdminInput ipmTerm" value="" placeholder="{{Live search your files}}">
+                            <button type="submit" class="ipmButton"><i class="icon-search"></i></button>
+                        </form>
+                    </div>
+                </div>
                 <div class="ipmBrowserContainer clearfix">
                     <h2 class="ipgHide ipmListTitle ipmRecentTitle"><?php echo $this->escPar('administrator/repository/admin_translations/recent_files') ?></h2>
                     <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>

@@ -91,6 +91,37 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserControls {
+    background-color: #dcdcdc;
+    margin-right: 20px; /* for scrollbar */
+    padding: 6px 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch {
+    display: inline-block;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmForm {
+    position: relative;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
+    padding-right: 37px; /* reflects left padding + space for search button */
+    width: 260px;
+}
+.ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 30px;
+}
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
     padding-bottom: 55px; /* space for action buttons */
 }
