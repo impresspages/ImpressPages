@@ -42,7 +42,24 @@ class Controller{
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
         exit;
     }
-    
+
+
+    /**
+     * Wrap content into admin layout view. Use when generating administration pages.
+     * @param array $content
+     * @return View
+     */
+    public function createAdminView($content)
+    {
+        $variables = array(
+            'content' => $content
+        );
+        $view = \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/adminLayout.php', $variables);
+        return $view;
+    }
+
+
+
     /**
     *
     *  Returns $dat encoded to UTF8
@@ -65,5 +82,5 @@ class Controller{
             return $answer;
         }
         return $dat;
-    }    
+    }
 }
