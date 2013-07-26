@@ -718,7 +718,7 @@ class Site{
 
         if(sizeof($_REQUEST) > 0){
             if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])){ //old deprecated way
-                //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
+                //actions may be set by post or get. The prime way is trough post. But in some cases it is not possible
                 $newModule = \Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
                 if($newModule){
                     if($newModule['core']){
