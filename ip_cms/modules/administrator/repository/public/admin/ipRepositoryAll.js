@@ -43,10 +43,62 @@
                         e.preventDefault();
                         $popup.find('a[href*=ipModuleRepositoryTabBuy]').click();
                     });
+                    $popup.find('.ipmBrowserSearch .ipmTerm').on('keyup', function(e){
+                        $popup.trigger('ipModuleRepository.search');
+                    });
+                    $popup.find('.ipmBrowserSearch .ipmForm').on('submit', function(e){
+                        e.preventDefault();
+                        $popup.trigger('ipModuleRepository.search');
+                    });
 
                     $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
+                    $popup.bind('ipModuleRepository.search', $.proxy(methods._filterFilesByTerm, this));
                     $.proxy(methods._resize, this)();
+                }
+            });
+        },
+
+        _filterFilesByTerm : function(e) {
+            var $this = $(this);
+            var $lists = $this.find('.ipmBrowser .ipmList');
+            var $files = $lists.find('li');
+            var term = $this.find('.ipmBrowserSearch .ipmTerm').val().toLowerCase();
+
+            if (term.length > 0) {
+                // if term exists - loop all files
+                $files.each(function(){
+                    var $file = $(this);
+                    var fileName = $file.data('fileData').fileName.toLowerCase();
+                    // check in files' data whether filename include term
+                    if (fileName.search(term) != -1) {
+                        // show file if term match (in case it was hidden earlier)
+                        $file.removeClass('ipgHide');
+                    } else {
+                        // hide file is term doesn't match
+                        $file.addClass('ipgHide');
+                    }
+                });
+            } else {
+                // show all files if term doesn't exist
+                $files.removeClass('ipgHide');
+            }
+
+            // loop all lists
+            $lists.each(function(){
+                var $list = $(this);
+                var totalFiles = $list.find('li').length;
+                var hiddenFiles = $list.find('li.ipgHide').length;
+                var numberOfVisibleChildren = totalFiles - hiddenFiles;
+
+                if (numberOfVisibleChildren > 0) {
+                    // if list has at least one visible child display list and title
+                    $list.removeClass('ipgHide');
+                    $list.prev('.ipmListTitle').removeClass('ipgHide');
+                } else {
+                    // if all children in the list is hidden, hide it and its title
+                    $list.addClass('ipgHide');
+                    $list.prev('.ipmListTitle').addClass('ipgHide');
                 }
             });
         },
