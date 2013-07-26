@@ -133,18 +133,59 @@ class View{
     }
 
 
-    
+
+    /**
+     * set view variables
+     * @param $variables
+     */
+    public function setVariables($variables)
+    {
+        $this->data = $variables;
+    }
+
+    /**
+     * get view variables
+     * @return array
+     */
+    public function getVariables()
+    {
+        return $this->data;
+    }
+
     /**
      * 
      * Set view data
      * @param array $data
+     * @deprecated
      */
     public function setData($data) {
-        $this->data = $data;
+        $this->setVariables($data);
     }
 
+    /**
+     * @return array
+     * @deprecated
+     */
     public function getData() {
-        return $this->data;
+        return $this->getVariables();
+    }
+
+    public function setVariable($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function unsetVariable($name)
+    {
+        unset($this->data[$name]);
+    }
+
+    public function getVariable($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+        return null;
     }
 
 
