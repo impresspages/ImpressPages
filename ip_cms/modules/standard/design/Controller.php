@@ -15,8 +15,15 @@ class Controller extends \Ip\Controller
 
     public function index()
     {
+
+
         $this->backendOnly();
         $site = \Ip\ServiceLocator::getSite();
+
+
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/themes.js');
+
 
         $model = Model::instance();
 
@@ -38,8 +45,13 @@ class Controller extends \Ip\Controller
             'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : '',
             'marketUrl' => $model->getMarketUrl()
         );
-        $view = \Ip\View::create('view/layout.php', $data);
-        $site->setOutput($view->render());
+
+
+        $contentView = \Ip\View::create('view/designdashboard.php', $data);
+        $layout = $this->createAdminView($contentView);
+
+
+        $site->setOutput($layout->render());
     }
 
 
