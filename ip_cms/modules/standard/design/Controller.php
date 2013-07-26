@@ -49,8 +49,6 @@ class Controller extends \Ip\Controller
 
         $contentView = \Ip\View::create('view/designdashboard.php', $data);
         $layout = $this->createAdminView($contentView);
-
-
         $site->setOutput($layout->render());
     }
 
