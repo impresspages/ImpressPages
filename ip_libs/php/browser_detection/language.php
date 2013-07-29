@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Implements language negotiation
  * @package		Library
