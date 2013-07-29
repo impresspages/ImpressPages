@@ -51,7 +51,7 @@
                     <a class="ipAdminButton ipaSelectionDelete" href="#"><?php echo $this->escPar('standard/configuration/admin_translations/delete'); ?> <i class="icon-trash"></i></a>
                 </div>
             </div>
-            <? // hidden templates for dynamic elements ?>
+            <?php // hidden templates for dynamic elements ?>
             <div class="ipgHide">
                 <h2 class="ipmListTitleTemplate ipmListTitle"></h2>
                 <ul class="ipmListTemplate ipmList clearfix"></ul>
