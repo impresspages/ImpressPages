@@ -27,6 +27,9 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->dbPref = $cf['DB_PREF'];
 
+        $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
+        $parameterImporter->importParameters('generalParameters.php');
+
         $this->addDesignModule();
 
     }

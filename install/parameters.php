@@ -1301,9 +1301,14 @@ top";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["add_new"] = "0";
         $parameterType["standard"]["configuration"]["admin_translations"]["add_new"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["delete"] = "Delete";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["delete"] = "Delete";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["delete"] = "0";
+        $parameterType["standard"]["configuration"]["admin_translations"]["delete"] = "string";
 
 
-    $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
+
+$parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
     $parameterGroupAdmin["standard"]["configuration"]["advanced_options"] = "1";
 
         $parameterTitle["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "XML sitemap associated zones";

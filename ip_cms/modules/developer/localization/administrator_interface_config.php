@@ -647,6 +647,9 @@ $parameter["parameterValue/standard/configuration/admin_translations/confirm"] =
 $parameter["parameterTitle/standard/configuration/admin_translations/cancel"] = "Cancel";
 $parameter["parameterValue/standard/configuration/admin_translations/cancel"] = "Cancel";
 
+$parameter["parameterTitle/standard/configuration/admin_translations/delete"] = "Delete";
+$parameter["parameterValue/standard/configuration/admin_translations/delete"] = "Delete";
+
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/use_fake_cron"] = "Use fake cron";
