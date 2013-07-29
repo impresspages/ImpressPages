@@ -197,6 +197,14 @@ $parameter["parameterValue/administrator/repository/admin_translations/selected"
 $parameter["parameterTitle/administrator/repository/admin_translations/download_in_progress"] = "Download in progress";
 $parameter["parameterValue/administrator/repository/admin_translations/download_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.";
 
+$parameter["parameterTitle/administrator/repository/admin_translations/confirm_delete"] = "Confirm delete";
+$parameter["parameterValue/administrator/repository/admin_translations/confirm_delete"] = "Are you sure you want to delete selected files?";
+
+$parameter["parameterTitle/administrator/repository/admin_translations/delete_warning"] = "Delete warning";
+$parameter["parameterValue/administrator/repository/admin_translations/delete_warning"] = "Some of the selected files cannot be deleted because they are used.";
+
+
+
 $parameter["parameterTitle/administrator/rss/options/description"] = "Description";
 
 $parameter["parameterTitle/administrator/rss/options/size"] = "Size";
