@@ -314,7 +314,7 @@ class Controller extends \Ip\Controller{
         $notRemovedCount = 0;
 
         foreach ($files as $file) {
-            if (true) {
+            if ($this->removeFile($file['file'])) {
                 $deletedFiles[] = $file['file'];
             } else {
                 $notRemovedCount++;
@@ -328,6 +328,24 @@ class Controller extends \Ip\Controller{
         );
 
         $this->returnJson($answer);
+    }
+
+    private function removeFile($file)
+    {
+        $model = Model::instance();
+        $usages = $model->whoUsesFile($file);
+        if (!empty($usages)) {
+            return false;
+        }
+
+        $reflectionModel = ReflectionModel::instance();
+        $reflectionModel->removeReflections($file);
+
+        $fullPath = BASE_DIR.$file;
+        if (file_exists(BASE_DIR.$file) && is_file($fullPath) && is_writable($fullPath)) {
+            unlink($fullPath);
+        }
+        return true;
     }
 
     private function sortFiles($a, $b)
