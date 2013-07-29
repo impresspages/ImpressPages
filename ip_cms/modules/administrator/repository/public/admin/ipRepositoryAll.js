@@ -50,6 +50,13 @@
                         e.preventDefault();
                         $popup.trigger('ipModuleRepository.search');
                     });
+                    $popup.find('.ipmBrowserSearch .ipmForm button').on('click', function(e){
+                        var $this = $(this);
+                        var $searchField = $this.closest('.ipmBrowserSearch').find('.ipmTerm');
+                        if ($searchField.val() != '') {
+                            $searchField.val('');
+                        }
+                    });
 
                     $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
@@ -79,9 +86,11 @@
                         $file.addClass('ipgHide');
                     }
                 });
+                $this.find('.ipmBrowserSearch .icon-search').removeClass('icon-search').addClass('icon-remove');
             } else {
                 // show all files if term doesn't exist
                 $files.removeClass('ipgHide');
+                $this.find('.ipmBrowserSearch .icon-remove').removeClass('icon-remove').addClass('icon-search');
             }
 
             // loop all lists
