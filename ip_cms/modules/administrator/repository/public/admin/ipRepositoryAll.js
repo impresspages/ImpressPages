@@ -279,7 +279,7 @@
         _delete : function(e) {
             e.preventDefault();
 
-            if (confirm(ipRepositoryTranslate_confirm)) {
+            if (confirm(ipRepositoryTranslate_confirm_delete)) {
                 var $this = $(this);
 
                 var files = new Array();
@@ -317,24 +317,36 @@
 
             // notify that not all files were deleted
             if (parseInt(response.notRemovedCount) > 0) {
-                alert(ipRepositoryTranslate_notRemoved);
+                alert(ipRepositoryTranslate_delete_warning);
             }
 
             // remove deleted files
             var deletedFiles = response.deletedFiles;
             var $browser = $this.find('.ipmBrowser');
             for(var i in deletedFiles) {
-                var direction = 'up';
+
+                var  animateOptions = {};
+
                 switch (settings.preview) {
                     case 'thumbnails':
-                        direction = 'left';
+                        animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
+                        break;
+                    default:
+                        animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
                         break;
                 }
-                $browser.find("li[data-file='"+deletedFiles[i]+"']").hide('slide', {direction: direction}, 'slow', function() {
-                    $(this).remove();
-                    // recalculating selected files
-                    $.proxy(methods._countSelected, repositoryContainer)();
-                });
+
+
+                $browser.find("li[data-file='"+deletedFiles[i]+"']")
+                    .css('overflow', 'hidden')
+                    .css('border-bottom', 'none')
+                    .animate(animateOptions, 'slow')
+                    .hide(0, function() {
+                        $(this).remove();
+                        // recalculating selected files
+                        $.proxy(methods._countSelected, repositoryContainer)();
+                    })
+                ;
             }
         },
 

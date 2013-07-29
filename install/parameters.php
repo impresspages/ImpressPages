@@ -2438,6 +2438,17 @@ left";
             $parameterAdmin["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "1";
             $parameterType ["administrator"]["repository"]["admin_translations"]["download_in_progress"] = "string";
 
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["confirm_delete"] = "Confirm delete";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["confirm_delete"] = "Are you sure you want to delete selected files?";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["confirm_delete"] = "1";
+            $parameterType ["administrator"]["repository"]["admin_translations"]["confirm_delete"] = "string";
+
+            $parameterTitle["administrator"]["repository"]["admin_translations"]["delete_warning"] = "Delete warning";
+            $parameterValue["administrator"]["repository"]["admin_translations"]["delete_warning"] = "Some of the selected files cannot be deleted because they are used.";
+            $parameterAdmin["administrator"]["repository"]["admin_translations"]["delete_warning"] = "1";
+            $parameterType ["administrator"]["repository"]["admin_translations"]["delete_warning"] = "string";
+
+
 $moduleGroupTitle["developer"] = "Developer";
 $moduleTitle["developer"]["inline_management"] = "Inline Management";
 

@@ -11,7 +11,8 @@ class System{
 
 
     public function init(){
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         if ($site->managementState()) {
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
@@ -34,9 +35,9 @@ class System{
                 'marketUrl' => $marketUrl
             );
 
-            $site->addJavascriptVar('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
-            $site->addJavascriptVar('ipRepositoryTranslate_confirm', '{{Are you sure you want to delete selected files?}}');
-            $site->addJavascriptVar('ipRepositoryTranslate_notRemoved', '{{Some of the selected files cannot be deleted because they are used by at least one module.}}');
+            $site->addJavascriptVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
+            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'confirm_delete'));
+            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'delete_warning'));
         }
 
 
