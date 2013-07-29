@@ -33,7 +33,7 @@
                 <div class="ipmBrowserControls">
                     <div class="ipmBrowserSearch">
                         <form class="ipmForm" action="">
-                            <input type="text" class="ipAdminInput ipmTerm" value="" placeholder="{{Live search your files}}">
+                            <input type="text" class="ipAdminInput ipmTerm" value="" placeholder="">
                             <button type="submit" class="ipmButton"><i class="icon-search"></i></button>
                         </form>
                     </div>
