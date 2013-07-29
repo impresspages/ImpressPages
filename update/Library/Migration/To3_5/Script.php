@@ -30,7 +30,7 @@ class Script extends \IpUpdate\Library\Migration\General
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
         $parameterImporter->importParameters('generalParameters.php');
 
-        $this->addDesignModule();
+        //$this->addDesignModule();
 
     }
 
