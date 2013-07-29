@@ -182,7 +182,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
 
 
     $config =
-	"<?"."php
+	"<"."?php
 	
 /**
  * @package ImpressPages
