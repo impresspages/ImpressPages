@@ -337,11 +337,11 @@
                 }
 
 
-                $browser.find("li[data-file='"+deletedFiles[i]+"']").
-                    css('overflow', 'hidden').
-                    css('border-bottom', 0).
-                    animate(animateOptions, 'slow').
-                    hide(0, function() {
+                $browser.find("li[data-file='"+deletedFiles[i]+"']")
+                    .css('overflow', 'hidden')
+                    .css('border-bottom', 'none')
+                    .animate(animateOptions, 'slow')
+                    .hide(0, function() {
                         $(this).remove();
                         // recalculating selected files
                         $.proxy(methods._countSelected, repositoryContainer)();
