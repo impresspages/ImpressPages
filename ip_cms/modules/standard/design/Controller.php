@@ -70,19 +70,31 @@ class Controller extends \Ip\Controller
 
     public function downloadTheme()
     {
-        $themeUrl = $_GET['url'];
-        $themeName = $_GET['name'];
+        // TODOX allow only commands from market, maybe use nonce?
+        $themeUrl = $_GET['url']; // TODOX remove this parameter, costruct url from theme name, do not allow arbitrary urls
+        $themeName = $_GET['name']; // TODOX use $_POST
 
         $model = Model::instance();
 
-        if ($model->isThemeAvailable($themeName)) {
-            throw new \Ip\CoreException("Theme {$themeName} is already installed. THEME_DIR/{$themeName} exists.");
+        try {
+
+            if ($model->isThemeAvailable($themeName)) {
+                throw new \Ip\CoreException("Theme {$themeName} is already installed. THEME_DIR/{$themeName} exists.");
+            }
+
+            $themeDownloader = new ThemeDownloader();
+            $themeDownloader->downloadTheme($themeName, $themeUrl);
+        } catch (\Ip\CoreException $e) {
+            $this->returnJson(
+                array(
+                    'success' => false,
+                    'error' => $e->getMessage()
+                )
+            );
+            return;
         }
 
-        $themeDownloader = new ThemeDownloader();
-        $themeDownloader->downloadTheme($themeName, $themeUrl);
-
-        $this->returnJson(array("result" => true));
+        $this->returnJson(array('success' => true));
     }
 
 
