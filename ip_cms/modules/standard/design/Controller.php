@@ -68,6 +68,22 @@ class Controller extends \Ip\Controller
 //        return $form;
 //    }
 
+    public function downloadTheme()
+    {
+        $themeUrl = $_GET['url'];
+        $themeName = $_GET['name'];
+
+        $model = Model::instance();
+
+        if ($model->isThemeAvailable($themeName)) {
+            throw new \Ip\CoreException("Theme {$themeName} is already installed. THEME_DIR/{$themeName} exists.");
+        }
+
+        $themeDownloader = new ThemeDownloader();
+        $themeDownloader->downloadTheme($themeName, $themeUrl);
+
+        $this->returnJson(array("result" => true));
+    }
 
 
     protected function backendOnly()
