@@ -19,7 +19,7 @@ class System{
         global $dispatcher;
         
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
-        $dispatcher->bind('contentManagement.initWidgets', __NAMESPACE__ .'\System::initWidgets');
+        $dispatcher->bind('site.afterInit', __NAMESPACE__ .'\System::initWidgets');
         
         $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
         
@@ -72,8 +72,7 @@ class System{
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
 
-            $event = new EventWidget(null, 'contentManagement.initWidgets', null);
-            $dispatcher->notify($event);
+
         }
 
     }
