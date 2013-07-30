@@ -61,6 +61,8 @@
                                 });
 
                                 $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('ipgHide');
+                            },
+                            downloadThemes: function(themes){
                             }
                         }
                     }
