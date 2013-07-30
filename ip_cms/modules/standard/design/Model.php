@@ -37,6 +37,12 @@ class Model{
 
         return $answer;
     }
+
+    public function isThemeAvailable($name)
+    {
+        $themeDir = BASE_DIR . THEME_DIR . $name;
+        return is_dir($themeDir);
+    }
     
     
     public function installTheme($themeName)
