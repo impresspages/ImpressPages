@@ -20,10 +20,17 @@ if (!defined('CMS')) exit;
 class Dispatcher{
 
     private $_handlers;
+    protected $initCompleted = false;
 
 
     public function __construct() {
         $this->_handlers = array();
+        $this->bind('site.afterInit', array($this, 'registerInit'));
+    }
+
+    public function registerInit()
+    {
+        $this->initCompleted = true;
     }
 
     /**
@@ -52,6 +59,15 @@ class Dispatcher{
     }
 
     public function notify(Event $event) {
+        if (!$this->initCompleted && $event->getName() != 'site.afterInit') {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
+            } else {
+                $file = '';
+            }
+            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
+        }
         if ( ! isset($this->_handlers[$event->getName()])) {
             return false;
         }

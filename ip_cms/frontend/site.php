@@ -188,8 +188,8 @@ class Site{
      *
      */
     public function init(){
-        global $dispatcher;
-        $dispatcher->notify(new \Ip\Event($this, 'site.beforeInit', null));
+
+        $dispatcher  = \Ip\ServiceLocator::getDispatcher();
 
         if (get_magic_quotes_gpc()) { //fix magic quotes option
             $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
@@ -257,8 +257,10 @@ class Site{
             $this->checkError404();
         }
 
+
         if ($this->error404) {
-            $this->dispatchError404();
+            $dispatcher->bind('site.afterInit', array($this, 'dispatchError404'));
+            ///$this->dispatchError404();
         }
     }
     
@@ -287,7 +289,7 @@ class Site{
         $this->error404 = true;
     }
     
-    private function dispatchError404() {
+    public function dispatchError404() {
         global $dispatcher;
         $event = new \Ip\Event($this, 'site.beforeError404', null);
         $dispatcher->notify($event);
