@@ -41,28 +41,17 @@
                         },
                         local: {
                             downloadImages: function(images){
-                                var toDownload = new Array();
+                                //do nothing. Leaving for compatibility with ImpressPages 3.4 and 3.5
+                            },
+                            processOrder: function(order){
+                                $('body').bind('ipMarketOrderStart', function(e){alert('order start');});
+                                Market.processOrder(order);
 
-                                for (var i = 0; i < images.length; i++) {
-                                    toDownload.push({
-                                        url: images[i].downloadUrl,
-                                        title: images[i].title
-                                    });
-                                }
-
-                                $.ajax(ip.baseUrl, {
-                                    'type': 'POST',
-                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
-                                    'dataType': 'json',
-                                    'success': function (data) {
-                                        $.proxy(methods._confirm, buyTab, data)();
-                                    },
-                                    'error': function () { alert('Download failed.'); }
+                                $('body').bind('ipMarketOrderComplete', function(e, data){
+                                    $.proxy(methods._confirm, buyTab, data.images)();
                                 });
 
-                                $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('ipgHide');
-                            },
-                            downloadThemes: function(themes){
+
                             }
                         }
                     }

@@ -1,3 +1,7 @@
+/**
+ * @package ImpressPages
+ */
+
 var console;
 if (typeof console === "undefined") {
     console = {
