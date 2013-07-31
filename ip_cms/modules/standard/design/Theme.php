@@ -7,62 +7,68 @@
 namespace Modules\standard\design;
 
 
-class Theme{
-    const INSTALL_DIR = 'install/';
-    const PARAMETERS_FILE = 'parameters.php';
-    
-    private $name;
-    private $title;
-    private $doctype;
-    private $version;
-    private $previewImage;
+class Theme {
+
+
+    protected $name;
+    protected $title;
+    protected $doctype;
+    protected $version;
+    protected $thumbnail;
+    protected $options;
     
     public function __construct($name) {
         
         if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $name)) {
             throw new \Exception('Forbidden characters in theme name: '.$name);
         }
-        
+
         $this->name = $name;
-        if (file_exists(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'thumbnail.png')) {
-            $this->previewImage = THEME_DIR.$name.'/'.self::INSTALL_DIR.'thumbnail.png';
-        }
-        
-        $configuration = new ConfigurationFile(BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.ini');
-        if ($configuration->getThemeTitle()) {
-            $this->title = $configuration->getThemeTitle();
-        } else {
-            $this->title = $name;
-        }
-        
-        $this->version = $configuration->getThemeVersion();
-        
-        if (defined('\Ip\View::'.$configuration->getThemeDoctype())) {
-            $this->doctype = $configuration->getThemeDoctype();
-        } else {
-            $this->doctype = 'DOCTYPE_HTML5';
-        }
-        
+    }
+
+
+    public function setThumbnail($thumbnail) {
+        $this->thumbnail = $thumbnail;
     }
     
-    public function getPreviewImage() {
-        return $this->previewImage;
+    public function getThumbnail() {
+        return $this->thumbnail;
     }
     
     public function getName() {
         return $this->name;
     }
-    
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
     public function getTitle() {
         return $this->title;
     }
-    
+
+    public function setDoctype($doctype) {
+        $this->doctype = $doctype;
+    }
+
     public function getDoctype() {
         return $this->doctype;
     }
-    
+
+    public function setVersion($version) {
+        $this->version = $version;
+    }
+
     public function getVersion() {
         return $this->version;
+    }
+
+    public function setOptions($options) {
+        $this->options = $options;
+    }
+
+    public function getOptions() {
+        return $this->options;
     }
     
 }

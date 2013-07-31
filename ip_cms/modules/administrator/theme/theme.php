@@ -49,8 +49,8 @@ class Theme{
         
     }
     
-    public function getPreviewImage() {
-        return $this->previewImage;
+    public function getThumbnail() {
+        return $this->thumbnail;
     }
     
     public function getName() {

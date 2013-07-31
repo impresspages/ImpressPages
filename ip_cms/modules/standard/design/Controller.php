@@ -41,9 +41,10 @@ class Controller extends \Ip\Controller
 
         $data = array(
             'previewUrl' => BASE_URL,
+            'themeTitle' => $curTheme ? $curTheme->getTitle() : '',
             'themeName' => $curTheme ? $curTheme->getName() : '',
             'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
-            'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : '',
+            'themeThumbnail' => $curTheme ? $curTheme->getThumbnail() : '',
             'marketUrl' => $model->getMarketUrl()
         );
 

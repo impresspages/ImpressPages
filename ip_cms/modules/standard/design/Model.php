@@ -9,6 +9,9 @@ namespace Modules\standard\design;
 
 class Model{
 
+    const INSTALL_DIR = 'install/';
+    const PARAMETERS_FILE = 'parameters.php';
+
     protected function __construct()
     {
 
@@ -28,13 +31,12 @@ class Model{
         if ($handle = opendir(BASE_DIR.THEME_DIR)) {
             while (false !== ($file = readdir($handle))) {
                 if(is_dir(BASE_DIR.THEME_DIR.$file) && $file != '..' && $file != '.' && substr($file, 0, 1) != '.') {
-                    $answer[] = new Theme($file);
+                    $answer[] = $this->createTheme($file);
                 }
             }
             closedir($handle);
         }
         
-
         return $answer;
     }
 
@@ -83,5 +85,93 @@ class Model{
         }
         return $marketUrl;
     }
-    
+
+    /**
+     * Read theme config and create theme entity
+     * @param $name
+     * @return Theme
+     */
+    protected function createTheme($name)
+    {
+        $theme = new Theme($name);
+
+        //old type config
+        $themeIniFile = BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.ini';
+        if (file_exists($themeIniFile)) {
+            $iniConfig = $this->parseThemeIni($themeIniFile);
+        } else {
+            $iniConfig = array();
+        }
+
+        //new type config
+        $themeJsonFile = BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.json';
+        if (file_exists($themeJsonFile)) {
+            $jsonConfig = $this->parseThemeJson($themeJsonFile);
+        } else {
+            $jsonConfig = array();
+        }
+
+        $config = array_merge($iniConfig, $jsonConfig);
+
+        $theme->setTitle(!empty($config['title']) ? $config['title'] : $name);
+
+        if (!empty($config['version'])) {
+            $theme->setVersion($config['version']);
+        }
+
+        if (!empty($config['thumbnail'])) {
+            $theme->setThumbnail(BASE_URL.THEME_DIR.$name.'/'.self::INSTALL_DIR.$config['thumbnail']);
+        }
+
+
+        if (!empty($config['doctype']) && defined('\Ip\View::'.$config['doctype'])) {
+            $theme->setDoctype($config['doctype']);
+        } else {
+            $theme->setDoctype('DOCTYPE_HTML5');
+        }
+
+
+
+        return $theme;
+    }
+
+    protected function parseThemeJson($file)
+    {
+        if (!file_exists($file) || !is_file($file)) {
+            return array();
+        }
+
+        $configJson = file_get_contents($file);
+        $config = json_decode($configJson, true);
+        if ($config) {
+            return $config;
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * Parse old style theme.ini file for theme configuration values
+     */
+    protected function parseThemeIni($file)
+    {
+        $answer = array();
+
+        if(file_exists($file)){
+            $config = file($file);
+            foreach($config as $key => $configRow){
+                $configName = substr($configRow, 0, strpos($configRow, ':'));
+                $value = substr($configRow, strpos($configRow, ':') + 1);
+                $value = str_replace("\n", "", str_replace("\r", "", $value));
+                $answer[$configName] = $value;
+            }
+        } else {
+            return array();
+        }
+        return $answer;
+
+
+    }
+
+
 }

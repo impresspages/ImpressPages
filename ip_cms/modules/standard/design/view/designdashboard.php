@@ -1,7 +1,8 @@
 <div>
+    <?php echo $this->esc($themeTitle); ?>
     <?php echo $this->esc($themeName); ?>
     <?php echo $this->esc($themeVersion); ?>
-    <img width="200" src="<?php echo $this->esc($themePreviewImage) ?>" alt="<?php echo addslashes($themeName); ?>" />
+    <img width="200" src="<?php echo $this->esc($themeThumbnail) ?>" alt="<?php echo addslashes($themeName); ?>" />
 </div>
 <style>
     #ipModuleDesignContainer iframe{
