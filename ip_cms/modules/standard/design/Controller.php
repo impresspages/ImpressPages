@@ -71,6 +71,7 @@ class Controller extends \Ip\Controller
 
     public function downloadTheme()
     {
+        $this->backendOnly();
         // TODOX allow only commands from market, maybe use nonce?
         $themeUrl = $_GET['url']; // TODOX remove this parameter, costruct url from theme name, do not allow arbitrary urls
         $themeName = $_GET['name']; // TODOX use $_POST
