@@ -44,12 +44,26 @@
                                 //do nothing. Leaving for compatibility with ImpressPages 3.4 and 3.5
                             },
                             processOrder: function(order){
-                                $('body').bind('ipMarketOrderStart', function(e){alert('order start');});
-                                Market.processOrder(order);
-
-                                $('body').bind('ipMarketOrderComplete', function(e, data){
-                                    $.proxy(methods._confirm, buyTab, data.images)();
+                                console.log('processOrder');
+                                $('body').bind('ipMarketOrderStart', function(e){
+                                    console.log('order start');
                                 });
+
+                                console.log('bind complete event');
+                                $('body').bind('ipMarketOrderComplete', function(e, data){
+                                    console.log('order complete ');
+                                    console.log(data);
+                                    if (typeof(data.images) != "undefined" && data.images.length) {
+                                        $.proxy(methods._confirm, buyTab, data.images)();
+                                    } else {
+                                        console.log('TODO redirect to image browser ' + $('#ipModuleRepositoryTabBuy').data('marketurl'));
+                                        //window.location = $('#ipModuleRepositoryTabBuy').data('marketurl');
+                                        //window.location = 'http://local.market.impresspages.org/en/images-v1-content/';
+                                    }
+                                });
+
+
+                                Market.processOrder(order);
 
 
                             }
@@ -68,7 +82,13 @@
 
         _confirm : function (files) {
             var $this = $(this);
-            $this.trigger('ipModuleRepository.confirm', [files]);
+            if (empty(files)) {
+                window.location = $('#ipModuleRepositoryTabBuy').data('marketurl');
+            } else{
+                $this.trigger('ipModuleRepository.confirm', [files]);
+            }
+
+
         },
 
         // set back our element

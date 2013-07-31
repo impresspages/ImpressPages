@@ -11,15 +11,19 @@ var Market = new function() {
 
     this.processOrder = function(order) {
         $('body').trigger('ipMarketOrderStart');
+        console.log('order');
+        console.log(order);
 
-        if (typeof(order.images) != "undefined") {
+        if (typeof(order.images) != "undefined" && order.images.length) {
+            console.log('downloadImages');
             imagesDownloaded = false;
             downloadImages(order.images);
         } else {
             imagesDownloaded = true;
         }
 
-        if (typeof(order.themes) != "undefined") {
+        if (typeof(order.themes) != "undefined" && order.themes.length) {
+            console.log('downloadThemes');
             themesDownloaded = false;
             downloadThemes(order.themes);
         } else {
@@ -31,8 +35,15 @@ var Market = new function() {
     };
 
     var checkComplete = function() {
+        console.log('checkComplete ' + imagesDownloaded + ' ' + themesDownloaded);
         if (imagesDownloaded && themesDownloaded) {
+            console.log('orderCompleteEvent2');
+            console.log('body');
+            console.log($('body'));
             $('body').trigger('ipMarketOrderComplete', [{images: imagesData, themes: themesData}]);
+            console.log('body');
+            console.log($('body'));
+
         }
     };
 
@@ -44,6 +55,14 @@ var Market = new function() {
                 url: images[i].downloadUrl,
                 title: images[i].title
             });
+        }
+
+        if (toDownload.length == 0) {
+            $('body').trigger('ipMarketOrderImageDownload', {});
+            imagesDownloaded = true;
+            imagesData = {};
+            checkComplete();
+            return;
         }
 
         $.ajax(ip.baseUrl, {
