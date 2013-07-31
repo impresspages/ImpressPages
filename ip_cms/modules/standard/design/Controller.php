@@ -23,6 +23,7 @@ class Controller extends \Ip\Controller
 
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/themes.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
 
         $model = Model::instance();
