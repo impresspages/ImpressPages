@@ -82,13 +82,7 @@
 
         _confirm : function (files) {
             var $this = $(this);
-            if (empty(files)) {
-                window.location = $('#ipModuleRepositoryTabBuy').data('marketurl');
-            } else{
-                $this.trigger('ipModuleRepository.confirm', [files]);
-            }
-
-
+            $this.trigger('ipModuleRepository.confirm', [files]);
         },
 
         // set back our element
