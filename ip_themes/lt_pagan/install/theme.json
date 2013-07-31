@@ -1,9 +1,0 @@
-{
-    "title": "Pagan",
-    "optionGroup": [
-        {
-            "type": "select",
-            "values": ["Dark", "Light", "Red"]
-        }
-    ]
-}
