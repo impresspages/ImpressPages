@@ -1,0 +1,18 @@
+{
+    "title": "Pagan",
+    "version": "2.00",
+    "doctype": "DOCTYPE_HTML5",
+    "options": [
+        {
+            "name": "Style",
+            "type": "select",
+            "values": ["Dark", "Light", "Red"],
+            "default": "Dark"
+        },
+        {
+            "name": "Background Color",
+            "type": "color",
+            "default": "234567"
+        }
+    ]
+}
