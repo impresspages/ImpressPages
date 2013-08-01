@@ -10,14 +10,35 @@ namespace Modules\standard\design;
 class System{
 
 
-    public function init(){
-        $site = \Ip\ServiceLocator::getSite();
+    public function init()
+    {
 
         if (isset($_GET['ipDesignPreview'])) {
-            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/customization.js');
+            $this->initConfig();
         }
 
 
+    }
+
+    protected function initConfig()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.js');
+        $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
+        $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.css');
+    }
+
+    protected function getConfigurationBoxHtml()
+    {
+        $model = Model::instance();
+
+        $form = $model->getThemeConfigForm(THEME);
+        $form->removeClass('ipModuleForm');
+        $variables = array(
+            'form' => $form
+        );
+        $configBox = \Ip\View::create('view/configBox.php', $variables);
+        return $configBox->render();
     }
 
 }

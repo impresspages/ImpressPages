@@ -1,0 +1,8 @@
+.ipModuleDesignConfig {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+    padding: 20px;
+    background-color: #c5c5c5;
+    border: 2px slategrey solid;
+}

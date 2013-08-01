@@ -17,6 +17,9 @@ class Model{
 
     }
 
+    /**
+     * @return Model
+     */
     public static function instance()
     {
         return new Model();
@@ -130,6 +133,9 @@ class Model{
             $theme->setDoctype('DOCTYPE_HTML5');
         }
 
+        if (!empty($config['options'])) {
+            $theme->setOptions($config['options']);
+        }
 
 
         return $theme;
@@ -171,6 +177,33 @@ class Model{
         return $answer;
 
 
+    }
+
+
+    /**
+     * @param string $name
+     * @return \Modules\developer\form\Form
+     * @throws \Ip\CoreException
+     */
+    public function getThemeConfigForm($name)
+    {
+        $theme = $this->createTheme($name);
+        if (!$theme) {
+            throw new \Ip\CoreException("Theme doesn't exist");
+        }
+
+
+        $form = new \Modules\developer\form\Form();
+
+        //add text field to form object
+        $field = new \Modules\developer\form\Field\Text(
+            array(
+                'name' => 'firstField', //html "name" attribute
+                'label' => 'First field', //field label that will be displayed next to input field
+            ));
+        $form->addField($field);
+
+        return $form;
     }
 
 

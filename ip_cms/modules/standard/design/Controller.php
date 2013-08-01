@@ -57,20 +57,6 @@ class Controller extends \Ip\Controller
     }
 
 
-//    protected function getConfigurationForm()
-//    {
-//        $form = new \Modules\developer\form\Form();
-//
-//        //add text field to form object
-//        $field = new \Modules\developer\form\Field\Text(
-//            array(
-//                'name' => 'firstField', //html "name" attribute
-//                'label' => 'First field', //field label that will be displayed next to input field
-//            ));
-//        $form->addField($field);
-//
-//        return $form;
-//    }
 
     public function downloadTheme()
     {
