@@ -744,10 +744,18 @@ class Site{
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
-                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Controller();');
+                    if (isset($_REQUEST['ba'])) {
+                        $controllerClass = 'Backend';
+                    } else {
+                        $controllerClass = 'Controller';
+                    }
+                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\'.$controllerClass.'();');
                     $function = 'index';
                     if (isset($_REQUEST['a'])) {
                         $function = $_REQUEST['a'];
+                    }
+                    if (isset($_REQUEST['ba'])) {
+                        $function = $_REQUEST['ba'];
                     }
                     if (method_exists($tmpModule, $function)) {
                         $tmpModule->init();
