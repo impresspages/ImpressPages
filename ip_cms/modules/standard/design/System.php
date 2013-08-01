@@ -13,11 +13,24 @@ class System{
     public function init()
     {
 
-        if (isset($_GET['ipDesignPreview'])) {
+        if (isset($_GET['ipDesignPreview']) && $this->hasPermission()) {
             $this->initConfig();
         }
 
 
+    }
+
+    protected function hasPermission()
+    {
+        if (!\Ip\Backend::loggedIn()) {
+            return false;
+        }
+
+        if (!\Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'design')) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function initConfig()
