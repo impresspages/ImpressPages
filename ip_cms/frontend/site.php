@@ -1155,16 +1155,19 @@ class Site{
         );
     }
 
+    /**
+     * @deprecated
+     * @param $name
+     * @param $value
+     * @param int $stage
+     */
     public function addJavascriptVar($name, $value, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$name] = array (
-            'type' => 'variable',
-            'value' => $value
-        );
+        $this->addJavascriptVariable($name, $value);
     }
     
     public function addJavascript($file, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = array (
-            'type' => 'file', 
+            'type' => 'file',
             'value' => $file
         );
     }
