@@ -1,0 +1,4 @@
+
+var ipDesignOpenOptions = function() {
+    
+}

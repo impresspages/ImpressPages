@@ -2,7 +2,8 @@
     <?php echo $this->esc($themeTitle); ?>
     <?php echo $this->esc($themeName); ?>
     <?php echo $this->esc($themeVersion); ?>
-    <img width="200" src="<?php echo $this->esc($themeThumbnail) ?>" alt="<?php echo addslashes($themeName); ?>" />
+<!--    <iframe style="-webkit-transform: scale(0.5); -webkit-transform-origin: 0 0; width: 1100px; height: 500px;" src="--><?php //echo addslashes(BASE_URL) ?><!--"></iframe>-->
+    <img style="width: 100px;" src="<?php echo $this->esc($themeThumbnail); ?>" alt="<?php echo addslashes($this->esc($themeTitle)); ?>" />
 </div>
 <style>
     #ipModuleDesignContainer iframe{
@@ -11,9 +12,8 @@
         outline: 1px solid black;
     }
 </style>
+<a href="#" class="ipModuleDesignOptions">{{Options}}</a>
+<a href="#" class="ipModuleDesignOpenMarket">{{Find theme}}</a>
 <div style="width: 900px; height: 800px;" id="ipModuleDesignContainer" data-marketurl="<?php echo addslashes($marketUrl) ?>">
 
-</div data->
-<!--<iframe style="width: 900px; height: 500px; clear: both;" src="--><?php //echo addslashes($marketUrl) ?><!--">-->
-
-<!--</iframe>-->
+</div>

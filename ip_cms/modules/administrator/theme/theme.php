@@ -11,7 +11,7 @@ namespace Modules\administrator\theme;
 if (!defined('CMS')) exit;
 
 
-class Theme{
+class Theme {
     const INSTALL_DIR = 'install/';
     const PARAMETERS_FILE = 'parameters.php';
     
