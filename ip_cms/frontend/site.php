@@ -708,7 +708,7 @@ class Site{
     /**
      * Some modules need to make some actions before any output.
      * This function detects such requirements and executes required action of specified module.
-     * If you need to use this feature, simply POST (or GET) thre variables:
+     * If you need to use this feature, simply POST (or GET) three variables:
      * $_REQUEST['g']
      * $_REQUEST['m']
      * $_REQUEST['a']
@@ -744,19 +744,6 @@ class Site{
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
-                    if($newModule['core']){
-                        if (file_exists(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
-                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
-                        } else {
-                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
-                        }
-                    } else {
-                        if (file_exists(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
-                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
-                        } else {
-                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
-                        }
-                    }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Controller();');
                     $function = 'index';
                     if (isset($_REQUEST['a'])) {
