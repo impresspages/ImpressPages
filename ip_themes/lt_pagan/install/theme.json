@@ -5,13 +5,15 @@
     "thumbnail": "thumbnail.png",
     "options": [
         {
-            "name": "Style",
+            "label": "Style",
+            "name": "style",
             "type": "select",
             "values": ["Dark", "Light", "Red"],
             "default": "Dark"
         },
         {
-            "name": "Background Color",
+            "label": "Background Color",
+            "name": "background_color",
             "type": "color",
             "default": "234567"
         }

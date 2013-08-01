@@ -68,6 +68,9 @@ class Theme {
     }
 
     public function getOptions() {
+        if (!$this->options) {
+            return array();
+        }
         return $this->options;
     }
     

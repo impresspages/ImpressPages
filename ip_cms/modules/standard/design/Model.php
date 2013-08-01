@@ -7,6 +7,8 @@
 namespace Modules\standard\design;
 
 
+use \Modules\developer\form as Form;
+
 class Model{
 
     const INSTALL_DIR = 'install/';
@@ -194,6 +196,43 @@ class Model{
 
 
         $form = new \Modules\developer\form\Form();
+
+        $options = $theme->getOptions();
+
+        foreach($options as $option) {
+            if (empty($option['type']) || empty($option['name'])) {
+                continue;
+            }
+            switch ($option['type']) {
+
+                case 'select':
+                    $field = new Form\Field\Select();
+                    $values = array();
+                    if (!empty($option['values']) && is_array($option['values'])) {
+                        foreach($option['values'] as $value) {
+                            $values[] = array($value, $value);
+                        }
+                    }
+                    $field->setValues($values);
+
+                    break;
+                case 'text':
+                    $field = new Form\Field\Text();
+                    break;
+                default:
+                    //do nothing
+            }
+            if (!isset($field)) {
+                //field type is not recognised
+                continue;
+            }
+
+            $field->setName($option['name']);
+            $field->setLabel(empty($option['label']) ? '' : $option['label']);
+
+            $form->addfield($field);
+        }
+
 
         //add text field to form object
         $field = new \Modules\developer\form\Field\Text(
