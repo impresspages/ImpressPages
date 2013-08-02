@@ -59,6 +59,7 @@
                         data.g = 'standard';
                         data.m = 'content_management';
                         data.a = 'moveWidget';
+                        data.securityToken = ip.securityToken;
                         data.instanceId = instanceId;
                         data.position = position;
                         data.blockName = $this.data('ipBlock').name;
@@ -176,6 +177,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'deleteWidget';
+            data.securityToken = ip.securityToken;
             data.instanceId = instanceId;
 
             var urlParts = window.location.href.split('#');
@@ -210,6 +212,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'createWidget';
+            data.securityToken = ip.securityToken;
             data.widgetName = widgetName;
             data.position = position;
             data.blockName = $this.data('ipBlock').name;

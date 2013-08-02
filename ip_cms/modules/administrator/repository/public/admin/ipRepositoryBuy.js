@@ -52,7 +52,7 @@
 
                                 $.ajax(ip.baseUrl, {
                                     'type': 'POST',
-                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
+                                    'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload, 'securityToken': ip.securityToken},
                                     'dataType': 'json',
                                     'success': function (data) {
                                         $.proxy(methods._confirm, buyTab, data)();

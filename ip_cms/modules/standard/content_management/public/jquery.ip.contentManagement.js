@@ -38,6 +38,7 @@
                     postData.g = 'standard';
                     postData.m = 'content_management';
                     postData.a = 'initManagementData';
+                    postData.securityToken = ip.securityToken;
             
                     $.ajax({
                         type : 'POST',
@@ -160,6 +161,7 @@
             postData.g = 'standard';
             postData.m = 'content_management';
             postData.a = 'savePageOptions';
+            postData.securityToken = ip.securityToken;
             postData.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
             postData.revisionId = ip.revisionId;
 
@@ -260,6 +262,7 @@
                 postData.g = 'standard';
                 postData.m = 'content_management';
                 postData.a = 'savePage';
+                postData.securityToken = ip.securityToken;
                 postData.revisionId = ip.revisionId;
 
 
@@ -283,6 +286,7 @@
                     postData.g = 'standard';
                     postData.m = 'content_management';
                     postData.a = 'publishPage';
+                    postData.securityToken = ip.securityToken;
                     postData.revisionId = response.newRevisionId;
 
                     $.ajax({

@@ -47,6 +47,22 @@
     /*eof check if the website is closed*/
 
     if(!defined('BACKEND')){
+        $session = \Ip\ServiceLocator::getSession();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken())) {
+            $data = array(
+                'status' => 'error',
+                'errors' => array(
+                    'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
+                )
+            );
+            header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+            echo json_encode($data);
+            \Db::disconnect();
+            $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+            exit;
+        }
+
+
         $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
 
 

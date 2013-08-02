@@ -51,7 +51,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'getManagementPopupString';
-
+            data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementString').key;
             data.defaultValue = $this.data('ipInlineManagementString').defaultValue;
 
@@ -89,6 +89,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'saveString';
+            data.securityToken = ip.securityToken;
 
             data.cssClass = $this.data('ipInlineManagementString').cssClass;
             data.key = $this.data('ipInlineManagementString').key;

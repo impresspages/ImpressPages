@@ -13,7 +13,7 @@ $(document).ready(function() {
 // loading wizard content
 function ipWizardInit(event) {
     $.ajax({
-        type : 'POST',
+        type : 'GET',
         url : ip.baseUrl,
         data : {
             g: 'administrator',
@@ -279,7 +279,8 @@ function ipWizardTipDisable(tipId) {
             g: 'administrator',
             m: 'wizard',
             a: 'closeWizardTip',
-            id: tipId
+            id: tipId,
+            securityToken: ip.securityToken
         },
         success : ipWizardTipDisableResponse,
         dataType : 'json'

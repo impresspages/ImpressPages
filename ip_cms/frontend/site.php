@@ -1245,7 +1245,8 @@ class Site{
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
-            'ipRevisionId' => $revision['revisionId'],        
+            'ipRevisionId' => $revision['revisionId'],
+            'ipSecurityToken' =>\Ip\ServiceLocator::getSession()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

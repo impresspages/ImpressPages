@@ -9,7 +9,8 @@ var ip = {
     theme : <?php echo json_encode($ipTheme) ?>,
     zoneName : <?php echo json_encode($ipZoneName) ?>,
     pageId : <?php echo json_encode($ipPageId) ?>,
-    revisionId : <?php echo json_encode($ipRevisionId) ?>
+    revisionId : <?php echo json_encode($ipRevisionId) ?>,
+    securityToken : <?php echo json_encode($ipSecurityToken) ?>
 };
 </script>
 <script>
