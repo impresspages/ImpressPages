@@ -58,13 +58,20 @@ class Backend{
             return false;
         }
 
+        if (!$module['managed']) {
+            return true; //undamaged modules have no managed permissions
+        }
+
+
+
         $sql = "select * from `".DB_PREF."user_to_mod` where `user_id`='".mysql_real_escape_string($userId)."' and `module_id`='".mysql_real_escape_string($module['id'])."' ";
         $rs = mysql_query($sql);
         if($rs) {
-            if(mysql_num_rows($rs) > 0)
-            return true;
-            else
-            return false;
+            if(mysql_num_rows($rs) > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }else {
             trigger_error($sql." ".mysql_error());
         }

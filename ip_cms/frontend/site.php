@@ -742,6 +742,15 @@ class Site{
 
 
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['ba'])) {
+                    //user posts method to backend action. Check permissions.
+                    $permission = \Ip\Backend::userHasPermission(\Ip\Backend::userId(), $_REQUEST['g'], $_REQUEST['m']);
+                    if (!$permission) {
+                        throw new \Ip\CoreException("User has no permission to access module ".$_REQUEST['g'].'/'.$_REQUEST['m'], \Ip\CoreException::SECURITY);
+                    }
+                }
+
+
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
                     if (isset($_REQUEST['ba'])) {
