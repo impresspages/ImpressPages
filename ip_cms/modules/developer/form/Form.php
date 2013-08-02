@@ -30,9 +30,8 @@ class Form{
         $this->classes = array('ipModuleForm' => 1);
 
         //add security token field
-        $tokenField = new Field\Hidden();
+        $tokenField = new Field\XSS();
         $tokenField->setName('securityToken');
-        $tokenField->setDefaultValue($session->getSecurityToken());
         $this->addField($tokenField);
     }
 

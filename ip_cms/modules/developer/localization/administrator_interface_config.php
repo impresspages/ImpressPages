@@ -1506,7 +1506,7 @@ $parameter["parameterTitle/developer/form/error_messages/required"] = "Required"
 $parameter["parameterValue/developer/form/error_messages/required"] = "Please complete this mandatory field";
 
 $parameter["parameterTitle/developer/form/error_messages/xss"] = "XSS error";
-$parameter["parameterValue/developer/form/error_messages/xss"] = "Session has expired. Please try again.";
+$parameter["parameterValue/developer/form/error_messages/xss"] = "Session has expired.  Please refresh the page.";
 
 
 $parameter["parameterTitle/developer/inline_management/admin_translations/type_text"] = "Logo type text";

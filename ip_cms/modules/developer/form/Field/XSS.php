@@ -17,9 +17,9 @@
 namespace Modules\developer\form\Field;
 
 
-class XSS extends Field{
+class XSS extends Blank{
     
-    public function __construct($options) {
+    public function __construct($options = array()) {
         parent::__construct($options);
         $this->addValidator('XSS');
     }
@@ -27,23 +27,14 @@ class XSS extends Field{
     public function render($doctype) {
         $session = \Ip\ServiceLocator::getSession();
         return '
-<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.addslashes($session->getSecurityToken()).'" />
+<input '.$this->getAttributesStr($doctype).' class="ipmControlBlank '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="text" value="'.addslashes($session->getSecurityToken()).'" />
 ';
     }
     
-    public function getLayout() {
-        return self::LAYOUT_BLANK;
-    }
-    
+
     public function getType() {
         return self::TYPE_SYSTEM;
     }
     
-    /**
-    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
-    */
-    public function getTypeClass() {
-        return 'XSS';
-    }    
-    
+
 }

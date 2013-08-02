@@ -24,7 +24,8 @@ class XSS extends Validator {
         $session = \Ip\ServiceLocator::getSession();
 
         if ($values[$valueKey] != $session->getSecurityToken()) {
-            return 'error';
+            $parametersMod = \Ip\ServiceLocator::getParametersMod();
+            return $parametersMod->getValue("developer", "form", "error_messages", "xss");
         } else {
             return false;
         }
