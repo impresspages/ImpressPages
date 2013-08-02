@@ -28,6 +28,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'getPageOptionsHtml';
+            data.securityToken = ip.securityToken;
             data.pageId = pageId;
             data.zoneName = zoneName;
 

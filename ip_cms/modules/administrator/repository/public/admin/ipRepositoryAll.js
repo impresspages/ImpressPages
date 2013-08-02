@@ -26,6 +26,7 @@
                     data.g = 'administrator';
                     data.m = 'repository';
                     data.a = 'getAll';
+                    data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
 
                     $.ajax ({
@@ -302,6 +303,7 @@
                 data.m = 'repository';
                 data.a = 'deleteFiles';
                 data.files = files;
+                data.securityToken = ip.securityToken;
 
                 $.ajax ({
                     type : 'POST',

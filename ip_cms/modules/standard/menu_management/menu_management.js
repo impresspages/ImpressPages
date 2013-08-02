@@ -279,8 +279,8 @@ function closeNode (event, data) {
     data.type = node.attr('rel');
     data.zoneName = node.attr('zoneName');
     data.languageId = node.attr('languageId');
-    data.websiteId = node.attr('websiteId');   
-        
+    data.websiteId = node.attr('websiteId');
+
     data.action = 'closePage';
     
     $.ajax({

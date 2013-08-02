@@ -139,6 +139,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'manageWidget';
+            data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
 
 
@@ -226,6 +227,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'updateWidget';
+            data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
             data.layout = $this.find('.ipaLayouts').val();
@@ -277,6 +279,7 @@
             data.g = 'standard';
             data.m = 'content_management';
             data.a = 'cancelWidget';
+            data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
 
             var urlParts = window.location.href.split('#');

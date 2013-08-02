@@ -8,7 +8,7 @@ namespace Modules\developer\form\Field;
 
 
 abstract class Field{
-    //layouts define how field should be treatet in the view
+    //layouts define how field should be treated in the view
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
     

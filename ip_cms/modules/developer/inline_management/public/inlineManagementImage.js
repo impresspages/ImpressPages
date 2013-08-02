@@ -45,7 +45,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'getManagementPopupImage';
-
+            data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementImage').key;
 
             var urlParts = window.location.href.split('#');
@@ -173,6 +173,7 @@
             data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
+            data.securityToken = ip.securityToken;
 
 
             data.key = $this.data('ipInlineManagementImage').key;
@@ -238,6 +239,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'saveImage';
+            data.securityToken = ip.securityToken;
 
             data.key = $this.data('ipInlineManagementImage').key;
             data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;

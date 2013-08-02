@@ -52,6 +52,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'getManagementPopupLogo';
+            data.securityToken = ip.securityToken;
             data.cssClass = $this.data('cssclass');
 
             var urlParts = window.location.href.split('#');
@@ -252,6 +253,7 @@
             data.g = 'developer';
             data.m = 'inline_management';
             data.a = 'saveLogo';
+            data.securityToken = ip.securityToken;
 
             data.cssClass = $this.data('ipInlineManagementLogo').cssClass;
 

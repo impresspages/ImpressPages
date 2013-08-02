@@ -147,6 +147,7 @@
                 data.m = 'repository';
                 data.a = 'storeNewFiles';
                 data.files = files;
+                data.securityToken = ip.securityToken;
 
                 $.ajax ({
                     type : 'POST',

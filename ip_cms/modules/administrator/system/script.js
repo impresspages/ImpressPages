@@ -33,6 +33,7 @@ function startUpdate(e)
     postData.g = 'administrator';
     postData.m = 'system';
     postData.a = 'startUpdate';
+    postData.securityToken = ip.securityToken;
 
     $.ajax({
         url: BASE_URL,

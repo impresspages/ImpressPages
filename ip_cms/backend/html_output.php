@@ -39,7 +39,7 @@ class HtmlOutput {
             theme : '. json_encode(THEME) .',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
-            revisionId : '.json_encode(null).',
+            revisionId : '.json_encode(null).'
         };
     </script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>

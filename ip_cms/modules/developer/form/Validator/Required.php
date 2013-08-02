@@ -12,7 +12,8 @@ class Required extends Validator {
     
     public function validate($values, $valueKey) {
         if (empty($values[$valueKey])) {
-            return 'required';
+            $parametersMod = \Ip\ServiceLocator::getParametersMod();
+            return $parametersMod->getValue("developer", "form", "error_messages", "required");
         } else {
             return false;
         }
