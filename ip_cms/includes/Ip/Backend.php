@@ -79,7 +79,7 @@ class Backend{
     }
 
     public static function getModule($groupName=null , $moduleName = null){
-        $sql = "select m.translation as m_translation, m.core, m.id, g.name as g_name, g.translation as g_translation, m.name as m_name, m.version from `".DB_PREF."module_group` g, `".DB_PREF."module` m where g.name = '".mysql_real_escape_string($groupName)."' and m.group_id = g.id and m.name= '".mysql_real_escape_string($moduleName)."' order by g.row_number, m.row_number limit 1";
+        $sql = "select m.translation as m_translation, m.core, m.id, g.name as g_name, g.translation as g_translation, m.name as m_name, m.version, m.managed from `".DB_PREF."module_group` g, `".DB_PREF."module` m where g.name = '".mysql_real_escape_string($groupName)."' and m.group_id = g.id and m.name= '".mysql_real_escape_string($moduleName)."' order by g.row_number, m.row_number limit 1";
         $rs = mysql_query($sql);
         if ($rs) {
             if($lock = mysql_fetch_assoc($rs)) {
