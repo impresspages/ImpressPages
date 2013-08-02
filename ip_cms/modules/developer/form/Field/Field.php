@@ -28,7 +28,7 @@ abstract class Field{
     protected $attributes;
     protected $classes; // CSS classes to be added to input field
     
-    public function __construct($options) {
+    public function __construct($options = array()) {
         $this->validators = array();
         
         if (!empty($options['validators'])) {

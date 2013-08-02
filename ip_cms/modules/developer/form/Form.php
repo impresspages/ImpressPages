@@ -20,13 +20,20 @@ class Form{
     protected $classes;
 
     public function __construct() {
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
+        $session = \Ip\ServiceLocator::getSession();
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = $site->getCurrentUrl();
         $this->pages = array();
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1);
+
+        //add security token field
+        $tokenField = new Field\Hidden();
+        $tokenField->setName('securityToken');
+        $tokenField->setDefaultValue($session->getSecurityToken());
+        $this->addField($tokenField);
     }
 
     /**

@@ -3167,6 +3167,11 @@ $moduleTitle["developer"]["form"] = "Form";
         $parameterAdmin["developer"]["form"]["error_messages"]["file_type"] = "0";
         $parameterType["developer"]["form"]["error_messages"]["file_type"] = "lang";
 
+        $parameterTitle["developer"]["form"]["error_messages"]["xss"] = "XSS error";
+        $parameterValue["developer"]["form"]["error_messages"]["xss"] = "Session has expired. Please try again.";
+        $parameterAdmin["developer"]["form"]["error_messages"]["xss"] = "0";
+        $parameterType ["developer"]["form"]["error_messages"]["xss"] = "lang";
+
     $parameterGroupTitle["developer"]["form"]["translations"] = "Translations";
     $parameterGroupAdmin["developer"]["form"]["translations"] = "0";
 

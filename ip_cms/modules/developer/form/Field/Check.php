@@ -7,7 +7,7 @@
 /**
  * 
  * Antispam field. Add it to the form and you will be
- * protected agains spam bots.
+ * protected against spam bots.
  * Add captcha if you like to protect your self from human bots :)
  * This field is not called antispam because some templates might 
  * try to add field type as a classname. In that case it would be easier
@@ -23,8 +23,8 @@
  * form doesn't validate. Real users doesn't see this value. So they don't fill this field :)
  * 
  * 2. It adds md5 coded value mixed of some website data and current date. That means,
- * if someone would try to write a bot particulary for your website, they 
- * will need to get new pass from your website every day. Offten they just don't
+ * if someone would try to write a bot particularly for your website, they
+ * will need to get new pass from your website every day. Often they just don't
  * try so hard.
  * 
  * If you know any better ways, please contribute on GitHub.
@@ -49,6 +49,7 @@ class Check extends Field{
         
         return '
 <input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="" />
+<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
 <input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
 ';
     }
