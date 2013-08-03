@@ -31,7 +31,8 @@
                         multipart_params : {
                             g : 'administrator',
                             m : 'repository',
-                            a : 'upload'
+                            a : 'upload',
+                            securityToken : ip.securityToken
                         },
 
                         //if you add "multipart: false," IE fails.

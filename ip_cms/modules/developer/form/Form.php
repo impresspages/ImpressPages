@@ -27,7 +27,7 @@ class Form{
         $this->action = $site->getCurrentUrl();
         $this->pages = array();
         $this->attributes = array();
-        $this->classes = array('ipModuleForm' => 1);
+        $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
 
         //add security token field
         $tokenField = new Field\XSS();
