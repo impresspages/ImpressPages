@@ -27,7 +27,7 @@ class XSS extends Blank{
     public function render($doctype) {
         $session = \Ip\ServiceLocator::getSession();
         return '
-<input '.$this->getAttributesStr($doctype).' class="ipmControlBlank '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="text" value="'.addslashes($session->getSecurityToken()).'" />
+<input '.$this->getAttributesStr($doctype).' style="display: none;" class="ipmControlBlank '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="text" value="'.addslashes($session->getSecurityToken()).'" />
 ';
     }
     
