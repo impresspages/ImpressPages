@@ -16,6 +16,12 @@
             "name": "background_color",
             "type": "color",
             "default": "234567"
+        },
+        {
+            "label": "Backround",
+            "name": "backround",
+            "type": "file",
+            "default": ""
         }
     ]
 }
