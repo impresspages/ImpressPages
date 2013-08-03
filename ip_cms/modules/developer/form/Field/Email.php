@@ -9,7 +9,7 @@ namespace Modules\developer\form\Field;
 
 class Email extends Field{
     
-    public function __construct($options) {
+    public function __construct($options = array()) {
         parent::__construct($options);
         $this->addValidator('Email');
     }
