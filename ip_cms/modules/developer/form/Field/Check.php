@@ -48,8 +48,8 @@ class Check extends Field{
         $attributesStr = '';
         
         return '
-<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="" />
-<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
+<input '.$this->getAttributesStr($doctype).' style="display: none;" class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="" />
+<input '.$this->getAttributesStr($doctype).' style="display: none;" class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[]"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars(md5(date("Y-m-d").SESSION_NAME)).'" />
 ';
     }
     
