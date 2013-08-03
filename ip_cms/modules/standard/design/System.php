@@ -13,7 +13,8 @@ class System{
     public function init()
     {
 
-        if (isset($_GET['ipDesignPreview']) && $this->hasPermission()) {
+        $configModel = ConfigModel::instance();
+        if ($configModel->isInPreviewState()) {
             $this->initConfig();
         }
 
@@ -43,9 +44,9 @@ class System{
 
     protected function getConfigurationBoxHtml()
     {
-        $model = Model::instance();
+        $configModel = ConfigModel::instance();
 
-        $form = $model->getThemeConfigForm(THEME);
+        $form = $configModel->getThemeConfigForm(THEME);
         $form->removeClass('ipModuleForm');
         $variables = array(
             'form' => $form

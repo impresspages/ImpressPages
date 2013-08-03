@@ -9,16 +9,12 @@ namespace Modules\standard\design;
 
 
 
-class Controller extends \Ip\Controller
+class Backend extends \Ip\Controller
 {
 
 
     public function index()
     {
-        if (!$this->hasPermission()) {
-            throw new \Ip\CoreException('User has no permission to access this page');
-        }
-
         $site = \Ip\ServiceLocator::getSite();
 
 
@@ -61,10 +57,6 @@ class Controller extends \Ip\Controller
 
     public function downloadTheme()
     {
-        if (!$this->hasPermission()) {
-            throw new \Ip\CoreException('User has no permission to access this page');
-        }
-
         // TODOX allow only commands from market, maybe use nonce?
         $themeUrl = $_GET['url']; // TODOX remove this parameter, costruct url from theme name, do not allow arbitrary urls
         $themeName = $_GET['name']; // TODOX use $_POST
@@ -93,18 +85,5 @@ class Controller extends \Ip\Controller
     }
 
 
-
-    protected function hasPermission()
-    {
-        if (!\Ip\Backend::loggedIn()) {
-            return false;
-        }
-
-        if (!\Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'design')) {
-            return false;
-        }
-
-        return true;
-    }
 
 }

@@ -66,7 +66,7 @@
         $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
 
 
-        if (!$site->managementState()) {
+        if (!$site->managementState() && !\Modules\standard\design\ConfigModel::instance()->isInPreviewState()) {
             $site->makeRedirect(); //if required;
         }
     }
