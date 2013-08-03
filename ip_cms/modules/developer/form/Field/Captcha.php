@@ -10,7 +10,7 @@ namespace Modules\developer\form\Field;
 class Captcha extends Field{
     private $catpchaInit;
     
-    public function __construct($options) {
+    public function __construct($options = array()) {
         $this->captchaInit = array(
         
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!

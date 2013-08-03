@@ -90,7 +90,8 @@
                     multipart_params : {
                         g : 'developer',
                         m : 'upload',
-                        a : 'upload'
+                        a : 'upload',
+                        securityToken : ip.securityToken
                     },
                     
                     //if you add "multipart: false," IE fails.
