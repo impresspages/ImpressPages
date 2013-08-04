@@ -18,7 +18,7 @@ class ConfigModel{
     }
 
     /**
-     * @return Model
+     * @return ConfigModel
      */
     public static function instance()
     {
@@ -28,6 +28,16 @@ class ConfigModel{
     public function isInPreviewState()
     {
         return isset($_GET['ipDesignPreview']) && $this->hasPermission();
+    }
+
+    public function getConfigValue($theme, $name)
+    {
+        
+    }
+
+    public function setConfigValue($theme, $name)
+    {
+
     }
 
 
@@ -102,7 +112,7 @@ class ConfigModel{
         }
 
         $submit = new Form\Field\Submit();
-        $submit->setDefaultValue('{{Apply}}');
+        $submit->setDefaultValue('{{Save}}');
 
         $form->addField($submit);
 

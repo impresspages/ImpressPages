@@ -91,11 +91,56 @@ class Backend extends \Ip\Controller
 
     public function updateConfig()
     {
-        if (!\Ip\ServiceLocator::getRequest()->isPost()) {
+        $request = \Ip\ServiceLocator::getRequest();
+        if (!$request->isPost()) {
             throw new \Ip\CoreException('Post required');
         }
+        $request->paramsPost(THEME);
 
-        if (\Ip\ServiceLocator)
+        $configModel = ConfigModel::instance();
+
+        $form = $configModel->getThemeConfigForm(THEME);
+
+
+        $errors = $form->validate($request->paramsPost());
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success'
+            );
+
+        }
+
+        $model = Model::instance();
+        $theme = $model->getTheme($name);
+        if (!$theme) {
+            throw new \Ip\CoreException("Theme doesn't exist");
+        }
+
+        $options = $theme->getOptions();
+
+        foreach($options as $option) {
+            if (empty($option['name'])) {
+                continue;
+            }
+
+            $field = $form->getField($option['name']);
+            if (!$field) {
+                continue;
+            }
+
+            $field->getValueAsString($request->paramsPost(), $option['name']);
+
+        }
+
+
+
+        $this->returnJson($data);
     }
 
 
