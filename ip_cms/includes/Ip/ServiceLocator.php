@@ -17,6 +17,8 @@ namespace Ip;
  */
 class ServiceLocator
 {
+    protected static $request = null;
+
     /**
      * @return \Modules\Administrator\Log\Module
      */
@@ -78,5 +80,17 @@ class ServiceLocator
          */
         global $parametersMod;
         return $parametersMod;
+    }
+
+    /**
+     * @return Request
+     */
+    public static function getRequest()
+    {
+        if (self::$request == null) {
+            self::$request = new \Ip\Request();
+        }
+
+        return self::$request;
     }
 }
