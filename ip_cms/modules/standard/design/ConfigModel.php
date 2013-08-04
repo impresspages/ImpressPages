@@ -37,7 +37,25 @@ class ConfigModel{
 
     public function setConfigValue($theme, $name)
     {
+        $dbh = \Ip\Db::getConnection();
+        $sql = '
+            INSERT INTO
+                `'.DB_PREF.'m_inline_value_global`
+            SET
+                `module` = :module,
+                `key` = :key,
+                `value` = :value
+            ON DUPLICATE KEY UPDATE
+                `value` = :value
+        ';
 
+        $params = array (
+            ':module' => $this->module,
+            ':key' => $key,
+            ':value' => $value
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
     }
 
 

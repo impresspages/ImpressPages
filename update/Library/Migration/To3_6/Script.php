@@ -32,6 +32,23 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->addDesignModule();
 
+
+        $this->addDesignDatabaseTable();
+    }
+
+    protected function addDesignDatabaseTable()
+    {
+        $sql = '
+            CREATE TABLE IF NOT EXISTS `'.$this->cf['DB_PREF'].'m_design` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `theme` varchar(255) NOT NULL,
+                `name` varchar(255) NOT NULL,
+                `value` varchar(255) NOT NULL,
+                PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+        ';
+        $q = $this->dbh->prepare($sql);
+        $q->execute();
     }
 
 

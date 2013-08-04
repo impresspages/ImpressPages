@@ -134,8 +134,8 @@ class Backend extends \Ip\Controller
                 continue;
             }
 
-            $field->getValueAsString($request->paramsPost(), $option['name']);
-
+            $value = $field->getValueAsString($request->paramsPost(), $option['name']);
+            $configModel->setConfigValue(THEME, $option['name'], $value);
         }
 
 
