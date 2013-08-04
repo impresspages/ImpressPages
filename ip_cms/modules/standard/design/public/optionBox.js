@@ -23,7 +23,7 @@ var ipDesign = new function() {
             url: ip.baseUrl,
             dataType: 'json',
             type : 'POST',
-            data: form.serialize(),
+            data: $form.serialize(),
             success: function (response){
                 if (response.status && response.status == 'success') {
                     if (typeof ipWidgetIpFormSuccess == 'function'){ //custom handler exists

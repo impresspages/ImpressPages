@@ -117,7 +117,7 @@ class Backend extends \Ip\Controller
         }
 
         $model = Model::instance();
-        $theme = $model->getTheme($name);
+        $theme = $model->getTheme(THEME);
         if (!$theme) {
             throw new \Ip\CoreException("Theme doesn't exist");
         }
