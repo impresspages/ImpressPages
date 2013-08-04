@@ -30,28 +30,47 @@ class ConfigModel{
         return isset($_GET['ipDesignPreview']) && $this->hasPermission();
     }
 
-    public function getConfigValue($theme, $name)
+    public function getConfigValue($theme, $name, $default = null)
     {
-        
+        $dbh = \Ip\Db::getConnection();
+        $sql = '
+            SELECT FROM
+                `'.DB_PREF.'m_design`
+            WHERE
+                `theme` = :theme,
+                `name` = :name
+        ';
+
+        $params = array (
+            ':theme' => $theme,
+            ':name' => $name
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+        $result = $q->fetch(\PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result['value'];
+        }
+        return $default;
     }
 
-    public function setConfigValue($theme, $name)
+    public function setConfigValue($theme, $name, $value)
     {
         $dbh = \Ip\Db::getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_global`
+                `'.DB_PREF.'m_design`
             SET
-                `module` = :module,
-                `key` = :key,
+                `theme` = :theme,
+                `name` = :name,
                 `value` = :value
             ON DUPLICATE KEY UPDATE
                 `value` = :value
         ';
 
         $params = array (
-            ':module' => $this->module,
-            ':key' => $key,
+            ':theme' => $theme,
+            ':name' => $name,
             ':value' => $value
         );
         $q = $dbh->prepare($sql);

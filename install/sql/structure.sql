@@ -286,11 +286,12 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_m_design` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `theme` varchar(255) NOT NULL,
-    `name` varchar(255) NOT NULL,
-    `value` varchar(255) NOT NULL,
-    PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `theme` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `theme` (`theme`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- Table structure
