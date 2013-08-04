@@ -146,7 +146,11 @@ class Form{
         }
         return $fields;
     }
-    
+
+    /**
+     * @param $name
+     * @return Field\Field
+     */
     public function getField($name) {
         $allFields = $this->getFields();
         foreach($allFields as $key => $field) {
