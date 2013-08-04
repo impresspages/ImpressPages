@@ -2,6 +2,7 @@
 $(document).ready(function() {
     $('body').append(ipModuleDesignConfiguration);
     $('a').off('click').on('click', ipDesign.openLink);
+    $('.ipModuleDesignConfig .ipsForm').on('submit', ipDesign.apply);
 });
 
 
@@ -14,11 +15,32 @@ var ipDesign = new function() {
         window.location = href;
     }
 
-    var internalFunction = function() {
+    this.apply = function (e) {
+        e.preventDefault();
+        // client-side validation OK.
+        $form = $(this);
+        console.log($form.serialize());
 
-    };
+//        $.ajax({
+//            url: ip.baseUrl,
+//            dataType: 'json',
+//            type : 'POST',
+//            data: form.serialize(),
+//            success: function (response){
+//                if (response.status && response.status == 'success') {
+//                    if (typeof ipWidgetIpFormSuccess == 'function'){ //custom handler exists
+//                        ipWidgetIpFormSuccess($ipForm);
+//                    } else { //default handler
+//                        $ipForm.find('.ipwSuccess').show();
+//                        $ipForm.find('.ipwForm').hide();
+//                    }
+//                } else {
+//                    if (response.errors) {
+//                        form.data("validator").invalidate(response.errors);
+//                    }
+//                }
+//            }
+//        });
+    }
 
-    this.publicFunction = function() {
-
-    };
 };

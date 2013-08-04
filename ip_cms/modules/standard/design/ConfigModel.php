@@ -46,6 +46,7 @@ class ConfigModel{
 
 
         $form = new \Modules\developer\form\Form();
+        $form->addClass('ipsForm');
 
         $options = $theme->getOptions();
 
@@ -85,6 +86,11 @@ class ConfigModel{
 
             $form->addfield($field);
         }
+
+        $submit = new Form\Field\Submit();
+        $submit->setDefaultValue('{{Apply}}');
+
+        $form->addField($submit);
 
         return $form;
     }
