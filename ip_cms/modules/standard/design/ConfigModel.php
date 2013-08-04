@@ -48,6 +48,20 @@ class ConfigModel{
         $form = new \Modules\developer\form\Form();
         $form->addClass('ipsForm');
 
+        $field = new Form\Field\Hidden();
+        $field->setName('g');
+        $field->setDefaultValue('standard');
+        $form->addField($field);
+        $field = new Form\Field\Hidden();
+        $field->setName('m');
+        $field->setDefaultValue('design');
+        $form->addField($field);
+        $field = new Form\Field\Hidden();
+        $field->setName('ba');
+        $field->setDefaultValue('updateConfig');
+        $form->addField($field);
+
+
         $options = $theme->getOptions();
 
         foreach($options as $option) {

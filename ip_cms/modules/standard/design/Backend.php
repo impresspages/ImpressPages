@@ -57,6 +57,10 @@ class Backend extends \Ip\Controller
 
     public function downloadTheme()
     {
+        if (!\Ip\ServiceLocator::getRequest()->isPost()) {
+            throw new \Ip\CoreException('Post required');
+        }
+
         // TODOX allow only commands from market, maybe use nonce?
         $themeUrl = $_GET['url']; // TODOX remove this parameter, costruct url from theme name, do not allow arbitrary urls
         $themeName = $_GET['name']; // TODOX use $_POST
@@ -84,6 +88,15 @@ class Backend extends \Ip\Controller
         $this->returnJson(array('success' => true));
     }
 
+
+    public function updateConfig()
+    {
+        if (!\Ip\ServiceLocator::getRequest()->isPost()) {
+            throw new \Ip\CoreException('Post required');
+        }
+
+        if (\Ip\ServiceLocator)
+    }
 
 
 }
