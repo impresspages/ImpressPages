@@ -66,11 +66,9 @@ var Market = new function() {
             });
         }
 
-        // TODOX add security token
-        // TODOX do it through backend action
         $.ajax(ip.baseUrl, {
             'type': 'POST',
-            'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
+            'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload, 'securityToken': ip.securityToken},
             'dataType': 'json',
             'success': function (data) {
                 $('body').trigger('ipMarketOrderImageDownload', data);
@@ -116,7 +114,7 @@ var Market = new function() {
             'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken},
             'dataType': 'json',
             'success': function (data) {
-                //$('body').trigger('ipMarketOrderImageDownload', data);
+                alert('Theme installed.');
                 themesDownloaded = true;
                 themesData = data;
                 checkComplete();
