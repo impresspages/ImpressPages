@@ -136,6 +136,12 @@ class ConfigModel{
                 case 'file':
                     $newField = new Form\Field\File();
                     break;
+                case 'color':
+                    $newField = new Form\Field\Color();
+                    break;
+                case 'range':
+                    $newField = new Form\Field\Range();
+                    break;
                 default:
                     //do nothing
             }
