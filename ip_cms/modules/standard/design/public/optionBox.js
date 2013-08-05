@@ -26,12 +26,8 @@ var ipDesign = new function() {
             data: $form.serialize(),
             success: function (response){
                 if (response.status && response.status == 'success') {
-                    if (typeof ipWidgetIpFormSuccess == 'function'){ //custom handler exists
-                        ipWidgetIpFormSuccess($ipForm);
-                    } else { //default handler
-                        $ipForm.find('.ipwSuccess').show();
-                        $ipForm.find('.ipwForm').hide();
-                    }
+                    var refreshUrl = window.location.href.split('#')[0];
+                    window.location = refreshUrl;
                 } else {
                     if (response.errors) {
                         form.data("validator").invalidate(response.errors);

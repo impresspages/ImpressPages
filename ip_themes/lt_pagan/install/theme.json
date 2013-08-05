@@ -18,6 +18,12 @@
             "default": "234567"
         },
         {
+            "label": "Width",
+            "name": "width",
+            "type": "range",
+            "default": ""
+        },
+        {
             "label": "Backround",
             "name": "backround",
             "type": "file",

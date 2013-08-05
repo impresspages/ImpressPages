@@ -437,6 +437,12 @@ class View{
         return $view->render();
     }
 
+    public function getThemeOption($name, $default = null)
+    {
+        $designConfigModel = \Modules\standard\design\ConfigModel::instance();
+        return $designConfigModel->getConfigValue(THEME, $name, $default);
+    }
+
     private static function checkData ($data) {
         foreach ($data as $key => $value) {
             if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {

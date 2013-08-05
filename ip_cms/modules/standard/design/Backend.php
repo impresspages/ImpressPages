@@ -105,14 +105,13 @@ class Backend extends \Ip\Controller
         if (!$request->isPost()) {
             throw new \Ip\CoreException('Post required');
         }
-        $request->paramsPost(THEME);
 
         $configModel = ConfigModel::instance();
 
         $form = $configModel->getThemeConfigForm(THEME);
 
 
-        $errors = $form->validate($request->paramsPost());
+        $errors = $form->validate($request->getPost());
 
         if ($errors) {
             $data = array(
@@ -144,7 +143,7 @@ class Backend extends \Ip\Controller
                 continue;
             }
 
-            $value = $field->getValueAsString($request->paramsPost(), $option['name']);
+            $value = $field->getValueAsString($request->getPost(), $option['name']);
             $configModel->setConfigValue(THEME, $option['name'], $value);
         }
 
