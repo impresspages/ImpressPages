@@ -9,7 +9,8 @@ namespace Modules\standard\design;
 
 use \Modules\developer\form as Form;
 
-class Model{
+class Model
+{
 
     const INSTALL_DIR = 'install/';
     const PARAMETERS_FILE = 'parameters.php';
@@ -33,15 +34,20 @@ class Model{
     public function getAvailableThemes()
     {
         $answer = array();
-        if ($handle = opendir(BASE_DIR.THEME_DIR)) {
+        if ($handle = opendir(BASE_DIR . THEME_DIR)) {
             while (false !== ($file = readdir($handle))) {
-                if(is_dir(BASE_DIR.THEME_DIR.$file) && $file != '..' && $file != '.' && substr($file, 0, 1) != '.') {
+                if (is_dir(BASE_DIR . THEME_DIR . $file) && $file != '..' && $file != '.' && substr(
+                        $file,
+                        0,
+                        1
+                    ) != '.'
+                ) {
                     $answer[] = $this->getTheme($file);
                 }
             }
             closedir($handle);
         }
-        
+
         return $answer;
     }
 
@@ -50,41 +56,41 @@ class Model{
         $themeDir = BASE_DIR . THEME_DIR . $name;
         return is_dir($themeDir);
     }
-    
-    
+
+
     public function installTheme($themeName)
     {
         $availableThemes = self::getAvailableThemes();
         $theme = null;
-        foreach($availableThemes as $availableTheme) {
+        foreach ($availableThemes as $availableTheme) {
             if ($availableTheme->getName() == $themeName) {
                 $theme = $availableTheme;
                 break;
             }
         }
-        
+
         if (!$theme) {
-            throw new \Exception("Theme '".$themeName."' does not exist.");
+            throw new \Exception("Theme '" . $themeName . "' does not exist.");
         }
-        
+
         $configModel = new \Modules\standard\configuration\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
-        
-        $parametersFile = BASE_DIR.THEME_DIR.$themeName.'/'.Theme::INSTALL_DIR.'/'.Theme::PARAMETERS_FILE; 
+
+        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Theme::INSTALL_DIR . '/' . Theme::PARAMETERS_FILE;
         if (file_exists($parametersFile)) {
-            require_once(BASE_DIR.MODULE_DIR.'developer/localization/manager.php');
+            require_once(BASE_DIR . MODULE_DIR . 'developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
-        
+
         \DbSystem::setSystemVariable('theme_changed', time());
-        
+
     }
 
     public function getMarketUrl()
     {
         if (defined('TEST_MARKET_URL')) {
-            $marketUrl = TEST_MARKET_URL.'en/themes-v1/';
+            $marketUrl = TEST_MARKET_URL . 'en/themes-v1/';
         } else {
             $marketUrl = 'http://market.impresspages.org/en/themes-v1/';
         }
@@ -101,7 +107,7 @@ class Model{
         $theme = new Theme($name);
 
         //old type config
-        $themeIniFile = BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.ini';
+        $themeIniFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.ini';
         if (file_exists($themeIniFile)) {
             $iniConfig = $this->parseThemeIni($themeIniFile);
         } else {
@@ -109,7 +115,7 @@ class Model{
         }
 
         //new type config
-        $themeJsonFile = BASE_DIR.THEME_DIR.$name.'/'.self::INSTALL_DIR.'theme.json';
+        $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.json';
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
@@ -125,11 +131,11 @@ class Model{
         }
 
         if (!empty($config['thumbnail'])) {
-            $theme->setThumbnail(BASE_URL.THEME_DIR.$name.'/'.self::INSTALL_DIR.$config['thumbnail']);
+            $theme->setThumbnail(BASE_URL . THEME_DIR . $name . '/' . self::INSTALL_DIR . $config['thumbnail']);
         }
 
 
-        if (!empty($config['doctype']) && defined('\Ip\View::'.$config['doctype'])) {
+        if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
             $theme->setDoctype($config['doctype']);
         } else {
             $theme->setDoctype('DOCTYPE_HTML5');
@@ -165,9 +171,9 @@ class Model{
     {
         $answer = array();
 
-        if(file_exists($file)){
+        if (file_exists($file)) {
             $config = file($file);
-            foreach($config as $key => $configRow){
+            foreach ($config as $key => $configRow) {
                 $configName = substr($configRow, 0, strpos($configRow, ':'));
                 $value = substr($configRow, strpos($configRow, ':') + 1);
                 $value = str_replace("\n", "", str_replace("\r", "", $value));
@@ -180,9 +186,6 @@ class Model{
 
 
     }
-
-
-
 
 
 }
