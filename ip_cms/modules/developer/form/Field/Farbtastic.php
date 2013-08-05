@@ -7,14 +7,15 @@
 namespace Modules\developer\form\Field;
 
 
-class Farbastic extends Field
+class Farbtastic extends Field
 {
-    
 
-    
+
+
     public function render($doctype)
     {
-        return '<input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<div class="ipmFarbtasticPopup ipsFarbtasticPopup"></div>
+        <input '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
     
     /**
@@ -22,7 +23,7 @@ class Farbastic extends Field
     */
     public function getTypeClass()
     {
-        return 'farbastic';
+        return 'farbtastic';
     }
 
 

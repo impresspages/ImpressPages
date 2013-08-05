@@ -14,4 +14,10 @@ $(document).ready(function() {
         $('body').append($('<script type="text/javascript" src="' + ip.baseUrl + ip.moduleDir + 'developer/form/public/file.js"></script>'));
     }
 
+    $.each($('.ipsModuleForm .ipmType-farbtastic'), function(){
+        var $this = $(this);
+        $this.find('.ipsFarbtasticPopup').farbtastic($this.find('.ipsControlInput'));
+    });
+
+
 });
