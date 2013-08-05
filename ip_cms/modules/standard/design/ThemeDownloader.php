@@ -36,7 +36,6 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $archivePath = BASE_DIR . TMP_FILE_DIR . $themeTempFilename;
 
         $fileMd5 = md5_file($archivePath);
-        $fileMd5[1] = 'x';
 
         $rsa = new \Crypt_RSA();
         $rsa->loadKey($this->publicKey);
@@ -49,7 +48,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         $this->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . THEME_DIR);
 
-        unlink(BASE_DIR . TMP_FILE_DIR . $themeTempFilename);
+        unlink($archivePath);
     }
 
     private function extractZip($archivePath, $destinationDir)
