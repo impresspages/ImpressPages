@@ -32,6 +32,7 @@ class Theme {
     }
     
     public function getThumbnail() {
+        return "/ip_themes/{$this->name}/install/thumbnail.png";
         return $this->thumbnail;
     }
     

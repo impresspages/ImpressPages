@@ -29,28 +29,33 @@ class Backend extends \Ip\Controller
 
         $model = Model::instance();
 
-        $themes = $model->getAvailableThemes();
+//        $themes = $model->getAvailableThemes();
+//
+//        $curTheme = null;
+//        foreach($themes as $theme) {
+//            if ($theme->getName() == THEME) {
+//                $curTheme = $theme;
+//            }
+//        }
 
-        $curTheme = null;
-        foreach($themes as $theme) {
-            if ($theme->getName() == THEME) {
-                $curTheme = $theme;
-            }
-        }
-
-
+        $theme = $model->getTheme(THEME);
 
         $data = array(
-            'previewUrl' => BASE_URL,
-            'themeTitle' => $curTheme ? $curTheme->getTitle() : '',
-            'themeName' => $curTheme ? $curTheme->getName() : '',
-            'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
-            'themeThumbnail' => $curTheme ? $curTheme->getThumbnail() : '',
-            'marketUrl' => $model->getMarketUrl()
+            'theme' => $theme,
+            'marketUrl' => $model->getMarketUrl(),
         );
 
+//        $data = array(
+//            'previewUrl' => BASE_URL,
+//            'themeTitle' => $curTheme ? $curTheme->getTitle() : '',
+//            'themeName' => $curTheme ? $curTheme->getName() : '',
+//            'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
+//            'themeThumbnail' => $curTheme ? $curTheme->getThumbnail() : '',
+//            'marketUrl' => $model->getMarketUrl()
+//        );
 
-        $contentView = \Ip\View::create('view/designdashboard.php', $data);
+
+        $contentView = \Ip\View::create('view/index.php', $data);
         $layout = $this->createAdminView($contentView);
         $site->setOutput($layout->render());
     }
