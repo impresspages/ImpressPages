@@ -148,8 +148,6 @@ class Controller extends \Ip\Controller{
 
         $this->backendOnly();
 
-        $site = \Ip\ServiceLocator::getSite();
-
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
             throw new \Ip\CoreException('Invalid parameters.');
         }
@@ -172,8 +170,6 @@ class Controller extends \Ip\Controller{
         }
 
         $this->returnJson($answer);
-
-
     }
 
     /**

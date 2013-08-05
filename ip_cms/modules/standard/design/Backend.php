@@ -88,6 +88,36 @@ class Backend extends \Ip\Controller
         $this->returnJson(array('success' => true));
     }
 
+    public function downloadThemes()
+    {
+        if (!isset($_POST['themes']) || !is_array($_POST['themes'])) {
+            throw new \Ip\CoreException('Invalid parameters.');
+        }
+
+        $themes = $_POST['themes'];
+
+        if (function_exists('set_time_limit')) {
+            set_time_limit(count($themes) * 60 + 30);
+        }
+
+        $themeDownloader = new ThemeDownloader();
+        $model = Model::instance();
+
+        $result = array();
+        foreach ($themes as $theme) {
+            if (!empty($theme['url']) && !empty($theme['name']) && !empty($theme['signature'])) {
+                if ($model->isThemeAvailable($theme['name'])) {
+                    // TODOX make it work with JS
+                    throw new \Ip\CoreException('Theme already installed.');
+                }
+
+                $themeDownloader->downloadTheme($theme['name'], $theme['url'], $theme['signature']);
+                $result[] = true;
+            }
+        }
+
+        $this->returnJson($result);
+    }
 
     public function updateConfig()
     {

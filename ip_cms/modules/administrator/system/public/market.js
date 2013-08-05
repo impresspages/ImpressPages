@@ -48,6 +48,15 @@ var Market = new function() {
     };
 
     var downloadImages = function(images) {
+
+        if (images.length == 0) {
+            $('body').trigger('ipMarketOrderImageDownload', {});
+            imagesDownloaded = true;
+            imagesData = {};
+            checkComplete();
+            return;
+        }
+
         var toDownload = new Array();
 
         for (var i = 0; i < images.length; i++) {
@@ -57,14 +66,7 @@ var Market = new function() {
             });
         }
 
-        if (toDownload.length == 0) {
-            $('body').trigger('ipMarketOrderImageDownload', {});
-            imagesDownloaded = true;
-            imagesData = {};
-            checkComplete();
-            return;
-        }
-
+        // TODOX add security token
         $.ajax(ip.baseUrl, {
             'type': 'POST',
             'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
@@ -89,33 +91,44 @@ var Market = new function() {
 
 
     var downloadThemes= function(themes) {
-        $('body').trigger('ipMarketOrderThemeDownload', {});
-        themesDownloaded = true;
-        themesData = {};
-        checkComplete();
-//        var toDownload = new Array();
-//
-//        for (var i = 0; i < images.length; i++) {
-//            toDownload.push({
-//                url: images[i].downloadUrl,
-//                title: images[i].title
-//            });
-//        }
-//
-//        $.ajax(ip.baseUrl, {
-//            'type': 'POST',
-//            'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload},
-//            'dataType': 'json',
-//            'success': function (data) {
-//                $('body').trigger('ipMarketOrderImageDownload', data);
-//                tasks
-//            },
-//            'error': function () {
-//                alert('Download failed.');
-//                $('body').trigger('ipMarketOrderImageDownload', {}); }
-//        });
-//
-//        $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('ipgHide');
+
+        if (themes.length == 0) {
+            $('body').trigger('ipMarketOrderThemeDownload', {});
+            themesDownloaded = true;
+            themesData = {};
+            checkComplete();
+            return;
+        }
+
+        var toDownload = new Array();
+
+        for (var i = 0; i < themes.length; i++) {
+            toDownload.push({
+                url: themes[i].downloadUrl,
+                name: themes[i].name,
+                signature: themes[i].signature
+            });
+        }
+
+        // TODOX add security token
+        $.ajax(ip.baseUrl, {
+            'type': 'POST',
+            'data': {'g': 'standard', 'm': 'design', 'a': 'downloadThemes', 'themes': toDownload},
+            'dataType': 'json',
+            'success': function (data) {
+                //$('body').trigger('ipMarketOrderImageDownload', data);
+                themesDownloaded = true;
+                themesData = data;
+                checkComplete();
+            },
+            'error': function () {
+                alert('Download failed.');
+                //$('body').trigger('ipMarketOrderImageDownload', {});
+                themesDownloaded = true;
+                themesData = {};
+                checkComplete();
+            }
+        });
     };
 
 };
