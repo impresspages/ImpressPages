@@ -13,7 +13,8 @@ namespace Ip;
  * Class to get information about current request
  *
  */
-class Request{
+class Request
+{
 
     protected $_SERVER = array();
     protected $_POST = array();
@@ -70,7 +71,7 @@ class Request{
         if ($name === null) {
             return $values;
         }
-        if (!isset($values[$name])) {
+        if (!array_key_exists($name,  $values)) {
             return $default;
         }
         return $values[$name];
