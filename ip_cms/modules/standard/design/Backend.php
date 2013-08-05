@@ -90,8 +90,6 @@ class Backend extends \Ip\Controller
 
     public function downloadThemes()
     {
-        $this->backendOnly();
-
         if (!isset($_POST['themes']) || !is_array($_POST['themes'])) {
             throw new \Ip\CoreException('Invalid parameters.');
         }
