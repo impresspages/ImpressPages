@@ -3,10 +3,13 @@ $(document).ready(function() {
     $('body').append(ipModuleDesignConfiguration);
     $('a').off('click').on('click', ipDesign.openLink);
     $('.ipModuleDesignConfig .ipsForm').on('submit', ipDesign.apply);
+    setInterval(ipDesign.livePreviewUpdate, 50);
 });
 
 
 var ipDesign = new function() {
+    var lastSerialized = null;
+    var lastValues = {};
 
     this.openLink = function (e) {
         e.preventDefault();
@@ -35,6 +38,42 @@ var ipDesign = new function() {
                 }
             }
         });
+    }
+
+    this.livePreviewUpdate = function() {
+        var $form = $('.ipModuleDesignConfig .ipsForm');
+        if (lastSerialized == null) {
+            lastSerialized = $form.serialize();
+            return;
+        }
+
+        var curSerialized = $form.serialize();
+
+        if (curSerialized != lastSerialized) {
+            for (optionNameIndex in ipDesignOptionNames) {
+                var optionName = ipDesignOptionNames[optionNameIndex];
+                var curValue = getValueByName(optionName, curSerialized);
+                if (lastValues[optionName] != curValue) {
+                    if (typeof(window['ipDesignOption_' + optionName]) === "function") {
+                        eval('ipDesignOption_' + optionName + '(curValue);');
+                    }
+                }
+            }
+
+//            var val = $('.ipModuleDesignConfig .ipsForm').find('input[name=\'backgroundColor\']').val();
+//            ipDesignOption_backgroundColor(val);
+//            console.log(val);
+        }
+
+        lastSerialized = curSerialized;
+    }
+
+
+    var getValueByName = function(name, values) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec('?' + values);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 };
