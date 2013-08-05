@@ -34,10 +34,12 @@ class ConfigModel{
     {
         $dbh = \Ip\Db::getConnection();
         $sql = '
-            SELECT FROM
+            SELECT
+                value
+            FROM
                 `'.DB_PREF.'m_design`
             WHERE
-                `theme` = :theme,
+                `theme` = :theme AND
                 `name` = :name
         ';
 
@@ -118,34 +120,37 @@ class ConfigModel{
             switch ($option['type']) {
 
                 case 'select':
-                    $field = new Form\Field\Select();
+                    $newField = new Form\Field\Select();
                     $values = array();
                     if (!empty($option['values']) && is_array($option['values'])) {
                         foreach($option['values'] as $value) {
                             $values[] = array($value, $value);
                         }
                     }
-                    $field->setValues($values);
+                    $newField->setValues($values);
 
                     break;
                 case 'text':
-                    $field = new Form\Field\Text();
+                    $newField = new Form\Field\Text();
                     break;
                 case 'file':
-                    $field = new Form\Field\File();
+                    $newField = new Form\Field\File();
                     break;
                 default:
                     //do nothing
             }
-            if (!isset($field)) {
+            if (!isset($newField)) {
                 //field type is not recognised
                 continue;
             }
 
-            $field->setName($option['name']);
-            $field->setLabel(empty($option['label']) ? '' : $option['label']);
+            $newField->setName($option['name']);
+            $newField->setLabel(empty($option['label']) ? '' : $option['label']);
+            $default = isset($option['default']) ? $option['default'] : null;
+            $newField->setDefaultValue($this->getConfigValue($name, $option['name'], $default));
 
-            $form->addfield($field);
+            $form->addfield($newField);
+            $newField = null;
         }
 
         $submit = new Form\Field\Submit();
