@@ -11,14 +11,16 @@ namespace Modules\standard\design;
  */
 class ThemeDownloader
 {
-    public function downloadTheme($name, $url)
+    public function downloadTheme($name, $url, $signature)
     {
         $net = \Library\Php\Net::instance();
         $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_FILE_DIR, $name . '.zip');
 
         if (!$themeTempFilename) {
-            throw new \Ip\CoreException('Theme download failed.');
+            throw new \Ip\CoreException('Theme download failed: ' . $url);
         }
+
+        // TODOX check signature
 
         $this->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . THEME_DIR);
 
