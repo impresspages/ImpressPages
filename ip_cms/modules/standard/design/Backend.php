@@ -77,7 +77,7 @@ class Backend extends \Ip\Controller
             foreach ($themes as $theme) {
                 if (!empty($theme['url']) && !empty($theme['name']) && !empty($theme['signature'])) {
                     if ($model->isThemeAvailable($theme['name'])) {
-                        throw new \Ip\CoreException("Theme '{$theme['name']}' already installed.");
+                        throw new \Ip\CoreException("Theme '{$theme['name']}' is already installed.");
                     }
 
                     $themeDownloader->downloadTheme($theme['name'], $theme['url'], $theme['signature']);
