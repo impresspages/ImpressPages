@@ -22,7 +22,7 @@
 </head>
 <body<?php if ($site->managementState()) { echo ' class="manage"'; } ?>>
 
-    <div class="container_12 wrapper">
+    <div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
         <header class="grid_12">
             <?php echo $this->generateManagedLogo(); ?>
             <div class="languages">
