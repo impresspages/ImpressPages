@@ -20,7 +20,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?>>
+<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> style="background-color: <?php echo $this->getThemeOption('backgroundColor') ?>;">
 
     <div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
         <header class="grid_12">
@@ -68,5 +68,11 @@
         $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
         echo $site->generateJavascript();
     ?>
+<style type="text/css">
+    body {
+        color : <?php echo $this->getThemeOption('textColor'); ?>;
+    }
+</style>
+
 </body>
 </html>
