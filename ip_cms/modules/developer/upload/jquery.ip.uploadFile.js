@@ -50,7 +50,7 @@
                     data.a = 'getFileContainerHtml';
                     
                     $.ajax({
-                        type : 'POST',
+                        type : 'GET',
                         url : ip.baseUrl,
                         data : data,
                         context : $this,
@@ -90,7 +90,8 @@
                     multipart_params : {
                         g : 'developer',
                         m : 'upload',
-                        a : 'upload'
+                        a : 'upload',
+                        securityToken : ip.securityToken
                     },
                     
                     //if you add "multipart: false," IE fails.

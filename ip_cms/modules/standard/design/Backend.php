@@ -9,19 +9,18 @@ namespace Modules\standard\design;
 
 
 
-class Controller extends \Ip\Controller
+class Backend extends \Ip\Controller
 {
 
 
     public function index()
     {
-
-
-        $this->backendOnly();
         $site = \Ip\ServiceLocator::getSite();
 
 
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/market.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/themes.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
@@ -41,9 +40,10 @@ class Controller extends \Ip\Controller
 
         $data = array(
             'previewUrl' => BASE_URL,
+            'themeTitle' => $curTheme ? $curTheme->getTitle() : '',
             'themeName' => $curTheme ? $curTheme->getName() : '',
             'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
-            'themePreviewImage' => $curTheme ? $curTheme->getPreviewImage() : '',
+            'themeThumbnail' => $curTheme ? $curTheme->getThumbnail() : '',
             'marketUrl' => $model->getMarketUrl()
         );
 
@@ -54,24 +54,12 @@ class Controller extends \Ip\Controller
     }
 
 
-//    protected function getConfigurationForm()
-//    {
-//        $form = new \Modules\developer\form\Form();
-//
-//        //add text field to form object
-//        $field = new \Modules\developer\form\Field\Text(
-//            array(
-//                'name' => 'firstField', //html "name" attribute
-//                'label' => 'First field', //field label that will be displayed next to input field
-//            ));
-//        $form->addField($field);
-//
-//        return $form;
-//    }
 
     public function downloadTheme()
     {
-        $this->backendOnly();
+        if (!\Ip\ServiceLocator::getRequest()->isPost()) {
+            throw new \Ip\CoreException('Post required');
+        }
 
         // TODOX allow only commands from market, maybe use nonce?
         $themeUrl = $_GET['url']; // TODOX remove this parameter, costruct url from theme name, do not allow arbitrary urls
@@ -133,10 +121,59 @@ class Controller extends \Ip\Controller
         $this->returnJson($result);
     }
 
-    protected function backendOnly()
+    public function updateConfig()
     {
-        if (!\Ip\Backend::loggedIn()) {
-            throw new \Exception('This controller can be accessed only by administrator');
+        $request = \Ip\ServiceLocator::getRequest();
+        if (!$request->isPost()) {
+            throw new \Ip\CoreException('Post required');
         }
+        $request->paramsPost(THEME);
+
+        $configModel = ConfigModel::instance();
+
+        $form = $configModel->getThemeConfigForm(THEME);
+
+
+        $errors = $form->validate($request->paramsPost());
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success'
+            );
+
+        }
+
+        $model = Model::instance();
+        $theme = $model->getTheme(THEME);
+        if (!$theme) {
+            throw new \Ip\CoreException("Theme doesn't exist");
+        }
+
+        $options = $theme->getOptions();
+
+        foreach($options as $option) {
+            if (empty($option['name'])) {
+                continue;
+            }
+
+            $field = $form->getField($option['name']);
+            if (!$field) {
+                continue;
+            }
+
+            $value = $field->getValueAsString($request->paramsPost(), $option['name']);
+            $configModel->setConfigValue(THEME, $option['name'], $value);
+        }
+
+
+
+        $this->returnJson($data);
     }
+
+
 }

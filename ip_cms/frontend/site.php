@@ -708,7 +708,7 @@ class Site{
     /**
      * Some modules need to make some actions before any output.
      * This function detects such requirements and executes required action of specified module.
-     * If you need to use this feature, simply POST (or GET) thre variables:
+     * If you need to use this feature, simply POST (or GET) three variables:
      * $_REQUEST['g']
      * $_REQUEST['m']
      * $_REQUEST['a']
@@ -742,25 +742,29 @@ class Site{
 
 
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['ba'])) {
+                    //user posts method to backend action. Check permissions.
+                    $permission = \Ip\Backend::userHasPermission(\Ip\Backend::userId(), $_REQUEST['g'], $_REQUEST['m']);
+                    if (!$permission) {
+                        throw new \Ip\CoreException("User has no permission to access module ".$_REQUEST['g'].'/'.$_REQUEST['m'], \Ip\CoreException::SECURITY);
+                    }
+                }
+
+
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
-                    if($newModule['core']){
-                        if (file_exists(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
-                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
-                        } else {
-                            require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
-                        }
+                    if (isset($_REQUEST['ba'])) {
+                        $controllerClass = 'Backend';
                     } else {
-                        if (file_exists(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php')) {
-                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/Controller.php');
-                        } else {
-                            require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/controller.php');
-                        }
+                        $controllerClass = 'Controller';
                     }
-                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Controller();');
+                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\'.$controllerClass.'();');
                     $function = 'index';
                     if (isset($_REQUEST['a'])) {
                         $function = $_REQUEST['a'];
+                    }
+                    if (isset($_REQUEST['ba'])) {
+                        $function = $_REQUEST['ba'];
                     }
                     if (method_exists($tmpModule, $function)) {
                         $tmpModule->init();
@@ -1155,16 +1159,19 @@ class Site{
         );
     }
 
+    /**
+     * @deprecated
+     * @param $name
+     * @param $value
+     * @param int $stage
+     */
     public function addJavascriptVar($name, $value, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$name] = array (
-            'type' => 'variable',
-            'value' => $value
-        );
+        $this->addJavascriptVariable($name, $value);
     }
     
     public function addJavascript($file, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = array (
-            'type' => 'file', 
+            'type' => 'file',
             'value' => $file
         );
     }
@@ -1250,7 +1257,8 @@ class Site{
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
-            'ipRevisionId' => $revision['revisionId'],        
+            'ipRevisionId' => $revision['revisionId'],
+            'ipSecurityToken' =>\Ip\ServiceLocator::getSession()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

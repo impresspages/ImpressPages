@@ -45,8 +45,8 @@ class Template{
         $answer .= '<ul class="ipaList">';
         foreach($themes as $theme) {
             
-            if ($theme->getPreviewImage()) {
-                $image = '<img class="ipaThumb" src="'.BASE_URL.$theme->getPreviewImage().'" alt="'.htmlspecialchars($theme->getName()).'" />';
+            if ($theme->getThumbnail()) {
+                $image = '<img class="ipaThumb" src="'.BASE_URL.$theme->getThumbnail().'" alt="'.htmlspecialchars($theme->getName()).'" />';
             } else {
                 $image = '';
             }

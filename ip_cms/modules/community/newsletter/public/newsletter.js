@@ -54,6 +54,7 @@ $(document).ready(function($) {
             data.m = 'newsletter';
             data.a = 'subscribe';
             data.email = $this.find('input[name=email]').val();
+            data.securityToken = ip.securityToken;
             
             $.ajax({
                 type : 'POST',
@@ -77,6 +78,7 @@ $(document).ready(function($) {
             data.m = 'newsletter';
             data.a = 'unsubscribe';
             data.email = $this.find('input[name=email]').val();
+            data.securityToken = ip.securityToken;
             
             $.ajax({
             type : 'POST',

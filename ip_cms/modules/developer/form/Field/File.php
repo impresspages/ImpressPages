@@ -10,10 +10,7 @@ namespace Modules\developer\form\Field;
 class File extends Field
 {
     
-    public function __construct($options)
-    {
-        parent::__construct($options);
-    }
+
     
     public function render($doctype)
     {

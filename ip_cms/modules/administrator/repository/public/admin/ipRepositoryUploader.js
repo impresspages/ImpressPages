@@ -31,7 +31,8 @@
                         multipart_params : {
                             g : 'administrator',
                             m : 'repository',
-                            a : 'upload'
+                            a : 'upload',
+                            securityToken : ip.securityToken
                         },
 
                         //if you add "multipart: false," IE fails.
@@ -147,6 +148,7 @@
                 data.m = 'repository';
                 data.a = 'storeNewFiles';
                 data.files = files;
+                data.securityToken = ip.securityToken;
 
                 $.ajax ({
                     type : 'POST',

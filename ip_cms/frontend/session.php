@@ -66,7 +66,17 @@ class Session{
         $_SESSION['frontend_session']['user_id'] = $id;
     }
 
-
+    /**
+     * Get security token used to prevent cros site scripting
+     * @return string
+     */
+    public function getSecurityToken()
+    {
+        if (empty($_SESSION['ipSecurityToken'])) {
+            $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
+        }
+        return $_SESSION['ipSecurityToken'];
+    }
 
 
 }

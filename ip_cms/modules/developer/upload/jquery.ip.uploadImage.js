@@ -153,7 +153,7 @@
                     data.a = 'getImageContainerHtml';
                     
                     $.ajax({
-                        type : 'POST',
+                        type : 'GET',
                         url : ip.baseUrl,
                         data : data,
                         context : $this,

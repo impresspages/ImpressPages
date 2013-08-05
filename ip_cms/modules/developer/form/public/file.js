@@ -45,7 +45,8 @@
                             g : 'administrator',
                             m : 'repository',
                             a : 'upload',
-                            secureFolder : 1
+                            secureFolder : 1,
+                            securityToken : ip.securityToken
                         },
 
                         //if you add "multipart: false," IE fails.
@@ -195,4 +196,4 @@
 })(jQuery);
 
 
-$('.ipModuleForm .ipmFileContainer').ipFormFile();
+$('.ipsModuleForm .ipmFileContainer').ipFormFile();
