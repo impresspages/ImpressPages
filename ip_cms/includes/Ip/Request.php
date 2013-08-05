@@ -13,13 +13,12 @@ namespace Ip;
  * Class to get information about current request
  *
  */
-class Request{
-
+class Request
+{
     protected $_SERVER = array();
     protected $_POST = array();
     protected $_GET = array();
     protected $_REQUEST = array();
-
 
     public function __construct()
     {
@@ -49,28 +48,48 @@ class Request{
     }
 
 
-    public function paramsGet($name = null, $default = null)
+    /**
+     * Returns GET query parameter if $name is passed. Returns all query parameters if name == null.
+     *
+     * @param string    $name       query parameter name
+     * @param mixed     $default    default value if no GET parameter exists
+     * @return mixed    GET query variable (all query variables if $name == null)
+     */
+    public function getQuery($name = null, $default = null)
     {
         return $this->getParam($name, $this->_GET, $default);
     }
 
-    public function paramsPost($name = null, $default = null)
+    /**
+     * Returns POST parameter if $name is passed. Returns all query parameters if name == null.
+     *
+     * @param string    $name       query parameter name
+     * @param mixed     $default    default value if no GET parameter exists
+     * @return mixed    GET query variable (all query variables if $name == null)
+     */
+    public function getPost($name = null, $default = null)
     {
         return $this->getParam($name, $this->_POST, $default);
     }
 
-    public function paramsRequest($name = null, $default = null)
+    /**
+     * Returns request parameter if $name is passed. Returns all request parameters if name == null.
+     *
+     * @param string    $name       query parameter name
+     * @param mixed     $default    default value if no GET parameter exists
+     * @return mixed    GET query variable (all query variables if $name == null)
+     */
+    public function getRequest($name = null, $default = null)
     {
         return $this->getParam($name, $this->_REQUEST, $default);
     }
-
 
     protected function getParam($name, $values, $default)
     {
         if ($name === null) {
             return $values;
         }
-        if (!isset($values[$name])) {
+        if (!array_key_exists($name,  $values)) {
             return $default;
         }
         return $values[$name];
