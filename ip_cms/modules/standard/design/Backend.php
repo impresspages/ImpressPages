@@ -23,7 +23,7 @@ class Backend extends \Ip\Controller
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/market.js');
-        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/themes.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/design.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
 
@@ -45,6 +45,7 @@ class Backend extends \Ip\Controller
     public function downloadThemes()
     {
         $request = ServiceLocator::getRequest();
+        $request->mustBePost();
 
         $themes = $request->getPost('themes');
 
@@ -86,12 +87,38 @@ class Backend extends \Ip\Controller
         }
     }
 
+    /**
+     * @throws \Ip\CoreException
+     */
+    public function installTheme()
+    {
+        $request = ServiceLocator::getRequest();
+        $request->mustBePost();
+
+        $themeName = $request->getPost('themeName');
+        if (empty($themeName)) {
+            throw new \Ip\CoreException('Invalid arguments.');
+        }
+
+        $model = Model::instance();
+        if (!$model->getTheme($themeName)) {
+            throw new \Ip\CoreException("Theme '{$themeName}' does not exist.");
+        }
+
+        try {
+            $model->installTheme($themeName);
+        } catch (\Ip\CoreException $e) {
+            $this->returnJson(array('status' => 'error', 'error' => $e->getMessage()));
+            return;
+        }
+
+        $this->returnJson(array('status' => 'success'));
+    }
+
     public function updateConfig()
     {
         $request = \Ip\ServiceLocator::getRequest();
-        if (!$request->isPost()) {
-            throw new \Ip\CoreException('Post required');
-        }
+        $request->mustBePost();
 
         $configModel = ConfigModel::instance();
 

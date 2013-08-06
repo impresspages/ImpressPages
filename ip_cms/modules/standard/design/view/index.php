@@ -20,7 +20,8 @@
             <?php foreach ($availableThemes as $localTheme) { ?>
                 <?php /* @var $localTheme \Modules\standard\design\Theme */ ?>
                 <?php if ($localTheme == $theme) { continue; } ?>
-                <li><?php echo $localTheme->getTitle() ?></li>
+
+                <li><a href="#" class="ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'><?php echo $localTheme->getTitle() ?></a></li>
             <?php } ?>
         </ul>
     <?php } ?>

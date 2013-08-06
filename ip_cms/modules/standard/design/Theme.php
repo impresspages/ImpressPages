@@ -9,7 +9,8 @@ namespace Modules\standard\design;
 
 class Theme
 {
-
+    const INSTALL_DIR = 'install/';
+    const PARAMETERS_FILE = 'parameters.php';
 
     protected $name;
     protected $title;

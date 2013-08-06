@@ -39,6 +39,16 @@ class Request
     }
 
     /**
+     * @throws CoreException
+     */
+    public function mustBePost()
+    {
+        if (!$this->isPost()) {
+            throw new \Ip\CoreException('POST method required.');
+        }
+    }
+
+    /**
      * get request method  'GET', 'HEAD', 'POST', 'PUT'.
      * @return string
      */

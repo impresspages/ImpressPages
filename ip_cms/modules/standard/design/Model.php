@@ -60,25 +60,24 @@ class Model
 
     public function installTheme($themeName)
     {
-        $availableThemes = self::getAvailableThemes();
-        $theme = null;
-        foreach ($availableThemes as $availableTheme) {
-            if ($availableTheme->getName() == $themeName) {
-                $theme = $availableTheme;
-                break;
-            }
-        }
+        $theme = self::getTheme($themeName);
+
+
 
         if (!$theme) {
-            throw new \Exception("Theme '" . $themeName . "' does not exist.");
+            throw new \Ip\CoreException("Theme '" . $themeName . "' does not exist.");
         }
 
         $configModel = new \Modules\standard\configuration\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
 
+
         $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Theme::INSTALL_DIR . '/' . Theme::PARAMETERS_FILE;
         if (file_exists($parametersFile)) {
+            if (!defined('BACKEND')) {
+                define('BACKEND', TRUE);
+            }
             require_once(BASE_DIR . MODULE_DIR . 'developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
