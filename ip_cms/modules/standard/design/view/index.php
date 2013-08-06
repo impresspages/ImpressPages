@@ -16,6 +16,7 @@
     <?php } ?>
 
     <?php if (count($availableThemes) > 1) { ?>
+        <h3>Local Themes</h3>
         <ul>
             <?php foreach ($availableThemes as $localTheme) { ?>
                 <?php /* @var $localTheme \Modules\standard\design\Theme */ ?>
