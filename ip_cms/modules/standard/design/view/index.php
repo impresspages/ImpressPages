@@ -28,8 +28,8 @@
     <?php } ?>
 
 
-    <div class="ipaPreview" style="display: none;">
-        <iframe class="ipaFrame" src="" style="width: 1200px; height: 500px; border: 1px solid;"></iframe>
+    <div class="ipmPreview ipsPreview" style="display: none;">
+        <iframe class="ipaFrame" src=""></iframe>
     </div>
 
     <style>
