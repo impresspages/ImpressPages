@@ -48,12 +48,6 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         $this->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . THEME_DIR);
 
-        // TODOX patikrinti su Mangirdu ar verta pažeisti Law of Demeter
-        $fs = new  \Modules\administrator\system\Helper\FileSystem();
-        if (!$fs->makeWritable(BASE_DIR . THEME_DIR . $name, 0777)) {
-            throw new \Ip\CoreException('CHMOD failed.');
-        }
-
         unlink($archivePath);
     }
 

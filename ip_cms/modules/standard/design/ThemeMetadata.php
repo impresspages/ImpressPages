@@ -48,6 +48,10 @@ class ThemeMetadata
         $this->metadata['options'] = $options;
     }
 
+    public function setThumbnail($thumbnail) {
+        $this->metadata['thumbnail'] = $thumbnail;
+    }
+
     public function getMetadata()
     {
         return $this->metadata;
