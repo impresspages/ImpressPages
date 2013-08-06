@@ -29,31 +29,13 @@ class Backend extends \Ip\Controller
 
         $model = Model::instance();
 
-//        $themes = $model->getAvailableThemes();
-//
-//        $curTheme = null;
-//        foreach($themes as $theme) {
-//            if ($theme->getName() == THEME) {
-//                $curTheme = $theme;
-//            }
-//        }
-
-        $theme = $model->getTheme(THEME);
+        $themes = $model->getAvailableThemes();
 
         $data = array(
-            'theme' => $theme,
+            'theme' => $model->getTheme(THEME),
+            'availableThemes' => $model->getAvailableThemes(),
             'marketUrl' => $model->getMarketUrl(),
         );
-
-//        $data = array(
-//            'previewUrl' => BASE_URL,
-//            'themeTitle' => $curTheme ? $curTheme->getTitle() : '',
-//            'themeName' => $curTheme ? $curTheme->getName() : '',
-//            'themeVersion' => $curTheme ? $curTheme->getVersion() : '',
-//            'themeThumbnail' => $curTheme ? $curTheme->getThumbnail() : '',
-//            'marketUrl' => $model->getMarketUrl()
-//        );
-
 
         $contentView = \Ip\View::create('view/index.php', $data);
         $layout = $this->createAdminView($contentView);

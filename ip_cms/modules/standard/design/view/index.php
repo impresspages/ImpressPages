@@ -15,6 +15,17 @@
         <p>Custom theme.</p>
     <?php } ?>
 
+    <?php if (count($availableThemes) > 1) { ?>
+        <ul>
+            <?php foreach ($availableThemes as $localTheme) { ?>
+                <?php /* @var $localTheme \Modules\standard\design\Theme */ ?>
+                <?php if ($localTheme == $theme) { continue; } ?>
+                <li><?php echo $localTheme->getTitle() ?></li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+
+
     <div class="ipaPreview" style="display: none;">
         <iframe class="ipaFrame" src="" style="width: 1200px; height: 500px; border: 1px solid;"></iframe>
     </div>
@@ -27,7 +38,7 @@
         }
     </style>
     <a href="#" class="ipaOpenOptions">{{Options}}</a>
-    <a href="#" class="ipaOpenMarket">{{Find theme}}</a>
+    <a href="#" class="ipaOpenMarket">{{BUY THEME}}</a>
     <div style="width: 900px; height: 800px;" id="ipModuleDesignContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
 
     </div>
