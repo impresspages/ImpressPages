@@ -40,6 +40,29 @@ class System{
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.css');
+        if (file_exists(BASE_DIR.THEME_DIR.THEME.'/install/options.js')) {
+            $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/install/options.js');
+        }
+
+
+        $model = Model::instance();
+        $theme = $model->getTheme(THEME);
+        if (!$theme) {
+            throw new \Ip\CoreException("Theme doesn't exist");
+        }
+
+        $options = $theme->getOptions();
+
+        $fieldNames = array();
+        foreach($options as $option) {
+            if (empty($option['name'])) {
+                continue;
+            }
+            $fieldNames[] = $option['name'];
+        }
+        $site->addJavascriptVariable('ipDesignOptionNames', $fieldNames);
+
+
     }
 
     protected function getConfigurationBoxHtml()
