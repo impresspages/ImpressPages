@@ -29,6 +29,7 @@
 
 
     <div class="ipmPreview ipsPreview" style="display: none;">
+        <div class="ipmClosePreview ipsClosePreview"></div>
         <iframe class="ipaFrame" src=""></iframe>
     </div>
 
