@@ -42,7 +42,7 @@ class FileSystem
 
     /**
      * Make directory or file and all subdirs and files writable
-     * @param string $dir
+     * @param string $path
      * @param int $permissions eg 0755. ZERO IS REQUIRED. Applied only to files and folders that are not writable.
      * @return boolean
      */
