@@ -127,6 +127,10 @@ class Model
 
         $metadata->setTitle(!empty($config['title']) ? $config['title'] : $name);
 
+        if (!empty($config['author'])) {
+            $metadata->setAuthorTitle($config['author']);
+        }
+
         if (!empty($config['version'])) {
             $metadata->setVersion($config['version']);
         }
