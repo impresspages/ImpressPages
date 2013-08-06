@@ -5,20 +5,12 @@
 <div class="ipModuleDesign">
     <?php if ($theme) { ?>
         <div>
-            <img style="width: 446px; height: 266px" src="<?php echo $this->esc($theme->getThumbnail()); ?>" alt="<?php echo $this->esc($theme->getTitle()); ?>" />
+            <img style="width: 446px; height: 266px" src="<?php echo $this->esc($theme->getThumbnailUrl()); ?>" alt="<?php echo $this->esc($theme->getTitle()); ?>" />
         </div>
 
         <h2><?php echo $this->esc($theme->getTitle()); ?></h2>
 
-        <p>Description</p>
-
-        <p>Author: <a href="#">ImpressPages</a></p>
-        <p>Created: 2013-08-05 (not supported)</p>
-        <p>Last update: 2013-08-05 (not supported)</p>
-        <p>Compatible: IE8, IE9, IE10, Firefox, Safari, Opera, Chrome (not supported)</p>
-        <p>Layout: responsive (not supported)</p>
-        <p>Files included: Layered PSD, HTML files, CSS files, JS files</p>
-        <p>Compatible versions: <?php echo $this->esc($theme->getVersion()); ?></p>
+        <p>Author: <?php echo $this->esc($theme->getAuthorTitle()); ?></p>
     <?php } else { ?>
         <p>Custom theme.</p>
     <?php } ?>

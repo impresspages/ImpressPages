@@ -7,7 +7,8 @@
 namespace Modules\standard\design;
 
 
-class Theme {
+class Theme
+{
 
 
     protected $name;
@@ -15,41 +16,53 @@ class Theme {
     protected $doctype;
     protected $version;
     protected $thumbnail;
+    protected $authorTitle;
     protected $options;
-    
-    public function __construct(ThemeMetadata $metadata) {
+
+    public function __construct(ThemeMetadata $metadata)
+    {
         $properties = $metadata->getMetadata();
         foreach ($properties as $key => $value) {
             $this->$key = $value;
         }
     }
 
-    public function getThumbnail() {
-        return "/ip_themes/{$this->name}/install/thumbnail.png";
-        return $this->thumbnail;
+    public function getThumbnailUrl()
+    {
+        return BASE_URL . THEME_DIR . $this->name . "/install/" . $this->thumbnail;
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getDoctype() {
+    public function getDoctype()
+    {
         return $this->doctype;
     }
 
-    public function getVersion() {
+    public function getVersion()
+    {
         return $this->version;
     }
 
-    public function getOptions() {
+    public function getAuthorTitle()
+    {
+        return $this->authorTitle;
+    }
+
+    public function getOptions()
+    {
         if (!$this->options) {
             return array();
         }
         return $this->options;
     }
-    
+
 }

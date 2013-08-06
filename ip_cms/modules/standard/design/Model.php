@@ -132,9 +132,8 @@ class Model
         }
 
         if (!empty($config['thumbnail'])) {
-            $metadata->setThumbnail(BASE_URL . THEME_DIR . $name . '/' . self::INSTALL_DIR . $config['thumbnail']);
+            $metadata->setThumbnail($config['thumbnail']);
         }
-
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
             $metadata->setDoctype($config['doctype']);

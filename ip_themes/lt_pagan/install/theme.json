@@ -3,6 +3,7 @@
     "version": "2.00",
     "doctype": "DOCTYPE_HTML5",
     "thumbnail": "thumbnail.png",
+    "author": "ImpressPages",
     "options": [
         {
             "label": "Style",
