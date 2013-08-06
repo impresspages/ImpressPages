@@ -104,7 +104,8 @@ class Model
      */
     public function getTheme($name)
     {
-        $theme = new Theme($name);
+        $metadata = new ThemeMetadata();
+        $metadata->setName($name);
 
         //old type config
         $themeIniFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.ini';
@@ -124,27 +125,28 @@ class Model
 
         $config = array_merge($iniConfig, $jsonConfig);
 
-        $theme->setTitle(!empty($config['title']) ? $config['title'] : $name);
+        $metadata->setTitle(!empty($config['title']) ? $config['title'] : $name);
 
         if (!empty($config['version'])) {
-            $theme->setVersion($config['version']);
+            $metadata->setVersion($config['version']);
         }
 
         if (!empty($config['thumbnail'])) {
-            $theme->setThumbnail(BASE_URL . THEME_DIR . $name . '/' . self::INSTALL_DIR . $config['thumbnail']);
+            $metadata->setThumbnail(BASE_URL . THEME_DIR . $name . '/' . self::INSTALL_DIR . $config['thumbnail']);
         }
 
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
-            $theme->setDoctype($config['doctype']);
+            $metadata->setDoctype($config['doctype']);
         } else {
-            $theme->setDoctype('DOCTYPE_HTML5');
+            $metadata->setDoctype('DOCTYPE_HTML5');
         }
 
         if (!empty($config['options'])) {
-            $theme->setOptions($config['options']);
+            $metadata->setOptions($config['options']);
         }
 
+        $theme = new Theme($metadata);
 
         return $theme;
     }
