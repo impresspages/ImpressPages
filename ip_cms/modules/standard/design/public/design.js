@@ -8,8 +8,6 @@ $(document).ready(function () {
     $('.ipsInstallTheme').on('click', function (e) {
         e.preventDefault();
 
-        console.log('install theme');
-
         $.ajax({
             url: ip.baseUrl,
             dataType: 'json',
