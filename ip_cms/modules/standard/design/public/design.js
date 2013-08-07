@@ -1,9 +1,10 @@
 //create crossdomain socket connection
 
-
 $(document).ready(function () {
-    $('.ipModuleDesign .ipaOpenMarket').on('click', ipDesignOpenMarket);
-    $('.ipModuleDesign .ipaOpenOptions').on('click', ipDesignOpenOptions);
+    $('.ipModuleDesign .ipsOpenMarket').on('click', ipDesignOpenMarket);
+    $('.ipModuleDesign .ipsCloseThemeMarket').on('click', ipDesignCloseMarket);
+
+    $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOpenOptions);
 
     $('.ipsInstallTheme').on('click', function (e) {
         e.preventDefault();

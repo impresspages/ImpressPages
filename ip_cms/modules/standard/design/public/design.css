@@ -20,3 +20,30 @@
     background-color: #222222;
     border: 1px solid white;
 }
+
+/*
+.ipModuleDesign .ipmThemeMarketContainer {
+    width: 100%;
+    height: 100%;
+}
+*/
+
+.ipModuleDesign .ipmThemeMarketContainer iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width:100%;
+    height:100%;
+    background-color: white;
+}
+
+.ipModuleDesign .ipmCloseThemeMarket {
+    position: fixed;
+    right: 25px;
+    top: 3px;
+    width: 28px;
+    height: 23px;
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+    z-index: 1001;
+}

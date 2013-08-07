@@ -1,5 +1,5 @@
 var ipDesignOpenMarket = function() {
-    // TODOX hide other content, show market container
+
     $('#ipsThemeMarketContainer').show();
 
     var remote = new easyXDM.Rpc({
@@ -43,4 +43,11 @@ var ipDesignOpenMarket = function() {
         }
 
     );
-}
+};
+
+var ipDesignCloseMarket = function (e) {
+    e.preventDefault();
+
+    $('#ipsThemeMarketContainer').hide();
+    // TODOX make easyXDM work multiple times
+};

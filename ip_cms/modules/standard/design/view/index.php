@@ -27,30 +27,15 @@
         </ul>
     <?php } ?>
 
+    <a href="#" class="ipsOpenOptions">{{Options}}</a> | <a href="#" class="ipsOpenMarket">{{BUY THEME}}</a>
 
     <div class="ipmPreview ipsPreview" style="display: none;">
         <div class="ipmClosePreview ipsClosePreview"></div>
         <iframe class="ipaFrame" src=""></iframe>
     </div>
 
-    <style>
-        .ipThemeMarketContainer {
-            width: 100%;
-            height: 100%;
-            display: none;
-            background-color: black;
-        }
-
-        .ipThemeMarketContainer iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width:100%;
-            height:100%;
-            background-color: white;
-        }
-    </style>
-    <a href="#" class="ipaOpenOptions">{{Options}}</a>
-    <a href="#" class="ipaOpenMarket">{{BUY THEME}}</a>
-    <div class="ipThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
+    <div class="ipmThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>" style="display: none">
+        <div class="ipmCloseThemeMarket ipsCloseThemeMarket"></div>
+        <!-- <iframe name="easyXDM*" /> -->
     </div>
 </div>
