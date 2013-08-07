@@ -20,8 +20,10 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
     public function __construct()
     {
-        set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . DIRECTORY_SEPARATOR . 'phpseclib');
-        require_once 'Crypt/RSA.php';
+        if (!defined('IP_DESIGN_PHPSECLIB_DIR')) {
+            define('IP_DESIGN_PHPSECLIB_DIR', __DIR__.'/phpseclib/');
+        }
+        require_once IP_DESIGN_PHPSECLIB_DIR.'Crypt/RSA.php';
     }
 
     public function downloadTheme($name, $url, $signature)

@@ -24,6 +24,7 @@ class Backend extends \Ip\Controller
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/market.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/design.js');
+        $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/design.css');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
 
