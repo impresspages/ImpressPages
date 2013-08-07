@@ -159,17 +159,16 @@ class ConfigModel{
             $newField = null;
         }
 
-        $submit = new Form\Field\Submit();
-        $submit->setDefaultValue('{{Save}}');
-
-        $form->addField($submit);
-
         return $form;
     }
 
 
     protected function hasPermission()
     {
+        if(defined('IP_ALLOW_PUBLIC_THEME_CONFIG')) {
+            return true;
+        }
+
         if (!\Ip\Backend::loggedIn()) {
             return false;
         }

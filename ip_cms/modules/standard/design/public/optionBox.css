@@ -6,3 +6,7 @@
     background-color: #c5c5c5;
     border: 2px slategrey solid;
 }
+
+.ipModuleDesignConfig .ipmFormContainer{
+    overflow: auto;
+}

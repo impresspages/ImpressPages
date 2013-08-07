@@ -3,7 +3,18 @@ $(document).ready(function() {
     $('body').append(ipModuleDesignConfiguration);
     $('a').off('click').on('click', ipDesign.openLink);
     $('.ipModuleDesignConfig .ipsForm').on('submit', ipDesign.apply);
+    $('.ipModuleDesignConfig .ipsSave').on('click', function(e){
+        e.preventDefault();
+        $('.ipModuleDesignConfig .ipsForm').submit();
+    });
+    $('.ipModuleDesignConfig .ipsCancel').on('click', function(e){
+        e.preventDefault();
+        window.parent.ipDesignCloseOptions(e);
+    });
+
     setInterval(ipDesign.livePreviewUpdate, 50);
+
+    $('.ipModuleDesignConfig .ipmFormContainer').css('maxHeight', $(window).height() - 200);
 });
 
 
