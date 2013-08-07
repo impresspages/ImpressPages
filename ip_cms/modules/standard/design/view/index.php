@@ -33,15 +33,23 @@
     </div>
 
     <style>
-        #ipModuleDesignContainer iframe {
+        .ipThemeMarketContainer {
             width: 100%;
-            height: 800px;
-            outline: 1px solid black;
+            height: 100%;
+            display: none;
+            background-color: black;
+        }
+
+        .ipThemeMarketContainer iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width:100%;
+            height:100%;
+            background-color: white;
         }
     </style>
     <a href="#" class="ipaOpenOptions">{{Options}}</a>
     <a href="#" class="ipaOpenMarket">{{BUY THEME}}</a>
-    <div style="width: 900px; height: 800px;" id="ipModuleDesignContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
-
+    <div class="ipThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
     </div>
 </div>

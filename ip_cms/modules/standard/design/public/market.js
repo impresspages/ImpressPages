@@ -1,7 +1,10 @@
 var ipDesignOpenMarket = function() {
+    // TODOX hide other content, show market container
+    $('#ipsThemeMarketContainer').show();
+
     var remote = new easyXDM.Rpc({
-            remote: $('#ipModuleDesignContainer').data('marketurl'),
-            container: "ipModuleDesignContainer",
+            remote: $('#ipsThemeMarketContainer').data('marketurl'),
+            container: "ipsThemeMarketContainer",
             onMessage: function(message, origin){
                 //DO NOTHING
             },
