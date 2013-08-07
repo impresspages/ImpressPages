@@ -19,14 +19,15 @@ class Backend extends \Ip\Controller
     {
         $site = \Ip\ServiceLocator::getSite();
 
-
+        $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
+        $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/market.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/design.js');
         $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/design.css');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
-
 
         $model = Model::instance();
 

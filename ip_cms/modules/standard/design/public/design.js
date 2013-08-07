@@ -2,8 +2,8 @@
 
 
 $(document).ready(function () {
-    $('.ipModuleDesign .ipaOpenMarket').on('click', ipDesignOpenMarket);
-    $('.ipModuleDesign .ipaOpenOptions').on('click', ipDesignOpenOptions);
+    $('.ipModuleDesign .ipsOpenMarket').on('click', ipDesignOpenMarket);
+    $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOpenOptions);
 
     $('.ipsInstallTheme').on('click', function (e) {
         e.preventDefault();

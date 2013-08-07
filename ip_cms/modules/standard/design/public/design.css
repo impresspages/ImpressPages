@@ -1,3 +1,29 @@
+.ipModuleDesign .ipmSelectedTheme {
+    float: left;
+    width: 448px;
+}
+.ipModuleDesign .ipmSelectedTheme .ipmThemePreview {
+    background: #acacac url(bg_theme_preview.png) no-repeat center top;
+    border-bottom: 1px solid #acacac; /* making virtual border */
+    max-height: 278px;
+    padding: 10px 1px 0 1px; /* making virtual border */
+    overflow: hidden;
+}
+.ipModuleDesign .ipmSelectedTheme .ipmThemePreview img {
+    width: 100%;
+}
+color: #92c131;
+.ipModuleDesign .ipmOtherThemes {
+    border: 1px solid #ccc;
+    margin-left: 468px; /* space for selected theme column */
+}
+.ipModuleDesign .ipmThemeMarket {
+    background-color: #d5d5d5;
+    background-image: url(../../../administrator/repository/public/admin/bg_upload.png);
+}
+.ipModuleDesign .ipmLocalThemes {
+    border-top: 1px solid #ccc; /* separator */
+}
 .ipModuleDesign .ipmPreview {
     width: 100%;
     height: 100%;
@@ -5,18 +31,30 @@
     left: 0;
     top: 0;
 }
-
-.ipModuleDesign .ipmPreview iframe{
+.ipModuleDesign .ipmPreview iframe {
     width: 100%;
     height: 100%;
 }
-
 .ipModuleDesign .ipmClosePreview {
     position: fixed;
     right: 25px;
     top: 3;
     width: 28px;
     height: 23px;
-    background-color: #222222;
+    background-color: #222;
     border: 1px solid white;
+}
+.ipThemeMarketContainer {
+    background-color: #000;
+    height: 100%;
+    display: none;
+    width: 100%;
+}
+.ipThemeMarketContainer iframe {
+    background-color: white;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
