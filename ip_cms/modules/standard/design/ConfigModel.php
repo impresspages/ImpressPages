@@ -159,11 +159,6 @@ class ConfigModel{
             $newField = null;
         }
 
-        $submit = new Form\Field\Submit();
-        $submit->setDefaultValue('{{Save}}');
-
-        $form->addField($submit);
-
         return $form;
     }
 
