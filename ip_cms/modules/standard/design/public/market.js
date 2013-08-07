@@ -21,6 +21,10 @@ var ipDesignThemeMarket = new function () {
         Market.processOrder(order);
     };
 
+    var navigateBackToMyTheme = function() {
+        ipDesignThemeMarket.closeMarketWindow();
+    };
+
     this.openMarketWindow = function () {
         $('#ipsThemeMarketContainer').show();
 
@@ -52,6 +56,9 @@ var ipDesignThemeMarket = new function () {
                             case 'processOrder':
                                 processOrder(data);
                                 break;
+                            case 'navigateBackToMyTheme':
+                                navigateBackToMyTheme();
+                                break;
                         }
                     }
                 }
@@ -62,7 +69,9 @@ var ipDesignThemeMarket = new function () {
     };
 
     this.closeMarketWindow = function (e) {
-        e.preventDefault();
+        if (e != null) {
+            e.preventDefault();
+        }
 
         $('#ipsThemeMarketContainer').hide();
     };
