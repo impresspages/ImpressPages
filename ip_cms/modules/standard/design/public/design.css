@@ -12,7 +12,9 @@
 .ipModuleDesign .ipmSelectedTheme .ipmThemePreview img {
     width: 100%;
 }
-color: #92c131;
+.ipModuleDesign .ipmSelectedTheme .icon-ok {
+    color: #92c131;
+}
 .ipModuleDesign .ipmOtherThemes {
     border: 1px solid #ccc;
     margin-left: 468px; /* space for selected theme column */

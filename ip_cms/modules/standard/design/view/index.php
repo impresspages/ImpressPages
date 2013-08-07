@@ -40,14 +40,12 @@
         </div>
     </div>
 
-    <a href="#" class="ipsOpenOptions">{{Options}}</a> | <a href="#" class="ipsOpenMarket">{{BUY THEME}}</a>
-
-    <div class="ipmPreview ipsPreview" style="display: none;">
+    <div class="ipmPreview ipsPreview ipgHide">
         <div class="ipmClosePreview ipsClosePreview"></div>
         <iframe class="ipaFrame" src=""></iframe>
     </div>
 
-    <div class="ipmThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>" style="display: none">
+    <div class="ipmThemeMarketContainer ipgHide" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
         <div class="ipmCloseThemeMarket"><a href="#" class="ipsCloseThemeMarket">&lt; Back to My Theme</a></div>
         <!-- <iframe name="easyXDM*" /> -->
     </div>
