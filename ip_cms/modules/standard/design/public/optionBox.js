@@ -61,8 +61,8 @@ var ipDesign = new function() {
         var curSerialized = $form.serialize();
 
         if (curSerialized != lastSerialized) {
-            for (optionNameIndex in ipDesignOptionNames) {
-                var optionName = ipDesignOptionNames[optionNameIndex];
+            for (optionNameIndex in ipModuleDesignOptionNames) {
+                var optionName = ipModuleDesignOptionNames[optionNameIndex];
                 var curValue = getValueByName(optionName, curSerialized);
                 if (lastValues[optionName] != curValue) {
                     if (typeof(window['ipDesignOption_' + optionName]) === "function") {

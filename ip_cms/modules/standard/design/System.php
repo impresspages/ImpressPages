@@ -44,7 +44,6 @@ class System{
             $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/install/options.js');
         }
 
-
         $model = Model::instance();
         $theme = $model->getTheme(THEME);
         if (!$theme) {
@@ -60,9 +59,7 @@ class System{
             }
             $fieldNames[] = $option['name'];
         }
-        $site->addJavascriptVariable('ipDesignOptionNames', $fieldNames);
-
-
+        $site->addJavascriptVariable('ipModuleDesignOptionNames', $fieldNames);
     }
 
     protected function getConfigurationBoxHtml()
