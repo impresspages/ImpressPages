@@ -165,6 +165,10 @@ class ConfigModel{
 
     protected function hasPermission()
     {
+        if(defined('IP_ALLOW_PUBLIC_THEME_CONFIG')) {
+            return true;
+        }
+
         if (!\Ip\Backend::loggedIn()) {
             return false;
         }
