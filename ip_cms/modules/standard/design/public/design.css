@@ -38,11 +38,10 @@
 
 .ipModuleDesign .ipmCloseThemeMarket {
     position: fixed;
-    right: 25px;
+    right: 200px;
     top: 3px;
-    width: 28px;
-    height: 23px;
-    background-color: black;
+    background-color: white;
+    color: blue;
     border: 1px solid white;
     cursor: pointer;
     z-index: 1001;

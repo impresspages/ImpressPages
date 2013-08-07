@@ -35,7 +35,7 @@
     </div>
 
     <div class="ipmThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>" style="display: none">
-        <div class="ipmCloseThemeMarket ipsCloseThemeMarket"></div>
+        <div class="ipmCloseThemeMarket"><a href="#" class="ipsCloseThemeMarket">&lt; Back to My Theme</a></div>
         <!-- <iframe name="easyXDM*" /> -->
     </div>
 </div>
