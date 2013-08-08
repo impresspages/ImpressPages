@@ -54,7 +54,7 @@ class Backend extends \Ip\Controller
         $themes = $request->getPost('themes');
 
         if(!is_writable(BASE_DIR.THEME_DIR)){
-            header('HTTP/1.1 500 {{'.BASE_DIR . THEME_DIR.' directory is not writable. Please check your email and install theme manualy.}}');
+            header('HTTP/1.1 500 {{'.BASE_DIR . THEME_DIR.' directory is not writable. Please check your email and install theme manually.}}');
             $site->setOutput('');
             return;
         }
