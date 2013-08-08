@@ -46,10 +46,19 @@ class Backend extends \Ip\Controller
 
     public function downloadThemes()
     {
+        $site = ServiceLocator::getSite();
+
         $request = ServiceLocator::getRequest();
         $request->mustBePost();
 
         $themes = $request->getPost('themes');
+
+        if(!is_writable(BASE_DIR.THEME_DIR)){
+            header('HTTP/1.1 500 {{'.BASE_DIR . THEME_DIR.' directory is not writable. Please check your email and install theme manualy.}}');
+            $site->setOutput('');
+            return;
+        }
+
 
         try {
 
@@ -77,14 +86,10 @@ class Backend extends \Ip\Controller
             $this->returnJson(true);
 
         } catch (\Ip\CoreException $e) {
-
             header('HTTP/1.1 500 ' . $e->getMessage());
-            $site = ServiceLocator::getSite();
             $site->setOutput('');
-
-        } catch (Exception $e) {
-            header('HTTP/1.1 500 Theme download failed');
-            $site = ServiceLocator::getSite();
+        } catch (\Exception $e) {
+            header('HTTP/1.1 500 {{Theme download failed}}');
             $site->setOutput('');
         }
     }
