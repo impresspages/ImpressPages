@@ -39,7 +39,7 @@
         <div class="ipmLocalThemes">
             <?php if (count($availableThemes) > 1) { ?>
                 <h2>{{Local Themes}}</h2>
-                <ul class="ipmThemeList clearfix">
+                <ul class="ipmThemesList clearfix">
                     <?php
                         foreach ($availableThemes as $localTheme) {
                             /* @var $localTheme \Modules\standard\design\Theme */

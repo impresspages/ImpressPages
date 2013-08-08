@@ -59,18 +59,18 @@ body {
     border-top: 1px solid #ccc; /* separator */
     padding: 15px 20px;
 }
-.ipModuleDesign .ipmThemeList {
+.ipModuleDesign .ipmThemesList {
     list-style: none;
     margin: -20px 0 0 -20px;
     padding: 0;
 }
-.ipModuleDesign .ipmThemeList li {
+.ipModuleDesign .ipmThemesList li {
     float: left;
     margin: 20px 0 0 20px;
     position: relative;
     width: 212px;
 }
-.ipModuleDesign .ipmThemeList .ipmThemeActions {
+.ipModuleDesign .ipmThemesList .ipmThemeActions {
     display: none;
     left: 0;
     margin-top: -15px;
@@ -79,22 +79,22 @@ body {
     top: 50%;
     width: 100%;
 }
-.ipModuleDesign .ipmThemeList li:hover .ipmThemeActions {
+.ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
     display: block;
 }
-.ipModuleDesign .ipmThemeList .ipmThemePreview {
+.ipModuleDesign .ipmThemesList .ipmThemePreview {
     border: 1px solid #fff;
     max-height: 132px;
     overflow: hidden;
 }
-.ipModuleDesign .ipmThemeList li:hover .ipmThemePreview {
+.ipModuleDesign .ipmThemesList li:hover .ipmThemePreview {
     border-color: #019bd4;
     outline: 1px solid #019bd4;
 }
-.ipModuleDesign .ipmThemeList .ipmThemePreview img {
+.ipModuleDesign .ipmThemesList .ipmThemePreview img {
     width: 100%;
 }
-.ipModuleDesign .ipmThemeList .ipmThemeTitle {
+.ipModuleDesign .ipmThemesList .ipmThemeTitle {
     display: block;
     font-size: 12px;
     font-weight: bold;
