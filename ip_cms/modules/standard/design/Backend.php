@@ -58,7 +58,7 @@ class Backend extends \Ip\Controller
             }
 
             if (function_exists('set_time_limit')) {
-                set_time_limit(count($themes) * 60 + 30);
+                set_time_limit(count($themes) * 180 + 30);
             }
 
             $themeDownloader = new ThemeDownloader();
