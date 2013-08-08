@@ -23,7 +23,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert('Error installing theme.');
+                alert('Unknown error. See logs for details.');
             }
         });
 
