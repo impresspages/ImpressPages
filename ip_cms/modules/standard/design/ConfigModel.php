@@ -27,7 +27,7 @@ class ConfigModel{
 
     public function isInPreviewState()
     {
-        return isset($_GET['ipDesignPreview']) && $this->hasPermission();
+        return isset($_GET['ipDesignPreview']) && ($this->hasPermission() || defined('IP_ALLOW_PUBLIC_THEME_CONFIG'));
     }
 
     public function getConfigValue($theme, $name, $default = null)
@@ -165,9 +165,6 @@ class ConfigModel{
 
     protected function hasPermission()
     {
-        if(defined('IP_ALLOW_PUBLIC_THEME_CONFIG')) {
-            return true;
-        }
 
         if (!\Ip\Backend::loggedIn()) {
             return false;
