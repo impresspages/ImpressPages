@@ -16,7 +16,7 @@ class Model{
     /**
      * 
      * Change constant value in ip_config.php file
-     * @param stsring $constantName
+     * @param string $constantName
      * @param string $curValue
      * @param string $newValue
      * @throws \Exception
@@ -25,7 +25,7 @@ class Model{
         $configFile = $this->getConfigFileName();
         
         if (!is_writable($configFile)) {
-            throw new  \Exception("Error: ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
+            throw new  \Ip\CoreException("ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
         }
         $config = file_get_contents($configFile);
 
