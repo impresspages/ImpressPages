@@ -114,13 +114,11 @@ var Market = new function() {
             'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken},
             'dataType': 'json',
             'success': function (data) {
-                alert('Theme installed.');
                 themesDownloaded = true;
                 themesData = data;
                 checkComplete();
             },
             'error': function (request, status, error) {
-
                 alert(error);
                 themesDownloaded = true;
                 themesData = {};

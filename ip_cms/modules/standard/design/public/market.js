@@ -5,11 +5,6 @@ var ipDesignThemeMarket = new function () {
      */
     var adminFramesetRows = 0;
 
-    /**
-     * @see showMartketingIframe()
-     */
-    var isIframeCreated = false;
-
     var processOrder = function (order) {
         console.log('processOrder');
         $('body').bind('ipMarketOrderStart', function (e) {
@@ -35,10 +30,6 @@ var ipDesignThemeMarket = new function () {
 
 
     var showMarketIframe = function () {
-
-        if (isIframeCreated) {
-            return;
-        }
 
         var remote = new easyXDM.Rpc({
                 remote: $('#ipsThemeMarketContainer').data('marketurl'),
@@ -72,8 +63,6 @@ var ipDesignThemeMarket = new function () {
                 }
             }
         );
-
-        isIframeCreated = true;
     };
 
 
@@ -104,8 +93,9 @@ var ipDesignThemeMarket = new function () {
             top.document.getElementById('adminFrameset').rows = adminFramesetRows;
         }
 
+        $('#ipsThemeMarketContainer iframe').remove();
+
 //        $(document).off('keyup', ipRepositoryESC);
-//        $('.ipModuleRepositoryPopup').remove();
 //        $('body').removeClass('stopScrolling');
     };
 };
