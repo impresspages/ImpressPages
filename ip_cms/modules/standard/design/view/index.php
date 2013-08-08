@@ -42,11 +42,18 @@
 
     <div class="ipmPreview ipsPreview ipgHide">
         <div class="ipmClosePreview ipsClosePreview"></div>
+
         <iframe class="ipaFrame" src=""></iframe>
     </div>
 
-    <div class="ipmThemeMarketContainer ipgHide" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
-        <div class="ipmCloseThemeMarket"><a href="#" class="ipsCloseThemeMarket">&lt; Back to My Theme</a></div>
-        <!-- <iframe name="easyXDM*" /> -->
+
+    <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
+        <div class="_header">
+            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button">X<span class="ui-icon ui-icon-closethick"></span></a>
+        </div>
+
+        <div class="ipmThemeMarketContainer" id="ipsThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">
+            <!-- <iframe name="easyXDM*" /> -->
+        </div>
     </div>
 </div>

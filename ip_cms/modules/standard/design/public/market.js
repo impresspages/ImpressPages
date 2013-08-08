@@ -1,5 +1,13 @@
 var ipDesignThemeMarket = new function () {
 
+    /**
+     * @see this.openMarketWindow(), this.closeMarketWindow()
+     */
+    var adminFramesetRows = 0;
+
+    /**
+     * @see showMartketingIframe()
+     */
     var isIframeCreated = false;
 
     var processOrder = function (order) {
@@ -21,12 +29,12 @@ var ipDesignThemeMarket = new function () {
         Market.processOrder(order);
     };
 
-    var navigateBackToMyTheme = function() {
+    var navigateBackToMyTheme = function () {
         ipDesignThemeMarket.closeMarketWindow();
     };
 
-    this.openMarketWindow = function () {
-        $('#ipsThemeMarketContainer').show();
+
+    var showMarketIframe = function () {
 
         if (isIframeCreated) {
             return;
@@ -68,11 +76,36 @@ var ipDesignThemeMarket = new function () {
         isIframeCreated = true;
     };
 
+
+    this.openMarketWindow = function () {
+
+        var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
+        $popup.css('top', $(document).scrollTop() + 'px');
+        if (top.document.getElementById('adminFrameset')) {
+            adminFramesetRows = top.document.getElementById('adminFrameset').rows;
+            top.document.getElementById('adminFrameset').rows = "0px,*";
+        }
+
+
+        $popup.show();
+        showMarketIframe();
+    };
+
     this.closeMarketWindow = function (e) {
+
         if (e != null) {
             e.preventDefault();
         }
 
-        $('#ipsThemeMarketContainer').hide();
+        var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
+        $popup.hide();
+
+        if (top.document.getElementById('adminFrameset')) {
+            top.document.getElementById('adminFrameset').rows = adminFramesetRows;
+        }
+
+//        $(document).off('keyup', ipRepositoryESC);
+//        $('.ipModuleRepositoryPopup').remove();
+//        $('body').removeClass('stopScrolling');
     };
 };

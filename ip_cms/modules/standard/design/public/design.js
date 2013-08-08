@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     $('.ipModuleDesign .ipsOpenMarket').on('click', ipDesignThemeMarket.openMarketWindow);
-    $('.ipModuleDesign .ipsCloseThemeMarket').on('click', ipDesignThemeMarket.closeMarketWindow);
+    $('.ipModuleDesign .ipsThemeMarketPopupClose').on('click', ipDesignThemeMarket.closeMarketWindow);
 
     $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOpenOptions);
 
