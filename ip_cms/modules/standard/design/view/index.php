@@ -10,15 +10,22 @@
             <img src="<?php echo $this->esc($theme->getThumbnailUrl()); ?>" alt="<?php echo $this->esc($theme->getTitle()); ?>" />
         </div>
 
+        <div class="ipmThemeActions">
+            <a href="#" class="btn btn-link">{{Download}}</a>
+            <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
+        </div>
         <h2>
             <i class="icon-ok"></i>
             <?php echo $this->esc($theme->getTitle()); ?>
             <small>(<?php echo $this->esc($theme->getVersion()); ?>)</small>
         </h2>
 
-        <a href="#" class="ipsOpenOptions">{{Options}}</a>
-
-        <p>{{Author:}} <?php echo $this->esc($theme->getAuthorTitle()); ?></p>
+        <dl class="dl-horizontal">
+            <?php if ($theme->getAuthorTitle()) { ?>
+                <dt>{{Author:}}</dt>
+                <dd><?php echo $this->esc($theme->getAuthorTitle()); ?></dd>
+            <?php } ?>
+        </dl>
     </div>
 
     <div class="ipmOtherThemes">
@@ -39,11 +46,6 @@
                             if ($localTheme == $theme) { continue; }
                     ?>
                             <li>
-                                <div class="ipmThemeActions">
-                                    <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'>
-                                        {{Install}}
-                                    </a>
-                                </div>
                                 <div class="ipmThemePreview">
                                     <img src="<?php echo $this->esc($localTheme->getThumbnailUrl()); ?>" alt="<?php echo $this->esc($localTheme->getTitle()); ?>" />
                                 </div>
@@ -51,6 +53,11 @@
                                     <?php echo $this->esc($localTheme->getTitle()); ?>
                                     <small>(<?php echo $this->esc($localTheme->getVersion()); ?>)</small>
                                 </span>
+                                <div class="ipmThemeActions">
+                                    <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'>
+                                        {{Install}}
+                                    </a>
+                                </div>
                             </li>
                     <?php } ?>
                 </ul>
