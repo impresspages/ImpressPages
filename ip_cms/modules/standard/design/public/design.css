@@ -1,3 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.ipModuleDesign {
+    padding: 10px;
+}
 .ipModuleDesign .ipmSelectedTheme {
     float: left;
     width: 448px;
@@ -22,9 +29,71 @@
 .ipModuleDesign .ipmThemeMarket {
     background-color: #d5d5d5;
     background-image: url(../../../administrator/repository/public/admin/bg_upload.png);
+    color: #000;
+}
+.ipModuleDesign .ipmThemeMarket .ipmButtonWrapper {
+    padding: 50px 0;
+    text-align: center;
+}
+.ipModuleDesign .ipmThemeMarket .ipmTitle {
+    background: url(logo_market.png) no-repeat;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+    padding-left: 30px;
+    text-transform: uppercase;
+}
+.ipModuleDesign .ipmThemeMarket .impNotice {
+    display: block;
 }
 .ipModuleDesign .ipmLocalThemes {
+    background-color: #f3f3f3;
     border-top: 1px solid #ccc; /* separator */
+    padding: 15px 20px;
+}
+.ipModuleDesign .ipmThemeList {
+    list-style: none;
+    margin: -20px 0 0 -20px;
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeList li {
+    float: left;
+    margin: 20px 0 0 20px;
+    position: relative;
+    width: 212px;
+}
+.ipModuleDesign .ipmThemeList .ipmThemeActions {
+    display: none;
+    margin-top: -15px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+.ipModuleDesign .ipmThemeList li:hover .ipmThemeActions {
+    display: block;
+}
+.ipModuleDesign .ipmThemeList .ipmThemePreview {
+    border: 1px solid #fff;
+    max-height: 132px;
+    overflow: hidden;
+}
+.ipModuleDesign .ipmThemeList li:hover .ipmThemePreview {
+    border-color: #019bd4;
+    outline: 1px solid #019bd4;
+}
+.ipModuleDesign .ipmThemeList .ipmThemePreview img {
+    width: 100%;
+}
+.ipModuleDesign .ipmThemeList .ipmThemeTitle {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .ipModuleDesign .ipmPreview {
     width: 100%;
