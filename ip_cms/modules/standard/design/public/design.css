@@ -73,10 +73,9 @@ body {
 .ipModuleDesign .ipmThemesList .ipmThemeActions {
     display: none;
     left: 0;
-    margin-top: -15px;
     position: absolute;
     text-align: center;
-    top: 50%;
+    top: 50px;
     width: 100%;
 }
 .ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
@@ -84,7 +83,7 @@ body {
 }
 .ipModuleDesign .ipmThemesList .ipmThemePreview {
     border: 1px solid #fff;
-    max-height: 132px;
+    height: 132px;
     overflow: hidden;
 }
 .ipModuleDesign .ipmThemesList li:hover .ipmThemePreview {
