@@ -32,8 +32,8 @@ var ipDesignThemeMarket = new function () {
     var showMarketIframe = function () {
 
         var remote = new easyXDM.Rpc({
-                remote: $('#ipsThemeMarketContainer').data('marketurl'),
-                container: "ipsThemeMarketContainer",
+                remote: $('#ipModuleThemeMarketContainer').data('marketurl'),
+                container: "ipModuleThemeMarketContainer",
                 onMessage: function (message, origin) {
                     //DO NOTHING
                 },
@@ -69,15 +69,18 @@ var ipDesignThemeMarket = new function () {
     this.openMarketWindow = function () {
 
         var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
-        $popup.css('top', $(document).scrollTop() + 'px');
+        //$popup.css('top', $(document).scrollTop() + 'px');
         if (top.document.getElementById('adminFrameset')) {
             adminFramesetRows = top.document.getElementById('adminFrameset').rows;
             top.document.getElementById('adminFrameset').rows = "0px,*";
         }
 
-
+        $popup.find('.ipmPopupTabs').tabs();
+        $('body').addClass('ipgStopScrolling');
         $popup.show();
         showMarketIframe();
+        ipDesignThemeMarket.resize();
+        $(window).bind("resize.ipThemeMarketAll", ipDesignThemeMarket.resize);
     };
 
     this.closeMarketWindow = function (e) {
@@ -93,9 +96,14 @@ var ipDesignThemeMarket = new function () {
             top.document.getElementById('adminFrameset').rows = adminFramesetRows;
         }
 
-        $('#ipsThemeMarketContainer iframe').remove();
+        $('#ipModuleThemeMarketContainer iframe').remove();
 
-//        $(document).off('keyup', ipRepositoryESC);
-//        $('body').removeClass('stopScrolling');
+        $('body').removeClass('ipgStopScrolling');
     };
+
+    this.resize = function(e) {
+        var $popup = $('#ipModuleThemeMarketContainer');
+        console.log($popup.find('iframe'));
+        $popup.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
+    }
 };

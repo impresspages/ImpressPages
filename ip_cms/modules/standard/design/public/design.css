@@ -2,6 +2,10 @@ body {
     margin: 0;
     padding: 0;
 }
+.ipgStopScrolling {
+    height: 100%;
+    overflow: hidden;
+}
 .ipModuleDesign {
     padding: 10px;
 }
@@ -102,31 +106,29 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.ipModuleDesign .ipmPreview {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-}
-.ipModuleDesign .ipmPreview iframe {
-    width: 100%;
-    height: 100%;
-}
-.ipModuleDesign .ipmClosePreview {
-    position: fixed;
-    right: 25px;
-    top: 3;
-    width: 28px;
-    height: 23px;
-    background-color: #222;
-    border: 1px solid white;
-}
 .ipModuleDesign .ipmThemeMarketPopup {
+    font-size: 10px; /* fixing collision between jQuery UI and Bootstrap */
+    height: 100%;
+    left: 0;
     position: absolute;
-    top:0;
+    top: 0;
     width: 100%;
     z-index: 99000;
+}
+.ipModuleDesign .ipmThemeMarketPopup .ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeMarketPopupClose {
+    border: 1px solid transparent;
+    float: right;
+    margin-right: 7px;
+    margin-top: -26px;
+}
+.ipModuleDesign .ipmThemeMarketPopupClose:hover {
+    background-color: #ddd; /* fixing collision */
+}
+.ipModuleDesign .ipmThemeMarketPopup .ui-tabs {
+    height: 100%;
 }
 .ipModuleDesign .ipmThemeMarketContainer {
     height: 100%;
@@ -135,9 +137,4 @@ body {
     width:100%;
     height:100%;
     background-color: white;
-}
-.ipModuleDesign .ipmThemeMarketPopupClose {
-    border: 1px solid transparent;
-    float: right;
-    margin-right: 16px;
 }

@@ -21,6 +21,8 @@ class Backend extends \Ip\Controller
 
         $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
+        $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
         $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');

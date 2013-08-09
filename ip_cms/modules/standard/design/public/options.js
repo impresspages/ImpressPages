@@ -1,7 +1,7 @@
 
 var ipDesignOpenOptions = function(e) {
     e.preventDefault();
-    $('.ipModuleDesign .ipsPreview .ipaFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
+    $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
     $('.ipModuleDesign .ipsPreview').show();
 
     $('.ipModuleDesign .ipsClosePreview').off().on('click', ipDesignCloseOptions);
@@ -10,5 +10,5 @@ var ipDesignOpenOptions = function(e) {
 var ipDesignCloseOptions = function(e) {
     e.preventDefault();
     $('.ipModuleDesign .ipsPreview').hide();
-    $('.ipModuleDesign .ipsPreview .ipaFrame').attr('src', '');
+    $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
 }
