@@ -103,7 +103,6 @@ var ipDesignThemeMarket = new function () {
 
     this.resize = function(e) {
         var $popup = $('#ipModuleThemeMarketContainer');
-        console.log($popup.find('iframe'));
         $popup.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
     }
 };
