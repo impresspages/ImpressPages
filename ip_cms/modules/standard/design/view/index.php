@@ -11,7 +11,7 @@
         </div>
 
         <div class="ipmThemeActions">
-            <a href="#" class="btn btn-link">{{Download}}</a>
+<!--            <a href="#" class="btn btn-link">{{Download}}</a>-->
             <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
         </div>
         <h2>
