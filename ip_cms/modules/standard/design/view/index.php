@@ -11,7 +11,7 @@
         </div>
 
         <div class="ipmThemeActions">
-            <a href="#" class="btn btn-link">{{Download}}</a>
+<!--            <a href="#" class="btn btn-link">{{Download}}</a>-->
             <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
         </div>
         <h2>
@@ -79,5 +79,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="ipmPreview ipsPreview ipgHide">
+        <div class="ipmClosePreview ipsClosePreview"></div>
+
+        <iframe class="ipsFrame" src=""></iframe>
     </div>
 </div>
