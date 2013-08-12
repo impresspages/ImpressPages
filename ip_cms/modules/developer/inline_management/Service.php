@@ -95,6 +95,17 @@ class Service
     public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
         global $site;
+
+        if ($tag == 'p') {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' ) ';
+            } else {
+                $source = '';
+            }
+            throw new \Ip\CoreException('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
+        }
+
         $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $site->getCurrentLanguage()->getId());
 
         if ($curValue === false) {
