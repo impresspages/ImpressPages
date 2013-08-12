@@ -25,8 +25,40 @@ var ipDesign = new function() {
     this.openLink = function (e) {
         e.preventDefault();
         var href = $(e.currentTarget).attr('href');
-        href = href + '?ipDesignPreview=1';
-        window.location = href;
+        var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
+
+        // create previewConfig data
+        var previewConfig = {};
+        var key;
+        for (var i = 0; i < config.length; i++) {
+            key = config[i].name;
+            if (key != 'securityToken' && key != 'g' && key != 'm' && key != 'ba') {
+                previewConfig[key] = config[i].value;
+            }
+        }
+        delete key;
+
+        // create form for previewConfig
+        var postForm = $('<form>', {
+            'method': 'POST',
+            'action': href.indexOf('?') == -1 ? href + '?ipDesignPreview=1' : href + '&ipDesignPreview=1'
+        });
+
+        for (var name in previewConfig) {
+            postForm.append($('<input>', {
+                'name': 'ipDesign[previewConfig][' + name + ']',
+                'value': previewConfig[name],
+                'type': 'hidden'
+            }));
+        }
+
+        postForm.append($('<input>', {
+            'name': 'securityToken',
+            'value': ip.securityToken,
+            'type': 'hidden'
+        }));
+
+        postForm.appendTo('body').submit();
     }
 
     this.apply = function (e) {

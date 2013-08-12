@@ -11,10 +11,11 @@ use \Modules\developer\form as Form;
 
 class ConfigModel{
 
+    protected $isInPreviewState;
 
     protected function __construct()
     {
-
+        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_GET['ipDesignPreview']) && $this->hasPermission();
     }
 
     /**
@@ -27,11 +28,15 @@ class ConfigModel{
 
     public function isInPreviewState()
     {
-        return isset($_GET['ipDesignPreview']) && ($this->hasPermission() || defined('IP_ALLOW_PUBLIC_THEME_CONFIG'));
+        return $this->isInPreviewState;
     }
 
     public function getConfigValue($theme, $name, $default = null)
     {
+        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'][$name])) {
+            return $_POST['ipDesign']['previewConfig'][$name];
+        }
+
         $dbh = \Ip\Db::getConnection();
         $sql = '
             SELECT

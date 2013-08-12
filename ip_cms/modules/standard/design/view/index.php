@@ -80,4 +80,10 @@
             </div>
         </div>
     </div>
+
+    <div class="ipmPreview ipsPreview ipgHide">
+        <div class="ipmClosePreview ipsClosePreview"></div>
+
+        <iframe class="ipsFrame" src=""></iframe>
+    </div>
 </div>
