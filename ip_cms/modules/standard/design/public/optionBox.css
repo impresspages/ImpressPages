@@ -1,12 +1,12 @@
-.ipModuleDesignConfig {
+.ipModuleDesignConfig .modal-dialog {
+    left: 10px;
     position: fixed;
-    left: 15px;
-    top: 15px;
-    padding: 20px;
-    background-color: #c5c5c5;
-    border: 2px slategrey solid;
+    top: 10px;
+    width: 350px;
 }
-
-.ipModuleDesignConfig .ipmFormContainer{
+.ipModuleDesignConfig .modal-body {
     overflow: auto;
+}
+.ipModuleDesignConfig .modal-footer {
+    margin-top: 0;
 }
