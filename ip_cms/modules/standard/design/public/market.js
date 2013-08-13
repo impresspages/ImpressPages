@@ -28,6 +28,13 @@ var ipDesignThemeMarket = new function () {
         ipDesignThemeMarket.closeMarketWindow();
     };
 
+    var beforeOpenThemePreview = function() {
+        $('.ipsThemeMarketPopup .ipsHeader').hide();
+    };
+
+    var afterCloseThemePreview = function() {
+        $('.ipsThemeMarketPopup .ipsHeader').show();
+    };
 
     var showMarketIframe = function () {
 
@@ -65,11 +72,29 @@ var ipDesignThemeMarket = new function () {
                             case 'navigateBackToMyTheme':
                                 navigateBackToMyTheme();
                                 break;
+                            case 'beforeOpenThemePreview':
+                                beforeOpenThemePreview();
+                                break;
+                            case 'afterCloseThemePreview':
+                                afterCloseThemePreview();
+                                break;
+                            case 'closeThemeMarket':
+                                ipDesignThemeMarket.closeMarketWindow();
+                                break;
                         }
                     }
                 }
             }
         );
+    };
+
+    /**
+     * Event to handle ESC to close ThemeMarket window
+     */
+    var onMarketKeyUp = function (e) {
+        if (e.keyCode == 27) { // ESC pressed
+            ipDesignThemeMarket.closeMarketWindow();
+        }
     };
 
 
@@ -87,7 +112,9 @@ var ipDesignThemeMarket = new function () {
         $popup.show();
         showMarketIframe();
         ipDesignThemeMarket.resize();
-        $(window).bind("resize.ipThemeMarketAll", ipDesignThemeMarket.resize);
+        $(window).bind('resize.ipThemeMarketAll', ipDesignThemeMarket.resize);
+
+        $(document).on('keyup', onMarketKeyUp);
     };
 
     this.closeMarketWindow = function (e) {
@@ -95,6 +122,8 @@ var ipDesignThemeMarket = new function () {
         if (e != null) {
             e.preventDefault();
         }
+
+        $(document).off('keyup', onMarketKeyUp);
 
         var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
         $popup.hide();
