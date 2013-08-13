@@ -13,6 +13,8 @@
  * Maximum emails count is 10 per hour.
  */
 function myErrorHandler ($errno, $errstr, $errfile, $errline) {
+    $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
+
     global $log;
     global $parametersMod;
     $message = '';
@@ -60,7 +62,9 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     if ($log){ //if log module not initialized yet, it will only throw new error. So, use it only if it is initialized
         $log->log('system', 'error', $message);
     }
+
     if(ERRORS_SHOW){
+        restore_error_handler();
         throw new \Ip\PhpException($message, $errno);
     }
     if($log && defined('ERRORS_SEND') && ERRORS_SEND != ''){
@@ -85,5 +89,11 @@ Error emails count has reached the limit. See logs for more errors.';
     }
 
 
+    restore_error_handler();
 }
 $old_error_handler = set_error_handler("myErrorHandler");
+
+
+function ipSilentErrorHandler($errno, $errstr, $errfile, $errline) {
+    //do nothing
+}
