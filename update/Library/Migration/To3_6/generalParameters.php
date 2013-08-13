@@ -5,7 +5,7 @@ $languageShort = "EN"; //Short description
 $languageLong = "English"; //Long title
 $languageUrl = "en";
 
-$parameterTitle["standard"]["configuration"]["admin_translations"]["delete"] = "Delete";
-$parameterValue["standard"]["configuration"]["admin_translations"]["delete"] = "Delete";
-$parameterAdmin["standard"]["configuration"]["admin_translations"]["delete"] = "0";
-$parameterType["standard"]["configuration"]["admin_translations"]["delete"] = "string";
+$parameterTitle["developer"]["form"]["error_messages"]["xss"] = "XSS error";
+$parameterValue["developer"]["form"]["error_messages"]["xss"] = "Session has expired. Please refresh the page.";
+$parameterAdmin["developer"]["form"]["error_messages"]["xss"] = "0";
+$parameterType ["developer"]["form"]["error_messages"]["xss"] = "lang";
