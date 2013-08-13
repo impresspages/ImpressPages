@@ -1,0 +1,398 @@
+/*
+Theme Name: KeKo
+Theme URI: http://www.mkels.com/
+Description: Unique Urban Grunge, 6 Ads Banner.
+Author: Micheal Kelsinger, adapted by ImpressPages team
+Author URI: http://www.mkels.com/
+Designer: Micheal Kelsinger
+version: 1.0.4
+Tags: light green, dark grey, fixed width, 2 columns.
+*/
+
+/*** RESET ***/
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  min-width: 1004px;
+}
+
+img, fieldset { 
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+}
+
+/*** BASIC ***/
+body {
+  background: #dbddd2;
+  color: #7f7f7f;
+  font-family: "Lucida Grande", Verdana, Tahoma, "Trebuchet MS";
+  font-size: 13px;
+}
+
+/*** LAYOUT ***/
+
+.wrapper {
+  background: url(images/wrapper_bg.jpg) repeat-x left top;
+}
+
+/** HEADER **/
+
+.header {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 10px 2px 25px 2px;
+}
+
+/* LANGUAGES */
+
+.languagesBar {
+  width: 500px;
+  height: 36px;
+  float: right;
+  padding-bottom: 20px;
+}
+
+.languagesBar ul {
+  list-style: none;
+  float: right;
+}
+
+.languagesBar li {
+  display: block;
+  float: left;
+  border-left: 1px solid #474544;
+}
+
+.languagesBar li a {
+  background: #2C2B2A url(images/language_bg.png) no-repeat center 15px;
+  color: #D8E2DB;
+  font-size: 13px;
+  height: 16px;
+  padding: 10px 15px;
+  display: block;
+  border-left: 1px solid #1e1d1d;
+}
+
+.languagesBar li a:hover {
+  background: #2C2B2A url(images/language_bg.png) no-repeat center 18px;
+}
+
+.languagesBar li.current {
+  border: 0;
+}
+
+.languagesBar li.current a, .languages li.current a:hover {
+  background: url(images/language_act_bg.png) repeat-x;
+  color: #2C2B2A;
+  padding: 10px 16px;
+  border: 0;
+  font-weight: bold;
+}
+
+/* SEARCH */
+/* defined in ip_content.css */
+
+/* LOGO */
+
+.siteName {
+  color: #333;
+  display: block;
+  float: left;
+  font-size: 40px;
+  height: 51px;
+  width: 600px;
+}
+
+/* TOP MENU */
+
+.menuTop {
+  height: 91px;
+  width: 1000px;
+  padding-top: 10px;
+  float: left;
+  background: url(images/topmenu_bottom_bg.png) no-repeat left bottom;
+}
+
+.menuTop ul.level1 {
+  background-color: #2C2B2A;
+  float: left;
+  height: 64px;
+  width: 1000px;
+  list-style: none;
+}
+
+.menuTop ul.level1 li {
+  border-right: 1px solid #474544;
+  float: left;
+}
+
+.menuTop ul.level1 li a {
+  background: url(images/topmenu_item_bg.png) no-repeat center 28px;
+  color: #D8E2DB;
+  display: block;
+  height: 18px;
+  padding: 23px;
+  border-right: 1px solid #1e1d1d;
+}
+
+.menuTop ul.level1 li a:hover {
+  background: url(images/topmenu_item_bg.png) no-repeat center 35px;
+}
+
+.menuTop ul.level1 li.current {
+  border-right: 0;
+}
+
+.menuTop ul.level1 li.current a {
+  background: url(images/topmenu_item_hov.png) repeat-x;
+  border-right: 0;
+  color: #2C2B2A;
+  font-weight: bold;
+}
+
+/* HEADER IMAGE */
+
+.headerImage{
+  background: url(images/header_image.jpg) no-repeat center top;
+  float: left;
+  height: 150px;
+  width: 1000px;
+}
+
+.rounded {
+  background: url(images/header_image_corners.png) no-repeat center center;
+  float: left;
+  height: 150px;
+  width: 1000px;
+}
+
+/** MAIN CONTAINER **/
+
+.mainContainer {
+  background: url(images/bg-pattern.jpg) no-repeat center top;
+}
+
+.content {
+  margin: 0 auto;
+  padding: 0 2px 45px 2px;
+  width: 1000px;
+  background: url(images/content_top_bg.png) no-repeat 2px top;
+}
+
+.contentBottom {
+  width: 675px;
+  height: 16px;
+  float: left;
+  background: url(images/content_bottom_bg.png) no-repeat top left;
+}
+
+/* IP CONTENT */
+
+.main {
+  background: url(images/content_bg.png) repeat-y;
+  float: left;
+  width: 645px;
+  margin-top: 16px;
+  padding: 0 15px 0 15px;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 292px;
+  float: right;
+}
+
+.sidebarTitle {
+  width: 260px;
+  height: 26px;
+  padding: 6px 16px;
+  background: url(images/sidebar_title_bg.png) no-repeat left top;
+  border-bottom: 1px solid #D2D5CA;
+  color: #92AB5B;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 26px;
+  overflow: hidden;
+}
+
+.widgetBottom {
+  width: 292px;
+  height: 13px;
+  background: url(images/widget_bottom_bg.png) no-repeat left top;
+  float: left;
+  margin-bottom: 25px;
+}
+
+/* Rss */
+
+.rss {
+  width: 292px;
+  height: 38px;
+  border-top: 1px solid #D2D5CA;
+  background: url(images/sidebar_item_bg.png) no-repeat center bottom;
+  color: #2C2B2A;
+  display: block;
+  float: left;
+  margin-top: 16px;
+}
+
+.rss:hover {
+  background: url(images/sidebar_item_hov.png) no-repeat center bottom;
+}
+
+.rss a {
+  display: block;
+  width: 247px;
+  padding-left: 45px;
+  color: #92AB5B;
+  float: left;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 38px;
+  background: url(images/rss_icon.png) no-repeat 15px center;
+}
+
+.rss a:hover {
+  text-decoration: underline;
+}
+
+/* Ads */
+
+.ads {
+  width: 292px;
+  float: left;
+  background: url(images/widget_bg.png) repeat-y left bottom;
+  padding-top: 15px;
+}
+
+a.ad {
+  display: block;
+  float: left;
+  padding: 0 0 12px 14px;
+}
+
+/* Right Menu */
+
+.rightMenu {
+  width: 292px;
+  float: left;
+  background: url(images/widget_bg.png) repeat-y left bottom;
+  margin-top: -23px;
+  border-top: 1px solid #c3c4c0;
+}
+
+.rightMenu ul {
+  list-style: none;
+  float: left;
+}
+
+.rightMenu ul.level1 li {
+  width: 276px;
+  float: left;
+  background: url(images/sidebar_item_bg.png) no-repeat center 5px;
+  color: #666;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 38px;
+  padding-left: 16px;
+}
+
+.rightMenu ul.level1 li a {
+  width: 276px;
+  height: 38px;
+  display: block;
+  color: #2C2B2A;
+  padding-left: 16px;
+  margin-left: -16px;
+}
+
+.rightMenu ul.level1 li a:hover {
+  text-decoration: underline;
+  color: #111;
+  background: url(images/sidebar_item_hov.png) no-repeat center 5px;
+}
+
+.rightMenu ul.level1 li.current > a {
+  color: #92AB5B;
+}
+
+.rightMenu ul.level2 {
+  border-bottom: 1px solid #c3c4c0;
+  margin-left: -16px;
+}
+
+.rightMenu ul.level2 li {
+  width: 276px;
+  display: block;
+  float: left;
+  color: #2C2B2A;
+  padding-left: 16px;
+  background: none;
+  font-weight: normal;
+  display: none;
+}
+
+.rightMenu ul.level2 li a {
+  width: 276px;
+}
+
+.rightMenu ul.level2 li a:hover {
+  background: none;
+}
+
+.rightMenu ul.level1 li.current.subnodes ul.level2 li,
+.rightMenu ul.level1 li.selected.subnodes ul.level2 li {
+  display: block;
+}
+
+/** FOOTER */
+
+.footer {
+  background: #2C2B2A url(images/footer_bg.png) no-repeat center top;
+  padding-top: 12px;
+}
+
+.footer a {
+  font-weight: bold;
+  color: #D8E2DB;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* FOOTER TEXT */
+
+.footerText {
+  width: 1000px;
+  height: 74px;
+  margin: 0 auto;
+  padding: 0 2px;
+}
+
+.copyright, .themeInfo, .footerLinks  {
+  width: 600px;
+  float: left;
+  display: block;
+  color: #D8E2DB;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.footerLinks {
+  width: 400px;
+  float: right;
+  text-align: right;
+}

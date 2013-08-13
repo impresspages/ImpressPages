@@ -1,0 +1,654 @@
+/**
+ *
+ * ImpressPages CMS theme: KeKo
+ *
+ * Styles file for widgets, system modules and content
+ *
+ * @package ImpressPages
+ * @copyright Copyright (C) 2011 ImpressPages LTD.
+ * @license see ip_license.html
+ *
+ */
+
+/*
+    Clearing floated elements
+*/
+/* http://sonspring.com/journal/clearing-floats */
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+.ipWidget:before,
+.ipWidget:after,
+.ipModuleForm .ipmField:before,
+.ipModuleForm .ipmField:after,
+.clearfix:before,
+.clearfix:after {
+    content: '.';
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.ipWidget:after,
+.ipModuleForm .ipmField:after,
+.clearfix:after {
+    clear: both;
+}
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+.clearfix {
+    zoom: 1;
+}
+
+/* Libraries */
+/* tiny mce :: rich text editor
+    should be similar to text widgets or follow default styles of the <body>, including style reset
+ */
+.mceContentBody {
+    color: #7f7f7f;
+    font-family: "Lucida Grande", Verdana, Tahoma, "Trebuchet MS";
+    font-size: 13px;
+    line-height: 24px;
+}
+.mceContentBody p,
+.mceContentBody ul,
+.mceContentBody ol,
+.mceContentBody li,
+.mceContentBody dl,
+.mceContentBody dd,
+.mceContentBody dt {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.mceContentBody a {
+    text-decoration: none;
+}
+
+/* Modules :: search */
+.ipModuleSearch {
+    background: url(images/search_bg.png) no-repeat;
+    clear: right;
+    float: right;
+    height: 63px;
+    width: 366px;
+}
+.ipModuleSearch .ipmField {
+    float: left;
+}
+.ipModuleSearch .ipmField.ipmType-submit {
+    float: right;
+}
+.ipModuleSearch .ipmControlInput {
+    background-color: #fff; 
+    border: 0;
+    float: left;
+    font-size: 18px;
+    font-family: Arial,Tahoma,"Lucida Sans";
+    margin: 16px 0 0 25px;
+    padding: 3px 2px;
+    width: 250px;
+}
+.ipModuleSearch .ipmControlSubmit {
+    background: url(images/search_button.png) no-repeat;
+    border: none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 39px;
+    margin: 11px 11px 0 0;
+    width: 56px;
+}
+.ipModuleSearch .ipmControlSubmit {
+    overflow: hidden;
+    text-indent: -1000px;
+}
+.ipModuleSearch .ipmControlSubmit:hover {
+    background: url(images/search_button_hov.png) no-repeat;
+}
+/* Modules :: form */
+.ipModuleForm {
+    background-color: #eee;
+    padding: 20px 30px;
+}
+.ipModuleForm .ipmPage {}
+.ipModuleForm .ipmFieldset {}
+.ipModuleForm .ipmField {
+    padding: 5px 0 25px 0;
+}
+.ipModuleForm .ipmField:after { /* clearing, see 960.css */ }
+.ipModuleForm .ipmType-blank { /* if blank we'll remove it from the flow */
+    margin: -5px 0 0;
+    padding: 0;
+    position: absolute;
+}
+.ipModuleForm .ipmField:last-child {
+    margin-bottom: 0;
+}
+.ipModuleForm .ipmField.ipmRequired {} /* change any styles if field is required */
+.ipModuleForm .ipmLabel {
+    color: #333;
+    display: block;
+    float: left;
+    font-size: 13px;
+    font-family: "Lucida Grande",Verdana,Tahoma,"Trebuchet MS";
+    min-height: 1px;
+    text-align: left;
+    width: 150px;
+}
+.ipModuleForm .ipmMarker {}
+.ipModuleForm .ipmControl {
+    float: left;
+    width: 435px;
+}
+.ipModuleForm .ipmControlBlank {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    width: 0;
+}
+.ipModuleForm .ipmControlInput,
+.ipModuleForm .ipmControlTextarea {
+    width: 300px;
+    padding: 4px;
+    font-family: Arial, Tahoma, "Lucida Sans";
+    font-size: 12px;
+    color: #000;
+    background: #FFF;
+    border: 2px solid #D7D7D7;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.ipModuleForm .ipmControlTextarea {
+    width: 423px;
+    height: 150px;
+    overflow: auto;
+}
+.ipModuleForm .ipmControlInput:focus,
+.ipModuleForm .ipmControlTextarea:focus {
+    border-color: #000;
+}
+.ipModuleForm .ipmControlSubmit {
+    padding: 3px 6px;
+    font-size: 14px;
+    color: #D8E2DB;
+    background-color: #2C2B2A;
+    border: 1px solid #2C2B2A;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Arial,Tahoma,"Lucida Sans";
+}
+.ipModuleForm .ipmControlSubmit:hover {
+    border: 1px solid #666;
+    background-color: #666;
+    color: #fff;
+}
+.ipModuleForm .ipmControlSelect {
+    width: 300px;
+    color: #000;
+    padding: 4px;
+}
+.ipModuleForm .ipmControlRadio,
+.ipModuleForm .ipmControlCheckbox {
+    margin: 3px 3px 3px 4px;
+}
+.ipModuleForm .ipmType-confirm .ipmControlCheckbox {
+    float: left;
+}
+.ipModuleForm .ipmControlConfirmOptions {
+    margin-left: 25px;
+}
+.ipModuleForm .ipmType-submit {
+    padding-bottom: 0;
+}
+.ipModuleForm .ipmNote { /* always visible */
+    color: #656565;
+    font-size: 11px;
+    margin: -15px 0 0 95px;
+    position: absolute;
+}
+.ipModuleForm .ipmHint { /* to be shown on hover */
+    background-color: #a7a7a7;
+    color: #fff;
+    display: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    min-height: 16px;
+    padding: 5px 10px 4px;
+    position: absolute;
+    right: 0;
+    width: 181px;
+    z-index: 1;
+}
+.ipModuleForm .ipmField:hover .ipmHint { /* hint is shown only on hover */
+    display: block;
+}
+.ipModuleForm .ipmType-textarea .ipmHint { /* for textarea hint goes below the field */
+    bottom: 0;
+    left: 95px;
+    margin-bottom: -25px;
+    max-width: 393px;
+    right: auto;
+    width: auto;
+}
+/* Module :: form :: errors */
+.ipModuleForm .ipmError {}
+.ipModuleForm .ipmError .ipmLabel {
+    color: #e53031;
+}
+.ipModuleForm .ipmControlError {
+    border-color: #e53031;
+}
+.ipmErrorMessage { /* this object is created globally next to each invalid field */
+    background-color: #eee;
+    color: #e53031;
+    font-size: 12px;
+}
+
+/* Widgets :: main */
+.ipBlock.ipbEmpty {
+    min-height: 30px;
+    outline: #019bd4 dashed 1px;
+}
+.ipWidget {
+    margin-bottom: 20px;
+}
+.ipWidget:last-child,
+.ipPreviewWidget p:last-child,
+.ipPreviewWidget ul:last-child,
+.ipPreviewWidget ol:last-child {
+    margin-bottom: 0; /* removing bottom margin on last elements */
+}
+.ipPreviewWidget h1,
+.ipPreviewWidget h2,
+.ipPreviewWidget h3 {
+    font-family: "Lucida Grande",Verdana,Tahoma,"Trebuchet MS";
+    font-weight: normal;
+    letter-spacing: -1px;
+}
+.ipPreviewWidget h1 {
+    background-color: #2C2B2A;
+    color: #fff;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left: -14px;
+    padding: 30px 0 30px 15px;
+    width: 658px;
+}
+.ipPreviewWidget h2 {
+    border-bottom: 1px solid #eee;
+    color: #121212;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 0 0 10px;
+}
+.ipPreviewWidget h3 {
+    color: #333;
+    font-size: 17px;
+}
+.ipPreviewWidget p,
+.mceContentBody p {
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.ipPreviewWidget ul,
+.mceContentBody ul {
+    margin: 10px 0 10px 15px;
+    line-height: 24px;
+    list-style: none;
+}
+.ipPreviewWidget ul li,
+.mceContentBody ul li {
+    background: transparent url(images/list.png) no-repeat 0 9px;
+    padding: 0 0 0 18px;
+}
+.ipPreviewWidget ol,
+.mceContentBody ol {
+    line-height: 24px;
+    margin: 10px 0 10px 33px;
+}
+.ipPreviewWidget li,
+.mceContentBody li {
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+.ipPreviewWidget p+ul,
+.mceContentBody p+ul,
+.ipPreviewWidget p+ol,
+.mceContentBody p+ol {
+    margin-top: -20px; /* If list goes just after the paragraph the space is removed */
+}
+.ipPreviewWidget a,
+.mceContentBody a {
+    color: #859C0E;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.ipPreviewWidget a:hover,
+.mceContentBody a:hover {
+    color: #000;
+    text-decoration: none;
+}
+/* default text style on rich text editor */
+.ipPreviewWidget .caption,
+.mceContentBody .caption {
+    font-weight: bold;
+}
+/* default text style on rich text editor */
+.ipPreviewWidget .signature,
+.mceContentBody .signature {
+    font-style: italic;
+    text-align: right;
+}
+/* default text style on rich text editor */
+.ipPreviewWidget .note,
+.mceContentBody .note {
+    border-left: 4px solid #9CB95E;
+    color: #000;
+    font-family: Cambria,Georgia,Geneva,Verdana;
+    font-size: 20px;
+    letter-spacing: -1px;
+    line-height: 24px;
+    margin: 15px;
+    padding: 12px 0 12px 10px;
+    display: block;
+}
+.ipWidget-IpImage img,
+.ipWidget-IpImageGallery img {
+    display: block; /* to remove 3px space below the image (default rendering behavior) */
+}
+.ipWidget-IpTextImage .ipwImage {
+    float: left;
+    margin: 6px 10px 2px 0;
+}
+.ipWidget-IpTextImage .ipwText {}
+.ipWidget-IpTextImage.ipLayout-right .ipwImage {
+    float: right;
+    margin: 6px 0 2px 10px;
+}
+.ipWidget-IpImageGallery ul {
+    list-style: none;
+    margin: -10px 0 0 -10px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
+}
+.ipWidget-IpImageGallery ul li {
+    background: none;
+    float: left;
+    margin: 10px 0 0 10px; /* size should be equal with ul element but without minus sign */
+    padding: 0;
+}
+.ipWidget-IpImageGallery li a {
+    border: 1px solid #eee;
+    display: block;
+    padding: 4px;
+}
+.ipWidget-IpImageGallery a:hover {
+    border-color: #9CB95E;
+}
+.ipWidget-IpLogoGallery ul {
+    list-style: none;
+    margin: -20px 0 0 -24px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
+}
+.ipWidget-IpLogoGallery ul li {
+    background: none;
+    float: left;
+    margin: 20px 0 0 24px; /* size should be equal with ul element but without minus sign */
+    padding: 0;
+}
+.ipWidget-IpFile ul {
+    list-style: none;
+}
+.ipWidget-IpFile li {
+    margin-bottom: 4px;
+}
+.ipWidget-IpFile a {
+    color: #859C0E;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.ipWidget-IpFile a:hover {
+    color: #000;
+    text-decoration: none;
+}
+.ipPreviewWidget table,
+.mceContentBody table {
+    border-collapse: collapse;
+    color: #000;
+    font-size: 11px;
+    width: 100%;
+}
+.ipPreviewWidget table p,
+.mceContentBody table p {
+    line-height: auto;
+    margin: 0;
+}
+.ipPreviewWidget td,
+.mceContentBody td {
+    border-bottom: 1px solid #b2b2b2;
+    font-size: 11px;
+    padding: 9px;
+    text-align: center;
+}
+.ipPreviewWidget th,
+.mceContentBody th,
+.ipPreviewWidget thead td,
+.mceContentBody thead td,
+.ipPreviewWidget tbody tr:first-child td,
+.mceContentBody tbody tr:first-child td { /* making first line look like header in all cases */
+    background-color: #000;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+.ipPreviewWidget thead+tbody tr:first-child td,
+.mceContentBody thead+tbody tr:first-child td { /* setting back styles if thead exists */
+    background-color: transparent;
+    border-bottom: 1px solid #b2b2b2;
+    color: inherit;
+    font-size: 11px;
+    font-weight: normal;
+}
+.ipPreviewWidget td:first-child,
+.mceContentBody td:first-child {
+    text-align: left;
+}
+.wrapper .ipWidget-IpSeparator.ipLayout-default {
+    border-bottom: 1px solid #eee;
+    height: 0;
+    overflow: hidden;
+}
+.ipWidget-IpSeparator.ipLayout-space {
+    height: 20px;
+}
+.ipWidget-IpHtml {}
+.ipWidget-IpFaq {
+    padding-left: 30px;
+}
+.ipWidget-IpFaq .ipwQuestion {
+    color: #859C0E;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,Tahoma,"Trebuchet MS";
+    font-weight: bold;
+    text-decoration: underline;
+}
+.ipWidget-IpFaq .ipwQuestion:hover {
+    text-decoration: underline;
+}
+.ipWidget-IpFaq .ipwQuestion:before {
+    border: 1px solid #000;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    content: '?';
+    display: block;
+    margin-left: -30px;
+    padding: 2px 4px;
+    position: absolute;
+}
+.ipWidget-IpFaq .ipwExpanded .ipwQuestion:before {
+    background-color: #000;
+    color: #fff;
+}
+.ipWidget-IpFaq .ipwAnswer {
+    margin-top: 5px;
+}
+.ipWidget-IpFaq .ipwCollapsed .ipwAnswer {
+    display: none;
+}
+.ipWidget-IpForm {}
+.ipWidget-IpForm .ipwForm {}
+.ipWidget-IpForm .ipwSuccess { /* mimicking the same styles as for form to keep message 'inside' the box */
+    background-color: #eee;
+    display: none;
+    padding: 20px 30px;
+}
+.manage .ipWidget-IpForm .ipwSuccess { /* showing success message in management by default */
+    border-top: 1px dashed #fff;
+    display: block;
+    margin-top: -1px;
+}
+
+/* Widgets :: side */
+.sidebar .ipWidget {
+    background: #e8e9e3 url(images/widget_bg.png) repeat-y left bottom;
+    border-color: #c3c5bb;
+    border-style: solid;
+    border-width: 1px 0;
+    margin-bottom: 15px;
+}
+.sidebar .ipWidget-IpTitle {
+    background: none;
+    border: none;
+    margin-bottom: -1px;
+}
+.sidebar .ipWidget-IpImage,
+.sidebar .ipWidget-IpFaq,
+.sidebar .ipWidget-IpTable,
+.sidebar .ipWidget-IpSeparator {
+    background: none;
+    border: none;
+}
+.sidebar .ipPreviewWidget h1 {
+    margin: -15px -14px 0;
+    width: auto;
+}
+.sidebar .ipWidget-IpTitle h1,
+.sidebar .ipWidget-IpTitle h2,
+.sidebar .ipWidget-IpTitle h3 {
+    width: 260px;
+    height: 26px;
+    padding: 6px 16px;
+    background: url(images/sidebar_title_bg.png) no-repeat left top;
+    border-bottom: 1px solid #D2D5CA;
+    color: #92AB5B;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 26px;
+    overflow: hidden;
+    margin: 0;
+}
+.sidebar .ipWidget-IpText,
+.sidebar .ipWidget-IpRichText,
+.sidebar .ipWidget-IpTextImage {
+    padding: 15px;
+}
+.sidebar .ipPreviewWidget .note,
+.sidebar .mceContentBody .note {
+    background-color: #f3f3f3;
+    color: #000;
+    display: block;
+    margin: -15px -14px; /* aligning background with box side */
+    padding: 15px 20px;
+}
+.sidebar .ipWidget-IpTextImage .ipwImage,
+.sidebar .ipWidget-IpImage img {
+    border: none;
+    float: none;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+}
+.sidebar .ipWidget-IpImageGallery,
+.sidebar .ipWidget-IpLogoGallery {
+    padding-bottom: 14px;
+}
+.sidebar .ipWidget-IpImageGallery ul,
+.sidebar .ipWidget-IpLogoGallery ul {
+    margin: 0;
+}
+.sidebar .ipWidget-IpImageGallery li,
+.sidebar .ipWidget-IpLogoGallery li {
+    float: left;
+    margin: 14px 0 0 14px;
+}
+.sidebar .ipWidget-IpImageGallery li a {
+    border: none;
+    padding: 0;
+}
+.sidebar .ipWidget-IpImageGallery li img,
+.sidebar .ipWidget-IpLogoGallery li img {
+    width: 125px;
+}
+.sidebar .ipWidget-IpFile {
+    padding: 15px 20px;
+}
+.sidebar .ipModuleForm {
+    padding: 20px;
+}
+.sidebar .ipModuleForm .ipmField {
+    padding-bottom: 15px;
+}
+.sidebar .ipModuleForm .ipmField:last-child {
+    padding-bottom: 0;
+}
+.sidebar .ipModuleForm .ipmLabel {
+    float: none;
+    margin: 0 0 3px 0;
+    width: auto;
+}
+.sidebar .ipModuleForm .ipmMarker {
+    display: block;
+}
+.sidebar .ipModuleForm .ipmControl {
+    width: 248px;
+}
+.sidebar .ipModuleForm .ipmControlInput,
+.sidebar .ipModuleForm .ipmControlTextarea {
+    width: 242px;
+}
+.sidebar .ipModuleForm .ipmControlSelect {
+    width: 248px;
+}
+.sidebar .ipModuleForm .ipmNote {
+    margin: 0;
+    position: static;
+}
+.sidebar .ipModuleForm .ipmHint {
+    bottom: auto;
+    left: 248px;
+    right: auto;
+    top: 0;
+    width: 248px;
+}
+
+/* Admin */
+/* here should go styles for admin tools if you want to override the default styles */
