@@ -61,6 +61,13 @@ var ipDesignThemeMarket = new function () {
                     handle: function (action, data) {
                         console.log('handle(' + action + ')');
                         switch (action) {
+                            case 'installTheme':
+                                var fakeOrder = {
+                                    images: [],
+                                    themes: [data]
+                                }
+                                processOrder(fakeOrder);
+                                break;
                             case 'processOrder':
                                 processOrder(data);
                                 break;
