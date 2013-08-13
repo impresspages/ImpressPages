@@ -67,11 +67,13 @@
 
     <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
         <div class="ipmPopupTabs">
-            <ul>
-                <li><a href="#ipModuleThemeMarketAll">{{All Themes}}</a></li>
-            </ul>
+            <div class="ipsHeader">
+                <ul>
+                    <li><a href="#ipModuleThemeMarketAll">{{All Themes}}</a></li>
+                </ul>
 
-            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+                <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+            </div>
 
             <div id="ipModuleThemeMarketAll">
                 <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">

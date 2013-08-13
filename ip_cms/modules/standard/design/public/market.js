@@ -28,6 +28,15 @@ var ipDesignThemeMarket = new function () {
         ipDesignThemeMarket.closeMarketWindow();
     };
 
+    var beforeOpenThemePreview = function() {
+        $('.ipsThemeMarketPopup .ipsHeader').hide();
+        // TODOX unbind ESC
+    };
+
+    var afterCloseThemePreview = function() {
+        $('.ipsThemeMarketPopup .ipsHeader').show();
+        // TODOX rebind ESC
+    };
 
     var showMarketIframe = function () {
 
@@ -57,6 +66,12 @@ var ipDesignThemeMarket = new function () {
                                 break;
                             case 'navigateBackToMyTheme':
                                 navigateBackToMyTheme();
+                                break;
+                            case 'beforeOpenThemePreview':
+                                beforeOpenThemePreview();
+                                break;
+                            case 'afterCloseThemePreview':
+                                afterCloseThemePreview();
                                 break;
                         }
                     }
