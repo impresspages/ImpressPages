@@ -84,8 +84,7 @@
     </div>
 
     <div class="ipmPreview ipsPreview ipgHide">
-        <div class="ipmClosePreview ipsClosePreview"></div>
-
-        <iframe class="ipsFrame" src=""></iframe>
+        <button type="button" class="btn ipmPreviewClose ipsPreviewClose"><i class="icon-remove"></i></button>
+        <iframe class="ipsFrame" src="" frameborder="0"></iframe>
     </div>
 </div>

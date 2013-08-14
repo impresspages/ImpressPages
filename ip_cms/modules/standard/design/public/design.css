@@ -139,16 +139,21 @@ body {
     background-color: white;
 }
 
-
-.ipmPreview {
-    position: fixed;
+/* Theme Preview / Options */
+.ipModuleDesign .ipmPreview {
+    background-color: #fff;
+    height: 100%;
     left: 0;
+    position: absolute;
     top: 0;
     width: 100%;
-    height: 100%;
 }
-
-.ipmPreview iframe{
-    width: 100%;
+.ipModuleDesign .ipmPreviewClose {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.ipModuleDesign iframe {
     height: 100%;
+    width: 100%;
 }
