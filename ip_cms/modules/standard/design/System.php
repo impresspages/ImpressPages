@@ -37,6 +37,9 @@ class System{
     protected function initConfig()
     {
         $site = \Ip\ServiceLocator::getSite();
+        $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
+        $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
+        $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.css');

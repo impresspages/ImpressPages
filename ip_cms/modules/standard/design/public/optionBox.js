@@ -23,7 +23,8 @@ $(document).ready(function() {
 
     setInterval(ipDesign.livePreviewUpdate, 50);
 
-    $('.ipModuleDesignConfig .ipmFormContainer').css('maxHeight', $(window).height() - 200);
+    ipDesign.resize();
+    $(window).bind("resize.ipModuleDesign", ipDesign.resize);
 });
 
 
@@ -68,7 +69,7 @@ var ipDesign = new function() {
         }));
 
         postForm.appendTo('body').submit();
-    }
+    };
 
     this.apply = function (e) {
         e.preventDefault();
@@ -90,7 +91,7 @@ var ipDesign = new function() {
                 }
             }
         });
-    }
+    };
 
     this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');
@@ -118,8 +119,11 @@ var ipDesign = new function() {
         }
 
         lastSerialized = curSerialized;
-    }
+    };
 
+    this.resize = function(e) {
+        $('.ipModuleDesignConfig .modal-body').css('maxHeight', $(window).height() - 200);
+    };
 
     var getValueByName = function(name, values) {
         name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
