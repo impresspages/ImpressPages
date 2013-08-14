@@ -21,7 +21,7 @@ $(document).ready(function() {
         window.parent.ipDesignCloseOptions(e);
     });
 
-    setInterval(ipDesign.livePreviewUpdate, 50);
+    $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
 
     ipDesign.resize();
     $(window).bind("resize.ipModuleDesign", ipDesign.resize);
@@ -93,7 +93,7 @@ var ipDesign = new function() {
         });
     };
 
-    this.livePreviewUpdate = function() {
+    this.livePreviewUpdate = function() {console.log('test');
         var $form = $('.ipModuleDesignConfig .ipsForm');
         if (lastSerialized == null) {
             lastSerialized = $form.serialize();
@@ -113,9 +113,7 @@ var ipDesign = new function() {
                 }
             }
 
-//            var val = $('.ipModuleDesignConfig .ipsForm').find('input[name=\'backgroundColor\']').val();
-//            ipDesignOption_backgroundColor(val);
-//            console.log(val);
+
         }
 
         lastSerialized = curSerialized;
