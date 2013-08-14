@@ -10,8 +10,8 @@ namespace Modules\developer\form\Field;
 class Color extends Field{
     
     public function render($doctype) {
-        return '<div class="ipsColorPickerXXX"></div>
-        <input '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+        return '<input data-confirmtext=\''.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'admin_translations', 'confirm')).'\' data-canceltext=\''.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'admin_translations', 'cancel')).'\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
 
     /**

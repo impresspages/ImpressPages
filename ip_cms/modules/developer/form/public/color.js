@@ -4,6 +4,8 @@ $.each($('.ipsModuleForm .ipmType-color'), function(){
 
 
     $this.find('.ipsColorPicker').spectrum({
+        cancelText: $this.find('.ipsColorPicker').data('canceltext'),
+        chooseText: $this.find('.ipsColorPicker').data('confirmtext'),
         move: function(color) {
             $this.find('.ipsColorPicker').spectrum("set", color.toHexString());
         },
