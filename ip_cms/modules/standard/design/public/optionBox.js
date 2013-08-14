@@ -93,7 +93,7 @@ var ipDesign = new function() {
         });
     };
 
-    this.livePreviewUpdate = function() {console.log('test');
+    this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');
         if (lastSerialized == null) {
             lastSerialized = $form.serialize();
