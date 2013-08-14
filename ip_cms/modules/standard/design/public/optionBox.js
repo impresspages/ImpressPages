@@ -22,6 +22,7 @@ $(document).ready(function() {
     });
 
     $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
+    $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
 
     ipDesign.resize();
     $(window).bind("resize.ipModuleDesign", ipDesign.resize);
