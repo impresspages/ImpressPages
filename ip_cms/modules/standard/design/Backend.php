@@ -142,38 +142,43 @@ class Backend extends \Ip\Controller
                 'errors' => $errors
             );
         } else {
+            $configModel = ConfigModel::instance();
+            $model = Model::instance();
+            $theme = $model->getTheme(THEME);
+            if (!$theme) {
+                throw new \Ip\CoreException("Theme doesn't exist");
+            }
+
+            $options = $theme->getOptions();
+
+            foreach($options as $option) {
+                if (empty($option['name'])) {
+                    continue;
+                }
+
+                $field = $form->getField($option['name']);
+                if (!$field) {
+                    continue;
+                }
+
+                $value = $field->getValueAsString($request->getPost(), $option['name']);
+                $configModel->setConfigValue(THEME, $option['name'], $value);
+            }
+
             $data = array(
                 'status' => 'success'
             );
 
         }
 
-        $model = Model::instance();
-        $theme = $model->getTheme(THEME);
-        if (!$theme) {
-            throw new \Ip\CoreException("Theme doesn't exist");
-        }
 
-        $options = $theme->getOptions();
-
-        foreach($options as $option) {
-            if (empty($option['name'])) {
-                continue;
-            }
-
-            $field = $form->getField($option['name']);
-            if (!$field) {
-                continue;
-            }
-
-            $value = $field->getValueAsString($request->getPost(), $option['name']);
-            $configModel->setConfigValue(THEME, $option['name'], $value);
-        }
 
 
 
         $this->returnJson($data);
     }
+
+
 
 
 }
