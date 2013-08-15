@@ -64,7 +64,11 @@ var ipDesignThemeMarket = new function () {
                                     images: [],
                                     themes: [data]
                                 }
+                                console.log('xxxxxxxxxxxxxxxxxxx');
                                 processOrder(fakeOrder);
+                                $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                    location.reload();
+                                });
                                 break;
                             case 'processOrder':
                                 processOrder(data);
