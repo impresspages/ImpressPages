@@ -1,18 +1,28 @@
 
+"use strict";
+
 $(document).ready(function() {
+
+    $('a').off('click').on('click', ipDesign.openLink); //it is important to bind links before adding configuration box html to the body
+
     $('body').append(ipModuleDesignConfiguration);
-    $('a').off('click').on('click', ipDesign.openLink);
+    ipModuleForm.init(); //reinit form controls after adding option box
+
     $('.ipModuleDesignConfig .ipsForm').on('submit', ipDesign.apply);
-    $('.ipModuleDesignConfig .ipsSave').on('click', function(e){
+    $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function(e){
         e.preventDefault();
         $('.ipModuleDesignConfig .ipsForm').submit();
     });
-    $('.ipModuleDesignConfig .ipsCancel').on('click', function(e){
+
+    $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
+
+    $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function(e){
         e.preventDefault();
         window.parent.ipDesignCloseOptions(e);
     });
 
-    setInterval(ipDesign.livePreviewUpdate, 50);
+    $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
+    $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
 
     ipDesign.resize();
     $(window).bind("resize.ipModuleDesign", ipDesign.resize);
@@ -37,7 +47,7 @@ var ipDesign = new function() {
                 previewConfig[key] = config[i].value;
             }
         }
-        delete key;
+
 
         // create form for previewConfig
         var postForm = $('<form>', {
@@ -64,7 +74,7 @@ var ipDesign = new function() {
 
     this.apply = function (e) {
         e.preventDefault();
-        $form = $(this);
+        var $form = $(this);
 
         $.ajax({
             url: ip.baseUrl,
@@ -77,7 +87,7 @@ var ipDesign = new function() {
                     window.location = refreshUrl;
                 } else {
                     if (response.errors) {
-                        form.data("validator").invalidate(response.errors);
+                        $form.data("validator").invalidate(response.errors);
                     }
                 }
             }
@@ -94,7 +104,7 @@ var ipDesign = new function() {
         var curSerialized = $form.serialize();
 
         if (curSerialized != lastSerialized) {
-            for (optionNameIndex in ipModuleDesignOptionNames) {
+            for (var optionNameIndex in ipModuleDesignOptionNames) {
                 var optionName = ipModuleDesignOptionNames[optionNameIndex];
                 var curValue = getValueByName(optionName, curSerialized);
                 if (lastValues[optionName] != curValue) {
@@ -104,9 +114,7 @@ var ipDesign = new function() {
                 }
             }
 
-//            var val = $('.ipModuleDesignConfig .ipsForm').find('input[name=\'backgroundColor\']').val();
-//            ipDesignOption_backgroundColor(val);
-//            console.log(val);
+
         }
 
         lastSerialized = curSerialized;

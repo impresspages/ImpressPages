@@ -142,7 +142,7 @@ class ConfigModel{
                     $newField = new Form\Field\File();
                     break;
                 case 'color':
-                    $newField = new Form\Field\Farbtastic();
+                    $newField = new Form\Field\Color();
                     break;
                 case 'range':
                     $newField = new Form\Field\Range();
