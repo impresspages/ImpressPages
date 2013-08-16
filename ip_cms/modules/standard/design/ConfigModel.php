@@ -31,6 +31,12 @@ class ConfigModel{
         return $this->isInPreviewState;
     }
 
+
+    public function getConfig()
+    {
+
+    }
+
     public function getConfigValue($theme, $name, $default = null)
     {
         if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'][$name])) {

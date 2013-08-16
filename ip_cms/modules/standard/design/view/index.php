@@ -12,7 +12,9 @@
 
         <div class="ipmThemeActions">
 <!--            <a href="#" class="btn btn-link">{{Download}}</a>-->
-            <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
+            <?php if ($showConfiguration){ ?>
+                <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
+            <?php } ?>
         </div>
         <h2>
             <i class="icon-ok"></i>

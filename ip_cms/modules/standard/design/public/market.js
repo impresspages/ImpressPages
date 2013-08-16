@@ -57,16 +57,17 @@ var ipDesignThemeMarket = new function () {
                     },
 
                     handle: function (action, data) {
-                        console.log('handle(' + action + ')');
                         switch (action) {
                             case 'installTheme':
                                 var fakeOrder = {
                                     images: [],
                                     themes: [data]
                                 }
-                                console.log('xxxxxxxxxxxxxxxxxxx');
                                 processOrder(fakeOrder);
                                 $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                    if (top.document.getElementById('adminFrameset')) {
+                                        top.document.getElementById('adminFrameset').rows = adminFramesetRows;
+                                    }
                                     location.reload();
                                 });
                                 break;
