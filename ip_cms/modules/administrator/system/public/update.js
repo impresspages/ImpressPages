@@ -1,9 +1,36 @@
 
+"use strict";
+
+
+$(document).ready(function() {
+    var postData = Object();
+    postData.g = 'administrator';
+    postData.m = 'system';
+    postData.ba = 'getSystemInfo';
+    postData.securityToken = ip.securityToken;
+
+    postData.jsonrpc = '2.0'
+
+    $.ajax({
+        url: ip.baseUrl,
+        data: postData,
+        dataType: 'json',
+        type : 'POST',
+        success: mod_administrator_system_publish_updates,
+        error: function () {
+            alert('Unknown error. Please see logs.');
+        }
+    });
+
+    $('.actStartUpdate').live('click', startUpdate);
+});
+
+
 function mod_administrator_system_publish_updates(response){
   var container = document.getElementById('systemInfo');
   var messages = '';
   if(response != '') {
-    messages = eval('(' + response + ')');
+    messages = response;
     if(messages.length > 0){
       container.style.display = '';
       var i = 0;
@@ -20,23 +47,18 @@ function mod_administrator_system_publish_updates(response){
   
 }
 
-LibDefault.ajaxMessage(document.location, 'module_name=system&module_group=administrator&action=getSystemInfo', mod_administrator_system_publish_updates);
 
-
-$('.actStartUpdate').live('click', startUpdate);
-
-function startUpdate(e)
-{
+function startUpdate(e) {
     e.preventDefault();
 
     var postData = Object();
     postData.g = 'administrator';
     postData.m = 'system';
-    postData.a = 'startUpdate';
+    postData.ba = 'startUpdate';
     postData.securityToken = ip.securityToken;
 
     $.ajax({
-        url: BASE_URL,
+        url: ip.baseUrl,
         data: postData,
         dataType: 'json',
         type : 'POST',

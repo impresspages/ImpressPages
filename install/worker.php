@@ -57,6 +57,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     if(!$conn) {
         $error = true;
         echo '{errorCode:"ERROR_CONNECT", error:""}';
+        exit;
     } else {
         if(mysql_select_db($_POST['db'], $conn)){
             mysql_query("SET CHARACTER SET utf8", $conn);
@@ -140,6 +141,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
         }else{
             $error = true;
             echo '{errorCode:"ERROR_DB", error:""}';
+            exit;
         }
     }
     mysql_close($conn);
@@ -196,11 +198,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
     // END GLOBAL
     
     // DB
-      define('DB_SERVER', '".$_SESSION['db_server']."'); // eg, localhost
-      define('DB_USERNAME', '".$_SESSION['db_user']."');
-      define('DB_PASSWORD', '".$_SESSION['db_pass']."');
-      define('DB_DATABASE', '".$_SESSION['db_db']."');
-      define('DB_PREF', '".$_SESSION['db_prefix']."');
+      define('DB_SERVER', '".addslashes($_SESSION['db_server'])."'); // eg, localhost
+      define('DB_USERNAME', '".addslashes($_SESSION['db_user'])."');
+      define('DB_PASSWORD', '".addslashes($_SESSION['db_pass'])."');
+      define('DB_DATABASE', '".addslashes($_SESSION['db_db'])."');
+      define('DB_PREF', '".addslashes($_SESSION['db_prefix'])."');
     // END DB
     
     // GLOBAL

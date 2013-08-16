@@ -26,11 +26,15 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $testDbHelper = new \PhpUnit\Helper\TestDb();
         $this->type('css=#db_server', $testDbHelper->getDbHost());
         $this->type('css=#db_user', $testDbHelper->getDbUser());
-        $this->type('css=#db_pass', $testDbHelper->getDbPass());
+        $this->type('css=#db_pass', 'wrong'); //wrong password
         $this->type('css=#db_db', $testDbHelper->getDbName());
         $this->click('css=.button_act');
+        $this->assertTextPresent('Can\'t connect to database');
+
+
+        $this->type('css=#db_pass', $testDbHelper->getDbPass());
+        $this->click('css=.button_act');
         $this->waitForVisible('css=#config_site_name');
-        //$this->assertNoErrors();  //there is hidden error message
 
 
         $this->type('css=#config_site_name', 'TestSiteName');
