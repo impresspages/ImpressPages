@@ -1,0 +1,89 @@
+.side {
+  nav {
+    font-size: 12px;
+    margin-bottom: 25px;
+
+    ul {
+      list-style: none;
+    }
+
+    a {
+      border-top: 1px solid #9e9e9e;
+      color: #1a1a1a;
+      display: block;
+      padding: 10px 20px;
+
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+
+    .current > a {
+      background-color: @backgroundColorInverted;
+      color: @textColorInverted;
+    }
+
+    // .side nav.collapse
+    &.collapse {
+      .level1 ul { /* "collapse" class force menu to hide 2nd level until parent or child is not selected */
+        display: none;
+      }
+
+      .current, .selected {
+        ul { /* displaying 2nd level */
+          display: block;
+        }
+      }
+
+      .level1 {
+        .subnodes {
+          & > a { /* fixing style when collapsed */
+            background-image: url(../img/icon_right.gif);
+            background-position: 8px center;
+            border-bottom: none;
+          }
+
+          &.current, &.selected {
+            & > a { /* fixing style when not collapsed */
+              background-image: url(../img/icon_down.gif);
+              background-position: 5px center;
+              border-bottom: 1px solid #9e9e9e;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // .side nav .level1
+  .level1 {
+    border-bottom: 1px solid #9e9e9e;
+
+    & > li > a {
+      font-weight: bold;
+    }
+
+    .subnodes > a {
+      background-image: url(../img/icon_down.gif);
+      background-position: 5px center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid #9e9e9e;
+    }
+
+    & > .selected > a {
+      background-color: #f3f3f3;
+    }
+
+    ul {
+      margin-left: 20px;
+
+      & > li > a {
+        border-top-color: @marginsBackgroundColor;
+      }
+
+      & > li:first-child > a {
+        border-top: none;
+      }
+    }
+  }
+}

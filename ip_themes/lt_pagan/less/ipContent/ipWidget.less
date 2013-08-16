@@ -1,0 +1,284 @@
+.ipWidget {
+  &:before, &:after {
+    .ipClearfix();
+  }
+
+  &:after {
+    /* clearing, see 960.css */
+  }
+  // TODOX do we need this?
+  &:after {
+    clear: both;
+  }
+
+  margin-bottom: 25px;
+}
+
+.ipWidget:last-child,
+.ipPreviewWidget p:last-child,
+.ipPreviewWidget ul:last-child,
+.ipPreviewWidget ol:last-child {
+  margin-bottom: 0; /* removing bottom margin on last elements */
+}
+
+.ipPreviewWidget {
+  h1, h2, h3 {
+    color: @textColorLight;
+    font-family: @fontFamilyHeadlines;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+}
+
+.ipPreviewWidget, .mceContentBody {
+
+  ul {
+    list-style-position: inside;
+    list-style-type: square;
+    margin: 0 0 20px 15px;
+  }
+
+  ol {
+    list-style-position: inside;
+    margin: 0 0 20px 15px;
+  }
+
+  p {
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+
+  ul ul, ol ol {
+    margin-bottom: 0; /* removing bottom spacing for inner lists */
+  }
+
+  li {
+    line-height: 24px;
+    margin-bottom: 4px;
+  }
+
+  p+ul, p+ol {
+    margin-top: -20px; /* If list goes just after the paragraph the space is removed */
+  }
+
+  a {
+    color: @linkColor;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* default text style on rich text editor */
+  .caption {
+    color: @textColorLight;
+    font-family: @fontFamilyHeadlines;
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  /* default text style on rich text editor */
+  .signature {
+    font-family: @fontFamilyHeadlines;
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .note {
+    color: @textColor;
+    display: block;
+    font-family: @fontFamilyHeadlines;
+    font-size: 16px;
+    font-style: italic;
+    margin: 0 30px 25px;
+  }
+
+  table {
+    border-collapse: collapse;
+    color: @borderColorDark;
+    font-size: 11px;
+    width: 100%;
+
+    p {
+      line-height: auto;
+      margin: 0;
+    }
+  }
+
+  td {
+    border-bottom: 1px solid #b2b2b2;
+    font-size: 11px;
+    padding: 9px;
+    text-align: center;
+  }
+
+  th,
+  thead td,
+  tbody tr:first-child td {
+    /* making first line look like header in all cases */
+    background-color: @backgroundColorInverted;
+    border: none;
+    color: #fff;
+    font-size: @fontSize;
+    font-weight: bold;
+  }
+
+  thead+tbody tr:first-child td {
+    /* setting back styles if thead exists */
+    background-color: transparent;
+    border-bottom: 1px solid #b2b2b2;
+    color: inherit;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  td:first-child {
+    text-align: left;
+  }
+}
+
+.ipWidget-IpImage img,
+.ipWidget-IpImageGallery img {
+  display: block; /* to remove 3px space below the image (default rendering behavior) */
+}
+
+.ipWidget-IpTextImage {
+  .ipwImage {
+    float: left;
+    width: 220px;
+  }
+
+  .ipwText {
+    float: right;
+    width: 300px;
+  }
+
+  &.ipLayout-right {
+    .ipwImage {
+      float: right;
+    }
+    .ipwText {
+      float: left;
+    }
+  }
+}
+
+.ipWidget-IpImageGallery, .ipWidget-IpLogoGallery {
+  ul {
+    list-style: none;
+    margin: -20px 0 0 -20px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
+  }
+
+  li {
+    float: left;
+    margin: 20px 0 0 20px; /* size should be equal with ul element but without minus sign */
+
+    a, img {
+      border: 1px solid #888;
+      display: block;
+      padding: 2px;
+    }
+
+    a:hover, a:hover img {
+      border-color: @borderColorDark;
+    }
+  }
+}
+
+.ipWidget-IpFile {
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+
+  li {
+    background: url(../img/icon_download.gif) no-repeat left center;
+    margin-bottom: 4px;
+    padding-left: 25px;
+  }
+
+  a {
+    color: @linkColor;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.ipWidget-IpSeparator {
+  &.ipLayout-default {
+    border-bottom: 1px dotted @borderColorDark;
+    height: 0;
+    overflow: hidden;
+  }
+  &.ipLayout-space {
+    height: 25px;
+  }
+}
+
+.ipWidget-IpFaq {
+  padding-left: 30px;
+
+  .ipwQuestion {
+    color: @textColor;
+    cursor: pointer;
+    font-family: @fontFamilyHeadlines;
+    font-size: 18px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+
+      &:before {
+        background-color: #f3f3f3;
+      }
+    }
+
+    &:before {
+      border: 1px solid @borderColorDark;
+      font-family:  @fontFamily;
+      font-size: 11px;
+      font-weight: bold;
+      color: @textColor;
+      content: '?';
+      display: block;
+      margin: 3px 0 0 -30px;
+      padding: 1px 2px;
+      position: absolute;
+    }
+
+    .ipwAnswer {
+      margin-top: 5px;
+    }
+
+    .ipwCollapsed .ipwAnswer {
+      display: none;
+    }
+  }
+
+  .ipwExpanded .ipwQuestion:before {
+    background-color: @backgroundColorInverted;
+    color: @textColorInverted;
+  }
+}
+
+
+.ipWidget-IpHtml {}
+.ipWidget-IpForm {
+  .ipwForm {}
+
+  .ipwSuccess { /* mimicking the same styles as for form to keep message 'inside' the box */
+    border: 1px solid #888;
+    display: none;
+    padding: 20px 25px;
+  }
+}
