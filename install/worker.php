@@ -57,6 +57,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     if(!$conn) {
         $error = true;
         echo '{errorCode:"ERROR_CONNECT", error:""}';
+        exit;
     } else {
         if(mysql_select_db($_POST['db'], $conn)){
             mysql_query("SET CHARACTER SET utf8", $conn);
@@ -140,6 +141,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
         }else{
             $error = true;
             echo '{errorCode:"ERROR_DB", error:""}';
+            exit;
         }
     }
     mysql_close($conn);
