@@ -772,7 +772,7 @@ class Site{
                             call_user_func(array($tmpModule, $function));
                         }
                     } else {
-                        trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$_REQUEST['a']."()) does not exitst.");
+                        trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$function."()) does not exitst.");
                     }
                 } else {
                     $backtrace = debug_backtrace();
