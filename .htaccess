@@ -4,6 +4,10 @@
 
 
 RewriteEngine on
+
+#RewriteRule ^ip_themes/lt_pagan/less/(.*)[.]css /works.php [L]
+RewriteRule ^ip_themes/lt_pagan/less/(.*)[.]less /?g=standard&m=design&a=less&file=$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
