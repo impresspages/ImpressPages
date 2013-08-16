@@ -35,10 +35,17 @@ class Backend extends \Ip\Controller
 
         $themes = $model->getAvailableThemes();
 
+        $model = Model::instance();
+        $theme = $model->getTheme(THEME);
+        $options = $theme->getOptions();
+
+
+
         $data = array(
             'theme' => $model->getTheme(THEME),
-            'availableThemes' => $model->getAvailableThemes(),
+            'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
+            'showConfiguration' => !empty($options)
         );
 
         $contentView = \Ip\View::create('view/index.php', $data);
