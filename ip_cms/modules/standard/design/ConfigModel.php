@@ -61,6 +61,38 @@ class ConfigModel{
         return $default;
     }
 
+    public function getAllConfigValues($theme)
+    {
+        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'])) {
+            return $_POST['ipDesign']['previewConfig'];
+        }
+
+        $dbh = \Ip\Db::getConnection();
+        $sql = '
+            SELECT
+                `name`, `value`
+            FROM
+                `'.DB_PREF.'m_design`
+            WHERE
+                `theme` = :theme
+        ';
+
+        $params = array (
+            ':theme' => $theme,
+        );
+
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+        $rs = $q->fetchAll(\PDO::FETCH_ASSOC);
+
+        $config = array();
+        foreach ($rs as $row) {
+            $config[$row['name']] = $row['value'];
+        }
+
+        return $config;
+    }
+
     public function setConfigValue($theme, $name, $value)
     {
         $dbh = \Ip\Db::getConnection();

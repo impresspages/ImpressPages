@@ -72,11 +72,5 @@
         $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
         echo $site->generateJavascript();
     ?>
-<style type="text/css">
-    body {
-        color : <?php echo $this->getThemeOption('textColor'); ?>;
-    }
-</style>
-
 </body>
 </html>
