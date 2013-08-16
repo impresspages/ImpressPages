@@ -391,32 +391,12 @@ class View{
     /**
      * @param int $price in cents
      * @param string $currency three letter currency code
+     * @return string
      */
     public function formatPrice($price, $currency)
     {
-        global $dispatcher;
-        global $site;
-
-        $data = array (
-            'price' => $price,
-            'currency' => $currency
-        );
-        $event = new \Ip\Event($this, 'global.formatCurrency', $data);
-        $dispatcher->notifyUntil($event);
-        if ($event->issetValue('formattedPrice')) {
-            $formattedPrice = $event->getValue('formattedPrice');
-        } else {
-            if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
-                $language = $site->getLanguageById($this->getLanguageId());
-                $locale = str_replace('-', '_', $language->getCode());
-                $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
-
-                $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
-            } else {
-                $formattedPrice = ($data['price']/100).' '.$data['currency'];
-            }
-        }
-        return $formattedPrice;
+        $helper = \Library\Php\Ecommerce\Helper::instance();
+        return $helper->formatPrice($price, $currency, $this->getLanguageId());
     }
 
 

@@ -25,6 +25,7 @@ class Helper{
      * This method throws an event and finds product by module and id
      * @param string $module
      * @param string $productId
+     * @param $options
      * @return \Ip\Ecommerce\Product
      */
     public function findProduct($module, $productId, $options)
@@ -46,5 +47,41 @@ class Helper{
         return $product;
 
     }
+
+    /**
+     * @param int $price in cents
+     * @param string $currency three letter currency code
+     * @return string
+     */
+    public function formatPrice($price, $currency, $languageId = null)
+    {
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+        $site = \Ip\ServiceLocator::getSite();
+        if ($languageId === null) {
+            $languageId = $site->getCurrentLanguage()->getId();
+        }
+
+        $data = array (
+            'price' => $price,
+            'currency' => $currency
+        );
+        $event = new \Ip\Event($this, 'global.formatCurrency', $data);
+        $dispatcher->notifyUntil($event);
+        if ($event->issetValue('formattedPrice')) {
+            $formattedPrice = $event->getValue('formattedPrice');
+        } else {
+            if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
+                $language = $site->getLanguageById($languageId);
+                $locale = str_replace('-', '_', $language->getCode());
+                $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
+
+                $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
+            } else {
+                $formattedPrice = ($data['price']/100).' '.$data['currency'];
+            }
+        }
+        return $formattedPrice;
+    }
+
 }
 
