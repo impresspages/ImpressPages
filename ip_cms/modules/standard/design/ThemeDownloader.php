@@ -30,13 +30,13 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
     {
         //download theme
         $net = \Library\Php\Net::instance();
-        $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_FILE_DIR, $name . '.zip');
+        $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_SECURE_DIR, $name . '.zip');
 
         if (!$themeTempFilename) {
             throw new \Ip\CoreException('Theme file download failed.');
         }
 
-        $archivePath = BASE_DIR . TMP_FILE_DIR . $themeTempFilename;
+        $archivePath = BASE_DIR . TMP_SECURE_DIR . $themeTempFilename;
 
         //check signature
         $fileMd5 = md5_file($archivePath);
@@ -53,7 +53,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         //extract
         $helper = Helper::instance();
         $tmpExtractedDir = \Library\Php\File\Functions::genUnoccupiedName($name, BASE_DIR . TMP_SECURE_DIR);
-        $helper->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
+        $helper->extractZip(BASE_DIR . TMP_SECURE_DIR . $themeTempFilename, BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
         unlink($archivePath);
 
         //install
