@@ -80,14 +80,9 @@ class Backend extends \Ip\Controller
             }
 
             $themeDownloader = new ThemeDownloader();
-            $model = Model::instance();
 
             foreach ($themes as $theme) {
                 if (!empty($theme['url']) && !empty($theme['name']) && !empty($theme['signature'])) {
-                    if ($model->isThemeAvailable($theme['name'])) {
-                        throw new \Ip\CoreException("Theme '{$theme['name']}' is already installed.");
-                    }
-
                     $themeDownloader->downloadTheme($theme['name'], $theme['url'], $theme['signature']);
                 }
             }
@@ -98,7 +93,7 @@ class Backend extends \Ip\Controller
             header('HTTP/1.1 500 ' . $e->getMessage());
             $site->setOutput('');
         } catch (\Exception $e) {
-            header('HTTP/1.1 500 {{Theme download failed}}');
+            header('HTTP/1.1 500 ' . $e->getMessage());
             $site->setOutput('');
         }
     }

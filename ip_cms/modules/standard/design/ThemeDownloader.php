@@ -28,6 +28,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
     public function downloadTheme($name, $url, $signature)
     {
+        //download theme
         $net = \Library\Php\Net::instance();
         $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_FILE_DIR, $name . '.zip');
 
@@ -37,6 +38,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         $archivePath = BASE_DIR . TMP_FILE_DIR . $themeTempFilename;
 
+        //check signature
         $fileMd5 = md5_file($archivePath);
 
         $rsa = new \Crypt_RSA();
@@ -48,27 +50,19 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
             throw new \Ip\CoreException('Theme signature verification failed.');
         }
 
-        $this->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . THEME_DIR);
-
+        //extract
+        $helper = Helper::instance();
+        $tmpExtractedDir = \Library\Php\File\Functions::genUnoccupiedName($name, BASE_DIR . TMP_SECURE_DIR);
+        $helper->extractZip(BASE_DIR . TMP_FILE_DIR . $themeTempFilename, BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
         unlink($archivePath);
+
+        //install
+        $extractedDir = $helper->getFirstDir(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
+        $newThemeDir = \Library\Php\File\Functions::genUnoccupiedName($name, BASE_DIR . THEME_DIR);
+        rename(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir . '/' . $extractedDir, BASE_DIR . THEME_DIR . $newThemeDir);
+
     }
 
-    protected function extractZip($archivePath, $destinationDir)
-    {
-        if (class_exists('\\ZipArchive')) {
-            $zip = new \ZipArchive();
-            if ($zip->open($archivePath) === true) {
-                $zip->extractTo($destinationDir);
-                $zip->close();
-            } else {
-                throw new \Ip\CoreException('Theme extraction failed.');
-            }
-        } else {
-            $zip = new \PclZip($archivePath);
-            if (!$zip->extract(PCLZIP_OPT_PATH, $destinationDir)) {
-                throw new \Ip\CoreException('Theme extraction failed.');
-            }
-        }
-    }
+
 
 }
