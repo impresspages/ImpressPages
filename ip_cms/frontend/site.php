@@ -828,10 +828,7 @@ class Site{
 
     private function isDefaultModule($moduleName)
     {
-        $defaultModules = array(
-            'Plugins'
-        );
-        return in_array($moduleName, $defaultModules);
+        return in_array($moduleName, $this->getCoreModules());
     }
 
     /**
@@ -1110,7 +1107,29 @@ class Site{
         }
     }
 
+    private function getCoreModules()
+    {
+        $modules = array(
+            'Plugins',
+            'Admin'
+        );
+        return $modules;
+    }
+
     public function modulesInit(){
+        //init core modules
+        $coreModules = $this->getCoreModules();
+        foreach($coreModules as $module) {
+            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
+            if(class_exists($systemClass)) {
+                $system = new $systemClass();
+                if (method_exists($system, 'init')) {
+                    $system->init();
+                }
+            }
+        }
+
+        //init old core modules
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
         $rs = mysql_query($sql);
         if($rs){
@@ -1140,6 +1159,9 @@ class Site{
                 }
             }
         }
+
+        //init plugins
+        //TODOX
     }
 
 

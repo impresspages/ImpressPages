@@ -18,6 +18,15 @@ namespace Ip;
 class ServiceLocator
 {
     protected static $request = null;
+    protected static $config = null;
+
+    public static function getConfig()
+    {
+        if (self::$config == null) {
+            self::$config = new \Ip\Config();
+        }
+        return self::$config;
+    }
 
     /**
      * @return \Modules\Administrator\Log\Module
