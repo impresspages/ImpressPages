@@ -27,6 +27,13 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->dbPref = $cf['DB_PREF'];
 
+        if (!is_writable($cf['BASE_DIR'] . $cf['THEME_DIR'])) {
+            $errorData = array (
+                'file' => $cf['BASE_DIR'] . $cf['THEME_DIR']
+            );
+            throw new UpdateException("Please make theme dir writable.", UpdateException::WRITE_PERMISSION, $errorData);
+        }
+
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
         $parameterImporter->importParameters('generalParameters.php');
 
