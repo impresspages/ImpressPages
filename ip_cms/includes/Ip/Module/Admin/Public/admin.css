@@ -1,0 +1,15 @@
+.ipModuleAdmin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 150px;
+    padding: 10px;
+    background-color: #fff;
+    border-right: 1px solid #000;
+    height: 100%;
+    padding-top: 100px; /* //TODOX temporary */
+}
+
+body {
+    margin-left: 170px;
+}
