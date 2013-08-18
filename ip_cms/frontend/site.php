@@ -783,7 +783,40 @@ class Site{
                     }
                 }
 
+            } else {
+
+                $actionString = '';
+                if(isset($_REQUEST['ba'])) {
+                    $actionString = $_REQUEST['ba'];
+                    $controllerClass = 'Backend';
+                } elseif(isset($_REQUEST['a'])) {
+                    $actionString = $_REQUEST['a'];
+                    $controllerClass = 'Controller';
+                }
+
+                if ($actionString) {
+                    $parts = explode('.', $actionString);
+                    $module = array_shift($parts);
+                    if (isset($parts[0])) {
+                        $action = $parts[0];
+                    } else {
+                        $action = 'index';
+                    }
+
+                    if ($this->isDefaultModule($module)) {
+                        $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+                    } else {
+                        $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+                    }
+                    if (!class_exists($controllerClass)) {
+                        throw new \Ip\CoreException('Requested controller doesn\'t exist');
+                    }
+                    $controller = new $controllerClass();
+                    $controller->$action();
+                }
+
             }
+
 
 
         }
@@ -796,6 +829,14 @@ class Site{
 
 
 
+    }
+
+    private function isDefaultModule($moduleName)
+    {
+        $defaultModules = array(
+            'Plugins'
+        );
+        return in_array($moduleName, $defaultModules);
     }
 
     /**
