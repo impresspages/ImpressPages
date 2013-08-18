@@ -706,13 +706,8 @@ class Site{
 
 
     /**
-     * Some modules need to make some actions before any output.
-     * This function detects such requirements and executes required action of specified module.
-     * If you need to use this feature, simply POST (or GET) three variables:
-     * $_REQUEST['g']
-     * $_REQUEST['m']
-     * $_REQUEST['a']
-     * This function will execute method $_REQUEST['a'] on class \Modules\REQUEST['g']\REQUEST['m']\Controller
+     * Pass parameter "a" using GET or POST with value plugin.action to access your plugin Controller public method
+     * Or pass the same parameter naming it "ba" to access secured action in Backend class of your plugin
      *
      */
     public function makeActions(){
