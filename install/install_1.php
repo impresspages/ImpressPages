@@ -194,6 +194,13 @@ if(!directory_is_writable(dirname(__FILE__).'/../video')) {
 }else
 $table[] = '<span class="correct">'.IP_OK.'</span>';
 
+$table[] = '<b>/ip_themes/</b> '.IP_WRITABLE;
+if(!directory_is_writable(dirname(__FILE__).'/../ip_themes')) {
+    $table[] = '<span class="error">'.IP_ERROR."</span>";
+    $error['writable_themes'] = 1;
+}else
+    $table[] = '<span class="correct">'.IP_OK.'</span>';
+
 
 $table[] = '<b>/ip_config.php</b> '.IP_WRITABLE;
 if(!is_writable(dirname(__FILE__).'/../ip_config.php')) {
