@@ -1,4 +1,4 @@
-.ipModuleAdmin {
+.ipModuleAdminToolbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,6 +8,18 @@
     border-right: 1px solid #000;
     height: 100%;
     padding-top: 100px; /* //TODOX temporary */
+}
+
+.ipModuleAdminNavigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #000;
+    height: 18px;
+    z-index: 1001;
 }
 
 body {

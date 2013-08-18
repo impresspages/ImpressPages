@@ -1,43 +1,19 @@
 <?php
-/**
- * @package ImpressPages
- *
- *
- */
+namespace Ip\Module\Admin;
 
-namespace Backend;
 
-if(!defined('BACKEND')) exit;
+class OldCmsInterface{
 
-require (__DIR__.'/html_output.php');
-require (__DIR__.'/session.php');
-
-if (file_exists(BASE_DIR.CONFIG_DIR.'admin/template.php')) {
-    require_once(BASE_DIR.CONFIG_DIR.'admin/template.php');
-} else {
-    require_once (__DIR__.'/template.php');
-}
-
-/**
- * ImpressPages main administration area class
- *
- * Manages session, logins, rights, loads managemenet tools
- *
- * @package ImpressPages
- */
-class Cms {
     var $module;  //current module object
     var $session;
-    var $html; //html output object
     var $tinyMce; //true if tinyMce engine is loaded
     var $curModId;
     var $loginError;
 
     function __construct() {
-        $this->session = new Session();
+        $this->session = new OldSessionInterface();
 
 
-        $this->html = new HtmlOutput();
         $this->module = null;
 
         $this->tinyMce = false;
@@ -172,7 +148,7 @@ class Cms {
                     $_REQUEST['module_id'] = $module['id'];
                 }
             }
-            
+
             if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())) {
                 $this->curModId = $_GET['module_id'];
                 $newModule = \Db::getModule($_GET['module_id']);
@@ -209,28 +185,28 @@ class Cms {
 
     function generateUrl($moduleId = null, $getVars = null) { //url to cms module
         if($moduleId == null)
-        $moduleId = $this->curModId;
+            $moduleId = $this->curModId;
         if($getVars != '')
-        return BASE_URL.'?admin=1&module_id='.$moduleId.'&'.$getVars.'&security_token='.$this->session->securityToken();
+            return BASE_URL.'?admin=1&module_id='.$moduleId.'&'.$getVars.'&security_token='.$this->session->securityToken();
         else
-        return BASE_URL.'?admin=1&module_id='.$moduleId.'&security_token='.$this->session->securityToken();
+            return BASE_URL.'?admin=1&module_id='.$moduleId.'&security_token='.$this->session->securityToken();
     }
 
     function generateWorkerUrl($modId = null, $getVars = null) { //url to module worker file
         if($modId == null)
-        $modId = $this->curModId;
+            $modId = $this->curModId;
         if($getVars == '')
-        return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken();
+            return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken();
         else
-        return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken().'&'.$getVars;
+            return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken().'&'.$getVars;
     }
 
 
     function generateActionUrl($action, $getVars = null) { //url to global backend action
         if($getVars != '')
-        return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&'.$getVars.'&security_token='.$this->session->securityToken();
+            return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&'.$getVars.'&security_token='.$this->session->securityToken();
         else
-        return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&security_token='.$this->session->securityToken();
+            return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&security_token='.$this->session->securityToken();
     }
 
     function deleteTmpFiles() {
@@ -301,9 +277,9 @@ class Cms {
         $systemDirs['robots.txt'] = 1;
         $systemDirs['sitemap.php'] = 1;
         if(isset($systemDirs[$url]))
-        return true;
+            return true;
         else
-        return false;
+            return false;
     }
 
     /**
@@ -331,9 +307,9 @@ class Cms {
                 }else {
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
                     else
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+                        trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
                 }
             }
         }

@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('body').append($(ipModuleAdminPanelHtml));
+    $('body').append($(ipModuleAdminToolbarHtml));
+    $('body').append($(ipModuleAdminNavigationHtml));
     $('body').css('margin-left', '200px');
 });
 

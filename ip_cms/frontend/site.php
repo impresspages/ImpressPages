@@ -812,9 +812,29 @@ class Site{
 
             }
 
+            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
+                $controller = new \Ip\Module\Admin\Backend();
+                $controller->deprecatedBootstrap();
+            }
+
 
 
         }
+
+        if (
+            $_SERVER['REQUEST_URI'] == '/admin'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin/'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin.php'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin.php/'
+
+        ) {
+            $controller = new \Ip\Module\Admin\Controller();
+            $controller->login();
+        }
+
 
         //old deprecated way. Need to refactor to controllers
         $currentZone = $this->getZone($this->currentZone);

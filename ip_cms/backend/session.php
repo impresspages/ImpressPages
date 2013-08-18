@@ -11,8 +11,6 @@ if(!defined('BACKEND')) exit;
 
 class Session{
     function __construct(){
-        session_name(SESSION_NAME);
-        session_start();
 
         if(sizeof($_POST)>0 || sizeof($_GET)>0){ //CSRF atack check
             if(
@@ -52,10 +50,10 @@ class Session{
     }
 
     function securityToken(){//used against CSRF atacks
-        if(!isset($_SESSION['backend_session']['security_token'])){
-            $_SESSION['backend_session']['security_token'] =  md5(uniqid(rand(), true));
+        if (empty($_SESSION['ipSecurityToken'])) {
+            $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
         }
-        return $_SESSION['backend_session']['security_token'];
+        return $_SESSION['ipSecurityToken'];
     }
 
     function login($id){
