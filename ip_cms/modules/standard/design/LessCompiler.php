@@ -65,11 +65,18 @@ class LessCompiler
                     break;
                 case 'range':
                     $lessValue = $rawValue;
+                    if (!empty($options['units'])) {
+                        $lessValue .= $options['units'];
+                    }
                     break;
                 default:
                     $lessValue = json_encode($rawValue);
             }
+
+            $less .= "\n@{$option['name']}: {$lessValue};";
         }
+
+
 
         return $less;
     }
