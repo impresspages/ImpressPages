@@ -60,6 +60,7 @@ class Model
 
     public function installTheme($themeName)
     {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $theme = self::getTheme($themeName);
 
 
@@ -81,6 +82,54 @@ class Model
             require_once(BASE_DIR . MODULE_DIR . 'developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
+
+        $widgetOptions = $theme->getWidgetOptions();
+        if (isset($widgetOptions['image']['width'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image', 'width', $widgetOptions['image']['width']);
+        }
+        if (isset($widgetOptions['image']['height'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image', 'height', $widgetOptions['image']['height']);
+        }
+        if (isset($widgetOptions['image']['bigWidth'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image', 'big_width', $widgetOptions['image']['bigWidth']);
+        }
+        if (isset($widgetOptions['image']['bigHeight'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image', 'big_height', $widgetOptions['image']['bigHeight']);
+        }
+
+        if (isset($widgetOptions['imageGallery']['width'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image_gallery', 'width', $widgetOptions['imageGallery']['width']);
+        }
+        if (isset($widgetOptions['imageGallery']['height'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image_gallery', 'height', $widgetOptions['imageGallery']['height']);
+        }
+        if (isset($widgetOptions['imageGallery']['bigWidth'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image_gallery', 'big_width', $widgetOptions['imageGallery']['bigWidth']);
+        }
+        if (isset($widgetOptions['imageGallery']['bigHeight'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_image_gallery', 'big_height', $widgetOptions['imageGallery']['bigHeight']);
+        }
+
+        if (isset($widgetOptions['logoGallery']['width'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_logo_gallery', 'width', $widgetOptions['logoGallery']['width']);
+        }
+        if (isset($widgetOptions['logoGallery']['height'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_logo_gallery', 'height', $widgetOptions['logoGallery']['height']);
+        }
+
+        if (isset($widgetOptions['textImage']['width'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_text_image', 'width', $widgetOptions['textImage']['width']);
+        }
+        if (isset($widgetOptions['textImage']['height'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_text_image', 'height', $widgetOptions['textImage']['height']);
+        }
+        if (isset($widgetOptions['textImage']['bigWidth'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_text_image', 'big_width', $widgetOptions['textImage']['bigWidth']);
+        }
+        if (isset($widgetOptions['textImage']['bigHeight'])) {
+            $parametersMod->setValue('standard', 'content_management', 'widget_text_image', 'big_height', $widgetOptions['textImage']['bigHeight']);
+        }
+
 
         \DbSystem::setSystemVariable('theme_changed', time());
 
@@ -147,6 +196,11 @@ class Model
         if (!empty($config['options'])) {
             $metadata->setOptions($config['options']);
         }
+
+        if (!empty($config['widget'])) {
+            $metadata->setWidgetOptions($config['widget']);
+        }
+
 
         $theme = new Theme($metadata);
 
