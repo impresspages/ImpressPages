@@ -273,7 +273,24 @@ function openIPlinks() {
   //+ jeigu turinys blogas - paduodam klaidos pranesima
   var href = document.getElementById('href').value;
 //  LibDefault.ajaxMessage(parent.global_config_modules_url+'standard/content_management/sitemap_list.php', 'action=sitemap_list&current_href=' + encodeURIComponent(href), updateIPlinks)
-  LibDefault.ajaxMessage(parent.window.location, 'module_group=standard&module_name=content_management&action=sitemap_list&current_href=' + encodeURIComponent(href), updateIPlinks)
+
+  //LibDefault.ajaxMessage(parent.window.location, 'g=standard&m=content_management&ba=getSitemapInList&securityToken=' + ip.securityToken + '&current_href=' + encodeURIComponent(href), updateIPlinks)
+
+    $.ajax({
+            type: 'GET',
+            url : parent.window.location,
+            data : {
+                g : 'standard',
+                m : 'content_management',
+                ba : 'getSitemapInList',
+                current_href : href
+            },
+            success : function(response) {console.log(response); updateIPlinks(response);}
+    });
+
+
+
+
 }
 
 function updateIPlinks(content) {
