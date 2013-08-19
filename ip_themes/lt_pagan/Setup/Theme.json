@@ -1,7 +1,7 @@
 {
     "title": "LT Pagan",
     "version": "2.00",
-    "doctype": "DOCTYPE_HTML5",
+    "doctype": "HTML5",
     "thumbnail": "Thumbnail.png",
     "author": "ImpressPages",
     "options": [
@@ -37,4 +37,5 @@
             "default": ""
         }
     ]
+
 }

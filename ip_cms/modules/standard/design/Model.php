@@ -139,7 +139,7 @@ class Model
         }
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
-            $metadata->setDoctype($config['doctype']);
+            $metadata->setDoctype('DOCTYPE_'.$config['doctype']);
         } else {
             $metadata->setDoctype('DOCTYPE_HTML5');
         }
