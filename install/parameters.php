@@ -2364,27 +2364,6 @@ left";
 
 
     $moduleGroupTitle["administrator"] = "Administrator";
-    $moduleTitle["administrator"]["theme"] = "Theme";
-        
-        $parameterGroupTitle["administrator"]["theme"]["admin_translations"] = "Admin translations";
-        $parameterGroupAdmin["administrator"]["theme"]["admin_translations"] = "1";
-        
-            $parameterTitle["administrator"]["theme"]["admin_translations"]["successful_install"] = "Successful install";
-            $parameterValue["administrator"]["theme"]["admin_translations"]["successful_install"] = "New theme has been successfully installed.";
-            $parameterAdmin["administrator"]["theme"]["admin_translations"]["successful_install"] = "1";
-            $parameterType["administrator"]["theme"]["admin_translations"]["successful_install"] = "string";
-
-            $parameterTitle["administrator"]["theme"]["admin_translations"]["install"] = "Install";
-            $parameterValue["administrator"]["theme"]["admin_translations"]["install"] = "Install";
-            $parameterAdmin["administrator"]["theme"]["admin_translations"]["install"] = "1";
-            $parameterType["administrator"]["theme"]["admin_translations"]["install"] = "string";
-
-            $parameterTitle["administrator"]["theme"]["admin_translations"]["title"] = "Title";
-            $parameterValue["administrator"]["theme"]["admin_translations"]["title"] = "Choose theme";
-            $parameterAdmin["administrator"]["theme"]["admin_translations"]["title"] = "1";
-            $parameterType["administrator"]["theme"]["admin_translations"]["title"] = "string";
-
-    $moduleGroupTitle["administrator"] = "Administrator";
     $moduleTitle["administrator"]["repository"] = "Repository";
 
         $parameterGroupTitle["administrator"]["repository"]["options"] = "Options";

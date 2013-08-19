@@ -27,14 +27,54 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->dbPref = $cf['DB_PREF'];
 
+        if (!is_writable($cf['BASE_DIR'] . $cf['THEME_DIR'])) {
+            $errorData = array (
+                'file' => $cf['BASE_DIR'] . $cf['THEME_DIR']
+            );
+            throw new UpdateException("Please make theme dir writable.", UpdateException::WRITE_PERMISSION, $errorData);
+        }
+
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
         $parameterImporter->importParameters('generalParameters.php');
 
         $this->addDesignModule();
 
-
         $this->addDesignDatabaseTable();
+
+        $this->removeThemeModule();
     }
+
+    protected function removeThemeModule()
+    {
+        $moduleModel = new ModuleModel($this->conn, $this->dbPref);
+        $moduleId = $moduleModel->getModuleId('administrator', 'theme');
+
+        if (!$moduleId) {
+            return;
+        }
+
+        //delete theme user permissions
+        $sql = '
+            DELETE FROM `'.$this->cf['DB_PREF'].'user_to_mod` where module_id = :module_id
+        ';
+        $q = $this->dbh->prepare($sql);
+        $data = array(
+            'module_id' => $moduleId
+        );
+        $q->execute($data);
+
+        //delete module
+        $sql = '
+            DELETE FROM `'.$this->cf['DB_PREF'].'module` where id = :module_id
+        ';
+        $q = $this->dbh->prepare($sql);
+        $data = array(
+            'module_id' => $moduleId
+        );
+        $q->execute($data);
+
+    }
+
 
     protected function addDesignDatabaseTable()
     {

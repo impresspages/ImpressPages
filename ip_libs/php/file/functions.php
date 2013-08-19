@@ -69,8 +69,12 @@ class Functions{
         require_once (BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");
-        $new_extension = substr($new_name, $ext_pos, strlen($file));
-        $new_name = substr($new_name, 0, $ext_pos);
+        if ($ext_pos !== false){
+            $new_extension = substr($new_name, $ext_pos, strlen($file));
+            $new_name = substr($new_name, 0, $ext_pos);
+        } else {
+            $new_extension = '';
+        }
 
         $new_name = self::cleanupFileName($new_name);
 
