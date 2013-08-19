@@ -38,12 +38,6 @@ class LessCompiler
 
         $less = "@import '{$lessFile}'; " . $this->generateLessVariables($options, $config);
 
-        /*
-        var_export($less);
-        echo __FILE__ . ":" . __LINE__;
-        exit;
-        //*/
-
         require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
         $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName . '/less');
@@ -72,7 +66,9 @@ class LessCompiler
                     $lessValue = json_encode($rawValue);
             }
 
-            $less .= "\n@{$option['name']}: {$lessValue};";
+            if (!empty($lessValue)) {
+                $less .= "\n@{$option['name']}: {$lessValue};";
+            }
         }
 
         return $less;
