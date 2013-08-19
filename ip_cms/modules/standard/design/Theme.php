@@ -19,6 +19,7 @@ class Theme
     protected $thumbnail;
     protected $authorTitle;
     protected $options;
+    protected $widgetOptions;
 
     public function __construct(ThemeMetadata $metadata)
     {
@@ -64,6 +65,15 @@ class Theme
             return array();
         }
         return $this->options;
+    }
+
+    public function getWidgetOptions()
+    {
+        if (!$this->widgetOptions) {
+            return array();
+        }
+        return $this->widgetOptions;
+
     }
 
 }

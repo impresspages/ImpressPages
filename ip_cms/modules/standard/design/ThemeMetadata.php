@@ -62,6 +62,11 @@ class ThemeMetadata
         $this->metadata['authorTitle'] = $authorTitle;
     }
 
+    public function setWidgetOptions($widgetOptions)
+    {
+        $this->metadata['widgetOptions'] = $widgetOptions;
+    }
+
     public function getMetadata()
     {
         return $this->metadata;
