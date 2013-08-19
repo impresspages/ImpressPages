@@ -419,6 +419,7 @@ class View{
 
     public function getThemeOption($name, $default = null)
     {
+        // TODOX use service
         $designConfigModel = \Modules\standard\design\ConfigModel::instance();
         return $designConfigModel->getConfigValue(THEME, $name, $default);
     }

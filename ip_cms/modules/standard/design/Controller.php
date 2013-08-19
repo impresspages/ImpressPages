@@ -15,11 +15,16 @@ class Controller extends \Ip\Controller
         $request = ServiceLocator::getRequest();
         $file = $request->getQuery('file');
 
+        $model = Model::instance();
+
+        $theme = $model->getTheme(THEME);
+
+        $options = $theme->getOptions();
 
         $configModel = ConfigModel::instance();
         $config = $configModel->getAllConfigValues(THEME);
 
-        $less = "@import '{$file}.less'; " . $this->generateLessVariables($config);
+        $less = "@import '{$file}.less'; " . $this->generateLessVariables($options, $config);
 
         header('HTTP/1.0 200 OK');
         header('Content-Type: text/css');
@@ -39,13 +44,26 @@ class Controller extends \Ip\Controller
         exit();
     }
 
-    protected function generateLessVariables($config)
+    protected function generateLessVariables($options, $config)
     {
         $less = '';
-        foreach ($config as $key => $value) {
-            if (!empty($value)) {
-                $less .= "\n@{$key}: $value;";
+
+        foreach ($options as $option)
+        {
+            $rawValue = array_key_exists($option['name'], $config) ? $config[$option['name']] : $option['default'];
+
+            switch ($option['type']) {
+                case 'color':
+                    $lessValue = $rawValue;
+                    break;
+                case 'range':
+                    $lessValue = $rawValue;
+                    break;
+                default:
+                    $lessValue = json_encode($rawValue);
             }
+
+            $less .= "\n@{$option['name']}: {$lessValue};";
         }
 
         return $less;
@@ -54,10 +72,6 @@ class Controller extends \Ip\Controller
     protected function isLessCached($less)
     {
         // TODOX check weather variables were changed
-        // check filemtime()
-
-        //$files = scandir(BASE_DIR . THEME_DIR . THEME . '/less');
-        //$files = glob(BASE_DIR . THEME_DIR . THEME . '/less/*.less');
 
         $items = glob(BASE_DIR . THEME_DIR . THEME . '/less/*');
 

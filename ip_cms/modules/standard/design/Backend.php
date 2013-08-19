@@ -167,6 +167,8 @@ class Backend extends \Ip\Controller
                 $configModel->setConfigValue(THEME, $option['name'], $value);
             }
 
+            // clean less cache
+
             $data = array(
                 'status' => 'success'
             );

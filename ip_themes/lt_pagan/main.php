@@ -24,7 +24,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> style="background-color: <?php echo $this->getThemeOption('backgroundColor') ?>;">
+<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> >
 
     <div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
         <header class="grid_12">
