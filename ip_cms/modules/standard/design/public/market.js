@@ -4,6 +4,7 @@ var ipDesignThemeMarket = new function () {
      * @see this.openMarketWindow(), this.closeMarketWindow()
      */
     var adminFramesetRows = 0;
+    var isThemePreview = false;
 
     var processOrder = function (order) {
         console.log('processOrder');
@@ -29,11 +30,15 @@ var ipDesignThemeMarket = new function () {
     };
 
     var beforeOpenThemePreview = function() {
-        $('.ipsThemeMarketPopup .ipsHeader').hide();
+        isThemePreview = true;
+        $('.ipsThemeMarketPopup').addClass('ipmPreviewOpen');
+        ipDesignThemeMarket.resize();
     };
 
     var afterCloseThemePreview = function() {
-        $('.ipsThemeMarketPopup .ipsHeader').show();
+        isThemePreview = false;
+        $('.ipsThemeMarketPopup').removeClass('ipmPreviewOpen');
+        ipDesignThemeMarket.resize();
     };
 
     var showMarketIframe = function () {
@@ -102,7 +107,6 @@ var ipDesignThemeMarket = new function () {
         }
     };
 
-
     this.openMarketWindow = function () {
 
         var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
@@ -144,6 +148,8 @@ var ipDesignThemeMarket = new function () {
 
     this.resize = function(e) {
         var $popup = $('#ipModuleThemeMarketContainer');
-        $popup.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
-    }
+        var height = parseInt($(window).height());
+        if (!isThemePreview) { height -= 40; } // leaving place for tabs
+        $popup.find('iframe').height(height + 'px');
+    };
 };
