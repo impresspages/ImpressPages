@@ -1238,8 +1238,9 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterGroupAdmin["standard"]["menu_management"]["options"] = "1";
 
         $parameterTitle["standard"]["menu_management"]["options"]["associated_zones"] = "Associated zones ";
-        $parameterValue["standard"]["menu_management"]["options"]["associated_zones"] = "left
-top";
+        $parameterValue["standard"]["menu_management"]["options"]["associated_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["standard"]["menu_management"]["options"]["associated_zones"] = "0";
         $parameterType["standard"]["menu_management"]["options"]["associated_zones"] = "textarea";
 

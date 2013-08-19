@@ -37,7 +37,7 @@
             <div class="topmenu clearfix">
                 <?php
                     //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-                    echo $this->generateMenu('top', 'top');
+                    echo $this->generateMenu('top', 'menu1');
                 ?>
             </div>
         </header>
@@ -51,7 +51,8 @@
             <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
                 <?php
                     //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-                    echo $this->generateMenu('left', 'left');
+                    echo $this->generateMenu('left', 'menu2');
+                    echo $this->generateMenu('left', 'menu3');
                 ?>
             </nav>
             <aside>
