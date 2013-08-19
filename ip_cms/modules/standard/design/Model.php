@@ -139,7 +139,7 @@ class Model
         }
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
-            $metadata->setDoctype($config['doctype']);
+            $metadata->setDoctype('DOCTYPE_'.$config['doctype']);
         } else {
             $metadata->setDoctype('DOCTYPE_HTML5');
         }
@@ -160,7 +160,8 @@ class Model
         }
 
         $configJson = file_get_contents($file);
-        $config = json_decode($configJson, true);
+
+        $config = Helper::instance()->json_clean_decode($configJson, true);
         if ($config) {
             return $config;
         } else {
