@@ -160,7 +160,8 @@ class Model
         }
 
         $configJson = file_get_contents($file);
-        $config = json_decode($configJson, true);
+
+        $config = Helper::instance()->json_clean_decode($configJson, true);
         if ($config) {
             return $config;
         } else {
