@@ -16,7 +16,7 @@ class Controller extends \Ip\Controller
         $file = $request->getQuery('file');
 
         $lessCompiler = LessCompiler::instance();
-        $lessCompiler->serve(THEME, 'theme.less');
+        $lessCompiler->serve(THEME, $file . '.less');
     }
 
 

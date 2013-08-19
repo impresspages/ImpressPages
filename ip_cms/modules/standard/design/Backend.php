@@ -167,7 +167,8 @@ class Backend extends \Ip\Controller
                 $configModel->setConfigValue(THEME, $option['name'], $value);
             }
 
-            // clean less cache
+            $lessCompiler = LessCompiler::instance();
+            $lessCompiler->clearCache(THEME);
 
             $data = array(
                 'status' => 'success'
