@@ -55,6 +55,10 @@ class LessCompiler
         foreach ($options as $option) {
             $rawValue = array_key_exists($option['name'], $config) ? $config[$option['name']] : $option['default'];
 
+            if (empty($rawValue)) {
+                continue; // ignore empty values
+            }
+
             switch ($option['type']) {
                 case 'color':
                     $lessValue = $rawValue;
@@ -64,10 +68,6 @@ class LessCompiler
                     break;
                 default:
                     $lessValue = json_encode($rawValue);
-            }
-
-            if (!empty($lessValue)) {
-                $less .= "\n@{$option['name']}: {$lessValue};";
             }
         }
 
