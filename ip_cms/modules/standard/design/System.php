@@ -43,8 +43,8 @@ class System{
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.css');
-        if (file_exists(BASE_DIR.THEME_DIR.THEME.'/install/options.js')) {
-            $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/install/options.js');
+        if (file_exists(BASE_DIR.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js')) {
+            $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js');
         }
 
         $model = Model::instance();

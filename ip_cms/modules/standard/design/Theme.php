@@ -9,7 +9,7 @@ namespace Modules\standard\design;
 
 class Theme
 {
-    const INSTALL_DIR = 'install/';
+    const INSTALL_DIR = 'Setup/';
     const PARAMETERS_FILE = 'parameters.php';
 
     protected $name;
@@ -30,7 +30,7 @@ class Theme
 
     public function getThumbnailUrl()
     {
-        return BASE_URL . THEME_DIR . $this->name . "/install/" . $this->thumbnail;
+        return BASE_URL . THEME_DIR . $this->name . "/" . self::INSTALL_DIR . $this->thumbnail;
     }
 
     public function getName()
