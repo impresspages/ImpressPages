@@ -27,7 +27,7 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     padding: 0;
 }
 body {
-    background-color: @marginsBackgroundColor;
+    background-color: @wrapperBackgroundColor;
     color: @textColorLight;
     font-family:  @fontFamily;
     font-size: @fontSize;
@@ -108,7 +108,7 @@ address {
     list-style: none;
 }
 .languages li {
-    border-left: 1px solid @marginsBackgroundColor;
+    border-left: 1px solid @wrapperBackgroundColor;
     float: left;
 }
 .languages li:first-child {
@@ -127,8 +127,8 @@ address {
     display: block;
 }
 
-@import 'site-topmenu.less';
-@import 'site-side.less';
+@import 'topmenu.less';
+@import 'side.less';
 
 .breadcrumb {
     font-size: 12px;
