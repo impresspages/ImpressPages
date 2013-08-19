@@ -141,6 +141,15 @@ body {
     background-color: white;
 }
 
+/* Preview in Theme Market */
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ipmPopupTabs {
+    border: none;
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ui-tabs-nav {
+    display: none;
+}
+
 /* Theme Preview / Options */
 .ipModuleDesign .ipmPreview {
     background-color: #fff;
