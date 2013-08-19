@@ -61,8 +61,8 @@
         <div class="clear"></div>
         <footer class="clearfix">
             <div class="grid_12 clearfix">
-                <?php echo $this->generateManagedString('ipThemeName', 'p', 'Theme "LT pagan"', 'left'); ?>
-                <?php echo $this->generateManagedText('ipSlogan', 'div', 'Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a>', 'right'); ?>
+                <?php echo $this->generateManagedString('themeName', 'p', 'Theme "LT pagan"', 'left'); ?>
+                <?php echo $this->generateManagedText('slogan', 'div', 'Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a>', 'right'); ?>
             </div>
         </footer>
     </div>
