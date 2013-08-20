@@ -154,7 +154,8 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
 (532, 8, 439),
 (534, 8, 441),
 (535, 8, 442),
-(536, 8, 443);
+(536, 8, 443),
+(537, 8, 444);
 
 -- Dumping data for table--
 
