@@ -5,14 +5,17 @@ $languageShort = "EN"; //Short description
 $languageLong = "English"; //Long title
 $languageUrl = "en";
 
+$parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+$parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
+
 $parameterTitle["developer"]["form"]["error_messages"]["xss"] = "XSS error";
 $parameterValue["developer"]["form"]["error_messages"]["xss"] = "Session has expired. Please refresh the page.";
 $parameterAdmin["developer"]["form"]["error_messages"]["xss"] = "0";
 $parameterType ["developer"]["form"]["error_messages"]["xss"] = "lang";
 
-
 $parameterTitle["standard"]["configuration"]["admin_translations"]["save"] = "Save";
-$parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "";
+$parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "save";
 $parameterAdmin["standard"]["configuration"]["admin_translations"]["save"] = "0";
 $parameterType ["standard"]["configuration"]["admin_translations"]["save"] = "string";
 

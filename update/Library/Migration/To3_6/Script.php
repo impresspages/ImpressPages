@@ -7,7 +7,6 @@ namespace IpUpdate\Library\Migration\To3_6;
 
 
 use IpUpdate\Library\UpdateException;
-use IpUpdate\Library\Migration\To3_5\ParameterImporter as ParameterImporter;
 
 class Script extends \IpUpdate\Library\Migration\General
 {
@@ -34,10 +33,10 @@ class Script extends \IpUpdate\Library\Migration\General
             throw new UpdateException("Please make theme dir writable.", UpdateException::WRITE_PERMISSION, $errorData);
         }
 
-        $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
-        $parameterImporter->importParameters('generalParameters.php');
 
         $this->addDesignModule();
+        $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
+        $parameterImporter->importParameters('generalParameters.php');
 
         $this->addDesignDatabaseTable();
 
@@ -100,6 +99,7 @@ class Script extends \IpUpdate\Library\Migration\General
         $moduleGroup = $moduleModel->getModuleGroup('standard');
         $moduleId = $moduleModel->getModuleId('standard', 'design');
         if ($moduleId === false) {
+            //create module
             $groupModules = $moduleModel->getGroupModules($moduleGroup['id']);
             if (empty($groupModules)) {
                 $newRowNumber = 1;
