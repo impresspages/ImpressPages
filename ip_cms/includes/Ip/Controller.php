@@ -46,7 +46,7 @@ class Controller{
 
     /**
      * Wrap content into admin layout view. Use when generating administration pages.
-     * @param array $content
+     * @param string $content
      * @return View
      */
     public function createAdminView($content)
