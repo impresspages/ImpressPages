@@ -18,14 +18,11 @@ class LessCompiler
         return new self();
     }
 
-    public function serve($themeName, $lessFile)
+    public function compile($themeName, $lessFile, $force = false)
     {
-        header('HTTP/1.0 200 OK');
-        header('Content-Type: text/css');
-
-        if ($this->isLessCached($themeName, $lessFile)) {
-            echo file_get_contents($this->compiledFilename($themeName, $lessFile));
-            exit();
+        $compiledCssUrl = BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';
+        if (!$force && $this->isLessCached($themeName, $lessFile)) {
+            return $compiledCssUrl;
         }
 
         $model = Model::instance();
@@ -42,10 +39,9 @@ class LessCompiler
         $lessc = new \lessc();
         $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName . '/less');
         $css = $lessc->compile($less);
-        echo $css;
-        flush();
         file_put_contents($this->compiledFilename($themeName, $lessFile), $css);
-        exit();
+
+        return $compiledCssUrl;
     }
 
     protected function generateLessVariables($options, $config)
