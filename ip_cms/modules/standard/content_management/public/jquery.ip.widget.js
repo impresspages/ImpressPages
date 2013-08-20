@@ -184,13 +184,15 @@
             if ($this.data('ipWidget').state != IP_WIDGET_STATE_MANAGEMENT) {
                 return;
             }
-            
+
             
             var widgetName = $this.data('ipWidget').name;
+
+            var saveJob = new ipSaveJob(widgetName, 1);
+            $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
+
+
             if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
-                var saveJob = new ipSaveJob(widgetName, 1);
-                $this.trigger('addSaveJob.ipContentManagement', ['widget_' + $(this).data('ipWidget').instanceId, saveJob]);
-                
                 var $content = $this.find('.ipaBody');
 
                 var widgetPluginObject;
