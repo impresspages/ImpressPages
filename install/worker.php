@@ -21,7 +21,7 @@ if(!install_available()) {
 
 
 
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 session_start();
 
 if(isset($_POST['action']) && $_POST['action'] == 'sessionSetTest'){
