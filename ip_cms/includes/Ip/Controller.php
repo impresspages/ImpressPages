@@ -51,6 +51,10 @@ class Controller{
      */
     public function createAdminView($content)
     {
+        if (is_object($content) && get_class($content) == 'Ip\View') {
+            $content = $content->render();
+        }
+
         $variables = array(
             'content' => $content
         );

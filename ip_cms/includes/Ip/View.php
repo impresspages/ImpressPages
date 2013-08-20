@@ -214,11 +214,27 @@ class View{
         return $output;
 
     }
-    
+
+    /**
+     * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
+     * @return string
+     */
     public function __toString()
     {
-        return $this->render();
-    }    
+        try {
+        $content = $this->render();
+        } catch (\Exception $e) {
+            /*
+            __toString method can't throw exceptions. In case of exception you will end with unclear error message.
+            We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
+            */
+            $log = \Ip\ServiceLocator::getLog();
+            $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            throw $e;
+        }
+
+        return $content;
+    }
 
     public function setDoctype ($doctype) {
         $this->doctype = $doctype;
