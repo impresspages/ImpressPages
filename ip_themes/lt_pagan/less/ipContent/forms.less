@@ -1,0 +1,226 @@
+.ipModuleForm {
+    border: 1px solid #888;
+    padding: 20px 25px;
+
+    .ipmPage {}
+
+    .ipmFieldset {}
+
+    .ipmField {
+        margin-bottom: 25px;
+        position: relative; /* to position inner elements respectively to the field */
+
+        &:before {
+            .ipClearfix();
+        }
+        &:after { /* clearing, see 960.css */ }
+        &:after {
+            clear: both;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &.ipmRequired { /* change any styles if field is required */ }
+    }
+
+    .ipmType-blank { /* if blank we'll remove it from the flow */
+        margin: -16px 0 0;
+        position: absolute;
+    }
+
+    .ipmLabel {
+        display: block;
+        font-weight: bold;
+        float: left;
+        margin: 0 10px 0 0;
+        min-height: 1px; /* to keep the width when empty */
+        padding-top: 3px;
+        width: 85px;
+    }
+
+    .ipmMarker {}
+
+    .ipmControl {
+        float: left;
+        width: 393px; /* 488px (content width) - 85px (label) - 10px (margin) */
+    }
+
+    .ipmControlBlank {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+        width: 0;
+    }
+
+    .ipmControlInput {
+        background-color: #f2f2f2;
+        border: 1px solid #a7a7a7;
+        height: 21px;
+        padding: 1px 2px;
+        width: 185px;
+
+        &:focus {
+            border-color: @borderColorDark;
+        }
+    }
+
+    .ipmControlTextarea {
+        background-color: #f2f2f2;
+        border: 1px solid #a7a7a7;
+        display: block;
+        height: 9.5em; /* height is relative to the font size to have full lines */
+        padding: 1px 2px;
+        overflow: auto; /* hiding scrolls if not necessary */
+        width: 387px;
+
+        &:focus {
+            border-color: @borderColorDark;
+        }
+    }
+
+    .ipmControlSubmit {
+    /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
+        background: #f4f4f4; /* Old browsers */
+        background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* IE10+ */
+        background: linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
+        border: 1px solid #a7a7a7;
+        color: @textColor;
+        cursor: pointer;
+        float: left;
+        height: 25px; /* input buttons have borders inside their height */
+        line-height: 25px;
+        padding: 0 6px;
+
+        &:hover {
+        /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
+            background: #e1e0e0; /* Old browsers */
+            background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1e0e0), color-stop(100%,#d6d4d4)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* IE10+ */
+            background: linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
+            box-shadow: 0 0 3px 0 #fff inset;
+        }
+    }
+
+    .ipmControlSelect {
+        background-color: #f2f2f2;
+        border: 1px solid #a7a7a7;
+        height: 25px;
+        padding: 2px;
+        width: 191px; /* padding and borders doesn't expand the width */
+    }
+
+    .ipmControlRadio {}
+
+    .ipmControlCheckbox {}
+
+    .ipmType-confirm .ipmControlCheckbox {
+        float: left;
+    }
+
+    .ipmControlConfirmOptions {
+        margin-left: 25px;
+    }
+
+    .ipmNote { /* always visible */
+        color: #656565;
+        font-size: 11px;
+        margin: -15px 0 0 95px;
+        position: absolute;
+    }
+
+    .ipmHint { /* to be shown on hover */
+        background-color: #a7a7a7;
+        color: #fff;
+        display: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: @fontSize;
+        min-height: 16px;
+        padding: 5px 10px 4px;
+        position: absolute;
+        right: 0;
+        width: 181px;
+        z-index: 1;
+
+        .ipmField:hover & { /* hint is shown only on hover */
+            display: block;
+        }
+
+        .ipmType-textarea & { /* for textarea hint goes below the field */
+            bottom: 0;
+            left: 95px;
+            margin-bottom: -25px;
+            max-width: 393px;
+            right: auto;
+            width: auto;
+        }
+    }
+
+  /* errors */
+    .ipmError {
+        .ipmLabel {
+            color: #e44445;
+        }
+    }
+
+    .ipmControlError {
+        border-color: #e44445;
+    }
+
+    .ipmFileContainer {
+        .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/
+            width: 0;
+            height: 0;
+            overflow: hidden;
+
+            input { /* margins on input makes error message to appear lower than it should. */
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .ipmFileProgress {
+            border: 1px solid #333;
+            height: 3px;
+        }
+
+        .ipmFile {
+            background-color: #f2f2f2;
+            margin-top: 5px;
+            padding: 5px;
+        }
+
+        .ipmFileProgressValue {
+            background-color: #ccc;
+            height: 3px;
+        }
+
+        .ipmRemove {
+            width: 13px;
+            height: 13px;
+            background: url(../img/file_remove.png) no-repeat;
+            float: right;
+            cursor: pointer;
+        }
+
+        .ipmUploadError {
+            color: #da0001;
+            font-size: 11px;
+        }
+    }
+}
+
+.ipmErrorMessage { /* this object is created globally next to each invalid field */
+    background-color: @backgroundColor;
+    color: #da0001;
+    font-size: 11px;
+}
