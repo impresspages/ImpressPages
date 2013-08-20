@@ -22,7 +22,7 @@
  * @todo 		Finish Date parsing
  */
 class AMF0Parser {
-	// {{{ Type constants
+	// Type constants
 	const TYPE_NUMBER = 0x00;
 	const TYPE_BOOLEAN = 0x01;
 	const TYPE_STRING = 0x02;
