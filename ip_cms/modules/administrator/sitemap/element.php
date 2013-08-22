@@ -8,8 +8,6 @@
 namespace Modules\administrator\sitemap;
 
 
-if (!defined('CMS')) exit;
-
 
 /**
  *
@@ -35,12 +33,11 @@ class Element extends \Frontend\Element{
 
 
 
-    function generateContent(){
-        global $site;
-        global $parametersMod;
+    function generateContent()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
          
-        $site->requireTemplate('administrator/sitemap/template.php');
-
         $mappedZones = explode("\n", $parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'));
         $mappedZonesDepth = array();
 
@@ -50,31 +47,87 @@ class Element extends \Frontend\Element{
             if($begin !== false && $end === strlen($mappedZones[$i]) - 1){
                 $mappedZonesDepth[$i] = substr($mappedZones[$i], $begin + 1, - 1);
                 $mappedZones[$i] = substr($mappedZones[$i], 0, $begin);
-            }else
-            $mappedZonesDepth[$i] = -1; //unlimited depth
-        }
-
-
-
-        $foundElements = array();
-
-        $sitemapHtml = '';
-        foreach($mappedZones as $key => $zone){
-            if($zone != ''){
-                if($mappedZonesDepth[$key] == -1 ) //unlimited depth
-                $tmpElements = $site->getZone($zone)->getElements();
-                else
-                $tmpElements = $site->getZone($zone)->getElements($mappedZonesDepth[$key]);
-                if($tmpElements){
-                    $sitemapHtml .= Template::zone($site->getZone($zone), $tmpElements);
-                }
+            } else {
+                $mappedZonesDepth[$i] = -1; //unlimited depth
             }
         }
 
-        return Template::sitemap($parametersMod->getValue('administrator', 'sitemap', 'translations', 'sitemap'), $sitemapHtml);
+
+
+        $variables = array();
+
+
+        $html = '';
+        foreach($mappedZones as $key => $zoneName){
+            if($zoneName != ''){
+                $zone = $site->getZone($zoneName);
+                if (!$zone) {
+                    continue;
+                }
+
+                if($mappedZonesDepth[$key] == -1 ){ //unlimited depth
+                    $depthLimit = 1000;
+                } else {
+                    $depthLimit = $mappedZonesDepth[$key];
+                }
+
+
+                $elements = $zone->getElements();
+                $links = $this->getLinks($zone, $elements, 0, $depthLimit);
+
+                $variables = array(
+                    'links' => $links
+                );
+                $listHtml = \Ip\View::create('view/elements.php', $variables)->render();
+
+
+                $variables = array(
+                    'title' => $zone->getTitle(),
+                    'elements' => $listHtml
+                );
+
+                if ($parametersMod->getValue('administrator', 'sitemap', 'options', 'include_zone_title')){
+                    $variables['zoneTitle'] = $zone->getTitle();
+                }
+
+
+                $html .= \Ip\View::create('view/zone.php', $variables)->render();
+            }
+        }
+
+        $variables['list'] = $html;
+        $sitemapView = \Ip\View::create('view/sitemap.php', $variables);
+        return $sitemapView->render();
     }
 
+    protected function getLinks($zone, $elements, $curDepth, $maxDepth)
+    {
+        $links = array();
+        if($maxDepth != null && $curDepth <= $maxDepth){
+            if(is_array($elements) && sizeof($elements) > 0){
+                foreach($elements as $element){
+                    $newLink = array(
+                        'title' => $element->getButtonTitle()
+                    );
 
+                    $children = $zone->getElements(null, $element->getId());
+                    $childLinks = $this->getLinks($zone, $children, $curDepth+1, $maxDepth);
+                    if (!empty($childLinks)) {
+                        $newLink['childlinks'] = $childLinks;
+                    }
+                    $url = $element->getLink();
+                    if ($url) {
+                        $newLink['href'] = $url;
+                    }
+                    $links[] = $newLink;
+                }
+            }
+        }
+        return $links;
+
+
+
+    }
 
 
 

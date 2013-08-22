@@ -102,6 +102,7 @@ $parameterGroupTitle["standard"]["languages"]["options"] = "Options";
 $parameterGroupTitle["standard"]["menu_management"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["standard"]["menu_management"]["options"] = "Options";
 $parameterGroupTitle["standard"]["seo"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
 
 
 
@@ -658,9 +659,23 @@ $parameter["parameterValue/standard/configuration/admin_translations/cancel"] = 
 $parameter["parameterTitle/standard/configuration/admin_translations/delete"] = "Delete";
 $parameter["parameterValue/standard/configuration/admin_translations/delete"] = "Delete";
 
+$parameter["parameterTitle/standard/configuration/admin_translations/save"] = "Save";
+$parameter["parameterValue/standard/configuration/admin_translations/save"] = "save";
+
+$parameter["parameterTitle/standard/configuration/admin_translations/install"] = "Install";
+$parameter["parameterValue/standard/configuration/admin_translations/install"] = "Install";
+
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/use_fake_cron"] = "Use fake cron";
+
+$parameter["parameterTitle/standard/configuration/advanced_options/keep_old_revisions_for"] = "Keep old revision for (days)";
+
+$parameter["parameterTitle/standard/configuration/advanced_options/default_image_quality"] = "Default image quality (0 - 100)";
+
+$parameter["parameterTitle/standard/configuration/advanced_options/xss_autocheck"] = "Automatically check fo XSS";
+
+
 
 $parameter["parameterTitle/standard/configuration/advanced_options/xml_sitemap_associated_zones"] = "XML sitemap associated zones";
 
@@ -1170,6 +1185,33 @@ $parameter["parameterValue/standard/content_management/widget_video/widget_title
 
 $parameter["parameterTitle/standard/content_management/widget_video/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_video/layout_default"] = "Default";
+
+$parameter["parameterTitle/standard/design/admin_translations/theme_write_error"] = "Theme write error";
+$parameter["parameterValue/standard/design/admin_translations/theme_write_error"] = "Directory is not writable. Please check your email and install the theme manually.";
+
+$parameter["parameterTitle/standard/design/admin_translations/theme_options"] = "Theme options";
+$parameter["parameterValue/standard/design/admin_translations/theme_options"] = "Theme options";
+
+$parameter["parameterTitle/standard/design/admin_translations/restore_defaults"] = "Restore defaults";
+$parameter["parameterValue/standard/design/admin_translations/restore_defaults"] = "Restore deafults";
+
+$parameter["parameterTitle/standard/design/admin_translations/my_theme"] = "My theme";
+$parameter["parameterValue/standard/design/admin_translations/my_theme"] = "My theme";
+
+$parameter["parameterTitle/standard/design/admin_translations/edit"] = "Edit";
+$parameter["parameterValue/standard/design/admin_translations/edit"] = "Edit";
+
+$parameter["parameterTitle/standard/design/admin_translations/theme_market"] = "Marketplace";
+$parameter["parameterValue/standard/design/admin_translations/theme_market"] = "Marketplace";
+
+$parameter["parameterTitle/standard/design/admin_translations/theme_market_description"] = "Theme market description";
+$parameter["parameterValue/standard/design/admin_translations/theme_market_description"] = "Want a new look? Search for a new theme.";
+
+$parameter["parameterTitle/standard/design/admin_translations/theme_market_browse"] = "Browse button";
+$parameter["parameterValue/standard/design/admin_translations/theme_market_browse"] = "Browse themes";
+
+$parameter["parameterTitle/standard/design/admin_translations/local_themes"] = "Local themes";
+$parameter["parameterValue/standard/design/admin_translations/local_themes"] = "Local themes";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";

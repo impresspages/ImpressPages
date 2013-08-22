@@ -53,7 +53,14 @@ class Model{
         }
         $widgetObject = self::getWidgetObject($widgetName);
         if (!$widgetObject) {
-            throw new Exception('Widget ' . $widgetName . ' does not exist', Exception::UNKNOWN_WIDGET);
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                $source = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ';
+            } else {
+                $source = '';
+            }
+
+            throw new Exception('Widget ' . $widgetName . ' does not exist. '.$source, Exception::UNKNOWN_WIDGET);
         }
         
         $previewHtml = $widgetObject->previewHtml(null, $data, $layout);

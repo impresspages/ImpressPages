@@ -1307,9 +1307,20 @@ menu3";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["delete"] = "0";
         $parameterType["standard"]["configuration"]["admin_translations"]["delete"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["save"] = "Save";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "save";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["save"] = "0";
+        $parameterType ["standard"]["configuration"]["admin_translations"]["save"] = "string";
+
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["install"] = "Install";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["install"] = "Install";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
+        $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
 
 
-$parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
+
+
+    $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
     $parameterGroupAdmin["standard"]["configuration"]["advanced_options"] = "1";
 
         $parameterTitle["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "XML sitemap associated zones";
@@ -1342,7 +1353,14 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "1";
         $parameterType["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "integer";
 
-    $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
+
+        $parameterTitle["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "Automatically check fo XSS";
+        $parameterValue["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterAdmin["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterType ["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "bool";
+
+
+$parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
     $parameterGroupAdmin["standard"]["configuration"]["error_404"] = "0";
 
         $parameterTitle["standard"]["configuration"]["error_404"]["error_page_template"] = "Error_page_template";
@@ -1587,6 +1605,56 @@ newsletter";
         $parameterValue["standard"]["languages"]["options"]["detect_browser_language"] = "0";
         $parameterAdmin["standard"]["languages"]["options"]["detect_browser_language"] = "0";
         $parameterType["standard"]["languages"]["options"]["detect_browser_language"] = "bool";
+
+
+    $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_write_error"] = "Theme write error";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_write_error"] = "Directory is not writable. Please check your email and install the theme manually.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_write_error"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_write_error"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_options"] = "Theme options";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_options"] = "Theme options";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_options"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_options"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore defaults";
+        $parameterValue["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore deafults";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["restore_defaults"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["restore_defaults"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
+        $parameterValue["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["my_theme"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["my_theme"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["edit"] = "Edit";
+        $parameterValue["standard"]["design"]["admin_translations"]["edit"] = "Edit";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["edit"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["edit"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market_description"] = "Theme market description";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market_description"] = "Want a new look? Search for a new theme.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market_description"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market_description"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market_browse"] = "Browse button";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market_browse"] = "Browse themes";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market_browse"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market_browse"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["local_themes"] = "Local themes";
+        $parameterValue["standard"]["design"]["admin_translations"]["local_themes"] = "Local themes";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["local_themes"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["local_themes"] = "string";
 
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["newsletter"] = "Newsletter";
@@ -2285,8 +2353,9 @@ left";
         $parameterType["administrator"]["search"]["translations"]["search"] = "lang";
 
         $parameterTitle["administrator"]["sitemap"]["options"]["associated_zones"] = "Associated zones";
-        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "top
-left";
+        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["sitemap"]["options"]["associated_zones"] = "1";
         $parameterType["administrator"]["sitemap"]["options"]["associated_zones"] = "textarea";
 

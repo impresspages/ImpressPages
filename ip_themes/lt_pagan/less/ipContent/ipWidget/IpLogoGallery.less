@@ -1,0 +1,21 @@
+.ipWidget-IpLogoGallery {
+    ul {
+        list-style: none;
+        margin: -20px 0 0 -20px; /* hack to keep images aligned with the content but keeping spaces between them; the size should be smaller than space below widgets */
+    }
+
+    li {
+        float: left;
+        margin: 20px 0 0 20px; /* size should be equal with ul element but without minus sign */
+
+        a, img {
+            border: 1px solid #888;
+            display: block;
+            padding: 2px;
+        }
+
+        a:hover, a:hover img {
+            border-color: @borderColorDark;
+        }
+    }
+}

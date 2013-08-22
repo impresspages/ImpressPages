@@ -5,9 +5,6 @@ $languageShort = "EN"; //Short description
 $languageLong = "English"; //Long title
 $languageUrl = "en";
 
-$parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
-$parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
-
 
 $parameterTitle["developer"]["form"]["error_messages"]["xss"] = "XSS error";
 $parameterValue["developer"]["form"]["error_messages"]["xss"] = "Session has expired. Please refresh the page.";
@@ -23,6 +20,16 @@ $parameterTitle["standard"]["configuration"]["admin_translations"]["install"] = 
 $parameterValue["standard"]["configuration"]["admin_translations"]["install"] = "Install";
 $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
 $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
+
+$parameterTitle["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "Automatically check fo XSS";
+$parameterValue["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+$parameterAdmin["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+$parameterType ["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "bool";
+
+
+$parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+$parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
 
 $parameterTitle["standard"]["design"]["admin_translations"]["theme_write_error"] = "Theme write error";
 $parameterValue["standard"]["design"]["admin_translations"]["theme_write_error"] = "Directory is not writable. Please check your email and install the theme manually.";

@@ -48,7 +48,7 @@
 
     if(!defined('BACKEND')){
         $session = \Ip\ServiceLocator::getSession();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken())) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xss_autocheck') && (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken())) {
             $data = array(
                 'status' => 'error',
                 'errors' => array(

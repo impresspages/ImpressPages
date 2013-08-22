@@ -1,16 +1,14 @@
 /**
- *
  * ImpressPages CMS theme: LT pagan
  *
  * Styles file for widgets, system modules and content
  *
  * @package ImpressPages
  *
- *
- *
  */
 
-@import 'mixins.less';
+// TODOX: optimize the number of clearfix solution: .clear, .clearfix, .ipWidget, 960.less, etc.
+
 
 /*
     Clearing floated elements
@@ -27,7 +25,7 @@
 
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 .clearfix {
-  &:before, &after {
+  &:before, &:after {
     .ipClearfix();
   }
 
@@ -42,28 +40,167 @@
   zoom: 1;
 }
 
-@import 'ipWidget.less';
-@import 'ipModuleForm.less';
+/* Global styles for all widgets */
+.ipWidget {
+    &:before, &:after {
+        .ipClearfix();
+    }
 
+    &:after {
+    /* clearing, see 960.css */
+    }
 
-@import 'tinymce.less';
-@import 'ipmControlSubmit.less';
+    &:after {
+        clear: both;
+    }
 
-.ipmErrorMessage { /* this object is created globally next to each invalid field */
-    background-color: @backgroundColor;
-    color: #da0001;
-    font-size: 11px;
+    margin-bottom: @defaultMarginBottom;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
-/* Widgets :: main */
-.ipBlock.ipbEmpty {
-    min-height: 30px;
-    outline: #019bd4 dashed 1px;
+.ipPreviewWidget {
+    h1, h2, h3 {
+        color: @textColorLight;
+        font-family: @fontFamilyHeadlines;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+    h2 {
+        font-size: 28px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+
+    ul {
+        list-style-position: inside;
+        list-style-type: square;
+        margin: 0 0 20px 15px;
+    }
+
+    ol {
+        list-style-position: inside;
+        margin: 0 0 20px 15px;
+    }
+
+    p {
+        line-height: 24px;
+        margin-bottom: 20px;
+    }
+
+    ul ul, ol ol {
+        margin-bottom: 0; /* removing bottom spacing for inner lists */
+    }
+
+    li {
+        line-height: 24px;
+        margin-bottom: 4px;
+    }
+
+    p+ul, p+ol {
+        margin-top: -20px; /* If list goes just after the paragraph the space is removed */
+    }
+
+    a {
+        color: @linkColor;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* default text style on rich text editor */
+    .caption {
+        color: @textColorLight;
+        font-family: @fontFamilyHeadlines;
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    /* default text style on rich text editor */
+    .signature {
+        font-family: @fontFamilyHeadlines;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+    .note {
+        color: @textColor;
+        display: block;
+        font-family: @fontFamilyHeadlines;
+        font-size: 16px;
+        font-style: italic;
+        margin: 0 30px 25px;
+    }
+
+    table {
+        border-collapse: collapse;
+        color: @borderColorDark;
+        font-size: 11px;
+        width: 100%;
+
+        p {
+            line-height: auto;
+            margin: 0;
+        }
+    }
+
+    td {
+        border-bottom: 1px solid #b2b2b2;
+        font-size: 11px;
+        padding: 9px;
+        text-align: center;
+    }
+
+    th,
+    thead td,
+    tbody tr:first-child td {
+        /* making first line look like header in all cases */
+        background-color: @backgroundColorInverted;
+        border: none;
+        color: #fff;
+        font-size: @fontSize;
+        font-weight: bold;
+    }
+
+    thead+tbody tr:first-child td {
+        /* setting back styles if thead exists */
+        background-color: transparent;
+        border-bottom: 1px solid #b2b2b2;
+        color: inherit;
+        font-size: 12px;
+        font-weight: normal;
+    }
+    td:first-child {
+        text-align: left;
+    }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child {
+        margin-bottom: 0; /* removing bottom margin on last elements */
+    }
 }
 
-@import 'side.less';
+@import 'ipWidget/IpFaq.less';
+@import 'ipWidget/IpFile.less';
+@import 'ipWidget/IpForm.less';
+@import 'ipWidget/IpHtml.less';
+@import 'ipWidget/IpImage.less';
+@import 'ipWidget/IpImageGallery.less';
+@import 'ipWidget/IpLogoGallery.less';
+@import 'ipWidget/IpRichText.less';
+@import 'ipWidget/IpSeparator.less';
+@import 'ipWidget/IpTable.less';
+@import 'ipWidget/IpText.less';
+@import 'ipWidget/IpTextImage.less';
+@import 'ipWidget/IpTitle.less';
 
-/* Inline Management */
-.ipModuleInlineManagement.ipmEmpty {
-    outline: #019bd4 dashed 1px;
-}
+@import 'mixins.less';
+@import 'forms.less';
+@import 'config.less';

@@ -14,9 +14,7 @@
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css');
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
-
     $site->addCss($site->compileThemeLess(THEME, 'theme.less'));
-
     $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
     echo $site->generateHead();
 ?>
@@ -29,6 +27,7 @@
     <div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
         <header class="grid_12">
             <?php echo $this->generateManagedLogo(); ?>
+            <?php echo $this->generateBlock('ipSitemap'); ?>
             <div class="languages">
                 <?php echo $this->generateBlock('ipLanguages'); ?>
             </div>
