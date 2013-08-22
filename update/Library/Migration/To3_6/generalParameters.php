@@ -21,6 +21,12 @@ $parameterValue["standard"]["configuration"]["admin_translations"]["install"] = 
 $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
 $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
 
+$parameterTitle["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "Automatically check fo XSS";
+$parameterValue["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+$parameterAdmin["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+$parameterType ["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "bool";
+
+
 $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
 $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
 

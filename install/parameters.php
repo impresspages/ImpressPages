@@ -1353,7 +1353,14 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "1";
         $parameterType["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "integer";
 
-    $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
+
+        $parameterTitle["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "Automatically check fo XSS";
+        $parameterValue["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterAdmin["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterType ["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "bool";
+
+
+$parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
     $parameterGroupAdmin["standard"]["configuration"]["error_404"] = "0";
 
         $parameterTitle["standard"]["configuration"]["error_404"]["error_page_template"] = "Error_page_template";

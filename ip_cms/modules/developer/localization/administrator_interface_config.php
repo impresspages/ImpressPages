@@ -669,6 +669,14 @@ $parameter["parameterTitle/standard/configuration/advanced_options/administrator
 
 $parameter["parameterTitle/standard/configuration/advanced_options/use_fake_cron"] = "Use fake cron";
 
+$parameter["parameterTitle/standard/configuration/advanced_options/keep_old_revisions_for"] = "Keep old revision for (days)";
+
+$parameter["parameterTitle/standard/configuration/advanced_options/default_image_quality"] = "Default image quality (0 - 100)";
+
+$parameter["parameterTitle/standard/configuration/advanced_options/xss_autocheck"] = "Automatically check fo XSS";
+
+
+
 $parameter["parameterTitle/standard/configuration/advanced_options/xml_sitemap_associated_zones"] = "XML sitemap associated zones";
 
 $parameter["parameterTitle/standard/configuration/error_404/error_page_template"] = "Error_page_template";
