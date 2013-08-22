@@ -29,6 +29,7 @@
     <div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
         <header class="grid_12">
             <?php echo $this->generateManagedLogo(); ?>
+            <?php echo $this->generateBlock('ipSitemap'); ?>
             <div class="languages">
                 <?php echo $this->generateBlock('ipLanguages'); ?>
             </div>
