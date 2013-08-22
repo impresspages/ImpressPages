@@ -2346,8 +2346,9 @@ left";
         $parameterType["administrator"]["search"]["translations"]["search"] = "lang";
 
         $parameterTitle["administrator"]["sitemap"]["options"]["associated_zones"] = "Associated zones";
-        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "top
-left";
+        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["sitemap"]["options"]["associated_zones"] = "1";
         $parameterType["administrator"]["sitemap"]["options"]["associated_zones"] = "textarea";
 
