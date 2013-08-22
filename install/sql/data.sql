@@ -10,7 +10,7 @@ INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_titl
 (69, 3, 3, 'Page4', 4, '', 'Page4', '', '', 'page4', '', '2012-01-22 00:00:00', '2009-08-10 14:12:21', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (70, 4, 3, 'Page5', 5, '', 'Page5', '', '', 'page5', '', '2012-01-22 00:00:00', '2009-08-10 14:17:18', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (71, 0, 67, 'Subpage', 1, '', 'Subpage example', '', '', 'subpage', 'a:0:{}', '2012-01-22 00:00:00', '2009-08-10 13:36:39', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(64, 0, 1, 'Welcome!', 1, '', 'ImpressPages welcome page', '', '', 'impresspages-welcome-page', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
+(64, 0, 1, 'Home', 1, '', 'Home', '', '', 'home', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
 (65, 1, 1, 'Lorem ipsum', 1, '', 'Lorem ipsum', '', '', 'lorem-ipsum', '', '2012-01-22 00:00:00', '2009-08-10 00:43:10', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (72, 0, 4, 'Example page', 1, '', 'Example page', '', '', 'examplepage', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (73, 0, 4, 'Example page2', 2, '', 'Example page', '', '', 'examplepage2', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', '');
@@ -106,6 +106,11 @@ INSERT INTO `ip_cms_m_content_management_widget_instance` (`instanceId`, `revisi
 
 -- Dumping data for table--
 
+INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layout`) VALUES
+('standard', 'content_management', 64, 'home.php');
+
+-- Dumping data for table--
+
 INSERT INTO `ip_cms_revision` (`revisionId`, `zoneName`, `pageId`, `published`, `created`) VALUES
 (90, 'top', 64, 1, 1323984493),
 (91, 'top', 64, 0, 1323984561),
@@ -172,11 +177,11 @@ INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
 INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`, `associated_group`, `associated_module`) VALUES
 (105, 4, 'menu1', 'main.php', 'Menu1', 'standard', 'content_management'),
 (106, 5, 'menu2', 'main.php', 'Menu2', 'standard', 'content_management'),
-(110, 10, 'menu3', 'main.php', 'Menu3', 'standard', 'content_management'),
-(93, 6, 'search', 'main.php', 'Search', 'administrator', 'search'),
-(100, 7, 'rss', 'blank.php', 'RSS', 'administrator', 'rss'),
-(108, 8, 'sitemap', 'main.php', 'Sitemap', 'administrator', 'sitemap'),
-(109, 9, 'newsletter', 'main.php', 'Newsletter', 'community', 'newsletter');
+(110, 6, 'menu3', 'main.php', 'Menu3', 'standard', 'content_management'),
+(93, 7, 'search', 'main.php', 'Search', 'administrator', 'search'),
+(100, 8, 'rss', 'blank.php', 'RSS', 'administrator', 'rss'),
+(108, 9, 'sitemap', 'main.php', 'Sitemap', 'administrator', 'sitemap'),
+(109, 10, 'newsletter', 'main.php', 'Newsletter', 'community', 'newsletter');
 
 -- Dumping data for table--
 
