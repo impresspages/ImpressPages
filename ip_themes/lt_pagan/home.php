@@ -14,20 +14,19 @@
         <div>
             <div class="grid_3 left">
                 <?php echo $this->generateManagedString('boxTitle1', 'h2', 'Some title'); ?>
-                <?php echo $this->generateManagedImage('boxImage1', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
+                <?php echo $this->generateManagedImage('boxImage1', THEME_DIR.THEME.'/img/header.jpg', array('width' => $this->getThemeOption('boxWidth')), 'boxImage'); ?>
                 <?php echo $this->generateManagedText('boxText1', 'div', '<p>Lorem ipsum dolor sit amet</p>'); ?>
             </div>
             <div class="grid_3 left">
                 <?php echo $this->generateManagedString('boxTitle2', 'h2', 'Some title'); ?>
-                <?php echo $this->generateManagedImage('boxImage2', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
+                <?php echo $this->generateManagedImage('boxImage2', THEME_DIR.THEME.'/img/header.jpg', array('width' => $this->getThemeOption('boxWidth')), 'boxImage'); ?>
                 <?php echo $this->generateManagedText('boxText2', 'div', '<p>Lorem ipsum dolor sit amet</p>'); ?>
             </div>
             <div class="grid_3 left">
                 <?php echo $this->generateManagedString('boxTitle3', 'h2', 'Some title'); ?>
-                <?php echo $this->generateManagedImage('boxImage3', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
+                <?php echo $this->generateManagedImage('boxImage3', THEME_DIR.THEME.'/img/header.jpg', array('width' => $this->getThemeOption('boxWidth')), 'boxImage'); ?>
                 <?php echo $this->generateManagedText('boxText3', 'div', '<p>Lorem ipsum dolor sit amet</p>'); ?>
             </div>
-
         </div>
         <div>
             <div class="grid_4 left">
