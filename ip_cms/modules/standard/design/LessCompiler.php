@@ -63,8 +63,8 @@ class LessCompiler
                     break;
                 case 'range':
                     $lessValue = $rawValue;
-                    if (!empty($options['units'])) {
-                        $lessValue .= $options['units'];
+                    if (!empty($option['units'])) {
+                        $lessValue .= $option['units'];
                     }
                     break;
                 default:
@@ -73,7 +73,6 @@ class LessCompiler
 
             $less .= "\n@{$option['name']}: {$lessValue};";
         }
-
 
         return $less;
     }
