@@ -103,12 +103,12 @@ class LessCompiler
         foreach ($items as $path) {
             if (preg_match('/[.]less$/', $path)) {
                 if (filemtime($path) > $compileTime) {
-                    return false;
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 
     public function clearCache($themeName)
