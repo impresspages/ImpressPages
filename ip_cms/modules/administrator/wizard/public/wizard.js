@@ -175,7 +175,7 @@ function ipWizardBind(data) {
     .bind('dragstart',function(event,ui){
         if (isTip1) { $tip1.hide(); }
         if (isTip2) { $tip2.show(); }
-        if (isTip1 || isTip2) {
+        if ((isTip1 || isTip2) && $block) {
             $block
             .addClass('ipWizardExposeContent')
             .expose({
@@ -189,7 +189,7 @@ function ipWizardBind(data) {
     })
     .bind('unsuccessfulDrop.ipWidgetButton',function(event,data){
         //data.widgetButton
-        if (isTip1 || isTip2) {
+        if ((isTip1 || isTip2) && $block) {
             $.mask.close();
             $block.removeClass('ipWizardExposeContent');
         }
