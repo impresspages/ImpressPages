@@ -18,11 +18,13 @@ class LessCompiler
         return new self();
     }
 
-    public function compile($themeName, $lessFile, $force = false)
+    public function compile($themeName, $lessFile)
     {
         $compiledCssUrl = BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';
-        if (!$force && $this->isLessCached($themeName, $lessFile)) {
-            return $compiledCssUrl;
+        if ($this->isLessCached($themeName, $lessFile)) {
+            if (!DEVELOPMENT_ENVIRONMENT || !$this->shouldRebuildCache($themeName, $lessFile)) {
+                return $compiledCssUrl;
+            }
         }
 
         $model = Model::instance();
@@ -73,7 +75,6 @@ class LessCompiler
         }
 
 
-
         return $less;
     }
 
@@ -81,9 +82,13 @@ class LessCompiler
     {
         $compiledFilename = $this->compiledFilename($themeName, $lessFile);
 
-        if (!file_exists($compiledFilename)) {
-            return false;
-        }
+        return file_exists($compiledFilename);
+    }
+
+    protected function shouldRebuildCache($themeName, $lessFile)
+    {
+        $compiledFilename = $this->compiledFilename($themeName, $lessFile);
+        $compileTime = filemtime($compiledFilename);
 
         $items = glob(BASE_DIR . THEME_DIR . $themeName . '/less/*');
 
@@ -94,8 +99,6 @@ class LessCompiler
                 $items = array_merge($items, $add);
             }
         }
-
-        $compileTime = filemtime($compiledFilename);
 
         foreach ($items as $path) {
             if (preg_match('/[.]less$/', $path)) {
