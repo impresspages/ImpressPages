@@ -197,6 +197,7 @@ function ipWizardBind(data) {
         if (isTip2) { $tip2.hide(); }
     })
     .bind('successfulDrop.ipWidgetButton',function(event,data){
+        $tip2.hide();
         //data.widgetButton
         //data.block
         if (isTip1 || isTip2) {
