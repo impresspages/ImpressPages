@@ -61,6 +61,7 @@ class LessCompiler
                 case 'color':
                     $lessValue = $rawValue;
                     break;
+                case 'hidden':
                 case 'range':
                     $lessValue = $rawValue;
                     if (!empty($option['units'])) {
