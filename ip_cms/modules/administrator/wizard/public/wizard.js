@@ -213,10 +213,14 @@ function ipWizardBind(data) {
     .bind('deleteClick.ipBlock cancelWidget.ipWidget',function(event,data){
         if (isTip3) { $tip3.hide() }
         if (isTip4) { $tip4.hide() }
+        $tip3.hide();
+        $tip4.hide();
     })
     .bind('statePreview.ipWidget',function(event,data){
         if (isTip3) { ipWizardTipDisable('changeWidgetContent'); isTip3 = false; }
         if (isTip4) { ipWizardTipDisable('confirmWidget'); isTip4 = false; }
+        $tip3.hide();
+        $tip4.hide();
     })
     .bind('stateManagement.ipWidget',function(event,data){
         var $openedWidget = $('#ipWidget-'+data.instanceId);
