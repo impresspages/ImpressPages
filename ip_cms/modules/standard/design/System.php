@@ -78,6 +78,12 @@ class System{
         return $configBox->render();
     }
 
+    public function clearCache()
+    {
+        $lessCompiler = LessCompiler::instance();
+        $lessCompiler->clearCache(THEME);
+    }
+
 }
 
 

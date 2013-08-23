@@ -60,6 +60,12 @@
             "name": "backround",
             "type": "file",
             "default": ""
+        },
+        {
+            "name": "boxWidth",
+            "type": "hidden",
+            "default": "220",
+            "units": "px"
         }
     ]
 

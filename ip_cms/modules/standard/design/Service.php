@@ -8,9 +8,9 @@ namespace Modules\standard\design;
 
 class Service
 {
-    public function compileThemeLess($themeName, $filename, $force)
+    public function compileThemeLess($themeName, $filename)
     {
         $lessCompiler = LessCompiler::instance();
-        return $lessCompiler->compile(THEME, $filename, $force);
+        return $lessCompiler->compile($themeName, $filename);
     }
 }
