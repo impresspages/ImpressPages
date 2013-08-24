@@ -1220,7 +1220,7 @@ class Site{
      */
     public function compileThemeLess($themeName, $filename, $force = false)
     {
-        $service = new \Modules\standard\design\Service();
+        $service = \Modules\standard\design\Service::instance();
         return $service->compileThemeLess($themeName, $filename, $force);
     }
 
