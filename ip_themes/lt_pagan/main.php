@@ -13,7 +13,7 @@
             <?php echo $site->generateBlock('main'); ?>
         </div>
         <div class="side grid_3 left">
-            <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
+            <nav>
                 <?php
                     // generate 2 - 7 levels submenu of top menu.
                     // please note that it is possible to generate second level only if first level item is selected
