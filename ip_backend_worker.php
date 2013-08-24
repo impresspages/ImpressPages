@@ -52,6 +52,7 @@ if(\Db::connect()){
     try {
         $site = new \Site(); /*to generate links to site and get other data about frontend*/
         $site->init();
+        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
         $cms = new \Backend\Cms();
         $cms->worker();
