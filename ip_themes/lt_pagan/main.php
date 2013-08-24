@@ -15,9 +15,10 @@
         <div class="side grid_3 left">
             <nav><?php /* add class="collapse" to <nav> to hide second level by default */ ?>
                 <?php
-                    //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-                    echo $this->generateMenu('left', 'menu2');
-                    echo $this->generateMenu('left', 'menu3');
+                    // generate 2 - 7 levels submenu of top menu.
+                    // please note that it is possible to generate second level only if first level item is selected
+                    $pages = \Ip\Menu\Helper::getZoneItems('top', 2, 7);
+                    echo $this->generateMenu('left', $pages);
                 ?>
             </nav>
             <aside>
