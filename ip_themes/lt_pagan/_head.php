@@ -23,7 +23,7 @@
 </head>
 <body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> >
 
-<div class="container_12 wrapper <?php echo $this->getThemeOption('style') ?>">
+<div class="container_12 wrapper">
     <header class="grid_12">
         <?php echo $this->generateManagedLogo(); ?>
         <?php echo $this->generateBlock('ipSitemap'); ?>
