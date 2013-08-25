@@ -22,7 +22,7 @@ class LessCompiler
     {
         $compiledCssUrl = BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';
         if ($this->isLessCached($themeName, $lessFile)) {
-            if (!DEVELOPMENT_ENVIRONMENT || !$this->shouldRebuildCache($themeName, $lessFile)) {
+            if (!DEVELOPMENT_ENVIRONMENT && !$this->shouldRebuildCache($themeName, $lessFile)) {
                 return $compiledCssUrl;
             }
         }
