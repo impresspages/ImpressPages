@@ -572,7 +572,7 @@ class Site{
 
         $layout = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
-        if (!$layout || !file_exists(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
+        if (!$layout || !is_file(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
             $layout = $zone->getLayout();
         }
 
@@ -1124,7 +1124,13 @@ class Site{
         global $session;
 
         if (!isset($this->output)) {
-            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+            $layout = $this->getLayout();
+            if ($layout) {
+                $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+            } else {
+                // DEPRECATED just for backward compatibility
+                $this->output = $site->generateBlock('main');
+            }
         }
 
         return $this->output;

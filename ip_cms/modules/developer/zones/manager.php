@@ -166,7 +166,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_select("select");
         $element->set_name($parametersMod->getValue('developer', 'zones','admin_translations','template'));
         $element->set_db_field("template");
-        $element->required = true;
+        $element->required = false;
 
 
         $templates = Db::getAvailableTemplates();
