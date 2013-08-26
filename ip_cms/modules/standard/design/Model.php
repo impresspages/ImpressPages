@@ -131,6 +131,18 @@ class Model
         }
 
 
+        //write down default theme options
+        $options = $theme->getOptions();
+        foreach($options as $option) {
+            if (empty($option['name']) || empty($option['default'])) {
+                continue;
+            }
+
+            $configModel = ConfigModel::instance();
+            $newValue = $configModel->getConfigValue($themeName, $option['name'], $option['default']);
+            $configModel->setConfigValue($themeName, $option['name'], $newValue);
+        }
+
         \DbSystem::setSystemVariable('theme_changed', time());
 
     }

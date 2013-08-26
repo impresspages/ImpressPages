@@ -2,6 +2,10 @@ function ipDesignOption_backgroundColor(value) {
     $('body').css('backgroundColor', value);
 }
 
+function ipDesignOption_wrapperBackgroundColor(value) {
+    $('.wrapper').css('backgroundColor', value);
+}
+
 function ipDesignOption_textColor(value) {
     $('body').css('color', value);
 }

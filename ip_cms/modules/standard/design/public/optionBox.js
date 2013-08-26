@@ -3,12 +3,18 @@
 
 $(document).ready(function() {
 
-    $('a').off('click').on('click', ipDesign.openLink); //it is important to bind links before adding configuration box html to the body
+    $('a').off('click').on('click', function(e) {
+        e.preventDefault();
+        ipDesign.openLink($(e.currentTarget).attr('href'));
+    }); //it is important to bind links before adding configuration box html to the body
 
     $('body').append(ipModuleDesignConfiguration);
     ipModuleForm.init(); //reinit form controls after adding option box
 
-    $('.ipModuleDesignConfig .ipsForm').on('submit', ipDesign.apply);
+    $('.ipModuleDesignConfig .ipsForm').on('submit', function(e) {
+        e.preventDefault();
+        ipDesign.apply();
+    });
     $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function(e){
         e.preventDefault();
         $('.ipModuleDesignConfig .ipsForm').submit();
@@ -20,6 +26,13 @@ $(document).ready(function() {
         e.preventDefault();
         window.parent.ipDesignCloseOptions(e);
     });
+
+    $('.ipModuleDesignConfig .ipsDefault').off('click').on('click', function(e){
+        e.preventDefault();
+        var restoreDefault = 1;
+        ipDesign.openLink(window.location.href.split('#')[0], restoreDefault);
+    });
+
 
     $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
     $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
@@ -33,9 +46,10 @@ var ipDesign = new function() {
     var lastSerialized = null;
     var lastValues = {};
 
-    this.openLink = function (e) {
-        e.preventDefault();
-        var href = $(e.currentTarget).attr('href');
+
+
+    this.openLink = function (href, restoreDefault) {
+console.log('openLink ' + href);
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
 
         // create previewConfig data
@@ -69,18 +83,26 @@ var ipDesign = new function() {
             'type': 'hidden'
         }));
 
+        if (restoreDefault) {
+            postForm.append($('<input>', {
+                'name': 'restoreDefault',
+                'value': 1,
+                'type': 'hidden'
+            }));
+        }
+
+
         postForm.appendTo('body').submit();
     };
 
-    this.apply = function (e) {
-        e.preventDefault();
-        var $form = $(this);
-
+    this.apply = function () {
+        var $form = $('.ipModuleDesignConfig .ipsForm');
+        var data = $form.serialize();
         $.ajax({
             url: ip.baseUrl,
             dataType: 'json',
             type : 'POST',
-            data: $form.serialize(),
+            data: data,
             success: function (response){
                 if (response.status && response.status == 'success') {
                     var refreshUrl = window.location.href.split('#')[0];

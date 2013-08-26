@@ -39,8 +39,22 @@ class ConfigModel{
 
     public function getConfigValue($theme, $name, $default = null)
     {
-        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'][$name])) {
-            return $_POST['ipDesign']['previewConfig'][$name];
+        $request = \Ip\ServiceLocator::getRequest();
+        $post = $request->getPost();
+        if ($this->isInPreviewState() && isset($post['ipDesign']['previewConfig'][$name])) {
+            $answer = $post['ipDesign']['previewConfig'][$name];
+            if (isset($post['restoreDefault'])) {
+                //overwrite current config with default theme values
+                $model = Model::instance();
+                $theme = $model->getTheme(THEME);
+                $options = $theme->getOptions();
+                foreach($options as $option) {
+                    if ($option['name'] == $name && isset($option['name']) && isset($option['default'])) {
+                        $answer = $option['default'];
+                    }
+                }
+            }
+            return $answer;
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -69,8 +83,22 @@ class ConfigModel{
 
     public function getAllConfigValues($theme)
     {
-        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'])) {
-            return $_POST['ipDesign']['previewConfig'];
+        $request = \Ip\ServiceLocator::getRequest();
+        $post = $request->getPost();
+        if ($this->isInPreviewState() && isset($post['ipDesign']['previewConfig'])) {
+            $config = $post['ipDesign']['previewConfig'];
+            if (isset($post['restoreDefault'])) {
+                //overwrite current config with default theme values
+                $model = Model::instance();
+                $theme = $model->getTheme(THEME);
+                $options = $theme->getOptions();
+                foreach($options as $option) {
+                    if (isset($option['name']) && isset($option['default'])) {
+                        $config[$option['name']] = $option['default'];
+                    }
+                }
+            }
+            return $config;
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -95,6 +123,7 @@ class ConfigModel{
         foreach ($rs as $row) {
             $config[$row['name']] = $row['value'];
         }
+
 
         return $config;
     }

@@ -30,30 +30,22 @@
     },
     "options": [
         {
-            "label": "Style",
-            "name": "style",
-            "type": "select",
-            "values": ["Dark", "Light", "Red"],
-            "default": "Dark"
-        },
-        {
             "label": "Background Color",
             "name": "backgroundColor",
             "type": "color",
-            "default": "#234567"
+            "default": "#e5e5e5"
+        },
+        {
+            "label": "Wrapper Background Color",
+            "name": "wrapperBackgroundColor",
+            "type": "color",
+            "default": "#ffffff"
         },
         {
             "label": "Text Color",
             "name": "textColor",
             "type": "color",
-            "default": "#234567"
-        },
-        {
-            "label": "Width",
-            "name": "width",
-            "type": "range",
-            "default": 960,
-            "units": "px"
+            "default": "#000000"
         },
         {
             "label": "Backround",

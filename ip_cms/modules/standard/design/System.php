@@ -80,6 +80,7 @@ class System{
 
     public function clearCache()
     {
+        //TODOX catch new style event
         $lessCompiler = LessCompiler::instance();
         $lessCompiler->clearCache(THEME);
     }

@@ -435,9 +435,8 @@ class View{
 
     public function getThemeOption($name, $default = null)
     {
-        // TODOX use service
-        $designConfigModel = \Modules\standard\design\ConfigModel::instance();
-        return $designConfigModel->getConfigValue(THEME, $name, $default);
+        $themeService = \Modules\standard\design\Service::instance();
+        return $themeService->getThemeOption($name, $default);
     }
 
     private static function checkData ($data) {
