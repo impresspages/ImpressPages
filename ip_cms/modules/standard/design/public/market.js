@@ -7,15 +7,10 @@ var ipDesignThemeMarket = new function () {
     var isThemePreview = false;
 
     var processOrder = function (order) {
-        console.log('processOrder');
         $('body').bind('ipMarketOrderStart', function (e) {
-            console.log('order start');
         });
 
-        console.log('bind complete event');
         $('body').bind('ipMarketOrderComplete', function (e, data) {
-            console.log('order complete ');
-            console.log(data);
             if (typeof(data.themes) != "undefined" && data.themes.length) {
                 //TODOX
                 console.log('show local themes');

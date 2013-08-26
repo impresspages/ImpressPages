@@ -9,7 +9,7 @@ $.each($('.ipsModuleForm .ipmType-color'), function(){
         move: function(color) {
             $this.find('.ipsColorPicker').spectrum("set", color.toHexString());
         },
-        show: function(color){console.log('show');
+        show: function(color){
             lastColor = color.toHexString();
             $('.sp-cancel').on('click', function(){$this.find('.ipsColorPicker').spectrum("set", lastColor);});
             $('.sp-choose').on('click', function(){lastColor = $this.find('.ipsColorPicker').val();});

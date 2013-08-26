@@ -44,15 +44,10 @@
                                 //do nothing. Leaving for compatibility with ImpressPages 3.4 and 3.5
                             },
                             processOrder: function(order){
-                                console.log('processOrder');
                                 $('body').bind('ipMarketOrderStart', function(e){
-                                    console.log('order start');
                                 });
 
-                                console.log('bind complete event');
                                 $('body').bind('ipMarketOrderComplete', function(e, data){
-                                    console.log('order complete ');
-                                    console.log(data);
                                     if (typeof(data.images) != "undefined" && data.images.length) {
                                         $.proxy(methods._confirm, buyTab, data.images)();
                                     } else {

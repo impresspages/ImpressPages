@@ -12,10 +12,8 @@ var Market = new function() {
     this.processOrder = function(order) {
         $('body').trigger('ipMarketOrderStart');
         console.group('Market.processOrder()');
-        console.log(order);
 
         if (typeof(order.images) != "undefined" && order.images.length) {
-            console.log('downloadImages');
             imagesDownloaded = false;
             downloadImages(order.images);
         } else {
@@ -33,15 +31,8 @@ var Market = new function() {
     };
 
     var checkComplete = function() {
-        console.log('checkComplete ' + imagesDownloaded + ' ' + themesDownloaded);
         if (imagesDownloaded && themesDownloaded) {
-            console.log('orderCompleteEvent2');
-            console.log('body');
-            console.log($('body'));
             $('body').trigger('ipMarketOrderComplete', [{images: imagesData, themes: themesData}]);
-            console.log('body');
-            console.log($('body'));
-
         }
     };
 
@@ -112,7 +103,6 @@ var Market = new function() {
             'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
             'dataType': 'json',
             'success': function (response) {
-                console.log('response:', response);
                 if (!response || response.error || !response.result || !response.result.themes) {
                     alert('Unknown error. Please see logs.');
                     return;

@@ -285,7 +285,7 @@ function openIPlinks() {
                 ba : 'getSitemapInList',
                 current_href : href
             },
-            success : function(response) {console.log(response); updateIPlinks(response);}
+            success : function(response) {updateIPlinks(response);}
     });
 
 

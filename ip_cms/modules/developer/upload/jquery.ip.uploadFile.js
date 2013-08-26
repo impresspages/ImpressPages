@@ -132,7 +132,6 @@
             });
 
             uploader.bind('Error', function(up, err) {
-                console.log("Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : ""));
                 var errorMessage = err.message + (err.file ? " \"" + err.file.name + "\"" : "");
                 $this.trigger('error.ipUploadFile', errorMessage);
                 up.refresh(); // Reposition Flash/Silverlight

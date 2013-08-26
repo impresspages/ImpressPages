@@ -15,7 +15,6 @@ $(document).ready(function () {
             type: 'POST',
             data: {'g': 'standard', 'm': 'design', 'ba': 'installTheme', 'themeName': $(this).data('theme'), 'securityToken': ip.securityToken},
             success: function (response) {
-                console.log('response: ', response);
                 if (response.status && response.status == 'success') {
                     window.location = ip.baseUrl + '?g=standard&m=design&ba=index';
                 } else if (response.error) {
