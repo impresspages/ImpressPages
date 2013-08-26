@@ -134,7 +134,7 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 (106, 5, 'menu2', 'main.php', 'Menu2', 'standard', 'content_management'),
 (110, 6, 'menu3', 'main.php', 'Menu3', 'standard', 'content_management'),
 (93, 7, 'search', 'main.php', 'Search', 'administrator', 'search'),
-(100, 8, 'rss', 'blank.php', 'RSS', 'administrator', 'rss'),
+(100, 8, 'rss', '', 'RSS', 'administrator', 'rss'),
 (108, 9, 'sitemap', 'main.php', 'Sitemap', 'administrator', 'sitemap'),
 (109, 10, 'newsletter', 'main.php', 'Newsletter', 'community', 'newsletter');
 
