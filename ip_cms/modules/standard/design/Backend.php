@@ -169,7 +169,7 @@ class Backend extends \Ip\Controller
             }
 
             $lessCompiler = LessCompiler::instance();
-            $lessCompiler->clearCache(THEME);
+            $lessCompiler->rebuildCss(THEME);
 
             $data = array(
                 'status' => 'success'
@@ -183,8 +183,4 @@ class Backend extends \Ip\Controller
 
         $this->returnJson($data);
     }
-
-
-
-
 }

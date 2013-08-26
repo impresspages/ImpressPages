@@ -18,14 +18,25 @@ class LessCompiler
         return new self();
     }
 
+    public function getCompiledCssUrl($themeName, $lessFile)
+    {
+        if ($this->isLessCached($themeName, $lessFile)) {
+            if (!DEVELOPMENT_ENVIRONMENT || !$this->shouldRebuildCss($themeName, $lessFile)) { // if production env or css is up to date
+                return BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';;
+            }
+        }
+
+        return $this->compile($themeName, $lessFile);
+    }
+
+    /**
+     * @param string $themeName
+     * @param string $lessFile
+     * @return string
+     */
     public function compile($themeName, $lessFile)
     {
         $compiledCssUrl = BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';
-        if ($this->isLessCached($themeName, $lessFile)) {
-            if (!DEVELOPMENT_ENVIRONMENT && !$this->shouldRebuildCache($themeName, $lessFile)) {
-                return $compiledCssUrl;
-            }
-        }
 
         $model = Model::instance();
 
@@ -85,7 +96,7 @@ class LessCompiler
         return file_exists($compiledFilename);
     }
 
-    protected function shouldRebuildCache($themeName, $lessFile)
+    protected function shouldRebuildCss($themeName, $lessFile)
     {
         $compiledFilename = $this->compiledFilename($themeName, $lessFile);
         $compileTime = filemtime($compiledFilename);
@@ -102,7 +113,13 @@ class LessCompiler
 
         foreach ($items as $path) {
             if (preg_match('/[.]less$/', $path)) {
+
                 if (filemtime($path) > $compileTime) {
+                    $debug = array(
+                        'filetime' => filemtime($path),
+                        'compileTime' => $compileTime,
+                    );
+
                     return true;
                 }
             }
@@ -111,17 +128,23 @@ class LessCompiler
         return false;
     }
 
-    public function clearCache($themeName)
+    /**
+     * Rebuilds compiled css files.
+     *
+     * @param string $themeName
+     */
+    public function rebuildCss($themeName)
     {
         $compiledFiles = glob(BASE_DIR . THEME_DIR . $themeName . '/css/*.less.css');
 
-        // TODOX check permissions
         foreach ($compiledFiles as $compiledFile) {
-            unlink($compiledFile);
+            $cssFilename = basename($compiledFile);
+            $lessFilename = substr($cssFilename, 0, -4);
+            $this->compile($themeName, $lessFilename);
         }
     }
 
-    private function compiledFilename($themeName, $lessFile)
+    protected function compiledFilename($themeName, $lessFile)
     {
         return BASE_DIR . THEME_DIR . $themeName . "/css/{$lessFile}.css";
     }

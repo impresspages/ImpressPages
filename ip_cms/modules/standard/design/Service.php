@@ -24,7 +24,7 @@ class Service
     public function compileThemeLess($themeName, $filename)
     {
         $lessCompiler = LessCompiler::instance();
-        return $lessCompiler->compile($themeName, $filename);
+        return $lessCompiler->getCompiledCssUrl($themeName, $filename);
     }
 
     /**
