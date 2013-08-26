@@ -11,7 +11,7 @@ var Market = new function() {
 
     this.processOrder = function(order) {
         $('body').trigger('ipMarketOrderStart');
-        console.log('order');
+        console.group('Market.processOrder()');
         console.log(order);
 
         if (typeof(order.images) != "undefined" && order.images.length) {
@@ -23,15 +23,13 @@ var Market = new function() {
         }
 
         if (typeof(order.themes) != "undefined" && order.themes.length) {
-            console.log('downloadThemes');
             themesDownloaded = false;
             downloadThemes(order.themes);
         } else {
             themesDownloaded = true;
         }
 
-
-
+        console.groupEnd();
     };
 
     var checkComplete = function() {
@@ -111,18 +109,21 @@ var Market = new function() {
 
         $.ajax(ip.baseUrl, {
             'type': 'POST',
-            'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken},
+            'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
             'dataType': 'json',
-            'success': function (data) {
+            'success': function (response) {
+                console.log('response:', response);
+                if (!response || response.error || !response.result || !response.result.themes) {
+                    alert('Unknown error. Please see logs.');
+                    return;
+                }
+
                 themesDownloaded = true;
-                themesData = data;
+                themesData = response.result.themes;
                 checkComplete();
             },
-            'error': function (request, status, error) {
-                alert(error);
-                themesDownloaded = true;
-                themesData = {};
-                checkComplete();
+            'error': function () {
+                alert('Unknown error. Please see logs.');
             }
         });
     };

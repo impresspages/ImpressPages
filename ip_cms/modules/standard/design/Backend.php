@@ -56,24 +56,23 @@ class Backend extends \Ip\Controller
     public function downloadThemes()
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        $site = ServiceLocator::getSite();
 
         $request = ServiceLocator::getRequest();
         $request->mustBePost();
 
         $themes = $request->getPost('themes');
 
-        if(!is_writable(BASE_DIR.THEME_DIR)){
-            header('HTTP/1.1 500 '.BASE_DIR . THEME_DIR.' '. $parametersMod->getValue('standard', 'design', 'admin_translations', 'theme_write_error'));
-            $site->setOutput('');
+        if (!is_writable(BASE_DIR.THEME_DIR)) {
+            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => $parametersMod->getValue('standard', 'design', 'admin_translations', 'theme_write_error')), 'id' => null);
+            $this->returnJson($error);
             return;
         }
 
-
         try {
-
             if (!is_array($themes)) {
-                throw new \Ip\CoreException('Download failed: invalid parameters.');
+                $error = array('jsonrpc' => '2.0', 'error' => array('code' => 101, 'message' => 'Download failed: invalid parameters'), 'id' => null);
+                $this->returnJson($error);
+                return;
             }
 
             if (function_exists('set_time_limit')) {
@@ -87,16 +86,25 @@ class Backend extends \Ip\Controller
                     $themeDownloader->downloadTheme($theme['name'], $theme['url'], $theme['signature']);
                 }
             }
-
-            $this->returnJson(true);
-
         } catch (\Ip\CoreException $e) {
-            header('HTTP/1.1 500 ' . $e->getMessage());
-            $site->setOutput('');
+            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 234, 'message' => $e->getMessage()), 'id' => null);
+            $this->returnJson($error);
+            return;
         } catch (\Exception $e) {
-            header('HTTP/1.1 500 ' . $e->getMessage());
-            $site->setOutput('');
+            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 987, 'message' => 'Unknown error. Please see logs.'), 'id' => null);
+            $this->returnJson($error);
+            return;
         }
+
+        $response = array(
+            "jsonrpc" => "2.0",
+            "result" => array(
+                "themes" => $themes,
+            ),
+            "id" => null,
+        );
+
+        $this->returnJson($response);
     }
 
     /**
