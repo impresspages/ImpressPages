@@ -4,7 +4,7 @@
     <?php
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css');
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
-    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
+    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/1/colorbox.css');
     echo $site->generateHead();
     ?>
 </head>
