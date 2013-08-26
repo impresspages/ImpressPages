@@ -81,53 +81,8 @@ INSERT INTO `ip_cms_module_group` (`id`, `name`, `row_number`, `admin`, `transla
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_m_content_management_widget` (`widgetId`, `name`, `layout`, `data`, `created`, `predecessor`) VALUES
-(1, 'IpTitle', 'default', '{"title":"This is the main content area"}', 1323984460, 0),
-(2, 'IpText', 'default', '[]', 1323984478, 0),
-(3, 'IpText', 'default', '[]', 1323984488, 0),
-(4, 'IpText', 'default', '{"text":"<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.<\\/p>"}', 1323984498, 0),
-(5, 'IpTitle', 'default', '{"title":"Drag me out of here"}', 1323984539, 0),
-(6, 'IpText', 'default', '{"text":"<p>Drag some content here<\\/p>"}', 1323984550, 0);
- 
--- Dumping data for table--
-
-INSERT INTO `ip_cms_m_content_management_widget_instance` (`instanceId`, `revisionId`, `widgetId`, `position`, `blockName`, `visible`, `created`, `deleted`) VALUES
-(1974, 89, 1, 0, 'main', 1, 1323984460, NULL),
-(1975, 89, 2, 40, 'main', 1, 1323984478, 1323984484),
-(1976, 89, 3, 40, 'main', 1, 1323984488, 1323984491),
-(1977, 90, 1, 0, 'main', 1, 1323984460, NULL),
-(1978, 90, 4, 40, 'main', 1, 1323984498, NULL),
-(1979, 90, 5, 0, 'side', 1, 1323984539, NULL),
-(1980, 90, 6, 40, 'side', 1, 1323984550, NULL),
-(1981, 91, 1, 0, 'main', 1, 1323984460, NULL),
-(1982, 91, 5, 0, 'side', 1, 1323984539, NULL),
-(1983, 91, 4, 40, 'main', 1, 1323984498, NULL),
-(1984, 91, 6, 40, 'side', 1, 1323984550, NULL);
-
--- Dumping data for table--
-
 INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layout`) VALUES
 ('standard', 'content_management', 64, 'home.php');
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_revision` (`revisionId`, `zoneName`, `pageId`, `published`, `created`) VALUES
-(90, 'top', 64, 1, 1323984493),
-(91, 'top', 64, 0, 1323984561),
-(92, 'left', 66, 1, 1327262227),
-(93, 'left', 66, 0, 1327262227),
-(94, 'left', 67, 1, 1327262230),
-(95, 'left', 67, 0, 1327262230),
-(96, 'left', 71, 1, 1327262232),
-(97, 'left', 71, 0, 1327262232),
-(98, 'left', 68, 1, 1327262235),
-(99, 'left', 68, 0, 1327262235),
-(100, 'left', 69, 1, 1327262238),
-(101, 'left', 69, 0, 1327262238),
-(102, 'left', 70, 1, 1327262240),
-(103, 'left', 70, 0, 1327262240),
-(104, 'top', 65, 1, 1327262247),
-(105, 'top', 65, 0, 1327262247);
 
 -- Dumping data for table--
 
