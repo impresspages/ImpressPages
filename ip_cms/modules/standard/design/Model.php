@@ -74,7 +74,7 @@ class Model
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
 
 
-        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Theme::INSTALL_DIR . '/' . Theme::PARAMETERS_FILE;
+        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE;
         if (file_exists($parametersFile)) {
             if (!defined('BACKEND')) {
                 define('BACKEND', TRUE);
