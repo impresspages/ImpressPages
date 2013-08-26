@@ -51,42 +51,82 @@ h1, h2, h3 {
     padding: 20px;
     width: 540px;
     margin: auto; /* crossbrowser way to center */
+    border-top: 1px solid #ddd;
 }
 
 
 .topmenu {
     width: 580px;
-    margin: auto; /* crossbrowser way to center */
-    border-bottom: 1px solid #ddd;
+    margin: auto;  /*crossbrowser way to center*/
 }
 
-.topmenu ul {
-    text-align: left;
-    display: inline;
-    margin: 0;
-    padding: 15px 0 17px 0;
-    list-style: none;
+/*.topmenu ul {*/
+    /*text-align: left;*/
+    /*display: inline;*/
+    /*margin: 0;*/
+    /*padding: 15px 0 17px 0;*/
+    /*list-style: none;*/
+    /*white-space: nowrap;*/
+/*}*/
+/*.topmenu ul li {*/
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+    /*padding: 15px 20px;*/
+    /*background: #fff;*/
+    /*cursor: pointer;*/
+/*}*/
+/*.topmenu ul li a {*/
+    /*color: #000;*/
+/*}*/
+/*.topmenu ul li:hover {*/
+    /*background: #555;*/
+    /*color: #fff;*/
+/*}*/
+/*.topmenu ul li:hover a {*/
+    /*color: #fff;*/
+/*}*/
+
+
+.topmenu ul
+{
+    margin-left: 0;
+    padding-left: 0;
+    white-space: nowrap;
+    float: left;
 }
-.topmenu ul li {
+
+.topmenu li
+{
+    float: left;
+    list-style-type: none;
+}
+
+.topmenu a {
     font-size: 14px;
     font-weight: bold;
-    display: inline-block;
-    position: relative;
     padding: 15px 20px;
     background: #fff;
     cursor: pointer;
+    display: block;
+    border-right: 1px solid #ddd;
 }
-.topmenu ul li a {
+
+.topmenu a
+{
     color: #000;
+    background-color: #fff;
+    text-decoration: none;
 }
-.topmenu ul li:hover {
+
+.topmenu a:hover
+{
     background: #555;
     color: #fff;
 }
-.topmenu ul li:hover a {
-    color: #fff;
-}
+
 .topmenu ul li ul {
-    /* QuickStart theme doesn't support more than one level deep menu */
+     QuickStart theme doesn't support more than one level deep menu
     display: none;
 }
