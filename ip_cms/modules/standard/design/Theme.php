@@ -30,7 +30,12 @@ class Theme
 
     public function getThumbnailUrl()
     {
-        return BASE_URL . THEME_DIR . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
+        if ($this->thumbnail) {
+            $image = BASE_URL . THEME_DIR . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
+        } else {
+            $image = BASE_URL.MODULE_DIR.'standard/design/public/theme.png';
+        }
+        return $image;
     }
 
     public function getName()
