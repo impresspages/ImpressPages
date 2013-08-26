@@ -18,9 +18,8 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
 }
 body {
     font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding: 20px 50px 150px;
+    padding: 20px;
     font-size: 13px;
-    text-align: left;
     background: #ddd;
 }
 input, select, textarea, option, table {
@@ -36,9 +35,7 @@ a {
 h1, h2, h3 {
     font-size: 14px;
 }
-address {
-    font-style: normal;
-}
+
 
 /*
     Global
@@ -51,32 +48,16 @@ address {
 */
 .content {
     background-color: #fff;
-    border-color: #000;
-    border-style: solid;
-    border-width: 12px 0;
-    padding: 0 20px;
-    width: 960px;
+    padding: 20px;
+    width: 540px;
     margin: auto; /* crossbrowser way to center */
 }
 
 
-
-
-
-
-/*.menu .ul {*/
-    /*display: inline-block;*/
-/*}*/
-/*ul li {*/
-    /*display: inline-block;*/
-/*}*/
-/*ul li a {*/
-    /*padding: 5px 20px;*/
-    /*background-color: #fff;*/
-/*}*/
 .topmenu {
-    width: 960px;
+    width: 580px;
     margin: auto; /* crossbrowser way to center */
+    border-bottom: 1px solid #222222;
 }
 
 .topmenu ul {
@@ -85,23 +66,15 @@ address {
     margin: 0;
     padding: 15px 4px 17px 0;
     list-style: none;
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 .topmenu ul li {
-    font: bold 12px/18px sans-serif;
+    font-size: 12px;
+    font-weight: bold;
     display: inline-block;
-    margin-right: -4px;
     position: relative;
     padding: 15px 20px;
     background: #fff;
     cursor: pointer;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -ms-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    transition: all 0.2s;
 }
 .topmenu ul li a {
     color: #000;

@@ -14,6 +14,7 @@
     </div>
     <div class="content">
         <?php echo $this->generateBlock('main'); ?>
+        <div class="clear"><!-- --></div>
     </div>
     <?php
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
