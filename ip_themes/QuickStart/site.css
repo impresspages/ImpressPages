@@ -47,6 +47,7 @@ h1, h2, h3 {
     Structure
 */
 .content {
+    clear: both;
     background-color: #fff;
     padding: 20px;
     width: 540px;
@@ -59,34 +60,6 @@ h1, h2, h3 {
     width: 580px;
     margin: auto;  /*crossbrowser way to center*/
 }
-
-/*.topmenu ul {*/
-    /*text-align: left;*/
-    /*display: inline;*/
-    /*margin: 0;*/
-    /*padding: 15px 0 17px 0;*/
-    /*list-style: none;*/
-    /*white-space: nowrap;*/
-/*}*/
-/*.topmenu ul li {*/
-    /*font-size: 14px;*/
-    /*font-weight: bold;*/
-    /*display: inline-block;*/
-    /*position: relative;*/
-    /*padding: 15px 20px;*/
-    /*background: #fff;*/
-    /*cursor: pointer;*/
-/*}*/
-/*.topmenu ul li a {*/
-    /*color: #000;*/
-/*}*/
-/*.topmenu ul li:hover {*/
-    /*background: #555;*/
-    /*color: #fff;*/
-/*}*/
-/*.topmenu ul li:hover a {*/
-    /*color: #fff;*/
-/*}*/
 
 
 .topmenu ul
