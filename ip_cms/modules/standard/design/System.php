@@ -85,7 +85,7 @@ class System{
     {
         //TODOX catch new style event
         $lessCompiler = LessCompiler::instance();
-        $lessCompiler->clearCache(THEME);
+        $lessCompiler->rebuildCss(THEME);
     }
 
 }
