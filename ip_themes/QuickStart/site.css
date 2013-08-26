@@ -19,7 +19,7 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
 body {
     font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding: 20px;
-    font-size: 13px;
+    font-size: 14px;
     background: #ddd;
 }
 input, select, textarea, option, table {
@@ -57,18 +57,18 @@ h1, h2, h3 {
 .topmenu {
     width: 580px;
     margin: auto; /* crossbrowser way to center */
-    border-bottom: 1px solid #222222;
+    border-bottom: 1px solid #ddd;
 }
 
 .topmenu ul {
     text-align: left;
     display: inline;
     margin: 0;
-    padding: 15px 4px 17px 0;
+    padding: 15px 0 17px 0;
     list-style: none;
 }
 .topmenu ul li {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     display: inline-block;
     position: relative;

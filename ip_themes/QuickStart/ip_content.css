@@ -57,7 +57,7 @@
  */
 .mceContentBody {
     color: #333;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
 }
 .mceContentBody p,
@@ -77,15 +77,9 @@
 
 .ipModuleForm .ipmControlSubmit {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
-    background: #f4f4f4; /* Old browsers */
-    background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* IE10+ */
-    background: linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* W3C */
+    background: #ddd; /* Old browsers */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
-    border: 1px solid #a7a7a7;
+    border: none;
     color: #000;
     cursor: pointer;
     float: left;
@@ -97,19 +91,11 @@
 }
 .ipModuleForm .ipmControlSubmit:hover {
     /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
-    background: #e1e0e0; /* Old browsers */
-    background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1e0e0), color-stop(100%,#d6d4d4)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* IE10+ */
-    background: linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
-    box-shadow: 0 0 3px 0 #fff inset;
+    background: #bbb; /* Old browsers */
 }
 /* Modules :: form */
 .ipModuleForm {
-    border: 1px solid #888;
+    border: 1px solid #ddd;
     padding: 20px 25px;
 }
 .ipModuleForm .ipmPage {}
@@ -197,7 +183,7 @@
     background-color: #a7a7a7;
     color: #fff;
     display: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
     min-height: 16px;
     padding: 5px 10px 4px;
@@ -284,7 +270,7 @@
 .ipPreviewWidget h2,
 .ipPreviewWidget h3 {
     color: #000;
-    font-family: Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .ipPreviewWidget h1 {
     font-size: 36px;
@@ -395,7 +381,6 @@
 }
 .ipWidget-IpImageGallery li a,
 .ipWidget-IpLogoGallery li img {
-    border: 1px solid #888;
     display: block;
     padding: 2px;
 }
@@ -434,7 +419,7 @@
 .ipPreviewWidget td,
 .mceContentBody td {
     border-bottom: 1px solid #b2b2b2;
-    font-size: 11px;
+    font-size: 12px;
     padding: 9px;
     text-align: center;
 }
@@ -444,11 +429,13 @@
 .mceContentBody thead td,
 .ipPreviewWidget tbody tr:first-child td,
 .mceContentBody tbody tr:first-child td { /* making first line look like header in all cases */
-    background-color: #000;
+    background-color: transparent;
     border: none;
-    color: #fff;
-    font-size: 14px;
+    color: #000;
+    font-size: 12px;
     font-weight: bold;
+    border-bottom: 1px solid #b2b2b2;
+    border-top: 1px solid #b2b2b2;
 }
 .ipPreviewWidget thead+tbody tr:first-child td,
 .mceContentBody thead+tbody tr:first-child td { /* setting back styles if thead exists */
@@ -463,7 +450,7 @@
     text-align: left;
 }
 .ipWidget-IpSeparator.ipLayout-default {
-    border-bottom: 1px dotted #000;
+    border-bottom: 1px solid #ddd;
     height: 0;
     overflow: hidden;
 }
@@ -477,7 +464,7 @@
 .ipWidget-IpFaq .ipwQuestion {
     color: #000;
     cursor: pointer;
-    font-family: Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 18px;
     text-decoration: none;
 }
@@ -485,8 +472,8 @@
     text-decoration: underline;
 }
 .ipWidget-IpFaq .ipwQuestion:before {
-    border: 1px solid #000;
-    font-family: Verdana, Geneva, sans-serif;
+    border: 1px solid #ddd;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: bold;
     color: #000;
@@ -512,7 +499,7 @@
 .ipWidget-IpForm {}
 .ipWidget-IpForm .ipwForm {}
 .ipWidget-IpForm .ipwSuccess { /* mimicking the same styles as for form to keep message 'inside' the box */
-    border: 1px solid #888;
+    border: 1px solid #ddd;
     display: none;
     padding: 20px 25px;
 }
