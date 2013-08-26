@@ -2,7 +2,7 @@
     "title": "LT Pagan",
     "version": "2.00",
     "doctype": "HTML5", /* HTML5, XHTML1_STRICT, XHTML1_TRANSITIONAL, XHTML1_FRAMESET, HTML4_STRICT, HTML4_TRANSITIONAL, HTML4_FRAMESET  */
-    "thumbnail": "Thumbnail.png",
+    "thumbnail": "thumbnail.png",
     "author": "ImpressPages",
     "widget": { /* Image cropping settings for widgets. Require theme reinstall to take affect. */
         "image": {
@@ -34,6 +34,12 @@
             "name": "backgroundColor",
             "type": "color",
             "default": "#e5e5e5"
+        },
+        {
+            "label": "Color 1",
+            "name": "color1",
+            "type": "color",
+            "default": "#000000"
         },
         {
             "label": "Wrapper Background Color",

@@ -12,7 +12,7 @@ use \Modules\developer\form as Form;
 class Model
 {
 
-    const INSTALL_DIR = 'Setup/';
+    const INSTALL_DIR = 'setup/';
     const PARAMETERS_FILE = 'parameters.php';
 
     protected function __construct()
@@ -180,7 +180,12 @@ class Model
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $jsonConfig = array();
+            $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.json';
+            if (file_exists($themeJsonFile)) {
+                $jsonConfig = $this->parseThemeJson($themeJsonFile);
+            } else {
+                $jsonConfig = array();
+            }
         }
 
         $config = array_merge($iniConfig, $jsonConfig);
