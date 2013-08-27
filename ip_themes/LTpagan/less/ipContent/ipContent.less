@@ -63,17 +63,19 @@
 
 .ipPreviewWidget {
     h1, h2, h3 {
-        color: @textColor;
         font-family: @fontFamilyHeadlines;
     }
 
     h1 {
+        .h1color();
         font-size: 36px;
     }
     h2 {
+        .h2color();
         font-size: 28px;
     }
     h3 {
+        .h3color();
         font-size: 22px;
     }
 
@@ -107,7 +109,7 @@
     }
 
     a {
-        color: @linkColor;
+        .linkColor();
     }
 
     a:hover {

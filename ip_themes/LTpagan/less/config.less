@@ -11,7 +11,6 @@
 @textColorInverted: #fff;
 @backgroundColorInverted: #000;
 
-@linkColor: #019bd4;
 
 @textColor: #333;
 @borderColorDark: #000;
@@ -29,4 +28,60 @@
 
 
 
+// Auto generated variables
 
+.menuSelectedColor () when (lightness(@color1) >= 20%) {
+  color: darken(@color1, lightness(@color1) - 20);
+}
+.menuSelectedColor () when (lightness(@color1) < 20%) {
+  color: darken(lightness(@color1) - 10);
+}
+
+
+.menuHoverBackground() when (lightness(@color1) >= 80%) {
+  background-color: darken(@color1, 10);
+}
+.menuHoverBackground() when (lightness(@color1) < 80%) {
+  background-color: lighten(@color1, 10);
+}
+
+
+
+.menuHoverColor() when (lightness(.menuHoverBackground()) >= 50%) {
+  color: #000
+}
+.menuHoverColor() when (lightness(.menuHoverBackground()) < 50%) {
+  color: #fff ;
+}
+
+
+.h1color() when (lightness(@color1) >= 20%) {
+  color: #000;
+}
+.h1color() when (lightness(@color1) < 20%) {
+  color: @color1;
+}
+
+
+.h2color() when (lightness(@color1) >= 20%) {
+  color: #000;
+}
+.h2color() when (lightness(@color1) < 20%) {
+  color: lighten(@color1, 5);
+}
+
+
+.h3color() when (lightness(@color1) >= 20%) {
+  color: #000;
+}
+.h3color() when (lightness(@color1) < 20%) {
+  color: lighten(@color1, 10);
+}
+
+.linkColor() when (darkness(@color1) >= 90%) {
+  color: #019bd4;
+}
+
+.linkColor() when (darkness(@color1) < 90%) {
+  @linkColor: lighten(darkness(@color1) - 20);
+}
