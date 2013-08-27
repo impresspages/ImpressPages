@@ -10,7 +10,9 @@
 </head>
 <body>
     <div class="topmenu">
-        <?php echo $this->generateMenu('top', 'menu1'); ?> <!--first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name.-->
+        <?php
+        echo $this->generateMenu('top', 'menu1'); // first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name
+        ?>
     </div>
     <div class="content">
         <?php echo $this->generateBlock('main'); ?>

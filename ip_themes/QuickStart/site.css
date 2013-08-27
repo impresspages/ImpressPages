@@ -1,11 +1,7 @@
 /**
- *
- * ImpressPages CMS theme: LT pagan
+ * ImpressPages CMS theme: Quick Start
  *
  * Main style file for structure, global styles.
- * Integrated together with 12 column 960 grid system (960.css)
- *
- * @package ImpressPages
  */
 
 /*
@@ -51,14 +47,14 @@ h1, h2, h3 {
     background-color: #fff;
     padding: 20px;
     width: 540px;
-    margin: auto; /* crossbrowser way to center */
+    margin: auto; /* cross browser way to center */
     border-top: 1px solid #ddd;
 }
 
 
 .topmenu {
     width: 580px;
-    margin: auto;  /*crossbrowser way to center*/
+    margin: auto;  /* cross browser way to center */
 }
 
 
@@ -100,6 +96,6 @@ h1, h2, h3 {
 }
 
 .topmenu ul li ul {
-     /*QuickStart theme doesn't support more than one level deep menu*/
+     /* QuickStart theme doesn't support more than one level deep menu */
     display: none;
 }
