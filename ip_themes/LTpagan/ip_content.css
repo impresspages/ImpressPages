@@ -356,7 +356,7 @@
 }
 .ipPreviewWidget a,
 .mceContentBody a {
-    color: #019bd4;
+    .linkColor();
 }
 .ipPreviewWidget a:hover,
 .mceContentBody a:hover {
@@ -435,7 +435,7 @@
     padding-left: 25px;
 }
 .ipWidget-IpFile a {
-    color: #019bd4;
+    .linkColor();
     font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
