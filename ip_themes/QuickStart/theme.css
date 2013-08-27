@@ -1,11 +1,7 @@
 /**
- *
- * ImpressPages CMS theme: LT pagan
+ * ImpressPages CMS theme: Quick Start
  *
  * Main style file for structure, global styles.
- * Integrated together with 12 column 960 grid system (960.css)
- *
- * @package ImpressPages
  */
 
 /*
@@ -17,10 +13,10 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     padding: 0;
 }
 body {
-    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding: 20px;
-    font-size: 14px;
     background: #ddd;
+    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 20px;
 }
 input, select, textarea, option, table {
     font-family: Verdana, Geneva, sans-serif;
@@ -36,70 +32,61 @@ h1, h2, h3 {
     font-size: 14px;
 }
 
-
 /*
     Global
 */
 .clear {
     clear: both;
 }
+
 /*
     Structure
 */
 .content {
-    clear: both;
     background-color: #fff;
+    border-top: 1px solid #ddd;
+    clear: both;
+    margin: auto; /* cross browser way to center */
     padding: 20px;
     width: 540px;
-    margin: auto; /* crossbrowser way to center */
-    border-top: 1px solid #ddd;
 }
 
-
+/*
+    Top menu
+*/
 .topmenu {
+    margin: auto;  /* cross browser way to center */
     width: 580px;
-    margin: auto;  /*crossbrowser way to center*/
 }
-
-
-.topmenu ul
-{
+.topmenu ul {
+    float: left;
     margin-left: 0;
     padding-left: 0;
     white-space: nowrap;
-    float: left;
 }
-
-.topmenu li
-{
+.topmenu li {
     float: left;
     list-style-type: none;
 }
-
 .topmenu a {
+    background: #fff;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    display: block;
     font-size: 14px;
     font-weight: bold;
     padding: 15px 20px;
-    background: #fff;
-    cursor: pointer;
-    display: block;
-    border-right: 1px solid #ddd;
 }
-
-.topmenu a
-{
+.topmenu a {
     color: #000;
     background-color: #fff;
     text-decoration: none;
 }
-
-.topmenu a:hover
-{
+.topmenu a:hover {
     background: #555;
     color: #fff;
 }
-
-.topmenu ul li ul {
-     /*QuickStart theme doesn't support more than one level deep menu*/
+.topmenu ul ul {
+     /* QuickStart theme doesn't support more than one level deep menu */
     display: none;
 }
