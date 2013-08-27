@@ -755,7 +755,7 @@ class Site{
                 if($newModule){
                     $function = 'index';
                     if (isset($_REQUEST['pa']) && $_REQUEST['pa'] != '__construct') {
-                        $controllerClass = 'Public';
+                        $controllerClass = 'PublicController';
                         $function = $_REQUEST['pa'];
                     } elseif (isset($_REQUEST['ba']) && $_REQUEST['ba'] != '__construct') {
                         $controllerClass = 'Backend';
