@@ -5,7 +5,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo $this->subview('_head.php'); ?>
+<?php echo $this->subview('_header.php'); ?>
         <div class="main grid_7 right suffix_1">
             <div class="breadcrumb">
                <?php echo $this->generateBlock('ipBreadcrumb'); ?>
@@ -26,4 +26,4 @@
             </aside>
         </div>
         <div class="clear"></div>
-<?php echo $this->subview('_foot.php'); ?>
+<?php echo $this->subview('_footer.php'); ?>

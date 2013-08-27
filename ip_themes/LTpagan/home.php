@@ -5,7 +5,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo $this->subview('_head.php'); ?>
+<?php echo $this->subview('_header.php'); ?>
         <div>
             <div class="grid_4 left">
                 <?php echo $this->generateManagedString('boxTitle1', 'h2', 'Some title'); ?>
@@ -34,4 +34,4 @@
             <div class="clear"></div>
         </div>
 <div class="clear"></div>
-<?php echo $this->subview('_foot.php'); ?>
+<?php echo $this->subview('_footer.php'); ?>
