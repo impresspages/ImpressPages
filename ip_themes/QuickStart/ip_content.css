@@ -232,7 +232,7 @@
 .ipModuleForm .ipmFileContainer .ipmRemove {
     width: 13px;
     height: 13px;
-    background: url(img/file_remove.png) no-repeat;
+    background: #f00;
     float: right;
     cursor: pointer;
 }
@@ -378,20 +378,13 @@
 .ipWidget-IpImageGallery li a,
 .ipWidget-IpLogoGallery li img {
     display: block;
-    padding: 2px;
-}
-.ipWidget-IpImageGallery a:hover,
-.ipWidget-IpLogoGallery a:hover img {
-    border-color: #000;
 }
 .ipWidget-IpFile ul {
     list-style: none;
     margin-left: 0;
 }
 .ipWidget-IpFile li {
-    background: url(img/icon_download.gif) no-repeat left center;
     margin-bottom: 4px;
-    padding-left: 25px;
 }
 .ipWidget-IpFile a {
     color: #019bd4;
@@ -409,7 +402,7 @@
 }
 .ipPreviewWidget table p,
 .mceContentBody table p {
-    line-height: auto;
+    line-height: normal;
     margin: 0;
 }
 .ipPreviewWidget td,
@@ -535,7 +528,7 @@
 .ipModuleForm .ipmFileContainer .ipmRemove {
     width: 13px;
     height: 13px;
-    background: url(img/file_remove.png) no-repeat;
+    background: #f00;
     float: right;
     cursor: pointer;
 }
@@ -543,4 +536,3 @@
     color: #da0001;
     font-size: 11px;
 }
-        
