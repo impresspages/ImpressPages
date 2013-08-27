@@ -30,6 +30,15 @@
 
 // Auto generated variables
 
+.menuColor () when (lightness(@color1) >= 50%) {
+  color: darken(@color1, lightness(@color1) - 15);
+}
+.menuColor () when (lightness(@color1) < 50%) {
+  color: lighten(@color1, 85 - lightness(@color1));
+}
+
+
+
 .menuSelectedColor () when (lightness(@color1) >= 20%) {
   color: darken(@color1, lightness(@color1) - 20);
 }
@@ -78,10 +87,9 @@
   color: lighten(@color1, 10);
 }
 
-.linkColor() when (darkness(@color1) >= 90%) {
+.linkColor() when (lightness(@color1) < 10%) {
   color: #019bd4;
 }
-
-.linkColor() when (darkness(@color1) < 90%) {
-  @linkColor: lighten(darkness(@color1) - 20);
+.linkColor() when (lightness(@color1) >= 10%) {
+  color: lighten(@color1, 40 - lightness(@color1)); //80% light
 }

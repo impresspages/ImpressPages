@@ -9,10 +9,6 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/960.css');
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/site.css');
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
     $site->addCss($site->compileThemeLess(THEME, 'theme.less'));
     $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
     echo $site->generateHead();
@@ -31,7 +27,7 @@
             <?php echo $this->generateBlock('ipLanguages'); ?>
         </div>
         <?php echo $this->generateBlock('ipSearch'); ?>
-        <?php echo $this->generateManagedImage('ipThemeBanner/lt_pagan', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
+        <?php echo $this->generateManagedImage('homeImage1', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
         <div class="topmenu clearfix">
             <?php
             //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.

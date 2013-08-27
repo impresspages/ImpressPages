@@ -13,8 +13,7 @@
     position: relative;
 
     & > a {
-      border-bottom: 1px solid @borderColorDark;
-      color: #c0c0c0;
+      .menuColor();
       display: inline-block;
       font-weight: bold;
       line-height: 34px;
@@ -31,15 +30,13 @@
 .topmenu .level1 > .current > a,
 .topmenu .level1 > .selected > a {
   background-color: #fff;
-  border-color: #fff;
   .menuSelectedColor(@color1);
 }
 .topmenu li:hover > ul {
   display: block;
 }
 .topmenu .level1 ul {
-  background-color: #f3f3f3;
-  border: 1px solid @borderColorDark;
+  background-color: @color1;
   display: none;
   font-size: 12px;
   margin: -1px 0 0 -1px;
@@ -57,13 +54,13 @@
   position: relative;
 }
 .topmenu .level2 a {
-  color: #1a1a1a;
+  .menuColor();
   display: block;
   padding: 6px 22px;
   white-space: nowrap;
 }
 .topmenu .level2 a:hover {
-  background-color: #c8c8c8;
+  .menuHoverBackground();
 }
 .topmenu .level2 .subnodes > a:after {
   content: '\25BC';
