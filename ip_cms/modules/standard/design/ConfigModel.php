@@ -205,14 +205,14 @@ class ConfigModel{
                 case 'text':
                     $newField = new Form\Field\Text();
                     break;
-                case 'file':
-                    $newField = new Form\Field\File();
-                    break;
                 case 'color':
                     $newField = new Form\Field\Color();
                     break;
                 case 'range':
                     $newField = new Form\Field\Range();
+                    break;
+                case 'check':
+                    $newField = new Form\Field\Confirm();
                     break;
                 default:
                     //do nothing

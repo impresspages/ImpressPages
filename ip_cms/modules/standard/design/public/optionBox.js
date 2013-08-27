@@ -11,8 +11,7 @@ $(document).ready(function() {
     $('body').append(ipModuleDesignConfiguration);
     ipModuleForm.init(); //reinit form controls after adding option box
 
-    $('.ipModuleDesignConfig .ipsForm').on('submit', function(e) {
-        e.preventDefault();
+    $('.ipModuleDesignConfig .ipsForm').off('submit').on('submit', function(e) {
         ipDesign.apply();
     });
     $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function(e){
@@ -49,7 +48,6 @@ var ipDesign = new function() {
 
 
     this.openLink = function (href, restoreDefault) {
-console.log('openLink ' + href);
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
 
         // create previewConfig data

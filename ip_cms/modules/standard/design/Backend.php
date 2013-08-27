@@ -172,7 +172,13 @@ class Backend extends \Ip\Controller
                     continue;
                 }
 
-                $value = $field->getValueAsString($request->getPost(), $option['name']);
+                switch($option['type']) {
+                    case 'check':
+                        $value = $field->isChecked($request->getPost(), $option['name']);
+                        break;
+                    default:
+                        $value = $field->getValueAsString($request->getPost(), $option['name']);
+                }
                 $configModel->setConfigValue(THEME, $option['name'], $value);
             }
 

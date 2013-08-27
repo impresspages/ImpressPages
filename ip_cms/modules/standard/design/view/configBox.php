@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title"><i class="icon-cogs"></i> <?php echo $this->escPar('standard/design/admin_translations/theme_options') ?></h4>
             </div>
-            <div class="modal-body ipsForm">
+            <div class="modal-body">
                 <?php echo $form->render(); ?>
             </div>
             <div class="modal-footer ipsActions">

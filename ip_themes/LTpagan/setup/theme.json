@@ -42,28 +42,9 @@
             "default": "#000000"
         },
         {
-            "label": "Wrapper Background Color",
-            "name": "wrapperBackgroundColor",
-            "type": "color",
-            "default": "#ffffff"
-        },
-        {
-            "label": "Text Color",
-            "name": "textColor",
-            "type": "color",
-            "default": "#000000"
-        },
-        {
-            "label": "Backround",
-            "name": "backround",
-            "type": "file",
-            "default": ""
-        },
-        {
-            "name": "boxWidth",
-            "type": "hidden",
-            "default": "220",
-            "units": "px"
+            "label": "Drop-down menu",
+            "name": "dropdownMenu",
+            "type": "check"
         }
     ]
 
