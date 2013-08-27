@@ -24,34 +24,34 @@
 
 @boxWidth: 220px;
 
-@color1: #000;
+@mainColor: #000;
 
 
 
 // Auto generated variables
 
-.menuColor () when (lightness(@color1) >= 50%) {
-  color: darken(@color1, lightness(@color1) - 15);
+.menuColor () when (lightness(@mainColor) >= 50%) {
+  color: darken(@mainColor, lightness(@mainColor) - 15);
 }
-.menuColor () when (lightness(@color1) < 50%) {
-  color: lighten(@color1, 85 - lightness(@color1));
-}
-
-
-
-.menuSelectedColor () when (lightness(@color1) >= 20%) {
-  color: darken(@color1, lightness(@color1) - 20);
-}
-.menuSelectedColor () when (lightness(@color1) < 20%) {
-  color: darken(lightness(@color1) - 10);
+.menuColor () when (lightness(@mainColor) < 50%) {
+  color: lighten(@mainColor, 85 - lightness(@mainColor));
 }
 
 
-.menuHoverBackground() when (lightness(@color1) >= 80%) {
-  background-color: darken(@color1, 10);
+
+.menuSelectedColor () when (lightness(@mainColor) >= 20%) {
+  color: darken(@mainColor, lightness(@mainColor) - 20);
 }
-.menuHoverBackground() when (lightness(@color1) < 80%) {
-  background-color: lighten(@color1, 10);
+.menuSelectedColor () when (lightness(@mainColor) < 20%) {
+  color: darken(lightness(@mainColor) - 10);
+}
+
+
+.menuHoverBackground() when (lightness(@mainColor) >= 80%) {
+  background-color: darken(@mainColor, 10);
+}
+.menuHoverBackground() when (lightness(@mainColor) < 80%) {
+  background-color: lighten(@mainColor, 10);
 }
 
 
@@ -64,32 +64,32 @@
 }
 
 
-.h1color() when (lightness(@color1) >= 20%) {
+.h1color() when (lightness(@mainColor) >= 20%) {
   color: #000;
 }
-.h1color() when (lightness(@color1) < 20%) {
-  color: @color1;
+.h1color() when (lightness(@mainColor) < 20%) {
+  color: @mainColor;
 }
 
 
-.h2color() when (lightness(@color1) >= 20%) {
+.h2color() when (lightness(@mainColor) >= 20%) {
   color: #000;
 }
-.h2color() when (lightness(@color1) < 20%) {
-  color: lighten(@color1, 5);
+.h2color() when (lightness(@mainColor) < 20%) {
+  color: lighten(@mainColor, 5);
 }
 
 
-.h3color() when (lightness(@color1) >= 20%) {
+.h3color() when (lightness(@mainColor) >= 20%) {
   color: #000;
 }
-.h3color() when (lightness(@color1) < 20%) {
-  color: lighten(@color1, 10);
+.h3color() when (lightness(@mainColor) < 20%) {
+  color: lighten(@mainColor, 10);
 }
 
-.linkColor() when (lightness(@color1) < 10%) {
+.linkColor() when (lightness(@mainColor) < 10%) {
   color: #019bd4;
 }
-.linkColor() when (lightness(@color1) >= 10%) {
-  color: lighten(@color1, 40 - lightness(@color1)); //80% light
+.linkColor() when (lightness(@mainColor) >= 10%) {
+  color: lighten(@mainColor, 40 - lightness(@mainColor)); //80% light
 }

@@ -36,8 +36,8 @@
             "default": "#e5e5e5"
         },
         {
-            "label": "Color 1",
-            "name": "color1",
+            "label": "Main color",
+            "name": "mainColor",
             "type": "color",
             "default": "#000000"
         },
