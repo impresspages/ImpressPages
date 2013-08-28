@@ -4,10 +4,10 @@
     float: right;
     margin-top: 20px;
 
-    .ipModuleSearch .ipmField {
+    .ipmField {
         float: left;
     }
-    .ipModuleSearch .ipmControlInput {
+    .ipmControlInput {
         border: 1px solid #b3b3b3;
         box-shadow: 0 1px 2px -1px #b3b3b3 inset;
         float: left;
@@ -15,44 +15,15 @@
         padding: 1px 2px;
         width: 160px;
     }
-    .ipModuleSearch .ipmControlInput:focus {
+    .ipmControlInput:focus {
         box-shadow: none;
     }
 }
 
-// TODOX: remove ipModuleForm and copy styles from it to here
-.ipModuleSearch, .ipModuleForm {
+.ipModuleSearch {
     .ipmControlSubmit {
-        /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
-        background: #f4f4f4; /* Old browsers */
-        background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* IE10+ */
-        background: linear-gradient(top,  #f4f4f4 0%,#d1d1d1 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f4f4', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
-        border: 1px solid #a7a7a7;
-        color: @textColor;
-        cursor: pointer;
-        float: left;
-        height: 25px; /* input buttons have borders inside their height */
-        line-height: 25px;
+        .ipModuleForm > .ipmControlSubmit;
         margin-left: 5px;
-        padding: 0 6px;
         text-transform: uppercase;
-
-        &:hover {
-            /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
-            background: #e1e0e0; /* Old browsers */
-            background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1e0e0), color-stop(100%,#d6d4d4)); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* IE10+ */
-            background: linear-gradient(top,  #e1e0e0 0%,#d6d4d4 100%); /* W3C */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1e0e0', endColorstr='#d6d4d4',GradientType=0 ); /* IE6-9 */
-            box-shadow: 0 0 3px 0 #fff inset;
-        }
     }
 }

@@ -1,20 +1,16 @@
 .ipWidget-IpTextImage {
     .ipwImage {
         float: left;
-        width: 220px;
+        margin: 0 @marginBottomContent @marginBottomContent 0;
+        max-width: 100%;
     }
-
-    .ipwText {
-        float: right;
-        width: 300px;
-    }
+    .ipwText {}
 
     &.ipLayout-right {
         .ipwImage {
             float: right;
+            margin: 0 0 @marginBottomContent @marginBottomContent;
         }
-        .ipwText {
-            float: left;
-        }
+        .ipwText {}
     }
 }
