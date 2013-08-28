@@ -1,0 +1,164 @@
+// Top Menu
+.topmenu {
+    background-color: @mainColor;
+    font-size: 13px;
+    padding: 1px 0 0 15px;
+
+    ul {
+        list-style: none;
+    }
+
+    .level1 > li {
+        float: left;
+        margin-right: 1px;
+        position: relative;
+
+        & > a {
+            .menuColor();
+            display: inline-block;
+            font-weight: bold;
+            line-height: 34px;
+            padding: 0 20px;
+        }
+    }
+
+    .level1 > li:hover > a,
+    .level1 > li > a:hover {
+        .menuHoverBackground();
+        .menuHoverColor();
+    }
+    .level1 > .current > a,
+    .level1 > .selected > a {
+        background-color: #fff;
+        .menuSelectedColor();
+    }
+    li:hover > ul {
+        display: block;
+    }
+    .level1 ul {
+        background-color: @mainColor;
+        display: none;
+        font-size: 12px;
+        margin: -1px 0 0 -1px;
+        min-width: 100%;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 10; /* should be higher than widget controls */
+    }
+    .level2 ul { /* infinite number of levels down */
+        margin-left: 100%;
+        min-width: 0;
+        top: 0;
+    }
+    .level2 ul li {
+        position: relative;
+    }
+    .level2 a {
+        .menuColor();
+        display: block;
+        padding: 9px 22px;
+        white-space: nowrap;
+    }
+    .level2 a:hover {
+        .menuHoverBackground();
+    }
+    .level2 .subnodes > a:after {
+        content: '\25BC';
+        position: absolute;
+        right: 5px;
+    }
+    .level2 .current a {
+        text-decoration: underline;
+    }
+}
+
+// Side Menu
+.side {
+    nav {
+        font-size: 12px;
+        margin-bottom: 25px;
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            border-top: 1px solid #9e9e9e;
+            color: #1a1a1a;
+            display: block;
+            padding: 10px 20px;
+
+            &:hover {
+                background-color: #f3f3f3;
+            }
+        }
+
+        .current > a {
+            background-color: @backgroundColorInverted;
+            color: @textColorInverted;
+        }
+
+        // .side nav.collapse
+        &.collapse {
+            .level1 ul { // "collapse" class force menu to hide 2nd level until parent or child is not selected
+                display: none;
+            }
+
+            .current, .selected {
+                ul { // displaying 2nd level
+                    display: block;
+                }
+            }
+
+            .level1 {
+                .subnodes {
+                    & > a { // fixing style when collapsed
+                        background-image: url(../img/icon_right.gif);
+                        background-position: 8px center;
+                        border-bottom: none;
+                    }
+
+                    &.current, &.selected {
+                        & > a { // fixing style when not collapsed
+                            background-image: url(../img/icon_down.gif);
+                            background-position: 5px center;
+                            border-bottom: 1px solid #9e9e9e;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // .side nav .level1
+    .level1 {
+        border-bottom: 1px solid #9e9e9e;
+
+        & > li > a {
+            font-weight: bold;
+        }
+
+        .subnodes > a {
+            background-image: url(../img/icon_down.gif);
+            background-position: 5px center;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid #9e9e9e;
+        }
+
+        & > .selected > a {
+            background-color: #f3f3f3;
+        }
+
+        ul {
+            margin-left: 20px;
+
+            & > li > a {
+                border-top-color: @wrapperBackgroundColor;
+            }
+
+            & > li:first-child > a {
+                border-top: none;
+            }
+        }
+    }
+}
