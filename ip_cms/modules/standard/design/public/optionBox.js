@@ -12,6 +12,7 @@ $(document).ready(function() {
     ipModuleForm.init(); //reinit form controls after adding option box
 
     $('.ipModuleDesignConfig .ipsForm').off('submit').on('submit', function(e) {
+        e.preventDefault();
         ipDesign.apply();
     });
     $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function(e){
