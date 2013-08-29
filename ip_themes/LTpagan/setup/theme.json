@@ -45,6 +45,12 @@
             "label": "Drop-down menu",
             "name": "dropdownMenu",
             "type": "check"
+        },
+        {
+            "label": "Homepage content blocks",
+            "name": "homeContentBlocks",
+            "type": "select",
+            "values": [0, 2, 3, 4, 5, 6]
         }
     ]
 
