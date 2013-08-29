@@ -9,14 +9,4 @@ function ipDesignOption_mainColor(value) {
     $('.topmenu li.current').css('color', value);
 }
 
-function ipDesignOption_wrapperBackgroundColor(value) {
-    $('.wrapper').css('backgroundColor', value);
-}
 
-function ipDesignOption_textColor(value) {
-    $('body').css('color', value);
-}
-
-function ipDesignOption_style(value) {
-    $('body .wrapper').removeClass('Dark Light Red').addClass(value);
-}
