@@ -33,6 +33,7 @@
                     },
                     
                     stop : function (event, ui) {
+                        $(event.target).find('.ipExampleContent').remove();
                         ui.item.removeClass('ipAdminWidgetDrag');
                         ui.item.width('auto');
                         ui.item.height('auto');

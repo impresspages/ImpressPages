@@ -17,9 +17,10 @@ class Model{
     const DEFAULT_LAYOUT = 'default';
     const WIDGET_DIR = 'widget';
 
-    public static function generateBlock($blockName, $revisionId, $managementState) {
+    public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
         global $site;
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
+
         $widgetsHtml = array();
         foreach ($widgets as $key => $widget) {
             try {
@@ -41,7 +42,8 @@ class Model{
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,    		
             'revisionId' => $revisionId,
-            'managementState' => $managementState
+            'managementState' => $managementState,
+            'exampleContent' => $exampleContent
         );
         $answer = \Ip\View::create('view/block.php', $data)->render();
         return $answer;

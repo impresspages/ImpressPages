@@ -1280,8 +1280,17 @@ class Site{
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
     }
 
-
     public function generateBlock($blockName, $static = false) {
+        $block =  $this->block($blockName);
+        if ($static) {
+            $block->asStatic();
+        }
+
+        return $block;
+    }
+
+
+    protected function generateBlock_old($blockName, $static = false) {
         global $dispatcher;
         global $site;
         $data = array (
@@ -1315,6 +1324,12 @@ class Site{
             return \Modules\standard\content_management\Model::generateBlock($blockName, $revisionId, $this->managementState());
 
         }
+    }
+
+    protected function block($name)
+    {
+        $block = new \Ip\Block($name);
+        return $block;
     }
 
 
