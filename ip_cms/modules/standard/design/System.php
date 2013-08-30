@@ -18,6 +18,13 @@ class System{
             $this->initConfig();
         }
 
+        $lessCompiler = LessCompiler::instance();
+        if (DEVELOPMENT_ENVIRONMENT) {
+            if ($lessCompiler->shouldRebuild(THEME)) {
+                $lessCompiler->rebuild(THEME);
+            }
+        }
+
 
     }
 

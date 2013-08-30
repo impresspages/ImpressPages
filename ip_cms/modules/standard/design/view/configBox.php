@@ -5,6 +5,9 @@
                 <h4 class="modal-title"><i class="icon-cogs"></i> <?php echo $this->escPar('standard/design/admin_translations/theme_options') ?></h4>
             </div>
             <div class="modal-body">
+                <div class="alert alert-block">
+                    <a class="ipsReload" href="#">Preview window needs to be reloaded</a>
+                </div>
                 <?php echo $form->render(); ?>
             </div>
             <div class="modal-footer ipsActions">

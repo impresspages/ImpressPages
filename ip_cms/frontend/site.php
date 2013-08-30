@@ -1220,16 +1220,6 @@ class Site{
         return $this->javascriptVariables;
     }
 
-    /**
-     * @param string $themeName
-     * @param string $filename filename in THEME/less/ directory
-     * @return string compiled css url
-     */
-    public function compileThemeLess($themeName, $filename, $force = false)
-    {
-        $service = \Modules\standard\design\Service::instance();
-        return $service->compileThemeLess($themeName, $filename, $force);
-    }
 
     public function generateHead() {
         $cacheVersion = \DbSystem::getSystemVariable('cache_version');

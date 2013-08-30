@@ -183,7 +183,7 @@ class Backend extends \Ip\Controller
             }
 
             $lessCompiler = LessCompiler::instance();
-            $lessCompiler->rebuildCss(THEME);
+            $lessCompiler->rebuild(THEME);
 
             $data = array(
                 'status' => 'success'
@@ -197,4 +197,26 @@ class Backend extends \Ip\Controller
 
         $this->returnJson($data);
     }
+
+
+    /**
+     * Compile LESS CSS in real time and output the content
+     */
+    public function realTimeLess()
+    {
+
+        $request = \Ip\ServiceLocator::getRequest();
+        $params = $request->getRequest('params', array());
+        if (!isset($params['filename'])) {
+            throw new \Ip\CoreException("Required parameter missing");
+        }
+
+        $css = '';
+
+
+        header("Content-type: text/css");
+        $site->setOutput($css);
+    }
+
+
 }
