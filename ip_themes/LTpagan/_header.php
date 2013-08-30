@@ -9,7 +9,9 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css'); ?>
-    <?php $site->addCss($site->compileThemeLess(THEME, 'theme.less')); ?>
+    <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css'); ?>
+    <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css'); ?>
+    <?php //$site->addCss($site->compileThemeLess('less/theme.less')); ?>
     <?php echo $site->generateHead(); ?>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

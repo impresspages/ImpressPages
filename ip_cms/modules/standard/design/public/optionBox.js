@@ -39,13 +39,18 @@ $(document).ready(function() {
 
     ipDesign.resize();
     $(window).bind("resize.ipModuleDesign", ipDesign.resize);
+
+    $('.ipsReload').on('click', function(e){
+        e.preventDefault();
+        ipDesign.openLink(window.location.href);
+    });
+
 });
 
 
 var ipDesign = new function() {
     var lastSerialized = null;
     var lastValues = {};
-
 
 
     this.openLink = function (href, restoreDefault) {

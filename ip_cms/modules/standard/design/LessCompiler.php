@@ -18,25 +18,14 @@ class LessCompiler
         return new self();
     }
 
-    public function getCompiledCssUrl($themeName, $lessFile)
-    {
-        if ($this->isLessCached($themeName, $lessFile)) {
-            if (!DEVELOPMENT_ENVIRONMENT || !$this->shouldRebuildCss($themeName, $lessFile)) { // if production env or css is up to date
-                return BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';;
-            }
-        }
-
-        return $this->compile($themeName, $lessFile);
-    }
 
     /**
      * @param string $themeName
      * @param string $lessFile
      * @return string
      */
-    public function compile($themeName, $lessFile)
+    public function compileFile($themeName, $lessFile)
     {
-        $compiledCssUrl = BASE_URL . THEME_DIR . $themeName . '/css/' . $lessFile . '.css';
 
         $model = Model::instance();
 
@@ -50,12 +39,12 @@ class LessCompiler
 
         require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
-        $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName . '/less');
+        $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName);
         $css = $lessc->compile($less);
-        file_put_contents($this->compiledFilename($themeName, $lessFile), $css);
+        file_put_contents(BASE_DIR . THEME_DIR . $themeName . '/' . substr($lessFile, 0, -4) . 'css', $css);
 
-        return $compiledCssUrl;
     }
+
 
     protected function generateLessVariables($options, $config)
     {
@@ -89,19 +78,11 @@ class LessCompiler
         return $less;
     }
 
-    protected function isLessCached($themeName, $lessFile)
+    public function shouldRebuild($themeName)
     {
-        $compiledFilename = $this->compiledFilename($themeName, $lessFile);
-
-        return file_exists($compiledFilename);
-    }
-
-    protected function shouldRebuildCss($themeName, $lessFile)
-    {
-        $compiledFilename = $this->compiledFilename($themeName, $lessFile);
-        $compileTime = filemtime($compiledFilename);
-
+        $lastBuildTime = $this->getLastBuildTime($themeName);
         $items = glob(BASE_DIR . THEME_DIR . $themeName . '/less/*');
+        $items = array_merge($items, glob(BASE_DIR . THEME_DIR . $themeName . '/*'));
 
         for ($i = 0; $i < count($items); $i++) {
 
@@ -114,10 +95,10 @@ class LessCompiler
         foreach ($items as $path) {
             if (preg_match('/[.]less$/', $path)) {
 
-                if (filemtime($path) > $compileTime) {
+                if (filemtime($path) > $lastBuildTime) {
                     $debug = array(
                         'filetime' => filemtime($path),
-                        'compileTime' => $compileTime,
+                        'compileTime' => $lastBuildTime,
                     );
 
                     return true;
@@ -128,24 +109,41 @@ class LessCompiler
         return false;
     }
 
+    protected function getLastBuildTime($themeName)
+    {
+        $lessFiles = $this->getLessFiles($themeName);
+        $lastBuild = 0;
+        foreach ($lessFiles as $file) {
+            $cssFile = substr($file, 0, -4) . 'css';
+            if (!file_exists($cssFile)) {
+                return 0; //we have no build or it is not completed!
+            }
+            $lastBuild = filemtime($cssFile);
+        }
+        return $lastBuild;
+    }
+
+    protected function getLessFiles($themeName)
+    {
+        $lessFiles = glob(BASE_DIR . THEME_DIR . $themeName . DIRECTORY_SEPARATOR . '*.less');
+        if (!is_array($lessFiles)) {
+            return array();
+        }
+        return $lessFiles;
+    }
+
     /**
      * Rebuilds compiled css files.
      *
      * @param string $themeName
      */
-    public function rebuildCss($themeName)
+    public function rebuild($themeName)
     {
-        $compiledFiles = glob(BASE_DIR . THEME_DIR . $themeName . '/css/*.less.css');
-
-        foreach ($compiledFiles as $compiledFile) {
-            $cssFilename = basename($compiledFile);
-            $lessFilename = substr($cssFilename, 0, -4);
-            $this->compile($themeName, $lessFilename);
+        $lessFiles = $this->getLessFiles($themeName);
+        foreach ($lessFiles as $file) {
+            $this->compileFile($themeName, basename($file));
         }
     }
 
-    protected function compiledFilename($themeName, $lessFile)
-    {
-        return BASE_DIR . THEME_DIR . $themeName . "/css/{$lessFile}.css";
-    }
+
 }
