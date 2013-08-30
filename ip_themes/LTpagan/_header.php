@@ -8,36 +8,12 @@
 <?php echo $this->doctypeDeclaration(); ?>
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
-
-    <script type="text/javascript">
-        less = {
-            env: "development", // or "production"
-            async: false,       // load imports async
-            fileAsync: true,   // load imports async when in a page under
-            // a file protocol
-            poll: 1000,         // when in watch mode, time in ms between polls
-            functions: {}      // user functions, keyed by name
-//            dumpLineNumbers: "mediaQuery", // or "mediaQuery" or "all"
-//            relativeUrls: false,// whether to adjust url's to be relative
-            // if false, url's are already relative to the
-            // entry less file
-            //rootpath: ":/a.com/"// a path to add on to the start of every url
-            //resource
-        };
-    </script>
-    <link rel="stylesheet/less" type="text/css" href="<?php echo BASE_URL . THEME_DIR . THEME ?>/less/theme.less" />
-    <?php
-    // $site->addCss($site->compileThemeLess(THEME, 'theme.less'));
-    $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css');
-    echo $site->generateHead();
-    ?>
+    <?php $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css'); ?>
+    <?php $site->addCss($site->compileThemeLess(THEME, 'theme.less')); ?>
+    <?php echo $site->generateHead(); ?>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <script src="<?php echo BASE_URL . THEME_DIR . THEME ?>/less-1.4.2.min.js"></script>
-    <script>less.watch();</script>
-
 </head>
 <body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> >
 

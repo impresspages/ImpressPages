@@ -1,16 +1,14 @@
-// Clearing floated elements =====================================================
-/* http://sonspring.com/journal/clearing-floats */
-.clear {
+// Clearing floated elements
+// DO NOT REMOVE! They are reused in multiple places and required for system to function properly
+.clear { /* http://sonspring.com/journal/clearing-floats */
     clear: both;
     display: block;
+    height: 0;
     overflow: hidden;
     visibility: hidden;
     width: 0;
-    height: 0;
 }
-
-/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-.clearfix {
+.clearfix { /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
     &:before, &:after {
         content: '.';
         display: block;
@@ -21,11 +19,9 @@
         visibility: hidden;
         width: 0;
     }
-
     &:after {
         clear: both;
     }
-
 /*
 The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
@@ -35,19 +31,9 @@ Move to separate stylesheet if invalid CSS is a problem.
 
 // Global styles for all widgets
 .ipWidget {
-    &:before, &:after {
-        .ipClearfix();
-    }
+    .clearfix;
 
-    &:after {
-    // clearing, see 960.css
-    }
-
-    &:after {
-        clear: both;
-    }
-
-    margin-bottom: @defaultMarginBottom;
+    margin-bottom: @marginBottomWidget;
 
     &:last-child {
         margin-bottom: 0;
@@ -76,17 +62,17 @@ Move to separate stylesheet if invalid CSS is a problem.
     ul {
         list-style-position: inside;
         list-style-type: square;
-        margin: 0 0 20px 15px;
+        margin: 0 0 @marginBottomContent 15px;
     }
 
     ol {
         list-style-position: inside;
-        margin: 0 0 20px 15px;
+        margin: 0 0 @marginBottomContent 15px;
     }
 
     p {
         line-height: 24px;
-        margin-bottom: 20px;
+        margin-bottom: @marginBottomContent;
     }
 
     ul ul, ol ol {
@@ -99,7 +85,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     p+ul, p+ol {
-        margin-top: -20px; // If list goes just after the paragraph the space is removed
+        margin-top: -@marginBottomContent; // If list goes just after the paragraph the space is removed
     }
 
     a {
@@ -137,7 +123,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     table {
         border-collapse: collapse;
         color: @borderColorDark;
-        font-size: 11px;
+        font-size: @fontSizeTiny;
         width: 100%;
 
         p {
@@ -148,7 +134,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 
     td {
         border-bottom: 1px solid #b2b2b2;
-        font-size: 11px;
+        font-size: @fontSizeTiny;
         padding: 9px;
         text-align: center;
     }
@@ -169,7 +155,7 @@ Move to separate stylesheet if invalid CSS is a problem.
         background-color: transparent;
         border-bottom: 1px solid #b2b2b2;
         color: inherit;
-        font-size: 12px;
+        font-size: @fontSizeSmall;
         font-weight: normal;
     }
     td:first-child {

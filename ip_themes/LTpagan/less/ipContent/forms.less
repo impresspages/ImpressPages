@@ -1,29 +1,24 @@
 .ipModuleForm {
-    border: 1px solid #888;
-    padding: 20px 25px;
+    border: 1px solid @borderColor;
+    padding: @marginBottomContent @marginBottomWidget;
 
     .ipmPage {}
 
     .ipmFieldset {}
 
     .ipmField {
-        margin-bottom: 25px;
-        position: relative; /* to position inner elements respectively to the field */
+        margin-bottom: @marginBottomContent;
+        position: relative; // to position inner elements respectively to the field
 
-        &:before {
-            .ipClearfix();
-        }
-        &:after { /* clearing, see 960.css */ }
-        &:after {
-            clear: both;
-        }
+        .clearfix;
+
         &:last-child {
             margin-bottom: 0;
         }
-        &.ipmRequired { /* change any styles if field is required */ }
+        &.ipmRequired { } // change any styles if field is required
     }
 
-    .ipmType-blank { /* if blank we'll remove it from the flow */
+    .ipmType-blank { // if blank we'll remove it from the flow
         margin: -16px 0 0;
         position: absolute;
     }
@@ -33,7 +28,7 @@
         font-weight: bold;
         float: left;
         margin: 0 10px 0 0;
-        min-height: 1px; /* to keep the width when empty */
+        min-height: 1px; // to keep the width when empty
         padding-top: 3px;
         width: 85px;
     }
@@ -42,7 +37,7 @@
 
     .ipmControl {
         float: left;
-        width: 393px; /* 488px (content width) - 85px (label) - 10px (margin) */
+        width: 393px; // 488px (content width) - 85px (label) - 10px (margin)
     }
 
     .ipmControlBlank {
@@ -69,9 +64,9 @@
         background-color: #f2f2f2;
         border: 1px solid #a7a7a7;
         display: block;
-        height: 9.5em; /* height is relative to the font size to have full lines */
+        height: 9.5em; // height is relative to the font size to have full lines
         padding: 1px 2px;
-        overflow: auto; /* hiding scrolls if not necessary */
+        overflow: auto; // hiding scrolls if not necessary
         width: 387px;
 
         &:focus {
@@ -80,7 +75,7 @@
     }
 
     .ipmControlSubmit {
-    /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
+        // Background gradient editor - http://www.colorzilla.com/gradient-editor/
         background: #f4f4f4; /* Old browsers */
         background: -moz-linear-gradient(top,  #f4f4f4 0%, #d1d1d1 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f4f4), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
@@ -93,12 +88,12 @@
         color: @textColor;
         cursor: pointer;
         float: left;
-        height: 25px; /* input buttons have borders inside their height */
+        height: 25px; // input buttons have borders inside their height
         line-height: 25px;
         padding: 0 6px;
 
         &:hover {
-        /* Background gradient editor - http://www.colorzilla.com/gradient-editor/ */
+            // Background gradient editor - http://www.colorzilla.com/gradient-editor/
             background: #e1e0e0; /* Old browsers */
             background: -moz-linear-gradient(top,  #e1e0e0 0%, #d6d4d4 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1e0e0), color-stop(100%,#d6d4d4)); /* Chrome,Safari4+ */
@@ -116,7 +111,7 @@
         border: 1px solid #a7a7a7;
         height: 25px;
         padding: 2px;
-        width: 191px; /* padding and borders doesn't expand the width */
+        width: 191px; // padding and borders doesn't expand the width
     }
 
     .ipmControlRadio {}
@@ -131,14 +126,14 @@
         margin-left: 25px;
     }
 
-    .ipmNote { /* always visible */
+    .ipmNote { // always visible
         color: #656565;
         font-size: 11px;
         margin: -15px 0 0 95px;
         position: absolute;
     }
 
-    .ipmHint { /* to be shown on hover */
+    .ipmHint { // to be shown on hover
         background-color: #a7a7a7;
         color: #fff;
         display: none;
@@ -151,11 +146,11 @@
         width: 181px;
         z-index: 1;
 
-        .ipmField:hover & { /* hint is shown only on hover */
+        .ipmField:hover & { // hint is shown only on hover
             display: block;
         }
 
-        .ipmType-textarea & { /* for textarea hint goes below the field */
+        .ipmType-textarea & { // for textarea hint goes below the field
             bottom: 0;
             left: 95px;
             margin-bottom: -25px;
@@ -165,7 +160,7 @@
         }
     }
 
-  /* errors */
+    // errors
     .ipmError {
         .ipmLabel {
             color: #e44445;
@@ -177,12 +172,12 @@
     }
 
     .ipmFileContainer {
-        .ipmHiddenInput { /* hide input inside div. Input needed for jQuery Tools library to position error message*/
+        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
             width: 0;
             height: 0;
             overflow: hidden;
 
-            input { /* margins on input makes error message to appear lower than it should. */
+            input { // margins on input makes error message to appear lower than it should
                 margin: 0;
                 padding: 0;
             }
@@ -207,7 +202,7 @@
         .ipmRemove {
             width: 13px;
             height: 13px;
-            background: url(../img/file_remove.png) no-repeat;
+            background: url(../../img/file_remove.png) no-repeat;
             float: right;
             cursor: pointer;
         }
@@ -219,7 +214,7 @@
     }
 }
 
-.ipmErrorMessage { /* this object is created globally next to each invalid field */
+.ipmErrorMessage { // this object is created globally next to each invalid field
     background-color: @backgroundColor;
     color: #da0001;
     font-size: 11px;

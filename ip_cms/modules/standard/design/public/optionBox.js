@@ -128,7 +128,8 @@ var ipDesign = new function() {
             for (var optionNameIndex in ipModuleDesignOptionNames) {
                 var optionName = ipModuleDesignOptionNames[optionNameIndex];
                 var curValue = getValueByName(optionName, curSerialized);
-                if (lastValues[optionName] != curValue) {
+                var lastValue = getValueByName(optionName, lastSerialized);
+                if (lastValue != curValue) {
                     if (typeof(window['ipDesignOption_' + optionName]) === "function") {
                         eval('ipDesignOption_' + optionName + '(curValue);');
                     }
