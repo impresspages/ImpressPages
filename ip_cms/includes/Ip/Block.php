@@ -30,7 +30,11 @@ class Block
         $processed = $dispatcher->notifyUntil($event);
 
         if ($processed && $event->issetValue('content')) {
-            return $event->getValue('content');
+            $content = $event->getValue('content');
+            if (is_object($content) && method_exists($content, 'render')) {
+                $content = $content->render();
+            }
+            return $content;
         } else {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 
