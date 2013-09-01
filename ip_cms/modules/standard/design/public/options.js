@@ -1,5 +1,7 @@
 
-var ipDesignOpenOptions = function(e) {
+
+var ipDesignOpenOptions = function (e) {
+    "use strict";
     e.preventDefault();
 
     if (top.document.getElementById('adminFrameset')) {
@@ -12,9 +14,10 @@ var ipDesignOpenOptions = function(e) {
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
     $('.ipModuleDesign .ipsPreview').show();
     $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignCloseOptions);
-}
+};
 
-var ipDesignCloseOptions = function(e) {
+var ipDesignCloseOptions = function (e) {
+    "use strict";
     e.preventDefault();
 
     if (top.document.getElementById('adminFrameset')) {
@@ -24,4 +27,6 @@ var ipDesignCloseOptions = function(e) {
     $('body').removeClass('ipgStopScrolling');
     $('.ipModuleDesign .ipsPreview').hide();
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
-}
+};
+
+

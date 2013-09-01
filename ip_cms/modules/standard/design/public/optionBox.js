@@ -1,7 +1,6 @@
 
-"use strict";
-
 $(document).ready(function() {
+    "use strict";
 
     $('a').off('click').on('click', function(e) {
         e.preventDefault();
@@ -49,9 +48,31 @@ $(document).ready(function() {
 
 
 var ipDesign = new function() {
-    var lastSerialized = null;
-    var lastValues = {};
+    "use strict";
+    var lastSerialized = null,
+        lastValues = {};
 
+
+    this.loadLessFile = function (file) {
+        var dataIterator, formData, cssUrl;
+
+        formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
+        cssUrl = ip.baseUrl + '?&g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=ip_content.less';
+
+        $('link[href*="ip_content.css"]').remove();
+        $('link.ipsRealTimeCss').remove();
+
+        $.each(formData, function(index, elem) {
+            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
+                console.log(elem.value);
+                cssUrl = cssUrl + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+            }
+
+        });
+
+        $('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
+
+    };
 
     this.openLink = function (href, restoreDefault) {
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
