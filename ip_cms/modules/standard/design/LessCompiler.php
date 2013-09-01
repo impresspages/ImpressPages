@@ -41,8 +41,7 @@ class LessCompiler
         $lessc = new \lessc();
         $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName);
         $css = $lessc->compile($less);
-        file_put_contents(BASE_DIR . THEME_DIR . $themeName . '/' . substr($lessFile, 0, -4) . 'css', $css);
-
+        return $css;
     }
 
 
@@ -141,7 +140,9 @@ class LessCompiler
     {
         $lessFiles = $this->getLessFiles($themeName);
         foreach ($lessFiles as $file) {
-            $this->compileFile($themeName, basename($file));
+            $lessFile = basename($file);
+            $css = $this->compileFile($themeName, basename($lessFile));
+            file_put_contents(BASE_DIR . THEME_DIR . $themeName . '/' . substr($lessFile, 0, -4) . 'css', $css);
         }
     }
 
