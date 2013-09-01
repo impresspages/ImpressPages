@@ -204,16 +204,17 @@ class Backend extends \Ip\Controller
      */
     public function realTimeLess()
     {
+        $site = \Ip\ServiceLocator::getSite();
 
         $request = \Ip\ServiceLocator::getRequest();
-        $params = $request->getRequest('params', array());
-        if (!isset($params['filename'])) {
+        $params = $request->getRequest();
+        if (!isset($params['file'])) {
             throw new \Ip\CoreException("Required parameter missing");
         }
+        $file = basename($params['file']);
 
-        $css = '';
-
-
+        $lessCompiler = LessCompiler::instance();
+        $css = $lessCompiler->compileFile(THEME, $file);
         header("Content-type: text/css");
         $site->setOutput($css);
     }
