@@ -40,10 +40,10 @@ class ConfigModel{
     public function getConfigValue($theme, $name, $default = null)
     {
         $request = \Ip\ServiceLocator::getRequest();
-        $post = $request->getPost();
-        if ($this->isInPreviewState() && isset($post['ipDesign']['previewConfig'][$name])) {
-            $answer = $post['ipDesign']['previewConfig'][$name];
-            if (isset($post['restoreDefault'])) {
+        $data = $request->getRequest();
+        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'][$name])) {
+            $answer = $data['ipDesign']['previewConfig'][$name];
+            if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
                 $theme = $model->getTheme(THEME);
@@ -84,10 +84,10 @@ class ConfigModel{
     public function getAllConfigValues($theme)
     {
         $request = \Ip\ServiceLocator::getRequest();
-        $post = $request->getPost();
-        if ($this->isInPreviewState() && isset($post['ipDesign']['previewConfig'])) {
-            $config = $post['ipDesign']['previewConfig'];
-            if (isset($post['restoreDefault'])) {
+        $data = $request->getRequest();
+        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'])) {
+            $config = $data['ipDesign']['previewConfig'];
+            if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
                 $theme = $model->getTheme(THEME);
