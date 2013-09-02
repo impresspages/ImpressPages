@@ -30,10 +30,10 @@
 // Auto generated variables
 
 .menuColor () when (lightness(@mainColor) >= 50%) {
-  color: darken(@mainColor, lightness(@mainColor) - 15);
+  color: darken(@mainColor, lightness(@mainColor) - 15); //make 85% dark
 }
 .menuColor () when (lightness(@mainColor) < 50%) {
-  color: lighten(@mainColor, 85 - lightness(@mainColor));
+  color: lighten(@mainColor, 85 - lightness(@mainColor));  //make 85% light
 }
 
 
@@ -55,12 +55,12 @@
 
 
 
-//.menuHoverColor() when (lightness(.menuHoverBackground()) >= 50%) {
-//  color: #000;
-//}
-//.menuHoverColor() when (lightness(.menuHoverBackground()) < 50%) {
-//  color: #fff ;
-//}
+.menuHoverColor () when (lightness(@mainColor) >= 50%) {
+  color: #000;
+}
+.menuHoverColor () when (lightness(@mainColor) < 50%) {
+  color: #fff;
+}
 
 
 .h1color() when (lightness(@mainColor) >= 20%) {
