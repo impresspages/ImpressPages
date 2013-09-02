@@ -13,8 +13,8 @@ function ipDesignOption_mainColor(value) {
     $('.wrapper .footer').css('borderColor', value);
     $('.topmenu li.current').css('color', value);
 
-    ipDesign.reloadLessFile('ip_content');
-    ipDesign.reloadLessFile('theme');
+    ipDesign.reloadLessFile(['ip_content', 'theme']);
+
 
 }
 

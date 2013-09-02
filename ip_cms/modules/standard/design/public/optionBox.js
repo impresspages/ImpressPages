@@ -6,47 +6,53 @@ var ipDesign = new function () {
         cssUpdateInProgress = false;
 
 
+    /**
+     * 
+     *
+     * @private
+     * @param src
+     * @param type
+     * @param callback_fn
+     */
+    var loadScript = function (src, type, callback_fn) {
+        var loaded = false, scrpt, img;
+        if (type === 'script') {
+            scrpt = document.createElement('script');
+            scrpt.setAttribute('type', 'text/javascript');
+            scrpt.setAttribute('src', src);
 
-    /*
-     * This is the way to declare private methods.
-     * */
-    var processFileReload = function (file) {
-        var dataIterator, formData, data;
-console.log(file);
-        cssUpdateInProgress = 1;
-        formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
-        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
+        } else if (type === 'css') {
+            scrpt = document.createElement('link');
+            scrpt.setAttribute('rel', 'stylesheet');
+            scrpt.setAttribute('type', 'text/css');
+            scrpt.setAttribute('href', src);
+        }
+        document.getElementsByTagName('head')[0].appendChild(scrpt);
 
-        $.each(formData, function (index, elem) {
-            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
-                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+        scrpt.onreadystatechange = function () {
+            if (this.readyState === 'complete' || this.readyState === 'loaded') {
+                if (loaded === false) {
+                    callback_fn();
+                }
+                loaded = true;
             }
+        };
 
-        });
+        scrpt.onload = function() {
+            if (loaded === false) {
+                callback_fn();
+            }
+            loaded = true;
+        };
 
-
-        $.ajax({
-            url: ip.baseUrl,
-            data: data,
-            success: function (response) {
-                $('link[href*="' + ip.baseUrl + ip.themeDir + ip.theme + '/' + file + '"]').remove();
-                $('#ipsRealTimeCss_' + file).remove();
-                $('<style type="text/css" id="ipsRealTimeCss_' + file + '">' + response + '</style>').appendTo("head");
-
-                cssUpdateInProgress = false;
-                processCssUpdateQueue();
-            },
-            error: function (response) {
-                cssUpdateInProgress = false;
-                processCssUpdateQueue();
-                ipDesign.showReloadNotice();
-            },
-            dataType: 'html'
-        });
-
-
-        //$('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
-
+        img = document.createElement('img');
+        img.onerror = function () {
+            if (loaded === false) {
+                callback_fn();
+            }
+            loaded = true;
+        };
+        img.src = src;
     };
 
 
@@ -62,6 +68,37 @@ console.log(file);
             processFileReload(nextFile);
         }
     };
+
+
+    /*
+     * This is the way to declare private methods.
+     * */
+    var processFileReload = function (file) {
+        var dataIterator, formData, data;
+        cssUpdateInProgress = 1;
+        formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
+        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
+
+        $.each(formData, function (index, elem) {
+            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
+                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+            }
+
+        });
+
+        loadScript(ip.baseUrl + '?' + data, 'css', function () {
+            $('link[href*="' + ip.baseUrl + ip.themeDir + ip.theme + '/' + file + '"]').remove();
+            $('#ipsRealTimeCss_' + file).first().remove();
+            cssUpdateInProgress = false;
+            processCssUpdateQueue();
+            console.log('loaded ' + file);
+        });
+
+
+    };
+
+
+
 
 
     this.init = function () {
@@ -112,8 +149,30 @@ console.log(file);
         $('.ipModuleDesignConfig .ipsReload').removeClass('ipgHide');
     };
 
-    this.reloadLessFile = function (file) {
-        cssUpdateQueue.push(file);
+    this.reloadLessFile = function (files) {
+        if (!(files instanceof Array)) {
+            files = [files];
+        }
+
+        var i = 0,
+            allFilesInQueue = true,
+            filePos = 0;
+
+
+
+        //remove files if they already are in the queue. This is to make sure the right order of loading.
+        $.each(files, function (index, elem) {
+            filePos = $.inArray(elem, cssUpdateQueue);
+            if (filePos !== -1) {
+                cssUpdateQueue.splice(filePos, 1);
+            }
+        });
+
+        //add required files in the new order
+        $.each(files, function (index, elem) {
+            cssUpdateQueue.push(elem);
+        });
+
         processCssUpdateQueue();
     };
 
