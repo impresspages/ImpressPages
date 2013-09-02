@@ -1109,6 +1109,9 @@ class Site{
 
 
     public function setOutput ($output) {
+        if ($output === null) {
+            $output = '';
+        }
         $this->output = $output;
     }
 

@@ -34,7 +34,7 @@ class Block
             if (is_object($content) && method_exists($content, 'render')) {
                 $content = $content->render();
             }
-            return $content;
+            return (string)$content;
         } else {
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 

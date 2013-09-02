@@ -87,7 +87,7 @@
   margin-top: -20px;
 }
 .ipPreviewWidget a {
-  color: #65cd00;
+  color: #b52718;
 }
 .ipPreviewWidget a:hover {
   text-decoration: underline;
@@ -334,7 +334,7 @@
   font-size: 11px;
 }
 .ipmErrorMessage {
-  background-color: #ff6393;
+  background-color: #292126;
   color: #da0001;
   font-size: 11px;
 }
@@ -386,7 +386,7 @@
   padding-left: 25px;
 }
 .ipWidget-IpFile a {
-  color: #65cd00;
+  color: #b52718;
   font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
@@ -733,7 +733,7 @@ dt {
   padding: 0;
 }
 body {
-  background-color: #ff6393;
+  background-color: #292126;
   color: #333;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
@@ -768,7 +768,7 @@ address {
 }
 .wrapper {
   background-color: #fff;
-  border-color: #b2ff67;
+  border-color: #e1311f;
   border-style: solid;
   border-width: 12px 0;
   padding: 0 20px;
@@ -836,7 +836,7 @@ address {
   text-decoration: underline;
 }
 .wrapper > footer a {
-  color: #65cd00;
+  color: #b52718;
 }
 .wrapper > footer a:hover {
   text-decoration: underline;
@@ -848,7 +848,7 @@ address {
   background-color: #c5c5c5;
 }
 .topmenu {
-  background-color: #b2ff67;
+  background-color: #e1311f;
   font-size: 13px;
   padding: 1px 0 0 15px;
 }
@@ -861,7 +861,7 @@ address {
   position: relative;
 }
 .topmenu .level1 > li > a {
-  color: #264e00;
+  color: #440f09;
   display: inline-block;
   font-weight: bold;
   line-height: 34px;
@@ -869,7 +869,7 @@ address {
 }
 .topmenu .level1 > li:hover > a,
 .topmenu .level1 > li > a:hover {
-  background-color: #ccff9a;
+  background-color: #e75a4c;
 }
 .topmenu .level1 > .current > a,
 .topmenu .level1 > .selected > a {
@@ -879,7 +879,7 @@ address {
   display: block;
 }
 .topmenu .level1 ul {
-  background-color: #b2ff67;
+  background-color: #e1311f;
   display: none;
   font-size: 12px;
   margin: -1px 0 0 -1px;
@@ -897,13 +897,13 @@ address {
   position: relative;
 }
 .topmenu .level2 a {
-  color: #264e00;
+  color: #440f09;
   display: block;
   padding: 9px 22px;
   white-space: nowrap;
 }
 .topmenu .level2 a:hover {
-  background-color: #ccff9a;
+  background-color: #e75a4c;
 }
 .topmenu .level2 .subnodes > a:after {
   content: '\25BC';
