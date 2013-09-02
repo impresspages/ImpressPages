@@ -275,7 +275,7 @@ dt {
   padding: 0;
 }
 body {
-  background-color: #1335e5;
+  background-color: #e5e5e5;
   color: #333;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
@@ -310,7 +310,7 @@ address {
 }
 .wrapper {
   background-color: #fff;
-  border-color: #dfcaca;
+  border-color: #000000;
   border-style: solid;
   border-width: 12px 0;
   padding: 0 20px;
@@ -378,7 +378,7 @@ address {
   text-decoration: underline;
 }
 .wrapper > footer a {
-  color: #804d4d;
+  color: #019bd4;
 }
 .wrapper > footer a:hover {
   text-decoration: underline;
@@ -390,7 +390,7 @@ address {
   background-color: #c5c5c5;
 }
 .topmenu {
-  background-color: #dfcaca;
+  background-color: #000000;
   font-size: 13px;
   padding: 1px 0 0 15px;
 }
@@ -403,7 +403,7 @@ address {
   position: relative;
 }
 .topmenu .level1 > li > a {
-  color: #311d1d;
+  color: #d9d9d9;
   display: inline-block;
   font-weight: bold;
   line-height: 34px;
@@ -411,19 +411,19 @@ address {
 }
 .topmenu .level1 > li:hover > a,
 .topmenu .level1 > li > a:hover {
-  background-color: #ccaaaa;
-  color: #000;
+  background-color: #1a1a1a;
+  color: #fff;
 }
 .topmenu .level1 > .current > a,
 .topmenu .level1 > .selected > a {
   background-color: #fff;
-  color: #211414;
+  color: #000000;
 }
 .topmenu li:hover > ul {
   display: block;
 }
 .topmenu .level1 ul {
-  background-color: #dfcaca;
+  background-color: #000000;
   display: none;
   font-size: 12px;
   margin: -1px 0 0 -1px;
@@ -441,14 +441,14 @@ address {
   position: relative;
 }
 .topmenu .level2 a {
-  color: #311d1d;
+  color: #d9d9d9;
   display: block;
   padding: 9px 22px;
   white-space: nowrap;
 }
 .topmenu .level2 a:hover {
-  background-color: #ccaaaa;
-  color: #000;
+  background-color: #1a1a1a;
+  color: #fff;
 }
 .topmenu .level2 .subnodes > a:after {
   content: '\25BC';
