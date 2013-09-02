@@ -2,20 +2,67 @@
 var ipDesign = new function () {
     "use strict";
     var lastSerialized = null,
-        lastValues = {},
-        configChangedDuringCssUpdate = false,
+        cssUpdateQueue = new Array(), //css files that are in progress to be updated
         cssUpdateInProgress = false;
+
 
 
     /*
      * This is the way to declare private methods.
      * */
-    var reloadAgainIfRequired = function () {
-        if (configChangedDuringCssUpdate) {
-            configChangedDuringCssUpdate = false;
-            this.loadLessFile();
+    var processFileReload = function (file) {
+        var dataIterator, formData, data;
+console.log(file);
+        cssUpdateInProgress = 1;
+        formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
+        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
+
+        $.each(formData, function (index, elem) {
+            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
+                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+            }
+
+        });
+
+
+        $.ajax({
+            url: ip.baseUrl,
+            data: data,
+            success: function (response) {
+                $('link[href*="' + ip.baseUrl + ip.themeDir + ip.theme + '/' + file + '"]').remove();
+                $('#ipsRealTimeCss_' + file).remove();
+                $('<style type="text/css" id="ipsRealTimeCss_' + file + '">' + response + '</style>').appendTo("head");
+
+                cssUpdateInProgress = false;
+                processCssUpdateQueue();
+            },
+            error: function (response) {
+                cssUpdateInProgress = false;
+                processCssUpdateQueue();
+                ipDesign.showReloadNotice();
+            },
+            dataType: 'html'
+        });
+
+
+        //$('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
+
+    };
+
+
+    /*
+     * This is the way to declare private methods.
+     * */
+    var processCssUpdateQueue = function () {
+        if (cssUpdateInProgress) {
+            return;
         }
-    }
+        if (cssUpdateQueue.length) {
+            var nextFile = cssUpdateQueue.shift();
+            processFileReload(nextFile);
+        }
+    };
+
 
     this.init = function () {
         $('a').off('click').on('click', function (e) {
@@ -65,50 +112,9 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .ipsReload').removeClass('ipgHide');
     };
 
-    this.loadLessFile = function (file) {
-        var dataIterator, formData, data;
-
-        if (cssUpdateInProgress) {
-            //another compilation is in progress. Wait for it to finish and proceed with new refresh.
-            configChangedDuringCssUpdate = true;
-            return;
-        }
-
-        //proceed css recompile / loading
-        cssUpdateInProgress = true;
-        formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
-        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=ip_content.less';
-
-        $.each(formData, function (index, elem) {
-            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
-                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
-            }
-
-        });
-
-
-        $.ajax({
-            url: ip.baseUrl,
-            data: data,
-            success: function (response) {
-                $('link[href*="ip_content.css"]').remove();
-                $('#ipsRealTimeCss').remove();
-                //$("style").append(response);
-                $('<style type="text/css" id="ipsRealTimeCss">' + response + '</style>').appendTo("head");
-                cssUpdateInProgress = false;
-                reloadAgainIfRequired();
-
-            },
-            error: function (response) {
-                cssUpdateInProgress = false;
-                ipDesign.showReloadNotice();
-            },
-            dataType: 'html'
-        });
-
-
-        //$('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
-
+    this.reloadLessFile = function (file) {
+        cssUpdateQueue.push(file);
+        processCssUpdateQueue();
     };
 
 
