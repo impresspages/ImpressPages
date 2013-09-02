@@ -310,7 +310,7 @@ address {
 }
 .wrapper {
   background-color: #fff;
-  border-color: #420202;
+  border-color: #dfcaca;
   border-style: solid;
   border-width: 12px 0;
   padding: 0 20px;
@@ -378,7 +378,7 @@ address {
   text-decoration: underline;
 }
 .wrapper > footer a {
-  color: #c80606;
+  color: #804d4d;
 }
 .wrapper > footer a:hover {
   text-decoration: underline;
@@ -390,7 +390,7 @@ address {
   background-color: #c5c5c5;
 }
 .topmenu {
-  background-color: #420202;
+  background-color: #dfcaca;
   font-size: 13px;
   padding: 1px 0 0 15px;
 }
@@ -403,7 +403,7 @@ address {
   position: relative;
 }
 .topmenu .level1 > li > a {
-  color: #fdb6b6;
+  color: #311d1d;
   display: inline-block;
   font-weight: bold;
   line-height: 34px;
@@ -411,18 +411,19 @@ address {
 }
 .topmenu .level1 > li:hover > a,
 .topmenu .level1 > li > a:hover {
-  background-color: #740404;
-  color: #fff;
+  background-color: #ccaaaa;
+  color: #000;
 }
 .topmenu .level1 > .current > a,
 .topmenu .level1 > .selected > a {
   background-color: #fff;
+  color: #211414;
 }
 .topmenu li:hover > ul {
   display: block;
 }
 .topmenu .level1 ul {
-  background-color: #420202;
+  background-color: #dfcaca;
   display: none;
   font-size: 12px;
   margin: -1px 0 0 -1px;
@@ -440,14 +441,14 @@ address {
   position: relative;
 }
 .topmenu .level2 a {
-  color: #fdb6b6;
+  color: #311d1d;
   display: block;
   padding: 9px 22px;
   white-space: nowrap;
 }
 .topmenu .level2 a:hover {
-  background-color: #740404;
-  color: #fff;
+  background-color: #ccaaaa;
+  color: #000;
 }
 .topmenu .level2 .subnodes > a:after {
   content: '\25BC';
