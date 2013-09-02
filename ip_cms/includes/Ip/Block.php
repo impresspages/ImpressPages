@@ -63,13 +63,25 @@ class Block
         return $this;
     }
 
+    /**
+     * Sets example content to be used when block content is empty.
+     *
+     * @param string $content
+     * @return $this
+     */
     public function exampleContent($content)
     {
         $this->exampleContent = $content;
         return $this;
     }
 
-    public function exampleFile($filename)
+    /**
+     * Loads example content from file.
+     *
+     * @param $filename
+     * @return $this
+     */
+    public function exampleContentFrom($filename)
     {
         $this->exampleContent = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $filename);
         return $this;
