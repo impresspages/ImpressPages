@@ -1274,7 +1274,7 @@ class Site{
     }
 
     public function generateBlock($blockName, $static = false) {
-        $block =  $this->block($blockName);
+        $block = new \Ip\Block($blockName);
         if ($static) {
             $block->asStatic();
         }
@@ -1318,14 +1318,6 @@ class Site{
 
         }
     }
-
-    protected function block($name)
-    {
-        $block = new \Ip\Block($name);
-        return $block;
-    }
-
-
 
     /**
      * If we are in the management state and last revision is published, then create new revision.
