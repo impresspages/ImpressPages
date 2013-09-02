@@ -50,6 +50,7 @@ class LessCompiler
         $less = '';
 
         foreach ($options as $option) {
+            if (!isset($option['default'])) { $option['default'] = null; }
             $rawValue = array_key_exists($option['name'], $config) ? $config[$option['name']] : $option['default'];
 
             if (empty($rawValue)) {
