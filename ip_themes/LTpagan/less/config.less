@@ -39,10 +39,10 @@
 
 
 .menuSelectedColor () when (lightness(@mainColor) >= 20%) {
-  color: darken(@mainColor, lightness(@mainColor) - 20);
+  color: darken(@mainColor, lightness(@mainColor) - 10); //90% dark
 }
 .menuSelectedColor () when (lightness(@mainColor) < 20%) {
-  color: darken(lightness(@mainColor) - 10);
+  color: darken(lightness(@mainColor) - 10); //90% light
 }
 
 
