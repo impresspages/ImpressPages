@@ -1,4 +1,4 @@
-
+var adminFramesetRows;
 
 var ipDesignOpenOptions = function (e) {
     "use strict";

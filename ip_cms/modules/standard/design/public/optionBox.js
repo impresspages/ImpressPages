@@ -1,78 +1,118 @@
 
-$(document).ready(function() {
-    "use strict";
-
-    $('a').off('click').on('click', function(e) {
-        e.preventDefault();
-        ipDesign.openLink($(e.currentTarget).attr('href'));
-    }); //it is important to bind links before adding configuration box html to the body
-
-    $('body').append(ipModuleDesignConfiguration);
-    ipModuleForm.init(); //reinit form controls after adding option box
-
-    $('.ipModuleDesignConfig .ipsForm').off('submit').on('submit', function(e) {
-        e.preventDefault();
-        ipDesign.apply();
-    });
-    $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function(e){
-        e.preventDefault();
-        $('.ipModuleDesignConfig .ipsForm').submit();
-    });
-
-    $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
-
-    $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function(e){
-        e.preventDefault();
-        window.parent.ipDesignCloseOptions(e);
-    });
-
-    $('.ipModuleDesignConfig .ipsDefault').off('click').on('click', function(e){
-        e.preventDefault();
-        var restoreDefault = 1;
-        ipDesign.openLink(window.location.href.split('#')[0], restoreDefault);
-    });
-
-
-    $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
-    $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
-
-    ipDesign.resize();
-    $(window).bind("resize.ipModuleDesign", ipDesign.resize);
-
-    $('.ipsReload').on('click', function(e){
-        e.preventDefault();
-        ipDesign.openLink(window.location.href);
-    });
-
-});
-
-
-var ipDesign = new function() {
+var ipDesign = new function () {
     "use strict";
     var lastSerialized = null,
-        lastValues = {};
+        lastValues = {},
+        configChangedDuringCssUpdate = false,
+        cssUpdateInProgress = false;
 
+
+    /*
+     * This is the way to declare private methods.
+     * */
+    var reloadAgainIfRequired = function () {
+        if (configChangedDuringCssUpdate) {
+            configChangedDuringCssUpdate = false;
+            this.loadLessFile();
+        }
+    }
+
+    this.init = function () {
+        $('a').off('click').on('click', function (e) {
+            e.preventDefault();
+            ipDesign.openLink($(e.currentTarget).attr('href'));
+        }); //it is important to bind links before adding configuration box html to the body
+
+        $('body').append(ipModuleDesignConfiguration);
+        ipModuleForm.init(); //reinit form controls after adding option box
+
+        $('.ipModuleDesignConfig .ipsForm').off('submit').on('submit', function (e) {
+            e.preventDefault();
+            ipDesign.apply();
+        });
+        $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
+            e.preventDefault();
+            $('.ipModuleDesignConfig .ipsForm').submit();
+        });
+
+        $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
+
+        $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
+            e.preventDefault();
+            window.parent.ipDesignCloseOptions(e);
+        });
+
+        $('.ipModuleDesignConfig .ipsDefault').off('click').on('click', function (e) {
+            e.preventDefault();
+            var restoreDefault = 1;
+            ipDesign.openLink(window.location.href.split('#')[0], restoreDefault);
+        });
+
+
+        $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
+        $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
+
+        ipDesign.resize();
+        $(window).bind("resize.ipModuleDesign", ipDesign.resize);
+
+        $('.ipsReload').on('click', function (e) {
+            e.preventDefault();
+            ipDesign.openLink(window.location.href);
+        });
+    };
+
+    this.showReloadNotice = function () {
+        $('.ipModuleDesignConfig .ipsReload').removeClass('ipgHide');
+    };
 
     this.loadLessFile = function (file) {
-        var dataIterator, formData, cssUrl;
+        var dataIterator, formData, data;
 
+        if (cssUpdateInProgress) {
+            //another compilation is in progress. Wait for it to finish and proceed with new refresh.
+            configChangedDuringCssUpdate = true;
+            return;
+        }
+
+        //proceed css recompile / loading
+        cssUpdateInProgress = true;
         formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
-        cssUrl = ip.baseUrl + '?&g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=ip_content.less';
+        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=ip_content.less';
 
-        $('link[href*="ip_content.css"]').remove();
-        $('link.ipsRealTimeCss').remove();
-
-        $.each(formData, function(index, elem) {
+        $.each(formData, function (index, elem) {
             if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
-                console.log(elem.value);
-                cssUrl = cssUrl + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
             }
 
         });
 
-        $('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
+
+        $.ajax({
+            url: ip.baseUrl,
+            data: data,
+            success: function (response) {
+                $('link[href*="ip_content.css"]').remove();
+                $('#ipsRealTimeCss').remove();
+                //$("style").append(response);
+                $('<style type="text/css" id="ipsRealTimeCss">' + response + '</style>').appendTo("head");
+                cssUpdateInProgress = false;
+                reloadAgainIfRequired();
+
+            },
+            error: function (response) {
+                cssUpdateInProgress = false;
+                ipDesign.showReloadNotice();
+            },
+            dataType: 'html'
+        });
+
+
+        //$('head').append('<link class="ipsRealTimeCss" href="' + cssUrl + '" rel="stylesheet" type="text/css" />');
 
     };
+
+
+
 
     this.openLink = function (href, restoreDefault) {
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
@@ -180,3 +220,10 @@ var ipDesign = new function() {
     }
 
 };
+
+
+
+$(document).ready(function () {
+    ipDesign.init();
+});
+

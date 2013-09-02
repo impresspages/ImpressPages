@@ -87,7 +87,7 @@
   margin-top: -20px;
 }
 .ipPreviewWidget a {
-  color: #b52718;
+  color: #5dcd00;
 }
 .ipPreviewWidget a:hover {
   text-decoration: underline;
@@ -386,7 +386,7 @@
   padding-left: 25px;
 }
 .ipWidget-IpFile a {
-  color: #b52718;
+  color: #5dcd00;
   font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
@@ -455,6 +455,11 @@
 .ipWidget-IpTextImage.ipLayout-right .ipwImage {
   float: right;
   margin: 0 0 20px 20px;
+}
+.ipBlock .ipExampleContent {
+  background: rgba(64,64,64,0.7);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 body {
   min-width: 960px;
@@ -768,7 +773,7 @@ address {
 }
 .wrapper {
   background-color: #fff;
-  border-color: #e1311f;
+  border-color: #70f600;
   border-style: solid;
   border-width: 12px 0;
   padding: 0 20px;
@@ -836,7 +841,7 @@ address {
   text-decoration: underline;
 }
 .wrapper > footer a {
-  color: #b52718;
+  color: #5dcd00;
 }
 .wrapper > footer a:hover {
   text-decoration: underline;
@@ -848,7 +853,7 @@ address {
   background-color: #c5c5c5;
 }
 .topmenu {
-  background-color: #e1311f;
+  background-color: #70f600;
   font-size: 13px;
   padding: 1px 0 0 15px;
 }
@@ -861,7 +866,7 @@ address {
   position: relative;
 }
 .topmenu .level1 > li > a {
-  color: #440f09;
+  color: #d6ffb4;
   display: inline-block;
   font-weight: bold;
   line-height: 34px;
@@ -869,7 +874,7 @@ address {
 }
 .topmenu .level1 > li:hover > a,
 .topmenu .level1 > li > a:hover {
-  background-color: #e75a4c;
+  background-color: #8bff2a;
 }
 .topmenu .level1 > .current > a,
 .topmenu .level1 > .selected > a {
@@ -879,7 +884,7 @@ address {
   display: block;
 }
 .topmenu .level1 ul {
-  background-color: #e1311f;
+  background-color: #70f600;
   display: none;
   font-size: 12px;
   margin: -1px 0 0 -1px;
@@ -897,13 +902,13 @@ address {
   position: relative;
 }
 .topmenu .level2 a {
-  color: #440f09;
+  color: #d6ffb4;
   display: block;
   padding: 9px 22px;
   white-space: nowrap;
 }
 .topmenu .level2 a:hover {
-  background-color: #e75a4c;
+  background-color: #8bff2a;
 }
 .topmenu .level2 .subnodes > a:after {
   content: '\25BC';
