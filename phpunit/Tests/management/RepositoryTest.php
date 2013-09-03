@@ -17,6 +17,8 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
         $ipActions->login();
 
+        $this->windowMaximize();
+
         //add file widget
         $ipActions->addWidget('IpFile');
         $this->waitForElementPresent('css=.ipAdminWidget-IpFile .ipmBrowseButton');

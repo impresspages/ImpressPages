@@ -17,6 +17,8 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
         $ipActions->login();
 
+        $this->windowMaximize();
+
         $ipActions->addWidget('IpHtml');
         $this->storeAttribute('css=.side nav ul li:eq(1) a@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
