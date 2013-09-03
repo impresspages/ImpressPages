@@ -71,7 +71,9 @@ class Block
      */
     public function exampleContent($content)
     {
-        $this->exampleContent = $content;
+        if (DEVELOPMENT_ENVIRONMENT) {
+            $this->exampleContent = $content;
+        }
         return $this;
     }
 
@@ -83,7 +85,9 @@ class Block
      */
     public function exampleContentFrom($filename)
     {
-        $this->exampleContent = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $filename);
+        if (DEVELOPMENT_ENVIRONMENT) {
+            $this->exampleContent = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $filename);
+        }
         return $this;
     }
 

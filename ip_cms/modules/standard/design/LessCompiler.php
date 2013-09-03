@@ -40,6 +40,7 @@ class LessCompiler
         require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
         $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName);
+        $lessc->setFormatter('compressed');
         $css = $lessc->compile($less);
         return $css;
     }
@@ -50,9 +51,15 @@ class LessCompiler
         $less = '';
 
         foreach ($options as $option) {
-            $rawValue = array_key_exists($option['name'], $config) ? $config[$option['name']] : $option['default'];
+            if (empty($option['name']) || empty($option['type'])) {
+                continue; // ignore invalid nodes
+            }
 
-            if (empty($rawValue)) {
+            if (!empty($config[$option['name']])) {
+                $rawValue = $config[$option['name']];
+            } elseif (!empty($option['default'])) {
+                $rawValue = $option['default'];
+            } else {
                 continue; // ignore empty values
             }
 

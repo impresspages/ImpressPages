@@ -10,7 +10,7 @@
         foreach($widgetsHtml as $key => $widgetHtml) {
             echo $widgetHtml;
         }
-    } elseif ($managementState && $exampleContent) {
+    } elseif (DEVELOPMENT_ENVIRONMENT && $exampleContent) {
         ?><div class="ipExampleContent"><?php echo $exampleContent; ?></div><?php
     }
 
