@@ -2,7 +2,7 @@
 var ipDesign = new function () {
     "use strict";
     var lastSerialized = null,
-        cssUpdateQueue = new Array(), //css files that are in progress to be updated
+        cssUpdateQueue = [], //css files that are in progress to be updated
         cssUpdateInProgress = false;
 
 
@@ -248,6 +248,7 @@ var ipDesign = new function () {
 
     this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');
+
         if (lastSerialized == null) {
             lastSerialized = $form.serialize();
             return;
