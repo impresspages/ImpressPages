@@ -47,7 +47,7 @@
 .ipPreviewWidget h1,
 .ipPreviewWidget h2,
 .ipPreviewWidget h3 {
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
 }
 .ipPreviewWidget h1 {
   color: #000000;
@@ -94,19 +94,19 @@
 }
 .ipPreviewWidget .caption {
   color: #333;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 20px;
   line-height: 28px;
 }
 .ipPreviewWidget .signature {
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
   font-style: italic;
 }
 .ipPreviewWidget .note {
   color: #333;
   display: block;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
   font-style: italic;
   margin: 0 30px 25px;
@@ -155,6 +155,10 @@
   border: 1px solid #888;
   padding: 20px 25px;
 }
+.ipModuleForm .ipmPage {
+  max-width: 100%;
+  overflow: auto;
+}
 .ipModuleForm .ipmField {
   margin-bottom: 20px;
   position: relative;
@@ -184,15 +188,8 @@
 .ipModuleForm .ipmLabel {
   display: block;
   font-weight: bold;
-  float: left;
-  margin: 0 10px 0 0;
+  margin: 0 0 3px 0;
   min-height: 1px;
-  padding-top: 3px;
-  width: 85px;
-}
-.ipModuleForm .ipmControl {
-  float: left;
-  width: 393px;
 }
 .ipModuleForm .ipmControlBlank {
   height: 0;
@@ -204,9 +201,12 @@
 .ipModuleForm .ipmControlInput {
   background-color: #f2f2f2;
   border: 1px solid #a7a7a7;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   height: 21px;
   padding: 1px 2px;
-  width: 185px;
+  width: 100%;
 }
 .ipModuleForm .ipmControlInput:focus {
   border-color: #000;
@@ -214,14 +214,52 @@
 .ipModuleForm .ipmControlTextarea {
   background-color: #f2f2f2;
   border: 1px solid #a7a7a7;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   height: 9.5em;
   padding: 1px 2px;
   overflow: auto;
-  width: 387px;
+  width: 100%;
 }
 .ipModuleForm .ipmControlTextarea:focus {
   border-color: #000;
+}
+.ipModuleForm .ipmControlSelect {
+  background-color: #f2f2f2;
+  border: 1px solid #a7a7a7;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 25px;
+  padding: 2px;
+  width: 100%;
+}
+.ipModuleForm .ipmType-confirm .ipmControlCheckbox {
+  float: left;
+}
+.ipModuleForm .ipmControlConfirmOptions {
+  margin-left: 25px;
+}
+.ipModuleForm .ipmNote {
+  color: #656565;
+  font-size: 11px;
+}
+.ipModuleForm .ipmHint {
+  background-color: #a7a7a7;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px 2px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  z-index: 1;
+}
+.ipModuleForm .ipmField:hover .ipmHint {
+  display: block;
 }
 .ipModuleForm .ipmControlSubmit {
   background: #f4f4f4;
@@ -235,7 +273,6 @@
   border: 1px solid #a7a7a7;
   color: #333;
   cursor: pointer;
-  float: left;
   height: 25px;
   line-height: 25px;
   padding: 0 6px;
@@ -250,49 +287,6 @@
   background: linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e0e0',endColorstr='#d6d4d4',GradientType=0);
   box-shadow: 0 0 3px 0 #fff inset;
-}
-.ipModuleForm .ipmControlSelect {
-  background-color: #f2f2f2;
-  border: 1px solid #a7a7a7;
-  height: 25px;
-  padding: 2px;
-  width: 191px;
-}
-.ipModuleForm .ipmType-confirm .ipmControlCheckbox {
-  float: left;
-}
-.ipModuleForm .ipmControlConfirmOptions {
-  margin-left: 25px;
-}
-.ipModuleForm .ipmNote {
-  color: #656565;
-  font-size: 11px;
-  margin: -15px 0 0 95px;
-  position: absolute;
-}
-.ipModuleForm .ipmHint {
-  background-color: #a7a7a7;
-  color: #fff;
-  display: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  min-height: 16px;
-  padding: 5px 10px 4px;
-  position: absolute;
-  right: 0;
-  width: 181px;
-  z-index: 1;
-}
-.ipmField:hover .ipModuleForm .ipmHint {
-  display: block;
-}
-.ipmType-textarea .ipModuleForm .ipmHint {
-  bottom: 0;
-  left: 95px;
-  margin-bottom: -25px;
-  max-width: 393px;
-  right: auto;
-  width: auto;
 }
 .ipModuleForm .ipmError .ipmLabel {
   color: #e44445;
@@ -323,11 +317,11 @@
   height: 3px;
 }
 .ipModuleForm .ipmFileContainer .ipmRemove {
-  width: 13px;
-  height: 13px;
+  cursor: pointer;
   background: url(img/file_remove.png) no-repeat;
   float: right;
-  cursor: pointer;
+  height: 13px;
+  width: 13px;
 }
 .ipModuleForm .ipmFileContainer .ipmUploadError {
   color: #da0001;
@@ -336,7 +330,8 @@
 .ipmErrorMessage {
   background-color: #e5e5e5;
   color: #da0001;
-  font-size: 11px;
+  font-size: 12px;
+  padding: 4px 10px 2px;
 }
 .mceContentBody {
   background-color: #fff;
@@ -361,7 +356,7 @@
 .mceContentBody h1,
 .mceContentBody h2,
 .mceContentBody h3 {
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
 }
 .mceContentBody h1 {
   color: #000000;
@@ -408,19 +403,19 @@
 }
 .mceContentBody .caption {
   color: #333;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 20px;
   line-height: 28px;
 }
 .mceContentBody .signature {
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
   font-style: italic;
 }
 .mceContentBody .note {
   color: #333;
   display: block;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
   font-style: italic;
   margin: 0 30px 25px;
@@ -471,7 +466,7 @@
 .ipWidget-IpFaq .ipwQuestion {
   color: #333;
   cursor: pointer;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 18px;
   text-decoration: none;
 }
@@ -589,6 +584,10 @@
 }
 .ipWidget-IpSeparator.ipLayout-space {
   height: 25px;
+}
+.ipWidget-IpTable {
+  max-width: 100%;
+  overflow: auto;
 }
 .ipWidget-IpTextImage .ipwImage {
   float: left;

@@ -333,7 +333,7 @@ address {
 }
 .logo a {
   color: #333;
-  font-family: Georgia, serif;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 45px;
   font-weight: bold;
 }
@@ -540,6 +540,32 @@ address {
   box-shadow: none;
 }
 .ipModuleSearch .ipmControlSubmit {
+  background: #f4f4f4;
+  background: -moz-linear-gradient(top,#f4f4f4 0%,#d1d1d1 100%);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f4f4f4),color-stop(100%,#d1d1d1));
+  background: -webkit-linear-gradient(top,#f4f4f4 0%,#d1d1d1 100%);
+  background: -o-linear-gradient(top,#f4f4f4 0%,#d1d1d1 100%);
+  background: -ms-linear-gradient(top,#f4f4f4 0%,#d1d1d1 100%);
+  background: linear-gradient(top,#f4f4f4 0%,#d1d1d1 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f4',endColorstr='#d1d1d1',GradientType=0);
+  border: 1px solid #a7a7a7;
+  color: #333;
+  cursor: pointer;
+  float: left;
+  height: 25px;
+  line-height: 25px;
   margin-left: 5px;
+  padding: 0 6px;
   text-transform: uppercase;
+}
+.ipModuleSearch .ipmControlSubmit:hover {
+  background: #e1e0e0;
+  background: -moz-linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#e1e0e0),color-stop(100%,#d6d4d4));
+  background: -webkit-linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
+  background: -o-linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
+  background: -ms-linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
+  background: linear-gradient(top,#e1e0e0 0%,#d6d4d4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e0e0',endColorstr='#d6d4d4',GradientType=0);
+  box-shadow: 0 0 3px 0 #fff inset;
 }
