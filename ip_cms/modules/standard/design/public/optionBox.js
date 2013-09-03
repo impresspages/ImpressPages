@@ -151,7 +151,7 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .ipsReload').removeClass('ipgHide');
     };
 
-    this.reloadLessFile = function (files) {
+    this.reloadLessFiles = function (files) {
         if (!(files instanceof Array)) {
             files = [files];
         }
