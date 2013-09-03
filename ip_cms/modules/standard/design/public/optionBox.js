@@ -143,6 +143,8 @@ var ipDesign = new function () {
             e.preventDefault();
             ipDesign.openLink(window.location.href);
         });
+
+        lastSerialized = $('.ipModuleDesignConfig .ipsForm').serialize();
     };
 
     this.showReloadNotice = function () {
@@ -249,10 +251,6 @@ var ipDesign = new function () {
     this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');
 
-        if (lastSerialized == null) {
-            lastSerialized = $form.serialize();
-            return;
-        }
 
         var curSerialized = $form.serialize();
 
