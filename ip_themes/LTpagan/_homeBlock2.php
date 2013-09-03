@@ -1,6 +1,6 @@
 <div class="grid_6 left">
-    <?php echo $site->generateBlock('home1', true); ?>
+    <?php echo $this->generateBlock('home1')->asStatic(); ?>
 </div>
 <div class="grid_6 left">
-    <?php echo $site->generateBlock('home2', true); ?>
+    <?php echo $this->generateBlock('home2')->asStatic(); ?>
 </div>

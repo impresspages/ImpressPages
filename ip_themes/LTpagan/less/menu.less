@@ -25,12 +25,12 @@
     .level1 > li:hover > a,
     .level1 > li > a:hover {
         .menuHoverBackground();
-        //.menuHoverColor();
+        .menuHoverColor();
     }
     .level1 > .current > a,
     .level1 > .selected > a {
         background-color: #fff;
-        //.menuSelectedColor();
+        .menuSelectedColor();
     }
     li:hover > ul {
         display: block;
@@ -61,6 +61,7 @@
     }
     .level2 a:hover {
         .menuHoverBackground();
+        .menuHoverColor();
     }
     .level2 .subnodes > a:after {
         content: '\25BC';
@@ -113,14 +114,14 @@
             .level1 {
                 .subnodes {
                     & > a { // fixing style when collapsed
-                        background-image: url(../img/icon_right.gif);
+                        background-image: url(img/icon_right.gif);
                         background-position: 8px center;
                         border-bottom: none;
                     }
 
                     &.current, &.selected {
                         & > a { // fixing style when not collapsed
-                            background-image: url(../img/icon_down.gif);
+                            background-image: url(img/icon_down.gif);
                             background-position: 5px center;
                             border-bottom: 1px solid #9e9e9e;
                         }
@@ -139,7 +140,7 @@
         }
 
         .subnodes > a {
-            background-image: url(../img/icon_down.gif);
+            background-image: url(img/icon_down.gif);
             background-position: 5px center;
             background-repeat: no-repeat;
             border-bottom: 1px solid #9e9e9e;

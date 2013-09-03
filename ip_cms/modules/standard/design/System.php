@@ -12,6 +12,9 @@ class System{
 
     public function init()
     {
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+
+        $dispatcher->bind('site.clearCache', array($this, 'clearCacheEvent'));
 
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {
@@ -28,18 +31,7 @@ class System{
 
     }
 
-    protected function hasPermission()
-    {
-        if (!\Ip\Backend::loggedIn()) {
-            return false;
-        }
 
-        if (!\Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'design')) {
-            return false;
-        }
-
-        return true;
-    }
 
     protected function initConfig()
     {
@@ -88,11 +80,10 @@ class System{
         return $configBox->render();
     }
 
-    public function clearCache()
+    public function clearCacheEvent(\Ip\Event\ClearCache $e)
     {
-        //TODOX catch new style event
         $lessCompiler = LessCompiler::instance();
-        $lessCompiler->rebuildCss(THEME);
+        $lessCompiler->rebuild(THEME);
     }
 
 }
