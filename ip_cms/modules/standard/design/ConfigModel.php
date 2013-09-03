@@ -31,12 +31,6 @@ class ConfigModel{
         return $this->isInPreviewState;
     }
 
-
-    public function getConfig()
-    {
-
-    }
-
     public function getConfigValue($theme, $name, $default = null)
     {
         $request = \Ip\ServiceLocator::getRequest();
