@@ -2,7 +2,7 @@
 var ipDesign = new function () {
     "use strict";
     var lastSerialized = null,
-        cssUpdateQueue = new Array(), //css files that are in progress to be updated
+        cssUpdateQueue = [], //css files that are in progress to be updated
         cssUpdateInProgress = false;
 
 
@@ -248,6 +248,7 @@ var ipDesign = new function () {
 
     this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');
+
         if (lastSerialized == null) {
             lastSerialized = $form.serialize();
             return;
@@ -261,13 +262,11 @@ var ipDesign = new function () {
                 var curValue = getValueByName(optionName, curSerialized);
                 var lastValue = getValueByName(optionName, lastSerialized);
                 if (lastValue != curValue) {
-                    if (typeof(window['ipDesignOption_' + optionName]) === "function") {
-                        eval('ipDesignOption_' + optionName + '(curValue);');
+                    if (typeof(ipDesignOptions[optionName]) === 'function') {
+                        ipDesignOptions[optionName](curValue);
                     }
                 }
             }
-
-
         }
 
         lastSerialized = curSerialized;
