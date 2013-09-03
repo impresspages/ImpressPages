@@ -2,8 +2,8 @@ var validatorConfig = {
     'lang' : '<?php echo addslashes($languageCode); ?>',
     'errorClass' : 'ipmControlError',
     'messageClass' : 'ipmErrorMessage',
-    'position' : 'top left',
-    'offset' : [-3, 0],
+    'position' : 'bottom left',
+    //'offset' : [-3, 0],
     'onFail' : function(e, errors) {
         $.each(errors, function() {
             var $control = this.input;
