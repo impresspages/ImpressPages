@@ -1,6 +1,4 @@
-
 // UI option values ===========================================================
-
 @wrapperBackgroundColor: #fff;
 
 // normal colors
@@ -11,7 +9,6 @@
 @textColorInverted: #fff;
 @backgroundColorInverted: #000;
 
-
 @textColor: #333;
 @borderColorDark: #000;
 
@@ -21,22 +18,16 @@
 @fontFamilyHeadlines: Georgia, serif;
 
 // These values won't be overriden through UI =========================
-
 @boxWidth: 220px;
-
 @mainColor: #000;
 
-
 // Auto generated variables
-
 .menuColor () when (lightness(@mainColor) >= 50%) {
   color: darken(@mainColor, lightness(@mainColor) - 15); //make 85% dark
 }
 .menuColor () when (lightness(@mainColor) < 50%) {
   color: lighten(@mainColor, 85 - lightness(@mainColor));  //make 85% light
 }
-
-
 
 .menuSelectedColor () when (lightness(@mainColor) >= 20%) {
   color: darken(@mainColor, lightness(@mainColor) - 10); //90% dark
@@ -45,15 +36,12 @@
   color: darken(lightness(@mainColor) - 10); //90% light
 }
 
-
 .menuHoverBackground() when (lightness(@mainColor) >= 80%) {
   background-color: darken(@mainColor, 10);
 }
 .menuHoverBackground() when (lightness(@mainColor) < 80%) {
   background-color: lighten(@mainColor, 10);
 }
-
-
 
 .menuHoverColor () when (lightness(@mainColor) >= 50%) {
   color: #000;
@@ -62,7 +50,6 @@
   color: #fff;
 }
 
-
 .h1color() when (lightness(@mainColor) >= 20%) {
   color: #000;
 }
@@ -70,14 +57,12 @@
   color: @mainColor;
 }
 
-
 .h2color() when (lightness(@mainColor) >= 20%) {
   color: #000;
 }
 .h2color() when (lightness(@mainColor) < 20%) {
   color: lighten(@mainColor, 5);
 }
-
 
 .h3color() when (lightness(@mainColor) >= 20%) {
   color: #000;

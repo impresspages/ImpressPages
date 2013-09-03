@@ -50,12 +50,15 @@
   font-family: Georgia, serif;
 }
 .ipPreviewWidget h1 {
+  color: #000000;
   font-size: 36px;
 }
 .ipPreviewWidget h2 {
+  color: #0d0d0d;
   font-size: 28px;
 }
 .ipPreviewWidget h3 {
+  color: #1a1a1a;
   font-size: 22px;
 }
 .ipPreviewWidget ul {
@@ -82,6 +85,9 @@
 .ipPreviewWidget p+ul,
 .ipPreviewWidget p+ol {
   margin-top: -20px;
+}
+.ipPreviewWidget a {
+  color: #019bd4;
 }
 .ipPreviewWidget a:hover {
   text-decoration: underline;
@@ -328,11 +334,12 @@
   font-size: 11px;
 }
 .ipmErrorMessage {
-  background-color: #1335e5;
+  background-color: #e5e5e5;
   color: #da0001;
   font-size: 11px;
 }
 .mceContentBody {
+  background-color: #fff;
   color: #333;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
@@ -357,12 +364,15 @@
   font-family: Georgia, serif;
 }
 .mceContentBody h1 {
+  color: #000000;
   font-size: 36px;
 }
 .mceContentBody h2 {
+  color: #0d0d0d;
   font-size: 28px;
 }
 .mceContentBody h3 {
+  color: #1a1a1a;
   font-size: 22px;
 }
 .mceContentBody ul {
@@ -389,6 +399,9 @@
 .mceContentBody p+ul,
 .mceContentBody p+ol {
   margin-top: -20px;
+}
+.mceContentBody a {
+  color: #019bd4;
 }
 .mceContentBody a:hover {
   text-decoration: underline;
@@ -500,6 +513,7 @@
   padding-left: 25px;
 }
 .ipWidget-IpFile a {
+  color: #019bd4;
   font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
@@ -510,20 +524,29 @@
   display: none;
   padding: 20px 25px;
 }
+.ipWidget-IpHtml {
+  max-width: 100%;
+  overflow: auto;
+}
 .ipWidget-IpImage img {
   display: block;
+  max-width: 100%;
 }
 .ipWidget-IpImageGallery img {
   display: block;
+  max-width: 100%;
 }
 .ipWidget-IpImageGallery ul {
   list-style: none;
   margin: -20px 0 0 -20px;
 }
 .ipWidget-IpImageGallery li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
   margin: 20px 0 0 20px;
-  max-width: 50%;
+  max-width: 40%;
 }
 .ipWidget-IpImageGallery li img {
   border: 1px solid #888;
@@ -539,9 +562,12 @@
   margin: -20px 0 0 -20px;
 }
 .ipWidget-IpLogoGallery li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
   margin: 20px 0 0 20px;
-  max-width: 50%;
+  max-width: 40%;
 }
 .ipWidget-IpLogoGallery li img {
   border: 1px solid #888;
@@ -551,6 +577,10 @@
 }
 .ipWidget-IpLogoGallery li a:hover img {
   border-color: #000;
+}
+.ipWidget-IpRichText pre {
+  max-width: 100%;
+  overflow: auto;
 }
 .ipWidget-IpSeparator.ipLayout-default {
   border-bottom: 1px dotted #000;
