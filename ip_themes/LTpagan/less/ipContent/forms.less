@@ -156,14 +156,8 @@
     }
 
     // errors
-    .ipmError {
-        .ipmLabel {
-            color: #e44445;
-        }
-    }
-
     .ipmControlError {
-        border-color: #e44445;
+        border-color: @errorColor;
     }
 
     .ipmFileContainer {
@@ -203,15 +197,15 @@
         }
 
         .ipmUploadError {
-            color: #da0001;
+            color: @errorColor;
             font-size: @fontSizeTiny;
         }
     }
 }
 
 .ipmErrorMessage { // this object is created globally next to each invalid field
-    background-color: @backgroundColor;
-    color: #da0001;
+    background-color: @errorColor;
+    color: #fff;
     font-size: @fontSizeSmall;
     padding: 4px 10px 2px;
 }
