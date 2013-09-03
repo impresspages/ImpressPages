@@ -42,6 +42,7 @@ class LessCompiler
         $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName);
         $lessc->setFormatter('compressed');
         $css = $lessc->compile($less);
+        $css = "/* Edit {$lessFile}, not this file. */ " . $css;
         return $css;
     }
 
