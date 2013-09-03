@@ -10,6 +10,6 @@ var ipDesignOptions = {
         $('.wrapper .footer').css('borderColor', value);
         $('.topmenu li.current').css('color', value);
 
-        ipDesign.reloadLessFile(['ip_content', 'theme']);
+        ipDesign.reloadLessFiles(['ip_content', 'theme']);
     }
 };

@@ -29,8 +29,8 @@
         <?php echo $this->generateManagedImage('homeImage1', THEME_DIR.THEME.'/img/header.jpg', array('width' => '940'), 'banner'); ?>
         <div class="topmenu clearfix">
             <?php
-            //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-            echo $this->generateMenu('top', 'menu1');
+                //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
+                echo $this->generateMenu('top', 'menu1');
             ?>
         </div>
     </header>

@@ -50,6 +50,7 @@
             "label": "Homepage content blocks",
             "name": "homeContentBlocks",
             "type": "select",
+            "default": 3,
             "values": [0, 2, 3, 4, 5, 6]
         }
     ]
