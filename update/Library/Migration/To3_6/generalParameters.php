@@ -42,7 +42,7 @@ $parameterAdmin["standard"]["design"]["admin_translations"]["theme_options"] = "
 $parameterType ["standard"]["design"]["admin_translations"]["theme_options"] = "string";
 
 $parameterTitle["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore defaults";
-$parameterValue["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore deafults";
+$parameterValue["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore defaults";
 $parameterAdmin["standard"]["design"]["admin_translations"]["restore_defaults"] = "0";
 $parameterType ["standard"]["design"]["admin_translations"]["restore_defaults"] = "string";
 
