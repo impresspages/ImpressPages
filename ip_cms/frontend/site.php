@@ -1282,43 +1282,6 @@ class Site{
         return $block;
     }
 
-
-    protected function generateBlock_old($blockName, $static = false) {
-        global $dispatcher;
-        global $site;
-        $data = array (
-            'blockName' => $blockName
-        );
-
-        $event = new \Ip\Event($site, 'site.generateBlock', $data);
-
-        $processed = $dispatcher->notifyUntil($event);
-
-        if ($processed && $event->issetValue('content')) {
-            return $event->getValue('content');
-        } else {
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-
-            if ($static) {
-                $revisionId = null;
-            } else {
-                $revision = $this->getRevision();
-                if ($revision) {
-                $revisionId = $revision['revisionId'];
-                } else {
-                    return '';
-                }
-            }
-
-            if ($blockName == 'main' && $site->getCurrentElement()) {
-                return $site->getCurrentElement()->generateContent();
-            }
-
-            return \Modules\standard\content_management\Model::generateBlock($blockName, $revisionId, $this->managementState());
-
-        }
-    }
-
     /**
      * If we are in the management state and last revision is published, then create new revision.
      *

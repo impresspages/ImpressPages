@@ -49,8 +49,11 @@ class Block
                 }
             }
 
-            if ($this->name == 'main' && $site->getCurrentElement()) {
-                return $site->getCurrentElement()->generateContent();
+            if ($this->name == 'main') {
+                $currentElement =  $site->getCurrentElement();
+                if (!($currentElement instanceof \Modules\standard\content_management\Element)) {
+                    return $currentElement->generateContent();
+                }
             }
 
             return \Modules\standard\content_management\Model::generateBlock($this->name, $revisionId, $site->managementState(), $this->exampleContent);
