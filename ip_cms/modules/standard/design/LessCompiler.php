@@ -89,6 +89,9 @@ class LessCompiler
     {
         $lastBuildTime = $this->getLastBuildTime($themeName);
         $items = glob(BASE_DIR . THEME_DIR . $themeName . '/less/*');
+        if (!$items) {
+            return false;
+        }
         $items = array_merge($items, glob(BASE_DIR . THEME_DIR . $themeName . '/*'));
 
         for ($i = 0; $i < count($items); $i++) {
