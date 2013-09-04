@@ -1193,7 +1193,7 @@ $parameter["parameterTitle/standard/design/admin_translations/theme_options"] = 
 $parameter["parameterValue/standard/design/admin_translations/theme_options"] = "Theme options";
 
 $parameter["parameterTitle/standard/design/admin_translations/restore_defaults"] = "Restore defaults";
-$parameter["parameterValue/standard/design/admin_translations/restore_defaults"] = "Restore deafults";
+$parameter["parameterValue/standard/design/admin_translations/restore_defaults"] = "Restore defaults";
 
 $parameter["parameterTitle/standard/design/admin_translations/my_theme"] = "My theme";
 $parameter["parameterValue/standard/design/admin_translations/my_theme"] = "My theme";
