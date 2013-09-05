@@ -82,7 +82,7 @@ var ipDesign = new function () {
 
         $.each(formData, function (index, elem) {
             if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
-                data = data + '&ipDesign[previewConfig][' + elem.name + ']=' + encodeURIComponent(elem.value);
+                data = data + '&ipDesign[pCfg][' + elem.name + ']=' + encodeURIComponent(elem.value);
             }
 
         });
@@ -185,27 +185,27 @@ var ipDesign = new function () {
     this.openLink = function (href, restoreDefault) {
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
 
-        // create previewConfig data
-        var previewConfig = {};
+        // create preview config data
+        var pCfg = {};
         var key;
         for (var i = 0; i < config.length; i++) {
             key = config[i].name;
             if (key != 'securityToken' && key != 'g' && key != 'm' && key != 'ba') {
-                previewConfig[key] = config[i].value;
+                pCfg[key] = config[i].value;
             }
         }
 
 
-        // create form for previewConfig
+        // create form for preview config
         var postForm = $('<form>', {
             'method': 'POST',
             'action': href.indexOf('?') == -1 ? href + '?ipDesignPreview=1' : href + '&ipDesignPreview=1'
         });
 
-        for (var name in previewConfig) {
+        for (var name in pCfg) {
             postForm.append($('<input>', {
-                'name': 'ipDesign[previewConfig][' + name + ']',
-                'value': previewConfig[name],
+                'name': 'ipDesign[pCfg][' + name + ']',
+                'value': pCfg[name],
                 'type': 'hidden'
             }));
         }
