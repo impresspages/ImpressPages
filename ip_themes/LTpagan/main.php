@@ -22,7 +22,7 @@
                 ?>
             </nav>
             <aside>
-                <?php echo $this->generateBlock('side', true); ?>
+                <?php echo $this->generateBlock('side1', true); ?>
             </aside>
         </div>
         <div class="clear"></div>
