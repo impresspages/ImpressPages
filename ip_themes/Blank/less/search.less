@@ -1,0 +1,30 @@
+// Modules :: search
+.ipModuleSearch {
+    clear: right;
+    float: right;
+    margin-top: @marginBottomContent;
+
+    .ipmField {
+        float: left;
+    }
+    .ipmControlInput {
+        background-color: lighten(@borderColor, 20); // 2x lighter
+        border: 1px solid @borderColor;
+        float: left;
+        height: 21px;
+        padding: 1px 2px;
+        width: 160px;
+    }
+    .ipmControlSubmit {
+        background: @borderColor;
+        border-radius: 3px;
+        border: none;
+        color: @textColorInverted;
+        cursor: pointer;
+        float: left;
+        height: 25px; // input buttons have borders inside their height
+        line-height: 25px;
+        margin-left: (@marginBottomContent / 2);
+        padding: 0 6px;
+    }
+}

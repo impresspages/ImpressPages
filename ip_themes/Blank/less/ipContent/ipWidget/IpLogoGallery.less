@@ -1,0 +1,20 @@
+.ipWidget-IpLogoGallery {
+    ul {
+        list-style: none;
+    }
+
+    li {
+        max-width: 50%; // if no margins are set
+
+        img {
+            border: @borderGallery solid @borderColor;
+            display: block;
+            max-width: 100%;
+            padding: @paddingGallery;
+        }
+
+        a:hover img {
+            border-color: @borderColorDark;
+        }
+    }
+}

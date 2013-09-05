@@ -1,0 +1,149 @@
+/*
+    Disabling default styles
+*/
+html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: @backgroundColor;
+    color: @textColor;
+    font-family: @fontFamily;
+    font-size: @fontSize;
+}
+input, select, textarea, option, table {
+    font-family:  @fontFamily;
+    font-size: @fontSize;
+}
+table {
+    border-collapse: collapse;
+}
+a {
+    text-decoration: none;
+}
+h1, h2, h3 {
+    font-size: @fontSize;
+}
+address {
+    font-style: normal;
+}
+
+/*
+    Global
+*/
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+
+/*
+    Structure
+*/
+.theme {
+    background-color: @wrapperBackgroundColor;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative; // required for .gridhint
+}
+.theme > header {
+    border-bottom: 1px solid @borderColor;
+    margin-bottom: @marginBottomWidget;
+    padding-bottom: @marginBottomWidget;
+}
+.theme > footer {
+    border-top: 1px solid @borderColor;
+    margin-top: @marginBottomWidget;
+    padding: (@marginBottomContent / 2) 0;
+}
+.homerow {
+    clear: both;
+    border-top: 1px solid @borderColor;
+    padding-top: @marginBottomWidget;
+}
+.side {
+    clear: left; // to keep columns in place
+}
+
+/*
+    Styles
+*/
+.logo {
+    margin: 25px 0;
+    display: block;
+    float: left;
+    max-width: 620px;
+
+    a {
+        color: @textColor;
+        font-family: @fontFamily;
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+.languages {
+    border-left: 1px solid @borderColor;
+    float: right;
+    margin: @marginBottomContent 0 0 @marginBottomContent;
+    padding-left: (@marginBottomContent / 2);
+
+    ul {
+        list-style: none;
+    }
+    li {
+        border-left: 1px solid @wrapperBackgroundColor;
+        float: left;
+
+        &:first-child {
+            border: none;
+        }
+    }
+    a {
+        color: @textColor;
+        padding: (@marginBottomContent / 2);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .current a {
+        font-weight: bold;
+    }
+}
+.homeString {
+    font-family: @fontFamily;
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: @marginBottomWidget;
+    text-align: center;
+}
+.homeText {
+    font-family: @fontFamilyAlternative;
+    font-size: 24px;
+    margin-bottom: @marginBottomWidget;
+    text-align: center;
+}
+.homeText p {
+    margin-bottom: @marginBottomWidget;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.homeText a {
+    background: @linkColor;
+    border: none;
+    border-radius: 5px;
+    color: @textColorInverted;
+    font-family: @fontFamily;
+    font-weight: bold;
+    padding: (@marginBottomContent / 2) @marginBottomContent;
+}
+.theme > footer a {
+    .linkColor();
+}
+.theme > footer a:hover {
+    text-decoration: underline;
+}

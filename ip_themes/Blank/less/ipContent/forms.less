@@ -1,0 +1,203 @@
+.ipModuleForm {
+
+    .ipmPage {
+        .ipWidget-IpHtml;
+    }
+
+    .ipmFieldset {}
+
+    .ipmField {
+        margin-bottom: @marginBottomContent;
+        position: relative; // to position inner elements respectively to the field
+
+        .clearfix;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.ipmRequired { } // change any styles if field is required
+    }
+
+    .ipmType-blank { // if blank we'll remove it from the flow
+        margin: -16px 0 0;
+        position: absolute;
+    }
+
+    .ipmLabel {
+        display: block;
+        font-weight: bold;
+        margin: 0 0 3px 0;
+        min-height: 1px; // to keep the width when empty
+    }
+
+    .ipmMarker {}
+
+    .ipmControl {}
+
+    .ipmControlBlank {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+        width: 0;
+    }
+
+    .ipmControlInput {
+        background-color: lighten(@borderColor, 20);
+        border: 1px solid @borderColor;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; // for max-width to make sense
+        color: @textColorInactive;
+        max-width: 280px;
+        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+        width: 100%;
+
+        &:focus {
+            background-color: @backgroundColor;
+            border-color: @borderColorDark;
+            color: @textColor;
+        }
+    }
+
+    .ipmControlTextarea {
+        background-color: lighten(@borderColor, 20);
+        border: 1px solid @borderColor;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; // for max-width to make sense
+        color: @textColorInactive;
+        display: block;
+        height: 9.5em; // height is relative to the font size to have full lines
+        max-width: 380px;
+        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+        overflow: auto; // hiding scrolls if not necessary
+        width: 100%;
+
+        &:focus {
+            background-color: @backgroundColor;
+            border-color: @borderColorDark;
+            color: @textColor;
+        }
+    }
+
+    .ipmControlSelect {
+        background-color: lighten(@borderColor, 20);
+        border: 1px solid @borderColor;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; // for max-width to make sense
+        color: @textColorInactive;
+        max-width: 280px;
+        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+        width: 100%;
+
+        &:focus {
+            background-color: @backgroundColor;
+            border-color: @borderColorDark;
+            color: @textColor;
+        }
+    }
+
+    .ipmControlRadio {}
+
+    .ipmControlCheckbox {}
+
+    .ipmType-confirm .ipmControlCheckbox {
+        float: left;
+    }
+    .ipmControlConfirmOptions {
+        margin-left: 25px;
+    }
+
+    .ipmType-captcha .ipmControl img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .ipmNote { // always visible
+        color: lighten(@textColor, 20);
+        font-size: @fontSizeSmall;
+    }
+
+    .ipmHint { // to be shown on hover
+        background-color: @borderColor;
+        color: #fff;
+        display: none;
+        font-size: @fontSizeSmall;
+        padding: 4px 10px 2px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        z-index: 1;
+    }
+    .ipmField:hover .ipmHint { // hint is shown only on hover
+        display: block;
+    }
+
+    .ipmControlSubmit {
+        background: @linkColor;
+        border: none;
+        border-radius: 3px;
+        color: @textColorInverted;
+        cursor: pointer;
+        font-weight: bold;
+        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+    }
+
+    // errors
+    .ipmControlError {
+        border-color: @errorColor;
+    }
+
+    .ipmFileContainer {
+        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
+            width: 0;
+            height: 0;
+            overflow: hidden;
+
+            input { // margins on input makes error message to appear lower than it should
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .ipmFileProgress {
+            border: 1px solid @textColor;
+            height: 3px;
+        }
+
+        .ipmFile {
+            background-color: lighten(@borderColor, 20);
+            margin-top: (@marginBottomContent / 2);
+            padding: (@marginBottomContent / 2);
+        }
+
+        .ipmFileProgressValue {
+            background-color: #ccc;
+            height: 3px;
+        }
+
+        .ipmRemove {
+            cursor: pointer;
+            background: url(img/file_remove.png) no-repeat;
+            float: right;
+            height: 13px;
+            width: 13px;
+        }
+
+        .ipmUploadError {
+            color: @errorColor;
+            font-size: @fontSizeTiny;
+        }
+    }
+}
+
+.ipmErrorMessage { // this object is created globally next to each invalid field
+    background-color: @errorColor;
+    color: #fff;
+    font-size: @fontSizeSmall;
+    padding: 4px 10px 2px;
+}
