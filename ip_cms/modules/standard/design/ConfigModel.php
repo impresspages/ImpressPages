@@ -42,7 +42,7 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'][$name])) {
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'][$name])) {
 
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
@@ -56,7 +56,7 @@ class ConfigModel{
                 }
             }
 
-            return $data['ipDesign']['previewConfig'][$name];
+            return $data['ipDesign']['pCfg'][$name];
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -99,8 +99,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'])) {
-            $config = $data['ipDesign']['previewConfig'];
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])) {
+            $config = $data['ipDesign']['pCfg'];
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
