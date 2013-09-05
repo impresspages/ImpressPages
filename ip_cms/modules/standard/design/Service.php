@@ -48,6 +48,7 @@ class Service
 
     /**
      * @param string $name
+     * @param string $default
      * @param string $themeName
      * @return string
      */

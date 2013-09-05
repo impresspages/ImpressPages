@@ -15,7 +15,7 @@ class ConfigModel{
 
     protected function __construct()
     {
-        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_GET['ipDesignPreview']) && $this->hasPermission();
+        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']) && $this->hasPermission();
     }
 
     /**
@@ -31,24 +31,32 @@ class ConfigModel{
         return $this->isInPreviewState;
     }
 
-    public function getConfigValue($theme, $name, $default = null)
+    /**
+     * @todo optimize
+     * @param string $themeName
+     * @param string $name option name
+     * @param null $default you can override theme.json default value here
+     * @return mixed
+     */
+    public function getConfigValue($themeName, $name, $default = null)
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'][$name])) {
-            $answer = $data['ipDesign']['previewConfig'][$name];
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'][$name])) {
+
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
                 $theme = $model->getTheme(THEME);
                 $options = $theme->getOptions();
                 foreach($options as $option) {
-                    if ($option['name'] == $name && isset($option['name']) && isset($option['default'])) {
-                        $answer = $option['default'];
+                    if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
+                        return $option['default'];
                     }
                 }
             }
-            return $answer;
+
+            return $data['ipDesign']['pCfg'][$name];
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -63,7 +71,7 @@ class ConfigModel{
         ';
 
         $params = array (
-            ':theme' => $theme,
+            ':theme' => $themeName,
             ':name' => $name
         );
         $q = $dbh->prepare($sql);
@@ -72,6 +80,18 @@ class ConfigModel{
         if ($result) {
             return $result['value'];
         }
+
+        if ($default === null) {
+            $model = Model::instance();
+            $theme = $model->getTheme($themeName);
+            $options = $theme->getOptions();
+            foreach($options as $option) {
+                if ($option['name'] == $name && isset($option['name']) && isset($option['default'])) {
+                    return $option['default'];
+                }
+            }
+        }
+
         return $default;
     }
 
@@ -79,8 +99,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['previewConfig'])) {
-            $config = $data['ipDesign']['previewConfig'];
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])) {
+            $config = $data['ipDesign']['pCfg'];
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
