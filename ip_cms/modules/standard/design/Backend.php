@@ -211,13 +211,13 @@ class Backend extends \Ip\Controller
         if (!isset($params['file'])) {
             throw new \Ip\CoreException("Required parameter missing");
         }
+
         $file = basename($params['file']);
 
         $lessCompiler = LessCompiler::instance();
         $css = $lessCompiler->compileFile(THEME, $file);
-        header("Content-type: text/css");
+
+        header("Content-type: text/css", null, 200);
         $site->setOutput($css);
     }
-
-
 }
