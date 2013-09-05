@@ -6,4 +6,4 @@
 </div>
 <div class="grid_4 left">
     <?php echo $site->generateBlock('home3', true); ?>
-</div>
+</div>grid_3
