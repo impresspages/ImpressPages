@@ -21,7 +21,9 @@
 
     a {
         color: @linkColor;
+        display: block;
         padding: (@marginBottomContent / 2) @marginBottomContent;
+        white-space: nowrap;
 
         &:hover {
             text-decoration: underline;
@@ -68,28 +70,23 @@
         }
         a {
             display: block;
-            white-space: nowrap;
         }
     }
 
     @media screen and (max-width: 479px) {
-        &:hover > ul {
-            display: block;
-        }
         .toggle {
-            display: inline;
+            display: block;
         }
         & > ul {
             background-color: @backgroundColor;
+            border: 1px solid @borderColor;
+            box-shadow: 0 1px 3px rgba(0,0,0,.5);
             display: none;
             left: 0;
             position: absolute;
             top: 0;
             width: 100%;
             z-index: 10;
-        }
-        a {
-            display: block;
         }
         .level1 ul {
             border: none;
