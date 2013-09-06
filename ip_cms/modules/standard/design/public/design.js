@@ -13,10 +13,10 @@ $(document).ready(function () {
             url: ip.baseUrl,
             dataType: 'json',
             type: 'POST',
-            data: {'g': 'standard', 'm': 'design', 'ba': 'installTheme', 'themeName': $(this).data('theme'), 'securityToken': ip.securityToken},
+            data: {'g': 'standard', 'm': 'design', 'aa': 'installTheme', 'themeName': $(this).data('theme'), 'securityToken': ip.securityToken},
             success: function (response) {
                 if (response.status && response.status == 'success') {
-                    window.location = ip.baseUrl + '?g=standard&m=design&ba=index';
+                    window.location = ip.baseUrl + '?g=standard&m=design&aa=index';
                 } else if (response.error) {
                     alert(response.error);
                 }

@@ -100,7 +100,7 @@ var Market = new function() {
 
         $.ajax(ip.baseUrl, {
             'type': 'POST',
-            'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
+            'data': {'g': 'standard', 'm': 'design', 'aa': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
             'dataType': 'json',
             'success': function (response) {
                 if (!response || response.error || !response.result || !response.result.themes) {

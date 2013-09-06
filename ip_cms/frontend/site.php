@@ -742,7 +742,7 @@ class Site{
 
 
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['ba'])) {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['aa'])) {
                     //user posts method to backend action. Check permissions.
                     $permission = \Ip\Backend::userHasPermission(\Ip\Backend::userId(), $_REQUEST['g'], $_REQUEST['m']);
                     if (!$permission) {
@@ -757,9 +757,9 @@ class Site{
                     if (isset($_REQUEST['pa']) && $_REQUEST['pa'] != '__construct') {
                         $controllerClass = 'PublicController';
                         $function = $_REQUEST['pa'];
-                    } elseif (isset($_REQUEST['ba']) && $_REQUEST['ba'] != '__construct') {
-                        $controllerClass = 'Backend';
-                        $function = $_REQUEST['ba'];
+                    } elseif (isset($_REQUEST['aa']) && $_REQUEST['aa'] != '__construct') {
+                        $controllerClass = 'AdminController';
+                        $function = $_REQUEST['aa'];
                     } else {
                         $controllerClass = 'Controller';
                         if (isset($_REQUEST['a']) && $_REQUEST['a'] != '__construct') {
@@ -1251,7 +1251,7 @@ class Site{
                     $file .= http_build_query(array(
                             'g' => 'standard',
                             'm' => 'design',
-                            'ba' => 'realTimeLess',
+                            'aa' => 'realTimeLess',
                             'file' => $path['filename'] . '.less',
                             'ipDesignPreview' => '1',
                             'securityToken' => $securityToken,

@@ -6,7 +6,7 @@
 namespace Modules\standard\content_management;
 
 
-class Backend extends \Ip\Controller
+class AdminController extends \Ip\Controller
 {
 
 

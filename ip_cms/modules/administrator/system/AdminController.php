@@ -10,7 +10,7 @@ namespace Modules\administrator\system;
 require_once (__DIR__.'/module.php');
 require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
 
-class Backend extends \Ip\Controller{
+class AdminController extends \Ip\Controller{
 
 
     public function index()
@@ -82,7 +82,7 @@ class Backend extends \Ip\Controller{
     protected function indexUrl()
     {
         $site = \Ip\ServiceLocator::getSite();
-        return str_replace('&amp;', '&', $site->generateUrl(null, null, null, array('g' => 'administrator', 'm' => 'system', 'ba' => 'index')));
+        return str_replace('&amp;', '&', $site->generateUrl(null, null, null, array('g' => 'administrator', 'm' => 'system', 'aa' => 'index')));
     }
 
     public function startUpdate() {

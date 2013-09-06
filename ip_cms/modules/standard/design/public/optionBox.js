@@ -78,10 +78,10 @@ var ipDesign = new function () {
         var dataIterator, formData, data;
         cssUpdateInProgress = 1;
         formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
-        data = 'g=standard&m=design&ba=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
+        data = 'g=standard&m=design&aa=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
 
         $.each(formData, function (index, elem) {
-            if (elem.name !== 'a' && elem.name !== 'ba' && elem.name !== 'm' && elem.name !== 'g') {
+            if (elem.name !== 'a' && elem.name !== 'aa' && elem.name !== 'm' && elem.name !== 'g') {
                 data = data + '&ipDesign[pCfg][' + elem.name + ']=' + encodeURIComponent(elem.value);
             }
 
@@ -190,7 +190,7 @@ var ipDesign = new function () {
         var key;
         for (var i = 0; i < config.length; i++) {
             key = config[i].name;
-            if (key != 'securityToken' && key != 'g' && key != 'm' && key != 'ba') {
+            if (key != 'securityToken' && key != 'g' && key != 'm' && key != 'aa') {
                 pCfg[key] = config[i].value;
             }
         }

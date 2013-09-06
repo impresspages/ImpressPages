@@ -192,7 +192,7 @@ class ConfigModel{
         $field->setDefaultValue('design');
         $form->addField($field);
         $field = new Form\Field\Hidden();
-        $field->setName('ba');
+        $field->setName('aa');
         $field->setDefaultValue('updateConfig');
         $form->addField($field);
 
