@@ -63,24 +63,40 @@ $(document).ready(function () {
             }
         });
         return equal;
-    }
+    };
 
     var removeColClass = function (tag) {
         var i = 0;
         for (i; i < cols; i = i + 1) {
             $(tag).removeClass('col_' + (i + 1));
         }
-    }
+    };
 
     var adjustRowEqual = function (row) {
         var originalWidth = row[0].width * optimalColWidth;
+        var idealItemsPerRow = Math.floor(curColWidth() * cols / originalWidth);
+        if (idealItemsPerRow < 1) {
+            idealItemsPerRow = 1;
+        }
+        while (row.length % idealItemsPerRow !== 0 && cols % idealItemsPerRow === 0) {
+            //while item count doesn't divide by idealItemsPerRow in equal parts
+            //and
+            //while grid cols count doesn't divide in idealItemsPerRow count
+            //at the end of the day it should go down to 1
+            idealItemsPerRow -= 1;
+        }
+        var newItemWidth = cols / idealItemsPerRow;
+console.log('ideal items per row ' + idealItemsPerRow);
+
         var curWidth = row[0].width * curColWidth();
         var curDeflection = deflection(originalWidth, curWidth);
-        var newDeflection = deflection(originalWidth, cols * curColWidth());
-        if (newDeflection < curDeflection) {
+        var newDeflection = deflection(originalWidth, newItemWidth * curColWidth());
+        console.log(originalWidth + ' | ' + curWidth);
+        console.log(originalWidth + ' | ' + newItemWidth * curColWidth());
+        if (newDeflection < curDeflection) {console.log('resize ' + newItemWidth);
             $.each(row, function (index, item) {
                 removeColClass(item.tag);
-                $(item.tag).addClass('col_' + cols);
+                $(item.tag).addClass('col_' + newItemWidth);
             });
         } else {
             restoreDefault(row);
@@ -111,14 +127,7 @@ $(document).ready(function () {
             return originalWidth / curWidth;
         }
     }
-//    var calcDeflection = function (elements, widths) {
-//        $.each(elements, function (index, item) {
-//            var width = item.width;
-//            if (width[index]) {
-//
-//            }
-//        });
-//    }
+
 
     var adjust = function (rows) {
         $.each(rows, function(index, value) {
@@ -149,7 +158,6 @@ $(document).ready(function () {
         }
     });
 
-console.log(rows);
     $(window).resize(function () {
         adjust(rows);
     });
