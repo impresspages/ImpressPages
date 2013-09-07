@@ -1,14 +1,15 @@
-$(document).ready(function() {
+$(document).ready(function () {
+    "use strict";
     $('.ipWidget-IpImageGallery li a, .ipWidget-IpImage a').colorbox({
-        rel:'ipwImage',
-        maxWidth:'90%',
-        maxHeight:'90%'
+        rel: 'ipwImage',
+        maxWidth: '90%',
+        maxHeight: '90%'
     });
     $('.topmenu')
         .touchMenuHover() // mimics iOS behavior allowing to get hover state without clicking
-        .find('.toggle').on('click',function(e){ // opens menu in mobile view
+        .find('.toggle').on('click', function (e) { // opens menu in mobile view
             e.preventDefault();
-            $(this).next('ul').css('display','block');
+            $(this).next('ul').css('display', 'block');
         });
 });
 
