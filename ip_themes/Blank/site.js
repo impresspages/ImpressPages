@@ -86,14 +86,11 @@ $(document).ready(function () {
             idealItemsPerRow -= 1;
         }
         var newItemWidth = cols / idealItemsPerRow;
-console.log('ideal items per row ' + idealItemsPerRow);
 
         var curWidth = row[0].width * curColWidth();
         var curDeflection = deflection(originalWidth, curWidth);
         var newDeflection = deflection(originalWidth, newItemWidth * curColWidth());
-        console.log(originalWidth + ' | ' + curWidth);
-        console.log(originalWidth + ' | ' + newItemWidth * curColWidth());
-        if (newDeflection < curDeflection) {console.log('resize ' + newItemWidth);
+        if (newDeflection < curDeflection) {
             $.each(row, function (index, item) {
                 removeColClass(item.tag);
                 $(item.tag).addClass('col_' + newItemWidth);
@@ -102,6 +99,139 @@ console.log('ideal items per row ' + idealItemsPerRow);
             restoreDefault(row);
         }
     };
+
+    /**
+     * recursion way to find best split
+     * 0. check if we need to split
+     * 1. split row in the middle. Once more to left and once more to right.
+     * 2. recurring call of itself to split each of the parts we got.
+     * 4. return the best way out of those three and no split at all
+     *
+     * @param row
+     */
+    var findBestSplit = function (row, depth) {
+        if (depth > 1) {
+            return [row];
+        }
+        var ratio = optimalColWidth / curColWidth(),
+            bestSplitRows = [row],
+            bestSplitDeflection = rowDeflection(row, cols), //no split is our starting point.
+            splits = [],
+            partialSplits,
+            newSplit,
+            curSplitDeflection;
+
+        //check if we need to split
+        if (rowWidth(row) * ratio <= cols) {
+            return row;
+        }
+
+        //get likely the best splits
+        partialSplits = splitInTheMiddle(row);
+
+        $.each(partialSplits, function (index, partialSplit) {
+            newSplit = [];
+            newSplit.concat(['test']);
+            newSplit = newSplit.concat(findBestSplit(partialSplit[0], depth + 1), findBestSplit(partialSplit[1], depth + 1));
+            splits.push(newSplit);
+        });
+        $.each(splits, function (index, split) {
+            curSplitDeflection = rowsDeflection(split);
+            if (curSplitDeflection < bestSplitDeflection) {
+                curSplitDeflection = bestSplitDeflection;
+                bestSplitRows = split;
+            }
+        });
+        return bestSplitRows;
+
+    };
+
+    /**
+     *
+     * return two or three splits
+     *
+     **/
+    var splitInTheMiddle = function (row) {
+        var splits = [];
+        var i = 0;
+        var leftPartWidth = 0;
+        if (row.length < 2) {
+            return [[row]];
+        }
+        if (row.length === 2) {
+            return [[row.slice(0, 1), row.slice(1, 2)]];
+        }
+
+
+        //iterate until leftPartWidth is greater than middle
+        while (leftPartWidth <= rowWidth(row) / 2) {
+            leftPartWidth += row[i].width;
+            i += 1;
+        }
+
+
+        //our first split is right after the middle is reached
+        splits.push([row.slice(0, i), row.slice(i)]);
+        //next split is one step back
+        splits.push([row.slice(0, i - 1), row.slice(i - 1)]);
+        //if your one step back is actually in the middle, then make on cut one more step back
+        if (leftPartWidth - row[i].width === rowWidth(row) / 2) {
+            splits.push([row.slice(0, i - 2), row.slice(i - 1)]);
+        }
+        return splits;
+    };
+
+
+    var fitToCols = function (row, cols) {
+        var newWidths = [],
+            curWidth = rowWidth(row),
+            diff = 0,
+            sacrificeIndex,
+            sacrificeSignificance,
+            tmpSignificance;
+
+        //set new widths the same as old ones
+        $.each(row, function (index, item) {
+            newWidths.push(item.width);
+        });
+
+
+        //while new width not equal the required one
+        while (cols !== curWidth) {
+            if (cols > curWidth) {
+                diff = 1;
+            } else {
+                diff = -1;
+            }
+            //find which column can handle resize with least effort
+            sacrificeIndex = 0;
+            sacrificeSignificance = 10000; //huge. Any other should be lower
+            $.each(row, function (index, item) {
+                tmpSignificance = deflection(row[index].width, newWidths[index] + diff);
+                if (tmpSignificance < sacrificeSignificance && newWidths[index] + diff > 0) {
+                    sacrificeSignificance = tmpSignificance;
+                    sacrificeIndex = index;
+                }
+            });
+
+            newWidths[sacrificeIndex] += diff;
+            curWidth += diff;
+        }
+        //set new box widths
+        $.each(row, function (index, item) {
+            removeColClass(item.tag);
+            $(item.tag).addClass('col_' + newWidths[index]);
+        });
+
+    }
+
+    var adjustRowInequal = function (row) {
+        var split = findBestSplit(row, 1);
+
+        $.each(split, function (index, oneRow) {
+            fitToCols(oneRow, cols);
+        });
+    }
 
     var curColWidth = function () {
         return $(document).width() / cols;
@@ -114,11 +244,31 @@ console.log('ideal items per row ' + idealItemsPerRow);
             if (rowItemsEqual(row)) {
                 adjustRowEqual(row);
             } else {
-                //
+                adjustRowInequal(row);
             }
         }
     };
 
+    /**
+     * find deflection of several rows passed as array
+     * @param split
+     */
+    var rowsDeflection = function (rows) {
+        var deflectionSum = 0;
+        $.each(rows, function (index, row) {
+            deflectionSum += rowDeflection(row, cols);
+        });
+        return deflectionSum / rows.length;
+    }
+
+    /**
+     * calculate deflection sum if the will fit to given cols
+     * @param row
+     */
+    var rowDeflection = function (row, cols) {
+        var ratio = optimalColWidth / curColWidth();
+        return deflection(cols, rowWidth(row) * ratio);
+    }
 
     var deflection = function (originalWidth, curWidth) {
         if (curWidth > originalWidth) {
