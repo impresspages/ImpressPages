@@ -100,13 +100,6 @@ $(document).ready(function () {
         }
     };
 
-    var tab = function(depth) {
-        var answer = '';
-        for (var i = 0; i < depth; i ++) {
-            answer = answer + ' ';
-        }
-        return answer;
-    }
 
     /**
      * recursion way to find best split
@@ -118,10 +111,8 @@ $(document).ready(function () {
      * @param row
      */
     var findBestSplit = function (row, depth) {
-        //console.log(tab(depth) + 'START BEST SPLIT' + row);
-
         if (depth > 6) {
-            console.log(tab(depth) + 'likely infinite recursion');
+            //infinite recursion
             return [row];
         }
         if (row.length === 1) {
@@ -144,7 +135,6 @@ $(document).ready(function () {
         partialSplits = splitInTheMiddle(row);
 
         $.each(partialSplits, function (index, partialSplit) {
-            console.log(tab(depth) + 'partial split' + row + ' = ' + partialSplit[0] + ' | ' + partialSplit[1]);
             newSplit = [];
             newSplit.concat(['test']);
             newSplit = newSplit.concat(findBestSplit(partialSplit[0], depth + 1), findBestSplit(partialSplit[1], depth + 1));
