@@ -100,6 +100,14 @@ $(document).ready(function () {
         }
     };
 
+    var tab = function(depth) {
+        var answer = '';
+        for (var i = 0; i < depth; i ++) {
+            answer = answer + ' ';
+        }
+        return answer;
+    }
+
     /**
      * recursion way to find best split
      * 0. check if we need to split
@@ -110,7 +118,13 @@ $(document).ready(function () {
      * @param row
      */
     var findBestSplit = function (row, depth) {
-        if (depth > 1) {
+        //console.log(tab(depth) + 'START BEST SPLIT' + row);
+
+        if (depth > 6) {
+            console.log(tab(depth) + 'likely infinite recursion');
+            return [row];
+        }
+        if (row.length === 1) {
             return [row];
         }
         var ratio = optimalColWidth / curColWidth(),
@@ -123,13 +137,14 @@ $(document).ready(function () {
 
         //check if we need to split
         if (rowWidth(row) * ratio <= cols) {
-            return row;
+            return [row];
         }
 
         //get likely the best splits
         partialSplits = splitInTheMiddle(row);
 
         $.each(partialSplits, function (index, partialSplit) {
+            console.log(tab(depth) + 'partial split' + row + ' = ' + partialSplit[0] + ' | ' + partialSplit[1]);
             newSplit = [];
             newSplit.concat(['test']);
             newSplit = newSplit.concat(findBestSplit(partialSplit[0], depth + 1), findBestSplit(partialSplit[1], depth + 1));
@@ -156,7 +171,7 @@ $(document).ready(function () {
         var i = 0;
         var leftPartWidth = 0;
         if (row.length < 2) {
-            return [[row]];
+            return [];
         }
         if (row.length === 2) {
             return [[row.slice(0, 1), row.slice(1, 2)]];
@@ -173,9 +188,11 @@ $(document).ready(function () {
         //our first split is right after the middle is reached
         splits.push([row.slice(0, i), row.slice(i)]);
         //next split is one step back
-        splits.push([row.slice(0, i - 1), row.slice(i - 1)]);
+        if (i > 1) {
+            splits.push([row.slice(0, i - 1), row.slice(i - 1)]);
+        }
         //if your one step back is actually in the middle, then make on cut one more step back
-        if (leftPartWidth - row[i].width === rowWidth(row) / 2) {
+        if (leftPartWidth - row[i].width === rowWidth(row) / 2 && i > 2) {
             splits.push([row.slice(0, i - 2), row.slice(i - 1)]);
         }
         return splits;
