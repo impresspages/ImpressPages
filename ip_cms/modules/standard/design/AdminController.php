@@ -11,7 +11,7 @@ namespace Modules\standard\design;
 
 use Ip\ServiceLocator;
 
-class Backend extends \Ip\Controller
+class AdminController extends \Ip\Controller
 {
 
 

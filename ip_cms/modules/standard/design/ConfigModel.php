@@ -192,7 +192,7 @@ class ConfigModel{
         $field->setDefaultValue('design');
         $form->addField($field);
         $field = new Form\Field\Hidden();
-        $field->setName('ba');
+        $field->setName('aa');
         $field->setDefaultValue('updateConfig');
         $form->addField($field);
 
@@ -218,6 +218,9 @@ class ConfigModel{
                     break;
                 case 'text':
                     $newField = new Form\Field\Text();
+                    break;
+                case 'textarea':
+                    $newField = new Form\Field\Textarea();
                     break;
                 case 'color':
                     $newField = new Form\Field\Color();

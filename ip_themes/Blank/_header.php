@@ -8,6 +8,7 @@
 <?php echo $this->doctypeDeclaration(); ?>
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css'); ?>
     <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css'); ?>
     <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css'); ?>
