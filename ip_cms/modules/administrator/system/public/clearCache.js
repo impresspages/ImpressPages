@@ -7,7 +7,7 @@ function ipSystemClearCache(e) {
     "use strict";
     e.preventDefault();
     var $this = $(this);
-    var postData = Object();
+    var postData = {};
     postData.g = 'administrator';
     postData.m = 'system';
     postData.aa = 'clearCache';

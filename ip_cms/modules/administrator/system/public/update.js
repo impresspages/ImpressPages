@@ -1,7 +1,7 @@
 $(document).ready(function () {
     "use strict";
 
-    var postData = Object();
+    var postData = {};
     postData.g = 'administrator';
     postData.m = 'system';
     postData.aa = 'getSystemInfo';
@@ -53,7 +53,7 @@ function startUpdate(e) {
 
     e.preventDefault();
 
-    var postData = Object();
+    var postData = {};
     postData.g = 'administrator';
     postData.m = 'system';
     postData.aa = 'startUpdate';
