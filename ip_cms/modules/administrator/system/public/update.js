@@ -1,15 +1,13 @@
-
-"use strict";
-
-
 $(document).ready(function() {
+    "use strict";
+
     var postData = Object();
     postData.g = 'administrator';
     postData.m = 'system';
-    postData.ba = 'getSystemInfo';
+    postData.aa = 'getSystemInfo';
     postData.securityToken = ip.securityToken;
 
-    postData.jsonrpc = '2.0'
+    postData.jsonrpc = '2.0';
 
     $.ajax({
         url: ip.baseUrl,
@@ -27,7 +25,9 @@ $(document).ready(function() {
 
 
 function mod_administrator_system_publish_updates(response){
-  var container = document.getElementById('systemInfo');
+    "use strict";
+
+    var container = document.getElementById('systemInfo');
   var messages = '';
   if(response != '') {
     messages = response;
@@ -49,12 +49,14 @@ function mod_administrator_system_publish_updates(response){
 
 
 function startUpdate(e) {
+    "use strict";
+
     e.preventDefault();
 
     var postData = Object();
     postData.g = 'administrator';
     postData.m = 'system';
-    postData.ba = 'startUpdate';
+    postData.aa = 'startUpdate';
     postData.securityToken = ip.securityToken;
 
     $.ajax({
