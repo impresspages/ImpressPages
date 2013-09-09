@@ -178,7 +178,9 @@ class Element extends \Frontend\Element {
                 break;
             case 'password_reset':
                 if ($session->loggedIn()) {
-                    if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
+                    if (isset($_SESSION['modules']['community']['user']['page_after_login'])) {
+                        $answer .= '<script type="text/javascript">document.location = \''.$_SESSION['modules']['community']['user']['page_after_login'].'\';</script>';
+                    } elseif($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
                         $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login')).'\';</script>';
                     } else {
                         $answer .= '<script type="text/javascript">document.location = \''.$site->generateUrl(null, $this->zoneName, array('profile')).'\';</script>';

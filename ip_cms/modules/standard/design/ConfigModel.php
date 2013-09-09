@@ -219,6 +219,9 @@ class ConfigModel{
                 case 'text':
                     $newField = new Form\Field\Text();
                     break;
+                case 'textarea':
+                    $newField = new Form\Field\Textarea();
+                    break;
                 case 'color':
                     $newField = new Form\Field\Color();
                     break;
