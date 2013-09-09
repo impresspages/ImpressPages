@@ -7,6 +7,9 @@
 @columnMarginBottom: 25px;
 @columnContainerClass: grid; // required for nested blocks
 
+@screenMedium: 480px;
+@screenLarge: 980px;
+
 [class^="col_"],
 [class*=" col_"],
 .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li {
@@ -29,296 +32,596 @@
 .col(@num, @cols) {
     width: (100% / @cols) * @num; // calculating width
 }
-.push(@num, @cols) {
-    left: (100% / @cols) * @num; // leaving space on the left
+
+// Default screen grid
+@cols: 12;
+
+.col_1 {
+    @size: 1;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
 }
-.pull(@num, @cols) {
-    right: (100% / @cols) * @num; // leaving space on the right
+.col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li {
+    @size: 2;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_3 {
+    @size: 3;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_4 {
+    @size: 4;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_5 {
+    @size: 5;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_6 {
+    @size: 6;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_7 {
+    @size: 7;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_8 {
+    @size: 8;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_9 {
+    @size: 9;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_10 {
+    @size: 10;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_11 {
+    @size: 11;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_12 {
+    @size: 12;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
 }
 
-// 12 columns grid
-@media screen {
+// Medium screen grid
+@media screen and (min-width: @screenMedium) {
     @cols: 12;
 
-    .col_1 {
+    .col_md_1 {
         @size: 1;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li {
+    .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li {
         @size: 2;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_3 {
+    .col_md_3 {
         @size: 3;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_4 {
+    .col_md_4 {
         @size: 4;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_5 {
+    .col_md_5 {
         @size: 5;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_6 {
+    .col_md_6 {
         @size: 6;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_7 {
+    .col_md_7 {
         @size: 7;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_8 {
+    .col_md_8 {
         @size: 8;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_9 {
+    .col_md_9 {
         @size: 9;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_10 {
+    .col_md_10 {
         @size: 10;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_11 {
+    .col_md_11 {
         @size: 11;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
     }
-    .col_12 {
+    .col_md_12 {
+        @size: 9;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+}
+
+// Large screen grid
+@media screen and (min-width: @screenLarge) {
+    @cols: 12;
+
+    .col_lg_1 {
+        @size: 1;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li {
+        @size: 2;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_3 {
+        @size: 3;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_4 {
+        @size: 4;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_5 {
+        @size: 5;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_6 {
+        @size: 6;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_7 {
+        @size: 7;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_8 {
+        @size: 8;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_9 {
+        @size: 9;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_10 {
+        @size: 10;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_11 {
+        @size: 11;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_12 {
         @size: 12;
         .col(@size, @cols);
-        .col_1 { .col(1, @size); }
-        .col_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
-        .col_3 { .col(3, @size); }
-        .col_4 { .col(4, @size); }
-        .col_5 { .col(5, @size); }
-        .col_6 { .col(6, @size); }
-        .col_7 { .col(7, @size); }
-        .col_8 { .col(8, @size); }
-        .col_9 { .col(9, @size); }
-        .col_10 { .col(10, @size); }
-        .col_11 { .col(11, @size); }
-        .col_12 { .col(@cols, @size); } // sets the maximum
-    }
-    .push_1 {
-        @size: 1;
-        .push(@size, @cols);
-    }
-    .push_2 {
-        @size: 2;
-        .push(@size, @cols);
-    }
-    .push_3 {
-        @size: 3;
-        .push(@size, @cols);
-    }
-    .push_4 {
-        @size: 4;
-        .push(@size, @cols);
-    }
-    .push_5 {
-        @size: 5;
-        .push(@size, @cols);
-    }
-    .push_6 {
-        @size: 6;
-        .push(@size, @cols);
-    }
-    .push_7 {
-        @size: 7;
-        .push(@size, @cols);
-    }
-    .push_8 {
-        @size: 8;
-        .push(@size, @cols);
-    }
-    .push_9 {
-        @size: 9;
-        .push(@size, @cols);
-    }
-    .push_10 {
-        @size: 10;
-        .push(@size, @cols);
-    }
-    .push_11 {
-        @size: 11;
-        .push(@size, @cols); // sets the maximum
-    }
-    .pull_1 {
-        @size: 1;
-        .pull(@size, @cols);
-    }
-    .pull_2 {
-        @size: 2;
-        .pull(@size, @cols);
-    }
-    .pull_3 {
-        @size: 3;
-        .pull(@size, @cols);
-    }
-    .pull_4 {
-        @size: 4;
-        .pull(@size, @cols);
-    }
-    .pull_5 {
-        @size: 5;
-        .pull(@size, @cols);
-    }
-    .pull_6 {
-        @size: 6;
-        .pull(@size, @cols);
-    }
-    .pull_7 {
-        @size: 7;
-        .pull(@size, @cols);
-    }
-    .pull_8 {
-        @size: 8;
-        .pull(@size, @cols);
-    }
-    .pull_9 {
-        @size: 9;
-        .pull(@size, @cols);
-    }
-    .pull_10 {
-        @size: 10;
-        .pull(@size, @cols);
-    }
-    .pull_11 {
-        @size: 11;
-        .pull(@size, @cols); // sets the maximum
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2, .ipWidget-IpImageGallery li, .ipWidget-IpLogoGallery li { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
     }
 }
 

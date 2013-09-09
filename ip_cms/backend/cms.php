@@ -316,24 +316,23 @@ class Cms {
      * This function will include file actions.php on specified module directory and axecute method "make_actions()" on class actions_REQUEST['module_gorup']_REQUEST['module_name']
      */
     public function makeActions() {
-        if(sizeof($_REQUEST) > 0) {
-            if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])) { //old deprecated way
-                //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
-                $newModule = \Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
-                if($newModule) {
-                    if($newModule['core']) {
-                        require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
-                    } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
-                    }
-                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Actions();');
-                    $tmpModule->makeActions();
-                }else {
-                    $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line']))
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
-                    else
-                    trigger_error("Requested module (".$_REQUEST['module_group'].">".$_REQUEST['module_name'].") does not exitst.");
+        if (!empty($_REQUEST) && isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])) { //old deprecated way
+            //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
+            $newModule = \Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
+            if ($newModule) {
+                if ($newModule['core']) {
+                    require_once(BASE_DIR . MODULE_DIR . $newModule['g_name'] . '/' . $newModule['m_name'] . '/actions.php');
+                } else {
+                    require_once(BASE_DIR . PLUGIN_DIR . $newModule['g_name'] . '/' . $newModule['m_name'] . '/actions.php');
+                }
+                eval('$tmpModule = new \\Modules\\' . $newModule['g_name'] . '\\' . $newModule['m_name'] . '\\Actions();');
+                $tmpModule->makeActions();
+            } else {
+                $backtrace = debug_backtrace();
+                if (isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                    trigger_error("Requested module ({$_REQUEST['module_group']}>{$_REQUEST['module_name']}) does not exitst. (Error source: {$backtrace[0]['file']} line: {$backtrace[0]['line']} ) ");
+                } else {
+                    trigger_error("Requested module ({$_REQUEST['module_group']}>{$_REQUEST['module_name']}) does not exitst.");
                 }
             }
         }

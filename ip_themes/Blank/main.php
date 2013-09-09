@@ -16,7 +16,7 @@
                 ?>
             </nav>
         </div>
-        <div class="main col_8 right pull_1">
+        <div class="main col_8 right">
             <?php echo $site->generateBlock('main'); ?>
         </div>
         <div class="side col_3 left">

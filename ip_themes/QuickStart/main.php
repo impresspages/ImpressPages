@@ -2,8 +2,8 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css');
     $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
+    $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css');
     echo $site->generateHead();
     ?>
 </head>
