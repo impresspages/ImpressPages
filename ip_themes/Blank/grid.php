@@ -162,6 +162,15 @@
             </div>
         </div>
     </div>
+    <div class="grid clearfix">
+        <div class="col_12 col_sm_4">
+            12 / 4sm column
+            <div class="grid clearfix">
+                <div class="col_6 col_sm_2">6 / 2sm column</div>
+                <div class="col_6 col_sm_2">6 / 2sm column</div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
     $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');

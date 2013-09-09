@@ -11,13 +11,13 @@
         <?php echo $this->generateManagedText('homeText1', 'div', '<p>ImpressPages is a sexy web content management tool<br /> with drag&drop and in-place editing.</p><p><a href="#">Start</a></p>', 'homeText'); ?>
     </div>
     <div class="homerow clearfix">
-        <div class="col_4">
+        <div class="col_12 col_lg_4">
             <?php echo $site->generateBlock('home1', true)->exampleContent('<pre>Hello</pre>'); // TODOX: add example content everywhere ?>
         </div>
-        <div class="col_4">
+        <div class="col_12 col_md_6 col_lg_4">
             <?php echo $site->generateBlock('home2', true)->exampleContent('<pre>Hello</pre>'); ?>
         </div>
-        <div class="col_4">
+        <div class="col_12 col_md_6 col_lg_4">
             <?php echo $site->generateBlock('home3', true)->exampleContent('<pre>Hello</pre>'); ?>
         </div>
     </div>
