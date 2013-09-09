@@ -87,32 +87,16 @@ class LessCompiler
 
     public function shouldRebuild($themeName)
     {
-        $lastBuildTime = $this->getLastBuildTime($themeName);
-        $items = glob(BASE_DIR . THEME_DIR . $themeName . '/less/*');
+        $items = $this->globRecursive(BASE_DIR . THEME_DIR . $themeName . '/*.less');
         if (!$items) {
             return false;
         }
-        $items = array_merge($items, glob(BASE_DIR . THEME_DIR . $themeName . '/*'));
 
-        for ($i = 0; $i < count($items); $i++) {
-
-            if (is_dir($items[$i])) {
-                $add = glob($items[$i] . "/*");
-                $items = array_merge($items, $add);
-            }
-        }
+        $lastBuildTime = $this->getLastBuildTime($themeName);
 
         foreach ($items as $path) {
-            if (preg_match('/[.]less$/', $path)) {
-
-                if (filemtime($path) > $lastBuildTime) {
-                    $debug = array(
-                        'filetime' => filemtime($path),
-                        'compileTime' => $lastBuildTime,
-                    );
-
-                    return true;
-                }
+            if (filemtime($path) > $lastBuildTime) {
+                return true;
             }
         }
 
@@ -157,5 +141,17 @@ class LessCompiler
         }
     }
 
+    /**
+     * Recursive glob function from PHP manual (http://php.net/manual/en/function.glob.php)
+     */
+    protected function globRecursive($pattern, $flags = 0)
+    {
+        $files = glob($pattern, $flags);
 
+        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
+            $files = array_merge($files, $this->globRecursive($dir . '/' . basename($pattern), $flags));
+        }
+
+        return $files;
+    }
 }
