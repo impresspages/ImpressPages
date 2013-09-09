@@ -282,7 +282,7 @@ function openIPlinks() {
             data : {
                 g : 'standard',
                 m : 'content_management',
-                ba : 'getSitemapInList',
+                aa : 'getSitemapInList',
                 current_href : href
             },
             success : function(response) {updateIPlinks(response);}
