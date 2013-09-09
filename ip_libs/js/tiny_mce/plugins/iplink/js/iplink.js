@@ -266,31 +266,18 @@ function getTargetListHTML(elm_id, target_form_element) {
 }
 
 function openIPlinks() {
-  //+ po default'u sukti div'e gif'a, kad content is loading
-  //+ jeigu atidaromas popup'as - kvieciam ajax'a, kad paduotu sitemap'a
-  //+ kai gaunam atsakyma - tikrinam ar turinys geras
-  //+ jeigu turinys geras - paduodam html'a i div'a, modifikuojam a tag'us ir iskvieciam medi sudaranti js'a
-  //+ jeigu turinys blogas - paduodam klaidos pranesima
   var href = document.getElementById('href').value;
-//  LibDefault.ajaxMessage(parent.global_config_modules_url+'standard/content_management/sitemap_list.php', 'action=sitemap_list&current_href=' + encodeURIComponent(href), updateIPlinks)
-
-  //LibDefault.ajaxMessage(parent.window.location, 'g=standard&m=content_management&ba=getSitemapInList&securityToken=' + ip.securityToken + '&current_href=' + encodeURIComponent(href), updateIPlinks)
-
     $.ajax({
             type: 'GET',
             url : parent.window.location,
             data : {
                 g : 'standard',
                 m : 'content_management',
-                ba : 'getSitemapInList',
+                aa : 'getSitemapInList',
                 current_href : href
             },
             success : function(response) {updateIPlinks(response);}
     });
-
-
-
-
 }
 
 function updateIPlinks(content) {
