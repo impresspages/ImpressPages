@@ -1,10 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
     $('.ipsClearCache').on('click', ipSystemClearCache);
 });
 
-function ipSystemClearCache(e)
-{
+function ipSystemClearCache(e) {
     "use strict";
     e.preventDefault();
     var $this = $(this);
@@ -20,8 +19,8 @@ function ipSystemClearCache(e)
         url: ip.baseUrl,
         data: postData,
         dataType: 'json',
-        type : 'POST',
-        success: function (response){
+        type: 'POST',
+        success: function (response) {
             if (response && response.result && response.result.redirectUrl) {
                 window.location = response.result.redirectUrl;
             } else {

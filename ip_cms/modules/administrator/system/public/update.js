@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
 
     var postData = Object();
@@ -13,7 +13,7 @@ $(document).ready(function() {
         url: ip.baseUrl,
         data: postData,
         dataType: 'json',
-        type : 'POST',
+        type: 'POST',
         success: mod_administrator_system_publish_updates,
         error: function () {
             alert('Unknown error. Please see logs.');
@@ -24,27 +24,27 @@ $(document).ready(function() {
 });
 
 
-function mod_administrator_system_publish_updates(response){
+function mod_administrator_system_publish_updates(response) {
     "use strict";
 
     var container = document.getElementById('systemInfo');
-  var messages = '';
-  if(response != '') {
-    messages = response;
-    if(messages.length > 0){
-      container.style.display = '';
-      var i = 0;
-      for (i=0; i<messages.length; i++){
-        container.innerHTML = container.innerHTML + '<div class="' + messages[i]['type'] + '">' + messages[i]['message']+'</div>';
-        
-        if (messages[i]['code'] == 'update') {
-            container.innerHTML = container.innerHTML + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>';
+    var messages = '';
+    if (response != '') {
+        messages = response;
+        if (messages.length > 0) {
+            container.style.display = '';
+            var i = 0;
+            for (i = 0; i < messages.length; i++) {
+                container.innerHTML = container.innerHTML + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>';
+
+                if (messages[i]['code'] == 'update') {
+                    container.innerHTML = container.innerHTML + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>';
+                }
+                container.innerHTML = container.innerHTML + '<div class="clear"></div>';
+            }
         }
-        container.innerHTML = container.innerHTML + '<div class="clear"></div>';
-      }
     }
-  }
-  
+
 }
 
 
@@ -63,8 +63,8 @@ function startUpdate(e) {
         url: ip.baseUrl,
         data: postData,
         dataType: 'json',
-        type : 'POST',
-        success: function (response){
+        type: 'POST',
+        success: function (response) {
             if (!response) {
                 return;
             }
