@@ -55,6 +55,7 @@ if($db->connect()){
 
         $site = new \Site();
         $site->init();
+        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
         $cron = new Cron();
         $cron->execute();
