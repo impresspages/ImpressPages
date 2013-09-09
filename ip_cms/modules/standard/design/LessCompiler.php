@@ -154,4 +154,35 @@ class LessCompiler
 
         return $files;
     }
+
+    public function rebuildIpContent()
+    {
+        $items = $this->globRecursive(BASE_DIR . LIBRARY_DIR . 'css/ipContent/less/*.less');
+        if (!$items) {
+            return false;
+        }
+
+        $cssFile = BASE_DIR . LIBRARY_DIR . 'css/ipContent/ip_content.css';
+        $lastBuildTime = filemtime($cssFile);
+
+        $hasChanged = false;
+
+        foreach ($items as $path) {
+            if (filemtime($path) > $lastBuildTime) {
+                $hasChanged = true;
+                break;
+            }
+        }
+
+        if (!$hasChanged) {
+            return;
+        }
+
+        require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
+        $lessc = new \lessc();
+        $lessc->setImportDir(BASE_DIR . LIBRARY_DIR . 'css/ipContent');
+        $lessc->setPreserveComments(true);
+        $css = $lessc->compileFile(BASE_DIR . LIBRARY_DIR . 'css/ipContent/less/ipContent/ipContent.less');
+        file_put_contents($cssFile, $css);
+    }
 }
