@@ -39,7 +39,7 @@ class LessCompiler
 
         require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
-        $lessc->setImportDir(BASE_DIR . THEME_DIR . $themeName);
+        $lessc->setImportDir(array(BASE_DIR . THEME_DIR . $themeName, BASE_DIR . LIBRARY_DIR . 'css/ipContent'));
         $lessc->setFormatter('compressed');
         $css = $lessc->compile($less);
         $css = "/* Edit {$lessFile}, not this file. */ " . $css;

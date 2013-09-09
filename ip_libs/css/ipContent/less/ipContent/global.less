@@ -1,0 +1,157 @@
+// Clearing floated elements
+// DO NOT REMOVE! They are reused in multiple places and required for system to function properly
+.clear { /* http://sonspring.com/journal/clearing-floats */
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.clearfix { /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+    &:before, &:after {
+        content: '.';
+        display: block;
+        font-size: 0;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        width: 0;
+    }
+    &:after {
+        clear: both;
+    }
+/*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
+    zoom: 1;
+}
+
+// Global styles for all widgets
+.ipWidget {
+    .clearfix;
+
+    margin-bottom: @marginBottomWidget;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Global styles for all widgets that are in preview mode
+.ipPreviewWidget {
+    h1, h2, h3 {
+        font-family: @fontFamilyHeadlines;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 24px;
+    }
+
+    ul {
+        list-style-position: inside;
+        list-style-type: square;
+        margin: 0 0 @marginBottomContent 15px;
+    }
+
+    ol {
+        list-style-position: inside;
+        margin: 0 0 @marginBottomContent 15px;
+    }
+
+    p {
+        line-height: 24px;
+        margin-bottom: @marginBottomContent;
+    }
+
+    ul ul, ol ol {
+        margin-bottom: 0; // removing bottom spacing for inner lists
+    }
+
+    li {
+        line-height: 24px;
+        margin-bottom: 4px;
+    }
+
+    p+ul, p+ol {
+        margin-top: -@marginBottomContent; // If list goes just after the paragraph the space is removed
+    }
+
+    a {
+        .linkColor();
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    // default text style on rich text editor
+    .caption {
+        color: @textColor;
+        font-family: @fontFamilyAlternative;
+        font-size: 24px;
+    }
+
+    // default text style on rich text editor
+    .signature {
+        font-style: italic;
+    }
+
+    // default text style on rich text editor
+    .note {
+        border-left: 2px solid @borderColor;
+        display: block;
+        font-style: italic;
+        margin-bottom: @marginBottomContent;
+        padding-left: @marginBottomContent;
+    }
+
+    table {
+        border-collapse: collapse;
+        color: @borderColorDark;
+        font-size: @fontSize;
+        width: 100%;
+
+        p {
+            line-height: auto;
+            margin: 0;
+        }
+    }
+
+    td {
+        border-bottom: 1px solid #b2b2b2;
+        font-size: @fontSize;
+        padding: 9px;
+    }
+
+    th,
+    thead td,
+    tbody tr:first-child td {
+        // making first line look like header in all cases
+        font-size: @fontSize;
+        font-weight: bold;
+    }
+
+    thead+tbody tr:first-child td {
+        // setting back styles if thead exists
+        background-color: transparent;
+        border-bottom: 1px solid lighten(@borderColor, 10);
+        color: inherit;
+        font-size: @fontSize;
+        font-weight: normal;
+    }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child {
+        margin-bottom: 0; // removing bottom margin on last elements
+    }
+}
