@@ -30,17 +30,17 @@
             break;
         case 4:
 ?>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
             <div class="clear hidden_md hidden_lg"></div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
 <?php
