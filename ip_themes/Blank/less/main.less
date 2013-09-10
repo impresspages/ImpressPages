@@ -66,6 +66,14 @@ address {
 }
 .side {
     clear: left; // to keep columns in place
+
+    // changing behavior on mobile and tablet devices
+    @media screen and (max-width: (@screenLarge - 1px)) {
+        .main + & {
+            border-top: 1px solid @borderColor;
+            padding-top: @marginBottomWidget;
+        }
+    }
 }
 
 /*
@@ -89,6 +97,11 @@ address {
     font-weight: bold;
     margin-bottom: @marginBottomWidget;
     text-align: center;
+
+    // changing behavior on mobile devices
+    @media screen and (max-width: (@screenMedium - 1px)) {
+        font-size: 40px;
+    }
 }
 .homeText {
     font-family: @fontFamilyAlternative;

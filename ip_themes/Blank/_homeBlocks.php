@@ -45,17 +45,17 @@ $exampleContent = '
             break;
         case 4:
 ?>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
             </div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
             </div>
             <div class="clear hidden_md hidden_lg"></div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home3', true)->exampleContent($exampleContent); ?>
             </div>
-            <div class="col_6 col_lg_3">
+            <div class="col_12 col_md_6 col_lg_3">
                 <?php echo $this->generateBlock('home4', true)->exampleContent($exampleContent); ?>
             </div>
 <?php
