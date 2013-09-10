@@ -194,8 +194,6 @@ class AdminController extends \Ip\Controller
 
 
 
-
-        $this->returnJson($data);
     }
 
 

@@ -13,7 +13,7 @@
         <div class="ipmThemeActions">
 <!--            <a href="#" class="btn btn-link">Download</a>-->
             <?php if ($showConfiguration){ ?>
-                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('standard/design/admin_translations/edit'); ?></a>
+                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('standard/design/admin_translations/options'); ?></a>
             <?php } ?>
         </div>
         <h2>

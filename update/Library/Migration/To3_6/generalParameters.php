@@ -41,20 +41,20 @@ $parameterValue["standard"]["design"]["admin_translations"]["theme_options"] = "
 $parameterAdmin["standard"]["design"]["admin_translations"]["theme_options"] = "0";
 $parameterType ["standard"]["design"]["admin_translations"]["theme_options"] = "string";
 
-$parameterTitle["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore defaults";
-$parameterValue["standard"]["design"]["admin_translations"]["restore_defaults"] = "Restore defaults";
-$parameterAdmin["standard"]["design"]["admin_translations"]["restore_defaults"] = "0";
-$parameterType ["standard"]["design"]["admin_translations"]["restore_defaults"] = "string";
+$parameterTitle["standard"]["design"]["admin_translations"]["preview_defaults"] = "Preview defaults";
+$parameterValue["standard"]["design"]["admin_translations"]["preview_defaults"] = "Preview defaults";
+$parameterAdmin["standard"]["design"]["admin_translations"]["preview_defaults"] = "0";
+$parameterType ["standard"]["design"]["admin_translations"]["preview_defaults"] = "string";
 
 $parameterTitle["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
 $parameterValue["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
 $parameterAdmin["standard"]["design"]["admin_translations"]["my_theme"] = "0";
 $parameterType ["standard"]["design"]["admin_translations"]["my_theme"] = "string";
 
-$parameterTitle["standard"]["design"]["admin_translations"]["edit"] = "Edit";
-$parameterValue["standard"]["design"]["admin_translations"]["edit"] = "Edit";
-$parameterAdmin["standard"]["design"]["admin_translations"]["edit"] = "0";
-$parameterType ["standard"]["design"]["admin_translations"]["edit"] = "string";
+$parameterTitle["standard"]["design"]["admin_translations"]["options"] = "Options";
+$parameterValue["standard"]["design"]["admin_translations"]["options"] = "Options";
+$parameterAdmin["standard"]["design"]["admin_translations"]["options"] = "0";
+$parameterType ["standard"]["design"]["admin_translations"]["options"] = "string";
 
 $parameterTitle["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";
 $parameterValue["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";

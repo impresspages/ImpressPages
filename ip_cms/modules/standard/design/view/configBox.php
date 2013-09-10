@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer ipsActions">
                 <a href="#" class="btn btn-success btn-xs ipsSave"><?php echo $this->escPar('standard/configuration/admin_translations/save'); ?></a>
-                <a href="#" class="btn btn-default btn-xs ipsDefault"><?php echo $this->escPar('standard/design/admin_translations/restore_defaults') ?></a>
+                <a href="#" class="btn btn-default btn-xs ipsDefault"><?php echo $this->escPar('standard/design/admin_translations/preview_defaults') ?></a>
                 <a href="#" class="btn btn-default btn-xs ipsCancel"><?php echo $this->escPar('standard/configuration/admin_translations/cancel') ?></a>
             </div>
         </div>

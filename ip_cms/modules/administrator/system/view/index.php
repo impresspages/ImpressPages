@@ -3,7 +3,7 @@
 $this;
 ?>
 <?php
-echo $this->subview('header.php');
+echo $this->subview('header.php')->render();
 ?>
 <div class="content">
     <h1>ImpressPages CMS <?php echo $this->esc($version); ?></h1>
@@ -23,6 +23,6 @@ echo $this->subview('header.php');
     <?php echo $site->generateJavascript(); ?>
 </div>
 <?php
-echo $this->subview('footer.php');
+echo $this->subview('footer.php')->render();
 ?>
 

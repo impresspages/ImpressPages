@@ -111,10 +111,6 @@ var ipDesign = new function () {
         $('body').append(ipModuleDesignConfiguration);
         ipModuleForm.init(); //reinit form controls after adding option box
 
-        $('.ipModuleDesignConfig .ipsForm').off('submit').on('submit', function (e) {
-            e.preventDefault();
-            ipDesign.apply();
-        });
         $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
             e.preventDefault();
             $('.ipModuleDesignConfig .ipsForm').submit();
@@ -228,26 +224,6 @@ var ipDesign = new function () {
         postForm.appendTo('body').submit();
     };
 
-    this.apply = function () {
-        var $form = $('.ipModuleDesignConfig .ipsForm');
-        var data = $form.serialize();
-        $.ajax({
-            url: ip.baseUrl,
-            dataType: 'json',
-            type : 'POST',
-            data: data,
-            success: function (response){
-                if (response.status && response.status == 'success') {
-                    var refreshUrl = window.location.href.split('#')[0];
-                    window.location = refreshUrl;
-                } else {
-                    if (response.errors) {
-                        $form.data("validator").invalidate(response.errors);
-                    }
-                }
-            }
-        });
-    };
 
     this.livePreviewUpdate = function() {
         var $form = $('.ipModuleDesignConfig .ipsForm');

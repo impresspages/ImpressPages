@@ -11,6 +11,7 @@ namespace Modules\developer\form;
 
 class Fieldset{
     protected $fields;
+    protected $label;
     
     public function __construct() {
         $this->fields = array();
@@ -41,6 +42,14 @@ class Fieldset{
             }
         }
         return false;
-    }    
+    }
+
+    public function getLabel() {
+        return $this->label;
+    }
+
+    public function setLabel($label) {
+        $this->label = $label;
+    }
 
 }

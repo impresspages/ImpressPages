@@ -42,7 +42,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'][$name])) {
+        $config = $this->getLiveConfig();
+        if (isset($config[$name])) {
 
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
@@ -56,7 +57,7 @@ class ConfigModel{
                 }
             }
 
-            return $data['ipDesign']['pCfg'][$name];
+            return $config[$name];
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -86,7 +87,7 @@ class ConfigModel{
             $theme = $model->getTheme($themeName);
             $options = $theme->getOptions();
             foreach($options as $option) {
-                if ($option['name'] == $name && isset($option['name']) && isset($option['default'])) {
+                if (!empty($option['name']) && $option['name'] == $name && isset($option['name']) && isset($option['default'])) {
                     return $option['default'];
                 }
             }
@@ -99,8 +100,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])) {
-            $config = $data['ipDesign']['pCfg'];
+        $config = $this->getLiveConfig();
+        if (!empty($config)) {
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
@@ -183,6 +184,35 @@ class ConfigModel{
         $form = new \Modules\developer\form\Form();
         $form->addClass('ipsForm');
 
+
+
+        $options = $theme->getOptions();
+
+
+        $generalFieldset = $this->getFieldset($name, $options);
+        $generalFieldset->setLabel('{{General options}}');
+        if (count($generalFieldset->getFields())) {
+            $form->addFieldset($generalFieldset);
+        }
+
+
+        foreach ($options as $option) {
+            if (empty($option['type']) || empty($option['options'])) {
+                continue;
+            }
+            if ($option['type'] != 'group') {
+                continue;
+            }
+
+            $fieldset = $this->getFieldset($name, $option['options']);
+            if (!empty($option['label'])) {
+                $fieldset->setLabel($option['label']);
+            }
+            $form->addFieldset($fieldset);
+        }
+
+
+        $form->addFieldset(new \Modules\developer\form\Fieldset());
         $field = new Form\Field\Hidden();
         $field->setName('g');
         $field->setDefaultValue('standard');
@@ -197,14 +227,24 @@ class ConfigModel{
         $form->addField($field);
 
 
-        $options = $theme->getOptions();
+
+        return $form;
+    }
+
+
+    /**
+     * @param $options
+     * @return Form\Fieldset
+     */
+    protected function getFieldset($themeName, $options)
+    {
+        $fieldset = new \Modules\developer\form\Fieldset();
 
         foreach($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
                 continue;
             }
             switch ($option['type']) {
-
                 case 'select':
                     $newField = new Form\Field\Select();
                     $values = array();
@@ -214,7 +254,6 @@ class ConfigModel{
                         }
                     }
                     $newField->setValues($values);
-
                     break;
                 case 'text':
                     $newField = new Form\Field\Text();
@@ -242,13 +281,28 @@ class ConfigModel{
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
-            $newField->setDefaultValue($this->getConfigValue($name, $option['name'], $default));
+            $newField->setDefaultValue($this->getConfigValue($themeName, $option['name'], $default));
 
-            $form->addfield($newField);
-            $newField = null;
+            $fieldset->addfield($newField);
+        }
+        return $fieldset;
+    }
+
+    protected function getLiveConfig()
+    {
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
+            return $data['ipDesign']['pCfg'];
         }
 
-        return $form;
+        if (isset($data['aa']) && $data['aa'] == 'updateConfig') {
+            unset($data['m']);
+            unset($data['g']);
+            unset($data['aa']);
+            return $data;
+        }
+
     }
 
 

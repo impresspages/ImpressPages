@@ -9,7 +9,7 @@
     <?php $firstItem = $items[0]; ?>
     <ul class="level<?php echo $depth ?>">
         <?php foreach($items as $item){ ?>
-            <?php echo $this->subview('menuItem.php', array('menuItem' => $item, 'depth' => $depth)) ?>
+            <?php echo $this->subview('menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render() ?>
         <?php } ?>
     </ul>
 <?php } ?>
