@@ -9,9 +9,6 @@
 /* http://sonspring.com/journal/clearing-floats */
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 /* covered by default styles */
-/*
-
-*/
 .clear {
   clear: both;
   display: block;
