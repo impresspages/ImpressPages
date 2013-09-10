@@ -28,5 +28,20 @@
             "bigHeight": 600 /* Lightbox */
         }
     },
-    "options": []
+    "options": [
+        {
+            "label": "Homepage blocks",
+            "name": "homeBlocks",
+            "type": "select",
+            "default": 3,
+            "values": [0, 2, 3, 4]
+        },
+        {
+            "label": "Homepage blocks 2",
+            "name": "homeBlocks2",
+            "type": "select",
+            "default": 3,
+            "values": [0, 2, 3, 4]
+        }
+    ]
 }

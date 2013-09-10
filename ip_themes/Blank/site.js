@@ -5,12 +5,11 @@ $(document).ready(function () {
         maxWidth: '90%',
         maxHeight: '90%'
     });
-    $('.topmenu')
-        .touchMenuHover() // mimics iOS behavior allowing to get hover state without clicking
-        .find('.toggle').on('click', function (e) { // opens menu in mobile view
-            e.preventDefault();
-            $(this).next('ul').css('display', 'block');
-        });
+    $('.topmenu').touchMenuHover(); // mimics iOS behavior allowing to get hover state without clicking
+    $('.topmenuToggle, .searchToggle').on('click', function (e) { // opens menu in mobile view
+        e.preventDefault();
+        $(this).next().css('display', 'block');
+    });
 });
 
 

@@ -1,7 +1,7 @@
 /*
     Disabling default styles
 */
-html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt {
+html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt, pre {
     border: none;
     margin: 0;
     padding: 0;
@@ -45,7 +45,8 @@ address {
 .theme {
     background-color: @wrapperBackgroundColor;
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: (1200px - @columnPadding*2);
+    padding: 0 @columnPadding;
     position: relative; // required for .gridhint
 }
 .theme > header {
@@ -71,45 +72,14 @@ address {
     Styles
 */
 .logo {
-    margin: 25px 0;
+    margin-top: @marginBottomWidget;
     display: block;
     float: left;
-    max-width: 620px;
 
     a {
         color: @textColor;
         font-family: @fontFamily;
         font-size: 24px;
-        font-weight: bold;
-    }
-}
-.languages {
-    border-left: 1px solid @borderColor;
-    float: right;
-    margin: @marginBottomContent 0 0 @marginBottomContent;
-    padding-left: (@marginBottomContent / 2);
-
-    ul {
-        list-style: none;
-    }
-    li {
-        border-left: 1px solid @wrapperBackgroundColor;
-        float: left;
-
-        &:first-child {
-            border: none;
-        }
-    }
-    a {
-        color: @textColor;
-        display: block;
-        padding: (@marginBottomContent / 2);
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    .current a {
         font-weight: bold;
     }
 }
@@ -132,15 +102,6 @@ address {
     &:last-child {
         margin-bottom: 0;
     }
-}
-.homeText a {
-    background: @linkColor;
-    border: none;
-    border-radius: 5px;
-    color: @textColorInverted;
-    font-family: @fontFamily;
-    font-weight: bold;
-    padding: (@marginBottomContent / 2) @marginBottomContent;
 }
 .theme > footer a {
     .linkColor();

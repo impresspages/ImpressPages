@@ -1,4 +1,9 @@
 // Modules :: search
+.searchToggle {
+    .topmenuToggle;
+    background-image: url('img/icon_search.png');
+    margin-left: @marginBottomContent;
+}
 .ipModuleSearch {
     clear: right;
     float: right;
@@ -26,5 +31,32 @@
         line-height: 25px;
         margin-left: (@marginBottomContent / 2);
         padding: 0 6px;
+    }
+}
+
+// changing behavior on mobile devices
+@media screen and (max-width: (@screenMedium - 1px)) {
+    .searchToggle {
+        display: inline-block;
+    }
+    .ipModuleSearch {
+        background-color: @backgroundColor;
+        border: 1px solid @borderColor;
+        box-shadow: 0 1px 3px rgba(0,0,0,.5);
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: none;
+        left: 0;
+        margin-top: 0;
+        padding: @marginBottomContent;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        .ipmControlInput {
+            width: 260px;
+        }
     }
 }

@@ -1,16 +1,24 @@
 // Top Menu
+.currentPage {
+    font-weight: bold;
+    display: none;
+    margin-right: @marginBottomContent;
+}
+.topmenuToggle {
+    background: @linkColor url(img/icon_menu.png) no-repeat center center;
+    border-radius: 3px;
+    color: @linkColor;
+    display: none;
+    margin-top: @marginBottomContent;
+    padding: (@marginBottomContent / 2) @marginBottomContent;
+}
 .topmenu {
     float: right;
     font-size: @fontSize;
     margin-top: @marginBottomContent;
 
-    .toggle {
-        background-color: @linkColor;
-        border-radius: 3px;
-        display: none;
-    }
-
     ul {
+        display: inline;
         list-style: none;
     }
 
@@ -65,38 +73,31 @@
             margin-left: 100%;
             top: 0;
         }
-        li {
-            position: relative;
-        }
-        a {
-            display: block;
+    }
+}
+
+.languages {
+    display: inline-block;
+    margin-left: @marginBottomContent;
+
+    ul {
+        list-style: none;
+    }
+    li {
+        display: inline-block;
+    }
+    a {
+        color: @linkColor;
+        display: block;
+        padding: (@marginBottomContent / 2) (@marginBottomContent / 4);
+        white-space: nowrap;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
-
-    @media screen and (max-width: 479px) {
-        .toggle {
-            display: block;
-        }
-        & > ul {
-            background-color: @backgroundColor;
-            border: 1px solid @borderColor;
-            box-shadow: 0 1px 3px rgba(0,0,0,.5);
-            display: none;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-        .level1 ul {
-            border: none;
-            box-shadow: none;
-            margin: 0 @marginBottomContent;
-            position: static;
-        }
-        .level1 > li {
-            display: list-item;
-        }
+    .current a {
+        font-weight: bold;
     }
 }
 
@@ -143,6 +144,48 @@
                     display: block;
                 }
             }
+        }
+    }
+}
+
+// changing behavior on mobile devices
+@media screen and (max-width: (@screenMedium - 1px)) {
+    .currentPage,
+    .topmenuToggle {
+        display: inline-block;
+    }
+    .topmenu {
+        background-color: @backgroundColor;
+        border: 1px solid @borderColor;
+        box-shadow: 0 1px 3px rgba(0,0,0,.5);
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: none;
+        left: 0;
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        .level1 ul {
+            border: none;
+            box-shadow: none;
+            margin: 0 @marginBottomContent;
+            position: static;
+        }
+        .level1 > li {
+            display: list-item;
+        }
+    }
+    .languages {
+        border-top: 1px solid @borderColor;
+        display: block;
+        margin-left: 0;
+
+        a {
+            padding: (@marginBottomContent / 2) @marginBottomContent;
         }
     }
 }
