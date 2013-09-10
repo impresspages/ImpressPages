@@ -3,8 +3,8 @@
  * Includes selectors from the system to mimic grid without adding extra classes to HTML
  */
 
-@columnPadding: 10px;
-@columnMarginBottom: 25px;
+@columnPadding: (@marginBottomContent / 2);
+@columnMarginBottom: @marginBottomWidget;
 @columnContainerClass: grid; // required for nested blocks
 
 @screenMedium: 480px;
@@ -31,6 +31,10 @@
 
 .col(@num, @cols) {
     width: (100% / @cols) * @num; // calculating width
+}
+
+.hidden {
+    display: none !important;
 }
 
 // Default screen grid
@@ -233,6 +237,10 @@
 @media screen and (min-width: @screenMedium) {
     @cols: 12;
 
+    .hidden_md {
+        .hidden;
+    }
+
     .col_md_1 {
         @size: 1;
         .col(@size, @cols);
@@ -430,6 +438,10 @@
 // Large screen grid
 @media screen and (min-width: @screenLarge) {
     @cols: 12;
+
+    .hidden_lg {
+        .hidden;
+    }
 
     .col_lg_1 {
         @size: 1;
