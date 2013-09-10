@@ -1192,14 +1192,14 @@ $parameter["parameterValue/standard/design/admin_translations/theme_write_error"
 $parameter["parameterTitle/standard/design/admin_translations/theme_options"] = "Theme options";
 $parameter["parameterValue/standard/design/admin_translations/theme_options"] = "Theme options";
 
-$parameter["parameterTitle/standard/design/admin_translations/restore_defaults"] = "Restore defaults";
-$parameter["parameterValue/standard/design/admin_translations/restore_defaults"] = "Restore defaults";
+$parameter["parameterTitle/standard/design/admin_translations/preview_defaults"] = "Preview defaults";
+$parameter["parameterValue/standard/design/admin_translations/preview_defaults"] = "Preview defaults";
 
 $parameter["parameterTitle/standard/design/admin_translations/my_theme"] = "My theme";
 $parameter["parameterValue/standard/design/admin_translations/my_theme"] = "My theme";
 
-$parameter["parameterTitle/standard/design/admin_translations/edit"] = "Edit";
-$parameter["parameterValue/standard/design/admin_translations/edit"] = "Edit";
+$parameter["parameterTitle/standard/design/admin_translations/options"] = "Options";
+$parameter["parameterValue/standard/design/admin_translations/options"] = "Options";
 
 $parameter["parameterTitle/standard/design/admin_translations/theme_market"] = "Marketplace";
 $parameter["parameterValue/standard/design/admin_translations/theme_market"] = "Marketplace";
