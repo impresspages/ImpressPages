@@ -13,6 +13,9 @@ class Form{
     const METHOD_POST = 'post';
     const METHOD_GET = 'get';
 
+    /**
+     * @var $pages Page[]
+     */
     protected $pages;
     protected $method;
     protected $action;
