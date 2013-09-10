@@ -44,54 +44,5 @@
             "values": [0, 2, 3, 4]
         }
     ]
-            "label": "Map",
-            "type": "group",
-            "options": [
-                {
-                    "label": "Zoom",
-                    "name": "zoom",
-                    "type": "select",
-                    "default": "4",
-                    "values": [2, 3, 4, 5]
-                },
-                {
-                    "label": "X",
-                    "name": "x",
-                    "type": "text",
-                    "default": ""
-                },
-                {
-                    "label": "Y",
-                    "name": "y",
-                    "type": "text",
-                    "default": ""
-                }
-            ]
-        },
-        {
-            "label": "Background Color",
-            "name": "backgroundColor",
-            "type": "color",
-            "default": "#e5e5e5"
-        },
-        {
-            "label": "Main color",
-            "name": "mainColor",
-            "type": "color",
-            "default": "#000000"
-        },
-        {
-            "label": "Drop-down menu",
-            "name": "dropdownMenu",
-            "type": "check"
-        },
-        {
-            "label": "Homepage content blocks",
-            "name": "homeContentBlocks",
-            "type": "select",
-            "default": 2,
-            "values": [0, 2, 3, 4]
-        }
-    ]
 
 }
