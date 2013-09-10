@@ -42,7 +42,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'][$name])) {
+        $config = $this->getLiveConfig();
+        if (isset($config[$name])) {
 
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
@@ -56,7 +57,7 @@ class ConfigModel{
                 }
             }
 
-            return $data['ipDesign']['pCfg'][$name];
+            return $config[$name];
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -99,8 +100,8 @@ class ConfigModel{
     {
         $request = \Ip\ServiceLocator::getRequest();
         $data = $request->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])) {
-            $config = $data['ipDesign']['pCfg'];
+        $config = $this->getLiveConfig();
+        if (!empty($config)) {
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
@@ -244,6 +245,16 @@ class ConfigModel{
                 continue;
             }
             switch ($option['type']) {
+                case 'select':
+                    $newField = new Form\Field\Select();
+                    $values = array();
+                    if (!empty($option['values']) && is_array($option['values'])) {
+                        foreach($option['values'] as $value) {
+                            $values[] = array($value, $value);
+                        }
+                    }
+                    $newField->setValues($values);
+                    break;
                 case 'text':
                     $newField = new Form\Field\Text();
                     break;
@@ -275,6 +286,23 @@ class ConfigModel{
             $fieldset->addfield($newField);
         }
         return $fieldset;
+    }
+
+    protected function getLiveConfig()
+    {
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
+            return $data['ipDesign']['pCfg'];
+        }
+
+        if (isset($data['aa']) && $data['aa'] == 'updateConfig') {
+            unset($data['m']);
+            unset($data['g']);
+            unset($data['aa']);
+            return $data;
+        }
+
     }
 
 

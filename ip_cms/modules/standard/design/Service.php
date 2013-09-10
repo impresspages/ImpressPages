@@ -33,17 +33,21 @@ class Service
      * @return string url to real time compiled less. Available only with admin login.
      */
     public function getRealTimeUrl($themeName, $filename) {
+        $configModel = ConfigModel::instance();
         $site = \Ip\ServiceLocator::getSite();
         $data = array(
             'g' => 'standard',
             'm' => 'design',
             'aa' => 'realTimeLess',
-            'params' => array(
-                'filename' => $filename
+            'file' => $filename,
+            'ipDesignPreview' => 1,
+            'ipDesign' => array(
+                'pCfg' => $configModel->getAllConfigValues($themeName)
             ),
             'rpc' => '2.0'
         );
-        $site->generateUrl(null, null, array(), $data);
+        $url = $site->generateUrl(null, null, array(), $data);
+        return $url;
     }
 
     /**
