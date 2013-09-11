@@ -1,5 +1,5 @@
 var ipDesignThemeMarket = new function () {
-
+    "use strict";
     /**
      * @see this.openMarketWindow(), this.closeMarketWindow()
      */
@@ -62,7 +62,7 @@ var ipDesignThemeMarket = new function () {
                                 var fakeOrder = {
                                     images: [],
                                     themes: [data]
-                                }
+                                };
                                 processOrder(fakeOrder);
                                 $('body').bind('ipMarketOrderComplete', function (e, data) {
                                     if (top.document.getElementById('adminFrameset')) {
