@@ -12,14 +12,14 @@
             "bigHeight": 600 /* Lightbox */
         },
         "imageGallery": {
-            "width": 320,
-            "height": 150,
+            "width": 295,
+            "height": 164,
             "bigWidth": 800, /* Lightbox */
             "bigHeight": 600 /* Lightbox */
         },
         "logoGallery": {
-            "width": 180,
-            "height": 180
+            "width": 295,
+            "height": 295
         },
         "textImage": {
             "width": 380,
