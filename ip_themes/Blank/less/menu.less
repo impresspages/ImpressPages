@@ -5,17 +5,17 @@
     margin-right: @ipSpaceGroup;
 }
 .topmenuToggle {
-    background: @linkColor url(img/icon_menu.png) no-repeat center center;
+    background: @ipLinkColor url(img/icon_menu.png) no-repeat center center;
     border-radius: 3px;
-    color: @linkColor;
+    color: @ipLinkColor;
     display: none;
     margin-top: @ipSpaceGlobal;
     padding: (@ipSpaceElement / 2) @ipSpaceElement;
 }
 .topmenu {
     float: right;
-    font-size: @fontSize;
-    margin-top: @ipSpaceGroup;
+    font-size: @ipFontSize;
+    margin-top: @ipSpaceGlobal;
 
     ul {
         display: inline;
@@ -28,7 +28,7 @@
     }
 
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         display: block;
         padding: (@ipSpaceElement / 2) @ipSpaceElement;
         white-space: nowrap;
@@ -43,7 +43,7 @@
     }
 
     .selected > a {
-        color: @textColor;
+        color: @ipTextColor;
         font-weight: bold;
     }
 
@@ -58,8 +58,8 @@
     }
 
     .level1 ul {
-        background-color: @backgroundColor;
-        border: 1px solid @borderColor;
+        background-color: @ipBackgroundColor;
+        border: 1px solid @ipBorderColor;
         box-shadow: 0 1px 3px rgba(0,0,0,.5);
         display: none;
         position: absolute;
@@ -76,8 +76,8 @@
     }
 }
 .topmenuPopup {
-    background-color: @backgroundColor;
-    border: 1px solid @borderColor;
+    background-color: @ipBackgroundColor;
+    border: 1px solid @ipBorderColor;
     box-shadow: 0 1px 3px rgba(0,0,0,.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -102,7 +102,7 @@
         display: inline-block;
     }
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         display: block;
         padding: (@ipSpaceElement / 2) (@ipSpaceElement / 4);
         white-space: nowrap;
@@ -119,7 +119,7 @@
 // Side Menu
 .side {
     nav {
-        font-size: @fontSize;
+        font-size: @ipFontSize;
 
         ul {
             list-style: none;
@@ -130,7 +130,7 @@
         }
 
         a {
-            color: @linkColor;
+            color: @ipLinkColor;
             display: block;
             margin-bottom: @ipSpaceGroup;
 
@@ -144,7 +144,7 @@
         }
 
         .selected > a {
-            color: @textColor;
+            color: @ipTextColor;
             font-weight: bold;
         }
 
@@ -183,7 +183,7 @@
         }
     }
     .languages {
-        border-top: 1px solid @borderColor;
+        border-top: 1px solid @ipBorderColor;
         display: block;
         margin-left: 0;
 

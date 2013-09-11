@@ -7,8 +7,8 @@
         padding: 0;
     }
     input, select, textarea, option {
-        font-family:  @fontFamily;
-        font-size: @fontSize;
+        font-family:  @ipFontFamily;
+        font-size: @ipFontSize;
     }
 
     .ipmPage {
@@ -55,20 +55,20 @@
     }
 
     .ipmControlInput {
-        background-color: lighten(@borderColor, 20);
-        border: 1px solid @borderColor;
+        background-color: lighten(@ipBorderColor, 20);
+        border: 1px solid @ipBorderColor;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box; // for max-width to make sense
-        color: @textColorInactive;
+        color: @ipTextColorDisabled;
         max-width: 280px;
         padding: (@ipSpaceElement / 4) (@ipSpaceElement / 2);
         width: 100%;
 
         &:focus {
-            background-color: @backgroundColor;
-            border-color: @borderColorDark;
-            color: @textColor;
+            background-color: @ipBackgroundColor;
+            border-color: @ipBorderColorActive;
+            color: @ipTextColor;
         }
     }
 
@@ -100,15 +100,15 @@
     }
 
     .ipmNote { // always visible
-        color: lighten(@textColor, 20);
-        font-size: @fontSizeSmall;
+        color: lighten(@ipTextColor, 20);
+        font-size: @ipFontSizeSmall;
     }
 
     .ipmHint { // to be shown on hover
-        background-color: @borderColor;
+        background-color: @ipBorderColor;
         color: #fff;
         display: none;
-        font-size: @fontSizeSmall;
+        font-size: @ipFontSizeSmall;
         padding: 4px 10px 2px;
         position: absolute;
         right: 0;
@@ -121,10 +121,10 @@
     }
 
     .ipmControlSubmit {
-        background: @linkColor;
+        background: @ipLinkColor;
         border: none;
-        border-radius: 3px;
-        color: @textColorInverted;
+        border-radius: 3px; // todox: make configurable
+        color: @ipTextColorInverted;
         cursor: pointer;
         font-weight: bold;
         padding: (@ipSpaceElement / 4) (@ipSpaceElement / 2);
@@ -132,7 +132,7 @@
 
     // errors
     .ipmControlError {
-        border-color: @errorColor;
+        border-color: @ipErrorColor;
     }
 
     .ipmFileContainer {
@@ -148,7 +148,7 @@
         }
 
         .ipmFile {
-            background-color: lighten(@borderColor, 20);
+            background-color: lighten(@ipBorderColor, 20);
             margin-top: (@ipSpaceGroup / 2);
             padding: (@ipSpaceElement / 2);
 
@@ -157,10 +157,10 @@
                 float: right;
 
                 &:before {
-                    border: 1px solid @textColor;
+                    border: 1px solid @ipBorderColor;
                     font-family: Verdana, Geneva, sans-serif;
                     font-size: 13px;
-                    color: @textColor;
+                    color: @ipTextColor;
                     content: '\00D7';
                     display: inline-block;
                     height: 15px;
@@ -170,32 +170,32 @@
                 }
 
                 &:hover:before {
-                    background-color: @textColor;
-                    color: @textColorInverted;
+                    background-color: @ipBackgroundColorInverted;
+                    color: @ipTextColorInverted;
                 }
             }
 
             .ipmFileProgress {
-                border: 1px solid @borderColor;
+                border: 1px solid @ipBorderColor;
                 height: 3px;
             }
 
             .ipmFileProgressValue {
-                background-color: @borderColor;
+                background-color: @ipBorderColor;
                 height: 3px;
             }
 
             .ipmUploadError {
-                color: @errorColor;
-                font-size: @fontSizeTiny;
+                color: @ipErrorColor;
+                font-size: @ipFontSizeTiny;
             }
         }
     }
 }
 
 .ipmErrorMessage { // this object is created globally next to each invalid field
-    background-color: @errorColor;
+    background-color: @ipErrorColor;
     color: #fff;
-    font-size: @fontSizeSmall;
+    font-size: @ipFontSizeSmall;
     padding: 4px 10px 2px;
 }

@@ -7,8 +7,8 @@
 ?>
 <?php echo $this->subview('_header.php'); ?>
     <div class="col_12">
-        <?php echo $this->generateManagedString('homeString1', 'p', 'ImpressPages theme Blank', 'homeString'); ?>
-        <?php echo $this->generateManagedText('homeText1', 'div', '<p>ImpressPages is a sexy web content management tool<br /> with drag&drop and in-place editing.</p><p><a href="#">Start</a></p>', 'homeText'); ?>
+        <?php echo $this->generateManagedString('homeString1', 'p', 'ImpressPages theme Blank', 'homeHeadline'); ?>
+        <?php echo $this->generateManagedText('homeText1', 'div', '<p>ImpressPages is a sexy web content management tool<br /> with drag&drop and in-place editing.</p><p><a href="#">Start</a></p>', 'homeDescription'); ?>
     </div>
     <?php
     if ($this->getThemeOption('homeBlocks', 0) > 0) {

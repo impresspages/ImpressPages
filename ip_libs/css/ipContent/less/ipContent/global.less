@@ -32,24 +32,24 @@ Move to separate stylesheet if invalid CSS is a problem.
 
 // Global styles mostly used in rich text editor
 .caption {
-    color: @textColor;
-    font-family: @fontFamilyAlternative;
-    font-size: 24px;
+    color: @ipTextColor;
+    font-family: @ipFontFamilyAlternative;
+    font-size: @ipFontSizeBig;
 }
 .signature {
     font-style: italic;
 }
 .note {
-    border-left: 2px solid @borderColor;
+    border-left: 2px solid @ipBorderColor;
     display: block;
     font-style: italic;
     margin-bottom: @ipSpaceText;
     padding-left: @ipSpaceElement;
 }
 .button {
-    background-color: @linkColor;
+    background-color: @ipLinkColor;
     border-radius: 5px; // TODOx: make a configurable option
-    color: @textColorInverted;
+    color: @ipTextColorInverted;
     display: inline-block;
     padding: (@ipSpaceElement / 2) @ipSpaceElement;
     text-decoration: none;
@@ -77,24 +77,23 @@ Move to separate stylesheet if invalid CSS is a problem.
         padding: 0;
     }
 
-    background-color: @backgroundColor;
-    color: @textColor;
-    font-family: @fontFamily;
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
     font-size: @fontSize;
 
 
     h1, h2, h3 {
-        font-family: @fontFamilyHeadlines;
+        font-family: @ipFontFamilyHeadlines;
     }
 
     h1 {
-        font-size: 36px;
+        font-size: (@ipFontSizeBig * 1.5);
     }
     h2 {
-        font-size: 30px;
+        font-size: (@ipFontSizeBig * 1.25);
     }
     h3 {
-        font-size: 24px;
+        font-size: @ipFontSizeBig;
     }
 
     ul {
@@ -109,7 +108,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     p {
-        line-height: 24px;
+        line-height: @ipLineHeight;
         margin-bottom: @ipSpaceText;
     }
 
@@ -118,8 +117,8 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     li {
-        line-height: 24px;
-        margin-bottom: 4px;
+        line-height: @ipLineHeight;
+        margin-bottom: (@ipSpaceGroup / 2);
     }
 
     p+ul, p+ol {
@@ -127,7 +126,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         text-decoration: none;
     }
 
@@ -137,8 +136,8 @@ Move to separate stylesheet if invalid CSS is a problem.
 
     table {
         border-collapse: collapse;
-        color: @borderColorDark;
-        font-family:  @fontFamily;
+        color: @ipTextColor;
+        font-family:  @ipFontFamily;
         font-size: @fontSize;
         width: 100%;
 
@@ -165,7 +164,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     thead+tbody tr:first-child td {
         // setting back styles if thead exists
         background-color: transparent;
-        border-bottom: 1px solid lighten(@borderColor, 10);
+        border-bottom: 1px solid lighten(@ipBorderColor, 10);
         color: inherit;
         font-size: @fontSize;
         font-weight: normal;
