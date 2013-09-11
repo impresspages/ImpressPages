@@ -38,10 +38,25 @@ Move to separate stylesheet if invalid CSS is a problem.
     &:last-child {
         margin-bottom: 0;
     }
+
 }
 
 // Global styles for all widgets that are in preview mode
 .ipPreviewWidget {
+
+    // disabling default styles
+    h1, h2, h3, h4, h5, h6, img, blockquote, p, ul, ol, li, dl, dd, dt, pre {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    background-color: @backgroundColor;
+    color: @textColor;
+    font-family: @fontFamily;
+    font-size: @fontSize;
+
+
     h1, h2, h3 {
         font-family: @fontFamilyHeadlines;
     }
@@ -86,7 +101,8 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     a {
-        .linkColor();
+        color: @linkColor;
+        text-decoration: none;
     }
 
     a:hover {
@@ -117,6 +133,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     table {
         border-collapse: collapse;
         color: @borderColorDark;
+        font-family:  @fontFamily;
         font-size: @fontSize;
         width: 100%;
 

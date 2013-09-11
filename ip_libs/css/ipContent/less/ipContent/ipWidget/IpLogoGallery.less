@@ -1,16 +1,17 @@
 .ipWidget-IpLogoGallery {
     ul {
         list-style: none;
+        margin: -@marginBottomContent 0 0 -@marginBottomContent; // hack to keep images visually from border to border
     }
 
     li {
-        max-width: 50%; // if no margins are set
+        float: left;
+        margin: @marginBottomContent 0 0 @marginBottomContent;
+        max-width: 40%; // this forces to keep at least 2 images in a row; this should be lowered with bigger margins
 
         img {
-            border: @borderGallery solid @borderColor;
             display: block;
             max-width: 100%;
-            padding: @paddingGallery;
         }
 
         a:hover img {

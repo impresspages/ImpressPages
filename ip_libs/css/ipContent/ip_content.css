@@ -9,6 +9,41 @@
 /* http://sonspring.com/journal/clearing-floats */
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 /* covered by default styles */
+/*
+IpBackgroundColor: transparent
+IpBlockSpace
+IpWidgetSpace
+IpMainColor
+
+
+Form
+IpFormButtonBackground
+IpFormButtonCorner
+IpFormButtonFont
+IpFormButtonColor
+
+IpFormFieldSpace
+IpFormInputBackground
+IpFormInputBackgroundActive
+
+
+IpWidgetSeparatorColor: IpMainColor
+IpWidgetSeparatorStyle: line
+IpWidgetSeparatorWidth: ...
+
+
+Gallery Widget
+..
+
+IpWidgetFaqQuestionFont
+IpWidgetFaqQuestionColor
+IpWidgetFaqQuestionSize
+IpWidgetFaqAnswerFont
+
+
+@ipFormInputMaxWidth = 280px;
+....
+*/
 .clear {
   clear: both;
   display: block;
@@ -63,6 +98,32 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget:last-child {
   margin-bottom: 0;
 }
+.ipPreviewWidget {
+  background-color: #fff;
+  color: #333;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+}
+.ipPreviewWidget h1,
+.ipPreviewWidget h2,
+.ipPreviewWidget h3,
+.ipPreviewWidget h4,
+.ipPreviewWidget h5,
+.ipPreviewWidget h6,
+.ipPreviewWidget img,
+.ipPreviewWidget blockquote,
+.ipPreviewWidget p,
+.ipPreviewWidget ul,
+.ipPreviewWidget ol,
+.ipPreviewWidget li,
+.ipPreviewWidget dl,
+.ipPreviewWidget dd,
+.ipPreviewWidget dt,
+.ipPreviewWidget pre {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 .ipPreviewWidget h1,
 .ipPreviewWidget h2,
 .ipPreviewWidget h3 {
@@ -102,6 +163,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipPreviewWidget p+ol {
   margin-top: -20px;
 }
+.ipPreviewWidget a {
+  color: #019bd4;
+  text-decoration: none;
+}
 .ipPreviewWidget a:hover {
   text-decoration: underline;
 }
@@ -123,6 +188,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipPreviewWidget table {
   border-collapse: collapse;
   color: #000;
+  font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
   width: 100%;
 }
@@ -152,6 +218,20 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipPreviewWidget ul:last-child,
 .ipPreviewWidget ol:last-child {
   margin-bottom: 0;
+}
+.ipModuleForm form,
+.ipModuleForm fieldset,
+.ipModuleForm label {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.ipModuleForm input,
+.ipModuleForm select,
+.ipModuleForm textarea,
+.ipModuleForm option {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
 }
 .ipModuleForm .ipmPage {
   max-width: 100%;
@@ -223,12 +303,12 @@ Move to separate stylesheet if invalid CSS is a problem.
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: ;
-  display: block;
+  max-width: 280px;
+  padding: 5px 10px;
+  width: 100%;
   height: 9.5em;
   max-width: 380px;
-  padding: 5px 10px;
   overflow: auto;
-  width: 100%;
 }
 .ipModuleForm .ipmControlTextarea:focus {
   background-color: #fff;
@@ -301,27 +381,40 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0;
   padding: 0;
 }
-.ipModuleForm .ipmFileContainer .ipmFileProgress {
-  border: 1px solid #333;
-  height: 3px;
-}
 .ipModuleForm .ipmFileContainer .ipmFile {
   background-color: #bbbbbb;
   margin-top: 10px;
   padding: 10px;
 }
-.ipModuleForm .ipmFileContainer .ipmFileProgressValue {
-  background-color: #ccc;
+.ipModuleForm .ipmFileContainer .ipmFile .ipmRemove {
+  cursor: pointer;
+  float: right;
+}
+.ipModuleForm .ipmFileContainer .ipmFile .ipmRemove:before {
+  border: 1px solid #333;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+  color: #333;
+  content: '\00D7';
+  display: inline-block;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  width: 15px;
+}
+.ipModuleForm .ipmFileContainer .ipmFile .ipmRemove:hover:before {
+  background-color: #333;
+  color: #fff;
+}
+.ipModuleForm .ipmFileContainer .ipmFile .ipmFileProgress {
+  border: 1px solid #888;
   height: 3px;
 }
-.ipModuleForm .ipmFileContainer .ipmRemove {
-  cursor: pointer;
-  background: url(img/file_remove.png) no-repeat;
-  float: right;
-  height: 13px;
-  width: 13px;
+.ipModuleForm .ipmFileContainer .ipmFile .ipmFileProgressValue {
+  background-color: #888;
+  height: 3px;
 }
-.ipModuleForm .ipmFileContainer .ipmUploadError {
+.ipModuleForm .ipmFileContainer .ipmFile .ipmUploadError {
   color: #da0001;
   font-size: 11px;
 }
@@ -336,6 +429,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #333;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
+  background-color: #fff;
 }
 .mceContentBody p,
 .mceContentBody ul,
@@ -350,6 +444,26 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody a {
   text-decoration: none;
+}
+.mceContentBody h1,
+.mceContentBody h2,
+.mceContentBody h3,
+.mceContentBody h4,
+.mceContentBody h5,
+.mceContentBody h6,
+.mceContentBody img,
+.mceContentBody blockquote,
+.mceContentBody p,
+.mceContentBody ul,
+.mceContentBody ol,
+.mceContentBody li,
+.mceContentBody dl,
+.mceContentBody dd,
+.mceContentBody dt,
+.mceContentBody pre {
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 .mceContentBody h1,
 .mceContentBody h2,
@@ -390,6 +504,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody p+ol {
   margin-top: -20px;
 }
+.mceContentBody a {
+  color: #019bd4;
+  text-decoration: none;
+}
 .mceContentBody a:hover {
   text-decoration: underline;
 }
@@ -411,6 +529,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody table {
   border-collapse: collapse;
   color: #000;
+  font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
   width: 100%;
 }
@@ -483,12 +602,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   list-style: none;
   margin-left: 0;
 }
-.ipWidget-IpFile li {
-  background: url(img/icon_download.gif) no-repeat left center;
-  margin-bottom: 4px;
-  padding-left: 25px;
-}
 .ipWidget-IpFile a {
+  color: #019bd4;
   font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
@@ -518,30 +633,32 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-IpImageGallery ul {
   list-style: none;
+  margin: -20px 0 0 -20px;
 }
 .ipWidget-IpImageGallery li {
-  max-width: 50%;
+  float: left;
+  margin: 20px 0 0 20px;
+  max-width: 40%;
 }
 .ipWidget-IpImageGallery li img {
-  border: 0 solid #888;
   display: block;
   max-width: 100%;
-  padding: 0;
 }
 .ipWidget-IpImageGallery li a:hover img {
   border-color: #000;
 }
 .ipWidget-IpLogoGallery ul {
   list-style: none;
+  margin: -20px 0 0 -20px;
 }
 .ipWidget-IpLogoGallery li {
-  max-width: 50%;
+  float: left;
+  margin: 20px 0 0 20px;
+  max-width: 40%;
 }
 .ipWidget-IpLogoGallery li img {
-  border: 0 solid #888;
   display: block;
   max-width: 100%;
-  padding: 0;
 }
 .ipWidget-IpLogoGallery li a:hover img {
   border-color: #000;
