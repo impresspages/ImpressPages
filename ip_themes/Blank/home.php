@@ -12,12 +12,12 @@
     </div>
     <?php
     if ($this->getThemeOption('homeBlocks', 0) > 0) {
-        echo $this->subview('_homeBlocks.php')->render();
+        echo $this->subview('_homeBlocks.php');
     }
     ?>
     <?php
     if ($this->getThemeOption('homeBlocks2', 0) > 0) {
-        echo $this->subview('_homeBlocks2.php')->render();
+        echo $this->subview('_homeBlocks2.php');
     }
     ?>
     <div class="main col_12">

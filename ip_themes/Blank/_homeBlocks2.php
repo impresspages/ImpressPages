@@ -7,23 +7,23 @@
     switch($this->getThemeOption('homeBlocks2', 0)) {
         case 2:
 ?>
-            <div class="col_12 col_md_6">
+            <div class="col_12 col_md_6 col_lg_6">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); // TODOX: add example content everywhere ?>
             </div>
-            <div class="col_12 col_md_6">
+            <div class="col_12 col_md_6 col_lg_6">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
 <?php
             break;
         case 3:
 ?>
-            <div class="col_12 col_lg_4">
+            <div class="col_12 col_lg_4 col_lg_4">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
-            <div class="col_12 col_lg_4">
+            <div class="col_12 col_lg_4 col_lg_4">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
-            <div class="col_12 col_lg_4">
+            <div class="col_12 col_lg_4 col_lg_4">
                 <?php echo $this->generateBlock('home'.++$count, true)->exampleContent('<pre>Hello</pre>'); ?>
             </div>
 <?php

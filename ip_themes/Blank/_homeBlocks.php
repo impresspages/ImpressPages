@@ -22,23 +22,23 @@ $exampleContent = '
     switch($this->getThemeOption('homeBlocks', 0)) {
         case 2:
 ?>
-            <div class="col_12 col_md_6">
+            <div class="col_12 col_md_6 col_lg_6">
                 <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
             </div>
-            <div class="col_12 col_md_6">
+            <div class="col_12 col_md_6 col_lg_6">
                 <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
         case 3:
 ?>
-            <div class="col_12 col_md_4">
+            <div class="col_12 col_md_4 col_lg_4">
                 <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
             </div>
-            <div class="col_12 col_md_4">
+            <div class="col_12 col_md_4 col_lg_4">
                 <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
             </div>
-            <div class="col_12 col_md_4">
+            <div class="col_12 col_md_4 col_lg_4">
                 <?php echo $this->generateBlock('home3', true)->exampleContent($exampleContent); ?>
             </div>
 <?php
