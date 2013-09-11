@@ -10,7 +10,6 @@ var ipDesignThemeMarket = new function () {
         $('body').bind('ipMarketOrderComplete', function (e, data) {
             ipDesignThemeMarket.closeMarketWindow();
             window.location = window.location.href.split('#')[0];
-            console.log('show local themes');
         });
 
         Market.processOrder(order);
