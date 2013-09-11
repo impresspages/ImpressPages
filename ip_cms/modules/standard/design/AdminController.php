@@ -39,13 +39,22 @@ class AdminController extends \Ip\Controller
         $theme = $model->getTheme(THEME);
         $options = $theme->getOptions();
 
+        if (!defined('BACKEND')) {
+            define('BACKEND', 1);
+        }
+
+        $helper = Helper::instance();
+        $contentManagementModule = \Db::getModule(null, 'standard', 'content_management');
+        $contentManagementUrl = $helper->generateAdminUrl($contentManagementModule['id']);
 
 
         $data = array(
             'theme' => $model->getTheme(THEME),
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
-            'showConfiguration' => !empty($options)
+            'showConfiguration' => !empty($options),
+            'contentManagementUrl' => $contentManagementUrl,
+            'contentManagementText' => $contentManagementModule['m_translation']
         );
 
         $contentView = \Ip\View::create('view/index.php', $data);

@@ -4,9 +4,11 @@
  *
  */
 
-"use strict";
 
 (function($) {
+    "use strict";
+
+
 
     var methods = {
 
@@ -40,28 +42,38 @@
                         remote: {
                         },
                         local: {
-                            downloadImages: function(images){
+                            downloadImages: function(images) {
                                 //do nothing. Leaving for compatibility with ImpressPages 3.4 and 3.5
                             },
-                            processOrder: function(order){
-                                $('body').bind('ipMarketOrderStart', function(e){
-                                });
+                            handle: function (action, data) {
+                                switch (action) {
+                                    case 'installTheme':
+                                        var fakeOrder = {
+                                            images: [],
+                                            themes: [data]
+                                        }
+                                        processOrder(fakeOrder);
+                                        $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                            if (top.document.getElementById('adminFrameset')) {
+                                                top.document.getElementById('adminFrameset').rows = adminFramesetRows;
+                                            }
+                                            location.reload();
+                                        });
+                                        break;
+                                    case 'processOrder':
+                                        $('body').bind('ipMarketOrderComplete', function(e, data) {
+                                            if (typeof (data.images) != "undefined" && data.images.length) {
+                                                $.proxy(methods._confirm, buyTab, data.images)();
+                                            } else {
+                                                $.proxy(methods._confirm, buyTab, [])();
+                                            }
+                                        });
 
-                                $('body').bind('ipMarketOrderComplete', function(e, data){
-                                    if (typeof(data.images) != "undefined" && data.images.length) {
-                                        $.proxy(methods._confirm, buyTab, data.images)();
-                                    } else {
-                                        console.log('TODO redirect to image browser ' + $('#ipModuleRepositoryTabBuy').data('marketurl'));
-                                        //window.location = $('#ipModuleRepositoryTabBuy').data('marketurl');
-                                        //window.location = 'http://local.market.impresspages.org/en/images-v1-content/';
-                                    }
-                                });
-
-
-                                Market.processOrder(order);
-
-
+                                        Market.processOrder(data);
+                                        break;
+                                }
                             }
+
                         }
                     }
 

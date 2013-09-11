@@ -85,4 +85,18 @@ class Helper
         return $json;
     }
 
+
+    public function generateAdminUrl($moduleId)
+    {
+        return BASE_URL.BACKEND_MAIN_FILE.'?module_id='.$moduleId.'&security_token='.$this->backendSecurityToken();
+    }
+
+    private function backendSecurityToken()
+    {
+        if(!isset($_SESSION['backend_session']['security_token'])){
+            $_SESSION['backend_session']['security_token'] =  md5(uniqid(rand(), true));
+        }
+        return $_SESSION['backend_session']['security_token'];
+    }
+
 }

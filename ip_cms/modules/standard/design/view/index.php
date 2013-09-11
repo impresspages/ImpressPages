@@ -14,7 +14,8 @@
 <!--            <a href="#" class="btn btn-link">Download</a>-->
             <?php if ($showConfiguration){ ?>
                 <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('standard/design/admin_translations/options'); ?></a>
-            <?php } ?>
+            <?php } ?><br/><br/>
+            <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo $this->esc($contentManagementText); ?></a>
         </div>
         <h2>
             <i class="icon-ok"></i>
