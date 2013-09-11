@@ -102,7 +102,7 @@ The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
 */
   zoom: 1;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 .ipWidget:before,
 .ipWidget:after {
@@ -246,7 +246,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   overflow: auto;
 }
 .ipModuleForm .ipmField {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   position: relative;
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
@@ -690,8 +690,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0 0 20px 20px;
 }
 .ipWidget-IpTitle {
-  margin-bottom: 12.5px;
-  padding-top: 12.5px;
+  margin-bottom: 10px;
+  padding-top: 10px;
 }
 .ipWidget-IpTitle:first-child {
   padding-top: 0;

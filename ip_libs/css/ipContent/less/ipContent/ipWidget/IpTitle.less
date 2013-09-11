@@ -1,7 +1,9 @@
 .ipWidget-IpTitle {
-    margin-bottom: (@marginBottomWidget / 2);
-    padding-top: (@marginBottomWidget / 2);
+    // more space above title and less below to keep content visually separated
+    margin-bottom: (@ipSpaceGlobal / 2);
+    padding-top: (@ipSpaceGlobal / 2);
 }
 .ipWidget-IpTitle:first-child {
+    // however, if title is the first element it should start from the very top
     padding-top: 0;
 }

@@ -2,20 +2,20 @@
 .currentPage {
     font-weight: bold;
     display: none;
-    margin-right: @marginBottomContent;
+    margin-right: @ipSpaceGroup;
 }
 .topmenuToggle {
     background: @linkColor url(img/icon_menu.png) no-repeat center center;
     border-radius: 3px;
     color: @linkColor;
     display: none;
-    margin-top: @marginBottomContent;
-    padding: (@marginBottomContent / 2) @marginBottomContent;
+    margin-top: @ipSpaceGlobal;
+    padding: (@ipSpaceElement / 2) @ipSpaceElement;
 }
 .topmenu {
     float: right;
     font-size: @fontSize;
-    margin-top: @marginBottomContent;
+    margin-top: @ipSpaceGroup;
 
     ul {
         display: inline;
@@ -30,7 +30,7 @@
     a {
         color: @linkColor;
         display: block;
-        padding: (@marginBottomContent / 2) @marginBottomContent;
+        padding: (@ipSpaceElement / 2) @ipSpaceElement;
         white-space: nowrap;
 
         &:hover {
@@ -93,7 +93,7 @@
 
 .languages {
     display: inline-block;
-    margin-left: @marginBottomContent;
+    margin-left: (@ipSpaceGroup * 2);
 
     ul {
         list-style: none;
@@ -104,7 +104,7 @@
     a {
         color: @linkColor;
         display: block;
-        padding: (@marginBottomContent / 2) (@marginBottomContent / 4);
+        padding: (@ipSpaceElement / 2) (@ipSpaceElement / 4);
         white-space: nowrap;
 
         &:hover {
@@ -126,13 +126,13 @@
         }
 
         ul ul { // pushing inner levels to the right
-            margin-left: @marginBottomContent;
+            margin-left: @ipSpaceElement;
         }
 
         a {
             color: @linkColor;
             display: block;
-            margin-bottom: (@marginBottomContent / 2);
+            margin-bottom: @ipSpaceGroup;
 
             &:hover {
                 text-decoration: underline;
@@ -175,7 +175,7 @@
         .level1 ul {
             border: none;
             box-shadow: none;
-            margin: 0 @marginBottomContent;
+            margin: 0 @ipSpaceGroup;
             position: static;
         }
         .level1 > li {
@@ -188,7 +188,7 @@
         margin-left: 0;
 
         a {
-            padding: (@marginBottomContent / 2) @marginBottomContent;
+            padding: (@ipSpaceElement / 2) @ipSpaceElement;
         }
     }
 }

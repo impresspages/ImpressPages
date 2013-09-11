@@ -43,15 +43,15 @@ Move to separate stylesheet if invalid CSS is a problem.
     border-left: 2px solid @borderColor;
     display: block;
     font-style: italic;
-    margin-bottom: @marginBottomContent;
-    padding-left: @marginBottomContent;
+    margin-bottom: @ipSpaceText;
+    padding-left: @ipSpaceElement;
 }
 .button {
     background-color: @linkColor;
     border-radius: 5px; // TODOx: make a configurable option
     color: @textColorInverted;
     display: inline-block;
-    padding: (@marginBottomContent / 2) @marginBottomContent;
+    padding: (@ipSpaceElement / 2) @ipSpaceElement;
     text-decoration: none;
 }
 
@@ -59,7 +59,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget {
     .clearfix;
 
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
 
     &:last-child {
         margin-bottom: 0;
@@ -100,17 +100,17 @@ Move to separate stylesheet if invalid CSS is a problem.
     ul {
         list-style-position: inside;
         list-style-type: square;
-        margin: 0 0 @marginBottomContent 15px;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
     }
 
     ol {
         list-style-position: inside;
-        margin: 0 0 @marginBottomContent 15px;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
     }
 
     p {
         line-height: 24px;
-        margin-bottom: @marginBottomContent;
+        margin-bottom: @ipSpaceText;
     }
 
     ul ul, ol ol {
@@ -123,7 +123,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     p+ul, p+ol {
-        margin-top: -@marginBottomContent; // If list goes just after the paragraph the space is removed
+        margin-top: -@ipSpaceText; // If list goes just after the paragraph the space is removed
     }
 
     a {

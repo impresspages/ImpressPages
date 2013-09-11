@@ -36,18 +36,18 @@ a {
 }
 .theme > header {
     border-bottom: 1px solid @borderColorDark;
-    margin-bottom: @marginBottomWidget;
-    padding-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
+    padding-bottom: @ipSpaceGlobal;
 }
 .theme > footer {
     border-top: 1px solid @borderColorDark;
-    margin-top: @marginBottomWidget;
-    padding: (@marginBottomContent / 2) 0;
+    margin-top: @ipSpaceGlobal;
+    padding: (@ipSpaceGlobal / 2) 0;
 }
 .homerow {
     clear: both;
     border-top: 1px solid @borderColor;
-    padding-top: @marginBottomWidget;
+    padding-top: @ipSpaceGlobal;
 }
 .side {
     clear: left; // to keep columns in place
@@ -56,7 +56,7 @@ a {
     @media screen and (max-width: (@screenLarge - 1px)) {
         .main + & {
             border-top: 1px solid @borderColor;
-            padding-top: @marginBottomWidget;
+            padding-top: @ipSpaceGlobal;
         }
     }
 }
@@ -65,7 +65,7 @@ a {
     Styles
 */
 .logo {
-    margin-top: @marginBottomWidget;
+    margin-top: @ipSpaceGlobal;
     display: block;
     float: left;
 
@@ -80,7 +80,7 @@ a {
     font-family: @fontFamily;
     font-size: 60px;
     font-weight: bold;
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
     text-align: center;
 
     // changing behavior on mobile devices
@@ -91,11 +91,11 @@ a {
 .homeText {
     font-family: @fontFamilyAlternative;
     font-size: 24px;
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
     text-align: center;
 }
 .homeText p {
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
 
     &:last-child {
         margin-bottom: 0;

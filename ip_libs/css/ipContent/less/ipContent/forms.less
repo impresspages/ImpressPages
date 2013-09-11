@@ -18,7 +18,7 @@
     .ipmFieldset {}
 
     .ipmField {
-        margin-bottom: @marginBottomContent;
+        margin-bottom: @ipSpaceGroup;
         position: relative; // to position inner elements respectively to the field
 
         .clearfix;
@@ -62,7 +62,7 @@
         box-sizing: border-box; // for max-width to make sense
         color: @textColorInactive;
         max-width: 280px;
-        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+        padding: (@ipSpaceElement / 4) (@ipSpaceElement / 2);
         width: 100%;
 
         &:focus {
@@ -127,7 +127,7 @@
         color: @textColorInverted;
         cursor: pointer;
         font-weight: bold;
-        padding: (@marginBottomContent / 4) (@marginBottomContent / 2);
+        padding: (@ipSpaceElement / 4) (@ipSpaceElement / 2);
     }
 
     // errors
@@ -149,8 +149,8 @@
 
         .ipmFile {
             background-color: lighten(@borderColor, 20);
-            margin-top: (@marginBottomContent / 2);
-            padding: (@marginBottomContent / 2);
+            margin-top: (@ipSpaceGroup / 2);
+            padding: (@ipSpaceElement / 2);
 
             .ipmRemove {
                 cursor: pointer;
