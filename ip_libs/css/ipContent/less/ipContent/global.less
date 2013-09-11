@@ -29,6 +29,32 @@ Move to separate stylesheet if invalid CSS is a problem.
     zoom: 1;
 }
 
+
+// Global styles mostly used in rich text editor
+.caption {
+    color: @textColor;
+    font-family: @fontFamilyAlternative;
+    font-size: 24px;
+}
+.signature {
+    font-style: italic;
+}
+.note {
+    border-left: 2px solid @borderColor;
+    display: block;
+    font-style: italic;
+    margin-bottom: @marginBottomContent;
+    padding-left: @marginBottomContent;
+}
+.button {
+    background-color: @linkColor;
+    border-radius: 5px; // TODOx: make a configurable option
+    color: @textColorInverted;
+    display: inline-block;
+    padding: (@marginBottomContent / 2) @marginBottomContent;
+    text-decoration: none;
+}
+
 // Global styles for all widgets
 .ipWidget {
     .clearfix;
@@ -107,27 +133,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 
     a:hover {
         text-decoration: underline;
-    }
-
-    // default text style on rich text editor
-    .caption {
-        color: @textColor;
-        font-family: @fontFamilyAlternative;
-        font-size: 24px;
-    }
-
-    // default text style on rich text editor
-    .signature {
-        font-style: italic;
-    }
-
-    // default text style on rich text editor
-    .note {
-        border-left: 2px solid @borderColor;
-        display: block;
-        font-style: italic;
-        margin-bottom: @marginBottomContent;
-        padding-left: @marginBottomContent;
     }
 
     table {

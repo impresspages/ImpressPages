@@ -73,6 +73,29 @@ Move to separate stylesheet if invalid CSS is a problem.
 .clearfix:after {
   clear: both;
 }
+.caption {
+  color: #333;
+  font-family: ;
+  font-size: 24px;
+}
+.signature {
+  font-style: italic;
+}
+.note {
+  border-left: 2px solid #888;
+  display: block;
+  font-style: italic;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+.button {
+  background-color: #019bd4;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
 .ipWidget {
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
@@ -169,21 +192,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipPreviewWidget a:hover {
   text-decoration: underline;
-}
-.ipPreviewWidget .caption {
-  color: #333;
-  font-family: ;
-  font-size: 24px;
-}
-.ipPreviewWidget .signature {
-  font-style: italic;
-}
-.ipPreviewWidget .note {
-  border-left: 2px solid #888;
-  display: block;
-  font-style: italic;
-  margin-bottom: 20px;
-  padding-left: 20px;
 }
 .ipPreviewWidget table {
   border-collapse: collapse;
@@ -425,24 +433,32 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 4px 10px 2px;
 }
 .mceContentBody {
-  background-color: ;
+  background-color: #fff;
   color: #333;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
-  background-color: #fff;
 }
-.mceContentBody p,
-.mceContentBody ul,
-.mceContentBody ol,
-.mceContentBody li,
-.mceContentBody dl,
-.mceContentBody dd,
-.mceContentBody dt {
-  border: none;
-  margin: 0;
-  padding: 0;
+.mceContentBody .caption {
+  color: #333;
+  font-family: ;
+  font-size: 24px;
 }
-.mceContentBody a {
+.mceContentBody .signature {
+  font-style: italic;
+}
+.mceContentBody .note {
+  border-left: 2px solid #888;
+  display: block;
+  font-style: italic;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+.mceContentBody .button {
+  background-color: #019bd4;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 20px;
   text-decoration: none;
 }
 .mceContentBody h1,
@@ -510,21 +526,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody a:hover {
   text-decoration: underline;
-}
-.mceContentBody .caption {
-  color: #333;
-  font-family: ;
-  font-size: 24px;
-}
-.mceContentBody .signature {
-  font-style: italic;
-}
-.mceContentBody .note {
-  border-left: 2px solid #888;
-  display: block;
-  font-style: italic;
-  margin-bottom: 20px;
-  padding-left: 20px;
 }
 .mceContentBody table {
   border-collapse: collapse;
