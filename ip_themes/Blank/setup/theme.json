@@ -12,8 +12,8 @@
             "bigHeight": 600 /* Lightbox */
         },
         "imageGallery": {
-            "width": 180,
-            "height": 100,
+            "width": 320,
+            "height": 150,
             "bigWidth": 800, /* Lightbox */
             "bigHeight": 600 /* Lightbox */
         },
