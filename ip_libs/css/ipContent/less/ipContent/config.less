@@ -1,4 +1,34 @@
-// TODOx: prefix all variables
+// Global Spaces
+@ipSpaceGlobal: 20px; // used for layout: widgets, blocks, grid, etc.
+@ipSpaceGroup: 10px; // used for grouped elements: buttons, forms, etc.
+@ipSpaceText: 2em; // used for text elements, mostly bottom margins
+@ipSpaceElement: 1em; // used inside elements, mostly for padding
+
+// Global Colors
+@ipBackgroundColor: #fff;
+@ipBackgroundColorInverted: #000; // use for focus, hover, etc.
+@ipTextColor: #000;
+@ipTextColorInverted: #fff;
+@ipTextColorDisabled: #777;
+@ipLinkColor: #019bd4;
+@ipBorderColor: #b8b8b8;
+@ipBorderColorActive: #000;
+@ipErrorColor: #b80000;
+
+// Global Fonts
+@ipFontFamily: Arial, "Helvetica Neue", Helvetica, sans-serif;
+@ipFontFamilyHeadlines: Georgia, Times, "Times New Roman", serif;
+@ipFontFamilyAlternative: Georgia, Times, "Times New Roman", serif;
+
+// Global Font sizes
+@ipFontSize: 14px;
+@ipFontSizeBig: 24px;
+@ipFontSizeSmall: 12px;
+@ipFontSizeTiny: 11px;
+
+// Widget specific configuration
+@ipLineHeight: 1.5;
+
 /*
 IpBackgroundColor: transparent
 IpBlockSpace
@@ -34,30 +64,3 @@ IpWidgetFaqAnswerFont
 @ipFormInputMaxWidth = 280px;
 ....
 */
-
-
-// TODO: renaming margin as 'space', use more of them and reuse values as 0.25x, 0.5x, 1x, 4x, etc.
-@marginBottomWidget: 25px;
-@marginBottomContent: 20px;
-@marginBottomGallery: @marginBottomContent; // must be less than @marginBottomWidget
-@marginRightGallery: @marginBottomGallery;
-
-@marginsBackgroundColor: #e5e5e5;
-
-// normal colors
-@backgroundColor: #fff;
-@textColor: #333;
-@linkColor: #019bd4;
-@borderColor: #888;
-@borderColorDark: #000;
-@errorColor: #da0001;
-
-// inverted colors
-@backgroundColorInverted: #000;
-@textColorInverted: #fff;
-
-@fontFamily: Verdana, Geneva, sans-serif;
-@fontFamilyHeadlines: Georgia, Times, "Times New Roman", serif;
-@fontSize: 14px;
-@fontSizeSmall: 12px;
-@fontSizeTiny: 11px;

@@ -2,20 +2,20 @@
 .currentPage {
     font-weight: bold;
     display: none;
-    margin-right: @marginBottomContent;
+    margin-right: @ipSpaceGroup;
 }
 .topmenuToggle {
-    background: @linkColor url(img/icon_menu.png) no-repeat center center;
+    background: @ipLinkColor url(img/icon_menu.png) no-repeat center center;
     border-radius: 3px;
-    color: @linkColor;
+    color: @ipLinkColor;
     display: none;
-    margin-top: @marginBottomContent;
-    padding: (@marginBottomContent / 2) @marginBottomContent;
+    margin-top: @ipSpaceGlobal;
+    padding: (@ipSpaceElement / 2) @ipSpaceElement;
 }
 .topmenu {
     float: right;
-    font-size: @fontSize;
-    margin-top: @marginBottomContent;
+    font-size: @ipFontSize;
+    margin-top: @ipSpaceGlobal;
 
     ul {
         display: inline;
@@ -28,9 +28,9 @@
     }
 
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         display: block;
-        padding: (@marginBottomContent / 2) @marginBottomContent;
+        padding: (@ipSpaceElement / 2) @ipSpaceElement;
         white-space: nowrap;
 
         &:hover {
@@ -43,7 +43,7 @@
     }
 
     .selected > a {
-        color: @textColor;
+        color: @ipTextColor;
         font-weight: bold;
     }
 
@@ -58,8 +58,8 @@
     }
 
     .level1 ul {
-        background-color: @backgroundColor;
-        border: 1px solid @borderColor;
+        background-color: @ipBackgroundColor;
+        border: 1px solid @ipBorderColor;
         box-shadow: 0 1px 3px rgba(0,0,0,.5);
         display: none;
         position: absolute;
@@ -76,8 +76,8 @@
     }
 }
 .topmenuPopup {
-    background-color: @backgroundColor;
-    border: 1px solid @borderColor;
+    background-color: @ipBackgroundColor;
+    border: 1px solid @ipBorderColor;
     box-shadow: 0 1px 3px rgba(0,0,0,.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -93,7 +93,7 @@
 
 .languages {
     display: inline-block;
-    margin-left: @marginBottomContent;
+    margin-left: (@ipSpaceGroup * 2);
 
     ul {
         list-style: none;
@@ -102,9 +102,9 @@
         display: inline-block;
     }
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         display: block;
-        padding: (@marginBottomContent / 2) (@marginBottomContent / 4);
+        padding: (@ipSpaceElement / 2) (@ipSpaceElement / 4);
         white-space: nowrap;
 
         &:hover {
@@ -119,20 +119,20 @@
 // Side Menu
 .side {
     nav {
-        font-size: @fontSize;
+        font-size: @ipFontSize;
 
         ul {
             list-style: none;
         }
 
         ul ul { // pushing inner levels to the right
-            margin-left: @marginBottomContent;
+            margin-left: @ipSpaceElement;
         }
 
         a {
-            color: @linkColor;
+            color: @ipLinkColor;
             display: block;
-            margin-bottom: (@marginBottomContent / 2);
+            margin-bottom: @ipSpaceGroup;
 
             &:hover {
                 text-decoration: underline;
@@ -144,7 +144,7 @@
         }
 
         .selected > a {
-            color: @textColor;
+            color: @ipTextColor;
             font-weight: bold;
         }
 
@@ -175,7 +175,7 @@
         .level1 ul {
             border: none;
             box-shadow: none;
-            margin: 0 @marginBottomContent;
+            margin: 0 @ipSpaceGroup;
             position: static;
         }
         .level1 > li {
@@ -183,12 +183,12 @@
         }
     }
     .languages {
-        border-top: 1px solid @borderColor;
+        border-top: 1px solid @ipBorderColor;
         display: block;
         margin-left: 0;
 
         a {
-            padding: (@marginBottomContent / 2) @marginBottomContent;
+            padding: (@ipSpaceElement / 2) @ipSpaceElement;
         }
     }
 }

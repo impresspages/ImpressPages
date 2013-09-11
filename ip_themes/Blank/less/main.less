@@ -5,15 +5,16 @@ html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, u
     padding: 0;
 }
 body {
-    background-color: @backgroundColor;
-    color: @textColor;
-    font-family: @fontFamily;
-    font-size: @fontSize;
+    background-color: @bodyBackgroundColor;
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
+    font-size: @ipFontSize;
 }
 a {
+    color: @ipLinkColor;
     text-decoration: none;
 }
-Z
+
 /*
     Global
 */
@@ -28,26 +29,26 @@ Z
     Structure
 */
 .theme {
-    background-color: @wrapperBackgroundColor;
+    background-color: @ipBackgroundColor;
     margin: 0 auto;
     max-width: (1200px - @columnPadding*2);
     padding: 0 @columnPadding;
     position: relative; // required for .gridhint
 }
 .theme > header {
-    border-bottom: 1px solid @borderColorDark;
-    margin-bottom: @marginBottomWidget;
-    padding-bottom: @marginBottomWidget;
+    border-bottom: 1px solid @ipBorderColorActive;
+    margin-bottom: @ipSpaceGlobal;
+    padding-bottom: @ipSpaceGlobal;
 }
 .theme > footer {
-    border-top: 1px solid @borderColorDark;
-    margin-top: @marginBottomWidget;
-    padding: (@marginBottomContent / 2) 0;
+    border-top: 1px solid @ipBorderColorActive;
+    margin-top: @ipSpaceGlobal;
+    padding: (@ipSpaceGlobal / 2) 0;
 }
 .homerow {
     clear: both;
-    border-top: 1px solid @borderColor;
-    padding-top: @marginBottomWidget;
+    border-top: 1px solid @ipBorderColor;
+    padding-top: @ipSpaceGlobal;
 }
 .side {
     clear: left; // to keep columns in place
@@ -55,8 +56,8 @@ Z
     // changing behavior on mobile and tablet devices
     @media screen and (max-width: (@screenLarge - 1px)) {
         .main + & {
-            border-top: 1px solid @borderColor;
-            padding-top: @marginBottomWidget;
+            border-top: 1px solid @ipBorderColor;
+            padding-top: @ipSpaceGlobal;
         }
     }
 }
@@ -65,22 +66,22 @@ Z
     Styles
 */
 .logo {
-    margin-top: @marginBottomWidget;
+    margin-top: @ipSpaceGlobal;
     display: block;
     float: left;
 
     a {
-        color: @textColor;
-        font-family: @fontFamily;
+        color: @ipTextColor;
+        font-family: @ipFontFamily;
         font-size: 24px;
         font-weight: bold;
     }
 }
-.homeString {
-    font-family: @fontFamily;
+.homeHeadline {
+    font-family: @ipFontFamily;
     font-size: 60px;
     font-weight: bold;
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
     text-align: center;
 
     // changing behavior on mobile devices
@@ -88,14 +89,14 @@ Z
         font-size: 40px;
     }
 }
-.homeText {
-    font-family: @fontFamilyAlternative;
+.homeDescription {
+    font-family: @ipFontFamilyAlternative;
     font-size: 24px;
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
     text-align: center;
 }
-.homeText p {
-    margin-bottom: @marginBottomWidget;
+.homeDescription p {
+    margin-bottom: @ipSpaceGlobal;
 
     &:last-child {
         margin-bottom: 0;

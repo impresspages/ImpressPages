@@ -1,21 +1,17 @@
 .ipWidget-IpLogoGallery {
     ul {
         list-style: none;
-        margin: -@marginBottomContent 0 0 -@marginBottomContent; // hack to keep images visually from border to border
+        margin: -@ipSpaceGlobal 0 0 -@ipSpaceGlobal; // hack to keep images visually from border to border
     }
 
     li {
         float: left;
-        margin: @marginBottomContent 0 0 @marginBottomContent;
+        margin: @ipSpaceGlobal 0 0 @ipSpaceGlobal;
         max-width: 40%; // this forces to keep at least 2 images in a row; this should be lowered with bigger margins
 
         img {
             display: block;
             max-width: 100%;
-        }
-
-        a:hover img {
-            border-color: @borderColorDark;
         }
     }
 }
