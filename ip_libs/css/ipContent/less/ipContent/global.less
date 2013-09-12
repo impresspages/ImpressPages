@@ -51,6 +51,8 @@ Move to separate stylesheet if invalid CSS is a problem.
     border-radius: 5px; // TODOx: make a configurable option
     color: @ipTextColorInverted;
     display: inline-block;
+    font-family: @ipFontFamily;
+    font-weight: bold;
     padding: (@ipSpaceElement / 2) @ipSpaceElement;
     text-decoration: none;
 }
@@ -122,7 +124,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     p+ul, p+ol {
-        margin-top: -@ipSpaceText; // If list goes just after the paragraph the space is removed
+        margin-top: -(@ipSpaceText / 2); // If list goes just after the paragraph the space is removed
     }
 
     a {
