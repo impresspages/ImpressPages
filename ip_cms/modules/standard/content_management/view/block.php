@@ -11,7 +11,9 @@
             echo $widgetHtml;
         }
     } elseif ($managementState && $exampleContent) {
-        ?><div class="ipExampleContent"><?php echo $exampleContent; ?></div><?php
+?>
+        <div class="ipExampleContent"><?php echo $exampleContent; ?></div>
+<?php
     }
 
 ?></div>

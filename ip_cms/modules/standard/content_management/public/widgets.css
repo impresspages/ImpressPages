@@ -394,6 +394,8 @@
     list-style: none;
     max-height: 184px;
     overflow: auto;
+    margin: 0;
+    padding: 0;
 }
 .ipAdminRevisions li a {
     color: #2f313f;
@@ -426,7 +428,10 @@
 }
 .ipBlock.ipbEmpty { /* styles when block is empty */
     min-height: 30px;
-    outline: #019bd4 dashed 1px;
+    outline: #000 dashed 1px;
+}
+.ipBlock.ipbEmpty:hover { /* styles when block is empty */
+    outline-color: #019bd4;
 }
 .ipAdminWidget {
     border-top: 3px solid #000;
@@ -805,6 +810,25 @@
 }
 .ipAdminErrorSample {
     display: none;
+}
+
+/* Example content */
+.ipExampleContent {
+    position: relative;
+}
+.ipExampleContent:after {
+    background-color: #e3e3e3;
+    content: ' ';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    opacity: 0.5;
+    filter: Alpha(Opacity=50);
+    top: 0;
+    width: 100%;
+}
+.ipExampleContent .ipWidget:hover {
+    outline: none;
 }
 
 /* To be removed */

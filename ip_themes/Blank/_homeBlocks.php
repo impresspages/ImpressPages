@@ -1,7 +1,14 @@
+<?php if (!defined('CMS')) exit; ?>
+<?php
+/**
+ * This comment block is used just to make IDE suggestions to work
+ * @var $this \Ip\View
+ */
+?>
 <?php
 $exampleContent = '
 <div class="ipWidget ipPreviewWidget ipWidget-IpImage ipLayout-default">
-<img src="http://dev.ipcms/file/DSC_0138_10.jpg" alt="" title="">
+<img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
 <h2 class="ipwTitle">This is a level2 headline</h2>
@@ -23,40 +30,40 @@ $exampleContent = '
         case 2:
 ?>
             <div class="col_12 col_md_6 col_lg_6">
-                <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_6">
-                <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
         case 3:
 ?>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home3', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
         case 4:
 ?>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home1', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home2', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="clear hidden_md hidden_lg"></div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home3', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home4', true)->exampleContent($exampleContent); ?>
+                <?php echo $this->generateBlock('home4')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
