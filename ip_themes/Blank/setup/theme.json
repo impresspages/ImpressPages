@@ -31,13 +31,13 @@
     "options": [
         {
             "label": "Text color",
-            "name": "ipTextColor",
+            "name": "textColor",
             "type": "color",
             "default": "#000"
         },
         {
             "label": "Link color",
-            "name": "ipLinkColor",
+            "name": "linkColor",
             "type": "color",
             "default": "#019bd4"
         },
@@ -49,7 +49,7 @@
         },
         {
             "label": "Content background color",
-            "name": "ipBackgroundColor",
+            "name": "backgroundColor",
             "type": "color",
             "default": "#fff"
         },
