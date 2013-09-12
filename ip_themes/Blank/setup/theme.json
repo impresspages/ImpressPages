@@ -12,14 +12,14 @@
             "bigHeight": 600 /* Lightbox */
         },
         "imageGallery": {
-            "width": 180,
-            "height": 100,
+            "width": 295,
+            "height": 164,
             "bigWidth": 800, /* Lightbox */
             "bigHeight": 600 /* Lightbox */
         },
         "logoGallery": {
-            "width": 180,
-            "height": 180
+            "width": 295,
+            "height": 295
         },
         "textImage": {
             "width": 380,
@@ -30,50 +30,15 @@
     },
     "options": [
         {
-            "label": "Map",
-            "type": "group",
-            "options": [
-                {
-                    "label": "Zoom",
-                    "name": "zoom",
-                    "type": "select",
-                    "default": "4",
-                    "values": [2, 3, 4, 5]
-                },
-                {
-                    "label": "X",
-                    "name": "x",
-                    "type": "text",
-                    "default": ""
-                },
-                {
-                    "label": "Y",
-                    "name": "y",
-                    "type": "text",
-                    "default": ""
-                }
-            ]
+            "label": "Homepage blocks",
+            "name": "homeBlocks",
+            "type": "select",
+            "default": 3,
+            "values": [0, 2, 3, 4]
         },
         {
-            "label": "Background Color",
-            "name": "backgroundColor",
-            "type": "color",
-            "default": "#e5e5e5"
-        },
-        {
-            "label": "Main color",
-            "name": "mainColor",
-            "type": "color",
-            "default": "#000000"
-        },
-        {
-            "label": "Drop-down menu",
-            "name": "dropdownMenu",
-            "type": "check"
-        },
-        {
-            "label": "Homepage content blocks",
-            "name": "homeContentBlocks",
+            "label": "Homepage blocks 2",
+            "name": "homeBlocks2",
             "type": "select",
             "default": 2,
             "values": [0, 2, 3, 4]

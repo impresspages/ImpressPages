@@ -16,7 +16,7 @@ ipTinyMceConfigMin = {
     valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
     width : '100%',
     content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",
-    theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
+    theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
     forced_root_block : "p",
 
     gecko_spellcheck : true,
@@ -35,7 +35,7 @@ ipTinyMceConfigMin = {
     paste_text_use_dialog : true,    
     
     paste_preprocess : function(pl, o) {
-        ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note'));
+        ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note', 'button'));
     }
     
 

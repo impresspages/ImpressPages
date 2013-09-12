@@ -29,47 +29,96 @@ Move to separate stylesheet if invalid CSS is a problem.
     zoom: 1;
 }
 
+// Globally disabling default styles
+html, body {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+// Global styles mostly used in rich text editor
+.caption {
+    color: @ipTextColor;
+    font-family: @ipFontFamilyAlternative;
+    font-size: @ipFontSizeBig;
+}
+.signature {
+    font-style: italic;
+}
+.note {
+    border-left: 2px solid @ipBorderColor;
+    display: block;
+    font-style: italic;
+    margin-bottom: @ipSpaceText;
+    padding-left: @ipSpaceElement;
+}
+.button {
+    background-color: @ipLinkColor;
+    border-radius: 5px; // TODOx: make a configurable option
+    color: @ipTextColorInverted;
+    display: inline-block;
+    font-family: @ipFontFamily;
+    font-weight: bold;
+    padding: (@ipSpaceElement / 2) @ipSpaceElement;
+    text-decoration: none;
+}
+
 // Global styles for all widgets
 .ipWidget {
     .clearfix;
 
-    margin-bottom: @marginBottomWidget;
+    margin-bottom: @ipSpaceGlobal;
 
     &:last-child {
         margin-bottom: 0;
     }
+
 }
 
 // Global styles for all widgets that are in preview mode
 .ipPreviewWidget {
+
+    // disabling default styles
+    h1, h2, h3, h4, h5, h6, img, blockquote, p, ul, ol, li, dl, dd, dt, pre {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
+    font-size: @fontSize;
+
+
     h1, h2, h3 {
-        font-family: @fontFamilyHeadlines;
+        font-family: @ipFontFamilyHeadlines;
     }
 
     h1 {
-        font-size: 36px;
+        font-size: (@ipFontSizeBig * 1.5);
     }
     h2 {
-        font-size: 30px;
+        font-size: (@ipFontSizeBig * 1.25);
     }
     h3 {
-        font-size: 24px;
+        font-size: @ipFontSizeBig;
     }
 
     ul {
         list-style-position: inside;
         list-style-type: square;
-        margin: 0 0 @marginBottomContent 15px;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
     }
 
     ol {
         list-style-position: inside;
-        margin: 0 0 @marginBottomContent 15px;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
     }
 
     p {
-        line-height: 24px;
-        margin-bottom: @marginBottomContent;
+        line-height: @ipLineHeight;
+        margin-bottom: @ipSpaceText;
     }
 
     ul ul, ol ol {
@@ -77,46 +126,27 @@ Move to separate stylesheet if invalid CSS is a problem.
     }
 
     li {
-        line-height: 24px;
-        margin-bottom: 4px;
+        line-height: @ipLineHeight;
+        margin-bottom: (@ipSpaceGroup / 2);
     }
 
     p+ul, p+ol {
-        margin-top: -@marginBottomContent; // If list goes just after the paragraph the space is removed
+        margin-top: -(@ipSpaceText / 2); // If list goes just after the paragraph the space is removed
     }
 
     a {
-        .linkColor();
+        color: @ipLinkColor;
+        text-decoration: none;
     }
 
     a:hover {
         text-decoration: underline;
     }
 
-    // default text style on rich text editor
-    .caption {
-        color: @textColor;
-        font-family: @fontFamilyAlternative;
-        font-size: 24px;
-    }
-
-    // default text style on rich text editor
-    .signature {
-        font-style: italic;
-    }
-
-    // default text style on rich text editor
-    .note {
-        border-left: 2px solid @borderColor;
-        display: block;
-        font-style: italic;
-        margin-bottom: @marginBottomContent;
-        padding-left: @marginBottomContent;
-    }
-
     table {
         border-collapse: collapse;
-        color: @borderColorDark;
+        color: @ipTextColor;
+        font-family:  @ipFontFamily;
         font-size: @fontSize;
         width: 100%;
 
@@ -143,7 +173,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     thead+tbody tr:first-child td {
         // setting back styles if thead exists
         background-color: transparent;
-        border-bottom: 1px solid lighten(@borderColor, 10);
+        border-bottom: 1px solid lighten(@ipBorderColor, 10);
         color: inherit;
         font-size: @fontSize;
         font-weight: normal;

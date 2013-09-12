@@ -17,7 +17,7 @@ ipTinyMceConfigTable = {
     height : 300,
     width : '100%',
     content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",
-    theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note",
+    theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
     forced_root_block : "p",
 
     document_base_url : ip.baseUrl,
@@ -34,7 +34,7 @@ ipTinyMceConfigTable = {
     paste_text_use_dialog : true,    
     
     paste_preprocess : function(pl, o) {
-        ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note'));
+        ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note', 'button'));
     }
     
 

@@ -68,7 +68,7 @@ class System{
             throw new \Ip\CoreException("Theme doesn't exist");
         }
 
-        $options = $theme->getOptions();
+        $options = $theme->getOptionsAsArray();
 
         $fieldNames = array();
         foreach($options as $option) {

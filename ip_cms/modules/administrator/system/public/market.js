@@ -2,8 +2,8 @@
  * @package ImpressPages
  */
 
-var Market = new function() {
-
+var Market = new function () {
+    "use strict";
     var imagesDownloaded; //true if images have been downloaded
     var imagesData; //downloaded images data
     var themesDownloaded; //true if images have been downloaded
@@ -11,7 +11,7 @@ var Market = new function() {
 
     this.processOrder = function(order) {
         $('body').trigger('ipMarketOrderStart');
-        console.group('Market.processOrder()');
+
 
         if (typeof(order.images) != "undefined" && order.images.length) {
             imagesDownloaded = false;
@@ -27,7 +27,7 @@ var Market = new function() {
             themesDownloaded = true;
         }
 
-        console.groupEnd();
+
     };
 
     var checkComplete = function() {

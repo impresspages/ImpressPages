@@ -1,150 +1,112 @@
-/*
-    Disabling default styles
-*/
-html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt {
-    border: none;
-    margin: 0;
-    padding: 0;
-}
+// exception from the scope rule to change global styles that won't have any influence to any other elements
 body {
-    background-color: @backgroundColor;
-    color: @textColor;
-    font-family: @fontFamily;
-    font-size: @fontSize;
+    background-color: @bodyBackgroundColor;
 }
-input, select, textarea, option, table {
-    font-family:  @fontFamily;
-    font-size: @fontSize;
-}
-table {
-    border-collapse: collapse;
-}
-a {
-    text-decoration: none;
-}
-h1, h2, h3 {
-    font-size: @fontSize;
-}
-address {
-    font-style: normal;
-}
+// use to change behavior when in administration; i.e. reposition background image
+body.manage {}
 
-/*
-    Global
-*/
-.left {
-    float: left;
-}
-.right {
-    float: right;
-}
-
-/*
-    Structure
-*/
+// all styles and theme elements should go under '.theme' scope to safely separate from administration elements
 .theme {
-    background-color: @wrapperBackgroundColor;
-    margin: 0 auto;
-    max-width: 1200px;
-    position: relative; // required for .gridhint
-}
-.theme > header {
-    border-bottom: 1px solid @borderColorDark;
-    margin-bottom: @marginBottomWidget;
-    padding-bottom: @marginBottomWidget;
-}
-.theme > footer {
-    border-top: 1px solid @borderColorDark;
-    margin-top: @marginBottomWidget;
-    padding: (@marginBottomContent / 2) 0;
-}
-.homerow {
-    clear: both;
-    border-top: 1px solid @borderColor;
-    padding-top: @marginBottomWidget;
-}
-.side {
-    clear: left; // to keep columns in place
-}
+    // restoring specificity for global classes
+    .caption { .caption; }
+    .signature { .signature; }
+    .note { .note; }
+    .button { .button; }
 
-/*
-    Styles
-*/
-.logo {
-    margin: 25px 0;
-    display: block;
-    float: left;
-    max-width: 620px;
+    background-color: @ipBackgroundColor;
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
+    font-size: @ipFontSize;
+    margin: 0 auto; // centering all content
+    max-width: (1200px - @columnPadding*2);
+    padding: 0 @columnPadding;
+    position: relative; // all positioning should be relative to the '.theme' as it may appear in different environment
 
+    // Links should look the same everywhere
     a {
-        color: @textColor;
-        font-family: @fontFamily;
-        font-size: 24px;
-        font-weight: bold;
+        color: @ipLinkColor;
+        text-decoration: none;
     }
-}
-.languages {
-    border-left: 1px solid @borderColor;
-    float: right;
-    margin: @marginBottomContent 0 0 @marginBottomContent;
-    padding-left: (@marginBottomContent / 2);
 
-    ul {
-        list-style: none;
+    // Common styles
+    .left {
+        float: left;
     }
-    li {
-        border-left: 1px solid @wrapperBackgroundColor;
+    .right {
+        float: right;
+    }
+
+    // Structure
+    & > header {
+        border-bottom: 1px solid @ipBorderColorActive;
+        margin-bottom: @ipSpaceGlobal;
+        padding-bottom: @ipSpaceGlobal;
+    }
+    & > footer {
+        border-top: 1px solid @ipBorderColorActive;
+        margin-top: @ipSpaceGlobal;
+        padding: (@ipSpaceGlobal / 2) 0;
+    }
+    .homerow {
+        clear: both;
+        border-top: 1px solid @ipBorderColor;
+        padding-top: @ipSpaceGlobal;
+    }
+    .side {
+        clear: left; // to keep columns in place
+
+        // changing behavior on mobile and tablet devices
+        @media screen and (max-width: (@screenLarge - 1px)) {
+            .main + & {
+                border-top: 1px solid @ipBorderColor;
+                padding-top: @ipSpaceGlobal;
+            }
+        }
+    }
+
+    // Header
+    .logo {
+        margin-top: @ipSpaceGlobal;
+        display: block;
         float: left;
 
-        &:first-child {
-            border: none;
+        a {
+            color: @ipTextColor;
+            font-family: @ipFontFamily;
+            font-size: 24px;
+            font-weight: bold;
         }
     }
-    a {
-        color: @textColor;
-        display: block;
-        padding: (@marginBottomContent / 2);
 
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    .current a {
+    // Homepage
+    .homeHeadline {
+        font-family: @ipFontFamily;
+        font-size: 60px;
         font-weight: bold;
-    }
-}
-.homeString {
-    font-family: @fontFamily;
-    font-size: 60px;
-    font-weight: bold;
-    margin-bottom: @marginBottomWidget;
-    text-align: center;
-}
-.homeText {
-    font-family: @fontFamilyAlternative;
-    font-size: 24px;
-    margin-bottom: @marginBottomWidget;
-    text-align: center;
-}
-.homeText p {
-    margin-bottom: @marginBottomWidget;
+        margin-bottom: @ipSpaceGlobal;
+        text-align: center;
 
-    &:last-child {
-        margin-bottom: 0;
+        // changing behavior on mobile devices
+        @media screen and (max-width: (@screenMedium - 1px)) {
+            font-size: 40px;
+        }
     }
-}
-.homeText a {
-    background: @linkColor;
-    border: none;
-    border-radius: 5px;
-    color: @textColorInverted;
-    font-family: @fontFamily;
-    font-weight: bold;
-    padding: (@marginBottomContent / 2) @marginBottomContent;
-}
-.theme > footer a {
-    .linkColor();
-}
-.theme > footer a:hover {
-    text-decoration: underline;
+    .homeDescription {
+        font-family: @ipFontFamilyAlternative;
+        font-size: @ipFontSizeBig;
+        margin-bottom: @ipSpaceGlobal;
+    }
+    .homeDescription p {
+        margin-bottom: @ipSpaceGlobal;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // Footer
+    & > footer a:hover {
+        text-decoration: underline;
+    }
+
 }

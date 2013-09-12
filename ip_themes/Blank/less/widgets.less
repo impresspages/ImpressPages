@@ -1,0 +1,17 @@
+// Overrides for widgets that are unique for theme only
+.ipWidget-IpFile {
+    li {
+        background: url(img/icon_download.gif) no-repeat left center;
+        margin-bottom: 4px;
+        padding-left: 25px;
+    }
+}
+
+.ipWidget-IpImageGallery,
+.ipWidget-IpLogoGallery {
+    li {
+        margin: 0 0 @ipSpaceGlobal;
+        max-width: 50%; // forcing to have 2 columns minimum
+    }
+    // TODOx: maybe put img { width: 100%; } to always stretch to full width of column?
+}

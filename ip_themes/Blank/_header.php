@@ -10,7 +10,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php $site->addCss(BASE_URL.LIBRARY_DIR.'js/colorbox/themes/2/colorbox.css'); ?>
-    <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css'); ?>
     <?php $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css'); ?>
     <?php echo $site->generateHead(); ?>
     <!--[if lt IE 9]>
@@ -22,16 +21,21 @@
 <div class="theme clearfix">
     <header class="clearfix col_12">
         <?php echo $this->generateManagedLogo(); ?>
-        <?php echo $this->generateBlock('ipSitemap'); ?>
-        <div class="languages">
-            <?php echo $this->generateBlock('ipLanguages'); ?>
+
+        <div class="right">
+            <span class="currentPage"><?php echo $site->getCurrentElement()->getButtonTitle(); ?></span>
+            <a href="#" class="topmenuToggle">&nbsp;</a>
+            <div class="topmenu">
+                <?php
+                    //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
+                    echo $this->generateMenu('top', 'menu1');
+                ?>
+                <div class="languages">
+                    <?php echo $this->generateBlock('ipLanguages'); ?>
+                </div>
+            </div>
+
+            <a href="#" class="searchToggle">&nbsp;</a>
+            <?php echo $this->generateBlock('ipSearch'); ?>
         </div>
-        <div class="topmenu">
-            <a href="#" class="toggle">&nbsp;</a>
-            <?php
-                //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-                echo $this->generateMenu('top', 'menu1');
-            ?>
-        </div>
-        <?php echo $this->generateBlock('ipSearch'); ?>
     </header>

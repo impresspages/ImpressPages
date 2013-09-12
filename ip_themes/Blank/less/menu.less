@@ -1,28 +1,41 @@
 // Top Menu
+.currentPage {
+    font-weight: bold;
+    display: none;
+    margin-right: @ipSpaceGroup;
+}
+.topmenuToggle {
+    background: @ipLinkColor url(img/icon_menu.png) no-repeat center center;
+    border-radius: 3px;
+    color: @ipLinkColor;
+    display: none;
+    margin-top: @ipSpaceGlobal;
+    padding: (@ipSpaceElement * 0.75) (@ipSpaceElement * 1.5);
+}
 .topmenu {
     float: right;
-    font-size: @fontSize;
-    margin-top: @marginBottomContent;
-
-    .toggle {
-        background-color: @linkColor;
-        border-radius: 3px;
-        display: none;
-    }
+    font-size: @ipFontSize;
+    margin-top: @ipSpaceGlobal;
 
     ul {
+        display: inline;
         list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        position: relative;
     }
 
     .level1 > li {
         display: inline-block;
-        position: relative;
     }
 
     a {
-        color: @linkColor;
+        color: @ipLinkColor;
         display: block;
-        padding: (@marginBottomContent / 2) @marginBottomContent;
+        padding: (@ipSpaceElement / 2) @ipSpaceElement;
         white-space: nowrap;
 
         &:hover {
@@ -35,7 +48,7 @@
     }
 
     .selected > a {
-        color: @textColor;
+        color: @ipTextColor;
         font-weight: bold;
     }
 
@@ -50,8 +63,8 @@
     }
 
     .level1 ul {
-        background-color: @backgroundColor;
-        border: 1px solid @borderColor;
+        background-color: @ipBackgroundColor;
+        border: 1px solid @ipBorderColor;
         box-shadow: 0 1px 3px rgba(0,0,0,.5);
         display: none;
         position: absolute;
@@ -65,58 +78,70 @@
             margin-left: 100%;
             top: 0;
         }
-        li {
-            position: relative;
-        }
-        a {
-            display: block;
+    }
+}
+.topmenuPopup {
+    background-color: @ipBackgroundColor;
+    border: 1px solid @ipBorderColor;
+    box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.languages {
+    display: inline-block;
+    margin-left: (@ipSpaceGroup * 2);
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+    }
+    a {
+        color: @ipLinkColor;
+        display: block;
+        padding: (@ipSpaceElement / 2) (@ipSpaceElement / 4);
+        white-space: nowrap;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
-
-    @media screen and (max-width: 479px) {
-        .toggle {
-            display: block;
-        }
-        & > ul {
-            background-color: @backgroundColor;
-            border: 1px solid @borderColor;
-            box-shadow: 0 1px 3px rgba(0,0,0,.5);
-            display: none;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-        .level1 ul {
-            border: none;
-            box-shadow: none;
-            margin: 0 @marginBottomContent;
-            position: static;
-        }
-        .level1 > li {
-            display: list-item;
-        }
+    .current a {
+        font-weight: bold;
     }
 }
 
 // Side Menu
 .side {
     nav {
-        font-size: @fontSize;
+        font-size: @ipFontSize;
 
         ul {
             list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         ul ul { // pushing inner levels to the right
-            margin-left: @marginBottomContent;
+            margin-left: @ipSpaceElement;
         }
 
         a {
-            color: @linkColor;
+            color: @ipLinkColor;
             display: block;
-            margin-bottom: (@marginBottomContent / 2);
+            margin-bottom: @ipSpaceGroup;
 
             &:hover {
                 text-decoration: underline;
@@ -128,7 +153,7 @@
         }
 
         .selected > a {
-            color: @textColor;
+            color: @ipTextColor;
             font-weight: bold;
         }
 
@@ -143,6 +168,36 @@
                     display: block;
                 }
             }
+        }
+    }
+}
+
+// changing behavior on mobile devices
+@media screen and (max-width: (@screenMedium - 1px)) {
+    .currentPage,
+    .topmenuToggle {
+        display: inline-block;
+    }
+    .topmenu {
+        .topmenuPopup;
+
+        .level1 ul {
+            border: none;
+            box-shadow: none;
+            margin: 0 @ipSpaceGroup;
+            position: static;
+        }
+        .level1 > li {
+            display: list-item;
+        }
+    }
+    .languages {
+        border-top: 1px solid @ipBorderColor;
+        display: block;
+        margin-left: 0;
+
+        a {
+            padding: (@ipSpaceElement / 2) @ipSpaceElement;
         }
     }
 }

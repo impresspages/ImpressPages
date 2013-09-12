@@ -1,5 +1,5 @@
 var ipDesignThemeMarket = new function () {
-
+    "use strict";
     /**
      * @see this.openMarketWindow(), this.closeMarketWindow()
      */
@@ -7,14 +7,9 @@ var ipDesignThemeMarket = new function () {
     var isThemePreview = false;
 
     var processOrder = function (order) {
-        $('body').bind('ipMarketOrderStart', function (e) {
-        });
-
         $('body').bind('ipMarketOrderComplete', function (e, data) {
-            if (typeof(data.themes) != "undefined" && data.themes.length) {
-                //TODOX
-                console.log('show local themes');
-            }
+            ipDesignThemeMarket.closeMarketWindow();
+            window.location = window.location.href.split('#')[0];
         });
 
         Market.processOrder(order);
@@ -62,7 +57,7 @@ var ipDesignThemeMarket = new function () {
                                 var fakeOrder = {
                                     images: [],
                                     themes: [data]
-                                }
+                                };
                                 processOrder(fakeOrder);
                                 $('body').bind('ipMarketOrderComplete', function (e, data) {
                                     if (top.document.getElementById('adminFrameset')) {

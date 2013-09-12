@@ -6,7 +6,7 @@
  */
 ?>
 <?php echo $this->subview('_header.php'); ?>
-        <div class="side col_3 left">
+        <div class="side col_12 col_md_12 col_lg_3 left">
             <nav>
                 <?php
                 // generate 2 - 7 levels submenu of top menu.
@@ -16,10 +16,10 @@
                 ?>
             </nav>
         </div>
-        <div class="main col_8 right">
+        <div class="main col_12 col_md_12 col_lg_8 right">
             <?php echo $site->generateBlock('main'); ?>
         </div>
-        <div class="side col_3 left">
+        <div class="side col_12 col_md_12 col_lg_3 left">
             <aside>
                 <?php echo $this->generateBlock('side', true); //TODOX: rename to side1 or anything by new definition ?>
             </aside>

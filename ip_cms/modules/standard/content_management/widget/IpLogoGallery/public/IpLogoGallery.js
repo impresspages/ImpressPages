@@ -248,8 +248,9 @@ function IpWidget_IpLogoGallery(widgetObject) {
                 logoOptions.cropX2 = options.coordinates.cropX2;
                 logoOptions.cropY2 = options.coordinates.cropY2;
             }
-            logoOptions.windowWidth = options.logoWidth;
-            logoOptions.windowHeight = options.logoHeight;
+            var ratio = options.logoWidth / options.logoHeight;
+            logoOptions.windowWidth = 200;
+            logoOptions.windowHeight = options.logoWidth / ratio;
             logoOptions.enableChangeWidth = false;
             logoOptions.enableChangeHeight = false;
             logoOptions.enableScale = false;

@@ -1,20 +1,13 @@
 // TinyMCE - rich text editor
 // Styles should be similar to text widgets or follow default styles of the <body>, including style reset
 .mceContentBody {
-    background-color: @wrapperBackgroundColor;
-    color: @textColor;
-    font-family:  @fontFamily;
-    font-size: @fontSize;
-
-    p, ul, ol, li, dl, dd, dt {
-        border: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    a {
-        text-decoration: none;
-    }
+    // restoring specificity for global classes
+    .caption { .caption; }
+    .signature { .signature; }
+    .note { .note; }
+    .button { .button; }
 
     .ipPreviewWidget;
+
+    background-color: @ipBackgroundColor;
 }

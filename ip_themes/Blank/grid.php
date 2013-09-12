@@ -1,5 +1,6 @@
 <?php if (!defined('CMS')) exit; ?>
 <?php
+// TODOX: delete this file, it's for the grid testing only
 /**
  * This comment block is used just to make IDE suggestions to work
  * @var $this \Ip\View

@@ -243,8 +243,9 @@ function IpWidget_IpImageGallery(widgetObject) {
                 imageOptions.cropX2 = options.coordinates.cropX2;
                 imageOptions.cropY2 = options.coordinates.cropY2;
             }
-            imageOptions.windowWidth = options.smallImageWidth;
-            imageOptions.windowHeight = options.smallImageHeight;
+            var ratio = options.smallImageWidth / options.smallImageHeight;
+            imageOptions.windowWidth = 200;
+            imageOptions.windowHeight = imageOptions.windowWidth / ratio;
             imageOptions.enableChangeWidth = false;
             imageOptions.enableChangeHeight = false;
 

@@ -132,7 +132,7 @@ class Model
 
 
         //write down default theme options
-        $options = $theme->getOptions();
+        $options = $theme->getOptionsAsArray();
         foreach($options as $option) {
             if (empty($option['name']) || empty($option['default'])) {
                 continue;
