@@ -83,7 +83,7 @@ body.manage {}
         font-family: @ipFontFamily;
         font-size: 60px;
         font-weight: bold;
-        margin-bottom: @ipSpaceGlobal;
+        margin: @ipSpaceGlobal 0;
         text-align: center;
 
         // changing behavior on mobile devices
@@ -105,6 +105,9 @@ body.manage {}
     }
 
     // Footer
+    & > footer p {
+        margin: 0;
+    }
     & > footer a:hover {
         text-decoration: underline;
     }
