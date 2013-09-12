@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller
 
         $model = Model::instance();
         $theme = $model->getTheme(THEME);
-        $options = $theme->getOptions();
+        $options = $theme->getOptionsAsArray();
 
         if (!defined('BACKEND')) {
             define('BACKEND', 1);
@@ -169,7 +169,7 @@ class AdminController extends \Ip\Controller
                 throw new \Ip\CoreException("Theme doesn't exist");
             }
 
-            $options = $theme->getOptions();
+            $options = $theme->getOptionsAsArray();
 
             foreach($options as $option) {
                 if (empty($option['name'])) {
@@ -193,10 +193,6 @@ class AdminController extends \Ip\Controller
 
             $lessCompiler = LessCompiler::instance();
             $lessCompiler->rebuild(THEME);
-
-            $data = array(
-                'status' => 'success'
-            );
 
         }
 

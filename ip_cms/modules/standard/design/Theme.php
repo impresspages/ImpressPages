@@ -71,6 +71,25 @@ class Theme
         return $this->options;
     }
 
+
+    public function getOptionsAsArray()
+    {
+        $options = $this->getOptions();
+        $answer = $this->getGroupOptions($options);
+        return $answer;
+    }
+
+    protected function getGroupOptions($groupOptions)
+    {
+        $answer = $groupOptions;
+        foreach($groupOptions as $option) {
+            if (!empty($option['type']) && $option['type'] === 'group' && !empty($option['options'])) {
+                $answer = array_merge($answer, $this->getGroupOptions($option['options']));
+            }
+        }
+        return $answer;
+    }
+
     public function getWidgetOptions()
     {
         if (!$this->widgetOptions) {

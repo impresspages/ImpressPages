@@ -49,7 +49,7 @@ class ConfigModel{
                 //overwrite current config with default theme values
                 $model = Model::instance();
                 $theme = $model->getTheme(THEME);
-                $options = $theme->getOptions();
+                $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
                         return $option['default'];
@@ -85,7 +85,7 @@ class ConfigModel{
         if ($default === null) {
             $model = Model::instance();
             $theme = $model->getTheme($themeName);
-            $options = $theme->getOptions();
+            $options = $theme->getOptionsAsArray();
             foreach($options as $option) {
                 if (!empty($option['name']) && $option['name'] == $name && isset($option['name']) && isset($option['default'])) {
                     return $option['default'];
@@ -106,7 +106,7 @@ class ConfigModel{
                 //overwrite current config with default theme values
                 $model = Model::instance();
                 $theme = $model->getTheme(THEME);
-                $options = $theme->getOptions();
+                $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && isset($option['default'])) {
                         $config[$option['name']] = $option['default'];
@@ -187,7 +187,6 @@ class ConfigModel{
 
 
         $options = $theme->getOptions();
-
 
         $generalFieldset = $this->getFieldset($name, $options);
         $generalFieldset->setLabel('{{General options}}');
