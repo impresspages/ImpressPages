@@ -114,6 +114,7 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .modal-dialog').draggable({
             axis: "x",
             containment: "body",
+            handle: ".modal-header",
             scroll: false
         });
 
