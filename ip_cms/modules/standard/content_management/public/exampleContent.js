@@ -2,8 +2,7 @@ $(document).ready(function () {
     $(document).bind('initFinished.ipContentManagement', function () {
         $('.ipActionWidgetButton')
             .bind('dragstart', function (event, ui) {
-
-                $('.ipBlock > .ipExampleContent').each(function () {
+                $('.ipBlock > .ipbExampleContent').each(function () {
                     $ipExampleContent = $(this);
                     var $block = $ipExampleContent.parent();
 
@@ -19,7 +18,7 @@ $(document).ready(function () {
                 });
             })
             .bind('dragstop', function (event, ui) {
-                $('.ipBlock > .ipExampleContent').each(function () {
+                $('.ipBlock > .ipbExampleContent').each(function () {
                     $ipExampleContent = $(this);
                     var $block = $ipExampleContent.parent();
                     if ($block.children('.ipAdminWidgetPlaceholder').length) {

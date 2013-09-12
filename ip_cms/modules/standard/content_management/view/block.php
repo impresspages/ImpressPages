@@ -10,10 +10,21 @@
         foreach($widgetsHtml as $key => $widgetHtml) {
             echo $widgetHtml;
         }
-    } elseif ($managementState && $exampleContent) {
+    } elseif ($managementState) {
 ?>
-        <div class="ipExampleContent"><?php echo $exampleContent; ?></div>
+        <div class="ipbExampleContent">
+            <div class="ipbDefault">{{Drag widgets here}}</div>
+            <div class="ipbUser">
+<?php
+        if ($exampleContent) {
+            echo $exampleContent;
+        } else {
+            echo $this->subview('exampleContent.php');
+        }
+?>
+            </div>
+        </div>
 <?php
     }
-
-?></div>
+?>
+</div>

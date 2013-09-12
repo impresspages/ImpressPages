@@ -21,7 +21,7 @@
     }
     ?>
     <div class="main col_12">
-        <?php echo $site->generateBlock('main'); ?>
+        <?php echo $site->generateBlock('main')->exampleContent(' '); ?>
     </div>
     <div class="clear"></div>
 <?php echo $this->subview('_footer.php'); ?>
