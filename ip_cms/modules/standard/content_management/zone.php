@@ -163,14 +163,6 @@ class Zone extends \Frontend\Zone {
         return $newElement;
     }
 
-    public function makeActions() {
-        if( isset($_REQUEST['cm_group']) && isset($_REQUEST['cm_name']) || isset($_POST['id'])|| isset($_POST['action'])) {
 
-            require_once(__DIR__.'/actions.php');
-
-            $actions = new Actions;
-            $actions->makeActions();
-        }
-    }
 
 }
