@@ -40,7 +40,7 @@
             "label": "Homepage blocks 2",
             "name": "homeBlocks2",
             "type": "select",
-            "default": 3,
+            "default": 2,
             "values": [0, 2, 3, 4]
         }
     ]
