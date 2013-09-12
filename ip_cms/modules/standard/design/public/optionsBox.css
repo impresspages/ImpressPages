@@ -4,6 +4,9 @@
     top: 10px;
     width: 350px;
 }
+.ipModuleDesignConfig .modal-header {
+    cursor: move;
+}
 .ipModuleDesignConfig .modal-body {
     overflow: auto;
 }

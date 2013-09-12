@@ -111,6 +111,12 @@ var ipDesign = new function () {
         $('body').append(ipModuleDesignConfiguration);
         ipModuleForm.init(); //reinit form controls after adding option box
 
+        $('.ipModuleDesignConfig .modal-dialog').draggable({
+            axis: "x",
+            containment: "body",
+            scroll: false
+        });
+
         $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
             e.preventDefault();
             $('.ipModuleDesignConfig .ipsForm').submit();
