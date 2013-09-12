@@ -52,9 +52,9 @@ class System{
         $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
         $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
-        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/optionsBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionBox.css');
+        $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/optionsBox.css');
         if (file_exists(BASE_DIR.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js')) {
             $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js');
         }
@@ -89,8 +89,8 @@ class System{
         $variables = array(
             'form' => $form
         );
-        $configBox = \Ip\View::create('view/configBox.php', $variables);
-        return $configBox->render();
+        $optionsBox = \Ip\View::create('view/optionsBox.php', $variables);
+        return $optionsBox->render();
     }
 
     public function clearCacheEvent(\Ip\Event\ClearCache $e)
