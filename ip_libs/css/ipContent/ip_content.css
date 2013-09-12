@@ -73,6 +73,12 @@ Move to separate stylesheet if invalid CSS is a problem.
 .clearfix:after {
   clear: both;
 }
+html,
+body {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 .caption {
   color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
@@ -296,6 +302,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #777;
+  margin: 0;
   max-width: 380px;
   padding: 0.5em;
   width: 100%;
@@ -312,6 +319,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #777;
+  margin: 0;
   max-width: 380px;
   padding: 0.5em;
   width: 100%;
@@ -330,6 +338,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #777;
+  margin: 0;
   max-width: 380px;
   padding: 0.5em;
   width: 100%;
@@ -377,6 +386,10 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: bold;
   margin: 0;
   padding: 0.5em 1em;
+}
+.ipModuleForm .ipmControlSubmit:hover {
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
 }
 .ipModuleForm .ipmControlError {
   border-color: #b80000;

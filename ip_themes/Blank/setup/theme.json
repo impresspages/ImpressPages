@@ -30,6 +30,30 @@
     },
     "options": [
         {
+            "label": "Text color",
+            "name": "ipTextColor",
+            "type": "color",
+            "default": "#000"
+        },
+        {
+            "label": "Link color",
+            "name": "ipLinkColor",
+            "type": "color",
+            "default": "#019bd4"
+        },
+        {
+            "label": "Body background color",
+            "name": "bodyBackgroundColor",
+            "type": "color",
+            "default": "#fff"
+        },
+        {
+            "label": "Content background color",
+            "name": "ipBackgroundColor",
+            "type": "color",
+            "default": "#fff"
+        },
+        {
             "label": "Homepage blocks",
             "name": "homeBlocks",
             "type": "select",

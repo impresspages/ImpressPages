@@ -5,38 +5,23 @@
     margin-left: @ipSpaceGroup;
 }
 .ipModuleSearch {
+    .ipModuleForm; // reusing default form styles
+
     clear: right;
     float: right;
     margin-top: @ipSpaceGlobal;
 
     .ipmField {
         float: left;
+        margin-bottom: 0;
+    }
+    .ipmLabel {
+        display: none; // hiding labels as they are printed by default
     }
     .ipmControlInput {
-        .ipModuleForm > input;
-        .ipModuleForm > .ipmControlInput;
         width: 160px;
-        /*
-        background-color: lighten(@ipBorderColor, 20);
-        border: 1px solid @ipBorderColor;
-        float: left;
-        height: 21px;
-        padding: 1px 2px;
-        */
     }
     .ipmControlSubmit {
-        /*
-        background: @ipBorderColor;
-        border-radius: 3px;
-        border: none;
-        color: @ipTextColorInverted;
-        cursor: pointer;
-        float: left;
-        height: 25px; // input buttons have borders inside their height
-        line-height: 25px;
-        padding: 0 6px;*/
-        .ipModuleForm > input;
-        .ipModuleForm > .ipmControlSubmit;
         margin-left: @ipSpaceGroup;
     }
 }

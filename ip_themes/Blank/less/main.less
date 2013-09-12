@@ -1,109 +1,112 @@
-// Disabling default styles
-html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt, pre {
-    border: none;
-    margin: 0;
-    padding: 0;
-}
+// exception from the scope rule to change global styles that won't have any influence to any other elements
 body {
     background-color: @bodyBackgroundColor;
+}
+// use to change behavior when in administration; i.e. reposition background image
+body.manage {}
+
+// all styles and theme elements should go under '.theme' scope to safely separate from administration elements
+.theme {
+    // restoring specificity for global classes
+    .caption { .caption; }
+    .signature { .signature; }
+    .note { .note; }
+    .button { .button; }
+
+    background-color: @ipBackgroundColor;
     color: @ipTextColor;
     font-family: @ipFontFamily;
     font-size: @ipFontSize;
-}
-a {
-    color: @ipLinkColor;
-    text-decoration: none;
-}
-
-/*
-    Global
-*/
-.left {
-    float: left;
-}
-.right {
-    float: right;
-}
-
-/*
-    Structure
-*/
-.theme {
-    background-color: @ipBackgroundColor;
-    margin: 0 auto;
+    margin: 0 auto; // centering all content
     max-width: (1200px - @columnPadding*2);
     padding: 0 @columnPadding;
-    position: relative; // required for .gridhint
-}
-.theme > header {
-    border-bottom: 1px solid @ipBorderColorActive;
-    margin-bottom: @ipSpaceGlobal;
-    padding-bottom: @ipSpaceGlobal;
-}
-.theme > footer {
-    border-top: 1px solid @ipBorderColorActive;
-    margin-top: @ipSpaceGlobal;
-    padding: (@ipSpaceGlobal / 2) 0;
-}
-.homerow {
-    clear: both;
-    border-top: 1px solid @ipBorderColor;
-    padding-top: @ipSpaceGlobal;
-}
-.side {
-    clear: left; // to keep columns in place
+    position: relative; // all positioning should be relative to the '.theme' as it may appear in different environment
 
-    // changing behavior on mobile and tablet devices
-    @media screen and (max-width: (@screenLarge - 1px)) {
-        .main + & {
-            border-top: 1px solid @ipBorderColor;
-            padding-top: @ipSpaceGlobal;
+    // Links should look the same everywhere
+    a {
+        color: @ipLinkColor;
+        text-decoration: none;
+    }
+
+    // Common styles
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
+
+    // Structure
+    & > header {
+        border-bottom: 1px solid @ipBorderColorActive;
+        margin-bottom: @ipSpaceGlobal;
+        padding-bottom: @ipSpaceGlobal;
+    }
+    & > footer {
+        border-top: 1px solid @ipBorderColorActive;
+        margin-top: @ipSpaceGlobal;
+        padding: (@ipSpaceGlobal / 2) 0;
+    }
+    .homerow {
+        clear: both;
+        border-top: 1px solid @ipBorderColor;
+        padding-top: @ipSpaceGlobal;
+    }
+    .side {
+        clear: left; // to keep columns in place
+
+        // changing behavior on mobile and tablet devices
+        @media screen and (max-width: (@screenLarge - 1px)) {
+            .main + & {
+                border-top: 1px solid @ipBorderColor;
+                padding-top: @ipSpaceGlobal;
+            }
         }
     }
-}
 
-/*
-    Styles
-*/
-.logo {
-    margin-top: @ipSpaceGlobal;
-    display: block;
-    float: left;
+    // Header
+    .logo {
+        margin-top: @ipSpaceGlobal;
+        display: block;
+        float: left;
 
-    a {
-        color: @ipTextColor;
+        a {
+            color: @ipTextColor;
+            font-family: @ipFontFamily;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    // Homepage
+    .homeHeadline {
         font-family: @ipFontFamily;
-        font-size: 24px;
+        font-size: 60px;
         font-weight: bold;
-    }
-}
-.homeHeadline {
-    font-family: @ipFontFamily;
-    font-size: 60px;
-    font-weight: bold;
-    margin-bottom: @ipSpaceGlobal;
-    text-align: center;
+        margin-bottom: @ipSpaceGlobal;
+        text-align: center;
 
-    // changing behavior on mobile devices
-    @media screen and (max-width: (@screenMedium - 1px)) {
-        font-size: 40px;
+        // changing behavior on mobile devices
+        @media screen and (max-width: (@screenMedium - 1px)) {
+            font-size: 40px;
+        }
     }
-}
-.homeDescription {
-    font-family: @ipFontFamilyAlternative;
-    font-size: @ipFontSizeBig;
-    margin-bottom: @ipSpaceGlobal;
-}
-.homeDescription p {
-    margin-bottom: @ipSpaceGlobal;
+    .homeDescription {
+        font-family: @ipFontFamilyAlternative;
+        font-size: @ipFontSizeBig;
+        margin-bottom: @ipSpaceGlobal;
+    }
+    .homeDescription p {
+        margin-bottom: @ipSpaceGlobal;
 
-    &:last-child {
-        margin-bottom: 0;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
-}
-.theme > footer a {
-    .linkColor();
-}
-.theme > footer a:hover {
-    text-decoration: underline;
+
+    // Footer
+    & > footer a:hover {
+        text-decoration: underline;
+    }
+
 }
