@@ -161,4 +161,28 @@ abstract class Image extends Base
         }
     }
 
+    protected function fixSourceRatio ($x1, $y1, $x2, $y2, $widthDest, $heightDest) {
+        $widthSource =  $x2 - $x1;
+        $heightSource = $y2 - $y1;
+        if ($heightSource > 0 && $widthSource > 0) {
+            //fix ratio if needed
+            $sourceRatio = $widthSource / $heightSource;
+            $destRatio = $widthDest / $heightDest;
+            if ($sourceRatio > $destRatio) {
+                //lower source width
+                $requiredWidth = $heightSource * $destRatio;
+                $diff = $widthSource - $requiredWidth;
+                $x1 = $x1 + round($diff / 2);
+                $x2 = $x2 - round($diff / 2);
+            } elseif ($sourceRatio < $destRatio) {
+                //lower source height
+                $requiredHeight = $widthSource / $destRatio;
+                $diff = $heightSource - $requiredHeight;
+                $y1 = $y1 + round($diff / 2);
+                $y2 = $y2 - round($diff / 2);
+            }
+        }
+        return array($x1, $y1, $x2, $y2);
+    }
+
 }
