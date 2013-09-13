@@ -68,7 +68,7 @@ html, body {
 .ipWidget {
     .clearfix;
 
-    margin-bottom: @ipSpaceGlobal;
+    margin-bottom: @ipWidgetSpace;
 
     &:last-child {
         margin-bottom: 0;
@@ -91,18 +91,17 @@ html, body {
     font-size: @ipFontSize;
 
 
-    h1, h2, h3 {
-        font-family: @ipFontFamilyHeadlines;
-    }
-
     h1 {
-        font-size: (@ipFontSizeBig * 1.5);
+        font-family: @ipH1FontFamily;
+        font-size: @ipH1FontSize;
     }
     h2 {
-        font-size: (@ipFontSizeBig * 1.25);
+        font-family: @ipH3FontFamily;
+        font-size: @ipH2FontSize;
     }
     h3 {
-        font-size: @ipFontSizeBig;
+        font-family: @ipH3FontFamily;
+        font-size: @ipH3FontSize;
     }
 
     ul {
