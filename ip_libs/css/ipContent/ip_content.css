@@ -9,20 +9,6 @@
 /* http://sonspring.com/journal/clearing-floats */
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 /* covered by default styles */
-/*
-iWidgetSeparatorColor: IpMainColor
-iWidgetSeparatorStyle: line
-iWidgetSeparatorWidth: ...
-
-
-
-iWidgetFaqQuestionFont
-iWidgetFaqQuestionColor
-iWidgetFaqQuestionSize
-iWidgetFaqAnswerFont
-
-
-*/
 .clear {
   clear: both;
   display: block;
@@ -134,14 +120,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0;
 }
 .ipPreviewWidget h1 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
 .ipPreviewWidget h2 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
 .ipPreviewWidget h3 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
@@ -181,7 +170,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-collapse: collapse;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: ;
+  font-size: 14px;
   width: 100%;
 }
 .ipPreviewWidget table p {
@@ -190,20 +179,20 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipPreviewWidget td {
   border-bottom: 1px solid #b2b2b2;
-  font-size: ;
+  font-size: 14px;
   padding: 9px;
 }
 .ipPreviewWidget th,
 .ipPreviewWidget thead td,
 .ipPreviewWidget tbody tr:first-child td {
-  font-size: ;
+  font-size: 14px;
   font-weight: bold;
 }
 .ipPreviewWidget thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
-  font-size: ;
+  font-size: 14px;
   font-weight: normal;
 }
 .ipPreviewWidget p:last-child,
@@ -476,14 +465,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0;
 }
 .mceContentBody h1 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
 .mceContentBody h2 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
 .mceContentBody h3 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
@@ -523,7 +515,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-collapse: collapse;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: ;
+  font-size: 14px;
   width: 100%;
 }
 .mceContentBody table p {
@@ -532,20 +524,20 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody td {
   border-bottom: 1px solid #b2b2b2;
-  font-size: ;
+  font-size: 14px;
   padding: 9px;
 }
 .mceContentBody th,
 .mceContentBody thead td,
 .mceContentBody tbody tr:first-child td {
-  font-size: ;
+  font-size: 14px;
   font-weight: bold;
 }
 .mceContentBody thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
-  font-size: ;
+  font-size: 14px;
   font-weight: normal;
 }
 .mceContentBody p:last-child,
