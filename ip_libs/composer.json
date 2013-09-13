@@ -1,8 +1,0 @@
-{
-    "config": {
-        "vendor-dir": "php"
-    },
-    "require": {
-        "leafo/lessphp": "0.4.0"
-    }
-}
