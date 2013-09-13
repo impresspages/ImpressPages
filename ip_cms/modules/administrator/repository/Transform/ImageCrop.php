@@ -22,8 +22,8 @@ class ImageCrop extends Image
      * @param int $y1 left top coordinate of source
      * @param int $x2 right bottom coordinate of source
      * @param int $y2 right bottom coordinate of source
-     * @param int $widthDest required width of detination image
-     * @param int $heightDest required height of detination image
+     * @param int $widthDest required width of destination image
+     * @param int $heightDest required height of destination image
      * @param null $quality
      */
     public function __construct($x1, $y1, $x2, $y2, $widthDest, $heightDest, $quality = null)
@@ -33,6 +33,8 @@ class ImageCrop extends Image
         {
             $quality = $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'default_image_quality');
         }
+
+        list($x1, $y1, $x2, $y2) = $this->fixSourceRatio($x1, $y1, $x2, $y2, $widthDest, $heightDest);
 
         $this->x1 = $x1;
         $this->y1 = $y1;
