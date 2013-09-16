@@ -155,6 +155,20 @@ var ipDesign = new function () {
         });
 
         lastSerialized = $('.ipModuleDesignConfig .ipsForm').serialize();
+
+        //setup config groups
+
+        $('.ipModuleDesignConfig fieldset:gt(1) .ipmField').addClass('ipgHide');
+        $('.ipModuleDesignConfig fieldset:lt(2) legend').addClass('ipmSelected');
+
+        $('.ipModuleDesignConfig fieldset').on('click', function(e) {
+            var $fieldset = $(this);
+            $('.ipModuleDesignConfig .ipmField').addClass('ipgHide');
+            $('.ipModuleDesignConfig fieldset legend').removeClass('ipmSelected');
+            $fieldset.find('.ipmField').removeClass('ipgHide');
+            $fieldset.find('legend').addClass('ipmSelected');
+        });
+
     };
 
     this.showReloadNotice = function () {

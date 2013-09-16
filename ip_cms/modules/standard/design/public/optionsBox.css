@@ -17,14 +17,18 @@
 .ipModuleDesignConfig fieldset legend {
     background-color: #dcdcdc;
     padding: 10px 20px;
-    margin-bottom: 4px;
+    margin-bottom: 1px;
     font-size: 12px;
     font-weight: bold;
 }
 
+.ipModuleDesignConfig fieldset legend.ipmSelected {
+    background-color: #ecebeb;
+}
+
 .ipModuleDesignConfig fieldset .ipmField {
     padding: 0 20px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .ipModuleDesignConfig .ipmType-blank {
