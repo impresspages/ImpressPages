@@ -13,3 +13,26 @@
 .ipModuleDesignConfig .modal-footer {
     margin-top: 0;
 }
+
+.ipModuleDesignConfig fieldset legend {
+    background-color: #dcdcdc;
+    padding: 10px 20px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ipModuleDesignConfig fieldset .ipmField {
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.ipModuleDesignConfig .ipmType-blank {
+    display: none;
+}
+
+.ipModuleDesignConfig label.ipmLabel {
+    font-size: 12px;
+    font-weight: normal;
+}
+

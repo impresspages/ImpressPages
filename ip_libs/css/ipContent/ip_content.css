@@ -262,7 +262,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   width: 0;
 }
 .ipModuleForm .ipmControlInput {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -279,7 +279,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #000;
 }
 .ipModuleForm .ipmControlTextarea {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -298,7 +298,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #000;
 }
 .ipModuleForm .ipmControlSelect {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
