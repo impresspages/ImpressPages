@@ -109,7 +109,10 @@ var ipDesign = new function () {
 
 
     this.init = function () {
-        $('a').off('click').on('click', function (e) {
+//        $('a').not('[href$=".jpg"]').not('[href$=".JPG"]').not('[href$=".jpeg"]').not('[href$=".JPEG"]').not('[href$=".png"]')
+//            .not('[href$=".PNG"]').not('[href$=".gif"]').not('[href$=".GIF"]').not('[href$=".tiff"]').not('[href$=".TIFF"]')
+        $('a').not('.ipWidget-IpImageGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpImage a, .ipWidget-IpFile a, .ipWidget-IpTextImage a')
+            .off('click').on('click', function (e) {
             e.preventDefault();
             ipDesign.openLink($(e.currentTarget).attr('href'));
         }); //it is important to bind links before adding configuration box html to the body
