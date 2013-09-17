@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title"><i class="icon-cogs"></i> <?php echo $this->escPar('standard/design/admin_translations/theme_options') ?></h4>
             </div>
-            <div>
+            <div class="ipsBody ipmBody">
                 <div class="ipgHide ipsReload alert alert-block">
                     <a class="ipsReload" href="#">{{Preview window needs to be reloaded}}</a>
                 </div>

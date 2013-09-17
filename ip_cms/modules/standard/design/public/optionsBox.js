@@ -279,7 +279,7 @@ var ipDesign = new function () {
     };
 
     this.resize = function(e) {
-        $('.ipModuleDesignConfig .modal-body').css('maxHeight', $(window).height() - 200);
+        $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - 200);
     };
 
     var getValueByName = function(name, values) {
