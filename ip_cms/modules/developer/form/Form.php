@@ -31,10 +31,25 @@ class Form{
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
 
-        //add security token field
+        $this->addXssCheck();
+    }
+
+    /**
+     * Add securityToken field
+     */
+    public function addXssCheck()
+    {
         $tokenField = new Field\XSS();
         $tokenField->setName('securityToken');
         $this->addField($tokenField);
+    }
+
+    /**
+     * Remove securityToken field
+     */
+    public function removeXssCheck()
+    {
+        $this->removeField('securityToken');
     }
 
     /**
