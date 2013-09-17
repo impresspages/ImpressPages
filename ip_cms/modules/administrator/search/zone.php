@@ -68,7 +68,7 @@ class Zone extends \Frontend\Zone {
         //Submit button
         $field = new \Modules\developer\form\Field\Submit(
         array(
-            'name' => 'submit',
+            'name' => '',
             'defaultValue' => $parametersMod->getValue('administrator','search','translations','search')
         ));
         $form->addField($field);
