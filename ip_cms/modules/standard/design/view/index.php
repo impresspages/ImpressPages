@@ -37,8 +37,12 @@
         <div class="ipmThemeMarket">
             <div class="ipmButtonWrapper">
                 <span class="ipmTitle"><?php echo $this->escPar('standard/design/admin_translations/theme_market'); ?></span>
-                <span class="impNotice"><?php echo $this->escPar('standard/design/admin_translations/theme_market_description'); ?></span>
-                <a href="#" class="btn btn-success ipsOpenMarket"><?php echo $this->escPar('standard/design/admin_translations/theme_market_browse'); ?></a>
+                <!-- TODOX remove -->
+                <div id="comingSoon" style="background-color: #019bd4; color: #fff; text-align: center; padding: 25px; font-family: Arial; font-width: bold; font-size: 18px; max-width: 250px; margin: auto;">
+                    coming soon
+                </div>
+<!--                <span class="impNotice">--><?php //echo $this->escPar('standard/design/admin_translations/theme_market_description'); ?><!--</span>-->
+<!--                <a href="#" class="btn btn-success ipsOpenMarket">--><?php //echo $this->escPar('standard/design/admin_translations/theme_market_browse'); ?><!--</a>-->
             </div>
         </div>
         <div class="ipmLocalThemes">
