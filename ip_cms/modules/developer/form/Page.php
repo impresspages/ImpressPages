@@ -10,6 +10,9 @@ namespace Modules\developer\form;
 
 
 class Page{
+    /**
+     * @var Fieldset[]
+     */
     protected $fieldsets;
     protected $label;
     
@@ -31,6 +34,19 @@ class Page{
             $this->addFieldset(new Fieldset());
         }
         end($this->fieldsets)->addField($field);
+    }
+
+    /**
+     * Remove field from fieldset
+     * @param string $fieldName
+     * @return int removed fields count
+     */
+    public function removeField($fieldName) {
+        $count = 0;
+        foreach($this->fieldsets as $key => $fieldset) {
+            $count += $fieldset->removeField($fieldName);
+        }
+        return $count;
     }
     
     /**

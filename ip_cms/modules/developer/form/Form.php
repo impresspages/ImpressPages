@@ -24,7 +24,6 @@ class Form{
 
     public function __construct() {
         $site = \Ip\ServiceLocator::getSite();
-        $session = \Ip\ServiceLocator::getSession();
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = $site->getCurrentUrl();
@@ -36,6 +35,19 @@ class Form{
         $tokenField = new Field\XSS();
         $tokenField->setName('securityToken');
         $this->addField($tokenField);
+    }
+
+    /**
+     * Remove field from form
+     * @param string $fieldName
+     * @return int removed fields count
+     */
+    public function removeField($fieldName) {
+        $count = 0;
+        foreach($this->pages as $key => $page) {
+            $count += $page->removeField($fieldName);
+        }
+        return $count;
     }
 
     /**

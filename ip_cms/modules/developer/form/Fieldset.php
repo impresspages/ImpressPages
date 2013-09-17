@@ -25,6 +25,22 @@ class Fieldset{
     public function addField(Field\Field  $field) {
         $this->fields[] = $field;
     }
+
+    /**
+     * Remove field from fieldset
+     * @param string $fieldName
+     * @return int removed fields count
+     */
+    public function removeField($fieldName) {
+        $count = 0;
+        foreach($this->fields as $key => $field) {
+            if ($field->getName() == $fieldName) {
+                unset($this->fields[$key]);
+                $count++;
+            }
+        }
+        return $count;
+    }
     
     /**
      * 
