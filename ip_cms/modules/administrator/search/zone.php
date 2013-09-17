@@ -54,6 +54,7 @@ class Zone extends \Frontend\Zone {
         
         $form = new \Modules\developer\form\Form();
         $form->setMethod(\Modules\developer\form\Form::METHOD_GET);
+        $form->removeXssCheck();
         
         $field = new \Modules\developer\form\Field\Text(
         array(
