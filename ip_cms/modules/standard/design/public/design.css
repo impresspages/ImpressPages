@@ -161,8 +161,8 @@ body {
 }
 .ipModuleDesign .ipmPreviewClose {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 20px;
+    top: 5px;
 }
 .ipModuleDesign iframe {
     height: 100%;
