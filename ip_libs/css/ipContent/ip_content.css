@@ -611,6 +611,9 @@ Move to separate stylesheet if invalid CSS is a problem.
   display: block;
   max-width: 100%;
 }
+.ipWidget-IpImageGallery {
+  margin-bottom: 0px;
+}
 .ipWidget-IpImageGallery img {
   /* to remove 3px space below the image (default rendering behavior) */
   display: block;
@@ -642,6 +645,9 @@ Move to separate stylesheet if invalid CSS is a problem.
     margin-bottom: 20px;
     padding: 0 10px;
   }
+}
+.ipWidget-IpLogoGallery {
+  margin-bottom: 0px;
 }
 .ipWidget-IpLogoGallery ul {
   list-style: none;
