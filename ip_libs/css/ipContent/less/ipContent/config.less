@@ -21,14 +21,14 @@
 
 // Global Font sizes
 @ipFontSize: 14px;
-@ipFontSizeBig: 24px; // default h3 element
+@ipFontSizeBig: 24px; // default h3 element, caption style
 @ipFontSizeSmall: 12px; // form hints, errors. Other elements that have to be smaller than usual
 
-// Widget specific configuration
+// Widgets
 @ipLineHeight: 1.5;
 @ipWidgetSpace: @ipSpaceGlobal;
 
-// Title
+// Titles
 @ipH1FontSize: (@ipFontSizeBig * 1.5);
 @ipH2FontSize: (@ipFontSizeBig * 1.25);
 @ipH3FontSize: @ipFontSizeBig;
@@ -41,7 +41,9 @@
 @ipH2FontFamily: @ipFontFamilyHeadlines;
 @ipH3FontFamily: @ipFontFamilyHeadlines;
 
-// Form configuration
+// Forms
+@ipFormFieldSpace: (@ipSpaceGroup * 2);
+
 @ipFormInputColor: #777;
 @ipFormInputFocus: #000;
 @ipFormInputFontSize: @ipFontFamily;
@@ -49,12 +51,16 @@
 @ipFormInputBackground: @ipBackgroundColor;
 @ipFormInputMaxWidth: 380px;
 @ipFormInputBackgroundActive: @ipBackgroundColor;
-@ipFormFieldSpace: (@ipSpaceGroup * 2);
 @ipFormTextareaHeight: 10em;
-
 
 @ipFormButtonBackground: @ipLinkColor;
 @ipFormButtonCorner: 3px;
 @ipFormButtonFontFamily: @ipFontFamily;
 @ipFormButtonColor: @ipTextColorInverted;
 
+// Galleries
+@ipGalleryColumns: 4;
+@ipGallerySpace: @ipSpaceGlobal;
+@ipGalleryColumnsSmall: 2;
+@ipGallerySpaceSmall: @ipSpaceGlobal;
+@ipGalleryScreenSmall: 480px; // max-width in media query
