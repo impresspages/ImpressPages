@@ -2324,8 +2324,9 @@ top";
         $parameterType["administrator"]["search"]["options"]["combined_zones"] = "textarea";
 
         $parameterTitle["administrator"]["search"]["options"]["searchable_zones"] = "Searchable zones";
-        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "top
-left";
+        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "menu
+menu
+menu";
         $parameterAdmin["administrator"]["search"]["options"]["searchable_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["searchable_zones"] = "textarea";
 
