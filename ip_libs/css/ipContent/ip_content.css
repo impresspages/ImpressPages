@@ -611,6 +611,9 @@ Move to separate stylesheet if invalid CSS is a problem.
   display: block;
   max-width: 100%;
 }
+.ipWidget-IpImageGallery {
+  margin-bottom: 0px;
+}
 .ipWidget-IpImageGallery img {
   /* to remove 3px space below the image (default rendering behavior) */
   display: block;
@@ -618,29 +621,60 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-IpImageGallery ul {
   list-style: none;
-  margin: -20px 0 0 -20px;
+  margin: 0 -10px;
 }
 .ipWidget-IpImageGallery li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
-  margin: 20px 0 0 20px;
-  max-width: 40%;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  width: 25%;
 }
 .ipWidget-IpImageGallery li img {
   display: block;
-  max-width: 100%;
+  width: 100%;
+}
+@media screen and (max-width: 480px) {
+  .ipWidget-IpImageGallery ul {
+    margin: 0 -10px;
+  }
+  .ipWidget-IpImageGallery li {
+    width: 50%;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+}
+.ipWidget-IpLogoGallery {
+  margin-bottom: 0px;
 }
 .ipWidget-IpLogoGallery ul {
   list-style: none;
-  margin: -20px 0 0 -20px;
+  margin: 0 -10px;
 }
 .ipWidget-IpLogoGallery li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
-  margin: 20px 0 0 20px;
-  max-width: 40%;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  width: 25%;
 }
 .ipWidget-IpLogoGallery li img {
   display: block;
-  max-width: 100%;
+  width: 100%;
+}
+@media screen and (max-width: 480px) {
+  .ipWidget-IpLogoGallery ul {
+    margin: 0 -10px;
+  }
+  .ipWidget-IpLogoGallery li {
+    width: 50%;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
 }
 .ipWidget-IpRichText pre {
   max-width: 100%;

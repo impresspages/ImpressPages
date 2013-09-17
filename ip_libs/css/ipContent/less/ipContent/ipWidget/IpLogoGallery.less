@@ -1,17 +1,36 @@
 .ipWidget-IpLogoGallery {
+    margin-bottom: (@ipWidgetSpace - @ipGallerySpace); // fixing bottom margin between widgets
+
     ul {
         list-style: none;
-        margin: -@ipSpaceGlobal 0 0 -@ipSpaceGlobal; // hack to keep images visually from border to border
+        margin: 0 -(@ipGallerySpace / 2); // hack to keep images visually from border to border
     }
 
     li {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
         float: left;
-        margin: @ipSpaceGlobal 0 0 @ipSpaceGlobal;
-        max-width: 40%; // this forces to keep at least 2 images in a row; this should be lowered with bigger margins
+        margin-bottom: @ipGallerySpace;
+        padding: 0 (@ipGallerySpace / 2);
+        width: (100% / @ipGalleryColumns);
 
         img {
             display: block;
-            max-width: 100%;
+            width: 100%; // image will always be same size as column width
+        }
+    }
+
+    // adapting to small screens
+    @media screen and (max-width: @ipGalleryScreenSmall){
+        ul {
+            margin: 0 -(@ipGallerySpaceSmall / 2);
+        }
+
+        li {
+            width: (100% / @ipGalleryColumnsSmall);
+            margin-bottom: @ipGallerySpaceSmall;
+            padding: 0 (@ipGallerySpaceSmall / 2);
         }
     }
 }

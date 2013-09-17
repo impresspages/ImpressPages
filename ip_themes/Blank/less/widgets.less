@@ -7,11 +7,11 @@
     }
 }
 
-.ipWidget-IpImageGallery,
-.ipWidget-IpLogoGallery {
-    li {
-        margin: 0 0 @ipSpaceGlobal;
-        max-width: 50%; // forcing to have 2 columns minimum
+.side {
+    .ipWidget-IpImageGallery,
+    .ipWidget-IpLogoGallery {
+        li {
+            width: (100% / @ipGalleryColumnsSmall);
+        }
     }
-    // TODOx: maybe put img { width: 100%; } to always stretch to full width of column?
 }
