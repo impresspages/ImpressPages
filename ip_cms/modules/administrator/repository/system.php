@@ -27,9 +27,9 @@ class System{
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
 
             if (defined('TEST_MARKET_URL')) {
-                $marketUrl = TEST_MARKET_URL.'en/images-v1/';
+                $marketUrl = TEST_MARKET_URL.'images-v1/';
             } else {
-                $marketUrl = 'http://market.impresspages.org/en/images-v1/';
+                $marketUrl = 'http://market.impresspages.org/images-v1/';
             }
 
             $popupData = array(
