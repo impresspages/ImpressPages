@@ -9,41 +9,6 @@
 /* http://sonspring.com/journal/clearing-floats */
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 /* covered by default styles */
-/* TODOx: cleanup
-IpBackgroundColor: transparent
-IpBlockSpace
-IpWidgetSpace
-IpMainColor
-
-
-Form
-IpFormButtonBackground
-IpFormButtonCorner
-IpFormButtonFont
-IpFormButtonColor
-
-IpFormFieldSpace
-IpFormInputBackground
-IpFormInputBackgroundActive
-
-
-IpWidgetSeparatorColor: IpMainColor
-IpWidgetSeparatorStyle: line
-IpWidgetSeparatorWidth: ...
-
-
-Gallery Widget
-..
-
-IpWidgetFaqQuestionFont
-IpWidgetFaqQuestionColor
-IpWidgetFaqQuestionSize
-IpWidgetFaqAnswerFont
-
-
-@ipFormInputMaxWidth = 280px;
-....
-*/
 .clear {
   clear: both;
   display: block;
@@ -154,18 +119,19 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0;
   padding: 0;
 }
-.ipPreviewWidget h1,
-.ipPreviewWidget h2,
-.ipPreviewWidget h3 {
-  font-family: Georgia, Times, "Times New Roman", serif;
-}
 .ipPreviewWidget h1 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
 .ipPreviewWidget h2 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
 .ipPreviewWidget h3 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
 .ipPreviewWidget ul {
@@ -204,7 +170,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-collapse: collapse;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: ;
+  font-size: 14px;
   width: 100%;
 }
 .ipPreviewWidget table p {
@@ -213,20 +179,20 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipPreviewWidget td {
   border-bottom: 1px solid #b2b2b2;
-  font-size: ;
+  font-size: 14px;
   padding: 9px;
 }
 .ipPreviewWidget th,
 .ipPreviewWidget thead td,
 .ipPreviewWidget tbody tr:first-child td {
-  font-size: ;
+  font-size: 14px;
   font-weight: bold;
 }
 .ipPreviewWidget thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
-  font-size: ;
+  font-size: 14px;
   font-weight: normal;
 }
 .ipPreviewWidget p:last-child,
@@ -245,8 +211,8 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm select,
 .ipModuleForm textarea,
 .ipModuleForm option {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
+  font-family: 14px;
+  font-size: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 .ipModuleForm .ipmPage {
   max-width: 100%;
@@ -296,7 +262,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   width: 0;
 }
 .ipModuleForm .ipmControlInput {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -313,7 +279,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #000;
 }
 .ipModuleForm .ipmControlTextarea {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -332,7 +298,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #000;
 }
 .ipModuleForm .ipmControlSelect {
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #747474;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -383,6 +349,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   padding: 0.5em 1em;
@@ -438,7 +405,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .ipmFileContainer .ipmFile .ipmUploadError {
   color: #b80000;
-  font-size: 11px;
+  font-size: 12px;
 }
 .ipmErrorMessage {
   background-color: #b80000;
@@ -497,18 +464,19 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0;
   padding: 0;
 }
-.mceContentBody h1,
-.mceContentBody h2,
-.mceContentBody h3 {
-  font-family: Georgia, Times, "Times New Roman", serif;
-}
 .mceContentBody h1 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
 .mceContentBody h2 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
 .mceContentBody h3 {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
 .mceContentBody ul {
@@ -547,7 +515,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-collapse: collapse;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: ;
+  font-size: 14px;
   width: 100%;
 }
 .mceContentBody table p {
@@ -556,20 +524,20 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody td {
   border-bottom: 1px solid #b2b2b2;
-  font-size: ;
+  font-size: 14px;
   padding: 9px;
 }
 .mceContentBody th,
 .mceContentBody thead td,
 .mceContentBody tbody tr:first-child td {
-  font-size: ;
+  font-size: 14px;
   font-weight: bold;
 }
 .mceContentBody thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
-  font-size: ;
+  font-size: 14px;
   font-weight: normal;
 }
 .mceContentBody p:last-child,

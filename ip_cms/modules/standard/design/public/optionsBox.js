@@ -109,7 +109,8 @@ var ipDesign = new function () {
 
 
     this.init = function () {
-        $('a').off('click').on('click', function (e) {
+        $('a').not('.ipWidget-IpImageGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpImage a, .ipWidget-IpFile a, .ipWidget-IpTextImage a')
+            .off('click').on('click', function (e) {
             e.preventDefault();
             ipDesign.openLink($(e.currentTarget).attr('href'));
         }); //it is important to bind links before adding configuration box html to the body
@@ -155,6 +156,20 @@ var ipDesign = new function () {
         });
 
         lastSerialized = $('.ipModuleDesignConfig .ipsForm').serialize();
+
+        //setup config groups
+
+        $('.ipModuleDesignConfig fieldset:gt(1) .ipmField').addClass('ipgHide');
+        $('.ipModuleDesignConfig fieldset:lt(2) legend').addClass('ipmSelected');
+
+        $('.ipModuleDesignConfig fieldset').on('click', function(e) {
+            var $fieldset = $(this);
+            $('.ipModuleDesignConfig .ipmField').addClass('ipgHide');
+            $('.ipModuleDesignConfig fieldset legend').removeClass('ipmSelected');
+            $fieldset.find('.ipmField').removeClass('ipgHide');
+            $fieldset.find('legend').addClass('ipmSelected');
+        });
+
     };
 
     this.showReloadNotice = function () {
