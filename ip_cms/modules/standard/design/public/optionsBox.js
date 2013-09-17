@@ -118,12 +118,6 @@ var ipDesign = new function () {
         $('body').append(ipModuleDesignConfiguration);
         ipModuleForm.init(); //reinit form controls after adding option box
 
-        $('.ipModuleDesignConfig .modal-dialog').draggable({
-            axis: "x",
-            containment: "body",
-            handle: ".modal-header",
-            scroll: false
-        });
 
         $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
             e.preventDefault();
@@ -147,8 +141,9 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
         $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
 
-        ipDesign.resize();
-        $(window).bind("resize.ipModuleDesign", ipDesign.resize);
+        ipDesign.fixLayout();
+        $(window).bind("resize.ipModuleDesign", ipDesign.fixLayout);
+        $(window).bind("scroll.ipModuleDesign", ipDesign.fixLayout);
 
         $('.ipsReload').on('click', function (e) {
             e.preventDefault();
@@ -278,8 +273,22 @@ var ipDesign = new function () {
         lastSerialized = curSerialized;
     };
 
-    this.resize = function(e) {
-        $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - 200);
+    this.fixLayout = function(e) {
+        var x2 = $(window).width() - $('.ipModuleDesignConfig .ipsDialog').width() - 20;
+        var y2 = $(window).height() - 150;
+        console.log(y2);
+        $('.ipModuleDesignConfig .ipsDialog').draggable({
+            //axis: "x",
+            //containment: "body",
+            //containment: [0, 0, x2, y2],
+            handle: ".ipsDragHandler",
+            scroll: false,
+            drag: function( event, ui ) {
+                ipDesign.fixLayout();
+            }
+        });
+        var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
+        $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - topOffset - 170);
     };
 
     var getValueByName = function(name, values) {
