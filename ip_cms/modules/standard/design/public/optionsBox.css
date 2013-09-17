@@ -7,7 +7,7 @@
 .ipModuleDesignConfig .modal-header {
     cursor: move;
 }
-.ipModuleDesignConfig .modal-body {
+.ipModuleDesignConfig .ipmBody {
     overflow: auto;
 }
 .ipModuleDesignConfig .modal-footer {

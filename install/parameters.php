@@ -1326,8 +1326,9 @@ menu3";
         $parameterTitle["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "XML sitemap associated zones";
         $parameterValue["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "search
 rss
-top
-left
+menu1
+menu2
+menu3
 sitemap
 newsletter";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "1";
@@ -2318,14 +2319,16 @@ $moduleTitle["administrator"]["administrators"] = "Administrators";
     $parameterGroupAdmin["administrator"]["search"]["options"] = "1";
         
         $parameterTitle["administrator"]["search"]["options"]["combined_zones"] = "Combined zones";
-        $parameterValue["administrator"]["search"]["options"]["combined_zones"] = "left
-top";
+        $parameterValue["administrator"]["search"]["options"]["combined_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["search"]["options"]["combined_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["combined_zones"] = "textarea";
 
         $parameterTitle["administrator"]["search"]["options"]["searchable_zones"] = "Searchable zones";
-        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "top
-left";
+        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "menu
+menu
+menu";
         $parameterAdmin["administrator"]["search"]["options"]["searchable_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["searchable_zones"] = "textarea";
 
