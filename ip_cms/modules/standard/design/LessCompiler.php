@@ -35,12 +35,16 @@ class LessCompiler
         $configModel = ConfigModel::instance();
         $config = $configModel->getAllConfigValues($themeName);
 
-        $less = "@import '{$lessFile}'; " . $this->generateLessVariables($options, $config);
+        $less = "@import '{$lessFile}';";
+        $less.= $this->generateLessVariables($options, $config);
 
         require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
         $lessc->setImportDir(array(BASE_DIR . THEME_DIR . $themeName, BASE_DIR . LIBRARY_DIR . 'css/ipContent'));
         //$lessc->setFormatter('compressed');
+        $lessc->setVariables(array(
+                'ipContentDir' => 'less/ipContent',
+            ));
         $css = $lessc->compile($less);
         $css = "/* Edit {$lessFile}, not this file. */ " . $css;
         return $css;
