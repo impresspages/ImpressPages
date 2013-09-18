@@ -56,7 +56,7 @@ function ipWizardBind(data) {
         $publishButton = $('.ipAdminControls .ipActionPublish');
 
     // bind close on all tips
-    $('.ipAdminWizardTip .ui-dialog-titlebar-close').click(function(e){
+    $('.ipAdminWizardTip .ipaClose').click(function(e){
         e.preventDefault();
         var tipId = $(this).parent('.ipAdminWizardTip').attr('id').split('-')[1];
         ipWizardTipDisable(tipId);
@@ -91,7 +91,7 @@ function ipWizardBind(data) {
     if (isTip1 && $block) { // if main block doesn't exist this doesn't make sense to learn from 
         $firstWidget.tooltip({
             events : { def : ',', tooltip: 'mouseenter' },
-            offset : [(-$(document).scrollTop()+20),((-$firstWidget.width() / 2) - 10 - 17)],
+            offset : [(-$(document).scrollTop()+15),((-$firstWidget.width() / 2) - 12 - 25)],
             position: 'bottom right',
             tip : '#ipAdminWizardTip-dragWidget'
         });
@@ -124,7 +124,7 @@ function ipWizardBind(data) {
     if (isTip2 && $block) { // if main block doesn't exist this doesn't make sense to learn from
         $block.tooltip({
             events : { def : ',', tooltip: 'mouseenter' },
-            offset : [-17,0], // touching by arrow
+            offset : [-12,0], // touching by arrow
             position: 'top center',
             tip : '#ipAdminWizardTip-dropWidget'
         });
@@ -151,7 +151,7 @@ function ipWizardBind(data) {
         .tooltip({
             cancelDefault : false,
             events : { def : ',', tooltip: 'mouseenter' },
-            offset : [(-$(document).scrollTop()+20),(($publishButton.width() / 2) + 10 + 17)],
+            offset : [(-$(document).scrollTop()+15),(($publishButton.width() / 2) + 12 + 25)],
             position: 'bottom left',
             tip : '#ipAdminWizardTip-publish'
         })
@@ -230,7 +230,7 @@ function ipWizardBind(data) {
         if (isTip3) {
             $widgetBody.tooltip({
                 events : { def : ',', tooltip: 'mouseenter' },
-                offset : [-17,0], // touching by arrow
+                offset : [-12,0], // touching by arrow
                 position: 'top center',
                 tip : '#ipAdminWizardTip-changeWidgetContent'
             });
@@ -247,7 +247,7 @@ function ipWizardBind(data) {
             $widgetConfirm.after($tip4); // moving tip next to confirm button
             $widgetConfirm.tooltip({
                 events : { def : ',', tooltip: 'mouseenter' },
-                offset : [17,((-$widgetConfirm.outerWidth() / 2) - 10 - 17)],
+                offset : [12,((-$widgetConfirm.outerWidth() / 2) - 12 - 25)],
                 position: 'bottom right',
                 tip : '#ipAdminWizardTip-confirmWidget',
                 relative : true
