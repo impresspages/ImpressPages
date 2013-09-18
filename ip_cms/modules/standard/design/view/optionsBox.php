@@ -1,7 +1,7 @@
 <div class="ip ipModuleDesignConfig">
-    <div class="modal-dialog">
+    <div class="modal-dialog ipsDialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header ipsDragHandler">
                 <h4 class="modal-title"><i class="icon-cogs"></i> <?php echo $this->escPar('standard/design/admin_translations/theme_options') ?></h4>
             </div>
             <div class="ipsBody ipmBody">
