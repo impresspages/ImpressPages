@@ -276,7 +276,6 @@ var ipDesign = new function () {
     this.fixLayout = function(e) {
         var x2 = $(window).width() - $('.ipModuleDesignConfig .ipsDialog').width() - 20;
         var y2 = $(window).height() - 150;
-        console.log(y2);
         $('.ipModuleDesignConfig .ipsDialog').draggable({
             //axis: "x",
             //containment: "body",
