@@ -21,7 +21,7 @@
         </div>
         <div class="side col_12 col_md_12 col_lg_3 left">
             <aside>
-                <?php echo $this->generateBlock('side', true); //TODOX: rename to side1 or anything by new definition ?>
+                <?php echo $this->generateBlock('side1', true); ?>
             </aside>
         </div>
         <div class="clear"></div>

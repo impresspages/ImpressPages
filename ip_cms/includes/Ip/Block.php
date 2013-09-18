@@ -45,7 +45,7 @@ class Block
                 if ($revision) {
                     $revisionId = $revision['revisionId'];
                 } else {
-                    return ''; // TODOX check if it shouldn't be exampleContent
+                    return '';
                 }
             }
 

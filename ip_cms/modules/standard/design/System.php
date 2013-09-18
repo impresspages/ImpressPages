@@ -26,9 +26,6 @@ class System{
             if ($lessCompiler->shouldRebuild(THEME)) {
                 $lessCompiler->rebuild(THEME);
             }
-
-            // TODOX find a better way
-            $lessCompiler->rebuildIpContent();
         }
 
         $dispatcher->bind('site.beforeError404', array($this, 'catchError404'));
