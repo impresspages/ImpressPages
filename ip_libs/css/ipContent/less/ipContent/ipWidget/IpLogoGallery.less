@@ -1,9 +1,9 @@
 .ipWidget-IpLogoGallery {
-    margin-bottom: (@ipWidgetSpace - @ipGallerySpace); // fixing bottom margin between widgets
+    margin-bottom: (@ipWidgetSpace - @ipLogoGallerySpace); // fixing bottom margin between widgets
 
     ul {
         list-style: none;
-        margin: 0 -(@ipGallerySpace / 2); // hack to keep images visually from border to border
+        margin: 0 -(@ipLogoGallerySpace / 2); // hack to keep images visually from border to border
     }
 
     li {
@@ -11,9 +11,9 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
-        margin-bottom: @ipGallerySpace;
-        padding: 0 (@ipGallerySpace / 2);
-        width: (100% / @ipGalleryColumns);
+        margin-bottom: @ipLogoGallerySpace;
+        padding: 0 (@ipLogoGallerySpace / 2);
+        width: (100% / @ipLogoGalleryColumns);
 
         img {
             display: block;
@@ -22,15 +22,15 @@
     }
 
     // adapting to small screens
-    @media screen and (max-width: @ipGalleryScreenSmall){
+    @media screen and (max-width: @ipLogoGalleryScreenSmall){
         ul {
-            margin: 0 -(@ipGallerySpaceSmall / 2);
+            margin: 0 -(@ipLogoGallerySpaceSmall / 2);
         }
 
         li {
-            width: (100% / @ipGalleryColumnsSmall);
-            margin-bottom: @ipGallerySpaceSmall;
-            padding: 0 (@ipGallerySpaceSmall / 2);
+            width: (100% / @ipLogoGalleryColumnsSmall);
+            margin-bottom: @ipLogoGallerySpaceSmall;
+            padding: 0 (@ipLogoGallerySpaceSmall / 2);
         }
     }
 }

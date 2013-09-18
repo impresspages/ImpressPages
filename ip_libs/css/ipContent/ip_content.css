@@ -660,7 +660,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   float: left;
   margin-bottom: 20px;
   padding: 0 10px;
-  width: 25%;
+  width: 50%;
 }
 .ipWidget-IpLogoGallery li img {
   display: block;
@@ -671,7 +671,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     margin: 0 -10px;
   }
   .ipWidget-IpLogoGallery li {
-    width: 50%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 0 10px;
   }
