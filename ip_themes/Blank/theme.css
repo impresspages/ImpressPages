@@ -47,7 +47,7 @@ body {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
-  border-left-width: 5px;
+  border-left-width: 2px;
   color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -55,7 +55,7 @@ body {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .button {
   background-color: #019bd4;
@@ -64,7 +64,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em  1em;
+  padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
 .ipWidget {
@@ -427,7 +427,7 @@ body {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
-  border-left-width: 5px;
+  border-left-width: 2px;
   color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -435,7 +435,7 @@ body {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .mceContentBody .button {
   background-color: #019bd4;
@@ -444,7 +444,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em  1em;
+  padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
 .mceContentBody h1,
@@ -2188,7 +2188,7 @@ body {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
-  border-left-width: 5px;
+  border-left-width: 2px;
   color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -2196,7 +2196,7 @@ body {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .theme .button {
   background-color: #019bd4;
@@ -2205,7 +2205,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em  1em;
+  padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
 .theme a {
