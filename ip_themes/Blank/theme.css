@@ -33,16 +33,29 @@ body {
   color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
 }
 .signature {
+  color: #000;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
 }
 .note {
-  border-left: 2px solid #747474;
+  background-color: transparent;
+  border-left-color: #747474;
+  border-left-style: solid;
+  border-left-width: 5px;
+  color: #000;
   display: block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 1em;
+  padding-left: 2em;
 }
 .button {
   background-color: #019bd4;
@@ -51,7 +64,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em  1em;
   text-decoration: none;
 }
 .ipWidget {
@@ -400,16 +413,29 @@ body {
   color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
 }
 .mceContentBody .signature {
+  color: #000;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
 }
 .mceContentBody .note {
-  border-left: 2px solid #747474;
+  background-color: transparent;
+  border-left-color: #747474;
+  border-left-style: solid;
+  border-left-width: 5px;
+  color: #000;
   display: block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 1em;
+  padding-left: 2em;
 }
 .mceContentBody .button {
   background-color: #019bd4;
@@ -418,7 +444,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em  1em;
   text-decoration: none;
 }
 .mceContentBody h1,
@@ -2148,16 +2174,29 @@ body {
   color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
 }
 .theme .signature {
+  color: #000;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
 }
 .theme .note {
-  border-left: 2px solid #747474;
+  background-color: transparent;
+  border-left-color: #747474;
+  border-left-style: solid;
+  border-left-width: 5px;
+  color: #000;
   display: block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
   font-style: italic;
+  font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 1em;
+  padding-left: 2em;
 }
 .theme .button {
   background-color: #019bd4;
@@ -2166,7 +2205,7 @@ body {
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em  1em;
   text-decoration: none;
 }
 .theme a {

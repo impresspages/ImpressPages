@@ -36,32 +36,44 @@ html, body {
     padding: 0;
 }
 
-
 // Global styles mostly used in rich text editor
 .caption {
-    color: @ipTextColor;
-    font-family: @ipFontFamilyAlternative;
-    font-size: @ipFontSizeBig;
+    color: @ipCaptionColor;
+    font-family: @ipCaptionFontFamily;
+    font-size: @ipCaptionFontSize;
+    font-style: @ipCaptionFontStyle;
+    font-weight: @ipCaptionFontWeight;
 }
 .signature {
-    font-style: italic;
+    color: @ipSignatureColor;
+    font-family: @ipSignatureFontFamily;
+    font-size: @ipSignatureFontSize;
+    font-style: @ipSignatureFontStyle;
+    font-weight: @ipSignatureFontWeight;
 }
 .note {
-    border-left: 2px solid @ipBorderColor;
+    background-color: @ipNoteBackgroundColor;
+    border-left-color: @ipNotBorderLeftColor;
+    border-left-style: @ipNotBorderLeftStyle;
+    border-left-width: @ipNotBorderLeftWidth;
+    color: @ipNoteColor;
     display: block;
-    font-style: italic;
-    margin-bottom: @ipSpaceText;
-    padding-left: @ipSpaceElement;
+    font-family: @ipNoteFontFamily;
+    font-size: @ipNoteFontSize;
+    font-style: @ipNoteFontStyle;
+    font-weight: @ipNoteFontWeight;
+    margin-bottom: @ipNoteMarginBottom;
+    padding-left: @ipNotePaddingLeft;
 }
 .button {
-    background-color: @ipLinkColor;
-    border-radius: @ipButtonRadius;
-    color: @ipTextColorInverted;
+    background-color: @ipButtonBgColor;
+    border-radius: @ipButtonBorderRadius;
+    color: @ipButtonColor;
     display: inline-block;
-    font-family: @ipFontFamily;
-    font-weight: bold;
-    padding: (@ipSpaceElement / 2) @ipSpaceElement;
-    text-decoration: none;
+    font-family: @ipButtonFontFamily;
+    font-weight: @ipButtonFontWeight;
+    padding: @ipButtonPaddingTop @ipButtonPaddingRight @ipButtonPaddingBotton @ipButtonPaddingLeft;
+    text-decoration: @ipButtonTextDecoration;
 }
 
 // Global styles for all widgets
