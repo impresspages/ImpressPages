@@ -1,15 +1,15 @@
 var ipDesignOptions = {
-    ipTextColor: function (value) {
-        ipDesign.reloadLessFiles(['ip_content', 'theme']);
+    textColor: function (value) {
+        ipDesign.reloadLessFiles(['theme']);
     },
-    ipLinkColor: function (value) {
-        ipDesign.reloadLessFiles(['ip_content', 'theme']);
+    linkColor: function (value) {
+        ipDesign.reloadLessFiles(['theme']);
     },
     bodyBackgroundColor: function (value) {
         'use strict';
         $('body').css('background-color', value);
     },
-    ipBackgroundColor: function (value) {
+    backgroundColor: function (value) {
         'use strict';
         $('.theme').css('background-color', value);
     }
