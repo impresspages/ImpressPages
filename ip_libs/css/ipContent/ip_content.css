@@ -9,7 +9,8 @@
 /* http://sonspring.com/journal/clearing-floats */
 /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
 /* covered by default styles */
-/* Edit ip_content.less, not this file. */ .clear {
+
+.clear {
     clear: both;
     display: block;
     height: 0;
@@ -44,14 +45,27 @@ body {
     color: #000;
     font-family: Georgia, Times, "Times New Roman", serif;
     font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
 }
 .signature {
+    color: #000;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
     font-style: italic;
+    font-weight: normal;
 }
 .note {
-    border-left: 2px solid #747474;
+    background-color: transparent;
+    border-left-color: #747474;
+    border-left-style: solid;
+    border-left-width: 2px;
+    color: #000;
     display: block;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
     font-style: italic;
+    font-weight: normal;
     margin-bottom: 2em;
     padding-left: 1em;
 }
@@ -62,7 +76,7 @@ body {
     display: inline-block;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: bold;
-    padding: 0.5em 1em;
+    padding: 0.5em 1em  1em;
     text-decoration: none;
 }
 .ipWidget {
@@ -411,14 +425,27 @@ body {
     color: #000;
     font-family: Georgia, Times, "Times New Roman", serif;
     font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
 }
 .mceContentBody .signature {
+    color: #000;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
     font-style: italic;
+    font-weight: normal;
 }
 .mceContentBody .note {
-    border-left: 2px solid #747474;
+    background-color: transparent;
+    border-left-color: #747474;
+    border-left-style: solid;
+    border-left-width: 2px;
+    color: #000;
     display: block;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
     font-style: italic;
+    font-weight: normal;
     margin-bottom: 2em;
     padding-left: 1em;
 }
@@ -429,7 +456,7 @@ body {
     display: inline-block;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: bold;
-    padding: 0.5em 1em;
+    padding: 0.5em 1em  1em;
     text-decoration: none;
 }
 .mceContentBody h1,
@@ -597,10 +624,6 @@ body {
 }
 .ipWidget-IpImageGallery {
     margin-bottom: 0px;
-}
-.ipWidget-IpImageGallery img {
-    display: block;
-    max-width: 100%;
 }
 .ipWidget-IpImageGallery ul {
     list-style: none;
