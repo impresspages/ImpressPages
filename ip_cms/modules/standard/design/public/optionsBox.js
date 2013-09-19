@@ -75,7 +75,6 @@ var ipDesign = new function () {
                 nextFile = cssUpdateQueue.shift();
                 filePos = $.inArray(nextFile, cssUpdateQueue);
             }
-            console.log(cssUpdateQueue);
             processFileReload(nextFile);
         }
     };
