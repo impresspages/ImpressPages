@@ -251,6 +251,11 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterValue["standard"]["content_management"]["admin_translations"]["search_widgets"] = "Search widgets";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["search_widgets"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["search_widgets"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Placeholder text";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Drag widgets here";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "0";
+        $parameterType ["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "string";
         
     $parameterGroupTitle["standard"]["content_management"]["widget_contact_form"] = "Widget: Contact form";
     $parameterGroupAdmin["standard"]["content_management"]["widget_contact_form"] = "1";
@@ -1656,6 +1661,16 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
         $parameterValue["standard"]["design"]["admin_translations"]["local_themes"] = "Local themes";
         $parameterAdmin["standard"]["design"]["admin_translations"]["local_themes"] = "0";
         $parameterType ["standard"]["design"]["admin_translations"]["local_themes"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["default_group"] = "Default group";
+        $parameterValue["standard"]["design"]["admin_translations"]["default_group"] = "General options";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["default_group"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["default_group"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["reload_notice"] = "Reload notice";
+        $parameterValue["standard"]["design"]["admin_translations"]["reload_notice"] = "Preview window needs to be reloaded";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
 
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["newsletter"] = "Newsletter";

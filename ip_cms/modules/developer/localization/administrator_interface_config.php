@@ -822,6 +822,9 @@ $parameter["parameterValue/standard/content_management/admin_translations/warnin
 $parameter["parameterTitle/standard/content_management/admin_translations/save_now"] = "Save now";
 $parameter["parameterValue/standard/content_management/admin_translations/save_now"] = "Save now";
 
+$parameter["parameterTitle/standard/content_management/admin_translations/placeholder_text"] = "Placeholder text";
+$parameter["parameterValue/standard/content_management/admin_translations/placeholder_text"] = "Drag widgets here";
+
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/height"] = "Height";
 
 $parameter["parameterTitle/standard/content_management/widget_logo_gallery/width"] = "Width";
@@ -1212,6 +1215,12 @@ $parameter["parameterValue/standard/design/admin_translations/theme_market_brows
 
 $parameter["parameterTitle/standard/design/admin_translations/local_themes"] = "Local themes";
 $parameter["parameterValue/standard/design/admin_translations/local_themes"] = "Local themes";
+
+$parameter["parameterTitle/standard/design/admin_translations/default_group"] = "Default group";
+$parameter["parameterValue/standard/design/admin_translations/default_group"] = "General options";
+
+$parameter["parameterTitle/standard/design/admin_translations/reload_notice"] = "Reload notice";
+$parameter["parameterValue/standard/design/admin_translations/reload_notice"] = "Preview window needs to be reloaded";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
