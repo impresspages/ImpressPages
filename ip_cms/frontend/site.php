@@ -753,6 +753,9 @@ class Site{
                     } elseif (isset($_REQUEST['aa']) && $_REQUEST['aa'] != '__construct') {
                         $controllerClass = 'AdminController';
                         $function = $_REQUEST['aa'];
+                    } elseif (isset($_REQUEST['sa']) && $_REQUEST['sa'] != '__construct') {
+                        $controllerClass = 'SiteController';
+                        $function = $_REQUEST['sa'];
                     } else {
                         $controllerClass = 'Controller';
                         if (isset($_REQUEST['a']) && $_REQUEST['a'] != '__construct') {
