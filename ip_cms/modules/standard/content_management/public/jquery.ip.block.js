@@ -32,8 +32,6 @@
                         $('.ipAdminWidgetControls').css('display', 'none');
                     },
                     stop : function (event, ui) {
-                        // TODOX delete on release if not needed (Algimantas)
-                        // $(event.target).find('.ipExampleContent').remove();
                         ui.item.removeClass('ipAdminWidgetDrag');
                         ui.item.width('auto');
                         ui.item.height('auto');
