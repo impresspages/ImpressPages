@@ -150,9 +150,17 @@ class LessCompiler
      */
     protected function globRecursive($pattern, $flags = 0)
     {
+        //some systems return false instead of empty array if no matches found in glob function
         $files = glob($pattern, $flags);
+        if (!is_array($files)) {
+            return array();
+        }
 
-        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
+        $dirs = glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT);
+        if (!is_array($dirs)) {
+            return $files;
+        }
+        foreach ($dirs as $dir) {
             $files = array_merge($files, $this->globRecursive($dir . '/' . basename($pattern), $flags));
         }
 
