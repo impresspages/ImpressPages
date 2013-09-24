@@ -69,10 +69,11 @@ html, body {
     background-color: @ipButtonBgColor;
     border-radius: @ipButtonBorderRadius;
     color: @ipButtonColor;
+    cursor: pointer;
     display: inline-block;
     font-family: @ipButtonFontFamily;
     font-weight: @ipButtonFontWeight;
-    padding: @ipButtonPaddingTop @ipButtonPaddingRight @ipButtonPaddingBotton @ipButtonPaddingLeft;
+    padding: @ipButtonPaddingTop @ipButtonPaddingRight @ipButtonPaddingBottom @ipButtonPaddingLeft;
     text-decoration: @ipButtonTextDecoration;
 }
 
@@ -101,6 +102,12 @@ html, body {
     color: @ipTextColor;
     font-family: @ipFontFamily;
     font-size: @ipFontSize;
+
+    // restoring specificity for global classes
+    .caption { .caption; }
+    .signature { .signature; }
+    .note { .note; }
+    .button { .button; }
 
 
     h1 {

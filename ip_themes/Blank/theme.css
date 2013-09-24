@@ -47,7 +47,7 @@ body {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
-  border-left-width: 5px;
+  border-left-width: 2px;
   color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -55,16 +55,17 @@ body {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .button {
   background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
+  cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em  1em;
+  padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
 .ipWidget {
@@ -112,6 +113,45 @@ body {
   border: none;
   margin: 0;
   padding: 0;
+}
+.ipPreviewWidget .caption {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+}
+.ipPreviewWidget .signature {
+  color: #000;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+}
+.ipPreviewWidget .note {
+  background-color: transparent;
+  border-left-color: #747474;
+  border-left-style: solid;
+  border-left-width: 2px;
+  color: #000;
+  display: block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 2em;
+  padding-left: 1em;
+}
+.ipPreviewWidget .button {
+  background-color: #019bd4;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 0.5em 1em 0.5em 1em;
+  text-decoration: none;
 }
 .ipPreviewWidget h1 {
   color: #000;
@@ -409,44 +449,6 @@ body {
   font-size: 14px;
   background-color: #fff;
 }
-.mceContentBody .caption {
-  color: #000;
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: normal;
-}
-.mceContentBody .signature {
-  color: #000;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: normal;
-}
-.mceContentBody .note {
-  background-color: transparent;
-  border-left-color: #747474;
-  border-left-style: solid;
-  border-left-width: 5px;
-  color: #000;
-  display: block;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: normal;
-  margin-bottom: 2em;
-  padding-left: 2em;
-}
-.mceContentBody .button {
-  background-color: #019bd4;
-  border-radius: 5px;
-  color: #fff;
-  display: inline-block;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: bold;
-  padding: 0.5em 1em  1em;
-  text-decoration: none;
-}
 .mceContentBody h1,
 .mceContentBody h2,
 .mceContentBody h3,
@@ -466,6 +468,45 @@ body {
   border: none;
   margin: 0;
   padding: 0;
+}
+.mceContentBody .caption {
+  color: #000;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+}
+.mceContentBody .signature {
+  color: #000;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+}
+.mceContentBody .note {
+  background-color: transparent;
+  border-left-color: #747474;
+  border-left-style: solid;
+  border-left-width: 2px;
+  color: #000;
+  display: block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 2em;
+  padding-left: 1em;
+}
+.mceContentBody .button {
+  background-color: #019bd4;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 0.5em 1em 0.5em 1em;
+  text-decoration: none;
 }
 .mceContentBody h1 {
   color: #000;
@@ -2188,7 +2229,7 @@ body {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
-  border-left-width: 5px;
+  border-left-width: 2px;
   color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -2196,16 +2237,17 @@ body {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 2em;
-  padding-left: 2em;
+  padding-left: 1em;
 }
 .theme .button {
   background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
+  cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.5em 1em  1em;
+  padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
 .theme a {
