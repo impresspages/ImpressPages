@@ -174,6 +174,7 @@ class ConfigModel{
      */
     public function getThemeConfigForm($name)
     {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $model = Model::instance();
         $theme = $model->getTheme($name);
         if (!$theme) {
@@ -189,7 +190,7 @@ class ConfigModel{
         $options = $theme->getOptions();
 
         $generalFieldset = $this->getFieldset($name, $options);
-        $generalFieldset->setLabel('{{General options}}');
+        $generalFieldset->setLabel($parametersMod->getValue('standard', 'design', 'admin_translations', 'default_group'));
         if (count($generalFieldset->getFields())) {
             $form->addFieldset($generalFieldset);
         }

@@ -76,3 +76,17 @@ $parameterValue["standard"]["design"]["admin_translations"]["local_themes"] = "L
 $parameterAdmin["standard"]["design"]["admin_translations"]["local_themes"] = "0";
 $parameterType ["standard"]["design"]["admin_translations"]["local_themes"] = "string";
 
+$parameterTitle["standard"]["design"]["admin_translations"]["default_group"] = "Default group";
+$parameterValue["standard"]["design"]["admin_translations"]["default_group"] = "General options";
+$parameterAdmin["standard"]["design"]["admin_translations"]["default_group"] = "0";
+$parameterType ["standard"]["design"]["admin_translations"]["default_group"] = "string";
+
+$parameterTitle["standard"]["design"]["admin_translations"]["reload_notice"] = "Reload notice";
+$parameterValue["standard"]["design"]["admin_translations"]["reload_notice"] = "Preview window needs to be reloaded";
+$parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
+$parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
+
+$parameterTitle["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Placeholder text";
+$parameterValue["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Drag widgets here";
+$parameterAdmin["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "0";
+$parameterType ["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "string";

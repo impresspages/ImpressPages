@@ -6,7 +6,7 @@
             </div>
             <div class="ipsBody ipmBody">
                 <div class="ipgHide ipsReload alert alert-block">
-                    <a class="ipsReload" href="#">{{Preview window needs to be reloaded}}</a>
+                    <a class="ipsReload" href="#"><?php echo $this->escPar('standard/design/admin_translations/reload_notice') ?></a>
                 </div>
                 <?php echo $form->render(); ?>
             </div>

@@ -39,13 +39,14 @@ var ipDesign = new function () {
             }
         };
 
-        scrpt.onload = function() {
+        scrpt.onload = function () {
             if (loaded === false) {
                 callback_fn();
             }
             loaded = true;
         };
 
+        /* for browsers who don't throw any event
         img = document.createElement('img');
         img.onerror = function () {
             if (loaded === false) {
@@ -54,6 +55,7 @@ var ipDesign = new function () {
             loaded = true;
         };
         img.src = src;
+        */
     };
 
 
@@ -64,8 +66,15 @@ var ipDesign = new function () {
         if (cssUpdateInProgress) {
             return;
         }
+
         if (cssUpdateQueue.length) {
             var nextFile = cssUpdateQueue.shift();
+            //remove files if they already are in the queue. This is to make sure the right order of loading.
+            var filePos = $.inArray(nextFile, cssUpdateQueue);
+            while (filePos !== -1 && cssUpdateQueue.length) {
+                nextFile = cssUpdateQueue.shift();
+                filePos = $.inArray(nextFile, cssUpdateQueue);
+            }
             processFileReload(nextFile);
         }
     };
@@ -177,25 +186,17 @@ var ipDesign = new function () {
         }
 
         var i = 0,
-            allFilesInQueue = true,
             filePos = 0;
 
 
 
-        //remove files if they already are in the queue. This is to make sure the right order of loading.
-        $.each(files, function (index, elem) {
-            filePos = $.inArray(elem, cssUpdateQueue);
-            if (filePos !== -1) {
-                cssUpdateQueue.splice(filePos, 1);
-            }
-        });
-
-        //add required files in the new order
+        //add files to the queue
         $.each(files, function (index, elem) {
             cssUpdateQueue.push(elem);
         });
 
-        processCssUpdateQueue();
+        setTimeout(processCssUpdateQueue, 200);
+
     };
 
 
