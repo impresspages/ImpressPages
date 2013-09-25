@@ -12,7 +12,7 @@ use \Modules\developer\form as Form;
 class Model
 {
 
-    const INSTALL_DIR = 'install/';
+    const INSTALL_DIR = 'setup/';
     const PARAMETERS_FILE = 'parameters.php';
 
     protected function __construct()
@@ -60,6 +60,7 @@ class Model
 
     public function installTheme($themeName)
     {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $theme = self::getTheme($themeName);
 
 
@@ -73,13 +74,29 @@ class Model
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
 
 
-        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Theme::INSTALL_DIR . '/' . Theme::PARAMETERS_FILE;
+        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE;
         if (file_exists($parametersFile)) {
             if (!defined('BACKEND')) {
                 define('BACKEND', TRUE);
             }
             require_once(BASE_DIR . MODULE_DIR . 'developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
+        }
+
+        $service = Service::instance();
+        $service->saveWidgetOptions($theme);
+
+
+        //write down default theme options
+        $options = $theme->getOptionsAsArray();
+        foreach($options as $option) {
+            if (empty($option['name']) || empty($option['default'])) {
+                continue;
+            }
+
+            $configModel = ConfigModel::instance();
+            $newValue = $configModel->getConfigValue($themeName, $option['name'], $option['default']);
+            $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
         \DbSystem::setSystemVariable('theme_changed', time());
@@ -115,11 +132,16 @@ class Model
         }
 
         //new type config
-        $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.json';
+        $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'Theme.json';
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $jsonConfig = array();
+            $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.json';
+            if (file_exists($themeJsonFile)) {
+                $jsonConfig = $this->parseThemeJson($themeJsonFile);
+            } else {
+                $jsonConfig = array();
+            }
         }
 
         $config = array_merge($iniConfig, $jsonConfig);
@@ -139,7 +161,7 @@ class Model
         }
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
-            $metadata->setDoctype($config['doctype']);
+            $metadata->setDoctype('DOCTYPE_'.$config['doctype']);
         } else {
             $metadata->setDoctype('DOCTYPE_HTML5');
         }
@@ -147,6 +169,11 @@ class Model
         if (!empty($config['options'])) {
             $metadata->setOptions($config['options']);
         }
+
+        if (!empty($config['widget'])) {
+            $metadata->setWidgetOptions($config['widget']);
+        }
+
 
         $theme = new Theme($metadata);
 
@@ -160,7 +187,8 @@ class Model
         }
 
         $configJson = file_get_contents($file);
-        $config = json_decode($configJson, true);
+
+        $config = Helper::instance()->json_clean_decode($configJson, true);
         if ($config) {
             return $config;
         } else {

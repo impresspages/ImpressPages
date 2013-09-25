@@ -45,7 +45,7 @@ class Db
                         self::$pdoConnection->exec("SET time_zone='$offset';");
                         self::$pdoConnection->exec("SET CHARACTER SET ".MYSQL_CHARSET);
                     } catch (\PDOException $e) {
-                        throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for securiy reasons", \Ip\CoreException::DB);
+                        throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
                         //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
                     }
                 }

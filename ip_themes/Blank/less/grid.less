@@ -1,0 +1,661 @@
+/**
+ * Dynamic, fluid, responsive, nested grid
+ * Includes selectors from the system to mimic grid without adding extra classes to HTML
+ */
+
+@columnPadding: (@ipSpaceGlobal / 2); // half from each side
+@columnMarginBottom: @ipSpaceGlobal;
+@columnContainerClass: grid; // required for nested blocks
+
+// Breaking points where to start from (min-width)
+@screenMedium: 480px;
+@screenLarge: 980px;
+
+[class^="col_"],
+[class*=" col_"] {
+    // do not use border for grid columns as they break math for recalculated nested blocks
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px; // to keep empty block in place
+    margin-bottom: @columnMarginBottom;
+    padding: 0 @columnPadding;
+    position: relative;
+}
+[class^="col_"] .@{columnContainerClass},
+[class*=" col_"] .@{columnContainerClass} {
+    margin: 0 -@columnPadding; // if it's nested column remove padding to stick to edges
+}
+
+.col(@num, @cols) {
+    width: (100% / @cols) * @num; // calculating width
+}
+
+.hidden {
+    display: none !important;
+}
+
+// Default screen grid
+@cols: 12;
+
+.col_1 {
+    @size: 1;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_2 {
+    @size: 2;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_3 {
+    @size: 3;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_4 {
+    @size: 4;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_5 {
+    @size: 5;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_6 {
+    @size: 6;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_7 {
+    @size: 7;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_8 {
+    @size: 8;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_9 {
+    @size: 9;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_10 {
+    @size: 10;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_11 {
+    @size: 11;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+.col_12 {
+    @size: 12;
+    .col(@size, @cols);
+    .col_1 { .col(1, @size); }
+    .col_2 { .col(2, @size); }
+    .col_3 { .col(3, @size); }
+    .col_4 { .col(4, @size); }
+    .col_5 { .col(5, @size); }
+    .col_6 { .col(6, @size); }
+    .col_7 { .col(7, @size); }
+    .col_8 { .col(8, @size); }
+    .col_9 { .col(9, @size); }
+    .col_10 { .col(10, @size); }
+    .col_11 { .col(11, @size); }
+    .col_12 { .col(@cols, @size); } // sets the maximum
+}
+
+// Medium screen grid
+@media screen and (min-width: @screenMedium) {
+    @cols: 12;
+
+    .hidden_md {
+        .hidden;
+    }
+
+    .col_md_1 {
+        @size: 1;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_2 {
+        @size: 2;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_3 {
+        @size: 3;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_4 {
+        @size: 4;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_5 {
+        @size: 5;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_6 {
+        @size: 6;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_7 {
+        @size: 7;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_8 {
+        @size: 8;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_9 {
+        @size: 9;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_10 {
+        @size: 10;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_11 {
+        @size: 11;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_md_12 {
+        @size: 12;
+        .col(@size, @cols);
+        .col_md_1 { .col(1, @size); }
+        .col_md_2 { .col(2, @size); }
+        .col_md_3 { .col(3, @size); }
+        .col_md_4 { .col(4, @size); }
+        .col_md_5 { .col(5, @size); }
+        .col_md_6 { .col(6, @size); }
+        .col_md_7 { .col(7, @size); }
+        .col_md_8 { .col(8, @size); }
+        .col_md_9 { .col(9, @size); }
+        .col_md_10 { .col(10, @size); }
+        .col_md_11 { .col(11, @size); }
+        .col_md_12 { .col(@cols, @size); } // sets the maximum
+    }
+}
+
+// Large screen grid
+@media screen and (min-width: @screenLarge) {
+    @cols: 12;
+
+    .hidden_lg {
+        .hidden;
+    }
+
+    .col_lg_1 {
+        @size: 1;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_2 {
+        @size: 2;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_3 {
+        @size: 3;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_4 {
+        @size: 4;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_5 {
+        @size: 5;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_6 {
+        @size: 6;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_7 {
+        @size: 7;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_8 {
+        @size: 8;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_9 {
+        @size: 9;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_10 {
+        @size: 10;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_11 {
+        @size: 11;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+    .col_lg_12 {
+        @size: 12;
+        .col(@size, @cols);
+        .col_lg_1 { .col(1, @size); }
+        .col_lg_2 { .col(2, @size); }
+        .col_lg_3 { .col(3, @size); }
+        .col_lg_4 { .col(4, @size); }
+        .col_lg_5 { .col(5, @size); }
+        .col_lg_6 { .col(6, @size); }
+        .col_lg_7 { .col(7, @size); }
+        .col_lg_8 { .col(8, @size); }
+        .col_lg_9 { .col(9, @size); }
+        .col_lg_10 { .col(10, @size); }
+        .col_lg_11 { .col(11, @size); }
+        .col_lg_12 { .col(@cols, @size); } // sets the maximum
+    }
+}
+
+.gridHint {
+    display: none;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.showGridHint .gridHint {
+    display: block;
+}
+.showGridHint [class^="col_"],
+.showGridHint [class*=" col_"] {
+    box-shadow: 0 0 2px black inset;
+}
+.showGridHint .gridHint [class^="col_"],
+.showGridHint .gridHint [class*=" col_"] {
+    height: 100%;
+    background-clip: content-box;
+    background-color: rgba(255,0,0,0.5);
+    box-shadow: none;
+}

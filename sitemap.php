@@ -58,7 +58,8 @@ if(\Db::connect()){
 
         $site = new \Site();
         $site->init();
-
+        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
+        
 
         $sitemap = new Sitemap();
 

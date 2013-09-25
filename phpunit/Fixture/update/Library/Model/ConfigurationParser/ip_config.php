@@ -60,7 +60,7 @@
     
       define('CHARSET', 'UTF-8'); //system characterset
       define('MYSQL_CHARSET', 'utf8');
-      define('THEME', 'lt_pagan'); //theme from themes directory
+      define('THEME', 'Blank'); //theme from themes directory
       define('DEFAULT_DOCTYPE', 'DOCTYPE_HTML5'); //look ip_cms/includes/Ip/View.php for available options.
     
       mb_internal_encoding(CHARSET);  

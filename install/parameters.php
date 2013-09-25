@@ -251,6 +251,11 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterValue["standard"]["content_management"]["admin_translations"]["search_widgets"] = "Search widgets";
         $parameterAdmin["standard"]["content_management"]["admin_translations"]["search_widgets"] = "1";
         $parameterType["standard"]["content_management"]["admin_translations"]["search_widgets"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Placeholder text";
+        $parameterValue["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Drag widgets here";
+        $parameterAdmin["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "0";
+        $parameterType ["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "string";
         
     $parameterGroupTitle["standard"]["content_management"]["widget_contact_form"] = "Widget: Contact form";
     $parameterGroupAdmin["standard"]["content_management"]["widget_contact_form"] = "1";
@@ -1238,8 +1243,9 @@ $moduleTitle["standard"]["content_management"] = "Content management";
     $parameterGroupAdmin["standard"]["menu_management"]["options"] = "1";
 
         $parameterTitle["standard"]["menu_management"]["options"]["associated_zones"] = "Associated zones ";
-        $parameterValue["standard"]["menu_management"]["options"]["associated_zones"] = "left
-top";
+        $parameterValue["standard"]["menu_management"]["options"]["associated_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["standard"]["menu_management"]["options"]["associated_zones"] = "0";
         $parameterType["standard"]["menu_management"]["options"]["associated_zones"] = "textarea";
 
@@ -1306,16 +1312,28 @@ top";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["delete"] = "0";
         $parameterType["standard"]["configuration"]["admin_translations"]["delete"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["save"] = "Save";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "save";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["save"] = "0";
+        $parameterType ["standard"]["configuration"]["admin_translations"]["save"] = "string";
+
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["install"] = "Install";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["install"] = "Install";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
+        $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
 
 
-$parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
+
+
+    $parameterGroupTitle["standard"]["configuration"]["advanced_options"] = "Advanced options";
     $parameterGroupAdmin["standard"]["configuration"]["advanced_options"] = "1";
 
         $parameterTitle["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "XML sitemap associated zones";
         $parameterValue["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "search
 rss
-top
-left
+menu1
+menu2
+menu3
 sitemap
 newsletter";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["xml_sitemap_associated_zones"] = "1";
@@ -1341,7 +1359,14 @@ newsletter";
         $parameterAdmin["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "1";
         $parameterType["standard"]["configuration"]["advanced_options"]["default_image_quality"] = "integer";
 
-    $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
+
+        $parameterTitle["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "Automatically check fo XSS";
+        $parameterValue["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterAdmin["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "0";
+        $parameterType ["standard"]["configuration"]["advanced_options"]["xss_autocheck"] = "bool";
+
+
+$parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
     $parameterGroupAdmin["standard"]["configuration"]["error_404"] = "0";
 
         $parameterTitle["standard"]["configuration"]["error_404"]["error_page_template"] = "Error_page_template";
@@ -1586,6 +1611,66 @@ newsletter";
         $parameterValue["standard"]["languages"]["options"]["detect_browser_language"] = "0";
         $parameterAdmin["standard"]["languages"]["options"]["detect_browser_language"] = "0";
         $parameterType["standard"]["languages"]["options"]["detect_browser_language"] = "bool";
+
+
+    $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_write_error"] = "Theme write error";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_write_error"] = "Directory is not writable. Please check your email and install the theme manually.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_write_error"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_write_error"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_options"] = "Theme options";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_options"] = "Theme options";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_options"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_options"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["preview_defaults"] = "Preview defaults";
+        $parameterValue["standard"]["design"]["admin_translations"]["preview_defaults"] = "Preview defaults";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["preview_defaults"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["preview_defaults"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
+        $parameterValue["standard"]["design"]["admin_translations"]["my_theme"] = "My theme";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["my_theme"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["my_theme"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["options"] = "Options";
+        $parameterValue["standard"]["design"]["admin_translations"]["options"] = "Options";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["options"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["options"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market"] = "Marketplace";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market_description"] = "Theme market description";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market_description"] = "Want a new look? Search for a new theme.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market_description"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market_description"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["theme_market_browse"] = "Browse button";
+        $parameterValue["standard"]["design"]["admin_translations"]["theme_market_browse"] = "Browse themes";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["theme_market_browse"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["theme_market_browse"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["local_themes"] = "Local themes";
+        $parameterValue["standard"]["design"]["admin_translations"]["local_themes"] = "Local themes";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["local_themes"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["local_themes"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["default_group"] = "Default group";
+        $parameterValue["standard"]["design"]["admin_translations"]["default_group"] = "General options";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["default_group"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["default_group"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["reload_notice"] = "Reload notice";
+        $parameterValue["standard"]["design"]["admin_translations"]["reload_notice"] = "Preview window needs to be reloaded";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
 
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["newsletter"] = "Newsletter";
@@ -2249,14 +2334,16 @@ $moduleTitle["administrator"]["administrators"] = "Administrators";
     $parameterGroupAdmin["administrator"]["search"]["options"] = "1";
         
         $parameterTitle["administrator"]["search"]["options"]["combined_zones"] = "Combined zones";
-        $parameterValue["administrator"]["search"]["options"]["combined_zones"] = "left
-top";
+        $parameterValue["administrator"]["search"]["options"]["combined_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["search"]["options"]["combined_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["combined_zones"] = "textarea";
 
         $parameterTitle["administrator"]["search"]["options"]["searchable_zones"] = "Searchable zones";
-        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "top
-left";
+        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "menu
+menu
+menu";
         $parameterAdmin["administrator"]["search"]["options"]["searchable_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["searchable_zones"] = "textarea";
 
@@ -2284,8 +2371,9 @@ left";
         $parameterType["administrator"]["search"]["translations"]["search"] = "lang";
 
         $parameterTitle["administrator"]["sitemap"]["options"]["associated_zones"] = "Associated zones";
-        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "top
-left";
+        $parameterValue["administrator"]["sitemap"]["options"]["associated_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["sitemap"]["options"]["associated_zones"] = "1";
         $parameterType["administrator"]["sitemap"]["options"]["associated_zones"] = "textarea";
 

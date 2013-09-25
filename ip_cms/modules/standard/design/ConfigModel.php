@@ -15,7 +15,7 @@ class ConfigModel{
 
     protected function __construct()
     {
-        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_GET['ipDesignPreview']) && $this->hasPermission();
+        $this->isInPreviewState = (!defined('BACKEND')) && defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']) && $this->hasPermission();
     }
 
     /**
@@ -31,16 +31,33 @@ class ConfigModel{
         return $this->isInPreviewState;
     }
 
-
-    public function getConfig()
+    /**
+     * @todo optimize
+     * @param string $themeName
+     * @param string $name option name
+     * @param null $default you can override theme.json default value here
+     * @return mixed
+     */
+    public function getConfigValue($themeName, $name, $default = null)
     {
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+        $config = $this->getLiveConfig();
+        if (isset($config[$name])) {
 
-    }
+            if (isset($data['restoreDefault'])) {
+                //overwrite current config with default theme values
+                $model = Model::instance();
+                $theme = $model->getTheme(THEME);
+                $options = $theme->getOptionsAsArray();
+                foreach($options as $option) {
+                    if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
+                        return $option['default'];
+                    }
+                }
+            }
 
-    public function getConfigValue($theme, $name, $default = null)
-    {
-        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'][$name])) {
-            return $_POST['ipDesign']['previewConfig'][$name];
+            return $config[$name];
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -55,7 +72,7 @@ class ConfigModel{
         ';
 
         $params = array (
-            ':theme' => $theme,
+            ':theme' => $themeName,
             ':name' => $name
         );
         $q = $dbh->prepare($sql);
@@ -64,13 +81,39 @@ class ConfigModel{
         if ($result) {
             return $result['value'];
         }
+
+        if ($default === null) {
+            $model = Model::instance();
+            $theme = $model->getTheme($themeName);
+            $options = $theme->getOptionsAsArray();
+            foreach($options as $option) {
+                if (!empty($option['name']) && $option['name'] == $name && isset($option['name']) && isset($option['default'])) {
+                    return $option['default'];
+                }
+            }
+        }
+
         return $default;
     }
 
     public function getAllConfigValues($theme)
     {
-        if ($this->isInPreviewState() && isset($_POST['ipDesign']['previewConfig'])) {
-            return $_POST['ipDesign']['previewConfig'];
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+        $config = $this->getLiveConfig();
+        if (!empty($config)) {
+            if (isset($data['restoreDefault'])) {
+                //overwrite current config with default theme values
+                $model = Model::instance();
+                $theme = $model->getTheme(THEME);
+                $options = $theme->getOptionsAsArray();
+                foreach($options as $option) {
+                    if (isset($option['name']) && isset($option['default'])) {
+                        $config[$option['name']] = $option['default'];
+                    }
+                }
+            }
+            return $config;
         }
 
         $dbh = \Ip\Db::getConnection();
@@ -95,6 +138,7 @@ class ConfigModel{
         foreach ($rs as $row) {
             $config[$row['name']] = $row['value'];
         }
+
 
         return $config;
     }
@@ -130,6 +174,7 @@ class ConfigModel{
      */
     public function getThemeConfigForm($name)
     {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $model = Model::instance();
         $theme = $model->getTheme($name);
         if (!$theme) {
@@ -140,6 +185,34 @@ class ConfigModel{
         $form = new \Modules\developer\form\Form();
         $form->addClass('ipsForm');
 
+
+
+        $options = $theme->getOptions();
+
+        $generalFieldset = $this->getFieldset($name, $options);
+        $generalFieldset->setLabel($parametersMod->getValue('standard', 'design', 'admin_translations', 'default_group'));
+        if (count($generalFieldset->getFields())) {
+            $form->addFieldset($generalFieldset);
+        }
+
+
+        foreach ($options as $option) {
+            if (empty($option['type']) || empty($option['options'])) {
+                continue;
+            }
+            if ($option['type'] != 'group') {
+                continue;
+            }
+
+            $fieldset = $this->getFieldset($name, $option['options']);
+            if (!empty($option['label'])) {
+                $fieldset->setLabel($option['label']);
+            }
+            $form->addFieldset($fieldset);
+        }
+
+
+        $form->addFieldset(new \Modules\developer\form\Fieldset());
         $field = new Form\Field\Hidden();
         $field->setName('g');
         $field->setDefaultValue('standard');
@@ -149,19 +222,29 @@ class ConfigModel{
         $field->setDefaultValue('design');
         $form->addField($field);
         $field = new Form\Field\Hidden();
-        $field->setName('ba');
+        $field->setName('aa');
         $field->setDefaultValue('updateConfig');
         $form->addField($field);
 
 
-        $options = $theme->getOptions();
+
+        return $form;
+    }
+
+
+    /**
+     * @param $options
+     * @return Form\Fieldset
+     */
+    protected function getFieldset($themeName, $options)
+    {
+        $fieldset = new \Modules\developer\form\Fieldset();
 
         foreach($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
                 continue;
             }
             switch ($option['type']) {
-
                 case 'select':
                     $newField = new Form\Field\Select();
                     $values = array();
@@ -171,19 +254,21 @@ class ConfigModel{
                         }
                     }
                     $newField->setValues($values);
-
                     break;
                 case 'text':
                     $newField = new Form\Field\Text();
                     break;
-                case 'file':
-                    $newField = new Form\Field\File();
+                case 'textarea':
+                    $newField = new Form\Field\Textarea();
                     break;
                 case 'color':
                     $newField = new Form\Field\Color();
                     break;
                 case 'range':
                     $newField = new Form\Field\Range();
+                    break;
+                case 'check':
+                    $newField = new Form\Field\Confirm();
                     break;
                 default:
                     //do nothing
@@ -196,13 +281,28 @@ class ConfigModel{
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
-            $newField->setDefaultValue($this->getConfigValue($name, $option['name'], $default));
+            $newField->setDefaultValue($this->getConfigValue($themeName, $option['name'], $default));
 
-            $form->addfield($newField);
-            $newField = null;
+            $fieldset->addfield($newField);
+        }
+        return $fieldset;
+    }
+
+    protected function getLiveConfig()
+    {
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
+            return $data['ipDesign']['pCfg'];
         }
 
-        return $form;
+        if (isset($data['aa']) && $data['aa'] == 'updateConfig') {
+            unset($data['m']);
+            unset($data['g']);
+            unset($data['aa']);
+            return $data;
+        }
+
     }
 
 

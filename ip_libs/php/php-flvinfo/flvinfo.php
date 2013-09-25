@@ -15,9 +15,9 @@
 
 // ---
 
-// {{{ Dependencies
+// Dependencies
 require_once 'amf0parser.php';
-// }}}
+//
 
 // ---
 
@@ -27,21 +27,21 @@ require_once 'amf0parser.php';
  * @author		Tommy Lacroix <lacroix.tommy@gmail.com>
  */
 class Flvinfo {
-	// {{{ Audio codec types
+	//  Audio codec types
 	const FLV_AUDIO_CODEC_UNCOMPRESSED = 0x00;
 	const FLV_AUDIO_CODEC_ADPCM = 0x01;
 	const FLV_AUDIO_CODEC_MP3 = 0x02;
 	const FLV_AUDIO_CODEC_NELLYMOSER_8K = 0x05;
 	const FLV_AUDIO_CODEC_NELLYMOSER = 0x06;
-	// }}}
+	//
 	
-	// {{{ Video codec types
+	//  Video codec types
 	const FLV_VIDEO_CODEC_SORENSON_H263 = 0x02;
 	const FLV_VIDEO_CODEC_SORENSON = 0x03;
 	const FLV_VIDEO_CODEC_ON2_VP6 = 0x04;
 	const FLV_VIDEO_CODEC_ON2_VP6ALPHA = 0x05;
 	const FLV_VIDEO_CODEC_SCREENVIDEO_2 = 0x06;
-	// }}}
+	//
 	
 	/**
 	 * Constructor

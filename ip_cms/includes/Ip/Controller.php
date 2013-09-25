@@ -46,11 +46,15 @@ class Controller{
 
     /**
      * Wrap content into admin layout view. Use when generating administration pages.
-     * @param array $content
+     * @param string $content
      * @return View
      */
     public function createAdminView($content)
     {
+        if (is_object($content) && get_class($content) == 'Ip\View') {
+            $content = $content->render();
+        }
+
         $variables = array(
             'content' => $content
         );

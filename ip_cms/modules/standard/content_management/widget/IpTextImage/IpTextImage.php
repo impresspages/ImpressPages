@@ -75,23 +75,26 @@ class IpTextImage extends \Modules\standard\content_management\Widget{
 
             if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2'])) {
 
-                $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
-                $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'width'));
-                $requiredHeight = round($requiredWidth / $ratio);
+                if ($data['cropY2'] - $data['cropY1'] > 0) {
+                    $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
+                    $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'width'));
+                    $requiredHeight = round($requiredWidth / $ratio);
 
-                $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
-                    $data['cropX1'],
-                    $data['cropY1'],
-                    $data['cropX2'],
-                    $data['cropY2'],
-                    $requiredWidth,
-                    $requiredHeight
-                );
-                try {
-                    $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
-                } catch (\Modules\administrator\repository\Exception $e) {
-                    //do nothing
+                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                        $data['cropX1'],
+                        $data['cropY1'],
+                        $data['cropX2'],
+                        $data['cropY2'],
+                        $requiredWidth,
+                        $requiredHeight
+                    );
+                    try {
+                        $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                    } catch (\Modules\administrator\repository\Exception $e) {
+                        //do nothing
+                    }
                 }
+
 
             }
 

@@ -8,8 +8,6 @@
 namespace Modules\administrator\search;
 
 
-if (!defined('CMS')) exit;
-
 
 /**
  *
@@ -70,7 +68,11 @@ class Element extends \Frontend\Element{
         
         foreach ($searchableZones as $key => $value) {
             if ($value != '') {
-                $tmpElements = $site->getZone($value)->getAllElements();
+                $zone = $site->getZone($value);
+                if (!$zone) {
+                    continue;
+                }
+                $tmpElements = $zone->getAllElements();
                 $tmpFoundElements = $this->search($site->getZone($value), $tmpElements, $searchWords);
 
                 $combined = false;

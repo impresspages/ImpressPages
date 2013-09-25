@@ -3,7 +3,7 @@
 /* @var $this \Ip\View */
 ?>
 <div class="ip ipModuleDesign" xmlns="http://www.w3.org/1999/html">
-    <h1>{{My Theme}}</h1>
+    <h1><?php echo $this->escPar('standard/design/admin_translations/my_theme'); ?></h1>
 
     <div class="ipmSelectedTheme">
         <div class="ipmThemePreview">
@@ -11,36 +11,43 @@
         </div>
 
         <div class="ipmThemeActions">
-<!--            <a href="#" class="btn btn-link">{{Download}}</a>-->
+<!--            <a href="#" class="btn btn-link">Download</a>-->
             <?php if ($showConfiguration){ ?>
-                <a href="#" class="btn btn-primary ipsOpenOptions">{{Edit}}</a>
+                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('standard/design/admin_translations/options'); ?></a>
+                <br/><br/>
             <?php } ?>
+            <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo $this->esc($contentManagementText); ?></a>
         </div>
         <h2>
             <i class="icon-ok"></i>
             <?php echo $this->esc($theme->getTitle()); ?>
             <small>(<?php echo $this->esc($theme->getVersion()); ?>)</small>
         </h2>
-
+<!-- HTML style to print more details about theme if needed in the future
         <dl class="dl-horizontal">
             <?php if ($theme->getAuthorTitle()) { ?>
-                <dt>{{Author:}}</dt>
+                <dt>Author:</dt>
                 <dd><?php echo $this->esc($theme->getAuthorTitle()); ?></dd>
             <?php } ?>
         </dl>
+-->
     </div>
 
     <div class="ipmOtherThemes">
         <div class="ipmThemeMarket">
             <div class="ipmButtonWrapper">
-                <span class="ipmTitle">{{Theme Market}}</span>
-                <span class="impNotice">{{Want a new look? Search for a new theme.}}</span>
-                <a href="#" class="btn btn-success ipsOpenMarket">{{Browse Themes}}</a>
+                <span class="ipmTitle"><?php echo $this->escPar('standard/design/admin_translations/theme_market'); ?></span>
+                <!-- TODOX remove -->
+                <div id="comingSoon" style="background-color: #019bd4; color: #fff; text-align: center; padding: 25px; font-family: Arial; font-width: bold; font-size: 18px; max-width: 250px; margin: auto;">
+                    coming soon
+                </div>
+<!--                <span class="impNotice">--><?php //echo $this->escPar('standard/design/admin_translations/theme_market_description'); ?><!--</span>-->
+<!--                <a href="#" class="btn btn-success ipsOpenMarket">--><?php //echo $this->escPar('standard/design/admin_translations/theme_market_browse'); ?><!--</a>-->
             </div>
         </div>
         <div class="ipmLocalThemes">
             <?php if (count($availableThemes) > 1) { ?>
-                <h2>{{Local Themes}}</h2>
+                <h2><?php echo $this->escPar('standard/design/admin_translations/local_themes'); ?></h2>
                 <ul class="ipmThemesList clearfix">
                     <?php
                         foreach ($availableThemes as $localTheme) {
@@ -57,7 +64,7 @@
                                 </span>
                                 <div class="ipmThemeActions">
                                     <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'>
-                                        {{Install}}
+                                        <?php echo $this->escPar('standard/configuration/admin_translations/install'); ?>
                                     </a>
                                 </div>
                             </li>
@@ -69,13 +76,11 @@
 
     <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
         <div class="ipmPopupTabs">
-            <div class="ipsHeader">
-                <ul>
-                    <li><a href="#ipModuleThemeMarketAll">{{All Themes}}</a></li>
-                </ul>
+            <ul>
+                <li><a href="#ipModuleThemeMarketAll"><?php echo $this->escPar('standard/design/admin_translations/theme_market'); ?></a></li>
+            </ul>
 
-                <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
-            </div>
+            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
             <div id="ipModuleThemeMarketAll">
                 <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo $this->esc($marketUrl) ?>">

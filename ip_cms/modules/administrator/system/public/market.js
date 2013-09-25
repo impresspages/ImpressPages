@@ -2,8 +2,8 @@
  * @package ImpressPages
  */
 
-var Market = new function() {
-
+var Market = new function () {
+    "use strict";
     var imagesDownloaded; //true if images have been downloaded
     var imagesData; //downloaded images data
     var themesDownloaded; //true if images have been downloaded
@@ -11,11 +11,9 @@ var Market = new function() {
 
     this.processOrder = function(order) {
         $('body').trigger('ipMarketOrderStart');
-        console.log('order');
-        console.log(order);
+
 
         if (typeof(order.images) != "undefined" && order.images.length) {
-            console.log('downloadImages');
             imagesDownloaded = false;
             downloadImages(order.images);
         } else {
@@ -23,7 +21,6 @@ var Market = new function() {
         }
 
         if (typeof(order.themes) != "undefined" && order.themes.length) {
-            console.log('downloadThemes');
             themesDownloaded = false;
             downloadThemes(order.themes);
         } else {
@@ -31,19 +28,11 @@ var Market = new function() {
         }
 
 
-
     };
 
     var checkComplete = function() {
-        console.log('checkComplete ' + imagesDownloaded + ' ' + themesDownloaded);
         if (imagesDownloaded && themesDownloaded) {
-            console.log('orderCompleteEvent2');
-            console.log('body');
-            console.log($('body'));
             $('body').trigger('ipMarketOrderComplete', [{images: imagesData, themes: themesData}]);
-            console.log('body');
-            console.log($('body'));
-
         }
     };
 
@@ -111,18 +100,20 @@ var Market = new function() {
 
         $.ajax(ip.baseUrl, {
             'type': 'POST',
-            'data': {'g': 'standard', 'm': 'design', 'ba': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken},
+            'data': {'g': 'standard', 'm': 'design', 'aa': 'downloadThemes', 'themes': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
             'dataType': 'json',
-            'success': function (data) {
+            'success': function (response) {
+                if (!response || response.error || !response.result || !response.result.themes) {
+                    alert('Unknown error. Please see logs.');
+                    return;
+                }
+
                 themesDownloaded = true;
-                themesData = data;
+                themesData = response.result.themes;
                 checkComplete();
             },
-            'error': function (request, status, error) {
-                alert(error);
-                themesDownloaded = true;
-                themesData = {};
-                checkComplete();
+            'error': function () {
+                alert('Unknown error. Please see logs.');
             }
         });
     };

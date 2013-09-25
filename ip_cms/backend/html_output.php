@@ -167,7 +167,7 @@ class HtmlOutput {
           }
         }
       }
-      LibDefault.ajaxMessage(document.location, \'module_name=system&module_group=administrator&action=getSystemInfo&afterLogin=1\', ipCmsNoticeResponse);
+      LibDefault.ajaxMessage(document.location, \'m=system&g=administrator&ba=getSystemInfo&afterLogin=1\', ipCmsNoticeResponse);
     //]]>
   </script>
       ';

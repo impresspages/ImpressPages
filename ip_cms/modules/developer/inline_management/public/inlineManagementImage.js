@@ -65,8 +65,7 @@
         _openPopupResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
-                var $overlay = new $.ui.dialog.overlay();
-                $overlay = $overlay.$el;
+                var $overlay = $('<div class="ui-widget-overlay"></div>').appendTo("body").css('position', 'fixed');//new $.ui.dialog.overlay();
                 $overlay.css('z-index', 2000);
 
                 $('.ipModuleInlineManagementPopup.ipmImage').remove();

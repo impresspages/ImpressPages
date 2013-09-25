@@ -13,6 +13,9 @@ class Form{
     const METHOD_POST = 'post';
     const METHOD_GET = 'get';
 
+    /**
+     * @var $pages Page[]
+     */
     protected $pages;
     protected $method;
     protected $action;
@@ -21,7 +24,6 @@ class Form{
 
     public function __construct() {
         $site = \Ip\ServiceLocator::getSite();
-        $session = \Ip\ServiceLocator::getSession();
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = $site->getCurrentUrl();
@@ -29,10 +31,38 @@ class Form{
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
 
-        //add security token field
+        $this->addXssCheck();
+    }
+
+    /**
+     * Add securityToken field
+     */
+    public function addXssCheck()
+    {
         $tokenField = new Field\XSS();
         $tokenField->setName('securityToken');
         $this->addField($tokenField);
+    }
+
+    /**
+     * Remove securityToken field
+     */
+    public function removeXssCheck()
+    {
+        $this->removeField('securityToken');
+    }
+
+    /**
+     * Remove field from form
+     * @param string $fieldName
+     * @return int removed fields count
+     */
+    public function removeField($fieldName) {
+        $count = 0;
+        foreach($this->pages as $key => $page) {
+            $count += $page->removeField($fieldName);
+        }
+        return $count;
     }
 
     /**

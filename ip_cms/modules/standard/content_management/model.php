@@ -17,9 +17,10 @@ class Model{
     const DEFAULT_LAYOUT = 'default';
     const WIDGET_DIR = 'widget';
 
-    public static function generateBlock($blockName, $revisionId, $managementState) {
+    public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
         global $site;
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
+
         $widgetsHtml = array();
         foreach ($widgets as $key => $widget) {
             try {
@@ -41,7 +42,8 @@ class Model{
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,    		
             'revisionId' => $revisionId,
-            'managementState' => $managementState
+            'managementState' => $managementState,
+            'exampleContent' => $exampleContent
         );
         $answer = \Ip\View::create('view/block.php', $data)->render();
         return $answer;
@@ -53,7 +55,14 @@ class Model{
         }
         $widgetObject = self::getWidgetObject($widgetName);
         if (!$widgetObject) {
-            throw new Exception('Widget ' . $widgetName . ' does not exist', Exception::UNKNOWN_WIDGET);
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                $source = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ';
+            } else {
+                $source = '';
+            }
+
+            throw new Exception('Widget ' . $widgetName . ' does not exist. '.$source, Exception::UNKNOWN_WIDGET);
         }
         
         $previewHtml = $widgetObject->previewHtml(null, $data, $layout);

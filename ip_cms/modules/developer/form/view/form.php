@@ -1,8 +1,14 @@
+<?php
+/** @var $form \Modules\developer\form\Form */
+?>
 <form <?php echo $form->getClassesStr(); ?> <?php echo $form->getAttributesStr(); ?> method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>" enctype="multipart/form-data">
     <?php foreach ($form->getPages() as $pageKey => $page) { ?>
     <div class="ipmPage">
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>
         <fieldset class="ipmFieldset">
+            <?php if ($fieldset->getLabel()) { ?>
+                <legend><?php echo $this->esc($fieldset->getLabel()); ?></legend>
+            <?php } ?>
             <?php foreach ($fieldset->getFields() as $fieldKey => $field) { ?>
                 <?php 
                     switch ($field->getLayout()) {

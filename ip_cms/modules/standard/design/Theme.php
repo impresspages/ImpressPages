@@ -9,7 +9,6 @@ namespace Modules\standard\design;
 
 class Theme
 {
-    const INSTALL_DIR = 'install/';
     const PARAMETERS_FILE = 'parameters.php';
 
     protected $name;
@@ -19,6 +18,7 @@ class Theme
     protected $thumbnail;
     protected $authorTitle;
     protected $options;
+    protected $widgetOptions;
 
     public function __construct(ThemeMetadata $metadata)
     {
@@ -30,7 +30,12 @@ class Theme
 
     public function getThumbnailUrl()
     {
-        return BASE_URL . THEME_DIR . $this->name . "/install/" . $this->thumbnail;
+        if ($this->thumbnail) {
+            $image = BASE_URL . THEME_DIR . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
+        } else {
+            $image = BASE_URL.MODULE_DIR.'standard/design/public/theme.png';
+        }
+        return $image;
     }
 
     public function getName()
@@ -64,6 +69,34 @@ class Theme
             return array();
         }
         return $this->options;
+    }
+
+
+    public function getOptionsAsArray()
+    {
+        $options = $this->getOptions();
+        $answer = $this->getGroupOptions($options);
+        return $answer;
+    }
+
+    protected function getGroupOptions($groupOptions)
+    {
+        $answer = $groupOptions;
+        foreach($groupOptions as $option) {
+            if (!empty($option['type']) && $option['type'] === 'group' && !empty($option['options'])) {
+                $answer = array_merge($answer, $this->getGroupOptions($option['options']));
+            }
+        }
+        return $answer;
+    }
+
+    public function getWidgetOptions()
+    {
+        if (!$this->widgetOptions) {
+            return array();
+        }
+        return $this->widgetOptions;
+
     }
 
 }

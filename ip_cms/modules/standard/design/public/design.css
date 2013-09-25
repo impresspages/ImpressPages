@@ -53,10 +53,12 @@ body {
     margin-bottom: 15px;
     padding-left: 30px;
     text-transform: uppercase;
+    text-shadow: 1px 1px #eee, -1px -1px #eee, -1px 1px #eee, 1px -1px #eee;
 }
 .ipModuleDesign .ipmThemeMarket .impNotice {
     display: block;
     margin-bottom: 5px;
+    text-shadow: 1px 1px #eee, -1px -1px #eee, -1px 1px #eee, 1px -1px #eee;
 }
 .ipModuleDesign .ipmLocalThemes {
     background-color: #f3f3f3;
@@ -139,6 +141,15 @@ body {
     background-color: white;
 }
 
+/* Preview in Theme Market */
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ipmPopupTabs {
+    border: none;
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ui-tabs-nav {
+    display: none;
+}
+
 /* Theme Preview / Options */
 .ipModuleDesign .ipmPreview {
     background-color: #fff;
@@ -150,8 +161,8 @@ body {
 }
 .ipModuleDesign .ipmPreviewClose {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 20px;
+    top: 5px;
 }
 .ipModuleDesign iframe {
     height: 100%;

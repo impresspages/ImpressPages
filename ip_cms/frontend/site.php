@@ -93,6 +93,9 @@ class Site{
     protected $zones;
     protected $otherZones;
 
+    protected $layout;
+
+    protected $blockContent;
 
     public function __construct(){
 
@@ -560,19 +563,27 @@ class Site{
         }
         unset($_SESSION['frontend']['redirects']);
     }
+
+    public function setLayout($layout) {
+        $this->layout = $layout;
+    }
+
     /**
      *
      * @return string Current layout file
      *
      */
     public function getLayout(){
+        if ($this->layout) {
+            return $this->layout;
+        }
 
         $zone = $this->getCurrentZone();
         $element = $this->getCurrentElement();
 
         $layout = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
-        if (!$layout || !file_exists(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
+        if (!$layout || !is_file(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
             $layout = $zone->getLayout();
         }
 
@@ -690,14 +701,7 @@ class Site{
         }
 
         if($getVars && sizeof($getVars) > 0){
-            $first = true;
-            foreach($getVars as $key => $value){
-                if($first)
-                $answer .= '?'.$key.'='.urlencode($value);
-                else
-                $answer .= $amp.$key.'='.urlencode($value);
-                $first = false; 
-            }
+            $answer .= '?'.http_build_query($getVars, '', $amp);
         }
 
         return $answer;
@@ -737,7 +741,7 @@ class Site{
 
 
             if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['ba'])) {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['aa'])) {
                     //user posts method to backend action. Check permissions.
                     $permission = \Ip\Backend::userHasPermission(\Ip\Backend::userId(), $_REQUEST['g'], $_REQUEST['m']);
                     if (!$permission) {
@@ -748,19 +752,23 @@ class Site{
 
                 $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
                 if($newModule){
-                    if (isset($_REQUEST['ba']) && $_REQUEST['ba'] != '__construct') {
-                        $controllerClass = 'Backend';
+                    $function = 'index';
+                    if (isset($_REQUEST['pa']) && $_REQUEST['pa'] != '__construct') {
+                        $controllerClass = 'PublicController';
+                        $function = $_REQUEST['pa'];
+                    } elseif (isset($_REQUEST['aa']) && $_REQUEST['aa'] != '__construct') {
+                        $controllerClass = 'AdminController';
+                        $function = $_REQUEST['aa'];
+                    } elseif (isset($_REQUEST['sa']) && $_REQUEST['sa'] != '__construct') {
+                        $controllerClass = 'SiteController';
+                        $function = $_REQUEST['sa'];
                     } else {
                         $controllerClass = 'Controller';
+                        if (isset($_REQUEST['a']) && $_REQUEST['a'] != '__construct') {
+                            $function = $_REQUEST['a'];
+                        }
                     }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\'.$controllerClass.'();');
-                    $function = 'index';
-                    if (isset($_REQUEST['a']) && $_REQUEST['a'] != '__construct') {
-                        $function = $_REQUEST['a'];
-                    }
-                    if (isset($_REQUEST['ba']) && $_REQUEST['ba'] != '__construct') {
-                        $function = $_REQUEST['ba'];
-                    }
                     if (method_exists($tmpModule, $function)) {
                         $tmpModule->init();
                         if ($tmpModule->allowAction($function)) {
@@ -1186,6 +1194,9 @@ class Site{
 
 
     public function setOutput ($output) {
+        if ($output === null) {
+            $output = '';
+        }
         $this->output = $output;
     }
 
@@ -1202,7 +1213,13 @@ class Site{
         global $session;
 
         if (!isset($this->output)) {
-            $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+            $layout = $this->getLayout();
+            if ($layout) {
+                $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+            } else {
+                // DEPRECATED just for backward compatibility
+                $this->output = $site->generateBlock('main')->render();
+            }
         }
 
         return $this->output;
@@ -1291,14 +1308,38 @@ class Site{
         return $this->javascriptVariables;
     }
 
-
-
-
     public function generateHead() {
         $cacheVersion = \DbSystem::getSystemVariable('cache_version');
         $cssFiles = $this->getCss();
-        foreach($cssFiles as &$file) {
-            $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
+
+        $inDesignPreview = false;
+
+        $request = \Ip\ServiceLocator::getRequest();
+        $data = $request->getRequest();
+
+
+        if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
+            $config = \Modules\standard\design\ConfigModel::instance();
+            $inDesignPreview = $config->isInPreviewState();
+        }
+
+        if (!$inDesignPreview) {
+            foreach($cssFiles as &$file) {
+                $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
+            }
+        } else {
+            $securityToken = \Ip\ServiceLocator::getSession()->getSecurityToken();
+            foreach($cssFiles as &$file) {
+
+                $path = pathinfo($file);
+
+                if ($path['dirname'] == BASE_URL . THEME_DIR . THEME && file_exists(BASE_DIR . THEME_DIR . THEME . "/{$path['filename']}.less")) {
+                    $designService = \Modules\standard\design\Service::instance();
+                    $file = $designService->getRealTimeUrl(THEME, $path['filename']);
+                } else {
+                    $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
+                }
+            }
         }
 
         $data = array (
@@ -1343,44 +1384,28 @@ class Site{
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
     }
 
+    public function setBlockContent($block, $content)
+    {
+        $this->blockContent[$block] = $content;
+    }
 
-    public function generateBlock($blockName, $static = false) {
-        global $dispatcher;
-        global $site;
-        $data = array (
-            'blockName' => $blockName
-        );
-
-        $event = new \Ip\Event($site, 'site.generateBlock', $data);
-
-        $processed = $dispatcher->notifyUntil($event);
-
-        if ($processed && $event->issetValue('content')) {
-            return $event->getValue('content');
+    public function getBlockContent($block)
+    {
+        if (isset($this->blockContent[$block])) {
+            return $this->blockContent[$block];
         } else {
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
-
-            if ($static) {
-                $revisionId = null;
-            } else {
-                $revision = $this->getRevision();
-                if ($revision) {
-                $revisionId = $revision['revisionId'];
-                } else {
-                    return '';
-                }
-            }
-
-            if ($blockName == 'main' && $site->getCurrentElement()) {
-                return $site->getCurrentElement()->generateContent();
-            }
-
-            return \Modules\standard\content_management\Model::generateBlock($blockName, $revisionId, $this->managementState());
-
+            return null;
         }
     }
 
+    public function generateBlock($blockName, $static = false) {
+        $block = new \Ip\Block($blockName);
+        if ($static) {
+            $block->asStatic();
+        }
 
+        return $block;
+    }
 
     /**
      * If we are in the management state and last revision is published, then create new revision.

@@ -1,24 +1,15 @@
 var ipDesignThemeMarket = new function () {
-
+    "use strict";
     /**
      * @see this.openMarketWindow(), this.closeMarketWindow()
      */
     var adminFramesetRows = 0;
+    var isThemePreview = false;
 
     var processOrder = function (order) {
-        console.log('processOrder');
-        $('body').bind('ipMarketOrderStart', function (e) {
-            console.log('order start');
-        });
-
-        console.log('bind complete event');
         $('body').bind('ipMarketOrderComplete', function (e, data) {
-            console.log('order complete ');
-            console.log(data);
-            if (typeof(data.themes) != "undefined" && data.themes.length) {
-                //TODOX
-                console.log('show local themes');
-            }
+            ipDesignThemeMarket.closeMarketWindow();
+            window.location = window.location.href.split('#')[0];
         });
 
         Market.processOrder(order);
@@ -29,11 +20,15 @@ var ipDesignThemeMarket = new function () {
     };
 
     var beforeOpenThemePreview = function() {
-        $('.ipsThemeMarketPopup .ipsHeader').hide();
+        isThemePreview = true;
+        $('.ipsThemeMarketPopup').addClass('ipmPreviewOpen');
+        ipDesignThemeMarket.resize();
     };
 
     var afterCloseThemePreview = function() {
-        $('.ipsThemeMarketPopup .ipsHeader').show();
+        isThemePreview = false;
+        $('.ipsThemeMarketPopup').removeClass('ipmPreviewOpen');
+        ipDesignThemeMarket.resize();
     };
 
     var showMarketIframe = function () {
@@ -62,7 +57,7 @@ var ipDesignThemeMarket = new function () {
                                 var fakeOrder = {
                                     images: [],
                                     themes: [data]
-                                }
+                                };
                                 processOrder(fakeOrder);
                                 $('body').bind('ipMarketOrderComplete', function (e, data) {
                                     if (top.document.getElementById('adminFrameset')) {
@@ -101,7 +96,6 @@ var ipDesignThemeMarket = new function () {
             ipDesignThemeMarket.closeMarketWindow();
         }
     };
-
 
     this.openMarketWindow = function () {
 
@@ -144,6 +138,8 @@ var ipDesignThemeMarket = new function () {
 
     this.resize = function(e) {
         var $popup = $('#ipModuleThemeMarketContainer');
-        $popup.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
-    }
+        var height = parseInt($(window).height());
+        if (!isThemePreview) { height -= 40; } // leaving place for tabs
+        $popup.find('iframe').height(height + 'px');
+    };
 };

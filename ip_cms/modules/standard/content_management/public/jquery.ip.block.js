@@ -31,7 +31,6 @@
                         ui.item.height(ui.item.find('.ipAdminWidgetMoveIcon').outerHeight());
                         $('.ipAdminWidgetControls').css('display', 'none');
                     },
-                    
                     stop : function (event, ui) {
                         ui.item.removeClass('ipAdminWidgetDrag');
                         ui.item.width('auto');
