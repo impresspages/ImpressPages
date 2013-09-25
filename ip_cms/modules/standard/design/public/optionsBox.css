@@ -8,7 +8,7 @@
     cursor: move;
 }
 .ipModuleDesignConfig .ipmBody {
-    overflow: auto;
+    overflow: hidden;
 }
 .ipModuleDesignConfig .modal-footer {
     margin-top: 0;
@@ -20,9 +20,11 @@
     margin-bottom: 1px;
     font-size: 12px;
     font-weight: bold;
+    outline: none;
+    cursor: pointer;
 }
 
-.ipModuleDesignConfig fieldset legend.ipmSelected {
+.ipModuleDesignConfig fieldset legend.ui-accordion-header-active {
     background-color: #ecebeb;
 }
 

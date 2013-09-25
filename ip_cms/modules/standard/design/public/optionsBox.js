@@ -163,15 +163,15 @@ var ipDesign = new function () {
 
         //setup config groups
 
-        $('.ipModuleDesignConfig fieldset:gt(1) .ipmField').addClass('ipgHide');
-        $('.ipModuleDesignConfig fieldset:lt(2) legend').addClass('ipmSelected');
+        // wrap fields in a div so accordion would work
+        $('.ipModuleDesignConfig .ipsBody fieldset').each(function (index, fieldset) {
+            $(fieldset).find('.ipmField').wrapAll('<div />');
+        });
 
-        $('.ipModuleDesignConfig fieldset').on('click', function(e) {
-            var $fieldset = $(this);
-            $('.ipModuleDesignConfig .ipmField').addClass('ipgHide');
-            $('.ipModuleDesignConfig fieldset legend').removeClass('ipmSelected');
-            $fieldset.find('.ipmField').removeClass('ipgHide');
-            $fieldset.find('legend').addClass('ipmSelected');
+        $('.ipModuleDesignConfig .ipsBody').accordion({
+            heightStyle: "fill",
+            header: "fieldset legend",
+            collapsible: true
         });
 
     };
@@ -285,10 +285,18 @@ var ipDesign = new function () {
             scroll: false,
             drag: function( event, ui ) {
                 ipDesign.fixLayout();
+
+                // this code is not in ipDesign.fixLayout so it would be executed only on drag
+                $('.ipModuleDesignConfig .ipsBody')
+                    .accordion("option", "heightStyle", "auto")
+                    .accordion('refresh')
+                    .accordion("option", "heightStyle", "fill")
+                    .accordion('refresh');
             }
         });
         var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
         $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - topOffset - 170);
+
     };
 
     var getValueByName = function(name, values) {
