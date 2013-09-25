@@ -105,4 +105,19 @@ class Request
         return $values[$name];
     }
 
+    public function getUrl() {
+        $pageURL = 'http';
+        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
+            $pageURL .= "s";
+        }
+        $pageURL .= '://';
+        if ($this->_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $this->_SERVER["SERVER_NAME"].":".$this->_SERVER["SERVER_PORT"].$this->_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $this->_SERVER["SERVER_NAME"].$this->_SERVER["REQUEST_URI"];
+        }
+        return $pageURL;
+    }
+
+
 }

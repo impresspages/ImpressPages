@@ -93,6 +93,9 @@ class Site{
     protected $zones;
     protected $otherZones;
 
+    protected $layout;
+
+    protected $blockContent;
 
     public function __construct(){
 
@@ -560,12 +563,20 @@ class Site{
         }
         unset($_SESSION['frontend']['redirects']);
     }
+
+    public function setLayout($layout) {
+        $this->layout = $layout;
+    }
+
     /**
      *
      * @return string Current layout file
      *
      */
     public function getLayout(){
+        if ($this->layout) {
+            return $this->layout;
+        }
 
         $zone = $this->getCurrentZone();
         $element = $this->getCurrentElement();
@@ -1293,6 +1304,20 @@ class Site{
             'javascriptVariables' => $this->getJavascriptVariables()
         );
         return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
+    }
+
+    public function setBlockContent($block, $content)
+    {
+        $this->blockContent[$block] = $content;
+    }
+
+    public function getBlockContent($block)
+    {
+        if (isset($this->blockContent[$block])) {
+            return $this->blockContent[$block];
+        } else {
+            return null;
+        }
     }
 
     public function generateBlock($blockName, $static = false) {

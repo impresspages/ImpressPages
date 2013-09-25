@@ -104,9 +104,17 @@ class Cms {
                 /*new module*/
                 $newModule = \Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
-                    require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    if (!file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php') && file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/AdminController.php')) {
+                        header('location: '.BASE_URL.'?g=author&m=author&aa=index');
+                    } else {
+                        require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    }
                 } else {
-                    require(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    if (!file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php') && file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/AdminController.php')) {
+                        header('location: '.BASE_URL.'?g=author&m=author&aa=index');
+                    } else {
+                        require(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    }
                 }
                 $this->curModId = $newModule['id'];
                 eval('$this->module = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Manager();');

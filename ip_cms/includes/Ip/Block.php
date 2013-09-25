@@ -36,6 +36,11 @@ class Block
             }
             return (string)$content;
         } else {
+            $predefinedContent = $site->getBlockContent($this->name);
+            if ($predefinedContent !== null) {
+                return $predefinedContent;
+            }
+
             require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 
             if ($this->isStatic) {
