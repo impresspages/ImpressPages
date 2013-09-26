@@ -290,19 +290,22 @@ var ipDesign = new function () {
             handle: ".ipsDragHandler",
             scroll: false,
             drag: function( event, ui ) {
-                ipDesign.fixLayout();
+                fixAccordion();
             }
         });
         var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
         $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - topOffset - 170);
 
+        fixAccordion();
+    };
+
+    var fixAccordion = function () {
         // this code is not in ipDesign.fixLayout so it would be executed only on drag
         $('.ipModuleDesignConfig .ipsBody')
             .accordion("option", "heightStyle", "auto")
             .accordion('refresh')
             .accordion("option", "heightStyle", "fill")
             .accordion('refresh');
-
     };
 
     var getValueByName = function(name, values) {
