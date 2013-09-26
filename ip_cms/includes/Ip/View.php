@@ -197,12 +197,7 @@ class View{
         global $parametersMod;
         global $session;
 
-        foreach ($this->data as $foreachDataKey => $foreachDataValue) {
-            eval(' $'.$foreachDataKey.' = $foreachDataValue;');
-        }
-
-
-        $found = false;
+        extract($this->data);
 
         ob_start();
 

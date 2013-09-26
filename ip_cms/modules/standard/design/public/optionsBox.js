@@ -113,9 +113,49 @@ var ipDesign = new function () {
 
     };
 
+    var initAccordion = function () {
+        // wrap fields in a div so accordion would work
+        $('.ipModuleDesignConfig .ipsBody fieldset').each(function (index, fieldset) {
+            $(fieldset).find('.ipmField').wrapAll('<div />');
+        });
 
+        $('.ipModuleDesignConfig .ipsBody').accordion({
+            heightStyle: "fill",
+            header: "fieldset legend",
+            collapsible: true,
+            activate: function (event, ui) {
+                if (ui.newPanel) {
+                    fixAccordion();
+                }
+            }
+        });
+    };
 
+    var fixAccordion = function () {
+        // this code is not in ipDesign.fixLayout so it would be executed only on drag
+        $('.ipModuleDesignConfig .ipsBody')
+            .accordion("option", "heightStyle", "auto")
+            .accordion('refresh')
+            .accordion("option", "heightStyle", "fill")
+            .accordion('refresh');
+    };
 
+    var initLayout = function () {
+        ipDesign.fixLayout();
+        $('.ipModuleDesignConfig .ipsDialog').draggable({
+            //axis: "x",
+            //containment: "body",
+            //containment: [0, 0, x2, y2],
+            handle: ".ipsDragHandler",
+            scroll: false,
+            drag: function (event, ui) {
+                ipDesign.fixLayout();
+            }
+        });
+
+        $(window).bind("resize.ipModuleDesign", ipDesign.fixLayout);
+        $(window).bind("scroll.ipModuleDesign", ipDesign.fixLayout);
+    };
 
     this.init = function () {
         $('a').not('.ipWidget-IpImageGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpImage a, .ipWidget-IpFile a, .ipWidget-IpTextImage a')
@@ -150,25 +190,8 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
         $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
 
-        // wrap fields in a div so accordion would work
-        $('.ipModuleDesignConfig .ipsBody fieldset').each(function (index, fieldset) {
-            $(fieldset).find('.ipmField').wrapAll('<div />');
-        });
-
-        $('.ipModuleDesignConfig .ipsBody').accordion({
-            heightStyle: "fill",
-            header: "fieldset legend",
-            collapsible: true,
-            activate: function (event, ui) {
-                if (ui.newPanel) {
-                    ipDesign.fixLayout();
-                }
-            }
-        });
-
-        ipDesign.fixLayout();
-        $(window).bind("resize.ipModuleDesign", ipDesign.fixLayout);
-        $(window).bind("scroll.ipModuleDesign", ipDesign.fixLayout);
+        initAccordion();
+        initLayout();
 
         $('.ipsReload').on('click', function (e) {
             e.preventDefault();
@@ -283,30 +306,13 @@ var ipDesign = new function () {
     this.fixLayout = function(e) {
         var x2 = $(window).width() - $('.ipModuleDesignConfig .ipsDialog').width() - 20;
         var y2 = $(window).height() - 150;
-        $('.ipModuleDesignConfig .ipsDialog').draggable({
-            //axis: "x",
-            //containment: "body",
-            //containment: [0, 0, x2, y2],
-            handle: ".ipsDragHandler",
-            scroll: false,
-            drag: function( event, ui ) {
-                fixAccordion();
-            }
-        });
         var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
         $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - topOffset - 170);
 
         fixAccordion();
     };
 
-    var fixAccordion = function () {
-        // this code is not in ipDesign.fixLayout so it would be executed only on drag
-        $('.ipModuleDesignConfig .ipsBody')
-            .accordion("option", "heightStyle", "auto")
-            .accordion('refresh')
-            .accordion("option", "heightStyle", "fill")
-            .accordion('refresh');
-    };
+
 
     var getValueByName = function(name, values) {
         name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
