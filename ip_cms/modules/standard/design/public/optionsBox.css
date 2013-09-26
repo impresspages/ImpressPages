@@ -42,3 +42,12 @@
     font-weight: normal;
 }
 
+
+.ipModuleDesignConfig input {
+    border: 1px solid #a1a2a5;
+    width: 292px;
+}
+
+.ipModuleDesignConfig .ipmType-confirm input {
+    width: auto;
+}
