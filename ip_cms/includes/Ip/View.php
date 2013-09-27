@@ -370,8 +370,14 @@ class View{
 
     public function generateBlock($blockName, $static = false)
     {
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
         return $site->generateBlock($blockName, $static);
+    }
+
+    public function generateSlot($name)
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        return $site->generateSlot($name);
     }
 
     public function generateManagedLogo($cssClass = null)
