@@ -2727,6 +2727,9 @@ body {
   color: #b80000;
   font-size: 12px;
 }
+.ipModuleSearch .ipmPage {
+  overflow: visible;
+}
 .ipModuleSearch .ipmField {
   float: left;
   margin-bottom: 0;
