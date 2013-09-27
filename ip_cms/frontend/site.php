@@ -1329,6 +1329,44 @@ class Site{
         return $block;
     }
 
+
+    public function setSlotContent($name, $content)
+    {
+        $this->slotContent[$name] = $content;
+    }
+
+    public function getSlotContent($name)
+    {
+        if (isset($this->slotContent[$name])) {
+            return $this->slotContent[$name];
+        } else {
+            return null;
+        }
+    }
+
+    public function generateSlot($name) {
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+        $data = array (
+            'slotName' => $name,
+        );
+        $event = new \Ip\Event($this, 'site.generateSlot', $data);
+        $processed = $dispatcher->notifyUntil($event);
+
+        if ($processed && $event->issetValue('content')) {
+            $content = $event->getValue('content');
+            if (is_object($content) && method_exists($content, 'render')) {
+                $content = $content->render();
+            }
+            return (string)$content;
+        } else {
+            $predefinedContent = $this->getSlotContent($name);
+            if ($predefinedContent !== null) {
+                return $predefinedContent;
+            }
+        }
+        return '';
+    }
+
     /**
      * If we are in the management state and last revision is published, then create new revision.
      *
