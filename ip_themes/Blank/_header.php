@@ -31,11 +31,11 @@
                     echo $this->generateMenu('top', 'menu1');
                 ?>
                 <div class="languages">
-                    <?php echo $this->generateBlock('ipLanguages'); ?>
+                    <?php echo $this->generateSlot('ipLanguages'); ?>
                 </div>
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo $this->generateBlock('ipSearch'); ?>
+            <?php echo $this->generateSlot('ipSearch'); ?>
         </div>
     </header>
