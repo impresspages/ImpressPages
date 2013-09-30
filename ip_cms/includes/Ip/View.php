@@ -197,12 +197,7 @@ class View{
         global $parametersMod;
         global $session;
 
-        foreach ($this->data as $foreachDataKey => $foreachDataValue) {
-            eval(' $'.$foreachDataKey.' = $foreachDataValue;');
-        }
-
-
-        $found = false;
+        extract($this->data);
 
         ob_start();
 
@@ -375,8 +370,14 @@ class View{
 
     public function generateBlock($blockName, $static = false)
     {
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
         return $site->generateBlock($blockName, $static);
+    }
+
+    public function generateSlot($name)
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        return $site->generateSlot($name);
     }
 
     public function generateManagedLogo($cssClass = null)

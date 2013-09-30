@@ -21,9 +21,9 @@ class System{
         $site->addJavascript(BASE_URL.MODULE_DIR.'community/newsletter/public/newsletter.js');
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
-
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateNewsletter');
-        
+        $dispatcher->bind('site.generateSlot', __NAMESPACE__ .'\System::generateNewsletterSlot');
+
     }
 
 
@@ -55,8 +55,20 @@ class System{
             $event->setValue('content', $newsletterBox );
             $event->addProcessed();
         }
-    }    
+    }
 
-
+    public static function generateNewsletterSlot (\Ip\Event $event) {
+        global $site;
+        $name = $event->getValue('slotName');
+        if ($name == 'ipNewsletter') {
+            $newsletterZone = $newsletterBox = $site->getZoneByModule('community', 'newsletter');
+            if (!$newsletterZone) {
+                return;
+            }
+            $newsletterBox = \Ip\View::create('view/registration_box.php');
+            $event->setValue('content', $newsletterBox );
+            $event->addProcessed();
+        }
+    }
 
 }

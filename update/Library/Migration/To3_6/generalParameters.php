@@ -12,7 +12,7 @@ $parameterAdmin["developer"]["form"]["error_messages"]["xss"] = "0";
 $parameterType ["developer"]["form"]["error_messages"]["xss"] = "lang";
 
 $parameterTitle["standard"]["configuration"]["admin_translations"]["save"] = "Save";
-$parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "save";
+$parameterValue["standard"]["configuration"]["admin_translations"]["save"] = "Save";
 $parameterAdmin["standard"]["configuration"]["admin_translations"]["save"] = "0";
 $parameterType ["standard"]["configuration"]["admin_translations"]["save"] = "string";
 
