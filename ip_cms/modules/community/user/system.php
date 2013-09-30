@@ -25,7 +25,9 @@ class System {
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateLogin');
-        
+
+        $dispatcher->bind('site.generateSlot', __NAMESPACE__ .'\System::generateLoginSlot');
+
     }
     
     
@@ -57,6 +59,26 @@ class System {
                     $event->addProcessed();
                     return;
                 } else { 
+                    return;
+                }
+            }
+            $loginBox = $userZone->generateLogin();
+            $event->setValue('content', $loginBox );
+            $event->addProcessed();
+        }
+    }
+
+    public static function generateLoginSlot (\Ip\Event $event) {
+        global $site;
+        $name = $event->getValue('slotName');
+        if ($name == 'ipUserLogin') {
+            $userZone = $site->getZoneByModule('community', 'user');
+            if (!$userZone) {
+                if ($site->managementState()) {
+                    $event->setValue('content', 'Please create new zone in Developer / zones with associated module group <b>community</b> and module <b>user</b>.' );
+                    $event->addProcessed();
+                    return;
+                } else {
                     return;
                 }
             }
