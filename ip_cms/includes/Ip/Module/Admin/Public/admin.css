@@ -1,6 +1,6 @@
 .ipModuleAdminToolbar {
     position: fixed;
-    top: 0;
+    top: 80px;
     left: 0;
     width: 150px;
     padding: 10px;
@@ -18,8 +18,14 @@
     padding: 10px;
     background-color: #fff;
     border-bottom: 1px solid #000;
-    height: 18px;
+    height: 45px;
     z-index: 1001;
+}
+
+.ipModuleAdminNavigation ul.level1 li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
 }
 
 body {
