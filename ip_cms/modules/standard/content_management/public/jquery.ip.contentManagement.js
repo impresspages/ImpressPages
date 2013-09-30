@@ -29,10 +29,10 @@
                     var data = $this.data('ipContentManagement');
                     
                     
-                    if ($(".ipAdminPanelContainer").length == 0) {
-                        var $controlsBgDiv = $('<div class="ipAdminPanelContainer" />');
-                        $('body').prepend($controlsBgDiv);
-                    }
+//                    if ($(".ipAdminPanelContainer").length == 0) {
+//                        var $controlsBgDiv = $('<div class="ipAdminPanelContainer" />');
+//                        $('body').prepend($controlsBgDiv);
+//                    }
                 
                     var postData = Object();
                     postData.g = 'standard';

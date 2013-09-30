@@ -177,7 +177,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     left: 0;
     min-width: 860px;
     position: fixed;
-    top: 0;
+    top: 60px;
     width: 100%;
     z-index: 1000;
 }
