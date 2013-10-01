@@ -72,6 +72,7 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js?v=1');
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
+            $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
 
         }
