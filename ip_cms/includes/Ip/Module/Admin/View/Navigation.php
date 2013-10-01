@@ -1,6 +1,5 @@
 <?php
 /** @var $this \Ip\View */
-$this;
 ?>
 
 <div class="ipModuleAdminNavigation">

@@ -258,5 +258,10 @@ class HtmlOutput {
         echo $this->html;
     }
 
+    function render()
+    {
+        return $this->html;
+    }
+
 }
 
