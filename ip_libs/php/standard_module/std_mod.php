@@ -682,72 +682,26 @@ class StandardModule {
     }
 
     function make_html() {
+
         global $std_mod_db;
         global $parametersMod;
         global $cms;
 
         $std_mod_db = new std_mod_db();
 
-        $answer = '';
+        $site = \Ip\ServiceLocator::getSite();
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/default.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/tabs.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js');
+        $site->addJavascript(BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig');
 
-        $answer .= '
-		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-    <title>ImpressPages</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        $site->addCss(BASE_URL . LIBRARY_DIR . 'php/standard_module/design/style.css');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'php/standard_module/design/scripts.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/windowsize.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/mouse.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/positioning.js');
+        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/default.js');
 
-  
-    <script type="text/javascript">
-        var ip = {
-            baseUrl : '.json_encode(BASE_URL).',
-            libraryDir : '.json_encode(LIBRARY_DIR).',
-            themeDir : '.json_encode(THEME_DIR).',
-            moduleDir : '.json_encode(MODULE_DIR).',
-            theme : '. json_encode(THEME) .',
-            zoneName : '.json_encode(null).',
-            pageId : '.json_encode(null).',
-            revisionId : '.json_encode(null).',
-        };
-    </script>
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-  <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-  <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
-  <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>
-</head>   
-	 
-<body> <!-- display loading until page is loaded-->
-			
-      <!-- display loading util page is loaded-->
-      <div id="loading" style="height: 60px; z-index: 1001; width: 100%; position: fixed; left:0px; top: 180px;">
-				<table style="margin-left: auto; margin-right: auto;"><tr>
-					<td style="font-family: Verdana, Tahoma, Arial; font-size: 14px; color: #505050; padding: 30px 33px; background-color: #d9d9d9; border: 1px solid #bcbdbf;">
-						'.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'loading')).'
-					</td>
-				</tr></table>
-			</div>
-      <script type="text/javascript">
-      //<![CDATA[
-				LibDefault.addEvent(window, \'load\', init);
-	      				
-	      function init(){
-		      document.getElementById(\'loading\').style.display = \'none\';
-	      }
-      //]]>
-      </script>
-      <!-- display loading until page is loaded-->		
-		
-		<link href="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/style.css" type="text/css" rel="stylesheet" media="screen" />		
-		<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/scripts.js"></script>
-		<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/mouse.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/positioning.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/default.js" ></script>
-		
-		';
 
         if($this->level < $this->tree_depth) {
             $content = '';
@@ -756,7 +710,7 @@ class StandardModule {
         else
         $content = $this->print_data();
 
-        $answer .= '
+        $answer = '
 		
 		 <div class="all" onmousemove="setPos(event)" onmouseup="mouseButtonPos=\'up\'">';
         $answer .= '<script type="text/javascript">LibDefault.addEvent(window,\'load\',perVisaPloti);</script>';
@@ -779,21 +733,11 @@ class StandardModule {
             '<div class="clear">
 		  </div>
 		 </div><!-- class="all" -->
-		 
+        ';
 
-';
-         $answer .= '
-<script type="text/javascript">
-  //<![CDATA[
-  $(\'.mceEditor\').tinymce(ipTinyMceConfigMed);
-  //]]>
-</script>
-		 
-		   </body>
-      </html>   
-		 ';
-
-
+        $site->addJavascriptContent('tinyMceInit', '$(document).ready(function() {
+            $(".mceEditor").tinymce(ipTinyMceConfigMed);
+        });');
 
         return $answer;
     }

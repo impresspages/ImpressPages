@@ -15,14 +15,14 @@ class System {
         $site = \Ip\ServiceLocator::getSite();
         $config = \Ip\ServiceLocator::getConfig();
 
-        if ($site->managementState()) {
+        if ($site->managementState() || !empty($_SESSION['backend_session']['user_id'])) {
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
             //add tool bar
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
             $site->addJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
-            $toolbarHtml = \Ip\View::create('View/Toolbar.php')->render();
-            $site->addJavascriptVariable('ipModuleAdminToolbarHtml', $toolbarHtml);
+//            $toolbarHtml = \Ip\View::create('View/Toolbar.php')->render();
+//            $site->addJavascriptVariable('ipModuleAdminToolbarHtml', $toolbarHtml);
 
             //add navigation bar
             $data = array(

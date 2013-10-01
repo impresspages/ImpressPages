@@ -21,8 +21,6 @@ class Backend{
 
         $cms->makeActions();
 
-        $cms->manage();
-
-        $site->setOutput('');
+        return $cms->manage();
     }
 }

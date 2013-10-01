@@ -47,6 +47,8 @@ class Cms {
 
     }
 
+
+
     /**
      * Output management tools
      *
@@ -140,14 +142,8 @@ class Cms {
             //eof create module
 
 
-            if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'tep_modules') {
-                $this->html->headerModules();
-                $this->html->modules(\Backend\Db::modules(true, $this->session->userId()));
-                $this->html->footer();
-            }else {
-                if($this->module) {
-                    $this->html->html($this->module->manage());
-                }
+            if ($this->module) {
+                $this->html->html($this->module->manage());
             }
 
         }else {
@@ -163,7 +159,7 @@ class Cms {
             $this->html->footer();
         }
 
-        $this->html->send();
+        return $this->html->render();
 
     }
 
