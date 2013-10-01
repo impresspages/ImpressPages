@@ -21,8 +21,8 @@ class System {
             //add tool bar
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
             $site->addJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
-            $toolbarHtml = \Ip\View::create('View/Toolbar.php')->render();
-            $site->addJavascriptVariable('ipModuleAdminToolbarHtml', $toolbarHtml);
+//            $toolbarHtml = \Ip\View::create('View/Toolbar.php')->render();
+//            $site->addJavascriptVariable('ipModuleAdminToolbarHtml', $toolbarHtml);
 
             //add navigation bar
             $data = array(
