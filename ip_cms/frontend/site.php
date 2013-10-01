@@ -772,7 +772,11 @@ class Site{
                     if (method_exists($tmpModule, $function)) {
                         $tmpModule->init();
                         if ($tmpModule->allowAction($function)) {
-                            call_user_func(array($tmpModule, $function));
+                            $result = call_user_func(array($tmpModule, $function));
+                            if ($result && is_string($result)) {
+                                $this->setBlockContent('main', $result);
+                                $this->setOutput(\Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php')->render());
+                            }
                         }
                     } else {
                         trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$function."()) does not exitst.");

@@ -3,6 +3,5 @@ $(document).ready(function() {
     //$('body').css('margin-left', '200px');
 
     $('body').append($(ipModuleAdminNavigationHtml));
-    $('body').css('margin-top', '60px');
 });
 

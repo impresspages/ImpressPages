@@ -18,31 +18,26 @@ class AdminController extends \Ip\Controller{
 
         $site = \Ip\ServiceLocator::getSite();
 
-        $answer = '';
-
+        $notes = array();
 
         if (isset($_SESSION['modules']['administrator']['system']['notes']) && is_array($_SESSION['modules']['administrator']['system']['notes'])) {
-            foreach($_SESSION['modules']['administrator']['system']['notes'] as $note) {
-                $answer .= '
-                        <div class="note">
-                           '.$note.'
-                        </div>
-                        ';
-
-            }
+            $notes = $_SESSION['modules']['administrator']['system']['notes'];
         }
+
         unset($_SESSION['modules']['administrator']['system']['notes']);
 
 
         $data = array(
+            'notes' => $notes,
             'version' => \DbSystem::getSystemVariable('version'),
             'enableUpdate' => !defined('MULTISITE_WEBSITES_DIR') //disable update in MultiSite installation
         );
 
-        $answer .= \Ip\View::create('view/index.php', $data)->render();
+        $answer = \Ip\View::create('view/index.php', $data)->render();
 
-        $site->setOutput($answer);
+        return $answer;
 
+        $site->setBlockContent('main', $answer);
     }
 
     public function clearCache()
