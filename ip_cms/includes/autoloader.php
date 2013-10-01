@@ -24,47 +24,51 @@ function __impressPagesAutoloader($name) {
         return true;
     }
 
-    if (substr($fileName, 0, 8) == 'Modules/') {
-        $fileName = substr($fileName, 8);
-        $success = __impressPagesAutoloaderTry($fileName);
+    $path = explode('/', $fileName);
+
+    if ($path[0] == 'Modules') {
+        $relativeFileName = substr($fileName, 8);
+        $success = __impressPagesAutoloaderTry($relativeFileName);
         if ($success) {
             return true;
         }
-        $success = __impressPagesAutoloaderTry(strtolower($fileName));
+        $success = __impressPagesAutoloaderTry(strtolower($relativeFileName));
         if ($success) {
             return true;
         }
-    }
-    
-    if (substr($fileName, 0, 8) == 'Library/') {
-        $fileName = substr($fileName, 8);
-        if (file_exists(BASE_DIR.LIBRARY_DIR.$fileName)) {
-            require_once(BASE_DIR.LIBRARY_DIR.$fileName);
+    } elseif ($path[0] == 'Library') {
+        $relativeFileName = substr($fileName, 8);
+        if (file_exists(BASE_DIR.LIBRARY_DIR.$relativeFileName)) {
+            require_once(BASE_DIR.LIBRARY_DIR.$relativeFileName);
             return true;
         }
 
-        if (substr($fileName, 0, 9) == 'Php/Text/') {
-            $fileName = 'php/text/' . substr($fileName, 9);
+        if (!empty($path[1]) && $path[1] == 'Php') { // Library\Php
+            if ($path[2] == 'Text') { // Library\Php\Text
+                $relativeFileName = 'php/text/' . substr($fileName, 9);
+            } elseif ($path[2] == 'Image' && $path[3] == 'Functions') {
+                $relativeFileName = 'php/image/functions' . substr($fileName, 19);
+            } elseif ($path[2] == 'File' && $path[3] == 'Functions') {
+                $relativeFileName = 'php/file/functions' . substr($fileName, 18);
+            } else {
+                $relativeFileName = 'php/' . substr($fileName, 4);
+            }
+
+            //second try
+            if (file_exists(BASE_DIR.LIBRARY_DIR.$relativeFileName)) {
+                require_once(BASE_DIR.LIBRARY_DIR.$relativeFileName);
+                return true;
+            }
         }
 
-        if (substr($fileName, 0, 19) == 'Php/Image/Functions') {
-            $fileName = 'php/image/functions' . substr($fileName, 19);
-        }
+    } elseif ($path[0] == 'Plugin') {
 
-        if (substr($fileName, 0, 18) == 'Php/File/Functions') {
-            $fileName = 'php/file/functions' . substr($fileName, 18);
-        }
+        if (file_exists(BASE_DIR . $fileName)) {
 
-        if (substr($fileName, 0, 4) == 'Php/') {
-            $fileName = 'php/' . substr($fileName, 4);
-        }
-        //second try
-        if (file_exists(BASE_DIR.LIBRARY_DIR.$fileName)) {
-            require_once(BASE_DIR.LIBRARY_DIR.$fileName);
+            require_once(BASE_DIR . $fileName);
             return true;
         }
     }
-
 
     if ($fileName == 'PclZip.php') {
         if (file_exists(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php')) {
