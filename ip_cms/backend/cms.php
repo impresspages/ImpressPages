@@ -163,8 +163,7 @@ class Cms {
             $this->html->footer();
         }
 
-        $this->html->send();
-
+        return $this->html->render();
     }
 
     function worker() { //make worker actions.
