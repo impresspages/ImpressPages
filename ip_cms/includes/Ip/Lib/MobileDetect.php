@@ -32,7 +32,7 @@
  * @version     2.7.0
  */
 
-namespace Backend;
+namespace Ip\Lib;
 
 
 class MobileDetect

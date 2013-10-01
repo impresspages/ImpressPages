@@ -32,7 +32,6 @@ class Cms {
     var $tinyMce; //true if tinyMce engine is loaded
     var $curModId;
     var $loginError;
-    var $isMobile;
 
     function __construct() {
         $this->session = new Session();
@@ -46,18 +45,9 @@ class Cms {
 
         $this->loginError = null;
 
-        $this->isMobile = $this->detectMobile();
-
     }
 
-    private function detectMobile()
-    {
-        if (isset($_SESSION['modules']['admin']['isMobile'])) {
-            return (bool) $_SESSION['modules']['admin']['isMobile'];
-        }
-        $detect = new MobileDetect();
-        $_SESSION['modules']['admin']['isMobile'] = $detect->isMobile();
-    }
+
 
     /**
      * Output management tools
