@@ -16,8 +16,6 @@ class AdminController extends \Ip\Controller{
     public function index()
     {
 
-        $site = \Ip\ServiceLocator::getSite();
-
         $notes = array();
 
         if (isset($_SESSION['modules']['administrator']['system']['notes']) && is_array($_SESSION['modules']['administrator']['system']['notes'])) {
@@ -33,11 +31,7 @@ class AdminController extends \Ip\Controller{
             'enableUpdate' => !defined('MULTISITE_WEBSITES_DIR') //disable update in MultiSite installation
         );
 
-        $answer = \Ip\View::create('view/index.php', $data)->render();
-
-        return $answer;
-
-        $site->setBlockContent('main', $answer);
+        return \Ip\View::create('view/index.php', $data)->render();
     }
 
     public function clearCache()
