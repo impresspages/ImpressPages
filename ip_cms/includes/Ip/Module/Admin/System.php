@@ -15,7 +15,7 @@ class System {
         $site = \Ip\ServiceLocator::getSite();
         $config = \Ip\ServiceLocator::getConfig();
 
-        if ($site->managementState()) {
+        if ($site->managementState() || !empty($_SESSION['backend_session']['user_id'])) {
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
             //add tool bar

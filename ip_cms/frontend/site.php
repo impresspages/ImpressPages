@@ -822,8 +822,8 @@ class Site{
 
             if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
                 $controller = new \Ip\Module\Admin\Backend();
-                $this->setLayout('admin.php');
                 $this->setBlockContent('main', $controller->deprecatedBootstrap());
+                $this->setOutput(\Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php')->render());
             }
         }
 
@@ -1204,18 +1204,14 @@ class Site{
 
 
     public function generateOutput() {
-        global $site;
-        global $log;
-        global $dispatcher;
-        global $parametersMod;
-        global $session;
 
         if (!isset($this->output)) {
             $layout = $this->getLayout();
             if ($layout) {
-                $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+                $this->output = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $layout, array())->render();
             } else {
                 // DEPRECATED just for backward compatibility
+                $site = \Ip\ServiceLocator::getSite();
                 $this->output = $site->generateBlock('main')->render();
             }
         }

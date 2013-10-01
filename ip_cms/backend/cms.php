@@ -164,6 +164,7 @@ class Cms {
         }
 
         return $this->html->render();
+
     }
 
     function worker() { //make worker actions.
