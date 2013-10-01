@@ -257,11 +257,5 @@ class HtmlOutput {
     function send() {
         echo $this->html;
     }
-
-    function render()
-    {
-        return $this->html;
-    }
-
 }
 
