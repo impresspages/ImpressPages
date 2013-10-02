@@ -105,13 +105,13 @@ class Cms {
                 $newModule = \Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
                     if (!file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php') && file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/AdminController.php')) {
-                        header('location: '.BASE_URL.'?g=author&m=author&aa=index');
+                        header('location: '.BASE_URL.'?g=' . $newModule['g_name'] . '&m=' . $newModule['m_name'] . '&aa=index');
                     } else {
                         require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                     }
                 } else {
                     if (!file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php') && file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/AdminController.php')) {
-                        header('location: '.BASE_URL.'?g=author&m=author&aa=index');
+                        header('location: '.BASE_URL.'?g=' . $newModule['g_name'] . '&m=' . $newModule['m_name'] . '&aa=index');
                     } else {
                         require(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                     }
