@@ -75,6 +75,26 @@
         }
     }
 
+    if (defined('WORKER')) {
+
+        global $site;
+        global $log;
+
+        $site = \Ip\ServiceLocator::getSite();
+
+        $log = new \Modules\administrator\log\Module();
+
+        require_once (BASE_DIR.BACKEND_DIR.'cms.php');
+        require_once (BASE_DIR.BACKEND_DIR.'db.php');
+
+        global $cms;
+        $cms = new \Backend\Cms();
+
+        $cms->worker();
+
+        \Db::disconnect();
+        exit();
+    }
 
     $output = $site->generateOutput();
 

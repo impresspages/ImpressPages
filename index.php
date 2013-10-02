@@ -18,7 +18,7 @@
 if (!defined('CMS')) {
     define('CMS', true); // make sure other files are accessed through this file.
 }
-if (!defined('FRONTEND')) {
+if (!defined('FRONTEND') && !defined('BACKEND')) {
     define('FRONTEND', true); // make sure other files are accessed through this file.
 }
 

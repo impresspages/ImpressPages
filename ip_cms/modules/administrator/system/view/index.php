@@ -1,7 +1,15 @@
 <?php
 /** @var $this \Ip\View */
-$this;
 ?>
+
+<?php if (!empty($notes)) { ?>
+    <?php foreach ($notes as $note) { ?>
+        <div class="note">
+            <?php echo $note ?>
+        </div>
+    <?php } ?>
+<?php } ?>
+
 <?php
 echo $this->subview('header.php')->render();
 ?>

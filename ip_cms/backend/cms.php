@@ -159,7 +159,7 @@ class Cms {
             $this->html->footer();
         }
 
-        return $this->html->render();
+        $this->html->send();
 
     }
 

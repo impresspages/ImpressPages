@@ -19,6 +19,11 @@ $(document).ready(function() {
     jQuery.expr[':'].icontains = function(a, i, m) {
         return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
     };
+
+    if (isMobile) {
+        $('body').addClass('ipMobile');
+    }
+
 });
 
 $(window).resize(function() {
