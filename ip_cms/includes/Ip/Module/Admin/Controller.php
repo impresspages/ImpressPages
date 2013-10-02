@@ -70,7 +70,7 @@ class Controller extends \Ip\Controller{
         //add text field to form object
         $field = new \Modules\developer\form\Field\Submit(
             array(
-                'value' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
+                'defaultValue' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
             ));
         $form->addField($field);
 
