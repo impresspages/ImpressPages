@@ -10,6 +10,31 @@ if (!defined('BACKEND')) exit;
 
 class Template {
 
+
+    public static function addLayout ($content) {
+        return
+'<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ImpressPages</title>
+    <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
+    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.cookie.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.jstree.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jquery-ui/jquery-ui.js"></script>
+</head>
+<body>
+'.$content.'
+</body>
+</html>
+';
+    }
+
     public static function content ($data) {
         global $parametersMod;
         $answer = '';

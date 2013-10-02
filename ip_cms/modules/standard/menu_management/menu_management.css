@@ -22,6 +22,9 @@ body {
 
 #pageProperties {
     border: 1px solid #ccc;
+    position: fixed;
+    top: 70px;
+    right: 10px;
 }
 
 #treePopup {
@@ -42,6 +45,12 @@ body {
 
 .error {
     display: none;
+}
+
+#sideBar {
+    position: fixed;
+    top: 70px;
+    left: 10px;
 }
 
 #controlls ul {

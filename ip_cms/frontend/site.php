@@ -826,8 +826,12 @@ class Site{
 
             if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
                 $controller = new \Ip\Module\Admin\Backend();
-                $this->setBlockContent('main', $controller->deprecatedBootstrap());
-                $this->setOutput(\Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php')->render());
+
+                ob_start();
+                $controller->deprecatedBootstrap();
+                $output = ob_get_clean();
+
+                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
             }
         }
 
