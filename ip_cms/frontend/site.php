@@ -405,6 +405,8 @@ class Site{
                         require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
+                } elseif ($tmpZone['handler']) {
+                    $tmpZoneObject = new $tmpZone['handler']($tmpZone['name']);
                 } else {
                     require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
                     $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
