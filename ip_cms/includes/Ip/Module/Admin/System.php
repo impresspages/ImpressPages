@@ -36,4 +36,35 @@ class System {
 
     }
 
+    /**
+     * Injects admin html into old backend modules.
+     *
+     * @deprecated
+     * @param string $html
+     * @return mixed
+     */
+    public function injectAdminHtml($html)
+    {
+        $data = array(
+            'menuItems' => Model::instance()->getAdminMenuItems()
+        );
+        $navigationHtml = \Ip\View::create('View/Navigation.php', $data)->render();
+
+        $config = \Ip\ServiceLocator::getConfig();
+
+        $code = '    <link href="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.css" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code.= '    <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js" ></script>' . "\n";
+        $code.= '    <script type="text/javascript" src="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.js" ></script>' . "\n";
+        $code .= '   <script type="text/javascript"> var ipModuleAdminNavigationHtml = ' . json_encode($navigationHtml) . ';</script>' . "\n";
+        $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);
+
+        if ($newHtml == $html) {
+            // tag not found
+        }
+
+        $newHtml = preg_replace("%(<body.*?>)%is", "$1\n<script>window.document.body.style.marginTop = '60px';</script>\n", $newHtml);
+
+        return $newHtml;
+    }
+
 }
