@@ -14,6 +14,10 @@ class Browser
 {
     public static function isMobile()
     {
+        if (defined('IS_MOBILE')) {
+            return (bool) IS_MOBILE;
+        }
+
         if (isset($_SESSION['lib']['browser']['isMobile'])) {
             return (bool) $_SESSION['lib']['browser']['isMobile'];
         }
