@@ -19,11 +19,6 @@
     <?php echo $loginForm->render() ?>
 </div>
 <div class="loginFooter">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
-<script>
-    //<![CDATA[
-    document.getElementById(\'login_name\').focus();
-    //]]>
-</script>
-
+<?php echo $site->generateJavascript(); ?>
 </body>
 </html>

@@ -314,3 +314,12 @@ h1, h2, h3 {
     color: #b80000;
     font-size: 12px;
 }
+
+
+.ipmErrorMessage {
+    background-color: #b80000;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px 2px;
+    z-index: 2;
+}

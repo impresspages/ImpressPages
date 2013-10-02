@@ -793,12 +793,15 @@ class Site{
             } else {
 
                 $actionString = '';
-                if(isset($_REQUEST['ba'])) {
-                    $actionString = $_REQUEST['ba'];
-                    $controllerClass = 'Backend';
-                } elseif(isset($_REQUEST['a'])) {
-                    $actionString = $_REQUEST['a'];
-                    $controllerClass = 'Controller';
+                if(isset($_REQUEST['aa'])) {
+                    $actionString = $_REQUEST['aa'];
+                    $controllerClass = 'AdminController';
+                } elseif(isset($_REQUEST['sa'])) {
+                    $actionString = $_REQUEST['sa'];
+                    $controllerClass = 'SiteController';
+                } elseif(isset($_REQUEST['pa'])) {
+                    $actionString = $_REQUEST['pa'];
+                    $controllerClass = 'PublicController';
                 }
 
                 if ($actionString) {
@@ -835,19 +838,7 @@ class Site{
             }
         }
 
-        if (
-            $_SERVER['REQUEST_URI'] == '/admin'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin/'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin.php'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin.php/'
 
-        ) {
-            $controller = new \Ip\Module\Admin\Controller();
-            $controller->login();
-        }
 
 
         //old deprecated way. Need to refactor to controllers

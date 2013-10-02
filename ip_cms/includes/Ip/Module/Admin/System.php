@@ -4,18 +4,42 @@ namespace Ip\Module\Admin;
 
 class System {
 
+    protected static $disablePanel = false;
+
     public function init()
     {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $dispatcher->bind('site.afterInit', array($this, 'afterInit'));
+
+        $dispatcher->bind('site.afterInit', array($this, 'initAdmin'));
+        $dispatcher->bind('site.beforeError404', array($this, 'catchAdminLogin'));
+
     }
 
-    public function afterInit()
+    public function catchAdminLogin(\Ip\Event $event)
+    {
+        if (
+            $_SERVER['REQUEST_URI'] == '/admin'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin/'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin.php'
+            ||
+            $_SERVER['REQUEST_URI'] == '/admin.php/'
+
+        ) {
+            $event->addProcessed();
+            self::$disablePanel = true;
+            $controller = new \Ip\Module\Admin\SiteController();
+            $controller->login();
+        }
+    }
+
+    public function initAdmin()
     {
         $site = \Ip\ServiceLocator::getSite();
         $config = \Ip\ServiceLocator::getConfig();
 
-        if ($site->managementState() || !empty($_SESSION['backend_session']['user_id'])) {
+        if (!self::$disablePanel && ($site->managementState() || !empty($_SESSION['backend_session']['user_id']))) {
             $site->addJavascriptContent('bodyMargin', "window.document.body.style.marginTop = '60px';", -1);
 
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
@@ -35,6 +59,8 @@ class System {
         }
 
     }
+
+
 
     /**
      * Injects admin html into old backend modules.
