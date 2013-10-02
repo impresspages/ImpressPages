@@ -53,7 +53,9 @@ class System {
         $config = \Ip\ServiceLocator::getConfig();
 
         $code = '    <link href="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.css" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code.= '    <script type="text/javascript" src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js" ></script>' . "\n";
+        $code.= "    <script>if (!window.jQuery) {\n";
+        $code.= "        document.write('<script src=\"" . BASE_URL . LIBRARY_DIR . "js/jquery/jquery.js\"><\\/script>');\n";
+        $code.= "    }</script>\n";
         $code.= '    <script type="text/javascript" src="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.js" ></script>' . "\n";
         $code .= '   <script type="text/javascript"> var ipModuleAdminNavigationHtml = ' . json_encode($navigationHtml) . ';</script>' . "\n";
         $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);
