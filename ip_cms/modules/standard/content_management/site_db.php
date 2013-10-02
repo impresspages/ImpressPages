@@ -38,7 +38,7 @@ class DbFrontend{
 
     public static function getRootElementId($zoneName, $language){
         $sql = "select mte.element_id from
-    `".DB_PREF."zone` m,
+    `".DB_PREF."zone` m, 
     `".DB_PREF."zone_to_content` mte 
     where mte.zone_id = m.id and mte.language_id = '".mysql_real_escape_string($language)."'
     and m.name = '".mysql_real_escape_string($zoneName)."'
