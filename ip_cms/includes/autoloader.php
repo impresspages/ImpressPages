@@ -44,14 +44,15 @@ function __impressPagesAutoloader($name) {
         }
 
         if (!empty($path[1]) && $path[1] == 'Php') { // Library\Php
+
             if ($path[2] == 'Text') { // Library\Php\Text
                 $relativeFileName = 'php/text/' . substr($fileName, 17);
-            } elseif ($path[2] == 'Image' && $path[3] == 'Functions') {
-                $relativeFileName = 'php/image/functions' . substr($fileName, 19);
-            } elseif ($path[2] == 'File' && $path[3] == 'Functions') {
-                $relativeFileName = 'php/file/functions' . substr($fileName, 18);
+            } elseif ($path[2] == 'Image' && $path[3] == 'Functions.php') {
+                $relativeFileName = 'php/image/functions.php';
+            } elseif ($path[2] == 'File' && $path[3] == 'Functions.php') {
+                $relativeFileName = 'php/file/functions.php';
             } else {
-                $relativeFileName = 'php/' . substr($fileName, 4);
+                $relativeFileName = 'php/' . substr($fileName, 12);
             }
 
             //second try

@@ -109,7 +109,7 @@ class Model{
                 return true;
             } else {
                 $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
-                $log->log('system', 'backend login incorrect', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                $log->log('system', 'backend login incorrect', $username.'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 return false;
             }
         }

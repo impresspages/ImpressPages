@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>ImpressPages</title>
     <link rel="stylesheet" href="<?php echo BASE_URL . BACKEND_DIR ?>design/login/login.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL . LIBRARY_DIR ?>css/bootstrap/bootstrap.css">
     <link rel="shortcut icon" href="<?php echo BASE_URL ?>'favicon.ico">
 </head>
 <body>
@@ -17,12 +18,7 @@
     </div>
     <?php echo $loginForm->render() ?>
 </div>
-<div class="loginFooter">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
-<script>
-    //<![CDATA[
-    document.getElementById(\'login_name\').focus();
-    //]]>
-</script>
-
+<div class="loginFooter">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
+<?php echo $site->generateJavascript(); ?>
 </body>
 </html>
