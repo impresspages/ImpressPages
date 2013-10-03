@@ -47,7 +47,8 @@ $(window).resize(function() {
 function ipAdminWidgetsScroll() {
     var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
     $scrollable.scrollable({
-        items: 'li' // items are <li> elements; on scroll styles will be added to <ul>
+        items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
+        touch: false
     });
     var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
     var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
