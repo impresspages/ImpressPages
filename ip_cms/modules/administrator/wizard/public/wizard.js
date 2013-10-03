@@ -52,7 +52,7 @@ function ipWizardBind(data) {
         $firstWidget = $allWidgets.eq(0),
         $allBlocks = $('.ipBlock'),
         $block = $('.ipBlock').length ? $('.ipBlock') : false, // if main block doesn't exist we return false
-        $block = $('#ipBlock-main').length ? $('#ipBlock-main') : $block, // if main block doesn't exist we return false
+        $mainBlock = $('#ipBlock-main').length ? $('#ipBlock-main') : $block, // if main block doesn't exist we return false
         $publishButton = $('.ipAdminControls .ipActionPublish');
 
     // bind close on all tips
