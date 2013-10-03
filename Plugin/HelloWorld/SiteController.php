@@ -6,7 +6,7 @@
 namespace Plugin\HelloWorld;
 
 
-class Controller extends \Ip\Controller
+class SiteController extends \Ip\Controller
 {
     public function pages($language = null)
     {

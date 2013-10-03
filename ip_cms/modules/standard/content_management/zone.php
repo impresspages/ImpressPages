@@ -184,18 +184,17 @@ class Zone extends \Frontend\Zone
 
     private function makeElementFromDb($dbElement, $firstLevel)
     {
-        $newElement = new Element($dbElement['id'], $this->getName());
-        $newElement->setButtonTitle($dbElement['button_title']);
-        $newElement->setPageTitle($dbElement['page_title']);
-        $newElement->setKeywords($dbElement['keywords']);
-        $newElement->setDescription($dbElement['description']);
-        $newElement->setUrl($dbElement['url']);
-        $newElement->setText($dbElement['cached_text']);
-        $newElement->setLastModified($dbElement['last_modified']);
-        $newElement->setCreatedOn($dbElement['created_on']);
-        $newElement->setModifyFrequency($dbElement['modify_frequency']);
-        $newElement->setRss($dbElement['rss']);
-        $newElement->setVisible($dbElement['visible']);
+        switch ($dbElement['type']) {
+            case 'action':
+                $newElement = new ElementAction($dbElement['id'], $this->getName());
+                break;
+            case 'symlink':
+                break;
+            default:
+                $newElement = new Element($dbElement['id'], $this->getName());
+        }
+
+        $newElement->hydrate($dbElement);
 
         if ($firstLevel) {
             $newElement->setParentId(null);
@@ -203,12 +202,18 @@ class Zone extends \Frontend\Zone
             $newElement->setParentId($dbElement['parent']);
         }
 
-        $newElement->setHtml($dbElement['html']);
-        $newElement->setType($dbElement['type']);
-        $newElement->setRedirectUrl($dbElement['redirect_url']);
-        $newElement->setDynamicModules($dbElement['dynamic_modules']);
         return $newElement;
     }
 
+    public function makeActions()
+    {
+        $element = $this->getCurrentElement();
 
+        if (!is_a($element, 'Element')) {
+            $content = $element->generateContent();
+
+            $site = \Ip\ServiceLocator::getSite();
+            $site->setBlockContent('main', $content);
+        }
+    }
 }

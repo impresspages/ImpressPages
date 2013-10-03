@@ -829,24 +829,15 @@ class Site{
                 }
 
                 if ($actionString) {
-                    $parts = explode('.', $actionString);
-                    $module = array_shift($parts);
-                    if (isset($parts[0])) {
-                        $action = $parts[0];
-                    } else {
-                        $action = 'index';
-                    }
 
-                    if ($this->isDefaultModule($module)) {
-                        $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                    } else {
-                        $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                    }
-                    if (!class_exists($controllerClass)) {
+                    $controllerInfo = $this->parseControllerAction($actionString, $controllerClass);
+
+                    if (!class_exists($controllerInfo['controller'])) {
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
-                    $controller = new $controllerClass();
-                    $controller->$action();
+
+                    $controller = new $controllerInfo['controller']();
+                    $controller->$controllerInfo['action']();
                 }
 
             }
@@ -871,6 +862,28 @@ class Site{
 
 
 
+    }
+
+    public function parseControllerAction($action, $controllerClass)
+    {
+        $parts = explode('.', $action);
+        $module = array_shift($parts);
+        if (isset($parts[0])) {
+            $action = $parts[0];
+        } else {
+            $action = 'index';
+        }
+
+        if ($this->isDefaultModule($module)) {
+            $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+        } else {
+            $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+        }
+
+        return array(
+            'controller' => $controllerClass,
+            'action' => $action,
+        );
     }
 
     private function isDefaultModule($moduleName)
