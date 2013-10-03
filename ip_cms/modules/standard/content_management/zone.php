@@ -111,7 +111,17 @@ class Zone extends \Frontend\Zone {
         return false;
     }
 
-    function findElement($urlVars, $getVars) {
+    public function findElement($urlVars, $getVars) {
+        $element = $this->_findElement($urlVars, $getVars);
+
+        if ($element->getType() == 'controllerAction') {
+            return new \Plugin\SimplePage\ControllerActionElement($element);
+        }
+
+        return $element;
+    }
+
+    private function _findElement($urlVars, $getVars) {
         global $site;
         $currentEl = null;
 
