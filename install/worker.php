@@ -278,7 +278,7 @@ Disallow: /ip_backend_worker.php
 Disallow: /ip_config.php
 Disallow: /ip_cron.php
 Disallow: /ip_license.html
-Disallow: /readme.txt
+Disallow: /readme.md
 Sitemap: '.get_parent_url().'sitemap.php';
 
     $myFile = "../robots.txt";
