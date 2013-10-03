@@ -38,7 +38,7 @@ class SiteController extends \Ip\Controller{
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
-                'redirectUrl' => BASE_URL
+                'redirectUrl' => BASE_URL . 'cms_action=manage'
             );
         } else {
             $answer = array(
