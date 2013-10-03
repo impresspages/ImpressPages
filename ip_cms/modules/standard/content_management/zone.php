@@ -188,8 +188,6 @@ class Zone extends \Frontend\Zone
             case 'action':
                 $newElement = new ElementAction($dbElement['id'], $this->getName());
                 break;
-            case 'symlink':
-                break;
             default:
                 $newElement = new Element($dbElement['id'], $this->getName());
         }
@@ -209,11 +207,10 @@ class Zone extends \Frontend\Zone
     {
         $element = $this->getCurrentElement();
 
-        if (!is_a($element, 'Element')) {
-            $content = $element->generateContent();
-
+        if (get_class($element) != 'Modules\\standard\\content_management\\Element') {
             $site = \Ip\ServiceLocator::getSite();
-            $site->setBlockContent('main', $content);
+
+            $site->setBlockContent('main', $element->generateContent());
         }
     }
 }
