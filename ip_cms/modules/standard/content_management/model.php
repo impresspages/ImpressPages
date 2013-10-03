@@ -110,6 +110,10 @@ class Model{
                 $widgetData = array();
             }
             $widgetObject = self::getWidgetObject($widgetRecord['name']);
+            if (!$widgetObject) {
+                throw new Exception('Widget does not exist. Widget name: '.$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
+            }
+
             $newData = $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
             self::updateWidget($widgetRecord['widgetId'], array('recreated' => time(), 'data' =>  $newData));
             $widgetRecord = self::getWidgetFullRecord($widgetRecord['instanceId']);
