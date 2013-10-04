@@ -133,9 +133,9 @@ class IpLogoGallery extends \Modules\standard\content_management\Widget{
 
                     break;
                 case 'deleted':
-                    $existingLogoData = self::_findExistingLogo($logo['fileName'], $currentData['logos']);
+                    $existingLogoData = self::_findExistingLogo($logo['fileName'], isset($currentData['logos']) ? $currentData['logos'] : null);
                     if (!$existingLogoData) {
-                        break; //existing logo not found. Impossible to recalculate coordinates if image does not exists.
+                        break;
                     }
                     self::_deleteOneLogo($existingLogoData, $widgetId);
                     break;
