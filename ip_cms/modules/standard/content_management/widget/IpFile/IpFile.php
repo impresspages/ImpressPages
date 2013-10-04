@@ -58,7 +58,7 @@ class IpFile extends \Modules\standard\content_management\Widget{
 
                             break;
                         case 'deleted':
-                            $existingFile = self::_findExistingFile($file['fileName'], $currentData['files']);
+                            $existingFile = self::_findExistingFile($file['fileName'], isset($currentData['files']) ? $currentData['files'] : null);
                             if (!$existingFile) {
                                 \Modules\administrator\repository\Model::unbindFile($existingFile['fileName'], 'standard/content_management', $widgetId);
                             } else {
