@@ -86,6 +86,15 @@ $parameterValue["standard"]["design"]["admin_translations"]["reload_notice"] = "
 $parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
 $parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
 
+$parameterGroupTitle["standard"]["design"]["options"] = "Options";
+$parameterGroupAdmin["standard"]["design"]["options"] = "1";
+
+
+$parameterTitle["standard"]["design"]["options"]["theme_dirs"] = "Theme dirs (one per line)";
+$parameterValue["standard"]["design"]["options"]["theme_dirs"] = "";
+$parameterAdmin["standard"]["design"]["options"]["theme_dirs"] = "0";
+$parameterType ["standard"]["design"]["options"]["theme_dirs"] = "textarea";
+
 $parameterTitle["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Placeholder text";
 $parameterValue["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "Drag widgets here";
 $parameterAdmin["standard"]["content_management"]["admin_translations"]["placeholder_text"] = "0";

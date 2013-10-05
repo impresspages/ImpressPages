@@ -67,6 +67,11 @@ class ThemeMetadata
         $this->metadata['widgetOptions'] = $widgetOptions;
     }
 
+    public function setPath($path)
+    {
+        $this->metadata['path'] = $path;
+    }
+
     public function getMetadata()
     {
         return $this->metadata;

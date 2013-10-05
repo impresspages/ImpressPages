@@ -36,7 +36,7 @@ class AdminController extends \Ip\Controller
         $themes = $model->getAvailableThemes();
 
         $model = Model::instance();
-        $theme = $model->getTheme(THEME);
+        $theme = $model->getTheme(THEME_DIR, THEME);
         $options = $theme->getOptionsAsArray();
 
         if (!defined('BACKEND')) {
@@ -49,7 +49,7 @@ class AdminController extends \Ip\Controller
 
 
         $data = array(
-            'theme' => $model->getTheme(THEME),
+            'theme' => $model->getTheme(THEME_DIR, THEME),
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
             'showConfiguration' => !empty($options),
@@ -130,9 +130,6 @@ class AdminController extends \Ip\Controller
         }
 
         $model = Model::instance();
-        if (!$model->getTheme($themeName)) {
-            throw new \Ip\CoreException("Theme '{$themeName}' does not exist.");
-        }
 
         try {
             $model->installTheme($themeName);
@@ -164,7 +161,7 @@ class AdminController extends \Ip\Controller
         } else {
             $configModel = ConfigModel::instance();
             $model = Model::instance();
-            $theme = $model->getTheme(THEME);
+            $theme = $model->getTheme(THEME_DIR, THEME);
             if (!$theme) {
                 throw new \Ip\CoreException("Theme doesn't exist");
             }

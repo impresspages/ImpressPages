@@ -29,7 +29,7 @@ class LessCompiler
 
         $model = Model::instance();
 
-        $theme = $model->getTheme($themeName);
+        $theme = $model->getTheme(THEME_DIR, $themeName);
         $options = $theme->getOptionsAsArray();
 
         $configModel = ConfigModel::instance();
