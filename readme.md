@@ -1,44 +1,20 @@
-/**
- *
- * ImpressPages CMS
- * 
- * @package ImpressPages
- *
- *
- */
+# ImpressPages CMS
+
+## About ImpressPages
+
+ImpressPages CMS is an open source web content management system with revolutionary drag & drop interface.
+
+Please visit the [ImpressPages website] (http://www.impresspages.org) to download the latest version of ImpressPages and read the online documentation. The online documentation contains instructions and tutorials for web designers, developers and content editors. 
+
+## Install
+
+1. Upload all folders and files to the server.
+2. Point your browser to `install` directory.
+3. Follow the onscreen instructions.
 
 
-*** EN ***
+## Update
 
-
-INSTALL
-
-1 Upload all folders and files to the server
-2 Point your browser to "install" directory
-3 Follow the instructions
-
-UPDATE
-
-1 Backup all your files and database before starting the update process
-2 Upload "update" folder to website root directory
-3 Point your browser to "update" directory
-4 Follow the instructions
-
-
-
-*** FR ***
-
-
-
-INSTALL
-
-1 Placez tous les dossiers et fichiers sur le serveur (.htaccess est invisible !)
-2 Ouvrez votre navigateur en pointant sur le dossier "install" de votre site.
-3 Suivez les instructions.
-
-UPDATE
-
-1 Effectuez avant tout une sauvegarde de tous les Fichiers et de la Base de Données.
-2 Placez le dossier "update" dans le dossier racine de votre site. Supprimez l'ancien si besoin.
-3 Ouvrez votre navigateur en pointant sur le dossier "update" de votre site.
-4 Suivez les instructions.
+1. Backup all your files and the database before starting the update process.
+2. Point your browser to ImpressPages administration console (`admin.php`), and log in.
+3. Go to `Administrator -> System` tab, and check for update instructions in `System messages` area. Click the `Start update` button. Follow the onscreen instructions.
