@@ -7,7 +7,7 @@
 
 namespace Modules\developer\modules;
 
-if (!defined('BACKEND')) exit;
+
 
 class ConfigurationFile{
     private $moduleTitle;

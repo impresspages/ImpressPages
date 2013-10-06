@@ -6,7 +6,6 @@
  */
 namespace Library\Php\StandardModule;
 
-if (!defined('BACKEND')) exit;
 
 require_once(LIBRARY_DIR.'php/file/upload_image.php');
 

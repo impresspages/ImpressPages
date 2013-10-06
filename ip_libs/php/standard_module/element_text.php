@@ -7,7 +7,6 @@
 namespace Library\Php\StandardModule;
 
 
-if (!defined('BACKEND')) exit;
 class element_text extends Element{ //data element in area
     var $default_value;
     var $mem_value;

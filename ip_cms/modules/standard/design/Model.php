@@ -28,6 +28,76 @@ class Model
         return new Model();
     }
 
+
+    protected function getThemePluginDir()
+    {
+        return THEME_DIR . THEME . '/plugins/';
+    }
+
+
+
+    public function getThemePlugins()
+    {
+        if (!is_dir($this->getThemePluginDir())) {
+            return array();
+        }
+
+        $pluginConfigs = array();
+
+        $groups = scandir($this->getThemePluginDir());
+
+        foreach ($groups as $group) {
+            $groupDir = $this->getThemePluginDir() . $group . '/';
+            if (is_dir($groupDir) && $group[0] != '.') {
+                $plugins = scandir($groupDir);
+                foreach ($plugins as $plugin) {
+                    $pluginDir = $groupDir . $plugin . '/';
+                    if (is_dir($pluginDir) && $plugin[0] != '.') {
+                        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($pluginDir);
+                        if ($pluginConfiguration) {
+                            $pluginConfigs[] = $pluginConfiguration;
+                        }
+                    }
+                }
+            }
+        }
+        return $pluginConfigs;
+
+    }
+
+    public function installThemePlugin($pluginGroup, $pluginName)
+    {
+        $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
+        $fromDir = $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
+
+        if (is_dir($toDir)) {
+            throw new \Exception('This plugin has been already installed');
+        }
+
+        if (!is_dir($fromDir)) {
+            throw new \Exception('This plugin has been already installed.');
+        }
+
+        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($fromDir);
+
+        if (!$pluginConfiguration) {
+            throw new \Exception('Can\'t read plugin configuration file.');
+        }
+
+        if (!is_writable(BASE_DIR . PLUGIN_DIR)) {
+            throw new \Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
+        }
+
+        if (!is_dir(BASE_DIR . PLUGIN_DIR . $pluginGroup)) {
+            mkdir(BASE_DIR . PLUGIN_DIR . $pluginGroup);
+        }
+        $helper = Helper::instance();
+        $helper->cpDir($fromDir, $toDir);
+        \Modules\developer\modules\Service::installPlugin($pluginGroup, $pluginName);
+
+
+    }
+
     /**
      * @return Theme[]
      */

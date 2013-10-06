@@ -7,7 +7,6 @@
 
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 
 
 class StdModDb{

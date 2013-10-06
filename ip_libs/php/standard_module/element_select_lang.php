@@ -6,7 +6,6 @@
  */
 namespace Library\Php\StandardModule;
 
-if (!defined('BACKEND')) exit;
 
 require_once(LIBRARY_DIR.'php/standard_module/element_text_lang.php');
 class element_select_lang extends element_text_lang{ //data element in area

@@ -8,7 +8,6 @@
 
 namespace Modules\developer\config_exp_imp;
 
-if (!defined('BACKEND')) exit;
 
 class FieldLanguages extends \Library\Php\Form\Field{
     function genHtml($class){

@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 
 require_once(LIBRARY_DIR.'php/file/upload_image.php');
 

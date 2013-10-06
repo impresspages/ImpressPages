@@ -8,7 +8,6 @@
 
 namespace Modules\developer\localization;
 
-if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 

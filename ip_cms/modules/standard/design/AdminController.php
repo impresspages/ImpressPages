@@ -28,6 +28,7 @@ class AdminController extends \Ip\Controller
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/options.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/market.js');
         $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/design.js');
+        $site->addJavascript(BASE_URL.MODULE_DIR.'standard/design/public/pluginInstall.js');
         $site->addCss(BASE_URL.MODULE_DIR.'standard/design/public/design.css');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
@@ -47,9 +48,28 @@ class AdminController extends \Ip\Controller
         $contentManagementModule = \Db::getModule(null, 'standard', 'content_management');
         $contentManagementUrl = $helper->generateAdminUrl($contentManagementModule['id']);
 
+        $themePlugins = $model->getThemePlugins();
+        $notInstalledPlugins = array();
+
+        //filter plugins that are already installed
+        foreach ($themePlugins as $key => $plugin) {
+            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
+                $notInstalledPlugins[] = $plugin;
+            }
+        }
+
+
+        if (isset($_SESSION['module']['design']['pluginNote'])) {
+            $pluginNote = $_SESSION['module']['design']['pluginNote'];
+            unset($_SESSION['module']['design']['pluginNote']);
+        } else {
+            $pluginNote = '';
+        }
 
         $data = array(
+            'pluginNote' => $pluginNote,
             'theme' => $model->getTheme(THEME_DIR, THEME),
+            'plugins' => $notInstalledPlugins,
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
             'showConfiguration' => !empty($options),
@@ -61,6 +81,30 @@ class AdminController extends \Ip\Controller
         $layout = $this->createAdminView($contentView);
         $site->setOutput($layout->render());
     }
+
+    public function installPlugin()
+    {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+        \Ip\ServiceLocator::getRequest()->mustBePost();
+        $postData = \Ip\ServiceLocator::getRequest()->getPost();
+
+        if (empty($postData['params']['pluginGroup']) || empty($postData['params']['pluginName'])) {
+            throw new \Exception("Missing required parameters");
+        }
+        $pluginGroup = $postData['params']['pluginGroup'];
+        $pluginName = $postData['params']['pluginName'];
+
+        $model = Model::instance();
+        try {
+            $model->installThemePlugin($pluginGroup, $pluginName);
+            $this->rpcSuccess(1, 1);
+            $_SESSION['module']['design']['pluginNote'] = $parametersMod->getValue('standard', 'design', 'admin_translations', 'plugin_installed');
+        } catch (\Exception $e) {
+            $this->rpcError($e->getCode(), $e->getMessage());
+        }
+
+    }
+
 
     public function downloadThemes()
     {
@@ -219,5 +263,32 @@ class AdminController extends \Ip\Controller
 
         header("Content-type: text/css", null, 200);
         $site->setOutput($css);
+    }
+
+
+    protected function rpcError($code, $message)
+    {
+        $answer = array(
+            'jsonrpc' => '2.0',
+            'error' => array(
+                'code' => $code,
+                'message' => $message,
+                'id' => 'id'
+            )
+        );
+        $this->returnJson($answer);
+        return;
+    }
+
+    protected function rpcSuccess($id, $result)
+    {
+        // Return JSON-RPC response
+        $answerArray = array(
+            "jsonrpc" => "2.0",
+            "result" => $result,
+            "id" => $id
+        );
+        $this->returnJson($answerArray);
+        return;
     }
 }

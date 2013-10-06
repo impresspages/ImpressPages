@@ -8,7 +8,6 @@
 namespace Library\Php\StandardModule;
 
 
-if (!defined('BACKEND')) exit;
 
 require_once (LIBRARY_DIR.'php/standard_module/std_mod_db.php');
 require_once (LIBRARY_DIR.'php/standard_module/std_mod_html_output.php');

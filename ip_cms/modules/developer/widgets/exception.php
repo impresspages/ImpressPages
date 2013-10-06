@@ -8,7 +8,6 @@
 namespace Modules\developer\widgets;
 
 
-if (!defined('CMS')) exit;
 
 /**
  * IpCmsException class

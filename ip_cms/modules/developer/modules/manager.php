@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\modules;
 
-if (!defined('BACKEND')) exit;
 
 require_once (BASE_DIR.LIBRARY_DIR.'php/standard_module/std_mod.php');
 require_once (__DIR__.'/db.php');
@@ -89,8 +88,10 @@ class ModulesArea extends \Library\Php\StandardModule\Area{
     }
 
     public static function after_insert($id){
-        global $cms;
-        Db::addPermissions($id, $cms->session->userId());
+        $users = \Db::getAllUsers();
+        foreach($users as $user) {
+            Db::addPermissions($id, $user['id']);
+        }
         Db::newModuleRowNumber($id);
     }
 }

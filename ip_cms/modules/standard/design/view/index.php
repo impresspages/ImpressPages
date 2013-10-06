@@ -23,14 +23,22 @@
             <?php echo $this->esc($theme->getTitle()); ?>
             <small>(<?php echo $this->esc($theme->getVersion()); ?>)</small>
         </h2>
-<!-- HTML style to print more details about theme if needed in the future
-        <dl class="dl-horizontal">
-            <?php if ($theme->getAuthorTitle()) { ?>
-                <dt>Author:</dt>
-                <dd><?php echo $this->esc($theme->getAuthorTitle()); ?></dd>
+        <div class="ipmPlugins">
+            <?php if ($pluginNote) { ?>
+            <div class="alert alert-block">
+                <?php echo $this->esc($pluginNote); ?>
+            </div>
             <?php } ?>
-        </dl>
--->
+            <dl class="dl-horizontal">
+                <?php foreach ($plugins as $key => $plugin ) {?>
+                    <dt><?php echo $key == 0 ? $this->escPar('standard/design/admin_translations/available_plugins') . ':' : '' ?></dt>
+                    <dd>
+                        <?php echo $this->esc($plugin->getModuleTitle()); ?>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo $this->esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo $this->esc($plugin->getModuleGroupKey()) ?>"><?php echo $this->escPar('standard/configuration/admin_translations/install'); ?></a>
+                    </dd>
+                <?php } ?>
+            </dl>
+        </div>
     </div>
 
     <div class="ipmOtherThemes">
