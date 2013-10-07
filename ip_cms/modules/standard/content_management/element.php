@@ -19,8 +19,25 @@ require_once (__DIR__.'/site_db.php');
  */
 
 class Element extends \Frontend\Element {
-    protected $dynamicModules;
     protected $linkIgnoreRedirect;
+    
+    public function hydrate($dbElement)
+    {
+        $this->setButtonTitle($dbElement['button_title']);
+        $this->setPageTitle($dbElement['page_title']);
+        $this->setKeywords($dbElement['keywords']);
+        $this->setDescription($dbElement['description']);
+        $this->setUrl($dbElement['url']);
+        $this->setText($dbElement['cached_text']);
+        $this->setLastModified($dbElement['last_modified']);
+        $this->setCreatedOn($dbElement['created_on']);
+        $this->setModifyFrequency($dbElement['modify_frequency']);
+        $this->setRss($dbElement['rss']);
+        $this->setVisible($dbElement['visible']);
+        $this->setHtml($dbElement['html']);
+        $this->setType($dbElement['type']);
+        $this->setRedirectUrl($dbElement['redirect_url']);
+    }
 
     public function getLink($ignoreRedirect = false) {
         global $site;
@@ -50,19 +67,6 @@ class Element extends \Frontend\Element {
         $this->generateDepthAndLink();
 
         return $this->depth;
-    }
-
-
-
-
-
-
-    public function getDynamicModules() {
-        return $this->dynamicModules;
-    }
-
-    public function setDynamicModules($dynamicModules) {
-        $this->dynamicModules=$dynamicModules;
     }
 
     private function generateDepthAndLink() {

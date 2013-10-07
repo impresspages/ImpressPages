@@ -342,10 +342,29 @@ class Site{
             }
                 
             if (!$this->currentZone) {
+                $this->homeZone();
+            }
+
+            if (!$this->currentZone) {
                 $this->error404();
             }
         }
     }
+
+    protected function homeZone()
+    {
+        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
+        foreach ($zones as $key => $zone) {
+            if ($zone['url'] == '') {
+                $this->currentZone = $zone['name'];
+                array_unshift($this->urlVars, urlencode($this->zoneUrl));
+                $this->zoneUrl = '';
+                break;
+            }
+        }
+    }
+
+
 
     /*
      * Check if current zone can find current page.
@@ -405,6 +424,8 @@ class Site{
                         require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
+                } elseif ($tmpZone['handler']) {
+                    $tmpZoneObject = new $tmpZone['handler']($tmpZone['name']);
                 } else {
                     require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
                     $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
@@ -635,8 +656,9 @@ class Site{
      * @return string - requested link or link to first page of current language if all parameters are not specified or null
      */
     public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
+
         global $parametersMod;
-         
+
         if($languageId == null){
             $languageId = $this->currentLanguage['id'];
         }
@@ -660,7 +682,9 @@ class Site{
         if($zoneName != null){
             if($languageId == $this->currentLanguage['id']){ //current language
                 if(isset($this->zones[$zoneName])){
-                    $answer .= urlencode($this->zones[$zoneName]['url']).'/';
+                    if ($this->zones[$zoneName]['url']) {
+                        $answer .= urlencode($this->zones[$zoneName]['url']).'/';
+                    }
                 }else{
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -805,24 +829,15 @@ class Site{
                 }
 
                 if ($actionString) {
-                    $parts = explode('.', $actionString);
-                    $module = array_shift($parts);
-                    if (isset($parts[0])) {
-                        $action = $parts[0];
-                    } else {
-                        $action = 'index';
-                    }
 
-                    if ($this->isDefaultModule($module)) {
-                        $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                    } else {
-                        $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                    }
-                    if (!class_exists($controllerClass)) {
+                    $controllerInfo = $this->parseControllerAction($actionString, $controllerClass);
+
+                    if (!class_exists($controllerInfo['controller'])) {
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
-                    $controller = new $controllerClass();
-                    $controller->$action();
+
+                    $controller = new $controllerInfo['controller']();
+                    $controller->$controllerInfo['action']();
                 }
 
             }
@@ -838,17 +853,37 @@ class Site{
             }
         }
 
-
-
-
         //old deprecated way. Need to refactor to controllers
         $currentZone = $this->getZone($this->currentZone);
+
         if ($currentZone) {
             $currentZone->makeActions(); 
         }
 
 
 
+    }
+
+    public function parseControllerAction($action, $controllerClass)
+    {
+        $parts = explode('.', $action);
+        $module = array_shift($parts);
+        if (isset($parts[0])) {
+            $action = $parts[0];
+        } else {
+            $action = 'index';
+        }
+
+        if ($this->isDefaultModule($module)) {
+            $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+        } else {
+            $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+        }
+
+        return array(
+            'controller' => $controllerClass,
+            'action' => $action,
+        );
     }
 
     private function isDefaultModule($moduleName)
