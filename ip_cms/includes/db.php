@@ -6,7 +6,6 @@
  */
 
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 
 

@@ -1672,6 +1672,24 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
         $parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
         $parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
 
+        $parameterTitle["standard"]["design"]["admin_translations"]["available_plugins"] = "Available plugins";
+        $parameterValue["standard"]["design"]["admin_translations"]["available_plugins"] = "Available plugins";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["available_plugins"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["available_plugins"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["plugin_installed"] = "Note about installed plugin";
+        $parameterValue["standard"]["design"]["admin_translations"]["plugin_installed"] = "Plugin has been successfully installed. Please refresh the browser.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["plugin_installed"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["plugin_installed"] = "string";
+
+    $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
+        $parameterTitle["standard"]["design"]["options"]["theme_dirs"] = "Theme folders (one per line)";
+        $parameterValue["standard"]["design"]["options"]["theme_dirs"] = "";
+        $parameterAdmin["standard"]["design"]["options"]["theme_dirs"] = "0";
+        $parameterType ["standard"]["design"]["options"]["theme_dirs"] = "textarea";
+
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["newsletter"] = "Newsletter";
 

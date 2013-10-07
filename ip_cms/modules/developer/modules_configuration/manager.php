@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\modules_configuration;
 
-if (!defined('BACKEND')) exit;
 
 require_once(BASE_DIR.LIBRARY_DIR.'php/standard_module/std_mod.php');
 require_once(__DIR__.'/db.php');

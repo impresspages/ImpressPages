@@ -11,6 +11,7 @@ abstract class Image extends Base
 {
 
     /**
+     * Create image resource from image file and alocate required memory
      * @param $imageFile
      * @return resource
      * @throws \Modules\administrator\repository\TransformException
@@ -18,7 +19,9 @@ abstract class Image extends Base
     protected function createImageImage($imageFile){
 
         $this->getMemoryNeeded($imageFile);
+
         $mime = $this->getMimeType($imageFile);
+
 
         switch ($mime) {
             case IMAGETYPE_JPEG:
@@ -40,6 +43,33 @@ abstract class Image extends Base
         }
 
         return $image;
+    }
+
+    protected function createEmptyImage($width, $height)
+    {
+        $trueColor = 1;
+        $this->aloccateMemory($width*$height*(2.2+($trueColor*3)));
+        return imagecreatetruecolor($width, $height);
+    }
+
+    /**
+     * @param $memoryNeeded in bytes
+     * @param int $extra in bytes
+     * @return bool
+     * @throws \Modules\administrator\repository\TransformException
+     */
+    protected function allocateMemory($memoryNeeded, $extra = 10000000)  //~10Mb extra
+    {
+        if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded + $extra > (integer) ini_get('memory_limit') * pow(1024, 2)) {
+            $megabytesNeeded = ceil((memory_get_usage() + $memoryNeeded + $extra)) / pow(1024, 2);
+            $stringNeeded = $megabytesNeeded . 'M';
+            $success = ini_set('memory_limit', $stringNeeded);
+            if ($stringNeeded != $success) {
+                throw new \Modules\administrator\repository\TransformException("Not enough memory. Please increase memory limit to $stringNeeded ");
+            }
+            return true;
+        }
+        return false;
     }
 
 
@@ -69,11 +99,8 @@ abstract class Image extends Base
         }
 
         $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + Pow(2, 16)) * 1.65);
-        if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded > (integer) ini_get('memory_limit') * pow(1024, 2)) {
-            $success = ini_set('memory_limit', (integer) ini_get('memory_limit')+ 10 + ceil(((memory_get_usage() + $memoryNeeded) - (integer) ini_get('memory_limit') * pow(1024, 2)) / pow(1024, 2)) . 'M');
-        } else {
-            $success = true;
-        }
+        $success = $this->allocateMemory($memoryNeeded);
+
         return $success;
     }
 

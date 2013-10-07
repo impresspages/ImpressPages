@@ -9,7 +9,6 @@
 
 namespace Modules\developer\config_exp_imp;
 
-if (!defined('BACKEND')) exit;
 
 
 

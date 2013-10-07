@@ -6,7 +6,6 @@
  */
 namespace Library\Php\StandardModule;
 
-if (!defined('BACKEND')) exit;
 class element_time extends Element{ //data element in area
     var $default_value;
     function print_field_new($prefix, $parent_id = null, $area = null){

@@ -26,6 +26,36 @@ class Helper
     }
 
 
+
+    public function cpDir( $source, $destination ) {
+        $source = $this->removeTrailingSlash($source);
+        $destination = $this->removeTrailingSlash($destination);
+        if (is_dir( $source ) ) {
+            @mkdir($destination);
+            $directory = dir( $source );
+            while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
+                if ( $readdirectory == '.' || $readdirectory == '..' ) {
+                    continue;
+                }
+                $pathDir = $source . '/' . $readdirectory;
+                if ( is_dir( $pathDir ) ) {
+                    $this->cpDir( $pathDir, $destination . '/' . $readdirectory );
+                    continue;
+                }
+                copy( $pathDir, $destination . '/' . $readdirectory );
+            }
+
+            $directory->close();
+        } else {
+            copy( $source, $destination );
+        }
+    }
+
+    private function removeTrailingSlash($path)
+    {
+        return preg_replace('{/$}', '', $path);
+    }
+
     public function getFirstDir($path)
     {
         $files = scandir($path);

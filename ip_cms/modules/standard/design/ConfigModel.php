@@ -48,7 +48,7 @@ class ConfigModel{
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
-                $theme = $model->getTheme(THEME);
+                $theme = $model->getTheme(THEME_DIR, THEME);
                 $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
@@ -84,7 +84,7 @@ class ConfigModel{
 
         if ($default === null) {
             $model = Model::instance();
-            $theme = $model->getTheme($themeName);
+            $theme = $model->getTheme(THEME_DIR, $themeName);
             $options = $theme->getOptionsAsArray();
             foreach($options as $option) {
                 if (!empty($option['name']) && $option['name'] == $name && isset($option['name']) && isset($option['default'])) {
@@ -105,7 +105,7 @@ class ConfigModel{
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
-                $theme = $model->getTheme(THEME);
+                $theme = $model->getTheme(THEME_DIR, THEME);
                 $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && isset($option['default'])) {
@@ -176,7 +176,7 @@ class ConfigModel{
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $model = Model::instance();
-        $theme = $model->getTheme($name);
+        $theme = $model->getTheme(THEME_DIR, $name);
         if (!$theme) {
             throw new \Ip\CoreException("Theme doesn't exist");
         }

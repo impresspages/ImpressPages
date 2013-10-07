@@ -7,7 +7,6 @@
 
 namespace Modules\developer\modules;
 
-if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/db.php');
 require_once (BASE_DIR.MODULE_DIR.'developer/config_exp_imp/parameters.php');

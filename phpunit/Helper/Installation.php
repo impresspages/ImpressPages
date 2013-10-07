@@ -489,7 +489,7 @@ class Installation
             'ip_config.php',
             'ip_cron.php',
             'ip_license.html',
-            'readme.txt',
+            'readme.md',
             'robots.txt',
             'sitemap.php',
             '.htaccess'
