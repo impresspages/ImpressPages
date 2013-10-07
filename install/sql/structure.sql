@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
   `keywords` mediumtext,
   `description` mediumtext,
   `url` varchar(255) DEFAULT NULL,
+  `dynamic_modules` mediumtext,
   `last_modified` timestamp NULL DEFAULT NULL,
   `modify_track1` timestamp NULL DEFAULT NULL,
   `modify_track2` timestamp NULL DEFAULT NULL,

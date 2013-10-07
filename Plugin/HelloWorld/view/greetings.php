@@ -1,1 +1,0 @@
-<h1>Greetings, <?php echo $name ?>!</h1>
