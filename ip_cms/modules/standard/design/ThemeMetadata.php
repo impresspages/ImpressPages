@@ -25,7 +25,7 @@ class ThemeMetadata
 
     public function setName($name)
     {
-        if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $name)) {
+        if (!preg_match('/^([A-Za-z_][A-Za-z0-9_\-]*)$/', $name)) {
             throw new \Exception('Forbidden characters in theme name: ' . $name);
         }
 
