@@ -19,7 +19,6 @@ require_once (__DIR__.'/site_db.php');
  */
 
 class Element extends \Frontend\Element {
-    protected $dynamicModules;
     protected $linkIgnoreRedirect;
     
     public function hydrate($dbElement)
@@ -38,7 +37,6 @@ class Element extends \Frontend\Element {
         $this->setHtml($dbElement['html']);
         $this->setType($dbElement['type']);
         $this->setRedirectUrl($dbElement['redirect_url']);
-        $this->setDynamicModules($dbElement['dynamic_modules']);
     }
 
     public function getLink($ignoreRedirect = false) {
@@ -69,19 +67,6 @@ class Element extends \Frontend\Element {
         $this->generateDepthAndLink();
 
         return $this->depth;
-    }
-
-
-
-
-
-
-    public function getDynamicModules() {
-        return $this->dynamicModules;
-    }
-
-    public function setDynamicModules($dynamicModules) {
-        $this->dynamicModules=$dynamicModules;
     }
 
     private function generateDepthAndLink() {
