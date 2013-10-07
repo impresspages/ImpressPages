@@ -1685,7 +1685,7 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
     $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
     $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
 
-        $parameterTitle["standard"]["design"]["options"]["theme_dirs"] = "Theme dirs (one per line)";
+        $parameterTitle["standard"]["design"]["options"]["theme_dirs"] = "Theme folders (one per line)";
         $parameterValue["standard"]["design"]["options"]["theme_dirs"] = "";
         $parameterAdmin["standard"]["design"]["options"]["theme_dirs"] = "0";
         $parameterType ["standard"]["design"]["options"]["theme_dirs"] = "textarea";

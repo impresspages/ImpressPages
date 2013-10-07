@@ -1228,7 +1228,7 @@ $parameter["parameterValue/standard/design/admin_translations/available_plugins"
 $parameter["parameterTitle/standard/design/admin_translations/plugin_installed"] = "Note about installed plugin";
 $parameter["parameterValue/standard/design/admin_translations/plugin_installed"] = "Plugin has been successfully installed. Please refresh the browser.";
 
-$parameter["parameterTitle/standard/design/options/theme_dirs"] = "Theme dirs (one per line)";
+$parameter["parameterTitle/standard/design/options/theme_dirs"] = "Theme folders (one per line)";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";
