@@ -5,7 +5,6 @@
  *
  */
 namespace Modules\developer\upload;
-if (!defined('CMS')) exit;
 
 
 

@@ -267,7 +267,7 @@ class Cms {
                                 rmdir($dir.$file);
                             }
                         } else {
-                            if ($file != '.htaccess' && ($file != 'readme.txt' || $depth > 0)) {
+                            if ($file != '.htaccess' && ($file != 'readme.txt' || $depth > 0) && ($file != 'readme.md' || $depth > 0)) {
                                 unlink($dir.$file);
                             }
                         }

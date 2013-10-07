@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\modules_configuration;
 
-if (!defined('BACKEND')) exit;
 class Db{
 
     function deletePermissions($moduleId){

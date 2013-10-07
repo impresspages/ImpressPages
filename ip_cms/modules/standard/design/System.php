@@ -61,7 +61,7 @@ class System{
         }
 
         $model = Model::instance();
-        $theme = $model->getTheme(THEME);
+        $theme = $model->getTheme(THEME_DIR, THEME);
         if (!$theme) {
             throw new \Ip\CoreException("Theme doesn't exist");
         }

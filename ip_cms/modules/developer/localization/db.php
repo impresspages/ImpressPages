@@ -7,7 +7,6 @@
 
 namespace Modules\developer\localization;
 
-if (!defined('CMS')) exit;
 class Db{
 
 

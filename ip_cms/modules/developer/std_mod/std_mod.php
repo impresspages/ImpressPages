@@ -8,7 +8,6 @@
 namespace Modules\developer\std_mod;
 
 
-if (!defined('BACKEND')) exit;
 
 require_once (__dir__.'/std_mod_db.php');
 require_once (__dir__.'/std_mod_html_output.php');

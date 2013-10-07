@@ -8,7 +8,6 @@
 
 
 
-if (!defined('BACKEND')) exit;
 
 //$parameter["parameterValue"] ["standard"]["configuration"]["advanced_options"]["administrator_interface_language"] = "en" //insert RFC 4646 code of language into whish you are translating now
 
@@ -103,6 +102,7 @@ $parameterGroupTitle["standard"]["menu_management"]["admin_translations"] = "Adm
 $parameterGroupTitle["standard"]["menu_management"]["options"] = "Options";
 $parameterGroupTitle["standard"]["seo"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["standard"]["design"]["options"] = "Options";
 
 
 
@@ -1221,6 +1221,14 @@ $parameter["parameterValue/standard/design/admin_translations/default_group"] = 
 
 $parameter["parameterTitle/standard/design/admin_translations/reload_notice"] = "Reload notice";
 $parameter["parameterValue/standard/design/admin_translations/reload_notice"] = "Preview window needs to be reloaded";
+
+$parameter["parameterTitle/standard/design/admin_translations/available_plugins"] = "Available plugins";
+$parameter["parameterValue/standard/design/admin_translations/available_plugins"] = "Available plugins";
+
+$parameter["parameterTitle/standard/design/admin_translations/plugin_installed"] = "Note about installed plugin";
+$parameter["parameterValue/standard/design/admin_translations/plugin_installed"] = "Plugin has been successfully installed. Please refresh the browser.";
+
+$parameter["parameterTitle/standard/design/options/theme_dirs"] = "Theme folders (one per line)";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";

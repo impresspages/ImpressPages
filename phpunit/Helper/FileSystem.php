@@ -122,7 +122,7 @@ class FileSystem
                 rmdir($dir);
             }
         } else {
-            if ($dir != TEST_TMP_DIR.'readme.txt') {
+            if ($dir != TEST_TMP_DIR.'readme.txt' && $dir != TEST_TMP_DIR.'readme.md') {
                 unlink($dir);
             }
         }

@@ -28,21 +28,132 @@ class Model
         return new Model();
     }
 
+
+    protected function getThemePluginDir()
+    {
+        return THEME_DIR . THEME . '/plugins/';
+    }
+
+
+
+    public function getThemePlugins()
+    {
+        if (!is_dir($this->getThemePluginDir())) {
+            return array();
+        }
+
+        $pluginConfigs = array();
+
+        $groups = scandir($this->getThemePluginDir());
+
+        foreach ($groups as $group) {
+            $groupDir = $this->getThemePluginDir() . $group . '/';
+            if (is_dir($groupDir) && $group[0] != '.') {
+                $plugins = scandir($groupDir);
+                foreach ($plugins as $plugin) {
+                    $pluginDir = $groupDir . $plugin . '/';
+                    if (is_dir($pluginDir) && $plugin[0] != '.') {
+                        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($pluginDir);
+                        if ($pluginConfiguration) {
+                            $pluginConfigs[] = $pluginConfiguration;
+                        }
+                    }
+                }
+            }
+        }
+        return $pluginConfigs;
+
+    }
+
+    public function installThemePlugin($pluginGroup, $pluginName)
+    {
+        $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
+        $fromDir = $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
+
+        if (is_dir($toDir)) {
+            throw new \Exception('This plugin has been already installed');
+        }
+
+        if (!is_dir($fromDir)) {
+            throw new \Exception('This plugin has been already installed.');
+        }
+
+        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($fromDir);
+
+        if (!$pluginConfiguration) {
+            throw new \Exception('Can\'t read plugin configuration file.');
+        }
+
+        if (!is_writable(BASE_DIR . PLUGIN_DIR)) {
+            throw new \Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
+        }
+
+        if (!is_dir(BASE_DIR . PLUGIN_DIR . $pluginGroup)) {
+            mkdir(BASE_DIR . PLUGIN_DIR . $pluginGroup);
+        }
+        $helper = Helper::instance();
+        $helper->cpDir($fromDir, $toDir);
+        \Modules\developer\modules\Service::installPlugin($pluginGroup, $pluginName);
+
+
+    }
+
     /**
      * @return Theme[]
      */
     public function getAvailableThemes()
     {
+        $dirs = $this->getThemeDirs();
+        $dirs = array_reverse($dirs); //first dir themes will override the themes from last ones
+        $themes = array();
+        foreach($dirs as $dir) {
+            $themes = array_merge($themes, $this->getFolderThemes($dir));
+        }
+        return $themes;
+
+    }
+
+    /**
+     * first dir themes will override the themes from last ones
+     * @return array
+     */
+    protected function getThemeDirs()
+    {
+        //the order of dirs is very important. First dir themes overrides following ones.
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+
+        $cleanDirs = array();
+
+        $optionDirs = $parametersMod->getValue('standard', 'design', 'options', 'theme_dirs');
+        $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
+        $lines = explode("\n", $optionDirs);
+        foreach ($lines as $line) {
+            if(!empty($line))
+                $cleanDirs[] = trim($line);
+        }
+        return $cleanDirs;
+    }
+
+
+    /**
+     * @param string $folder absolute path
+     * @return array
+     */
+    protected function getFolderThemes($folder)
+    {
+        if (!is_dir($folder)) {
+            return array();
+        }
         $answer = array();
-        if ($handle = opendir(BASE_DIR . THEME_DIR)) {
+        if ($handle = opendir($folder)) {
             while (false !== ($file = readdir($handle))) {
-                if (is_dir(BASE_DIR . THEME_DIR . $file) && $file != '..' && $file != '.' && substr(
+                if (is_dir($folder . $file) && $file != '..' && $file != '.' && substr(
                         $file,
                         0,
                         1
                     ) != '.'
                 ) {
-                    $answer[] = $this->getTheme($file);
+                    $answer[$file] = $this->getTheme($folder, $file);
                 }
             }
             closedir($handle);
@@ -60,17 +171,15 @@ class Model
 
     public function installTheme($themeName)
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        $theme = self::getTheme($themeName);
-
-
-
-        if (!$theme) {
+        $themes = $this->getAvailableThemes();
+        if (!isset($themes[$themeName])) {
             throw new \Ip\CoreException("Theme '" . $themeName . "' does not exist.");
         }
+        $theme = $themes[$themeName];
 
         $configModel = new \Modules\standard\configuration\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
+        $configModel->changeConfigurationConstantValue('THEME_DIR', THEME_DIR, $theme->getPath());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
 
 
@@ -118,13 +227,14 @@ class Model
      * @param $name
      * @return Theme
      */
-    public function getTheme($name)
+    public function getTheme($dir, $name)
     {
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
+        $metadata->setPath($dir);
 
         //old type config
-        $themeIniFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.ini';
+        $themeIniFile = $dir . $name . '/' . self::INSTALL_DIR . 'theme.ini';
         if (file_exists($themeIniFile)) {
             $iniConfig = $this->parseThemeIni($themeIniFile);
         } else {
@@ -132,11 +242,11 @@ class Model
         }
 
         //new type config
-        $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'Theme.json';
+        $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'Theme.json';
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $themeJsonFile = BASE_DIR . THEME_DIR . $name . '/' . self::INSTALL_DIR . 'theme.json';
+            $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'theme.json';
             if (file_exists($themeJsonFile)) {
                 $jsonConfig = $this->parseThemeJson($themeJsonFile);
             } else {

@@ -25,7 +25,7 @@ class ThemeMetadata
 
     public function setName($name)
     {
-        if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $name)) {
+        if (!preg_match('/^([A-Za-z_][A-Za-z0-9_\-]*)$/', $name)) {
             throw new \Exception('Forbidden characters in theme name: ' . $name);
         }
 
@@ -65,6 +65,11 @@ class ThemeMetadata
     public function setWidgetOptions($widgetOptions)
     {
         $this->metadata['widgetOptions'] = $widgetOptions;
+    }
+
+    public function setPath($path)
+    {
+        $this->metadata['path'] = $path;
     }
 
     public function getMetadata()

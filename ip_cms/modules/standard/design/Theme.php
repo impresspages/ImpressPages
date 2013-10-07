@@ -31,9 +31,9 @@ class Theme
     public function getThumbnailUrl()
     {
         if ($this->thumbnail) {
-            $image = BASE_URL . THEME_DIR . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
+            $image = BASE_URL . $this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
         } else {
-            $image = BASE_URL.MODULE_DIR.'standard/design/public/theme.png';
+            $image = BASE_URL . MODULE_DIR . 'standard/design/public/theme.png';
         }
         return $image;
     }
@@ -41,6 +41,11 @@ class Theme
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
     }
 
     public function getTitle()
