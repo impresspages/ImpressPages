@@ -165,7 +165,7 @@ class ImageCropCenter extends Image
          * Our $image is required proportions. The only thing we need to do is to scale the image and save.
          */
 
-        $imageNew = imagecreatetruecolor($widthDest, $heightDest);
+        $imageNew = $this->createEmptyImage($widthDest, $heightDest);
         imagealphablending($imageNew, false);
         imagesavealpha($imageNew,true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);

@@ -87,6 +87,10 @@ body {
 .ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
     display: block;
 }
+.ipModuleDesign .ipmPlugins {
+    clear: both;
+    padding-top: 10px;
+}
 .ipModuleDesign .ipmThemesList .ipmThemePreview {
     border: 1px solid #fff;
     height: 132px;

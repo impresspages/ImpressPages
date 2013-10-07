@@ -6,7 +6,6 @@
  */
 namespace Library\Php\StandardModule;
 
-if (!defined('BACKEND')) exit;
 
 class element_pass extends Element{ //data element in area
     var $mem_value;

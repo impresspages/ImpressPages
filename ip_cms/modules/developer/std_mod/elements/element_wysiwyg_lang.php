@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 class ElementWysiwygLang extends Element{ //data element in area
     var $translationField;
     var $translationTable;

@@ -70,9 +70,9 @@ class Service
     }
 
 
-    public function getTheme($themeName)
+    public function getTheme($dir, $themeName)
     {
-        return Model::instance()->getTheme($themeName);
+        return Model::instance()->getTheme($dir, $themeName);
     }
 
     public function saveWidgetOptions(Theme $theme)

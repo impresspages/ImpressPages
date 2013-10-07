@@ -6,7 +6,6 @@
  */
 namespace Library\Php\StandardModule;
 
-if (!defined('BACKEND')) exit;
 
 class element_hidden extends Element{ //data element in area
     var $default_value;
