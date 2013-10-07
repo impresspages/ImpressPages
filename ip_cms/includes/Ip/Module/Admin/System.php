@@ -17,16 +17,10 @@ class System {
 
     public function catchAdminLogin(\Ip\Event $event)
     {
-        if (
-            $_SERVER['REQUEST_URI'] == '/admin'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin/'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin.php'
-            ||
-            $_SERVER['REQUEST_URI'] == '/admin.php/'
+        $request = \Ip\ServiceLocator::getRequest();
+        $relativePath = $request->getRelativePath();
 
-        ) {
+        if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
             $event->addProcessed();
             self::$disablePanel = true;
             $controller = new \Ip\Module\Admin\SiteController();
