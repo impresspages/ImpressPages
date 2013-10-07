@@ -11,11 +11,11 @@ class System {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         $dispatcher->bind('site.afterInit', array($this, 'initAdmin'));
-        $dispatcher->bind('site.beforeError404', array($this, 'catchAdminLogin'));
+        $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
     }
 
-    public function catchAdminLogin(\Ip\Event $event)
+    public function catchAdminUrls(\Ip\Event $event)
     {
         $request = \Ip\ServiceLocator::getRequest();
         $relativePath = $request->getRelativePath();
@@ -25,6 +25,11 @@ class System {
             self::$disablePanel = true;
             $controller = new \Ip\Module\Admin\SiteController();
             $controller->login();
+        }
+
+        if ('ip_backend_frames.php' == $relativePath) {
+            header('Location: ' . BASE_URL . 'admin');
+            exit();
         }
     }
 
