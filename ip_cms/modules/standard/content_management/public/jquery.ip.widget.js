@@ -65,36 +65,52 @@
                 
                 // mange action
                 $this.delegate('.ipWidget .ipActionWidgetManage', 'click', function(event) {
+                	if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     event.preventDefault();
                     $(this).trigger('manageClick.ipWidget');
                 });
                 $this.bind('manageClick.ipWidget', function(event) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     $(this).ipWidget('manage');
                 });
 
                 // save acion
                 $this.delegate('.ipWidget .ipActionWidgetSave', 'click', function(event) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     event.preventDefault();
                     $(this).trigger('saveWidget.ipWidget');
                 });
                 $this.bind('saveWidget.ipWidget', function(event) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     $(this).ipWidget('save');
                 });
 
                 // cancel acion
                 $this.delegate('.ipWidget .ipActionWidgetCancel', 'click', function(event) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     event.preventDefault();
                     $(this).trigger('cancelWidget.ipWidget');
                 });
                 $this.bind('cancelWidget.ipWidget', function(event) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     $(this).ipWidget('cancel');
                 });
 
                 $this.bind('preparedWidgetData.ipWidget', function(event, widgetData) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     $(this).ipWidget('_saveData', widgetData);
                 });
                 
                 $this.bind('saveProgress.ipWidget', function(event, progress, timeLeft) {
+                    if ( $(event.target).closest('.ipWidget')[0] != $this[0])
+                		return; // not for me
                     $(this).ipWidget('_saveProgress', progress, timeLeft);
                 });
 
@@ -257,6 +273,9 @@
             $newWidget.trigger('statePreview.ipWidget',{
                 'instanceId': response.instanceId
             });
+            
+            // init any new blocks the widget may have created
+            $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
             
             var tmpData = $newWidget.data('ipWidget');
             tmpData.state = IP_WIDGET_STATE_PREVIEW;
