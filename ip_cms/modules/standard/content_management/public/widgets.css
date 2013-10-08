@@ -834,10 +834,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget:hover {
     outline: #4d4d4d dashed 1px;
 }
-.ipWidget:hover .ipAdminWidgetControls {
+.ipWidget:hover > .ipAdminWidgetControls {
     border-color: #000;
 }
-.ipWidget:hover .ipAdminWidgetControls .ipaButton,
+.ipWidget:hover > .ipAdminWidgetControls .ipaButton,
 body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
     visibility: visible;
 }

@@ -29,6 +29,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $this->type('css=#db_pass', 'wrong'); //wrong password
         $this->type('css=#db_db', $testDbHelper->getDbName());
         $this->click('css=.button_act');
+        sleep(1);
         $this->assertTextPresent('Can\'t connect to database');
 
 
