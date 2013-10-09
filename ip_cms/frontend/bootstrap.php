@@ -46,6 +46,8 @@
     }
     /*eof check if the website is closed*/
 
+    \Ip\Translator::init();
+
     if(!defined('BACKEND')){
         $session = \Ip\ServiceLocator::getSession();
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
