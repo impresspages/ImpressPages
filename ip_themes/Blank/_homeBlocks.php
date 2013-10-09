@@ -5,23 +5,25 @@
  * @var $this \Ip\View
  */
 ?>
-<?php
-$exampleContent = '
+<?php ob_start(); // Example content ?>
 <div class="ipWidget ipPreviewWidget ipWidget-IpImage ipLayout-default">
-<img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
+    <img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
-<h2 class="ipwTitle">This is a level2 headline</h2>
+    <h2 class="ipwTitle"><?php echo __('This is a level2 headline', 'theme-Blank') ?></h2>
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
-<p>Here is a text block where to can put any information. It supports <strong>bold</strong>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>. You can make lists:</p>
+<?php echo __('<p>Here is a text block where to can put any information.
+It supports <strong>bold</strong>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>
+You can make lists:
+</p>
 <ul>
 <li>You add widgets to any block by simply dragging and dropping;</li>
 <li>You can paste any content to text widget and it will adapt to your website styles automatically;</li>
 <li>And many more.</li>
-</ul></div>
-';
-?>
+</ul>', 'theme-Blank'); ?>
+</div>
+<?php $exampleContent = ob_get_clean(); ?>
 
 <div class="homerow clearfix">
 
