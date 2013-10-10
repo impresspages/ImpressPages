@@ -342,29 +342,10 @@ class Site{
             }
                 
             if (!$this->currentZone) {
-                $this->homeZone();
-            }
-
-            if (!$this->currentZone) {
                 $this->error404();
             }
         }
     }
-
-    protected function homeZone()
-    {
-        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zone) {
-            if ($zone['url'] == '') {
-                $this->currentZone = $zone['name'];
-                array_unshift($this->urlVars, urlencode($this->zoneUrl));
-                $this->zoneUrl = '';
-                break;
-            }
-        }
-    }
-
-
 
     /*
      * Check if current zone can find current page.
@@ -654,9 +635,8 @@ class Site{
      * @return string - requested link or link to first page of current language if all parameters are not specified or null
      */
     public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
-
         global $parametersMod;
-
+         
         if($languageId == null){
             $languageId = $this->currentLanguage['id'];
         }
@@ -680,9 +660,7 @@ class Site{
         if($zoneName != null){
             if($languageId == $this->currentLanguage['id']){ //current language
                 if(isset($this->zones[$zoneName])){
-                    if ($this->zones[$zoneName]['url']) {
-                        $answer .= urlencode($this->zones[$zoneName]['url']).'/';
-                    }
+                    $answer .= urlencode($this->zones[$zoneName]['url']).'/';
                 }else{
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -860,9 +838,11 @@ class Site{
             }
         }
 
+
+
+
         //old deprecated way. Need to refactor to controllers
         $currentZone = $this->getZone($this->currentZone);
-
         if ($currentZone) {
             $currentZone->makeActions(); 
         }
