@@ -8,7 +8,8 @@
  *  jquery.ui.widget.js
  *  jquery.ui.mouse.js
  */
-(function ($) {
+alert('test');
+(function ($) {alert('test');
 
     // Detect touch support
     $.support.touch = 'ontouchend' in document;

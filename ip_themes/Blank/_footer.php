@@ -16,7 +16,6 @@
     $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
     $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js');
     $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
-    $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/drag.js?1');
     echo $site->generateJavascript();
 ?>
 </body>
