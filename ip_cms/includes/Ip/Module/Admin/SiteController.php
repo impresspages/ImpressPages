@@ -52,6 +52,14 @@ class SiteController extends \Ip\Controller{
 
     public function login()
     {
+        if (\Ip\Backend::userId()) {
+            //user has already been logged in
+            $this->redirect(BASE_URL . '?cms_action=manage');
+            return;
+        }
+
+
+
         $site = \Ip\ServiceLocator::getSite();
 
         global $cms;
