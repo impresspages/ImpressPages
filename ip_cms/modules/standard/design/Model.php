@@ -131,7 +131,14 @@ class Model
             if(!empty($line))
                 $cleanDirs[] = trim($line);
         }
+        $cleanDirs = array_merge($cleanDirs, array(THEME_DIR));
         return $cleanDirs;
+    }
+
+    public function getThemeInstallDir()
+    {
+        $themeDirs = $this->getThemeDirs();
+        return array_shift($themeDirs);
     }
 
 

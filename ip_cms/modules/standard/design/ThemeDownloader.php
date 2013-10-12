@@ -28,6 +28,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
     public function downloadTheme($name, $url, $signature)
     {
+        $model = Model::instance();
         //download theme
         $net = \Library\Php\Net::instance();
         $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_SECURE_DIR, $name . '.zip');
@@ -58,8 +59,9 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         //install
         $extractedDir = $helper->getFirstDir(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
-        $newThemeDir = \Library\Php\File\Functions::genUnoccupiedName($name, BASE_DIR . THEME_DIR);
-        rename(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir . '/' . $extractedDir, BASE_DIR . THEME_DIR . $newThemeDir);
+        $installDir = $model->getThemeInstallDir();
+        $newThemeDir = \Library\Php\File\Functions::genUnoccupiedName($name, $installDir);
+        rename(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir . '/' . $extractedDir, $installDir . $newThemeDir);
 
     }
 

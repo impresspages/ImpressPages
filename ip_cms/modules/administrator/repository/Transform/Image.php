@@ -64,7 +64,7 @@ abstract class Image extends Base
             $megabytesNeeded = ceil((memory_get_usage() + $memoryNeeded + $extra)) / pow(1024, 2);
             $stringNeeded = $megabytesNeeded . 'M';
             $success = ini_set('memory_limit', $stringNeeded);
-            if ($stringNeeded != $success) {
+            if ($stringNeeded != $success && $success !== "-1") {
                 throw new \Modules\administrator\repository\TransformException("Not enough memory. Please increase memory limit to $stringNeeded ");
             }
             return true;
