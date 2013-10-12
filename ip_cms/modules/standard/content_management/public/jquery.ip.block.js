@@ -109,22 +109,51 @@
                 $this.children('.ipWidget').ipWidget(widgetOptions);
 
                 $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
+                    // ignore events which bubble up from nested blocks
+                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
+                        return;
                     event.preventDefault();
                     $(this).trigger('deleteClick.ipBlock');
                 });
 
                 $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event) {
-                    var instanceId = $(this).data('ipWidget').instanceId;
-                    $(this).trigger('deleteWidget.ipBlock', {
+                    // ignore events which bubble up from nested blocks
+                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
+                        return;
+                    // trigger deleteWidget event for the widget in question,
+                    // as well as any subwidgets it may host
+                    // TODO: sending n requests for n widgets may not be the
+                    //       most elegant thing to do, however the backend does
+                    //       not know a thing about nesting (to fix this, the 
+                    //       backend must be extended so it can delete more than
+                    //       one widget in a single request). 
+                    var $instance = $(this),
+                        instanceData = $instance.data('ipWidget'),
+                        instanceId = instanceData.instanceId,
+                        $subwidgets = $instance.find('.ipWidget');
+                    
+                    $subwidgets.each(function () {
+                        $(this).trigger('deleteWidget.ipBlock', {
+                            'instanceId': $(this).data('ipWidget').instanceId
+                        });
+                    });
+                    
+                    $instance.trigger('deleteWidget.ipBlock', {
                         'instanceId': instanceId
                     });
                 });
 
                 $this.bind('deleteWidget.ipBlock', function(event, data) {
+                    // ignore events which bubble up from nested blocks
+                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
+                        return;
                     $(this).ipBlock('deleteWidget', data.instanceId);
                 });
 
                 $this.bind('reinitRequired.ipWidget', function(event) {
+                    // ignore events which bubble up from nested blocks
+                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
+                        return;
                     $(this).ipBlock('reinit');
                 });
 
@@ -241,11 +270,12 @@
         }
 
         if (response.status == 'success') {
+        	var $newWidget = $(response.widgetManagementHtml);
             if (response.position == 0) {
-                $(this).prepend(response.widgetManagementHtml);
+                $(this).prepend($newWidget);
             } else {
                 $secondChild = $(this).children('.ipWidget:nth-child(' + response.position + ')');
-                $(response.widgetManagementHtml).insertAfter($secondChild);
+                $($newWidget).insertAfter($secondChild);
             }
             $this.trigger('reinitRequired.ipWidget');
             $this.trigger('stateManagement.ipWidget',{
