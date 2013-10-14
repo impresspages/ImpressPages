@@ -1,4 +1,27 @@
 branches:
   only:
     - evolution
+    - develop
     - /^feature-.*$/
+language: php
+php:
+  - 5.3
+notifications:
+  email: false
+before_script:
+  - cd phpunit
+#  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
+  - pyrus set auto_discover 1
+  - pyrus install --force phpunit/DbUnit
+  - pyrus install --force phpunit/PHPUnit_Selenium
+  - mysql -e 'create database ip_test;'
+  - mysql ip_test < ip_test.sql
+
+  # Selenium
+#  - "sh -e /etc/init.d/xvfb start"
+#  - "export DISPLAY=:99.0"
+#  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar -nv"
+#  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
+#  - sleep 5
+
+script: phpunit --configuration config.xml Tests/

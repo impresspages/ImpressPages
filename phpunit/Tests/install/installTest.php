@@ -152,10 +152,10 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         );
 
         $files = array(
-            'admin.php',
+//            'admin.php',
             'favicon.ico',
             'index.php',
-            'ip_backend_frames.php',
+//            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
             'ip_cron.php',

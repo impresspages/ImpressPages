@@ -84,7 +84,6 @@ class SiteController extends \Ip\Controller{
         //create form object
         $form = new \Modules\developer\form\Form();
 
-
         //add text field to form object
         $field = new \Modules\developer\form\Field\Hidden(
             array(
@@ -125,6 +124,7 @@ class SiteController extends \Ip\Controller{
             array(
                 'defaultValue' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
             ));
+        $field->addClass('ipsLoginButton');
         $form->addField($field);
 
 
