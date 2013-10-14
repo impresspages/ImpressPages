@@ -8,6 +8,7 @@
  *  jquery.ui.widget.js
  *  jquery.ui.mouse.js
  */
+
 (function ($) {
 
     // Detect touch support

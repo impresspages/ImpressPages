@@ -52,7 +52,11 @@ class SiteController extends \Ip\Controller{
 
     public function login()
     {
-
+        if (\Ip\Backend::userId()) {
+            //user has already been logged in
+            $this->redirect(BASE_URL . '?cms_action=manage');
+            return;
+        }
 
 
 
@@ -68,7 +72,8 @@ class SiteController extends \Ip\Controller{
         $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL . INCLUDE_DIR . 'Ip/Module/Admin/Public/login.js');
 
-
+        $config = \Ip\ServiceLocator::getConfig();
+        $site->removeJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
         $view = \Ip\View::create('View/login.php', $variables);
         $site->setOutput($view);
     }
