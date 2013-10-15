@@ -5,6 +5,8 @@ var ipAdmin = new function () {
     this.init = function () {
         $('body').append($adminMenu);
         $('body').append($(ipAdminToolbar));
+        $('body').css('paddingTop', '30px');
+
 
         $('.ipsAdminMenu').on('hover', function (e) {
             e.preventDefault();
