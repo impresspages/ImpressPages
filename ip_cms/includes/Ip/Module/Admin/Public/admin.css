@@ -1,28 +1,28 @@
-.ipModuleAdminToolbar {
+.ipAdminToolbar {
     position: fixed;
-    top: 80px;
-    left: 0;
-    width: 150px;
-    padding: 10px;
-    background-color: #fff;
-    border-right: 1px solid #000;
-    height: 100%;
-    padding-top: 100px; /* //TODOX temporary */
-}
-
-.ipModuleAdminNavigation {
-    position: fixed;
-    top: 0;
+    top: 0px;
     left: 0;
     width: 100%;
     padding: 10px;
     background-color: #fff;
-    border-bottom: 1px solid #000;
-    height: 45px;
-    z-index: 1001;
+    z-index: 1000;
+    overflow: hidden;
 }
 
-.ipModuleAdminNavigation ul.level1 li {
+.ipAdminMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #000;
+    height: 45px;
+    width: 0px;
+    z-index: 1001;
+    overflow: hidden;
+}
+
+.ipModuleAdminMenu ul.level1 li {
     display: inline;
     list-style-type: none;
     padding-right: 20px;
