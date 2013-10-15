@@ -122,7 +122,7 @@ class FileSystem
                 rmdir($dir);
             }
         } else {
-            if ($dir != TEST_TMP_DIR.'readme.txt' && $dir != TEST_TMP_DIR.'readme.md') {
+            if ($dir != TEST_TMP_DIR.'readme.txt' && $dir != TEST_TMP_DIR.'readme.md' && $dir != TEST_TMP_DIR.'.gitignore') {
                 unlink($dir);
             }
         }
