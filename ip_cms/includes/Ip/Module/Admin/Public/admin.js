@@ -33,7 +33,7 @@ var ipAdmin = new function () {
                 //do nothing
             }
         });
-    }
+    };
 
     var showAdminMenu = function () {
         var newWidth = 200;
