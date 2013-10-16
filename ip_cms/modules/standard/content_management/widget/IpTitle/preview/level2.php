@@ -1,1 +1,1 @@
-<h2 class="ipwTitle"><?php echo htmlspecialchars(isset($title) ? $title : '' ); ?></h2>
+<h2 <?php echo isset($id) ? 'id="'.$this->esc($id).'"': '' ?>  class="ipwTitle"><?php echo htmlspecialchars(isset($title) ? $title : '' ); ?></h2>

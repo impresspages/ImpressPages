@@ -705,6 +705,15 @@ Move to separate stylesheet if invalid CSS is a problem.
     background-position: -24px -48px;
 }
 
+/* Widget: IpTitle */
+.ipAdminWidget-IpTitle .ipAdminButton {
+    margin-bottom: 10px;
+}
+
+.ipAdminWidget-IpTitle .ipmAnchorPreview {
+    font-weight: normal;
+}
+
 /* Widget: IpText
    Widget: IpRichText
    Widget: IpTable */

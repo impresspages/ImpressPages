@@ -12,6 +12,14 @@ if (!defined('CMS')) exit;
 
 class IpTitle extends \Modules\standard\content_management\Widget{
 
+    public function managementHtml($instanceId, $data, $layout) {
+        $curUrl = \Ip\ServiceLocator::getRequest()->getUrl();
+        $parts = explode('?', $curUrl);
+        $curUrl = $parts[0];
+        $data['curUrl'] = $curUrl;
+        return parent::managementHtml($instanceId, $data, $layout);
+    }
+
 
     public function getTitle() {
         global $parametersMod;
