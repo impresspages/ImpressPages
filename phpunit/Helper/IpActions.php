@@ -39,14 +39,14 @@ class IpActions
         $loggedIn = true;
 
         try  {
-            $this->testCase->assertElementNotPresent('css=.loginSubmit');
+            $this->testCase->assertElementNotPresent('css=.ipsLoginButton');
         } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
             $loggedIn = false;
         }
         if (!$loggedIn) {
-            $this->testCase->type('css=.loginInput:eq(0)', $this->installation->getAdminLogin());
-            $this->testCase->type('css=.loginInput:eq(1)', $this->installation->getAdminPass());
-            $this->testCase->clickAndWait('css=.loginSubmit');
+            $this->testCase->type('css=.ipmControlInput[name=login]', $this->installation->getAdminLogin());
+            $this->testCase->type('css=.ipmControlInput[name=password]', $this->installation->getAdminPass());
+            $this->testCase->clickAndWait('css=.ipsLoginButton');
         }
         $this->testCase->waitForElementPresent('css=.ipActionPublish');
     }
@@ -91,11 +91,8 @@ class IpActions
     {
         switch ($module) {
             case 'system':
-                $this->testCase->open($this->installation->getInstallationUrl().'admin.php');
-                $this->testCase->waitForElementPresent('css=.ipAdminNavLinks ul > li:eq(2) > ul > li:eq(3) > a');
-                $this->testCase->storeAttribute('css=.ipAdminNavLinks ul > li:eq(2) > ul > li:eq(3) > a@href', 'systemModuleLink');
-                $systemModuleLink = $this->testCase->getExpression('${systemModuleLink}');
-                $this->testCase->open($systemModuleLink);
+                $this->testCase->open($this->installation->getInstallationUrl().'?g=administrator&m=system&aa=index');
+                $this->testCase->waitForElementPresent('css=.ipsClearCache');
                 break;
             default:
                 throw new \Exception("Unknown error");

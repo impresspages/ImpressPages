@@ -39,8 +39,6 @@ class System {
         $config = \Ip\ServiceLocator::getConfig();
 
         if (!self::$disablePanel && ($site->managementState() || !empty($_SESSION['backend_session']['user_id']))) {
-            $site->addJavascriptContent('bodyMargin', "window.document.body.style.marginTop = '60px';", -1);
-
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
             //add tool bar

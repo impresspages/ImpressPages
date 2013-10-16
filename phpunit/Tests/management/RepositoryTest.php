@@ -57,6 +57,7 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->waitForElementPresent('css=#ipModuleRepositoryTabUpload .ipmList li');
         $this->click('css=#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipaConfirm');
 
+        sleep(2); //wait for popup to close
         $this->waitForElementPresent('css=.ipWidget_ipFile_container input');
         $this->click('css=.ipaConfirm');
         $this->waitForElementPresent('css=.ipWidget-IpFile a');

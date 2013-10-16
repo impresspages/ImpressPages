@@ -40,6 +40,32 @@ class Module{
     }
 
     /**
+     * The same as log, but sends an email.
+     * @param string $module 'modulegroup/modulename'
+     * @param string $name Meaning of log: error, status, action and so on.
+     * @param string $valueStr
+     * @param int $valueInt
+     * @param float $valueFloat
+     * @return null
+     */
+    public static function logError($module, $name, $valueStr = null , $valueInt = null, $valueFloat = null)
+    {
+        self::log($module, $name, $valueStr, $valueInt, $valueFloat);
+        if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
+            $queue = new \Modules\administrator\email_queue\Module();
+            $message = 'SERVER ERROR<br/><br/>';
+            $message .= $module.'<br/>';
+            $message .= $name.'<br/>';
+            $message .= $valueStr.'<br/>';
+            $message .= $valueInt.'<br/>';
+            $message .= $valueFloat.'<br/>';
+            $queue->addEmail(ERRORS_SEND, '', ERRORS_SEND, '', BASE_URL." CRITICAL ERROR", $message, true, true);
+            $queue->send();
+        }
+
+    }
+
+    /**
      * @param int $minutes
      * @param string $module
      * @return int count of logs, made by specified module in last $minutes

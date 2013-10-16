@@ -119,7 +119,7 @@ class Module
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
             curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);
 
             if (json_decode($answer) === null) { //json decode error

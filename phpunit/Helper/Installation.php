@@ -54,7 +54,7 @@ class Installation
         $this->setDbHost('localhost');
         $this->setDbUser(TEST_DB_USER);
         $this->setDbPass(TEST_DB_PASS);
-        $this->setDbPrefix('ipt_');
+        $this->setDbPrefix('ip_');
         $this->setSiteName('TestSite');
         $this->setSiteEmail('test@example.com');
         $this->setSiteTimeZone('Europe/London');
@@ -481,10 +481,10 @@ class Installation
         );
 
         $files = array(
-            'admin.php',
+//            'admin.php',
             'favicon.ico',
             'index.php',
-            'ip_backend_frames.php',
+//            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
             'ip_cron.php',
