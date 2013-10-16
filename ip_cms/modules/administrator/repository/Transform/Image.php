@@ -48,7 +48,7 @@ abstract class Image extends Base
     protected function createEmptyImage($width, $height)
     {
         $trueColor = 1;
-        $this->aloccateMemory($width*$height*(2.2+($trueColor*3)));
+        $this->allocateMemory($width*$height*(2.2+($trueColor*3)));
         return imagecreatetruecolor($width, $height);
     }
 
