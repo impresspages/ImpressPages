@@ -6,7 +6,6 @@
     padding: 10px;
     background-color: #fff;
     z-index: 1000;
-    overflow: hidden;
 }
 
 .ipAdminMenu {
@@ -19,7 +18,8 @@
     height: 45px;
     width: 0px;
     z-index: 1001;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .ipModuleAdminMenu ul.level1 li {
