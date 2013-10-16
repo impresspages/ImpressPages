@@ -177,13 +177,16 @@ Move to separate stylesheet if invalid CSS is a problem.
     left: 0;
     min-width: 860px;
     position: fixed;
-    top: 60px;
+    top: 30px;
     width: 100%;
     z-index: 1000;
 }
 .ipAdminWidgets {
     margin: 10px 250px 10px 0;
     position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .ipAdminWidgetsScroll {
     background: url(../img/icons_scroll.png) no-repeat;

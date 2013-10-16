@@ -26,13 +26,21 @@ class Model{
         $oldCmsInterface = new OldCmsInterface();
         $moduleGroups = $this->getOldModules(true, $this->getUserId());
 
-        foreach($moduleGroups as $group) {
+        foreach($moduleGroups as $groupKey => $group) {
+            $newItem = new \Ip\Menu\Item();
+            $newItem->setTitle($groupKey);
+
+
+            $children = array();
             foreach($group as $module) {
-                $newItem = new \Ip\Menu\Item();
-                $newItem->setTitle($module['translation']);
-                $newItem->setUrl($oldCmsInterface->generateUrl($module['id']));
-                $answer[] = $newItem;
+                $moduleItem = new \Ip\Menu\Item();
+                $moduleItem->setTitle($module['translation']);
+                $moduleItem->setUrl($oldCmsInterface->generateUrl($module['id']));
+                $children[] = $moduleItem;
             }
+            $newItem->setChildren($children);
+            $answer[] = $newItem;
+
         }
 
         return $answer;

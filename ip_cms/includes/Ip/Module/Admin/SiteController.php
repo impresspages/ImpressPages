@@ -50,6 +50,12 @@ class SiteController extends \Ip\Controller{
         $this->returnJson($answer);
     }
 
+    public function logout()
+    {
+        Model::instance()->logout();
+        $this->redirect(BASE_URL.'admin/');
+    }
+
     public function login()
     {
         if (\Ip\Backend::userId()) {
