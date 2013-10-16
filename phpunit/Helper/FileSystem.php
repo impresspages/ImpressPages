@@ -16,11 +16,18 @@ class FileSystem
 
 
     public function cpDir( $source, $destination ) {
+
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
+
+//        `cp -r $source $destination`;
+//        return;
         
         if (is_dir( $source ) ) {
-            @mkdir($destination);
+            if (!is_dir($destination)) {
+                mkdir($destination);
+            }
+
             $directory = dir( $source );
             while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
                 if ( $readdirectory == '.' || $readdirectory == '..' ) {
@@ -62,6 +69,9 @@ class FileSystem
         if(!file_exists($dir)) {
             return false;
         }
+
+//        system(sprintf("chmod -R %o %s", $permissions, $dir));
+//        return;
 
         $success = chmod($dir, $permissions);
         if (!$success) {
