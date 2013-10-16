@@ -834,6 +834,11 @@ class Site{
                     } else {
                         $action = 'index';
                     }
+                    //check if user is logged in
+                    if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
+                        throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
+                    }
+
 
                     if ($this->isDefaultModule($module)) {
                         $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
@@ -1179,6 +1184,11 @@ class Site{
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
+                if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
+                    //no plugin initialization in safe mode
+                    continue;
+                }
+
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
@@ -1225,6 +1235,11 @@ class Site{
     public function generateOutput() {
 
         if (!isset($this->output)) {
+            if (\Ip\Module\Admin\Model::isSafeMode()) {
+                return \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/safeModeLayout.php', array())->render();
+            }
+
+
             $layout = $this->getLayout();
             if ($layout) {
                 $this->output = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $layout, array())->render();

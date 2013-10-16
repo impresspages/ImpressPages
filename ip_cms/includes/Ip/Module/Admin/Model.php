@@ -46,6 +46,19 @@ class Model{
         return $answer;
     }
 
+    public static function setSafeMode($value)
+    {
+        $_SESSION['module']['admin']['safemode'] = (bool) $value;
+    }
+
+    public static function isSafeMode()
+    {
+        if (isset($_SESSION['module']['admin']['safemode'])) {
+            return (bool) $_SESSION['module']['admin']['safemode'];
+        }
+        return false;
+    }
+
     protected function getOldModules($managed = null, $userId = null) {
         global $cms;
         $groups = array();
