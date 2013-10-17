@@ -29,18 +29,15 @@ class Model{
         foreach($moduleGroups as $groupKey => $group) {
             $newItem = new \Ip\Menu\Item();
             $newItem->setTitle($groupKey);
+            $newItem->setType('inactive');
+            $answer[] = $newItem;
 
-
-            $children = array();
             foreach($group as $module) {
                 $moduleItem = new \Ip\Menu\Item();
                 $moduleItem->setTitle($module['translation']);
                 $moduleItem->setUrl($oldCmsInterface->generateUrl($module['id']));
-                $children[] = $moduleItem;
+                $answer[] = $moduleItem;
             }
-            $newItem->setChildren($children);
-            $answer[] = $newItem;
-
         }
 
         return $answer;
