@@ -1385,10 +1385,10 @@ class StandardModule {
 
         if($this->current_area->permission != "read_only" && $this->current_area->permission != "update_only")
         $answer .= '
-			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
+			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
 
         if($this->current_area->searchable)
-        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
+        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
 
 
         $answer .= '</ul>';
@@ -1440,7 +1440,7 @@ class StandardModule {
         if(sizeof($this->errors) != 0) {
             $answer .= '
 			<script type="text/javascript">
-				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\';
+				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\';
 				document.getElementById(\'std_mod_new_popup\').style.display = \'block\';
 			</script>
 			';
