@@ -19,7 +19,9 @@ var ipAdmin = new function () {
         });
 
         //prevent session expire
-        setInterval(refreshSession, ipAdminSessionRefresh * 1000);
+        if (typeof(ipAdminSessionRefresh) !== 'undefined') {
+            setInterval(refreshSession, ipAdminSessionRefresh * 1000);
+        }
 
     };
 
