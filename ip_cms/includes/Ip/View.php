@@ -305,6 +305,11 @@ class View{
        
     }
 
+    /**
+     * @param $file
+     * @return bool|string
+     * @throws CoreException
+     */
     private static function findView($file) {
         $backtrace = debug_backtrace();
         if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
@@ -328,7 +333,6 @@ class View{
         if (strpos($file, BASE_DIR) !== 0) {
             $file = dirname($sourceFile).'/'.$file;
         }
-
 
 
         $moduleView = ''; //relative link to view according to modules root.
@@ -420,17 +424,24 @@ class View{
     /**
      * @param string $menuKey any unique string that identifies this menu within this theme.
      * @param string | \Ip\Menu\Item[] $items zone name as string or array of menu items
+     * @param string $viewFile absolute or relative
      */
-    public function generateMenu($menuKey, $items)
+    public function generateMenu($menuKey, $items, $viewFile = null)
     {
         if(is_string($items)) {
             $items = \Ip\Menu\Helper::getZoneItems($items);
         }
         $data = array(
+            'menuKey' => $menuKey,
             'items' => $items,
             'depth' => 1
         );
-        $view = self::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/menu.php', $data);
+
+        if ($viewFile === null) {
+            $viewFile = BASE_DIR.MODULE_DIR.'standard/configuration/view/menu.php';
+        }
+        $viewFile = self::findView($viewFile);
+        $view = self::create($viewFile, $data);
         return $view->render();
     }
 
