@@ -629,7 +629,7 @@ class Controller extends \Ip\Controller{
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
             $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
         } else {
-            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$revisionId; 
+            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$lastRevision['revisionId'];
         }
 
         $data = array (
