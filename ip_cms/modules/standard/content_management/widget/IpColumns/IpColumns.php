@@ -10,9 +10,8 @@ namespace Modules\standard\content_management\widget;
 class IpColumns extends \Modules\standard\content_management\Widget {
 	
 	public function getTitle() {
-        //global $parametersMod;
-        //return $parametersMod->getValue('standard', 'content_management', 'widget_text', 'menu_mod_multicolumn');
-        return "{{Columns}}";
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+        return $parametersMod->getValue('standard', 'content_management', 'widget_columns', 'widget_title');
     }
 
 
@@ -29,6 +28,9 @@ class IpColumns extends \Modules\standard\content_management\Widget {
         // to persist it in widget data.
         if (!array_key_exists('baseId', $data) || !$data['baseId']) {
             $data['baseId'] = $instanceId;
+        }
+        if (empty($data['columns'])) {
+            $data['columns'] = 2;
         }
         return parent::managementHtml($instanceId, $data, $layout);
     }

@@ -75,9 +75,6 @@ class System{
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
             $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
-            $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
-
         }
 
     }

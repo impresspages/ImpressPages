@@ -708,6 +708,13 @@ Move to separate stylesheet if invalid CSS is a problem.
     background-position: -24px -48px;
 }
 
+/* Widget: IpColumns */
+.ipAdminWidget-IpColumns input {
+    width: 50px;
+    text-align: right;
+}
+
+
 /* Widget: IpTitle */
 .ipAdminWidget-IpTitle .ipAdminButton {
     margin-bottom: 10px;
