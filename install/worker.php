@@ -55,11 +55,27 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     $error = false;
     $conn = mysql_connect($_POST['server'], $_POST['db_user'], $_POST['db_pass']);
     if(!$conn) {
-        $error = true;
         echo '{errorCode:"ERROR_CONNECT", error:""}';
         exit;
-    } else {
-        if(mysql_select_db($_POST['db'], $conn)){
+    }
+
+    {
+        if(!mysql_select_db($_POST['db'], $conn)){
+            //try to create
+            $rs = mysql_query("CREATE DATABASE `".$_POST['db']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+            if (!$rs) {
+                echo '{errorCode:"ERROR_DB", error:""}';
+                exit;
+            }
+
+            if(!mysql_select_db($_POST['db'], $conn)){
+                $error = true;
+                echo '{errorCode:"ERROR_DB", error:""}';
+                exit;
+            }
+        }
+
+
             mysql_query("SET CHARACTER SET utf8", $conn);
             /*structure*/
             $sqlFile = "sql/structure.sql";
@@ -138,11 +154,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
                 echo '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
             }
              
-        }else{
-            $error = true;
-            echo '{errorCode:"ERROR_DB", error:""}';
-            exit;
-        }
+
     }
     mysql_close($conn);
     if($error == false){

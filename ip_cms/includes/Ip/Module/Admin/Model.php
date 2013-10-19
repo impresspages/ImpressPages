@@ -26,16 +26,34 @@ class Model{
         $oldCmsInterface = new OldCmsInterface();
         $moduleGroups = $this->getOldModules(true, $this->getUserId());
 
-        foreach($moduleGroups as $group) {
+        foreach($moduleGroups as $groupKey => $group) {
+            $newItem = new \Ip\Menu\Item();
+            $newItem->setTitle($groupKey);
+            $newItem->setType('inactive');
+            $answer[] = $newItem;
+
             foreach($group as $module) {
-                $newItem = new \Ip\Menu\Item();
-                $newItem->setTitle($module['translation']);
-                $newItem->setUrl($oldCmsInterface->generateUrl($module['id']));
-                $answer[] = $newItem;
+                $moduleItem = new \Ip\Menu\Item();
+                $moduleItem->setTitle($module['translation']);
+                $moduleItem->setUrl($oldCmsInterface->generateUrl($module['id']));
+                $answer[] = $moduleItem;
             }
         }
 
         return $answer;
+    }
+
+    public static function setSafeMode($value)
+    {
+        $_SESSION['module']['admin']['safemode'] = (bool) $value;
+    }
+
+    public static function isSafeMode()
+    {
+        if (isset($_SESSION['module']['admin']['safemode'])) {
+            return (bool) $_SESSION['module']['admin']['safemode'];
+        }
+        return false;
     }
 
     protected function getOldModules($managed = null, $userId = null) {

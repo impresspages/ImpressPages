@@ -23,14 +23,14 @@ function resizinam()
 {
 	if(document.getElementById("treeView")){
 	  document.getElementById("bodyView").style.width = WindowSize().x - document.getElementById("treeView").offsetWidth - 15 + "px";  
-	  document.getElementById("treeView").style.height = WindowSize().y - 20 + "px";
-	  document.getElementById("splitterBar").style.height = WindowSize().y - 20 + "px";
-	  document.getElementById("content").style.height = WindowSize().y - 21 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
+	  document.getElementById("treeView").style.height = WindowSize().y - 20 - 30 + "px";
+	  document.getElementById("splitterBar").style.height = WindowSize().y - 20 - 30 + "px";
+	  document.getElementById("content").style.height = WindowSize().y - 21 - 30 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
 	  //document.getElementById("sheet1").style.width = WindowSize().x - document.getElementById("treeView").offsetWidth - 36 + "px";
 	}else{
 	  document.getElementById("bodyView").style.width = WindowSize().x - 15 + "px";  
 	  document.getElementById("bodyView").style.marginLeft = "6px";  
-	  document.getElementById("content").style.height = WindowSize().y - 21 + "px";
+	  document.getElementById("content").style.height = WindowSize().y - 21 - 30 + "px";
 	}
 }
  
@@ -39,14 +39,14 @@ function perVisaPloti()
 	if(document.getElementById("treeView")){	
 	  document.getElementById("treeView").style.width = 250 + "px";
 	  document.getElementById("bodyView").style.width = WindowSize().x - document.getElementById("treeView").offsetWidth - 15 + "px";  
-	  document.getElementById("treeView").style.height = WindowSize().y - 20 + "px";
-	  document.getElementById("splitterBar").style.height = WindowSize().y - 20 + "px";
-	  document.getElementById("content").style.height = WindowSize().y - 21 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
+	  document.getElementById("treeView").style.height = WindowSize().y - 20 - 30 + "px";
+	  document.getElementById("splitterBar").style.height = WindowSize().y - 20 - 30 + "px";
+	  document.getElementById("content").style.height = WindowSize().y - 21 - 30 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
 	 // document.getElementById("sheet1").style.width = WindowSize().x - document.getElementById("treeView").offsetWidth - 36 + "px";
 	}else{
 	  document.getElementById("bodyView").style.width = WindowSize().x  - 15 + "px";  
 	  document.getElementById("bodyView").style.marginLeft = "6px";  
-	  document.getElementById("content").style.height = WindowSize().y - 21 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
+	  document.getElementById("content").style.height = WindowSize().y - 21 - 30 + "px";//WindowSize().y - 79 - document.getElementById("backtrace_path").offsetHeight + "px";
 	}
 }
 

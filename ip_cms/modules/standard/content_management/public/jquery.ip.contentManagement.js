@@ -53,7 +53,7 @@
 
                 }
 
-                $this.bind('initFinished.ipContentManagement', $.proxy(methods.initBlocks, $this));
+                $this.bind('initFinished.ipContentManagement', $.proxy(methods._initBlocks, $this));
                 $this.bind('pageSaveStart.ipContentManagement', $.proxy(methods.saveBlocksStart, $this));
 
 
@@ -118,14 +118,18 @@
             $('.ipBlock').ipBlock('pageSaveStart');
         },
 
-        initBlocks : function() {
+        _initBlocks: function() {
+        	var $this = this;
+        	$this.ipContentManagement('initBlocks', $('.ipBlock'));
+        },
+        
+        initBlocks : function(blocks) {
             var $this = this;
             var data = $this.data('ipContentManagement');
             var options = data.initInfo;
             if (options.manageableRevision) {
-                $('.ipBlock').ipBlock(options);
+                blocks.ipBlock(options);
             }
-
         },
         
         addError : function (errorMessage) {

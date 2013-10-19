@@ -177,13 +177,16 @@ Move to separate stylesheet if invalid CSS is a problem.
     left: 0;
     min-width: 860px;
     position: fixed;
-    top: 60px;
+    top: 30px;
     width: 100%;
     z-index: 1000;
 }
 .ipAdminWidgets {
     margin: 10px 250px 10px 0;
     position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .ipAdminWidgetsScroll {
     background: url(../img/icons_scroll.png) no-repeat;
@@ -558,7 +561,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     cursor: move;
     overflow: hidden;
     text-indent: -999px;
-    width: 100px;
+    width: 50px;
 }
 .ipAdminWidgetControls .ipActionWidgetMove:hover span {
     background-position: center -69px;
@@ -705,6 +708,25 @@ Move to separate stylesheet if invalid CSS is a problem.
     background-position: -24px -48px;
 }
 
+/* Widget: IpColumns */
+.ipWidget-IpColumns .ipwCol{
+    margin-top: 20px;
+}
+.ipAdminWidget-IpColumns input {
+    width: 50px;
+    text-align: right;
+}
+
+
+/* Widget: IpTitle */
+.ipAdminWidget-IpTitle .ipAdminButton {
+    margin-bottom: 10px;
+}
+
+.ipAdminWidget-IpTitle .ipmAnchorPreview {
+    font-weight: normal;
+}
+
 /* Widget: IpText
    Widget: IpRichText
    Widget: IpTable */
@@ -834,10 +856,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget:hover {
     outline: #4d4d4d dashed 1px;
 }
-.ipWidget:hover .ipAdminWidgetControls {
+.ipWidget:hover > .ipAdminWidgetControls {
     border-color: #000;
 }
-.ipWidget:hover .ipAdminWidgetControls .ipaButton,
+.ipWidget:hover > .ipAdminWidgetControls .ipaButton,
 body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
     visibility: visible;
 }

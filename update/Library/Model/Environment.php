@@ -55,7 +55,7 @@ class Environment
 
     public function getTestMode()
     {
-        if (defined('IUL_TESTMODE') && IUL_TESTMODE) {
+        if (defined('IUL_TESTMODE') && IUL_TESTMODE && !getenv('TRAVIS')) {
             return true;
         } else {
             return false;

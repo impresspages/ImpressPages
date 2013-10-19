@@ -50,9 +50,24 @@ class SiteController extends \Ip\Controller{
         $this->returnJson($answer);
     }
 
+    public function logout()
+    {
+        Model::instance()->logout();
+        $this->redirect(BASE_URL.'admin/');
+    }
+
+    public function sessionRefresh()
+    {
+        $this->returnJson(array());
+    }
+
     public function login()
     {
-
+        if (\Ip\Backend::userId()) {
+            //user has already been logged in
+            $this->redirect(BASE_URL . '?cms_action=manage');
+            return;
+        }
 
 
 
@@ -68,7 +83,8 @@ class SiteController extends \Ip\Controller{
         $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL . INCLUDE_DIR . 'Ip/Module/Admin/Public/login.js');
 
-
+        $config = \Ip\ServiceLocator::getConfig();
+        $site->removeJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
         $view = \Ip\View::create('View/login.php', $variables);
         $site->setOutput($view);
     }
@@ -78,7 +94,6 @@ class SiteController extends \Ip\Controller{
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Modules\developer\form\Form();
-
 
         //add text field to form object
         $field = new \Modules\developer\form\Field\Hidden(
@@ -120,6 +135,7 @@ class SiteController extends \Ip\Controller{
             array(
                 'defaultValue' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
             ));
+        $field->addClass('ipsLoginButton');
         $form->addField($field);
 
 

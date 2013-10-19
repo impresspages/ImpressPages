@@ -335,8 +335,8 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function getFilesToReplace()
     {
         return array (
-            'admin.php',
-            'ip_backend_frames.php',
+//            'admin.php',
+//            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_cron.php',
             'ip_license.html',
