@@ -454,6 +454,20 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_plugins`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_plugins` (
+  `name` varchar(30) NOT NULL,
+  `version` decimal(10,2) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 -- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_revision`;
