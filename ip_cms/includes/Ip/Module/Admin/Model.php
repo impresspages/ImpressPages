@@ -20,11 +20,27 @@ class Model{
 
     public function getAdminMenuItems()
     {
+        $site = \Ip\ServiceLocator::getSite();
         $answer = array();
 
 
         $oldCmsInterface = new OldCmsInterface();
         $moduleGroups = $this->getOldModules(true, $this->getUserId());
+
+
+        $modules = \Ip\Module\Plugins\Model::getModules();
+        foreach($modules as $module) {
+            $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
+            //echo $controllerClass; exit;
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
+                continue;
+            }
+            $moduleItem = new \Ip\Menu\Item();
+            $moduleItem->setTitle($module);
+            $moduleItem->setUrl($site->generateUrl(null, null, null, array('aa' => $module.'.index')));
+            $answer[] = $moduleItem;
+        }
+
 
         foreach($moduleGroups as $groupKey => $group) {
             $newItem = new \Ip\Menu\Item();

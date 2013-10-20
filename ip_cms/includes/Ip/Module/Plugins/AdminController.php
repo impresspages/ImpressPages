@@ -2,11 +2,12 @@
 namespace Ip\Module\Plugins;
 
 
-class Backend extends \Ip\Controller{
+class AdminController {
 
     public function index()
     {
-
+        
     }
+
 }
 

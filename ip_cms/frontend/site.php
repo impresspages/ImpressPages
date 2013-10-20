@@ -1161,7 +1161,8 @@ class Site{
     {
         $modules = array(
             'Plugins',
-            'Admin'
+            'Admin',
+            'System'
         );
         return $modules;
     }
