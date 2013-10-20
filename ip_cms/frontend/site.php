@@ -849,7 +849,11 @@ class Site{
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
                     $controller = new $controllerClass();
-                    $controller->$action();
+                    $this->setLayout(BASE_DIR . '/' . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php');
+                    $answer = $controller->$action();
+                    if ($answer) {
+                        $this->setBlockContent('main', $answer);
+                    }
                 }
 
             }
@@ -1237,13 +1241,20 @@ class Site{
 
         if (!isset($this->output)) {
             if (\Ip\Module\Admin\Model::isSafeMode()) {
+                //TODOX skip this for admin pages with admin layout
                 return \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/safeModeLayout.php', array())->render();
             }
 
 
             $layout = $this->getLayout();
             if ($layout) {
-                $this->output = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $layout, array())->render();
+                if ($layout[0] == '/') {
+                    $viewFile = $layout;
+                } else {
+                    $viewFile = BASE_DIR . THEME_DIR . THEME . '/' . $layout;
+                }
+                $this->output = \Ip\View::create($viewFile, array())->render();
+
             } else {
                 // DEPRECATED just for backward compatibility
                 $site = \Ip\ServiceLocator::getSite();

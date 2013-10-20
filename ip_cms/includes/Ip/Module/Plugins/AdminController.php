@@ -6,7 +6,7 @@ class AdminController {
 
     public function index()
     {
-        
+        return 'test';
     }
 
 }
