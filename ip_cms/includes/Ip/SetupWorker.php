@@ -26,7 +26,7 @@ class SetupWorker{
 
     }
 
-    public function delete()
+    public function remove()
     {
 
     }
