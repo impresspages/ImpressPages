@@ -50,9 +50,9 @@ class System{
         $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
         $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/optionsBox.js');
+        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/optionsBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        $site->addCss(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/optionsBox.css');
+        $site->addCss(BASE_URL.'Ip/Module/Design/public/optionsBox.css');
         if (file_exists(BASE_DIR.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js')) {
             $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js');
         }

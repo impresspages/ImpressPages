@@ -16,7 +16,7 @@
 ')); ?>
 <?php echo $this->renderWidget('IpTitle', array('title' => 'For titles always use "Title" widget'), 'level2'); ?>
 
-<?php echo $this->renderWidget('IpTextImage', array('imageSmall' => INCLUDE_DIR.'Ip/Module/Content/img/example_image.jpg', 'text' => '
+<?php echo $this->renderWidget('IpTextImage', array('imageSmall' => 'Ip/Module/Content/img/example_image.jpg', 'text' => '
     <p>Put an image next to the text. It can be on the left or right. Just select a different layout. It\'s easy as that.</p>
     <p>Add any widget to work with different types of content. There are many of them: title, text, separator, text with image, image, image gallery, logo gallery, file, table, HTML code, F.A.Q., Contact form.</p>
 ')); ?>

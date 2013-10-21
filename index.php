@@ -36,8 +36,7 @@ if(is_file(__DIR__.'/ip_config.php')) {
 
 $config = require __DIR__ . '/ipConfig.php';
 
-// TODOX use location from $config values
-require_once __DIR__ . '/ip_cms/includes/Ip/Config.php';
+require_once __DIR__ . '/Ip/Config.php';
 
 \Ip\Config::init($config);
 

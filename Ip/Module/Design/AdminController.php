@@ -25,11 +25,11 @@ class AdminController extends \Ip\Controller
         $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
         $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/options.js');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/market.js');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/design.js');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/pluginInstall.js');
-        $site->addCss(BASE_URL.INCLUDE_DIR.'Ip/Module/Design/public/design.css');
+        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/options.js');
+        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/market.js');
+        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/design.js');
+        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/pluginInstall.js');
+        $site->addCss(BASE_URL.'Ip/Module/Design/public/design.css');
         $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
 
         $model = Model::instance();

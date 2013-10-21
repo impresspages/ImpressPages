@@ -25,7 +25,7 @@ class Widget{
         $this->core = $core;
 
         if ($core) {
-            $this->widgetDir = INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
+            $this->widgetDir = 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         } else {
             $this->widgetDir = PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         }
@@ -55,7 +55,7 @@ class Widget{
         if (file_exists(BASE_DIR.$this->widgetDir.self::PUBLIC_DIR.'/icon.png')) {
             return $this->widgetDir.self::PUBLIC_DIR.'/icon.png';
         } else {
-            return INCLUDE_DIR.'Ip/Module/Content/img/icon_widget.png';
+            return 'Ip/Module/Content/img/icon_widget.png';
         }
     }
 
@@ -191,7 +191,7 @@ class Widget{
     public function managementHtml($instanceId, $data, $layout) {
         try {
             if ($this->core) {
-                $viewFile = BASE_DIR . INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+                $viewFile = BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
             } else {
                 $viewFile = BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
             }
@@ -207,7 +207,7 @@ class Widget{
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+                $answer = \Ip\View::create(BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
             } else {
                 $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
             }

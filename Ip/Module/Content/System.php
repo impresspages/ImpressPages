@@ -39,20 +39,20 @@ class System{
         
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
         $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.js');
-        $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/widgets.js');
+        $site->addJavascript(BASE_URL.'Ip/Module/Content/public/widgets.js');
         
         $site->addJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
         $site->addJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
         
         if ($site->managementState()) {
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/ipContentManagement.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/jquery.ip.contentManagement.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/jquery.ip.pageOptions.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/jquery.ip.widgetbutton.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/jquery.ip.block.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/jquery.ip.widget.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/exampleContent.js');
-            $site->addJavascript(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/drag.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/ipContentManagement.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.contentManagement.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.pageOptions.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.widgetbutton.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.block.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.widget.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/exampleContent.js');
+            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/drag.js');
 
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
@@ -71,7 +71,7 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadImage.js?v=1');
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js?v=1');
 
-            $site->addCss(BASE_URL.INCLUDE_DIR.'Ip/Module/Content/public/widgets.css');
+            $site->addCss(BASE_URL.'Ip/Module/Content/public/widgets.css');
             $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
         }
@@ -155,7 +155,7 @@ class System{
     private static function findModuleWidgets($moduleName, $core)
     {
         if ($core) {
-            $widgetDir = INCLUDE_DIR . 'Ip/Module/' . $moduleName . '/' . Model::WIDGET_DIR.'/';
+            $widgetDir = 'Ip/Module/' . $moduleName . '/' . Model::WIDGET_DIR.'/';
         } else {
             $widgetDir = PLUGIN_DIR . $moduleName . '/' . Model::WIDGET_DIR.'/';
         }
