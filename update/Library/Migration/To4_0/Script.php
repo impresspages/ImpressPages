@@ -40,11 +40,11 @@ class Script extends \IpUpdate\Library\Migration\General
         $dbh = $this->dbh;
         $sql = "
         CREATE TABLE IF NOT EXISTS `{$this->dbPref}plugin` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `user_id` int(11) NOT NULL DEFAULT '0',
-          `module_id` int(11) NOT NULL DEFAULT '0',
-          PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+          `name` varchar(30) NOT NULL,
+          `version` decimal(10,2) NOT NULL,
+          `active` int(11) NOT NULL DEFAULT '1',
+          PRIMARY KEY (`name`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
         ";
 
         $q = $dbh->prepare($sql);
