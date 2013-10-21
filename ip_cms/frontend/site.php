@@ -884,7 +884,7 @@ class Site{
 
     private function isDefaultModule($moduleName)
     {
-        return in_array($moduleName, $this->getCoreModules());
+        return in_array($moduleName, \Ip\Module\Plugins\Model::getModules());
     }
 
     /**
@@ -1163,19 +1163,11 @@ class Site{
         }
     }
 
-    private function getCoreModules()
-    {
-        $modules = array(
-            'Plugins',
-            'Admin',
-            'System'
-        );
-        return $modules;
-    }
+
 
     public function modulesInit(){
         //init core modules
-        $coreModules = $this->getCoreModules();
+        $coreModules = \Ip\Module\Plugins\Model::getModules();
         foreach($coreModules as $module) {
             $systemClass = '\\Ip\\Module\\'.$module.'\\System';
             if(class_exists($systemClass)) {
