@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Module\Content\widget;
+namespace Ip\Module\Content\Widget;
 
 
 class IpFaq extends \Ip\Module\Content\Widget{

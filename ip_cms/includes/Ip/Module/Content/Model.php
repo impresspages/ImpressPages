@@ -13,7 +13,7 @@ require_once(__DIR__.'/exception.php');
 class Model{
     static private $widgetObjects = null;
     const DEFAULT_LAYOUT = 'default';
-    const WIDGET_DIR = 'widget';
+    const WIDGET_DIR = 'Widget';
 
     public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
         global $site;

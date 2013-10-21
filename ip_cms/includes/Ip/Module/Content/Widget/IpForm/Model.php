@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Module\Content\widget\IpForm;
+namespace Ip\Module\Content\Widget\IpForm;
 
 
 

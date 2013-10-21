@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Module\Content\widget;
+namespace Ip\Module\Content\Widget;
 
 
 
