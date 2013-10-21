@@ -84,9 +84,33 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
             //because of PHPUnit magic, we have to repeat it on every test
             require_once(BASE_DIR.FRONTEND_DIR.'init.php');
         }
+
+        $this->initConfig();
+
         global $parametersMod;
         $parametersMod = new Mock\ParametersMod();
 
+    }
+
+    private function initConfig()
+    {
+        $config = array();
+        $config['db'] = array(
+                'hostname' => TEST_DB_HOST,
+                'username' => TEST_DB_USER,
+                'password' => TEST_DB_PASS,
+                'database' => TEST_DB_NAME,
+                'tablePrefix' => DB_PREF,
+                'charset' => MYSQL_CHARSET,
+            );
+        $config['fileDir'] = './file';
+        $config['baseDir'] = BASE_DIR;
+        $config['pluginDir'] = './Plugin';
+        $config['protocol'] = 'http';
+        $config['host'] = 'localhost';
+        $config['siteUrlPath'] = '/ip4.x/';
+
+        \Ip\Config::init($config);
     }
 
     private function initConstants()
