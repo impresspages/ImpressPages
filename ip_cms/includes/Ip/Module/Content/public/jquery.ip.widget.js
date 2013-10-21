@@ -152,9 +152,7 @@
             $this.data('ipWidget', tmpData);
             
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'manageWidget';
+            data.aa = 'Content.manageWidget';
             data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
 
@@ -242,9 +240,7 @@
         return this.each(function() {
             var $this = $(this);
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'updateWidget';
+            data.aa = 'Content.updateWidget';
             data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
             data.widgetData = widgetData;
@@ -297,9 +293,7 @@
             }
 
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'cancelWidget';
+            data.aa = 'Content.cancelWidget';
             data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
 

@@ -35,9 +35,7 @@
 //                    }
                 
                     var postData = Object();
-                    postData.g = 'standard';
-                    postData.m = 'content_management';
-                    postData.a = 'initManagementData';
+                    postData.aa = 'Content.initManagementData';
                     postData.securityToken = ip.securityToken;
             
                     $.ajax({
@@ -162,9 +160,7 @@
             var data = $this.data('ipContentManagement');
             
             var postData = Object();
-            postData.g = 'standard';
-            postData.m = 'content_management';
-            postData.a = 'savePageOptions';
+            postData.aa = 'Content.savePageOptions';
             postData.securityToken = ip.securityToken;
             postData.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
             postData.revisionId = ip.revisionId;
@@ -263,9 +259,7 @@
                 
                 
                 var postData = Object();
-                postData.g = 'standard';
-                postData.m = 'content_management';
-                postData.a = 'savePage';
+                postData.aa = 'Content.savePage';
                 postData.securityToken = ip.securityToken;
                 postData.revisionId = ip.revisionId;
 
@@ -287,9 +281,7 @@
             if (response.status == 'success') {
                 if (data.publishAfterSave) {
                     var postData = Object();
-                    postData.g = 'standard';
-                    postData.m = 'content_management';
-                    postData.a = 'publishPage';
+                    postData.aa = 'Content.publishPage';
                     postData.securityToken = ip.securityToken;
                     postData.revisionId = response.newRevisionId;
 

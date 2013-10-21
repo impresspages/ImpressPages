@@ -25,9 +25,7 @@
             var $this = this;
             
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'getPageOptionsHtml';
+            data.aa = 'Content.getPageOptionsHtml';
             data.securityToken = ip.securityToken;
             data.pageId = pageId;
             data.zoneName = zoneName;

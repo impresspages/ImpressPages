@@ -55,9 +55,7 @@
                         var position = $(ui.item).index();
     
                         var data = Object();
-                        data.g = 'standard';
-                        data.m = 'content_management';
-                        data.a = 'moveWidget';
+                        data.aa = 'Content.moveWidget';
                         data.securityToken = ip.securityToken;
                         data.instanceId = instanceId;
                         data.position = position;
@@ -202,9 +200,7 @@
             var $this = $(this);
 
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'deleteWidget';
+            data.aa = 'Content.deleteWidget';
             data.securityToken = ip.securityToken;
             data.instanceId = instanceId;
 
@@ -237,9 +233,7 @@
             var $this = $(this);
 
             var data = Object();
-            data.g = 'standard';
-            data.m = 'content_management';
-            data.a = 'createWidget';
+            data.aa = 'Content.createWidget';
             data.securityToken = ip.securityToken;
             data.widgetName = widgetName;
             data.position = position;
