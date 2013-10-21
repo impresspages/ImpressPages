@@ -94,7 +94,7 @@ class Widget{
 
             $layouts = array();
             foreach ($views as $viewKey => $view) {
-                if ($parametersMod->exist($this->moduleGroup, $this->moduleName, 'admin_translations', 'layout_'.$viewKey)) {
+                if ($parametersMod->exist('standard', $this->moduleName, 'admin_translations', 'layout_'.$viewKey)) {
                     $translation = $parametersMod->getValue($this->moduleGroup, $this->moduleName, 'admin_translations', 'layout_'.$viewKey);
                 } else {
                     if ($viewKey == 'default') {
