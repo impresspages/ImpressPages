@@ -20,8 +20,9 @@ class FileSystem
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
 
-//        `cp -r $source $destination`;
-//        return;
+        // TODOX comment out optimization
+        `cp -r $source $destination`;
+        return;
         
         if (is_dir( $source ) ) {
             if (!is_dir($destination)) {
@@ -70,8 +71,9 @@ class FileSystem
             return false;
         }
 
-//        system(sprintf("chmod -R %o %s", $permissions, $dir));
-//        return;
+        // TODOX comment out optimization
+        system(sprintf("chmod -R %o %s", $permissions, $dir));
+        return;
 
         $success = chmod($dir, $permissions);
         if (!$success) {
