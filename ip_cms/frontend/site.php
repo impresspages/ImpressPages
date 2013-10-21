@@ -425,8 +425,18 @@ class Site{
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
                 } else {
-                    require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
-                    $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
+                    if ($tmpZone['associated_module']) {
+                        $class = '\\Plugin\\' . $tmpZone['associated_module'] . '\\Zone';
+                        if (class_exists($class)) {
+                            $tmpZoneObject = new $class($tmpZone['name']);
+                        } else {
+                            $class = '\\Ip\\Module\\' . $tmpZone['associated_module'] . '\\Zone';
+                            $tmpZoneObject = new $class($tmpZone['name']);
+                        }
+                    } else {
+                        require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
+                        $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
+                    }
                 }
 
                 $tmpZoneObject->setId($tmpZone['id']);
