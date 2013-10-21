@@ -5,12 +5,10 @@
  *
  *
  */
-namespace Modules\standard\menu_management;
+namespace Ip\Module\Pages;
 
 
-if (!defined('CMS')) exit;
 
-require_once(__DIR__.'/db.php');
 
 class ModelTree {
 
@@ -24,8 +22,8 @@ class ModelTree {
             'id' => self::$websiteId,
             'title' => BASE_URL
         );
-        
-        $site->requireConfig('standard/menu_management/remotes.php');
+
+        require_once(__DIR__ . '/remotes.php');
 
         $remotes = Remotes::getRemotes();
 

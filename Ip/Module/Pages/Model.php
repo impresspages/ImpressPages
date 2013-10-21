@@ -5,16 +5,14 @@
  *
  *
  */
-namespace Modules\standard\menu_management;
+namespace Ip\Module\Pages;
 
 
 use Ip\Module\Content\EventWidget;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
-require_once(__DIR__.'/db.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_image.php');
+require_once(BASE_DIR . LIBRARY_DIR . 'php/file/upload_file.php');
+require_once(BASE_DIR . LIBRARY_DIR . 'php/file/upload_image.php');
 
 
 

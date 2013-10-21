@@ -4,7 +4,7 @@
  *
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
   $('#sideBar').resizable({
     alsoResize : '#tree'
@@ -61,11 +61,11 @@ function initializeTreeManagement(id) {
     'plugins' : plugins,
     'json_data' : {
       'ajax' : {
-        'url' : postURL,
+        'url' : ip.baseUrl,
         'data' : function(n) {
             
           return {
-            'action' : 'getChildren',
+            'aa' : 'Pages.getChildren',
             'id' : n.attr ? n.attr('id') : '',
             'pageId' : n.attr ? n.attr('pageId') : '',
             'type' : n.attr ? n.attr('rel') : '',
@@ -247,11 +247,11 @@ function editPage () {
     data.languageId = node.attr('languageId');
     data.zoneName = node.attr('zoneName');
     data.type = node.attr('rel');
-    data.action = 'getPageLink';
+    data.aa = 'Pages.getPageLink';
 
     $.ajax({
       type : 'POST',
-      url : postURL,
+      url : ip.baseUrl,
       data : data,
       success : editPageResponse,
       dataType : 'json'
@@ -281,11 +281,11 @@ function closeNode (event, data) {
     data.languageId = node.attr('languageId');
     data.websiteId = node.attr('websiteId');
 
-    data.action = 'closePage';
+    data.aa = 'Pages.closePage';
     
     $.ajax({
       type : 'POST',
-      url : postURL,
+      url : ip.baseUrl,
       data : data,
       dataType : 'json'
     });    
@@ -345,11 +345,11 @@ function createPage() {
   
   $('#createPageForm input').val(''); //remove value from input field
   
-  data.action = 'createPage';
+  data.aa = 'Pages.createPage';
 
   $.ajax({
     type : 'POST',
-    url : postURL,
+    url : ip.baseUrl,
     data : data,
     success : createPageResponse,
     dataType : 'json'
@@ -393,11 +393,11 @@ function deletePageConfirm() {
     data.websiteId = node.attr('websiteId');
     data.languageId = node.attr('languageId');
     data.type = node.attr('rel');
-    data.action = 'deletePage';
+    data.aa = 'Pages.deletePage';
 
     $.ajax({
       type : 'POST',
-      url : postURL,
+      url : ip.baseUrl,
       data : data,
       success : deletePageResponse,
       dataType : 'json'
@@ -478,11 +478,11 @@ function updatePageForm(event, data) {
     data.websiteId = node.attr('websiteId');
     data.languageId = node.attr('languageId');
     data.type = node.attr('rel');
-    data.action = 'getUpdatePageForm';
+    data.aa = 'Pages.getPageForm';
 
     $.ajax({
       type : 'POST',
-      url : postURL,
+      url : ip.baseUrl,
       data : data,
       success : updatePageFormResponse,
       dataType : 'json'
@@ -557,11 +557,11 @@ function updatePage() {
   data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
   data.layout = $('#formLayout select[name="layout"]').val();
 
-  data.action = 'updatePage';
+  data.aa = 'Pages.updatePage';
 
   $.ajax({
     type : 'POST',
-    url : postURL,
+    url : ip.baseUrl,
     data : data,
     success : updatePageResponse,
     dataType : 'json'
@@ -620,7 +620,7 @@ function movePage(e, moveData) {
     data.destinationLanguageId = moveData.rslt.np.attr("languageId");
     data.destinationPageType = moveData.rslt.np.attr("rel");
     data.destinationPosition = moveData.rslt.cp + i;
-    data.action = 'movePage';
+    data.aa = 'Pages.movePage';
 
     //if we move withing the same parent, fix destination position value.
     if (
@@ -637,7 +637,7 @@ function movePage(e, moveData) {
 
     $.ajax({
       type : 'POST',
-      url : postURL,
+      url : ip.baseUrl,
       data : data,
       success : movePageResponse,
       dataType : 'json'
@@ -693,13 +693,13 @@ function pastePage() {
   data.destinationPageType = selectedNode.attr('rel');
   data.destinationZoneName = selectedNode.attr('zoneName');
   data.destinationLanguageId = selectedNode.attr('languageId');
-  data.action = 'copyPage';
+  data.aa = 'Pages.copyPage';
 
   tree.destinationId = selectedNode.attr('id');
 
   $.ajax({
     type : 'POST',
-    url : postURL,
+    url : ip.baseUrl,
     data : data,
     success : pastePageResponse,
     dataType : 'json'
@@ -736,11 +736,11 @@ function treePopupSelect(event, data) {
   data.languageId = node.attr('languageId');
   data.zoneName = node.attr('zoneName');
   data.type = node.attr('rel');
-  data.action = 'getPageLink';
+  data.aa = 'Pages.getPageLink';
 
   $.ajax({
     type : 'POST',
-    url : postURL,
+    url : ip.baseUrl,
     data : data,
     success : treePopupSelectResponse,
     dataType : 'json'

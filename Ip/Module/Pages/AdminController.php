@@ -2,76 +2,40 @@
 /**
  * @package ImpressPages
  *
- *
  */
-namespace Modules\standard\menu_management;
 
-if (!defined('BACKEND')) exit;
-
+namespace Ip\Module\Pages;
 
 
-require_once(__DIR__.'/model.php');
-require_once(__DIR__.'/model_tree.php');
-require_once(__DIR__.'/db.php');
-require_once(__DIR__.'/template.php');
 
 
-class BackendWorker {
+
+class AdminController extends \Ip\Controller
+{
 
 
-    function __construct() {
-
+    public function index()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $session = \Ip\ServiceLocator::getSession();
+        $data = array (
+            'securityToken' =>  $session->getSecurityToken(),
+            'imageDir' => BASE_URL . CORE_DIR . 'Ip/Design/img/'
+        );
+        $content = Template::content($data);
+        $answer = Template::addLayout($content);
+        $site->setOutput($answer);
     }
 
 
-    function work() {
-        global $parametersMod;
-        global $site;
 
-        if (!isset($_REQUEST['action']) ) {
-            return;
-        }
-
-        switch ($_REQUEST['action']) {
-            case 'getChildren' :
-                $this->_getChildren ();
-                break;
-            case 'getUpdatePageForm' :
-                $this->_getPageForm();
-                break;
-            case 'getPageLink' :
-                $this->_getPageLink();
-                break;
-            case 'updatePage' :
-                $this->_updatePage();
-                break;
-            case 'createPage' :
-                $this->_createPage();
-                break;
-            case 'deletePage' :
-                $this->_deletePage();
-                break;
-            case 'movePage' :
-                $this->_movePage();
-                break;
-            case 'copyPage' :
-                $this->_copyPage();
-                break;
-            case 'closePage' :
-                $this->_closePage();
-                break;
-
-
-        }
-
-    }
 
 
     /**
      *
      * Get children of selected jsTree node
      */
-    private function _getChildren () {
+    public function getChildren () {
         $parentType = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
         $parentWebsiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $parentLanguageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
@@ -84,7 +48,7 @@ class BackendWorker {
         }
         $externalLinking = $_REQUEST['externalLinking'];
 
-        $list = $this->_getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
+        $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
         $this->_printJson ($list);
@@ -99,7 +63,7 @@ class BackendWorker {
      * @param string $parentZoneName
      * @param mixed $parentId
      */
-    private function _getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId) {
+    private function getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId) {
         global $site;
         global $parametersMod;
 
@@ -111,7 +75,7 @@ class BackendWorker {
             $_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId] = 1;
         }
 
-        $site->requireConfig('standard/menu_management/remotes.php');
+        require_once(__DIR__ . '/remotes.php');
 
         $remotes = Remotes::getRemotes();
 
@@ -130,7 +94,7 @@ class BackendWorker {
 
                     if ($itemKey == 0) {
                         $state = 'open';
-                        $children = $this->_getList($externalLinking, 'website', $item['id'], null, null, $item['id']);
+                        $children = $this->getList($externalLinking, 'website', $item['id'], null, null, $item['id']);
                     }
 
                     $answer[] = array (
@@ -153,7 +117,7 @@ class BackendWorker {
                     }
                 }
 
-                 
+
                 //generate jsTree response array
                 foreach ($items as $itemsKey => $item) {
 
@@ -165,7 +129,7 @@ class BackendWorker {
                     //if node status is open
                     if ( !empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $state = 'open';
-                        $children = $this->_getList($externalLinking, 'language', $parentWebsiteId, $item['id'], null, $item['id']);
+                        $children = $this->getList($externalLinking, 'language', $parentWebsiteId, $item['id'], null, $item['id']);
                         if (count($children) == 0) {
                             $children = false;
                             $state = 'leaf';
@@ -175,8 +139,8 @@ class BackendWorker {
 
                     $answer[] = array (
                         'attr' => array('id' => $jsTreeId, 'rel' => 'language', 'websiteId' => $parentWebsiteId, 'languageId' => $item['id'], 'pageId' => $item['id']),
-                        'data' => $item['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-                        'state' => $state,  		    
+                        'data' => $item['title'] . '', //transform null into empty string. Null break JStree into infinite loop
+                        'state' => $state,
                         'children' => $children
                     );
                 }
@@ -212,7 +176,7 @@ class BackendWorker {
                     //if node status is open
                     if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $state = 'open';
-                        $children = $this->_getList($externalLinking, 'zone', $parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
+                        $children = $this->getList($externalLinking, 'zone', $parentWebsiteId, $parentLanguageId, $item['id'], $item['id']);
                         if (count($children) == 0) {
                             $children = false;
                             $state = 'leaf';
@@ -222,8 +186,8 @@ class BackendWorker {
 
                     $answer[] = array (
                         'attr' => array('id' => $jsTreeId, 'rel' => 'zone', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $item['id'], 'pageId' => $item['id']),
-                        'data' => $item['title'] . '', //transform null into empty string. Null break JStree into infinite loop 
-                        'state' => $state,  		    
+                        'data' => $item['title'] . '', //transform null into empty string. Null break JStree into infinite loop
+                        'state' => $state,
                         'children' => $children
                     );
                 }
@@ -257,7 +221,7 @@ class BackendWorker {
                     //if node status is open
                     if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $state = 'open';
-                        $children = $this->_getList($externalLinking, 'page', $parentWebsiteId, $parentLanguageId, $parentZoneName, $item['id']);
+                        $children = $this->getList($externalLinking, 'page', $parentWebsiteId, $parentLanguageId, $parentZoneName, $item['id']);
                         if (count($children) == 0) {
                             $children = false;
                             $state = 'leaf';
@@ -269,11 +233,11 @@ class BackendWorker {
                     } else {
                         $icon = BASE_URL.MODULE_DIR.'standard/menu_management/img/file_hidden.png';
                     }
-                    
+
 
                     $answer[] = array (
                         'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $item['id']),
-                        'data' => array('title' => $item['title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop 
+                        'data' => array('title' => $item['title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop
                         'state' => $state,
                         'children' => $children
                     );
@@ -310,7 +274,7 @@ class BackendWorker {
                     //if node status is open
                     if (!empty($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId])) {
                         $state = 'open';
-                        $children = $this->_getList($externalLinking, 'page', $parentWebsiteId, $parentLanguageId, $parentZoneName, $item['id']);
+                        $children = $this->getList($externalLinking, 'page', $parentWebsiteId, $parentLanguageId, $parentZoneName, $item['id']);
                         if (count($children) == 0) {
                             $children = false;
                             $state = 'leaf';
@@ -320,7 +284,7 @@ class BackendWorker {
 
                     $answer[] = array (
                         'attr' => array('id' => $jsTreeId, 'rel' => 'page', 'websiteId' => $parentWebsiteId, 'languageId' => $parentLanguageId, 'zoneName' => $parentZoneName, 'pageId' => $item['id']),
-                        'data' => array ('title' => $item['title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop 
+                        'data' => array ('title' => $item['title'] . '', 'icon' => $icon), //transform null into empty string. Null break JStree into infinite loop
                         'state' => $state,
                         'children' => $children
                     );
@@ -342,7 +306,7 @@ class BackendWorker {
      *
      * Get page upadate form HTML
      */
-    private function _getPageForm() {
+    public function getPageForm() {
         global $site;
         global $parametersMod;
 
@@ -402,12 +366,12 @@ class BackendWorker {
         $answer['page']['visible'] = $page->getVisible();
         $answer['page']['createdOn'] = $page->getCreatedOn();
         $answer['page']['lastModified'] = $page->getLastModified();
-         
+
         $answer['page']['pageTitle'] = $page->getPageTitle() . '';
         $answer['page']['keywords'] = $page->getKeywords() . '';
         $answer['page']['description'] = $page->getDescription() . '';
         $answer['page']['url'] = $page->getUrl() . '';
-         
+
         $answer['page']['type'] = $page->getType();
         $answer['page']['redirectURL'] = $page->getRedirectUrl() . '';
         $answer['page']['rss'] = $page->getRss();
@@ -422,7 +386,7 @@ class BackendWorker {
      * @param $page
      * @return string content
      */
-    private function _getPageDesignOptionsHtml($zone, $page, $data)
+    public function getPageDesignOptionsHtml($zone, $page, $data)
     {
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
@@ -445,7 +409,7 @@ class BackendWorker {
      *
      * Get URL of the page
      */
-    private function _getPageLink() {
+    public function getPageLink() {
         global $site;
         $answer = array();
 
@@ -534,7 +498,7 @@ class BackendWorker {
      *
      * Update page
      */
-    private function _updatePage () {
+    public function updatePage () {
         global $parametersMod;
         global $site;
 
@@ -596,7 +560,7 @@ class BackendWorker {
      *
      * Create new page
      */
-    private function _createPage () {
+    public function createPage () {
         global $parametersMod;
         global $site;
 
@@ -660,7 +624,7 @@ class BackendWorker {
             return;
         }
 
-         
+
         $data = array();
 
         $data['buttonTitle'] = $buttonTitle;
@@ -683,7 +647,7 @@ class BackendWorker {
         $answer['status'] = 'success';
 
         //find language
-        require_once(BASE_DIR.FRONTEND_DIR.'db.php');
+        require_once(BASE_DIR . FRONTEND_DIR . 'db.php');
         $tmpId = $parentPage->getId();
         $element = \Ip\Module\Content\DbFrontend::getElement($tmpId);
         while($element['parent'] !== null) {
@@ -694,7 +658,7 @@ class BackendWorker {
         //end find language
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
-         
+
         $this->_printJson ($answer);
     }
 
@@ -703,7 +667,7 @@ class BackendWorker {
      *
      * Delete the page
      */
-    private function _deletePage () {
+    public function deletePage () {
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -715,7 +679,7 @@ class BackendWorker {
             return false;
         }
         $zoneName = $_REQUEST['zoneName'];
-        
+
         Model::deletePage($zoneName, $pageId);
 
         $answer = array ();
@@ -728,7 +692,7 @@ class BackendWorker {
      *
      * Move page to another location
      */
-    private function _movePage () {
+    public function movePage () {
         global $site;
         global $log;
         global $dispatcher;
@@ -751,13 +715,13 @@ class BackendWorker {
             return false;
         }
         $languageId = $_REQUEST['languageId'];
-        
+
         if (!isset($_REQUEST['position'])) {
             trigger_error("Position is not set");
             return false;
         }
         $position = $_REQUEST['position'];
-        
+
 
         if (!isset($_REQUEST['websiteId'])) {
             trigger_error("Website Id is not set");
@@ -826,14 +790,14 @@ class BackendWorker {
         $page = $destinationZone->getElement($pageId);
         $oldUrl = $page->getLink(true);
         //report url change
-        
+
         $movePageValues = array(
             'pageId' => $pageId,
-                 
+
         );
-        
-        $this->_notifyPageMove($pageId, $languageId, $zoneName, $page->getParentId(), $position, $destinationLanguageId, $destinationZoneName, $destinationPage->getParentId(), $destinationPosition);
-        
+
+        $this->notifyPageMove($pageId, $languageId, $zoneName, $page->getParentId(), $position, $destinationLanguageId, $destinationZoneName, $destinationPage->getParentId(), $destinationPosition);
+
 
         $newParentChildren = Db::pageChildren($destinationPage->getId());
         $newIndex = 0; //initial value
@@ -874,7 +838,7 @@ class BackendWorker {
 
 
     }
-    
+
     /**
      * Page is not moved yet. So we still can access all pages as they were before moving and throw move notifications
      * @param unknown_type $pageId
@@ -887,12 +851,12 @@ class BackendWorker {
      * @param unknown_type $destinationParentId
      * @param unknown_type $destinationPosition
      */
-    private function _notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
+    private function notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
         global $site;
         global $dispatcher;
         $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
         $dispatcher->notify($movePageEvent);
-        
+
         $children = $site->getZone($zoneName)->getElements($languageId, $pageId);
         foreach ($children as $key => $child) {
             self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
@@ -903,9 +867,9 @@ class BackendWorker {
      *
      * Copy page from one place to another
      */
-    private function _copyPage() {
+    public function copyPage() {
         global $site;
-        $site->requireConfig('standard/menu_management/remotes.php');
+        require_once(__DIR__ . '/remotes.php');
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {
@@ -1001,7 +965,7 @@ class BackendWorker {
      * Array of pages and subpages
      * @param array $pages
      */
-    private function _createPagesRecursion ($targetPageId, $pages) {
+    public function createPagesRecursion ($targetPageId, $pages) {
         foreach ($pages as $pageKey => $page) {
 
             $newPageId = Db::insertPage($targetPageId, $page);
@@ -1023,7 +987,7 @@ class BackendWorker {
      * Remove page from session as open one.
      *
      */
-    private function _closePage () {
+    public function closePage () {
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
         $websiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $languageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
@@ -1086,20 +1050,6 @@ class BackendWorker {
 
 
 
-    /*
-     * Print Json answer
-     */
-    private function _printJson ($data) {
-        header("HTTP/1.0 200 OK");
-        header('Content-type: text/json; charset=utf-8');
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Pragma: no-cache");
-        echo json_encode($data);
-
-    }
-
-
     /**
      *
      * Generate unique id to uniquely identify node in jsTree
@@ -1124,6 +1074,202 @@ class BackendWorker {
 
 
 
+
+
+
+
+
+
+
+
+
+    /* from backend_worker.php*/
+
+
+    public function getLanguages()
+    {
+        if (!$this->_adminAccess()) {
+            return;
+        }
+        $answer = array (
+            'response' => ModelTree::getLanguages(),
+            'status' => 'success'
+        );
+        $this->_printJson($answer);
+    }
+
+    public function getZones()
+    {
+        if (!$this->_adminAccess()) {
+            return;
+        }
+        if (!isset ($_REQUEST['includeNonManagedZones'])) {
+            trigger_error('Required parameters is not set');
+            return;
+        }
+        $answer = array (
+            'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
+            'status' => 'success'
+        );
+        $this->_printJson($answer);
+    }
+
+    public function getZonePages()
+    {
+        if (!$this->_adminAccess()) {
+            return;
+        }
+        if (!isset ($_REQUEST['languageId'])) {
+            trigger_error('Language id is not set');
+            return;
+        }
+        if (!isset ($_REQUEST['zoneName'])) {
+            trigger_error('Zone name is not set');
+            return;
+        }
+        $answer = array (
+            'response' => ModelTree::getZonePages($_REQUEST['languageId'], $_REQUEST['zoneName']),
+            'status' => 'success'
+        );
+
+        $this->_printJson($answer);
+    }
+
+    public function getPages()
+    {
+        if (!$this->_adminAccess()) {
+            return;
+        }
+
+        if (!isset($_REQUEST['parentId'])) {
+            trigger_error('Parent ID is not set');
+            return;
+        }
+        $answer = array (
+            'response' => ModelTree::getPages($_REQUEST['parentId']),
+            'status' => 'success'
+        );
+
+        $this->_printJson($answer);
+    }
+
+    public function getData()
+    {
+        if (!$this->_adminAccess()) {
+            return;
+        }
+        if (!isset($_REQUEST['pageId'])) {
+            trigger_error('Page ID is not set');
+            return;
+        }
+        $pageId = $_REQUEST['pageId'];
+
+        $pages = array($this->_getPageDataRecursion($pageId));
+
+        $data = array (
+            'status' => 'success',
+            'response' => $pages
+        );
+        $this->_printJson($data);
+    }
+
+
+    private function _getPageDataRecursion($pageId) {
+
+        $page = Db::getPage($pageId);
+
+        $widgets = Db::pageWidgets($page['id']);
+        foreach($widgets as $key => &$widget){
+            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
+            eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
+            $widget['data'] = $widgetObject->getData($widget['module_id']);
+
+            switch ($widget['group_key'].'/'.$widget['module_key']) {
+                case 'text_photos/photo':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    break;
+                case 'text_photos/text_photo':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    break;
+                case 'misc/file':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    break;
+                case 'misc/video':
+                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    break;
+                case 'text_photos/logo_gallery':
+                    foreach($widget['data']['logos'] as $logoKey => $logo){
+                        $tmpValues = array();
+                        $logo['logo'] = str_replace(BASE_DIR, BASE_URL, $logo['logo']);
+                    }
+                    break;
+                case 'text_photos/photo_gallery':
+                    foreach($widget['data']['photos'] as $photoKey => $photo){
+                        $tmpValues = array();
+                        $photo['photo'] = str_replace(BASE_DIR, BASE_URL, $photo['photo']);
+                        $photo['photo_big'] = str_replace(BASE_DIR, BASE_URL, $photo['photo_big']);
+                    }
+                    break;
+            }
+
+
+        }
+        $page['widgets'] = $widgets;
+
+        $page['subpages'] = array();
+        $subpages = Db::pageChildren($pageId);
+        foreach ($subpages as $key => $subpage) {
+            $page['subpages'][] = $this->_getPageDataRecursion($subpage['id']);
+        }
+
+        return $page;
+    }
+
+    private function _adminAccess () {
+        require(BASE_DIR . BACKEND_DIR . 'db.php');
+        if (!isset($_REQUEST['username'])) {
+            return false;
+        }
+        if (!isset($_REQUEST['password'])) {
+            return false;
+        }
+
+        //check log in
+        if(isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
+
+            if(\Backend\Db::incorrectLoginCount($_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+                \Backend\Db::log('system', 'backend login suspended (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                return false;
+            } else {
+                $id = \Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
+                if($id !== false) {
+                    $module = \Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
+                    if (\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
+                        \Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                        return true;
+                    } else {
+                        \Backend\Db::log('system', 'this user is not allowed to access menu management module', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                        return false;
+                    }
+                } else {
+                    \Backend\Db::log('system', 'backend login incorrect (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                    return false;
+                }
+            }
+        }
+        //check log in
+        return false;
+    }
+
+
+    /*
+     * Print Json answer
+     */
+    private function _printJson ($data) {
+        $this->returnJson($data);
+    }
 
 
 }
