@@ -29,6 +29,8 @@ class Script extends \IpUpdate\Library\Migration\General
         $this->createPluginTable();
 
         //TODOX remove permission to developer/modules
+        //TODOX remove permission to newsletter
+        //TODOX remove permission to newsletter_subscribers
 
     }
 
