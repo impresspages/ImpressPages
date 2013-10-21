@@ -78,7 +78,7 @@ INSERT INTO `ip_cms_module_group` (`id`, `name`, `row_number`, `admin`, `transla
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layout`) VALUES
-('', 'content_management', 64, 'home.php');
+('', 'Content', 64, 'home.php');
 
 -- Dumping data for table--
 
