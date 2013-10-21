@@ -38,6 +38,7 @@ class Model
 
     public function getThemePlugins()
     {
+        //TODOX refactor to new plugins
         if (!is_dir($this->getThemePluginDir())) {
             return array();
         }
@@ -67,6 +68,7 @@ class Model
 
     public function installThemePlugin($pluginGroup, $pluginName)
     {
+        //refactor to new plugins
         $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
         $fromDir = $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
 

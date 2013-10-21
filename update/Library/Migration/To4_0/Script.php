@@ -28,6 +28,8 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->createPluginTable();
 
+        //TODOX remove permission to developer/modules
+
     }
 
 
