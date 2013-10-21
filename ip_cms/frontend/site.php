@@ -354,9 +354,16 @@ class Site{
     protected function homeZone()
     {
         $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zone) {
-            if ($zone['url'] == '') {
-                $this->currentZone = $zone['name'];
+        foreach ($zones as $key => $zoneInfo) {
+            if ($zoneInfo['url'] == '') {
+                $zone = $this->getZone($zoneInfo['name']);
+
+                // if first url element is not in home zone, we are not in home zone
+                if (!$zone->findElement(array($this->zoneUrl), array())) {
+                    return;
+                }
+
+                $this->currentZone = $zoneInfo['name'];
                 array_unshift($this->urlVars, urlencode($this->zoneUrl));
                 $this->zoneUrl = '';
                 break;
