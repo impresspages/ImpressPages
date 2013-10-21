@@ -27,7 +27,7 @@ class SmokeInstallTest extends \PhpUnit\GeneralTestCase
         $page = $session->getPage();
 
         $homepageTitle = $page->find('css', 'title');
-        $this->assertTrue(!empty($homepageTitle), 'It seems we are not getting homepage');
+        $this->assertTrue(!empty($homepageTitle), 'Homepage rendering is broken!');
 
         $this->assertEquals('Home', $homepageTitle->getText());
         $this->assertEquals('ImpressPages theme Blank', $page->find('css', 'p.homeHeadline')->getText());
