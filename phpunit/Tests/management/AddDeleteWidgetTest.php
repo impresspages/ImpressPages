@@ -7,6 +7,9 @@
 
 class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
 {
+    /**
+     * @group ignoreOnTravis
+     */
     public function testInstallCurrent()
     {
         $installation = $this->getInstallation();
