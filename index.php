@@ -28,13 +28,18 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
     exit;
 }
 
-
 if(is_file(__DIR__.'/ip_config.php')) {
     require (__DIR__.'/ip_config.php');
 } else {
     require (__DIR__.'/../ip_config.php');
 }
 
+$config = require __DIR__ . '/ipConfig.php';
+
+// TODOX use location from $config values
+require_once __DIR__ . '/ip_cms/includes/Ip/Config.php';
+
+\Ip\Config::init($config);
 
 if (DEVELOPMENT_ENVIRONMENT){
     error_reporting(E_ALL|E_STRICT);

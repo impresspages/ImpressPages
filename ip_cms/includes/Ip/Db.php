@@ -38,12 +38,13 @@ class Db
             case self::TYPE_PDO:
                 if (!self::$pdoConnection) {
                     try {
-                        self::$pdoConnection = new \PDO('mysql:host='.str_replace(':', ';port=', DB_SERVER).';dbname='.DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+                        $config = \Ip\Config::getRaw('db');
+                        self::$pdoConnection = new \PDO('mysql:host='.str_replace(':', ';port=', $config['hostname']).';dbname='. $config['database'], $config['username'], $config['password']);
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
                         $dt = new \DateTime();
                         $offset = $dt->format("P");
                         self::$pdoConnection->exec("SET time_zone='$offset';");
-                        self::$pdoConnection->exec("SET CHARACTER SET ".MYSQL_CHARSET);
+                        self::$pdoConnection->exec("SET CHARACTER SET ". $config['charset']);
                     } catch (\PDOException $e) {
                         throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
                         //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.

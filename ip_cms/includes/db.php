@@ -21,13 +21,14 @@ class Db{
      * Connect to database.
      */
     public static function connect(){
-        self::$connection = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+        $config = \Ip\Config::getRaw('db');
+        self::$connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
         if(!self::$connection) {
             trigger_error('Can\'t connect to database.');
             return false;
         }else{
-            mysql_select_db(DB_DATABASE);
-            mysql_query("SET CHARACTER SET ".MYSQL_CHARSET);
+            mysql_select_db($config['database']);
+            mysql_query("SET CHARACTER SET ". $config['charset']);
             $dt = new DateTime();
             $offset = $dt->format("P");
             mysql_query('SET time_zone = \''.$offset.'\'');
