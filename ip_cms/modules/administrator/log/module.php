@@ -48,7 +48,7 @@ class Module{
      * @param float $valueFloat
      * @return null
      */
-    public static function logError($module, $name, $valueStr = null , $valueInt = null, $valueFloat = null)
+    public static function logAndReport($module, $name, $valueStr = null , $valueInt = null, $valueFloat = null)
     {
         self::log($module, $name, $valueStr, $valueInt, $valueFloat);
         if (defined('ERRORS_SEND') && ERRORS_SEND != '') {

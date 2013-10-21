@@ -20,30 +20,56 @@ class Model{
 
     public function getAdminMenuItems()
     {
+        $site = \Ip\ServiceLocator::getSite();
         $answer = array();
 
 
         $oldCmsInterface = new OldCmsInterface();
         $moduleGroups = $this->getOldModules(true, $this->getUserId());
 
+
+        $modules = \Ip\Module\Plugins\Model::getModules();
+        foreach($modules as $module) {
+            $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
+            //echo $controllerClass; exit;
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
+                continue;
+            }
+            $moduleItem = new \Ip\Menu\Item();
+            $moduleItem->setTitle($module);
+            $moduleItem->setUrl($site->generateUrl(null, null, null, array('aa' => $module.'.index')));
+            $answer[] = $moduleItem;
+        }
+
+
         foreach($moduleGroups as $groupKey => $group) {
             $newItem = new \Ip\Menu\Item();
             $newItem->setTitle($groupKey);
+            $newItem->setType('inactive');
+            $answer[] = $newItem;
 
-
-            $children = array();
             foreach($group as $module) {
                 $moduleItem = new \Ip\Menu\Item();
                 $moduleItem->setTitle($module['translation']);
                 $moduleItem->setUrl($oldCmsInterface->generateUrl($module['id']));
-                $children[] = $moduleItem;
+                $answer[] = $moduleItem;
             }
-            $newItem->setChildren($children);
-            $answer[] = $newItem;
-
         }
 
         return $answer;
+    }
+
+    public static function setSafeMode($value)
+    {
+        $_SESSION['module']['admin']['safemode'] = (bool) $value;
+    }
+
+    public static function isSafeMode()
+    {
+        if (isset($_SESSION['module']['admin']['safemode'])) {
+            return (bool) $_SESSION['module']['admin']['safemode'];
+        }
+        return false;
     }
 
     protected function getOldModules($managed = null, $userId = null) {

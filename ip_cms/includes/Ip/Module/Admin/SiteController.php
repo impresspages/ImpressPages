@@ -56,6 +56,11 @@ class SiteController extends \Ip\Controller{
         $this->redirect(BASE_URL.'admin/');
     }
 
+    public function sessionRefresh()
+    {
+        $this->returnJson(array());
+    }
+
     public function login()
     {
         if (\Ip\Backend::userId()) {

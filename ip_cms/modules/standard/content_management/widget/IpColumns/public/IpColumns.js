@@ -28,8 +28,9 @@ function IpWidget_IpColumns(widgetObject) {
 
     function prepareData() {
         //create simple data object. It will be returned as the data to be stored.
-        var data = Object();
+        var data = {};
         data.baseId = this.widgetObject.find('input[name="baseId"]').val();
+        data.columns = this.widgetObject.find('input[name="columns"]').val();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 

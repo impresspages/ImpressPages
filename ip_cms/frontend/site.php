@@ -834,6 +834,11 @@ class Site{
                     } else {
                         $action = 'index';
                     }
+                    //check if user is logged in
+                    if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
+                        throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
+                    }
+
 
                     if ($this->isDefaultModule($module)) {
                         $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
@@ -844,7 +849,13 @@ class Site{
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
                     $controller = new $controllerClass();
-                    $controller->$action();
+                    $this->setLayout(BASE_DIR . '/' . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php');
+                    $this->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
+                    $this->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
+                    $answer = $controller->$action();
+                    if ($answer) {
+                        $this->setBlockContent('main', $answer);
+                    }
                 }
 
             }
@@ -873,7 +884,7 @@ class Site{
 
     private function isDefaultModule($moduleName)
     {
-        return in_array($moduleName, $this->getCoreModules());
+        return in_array($moduleName, \Ip\Module\Plugins\Model::getModules());
     }
 
     /**
@@ -1152,18 +1163,11 @@ class Site{
         }
     }
 
-    private function getCoreModules()
-    {
-        $modules = array(
-            'Plugins',
-            'Admin'
-        );
-        return $modules;
-    }
+
 
     public function modulesInit(){
         //init core modules
-        $coreModules = $this->getCoreModules();
+        $coreModules = \Ip\Module\Plugins\Model::getModules();
         foreach($coreModules as $module) {
             $systemClass = '\\Ip\\Module\\'.$module.'\\System';
             if(class_exists($systemClass)) {
@@ -1179,6 +1183,11 @@ class Site{
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
+                if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
+                    //no plugin initialization in safe mode
+                    continue;
+                }
+
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
@@ -1225,9 +1234,21 @@ class Site{
     public function generateOutput() {
 
         if (!isset($this->output)) {
+            if (\Ip\Module\Admin\Model::isSafeMode()) {
+                //TODOX skip this for admin pages with admin layout
+                return \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/safeModeLayout.php', array())->render();
+            }
+
+
             $layout = $this->getLayout();
             if ($layout) {
-                $this->output = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $layout, array())->render();
+                if ($layout[0] == '/') {
+                    $viewFile = $layout;
+                } else {
+                    $viewFile = BASE_DIR . THEME_DIR . THEME . '/' . $layout;
+                }
+                $this->output = \Ip\View::create($viewFile, array())->render();
+
             } else {
                 // DEPRECATED just for backward compatibility
                 $site = \Ip\ServiceLocator::getSite();

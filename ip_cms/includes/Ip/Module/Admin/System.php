@@ -13,6 +13,19 @@ class System {
         $dispatcher->bind('site.afterInit', array($this, 'initAdmin'));
         $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
+        $site = \Ip\ServiceLocator::getSite();
+        if ($site->managementState()) {
+            $sessionLifetime = ini_get('session.gc_maxlifetime');
+            if (!$sessionLifetime) {
+                $sessionLifetime = 120;
+            }
+            $site->addJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+        }
+
+        $getVariables = \Ip\ServiceLocator::getRequest()->getRequest();
+        if (isset($getVariables['safemode']) && \Ip\Backend::userId()) {
+            Model::setSafeMode($getVariables['safemode']);
+        }
     }
 
     public function catchAdminUrls(\Ip\Event $event)

@@ -24,6 +24,7 @@ class CoreException extends \Exception
     const SECURITY = 5;
     const SYSTEM_VARIABLE = 6;
     const ECOMMERCE = 7;
+    const PLUGIN_SETUP = 8;
     const OTHER = 999;
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 999, \Exception $previous = null) {
