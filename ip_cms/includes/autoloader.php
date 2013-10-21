@@ -19,6 +19,11 @@ function __impressPagesAutoloader($name) {
         $fileName = substr($fileName, 1);
     }
 
+    if (file_exists(BASE_DIR.$fileName)) {
+        require_once(BASE_DIR.$fileName);
+        return true;
+    }
+
     if (file_exists(BASE_DIR.INCLUDE_DIR.$fileName)) {
         require_once(BASE_DIR.INCLUDE_DIR.$fileName);
         return true;
