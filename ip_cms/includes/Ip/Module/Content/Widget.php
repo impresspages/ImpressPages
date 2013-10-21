@@ -74,7 +74,6 @@ class Widget{
 
             $availableViewFiles = scandir(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR);
             foreach ($availableViewFiles as $viewKey => $viewFile) {
-                //$layout = substr($viewFile, 0, -4);
                 if (is_file(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
@@ -85,7 +84,6 @@ class Widget{
             if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
                 $availableViewFiles = scandir($themeViewsFolder);
                 foreach ($availableViewFiles as $viewKey => $viewFile) {
-                    $layout = substr($viewFile, 0, -4);
                     if (is_file($themeViewsFolder.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
                         $views[substr($viewFile, 0, -4)] = 1;
                     }
@@ -192,10 +190,15 @@ class Widget{
     }
 
     public function managementHtml($instanceId, $data, $layout) {
-        $answer = '';
         try {
-            $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php', $data)->render();
+            if ($this->core) {
+                $viewFile = BASE_DIR . INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+            } else {
+                $viewFile = BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+            }
+            $answer = \Ip\View::create($viewFile, $data)->render();
         } catch (\Ip\CoreException $e){
+            echo $e->getMessage();
             //do nothing. Administration view does not exist
         }
         return $answer;
