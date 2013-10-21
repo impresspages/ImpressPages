@@ -30,6 +30,8 @@ class Script extends \IpUpdate\Library\Migration\General
 
 
         //TODOX remove modules and permissions: modules, newsletter, newsletter_subscribers, design
+
+        //TODOX update zones to new associated plugins
     }
 
 

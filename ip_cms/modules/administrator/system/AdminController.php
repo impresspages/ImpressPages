@@ -8,7 +8,6 @@ namespace Modules\administrator\system;
 
 
 require_once (__DIR__.'/module.php');
-require_once (BASE_DIR.INCLUDE_DIR.'db_system.php');
 
 class AdminController extends \Ip\Controller{
 

@@ -8,7 +8,7 @@
 namespace Modules\standard\menu_management;
 
 
-use Modules\standard\content_management\EventWidget;
+use Ip\Module\Content\EventWidget;
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 

@@ -1503,7 +1503,6 @@ class Site{
             }
 
         } else {
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
             $currentElement = $this->getCurrentElement();
             if ($currentElement) {
                 $revision = \Ip\Revision::getPublishedRevision($this->getCurrentZone()->getName(), $currentElement->getId());

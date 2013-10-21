@@ -425,7 +425,7 @@ class BackendWorker {
     private function _getPageDesignOptionsHtml($zone, $page, $data)
     {
         $data['defaultLayout'] = $zone->getLayout();
-        $data['layouts'] = \Modules\standard\content_management\Model::getThemeLayouts();
+        $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
 
         $data['layout'] = \Frontend\Db::getPageLayout(
             $zone->getAssociatedModuleGroup(),
@@ -685,12 +685,12 @@ class BackendWorker {
         //find language
         require_once(BASE_DIR.FRONTEND_DIR.'db.php');
         $tmpId = $parentPage->getId();
-        $element = \Modules\standard\content_management\DbFrontend::getElement($tmpId);
+        $element = \Ip\Module\Content\DbFrontend::getElement($tmpId);
         while($element['parent'] !== null) {
             $tmpUrlVars[] = $element['url'];
-            $element = \Modules\standard\content_management\DbFrontend::getElement($element['parent']);
+            $element = \Ip\Module\Content\DbFrontend::getElement($element['parent']);
         }
-        $languageId = \Modules\standard\content_management\DbFrontend::languageByRootElement($element['id']);
+        $languageId = \Ip\Module\Content\DbFrontend::languageByRootElement($element['id']);
         //end find language
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());

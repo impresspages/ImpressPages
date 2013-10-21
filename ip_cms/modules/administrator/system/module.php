@@ -11,7 +11,6 @@ namespace Modules\administrator\system;
 
 
 
-require_once (BASE_DIR . INCLUDE_DIR . 'db_system.php');
 require_once (BASE_DIR . MODULE_DIR . 'developer/modules/db.php');
 
 class Module

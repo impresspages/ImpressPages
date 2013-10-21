@@ -10,7 +10,7 @@ if (!defined('CMS')) exit;
 
 
 
-class IpUserPasswordReset extends \Modules\standard\content_management\Widget{
+class IpUserPasswordReset extends \Ip\Module\Content\Widget{
 
 
     

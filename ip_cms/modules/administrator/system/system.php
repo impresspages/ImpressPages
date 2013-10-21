@@ -40,7 +40,6 @@ class System{
 
     public static function urlChanged (\Ip\Event\UrlChanged $event)
     {
-        require_once (BASE_DIR . INCLUDE_DIR . 'db_system.php');
         \DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
     }
     

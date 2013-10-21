@@ -41,7 +41,6 @@ class Block
                 return $predefinedContent;
             }
 
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/model.php');
 
             if ($this->isStatic) {
                 $revisionId = null;
@@ -56,12 +55,12 @@ class Block
 
             if ($this->name == 'main') {
                 $currentElement =  $site->getCurrentElement();
-                if (!($currentElement instanceof \Modules\standard\content_management\Element)) {
+                if (!($currentElement instanceof \Ip\Module\Content\Element)) {
                     return $currentElement->generateContent();
                 }
             }
 
-            return \Modules\standard\content_management\Model::generateBlock($this->name, $revisionId, $site->managementState(), $this->exampleContent);
+            return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, $site->managementState(), $this->exampleContent);
         }
     }
 

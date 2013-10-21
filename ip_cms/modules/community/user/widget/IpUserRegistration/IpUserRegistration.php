@@ -10,7 +10,7 @@ if (!defined('CMS')) exit;
 
 
 
-class IpUserRegistration extends \Modules\standard\content_management\Widget{
+class IpUserRegistration extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
