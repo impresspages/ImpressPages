@@ -9,9 +9,8 @@ namespace Ip\Module\Content;
 
 class Widget{
     var $name;
-    var $moduleGroup;
     var $moduleName;
-    
+
     /**
      * @var boolean - true if widget is installed by default
      */
@@ -20,16 +19,15 @@ class Widget{
     const MANAGEMENT_DIR = 'management';
     const PUBLIC_DIR = 'public';
 
-    public function __construct($name, $moduleGroup, $moduleName, $core = false) {
+    public function __construct($name, $moduleName, $core = false) {
         $this->name = $name;
-        $this->moduleGroup = $moduleGroup;
         $this->moduleName = $moduleName;
         $this->core = $core;
 
         if ($core) {
-            $this->widgetDir = MODULE_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/';
+            $this->widgetDir = INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         } else {
-            $this->widgetDir = PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/';
+            $this->widgetDir = PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         }
     }
 
@@ -83,7 +81,7 @@ class Widget{
             }
 
             //collect overriden theme view files
-            $themeViewsFolder = BASE_DIR.THEME_DIR.THEME.'/modules/'.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/'.self::PREVIEW_DIR;
+            $themeViewsFolder = BASE_DIR.THEME_DIR.THEME.'/modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR;
             if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
                 $availableViewFiles = scandir($themeViewsFolder);
                 foreach ($availableViewFiles as $viewKey => $viewFile) {
@@ -196,7 +194,7 @@ class Widget{
     public function managementHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
-            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/'.self::MANAGEMENT_DIR.'/default.php', $data)->render();
+            $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php', $data)->render();
         } catch (\Ip\CoreException $e){
             //do nothing. Administration view does not exist
         }
@@ -206,7 +204,11 @@ class Widget{
     public function previewHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
-            $answer = \Ip\View::create(BASE_DIR.PLUGIN_DIR.$this->moduleGroup.'/'.$this->moduleName.'/'.Model::WIDGET_DIR.'/'.$this->name.'/'.self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+            if ($this->core) {
+                $answer = \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+            } else {
+                $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+            }
         } catch (\Ip\CoreException $e){
             global $site;
             
