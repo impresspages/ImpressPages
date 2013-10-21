@@ -5,7 +5,6 @@
  *
  */
 namespace Ip\Module\Content;
-if (!defined('CMS')) exit;
 
 
 class EventWidget extends \Ip\Event{

@@ -8,9 +8,7 @@
 namespace Ip\Module\Content;
 
 
-if (!defined('CMS')) exit;
 
-require_once(__DIR__ . '/site_db.php');
 
 /**
  * Website zone element. Typically each element represents one page on zone.<br />

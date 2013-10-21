@@ -5,43 +5,15 @@
  *
  */
 namespace Ip\Module\Content;
-if (!defined('CMS')) exit;
 
 
-require_once(__DIR__ . '/model.php');
-require_once(__DIR__ . '/exception.php');
 require_once(BASE_DIR.MODULE_DIR.'standard/menu_management/db.php');
 
-class Controller extends \Ip\Controller{
+class SiteController extends \Ip\Controller{
 
 
-    
-    public function allowAction($action) {
-        switch($action) {
-            case 'widgetPost':
-                return true;
-                
-                break;
-            case 'getPageOptionsHtml':
-                if (\Ip\Backend::loggedIn()) {
-                    return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management') || \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'menu_management');
-                } else {
-                    return false;
-                }
-                
-                break;
-            default:
-                if (\Ip\Backend::loggedIn()) {
-                    return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
-                } else {
-                    return false;
-                }
-        }
-    }
-    
-
-
-    public function widgetPost() {
+    public function widgetPost()
+    {
         global $site;
 
         if (!isset($_POST['instanceId'])) {
@@ -66,8 +38,10 @@ class Controller extends \Ip\Controller{
         } catch (Exception $e) {
             $this->_errorAnswer($e->getMessage());
         }
-
     }
+    
+
+    
 
     private function _errorAnswer($errorMessage) {
         $data = array (

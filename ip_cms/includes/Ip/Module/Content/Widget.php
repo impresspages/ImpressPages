@@ -141,9 +141,8 @@ class Widget{
     /**
      * 
      * You can make posts directly to your widget. If you will pass following parameters:
-     * g=standard
-     * m=content_management
-     * a=widgetPost
+     * sa=Content.widgetPost
+     * securityToken=actualSecurityToken
      * instanceId=actualWidgetInstanceId
      * 
      * then that post request will be redirected to this method.

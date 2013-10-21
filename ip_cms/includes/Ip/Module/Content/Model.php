@@ -6,8 +6,6 @@
  */
 namespace Ip\Module\Content;
 
-require_once(__DIR__.'/event_widget.php');
-require_once(__DIR__.'/exception.php');
 
 
 class Model{

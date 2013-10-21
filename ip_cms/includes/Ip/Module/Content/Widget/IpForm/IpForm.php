@@ -229,25 +229,11 @@ class IpForm extends \Ip\Module\Content\Widget{
         
         
 
-        //special variables to post to widget controller
+        //special variable to post to widget controller
         $field = new \Modules\developer\form\Field\Hidden(
         array(
-        'name' => 'g',
-        'defaultValue' => 'standard'
-        ));
-        $form->addField($field);
-
-        $field = new \Modules\developer\form\Field\Hidden(
-        array(
-        'name' => 'm',
-        'defaultValue' => 'content_management'
-        ));
-        $form->addField($field);
-        
-        $field = new \Modules\developer\form\Field\Hidden(
-        array(
-        'name' => 'a',
-        'defaultValue' => 'widgetPost'
+        'name' => 'sa',
+        'defaultValue' => 'Content.widgetPost'
         ));
         $form->addField($field);
         

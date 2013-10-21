@@ -7,7 +7,6 @@
 
 namespace Ip\Module\Content;
 
-if (!defined('CMS')) exit;
 
 class DbFrontend{
 

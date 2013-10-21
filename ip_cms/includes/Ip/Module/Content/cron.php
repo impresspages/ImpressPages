@@ -8,11 +8,8 @@
 
 namespace Ip\Module\Content;
 
-if (!defined('CMS'))
-exit;
 
 
-require_once(__DIR__ . "/model.php");
 
 class Cron {
 
