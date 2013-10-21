@@ -472,7 +472,7 @@ class Installation
             'image',
             'install',
             'ip_cms',
-            'ip_configs',
+//            'ip_configs',
             'ip_libs',
             'ip_plugins',
             'ip_themes',

@@ -446,7 +446,7 @@ class View{
 
     public function getThemeOption($name, $default = null)
     {
-        $themeService = \Modules\standard\design\Service::instance();
+        $themeService = \Ip\Module\Design\Service::instance();
         return $themeService->getThemeOption($name, $default);
     }
 

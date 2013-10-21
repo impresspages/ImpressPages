@@ -8,7 +8,9 @@
 class UpdateTest extends \PhpUnit\SeleniumTestCase
 {
 
- 
+    /**
+     * @group ignoreOnTravis
+     */
     public function testGeneral()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -43,7 +45,10 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
         
     }
-    
+
+    /**
+     * @group ignoreOnTravis
+     */
     public function testWritePermissionError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -92,7 +97,10 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
     }
-    
+
+    /**
+     * @group ignoreOnTravis
+     */
     public function testInProgressError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -136,8 +144,10 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
     }
-    
-    
+
+    /**
+     * @group ignoreOnTravis
+     */
     public function testUnknownVersionError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -174,7 +184,9 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
 
     }
 
-
+    /**
+     * @group ignoreOnTravis
+     */
     public function testUpdateButtonOnSystemTab()
     {
         $installation = new \PhpUnit\Helper\Installation();

@@ -8,7 +8,9 @@
 
 require_once('./config.php');
 
-session_start('ipUpdateTest');
+if (!session_name()) {
+    session_start('ipUpdateTest');
+}
 
 require_once(TEST_BASE_DIR.'/Autoloader.php');
 $autoloader = new \PhpUnit\Autoloader();

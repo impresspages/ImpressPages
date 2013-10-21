@@ -1363,7 +1363,7 @@ class Site{
 
 
         if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
-            $config = \Modules\standard\design\ConfigModel::instance();
+            $config = \Ip\Module\Design\ConfigModel::instance();
             $inDesignPreview = $config->isInPreviewState();
         }
 
@@ -1378,7 +1378,7 @@ class Site{
                 $path = pathinfo($file);
 
                 if ($path['dirname'] == BASE_URL . THEME_DIR . THEME && file_exists(BASE_DIR . THEME_DIR . THEME . "/{$path['filename']}.less")) {
-                    $designService = \Modules\standard\design\Service::instance();
+                    $designService = \Ip\Module\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(THEME, $path['filename']);
                 } else {
                     $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
