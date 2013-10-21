@@ -19,18 +19,22 @@ class SmokeInstallTest extends \PhpUnit\GeneralTestCase
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        $session->visit($installation->getInstallationUrl());
+        $installationUrl = $installation->getInstallationUrl();
+
+        $session->visit($installationUrl);
 
         // get the current page URL:
-        $this->assertEquals($installation->getInstallationUrl(), $session->getCurrentUrl());
+        $this->assertEquals($installationUrl, $session->getCurrentUrl());
 
         $page = $session->getPage();
 
         $homepageTitle = $page->find('css', 'title');
-        $this->assertTrue(!empty($homepageTitle), 'Homepage rendering is broken!');
-
+        $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
         $this->assertEquals('Home', $homepageTitle->getText());
-        $this->assertEquals('ImpressPages theme Blank', $page->find('css', 'p.homeHeadline')->getText());
+
+        $headlineElement = $page->find('css', 'p.homeHeadline');
+        $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
+        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
     }
 
     /**

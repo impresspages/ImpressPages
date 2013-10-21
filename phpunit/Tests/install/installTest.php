@@ -138,6 +138,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $testUrl = TEST_TMP_URL;
 
         $folders = array(
+            'Ip',
             'audio',
             'file',
             'image',
@@ -158,6 +159,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
 //            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
+            'ipConfig.php',
             'ip_cron.php',
             'ip_license.html',
             'readme.md',
