@@ -47,7 +47,7 @@ class Model{
         $dbh = \Ip\Db::getConnection();
         $sql = '
         INSERT INTO
-            `'.DB_PREF.'plugins`
+            `'.DB_PREF.'plugin`
         SET
             `name` = :pluginName,
             `active` = 1,
@@ -91,7 +91,7 @@ class Model{
         $dbh = \Ip\Db::getConnection();
         $sql = '
         UPDATE
-            `'.DB_PREF.'plugins`
+            `'.DB_PREF.'plugin`
         SET
             `active` = 0
         ';
@@ -127,7 +127,7 @@ class Model{
         $dbh = \Ip\Db::getConnection();
         $sql = '
         DELETE FROM
-            `'.DB_PREF.'plugins`
+            `'.DB_PREF.'plugin`
         WHERE
             `name` = :pluginName
         ';
@@ -157,7 +157,7 @@ class Model{
             SELECT
                 *
             FROM
-                `'.DB_PREF.'plugins`
+                `'.DB_PREF.'plugin`
             WHERE
                 `name` = :pluginName
         ';
@@ -195,7 +195,7 @@ class Model{
             SELECT
                 `name`
             FROM
-                `'.DB_PREF.'plugins`
+                `'.DB_PREF.'plugin`
             WHERE
                 `active`
         ';

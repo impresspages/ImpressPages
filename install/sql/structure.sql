@@ -457,11 +457,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_plugins`;
+DROP TABLE IF EXISTS `ip_cms_plugin`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_plugins` (
+CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
   `name` varchar(30) NOT NULL,
   `version` decimal(10,2) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
