@@ -7,7 +7,6 @@
 
 namespace Ip\Module\Content;
 
-require_once (__DIR__.'/element.php');
 
 
 
