@@ -1762,7 +1762,7 @@ class StandardModule {
                 if(isset($_GET['page'][$i]))
                 $tmp_url.='&amp;page['.$i.']='.$_GET['page'][$i];
                 if(isset($_GET['pageSize'][$i]))
-                $tmp_url.='&amp;pageSize['.$i.']='.$_GET['pageSize'][$i];
+                $tmp_url.='&amp;pageSize['.$i.']='.(int)$_GET['pageSize'][$i];
 
             }
 
@@ -1796,7 +1796,7 @@ class StandardModule {
      */
     function generateUrlPage($page, $size) {
         $url = $this->generateUrlLevel($this->level, 'page');
-        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.$size;
+        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.(int)$size;
         return $url;
     }
 
