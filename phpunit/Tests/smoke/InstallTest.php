@@ -3,16 +3,15 @@
  * @package   ImpressPages
  */
 
-class SmokeInstallTest extends \PhpUnit\GeneralTestCase
+class InstallTest extends \PHPUnit_Framework_TestCase
 {
-    private $installation;
-
-    public function testInstallScreen()
+    public function testInstall()
     {
         require_once TEST_BASE_DIR . 'vendor/mink.phar';
 
         // install fresh copy of ImpressPages:
-        $installation = $this->getInstallation();
+        $installation = new \PhpUnit\Helper\Installation(); //development version
+        $installation->install();
 
         // init Mink:
         $driver = new \Behat\Mink\Driver\GoutteDriver();
@@ -35,19 +34,6 @@ class SmokeInstallTest extends \PhpUnit\GeneralTestCase
         $headlineElement = $page->find('css', 'p.homeHeadline');
         $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
         $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
-    }
-
-    /**
-     * @return \PhpUnit\Helper\Installation
-     */
-    protected function getInstallation()
-    {
-        if (!$this->installation) {
-            $installation = new \PhpUnit\Helper\Installation(); //development version
-            $installation->install();
-            $this->installation = $installation;
-        }
-        return $this->installation;
     }
 
 }
