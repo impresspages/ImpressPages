@@ -476,7 +476,6 @@ class Installation
             'ip_plugins',
             'ip_themes',
             'update',
-            'video'
         );
 
         $files = array(
