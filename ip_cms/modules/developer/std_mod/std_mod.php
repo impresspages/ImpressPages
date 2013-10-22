@@ -1733,7 +1733,7 @@ class StandardModule {
     }
 
     function generateUrlEdit($id, $title) {
-        return $this->generateUrlLevel($this->level)."&amp;road[]=".$id."&amp;title[]=".urlencode($title);
+        return $this->generateUrlLevel($this->level)."&amp;road[]=".(int)$id."&amp;title[]=".urlencode($title);
     }
 
     function generateUrlLevel($max_level, $ignore = null) {
