@@ -132,7 +132,7 @@ class IpImage extends \Ip\Module\Content\Widget{
             $imageOriginal,
             $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_width'),
             $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_height'),
-            TMP_IMAGE_DIR,
+            TMP_FILE_DIR,
             \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_quality')
@@ -147,7 +147,7 @@ class IpImage extends \Ip\Module\Content\Widget{
         $requiredHeight = round($requiredWidth / $ratio);
         $imageName = \Library\Php\Image\Functions::crop (
             $imageOriginal,
-            TMP_IMAGE_DIR,
+            TMP_FILE_DIR,
             $cropX1,
             $cropY1,
             $cropX2,

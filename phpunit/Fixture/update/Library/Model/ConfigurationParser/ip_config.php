@@ -23,7 +23,6 @@
       define('BASE_DIR', '/var/www/test/'); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
       define('BASE_URL', 'http://www.example.com/'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
       define('IMAGE_DIR', 'image/');  //uploaded images directory
-      define('TMP_IMAGE_DIR', 'image/tmp/'); //temporary images directory
       define('IMAGE_REPOSITORY_DIR', 'image/repository/'); //images repository. Used for TinyMCE and others where user can browse the images.
       define('FILE_DIR', 'file/'); //uploded files directory
       define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory

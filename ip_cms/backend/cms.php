@@ -239,7 +239,6 @@ class Cms {
 
     function deleteTmpFiles() {
         $dirs = array();
-        $dirs[] = BASE_DIR.TMP_IMAGE_DIR;
         $dirs[] = BASE_DIR.TMP_VIDEO_DIR;
         $dirs[] = BASE_DIR.TMP_FILE_DIR;
         $dirs[] = BASE_DIR.TMP_AUDIO_DIR;

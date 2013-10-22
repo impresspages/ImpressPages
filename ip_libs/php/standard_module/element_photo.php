@@ -50,7 +50,7 @@ class element_photo extends Element{ //data element in area
         /*eof translation*/
 
         if(isset($this->mem_images[0]) && $this->mem_images[0] != ''){
-            $image = BASE_URL.TMP_IMAGE_DIR.$this->mem_images[0];
+            $image = BASE_URL.TMP_FILE_DIR.$this->mem_images[0];
         }else{
             $image = BASE_URL.$this->copies[0]['dest_dir'].$value;
         }
@@ -105,7 +105,7 @@ class element_photo extends Element{ //data element in area
         $this->new_mem_images = array();
         foreach($this->copies as $key => $copy){
             $upload_image = new \Library\Php\File\UploadImage();
-            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_IMAGE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
+            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_FILE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->new_mem_images[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->mem_images) != sizeof($this->copies)) && $action== 'insert'){
@@ -139,13 +139,13 @@ class element_photo extends Element{ //data element in area
             require_once(LIBRARY_DIR.'php/file/functions.php');
             foreach($this->copies as $key => $copy){
                 $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_images[$key], $copy['dest_dir']);
-                if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
+                if(copy(TMP_FILE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
                     $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".mysql_real_escape_string($new_name)."' where ".$area->get_db_key()." = '".$id."' ";
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }else
-                trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->mem_images[$key])." to ".htmlspecialchars($copy['dest_dir'].$new_name));
+                trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->mem_images[$key])." to ".htmlspecialchars($copy['dest_dir'].$new_name));
             }
         }
 
@@ -197,13 +197,13 @@ class element_photo extends Element{ //data element in area
             require_once(LIBRARY_DIR.'php/file/functions.php');
             foreach($this->copies as $key => $copy){
                 $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->mem_images[$key], $copy['dest_dir']);
-                if(copy(TMP_IMAGE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
+                if(copy(TMP_FILE_DIR.$this->mem_images[$key],$copy['dest_dir'].$new_name)){
                     $sql = "update `".DB_PREF."".$area->get_db_table()."` set `".$copy['db_field']."` = '".$new_name."' where ".$area->get_db_key()." = '".$id."' ";
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }else
-                trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->mem_images[$key])." to ".htmlspecialchars($copy['dest_dir'].$new_name));
+                trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->mem_images[$key])." to ".htmlspecialchars($copy['dest_dir'].$new_name));
             }
         }
 

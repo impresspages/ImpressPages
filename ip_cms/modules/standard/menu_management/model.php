@@ -128,14 +128,14 @@ class Model {
             case 'text_photos/photo':
                 $values['new_photo'] = basename($values['photo']);
                 $values['new_bigphoto'] = basename($values['photo_big']);
-                copy($values['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo']));
-                copy($values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo_big']));
+                copy($values['photo'], BASE_DIR.TMP_FILE_DIR.basename($values['photo']));
+                copy($values['photo_big'], BASE_DIR.TMP_FILE_DIR.basename($values['photo_big']));
                 break;
             case 'text_photos/text_photo':
                 $values['new_photo'] = basename($values['photo']);
                 $values['new_bigphoto'] = basename($values['photo_big']);
-                copy($values['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo']));
-                copy($values['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($values['photo_big']));
+                copy($values['photo'], BASE_DIR.TMP_FILE_DIR.basename($values['photo']));
+                copy($values['photo_big'], BASE_DIR.TMP_FILE_DIR.basename($values['photo_big']));
                 break;
             case 'misc/file':
                 $values['new_photo'] = basename($values['photo']);
@@ -165,7 +165,7 @@ class Model {
                 $galleryId = $lockMax['max_id'];
                 foreach($values['logos'] as $logoKey => $logo){
                     $tmpValues = array();
-                    copy($logo['logo'], BASE_DIR.TMP_IMAGE_DIR.basename($logo['logo']));
+                    copy($logo['logo'], BASE_DIR.TMP_FILE_DIR.basename($logo['logo']));
                     $tmpValues['new_photo1'] = basename($logo['logo']);
                     $tmpValues['title1'] = $logo['link'];
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
@@ -184,8 +184,8 @@ class Model {
 
                 foreach($values['photos'] as $photoKey => $photo){
                     $tmpValues = array();
-                    copy($photo['photo'], BASE_DIR.TMP_IMAGE_DIR.basename($photo['photo']));
-                    copy($photo['photo_big'], BASE_DIR.TMP_IMAGE_DIR.basename($photo['photo_big']));
+                    copy($photo['photo'], BASE_DIR.TMP_FILE_DIR.basename($photo['photo']));
+                    copy($photo['photo_big'], BASE_DIR.TMP_FILE_DIR.basename($photo['photo_big']));
                     $tmpValues['new_photo1'] = basename($photo['photo']);
                     $tmpValues['new_bigphoto1'] = basename($photo['photo_big']);
                     $tmpValues['title1'] = $photo['title'];

@@ -136,7 +136,7 @@ class ElementImage extends Element{ //data element in area
         $this->newMemImages = array();
         foreach($this->copies as $key => $copy){
             $upload_image = new \Library\Php\File\UploadImage();
-            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_IMAGE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
+            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_FILE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->memImages) != sizeof($this->copies)) && $action== 'insert'){
@@ -172,13 +172,13 @@ class ElementImage extends Element{ //data element in area
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 foreach($this->copies as $key => $copy){
                     $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
+                    if(copy(TMP_FILE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
                         $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                         $rs = mysql_query($sql);
                         if (!$rs)
                         trigger_error("Can't update photo field ".$sql);
                     }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
                 }
             }
 
@@ -229,13 +229,13 @@ class ElementImage extends Element{ //data element in area
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 foreach($this->copies as $key => $copy){
                     $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
+                    if(copy(TMP_FILE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
                         $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$new_name."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                         $rs = mysql_query($sql);
                         if (!$rs)
                         trigger_error("Can't update photo field ".$sql);
                     }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
                 }
             }
 
