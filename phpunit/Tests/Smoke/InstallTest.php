@@ -3,6 +3,8 @@
  * @package   ImpressPages
  */
 
+namespace PhpUnit\Smoke;
+
 class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstall()
