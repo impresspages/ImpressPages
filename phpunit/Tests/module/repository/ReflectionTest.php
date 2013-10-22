@@ -18,6 +18,11 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
     public function testCreateRemoveReflection()
     {
+        \PhpUnit\Helper\Cleanup::cleanupFiles();
+        // install fresh copy of ImpressPages:
+        $installation = new \PhpUnit\Helper\Installation(); //development version
+        $installation->install();
+
         $repository = \Modules\administrator\repository\Model::instance();
 
         $file = FILE_REPOSITORY_DIR.'impresspages.png';
