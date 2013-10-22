@@ -1,1 +1,0 @@
-Temporary directory. Old files are automatically deleted.
