@@ -113,6 +113,12 @@ class FileSystem
         if (!file_exists($dir)) {
             return;
         }
+
+        if ($depth > 1) {
+            // TODOX comment out optimization
+            `rm -rf $dir`;
+            return;
+        }
         
         $dir = $this->removeTrailingSlash($dir);
         

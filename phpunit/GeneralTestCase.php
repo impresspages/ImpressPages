@@ -50,9 +50,10 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
         }
+
+        \PhpUnit\Helper\Cleanup::cleanupFiles();
+
         $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
         $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'InstallationDirs', TEST_TMP_DIR);
         $this->initInstallation();
         parent::setup();
@@ -60,9 +61,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
     
     protected function tearDown()
     {
-        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
+        \PhpUnit\Helper\Cleanup::cleanupFiles();
         parent::tearDown();
     }
 
