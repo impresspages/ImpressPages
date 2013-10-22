@@ -493,14 +493,14 @@ class Controller extends \Ip\Controller{
             $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
-        $instanceId = $_POST['instanceId'];
+        $instanceId = (int)$_POST['instanceId'];
 
         Model::deleteInstance($instanceId);
 
         $data = array (
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
-            'widgetId' => $instanceId
+            'widgetId' => git $instanceId
         );
 
         $this->_outputAnswer($data);
