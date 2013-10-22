@@ -467,6 +467,7 @@ class Installation
         mkdir($destination);
 
         $folders = array(
+            'Ip',
             'audio',
             'file',
             'image',
@@ -487,6 +488,7 @@ class Installation
 //            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
+            'ipConfig.php',
             'ip_cron.php',
             'ip_license.html',
             'readme.md',

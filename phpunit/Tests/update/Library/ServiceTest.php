@@ -8,14 +8,11 @@
 class ServiceTest extends \PhpUnit\GeneralTestCase
 {
     /**
+     * @ignoreOnTravis
      * @large
      */
     public function testCurrentVersion()
     {
-        if (getenv('TRAVIS')) {
-            $this->markTestSkipped('Does not work on Travis CI yet');
-        }
-
         $installation = new \PhpUnit\Helper\Installation('2.3');
         $installation->install();
         $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
@@ -26,16 +23,16 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
     }
 
     /**
+     * @ignoreOnTravis
      * @large
      */
     public function testProcess()
     {
+        //install
         if (getenv('TRAVIS')) {
-            $this->markTestSkipped('Does not work on Travis CI yet');
+            $this->markTestSkipped('Is not supported on Travis.');
         }
 
-        //install
-        
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
 

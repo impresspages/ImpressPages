@@ -102,6 +102,9 @@ class Manager{
 
                     break;
                 case 'import_uploaded':
+                    if (empty($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])) {
+                        break;
+                    }
                     $info = pathinfo($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
                     if($info['extension'] == 'conf'){
                         $answer .= HtmlOutput::header();
@@ -289,7 +292,7 @@ class Manager{
 
 
     private function writeParametersToFile(){
-        $parameters = new Parameters($_POST['language'], $_POST['types']);
+        $parameters = new Parameters((int)$_POST['language'], $_POST['types']);
         $fileName = '';
         foreach($_POST['modules'] as $groupKey => $group){
             foreach ($group as $moduleKey => $value){

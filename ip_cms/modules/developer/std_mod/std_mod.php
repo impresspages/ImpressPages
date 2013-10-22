@@ -65,7 +65,7 @@ class StandardModule {
             }
 
             if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->currentArea->currentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->currentArea->currentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
         } else {
@@ -73,7 +73,7 @@ class StandardModule {
                 $this->currentArea =& $this->currentArea->getArea();
             }
             if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->currentArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->currentArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
         }
@@ -108,7 +108,7 @@ class StandardModule {
                 if ($this->upArea) $this->upArea =& $this->upArea->getArea();
             }
             if ($this->upArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-2)]) && $_GET['road'][(sizeof($_GET['road'])-2)]!='') {
-                $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-2)];
+                $this->upArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-2)];
             }
 
 
@@ -117,7 +117,7 @@ class StandardModule {
                 if ($this->upArea) $this->upArea =& $this->upArea->getArea();
             }
             if ($this->upArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->upArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
 
@@ -1733,7 +1733,7 @@ class StandardModule {
     }
 
     function generateUrlEdit($id, $title) {
-        return $this->generateUrlLevel($this->level)."&amp;road[]=".$id."&amp;title[]=".urlencode($title);
+        return $this->generateUrlLevel($this->level)."&amp;road[]=".(int)$id."&amp;title[]=".urlencode($title);
     }
 
     function generateUrlLevel($max_level, $ignore = null) {
@@ -1744,7 +1744,7 @@ class StandardModule {
             if($i != $max_level) {
                 if($tmp_url != '')
                 $tmp_url.='&amp;';
-                $tmp_url.='road[]='.$_GET['road'][$i];
+                $tmp_url.='road[]='.(int)$_GET['road'][$i];
                 $tmp_url.='&amp;';
                 $tmp_url.='title[]='.urlencode($_GET['title'][$i]);
             }
@@ -1762,7 +1762,7 @@ class StandardModule {
                 if(isset($_GET['page'][$i]))
                 $tmp_url.='&amp;page['.$i.']='.$_GET['page'][$i];
                 if(isset($_GET['pageSize'][$i]))
-                $tmp_url.='&amp;pageSize['.$i.']='.$_GET['pageSize'][$i];
+                $tmp_url.='&amp;pageSize['.$i.']='.(int)$_GET['pageSize'][$i];
 
             }
 
@@ -1796,7 +1796,7 @@ class StandardModule {
      */
     function generateUrlPage($page, $size) {
         $url = $this->generateUrlLevel($this->level, 'page');
-        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.$size;
+        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.(int)$size;
         return $url;
     }
 

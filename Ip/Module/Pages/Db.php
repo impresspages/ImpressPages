@@ -159,7 +159,7 @@ class Db {
      * @return array
      */
     public static function getPage($id){
-        $sql = "select * from `".DB_PREF."content_element` where id= '".$id."' ";
+        $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
         $rs = mysql_query($sql);
         if($rs){
             if($lock = mysql_fetch_assoc($rs)){

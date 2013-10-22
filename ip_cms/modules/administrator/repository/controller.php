@@ -328,6 +328,12 @@ class Controller extends \Ip\Controller{
 
     private function removeFile($file)
     {
+
+        $realFile = realpath($file);
+        if (strpos($realFile, BASE_DIR . FILE_REPOSITORY_DIR) !== 0) {
+            return false;
+        }
+
         $model = Model::instance();
         $usages = $model->whoUsesFile($file);
         if (!empty($usages)) {
@@ -337,9 +343,8 @@ class Controller extends \Ip\Controller{
         $reflectionModel = ReflectionModel::instance();
         $reflectionModel->removeReflections($file);
 
-        $fullPath = BASE_DIR.$file;
-        if (file_exists(BASE_DIR.$file) && is_file($fullPath) && is_writable($fullPath)) {
-            unlink($fullPath);
+        if (file_exists($realFile) && is_file($realFile) && is_writable($realFile)) {
+            unlink($realFile);
         }
         return true;
     }

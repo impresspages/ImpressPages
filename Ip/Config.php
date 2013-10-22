@@ -92,7 +92,6 @@ class Config
         $relativeDirs = array(
             'fileDir',
             'pluginDir',
-            'legacyPluginDir'
         );
 
         foreach ($relativeDirs as $relativeDir) {

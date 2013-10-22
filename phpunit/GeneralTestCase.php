@@ -50,9 +50,10 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
         }
+
+        \PhpUnit\Helper\Cleanup::cleanupFiles();
+
         $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
         $fileSystemHelper->cpDir(TEST_FIXTURE_DIR.'InstallationDirs', TEST_TMP_DIR);
         $this->initInstallation();
         parent::setup();
@@ -60,9 +61,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
     
     protected function tearDown()
     {
-        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
+        \PhpUnit\Helper\Cleanup::cleanupFiles();
         parent::tearDown();
     }
 
@@ -84,9 +83,33 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
             //because of PHPUnit magic, we have to repeat it on every test
             require_once(BASE_DIR.FRONTEND_DIR.'init.php');
         }
+
+        $this->initConfig();
+
         global $parametersMod;
         $parametersMod = new Mock\ParametersMod();
 
+    }
+
+    private function initConfig()
+    {
+        $config = array();
+        $config['db'] = array(
+                'hostname' => TEST_DB_HOST,
+                'username' => TEST_DB_USER,
+                'password' => TEST_DB_PASS,
+                'database' => TEST_DB_NAME,
+                'tablePrefix' => DB_PREF,
+                'charset' => 'utf8',
+            );
+        $config['fileDir'] = './file';
+        $config['baseDir'] = BASE_DIR;
+        $config['pluginDir'] = './Plugin';
+        $config['protocol'] = 'http';
+        $config['host'] = 'localhost';
+        $config['siteUrlPath'] = '/ip4.x/';
+
+        \Ip\Config::init($config);
     }
 
     private function initConstants()
@@ -99,10 +122,10 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
 
 // DB
-        define('DB_SERVER', TEST_DB_HOST); // eg, localhost
-        define('DB_USERNAME', TEST_DB_USER);
-        define('DB_PASSWORD', TEST_DB_PASS);
-        define('DB_DATABASE', TEST_DB_NAME);
+//        define('DB_SERVER', TEST_DB_HOST); // eg, localhost
+//        define('DB_USERNAME', TEST_DB_USER);
+//        define('DB_PASSWORD', TEST_DB_PASS);
+//        define('DB_DATABASE', TEST_DB_NAME);
         define('DB_PREF', 'ip_');
 // END DB
 
@@ -146,7 +169,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 // FRONTEND
 
         define('CHARSET', 'UTF-8'); //system characterset
-        define('MYSQL_CHARSET', 'utf8');
+//        define('MYSQL_CHARSET', 'utf8');
         define('THEME', 'Blank'); //theme from themes directory
         define('DEFAULT_DOCTYPE', 'DOCTYPE_HTML5'); //look ip_cms/includes/Ip/View.php for available options.
 

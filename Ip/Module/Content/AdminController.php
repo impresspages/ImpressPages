@@ -81,7 +81,7 @@ class AdminController extends \Ip\Controller
             return;
         }
 
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             $this->_errorAnswer('Zone name is not set');
@@ -499,7 +499,7 @@ class AdminController extends \Ip\Controller
             $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
-        $instanceId = $_POST['instanceId'];
+        $instanceId = (int)$_POST['instanceId'];
 
         Model::deleteInstance($instanceId);
 

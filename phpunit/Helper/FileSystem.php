@@ -20,13 +20,14 @@ class FileSystem
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
 
-//        `cp -r $source $destination`;
-//        return;
-        
         if (is_dir( $source ) ) {
             if (!is_dir($destination)) {
                 mkdir($destination);
             }
+
+            // TODOX comment out optimization
+            `cp -r $source/* $destination`;
+            return;
 
             $directory = dir( $source );
             while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
@@ -70,8 +71,9 @@ class FileSystem
             return false;
         }
 
-//        system(sprintf("chmod -R %o %s", $permissions, $dir));
-//        return;
+        // TODOX comment out optimization
+        system(sprintf("chmod -R %o %s", $permissions, $dir));
+        return;
 
         $success = chmod($dir, $permissions);
         if (!$success) {
@@ -111,6 +113,12 @@ class FileSystem
         if (!file_exists($dir)) {
             return;
         }
+
+        if ($depth > 1) {
+            // TODOX comment out optimization
+            `rm -rf $dir`;
+            return;
+        }
         
         $dir = $this->removeTrailingSlash($dir);
         
@@ -140,6 +148,6 @@ class FileSystem
     
     private function removeTrailingSlash($path)
     {
-        return preg_replace('{/$}', '', $path);
+        return rtrim($path, '/');
     }        
 }
