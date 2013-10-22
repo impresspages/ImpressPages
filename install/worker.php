@@ -332,7 +332,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
     $config = "";
 
     foreach ($configInfo as $key => $info) {
-        $config.= "\n    '{$key} => " . var_export($info['value'], true) . ",";
+        $config.= "\n    '{$key}' => " . var_export($info['value'], true) . ",";
         if (!empty($info['comment'])) {
             $config.= " // " . $info['comment'];
         }

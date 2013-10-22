@@ -35,7 +35,7 @@ if(is_file(__DIR__.'/ip_config.php')) {
 }
 
 foreach ($config as $key => $value) {
-    if (preg_match('^[A-Z_]+$', $key) && !defined($key)) {
+    if (preg_match('%^[_A-Z]+$%', $key) && !defined($key)) {
         define($key, $value);
     }
 }
