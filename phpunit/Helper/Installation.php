@@ -468,12 +468,9 @@ class Installation
 
         $folders = array(
             'Ip',
-            'audio',
             'file',
-            'image',
             'install',
             'ip_cms',
-//            'ip_configs',
             'ip_libs',
             'ip_plugins',
             'ip_themes',
@@ -482,10 +479,8 @@ class Installation
         );
 
         $files = array(
-//            'admin.php',
             'favicon.ico',
             'index.php',
-//            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
             'ipConfig.php',
