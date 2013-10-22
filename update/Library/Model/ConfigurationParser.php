@@ -20,9 +20,13 @@ class ConfigurationParser
          
         
         if(is_file($installationDir.'/ip_config.php')) {
+            return include($installationDir.'/ip_config.php');
+
             $configSource = file_get_contents($installationDir.'/ip_config.php');
         } else {
             if (is_file($installationDir.'/../ip_config.php')) {
+                return include($installationDir.'/../ip_config.php');
+
                 $configSource = file_get_contents($installationDir.'/../ip_config.php');
             } else {
                 throw new Exception("Can't find configuration file. Installation dir: ".$installationDir);

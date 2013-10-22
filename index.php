@@ -29,10 +29,19 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
 }
 
 if(is_file(__DIR__.'/ip_config.php')) {
-    require (__DIR__.'/ip_config.php');
+    $config = require (__DIR__.'/ip_config.php');
 } else {
-    require (__DIR__.'/../ip_config.php');
+    $config = require (__DIR__.'/../ip_config.php');
 }
+
+foreach ($config as $key => $value) {
+    if (preg_match('^[A-Z_]+$', $key) && !defined($key)) {
+        define($key, $value);
+    }
+}
+
+mb_internal_encoding(CHARSET);
+date_default_timezone_set($config['timezone']); //PHP 5 requires timezone to be set.
 
 $config = require __DIR__ . '/ipConfig.php';
 
