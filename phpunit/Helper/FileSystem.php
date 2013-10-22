@@ -20,14 +20,14 @@ class FileSystem
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
 
-//        // TODOX comment out optimization
-//        `cp -r $source/* $destination`;
-//        return;
-        
         if (is_dir( $source ) ) {
             if (!is_dir($destination)) {
                 mkdir($destination);
             }
+
+            // TODOX comment out optimization
+            `cp -r $source/* $destination`;
+            return;
 
             $directory = dir( $source );
             while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
