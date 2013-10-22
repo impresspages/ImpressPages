@@ -500,7 +500,7 @@ class Controller extends \Ip\Controller{
         $data = array (
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
-            'widgetId' => git $instanceId
+            'widgetId' => $instanceId
         );
 
         $this->_outputAnswer($data);
