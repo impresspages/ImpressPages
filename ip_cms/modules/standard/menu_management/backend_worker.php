@@ -76,7 +76,7 @@ class BackendWorker {
         $parentWebsiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $parentLanguageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
         $parentZoneName = isset($_REQUEST['zoneName']) ? $_REQUEST['zoneName'] : null;
-        $parentId = isset($_REQUEST['pageId']) ? $_REQUEST['pageId'] : null;
+        $parentId = isset($_REQUEST['pageId']) ? (int)$_REQUEST['pageId'] : null;
 
         if (!isset($_REQUEST['externalLinking'])) {
             trigger_error("Popup status is not set");
@@ -351,7 +351,7 @@ class BackendWorker {
             return;
         }
 
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             trigger_error("Zone name is not set");
@@ -502,7 +502,7 @@ class BackendWorker {
                     return false;
                 }
 
-                $pageId = $_REQUEST['pageId'];
+                $pageId = (int)$_REQUEST['pageId'];
                 $zone = $site->getZone($_REQUEST['zoneName']);
                 if (! $zone) {
                     trigger_error("Can't find zone");
@@ -545,7 +545,7 @@ class BackendWorker {
             trigger_error("Page id is not set");
             return false;
         }
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         //make url
         if ($_POST['url'] == '') {
@@ -559,7 +559,7 @@ class BackendWorker {
         } else {
             $tmpUrl = str_replace("/", "-", $_POST['url']);
             $i = 1;
-            while (!Db::availableUrl($tmpUrl, $_POST['pageId'])) {
+            while (!Db::availableUrl($tmpUrl, $pageId)) {
                 $tmpUrl = $_POST['url'].'-'.$i;
                 $i++;
             }
@@ -581,7 +581,7 @@ class BackendWorker {
 
 
         if (empty($answer['errors'])) {
-            Db::updatePage($_POST['zoneName'], $_POST['pageId'], $_POST);
+            Db::updatePage($_POST['zoneName'], $pageId, $_POST);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
@@ -639,7 +639,7 @@ class BackendWorker {
         }
 
         if (isset($_REQUEST['pageId'])) {
-            $parentPage = $zone->getElement($_REQUEST['pageId']);
+            $parentPage = $zone->getElement((int)$_REQUEST['pageId']);
         }
 
 
@@ -708,7 +708,7 @@ class BackendWorker {
             trigger_error("Page id is not set");
             return false;
         }
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             trigger_error("zoneName is not set");
@@ -738,7 +738,7 @@ class BackendWorker {
             trigger_error("Page id is not set");
             return false;
         }
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             trigger_error("Zone name is not set");
@@ -930,7 +930,7 @@ class BackendWorker {
             trigger_error("Page id is not set");
             return false;
         }
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['destinationPageId'])) {
             trigger_error("Destination page id is not set");
@@ -1028,7 +1028,7 @@ class BackendWorker {
         $websiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $languageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
         $zoneName = isset($_REQUEST['zoneName']) ? $_REQUEST['zoneName'] : null;
-        $id = isset($_REQUEST['pageId']) ? $_REQUEST['pageId'] : null;
+        $id = isset($_REQUEST['pageId']) ? (int)$_REQUEST['pageId'] : null;
 
         $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);
 

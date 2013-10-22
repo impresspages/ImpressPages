@@ -47,7 +47,7 @@ class Controller extends \Ip\Controller{
             return;
         }
 
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             $this->_errorAnswer('Zone name is not set');

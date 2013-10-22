@@ -115,7 +115,7 @@ class Actions {
                     trigger_error('Page ID is not set');
                     return;
                 }
-                $pageId = $_REQUEST['pageId'];
+                $pageId = (int)$_REQUEST['pageId'];
 
                 $pages = array($this->_getPageDataRecursion($pageId));
 
