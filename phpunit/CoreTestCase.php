@@ -70,9 +70,6 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
         define('FILE_DIR', 'file/'); //uploded files directory
         define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory
         define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.
-        define('AUDIO_DIR', 'audio/'); //uploaded audio directory
-        define('TMP_AUDIO_DIR', 'audio/tmp/'); //temporary audio directory
-        define('AUDIO_REPOSITORY_DIR', 'audio/repository/'); //audio repository. Used for TinyMCE and others where user can browse the files.
 
         define('DEVELOPMENT_ENVIRONMENT', 1); //displays error and debug information. Change to 0 before deployment to production server
         define('ERRORS_SHOW', 1);  //0 if you don't wish to display errors on the page

@@ -68,9 +68,6 @@ if (0) {
 //    define('SECURE_DIR', 'file/secure/'); //directory not accessible from the Internet
 //    define('TMP_SECURE_DIR', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
 //    define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
-//    define('AUDIO_DIR', 'audio/'); //uploaded audio directory
-//    define('TMP_AUDIO_DIR', 'audio/tmp/'); //temporary audio directory
-//    define('AUDIO_REPOSITORY_DIR', 'audio/repository/'); //audio repository. Used for TinyMCE and others where user can browse the files.
 
 //    define('DEVELOPMENT_ENVIRONMENT', 1); //displays error and debug information. Change to 0 before deployment to production server
 //    define('ERRORS_SHOW', 1);  //0 if you don't wish to display errors on the page
