@@ -25,7 +25,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['BASE_DIR'], '/var/www/test/'); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
         $this->assertEquals($configuration['BASE_URL'], 'http://www.example.com/'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
         $this->assertEquals($configuration['IMAGE_DIR'], 'image/');  //uploaded images directory
-        $this->assertEquals($configuration['IMAGE_REPOSITORY_DIR'], 'image/repository/'); //images repository. Used for TinyMCE and others where user can browse the images.
         $this->assertEquals($configuration['FILE_DIR'], 'file/'); //uploded files directory
         $this->assertEquals($configuration['TMP_FILE_DIR'], 'file/tmp/'); //temporary files directory
         $this->assertEquals($configuration['FILE_REPOSITORY_DIR'], 'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.

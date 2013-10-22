@@ -133,8 +133,6 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
         define('BASE_DIR', TEST_BASE_DIR.TEST_CODEBASE_DIR); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
         define('BASE_URL', ''); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
         define('IMAGE_DIR', 'phpunit/'.TEST_TMP_DIR.'image/');  //uploaded images directory
-//        define('TMP_IMAGE_DIR', 'phpunit/'.TEST_TMP_DIR.'image/tmp/'); //temporary images directory
-        define('IMAGE_REPOSITORY_DIR', 'phpunit/'.TEST_TMP_DIR.'image/repository/'); //images repository. Used for TinyMCE and others where user can browse the images.
         define('FILE_DIR', 'phpunit/'.TEST_TMP_DIR.'file/'); //uploded files directory
         define('TMP_FILE_DIR', 'phpunit/'.TEST_TMP_DIR.'file/tmp/'); //temporary files directory
         define('FILE_REPOSITORY_DIR', 'phpunit/'.TEST_TMP_DIR.'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.

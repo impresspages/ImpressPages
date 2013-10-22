@@ -71,7 +71,6 @@ class ConfigurationParser
             'BASE_DIR',
             'BASE_URL',
             'IMAGE_DIR',
-            'IMAGE_REPOSITORY_DIR',
             'FILE_DIR',
             'TMP_FILE_DIR',
             'FILE_REPOSITORY_DIR',

@@ -134,8 +134,6 @@ $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 
 //$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
 //$Config['DeniedExtensions']['Image']	= array() ;
-//$Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . IMAGE_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].IMAGE_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
 //

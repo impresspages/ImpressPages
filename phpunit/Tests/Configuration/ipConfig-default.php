@@ -66,7 +66,6 @@ if (0) {
     // GLOBAL
     // define('BASE_DIR', '/var/www/ip3.x/'); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     // define('BASE_URL', 'http://local.ip3.x.org/'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-//    define('IMAGE_REPOSITORY_DIR', 'image/repository/'); //images repository. Used for TinyMCE and others where user can browse the images.
 //    define('FILE_DIR', 'file/'); //uploded files directory
 //    define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory
 //    define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository.
