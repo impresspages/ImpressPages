@@ -20,7 +20,7 @@ class AdminController extends \Ip\Controller
         $session = \Ip\ServiceLocator::getSession();
         $data = array (
             'securityToken' =>  $session->getSecurityToken(),
-            'imageDir' => BASE_URL . CORE_DIR . 'Ip/Design/img/'
+            'imageDir' => BASE_URL . CORE_DIR . 'Ip/Module/Pages/img/'
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
@@ -352,7 +352,7 @@ class AdminController extends \Ip\Controller
         $tabs[] = array('title' => $title, 'content' => $content);
 
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
-        $content = $this->_getPageDesignOptionsHtml($zone, $page, array('show_submit_button' => true));
+        $content = $this->getPageDesignOptionsHtml($zone, $page, array('show_submit_button' => true));
         $tabs[] = array('title' => $title, 'content' => $content);
 
 
@@ -386,7 +386,7 @@ class AdminController extends \Ip\Controller
      * @param $page
      * @return string content
      */
-    public function getPageDesignOptionsHtml($zone, $page, $data)
+    private function getPageDesignOptionsHtml($zone, $page, $data)
     {
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();

@@ -1,1 +1,1 @@
-<?php include(BASE_DIR . MODULE_DIR . 'standard/content_management/view/page_options_design.php');
+<?php include(BASE_DIR . CORE_DIR . 'Ip/Module/Content/view/page_options_design.php');
