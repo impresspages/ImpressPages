@@ -124,6 +124,9 @@ class Manager{
                     }
                     break;
                 case 'import_uploaded':
+                    if (empty($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])) {
+                        break;
+                    }
                     $answer .= HtmlOutput::header();
                     $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'preview')).'</h1>';
                     $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br /><br /><br />';
