@@ -289,7 +289,7 @@ class Manager{
 
 
     private function writeParametersToFile(){
-        $parameters = new Parameters($_POST['language'], $_POST['types']);
+        $parameters = new Parameters((int)$_POST['language'], $_POST['types']);
         $fileName = '';
         foreach($_POST['modules'] as $groupKey => $group){
             foreach ($group as $moduleKey => $value){

@@ -173,7 +173,7 @@ class Manager{
                             $answer .= HtmlOutput::footer();
                         }else{
                             header("Content-type: application/octet-stream");
-                            $language = Db::getLanguage($_REQUEST['language']);
+                            $language = Db::getLanguage((int)$_REQUEST['language']);
                             header("Content-Disposition: attachment; filename=\"public_interface_".$language['code'].".php\"");
                             $answer = $this->generatePublicInterfaceLanguageFile($_REQUEST['language']);
                         }

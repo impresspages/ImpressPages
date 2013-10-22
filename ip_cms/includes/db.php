@@ -95,7 +95,7 @@ class Db{
     public static function getParLang($id, $reference, $languageId){
         $answer = array();
         $sql = "select p.type as p_type, g.name as g_name, p.name as p_name, t.translation from `".DB_PREF."parameter_group` g, `".DB_PREF."parameter` p, `".DB_PREF."par_lang` t where
-      g.".$reference." = '".$id."' and p.group_id = g.id and t.parameter_id = p.id and t.language_id =  '".$languageId."'";
+      g.".$reference." = '".$id."' and p.group_id = g.id and t.parameter_id = p.id and t.language_id =  '".(int)$languageId."'";
         $rs = mysql_query($sql);
 
         if($rs){
