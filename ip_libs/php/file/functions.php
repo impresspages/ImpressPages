@@ -23,9 +23,6 @@ class Functions{
             AUDIO_DIR,
             TMP_AUDIO_DIR,
             AUDIO_REPOSITORY_DIR,
-            VIDEO_DIR,
-            TMP_VIDEO_DIR,
-            VIDEO_REPOSITORY_DIR
         );
         foreach ($publicDirs as $publicDir) {
             //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings

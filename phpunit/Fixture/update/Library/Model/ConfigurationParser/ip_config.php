@@ -24,9 +24,6 @@
       define('FILE_DIR', 'file/'); //uploded files directory
       define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory
       define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.
-      define('VIDEO_DIR', 'video/'); //uploaded video directory
-      define('TMP_VIDEO_DIR', 'video/tmp/'); //temporary video directory
-      define('VIDEO_REPOSITORY_DIR', 'video/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.
       define('AUDIO_DIR', 'audio/'); //uploaded audio directory
       define('TMP_AUDIO_DIR', 'audio/tmp/'); //temporary audio directory
       define('AUDIO_REPOSITORY_DIR', 'audio/repository/'); //audio repository. Used for TinyMCE and others where user can browse the files.

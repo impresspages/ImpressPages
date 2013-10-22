@@ -143,7 +143,7 @@ class Model {
                 break;
             case 'misc/video':
                 $values['new_photo'] = basename($values['photo']);
-                copy($values['photo'], BASE_DIR.TMP_VIDEO_DIR.basename($values['photo']));
+                copy($values['photo'], BASE_DIR.TMP_FILE_DIR.basename($values['photo']));
                 break;
         }
 

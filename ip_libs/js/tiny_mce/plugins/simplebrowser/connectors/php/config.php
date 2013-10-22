@@ -139,8 +139,6 @@ $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 //
 //$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
 //$Config['DeniedExtensions']['Flash']	= array() ;
-//$Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . VIDEO_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].VIDEO_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 

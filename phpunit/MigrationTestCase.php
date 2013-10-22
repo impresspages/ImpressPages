@@ -27,7 +27,6 @@ class MigrationTestCase extends GeneralTestCase
             'BASE_DIR' => TEST_CODEBASE_DIR,
             'FILE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/',
             'AUDIO_DIR' => 'phpunit/' . TEST_TMP_DIR . 'audio/',
-            'VIDEO_DIR' => 'phpunit/' . TEST_TMP_DIR . 'video/',
             'FILE_REPOSITORY_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/repository/',
 
             'SECURE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'securefile/',
@@ -43,7 +42,6 @@ class MigrationTestCase extends GeneralTestCase
 //        $configMock = $this->getInstallationConfig();
 //        mkdir(TEST_CODEBASE_DIR.$configMock['FILE_DIR']);
 //        mkdir(TEST_CODEBASE_DIR.$configMock['AUDIO_DIR']);
-//        mkdir(TEST_CODEBASE_DIR.$configMock['VIDEO_DIR']);
 //        mkdir(TEST_CODEBASE_DIR.$configMock['SECURE_DIR']);
 //        mkdir(TEST_CODEBASE_DIR.$configMock['TMP_SECURE_DIR']);
 //        mkdir(TEST_CODEBASE_DIR.$configMock['MANUAL_DIR']);
