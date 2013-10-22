@@ -12,7 +12,6 @@
     // END GLOBAL
     
     // DB
-      define('DB_SERVER', 'localhost'); // eg, localhost
       define('DB_USERNAME', 'root');
       define('DB_PASSWORD', 'rootpass');
       define('DB_DATABASE', 'somedatabase');

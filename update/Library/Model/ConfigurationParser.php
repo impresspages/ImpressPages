@@ -63,10 +63,6 @@ class ConfigurationParser
     {
         $constants = array (
             'SESSION_NAME',
-            'DB_SERVER',
-            'DB_USERNAME',
-            'DB_PASSWORD',
-            'DB_DATABASE',
             'DB_PREF',
             'BASE_DIR',
             'BASE_URL',

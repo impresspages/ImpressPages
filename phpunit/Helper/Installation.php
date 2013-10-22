@@ -277,10 +277,11 @@ class Installation
     public function getDbConn()
     {
         if (!$this->conn) {
-            $connection = mysql_connect($this->getConfig('DB_SERVER'), $this->getConfig('DB_USERNAME'), $this->getConfig('DB_PASSWORD'));
+            $config = \Ip\Config::getRaw('db');
+            $connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
             if ($connection) {
-                mysql_select_db($this->getConfig('DB_DATABASE'));
-                mysql_query("SET CHARACTER SET ".$this->getConfig('MYSQL_CHARSET'));
+                mysql_select_db($config['database']);
+                mysql_query("SET CHARACTER SET ".$config['charset']);
                 $this->conn = $connection;
             } else {
                 throw new \Exception("Can\'t connect to database.");

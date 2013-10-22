@@ -56,10 +56,6 @@ if (0) {
     // END GLOBAL
 
     // DB
-    //define('DB_SERVER', 'localhost'); // eg, localhost
-    //define('DB_USERNAME', 'root');
-    //define('DB_PASSWORD', '');
-    //define('DB_DATABASE', '');
     //define('DB_PREF', 'ip_');
     // END DB
 

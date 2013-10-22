@@ -122,10 +122,6 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
 
 // DB
-//        define('DB_SERVER', TEST_DB_HOST); // eg, localhost
-//        define('DB_USERNAME', TEST_DB_USER);
-//        define('DB_PASSWORD', TEST_DB_PASS);
-//        define('DB_DATABASE', TEST_DB_NAME);
         define('DB_PREF', 'ip_');
 // END DB
 

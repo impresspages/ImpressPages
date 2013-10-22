@@ -13,11 +13,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $configuration = $configurationParser->parse(TEST_FIXTURE_DIR.'update/Library/Model/ConfigurationParser/');
 
         $this->assertEquals($configuration['SESSION_NAME'], 'ses328617118');
-        $this->assertEquals($configuration['DB_SERVER'], 'localhost');
-
-        $this->assertEquals($configuration['DB_USERNAME'], 'root');
-        $this->assertEquals($configuration['DB_PASSWORD'], 'rootpass');
-        $this->assertEquals($configuration['DB_DATABASE'], 'somedatabase');
         $this->assertEquals($configuration['DB_PREF'], 'ip_');
         // END DB
 
