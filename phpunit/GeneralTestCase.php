@@ -100,7 +100,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
                 'password' => TEST_DB_PASS,
                 'database' => TEST_DB_NAME,
                 'tablePrefix' => DB_PREF,
-                'charset' => MYSQL_CHARSET,
+                'charset' => 'utf8',
             );
         $config['fileDir'] = './file';
         $config['baseDir'] = BASE_DIR;
@@ -122,10 +122,10 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
 
 // DB
-        define('DB_SERVER', TEST_DB_HOST); // eg, localhost
-        define('DB_USERNAME', TEST_DB_USER);
-        define('DB_PASSWORD', TEST_DB_PASS);
-        define('DB_DATABASE', TEST_DB_NAME);
+//        define('DB_SERVER', TEST_DB_HOST); // eg, localhost
+//        define('DB_USERNAME', TEST_DB_USER);
+//        define('DB_PASSWORD', TEST_DB_PASS);
+//        define('DB_DATABASE', TEST_DB_NAME);
         define('DB_PREF', 'ip_');
 // END DB
 
@@ -169,7 +169,7 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 // FRONTEND
 
         define('CHARSET', 'UTF-8'); //system characterset
-        define('MYSQL_CHARSET', 'utf8');
+//        define('MYSQL_CHARSET', 'utf8');
         define('THEME', 'Blank'); //theme from themes directory
         define('DEFAULT_DOCTYPE', 'DOCTYPE_HTML5'); //look ip_cms/includes/Ip/View.php for available options.
 
