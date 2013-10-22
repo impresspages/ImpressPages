@@ -70,7 +70,6 @@ class ConfigurationParser
             'DB_PREF',
             'BASE_DIR',
             'BASE_URL',
-            'IMAGE_DIR',
             'FILE_DIR',
             'TMP_FILE_DIR',
             'FILE_REPOSITORY_DIR',

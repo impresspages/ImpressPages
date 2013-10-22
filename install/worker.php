@@ -220,7 +220,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
     // GLOBAL
       define('BASE_DIR', '".get_parent_dir()."'); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
       define('BASE_URL', '".get_parent_url()."'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-      define('IMAGE_DIR', 'image/');  //uploaded images directory
       define('FILE_DIR', 'file/'); //uploded files directory
       define('TMP_FILE_DIR', 'file/tmp/'); //temporary files directory
       define('FILE_REPOSITORY_DIR', 'file/repository/'); //files repository.

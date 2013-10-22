@@ -20,7 +20,6 @@ class Functions{
             FILE_DIR,
             TMP_FILE_DIR,
             FILE_REPOSITORY_DIR,
-            IMAGE_DIR,
             AUDIO_DIR,
             TMP_AUDIO_DIR,
             AUDIO_REPOSITORY_DIR,

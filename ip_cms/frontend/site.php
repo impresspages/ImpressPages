@@ -1073,7 +1073,6 @@ class Site{
         $systemDirs[THEME_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
-        $systemDirs[IMAGE_DIR] = 1;
         $systemDirs[VIDEO_DIR] = 1;
         $systemDirs[AUDIO_DIR] = 1;
         $systemDirs['install'] = 1;
