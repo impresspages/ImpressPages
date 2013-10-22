@@ -148,6 +148,6 @@ class FileSystem
     
     private function removeTrailingSlash($path)
     {
-        return preg_replace('{/$}', '', $path);
+        return rtrim($path, '/');
     }        
 }
