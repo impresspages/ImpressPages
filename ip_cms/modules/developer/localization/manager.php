@@ -78,13 +78,13 @@ class Manager{
                     else{
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php"));
-                        $file = $fileUpload->upload('config', TMP_FILE_DIR);
+                        $file = $fileUpload->upload('config', TMP_SECURE_DIR);
 
 
                         //security check
                         if ($file == UPLOAD_ERR_OK && function_exists('token_get_all')){
                             $error = false;
-                            $content = file_get_contents(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+                            $content = file_get_contents(BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName);
                             $tokens = token_get_all($content);
                             foreach($tokens as $key => $token)
                             {
@@ -95,7 +95,7 @@ class Manager{
                                 }
                             }
                             if ($error) {
-                                unlink(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+                                unlink(BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName);
                                 $errors['config'] = 'Incorrect language file';
                                 $answer .= HtmlOutput::header();
                                 $answer .= $standardForm->generateErrorAnswer($errors);
@@ -106,7 +106,7 @@ class Manager{
                         //end security check
 
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName;
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
@@ -136,7 +136,7 @@ class Manager{
                     break;
                 case 'import_confirmed':
                     if(isset($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])){
-                        //$config = unserialize(file_get_contents(TMP_FILE_DIR.$_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
+                        //$config = unserialize(file_get_contents(TMP_SECURE_DIR.$_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
                         $answer .= HtmlOutput::header();
                         //$config_import = new mod_developer_config_exp_imp_parameters();
                         //$config_import->save_parameters();

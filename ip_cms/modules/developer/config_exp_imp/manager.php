@@ -79,9 +79,9 @@ class Manager{
                     else{
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php", "conf", "txt"));
-                        $file = $fileUpload->upload('config', TMP_FILE_DIR);
+                        $file = $fileUpload->upload('config', TMP_SECURE_DIR);
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName;
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
@@ -173,7 +173,7 @@ class Manager{
                         $file = $this->writeParametersToFile();
                         header("Content-type: application/octet-stream");
                         header("Content-Disposition: attachment; filename=\"".$file."\"");
-                        $answer = (file_get_contents(TMP_FILE_DIR.$file));
+                        $answer = (file_get_contents(TMP_SECURE_DIR.$file));
                     }
 
 
@@ -302,13 +302,13 @@ class Manager{
             }
         }
 
-        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, TMP_FILE_DIR);
-        $fh = fopen(TMP_FILE_DIR.$fileName, 'w');
+        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, TMP_SECURE_DIR);
+        $fh = fopen(TMP_SECURE_DIR.$fileName, 'w');
         if($fh){
             fwrite($fh, $this->generateConfigurationFile($parameters));
             fclose($fh);
             return $fileName;
-        }else trigger_error("can't open file ".$TMP_FILE_DIR.$fileName);
+        }else trigger_error("can't open file ".TMP_SECURE_DIR.$fileName);
 
         return false;
     }
