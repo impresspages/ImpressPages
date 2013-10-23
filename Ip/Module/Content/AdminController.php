@@ -22,7 +22,7 @@ class AdminController extends \Ip\Controller
 
         $answer .= '<li><a href="' . BASE_URL . '">Home</a></li>' . "\n";
 
-        $languages = \Frontend\Db::getLanguages(true); //get all languages including hidden
+        $languages = \Ip\Frontend\Db::getLanguages(true); //get all languages including hidden
 
         foreach ($languages as $language) {
             $link = $site->generateUrl($language['id']);
@@ -141,7 +141,7 @@ class AdminController extends \Ip\Controller
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
 
-        $data['layout'] = \Frontend\Db::getPageLayout(
+        $data['layout'] = \Ip\Frontend\Db::getPageLayout(
             $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()

@@ -214,7 +214,7 @@ class Site{
 
         if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
             $this->parseUrl();
-            $this->languages = \Frontend\Db::getLanguages(true);
+            $this->languages = \Ip\Frontend\Db::getLanguages(true);
 
             if(sizeof($this->languages) > 0){
                 $this->currentLanguage = reset($this->languages);
@@ -222,7 +222,7 @@ class Site{
         } else {
             $this->parseUrl();
 
-            $this->languages = \Frontend\Db::getLanguages(true);
+            $this->languages = \Ip\Frontend\Db::getLanguages(true);
             if(sizeof($this->languages) == 0){
                 trigger_error('All website languages are hidden.');
                 exit;
@@ -307,7 +307,7 @@ class Site{
      *
      */
     private function configZones(){
-        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
+        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
         foreach ($zones as $key => $zone) {
             $this->zones[$zone['name']] = $zone;
         }
@@ -353,7 +353,7 @@ class Site{
 
     protected function homeZone()
     {
-        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
+        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
         foreach ($zones as $key => $zoneInfo) {
             if ($zoneInfo['url'] == '') {
                 $zone = $this->getZone($zoneInfo['name']);
@@ -617,7 +617,7 @@ class Site{
         $zone = $this->getCurrentZone();
         $element = $this->getCurrentElement();
 
-        $layout = \Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
+        $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
         if (!$layout || !is_file(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
             $layout = $zone->getLayout();
@@ -710,7 +710,7 @@ class Site{
                 }
             }else{
                 if(!isset($this->otherZones[$languageId]))
-                $this->otherZones[$languageId] = \Frontend\Db::getZones($languageId);
+                $this->otherZones[$languageId] = \Ip\Frontend\Db::getZones($languageId);
 
                 if(isset($this->otherZones[$languageId])){
                     $answer .= urlencode($this->otherZones[$languageId][$zoneName]['url']).'/';

@@ -391,7 +391,7 @@ class AdminController extends \Ip\Controller
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
 
-        $data['layout'] = \Frontend\Db::getPageLayout(
+        $data['layout'] = \Ip\Frontend\Db::getPageLayout(
             $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()
