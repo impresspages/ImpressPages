@@ -70,13 +70,12 @@ class Manager{
         if(isset($_GET['action'])){
             switch($_GET['action']){
                 case 'import':
-
                     $standardForm = new \Library\Php\Form\Standard($this->importFields);
                     $errors = $standardForm->getErrors();
 
-                    if(sizeof($errors) > 0)
-                    $answer = $standardForm->generateErrorAnswer($errors);
-                    else{
+                    if (sizeof($errors) > 0) {
+                        $answer = $standardForm->generateErrorAnswer($errors);
+                    } else {
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php", "conf", "txt"));
                         $file = $fileUpload->upload('config', TMP_SECURE_DIR);
@@ -102,7 +101,7 @@ class Manager{
 
                     break;
                 case 'import_uploaded':
-                    if (empty($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])) {
+                    if (empty($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'])) {
                         break;
                     }
                     $info = pathinfo($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
@@ -196,75 +195,6 @@ class Manager{
     }
 
 
-    public function previewParameters($file){
-        require($file);
-        $answer = '';
-
-        $preparedParameters = array();
-        if(isset($parameterValue))
-        foreach($parameterValue as $moduleGroupName => $moduleGroup){
-            foreach($moduleGroup as $moduleName => $module){
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    foreach($parameterGroup as $parameterName => $value){
-                        $preparedParameters[$moduleGroupName][$moduleName][$parameterGroupName][$parameterName]['value'] = $value;
-                    }
-                }
-            }
-        }
-
-        if(isset($parameterTitle))
-        foreach($parameterTitle as $moduleGroupName => $moduleGroup){
-            foreach($moduleGroup as $moduleName => $module){
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    foreach($parameterGroup as $parameterName => $title){
-                        $preparedParameters[$moduleGroupName][$moduleName][$parameterGroupName][$parameterName]['title'] = $title;
-                    }
-                }
-            }
-        }
-
-
-        foreach($preparedParameters as $moduleGroupName => $moduleGroup){
-            $answer .= '<div class="content">';
-            if(isset($moduleGroupTitle[$moduleGroupName]))
-            $moduleGroupTranslation = $moduleGroupTitle[$moduleGroupName];
-            else
-            $moduleGroupTranslation = $moduleGroupName;
-
-            foreach($moduleGroup as $moduleName => $module){
-                if(isset($moduleTitle[$moduleGroupName][$moduleName]))
-                $moduleTranslation = $moduleTitle[$moduleGroupName][$moduleName];
-                else
-                $moduleTranslation = $moduleName;
-
-                $answer .= '<h1>'.htmlspecialchars($moduleGroupTranslation.' -> '.$moduleTranslation).'</h1>';
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    if(isset($parameterGroupTitle[$moduleGroupName][$moduleName][$parameterGroupName]))
-                    $parameterGroupTranslation = $parameterGroupTitle[$moduleGroupName][$moduleName][$parameterGroupName];
-                    else
-                    $parameterGroupTranslation = $parameterGroupName;
-
-                    $answer .= '<h2>'.htmlspecialchars($parameterGroupTranslation).'</h2>';
-                    foreach($parameterGroup as $parameterName => $parameter){
-                        if(!isset($parameter['title']))
-                        $parameter['title'] = '';
-
-                        if(!isset($parameter['value']))
-                        $parameter['value'] = '';
-                        //if(sizeof($this->parameters) > 0){
-                        //foreach($this->parameters as $parameterKey => $parameter){
-                        $answer .= '<div class="parameter"><div class="parameterName">'.htmlspecialchars($parameter['title']).'</div> <div class="parameterValue">'.htmlspecialchars($parameter['value']).'</div><div class="clear"></div></div>';
-                         
-                    }
-                }
-            }
-            $answer .= '</div>';
-        }
-
-
-
-        return $answer;
-    }
     private function importForm(){
         global $parametersMod;
         global $cms;

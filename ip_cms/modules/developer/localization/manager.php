@@ -206,7 +206,10 @@ class Manager{
         //require_once(MODULE_DIR."standard/seo/db.php");
         global $parametersMod;
         global $site;
-        require($file);
+
+        $config = ConfigParser::parseConfig($file);
+        extract($config);
+
         $answer = '';
 
         //get languageId
@@ -355,7 +358,9 @@ class Manager{
 
 
     public static function previewParameters($file){
-        require($file);
+        $config = ConfigParser::parseConfig($file);
+        extract($config);
+
         $answer = '';
 
         $preparedParameters = array();
