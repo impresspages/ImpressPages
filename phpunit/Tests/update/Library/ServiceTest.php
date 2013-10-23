@@ -8,7 +8,7 @@
 class ServiceTest extends \PhpUnit\GeneralTestCase
 {
     /**
-     * @ignoreOnTravis
+     * @group ignoreOnTravis
      * @large
      */
     public function testCurrentVersion()
@@ -26,18 +26,13 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
     }
 
     /**
-     * @ignoreOnTravis
+     * @group ignoreOnTravis
      * @large
      */
     public function testProcess()
     {
         // TODOX fix before release
         $this->markTestSkipped();
-
-        //install
-        if (getenv('TRAVIS')) {
-            $this->markTestSkipped('Is not supported on Travis.');
-        }
 
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
