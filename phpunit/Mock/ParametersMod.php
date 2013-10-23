@@ -16,7 +16,7 @@ class ParametersMod
     {
         require(BASE_DIR.'install/parameters.php');
         require(BASE_DIR.'update/Library/Migration/To3_0/newParameters.php');
-        $this->parameters = array();
+        $this->parameters = $parameterValue;
     }
 
     public function getValue($modGroup, $module, $parGroup, $parameter, $languageId = null)
