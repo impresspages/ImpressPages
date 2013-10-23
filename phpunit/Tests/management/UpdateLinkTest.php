@@ -5,12 +5,12 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
+
 class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 {
-
-    /**
-     * @group ignoreOnTravis
-     */
     public function testPageUrlChanged()
     {
         $installation = $this->getInstallation();
@@ -57,9 +57,6 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=span.seleniumPageUrlChangedTest');
     }
 
-    /**
-     * @group ignoreOnTravis
-     */
     public function testLinkWebsiteMove()
     {
         $this->windowMaximize();

@@ -5,12 +5,11 @@
      *
      */
 
+/**
+ * @group ignoreOnTravis
+ */
 class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
 {
-
-    /**
-     * @group ignoreOnTravis
-     */
     public function testNewFilesUploadRemoval()
     {
         $installation = new \PhpUnit\Helper\Installation();
