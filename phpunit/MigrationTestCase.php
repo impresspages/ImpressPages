@@ -19,11 +19,11 @@ class MigrationTestCase extends GeneralTestCase
     {
         return array(
             'DB_PREF' => 'ip_',
-            'DB_SERVER' => TEST_DB_HOST,
-            'DB_USERNAME' => TEST_DB_USER,
-            'DB_PASSWORD' => TEST_DB_PASS,
-            'DB_DATABASE' => TEST_DB_NAME,
-            'MYSQL_CHARSET' => 'utf8',
+//            'DB_SERVER' => TEST_DB_HOST,
+//            'DB_USERNAME' => TEST_DB_USER,
+//            'DB_PASSWORD' => TEST_DB_PASS,
+//            'DB_DATABASE' => TEST_DB_NAME,
+//            'MYSQL_CHARSET' => 'utf8',
             'BASE_DIR' => TEST_CODEBASE_DIR,
             'FILE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/',
             'FILE_REPOSITORY_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/repository/',

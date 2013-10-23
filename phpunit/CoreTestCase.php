@@ -57,10 +57,10 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
 
         self::$connection = new \PhpUnit\Helper\TestDb();
 // DB
-        define('DB_SERVER', self::$connection->getDbHost()); // eg, localhost
-        define('DB_USERNAME', self::$connection->getDbUser());
-        define('DB_PASSWORD', self::$connection->getDbPass());
-        define('DB_DATABASE', self::$connection->getDbName());
+//        define('DB_SERVER', self::$connection->getDbHost()); // eg, localhost
+//        define('DB_USERNAME', self::$connection->getDbUser());
+//        define('DB_PASSWORD', self::$connection->getDbPass());
+//        define('DB_DATABASE', self::$connection->getDbName());
         define('DB_PREF', 'ip_');
 // END DB
 
@@ -95,7 +95,7 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
 // FRONTEND
 
         define('CHARSET', 'UTF-8'); //system characterset
-        define('MYSQL_CHARSET', 'utf8');
+//        define('MYSQL_CHARSET', 'utf8');
         define('THEME', 'Blank'); //theme from themes directory
         define('DEFAULT_DOCTYPE', 'DOCTYPE_HTML5'); //look ip_cms/includes/Ip/View.php for available options.
 
