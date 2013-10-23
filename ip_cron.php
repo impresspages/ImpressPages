@@ -39,8 +39,8 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require_once(BASE_DIR.FRONTEND_DIR.'init.php');
-
+require_once CORE_DIR . 'Ip\Core\Application.php';
+\Ip\Core\Application::init();
 
 $db = new db();
 

@@ -22,7 +22,6 @@ if (!defined('FRONTEND') && !defined('BACKEND')) {
     define('FRONTEND', true); // make sure other files are accessed through this file.
 }
 
-
 if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
     echo 'Your PHP version is: '.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.'. To run ImpressPages CMS you need PHP 5.3.*';
     exit;
@@ -34,23 +33,13 @@ if(is_file(__DIR__.'/ip_config.php')) {
     $config = require (__DIR__.'/../ip_config.php');
 }
 
-require_once __DIR__ . '/Ip/Config.php';
+require_once $config['CORE_DIR'] . 'Ip/Config.php';
 \Ip\Config::init($config);
 
-mb_internal_encoding(CHARSET);
-date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.
-
-if (DEVELOPMENT_ENVIRONMENT){
-    error_reporting(E_ALL|E_STRICT);
-    ini_set('display_errors', '1');
-} else {
-    ini_set('display_errors', '0');
-}
-
-
+require_once CORE_DIR . 'Ip/autoloader.php';
 
 try {
-    require_once(BASE_DIR.FRONTEND_DIR.'init.php');
+    \Ip\Core\Application::init();
     require_once(BASE_DIR.FRONTEND_DIR.'bootstrap.php');
 } catch (\Exception $e) {
     if (isset($log)) {
