@@ -739,7 +739,7 @@ class Model{
             'cached_html' => $pageContent,
             'cached_text' => $pageContentText
         );
-        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
+        \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
     }
 
 

@@ -81,7 +81,7 @@ class AdminController extends \Ip\Controller
             return;
         }
 
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             $this->_errorAnswer('Zone name is not set');
@@ -499,7 +499,7 @@ class AdminController extends \Ip\Controller
             $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
-        $instanceId = $_POST['instanceId'];
+        $instanceId = (int)$_POST['instanceId'];
 
         Model::deleteInstance($instanceId);
 
@@ -575,7 +575,7 @@ class AdminController extends \Ip\Controller
             return;
         }
 
-        $page = \Modules\standard\menu_management\Db::getPage($revision['pageId']);
+        $page = \Ip\Module\Pages\Db::getPage($revision['pageId']);
         if (isset($pageOptions['url']) && $pageOptions['url'] != $page['url']) {
             $changedUrl = true;
         } else {
@@ -588,7 +588,7 @@ class AdminController extends \Ip\Controller
             $oldUrl = $oldElement->getLink();
         }
 
-        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+        \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
 
         if ($changedUrl) {
             $newElement = $zone->getElement($revision['pageId']);
@@ -625,7 +625,7 @@ class AdminController extends \Ip\Controller
 
         $pageOptions = array();
         $pageOptions['lastModified'] = date("Y-m-d");
-        \Modules\standard\menu_management\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+        \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
 
 
         \Ip\Revision::publishRevision($revisionId);

@@ -100,7 +100,7 @@ class StandardModule {
         }
 
         if ($this->up_area && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-            $this->up_area->set_parent_id(str_replace('`', '', $_GET['road'][(sizeof($_GET['road'])-1)]));
+            $this->up_area->set_parent_id((int) $_GET['road'][(sizeof($_GET['road'])-1)]);
         }
 
         //end find up_area
@@ -1518,7 +1518,7 @@ class StandardModule {
             if($i != $max_level) {
                 if($tmp_url != '')
                 $tmp_url.='&amp;';
-                $tmp_url.='road[]='.$_GET['road'][$i];
+                $tmp_url.='road[]='.(int)$_GET['road'][$i];
             }
 
             if($i == $max_level && $ignore != 'sort') {

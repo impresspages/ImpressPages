@@ -5,10 +5,9 @@
  *
  */
 
-namespace Modules\standard\menu_management;
+namespace Ip\Module\Pages;
 
 
-if (!defined('CMS')) exit;
 
 /**
  *

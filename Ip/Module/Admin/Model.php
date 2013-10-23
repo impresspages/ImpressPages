@@ -38,6 +38,7 @@ class Model{
             $moduleItem = new \Ip\Menu\Item();
             $moduleItem->setTitle($module);
             $moduleItem->setUrl($site->generateUrl(null, null, null, array('aa' => $module.'.index')));
+            $moduleItem->setUrl(BASE_URL . '?aa=' . $module . '.index');
             $answer[] = $moduleItem;
         }
 

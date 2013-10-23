@@ -4,29 +4,30 @@
  *
  *
  */
-namespace Modules\standard\menu_management;
-if (!defined('BACKEND')) exit;
+namespace Ip\Module\Pages;
 
 
 class Template {
 
 
     public static function addLayout ($content) {
+        $site = \Ip\ServiceLocator::getSite();
         return
 '<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
-    <link href="'.BASE_URL.MODULE_DIR.'standard/menu_management/jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
+    '.$site->generateHead().'
+    '.$site->generateJavascript().'
     <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.cookie.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.hotkeys.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jstree/jquery.jstree.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/menu_management.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.cookie.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.jstree.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/menu_management.js"></script>
+    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jquery-ui/jquery-ui.js"></script>
 </head>
 <body>
 '.$content.'
@@ -42,8 +43,7 @@ class Template {
         $answer .=
 '
     <script type="text/javascript">
-        var postURL = \''.$data['postURL'].'\';
-        var imageDir= \''.$data['imageDir'].'\'; 
+        var imageDir= \''.$data['imageDir'].'\';
         var deleteConfirmText= \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'question_delete')).'\';
 
         var textSave = \''.addslashes($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'save')).'\';
@@ -225,7 +225,7 @@ class Template {
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
             <label for="typeRedirect" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</label><br/>       
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-            <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.MODULE_DIR.'standard/menu_management/img/list.gif" /><br />
+            <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/img/list.gif" /><br />
         </p>
         <p class="field">
             <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'rss')).'</label>

@@ -4,10 +4,9 @@
  *
  *
  */
-namespace Modules\standard\menu_management;
+namespace Ip\Module\Pages;
 
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 
 
@@ -18,7 +17,7 @@ class Db {
      * @return array
      */
     public static function getLanguages () {
-        require_once (BASE_DIR.MODULE_DIR.'standard/languages/db.php');
+        require_once(BASE_DIR . MODULE_DIR . 'standard/languages/db.php');
         $languages = \Modules\standard\languages\Db::getLanguages();
         return $languages;
     }
@@ -160,7 +159,7 @@ class Db {
      * @return array
      */
     public static function getPage($id){
-        $sql = "select * from `".DB_PREF."content_element` where id= '".$id."' ";
+        $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
         $rs = mysql_query($sql);
         if($rs){
             if($lock = mysql_fetch_assoc($rs)){
@@ -558,7 +557,7 @@ class Db {
      * @param int $allowed_id
      */
     public static function makeUrl($url, $allowed_id = null){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        require_once(BASE_DIR . LIBRARY_DIR . 'php/text/transliteration.php');
         if($url == '')
         $url = 'page';
         $url = mb_strtolower($url);

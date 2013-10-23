@@ -174,7 +174,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
         global $parametersMod;
         require_once (MODULE_DIR."standard/menu_management/db.php");
 
-        $dbMenuManagement = new \Modules\standard\menu_management\Db();
+        $dbMenuManagement = new \Ip\Module\Pages\Db();
 
         $answer = true;
 
