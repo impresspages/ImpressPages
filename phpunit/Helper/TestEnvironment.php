@@ -13,6 +13,8 @@ class TestEnvironment {
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         \Ip\Config::init($config);
 
+        require_once CORE_DIR . 'Ip/autoloader.php';
+
         if (!defined('CMS')) {
             define('CMS', true); // make sure other files are accessed through this file.
         }
@@ -23,8 +25,9 @@ class TestEnvironment {
             define('IUL_TESTMODE', 1);
         }
 
+        require_once CORE_DIR . 'Ip/Core/Application.php';
         //because of PHPUnit magic, we have to repeat it on every test
-        require_once BASE_DIR . FRONTEND_DIR . 'init.php';
+        \Ip\Core\Application::init();
 
         global $parametersMod;
         $parametersMod = new \PhpUnit\Mock\ParametersMod();

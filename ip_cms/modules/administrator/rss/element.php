@@ -18,7 +18,7 @@ require_once (__DIR__.'/db.php');
  * @package ImpressPages
  */
 
-class Element extends \Frontend\Element {
+class Element extends \Ip\Frontend\Element {
 
     public function getLink() {
         global $site;

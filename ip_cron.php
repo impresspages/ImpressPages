@@ -51,7 +51,7 @@ if($db->connect()){
     try {
         $dispatcher = new \Ip\Dispatcher();
         $parametersMod = new ParametersMod();
-        $session = new Frontend\Session();
+        $session = new \Ip\Frontend\Session();
 
         $site = new \Site();
         $site->init();

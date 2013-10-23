@@ -17,7 +17,7 @@ if (!defined('CMS')) exit;
  * @package ImpressPages
  */
 
-class Element extends \Frontend\Element {
+class Element extends \Ip\Frontend\Element {
 
     public function __construct($id, $zoneName){
         global $parametersMod;

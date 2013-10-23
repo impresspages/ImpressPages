@@ -53,7 +53,7 @@ if(\Db::connect()){
         $dispatcher = new \Ip\Dispatcher();
 
         $parametersMod = new ParametersMod();
-        $session = new \Frontend\Session();
+        $session = new \Ip\Frontend\Session();
 
 
         $site = new \Site();

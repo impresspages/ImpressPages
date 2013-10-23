@@ -33,6 +33,8 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 
         $page = $session->getPage();
 
+        $this->assertEquals('DEBUG', $page->getContent());
+
         $homepageTitle = $page->find('css', 'title');
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
         $this->assertEquals('Home', $homepageTitle->getText());

@@ -33,7 +33,7 @@ class Model {
     }
 
 
-    private static function _deletePageRecursion (\Frontend\Zone $zone, $id) {
+    private static function _deletePageRecursion (\Ip\Frontend\Zone $zone, $id) {
         global $dispatcher;
         $children = Db::pageChildren($id);
         if ($children) {

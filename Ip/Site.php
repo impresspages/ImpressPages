@@ -10,11 +10,6 @@
 if (!defined('CMS')) exit;
 
 
-require_once (__DIR__.'/zone.php');
-require_once (__DIR__.'/db.php');
-require_once (__DIR__.'/language.php');
-
-
 //this is not the right place for such config. But it si temporary solution while we don't have single bootstrap for front/back-end.
 /**
  * @internal
@@ -129,7 +124,7 @@ class Site{
      *
      */
     private function createLanguage($data){
-        $language = new \Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
+        $language = new \Ip\Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
         return $language;
     }
 
@@ -148,7 +143,7 @@ class Site{
 
     /**
      *
-     * @return \Frontend\Language
+     * @return \Ip\Frontend\Language
      *
      */
     public function getLanguageById($id){
@@ -269,7 +264,7 @@ class Site{
     
     private function error404() {
         global $parametersMod;
-        require_once(__DIR__.'/zone404.php');
+        require_once(__DIR__ . '/zone404.php');
         $zone = array (
             'id' => '',
             'row_number' => 0,
@@ -285,7 +280,7 @@ class Site{
         );
         
         
-        $zone['object'] = new \Frontend\Zone404($zone);
+        $zone['object'] = new \Ip\Frontend\Zone404($zone);
         
         $this->zones['auto_error404'] = $zone;
         $this->currentZone = 'auto_error404';
@@ -409,7 +404,7 @@ class Site{
     /**
      *
      * @param $zoneName Name of zone you wish to get
-     * @return \Frontend\Zone
+     * @return \Ip\Frontend\Zone
      *
      */
     public function getZone($zoneName){
@@ -442,7 +437,7 @@ class Site{
                         }
                     } else {
                         require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
-                        $tmpZoneObject = new \Frontend\DefaultZone($tmpZone);
+                        $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
                     }
                 }
 
@@ -468,7 +463,7 @@ class Site{
 
     /**
      *
-     * @return \Frontend\Zone Current zone object
+     * @return \Ip\Frontend\Zone Current zone object
      *
      */
     public function getCurrentZone(){
@@ -501,7 +496,7 @@ class Site{
      * Find website zone by module group and name.
      * @param $group Module group name (string)
      * @param $module Module name (string)
-     * @return \Frontend\Zone
+     * @return \Ip\Frontend\Zone
      */
     public function getZoneByModule($group, $module){
         $answer = false;
@@ -1110,7 +1105,7 @@ class Site{
 
     /**
      *
-     * @return \Frontend\Element - Current page
+     * @return \Ip\Frontend\Element - Current page
      *
      */
     public function getCurrentElement(){

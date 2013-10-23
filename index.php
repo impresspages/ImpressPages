@@ -38,9 +38,11 @@ require_once $config['CORE_DIR'] . 'Ip/Config.php';
 
 require_once CORE_DIR . 'Ip/autoloader.php';
 
+ini_set('display_errors', 1);
+
 try {
     \Ip\Core\Application::init();
-    require_once(BASE_DIR.FRONTEND_DIR.'bootstrap.php');
+    require_once CORE_DIR . 'Ip/bootstrap.php';
 } catch (\Exception $e) {
     if (isset($log)) {
         $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());

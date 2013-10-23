@@ -5,12 +5,10 @@
  *
  */
 
-namespace Frontend;
+namespace Ip\Frontend;
 
-if (!defined('CMS')) exit;
-
-require_once (__DIR__.'/element.php');
-
+use Ip\Frontend\Element;
+use Ip\Frontend\Zone;
 
 /**
  *

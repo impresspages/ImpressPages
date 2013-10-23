@@ -4,15 +4,11 @@
  *
  *
  */
-namespace Frontend;
+namespace Ip\Frontend;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
+use Ip\Frontend\Element;
 
-
-require_once('element.php');
-
-
-class Zone404 extends \Frontend\Zone {
+class Zone404 extends \Ip\Frontend\Zone {
     
     
     public function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){

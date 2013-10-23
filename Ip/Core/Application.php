@@ -8,16 +8,20 @@ namespace Ip\Core;
 
 class Application {
 
+    protected static $isInitFinished = false;
+
     public static function init()
     {
+        if (static::$isInitFinished) {
+            return;
+        }
+
         define('IP_VERSION', '3.6');
 
         require (BASE_DIR.INCLUDE_DIR.'parameters.php');
         require (BASE_DIR.INCLUDE_DIR.'db.php');
 
-        require (BASE_DIR.FRONTEND_DIR.'db.php');
-        require (BASE_DIR.FRONTEND_DIR.'site.php');
-        require (BASE_DIR.FRONTEND_DIR.'session.php');
+        require (CORE_DIR.'Ip/Site.php');
         require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
         require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 
@@ -32,7 +36,7 @@ class Application {
         global $parametersMod;
         $parametersMod = new \parametersMod();
         global $session;
-        $session = new \Frontend\Session();
+        $session = new \Ip\Frontend\Session();
         global $site;
         $site = new \Site();
 
@@ -45,5 +49,7 @@ class Application {
         } else {
             ini_set('display_errors', '0');
         }
+
+        static::$isInitFinished = true;
     }
 }
