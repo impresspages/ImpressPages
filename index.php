@@ -34,20 +34,11 @@ if(is_file(__DIR__.'/ip_config.php')) {
     $config = require (__DIR__.'/../ip_config.php');
 }
 
-foreach ($config as $key => $value) {
-    if (preg_match('%^[_A-Z]+$%', $key) && !defined($key)) {
-        define($key, $value);
-    }
-}
+require_once __DIR__ . '/Ip/Config.php';
+\Ip\Config::init($config);
 
 mb_internal_encoding(CHARSET);
-date_default_timezone_set($config['timezone']); //PHP 5 requires timezone to be set.
-
-$config = require __DIR__ . '/ipConfig.php';
-
-require_once __DIR__ . '/Ip/Config.php';
-
-\Ip\Config::init($config);
+date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.
 
 if (DEVELOPMENT_ENVIRONMENT){
     error_reporting(E_ALL|E_STRICT);
