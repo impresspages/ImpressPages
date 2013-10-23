@@ -26,7 +26,7 @@ $css[] = 'type'.ucwords($menuItem->getType());
 if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
     $href = 'href="'.$menuItem->getUrl().'"';
 } else {
-    $css[] = 'nav-header';
+    $css[] = 'typeHeader';
     $href = '';
 }
 ?>

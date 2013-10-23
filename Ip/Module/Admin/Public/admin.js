@@ -1,21 +1,21 @@
 var ipAdmin = new function () {
     "use strict";
-    var $adminMenu = $(ipAdminMenuHtml);
 
     this.init = function () {
-        $('body').append($adminMenu);
-        $('body').append($(ipAdminToolbar));
-        $('body').css('paddingTop', '30px');
-
+        $('body').prepend($(ipAdminToolbar));
+        var $container = $('.ipsAdminToolbarContainer'); // the most top element physically creates a space
+        var $toolbar = $('.ipsAdminToolbar'); // Administration Panel that stays always visible
+        var $adminMenu = $('.ipsAdminMenuBlock').height($(window).height());
+        $container.height($toolbar.outerHeight()); // setting the height to container
 
         $('.ipsAdminMenu').on('hover', function (e) {
             e.preventDefault();
-            showAdminMenu();
+            $adminMenu.show('slide', {direction: 'left'}, 1000);
         });
 
         $adminMenu.on('mouseleave', function (e) {
             e.preventDefault();
-            hideAdminMenu();
+            $adminMenu.hide('slide', {direction: 'left'}, 1000);
         });
 
         //prevent session expire
@@ -35,20 +35,6 @@ var ipAdmin = new function () {
                 //do nothing
             }
         });
-    };
-
-    var showAdminMenu = function () {
-        var newWidth = 200;
-        $adminMenu.animate({
-            width: newWidth + 'px'
-        }, 200);
-    };
-
-    var hideAdminMenu = function () {
-        var newWidth = 0;
-        $adminMenu.animate({
-            width: newWidth + 'px'
-        }, 200);
     };
 
 };
