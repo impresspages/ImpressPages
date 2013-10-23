@@ -4,9 +4,7 @@
  *
  */
 
-namespace Frontend;
-
-if (!defined('CMS')) exit;
+namespace Ip\Frontend;
 
 
 /**

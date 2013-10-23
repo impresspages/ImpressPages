@@ -2,6 +2,8 @@
 
 namespace PhpUnit;
 
+use PhpUnit\Helper\TestEnvironment;
+
 class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
 
@@ -16,7 +18,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->screenshotPath = TEST_SCREENSHOT_PATH;
         $this->screenshotUrl = TEST_SCREENSHOT_URL;
 
-        \PhpUnit\Helper\Cleanup::cleanupFiles();
+        TestEnvironment::cleanupFiles();
 
         $this->setBrowser('*firefox'); //*googlechrome (can't manipulate file input)
         $this->setBrowserUrl(TEST_TMP_URL);
@@ -25,7 +27,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
     
     protected function tearDown()
     {
-        \PhpUnit\Helper\Cleanup::cleanupFiles();
+        TestEnvironment::cleanupFiles();
     }
     
     protected function assertNoErrors() 

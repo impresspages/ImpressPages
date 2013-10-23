@@ -134,15 +134,11 @@ $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 
 //$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
 //$Config['DeniedExtensions']['Image']	= array() ;
-//$Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . IMAGE_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].IMAGE_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
 //
 //$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
 //$Config['DeniedExtensions']['Flash']	= array() ;
-//$Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . VIDEO_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].VIDEO_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 

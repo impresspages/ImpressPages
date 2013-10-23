@@ -19,7 +19,7 @@ global $site;
 $site->requireConfig('community/user/config.php');
 
 
-class Zone extends \Frontend\Zone {
+class Zone extends \Ip\Frontend\Zone {
     var $zoneName;
     function __construct($key) {
         $this->zoneName = $key;

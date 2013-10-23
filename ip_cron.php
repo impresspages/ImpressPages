@@ -39,8 +39,8 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require_once(BASE_DIR.FRONTEND_DIR.'init.php');
-
+require_once CORE_DIR . 'Ip\Core\Application.php';
+\Ip\Core\Application::init();
 
 $db = new db();
 
@@ -51,7 +51,7 @@ if($db->connect()){
     try {
         $dispatcher = new \Ip\Dispatcher();
         $parametersMod = new ParametersMod();
-        $session = new Frontend\Session();
+        $session = new \Ip\Frontend\Session();
 
         $site = new \Site();
         $site->init();

@@ -20,9 +20,13 @@ class ConfigurationParser
          
         
         if(is_file($installationDir.'/ip_config.php')) {
+            return include($installationDir.'/ip_config.php');
+
             $configSource = file_get_contents($installationDir.'/ip_config.php');
         } else {
             if (is_file($installationDir.'/../ip_config.php')) {
+                return include($installationDir.'/../ip_config.php');
+
                 $configSource = file_get_contents($installationDir.'/../ip_config.php');
             } else {
                 throw new Exception("Can't find configuration file. Installation dir: ".$installationDir);
@@ -63,27 +67,14 @@ class ConfigurationParser
     {
         $constants = array (
             'SESSION_NAME',
-            'DB_SERVER',
-            'DB_USERNAME',
-            'DB_PASSWORD',
-            'DB_DATABASE',
             'DB_PREF',
             'BASE_DIR',
             'BASE_URL',
-            'IMAGE_DIR',
-            'TMP_IMAGE_DIR',
-            'IMAGE_REPOSITORY_DIR',
             'FILE_DIR',
             'TMP_FILE_DIR',
             'FILE_REPOSITORY_DIR',
             'SECURE_DIR',
             'TMP_SECURE_DIR',
-            'VIDEO_DIR',
-            'TMP_VIDEO_DIR',
-            'VIDEO_REPOSITORY_DIR',
-            'AUDIO_DIR',
-            'TMP_AUDIO_DIR',
-            'AUDIO_REPOSITORY_DIR',
             'DEVELOPMENT_ENVIRONMENT',
             'ERRORS_SHOW',
             'ERRORS_SEND',

@@ -11,7 +11,7 @@ namespace Ip\Module\Content;
 
 
 
-class Zone extends \Frontend\Zone {
+class Zone extends \Ip\Frontend\Zone {
     var $db;
     function __construct($properties) {
         $this->db = new DbFrontend();

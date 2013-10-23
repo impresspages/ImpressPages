@@ -1,7 +1,5 @@
 <?php
 
-
-
     $site->init();
     $site->dispatchEvent('administrator', 'system', 'init', array());
     $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));

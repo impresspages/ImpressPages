@@ -5,12 +5,11 @@
      *
      */
 
+/**
+ * @group ignoreOnTravis
+ */
 class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
 {
-
-    /**
-     * @group ignoreOnTravis
-     */
     public function testNewFilesUploadRemoval()
     {
         $installation = new \PhpUnit\Helper\Installation();
@@ -31,7 +30,7 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
 
         //try to upload file
         $this->assertEquals(file_exists($installation->getConfig('BASE_DIR').$installation->getConfig('FILE_DIR').'repository/testFile.txt'), FALSE);
-        $this->type("css=.plupload input", TEST_BASE_DIR.TEST_FIXTURE_DIR."Repository/testFile.txt");
+        $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
         $this->waitForElementPresent('css=#ipModuleRepositoryTabUpload .ipmRecentList li');
         $this->click('css=#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipaConfirm');
         sleep(1); //wait for popup to close
@@ -55,7 +54,7 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->click('css=.ipAdminWidget-IpFile .ipmBrowseButton');
         $this->waitForElementPresent('css=.ipModuleRepositoryPopup .ipmBrowseButton');
 
-        $this->type("css=.plupload input", TEST_BASE_DIR.TEST_FIXTURE_DIR."Repository/testFile.txt");
+        $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
         $this->waitForElementPresent('css=#ipModuleRepositoryTabUpload .ipmList li');
         $this->click('css=#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipaConfirm');
 

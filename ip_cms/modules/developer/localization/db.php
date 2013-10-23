@@ -220,7 +220,7 @@ class Db{
                     break;
 
                 case "lang":
-                    $languages = \Frontend\Db::getLanguages();
+                    $languages = \Ip\Frontend\Db::getLanguages();
                     foreach($languages as $key => $language){
                         $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
                         $rs3 = mysql_query($sql3);
@@ -229,7 +229,7 @@ class Db{
                     }
                     break;
                 case "lang_textarea":
-                    $languages = \Frontend\Db::getLanguages();
+                    $languages = \Ip\Frontend\Db::getLanguages();
                     foreach($languages as $key => $language){
                         $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
                         $rs3 = mysql_query($sql3);
@@ -238,7 +238,7 @@ class Db{
                     }
                     break;
                 case "lang_wysiwyg":
-                    $languages = \Frontend\Db::getLanguages();
+                    $languages = \Ip\Frontend\Db::getLanguages();
                     foreach($languages as $key => $language){
                         $sql3 = "insert into `".DB_PREF."par_lang` set `translation` = '".mysql_real_escape_string($parameter['value'])."', `language_id` = '".$language['id']."', `parameter_id` = ".$last_insert_id." ";
                         $rs3 = mysql_query($sql3);

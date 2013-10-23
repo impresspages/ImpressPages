@@ -205,10 +205,7 @@ class OldCmsInterface{
 
     function deleteTmpFiles() {
         $dirs = array();
-        $dirs[] = BASE_DIR.TMP_IMAGE_DIR;
-        $dirs[] = BASE_DIR.TMP_VIDEO_DIR;
         $dirs[] = BASE_DIR.TMP_FILE_DIR;
-        $dirs[] = BASE_DIR.TMP_AUDIO_DIR;
         $dirs[] = BASE_DIR.TMP_SECURE_DIR;
 
         foreach($dirs as $key => $dir) {
@@ -256,12 +253,10 @@ class OldCmsInterface{
         $systemDirs[BACKEND_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
         $systemDirs[FRONTEND_DIR] = 1;
-        $systemDirs[IMAGE_DIR] = 1;
         $systemDirs[INCLUDE_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[MODULE_DIR] = 1;
         $systemDirs[THEME_DIR] = 1;
-        $systemDirs[VIDEO_DIR] = 1;
         $systemDirs['.htaccess'] = 1;
         $systemDirs['admin.php'] = 1;
         $systemDirs['ip_backend_frames.php'] = 1;

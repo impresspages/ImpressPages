@@ -132,7 +132,7 @@ class Template {
     public static function generateTabGeneral () {
         global $parametersMod;
         $answer = '';
-        $element = new \Frontend\Element('null', 'left');
+        $element = new \Ip\Frontend\Element('null', 'left');
         $answer .=
 '
 <form id="formGeneral">
@@ -165,7 +165,7 @@ class Template {
         global $parametersMod;
 
         $answer = '';
-        $element = new \Frontend\Element('null', 'left');
+        $element = new \Ip\Frontend\Element('null', 'left');
 
         $answer .=
 '
@@ -198,7 +198,7 @@ class Template {
 
     public static function generateTabAdvanced () {
         global $parametersMod;
-        $element = new \Frontend\Element('null', 'left');
+        $element = new \Ip\Frontend\Element('null', 'left');
 
         $answer = '';
 

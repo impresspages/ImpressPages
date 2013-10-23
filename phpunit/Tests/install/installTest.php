@@ -5,6 +5,9 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
 class InstallTest extends \PhpUnit\SeleniumTestCase
 {
     public function testInstallCurrent()

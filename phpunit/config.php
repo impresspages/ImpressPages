@@ -4,10 +4,10 @@ $isTravis = getenv('TRAVIS') ? true : false;
 
 
 define ('TEST_BASE_DIR', __DIR__.'/');
-define ('TEST_CODEBASE_DIR', '../');
+define ('TEST_CODEBASE_DIR', dirname(__DIR__) . '/');
 
-define ('TEST_FIXTURE_DIR', 'Fixture/');
-define ('TEST_TMP_DIR', 'tmp/');
+define ('TEST_FIXTURE_DIR', TEST_BASE_DIR . 'Fixture/');
+define ('TEST_TMP_DIR', TEST_BASE_DIR . 'tmp/');
 
 
 define ('TEST_TMP_URL', $isTravis ? 'http://localhost/phpunit/tmp/' : 'http://localhost/ip4.x/phpunit/tmp/');

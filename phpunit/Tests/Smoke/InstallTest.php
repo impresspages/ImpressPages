@@ -5,11 +5,15 @@
 
 namespace PhpUnit\Smoke;
 
+use PhpUnit\Helper\TestEnvironment;
+
 class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstall()
     {
         require_once TEST_BASE_DIR . 'vendor/mink.phar';
+
+        TestEnvironment::cleanupFiles();
 
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
@@ -28,6 +32,8 @@ class InstallTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($installationUrl, $session->getCurrentUrl());
 
         $page = $session->getPage();
+
+        $this->assertEquals('DEBUG', $page->getContent());
 
         $homepageTitle = $page->find('css', 'title');
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');

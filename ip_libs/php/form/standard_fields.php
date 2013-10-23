@@ -323,7 +323,7 @@ class FieldCaptcha extends Field{
         $this->captcha_init = array(
 
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-      'tempfolder'     => BASE_DIR.TMP_IMAGE_DIR,
+      'tempfolder'     => BASE_DIR.TMP_FILE_DIR,
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
       'TTF_folder'     => BASE_DIR.LIBRARY_DIR.'php/form/hn_captcha/fonts/',

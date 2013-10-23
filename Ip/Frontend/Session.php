@@ -5,10 +5,7 @@
  *
  */
 
-namespace Frontend;
-
-if (!defined('CMS')) exit;
-
+namespace Ip\Frontend;
 
 /**
  * Website language class
@@ -18,7 +15,7 @@ class Session{
 
     function __construct(){
         if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-            session_name(SESSION_NAME);
+            session_name(\Ip\Config::getRaw('SESSION_NAME'));
             session_start();
         }
     }
