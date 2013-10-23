@@ -171,13 +171,13 @@ Move to separate stylesheet if invalid CSS is a problem.
 /* draggable widgets and controls */
 .ipAdminPanelContainer {/* see clearing option above */}
 .ipAdminPanel {
-    background-color: #fbfcfc;
+    background-color: #fff;
     border-bottom: 1px solid #000;
     box-shadow: inset 0px -2px 2px -3px #000;
     left: 0;
     min-width: 860px;
     position: fixed;
-    top: 30px;
+    top: 0;
     width: 100%;
     z-index: 1000;
 }
@@ -215,7 +215,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     min-height: 81px;
 }
 .ipAdminWidgetsContainer:before {
-    background-color: #fbfcfc;
+    background-color: #fff;
     content: " ";
     display: block;
     height: 100%;
@@ -225,7 +225,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     z-index: 2;
 }
 .ipAdminWidgetsContainer:after {
-    background-color: #fbfcfc;
+    background-color: #fff;
     content: " ";
     display: block;
     height: 100%;
