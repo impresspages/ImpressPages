@@ -25,4 +25,4 @@ before_script:
 #  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
 #  - sleep 5
 
-script: phpunit --exclude-group ignoreOnTravis --verbose Tests/
+script: phpunit --exclude-group ignoreOnTravis Tests/
