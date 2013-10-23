@@ -14,7 +14,7 @@ return array(
     'DB_PREF' => 'ip_',
 
     // GLOBAL
-    'BASE_DIR' => realpath(TEST_CODEBASE_DIR),
+    'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
     'BASE_URL' => '',
     'FILE_DIR' => 'file/',
     'TMP_FILE_DIR' => 'file/tmp/',
