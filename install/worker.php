@@ -307,24 +307,19 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
             'comment' => 'PHP 5 requires timezone to be set.',
         ),
         // DB
-        'DB_SERVER' => array(
-            'value' => $_SESSION['db_server'],
-            'comment' => 'eg, localhost',
-        ),
-        'DB_USERNAME' => array(
-            'value' => $_SESSION['db_user'],
-        ),
-        'DB_PASSWORD' => array(
-            'value' => $_SESSION['db_pass']
-        ),
-        'DB_DATABASE' => array(
-            'value' => $_SESSION['db_db'],
+        'db' => array(
+            'value' => array(
+                'hostname' => $_SESSION['db_server'],
+                'username' => $_SESSION['db_user'],
+                'password' => $_SESSION['db_pass'],
+                'database' => $_SESSION['db_db'],
+                'tablePrefix' => $_SESSION['db_prefix'],
+                'charset' => 'utf8',
+            ),
+            'comment' => 'Database configuration',
         ),
         'DB_PREF' => array(
             'value' => $_SESSION['db_prefix'],
-        ),
-        'MYSQL_CHARSET' => array(
-            'value' => 'utf8',
         ),
         // END DB
     );
