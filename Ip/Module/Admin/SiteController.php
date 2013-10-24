@@ -6,26 +6,25 @@ class SiteController extends \Ip\Controller{
     public function loginAjax()
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        $request = \Ip\ServiceLocator::getRequest();
 
-        $request->mustBePost();
+        \Ip\Request::mustBePost();
 
         $validateForm = $this->getLoginForm();
-        $errors = $validateForm->validate($request->getPost());
+        $errors = $validateForm->validate(\Ip\Request::getPost());
 
         if (empty($errors)) {
-            if (\Ip\Backend\Db::incorrectLoginCount($request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+            if (\Ip\Backend\Db::incorrectLoginCount(\Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
                 $errors['password'] = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
-                \Ip\Backend\Db::log('system', 'backend login suspended', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Backend\Db::log('system', 'backend login suspended', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
         }
 
         if (empty($errors)) {
-            if (Model::instance()->login($request->getPost('login'), $request->getPost('password'))) {
-                \Ip\Backend\Db::log('system', 'backend login', $request->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+            if (Model::instance()->login(\Ip\Request::getPost('login'), \Ip\Request::getPost('password'))) {
+                \Ip\Backend\Db::log('system', 'backend login', \Ip\Request::getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
-                \Ip\Backend\Db::log('system', 'backend login incorrect', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                \Ip\Backend\Db::log('system', 'backend login incorrect', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 $errors['password'] =  $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
             }
         }

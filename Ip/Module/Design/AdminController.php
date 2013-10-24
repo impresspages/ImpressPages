@@ -85,8 +85,8 @@ class AdminController extends \Ip\Controller
     public function installPlugin()
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        \Ip\ServiceLocator::getRequest()->mustBePost();
-        $postData = \Ip\ServiceLocator::getRequest()->getPost();
+        \Ip\Request::mustBePost();
+        $postData = \Ip\Request::getPost();
 
         if (empty($postData['params']['pluginGroup']) || empty($postData['params']['pluginName'])) {
             throw new \Exception("Missing required parameters");
@@ -110,10 +110,8 @@ class AdminController extends \Ip\Controller
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
-        $request = ServiceLocator::getRequest();
-        $request->mustBePost();
-
-        $themes = $request->getPost('themes');
+        \Ip\Request::mustBePost();
+        $themes = \Ip\Request::getPost('themes');
 
         if (!is_writable(BASE_DIR.THEME_DIR)) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => $parametersMod->getValue('standard', 'design', 'admin_translations', 'theme_write_error')), 'id' => null);
@@ -187,15 +185,15 @@ class AdminController extends \Ip\Controller
 
     public function updateConfig()
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $request->mustBePost();
+        \Ip\Request::mustBePost();
 
         $configModel = ConfigModel::instance();
 
         $form = $configModel->getThemeConfigForm(THEME);
 
+        $post = \Ip\Request::getPost();
 
-        $errors = $form->validate($request->getPost());
+        $errors = $form->validate($post);
 
         if ($errors) {
             $data = array(
@@ -224,10 +222,10 @@ class AdminController extends \Ip\Controller
 
                 switch($option['type']) {
                     case 'check':
-                        $value = $field->isChecked($request->getPost(), $option['name']);
+                        $value = $field->isChecked($post, $option['name']);
                         break;
                     default:
-                        $value = $field->getValueAsString($request->getPost(), $option['name']);
+                        $value = $field->getValueAsString($post, $option['name']);
                 }
                 $configModel->setConfigValue(THEME, $option['name'], $value);
             }
@@ -250,13 +248,12 @@ class AdminController extends \Ip\Controller
     {
         $site = \Ip\ServiceLocator::getSite();
 
-        $request = \Ip\ServiceLocator::getRequest();
-        $params = $request->getRequest();
-        if (!isset($params['file'])) {
+        $file = \Ip\Request::getRequest('file');
+        if (empty($file)) {
             throw new \Ip\CoreException("Required parameter missing");
         }
 
-        $file = basename($params['file']);
+        $file = basename($file);
 
         $lessCompiler = LessCompiler::instance();
         $css = $lessCompiler->compileFile(THEME, $file);

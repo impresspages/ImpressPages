@@ -52,8 +52,7 @@ class AdminController extends \Ip\Controller{
 
     public function activate ()
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $post = $request->getPost();
+        $post = \Ip\Request::getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }
@@ -88,8 +87,7 @@ class AdminController extends \Ip\Controller{
 
     public function deactivate ()
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $post = $request->getPost();
+        $post = \Ip\Request::getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }
@@ -124,8 +122,7 @@ class AdminController extends \Ip\Controller{
 
     public function remove ()
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $post = $request->getPost();
+        $post = \Ip\Request::getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }

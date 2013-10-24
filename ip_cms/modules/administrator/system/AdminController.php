@@ -37,9 +37,8 @@ class AdminController extends \Ip\Controller{
     {
         $log = \Ip\ServiceLocator::getLog();
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        $request = \Ip\ServiceLocator::getRequest();
 
-        if (!$request->isPost()) {
+        if (!\Ip\Request::isPost()) {
             $this->redirect($this->indexUrl());
             return;
         }

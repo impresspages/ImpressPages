@@ -40,8 +40,7 @@ class ConfigModel{
      */
     public function getConfigValue($themeName, $name, $default = null)
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $data = $request->getRequest();
+        $data = \Ip\Request::getRequest();
         $config = $this->getLiveConfig();
         if (isset($config[$name])) {
 
@@ -98,8 +97,7 @@ class ConfigModel{
 
     public function getAllConfigValues($theme)
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $data = $request->getRequest();
+        $data = \Ip\Request::getRequest();
         $config = $this->getLiveConfig();
         if (!empty($config)) {
             if (isset($data['restoreDefault'])) {
@@ -290,8 +288,7 @@ class ConfigModel{
 
     protected function getLiveConfig()
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $data = $request->getRequest();
+        $data = \Ip\Request::getRequest();
         if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
             return $data['ipDesign']['pCfg'];
         }
