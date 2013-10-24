@@ -53,7 +53,19 @@ class Application {
         static::$isInitFinished = true;
     }
 
-    public static function run()
+    protected function _run()
+    {
+        $this->_prepareEnvironment();
+        $action = $this->_initAction();
+        $result = $action->execute();
+        $this->_handleResult($result);
+    }
+
+    public function __construct()
+    {
+    }
+
+    public function run()
     {
         global $site, $log, $parametersMod, $dispatcher;
 

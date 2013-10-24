@@ -42,7 +42,8 @@ ini_set('display_errors', 1);
 
 try {
     \Ip\Core\Application::init();
-    \Ip\Core\Application::run();
+    $application = new \Ip\Core\Application();
+    $application->run();
 } catch (\Exception $e) {
     if (isset($log)) {
         $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
