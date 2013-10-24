@@ -2,10 +2,13 @@ var ipAdmin = new function () {
     "use strict";
     var $adminMenu;
     var $container;
+    var $currentItem;
 
     this.init = function () {
         $('body').prepend($(ipAdminToolbar));
         $container = $('.ipsAdminToolbarContainer'); // the most top element physically creates a space
+        $currentItem = $('.ipsItemCurrent');
+
 
         $adminMenu = $('.ipsAdminMenuBlock');
 
@@ -29,16 +32,20 @@ var ipAdmin = new function () {
         $adminMenu.show();
         $adminMenu.animate({
             width: newWidth + 'px'
-        }, 200);
+        }, 200, function () {
+            $currentItem.hide();
+        });
     };
 
     var hideAdminMenu = function () {
-        $('body').removeClass('ipAdminNoScroll');
         var newWidth = 0;
+        $currentItem.show();
         $adminMenu.width('auto');
         $adminMenu.animate({
             width: newWidth + 'px'
-        }, 200, function(){$(this).hide();});
+        }, 200, function () {
+            $(this).hide();
+        });
     };
 
     var fixLayout = function () {
