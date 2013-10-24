@@ -436,7 +436,6 @@ class Site{
                             $tmpZoneObject = new $class($tmpZone['name']);
                         }
                     } else {
-                        require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
                         $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
                     }
                 }

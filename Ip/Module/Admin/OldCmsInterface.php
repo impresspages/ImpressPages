@@ -252,7 +252,6 @@ class OldCmsInterface{
 
         $systemDirs[BACKEND_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
-        $systemDirs[FRONTEND_DIR] = 1;
         $systemDirs[INCLUDE_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[MODULE_DIR] = 1;

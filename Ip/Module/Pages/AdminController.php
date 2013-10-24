@@ -647,7 +647,6 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
 
         //find language
-        require_once(BASE_DIR . FRONTEND_DIR . 'db.php');
         $tmpId = $parentPage->getId();
         $element = \Ip\Module\Content\DbFrontend::getElement($tmpId);
         while($element['parent'] !== null) {
