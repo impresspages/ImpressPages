@@ -77,7 +77,6 @@ class Model{
             'position' => null,
             'blockName' => null,
             'visible' => 1,
-            'created' => time(),
             'deleted' => null
         );
         return self::_generateWidgetPreview($widgetRecord, FALSE);
