@@ -29,7 +29,9 @@
                 </li>
             </ul>
         </div>
-        <a href="#" class="ipmItemCurrent ipsItemCurrent">{{Newsletter Subscribers}}</a>
+        <?php if ($curModTitle) { ?>
+            <a href="<?php echo $this->esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent"><?php echo $this->esc($curModTitle) ?></a>
+        <?php } ?>
         <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmItemLogout">
             <?php echo $this->escPar('standard/configuration/system_translations/logout') ?>
             <span class="icon-stack">

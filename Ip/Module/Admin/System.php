@@ -65,8 +65,27 @@ class System {
 
     protected function getAdminToolbarHtml()
     {
+        $requestData = \Ip\ServiceLocator::getRequest()->getRequest();
+        $curModTitle = '';
+        $curModUrl = '';
+
+        if (!empty($requestData['module_id']) && !empty($requestData['module_id'])){
+            $curModule = \Db::getModule($requestData['module_id']);
+        } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
+            $curModule = \Db::getModule(null, 'standard', 'content_management');
+        }
+
+        if ($curModule) {
+            $curModTitle = $curModule['m_translation'];
+            $curModUrl = BASE_URL . '?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken();
+        }
+
+
+
         $data = array(
-            'menuItems' => Model::instance()->getAdminMenuItems()
+            'menuItems' => Model::instance()->getAdminMenuItems(),
+            'curModTitle' => $curModTitle,
+            'curModUrl' => $curModUrl
         );
         $html = \Ip\View::create('View/toolbar.php', $data)->render();
         return $html;
