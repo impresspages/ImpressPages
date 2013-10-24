@@ -6,7 +6,7 @@
             <span class="ipmMenuBar"></span>
         </a>
         <div class="ipsAdminMenuBlock ipmMenu">
-            <a href="#" class="ipmItemMenu">
+            <a class="ipmItemMenu">
                 <span class="ipmMenuBar"></span>
                 <span class="ipmMenuBar"></span>
                 <span class="ipmMenuBar"></span>
