@@ -180,7 +180,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
     $errors[] = 'ERROR_LOGIN';
 
     if(isset($_POST['timezone'])&& $_POST['timezone'] != '')
-    $timezone = 'date_default_timezone_set(\''.$_POST['timezone'].'\')';
+    $timezone = $_POST['timezone'];
     else
     $errors[] = 'ERROR_TIME_ZONE';
 
@@ -201,6 +201,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
         'BASE_DIR' => array(
             'value' => get_parent_dir(),
              'comment' => 'root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
+        ),
+        'CORE_DIR' => array(
+            'value' => '',
+            'comment' => 'Directory where Ip directory resides',
         ),
         'BASE_URL' => array(
             'value' => get_parent_url(),
