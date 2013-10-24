@@ -20,7 +20,7 @@ class HtmlOutput{
 <head>
     <meta charset="'.CHARSET.'">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/ip_admin.css">
+    <link rel="stylesheet" href="'.BASE_URL.CORE_DIR.'Ip/Backend/design/ip_admin.css">
     <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'developer/config_exp_imp/design/style.css">
     <script src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
 </head>
