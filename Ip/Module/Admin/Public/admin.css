@@ -40,7 +40,7 @@
     padding: 0 15px;
     text-decoration: none;
 }
-.ipAdminToolbar .ipmItemLogout {
+.ipAdminToolbar .ipmAdminAction {
     color: #c0c0c0;
     float: right;
     font-size: 12px;
@@ -49,11 +49,11 @@
     text-decoration: none;
     text-shadow: 1px 1px #000;
 }
-.ipAdminToolbar .ipmItemLogout:hover {
+.ipAdminToolbar .ipmAdminAction:hover {
     color: #fff;
 }
 .ipAdminToolbar .ipmMenu li .icon-stack .icon-stack-base,
-.ipAdminToolbar .ipmItemLogout .icon-stack .icon-stack-base {
+.ipAdminToolbar .ipmAdminAction .icon-stack .icon-stack-base {
     color: #444653;
     font-size: 1.5em;
     text-shadow: none;

@@ -6,7 +6,7 @@
             <span class="ipmMenuBar"></span>
         </a>
         <div class="ipsAdminMenuBlock ipmMenu">
-            <a href="#" class="ipmItemMenu">
+            <a class="ipmItemMenu">
                 <span class="ipmMenuBar"></span>
                 <span class="ipmMenuBar"></span>
                 <span class="ipmMenuBar"></span>
@@ -32,11 +32,19 @@
         <?php if ($curModTitle) { ?>
             <a href="<?php echo $this->esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent"><?php echo $this->esc($curModTitle) ?></a>
         <?php } ?>
-        <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmItemLogout">
+
+        <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmAdminAction">
             <?php echo $this->escPar('standard/configuration/system_translations/logout') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-remove icon-light"></i>
+            </span>
+        </a>
+        <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction">
+            <?php echo $this->escPar('standard/configuration/system_translations/help') ?>
+            <span class="icon-stack">
+                <i class="icon-sign-blank icon-stack-base"></i>
+                <i class="icon-question icon-light"></i>
             </span>
         </a>
     </div>
