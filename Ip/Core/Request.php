@@ -5,8 +5,7 @@
  *
  */
 
-namespace Ip;
-
+namespace Ip\Core;
 
 /**
  *
@@ -39,7 +38,7 @@ class Request
     }
 
     /**
-     * @throws CoreException
+     * @throws \Ip\CoreException
      */
     public function mustBePost()
     {
