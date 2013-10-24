@@ -18,7 +18,6 @@
     padding: 10px;
     position: relative;
     width: 14px;
-    z-index: 1002;
 }
 .ipAdminToolbar .ipmItemMenu .ipmMenuBar {
     background-color: #000;
