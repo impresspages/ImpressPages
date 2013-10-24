@@ -75,7 +75,7 @@ class System {
             $curModule = \Db::getModule(null, 'standard', 'content_management');
         }
 
-        if ($curModule) {
+        if (isset($curModule) && $curModule) {
             $curModTitle = $curModule['m_translation'];
             $curModUrl = BASE_URL . '?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken();
         }
