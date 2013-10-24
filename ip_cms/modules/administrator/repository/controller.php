@@ -310,7 +310,7 @@ class Controller extends \Ip\Controller{
         $notRemovedCount = 0;
 
         foreach ($files as $file) {
-            if ($this->removeFile($file['file'])) {
+            if (isset($file['file']) && $this->removeFile($file['file'])) {
                 $deletedFiles[] = $file['file'];
             } else {
                 $notRemovedCount++;
@@ -328,7 +328,11 @@ class Controller extends \Ip\Controller{
 
     private function removeFile($file)
     {
-
+        if (basename($file) == '.htaccess') {
+            //for security reasons we don't allow to remove .htaccess files
+            return false;
+        }
+        
         $realFile = realpath($file);
         if (strpos($realFile, BASE_DIR . FILE_REPOSITORY_DIR) !== 0) {
             return false;
