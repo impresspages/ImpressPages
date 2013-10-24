@@ -68,6 +68,7 @@ class System {
         $requestData = \Ip\ServiceLocator::getRequest()->getRequest();
         $curModTitle = '';
         $curModUrl = '';
+        $helpUrl = 'http://www.impresspages.org/help2';
 
         if (!empty($requestData['module_id']) && !empty($requestData['module_id'])){
             $curModule = \Db::getModule($requestData['module_id']);
@@ -76,6 +77,7 @@ class System {
         }
 
         if (isset($curModule) && $curModule) {
+            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule['m_name'];
             $curModTitle = $curModule['m_translation'];
             $curModUrl = BASE_URL . '?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken();
         }
@@ -85,7 +87,8 @@ class System {
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems(),
             'curModTitle' => $curModTitle,
-            'curModUrl' => $curModUrl
+            'curModUrl' => $curModUrl,
+            'helpUrl' => $helpUrl
         );
         $html = \Ip\View::create('View/toolbar.php', $data)->render();
         return $html;

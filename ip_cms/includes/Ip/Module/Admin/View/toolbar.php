@@ -40,7 +40,7 @@
                 <i class="icon-remove icon-light"></i>
             </span>
         </a>
-        <a target="_blank" href="http://www.impresspages.org/help2" class="ipmAdminAction">
+        <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction">
             <?php echo $this->escPar('standard/configuration/system_translations/help') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
