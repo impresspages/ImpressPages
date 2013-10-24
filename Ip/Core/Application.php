@@ -65,7 +65,7 @@ class Application {
     {
     }
 
-    public function run()
+    public function handleRequest()
     {
         global $site, $log, $parametersMod, $dispatcher;
 
@@ -107,10 +107,9 @@ class Application {
         /*check if the website is closed*/
         if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
             && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
-            echo $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
-            \Db::disconnect();
-            exit;
+            return $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
         }
+
         /*eof check if the website is closed*/
 
         if(!defined('BACKEND')){
@@ -127,10 +126,7 @@ class Application {
                     )
                 );
                 header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-                echo json_encode($data);
-                \Db::disconnect();
-                $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
-                exit;
+                return json_encode($data);
             }
 
 
@@ -156,21 +152,37 @@ class Application {
 
             $cms->worker();
 
-            \Db::disconnect();
-            exit();
+            return null;
         }
 
-        $output = $site->generateOutput();
+        return $site->generateOutput();
+    }
 
-        $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$output)));
-        echo $output;
-        $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$output)));
+    public function run()
+    {
+        $response = $this->handleRequest();
+        $this->handleResponse($response);
+        $this->close();
+    }
 
+    public function handleResponse($response)
+    {
+        if (is_string($response)) {
+            // global $dispather, $site;
+            // $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$response)));
+            echo $response;
+            // $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$response)));
+        }
+    }
+
+    public function close()
+    {
+        global $dispatcher, $site, $log, $parametersMod;
 
         /*
          Automatic execution of cron.
-        The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
-        By default fake cron is enabled
+         The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
+         By default fake cron is enabled
         */
         if(!\Ip\Module\Admin\Model::isSafeMode() && $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
             // create a new curl resource
@@ -182,9 +194,7 @@ class Application {
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             $fakeCronAnswer = curl_exec($ch);
             $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
-
         }
-
 
         \Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
