@@ -44,7 +44,7 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require_once(BASE_DIR.FRONTEND_DIR.'init.php');
+\Ip\Core\Application::init();
 
 if(\Db::connect()){
     $log = new \Modules\administrator\log\Module();

@@ -647,7 +647,6 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
 
         //find language
-        require_once(BASE_DIR . FRONTEND_DIR . 'db.php');
         $tmpId = $parentPage->getId();
         $element = \Ip\Module\Content\DbFrontend::getElement($tmpId);
         while($element['parent'] !== null) {
@@ -1228,7 +1227,6 @@ class AdminController extends \Ip\Controller
     }
 
     private function _adminAccess () {
-        require(BASE_DIR . BACKEND_DIR . 'db.php');
         if (!isset($_REQUEST['username'])) {
             return false;
         }
@@ -1239,22 +1237,22 @@ class AdminController extends \Ip\Controller
         //check log in
         if(isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
 
-            if(\Backend\Db::incorrectLoginCount($_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
-                \Backend\Db::log('system', 'backend login suspended (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
+            if(\Ip\Backend\Db::incorrectLoginCount($_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+                \Ip\Backend\Db::log('system', 'backend login suspended (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
                 return false;
             } else {
-                $id = \Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
+                $id = \Ip\Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
                 if($id !== false) {
                     $module = \Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
-                    if (\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
-                        \Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                    if (\Ip\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
+                        \Ip\Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                         return true;
                     } else {
-                        \Backend\Db::log('system', 'this user is not allowed to access menu management module', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                        \Ip\Backend\Db::log('system', 'this user is not allowed to access menu management module', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
                         return false;
                     }
                 } else {
-                    \Backend\Db::log('system', 'backend login incorrect (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                    \Ip\Backend\Db::log('system', 'backend login incorrect (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
                     return false;
                 }
             }

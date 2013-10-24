@@ -6,7 +6,7 @@
  *
  */
 
-namespace Backend;
+namespace Ip\Backend;
 
 if (!defined('BACKEND')) {
     exit;
@@ -96,12 +96,12 @@ class HtmlOutput {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/ip_admin.css">
+    <link rel="stylesheet" href="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/ip_admin.css">
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
     <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-    <script src="' . BASE_URL . BACKEND_DIR . 'design/ip_admin.js"></script>
+    <script src="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/ip_admin.js"></script>
 </head>
 
 <body>

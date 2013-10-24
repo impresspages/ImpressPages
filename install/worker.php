@@ -128,7 +128,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             define('BACKEND', 1);
             define('CMS', 1);
             define('INCLUDE_DIR', 'ip_cms/includes/');
-            define('FRONTEND_DIR', 'ip_cms/frontend/');
             define('MODULE_DIR', 'ip_cms/modules/');
             define('LIBRARY_DIR', 'ip_libs/');
             define('DB_PREF', $_POST['prefix']);
@@ -136,7 +135,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             define('THEME_DIR', 'ip_themes/');
             
 
-            require (BASE_DIR.FRONTEND_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'parameters.php');
             require (__DIR__.'/themeParameters.php');
@@ -249,14 +247,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
         // BACKEND
         'INCLUDE_DIR' => array(
             'value' => 'ip_cms/includes/',
-            'comment' => 'system directory',
-        ),
-        'BACKEND_DIR' => array(
-            'value' => 'ip_cms/backend/',
-            'comment' => 'system directory',
-        ),
-        'FRONTEND_DIR' => array(
-            'value' => 'ip_cms/frontend/',
             'comment' => 'system directory',
         ),
         'LIBRARY_DIR' => array(

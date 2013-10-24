@@ -264,7 +264,6 @@ class Site{
     
     private function error404() {
         global $parametersMod;
-        require_once(__DIR__ . '/zone404.php');
         $zone = array (
             'id' => '',
             'row_number' => 0,
@@ -436,7 +435,6 @@ class Site{
                             $tmpZoneObject = new $class($tmpZone['name']);
                         }
                     } else {
-                        require_once(BASE_DIR.FRONTEND_DIR.'default_zone.php');
                         $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
                     }
                 }

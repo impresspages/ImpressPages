@@ -79,8 +79,6 @@ class ConfigurationParser
             'ERRORS_SHOW',
             'ERRORS_SEND',
             'INCLUDE_DIR',
-            'BACKEND_DIR',
-            'FRONTEND_DIR',
             'LIBRARY_DIR',
             'MODULE_DIR',
             'CONFIG_DIR',

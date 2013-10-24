@@ -34,7 +34,6 @@ class Db{
     public static function newUrl($language, $url, $alowedId = null){
         $sql = "select id, url from `".DB_PREF."zone_parameter` where language_id = '".mysql_real_escape_string($language)."' ";
         $rs = mysql_query($sql);
-        //require_once(BACKEND_DIR."cms.php");
         if($rs){
             $urls = array();
             while($lock = mysql_fetch_assoc($rs)){
@@ -43,9 +42,9 @@ class Db{
                 }
             }
 
-            if(isset($urls[$url]) || \Backend\Cms::usedUrl($url)){
+            if(isset($urls[$url]) || \Ip\Backend\Cms::usedUrl($url)){
                 $i = 1;
-                while(isset($urls[$url.$i]) || \Backend\CmS::usedUrl($url.$i)){
+                while(isset($urls[$url.$i]) || \Ip\Backend\CmS::usedUrl($url.$i)){
                     $i++;
                 }
                 return $url.$i;

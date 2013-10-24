@@ -82,11 +82,8 @@
 
         $log = new \Modules\administrator\log\Module();
 
-        require_once (BASE_DIR.BACKEND_DIR.'cms.php');
-        require_once (BASE_DIR.BACKEND_DIR.'db.php');
-
         global $cms;
-        $cms = new \Backend\Cms();
+        $cms = new \Ip\Backend\Cms();
 
         $cms->worker();
 

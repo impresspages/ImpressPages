@@ -33,16 +33,16 @@ if(is_file(__DIR__.'/ip_config.php')) {
     $config = require (__DIR__.'/../ip_config.php');
 }
 
-require_once $config['CORE_DIR'] . 'Ip/Config.php';
+require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
 \Ip\Config::init($config);
 
-require_once CORE_DIR . 'Ip/autoloader.php';
+require_once BASE_DIR . CORE_DIR . 'Ip/autoloader.php';
 
 ini_set('display_errors', 1);
 
 try {
     \Ip\Core\Application::init();
-    require_once CORE_DIR . 'Ip/bootstrap.php';
+    require_once BASE_DIR . CORE_DIR . 'Ip/bootstrap.php';
 } catch (\Exception $e) {
     if (isset($log)) {
         $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());

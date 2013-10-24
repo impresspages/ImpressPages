@@ -6,7 +6,7 @@
  *
  */
 
-namespace Backend;
+namespace Ip\Backend;
 
 if (!defined('BACKEND')) { exit; }
 
@@ -20,7 +20,7 @@ class Template {
             <head>
                 <meta charset="UTF-8">
                 <title>ImpressPages</title>
-                <link rel="stylesheet" href="' . BASE_URL . BACKEND_DIR . 'design/login/login.css">
+                <link rel="stylesheet" href="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/login/login.css">
                 <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
             </head>
             <body>
@@ -39,7 +39,7 @@ class Template {
 
         $answer = '';
         $answer .= '
-            <a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="' . BASE_URL . BACKEND_DIR . 'design/login/logo.png"></a>
+            <a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/login/logo.png"></a>
             <div class="verticalAlign"></div>
             <div class="login">
                 <div class="loginTitle">
