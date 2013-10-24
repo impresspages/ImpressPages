@@ -42,7 +42,7 @@ ini_set('display_errors', 1);
 
 try {
     \Ip\Core\Application::init();
-    require_once BASE_DIR . CORE_DIR . 'Ip/bootstrap.php';
+    \Ip\Core\Application::run();
 } catch (\Exception $e) {
     if (isset($log)) {
         $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
