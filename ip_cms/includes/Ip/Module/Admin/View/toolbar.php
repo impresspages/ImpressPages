@@ -6,6 +6,12 @@
             <span class="ipmMenuBar"></span>
         </a>
         <div class="ipsAdminMenuBlock ipmMenu">
+            <a href="#" class="ipmItemMenu">
+                <span class="ipmMenuBar"></span>
+                <span class="ipmMenuBar"></span>
+                <span class="ipmMenuBar"></span>
+            </a>
+
             <span class="ipmMenuTitle">{{Menu}}</span>
             <?php
                 echo $this->generateMenu('admin_navigation', $menuItems, 'bootstrapNav.php');
