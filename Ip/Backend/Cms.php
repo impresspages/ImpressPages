@@ -12,17 +12,6 @@ use Ip\Backend\HtmlOutput;
 use Ip\Backend\Session;
 use Ip\Backend\Template;
 
-if(!defined('BACKEND')) exit;
-
-require(__DIR__ . '/html_output.php');
-require(__DIR__ . '/session.php');
-
-if (file_exists(BASE_DIR.CONFIG_DIR.'admin/template.php')) {
-    require_once(BASE_DIR.CONFIG_DIR.'admin/template.php');
-} else {
-    require_once(__DIR__ . '/template.php');
-}
-
 /**
  * ImpressPages main administration area class
  *
