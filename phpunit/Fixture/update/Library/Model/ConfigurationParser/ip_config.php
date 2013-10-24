@@ -32,7 +32,6 @@ return array(
     // BACKEND
       
       'INCLUDE_DIR' => 'ip_cms/includes/',
-      'BACKEND_DIR' => 'ip_cms/backend/',
       'LIBRARY_DIR' => 'ip_libs/',
       'MODULE_DIR' => 'ip_cms/modules/',
       'CONFIG_DIR' => 'ip_configs/',

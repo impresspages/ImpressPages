@@ -5,17 +5,22 @@
  *
  */
 
-namespace Backend;
+namespace Ip\Backend;
+
+use Ip\Backend\Db;
+use Ip\Backend\HtmlOutput;
+use Ip\Backend\Session;
+use Ip\Backend\Template;
 
 if(!defined('BACKEND')) exit;
 
-require (__DIR__.'/html_output.php');
-require (__DIR__.'/session.php');
+require(__DIR__ . '/html_output.php');
+require(__DIR__ . '/session.php');
 
 if (file_exists(BASE_DIR.CONFIG_DIR.'admin/template.php')) {
     require_once(BASE_DIR.CONFIG_DIR.'admin/template.php');
 } else {
-    require_once (__DIR__.'/template.php');
+    require_once(__DIR__ . '/template.php');
 }
 
 /**
@@ -77,18 +82,18 @@ class Cms {
         //log in
         if(isset($_REQUEST['action']) && isset($_POST['f_name']) && isset($_POST['f_pass']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
 
-            if(\Backend\Db::incorrectLoginCount($_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+            if(\Ip\Backend\Db::incorrectLoginCount($_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
                 $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
-                \Backend\Db::log('system', 'backend login suspended', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Backend\Db::log('system', 'backend login suspended', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }else {
-                $id = \Backend\Db::userId($_POST['f_name'], $_POST['f_pass']);
+                $id = \Ip\Backend\Db::userId($_POST['f_name'], $_POST['f_pass']);
                 if($id !== false) {
                     $this->session->login($id);
-                    \Backend\Db::log('system', 'backend login', $_POST['f_name'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                    \Ip\Backend\Db::log('system', 'backend login', $_POST['f_name'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                     header("location:ip_backend_frames.php");
                 } else {
                     $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
-                    \Backend\Db::log('system', 'backend login incorrect', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                    \Ip\Backend\Db::log('system', 'backend login incorrect', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 }
             }
         }
@@ -102,7 +107,7 @@ class Cms {
                 }
             }
             //create module
-            if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $this->session->userId())) {
+            if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Ip\Backend\Db::allowedModule($_GET['module_id'], $this->session->userId())) {
                 /*new module*/
                 $newModule = \Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
@@ -123,7 +128,7 @@ class Cms {
             }else {
                 if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'first_module') {
                     /*first module*/
-                    $newModule = \Backend\Db::firstAllowedModule($this->session->userId());
+                    $newModule = \Ip\Backend\Db::firstAllowedModule($this->session->userId());
                     if($newModule != false) {
                         $this->curModId = $newModule['id'];
                         if ($newModule['core']) {
@@ -177,7 +182,7 @@ class Cms {
                 }
             }
             
-            if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())) {
+            if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Ip\Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())) {
                 $this->curModId = $_GET['module_id'];
                 $newModule = \Db::getModule($_GET['module_id']);
 
@@ -284,7 +289,6 @@ class Cms {
 
         $systemDirs = array();
 
-        $systemDirs[BACKEND_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
         $systemDirs[INCLUDE_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;

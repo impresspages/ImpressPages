@@ -5,7 +5,7 @@
  *
  */
 
-namespace Backend;
+namespace Ip\Backend;
 
 if (!defined('BACKEND')) {
     exit;

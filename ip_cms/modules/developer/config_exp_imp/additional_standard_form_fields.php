@@ -37,7 +37,7 @@ class FieldModules extends \Library\Php\Form\Field{
         global $cms;
 
         $answer = '';
-        $moduleGroups = \Backend\Db::modules();
+        $moduleGroups = \Ip\Backend\Db::modules();
         foreach($moduleGroups as $key => $group){
             $answer .= '<div class="moduleGroup">'.htmlspecialchars($key).'</div>';
             foreach($group as $key2 => $module){

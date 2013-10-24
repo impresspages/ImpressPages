@@ -15,7 +15,7 @@ return array(
 
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
-    'CORE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
+    'CORE_DIR' => '',
     'BASE_URL' => '',
     'FILE_DIR' => 'file/',
     'TMP_FILE_DIR' => 'file/tmp/',
@@ -28,7 +28,6 @@ return array(
 
     // BACKEND
     'INCLUDE_DIR' => 'ip_cms/includes/',
-    'BACKEND_DIR' => 'ip_cms/backend/',
     'LIBRARY_DIR' => 'ip_libs/',
     'MODULE_DIR' => 'ip_cms/modules/',
     'CONFIG_DIR' => 'ip_configs/',

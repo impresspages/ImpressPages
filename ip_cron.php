@@ -39,7 +39,7 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require_once CORE_DIR . 'Ip\Core\Application.php';
+require_once BASE_DIR . CORE_DIR . 'Ip\Core\Application.php';
 \Ip\Core\Application::init();
 
 $db = new db();

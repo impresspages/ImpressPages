@@ -6,7 +6,7 @@
  */
 
 
-namespace Backend;
+namespace Ip\Backend;
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Db {

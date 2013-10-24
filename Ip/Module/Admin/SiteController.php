@@ -1,8 +1,6 @@
 <?php
 namespace Ip\Module\Admin;
 
-require_once(BASE_DIR . BACKEND_DIR . 'db.php');
-
 class SiteController extends \Ip\Controller{
 
     public function loginAjax()
@@ -16,18 +14,18 @@ class SiteController extends \Ip\Controller{
         $errors = $validateForm->validate($request->getPost());
 
         if (empty($errors)) {
-            if (\Backend\Db::incorrectLoginCount($request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+            if (\Ip\Backend\Db::incorrectLoginCount($request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
                 $errors['password'] = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
-                \Backend\Db::log('system', 'backend login suspended', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Backend\Db::log('system', 'backend login suspended', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
         }
 
         if (empty($errors)) {
             if (Model::instance()->login($request->getPost('login'), $request->getPost('password'))) {
-                \Backend\Db::log('system', 'backend login', $request->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                \Ip\Backend\Db::log('system', 'backend login', $request->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
-                \Backend\Db::log('system', 'backend login incorrect', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                \Ip\Backend\Db::log('system', 'backend login incorrect', $request->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 $errors['password'] =  $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
             }
         }

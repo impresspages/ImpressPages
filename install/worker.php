@@ -249,10 +249,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
             'value' => 'ip_cms/includes/',
             'comment' => 'system directory',
         ),
-        'BACKEND_DIR' => array(
-            'value' => 'ip_cms/backend/',
-            'comment' => 'system directory',
-        ),
         'LIBRARY_DIR' => array(
             'value' => 'ip_libs/',
             'comment' => 'general classes and third party libraries',

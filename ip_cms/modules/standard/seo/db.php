@@ -43,9 +43,9 @@ class Db{
                 }
             }
 
-            if(isset($urls[$url]) || \Backend\Cms::usedUrl($url)){
+            if(isset($urls[$url]) || \Ip\Backend\Cms::usedUrl($url)){
                 $i = 1;
-                while(isset($urls[$url.$i]) || \Backend\CmS::usedUrl($url.$i)){
+                while(isset($urls[$url.$i]) || \Ip\Backend\CmS::usedUrl($url.$i)){
                     $i++;
                 }
                 return $url.$i;

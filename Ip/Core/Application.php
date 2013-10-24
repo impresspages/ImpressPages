@@ -21,7 +21,7 @@ class Application {
         require (BASE_DIR.INCLUDE_DIR.'parameters.php');
         require (BASE_DIR.INCLUDE_DIR.'db.php');
 
-        require (CORE_DIR.'Ip/Site.php');
+        require (BASE_DIR . CORE_DIR.'Ip/Site.php');
         require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
         require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 
