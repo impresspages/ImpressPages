@@ -44,6 +44,10 @@ div.hideSubmit {
     overflow: hidden;
 }
 
+div.content {
+   margin: 5px;
+}
+
 /* forms */
 div.content div.libPhpFormField,div.content div.libPhpFormFieldError {
     padding-bottom: 17px;
