@@ -1355,9 +1355,7 @@ class Site{
 
         $inDesignPreview = false;
 
-        $request = \Ip\ServiceLocator::getRequest();
-        $data = $request->getRequest();
-
+        $data = \Ip\Request::getRequest();
 
         if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
             $config = \Ip\Module\Design\ConfigModel::instance();

@@ -1,62 +1,39 @@
 <?php
 /**
- * @package ImpressPages
- *
- *
+ * @package   ImpressPages
  */
 
 namespace Ip;
 
 
-/**
- *
- * Class to get information about current request
- *
- */
-class Request
-{
-    protected $_SERVER = array();
-    protected $_POST = array();
-    protected $_GET = array();
-    protected $_REQUEST = array();
+class Request {
 
-    public function __construct()
+    public static function isGet()
     {
-        $this->_SERVER = $_SERVER;
-        $this->_POST = $_POST;
-        $this->_GET = $_GET;
-        $this->_REQUEST = $_REQUEST;
+        return \Ip\ServiceLocator::getRequest()->isGet();
     }
 
-    public function isGet()
+    public static function isPost()
     {
-        return $this->getMethod() == 'GET';
-    }
-
-    public function isPost()
-    {
-        return $this->getMethod() == 'POST';
+        return \Ip\ServiceLocator::getRequest()->isPost();
     }
 
     /**
-     * @throws CoreException
+     * @throws \Ip\CoreException
      */
-    public function mustBePost()
+    public static function mustBePost()
     {
-        if (!$this->isPost()) {
-            throw new \Ip\CoreException('POST method required.');
-        }
+        \Ip\ServiceLocator::getRequest()->mustBePost();
     }
 
     /**
      * get request method  'GET', 'HEAD', 'POST', 'PUT'.
      * @return string
      */
-    public function getMethod()
+    public static function getMethod()
     {
-        return $this->_SERVER['REQUEST_METHOD'];
+        \Ip\ServiceLocator::getRequest()->getMethod();
     }
-
 
     /**
      * Returns GET query parameter if $name is passed. Returns all query parameters if name == null.
@@ -65,9 +42,9 @@ class Request
      * @param mixed     $default    default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
-    public function getQuery($name = null, $default = null)
+    public static function getQuery($name = null, $default = null)
     {
-        return $this->getParam($name, $this->_GET, $default);
+        return \Ip\ServiceLocator::getRequest()->getQuery($name, $default);
     }
 
     /**
@@ -77,9 +54,9 @@ class Request
      * @param mixed     $default    default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
-    public function getPost($name = null, $default = null)
+    public static function getPost($name = null, $default = null)
     {
-        return $this->getParam($name, $this->_POST, $default);
+        return \Ip\ServiceLocator::getRequest()->getPost($name, $default);
     }
 
     /**
@@ -89,51 +66,21 @@ class Request
      * @param mixed     $default    default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
-    public function getRequest($name = null, $default = null)
+    public static function getRequest($name = null, $default = null)
     {
-        return $this->getParam($name, $this->_REQUEST, $default);
+        return \Ip\ServiceLocator::getRequest()->getRequest($name, $default);
     }
 
-    protected function getParam($name, $values, $default)
+    public static function getUrl()
     {
-        if ($name === null) {
-            return $values;
-        }
-        if (!array_key_exists($name,  $values)) {
-            return $default;
-        }
-        return $values[$name];
-    }
-
-    public function getUrl() {
-        $pageURL = 'http';
-        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
-            $pageURL .= "s";
-        }
-        $pageURL .= '://';
-        if ($this->_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $this->_SERVER["SERVER_NAME"].":".$this->_SERVER["SERVER_PORT"].$this->_SERVER["REQUEST_URI"];
-        } else {
-            $pageURL .= $this->_SERVER["SERVER_NAME"].$this->_SERVER["REQUEST_URI"];
-        }
-        return $pageURL;
+        return \Ip\ServiceLocator::getRequest()->getUrl();
     }
 
     /**
      * @return string path after BASE_URL
      */
-    public function getRelativePath()
+    public static function getRelativePath()
     {
-        $basePath = parse_url(BASE_URL, PHP_URL_PATH);
-
-        if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
-            if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {
-                return '';
-            }
-            // TODO log error
-            return $this->_SERVER["REQUEST_URI"];
-        }
-
-        return substr($this->_SERVER['REQUEST_URI'], strlen($basePath));
+        return \Ip\ServiceLocator::getRequest()->getRelativePath();
     }
 }

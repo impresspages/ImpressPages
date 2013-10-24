@@ -12,7 +12,7 @@ namespace Ip\Module\Content\Widget;
 class IpTitle extends \Ip\Module\Content\Widget{
 
     public function managementHtml($instanceId, $data, $layout) {
-        $curUrl = \Ip\ServiceLocator::getRequest()->getUrl();
+        $curUrl = \Ip\Request::getUrl();
         $parts = explode('?', $curUrl);
         $curUrl = $parts[0];
         $data['curUrl'] = $curUrl;

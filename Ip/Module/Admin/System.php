@@ -22,7 +22,7 @@ class System {
             $site->addJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
-        $getVariables = \Ip\ServiceLocator::getRequest()->getRequest();
+        $getVariables = \Ip\Request::getRequest();
         if (isset($getVariables['safemode']) && \Ip\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }
@@ -30,8 +30,7 @@ class System {
 
     public function catchAdminUrls(\Ip\Event $event)
     {
-        $request = \Ip\ServiceLocator::getRequest();
-        $relativePath = $request->getRelativePath();
+        $relativePath = \Ip\Request::getRelativePath();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
             $event->addProcessed();
