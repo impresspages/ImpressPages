@@ -32,11 +32,19 @@
         <?php if ($curModTitle) { ?>
             <a href="<?php echo $this->esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent"><?php echo $this->esc($curModTitle) ?></a>
         <?php } ?>
-        <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmItemLogout">
+
+        <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmAdminAction">
             <?php echo $this->escPar('standard/configuration/system_translations/logout') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-remove icon-light"></i>
+            </span>
+        </a>
+        <a target="_blank" href="http://www.impresspages.org/help2" class="ipmAdminAction">
+            <?php echo $this->escPar('standard/configuration/system_translations/help') ?>
+            <span class="icon-stack">
+                <i class="icon-sign-blank icon-stack-base"></i>
+                <i class="icon-question icon-light"></i>
             </span>
         </a>
     </div>
