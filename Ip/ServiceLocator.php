@@ -97,7 +97,7 @@ class ServiceLocator
     public static function getRequest()
     {
         if (self::$request == null) {
-            self::$request = new \Ip\Core\Request();
+            self::$request = new \Ip\Internal\Request();
         }
 
         return self::$request;
