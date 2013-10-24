@@ -245,8 +245,8 @@ body {
 .ipModuleForm select,
 .ipModuleForm textarea,
 .ipModuleForm option {
-  font-family: 14px;
-  font-size: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
 }
 .ipModuleForm .ipmPage {
   max-width: 100%;
@@ -589,6 +589,19 @@ body {
 .mceContentBody ol:last-child {
   margin-bottom: 0;
 }
+.ipWidget-IpColumns {
+  margin: 0 -1em;
+}
+.ipWidget-IpColumns .ipwCol {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  min-height: 1px;
+  margin-bottom: 1em;
+  padding: 0 1em;
+  position: relative;
+}
 .ipWidget-IpFaq {
   padding-left: 30px;
 }
@@ -648,6 +661,9 @@ body {
   overflow: auto;
 }
 .ipWidget-IpImage img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   max-width: 100%;
 }
@@ -668,6 +684,9 @@ body {
   width: 25%;
 }
 .ipWidget-IpImageGallery li img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   width: 100%;
 }
@@ -698,6 +717,9 @@ body {
   width: 25%;
 }
 .ipWidget-IpLogoGallery li img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   display: block;
   width: 100%;
 }
@@ -728,6 +750,9 @@ body {
   overflow: auto;
 }
 .ipWidget-IpTextImage .ipwImage {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
   margin: 0 20px 20px 0;
   max-width: 100%;
@@ -2535,8 +2560,8 @@ body {
 .ipModuleSearch select,
 .ipModuleSearch textarea,
 .ipModuleSearch option {
-  font-family: 14px;
-  font-size: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
 }
 .ipModuleSearch .ipmPage {
   max-width: 100%;
