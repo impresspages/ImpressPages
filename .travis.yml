@@ -10,13 +10,10 @@ notifications:
   email: false
 before_script:
   - cd phpunit
+  - composer update
   - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
-  - pyrus set auto_discover 1
-  - pyrus install --force phpunit/DbUnit
-  - pyrus install --force phpunit/PHPUnit_Selenium
   - mysql -e 'create database ip_test;'
   - mysql ip_test < ip_test.sql
-  - wget -P vendor https://github.com/downloads/Behat/Mink/mink.phar
 
   # Selenium
 #  - "sh -e /etc/init.d/xvfb start"
@@ -25,4 +22,4 @@ before_script:
 #  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
 #  - sleep 5
 
-script: phpunit --exclude-group ignoreOnTravis --colors Tests/
+script: ./vendor/bind/phpunit --exclude-group ignoreOnTravis --colors Tests/

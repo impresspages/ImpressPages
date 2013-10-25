@@ -31,6 +31,15 @@ class TestEnvironment {
 
         global $parametersMod;
         $parametersMod = new \PhpUnit\Mock\ParametersMod();
+
+        $_GET = array();
+        $_POST = array();
+        $_SERVER = array(
+            'REQUEST_URI' => '/',
+            'REQUEST_METHOD' => 'GET',
+            'SERVER_PORT' => 80,
+            'SERVER_NAME' => 'localhost',
+        );
     }
 
     public static function prepareFiles()

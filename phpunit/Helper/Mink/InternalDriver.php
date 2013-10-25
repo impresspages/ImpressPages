@@ -15,5 +15,22 @@ class InternalDriver extends BrowserKitDriver
         parent::__construct($client ?: new InternalClient());
     }
 
+    /**
+     * Returns last response headers.
+     *
+     * @return array
+     */
+    public function getResponseHeaders()
+    {
+        return $this->getClient()->getResponse()->getHeaders();
+    }
 
-} 
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatusCode()
+    {
+        return $this->getClient()->getResponse()->getStatus();
+    }
+
+}

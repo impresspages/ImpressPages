@@ -92,7 +92,7 @@ class ServiceLocator
     }
 
     /**
-     * @return Request
+     * @return \Ip\Internal\Request
      */
     public static function getRequest()
     {
@@ -101,5 +101,10 @@ class ServiceLocator
         }
 
         return self::$request;
+    }
+
+    public static function replaceRequestService($request)
+    {
+        self::$request = $request;
     }
 }

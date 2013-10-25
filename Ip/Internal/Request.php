@@ -123,6 +123,14 @@ class Request
      */
     public function getRelativePath()
     {
+//        //$urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+//        $scriptPath = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1 );
+//        if( strpos($_SERVER['REQUEST_URI'] , $scriptPath ) === 0 ) { //script location is the same as url path
+//            $urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+//        } else { //script is in the other location than request url (urls are rewriten)
+//            $urlVarsStr = substr($_SERVER['REQUEST_URI'], 1);
+//        }
+
         $basePath = parse_url(BASE_URL, PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {

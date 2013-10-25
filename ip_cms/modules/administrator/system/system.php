@@ -54,17 +54,19 @@ class System{
         self::$error404 = true;
         self::sendError404Email();
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateError404Content');
+
         if(
             $parametersMod->getValue('standard', 'configuration', 'error_404', 'send_to_main_page')
             &&
            ($site->languageUrl != '' || $site->zoneUrl != '' || sizeof($site->getUrlVars()) > 0 || sizeof($site->getGetVars()) > 0 )
         ){
-            header("Location: ".BASE_URL);
+            \Ip\Response::redirect(BASE_URL);
+
+            // TODOX make it not necessary
             $site->setOutput(null);
         }else{
-            header("HTTP/1.0 404 Not Found");
+            \Ip\Response::pageNotFound();
         }
-        
     }
     
     public static function generateError404Content(\Ip\Event $event) {

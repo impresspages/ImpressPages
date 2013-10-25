@@ -11,8 +11,6 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstall()
     {
-        require_once TEST_BASE_DIR . 'vendor/mink.phar';
-
         TestEnvironment::cleanupFiles();
 
         // install fresh copy of ImpressPages:

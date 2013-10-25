@@ -18,7 +18,28 @@ class InternalClient extends BaseClient
      */
     protected function doRequest($request)
     {
-        $response = new Response();
+        $_GET = array();
+        $_POST = array();
+        $server = $request->getServer();
+        $_SERVER = array(
+            'REQUEST_URI' => parse_url($request->getUri(), PHP_URL_PATH),
+            'REQUEST_METHOD' => $request->getMethod(),
+            'SERVER_PORT' => 80,
+            'SERVER_NAME' => $server['HTTP_HOST'],
+        );
+
+        if ($request->getMethod() == 'GET') {
+            $_GET = $request->getParameters();
+        } elseif ($request->getMethod() == 'POST') {
+            $_POST = $request->getParameters();
+        }
+
+        \Ip\ServiceLocator::replaceRequestService(new \Ip\Internal\Request());
+        $application = new \Ip\Core\Application();
+        $ipResponse = $application->handleRequest();
+
+        $response = new Response($ipResponse, \Ip\Response::status(), \Ip\Response::headers());
+
         return $response;
     }
 } 

@@ -16,7 +16,7 @@ return array(
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
     'CORE_DIR' => '',
-    'BASE_URL' => '',
+    'BASE_URL' => 'http://localhost/',
     'FILE_DIR' => 'file/',
     'TMP_FILE_DIR' => 'file/tmp/',
     'FILE_REPOSITORY_DIR' => 'file/repository/',

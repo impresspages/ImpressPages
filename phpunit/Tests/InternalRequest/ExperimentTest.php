@@ -15,15 +15,19 @@ class ExperimentTest extends \PhpUnit\GeneralTestCase
 //        \Ip\Config::init($config);
     }
 
-    public function testRenderHomepage()
-    {
-
-    }
-
 //    public function testRenderHomepage()
 //    {
-//        require_once TEST_BASE_DIR . 'vendor/mink.phar';
+//        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
+//        \PhpUnit\Helper\TestEnvironment::prepareFiles();
+//        \PhpUnit\Helper\TestEnvironment::initCode();
 //
+//        $application = new \Ip\Core\Application();
+//        $response = $application->handleRequest();
+//        $this->assertNotEmpty($response);
+//    }
+//
+//    public function testUseMinkToRenderHomepage()
+//    {
 //        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
 //        \PhpUnit\Helper\TestEnvironment::prepareFiles();
 //        \PhpUnit\Helper\TestEnvironment::initCode();
@@ -36,11 +40,9 @@ class ExperimentTest extends \PhpUnit\GeneralTestCase
 //        $session->visit(BASE_URL);
 //
 //        // get the current page URL:
-//        $this->assertEquals($installationUrl, $session->getCurrentUrl());
+//        $this->assertEquals(BASE_URL, $session->getCurrentUrl());
 //
 //        $page = $session->getPage();
-//
-//        $this->assertEquals('DEBUG', $page->getContent());
 //
 //        $homepageTitle = $page->find('css', 'title');
 //        $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
@@ -49,7 +51,36 @@ class ExperimentTest extends \PhpUnit\GeneralTestCase
 //        $headlineElement = $page->find('css', 'p.homeHeadline');
 //        $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
 //        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
-//
-//
 //    }
+
+    public function testUseMinkToRenderEnVersion()
+    {
+        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
+        \PhpUnit\Helper\TestEnvironment::prepareFiles();
+        \PhpUnit\Helper\TestEnvironment::initCode();
+
+        // init Mink:
+        $driver = new \PhpUnit\Helper\Mink\InternalDriver();
+        // $driver = new \Behat\Mink\Driver\GoutteDriver();
+        $session = new \Behat\Mink\Session($driver);
+        $session->start();
+
+        $session->visit(BASE_URL . 'someNonExistentPage');
+
+        $this->assertEquals(404, $session->getStatusCode());
+
+        \PhpUnit\Helper\TestEnvironment::initCode();
+        $session->visit(BASE_URL . 'en/');
+
+        $page = $session->getPage();
+
+        $homepageTitle = $page->find('css', 'title');
+        $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
+        $this->assertEquals('Home', $homepageTitle->getText());
+
+        $headlineElement = $page->find('css', 'p.homeHeadline');
+        $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
+        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
+    }
+
 }

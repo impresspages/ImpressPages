@@ -8,22 +8,18 @@ namespace Ip\Core;
 
 class Application {
 
-    protected static $isInitFinished = false;
-
     public static function init()
     {
-        if (static::$isInitFinished) {
-            return;
+        if (!defined('IP_VERSION')) {
+            define('IP_VERSION', '3.6');
         }
 
-        define('IP_VERSION', '3.6');
+        require_once (BASE_DIR.INCLUDE_DIR.'parameters.php');
+        require_once (BASE_DIR.INCLUDE_DIR.'db.php');
 
-        require (BASE_DIR.INCLUDE_DIR.'parameters.php');
-        require (BASE_DIR.INCLUDE_DIR.'db.php');
-
-        require (BASE_DIR . CORE_DIR.'Ip/Site.php');
-        require (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
-        require (BASE_DIR.INCLUDE_DIR.'error_handler.php');
+        require_once (BASE_DIR . CORE_DIR.'Ip/Site.php');
+        require_once (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
+        require_once (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 
         if(!\Db::connect()){
             trigger_error("Database access");
@@ -49,16 +45,6 @@ class Application {
         } else {
             ini_set('display_errors', '0');
         }
-
-        static::$isInitFinished = true;
-    }
-
-    protected function _run()
-    {
-        $this->_prepareEnvironment();
-        $action = $this->_initAction();
-        $result = $action->execute();
-        $this->_handleResult($result);
     }
 
     public function __construct()
@@ -67,7 +53,9 @@ class Application {
 
     public function handleRequest()
     {
-        global $site, $log, $parametersMod, $dispatcher;
+        global $site, $parametersMod, $dispatcher;
+
+        \Ip\Response::reset();
 
         $site->init();
         $site->dispatchEvent('administrator', 'system', 'init', array());
@@ -125,7 +113,8 @@ class Application {
                         'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
                     )
                 );
-                header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+
+                \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
                 return json_encode($data);
             }
 

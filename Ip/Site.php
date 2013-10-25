@@ -529,22 +529,9 @@ class Site{
     private function parseUrl(){
         global $parametersMod;
 
+        $path = \Ip\Request::getRelativePath();
          
-        //$urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
-        $scriptPath = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1 );
-        if( strpos($_SERVER['REQUEST_URI'] , $scriptPath ) === 0 ) { //script location is the same as url path
-            $urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
-        } else { //script is in the other location than request url (urls are rewriten)
-            $urlVarsStr = substr($_SERVER['REQUEST_URI'], 1);
-        }
-
-        $question_mark = strpos($urlVarsStr, '?');
-        if($question_mark !== false){
-            $urlVarsStr = substr($urlVarsStr, 0, $question_mark);
-        }
-         
-        $urlVarsStr = rtrim( $urlVarsStr,  "/");
-        $urlVars = explode('/', $urlVarsStr);
+        $urlVars = explode('/', $path);
          
         for($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
@@ -555,11 +542,7 @@ class Site{
         $this->zoneUrl = urldecode(array_shift($urlVars));
         $this->urlVars = $urlVars;
 
-        $this->getVars = array();
-        foreach ($_GET as $key => $value){
-            $this->getVars[$key] = $value;
-        }
-
+        $this->getVars = \Ip\Request::getQuery();
     }
 
     /*
