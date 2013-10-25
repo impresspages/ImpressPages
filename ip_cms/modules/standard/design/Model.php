@@ -47,8 +47,9 @@ class Model
         $groups = scandir($this->getThemePluginDir());
 
         foreach ($groups as $group) {
-            $groupDir = $this->getThemePluginDir() . $group . '/';
+            $groupDir = BASE_DIR . $this->getThemePluginDir() . $group;
             if (is_dir($groupDir) && $group[0] != '.') {
+                $groupDir .= '/';
                 $plugins = scandir($groupDir);
                 foreach ($plugins as $plugin) {
                     $pluginDir = $groupDir . $plugin . '/';
