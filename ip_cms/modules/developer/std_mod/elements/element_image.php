@@ -173,7 +173,14 @@ class ElementImage extends Element{ //data element in area
                 foreach($this->copies as $key => $copy){
                     $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
                     if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = ";
+
+                        if(!$this->secure)
+                            $sql .= "'".mysql_real_escape_string($new_name)."'";
+                        else
+                            $sql .= "AES_ENCRYPT('".mysql_real_escape_string($new_name)."', '".$this->secureKey."')";
+
+                        $sql .= " where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                         $rs = mysql_query($sql);
                         if (!$rs)
                         trigger_error("Can't update photo field ".$sql);
@@ -230,7 +237,15 @@ class ElementImage extends Element{ //data element in area
                 foreach($this->copies as $key => $copy){
                     $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
                     if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$new_name."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = ";
+
+                        if(!$this->secure)
+                            $sql .= "'".$new_name."'";
+                        else
+                            $sql .= "AES_ENCRYPT('".mysql_real_escape_string($new_name)."', '".$this->secureKey."')";
+
+                        $sql .= " where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+
                         $rs = mysql_query($sql);
                         if (!$rs)
                         trigger_error("Can't update photo field ".$sql);
@@ -282,9 +297,14 @@ class ElementImage extends Element{ //data element in area
     function getFilterOption($value, $area){
         $answer = '';
         foreach($this->copies as $copy){
+            if(!$this->secure)
+                $dbField =  "`".$copy['dbField']."`";
+            else
+                $dbField =  "AES_DECRYPT(".$copy['dbField'].", '".$this->secureKey."')";
+
             if($answer != '')
             $answer .= ' or ';
-            $answer .= " `".mysql_real_escape_string($copy['dbField'])."` like '%".mysql_real_escape_string($value)."%' ";
+            $answer .= " ".$dbField." like '%".mysql_real_escape_string($value)."%' ";
         }
         $answer = ' ( '.$answer.' ) ';
         return $answer;

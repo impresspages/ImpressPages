@@ -159,7 +159,12 @@ class ElementSelect extends Element{ //data element in area
     }
 
     function getFilterOption($value, $area){
-        return " `".mysql_real_escape_string($this->dbField)."` = '".mysql_real_escape_string($value)."' ";
+        if(!$this->secure)
+            $dbField =  "`".$this->dbField."`";
+        else
+            $dbField =  "AES_DECRYPT(".$this->dbField.", '".$this->secureKey."')";
+
+        return " ".$dbField." = '".mysql_real_escape_string($value)."' ";
     }
 
 

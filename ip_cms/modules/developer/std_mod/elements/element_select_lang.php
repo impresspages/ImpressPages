@@ -132,7 +132,7 @@ class ElementSelectLang extends Element{ //data element in area
         global $stdModDb;
 
         $answer = '';
-        $sql2 = "select * from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".$record[$area->dbPrimaryKey]."' ";
+        $sql2 = "select *, AES_DECRYPT(".mysql_real_escape_string($this->translationField).", '".$this->secureKey."') AS ".$this->translationField." from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".$record[$area->dbPrimaryKey]."' ";
         $rs2 = mysql_query($sql2);
         $values = array();
         if (!$rs2) {
@@ -174,7 +174,7 @@ class ElementSelectLang extends Element{ //data element in area
         $valuesAnswer='';
         $values = array();
 
-        $sql2 = "select * from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
+        $sql2 = "select *, AES_DECRYPT(".mysql_real_escape_string($this->translationField).", '".$this->secureKey."') AS ".$this->translationField." from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
         $rs2 = mysql_query($sql2);
         if (!$rs2) {
             trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
@@ -241,13 +241,13 @@ class ElementSelectLang extends Element{ //data element in area
             }
 
             $sql3 = "update `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-      set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."'
+      set `".mysql_real_escape_string($this->translationField)."` = AES_ENCRYPT('".mysql_real_escape_string($value)."', '".$this->secureKey."')
       where `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']."' and `".mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
             $rs3 = mysql_query($sql3);
             if ($rs3){
                 if($stdModDb->updatedRowsCount() == 0){
                     $sql4 = "insert into `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-          set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."',
+          set `".mysql_real_escape_string($this->translationField)."` = AES_ENCRYPT('".mysql_real_escape_string($value)."', '".$this->secureKey."'),
           `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']."', `".mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
                     $rs4 = mysql_query($sql4);
                     if(!$rs4)
@@ -271,7 +271,7 @@ class ElementSelectLang extends Element{ //data element in area
 
             foreach($languages as $key => $language){
                 $sql3 = "update `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-        set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."' 
+        set `".mysql_real_escape_string($this->translationField)."` = AES_ENCRYPT('".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', '".$this->secureKey."')
         where 
         `".mysql_real_escape_string($this->recordIdField)."` = '".(int)$rowId."' and `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']." '
         ";
@@ -279,7 +279,7 @@ class ElementSelectLang extends Element{ //data element in area
                 if ($rs3){
                     if($stdModDb->updatedRowsCount() == 0){
                         $sql4 = "insert into `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-            set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."',
+            set `".mysql_real_escape_string($this->translationField)."` = AES_ENCRYPT('".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', '".$this->secureKey."'),
             `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']."', `".mysql_real_escape_string($this->recordIdField)."` = '".$rowId."' ";
                         $rs4 = mysql_query($sql4);
                         if(!$rs4)
@@ -321,7 +321,7 @@ class ElementSelectLang extends Element{ //data element in area
         $answer = '';
 
         $sql = "select `".mysql_real_escape_string($this->recordIdField)."` as 'id' from `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-    where `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."'";
+    where AES_DECRYPT(".mysql_real_escape_string($this->translationField).", '".$this->secureKey."') = '".mysql_real_escape_string($value)."'";
         $rs = mysql_query($sql);
         if ($rs){
             $ids = array();

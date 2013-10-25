@@ -156,7 +156,12 @@ class ElementNumber extends Element{ //data element in area
     }
 
     function getFilterOption($value, $area){
-        return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
+        if(!$this->secure)
+            $dbField =  "`".$this->dbField."`";
+        else
+            $dbField =  "AES_DECRYPT(".$this->dbField.", '".$this->secureKey."')";
+
+        return " ".$dbField." like '%".mysql_real_escape_string($value)."%' ";
     }
 
 

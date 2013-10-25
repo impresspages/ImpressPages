@@ -392,7 +392,9 @@ class StandardModule {
                         foreach($this->currentArea->elements as $key => $element) {
                             $new_parameter = $element->getParameters("insert", "i_n_".$key, $this->currentArea);
                             if ($new_parameter) {
-                                $parameters[] = $new_parameter;
+                                $parameters[$key] = $new_parameter;
+                                $parameters[$key]['secure'] = $element->secure;
+                                $parameters[$key]['secureKey'] = $element->secureKey;
                             }
 
                         }
@@ -411,10 +413,13 @@ class StandardModule {
                             }
 
                             if($parameter['value'] === null)
-                            $value =  " NULL ";
+                                $value =  " NULL ";
                             else
-                            $value =  "'".mysql_real_escape_string($parameter['value'])."'";
+                                $value =  "'".mysql_real_escape_string($parameter['value'])."'";
 
+                            if($parameter['secure']){
+                                $value = "AES_ENCRYPT(".$value.", '".$parameter['secureKey']."')";
+                            }
 
                             if ($need_comma)
                             $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
@@ -605,8 +610,11 @@ class StandardModule {
 
                         foreach($this->currentArea->elements as $key => $element) {
                             $new_parameter = $element->getParameters("update", "i_n_".$key, $this->currentArea);
-                            if ($new_parameter)
-                            $parameters[] = $new_parameter;
+                            if ($new_parameter){
+                                $parameters[$key] = $new_parameter;
+                                $parameters[$key]['secure'] = $element->secure;
+                                $parameters[$key]['secureKey'] = $element->secureKey;
+                            }
 
                         }
 
@@ -620,6 +628,10 @@ class StandardModule {
                                 $value =  " NULL ";
                                 else
                                 $value =  "'".mysql_real_escape_string($parameter['value'])."'";
+
+                                if($parameter['secure']){
+                                    $value = "AES_ENCRYPT(".$value.", '".$parameter['secureKey']."')";
+                                }
 
                                 if ($need_comma)
                                 $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
@@ -1128,8 +1140,26 @@ class StandardModule {
         )
         return;
 
+        $elements = $area->elements;
 
-        $sqlCurrent = "select * from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where `".mysql_real_escape_string($area->dbPrimaryKey)."` = '".mysql_real_escape_string($area->currentId)."'";
+        $select_expr = '*, ';
+        foreach($elements AS $element){
+            if (empty($element->dbField) && get_class($element) !== 'Modules\developer\std_mod\ElementImage')
+                continue;
+            elseif ($element->secure){
+                if(get_class($element) == 'Modules\developer\std_mod\ElementImage'){
+                    foreach($element->copies AS $copy){
+                        $select_expr .= "AES_DECRYPT(".$copy['dbField'].", '".$element->secureKey."') AS ".$copy['dbField'].", ";
+                    }
+                }else{
+                    $select_expr .= "AES_DECRYPT(".$element->dbField.", '".$element->secureKey."') AS ".$element->dbField.", ";
+                }
+            }
+        }
+        $select_expr = substr($select_expr, 0, -2);
+
+        $sqlCurrent = " select ".$select_expr." from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where `".mysql_real_escape_string($area->dbPrimaryKey)."` = '".mysql_real_escape_string($area->currentId)."'";
+
         $rs = mysql_query($sqlCurrent);
         if($rs) {
             if(!$lock = mysql_fetch_assoc($rs)) {
@@ -1543,7 +1573,26 @@ class StandardModule {
 
 
 
-        $sql_pages = " select * from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where 1 ";
+        $elements = $this->currentArea->elements;
+
+        $select_expr = '*, ';
+        foreach($elements AS $element){
+            if (empty($element->dbField) && get_class($element) !== 'Modules\developer\std_mod\ElementImage')
+                continue;
+            elseif ($element->secure){
+                if(get_class($element) == 'Modules\developer\std_mod\ElementImage'){
+                    foreach($element->copies AS $copy){
+                        $select_expr .= "AES_DECRYPT(".$copy['dbField'].", '".$element->secureKey."') AS ".$copy['dbField'].", ";
+                    }
+                }else{
+                    $select_expr .= "AES_DECRYPT(".$element->dbField.", '".$element->secureKey."') AS ".$element->dbField.", ";
+                }
+            }
+        }
+        $select_expr = substr($select_expr, 0, -2);
+
+        $sql_pages = " select ".$select_expr." from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where 1 ";
+
         if (($this->level > 0))
         $sql_pages .= " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
         if($this->currentArea->whereCondition)
