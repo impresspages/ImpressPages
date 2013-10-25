@@ -1,0 +1,49 @@
+{
+    "name": "phpunit/dbunit",
+    "description": "DbUnit port for PHP/PHPUnit to support database interaction testing.",
+    "type": "library",
+    "keywords": [
+        "database",
+        "testing",
+        "xunit"
+    ],
+    "homepage": "https://github.com/sebastianbergmann/dbunit/",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Sebastian Bergmann",
+            "email": "sb@sebastian-bergmann.de",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sebastianbergmann/dbunit/issues",
+        "irc": "irc://irc.freenode.net/phpunit"
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "phpunit/phpunit": ">=3.7.0@stable",
+        "ext-pdo": "*",
+        "ext-simplexml": "*"
+    },
+    "bin": [
+        "dbunit.php"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "classmap": [
+            "PHPUnit/"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.2.x-dev"
+        }
+    },
+    "include-path": [
+        "",
+        "../../symfony/yaml/"
+    ]
+}
