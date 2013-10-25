@@ -21,4 +21,4 @@ before_script:
 #  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
 #  - sleep 5
 
-script: ./vendor/bind/phpunit --exclude-group ignoreOnTravis --colors Tests/
+script: ./vendor/bin/phpunit --exclude-group ignoreOnTravis --colors Tests/
