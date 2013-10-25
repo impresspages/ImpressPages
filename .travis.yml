@@ -10,7 +10,6 @@ notifications:
   email: false
 before_script:
   - cd phpunit
-  - composer update
   - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
   - mysql -e 'create database ip_test;'
   - mysql ip_test < ip_test.sql
