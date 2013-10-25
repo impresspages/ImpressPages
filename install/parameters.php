@@ -990,6 +990,11 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["widget_title"]["layout_default"] = "1";
         $parameterType["standard"]["content_management"]["widget_title"]["layout_default"] = "string";
 
+        $parameterTitle["standard"]["content_management"]["widget_title"]["anchor"] = "Anchor";
+        $parameterValue["standard"]["content_management"]["widget_title"]["anchor"] = "Anchor";
+        $parameterAdmin["standard"]["content_management"]["widget_title"]["anchor"] = "0";
+        $parameterType ["standard"]["content_management"]["widget_title"]["anchor"] = "string";
+
     $parameterGroupTitle["standard"]["content_management"]["widget_video"] = "Widget: Video";
     $parameterGroupAdmin["standard"]["content_management"]["widget_video"] = "1";
 
@@ -1042,6 +1047,20 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterValue["standard"]["content_management"]["widget_video"]["layout_default"] = "Default";
         $parameterAdmin["standard"]["content_management"]["widget_video"]["layout_default"] = "1";
         $parameterType["standard"]["content_management"]["widget_video"]["layout_default"] = "string";
+
+    $parameterGroupTitle["standard"]["content_management"]["widget_columns"] = "Widget: Columns";
+    $parameterGroupAdmin["standard"]["content_management"]["widget_columns"] = "1";
+
+        $parameterTitle["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "Number of columns";
+        $parameterValue["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "Number of columns";
+        $parameterAdmin["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "1";
+        $parameterType["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["widget_columns"]["widget_title"] = "Widget title";
+        $parameterValue["standard"]["content_management"]["widget_columns"]["widget_title"] = "Columns";
+        $parameterAdmin["standard"]["content_management"]["widget_columns"]["widget_title"] = "1";
+        $parameterType["standard"]["content_management"]["widget_columns"]["widget_title"] = "string";
+
 
         $parameterTitle["standard"]["menu_management"]["admin_translations"]["untitled"] = "Untitled";
         $parameterValue["standard"]["menu_management"]["admin_translations"]["untitled"] = "Untitled";

@@ -239,13 +239,24 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             $this->fs->makeWritable($this->cf['BASE_DIR'].$folder);
             $this->fs->clean($this->cf['BASE_DIR'].$folder); //just clean the content to leave writable folder
         }
-        
+
+
         foreach($replaceFiles as $file) {
             if (file_exists($this->cf['BASE_DIR'].$file)) {
                 $this->fs->makeWritable($this->cf['BASE_DIR'].$file);
                 file_put_contents($this->cf['BASE_DIR'].$file, '');
             }
         }
+
+        if (file_exists($this->cf['BASE_DIR'].'admin.php')) {
+            $this->fs->makeWritable($this->cf['BASE_DIR'].'admin.php');
+            unlink($this->cf['BASE_DIR'].'admin.php');
+        }
+        if (file_exists($this->cf['BASE_DIR'].'ip_backend_frames.php')) {
+            $this->fs->makeWritable($this->cf['BASE_DIR'].'ip_backend_frames.php');
+            unlink($this->cf['BASE_DIR'].'ip_backend_frames.php');
+        }
+
     }
     
     
