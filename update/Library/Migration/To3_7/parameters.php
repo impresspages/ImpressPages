@@ -26,7 +26,7 @@ $parameterAdmin["standard"]["content_management"]["widget_columns"]["widget_titl
 $parameterType["standard"]["content_management"]["widget_columns"]["widget_title"] = "string";
 
 
-$parameterTitle["standard"]["configuration"]["translations"]["menu"] = "Menu";
-$parameterValue["standard"]["configuration"]["translations"]["menu"] = "Menu";
-$parameterAdmin["standard"]["configuration"]["translations"]["menu"] = "1";
-$parameterType["standard"]["configuration"]["translations"]["menu"] = "string";
+$parameterTitle["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+$parameterValue["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+$parameterAdmin["standard"]["configuration"]["admin_translations"]["menu"] = "1";
+$parameterType["standard"]["configuration"]["admin_translations"]["menu"] = "string";
