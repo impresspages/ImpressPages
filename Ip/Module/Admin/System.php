@@ -14,7 +14,7 @@ class System {
         $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
         $site = \Ip\ServiceLocator::getSite();
-        if ($site->managementState()) {
+        if ($site->managementState() || !empty($_GET['m']) && !empty($_GET['g']) && !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -73,6 +73,8 @@ class System {
             $curModule = \Db::getModule($requestData['module_id']);
         } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
             $curModule = \Db::getModule(null, 'standard', 'content_management');
+        } elseif (!empty($_GET['m']) && !empty($_GET['g'])) {
+            $curModule = \Db::getModule(null, $_GET['g'], $_GET['m']);
         }
 
         if (isset($curModule) && $curModule) {

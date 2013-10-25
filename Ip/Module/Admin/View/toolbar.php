@@ -12,7 +12,7 @@
                 <span class="ipmMenuBar"></span>
             </a>
 
-            <span class="ipmMenuTitle">{{Menu}}</span>
+            <span class="ipmMenuTitle"><?php echo $this->escPar('standard/configuration/admin_translations/menu'); ?></span>
             <?php
                 echo $this->generateMenu('admin_navigation', $menuItems, 'bootstrapNav.php');
                 //TODOX in this way anyone who can access menu config, can change this menu to anything :| secure somehow
