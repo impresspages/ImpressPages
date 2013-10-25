@@ -14,7 +14,7 @@ class System {
         $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
         $site = \Ip\ServiceLocator::getSite();
-        if ($site->managementState()) {
+        if ($site->managementState() || !empty($_GET['m']) && !empty($_GET['g']) && !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
