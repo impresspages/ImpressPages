@@ -1341,6 +1341,11 @@ menu3";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
         $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["translations"]["menu"] = "Menu";
+        $parameterValue["standard"]["configuration"]["translations"]["menu"] = "Menu";
+        $parameterAdmin["standard"]["configuration"]["translations"]["menu"] = "1";
+        $parameterType["standard"]["configuration"]["translations"]["menu"] = "string";
+
 
 
 
