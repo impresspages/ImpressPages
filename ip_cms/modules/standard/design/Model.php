@@ -38,22 +38,22 @@ class Model
 
     public function getThemePlugins()
     {
-        if (!is_dir($this->getThemePluginDir())) {
+        if (!is_dir(BASE_DIR . $this->getThemePluginDir())) {
             return array();
         }
 
         $pluginConfigs = array();
 
         $groups = scandir($this->getThemePluginDir());
-
         foreach ($groups as $group) {
-            $groupDir = BASE_DIR . $this->getThemePluginDir() . $group;
-            if (is_dir($groupDir) && $group[0] != '.') {
+            $groupDir = BASE_DIR . $this->getThemePluginDir() . $group ;
+            if (is_dir($groupDir) && $group[0] != '.') {//don't add slash before is_dir check as it throws open basedir error
                 $groupDir .= '/';
                 $plugins = scandir($groupDir);
                 foreach ($plugins as $plugin) {
-                    $pluginDir = $groupDir . $plugin . '/';
-                    if (is_dir($pluginDir) && $plugin[0] != '.') {
+                    $pluginDir = $groupDir . $plugin;
+                    if (is_dir($pluginDir) && $plugin[0] != '.') { //don't add slash before is_dir check as it throws open basedir error
+                        $pluginDir .= '/';
                         $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($pluginDir);
                         if ($pluginConfiguration) {
                             $pluginConfigs[] = $pluginConfiguration;
@@ -69,7 +69,7 @@ class Model
     public function installThemePlugin($pluginGroup, $pluginName)
     {
         $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
-        $fromDir = $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
+        $fromDir = BASE_DIR . $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
 
         if (is_dir($toDir)) {
             throw new \Exception('This plugin has been already installed');
