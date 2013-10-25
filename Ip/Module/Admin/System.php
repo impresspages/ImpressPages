@@ -50,7 +50,7 @@ class System {
         $site = \Ip\ServiceLocator::getSite();
         $config = \Ip\ServiceLocator::getConfig();
 
-        if (!self::$disablePanel && $site->managementState() && !empty($_SESSION['backend_session']['user_id'])) {
+        if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) && !empty($_GET['m']) && !empty($_GET['g'])) && !empty($_SESSION['backend_session']['user_id'])) {
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
