@@ -17,6 +17,6 @@ class Config
 
     public function getCoreModuleUrl()
     {
-        return BASE_URL.'ip_cms/includes/Ip/Module/';
+        return BASE_URL.INCLUDE_DIR . 'Ip/Module/';
     }
 }
