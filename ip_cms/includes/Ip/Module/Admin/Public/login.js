@@ -18,7 +18,6 @@ $(document).ready(function() {
                     } else {
                         //PHP controller says there are some errors
                         if (response.errors) {
-                            console.log(response.errors);
                             form.data("validator").invalidate(response.errors);
                         }
                     }
