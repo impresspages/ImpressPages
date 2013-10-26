@@ -28,7 +28,6 @@ class Template {
         return $answer;
     }
 
-    // TODOX remove if not used
     public static function loginForm($error = null) {
         global $parametersMod;
         global $cms;

@@ -1222,8 +1222,7 @@ class Site{
             }
         }
 
-        //init plugins
-        //TODOX
+
     }
 
 
