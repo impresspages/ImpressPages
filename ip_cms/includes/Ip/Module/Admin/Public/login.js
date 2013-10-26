@@ -8,7 +8,7 @@ $(document).ready(function() {
         // client-side validation OK.
         if (!e.isDefaultPrevented()) {
             $.ajax({
-                url: ip.baseUrl + 'admin.php', //we assume that for already has m, g, a parameters which will lead this request to required controller
+                url: ip.baseUrl, //we assume that for already has m, g, a parameters which will lead this request to required controller
                 dataType: 'json',
                 type : 'POST',
                 data: form.serialize(),
