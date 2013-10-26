@@ -71,6 +71,9 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
         $ipActions->addWidget('IpForm');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
+        $ipActions->addWidget('IpColumns');
+        $this->assertNoErrors();
+        $ipActions->cancelWidget();
         $this->assertNoErrors();
 
     }
