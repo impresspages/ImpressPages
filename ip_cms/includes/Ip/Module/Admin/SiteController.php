@@ -50,6 +50,7 @@ class SiteController extends \Ip\Controller{
         if ($request->getPost('ajax', 1)) {
             $this->returnJson($answer);
         } else {
+            //MultiSite autologin
             $this->redirect($redirectUrl);
         }
     }
