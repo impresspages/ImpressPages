@@ -415,7 +415,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     position: fixed;
     right: 15px;
     top: 2px;
-    z-index: 1002;
+    z-index: 10002;
 }
 .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled,
 .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled:hover {
