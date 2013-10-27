@@ -27,25 +27,13 @@ var ipAdmin = new function () {
 
 
     var showAdminMenu = function () {
-        var newWidth = 200;
-        $adminMenu.width(0);
+        $currentItem.hide();
         $adminMenu.show();
-        $adminMenu.animate({
-            width: newWidth + 'px'
-        }, 200, function () {
-            $currentItem.hide();
-        });
     };
 
     var hideAdminMenu = function () {
-        var newWidth = 0;
         $currentItem.show();
-        $adminMenu.width('auto');
-        $adminMenu.animate({
-            width: newWidth + 'px'
-        }, 200, function () {
-            $(this).hide();
-        });
+        $adminMenu.hide();
     };
 
     var fixLayout = function () {
