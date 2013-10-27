@@ -175,7 +175,6 @@ Move to separate stylesheet if invalid CSS is a problem.
     border-bottom: 1px solid #000;
     box-shadow: inset 0px -2px 2px -3px #000;
     left: 0;
-    min-width: 860px;
     position: fixed;
     top: 0;
     width: 100%;

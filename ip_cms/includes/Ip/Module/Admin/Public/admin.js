@@ -34,6 +34,7 @@ var ipAdmin = new function () {
     var hideAdminMenu = function () {
         $currentItem.show();
         $adminMenu.hide();
+        $adminMenu.focus(); //makes click outside adminMenu work as roll out.
     };
 
     var fixLayout = function () {
