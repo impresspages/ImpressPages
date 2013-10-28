@@ -4,10 +4,10 @@
  *
  *
  */
-namespace Ip\Lib\StdMod;
+namespace Ip\Lib\StdMod\Element;
 
 
-class ElementBool extends Element{ //data element in area
+class Bool extends Element{ //data element in area
 
     function __construct($variables){
 
