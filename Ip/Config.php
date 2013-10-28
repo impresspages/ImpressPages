@@ -36,6 +36,11 @@ class Config
         return $url;
     }
 
+    public static function coreUrl($path)
+    {
+        return static::$rawConfig['BASE_URL'] . static::$rawConfig['CORE_DIR'] . $path;
+    }
+
 //    public static function pluginDir()
 //    {
 //        return static::$config['pluginDir'];
