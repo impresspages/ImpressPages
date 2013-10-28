@@ -14,7 +14,7 @@ class System {
         $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
         $site = \Ip\ServiceLocator::getSite();
-        if ($site->managementState()) {
+        if ($site->managementState() || !empty($_GET['m']) && !empty($_GET['g']) && !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -50,7 +50,7 @@ class System {
         $site = \Ip\ServiceLocator::getSite();
         $config = \Ip\ServiceLocator::getConfig();
 
-        if (!self::$disablePanel && ($site->managementState() || !empty($_SESSION['backend_session']['user_id']))) {
+        if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) && !empty($_GET['m']) && !empty($_GET['g'])) && !empty($_SESSION['backend_session']['user_id'])) {
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
@@ -64,8 +64,32 @@ class System {
 
     protected function getAdminToolbarHtml()
     {
+        $requestData = \Ip\ServiceLocator::getRequest()->getRequest();
+        $curModTitle = '';
+        $curModUrl = '';
+        $helpUrl = 'http://www.impresspages.org/help2';
+
+        if (!empty($requestData['module_id']) && !empty($requestData['module_id'])){
+            $curModule = \Db::getModule($requestData['module_id']);
+        } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
+            $curModule = \Db::getModule(null, 'standard', 'content_management');
+        } elseif (!empty($_GET['m']) && !empty($_GET['g'])) {
+            $curModule = \Db::getModule(null, $_GET['g'], $_GET['m']);
+        }
+
+        if (isset($curModule) && $curModule) {
+            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule['m_name'];
+            $curModTitle = $curModule['m_translation'];
+            $curModUrl = BASE_URL . '?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken();
+        }
+
+
+
         $data = array(
-            'menuItems' => Model::instance()->getAdminMenuItems()
+            'menuItems' => Model::instance()->getAdminMenuItems(),
+            'curModTitle' => $curModTitle,
+            'curModUrl' => $curModUrl,
+            'helpUrl' => $helpUrl
         );
         $html = \Ip\View::create('View/toolbar.php', $data)->render();
         return $html;

@@ -32,10 +32,11 @@ class SiteController extends \Ip\Controller{
 
 
 
+        $redirectUrl = BASE_URL . '?cms_action=manage';
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
-                'redirectUrl' => BASE_URL . '?cms_action=manage'
+                'redirectUrl' => $redirectUrl
             );
         } else {
             $answer = array(
@@ -43,8 +44,12 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
-
-        $this->returnJson($answer);
+        if ($request->getPost('ajax', 1)) {
+            $this->returnJson($answer);
+        } else {
+            //MultiSite autologin
+            $this->redirect($redirectUrl);
+        }
     }
 
     public function logout()
@@ -91,6 +96,8 @@ class SiteController extends \Ip\Controller{
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Modules\developer\form\Form();
+
+        $form->removeXssCheck();
 
         //add text field to form object
         $field = new \Modules\developer\form\Field\Hidden(

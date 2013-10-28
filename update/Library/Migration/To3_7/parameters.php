@@ -12,7 +12,7 @@ $parameterAdmin["standard"]["content_management"]["widget_title"]["anchor"] = "0
 $parameterType ["standard"]["content_management"]["widget_title"]["anchor"] = "string";
 
 
-$parameterGroupTitle["standard"]["content_management"]["widget_columns"] = "Widget: F.A.Q.";
+$parameterGroupTitle["standard"]["content_management"]["widget_columns"] = "Widget: Columns";
 $parameterGroupAdmin["standard"]["content_management"]["widget_columns"] = "1";
 
 $parameterTitle["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "Number of columns";
@@ -24,3 +24,9 @@ $parameterTitle["standard"]["content_management"]["widget_columns"]["widget_titl
 $parameterValue["standard"]["content_management"]["widget_columns"]["widget_title"] = "Columns";
 $parameterAdmin["standard"]["content_management"]["widget_columns"]["widget_title"] = "1";
 $parameterType["standard"]["content_management"]["widget_columns"]["widget_title"] = "string";
+
+
+$parameterTitle["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+$parameterValue["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+$parameterAdmin["standard"]["configuration"]["admin_translations"]["menu"] = "1";
+$parameterType["standard"]["configuration"]["admin_translations"]["menu"] = "string";
