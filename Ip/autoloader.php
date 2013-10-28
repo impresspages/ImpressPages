@@ -43,8 +43,8 @@ function __impressPagesAutoloader($name) {
         }
     } elseif ($path[0] == 'Library') {
         $relativeFileName = substr($fileName, 8);
-        if (file_exists(BASE_DIR.LIBRARY_DIR.$relativeFileName)) {
-            require_once(BASE_DIR.LIBRARY_DIR.$relativeFileName);
+        if (file_exists(\Ip\Config::libraryFile($relativeFileName))) {
+            require_once \Ip\Config::libraryFile($relativeFileName);
             return true;
         }
 
@@ -61,8 +61,8 @@ function __impressPagesAutoloader($name) {
             }
 
             //second try
-            if (file_exists(BASE_DIR.LIBRARY_DIR.$relativeFileName)) {
-                require_once(BASE_DIR.LIBRARY_DIR.$relativeFileName);
+            if (file_exists(\Ip\Config::libraryFile($relativeFileName))) {
+                require_once \Ip\Config::libraryFile($relativeFileName);
                 return true;
             }
         }
@@ -78,7 +78,7 @@ function __impressPagesAutoloader($name) {
 
     if ($fileName == 'PclZip.php') {
         if (file_exists(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php')) {
-            require_once(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php');
+            require_once \Ip\Config::libraryFile('php/pclzip/PclZip.php');
             return true;
         }
     }

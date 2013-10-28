@@ -725,7 +725,7 @@ class Model{
 
     
     public static function clearCache($revisionId) {
-        require_once (BASE_DIR.LIBRARY_DIR.'php/text/html2text.php');
+        require_once \Ip\Config::libraryFile('php/text/html2text.php');
         
         $revision = \Ip\Revision::getRevision($revisionId);
         $pageContent = Model::generateBlock('main', $revisionId, FALSE);

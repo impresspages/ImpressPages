@@ -8,7 +8,7 @@ namespace Modules\community\user;
 
 if (!defined('CMS')) exit;
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/form/standard.php');
+require_once \Ip\Config::libraryFile('php/form/standard.php');
 require_once(BASE_DIR.MODULE_DIR."community/user/db.php");
 
 /**

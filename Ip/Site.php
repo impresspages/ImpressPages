@@ -845,6 +845,7 @@ class Site{
                     $this->setLayout(BASE_DIR . '/' . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php');
                     $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
                     $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+
                     $answer = $controller->$action();
                     if ($answer) {
                         $this->setBlockContent('main', $answer);

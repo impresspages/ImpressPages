@@ -17,9 +17,9 @@ if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 /** @private */
 require_once (__DIR__.'/db.php');
-require_once(BASE_DIR.LIBRARY_DIR."php/text/html2text.php");
-require_once(BASE_DIR.LIBRARY_DIR.'php/mail/phpmailer/class.phpmailer.php');
-require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/text/html2text.php');
+require_once \Ip\Config::libraryFile('php/mail/phpmailer/class.phpmailer.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
 
 /**
  * Class to send emails. Typically all emails should be send trouht this class.

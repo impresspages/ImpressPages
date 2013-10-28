@@ -8,7 +8,7 @@
 
 namespace Modules\developer\localization;
 
-require_once(BASE_DIR . LIBRARY_DIR . 'php/PHPParser/bootstrap.php');
+require_once \Ip\Config::libraryFile('php/PHPParser/bootstrap.php');
 
 
 class ConfigParser{

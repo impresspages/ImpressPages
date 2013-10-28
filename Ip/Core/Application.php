@@ -63,7 +63,7 @@ class Application {
 
         /*detect browser language*/
         if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == BASE_URL && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
-            require_once(BASE_DIR.LIBRARY_DIR.'php/browser_detection/language.php');
+            require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
 
             $browserLanguages = \Library\Php\BrowserDetection\Language::getLanguages();
             $selectedLanguageId = null;

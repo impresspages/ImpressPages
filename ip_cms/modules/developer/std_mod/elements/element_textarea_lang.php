@@ -154,7 +154,7 @@ class ElementTextareaLang extends Element{ //data element in area
     function previewValue($record, $area){
         global $stdModDb;
 
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+        require_once \Ip\Config::libraryFile('php/text/string.php');
 
 
         $answer='';

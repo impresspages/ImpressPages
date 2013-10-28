@@ -11,8 +11,8 @@ namespace Ip\Module\Pages;
 use Ip\Module\Content\EventWidget;
 
 
-require_once(BASE_DIR . LIBRARY_DIR . 'php/file/upload_file.php');
-require_once(BASE_DIR . LIBRARY_DIR . 'php/file/upload_image.php');
+require_once \Ip\Config::libraryFile('php/file/upload_file.php');
+require_once \Ip\Config::libraryFile('php/file/upload_image.php');
 
 
 
