@@ -18,7 +18,7 @@
     </div>
     <?php
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
-        $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/theme.js');
+        $site->addJavascript(\Ip\Config::themeUrl('theme.js'));
         echo $site->generateJavascript();
     ?>
 </body>
