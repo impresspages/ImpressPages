@@ -710,10 +710,10 @@ class StandardModule {
             revisionId : '.json_encode(null).',
         };
     </script>
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-  <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-  <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-  <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
+  <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+  <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+  <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+  <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
   <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>
 </head>   
 	 
@@ -738,13 +738,13 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/style.css" type="text/css" rel="stylesheet" media="screen" />		
-		<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/scripts.js"></script>
-		<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/mouse.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/positioning.js" ></script>
-		<script type="text/javascript" src="'.LIBRARY_DIR.'js/default.js" ></script>
+		<link href="' . \Ip\Config::libraryUrl('js/tabs.js') . '" type="text/css" rel="stylesheet" media="screen" />
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/windowsize.js') . '" ></script>
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/mouse.js') . '" ></script>
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/positioning.js') . '" ></script>
+		<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/default.js') . '" ></script>
 		
 		';
 
@@ -800,9 +800,9 @@ class StandardModule {
     function print_road() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->tree_depth)
-        $answer .= '<a href="'.$this->generate_url_back().'"><img class="backtrace_path_img" src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/atgal.png" alt="" /></a>';
+        $answer .= '<a href="'.$this->generate_url_back().'"><img class="backtrace_path_img" src="' . \Ip\Config::libraryUrl('php/standard_module/design/atgal.png') . '" alt="" /></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/atgal_disabled.png" alt="" /></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="' . \Ip\Config::libraryUrl('php/standard_module/design/atgal_disabled.png') . '" alt="" /></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1402,9 +1402,9 @@ class StandardModule {
 					<div id="std_mod_new_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img 
-								onmouseover="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close.gif\'"								
-							src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>						
+								onmouseover="this.src=\'' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->print_new($this->errors).'</div>
@@ -1424,7 +1424,7 @@ class StandardModule {
 							<img
 								onmouseover="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close_hover.gif\'"
 								onmouseout="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close.gif\'"								
-							src="'.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>						
+							src="' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->print_search_fields($this->current_area, $this->level).'</div>

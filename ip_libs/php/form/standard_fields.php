@@ -254,8 +254,8 @@ class FieldEmail extends Field{
 class FieldWysiwyg extends Field{
     function genHtml($class, $id){
         $answer = '
-<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/tiny_mce/paste_function.js"></script>          
+<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tiny_mce/tiny_mce.js') . '"></script>
+<script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/tiny_mce/paste_function.js') . '"></script>
 
 <script type="text/javascript">
 //<![CDATA[ 

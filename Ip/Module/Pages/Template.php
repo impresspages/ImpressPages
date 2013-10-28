@@ -22,7 +22,7 @@ class Template {
     <link href="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
     '.$site->generateHead().'
     '.$site->generateJavascript().'
-    <script type="text/javascript" src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
+    <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.cookie.js"></script>
     <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.hotkeys.js"></script>
     <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.jstree.js"></script>
