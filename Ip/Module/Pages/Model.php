@@ -107,7 +107,7 @@ class Model {
 
 
     public static function getWidgetData ($widget) {
-        require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
+        require_once \Ip\Config::oldModuleFile('standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
         eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
         $answer = $widgetObject->getData($widget['module_id']);
         return $answer;

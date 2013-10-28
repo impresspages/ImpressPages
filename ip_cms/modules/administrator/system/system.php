@@ -82,7 +82,7 @@ class System{
             'title' => $parametersMod->getVAlue('standard', 'configuration', 'error_404', 'error_title'),
             'text' => self::error404Message()
         );
-        $content = \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/error404.php', $data)->render();
+        $content = \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/error404.php'), $data)->render();
         $event->setValue('content', $content );
         $event->addProcessed();
         
@@ -97,7 +97,7 @@ class System{
     private static function error404Message(){
         global $parametersMod;
         global $site;
-        require_once (BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
+        require_once \Ip\Config::oldModuleFile('administrator/email_queue/module.php');
         
         //find reason
         $message = '';

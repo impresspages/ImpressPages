@@ -16,7 +16,7 @@ require_once \Ip\Config::libraryFile('php/file/upload_file.php');
 require_once \Ip\Config::libraryFile('php/form/standard.php');
 require_once \Ip\Config::libraryFile('php/form/standard_fields.php');
 require_once (__DIR__.'/additional_standard_form_fields.php');
-require_once (BASE_DIR.MODULE_DIR.'developer/localization/ConfigParser.php'); //can't be replaced by autoloader because it is required for install script and MultiSite
+require_once \Ip\Config::oldModuleFile('developer/localization/ConfigParser.php'); //can't be replaced by autoloader because it is required for install script and MultiSite
 
 class Manager{
 
@@ -202,7 +202,7 @@ class Manager{
     }
 
     public static function saveParameters($file, $ignoreLanguage = false){
-        require_once(BASE_DIR.MODULE_DIR.'standard/languages/db.php');
+        require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
 
         //require_once(MODULE_DIR."standard/seo/db.php");
         global $parametersMod;

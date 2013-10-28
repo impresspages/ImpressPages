@@ -77,7 +77,7 @@ function __impressPagesAutoloader($name) {
     }
 
     if ($fileName == 'PclZip.php') {
-        if (file_exists(BASE_DIR.LIBRARY_DIR.'php/pclzip/PclZip.php')) {
+        if (file_exists(\Ip\Config::libraryFile('php/pclzip/PclZip.php'))) {
             require_once \Ip\Config::libraryFile('php/pclzip/PclZip.php');
             return true;
         }
@@ -95,8 +95,8 @@ function __impressPagesAutoloaderTry($fileName) {
             return true;
         }
     }
-    if (file_exists(BASE_DIR.MODULE_DIR.$fileName)) {
-        require_once(BASE_DIR.MODULE_DIR.$fileName);
+    if (file_exists(\Ip\Config::oldModuleFile($fileName))) {
+        require_once \Ip\Config::oldModuleFile($fileName);
         return true;
     }
     if (file_exists(BASE_DIR.PLUGIN_DIR.$fileName)) {

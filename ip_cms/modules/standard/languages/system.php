@@ -27,7 +27,7 @@ class System{
         $blockName = $event->getValue('blockName');
         if ( $blockName == 'ipLanguages') {
             if ($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
-                require_once (BASE_DIR.MODULE_DIR.'standard/languages/module.php');
+                require_once \Ip\Config::oldModuleFile('standard/languages/module.php');
                 $event->setValue('content', \Modules\standard\languages\Module::generateLanguageList());
                 $event->addProcessed();
             }else {
@@ -43,7 +43,7 @@ class System{
         $name = $event->getValue('slotName');
         if ( $name == 'ipLanguages') {
             if ($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
-                require_once (BASE_DIR.MODULE_DIR.'standard/languages/module.php');
+                require_once \Ip\Config::oldModuleFile('standard/languages/module.php');
                 $event->setValue('content', \Modules\standard\languages\Module::generateLanguageList());
                 $event->addProcessed();
             }else {
