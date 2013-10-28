@@ -8,9 +8,7 @@ function ipSystemClearCache(e) {
     e.preventDefault();
     var $this = $(this);
     var postData = {};
-    postData.g = 'administrator';
-    postData.m = 'system';
-    postData.aa = 'clearCache';
+    postData.aa = 'System.clearCache';
     postData.securityToken = ip.securityToken;
 
     postData.jsonrpc = '2.0';

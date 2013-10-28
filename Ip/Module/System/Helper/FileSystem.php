@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\administrator\system\Helper;
+namespace Ip\Module\System\Helper;
 
 class FileSystem
 {
@@ -13,7 +13,7 @@ class FileSystem
     public function createWritableDir($dir)
     {
         if (substr($dir, 0, 1) != '/') {
-            throw new \Modules\administrator\system\UpdateException('Absolute path required');
+            throw new \Ip\Module\System\UpdateException('Absolute path required');
         }
         if ($dir == '/' && !is_writable($dir)) {
             $this->throwWritePermissionsError($dir);
@@ -132,7 +132,7 @@ class FileSystem
      */
     public function clean($dir) {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \Modules\administrator\system\UpdateException("Directory doesn't exist: ".$dir);
+            throw new \Ip\Module\System\UpdateException("Directory doesn't exist: ".$dir);
         }
 
         if ($handle = opendir($dir)) {
@@ -154,7 +154,7 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \Modules\administrator\system\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
+            throw new \Ip\Module\System\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
         }
 
         $dir_handle=opendir($source);
@@ -180,7 +180,7 @@ class FileSystem
 
     private function throwWritePermissionsError($dir)
     {
-        throw new \Modules\administrator\system\UpdateException("Can't write directory ".$dir);
+        throw new \Ip\Module\System\UpdateException("Can't write directory ".$dir);
     }
 
     private function getParentPermissions($path)
@@ -198,7 +198,7 @@ class FileSystem
 
     public static function handleError($errno, $errstr, $errfile, $errline, array $errcontext)
     {
-        throw new \Modules\administrator\system\UpdateException($errstr);
+        throw new \Ip\Module\System\UpdateException($errstr);
     }
 
 

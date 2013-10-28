@@ -6,13 +6,8 @@
  *
  */
 
-namespace Modules\administrator\system;
+namespace Ip\Module\System;
 
-if (!defined('CMS'))
-exit;
-
-
-require_once(__DIR__ . "/module.php");
 
 class Cron {
 
@@ -67,7 +62,6 @@ class Cron {
                 }
 
                 if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
-                    require_once \Ip\Config::oldModuleFile('administrator/email_queue/module.php');
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
                         $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),

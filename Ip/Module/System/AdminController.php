@@ -4,16 +4,16 @@
 
  *
  */
-namespace Modules\administrator\system;
+namespace Ip\Module\System;
 
 
-require_once (__DIR__.'/module.php');
 
 class AdminController extends \Ip\Controller{
 
 
     public function index()
     {
+        $site = \Ip\ServiceLocator::getSite();
 
         $notes = array();
 
@@ -24,13 +24,28 @@ class AdminController extends \Ip\Controller{
         unset($_SESSION['modules']['administrator']['system']['notes']);
 
 
+        $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
+
         $data = array(
             'notes' => $notes,
-            'version' => \DbSystem::getSystemVariable('version'),
-            'enableUpdate' => !defined('MULTISITE_WEBSITES_DIR') //disable update in MultiSite installation
+            'version' => \DbSystem::getSystemVariable('version')
         );
 
-        return \Ip\View::create('view/index.php', $data)->render();
+        $content = \Ip\View::create('view/index.php', $data)->render();
+
+        $site->addJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+
+        $site->addCss(\Ip\Config::getCoreModuleUrl('Admin/assets/backend/ip_admin.css'));
+
+        if ($enableUpdate){
+            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/update.js'));
+        }
+        $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/clearCache.js'));
+
+        return $content;
     }
 
     public function clearCache()

@@ -7,7 +7,7 @@
  */
 
 
-namespace Modules\administrator\system;
+namespace Ip\Module\System;
 
 
 class Model

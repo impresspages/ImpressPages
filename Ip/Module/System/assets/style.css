@@ -1,22 +1,4 @@
-/*a.button{
-  background:transparent url(knob_background.png) repeat scroll 0 0;
-  border:1px solid #FFBB44;
-  color:#264971;
-  cursor:pointer;
-  float:left;
-  font-family:Verdana,Arial,Helvetica;
-  font-size:12px;
-  font-weight:bold;
-  margin-right:7px;
-  padding:3px 10px;
-  text-decoration:none;
-}
 
-
-a.button:hover{
- background-image: none;
- background-color: #f6e0b5;
-}*/
 div.note {
 	border: 1px solid gray;
 	background-color: #ffffdd;

@@ -7,11 +7,8 @@
  */
 
 
-namespace Modules\administrator\system;
+namespace Ip\Module\System;
 
-
-
-require_once \Ip\Config::oldModuleFile('developer/modules/db.php');
 
 class Module
 {
@@ -102,19 +99,20 @@ class Module
 
         if (function_exists('curl_init')) {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, \Modules\administrator\system\Model::instance()->getImpressPagesAPIUrl());
+            curl_setopt($ch, CURLOPT_URL, \Ip\Module\System\Model::instance()->getImpressPagesAPIUrl());
             curl_setopt($ch, CURLOPT_POST, 1);
 
             $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
             $postFields .= '&systemVersion=' . \DbSystem::getSystemVariable('version');
 
-            $groups = \Modules\developer\modules\Db::getGroups();
-            foreach ($groups as $groupKey => $group) {
-                $modules = \Modules\developer\modules\Db::getModules($group['id']);
-                foreach ($modules as $moduleKey => $module) {
-                    $postFields .= '&modules[' . $group['name'] . '][' . $module['name'] . ']=' . $module['version'];
-                }
-            }
+            //TODOX refactor
+//            $groups = \Modules\developer\modules\Db::getGroups();
+//            foreach ($groups as $groupKey => $group) {
+//                $modules = \Modules\developer\modules\Db::getModules($group['id']);
+//                foreach ($modules as $moduleKey => $module) {
+//                    $postFields .= '&modules[' . $group['name'] . '][' . $module['name'] . ']=' . $module['version'];
+//                }
+//            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
             curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -145,7 +143,7 @@ class Module
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
-            CURLOPT_URL => \Modules\administrator\system\Model::instance()->getImpressPagesAPIUrl(),
+            CURLOPT_URL => \Ip\Module\System\Model::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion='.$curVersion
         );

@@ -4,7 +4,7 @@
 
  *
  */
-namespace Modules\administrator\system;
+namespace Ip\Module\System;
 
 
 class UpdateException extends \Exception

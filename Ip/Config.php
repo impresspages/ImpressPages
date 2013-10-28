@@ -11,9 +11,9 @@ class Config
     protected static $rawConfig = array();
     protected static $config = array();
 
-    public function getCoreModuleUrl()
+    public static function getCoreModuleUrl($path = null)
     {
-        return BASE_URL.'Ip/Module/';
+        return BASE_URL . 'Ip/Module/' . $path;
     }
 
     public static function getRaw($name)
