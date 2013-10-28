@@ -111,7 +111,7 @@ class System {
 
         $code = '    <link href="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.css" type="text/css" rel="stylesheet" media="screen" />' . "\n";
         $code .= '    <link href="' . \Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= "   <script>window.jQuery || document.write('<script src=\"" . BASE_URL . LIBRARY_DIR . "js/jquery/jquery.js\"><\\/script>');</script>\n";
+        $code .= "   <script>window.jQuery || document.write('<script src=\"" . \Ip\Config::libraryUrl('js/jquery/jquery.js') . "\"><\\/script>');</script>\n";
         $code .= '   <script type="text/javascript"> var ipAdminToolbar = ' . json_encode($toolbarHtml) . ';</script>' . "\n";
         $code .= '   <script type="text/javascript" src="' . $config->getCoreModuleUrl() . 'Admin/Public/admin.js" ></script>' . "\n";
         $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);

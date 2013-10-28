@@ -186,23 +186,6 @@ class OldCmsInterface{
             return BASE_URL.'?admin=1&module_id='.$moduleId.'&security_token='.$this->session->securityToken();
     }
 
-    function generateWorkerUrl($modId = null, $getVars = null) { //url to module worker file
-        if($modId == null)
-            $modId = $this->curModId;
-        if($getVars == '')
-            return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken();
-        else
-            return BASE_URL.BACKEND_WORKER_FILE."?module_id=".$modId.'&security_token='.$this->session->securityToken().'&'.$getVars;
-    }
-
-
-    function generateActionUrl($action, $getVars = null) { //url to global backend action
-        if($getVars != '')
-            return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&'.$getVars.'&security_token='.$this->session->securityToken();
-        else
-            return BASE_URL.BACKEND_MAIN_FILE.'?action='.$action.'&security_token='.$this->session->securityToken();
-    }
-
     function deleteTmpFiles() {
         $dirs = array();
         $dirs[] = BASE_DIR.TMP_FILE_DIR;
