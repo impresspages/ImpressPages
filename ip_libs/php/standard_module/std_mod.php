@@ -1422,8 +1422,8 @@ class StandardModule {
 					<div id="std_mod_search_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img
-								onmouseover="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.LIBRARY_DIR.'php/standard_module/design/popup_close.gif\'"								
+								onmouseover="this.src=\'' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close.gif') . '\'"
 							src="' . \Ip\Config::libraryUrl('php/standard_module/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()"/>
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
