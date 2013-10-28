@@ -24,7 +24,6 @@ require_once TEST_CODEBASE_DIR . 'Ip/Config.php';
 //define('FRONTEND', true);
 //define('BACKEND', true);
 //require_once(TEST_CODEBASE_DIR.'ip_config.php');
-//require (BASE_DIR.INCLUDE_DIR.'autoloader.php');
 ////end bootstrap core
 
 

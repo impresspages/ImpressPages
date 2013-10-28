@@ -24,8 +24,8 @@ function __impressPagesAutoloader($name) {
         return true;
     }
 
-    if (file_exists(BASE_DIR.INCLUDE_DIR.$fileName)) {
-        require_once(BASE_DIR.INCLUDE_DIR.$fileName);
+    if (file_exists(\Ip\Config::includePath($fileName))) {
+        require_once \Ip\Config::includePath($fileName);
         return true;
     }
 

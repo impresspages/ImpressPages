@@ -56,6 +56,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['MODULE_DIR'] . $path;
     }
 
+    public static function includePath($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['INCLUDE_DIR'] . $path;
+    }
+
 //    public static function pluginDir()
 //    {
 //        return static::$config['pluginDir'];
