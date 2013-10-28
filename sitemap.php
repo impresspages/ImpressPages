@@ -47,7 +47,7 @@ if (DEVELOPMENT_ENVIRONMENT){
 \Ip\Core\Application::init();
 
 if(\Db::connect()){
-    $log = new \Modules\administrator\log\Module();
+    $log = new \Ip\Module\Log\Module();
 
     try {
         $dispatcher = new \Ip\Dispatcher();

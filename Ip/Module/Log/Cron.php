@@ -4,12 +4,8 @@
  *
  *
  */
-namespace Modules\administrator\log;
+namespace Ip\Module\Log;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-
-require_once (__DIR__.'/db.php');
 
 
 class Cron{

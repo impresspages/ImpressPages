@@ -29,12 +29,12 @@ class ServiceLocator
     }
 
     /**
-     * @return \Modules\Administrator\Log\Module
+     * @return \Ip\Module\Log\Module
      */
     public static function getLog()
     {
         /**
-         * @var $log \Modules\Administrator\Log\Module
+         * @var $log \Ip\Module\Log\Module
          */
         global $log;
         return $log;
