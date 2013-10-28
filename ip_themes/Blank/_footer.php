@@ -15,7 +15,7 @@
 <?php
     $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
     $site->addJavascript(\Ip\Config::libraryUrl('js/colorbox/jquery.colorbox.js'));
-    $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
+    $site->addJavascript(\Ip\Config::themeUrl('site.js'));
     echo $site->generateJavascript();
 ?>
 </body>
