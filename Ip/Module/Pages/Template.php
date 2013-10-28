@@ -225,7 +225,7 @@ class Template {
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
             <label for="typeRedirect" class="small">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'redirect_to_external_page')).'</label><br/>       
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-            <img class="linkList" id="internalLinkingIcon" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/img/list.gif" /><br />
+            <img class="linkList" id="internalLinkingIcon" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
         <p class="field">
             <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'rss')).'</label>

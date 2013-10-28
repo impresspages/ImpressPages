@@ -25,9 +25,9 @@ echo $this->subview('header.php')->render();
 <div id="systemInfo" class="content" style="display: none;">
     <h1><?php echo $this->escPar('standard/configuration/system_translations/system_message') ?></h1>
     <?php if ($enableUpdate){ ?>
-        <script type="text/javascript" src="<?php echo BASE_URL.MODULE_DIR  ?>administrator/system/public/update.js"></script>
+        <script type="text/javascript" src="<?php echo \Ip\Config::oldModuleUrl('administrator/system/public/update.js') ?>"></script>
     <?php } ?>
-    <script type="text/javascript" src="<?php echo BASE_URL.MODULE_DIR ?>administrator/system/public/clearCache.js"></script>
+    <script type="text/javascript" src="<?php echo \Ip\Config::oldModuleUrl('administrator/system/public/clearCache.js') ?>"></script>
 </div>
 <?php
 echo $this->subview('footer.php')->render();
