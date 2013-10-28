@@ -26,6 +26,16 @@ class Config
         return static::$rawConfig['BASE_URL'] . static::$rawConfig['LIBRARY_DIR'] . $path;
     }
 
+    public static function themeUrl($path, $vars = null)
+    {
+        $url = static::$rawConfig['BASE_URL'] . static::$rawConfig['THEME_DIR'] . static::$rawConfig['THEME'] . '/' . $path;
+        if ($vars) {
+            $url .= '?' . http_build_query($vars);
+        }
+
+        return $url;
+    }
+
 //    public static function pluginDir()
 //    {
 //        return static::$config['pluginDir'];

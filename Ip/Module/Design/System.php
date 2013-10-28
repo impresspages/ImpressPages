@@ -54,10 +54,10 @@ class System{
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         $site->addCss(BASE_URL.'Ip/Module/Design/public/optionsBox.css');
         if (file_exists(BASE_DIR.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js')) {
-            $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'Options.js');
+            $site->addJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'Options.js'));
         }
         if (file_exists(BASE_DIR.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'options.js')) {
-            $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/'.Model::INSTALL_DIR.'options.js');
+            $site->addJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'options.js'));
         }
 
         $model = Model::instance();

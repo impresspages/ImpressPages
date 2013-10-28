@@ -274,7 +274,7 @@ class FieldWysiwyg extends Field{
   	theme_advanced_path_location : "none",
   	extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
   	height : "300",
-  	content_css : "'.BASE_URL.THEME_DIR.THEME.'/" + "ip_content.css",
+  	content_css : "' . \Ip\Config::themeUrl('ip_content.css') . '",
   	theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
   	forced_root_block : "p",
   	
