@@ -33,7 +33,7 @@ class Theme
         if ($this->thumbnail) {
             $image = BASE_URL . $this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail;
         } else {
-            $image = BASE_URL . MODULE_DIR . 'standard/design/public/theme.png';
+            $image = \Ip\Config::oldModuleUrl('standard/design/public/theme.png');
         }
         return $image;
     }

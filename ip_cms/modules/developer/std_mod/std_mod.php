@@ -925,8 +925,8 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/style.css" type="text/css" rel="stylesheet" media="screen">
-		<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/scripts.js"></script>
+		<link href="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
+		<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/scripts.js') . '"></script>
 		<script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
 		<script src="' . \Ip\Config::libraryUrl('js/windowsize.js') .'" ></script>
 		<script src="' . \Ip\Config::libraryUrl('js/mouse.js'). '" ></script>
@@ -986,9 +986,9 @@ class StandardModule {
     function printRoad() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->treeDepth)
-        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal.png" alt=""></a>';
+        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal.png') . '" alt=""></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal_disabled.png" alt=""></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal_disabled.png') . '" alt=""></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1629,9 +1629,9 @@ class StandardModule {
 					<div id="std_mod_new_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img 
-								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
@@ -1649,9 +1649,9 @@ class StandardModule {
 					<div id="std_mod_search_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img
-								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::olModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
