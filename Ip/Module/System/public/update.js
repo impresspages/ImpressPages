@@ -2,9 +2,7 @@ $(document).ready(function () {
     "use strict";
 
     var postData = {};
-    postData.g = 'administrator';
-    postData.m = 'system';
-    postData.aa = 'getSystemInfo';
+    postData.aa = 'System.getSystemInfo';
     postData.securityToken = ip.securityToken;
 
     postData.jsonrpc = '2.0';
@@ -54,9 +52,7 @@ function startUpdate(e) {
     e.preventDefault();
 
     var postData = {};
-    postData.g = 'administrator';
-    postData.m = 'system';
-    postData.aa = 'startUpdate';
+    postData.aa = 'System.startUpdate';
     postData.securityToken = ip.securityToken;
 
     $.ajax({

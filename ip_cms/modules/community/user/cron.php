@@ -11,7 +11,6 @@ if (!defined('CMS')) exit;
 
 
 require_once(__DIR__."/db.php");
-require_once(MODULE_DIR."administrator/email_queue/module.php");
 
 
 class Cron {

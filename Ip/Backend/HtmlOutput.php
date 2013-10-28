@@ -96,12 +96,12 @@ class HtmlOutput {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="' . \Ip\Config::coreUrl('Ip/Backend/design/ip_admin.css') . '">
+    <link rel="stylesheet" href="' . \Ip\Config::getCoreModuleUrl('Admin/assets/backend/ip_admin.css') . '">
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
     <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
-    <script src="' . \Ip\Config::coreUrl('Ip/Backend/design/ip_admin.js') . '"></script>
+    <script src="' . \Ip\Config::getCoreModuleUrl('Admin/assets/backend/ip_admin.js') . '"></script>
 </head>
 
 <body>

@@ -68,7 +68,6 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         throw new \Ip\PhpException($message, $errno);
     }
     if($log && defined('ERRORS_SEND') && ERRORS_SEND != ''){
-        require_once \Ip\Config::oldModuleFile('administrator/email_queue/module.php');
         $logsCount = $log->lastLogsCount(60, 'system/error');
         if($logsCount <= 9){
             if($logsCount == 9)

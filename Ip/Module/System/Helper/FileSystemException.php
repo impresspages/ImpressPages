@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\administrator\system\Helper;
+namespace Ip\Module\System\Helper;
 
 /**
  * Update process error

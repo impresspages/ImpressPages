@@ -60,6 +60,7 @@ class AdminController extends \Ip\Controller
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
         $element->searchable = true;
+        $element->previewLength = 1000;
         $elements[] = $element;
 
 
