@@ -897,10 +897,10 @@ class StandardModule {
         };
     </script>
     
-    <script src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-    <script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>    
 </head>
 	 
@@ -927,11 +927,11 @@ class StandardModule {
 		
 		<link href="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/style.css" type="text/css" rel="stylesheet" media="screen">
 		<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/scripts.js"></script>
-		<script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-		<script src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/mouse.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/positioning.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/default.js" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+		<script src="' . \Ip\Config::libraryUrl('js/windowsize.js') .'" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/mouse.js'). '" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/positioning.js') .'" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/default.js') . '" ></script>
 		
 		';
 

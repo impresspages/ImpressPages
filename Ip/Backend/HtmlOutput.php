@@ -42,10 +42,10 @@ class HtmlOutput {
             revisionId : '.json_encode(null).'
         };
     </script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '></script>
+    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>
     
 </head>
@@ -98,9 +98,9 @@ class HtmlOutput {
     <title>ImpressPages</title>
     <link rel="stylesheet" href="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/ip_admin.css">
     <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/default.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tabs.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
     <script src="' . BASE_URL . CORE_DIR . 'Ip/Backend/design/ip_admin.js"></script>
 </head>
 
