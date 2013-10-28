@@ -46,10 +46,10 @@ class System{
     protected function initConfig()
     {
         $site = \Ip\ServiceLocator::getSite();
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
-        $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
-        $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
+        $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/optionsBox.js');
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         $site->addCss(BASE_URL.'Ip/Module/Design/public/optionsBox.css');

@@ -44,7 +44,7 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
-        if ($request->getPost('ajax', 1)) {
+        if (\Ip\Request::getPost('ajax', 1)) {
             $this->returnJson($answer);
         } else {
             //MultiSite autologin
@@ -82,7 +82,7 @@ class SiteController extends \Ip\Controller{
             'loginForm' => $this->getLoginForm()
         );
 
-        $site->addJavascript(BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js');
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
         $site->addJavascript(BASE_URL . 'Ip/Module/Admin/Public/login.js');
 
         $config = \Ip\ServiceLocator::getConfig();

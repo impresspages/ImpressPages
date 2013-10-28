@@ -53,7 +53,7 @@ class System {
         if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) && !empty($_GET['m']) && !empty($_GET['g'])) && !empty($_SESSION['backend_session']['user_id'])) {
             $site->addCss($config->getCoreModuleUrl().'Admin/Public/admin.css');
 
-            $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
             $site->addJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
 
             $site->addJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());

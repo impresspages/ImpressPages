@@ -376,7 +376,7 @@ class Site{
         }
 
         if (!$this->getZone($this->currentZone)->getCurrentElement()) {
-            if (sizeof($this->urlVars) == 0 && (sizeof($this->getVars) == 0 || sizeof($this->urlVars) == 0 && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
+            if (empty($this->urlVars) && (empty($this->getVars) || empty($this->urlVars) && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
                 $redirect = false;
                 foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
                     $tmpZone = $this->getZone($key);
@@ -530,8 +530,8 @@ class Site{
         global $parametersMod;
 
         $path = \Ip\Request::getRelativePath();
-         
-        $urlVars = explode('/', $path);
+
+        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
          
         for($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
@@ -843,8 +843,8 @@ class Site{
                     }
                     $controller = new $controllerClass();
                     $this->setLayout(BASE_DIR . '/' . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php');
-                    $this->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
-                    $this->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
+                    $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+                    $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
                     $answer = $controller->$action();
                     if ($answer) {
                         $this->setBlockContent('main', $answer);

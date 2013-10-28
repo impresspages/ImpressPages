@@ -21,6 +21,11 @@ class Config
         return array_key_exists($name, static::$rawConfig) ? static::$rawConfig[$name] : null;
     }
 
+    public static function libraryUrl($path)
+    {
+        return static::$rawConfig['BASE_URL'] . static::$rawConfig['LIBRARY_DIR'] . $path;
+    }
+
 //    public static function pluginDir()
 //    {
 //        return static::$config['pluginDir'];
@@ -94,6 +99,9 @@ class Config
                 define($key, $value);
             }
         }
+
+        // TODOX check
+        static::$config['LIBRARY_URL'] = static::$rawConfig['BASE_URL'] . static::$rawConfig['LIBRARY_URL'];
 
 //        $relativeDirs = array(
 //            'fileDir',

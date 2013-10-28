@@ -19,12 +19,12 @@ class AdminController extends \Ip\Controller
     {
         $site = \Ip\ServiceLocator::getSite();
 
-        $site->addCss(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.css');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'css/bootstrap/bootstrap.js');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
-        $site->addCss(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.css');
-        $site->addCss(BASE_URL.LIBRARY_DIR.'fonts/font-awesome/font-awesome.css');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/easyXDM/easyXDM.min.js');
+        $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
+        $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        $site->addCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
+        $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/options.js');
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/market.js');
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/design.js');
