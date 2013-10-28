@@ -790,7 +790,7 @@ class Site{
                             $result = call_user_func(array($tmpModule, $function));
                             if ($result && is_string($result)) {
                                 $this->setBlockContent('main', $result);
-                                $this->setOutput(\Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php')->render());
+                                $this->setOutput(\Ip\View::create(\Ip\Config::includePath('Ip/Module/Admin/View/layout.php'))->render());
                             }
                         }
                     } else {
@@ -1224,7 +1224,7 @@ class Site{
         if (!isset($this->output)) {
             if (\Ip\Module\Admin\Model::isSafeMode()) {
                 //TODOX skip this for admin pages with admin layout
-                return \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/safeModeLayout.php', array())->render();
+                return \Ip\View::create(\Ip\Config::includePath('Ip/Module/Admin/View/safeModeLayout.php'), array())->render();
             }
 
 
