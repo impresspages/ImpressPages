@@ -4,7 +4,7 @@
  *
  *
  */
-namespace Modules\administrator\log;
+namespace Ip\Module\Log;
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 

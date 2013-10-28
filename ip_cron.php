@@ -47,7 +47,7 @@ $db = new db();
 
 if($db->connect()){
 
-    $log = new \Modules\administrator\log\Module();
+    $log = new \Ip\Module\Log\Module();
     try {
         $dispatcher = new \Ip\Dispatcher();
         $parametersMod = new ParametersMod();

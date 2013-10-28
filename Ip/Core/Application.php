@@ -18,7 +18,6 @@ class Application {
         require_once \Ip\Config::includePath('db.php');
 
         require_once (BASE_DIR . CORE_DIR.'Ip/Site.php');
-        require_once \Ip\Config::oldModuleFile('administrator/log/module.php');
         require_once \Ip\Config::includePath('error_handler.php');
 
         if(!\Db::connect()){
@@ -26,7 +25,7 @@ class Application {
         }
 
         global $log;
-        $log = new \Modules\Administrator\Log\Module();
+        $log = new \Ip\Module\Log\Module();
         global $dispatcher;
         $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;
@@ -134,7 +133,7 @@ class Application {
 
             $site = \Ip\ServiceLocator::getSite();
 
-            $log = new \Modules\administrator\log\Module();
+            $log = new \Ip\Module\Log\Module();
 
             global $cms;
             $cms = new \Ip\Backend\Cms();

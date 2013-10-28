@@ -5,13 +5,9 @@
  *
  */
 
-namespace Modules\administrator\log;
+namespace Ip\Module\Log;
 
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-/** @private */
-require_once (__DIR__.'/db.php');
 
 /**
  * Logging class. Normaly all logs should be done trouht this class
