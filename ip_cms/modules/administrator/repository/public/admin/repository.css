@@ -40,6 +40,12 @@
     overflow-y: auto;
     float: left;
 }
+@media all and (max-width: 640px) {
+    .ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+        width: 90px;
+    }
+}
+
 .ipModuleRepositoryPopup .ipmTabUpload .impContainer .impDragdropNotice {
     display: none;
     margin-bottom: 10px;
@@ -91,6 +97,12 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+@media all and (max-width: 640px) {
+    .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
+        margin-left: 140px;
+    }
+}
+
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserControls {
     background-color: #dcdcdc;
     margin-right: 20px; /* for scrollbar */
@@ -110,6 +122,12 @@
     padding-right: 37px; /* reflects left padding + space for search button */
     width: 260px;
 }
+@media all and (max-width: 640px) {
+    .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
+        width: 100px;
+    }
+}
+
 .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmButton {
     background: none;
     border: none;
@@ -226,7 +244,7 @@
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
     bottom: 0;
     left: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
@@ -236,6 +254,11 @@
     padding: 10px 20px;
     position: relative;
     text-align: center;
+}
+@media all and (max-width: 640px) {
+    .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
+        margin: 0;
+    }
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmTitle {
     color: #2f313f;
