@@ -9,7 +9,7 @@ namespace Library\Php\Form\Templates;
 
 if (!defined('CMS')) exit;
 
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard_fields.php');
+require_once \Ip\Config::libraryFile('php/form/standard_fields.php');
 
 /**
  * Class to generate common form template.

@@ -11,10 +11,10 @@ namespace Modules\developer\localization;
 require_once (__DIR__.'/html_output.php');
 require_once (__DIR__.'/db.php');
 
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard_fields.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/file/upload_file.php');
+require_once \Ip\Config::libraryFile('php/form/standard.php');
+require_once \Ip\Config::libraryFile('php/form/standard_fields.php');
 require_once (__DIR__.'/additional_standard_form_fields.php');
 require_once (BASE_DIR.MODULE_DIR.'developer/localization/ConfigParser.php'); //can't be replaced by autoloader because it is required for install script and MultiSite
 

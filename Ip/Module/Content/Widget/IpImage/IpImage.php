@@ -7,8 +7,8 @@
 namespace Ip\Module\Content\Widget;
 
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once(BASE_DIR.LIBRARY_DIR.'php/image/functions.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/image/functions.php');
 
 
 class IpImage extends \Ip\Module\Content\Widget{

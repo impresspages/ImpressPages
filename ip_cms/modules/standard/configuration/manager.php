@@ -8,7 +8,7 @@ namespace Modules\standard\configuration;
 
 if (!defined('BACKEND')) exit;
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/standard_module/std_mod.php');
+require_once \Ip\Config::libraryFile('php/standard_module/std_mod.php');
 
 
 class Manager{

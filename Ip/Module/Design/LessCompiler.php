@@ -38,7 +38,7 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less.= $this->generateLessVariables($options, $config);
 
-        require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
+        require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $lessc->setImportDir(array(BASE_DIR . THEME_DIR . $themeName, BASE_DIR . LIBRARY_DIR . 'css/ipContent'));
         //$lessc->setFormatter('compressed');
@@ -174,7 +174,7 @@ class LessCompiler
             return false;
         }
 
-        $cssFile = BASE_DIR . LIBRARY_DIR . 'css/ipContent/ip_content.css';
+        $cssFile = \Ip\Config::libraryFile('css/ipContent/ip_content.css');
         $lastBuildTime = filemtime($cssFile);
 
         $hasChanged = false;
@@ -190,11 +190,11 @@ class LessCompiler
             return;
         }
 
-        require_once BASE_DIR . LIBRARY_DIR . 'php/leafo/lessphp/lessc.inc.php';
+        require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $lessc->setImportDir(BASE_DIR . LIBRARY_DIR . 'css/ipContent');
         $lessc->setPreserveComments(true);
-        $css = $lessc->compileFile(BASE_DIR . LIBRARY_DIR . 'css/ipContent/less/ipContent/ipContent.less');
+        $css = $lessc->compileFile(\Ip\Config::libraryFile('css/ipContent/less/ipContent/ipContent.less'));
         file_put_contents($cssFile, $css);
     }
 }

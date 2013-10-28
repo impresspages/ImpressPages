@@ -87,7 +87,7 @@ class ElementWysiwyg extends Element{ //data element in area
 
 
     function previewValue($record, $area){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+        require_once \Ip\Config::libraryFile('php/text/string.php');
 
         return htmlspecialchars(\Library\Php\Text\String::mb_wordwrap(mb_substr($record[$this->dbField], 0, $this->previewLength), 10, "&#x200B;", 1));
     }

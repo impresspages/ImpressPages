@@ -7,7 +7,7 @@
 namespace Modules\developer\zones;
 
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+require_once \Ip\Config::libraryFile('php/text/transliteration.php');
 
 class Db{
 

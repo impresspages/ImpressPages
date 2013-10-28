@@ -557,7 +557,7 @@ class Db {
      * @param int $allowed_id
      */
     public static function makeUrl($url, $allowed_id = null){
-        require_once(BASE_DIR . LIBRARY_DIR . 'php/text/transliteration.php');
+        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         if($url == '')
         $url = 'page';
         $url = mb_strtolower($url);

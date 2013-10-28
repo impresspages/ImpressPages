@@ -57,7 +57,7 @@ class Functions{
      * @return string new (or the same) file name that don't collide with existing files in specified directory
      */
     public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
-        require_once (BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");
         if ($ext_pos !== false){
@@ -89,7 +89,7 @@ class Functions{
      * @return string new (or the same) file without special characters
      */
     public static function cleanupFileName($fileName){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         $fileName = \Library\Php\Text\Transliteration::transform($fileName);
         $fileName = utf8_decode($fileName);
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");

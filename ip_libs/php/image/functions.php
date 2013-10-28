@@ -7,7 +7,7 @@
 
 namespace Library\Php\Image;
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
 
 
 
