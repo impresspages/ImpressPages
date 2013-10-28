@@ -18,16 +18,16 @@ class Template {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link href="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/menu_management.css" type="text/css" rel="stylesheet" media="screen" />
-    <link href="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jquery-ui/jquery-ui.css" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/menu_management.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.$site->generateHead().'
     '.$site->generateJavascript().'
     <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
-    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.cookie.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.hotkeys.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jstree/jquery.jstree.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/menu_management.js"></script>
-    <script type="text/javascript" src="'.BASE_URL.CORE_DIR.'Ip/Module/Pages/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/menu_management.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
 <body>
 '.$content.'

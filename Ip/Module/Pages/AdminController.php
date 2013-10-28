@@ -20,7 +20,7 @@ class AdminController extends \Ip\Controller
         $session = \Ip\ServiceLocator::getSession();
         $data = array (
             'securityToken' =>  $session->getSecurityToken(),
-            'imageDir' => BASE_URL . CORE_DIR . 'Ip/Module/Pages/img/'
+            'imageDir' => \Ip\Config::coreUrl('Ip/Module/Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
