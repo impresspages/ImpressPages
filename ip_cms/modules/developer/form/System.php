@@ -15,6 +15,6 @@ class System
     {
         $site = \Ip\ServiceLocator::getSite();
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
-        $site->addJavascript(BASE_URL.MODULE_DIR.'developer/form/public/form.js');
+        $site->addJavascript(\Ip\Config::oldModuleUrl('developer/form/public/form.js'));
     }
 }

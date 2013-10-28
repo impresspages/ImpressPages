@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/design.js');
         $site->addJavascript(BASE_URL.'Ip/Module/Design/public/pluginInstall.js');
         $site->addCss(BASE_URL.'Ip/Module/Design/public/design.css');
-        $site->addJavascript(BASE_URL.MODULE_DIR.'administrator/system/public/market.js');
+        $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/system/public/market.js'));
 
         $model = Model::instance();
 
