@@ -113,7 +113,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         
         $subject = $websiteName.': '.$pageTitle;
 
-        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue = new \Ip\Module\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
 
         $emailQueue->send();

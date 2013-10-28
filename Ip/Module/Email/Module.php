@@ -11,12 +11,12 @@
  *
  */
 
-namespace Modules\administrator\email_queue;
+namespace Ip\Module\Email;
 
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 /** @private */
-require_once (__DIR__.'/db.php');
+require_once(__DIR__ . '/db.php');
 require_once \Ip\Config::libraryFile('php/text/html2text.php');
 require_once \Ip\Config::libraryFile('php/mail/phpmailer/class.phpmailer.php');
 require_once \Ip\Config::libraryFile('php/file/functions.php');

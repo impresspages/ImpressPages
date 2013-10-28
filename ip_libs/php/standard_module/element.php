@@ -104,10 +104,10 @@ class Element{ //data element in area
         $this->searchable = $searchable;
     }
     function get_show_on_list(){
-        return $this->show_on_list;
+        return $this->showOnList;
     }
     function set_show_on_list($show_on_list){
-        $this->show_on_list = $show_on_list;
+        $this->showOnList = $show_on_list;
     }
     function get_attributes(){
         return $this->attributes;

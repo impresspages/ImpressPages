@@ -25,7 +25,7 @@ class Cron {
             if($parametersMod->getValue('community', 'user', 'options', 'delete_expired_users')) {
                 $soonOutdated = Db::getUsersToWarn($parametersMod->getValue('community', 'user', 'options', 'expires_in'), $parametersMod->getValue('community', 'user', 'options', 'warn_before'), $parametersMod->getValue('community', 'user', 'options', 'warn_every'));
 
-                $queue = new \Modules\administrator\email_queue\Module();
+                $queue = new \Ip\Module\Email\Module();
 
                 $deleted = Db::deleteOutdatedUsers($parametersMod->getValue('community', 'user', 'options', 'expires_in'));
 

@@ -48,7 +48,7 @@ class Module{
     {
         self::log($module, $name, $valueStr, $valueInt, $valueFloat);
         if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
-            $queue = new \Modules\administrator\email_queue\Module();
+            $queue = new \Ip\Module\Email\Module();
             $message = 'SERVER ERROR<br/><br/>';
             $message .= $module.'<br/>';
             $message .= $name.'<br/>';

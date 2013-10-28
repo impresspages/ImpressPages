@@ -144,7 +144,7 @@ class System{
         }
         if ($message != '') {
             //send email
-            $queue = new \Modules\administrator\email_queue\Module();
+            $queue = new \Ip\Module\Email\Module();
             $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email', $site->getCurrentLanguage()->getId()), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name', $site->getCurrentLanguage()->getId()), ERRORS_SEND, '', BASE_URL." ERROR", $message, false, true);
             $queue->send();
 
