@@ -2,7 +2,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(BASE_URL.LIBRARY_DIR.'css/ipContent/ip_content.css');
+    $site->addCss(\Ip\Config::libraryUrl('css/ipContent/ip_content.css'));
     echo $site->generateHead();
     ?>
 </head>
@@ -11,7 +11,7 @@
     <?php echo $this->generateBlock('main'); ?>
 </div>
 <?php
-$site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+$site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
 echo $site->generateJavascript();
 ?>
 </body>

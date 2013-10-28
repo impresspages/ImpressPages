@@ -13,8 +13,8 @@
 </footer>
 </div>
 <?php
-    $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-    $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js');
+    $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+    $site->addJavascript(\Ip\Config::libraryUrl('js/colorbox/jquery.colorbox.js'));
     $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
     echo $site->generateJavascript();
 ?>

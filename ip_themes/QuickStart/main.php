@@ -17,7 +17,7 @@
         <?php echo $this->generateBlock('main')->render(); ?>
     </div>
     <?php
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
         $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/theme.js');
         echo $site->generateJavascript();
     ?>

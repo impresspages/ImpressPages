@@ -161,6 +161,8 @@ class Application {
             // $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$response)));
             echo $response;
             // $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$response)));
+        } elseif (is_a($response, '\Ip\View')) {
+            echo $response->render();
         }
     }
 

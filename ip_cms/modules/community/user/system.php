@@ -19,8 +19,8 @@ class System {
         global $site;
         global $dispatcher;
 
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-tools/jquery.tools.form.js');
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
         $site->addJavascript(BASE_URL.MODULE_DIR.'community/user/public/ipUser.js');
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
