@@ -10,7 +10,7 @@ namespace Modules\developer\modules_configuration;
 require_once \Ip\Config::libraryFile('php/standard_module/std_mod.php');
 require_once(__DIR__.'/db.php');
 
-class ConfigurationArea extends \Library\Php\StandardModule\Area{
+class ConfigurationArea extends \Ip\Lib\StdMod\Area{
     function after_delete($id){
         global $db;
         Db::deletePermissions($id);
@@ -34,7 +34,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
         $element->db_field = "translation";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
         $tmp_el = $element;
@@ -47,20 +47,20 @@ class Manager{
         $element->reg_expression = "/^[A-Za-z0-9\-_]+$/";
         $element->reg_expression_for_user = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
          
-        $element->show_on_list = true;
+        $element->showOnList = true;
         //   $element->searchable = true;
         $elements[] = $element;
          
         $element = new \Library\Php\StandardModule\element_bool();
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
         $element->db_field = "admin";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
          
 
          
-        $area0 = new \Library\Php\StandardModule\Area();
+        $area0 = new \Ip\Lib\StdMod\Area();
         $area0->db_table = "module_group";
         $area0->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','module_groups');
         $area0->db_key = "id";
@@ -85,7 +85,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
         $element->db_field = "translation";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
         $tmp_el = $element;
@@ -96,7 +96,7 @@ class Manager{
         $element->reg_expression = "/^[A-Za-z0-9\-_]+$/";
         $element->reg_expression_for_user = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
          
-        $element->show_on_list = true;
+        $element->showOnList = true;
         //   $element->searchable = true;
         $elements[] = $element;
 
@@ -104,7 +104,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_bool();
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
         $element->db_field = "admin";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
@@ -144,7 +144,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
         $element->db_field = "translation";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
         $tmp_el = $element;
@@ -157,7 +157,7 @@ class Manager{
         $element->reg_expression = "/^[A-Za-z0-9\-_]+$/";
         $element->reg_expression_for_user = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
          
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
@@ -165,13 +165,13 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_bool();
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
         $element->db_field = "admin";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
 
 
-        $area2 = new \Library\Php\StandardModule\Area();
+        $area2 = new \Ip\Lib\StdMod\Area();
         $area2->db_table = "parameter_group";
         $area2->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','parameter_groups');
         $area2->db_key = "id";
@@ -191,7 +191,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
         $element->db_field = "translation";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
         $tmp_el = $element;
@@ -203,7 +203,7 @@ class Manager{
         $element->db_field = "name";
         $element->reg_expression = "/^[A-Za-z0-9\-_]+$/";
         $element->reg_expression_for_user = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
@@ -213,7 +213,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_parameter();
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','value');
         $element->db_field = "id";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
@@ -221,7 +221,7 @@ class Manager{
          $element = new element_text();
          $element->name = $parametersMod->getValue('developer', 'modules_configuration','translations','regexpression');
          $element->db_field = "regexpression";
-         $element->show_on_list = true;
+         $element->showOnList = true;
          // $element->searchable = true;
          $elements[] = $element;*/
 
@@ -229,7 +229,7 @@ class Manager{
         /*     $element = new element_text("comment");
          $element->name = $parametersMod->getValue('developer', 'modules_configuration','translations','comment');
          $element->db_field = "comment";
-         $element->show_on_list = true;
+         $element->showOnList = true;
          //   $element->searchable = true;
          $elements[] = $element;*/
          
@@ -238,13 +238,13 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_bool();
         $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
         $element->db_field = "admin";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
          
          
-        $area3 = new \Library\Php\StandardModule\Area();
+        $area3 = new \Ip\Lib\StdMod\Area();
         $area3->db_table = "parameter";
         $area3->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','parameters');
         $area3->db_key = "id";
@@ -260,7 +260,7 @@ class Manager{
         $area0->set_area($area1);
 
 
-        $this->standardModule = new \Library\Php\StandardModule\StandardModule($area0, 2);
+        $this->standardModule = new \Ip\Lib\StdMod\StandardModule($area0, 2);
          
     }
     function manage(){

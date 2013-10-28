@@ -5,11 +5,11 @@
  *
  */
 
-namespace Modules\administrator\email_queue;
+namespace Ip\Module\Email;
 if (!defined('BACKEND')) exit;
 
 
-require_once (__DIR__.'/db.php');
+require_once(__DIR__ . '/db.php');
 
 
 class BackendWorker {

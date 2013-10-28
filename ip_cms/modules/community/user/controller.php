@@ -569,7 +569,7 @@ class Controller  extends \Ip\Controller{
         $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_registration');
 
         $files = array();
-        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue = new \Ip\Module\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
 
         $emailQueue->send();
@@ -600,7 +600,7 @@ class Controller  extends \Ip\Controller{
         $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email');
         
         $files = array();
-        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue = new \Ip\Module\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
         
         $emailQueue->send();
@@ -611,7 +611,7 @@ class Controller  extends \Ip\Controller{
         global $parametersMod;
         global $site;
     
-        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue = new \Ip\Module\Email\Module();
         
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
         $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "passwordResetVerification", "id" => $userId, "code" => $code));
@@ -633,7 +633,7 @@ class Controller  extends \Ip\Controller{
         $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset');
         
         $files = array();
-        $emailQueue = new \Modules\administrator\email_queue\Module();
+        $emailQueue = new \Ip\Module\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
         
         $emailQueue->send();

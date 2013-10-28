@@ -4,7 +4,7 @@
  *
  *
  */
-namespace Modules\administrator\email_queue;
+namespace Ip\Module\Email;
 if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Db{

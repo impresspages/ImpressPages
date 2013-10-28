@@ -5,10 +5,13 @@
  *
  */
 
-namespace Modules\administrator\email_queue;
+namespace Ip\Module\Email;
 
 if (!defined('BACKEND')) exit;
-class element_email extends \Library\Php\StandardModule\Element{ //data element in area
+
+require_once(__DIR__ . '/db.php');
+
+class element_attachment extends \Library\Php\StandardModule\Element{ //data element in area
     var $default_value;
     var $mem_value;
     var $reg_expression;
@@ -47,7 +50,23 @@ class element_email extends \Library\Php\StandardModule\Element{ //data element 
     function preview_value($value){
         global $parametersMod;
         global $cms;
-        return '<span style="cursor:pointer;" onclick="window.open(\''.$cms->generateWorkerUrl($cms->curModId, 'action=preview&record_id='.((int)$value)).'\',\'mywindow\',\'width=700,height=800,resizable=yes,scrollbars=yes,location=no,directories=no,menubar=no,copyhistory=no\')">'.htmlspecialchars($parametersMod->getValue('administrator','email_queue','admin_translations','preview')).'</span>';
+
+        $answer = '';
+        $email = Db::getEmail($value);
+        $files = explode("\n", $email['files']);
+        $file_names = explode("\n", $email['file_names']);
+        $file_mime_types = explode("\n", $email['file_mime_types']);
+        if (sizeof($files) > 0) {
+            for($i =0; $i<sizeof($files) && $i<sizeof($file_names)&& $i<sizeof($file_mime_types); $i++){
+                if ($answer != '') {
+                    $answer .= '<br />';
+                }
+                 
+                $answer .= '<a target="_blank" href="'.$cms->generateWorkerUrl($cms->curModId, 'action=get_file&file_number='.$i.'&record_id='.$value).'">'.htmlspecialchars($file_names[$i]).'</a>';
+
+            }
+        }
+        return '<span>'.$answer.'</span>';
     }
 
     function check_field($prefix, $action){

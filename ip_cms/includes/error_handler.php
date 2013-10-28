@@ -76,7 +76,7 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
 
 Error emails count has reached the limit. See logs for more errors.';
 
-            $queue = new \Modules\administrator\email_queue\Module();
+            $queue = new \Ip\Module\Email\Module();
             if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
             $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), ERRORS_SEND, '', BASE_URL." ERROR", $message, false, true);
             else

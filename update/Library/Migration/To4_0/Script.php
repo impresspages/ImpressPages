@@ -29,7 +29,7 @@ class Script extends \IpUpdate\Library\Migration\General
         $this->createPluginTable();
 
 
-        //TODOX remove modules and permissions: modules, newsletter, newsletter_subscribers, design, menu_management
+        //TODOX remove modules and permissions: modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue
 
         //TODOX update zones to new associated plugins
 
