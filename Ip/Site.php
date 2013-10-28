@@ -415,10 +415,10 @@ class Site{
                 //initialize zone object
                 $tmpZone = $this->zones[$zoneName];
                 if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
-                    if (file_exists(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php')) {
-                        require_once(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
-                    } elseif (file_exists(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
-                        require_once(BASE_DIR.MODULE_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
+                    if (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php'))) {
+                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
+                    } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
+                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
                     } elseif (file_exists(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
                         require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
                     } else {
@@ -993,8 +993,8 @@ class Site{
         if (file_exists(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file)) {
             require_once(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file);
         } else {
-            if(file_exists(BASE_DIR.MODULE_DIR.$file)){
-                require_once(BASE_DIR.MODULE_DIR.$file);
+            if (file_exists(\Ip\Config::oldModuleFile($file))) {
+                require_once \ip\Config::oldModuleFile($file);
             } else {
                 if(file_exists(BASE_DIR.PLUGIN_DIR.$file)){
                     require_once(BASE_DIR.PLUGIN_DIR.$file);
@@ -1024,12 +1024,10 @@ class Site{
     public function requireConfig($file){
         if (file_exists(BASE_DIR.CONFIG_DIR.$file)) {
             require_once(BASE_DIR.CONFIG_DIR.$file);
+        } elseif (file_exists(\Ip\Config::oldModuleFile($file))) {
+            require_once \Ip\Config::oldModuleFile($file);
         } else {
-            if (file_exists(BASE_DIR.MODULE_DIR.$file)) {
-                require_once(BASE_DIR.MODULE_DIR.$file);
-            } else {
-                require_once(BASE_DIR.PLUGIN_DIR.$file);
-            }
+            require_once(BASE_DIR.PLUGIN_DIR.$file);
         }
     }
 
@@ -1373,7 +1371,7 @@ class Site{
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/head.php', $data)->render();
+        return \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -1403,7 +1401,7 @@ class Site{
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(BASE_DIR.MODULE_DIR.'standard/configuration/view/javascript.php', $data)->render();
+        return \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/javascript.php'), $data)->render();
     }
 
     public function setBlockContent($block, $content)

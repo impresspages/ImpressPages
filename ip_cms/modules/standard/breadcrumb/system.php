@@ -24,7 +24,7 @@ class System{
     public static function generateBreadcrumb (\Ip\Event $event) {
         $blockName = $event->getValue('blockName');
         if ($blockName == 'ipBreadcrumb') {
-            require_once (BASE_DIR.MODULE_DIR.'standard/breadcrumb/module.php');
+            require_once \Ip\Config::oldModuleFile('standard/breadcrumb/module.php');
             $event->setValue('content', \Modules\standard\breadcrumb\Module::generateBreadcrumb(' &rsaquo; ') );
             $event->addProcessed();
         }
@@ -34,7 +34,7 @@ class System{
     public static function generateBreadcrumbSlot (\Ip\Event $event) {
         $name = $event->getValue('slotName');
         if ($name == 'ipBreadcrumb') {
-            require_once (BASE_DIR.MODULE_DIR.'standard/breadcrumb/module.php');
+            require_once \Ip\Config::oldModuleFile('standard/breadcrumb/module.php');
             $event->setValue('content', \Modules\standard\breadcrumb\Module::generateBreadcrumb(' &rsaquo; ') );
             $event->addProcessed();
         }

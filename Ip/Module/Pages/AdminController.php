@@ -1179,7 +1179,7 @@ class AdminController extends \Ip\Controller
 
         $widgets = Db::pageWidgets($page['id']);
         foreach($widgets as $key => &$widget){
-            require_once(BASE_DIR.MODULE_DIR.'standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
+            require_once \Ip\Config::oldModuleFile('standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
             $widget['data'] = $widgetObject->getData($widget['module_id']);
 

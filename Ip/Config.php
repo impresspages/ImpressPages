@@ -51,6 +51,11 @@ class Config
         return static::$rawConfig['BASE_URL'] . static::$rawConfig['MODULE_DIR'] . $path;
     }
 
+    public static function oldModuleFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['MODULE_DIR'] . $path;
+    }
+
 //    public static function pluginDir()
 //    {
 //        return static::$config['pluginDir'];

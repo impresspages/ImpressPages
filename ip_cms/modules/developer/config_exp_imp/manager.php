@@ -15,7 +15,7 @@ require_once \Ip\Config::libraryFile('php/file/functions.php');
 require_once \Ip\Config::libraryFile('php/file/upload_file.php');
 require_once \Ip\Config::libraryFile('php/form/standard.php');
 require_once (__DIR__.'/additional_standard_form_fields.php');
-require_once (BASE_DIR.MODULE_DIR.'developer/localization/manager.php');
+require_once \Ip\Config::oldModuleFile('developer/localization/manager.php');
 
 
 class Manager{

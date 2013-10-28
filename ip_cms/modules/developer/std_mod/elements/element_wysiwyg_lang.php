@@ -24,7 +24,7 @@ class ElementWysiwygLang extends Element{ //data element in area
         $this->maxLenght = null;
         $this->previewLength = 60;
 
-        require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_db.php');
+        require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_db.php');
         $stdModDb = new StdModDb();
 
         $languages = $stdModDb->languages();

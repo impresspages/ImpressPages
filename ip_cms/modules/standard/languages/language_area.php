@@ -8,7 +8,7 @@ namespace Modules\standard\languages;
 
 if (!defined('BACKEND')) exit;
 
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod.php');
+require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
 require_once(__DIR__.'/db.php');
 require_once(__DIR__.'/element_url.php');
 

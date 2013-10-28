@@ -11,7 +11,7 @@ namespace Modules\developer\config_exp_imp;
 
 require_once (__DIR__.'/parameter_group.php');
 require_once (__DIR__.'/db.php');
-require_once (BASE_DIR.MODULE_DIR.'standard/languages/db.php');
+require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
 
 class Parameters{
     public $parameterGroups;

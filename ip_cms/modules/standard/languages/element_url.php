@@ -8,7 +8,7 @@ namespace Modules\standard\languages;
 
 if (!defined('BACKEND')) exit;
 
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/elements/element_text.php');
+require_once \Ip\Config::oldModuleFile('developer/std_mod/elements/element_text.php');
 
 class ElementUrl extends \Modules\developer\std_mod\ElementText{
 

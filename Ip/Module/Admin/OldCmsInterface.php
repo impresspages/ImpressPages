@@ -268,7 +268,7 @@ class OldCmsInterface{
                 $newModule = \Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
                 if($newModule) {
                     if($newModule['core']) {
-                        require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
+                        require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     } else {
                         require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     }

@@ -11,7 +11,7 @@ namespace Modules\administrator\system;
 
 
 
-require_once (BASE_DIR . MODULE_DIR . 'developer/modules/db.php');
+require_once \Ip\Config::oldModuleFile('developer/modules/db.php');
 
 class Module
 {
@@ -59,13 +59,13 @@ class Module
             while ($lock = mysql_fetch_assoc($rs)) {
 
                 $systemFileExists = false;
-                if (file_exists(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/system.php")) {
-                    require_once(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/system.php");
+                if (file_exists(\Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/system.php"))) {
+                    require_once \Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/system.php");
                     $systemFileExists = true;
                 }
 
-                if (!$systemFileExists && file_exists(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/System.php")) {
-                    require_once(BASE_DIR . MODULE_DIR . $lock['mg_name'] . '/' . $lock['m_name'] . "/System.php");
+                if (!$systemFileExists && file_exists(\Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/System.php"))) {
+                    require_once \Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/System.php");
                     $systemFileExists = true;
                 }
 

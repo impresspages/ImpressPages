@@ -9,8 +9,8 @@ namespace Modules\standard\seo;
 
 if (!defined('BACKEND')) exit;
 
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod.php');
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_html_output.php');
+require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
+require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_html_output.php');
 
 class ElementSeo extends \Modules\developer\std_mod\Element { //data element in area
     var $translationField;
@@ -30,7 +30,7 @@ class ElementSeo extends \Modules\developer\std_mod\Element { //data element in 
         $this->maxLenght = null;
         $this->previewLength = 60;
 
-        require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_db.php');
+        require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_db.php');
         $stdModDb = new \Modules\developer\std_mod\StdModDb();
 
         $languages = $stdModDb->languages();

@@ -355,8 +355,8 @@ class View{
                 return(BASE_DIR.PLUGIN_DIR.$moduleView);
             }
 
-            if (file_exists(BASE_DIR.MODULE_DIR.$moduleView)) {
-                return(BASE_DIR.MODULE_DIR.$moduleView);
+            if (file_exists(\Ip\Config::oldModuleFile($moduleView))) {
+                return \Ip\Config::oldModuleFile($moduleView);
             }
 
         } else {
@@ -437,7 +437,7 @@ class View{
         );
 
         if ($viewFile === null) {
-            $viewFile = BASE_DIR.MODULE_DIR.'standard/configuration/view/menu.php';
+            $viewFile = \Ip\Config::oldModuleFile('standard/configuration/view/menu.php');
         }
         $viewFile = self::findView($viewFile);
         $view = self::create($viewFile, $data);

@@ -198,7 +198,7 @@ class Model
             if (!defined('BACKEND')) {
                 define('BACKEND', TRUE);
             }
-            require_once(BASE_DIR . MODULE_DIR . 'developer/localization/manager.php');
+            require_once \Ip\Config::oldModuleFile('developer/localization/manager.php');
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
 

@@ -18,7 +18,7 @@ class Application {
         require_once (BASE_DIR.INCLUDE_DIR.'db.php');
 
         require_once (BASE_DIR . CORE_DIR.'Ip/Site.php');
-        require_once (BASE_DIR.MODULE_DIR.'administrator/log/module.php');
+        require_once \Ip\Config::oldModuleFile('administrator/log/module.php');
         require_once (BASE_DIR.INCLUDE_DIR.'error_handler.php');
 
         if(!\Db::connect()){
