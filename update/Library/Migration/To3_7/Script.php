@@ -29,6 +29,14 @@ class Script extends \IpUpdate\Library\Migration\General
         $parameterImporter = new ParameterImporter($this->conn, $this->dbPref);
         $parameterImporter->importParameters('parameters.php');
 
+        $this->removeFiles(array('admin.php', 'ip_backend_frames.php'));
+    }
+
+    private function removeFiles($files) {
+        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        foreach($files as $file) {
+             $fs->rm($this->cf['BASE_DIR'].$file);
+        }
     }
 
 

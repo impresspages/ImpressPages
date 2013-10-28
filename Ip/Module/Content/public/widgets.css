@@ -21,6 +21,21 @@
 .clearfix:after {
     clear: both;
 }
+
+
+@media all and (max-width: 640px) {
+    .ipmMobileHide {
+        display: none !important;
+    }
+}
+
+@media all and (min-width: 640px) {
+    .ipmMobileShow {
+        display: none !important;
+    }
+}
+
+
 /*
 The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
@@ -175,7 +190,6 @@ Move to separate stylesheet if invalid CSS is a problem.
     border-bottom: 1px solid #000;
     box-shadow: inset 0px -2px 2px -3px #000;
     left: 0;
-    min-width: 860px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -188,6 +202,12 @@ Move to separate stylesheet if invalid CSS is a problem.
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+@media all and (max-width: 640px) {
+    .ipAdminWidgets {
+        margin-right: 10px;
+    }
+}
+
 .ipAdminWidgetsScroll {
     background: url(../img/icons_scroll.png) no-repeat;
     display: block;
@@ -390,6 +410,12 @@ Move to separate stylesheet if invalid CSS is a problem.
     text-align: center;
     width: 90px;
     white-space: nowrap; /* in case two words won't wrap */
+}
+.ipAdminButton.ipaConfirm.ipmMobileShow {
+    position: fixed;
+    right: 15px;
+    top: 2px;
+    z-index: 10002;
 }
 .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled,
 .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled:hover {

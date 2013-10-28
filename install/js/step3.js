@@ -1,4 +1,6 @@
 function ajaxMessage(url, parameters){
+    $('#content').hide();
+    $('#loading').show();
     parameters = 'manual=1&' + parameters;
     var xmlHttp;
     try	{// Firefox, Opera 8.0+, Safari
@@ -20,6 +22,9 @@ function ajaxMessage(url, parameters){
     {
 
         if(xmlHttp.readyState==4){
+            $('#content').show();
+            $('#loading').hide();
+
             var response = xmlHttp.responseText;
             if(response != ''){
             var responseObject = eval('(' + response + ')');

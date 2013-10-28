@@ -1,6 +1,6 @@
 <div class="ipAdminPanelContainer">
     <div class="ipAdminPanel">
-        <div class="ipAdminControls">
+        <div class="ipAdminControls ipmMobileHide">
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
@@ -71,4 +71,6 @@
             <p class="ipAdminError"></p>
         </div>
     </div>
+
 </div>
+<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo $this->escPar('standard/content_management/admin_translations/publish'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
