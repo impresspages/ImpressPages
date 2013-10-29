@@ -906,11 +906,10 @@ class Site{
     public function usedUrl($folderName){
 
         $systemDirs = array();
-
-        $systemDirs[PLUGIN_DIR] = 1;
-        // TODOX theme dir
-        $systemDirs[LIBRARY_DIR] = 1;
-        // TODOX file dir
+        $systemDirs[\Ip\Config::getRaw('PLUGIN_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('LIBRARY_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){
@@ -1251,10 +1250,10 @@ class Site{
         $data = array (
             'ipBaseUrl' => BASE_URL,
             'ipLanguageUrl' => $this->generateUrl(),
-            'ipLibraryDir' => LIBRARY_DIR,
+            'ipLibraryDir' => \Ip\Config::getCore('LIBRARY_DIR'),
             'ipThemeDir' => \Ip\Config::getCore('THEME_DIR'),
-            'ipModuleDir' => MODULE_DIR,
-            'ipTheme' => THEME,
+            'ipModuleDir' => \Ip\Config::getCore('MODULE_DIR'),
+            'ipTheme' => \Ip\Config::getCore('THEME'),
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),

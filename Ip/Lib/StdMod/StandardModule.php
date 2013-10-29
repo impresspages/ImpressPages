@@ -867,9 +867,9 @@ class StandardModule {
     <script type="text/javascript">
         var ip = {
             baseUrl : '.json_encode(BASE_URL).',
-            libraryDir : '.json_encode(LIBRARY_DIR).',
+            libraryDir : '.json_encode(\Ip\Config::getCore('LIBRARY_DIR')).',
             themeDir : '.json_encode(\Ip\Config::getCore('THEME_DIR')).',
-            moduleDir : '.json_encode(MODULE_DIR).',
+            moduleDir : '.json_encode(\Ip\Config::getCore('MODULE_DIR')).',
             theme : '. json_encode(THEME) .',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
@@ -1335,7 +1335,7 @@ class StandardModule {
 					<option value="100000">100000</option>
 				 </select>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
-					<img src="'.LIBRARY_DIR.'/php/standard_module/design/previous_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
+					<img src="'.\Ip\Config::libraryUrl('php/standard_module/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>

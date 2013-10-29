@@ -7,9 +7,6 @@
 namespace Modules\developer\std_mod;
 
 
-require_once(LIBRARY_DIR.'php/file/upload_image.php');
-
-
 class ElementImage extends Element{ //data element in area
     var $copies;
     var $memImages;

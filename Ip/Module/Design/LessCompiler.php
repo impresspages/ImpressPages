@@ -193,7 +193,7 @@ class LessCompiler
 
         require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
         $lessc = new \lessc();
-        $lessc->setImportDir(BASE_DIR . LIBRARY_DIR . 'css/ipContent');
+        $lessc->setImportDir(\Ip\Config::libraryFile('css/ipContent'));
         $lessc->setPreserveComments(true);
         $css = $lessc->compileFile(\Ip\Config::libraryFile('css/ipContent/less/ipContent/ipContent.less'));
         file_put_contents($cssFile, $css);
