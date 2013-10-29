@@ -5,13 +5,10 @@
  *
  */
 
-namespace Modules\standard\configuration;
-
-if (!defined('CMS')) exit;
+namespace Ip\Module\Config;
 
 
-
-class Controller extends \Ip\Controller{
+class PublicController extends \Ip\Controller{
 
 
     public function init() {
@@ -24,9 +21,6 @@ class Controller extends \Ip\Controller{
         
     }
 
-    public function allowAction($action) {
-        return true;
-    }    
     
     function tinymceConfig() {
         global $site;

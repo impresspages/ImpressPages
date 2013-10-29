@@ -1457,7 +1457,7 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
         $parameterAdmin["standard"]["configuration"]["main_parameters"]["closed_site"] = "0";
         $parameterType["standard"]["configuration"]["main_parameters"]["closed_site"] = "bool";
 
-        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template (deprecated. Use ip_cms/modules/standard/configuration/view/email.php instead)";
+        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template (deprecated. Use \Ip\Config::coreModuleFile('Config/view/email.php') instead)";
         $parameterValue["standard"]["configuration"]["main_parameters"]["email_template"] = "<table border=\"0\" width=\"100%\">
 <tbody>
 <tr>
