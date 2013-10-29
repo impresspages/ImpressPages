@@ -273,10 +273,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
             'value' => 'admin.php',
             'comment' => 'backend root file',
         ),
-        'BACKEND_WORKER_FILE' => array(
-            'value' => 'ip_backend_worker.php',
-            'comment' => 'backend worker root file'
-        ),
     // END BACKEND
 
     // FRONTEND

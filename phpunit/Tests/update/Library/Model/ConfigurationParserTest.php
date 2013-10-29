@@ -33,8 +33,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['LIBRARY_DIR'], 'ip_libs/'); //general classes and third party libraries
         $this->assertEquals($configuration['MODULE_DIR'], 'ip_cms/modules/'); //system modules directory
         $this->assertEquals($configuration['THEME_DIR'], 'ip_themes/'); //themes directory
-
-        $this->assertEquals($configuration['BACKEND_WORKER_FILE'], 'ip_backend_worker.php'); //backend worker root file
         // END BACKEND
 
         // FRONTEND
