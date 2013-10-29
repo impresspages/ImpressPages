@@ -22,7 +22,7 @@ class System{
         }
 
         $lessCompiler = LessCompiler::instance();
-        if (DEVELOPMENT_ENVIRONMENT) {
+        if (\Ip\Config::isDevelopmentEnvironment()) {
             if ($lessCompiler->shouldRebuild(THEME)) {
                 $lessCompiler->rebuild(THEME);
             }

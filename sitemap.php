@@ -37,7 +37,7 @@ if(is_file(__DIR__.'/ip_config.php')) {
 }
 
 error_reporting(E_ALL|E_STRICT);
-if (DEVELOPMENT_ENVIRONMENT){ 
+if (\Ip\Config::isDevelopmentEnvironment()){
     ini_set('display_errors', '1');
 } else {
     ini_set('display_errors', '0');
