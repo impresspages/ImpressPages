@@ -22,15 +22,18 @@ class Model{
         $config = Model::getPluginConfig($pluginName);
 
         if (!$config) {
-            throw new \Ip\CoreException(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\CoreException::PLUGIN_SETUP);
+            // TODOX Plugin dir
+            // throw new \Ip\CoreException(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\CoreException::PLUGIN_SETUP);
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
-            throw new \Ip\CoreException('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\CoreException::PLUGIN_SETUP);
+            // TODOX Plugin dir
+            // throw new \Ip\CoreException('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\CoreException::PLUGIN_SETUP);
         }
 
         if (empty($config['version'])) {
-            throw new \Ip\CoreException('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\CoreException::PLUGIN_SETUP);
+            // TODOX Plugin dir
+            // throw new \Ip\CoreException('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\CoreException::PLUGIN_SETUP);
         }
 
         if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
@@ -138,6 +141,7 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
+        // TODOX Plugin dir
         $pluginDir = BASE_DIR . PLUGIN_DIR . $pluginName;
         try {
             $result = Helper::removeDir($pluginDir);
@@ -174,6 +178,7 @@ class Model{
     public static function getAllPlugins()
     {
         $answer = array();
+        // TODOX Plugin dir
         $pluginDir = BASE_DIR . PLUGIN_DIR;
         $files = scandir($pluginDir);
         if (!$files) {
@@ -209,6 +214,7 @@ class Model{
 
     public static function getPluginConfig($pluginName)
     {
+        // TODOX Plugin dir
         $configFile = BASE_DIR . PLUGIN_DIR . $pluginName . '/Setup/plugin.json';
         if (!is_file($configFile)) {
             return array();

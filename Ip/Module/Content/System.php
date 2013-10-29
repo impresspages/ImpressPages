@@ -119,15 +119,18 @@ class System{
             
             $widgetDir = $widgetRecord['dir'];
             $widgetKey = $widgetRecord['widgetKey'];
-            $themeDir = THEME_DIR.THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
+
+            // TODOX refactor according to new module structure
+            // $themeDir = \Ip\Config::getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
             
             
             //scan for js and css files required for widget management
             if ($site->managementState()) {
                 $publicResourcesDir = $widgetDir.Widget::PUBLIC_DIR;
-                $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
-                self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
-                self::includeResources($publicResourcesThemeDir);
+                // TODOX refactor according to new module structure
+                // $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
+                self::includeResources($publicResourcesDir); // self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
+                // self::includeResources($publicResourcesThemeDir);
             }
         }
     }
@@ -157,7 +160,7 @@ class System{
         if ($core) {
             $widgetDir = 'Ip/Module/' . $moduleName . '/' . Model::WIDGET_DIR.'/';
         } else {
-            $widgetDir = PLUGIN_DIR . $moduleName . '/' . Model::WIDGET_DIR.'/';
+            // TODOX Plugin dir
         }
         if (! file_exists(BASE_DIR.$widgetDir) || ! is_dir(BASE_DIR.$widgetDir)) {
             return array();

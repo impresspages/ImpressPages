@@ -565,7 +565,7 @@ class Model{
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
     public static function getThemeLayouts($theme = THEME, $includeHidden = false) {
-        $themeDir = BASE_DIR . THEME_DIR . $theme;
+        $themeDir = \Ip\Config::themeFile('', $theme);
 
         $files = scandir($themeDir);
         $layouts = array();
