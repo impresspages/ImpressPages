@@ -6,7 +6,6 @@
  */
 
 namespace Modules\administrator\administrators;
-if (!defined('BACKEND')) exit;
 
 class element_administrators extends \Library\Php\StandardModule\Element{ //data element in area
     var $default_value;

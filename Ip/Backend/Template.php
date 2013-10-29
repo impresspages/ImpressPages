@@ -8,8 +8,6 @@
 
 namespace Ip\Backend;
 
-if (!defined('BACKEND')) { exit; }
-
 class Template {
 
     public static function headerLogin() {

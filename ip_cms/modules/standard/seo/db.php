@@ -7,8 +7,6 @@
 
 namespace Modules\standard\seo;
 
-if (!defined('BACKEND')) exit;
-
 class Db{
 
 

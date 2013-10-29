@@ -6,9 +6,6 @@
  */
 
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-
 /**
  * @access private
  * @package ImpressPages
