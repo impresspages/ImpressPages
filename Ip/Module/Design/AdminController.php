@@ -53,9 +53,10 @@ class AdminController extends \Ip\Controller
 
         //filter plugins that are already installed
         foreach ($themePlugins as $key => $plugin) {
-            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
-                $notInstalledPlugins[] = $plugin;
-            }
+            // TODOX Plugin dir
+//            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
+//                $notInstalledPlugins[] = $plugin;
+//            }
         }
 
 

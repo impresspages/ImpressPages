@@ -82,7 +82,7 @@ class OldCmsInterface{
                 if ($newModule['core']) {
                     require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                 } else {
-                    require(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    // TODOX Plugin dir
                 }
                 $this->curModId = $newModule['id'];
                 eval('$this->module = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Manager();');
@@ -151,7 +151,7 @@ class OldCmsInterface{
                     if(file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php')) {
                         require_once(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
                     } else {
-                        require_once(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+                        // TODOX Plugin dir
                     }
                     eval('$globalWorker = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\BackendWorker();');
                     $globalWorker->work();

@@ -157,7 +157,7 @@ class System{
         if ($core) {
             $widgetDir = 'Ip/Module/' . $moduleName . '/' . Model::WIDGET_DIR.'/';
         } else {
-            $widgetDir = PLUGIN_DIR . $moduleName . '/' . Model::WIDGET_DIR.'/';
+            // TODOX Plugin dir
         }
         if (! file_exists(BASE_DIR.$widgetDir) || ! is_dir(BASE_DIR.$widgetDir)) {
             return array();
