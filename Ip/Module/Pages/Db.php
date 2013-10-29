@@ -273,7 +273,7 @@ class Db {
             $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }
 
-        if (!empty($params['layout']) && \Library\Php\File\Functions::isFileInDir($params['layout'], BASE_DIR . THEME_DIR . THEME)) {
+        if (!empty($params['layout']) && \Library\Php\File\Functions::isFileInDir($params['layout'], \Ip\Config::themeFile(''))) {
             $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
             self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
         }
@@ -324,7 +324,7 @@ class Db {
                 );
                 $wasLayoutChanged = true;
             }
-        } elseif ($newLayout != $oldLayout && file_exists(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $newLayout)) {
+        } elseif ($newLayout != $oldLayout && file_exists(\Ip\Config::themeFile($newLayout))) {
             if (!$oldLayout) {
                 $sql = 'INSERT IGNORE INTO `' . DB_PREF . 'page_layout`
                         (`group_name`, `module_name`, `page_id`, `layout`)

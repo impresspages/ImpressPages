@@ -31,7 +31,7 @@ class Model
 
     protected function getThemePluginDir()
     {
-        return THEME_DIR . THEME . '/plugins/';
+        return \Ip\Config::themeFile('plugins/');
     }
 
 
@@ -70,6 +70,7 @@ class Model
     public function installThemePlugin($pluginGroup, $pluginName)
     {
         //refactor to new plugins
+        // TODOX Plugin dir
         $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
         $fromDir = BASE_DIR . $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
 
@@ -131,10 +132,11 @@ class Model
         $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
         $lines = explode("\n", $optionDirs);
         foreach ($lines as $line) {
-            if(!empty($line))
+            if (!empty($line)) {
                 $cleanDirs[] = trim($line);
+            }
         }
-        $cleanDirs = array_merge($cleanDirs, array(THEME_DIR));
+        $cleanDirs = array_merge($cleanDirs, array(\Ip\Config::getCore('THEME_DIR')));
         return $cleanDirs;
     }
 
@@ -163,7 +165,7 @@ class Model
                         1
                     ) != '.'
                 ) {
-                    $answer[$file] = $this->getTheme($folder, $file);
+                    $answer[$file] = $this->getTheme($file, $folder);
                 }
             }
             closedir($handle);
@@ -174,8 +176,7 @@ class Model
 
     public function isThemeAvailable($name)
     {
-        $themeDir = BASE_DIR . THEME_DIR . $name;
-        return is_dir($themeDir);
+        return is_dir(\Ip\Config::themeFile('', $name));
     }
 
 
@@ -189,11 +190,11 @@ class Model
 
         $configModel = new \Modules\standard\configuration\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
-        $configModel->changeConfigurationConstantValue('THEME_DIR', THEME_DIR, $theme->getPath());
+        $configModel->changeConfigurationConstantValue('THEME_DIR', \Ip\Config::getRaw('THEME_DIR'), $theme->getPath());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
 
 
-        $parametersFile = BASE_DIR . THEME_DIR . $themeName . '/' . Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE;
+        $parametersFile = \Ip\Config::themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
         if (file_exists($parametersFile)) {
             if (!defined('BACKEND')) {
                 define('BACKEND', TRUE);
@@ -237,14 +238,19 @@ class Model
      * @param $name
      * @return Theme
      */
-    public function getTheme($dir, $name)
+    public function getTheme($name, $dir = null)
     {
+        if ($dir) {
+            $currentThemeDir = \Ip\Config::getCore('THEME_DIR');
+            \Ip\Config::_changeCore('THEME_DIR', $dir);
+        }
+
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
-        $metadata->setPath($dir);
+        $metadata->setPath(\Ip\Config::getCore('THEME_DIR'));
 
         //old type config
-        $themeIniFile = $dir . $name . '/' . self::INSTALL_DIR . 'theme.ini';
+        $themeIniFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.ini', $name);
         if (file_exists($themeIniFile)) {
             $iniConfig = $this->parseThemeIni($themeIniFile);
         } else {
@@ -252,11 +258,11 @@ class Model
         }
 
         //new type config
-        $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'Theme.json';
+        $themeJsonFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'Theme.json', $name);
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'theme.json';
+            $themeJsonFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.json', $name);
             if (file_exists($themeJsonFile)) {
                 $jsonConfig = $this->parseThemeJson($themeJsonFile);
             } else {
@@ -296,6 +302,10 @@ class Model
 
 
         $theme = new Theme($metadata);
+
+        if ($dir) {
+            \Ip\Config::_changeCore('THEME_DIR', $currentThemeDir);
+        }
 
         return $theme;
     }

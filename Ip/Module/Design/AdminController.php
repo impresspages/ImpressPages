@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller
         $themes = $model->getAvailableThemes();
 
         $model = Model::instance();
-        $theme = $model->getTheme(THEME_DIR, THEME);
+        $theme = $model->getTheme(THEME);
         $options = $theme->getOptionsAsArray();
 
         if (!defined('BACKEND')) {
@@ -53,9 +53,10 @@ class AdminController extends \Ip\Controller
 
         //filter plugins that are already installed
         foreach ($themePlugins as $key => $plugin) {
-            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
-                $notInstalledPlugins[] = $plugin;
-            }
+            // TODOX Plugin dir
+//            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
+//                $notInstalledPlugins[] = $plugin;
+//            }
         }
 
 
@@ -68,7 +69,7 @@ class AdminController extends \Ip\Controller
 
         $data = array(
             'pluginNote' => $pluginNote,
-            'theme' => $model->getTheme(THEME_DIR, THEME),
+            'theme' => $model->getTheme(THEME),
             'plugins' => $notInstalledPlugins,
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
@@ -113,7 +114,7 @@ class AdminController extends \Ip\Controller
         \Ip\Request::mustBePost();
         $themes = \Ip\Request::getPost('themes');
 
-        if (!is_writable(BASE_DIR.THEME_DIR)) {
+        if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => $parametersMod->getValue('standard', 'design', 'admin_translations', 'theme_write_error')), 'id' => null);
             $this->returnJson($error);
             return;
@@ -203,7 +204,7 @@ class AdminController extends \Ip\Controller
         } else {
             $configModel = ConfigModel::instance();
             $model = Model::instance();
-            $theme = $model->getTheme(THEME_DIR, THEME);
+            $theme = $model->getTheme(THEME);
             if (!$theme) {
                 throw new \Ip\CoreException("Theme doesn't exist");
             }

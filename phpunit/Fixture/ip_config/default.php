@@ -30,7 +30,6 @@ return array(
     'INCLUDE_DIR' => 'ip_cms/includes/',
     'LIBRARY_DIR' => 'ip_libs/',
     'MODULE_DIR' => 'ip_cms/modules/',
-    'PLUGIN_DIR' => 'ip_plugins/',
     'THEME_DIR' => 'ip_themes/',
 
     'BACKEND_MAIN_FILE' => 'admin.php',
