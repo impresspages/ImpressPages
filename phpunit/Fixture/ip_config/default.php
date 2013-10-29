@@ -31,8 +31,6 @@ return array(
     'LIBRARY_DIR' => 'ip_libs/',
     'MODULE_DIR' => 'ip_cms/modules/',
     'THEME_DIR' => 'ip_themes/',
-
-    'BACKEND_WORKER_FILE' => 'ip_backend_worker.php',
     // END BACKEND
 
     // FRONTEND
