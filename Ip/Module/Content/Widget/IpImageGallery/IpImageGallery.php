@@ -49,7 +49,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                     }
 
                     //bind new image to the widget
-                    \Modules\administrator\repository\Model::bindFile($image['fileName'], 'standard/content_management', $widgetId);
+                    \Ip\Module\Repository\Model::bindFile($image['fileName'], 'standard/content_management', $widgetId);
 
 
 
@@ -186,7 +186,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
     public function previewHtml($instanceId, $data, $layout)
     {
         global $parametersMod;
-        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+        $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
         if (isset($data['images']) && is_array($data['images'])) {
             //loop all current images
@@ -199,18 +199,18 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                 //create big image reflection
                 $bigWidth = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width');
                 $bigHeight = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height');
-                $transformBig = new \Modules\administrator\repository\Transform\ImageFit($bigWidth, $bigHeight);
+                $transformBig = new \Ip\Module\Repository\Transform\ImageFit($bigWidth, $bigHeight);
 
                 try {
                     $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
-                } catch (\Modules\administrator\repository\Exception $e) {
+                } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
 
 
 
                 if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(
                         $curImage['cropX1'],
                         $curImage['cropY1'],
                         $curImage['cropX2'],
@@ -221,7 +221,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                     );
 
                 } else {
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCropCenter(
+                    $transformSmall = new \Ip\Module\Repository\Transform\ImageCropCenter(
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
@@ -230,7 +230,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                 }
                 try {
                     $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
-                } catch (\Modules\administrator\repository\Exception $e) {
+                } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
 
@@ -255,7 +255,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-            \Modules\administrator\repository\Model::unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
         }
     }
     
@@ -282,7 +282,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                 return;
             }
             if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-                \Modules\administrator\repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $newId);
             }
         }
 

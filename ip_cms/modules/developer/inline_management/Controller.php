@@ -266,10 +266,10 @@ class Controller extends \Ip\Controller{
 
             //remove old image
             if ($logo->getImageOrig()) {
-                \Modules\administrator\repository\Model::unbindFile($logo->getImageOrig(), 'developer/inline_management', 1); //1 means logo
+                \Ip\Module\Repository\Model::unbindFile($logo->getImageOrig(), 'developer/inline_management', 1); //1 means logo
             }
 
-            \Modules\administrator\repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', 1); //1 means logo
+            \Ip\Module\Repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', 1); //1 means logo
             $logo->setImageOrig($_POST['newImage']);
 
         }
@@ -400,17 +400,17 @@ class Controller extends \Ip\Controller{
             //remove old image
             if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
                 if ($sameScope) { //otherwise we need to leave image for original scope
-                    \Modules\administrator\repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Module\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
             }
 
 
-            \Modules\administrator\repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', $image->getId()); //1 means logo
+            \Ip\Module\Repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', $image->getId()); //1 means logo
             $image->setImageOrig($_POST['newImage']);
         } else {
             if (!$sameScope) { //duplicate original image if we are resaving it in different scope
                 if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                    \Modules\administrator\repository\Model::bindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Module\Repository\Model::bindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                     $image->setImageOrig($image->getImageOrig());
                 }
             }
@@ -560,7 +560,7 @@ class Controller extends \Ip\Controller{
             }
             if ($image) {
                 if ($image->getImageOrig() && file_exists(BASE_DIR.$image->getImageOrig()) && is_file(BASE_DIR.$image->getImageOrig())) {
-                    \Modules\administrator\repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Module\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
             }
         }

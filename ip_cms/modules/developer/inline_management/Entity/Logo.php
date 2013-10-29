@@ -76,8 +76,8 @@ class Logo
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
-                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
-                $transform = new \Modules\administrator\repository\Transform\ImageCrop(
+                $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
+                $transform = new \Ip\Module\Repository\Transform\ImageCrop(
                     $this->getX1(),
                     $this->getY1(),
                     $this->getX2(),

@@ -5,7 +5,7 @@
      *
      */
 
-namespace Modules\administrator\repository\Transform;
+namespace Ip\Module\Repository\Transform;
 
 abstract class Image extends Base
 {
@@ -14,7 +14,7 @@ abstract class Image extends Base
      * Create image resource from image file and alocate required memory
      * @param $imageFile
      * @return resource
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function createImageImage($imageFile){
 
@@ -39,7 +39,7 @@ abstract class Image extends Base
                 imageSaveAlpha($image, true);
                 break;
             default:
-                throw new \Modules\administrator\repository\TransformException("Incompatible type. Type detected: ".$mime, \Modules\administrator\repository\TransformException::UNKNOWN_MIME_TYPE);
+                throw new \Ip\Module\Repository\TransformException("Incompatible type. Type detected: ".$mime, \Ip\Module\Repository\TransformException::UNKNOWN_MIME_TYPE);
         }
 
         return $image;
@@ -56,7 +56,7 @@ abstract class Image extends Base
      * @param $memoryNeeded in bytes
      * @param int $extra in bytes
      * @return bool
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function allocateMemory($memoryNeeded, $extra = 10000000)  //~10Mb extra
     {
@@ -65,7 +65,7 @@ abstract class Image extends Base
             $stringNeeded = $megabytesNeeded . 'M';
             $success = ini_set('memory_limit', $stringNeeded);
             if ($stringNeeded != $success && $success !== "-1") {
-                throw new \Modules\administrator\repository\TransformException("Not enough memory. Please increase memory limit to $stringNeeded ");
+                throw new \Ip\Module\Repository\TransformException("Not enough memory. Please increase memory limit to $stringNeeded ");
             }
             return true;
         }
@@ -109,11 +109,11 @@ abstract class Image extends Base
      * @param string $fileName
      * @param int $quality from 0 to 100
      * @return bool
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function saveJpeg($image, $fileName, $quality) {
         if(!imagejpeg($image, $fileName, $quality)){
-            throw new \Modules\administrator\repository\TransformException("Can't write to file: ".$fileName , \Modules\administrator\repository\TransformException::WRITE_PERMISSION);
+            throw new \Ip\Module\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Module\Repository\TransformException::WRITE_PERMISSION);
         }
         return true;
     }
@@ -123,11 +123,11 @@ abstract class Image extends Base
      * @param string $fileName
      * @param int $quality - from 0 to 9
      * @return bool
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function savePng($image, $fileName, $compression) {
         if (!imagepng($image, $fileName, $compression)) {
-            throw new \Modules\administrator\repository\TransformException("Can't write to file: ".$fileName , \Modules\administrator\repository\TransformException::WRITE_PERMISSION);
+            throw new \Ip\Module\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Module\Repository\TransformException::WRITE_PERMISSION);
         }
         return true;
     }
@@ -141,14 +141,14 @@ abstract class Image extends Base
      * Get mime type of an image file
      * @param string $imageFile
      * @return int mixed
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function getMimeType($imageFile) {
         $imageInfo = getimagesize(BASE_DIR.$imageFile);
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
         } else {
-            throw new \Modules\administrator\repository\TransformException("Incompatible type.", \Modules\administrator\repository\TransformException::UNKNOWN_MIME_TYPE);
+            throw new \Ip\Module\Repository\TransformException("Incompatible type.", \Ip\Module\Repository\TransformException::UNKNOWN_MIME_TYPE);
         }
 
     }
@@ -158,7 +158,7 @@ abstract class Image extends Base
      * @param resource $imageNew
      * @param string $newFile
      * @param int $quality from 0 to 100
-     * @throws \Modules\administrator\repository\TransformException
+     * @throws \Ip\Module\Repository\TransformException
      */
     protected function saveImage ($imageNew, $newFile, $quality){
 

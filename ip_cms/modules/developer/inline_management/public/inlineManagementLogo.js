@@ -49,9 +49,7 @@
 
             var $this = this;
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'getManagementPopupLogo';
+            data.aa = 'InlineManagement.getManagementPopupLogo';
             data.securityToken = ip.securityToken;
             data.cssClass = $this.data('cssclass');
 
@@ -250,9 +248,7 @@
             var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'saveLogo';
+            data.aa = 'InlineManagement.saveLogo';
             data.securityToken = ip.securityToken;
 
             data.cssClass = $this.data('ipInlineManagementLogo').cssClass;

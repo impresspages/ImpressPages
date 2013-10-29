@@ -4,7 +4,7 @@
 
      *
      */
-namespace Modules\administrator\repository;
+namespace Ip\Module\Repository;
 
 
 /**
@@ -31,8 +31,8 @@ namespace Modules\administrator\repository;
  *
  * Usage example:
  *
- * $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
- * $transform = new \Modules\administrator\repository\Transform\ImageFit(100, 100, null, TRUE);
+ * $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
+ * $transform = new \Ip\Module\Repository\Transform\ImageFit(100, 100, null, TRUE);
  * $reflection = $reflectionService->getReflection($file, $desiredName, $transform);
  * if (!$reflection){
  *     echo $reflectionService->getLastException()->getMessage();

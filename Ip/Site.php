@@ -762,7 +762,7 @@ class Site{
                     $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
                 }
                 if (!class_exists($controllerClass)) {
-                    throw new \Ip\CoreException('Requested controller doesn\'t exist');
+                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
                 }
                 $controller = new $controllerClass();
                 $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');

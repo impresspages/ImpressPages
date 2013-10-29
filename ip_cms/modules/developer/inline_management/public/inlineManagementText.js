@@ -48,9 +48,7 @@
         refresh : function () {
             var $this = this;
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'getManagementPopupText';
+            data.aa = 'InlineManagement.getManagementPopupText';
             data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementText').key;
             data.defaultValue = $this.data('ipInlineManagementText').defaultValue;
@@ -92,9 +90,7 @@
             var $this = $(this);
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'saveText';
+            data.aa = 'InlineManagement.saveText';
             data.securityToken = ip.securityToken;
 
             data.cssClass = $this.data('ipInlineManagementText').cssClass;

@@ -30,7 +30,7 @@ class IpFile extends \Ip\Module\Content\Widget{
                         case 'new':
                             if (file_exists(BASE_DIR.$file['fileName'])) {
 
-                                \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
+                                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
                                 
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
@@ -58,7 +58,7 @@ class IpFile extends \Ip\Module\Content\Widget{
                         case 'deleted':
                             $existingFile = self::_findExistingFile($file['fileName'], isset($currentData['files']) ? $currentData['files'] : null);
                             if (!$existingFile) {
-                                \Modules\administrator\repository\Model::unbindFile($existingFile['fileName'], 'standard/content_management', $widgetId);
+                                \Ip\Module\Repository\Model::unbindFile($existingFile['fileName'], 'standard/content_management', $widgetId);
                             } else {
                                 //do nothing existing image not found. 
                             }
@@ -98,7 +98,7 @@ class IpFile extends \Ip\Module\Content\Widget{
         
         foreach($data['files'] as $fileKey => $file) {
             if (isset($file['fileName']) && $file['fileName']) {
-                \Modules\administrator\repository\Model::unbindFile($file['fileName'], 'standard/content_management', $widgetId);
+                \Ip\Module\Repository\Model::unbindFile($file['fileName'], 'standard/content_management', $widgetId);
             }
         };
     }
@@ -121,7 +121,7 @@ class IpFile extends \Ip\Module\Content\Widget{
         
         foreach($data['files'] as $fileKey => $file) {
             if (isset($file['fileName']) && $file['fileName']) {
-                \Modules\administrator\repository\Model::bindFile($file['fileName'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $newId);
             }
         };
     }

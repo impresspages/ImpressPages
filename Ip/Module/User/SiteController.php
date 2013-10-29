@@ -553,7 +553,7 @@ class SiteController {
 
 
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "verification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("aa" => "User.verification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
@@ -584,7 +584,7 @@ class SiteController {
 
 
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "newEmailVerification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("aa" => "User.newEmailVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
@@ -617,7 +617,7 @@ class SiteController {
         $emailQueue = new \Ip\Module\Email\Module();
 
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "passwordResetVerification", "id" => $userId, "code" => $code));
+        $link = $site->generateUrl(null, null, array(), array("aa" => "User.passwordResetVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');

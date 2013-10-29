@@ -50,7 +50,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
 
                     //bind to original file
-                    \Modules\administrator\repository\Model::bindFile($logo['fileName'], 'standard/content_management', $widgetId);
+                    \Ip\Module\Repository\Model::bindFile($logo['fileName'], 'standard/content_management', $widgetId);
                     $logoOriginal = $logo['fileName'];
 
                     
@@ -184,7 +184,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
     public function previewHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+        $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
 
         if (!isset($data['logos']) || !is_array($data['logos'])){
@@ -201,7 +201,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
             foreach ($data['logos'] as &$curLogo) {
 
                 if (isset($curLogo['cropX1']) && isset($curLogo['cropY1']) && isset($curLogo['cropX2']) && isset($curLogo['cropY2']) ) {
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageFit(
+                    $transformSmall = new \Ip\Module\Repository\Transform\ImageFit(
                         $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height'),
                         $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'quality'),
@@ -209,7 +209,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
                     );
                     try {
                         $curLogo['logoSmall'] = $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall);
-                    } catch (\Modules\administrator\repository\Exception $e) {
+                    } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }
 
@@ -238,7 +238,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-            \Modules\administrator\repository\Model::unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
         }
     }
     
@@ -261,7 +261,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
                 return;
             }
             if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-                \Modules\administrator\repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $newId);
             }
         };
     

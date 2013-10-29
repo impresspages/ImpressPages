@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\administrator\repository;
+namespace Ip\Module\Repository;
 
 
 
