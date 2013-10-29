@@ -26,6 +26,12 @@ class Config
         return static::$core[$name];
     }
 
+    public static function _changeCore($name, $value)
+    {
+        // TODO do this through events
+        static::$core[$name] = $value;
+    }
+
     public static function libraryUrl($path)
     {
         return static::$rawConfig['BASE_URL'] . static::$rawConfig['LIBRARY_DIR'] . $path;
@@ -36,14 +42,18 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['LIBRARY_DIR'] . $path;
     }
 
-    public static function themeUrl($path, $vars = null)
+    public static function themeUrl($path)
     {
-        $url = static::$rawConfig['BASE_URL'] . static::$rawConfig['THEME_DIR'] . static::$rawConfig['THEME'] . '/' . $path;
-        if ($vars) {
-            $url .= '?' . http_build_query($vars);
+        return static::$rawConfig['BASE_URL'] . static::$rawConfig['THEME_DIR'] . static::$rawConfig['THEME'] . '/' . $path;
+    }
+
+    public static function themeFile($path, $theme = null)
+    {
+        if (!$theme) {
+            $theme = static::$rawConfig['THEME'];
         }
 
-        return $url;
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['THEME_DIR'] . $theme . '/' . $path;
     }
 
     public static function coreUrl($path)
@@ -66,11 +76,6 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['INCLUDE_DIR'] . $path;
     }
 
-//    public static function pluginDir()
-//    {
-//        return static::$config['pluginDir'];
-//    }
-//
 //    public static function fileDir()
 //    {
 //        return static::$config['fileDir'];
@@ -141,6 +146,7 @@ class Config
         }
 
         static::$core['CORE_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['CORE_DIR'];
+        static::$core['THEME_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['THEME_DIR'];
 
 //        $relativeDirs = array(
 //            'fileDir',

@@ -106,11 +106,7 @@ class Cms {
                         require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                     }
                 } else {
-                    if (!file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php') && file_exists(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/AdminController.php')) {
-                        header('location: '.BASE_URL.'?g=' . $newModule['g_name'] . '&m=' . $newModule['m_name'] . '&aa=index');
-                    } else {
-                        require(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
-                    }
+                    // TODOX Plugin dir
                 }
                 $this->curModId = $newModule['id'];
                 eval('$this->module = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Manager();');
@@ -179,7 +175,7 @@ class Cms {
                     if(file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php')) {
                         require_once(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
                     } else {
-                        require_once(PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+                        // TODOX Plugin dir
                     }
                     eval('$globalWorker = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\BackendWorker();');
                     $globalWorker->work();
@@ -265,7 +261,6 @@ class Cms {
         $systemDirs[INCLUDE_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[MODULE_DIR] = 1;
-        $systemDirs[THEME_DIR] = 1;
         $systemDirs['.htaccess'] = 1;
         $systemDirs['admin.php'] = 1;
         $systemDirs['ip_backend_frames.php'] = 1;
