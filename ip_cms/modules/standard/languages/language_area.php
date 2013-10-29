@@ -172,7 +172,6 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
     function allowDelete($id) {
         global $parametersMod;
-        require_once (MODULE_DIR."standard/menu_management/db.php");
 
         $dbMenuManagement = new \Ip\Module\Pages\Db();
 

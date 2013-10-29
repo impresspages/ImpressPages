@@ -204,7 +204,6 @@ class Manager{
     public static function saveParameters($file, $ignoreLanguage = false){
         require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
 
-        //require_once(MODULE_DIR."standard/seo/db.php");
         global $parametersMod;
         global $site;
 
