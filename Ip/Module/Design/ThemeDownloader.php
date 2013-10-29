@@ -31,13 +31,13 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $model = Model::instance();
         //download theme
         $net = \Library\Php\Net::instance();
-        $themeTempFilename = $net->downloadFile($url, BASE_DIR . TMP_SECURE_DIR, $name . '.zip');
+        $themeTempFilename = $net->downloadFile($url, \Ip\Config::temporarySecureFile(''), $name . '.zip');
 
         if (!$themeTempFilename) {
             throw new \Ip\CoreException('Theme file download failed.');
         }
 
-        $archivePath = BASE_DIR . TMP_SECURE_DIR . $themeTempFilename;
+        $archivePath = \Ip\Config::temporarySecureFile($themeTempFilename);
 
         //check signature
         $fileMd5 = md5_file($archivePath);
@@ -53,15 +53,15 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         //extract
         $helper = Helper::instance();
-        $tmpExtractedDir = \Library\Php\File\Functions::genUnoccupiedName($name, BASE_DIR . TMP_SECURE_DIR);
-        $helper->extractZip(BASE_DIR . TMP_SECURE_DIR . $themeTempFilename, BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
+        $tmpExtractedDir = \Library\Php\File\Functions::genUnoccupiedName($name, \Ip\Config::temporarySecureFile(''));
+        $helper->extractZip(\Ip\Config::temporarySecureFile($themeTempFilename), \Ip\Config::temporarySecureFile($tmpExtractedDir));
         unlink($archivePath);
 
         //install
-        $extractedDir = $helper->getFirstDir(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir);
+        $extractedDir = $helper->getFirstDir(\Ip\Config::temporarySecureFile($tmpExtractedDir));
         $installDir = $model->getThemeInstallDir();
         $newThemeDir = \Library\Php\File\Functions::genUnoccupiedName($name, $installDir);
-        rename(BASE_DIR . TMP_SECURE_DIR . $tmpExtractedDir . '/' . $extractedDir, $installDir . $newThemeDir);
+        rename(\Ip\Config::temporarySecureFile($tmpExtractedDir . '/' . $extractedDir), $installDir . $newThemeDir);
 
     }
 

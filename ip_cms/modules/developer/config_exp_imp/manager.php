@@ -78,9 +78,9 @@ class Manager{
                     } else {
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php", "conf", "txt"));
-                        $file = $fileUpload->upload('config', TMP_SECURE_DIR);
+                        $file = $fileUpload->upload('config', \Ip\Config::temporarySecureFile(''));
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = \Ip\Config::temporarySecureFile($fileUpload->fileName);
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
@@ -232,13 +232,15 @@ class Manager{
             }
         }
 
-        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, TMP_SECURE_DIR);
-        $fh = fopen(TMP_SECURE_DIR.$fileName, 'w');
+        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, \Ip\Config::temporarySecureFile(''));
+        $fh = fopen(\Ip\Config::temporarySecureFile($fileName), 'w');
         if($fh){
             fwrite($fh, $this->generateConfigurationFile($parameters));
             fclose($fh);
             return $fileName;
-        }else trigger_error("can't open file ".TMP_SECURE_DIR.$fileName);
+        } else {
+            trigger_error("can't open file " . \Ip\Config::getRaw('TMP_SECURE_DIR') . $fileName);
+        }
 
         return false;
     }

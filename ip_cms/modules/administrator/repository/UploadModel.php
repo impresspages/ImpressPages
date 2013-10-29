@@ -56,7 +56,7 @@ class UploadModel{
         }
 
         if ($secureFolder) {
-            $targetDir = TMP_SECURE_DIR;
+            $targetDir = \Ip\Config::temporarySecureFile('');
         } else {
             $targetDir = \Ip\Config::temporaryFile('');
         }
@@ -175,7 +175,7 @@ class UploadModel{
             return false;
         }
         if ($secure) {
-            $targetDir = TMP_SECURE_DIR;
+            $targetDir = \Ip\Config::temporarySecureFile('');
         } else {
             $targetDir = \Ip\Config::temporaryFile('');
         }
@@ -220,7 +220,7 @@ class UploadModel{
     public function getUploadedFilePath($fileName, $secure)
     {
         if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
-            return TMP_SECURE_DIR.$fileName;
+            return \Ip\Config::temporarySecureFile($fileName);
         } else {
             throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
         }
