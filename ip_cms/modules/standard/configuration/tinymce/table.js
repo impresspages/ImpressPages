@@ -16,7 +16,7 @@ ipTinyMceConfigTable = {
     valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,table,tbody,thead,th,tr,td[colspan|rowspan]",
     height : 300,
     width : '100%',
-    content_css : ip.baseUrl + ip.themeDir + ip.theme + "/ip_content.css",
+    content_css : ip.themeDir + ip.theme + "/ip_content.css",
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
     forced_root_block : "p",
 
