@@ -775,15 +775,15 @@ class Site{
                 }
             }
 
-            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
-                $controller = new \Ip\Module\Admin\Backend();
-
-                ob_start();
-                $controller->deprecatedBootstrap();
-                $output = ob_get_clean();
-
-                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
-            }
+//            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
+//                $controller = new \Ip\Module\Admin\Backend();
+//
+//                ob_start();
+//                $controller->deprecatedBootstrap();
+//                $output = ob_get_clean();
+//
+//                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
+//            }
         }
 
         //old deprecated way. Need to refactor to controllers
