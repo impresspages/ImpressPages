@@ -220,10 +220,10 @@ class OldCmsInterface{
         $systemDirs = array();
 
         $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
-        $systemDirs[INCLUDE_DIR] = 1;
-        $systemDirs[LIBRARY_DIR] = 1;
-        $systemDirs[MODULE_DIR] = 1;
-        // TODOX theme dir
+        $systemDirs[\Ip\Config::getRaw('INCLUDE_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('LIBRARY_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('MODULE_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
         $systemDirs['.htaccess'] = 1;
         $systemDirs['admin.php'] = 1;
         $systemDirs['ip_backend_frames.php'] = 1;
