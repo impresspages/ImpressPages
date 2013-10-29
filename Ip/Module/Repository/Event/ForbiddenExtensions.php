@@ -5,8 +5,6 @@
  *
  */
 namespace Ip\Module\Repository\Event;
-if (!defined('CMS')) exit;
-
 
 class ForbiddenExtensions extends \Ip\Event{
     //use this constant to catch event

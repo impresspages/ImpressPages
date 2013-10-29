@@ -5,9 +5,6 @@
  *
  */
 namespace Modules\standard\languages;
-if (!defined('CMS')) exit;
-
-
 
 class System{
 

@@ -5,8 +5,6 @@
  *
  */
 namespace Ip\Module\Content;
-if (!defined('CMS')) exit;
-
 
 class EventFormFields extends \Ip\Event{
 

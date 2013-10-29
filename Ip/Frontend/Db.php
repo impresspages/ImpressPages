@@ -6,8 +6,6 @@
  */
 namespace Ip\Frontend;
 
-if (!defined('CMS')) exit;
-
 /**
  * Class for common tasks with database
  * @package ImpressPages

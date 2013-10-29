@@ -7,7 +7,6 @@
 
 namespace Library\Php\Form;
 
-if (!defined('CMS')) exit;
 /**
  * General class of form fields.
  * @package Library
