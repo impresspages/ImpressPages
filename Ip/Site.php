@@ -1011,28 +1011,6 @@ class Site{
 
     /**
      *
-     * Import required configuration file or modified version of it from CONFIG_DIR directory.
-     * @param $file File name of configuration file that needs to be required (relative to MODULE_DIR folder).
-     * <b>Example:</b>
-     * requireConfig('group/module/config.php');
-     * this line will try to require such files:
-     * BASE_DIR.CONFIG_DIR.'group/module/config.php'; //customized config file in config directory
-     * BASE_DIR.MODULE_DIR.'group/module/config.php'; //original module config file
-     * BASE_DIR.PLUGIN_DIR.'group/module/config.php'; //original plugin config file
-     *
-     */
-    public function requireConfig($file){
-        if (file_exists(BASE_DIR.CONFIG_DIR.$file)) {
-            require_once(BASE_DIR.CONFIG_DIR.$file);
-        } elseif (file_exists(\Ip\Config::oldModuleFile($file))) {
-            require_once \Ip\Config::oldModuleFile($file);
-        } else {
-            require_once(BASE_DIR.PLUGIN_DIR.$file);
-        }
-    }
-
-    /**
-     *
      * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
      *
      * @param $folderName
@@ -1044,7 +1022,6 @@ class Site{
         $systemDirs = array();
 
         $systemDirs[PLUGIN_DIR] = 1;
-        $systemDirs[CONFIG_DIR] = 1;
         $systemDirs[THEME_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;

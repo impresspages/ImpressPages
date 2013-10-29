@@ -88,13 +88,6 @@ function __impressPagesAutoloader($name) {
 
 
 function __impressPagesAutoloaderTry($fileName) {
-    $baseName = basename($fileName);
-    if ($baseName == 'config.php' || $baseName == 'Config.php') {
-        if (file_exists(BASE_DIR.CONFIG_DIR.$fileName)) {
-            require_once(BASE_DIR.CONFIG_DIR.$fileName);
-            return true;
-        }
-    }
     if (file_exists(\Ip\Config::oldModuleFile($fileName))) {
         require_once \Ip\Config::oldModuleFile($fileName);
         return true;
