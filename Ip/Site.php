@@ -989,7 +989,7 @@ class Site{
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
                 if($lock['m_core']){
-                    $dir = BASE_DIR.MODULE_DIR;
+                    $dir = \ip\Config::oldModuleFile('');
                 } else {
                     // TODOX Plugin dir
                 }
@@ -1041,7 +1041,7 @@ class Site{
                 }
 
                 if($lock['m_core']){
-                    $dir = BASE_DIR.MODULE_DIR;
+                    $dir = \Ip\Config::oldModuleFile('');
                 } else {
                     // TODOX Plugin dir
                 }
