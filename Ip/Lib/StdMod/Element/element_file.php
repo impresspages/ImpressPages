@@ -130,7 +130,7 @@ class ElementFile extends Element{ //data element in area
             $uploadFile->allowOnly($this->extensions);
         }
         if(isset($_FILES[$prefix])){
-            $error = $uploadFile->upload($prefix, TMP_FILE_DIR);
+            $error = $uploadFile->upload($prefix, \Ip\Config::temporaryFile(''));
             if($error == UPLOAD_ERR_OK){
                 $this->memFile = $uploadFile->fileName;
                 return null;
@@ -165,13 +165,13 @@ class ElementFile extends Element{ //data element in area
             if(isset($this->memFile) && $this->memFile != ''){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
-                if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
+                if (copy(\Ip\Config::temporaryFile($this->memFile), $this->destDir . $newName)) {
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }else
-                trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memFile)." to ".htmlspecialchars($this->destDir.$newName));
+                trigger_error("Can't copy file from " . htmlspecialchars(\Ip\Config::getRaw('TMP_FILE_DIR') . $this->memFile) . " to " . htmlspecialchars($this->destDir . $newName));
             }
 
         }
@@ -204,13 +204,13 @@ class ElementFile extends Element{ //data element in area
             if(isset($this->memFile) && $this->memFile != ''){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
-                if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
+                if (copy(\Ip\Config::temporaryFile($this->memFile), $this->destDir . $newName)) {
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }else
-                trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memFile)." to ".htmlspecialchars($this->destDir.$newName));
+                trigger_error("Can't copy file from " . htmlspecialchars(\Ip\Config::getRaw('TMP_FILE_DIR') . $this->memFile) . " to " . htmlspecialchars($this->destDir . $newName));
             }
 
         }

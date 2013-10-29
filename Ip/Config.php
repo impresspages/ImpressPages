@@ -42,6 +42,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['LIBRARY_DIR'] . $path;
     }
 
+    public static function temporaryFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['TMP_FILE_DIR'] . $path;
+    }
+
     public static function themeUrl($path)
     {
         return static::$rawConfig['BASE_URL'] . static::$rawConfig['THEME_DIR'] . static::$rawConfig['THEME'] . '/' . $path;

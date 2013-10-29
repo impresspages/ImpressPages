@@ -31,9 +31,10 @@ class Controller extends \Ip\Controller{
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
 
+        $temporaryDir = str_replace('/', rtrim(\Ip\Config::temporaryFile(''), '/\\'), DIRECTORY_SEPARATOR); // for Windows compatibility
 
         foreach ($files as $key => $file) {
-            if ($file['dir'] != TMP_FILE_DIR) {
+            if (realpath($file['dir']) != $temporaryDir) {
                 throw new \Exception("File is outside TMP dir.");
             }
         }
@@ -181,8 +182,7 @@ class Controller extends \Ip\Controller{
 
         //download image to TMP dir and get $resultFilename
         $net = \Library\Php\Net::instance();
-        $tmpDir = BASE_DIR.TMP_FILE_DIR;
-        $tmpFilename = $net->downloadFile($url, $tmpDir, 'bigstock_'.time());
+        $tmpFilename = $net->downloadFile($url, \Ip\Config::temporaryFile(''), 'bigstock_'.time());
         if (!$tmpFilename) {
             return;
         }
@@ -190,7 +190,7 @@ class Controller extends \Ip\Controller{
 
         //find out file mime type to know required extension
         try {
-            $mime = \Library\Php\File\Functions::getMimeType($tmpDir.$tmpFilename);
+            $mime = \Library\Php\File\Functions::getMimeType(\Ip\Config::temporaryFile($tmpFilename));
             switch($mime) {
                 case 'image/png':
                     $ext = '.jpg';
@@ -233,9 +233,9 @@ class Controller extends \Ip\Controller{
         $destinationDir = BASE_DIR.FILE_REPOSITORY_DIR;
         $destinationFileName = \Library\Php\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
-        copy($tmpDir . $tmpFilename, $destinationDir . $destinationFileName);
+        copy(\Ip\Config::temporaryFile($tmpFilename), $destinationDir . $destinationFileName);
 
-        unlink($tmpDir . $tmpFilename);
+        unlink(\Ip\Config::temporaryFile($tmpFilename));
 
         $browserModel = \Modules\administrator\repository\BrowserModel::instance();
         $file = $browserModel->getFile($destinationFileName);

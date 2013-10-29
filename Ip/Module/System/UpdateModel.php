@@ -23,14 +23,14 @@ class UpdateModel
             throw new UpdateException('Can\'t find update archive');
         }
 
-        $this->downloadArchive($updateVersionInfo['downloadUrl'], $updateVersionInfo['md5'], BASE_DIR.TMP_FILE_DIR.'update/ImpressPages.zip');
-        $this->extractArchive(BASE_DIR.TMP_FILE_DIR.'update/ImpressPages.zip', BASE_DIR.TMP_FILE_DIR.'update/extracted/');
+        $this->downloadArchive($updateVersionInfo['downloadUrl'], $updateVersionInfo['md5'], \Ip\Config::temporaryFile('update/ImpressPages.zip'));
+        $this->extractArchive(\Ip\Config::temporaryFile('update/ImpressPages.zip'), \Ip\Config::temporaryFile('update/extracted/'));
 
         $fs = new Helper\FileSystem();
         $fs->rm(BASE_DIR.'update');
         $fs->createWritableDir(BASE_DIR.'update/extracted/update');
         $fs->clean(BASE_DIR.'update/extracted/update');
-        $fs->cpContent(BASE_DIR.TMP_FILE_DIR.'update/extracted/update', BASE_DIR.'update');
+        $fs->cpContent(\Ip\Config::temporaryFile('update/extracted/update'), BASE_DIR.'update');
     }
 
 
