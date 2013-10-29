@@ -729,125 +729,50 @@ class Site{
 
 
         if(sizeof($_REQUEST) > 0){
-            if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])){ //old deprecated way
-                //actions may be set by post or get. The prime way is trough post. But in some cases it is not possible
-                $newModule = \Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
-                if($newModule){
-                    if($newModule['core']){
-                        require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
-                    } else {
-                        // TODOX Pugin dir
-                    }
-                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Actions();');
-                    $tmpModule->makeActions();
-                }else{
-                    $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                        trigger_error("Requested module (".$_REQUEST['module_group']." / ".$_REQUEST['module_name'].") does not exitst. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ");
-                    } else {
-                        trigger_error("Requested module (".$_REQUEST['module_group']." / ".$_REQUEST['module_name'].") does not exitst.");
-                    }
-                }
+
+            $actionString = '';
+            if(isset($_REQUEST['aa'])) {
+                $actionString = $_REQUEST['aa'];
+                $controllerClass = 'AdminController';
+            } elseif(isset($_REQUEST['sa'])) {
+                $actionString = $_REQUEST['sa'];
+                $controllerClass = 'SiteController';
+            } elseif(isset($_REQUEST['pa'])) {
+                $actionString = $_REQUEST['pa'];
+                $controllerClass = 'PublicController';
             }
 
-
-            if(isset($_REQUEST['g']) && isset($_REQUEST['m'])) { //new way
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['aa'])) {
-                    //user posts method to backend action. Check permissions.
-                    $permission = \Ip\Backend::userHasPermission(\Ip\Backend::userId(), $_REQUEST['g'], $_REQUEST['m']);
-                    if (!$permission) {
-                        throw new \Ip\CoreException("User has no permission to access module ".$_REQUEST['g'].'/'.$_REQUEST['m'], \Ip\CoreException::SECURITY);
-                    }
-                }
-
-
-                $newModule = \Db::getModule(null, $_REQUEST['g'], $_REQUEST['m']);
-                if($newModule){
-                    $function = 'index';
-                    if (isset($_REQUEST['pa']) && $_REQUEST['pa'] != '__construct') {
-                        $controllerClass = 'PublicController';
-                        $function = $_REQUEST['pa'];
-                    } elseif (isset($_REQUEST['aa']) && $_REQUEST['aa'] != '__construct') {
-                        $controllerClass = 'AdminController';
-                        $function = $_REQUEST['aa'];
-                    } elseif (isset($_REQUEST['sa']) && $_REQUEST['sa'] != '__construct') {
-                        $controllerClass = 'SiteController';
-                        $function = $_REQUEST['sa'];
-                    } else {
-                        $controllerClass = 'Controller';
-                        if (isset($_REQUEST['a']) && $_REQUEST['a'] != '__construct') {
-                            $function = $_REQUEST['a'];
-                        }
-                    }
-                    eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\'.$controllerClass.'();');
-                    if (method_exists($tmpModule, $function)) {
-                        $tmpModule->init();
-                        if ($tmpModule->allowAction($function)) {
-                            $result = call_user_func(array($tmpModule, $function));
-                            if ($result && is_string($result)) {
-                                $this->setBlockContent('main', $result);
-                                $this->setOutput(\Ip\View::create(\Ip\Config::includePath('Ip/Module/Admin/View/layout.php'))->render());
-                            }
-                        }
-                    } else {
-                        trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$function."()) does not exitst.");
-                    }
+            if ($actionString) {
+                $parts = explode('.', $actionString);
+                $module = array_shift($parts);
+                if (isset($parts[0])) {
+                    $action = $parts[0];
                 } else {
-                    $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                         trigger_error("Requested module (".$_REQUEST['g']." / ".$_REQUEST['m'].") does not exitst. (Error source: ".$backtrace[0]['file']." line: ".$backtrace[0]['line']." ) ");
-                    } else {
-                        trigger_error("Requested module (".$_REQUEST['g']." / ".$_REQUEST['m'].") does not exitst.");
-                    }
+                    $action = 'index';
+                }
+                //check if user is logged in
+                if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
+                    throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
                 }
 
-            } else {
 
-                $actionString = '';
-                if(isset($_REQUEST['aa'])) {
-                    $actionString = $_REQUEST['aa'];
-                    $controllerClass = 'AdminController';
-                } elseif(isset($_REQUEST['sa'])) {
-                    $actionString = $_REQUEST['sa'];
-                    $controllerClass = 'SiteController';
-                } elseif(isset($_REQUEST['pa'])) {
-                    $actionString = $_REQUEST['pa'];
-                    $controllerClass = 'PublicController';
+                if ($this->isDefaultModule($module)) {
+                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+                } else {
+                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
                 }
-
-                if ($actionString) {
-                    $parts = explode('.', $actionString);
-                    $module = array_shift($parts);
-                    if (isset($parts[0])) {
-                        $action = $parts[0];
-                    } else {
-                        $action = 'index';
-                    }
-                    //check if user is logged in
-                    if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
-                        throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
-                    }
-
-
-                    if ($this->isDefaultModule($module)) {
-                        $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                    } else {
-                        $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                    }
-                    if (!class_exists($controllerClass)) {
-                        throw new \Ip\CoreException('Requested controller doesn\'t exist');
-                    }
-                    $controller = new $controllerClass();
-                    $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-                    $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-                    $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-
-                    $answer = $controller->$action();
-                    if ($answer) {
-                        $this->setBlockContent('main', $answer);
-                    }
+                if (!class_exists($controllerClass)) {
+                    throw new \Ip\CoreException('Requested controller doesn\'t exist');
                 }
+                $controller = new $controllerClass();
+                $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
+                $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+                $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
 
+                $answer = $controller->$action();
+                if ($answer) {
+                    $this->setBlockContent('main', $answer);
+                }
             }
 
             if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
