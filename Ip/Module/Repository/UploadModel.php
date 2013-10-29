@@ -175,10 +175,11 @@ class UploadModel{
             return false;
         }
         if ($secure) {
-            $targetDir = TMP_SECURE_DIR;
+            $targetDir = \Ip\Config::getRaw('TMP_SECURE_DIR');
         } else {
-            $targetDir = \Ip\Config::temporaryFile('');
+            $targetDir = \Ip\Config::getRaw('TMP_FILE_DIR');
         }
+
         $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
         return $isUploaded;
     }
