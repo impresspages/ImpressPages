@@ -31,6 +31,9 @@ if(is_file(__DIR__.'/ip_config.php')) {
     require (__DIR__.'/../ip_config.php');
 }
 
+require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
+\Ip\Config::init($config);
+
 error_reporting(E_ALL|E_STRICT);
 if (DEVELOPMENT_ENVIRONMENT){ 
     ini_set('display_errors', '1');
@@ -39,7 +42,7 @@ if (DEVELOPMENT_ENVIRONMENT){
 }
 
 
-require_once BASE_DIR . CORE_DIR . 'Ip\Core\Application.php';
+require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Core/Application.php';
 \Ip\Core\Application::init();
 
 $db = new db();
@@ -102,7 +105,8 @@ class Cron{
                 if($lock['core']){
                     $file = MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
                 } else {
-                    $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+                    // TODOX fix
+                    // $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
                 }
                 if(file_exists($file)){
                     require($file);

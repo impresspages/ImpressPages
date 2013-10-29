@@ -12,9 +12,8 @@ if (!defined('BACKEND')) exit;
 
 require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
 global $site;
-$site->requireConfig("community/user/config.php");
 
-
+require_once \Ip\Config::oldModuleFile('community/user/config.php');
 
 class Manager {
     var $standard_module;

@@ -9,7 +9,7 @@ namespace Ip;
 class Config
 {
     protected static $rawConfig = array();
-    protected static $config = array();
+    protected static $core = array();
 
     public static function getCoreModuleUrl($path = null)
     {
@@ -19,6 +19,11 @@ class Config
     public static function getRaw($name)
     {
         return array_key_exists($name, static::$rawConfig) ? static::$rawConfig[$name] : null;
+    }
+
+    public static function getCore($name)
+    {
+        return static::$core[$name];
     }
 
     public static function libraryUrl($path)
@@ -135,8 +140,7 @@ class Config
             }
         }
 
-        // TODOX check
-        static::$config['LIBRARY_URL'] = static::$rawConfig['BASE_URL'] . static::$rawConfig['LIBRARY_URL'];
+        static::$core['CORE_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['CORE_DIR'];
 
 //        $relativeDirs = array(
 //            'fileDir',

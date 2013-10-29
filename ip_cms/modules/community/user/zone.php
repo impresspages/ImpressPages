@@ -16,8 +16,8 @@ global $site;
 require_once('element.php');
 
 global $site;
-$site->requireConfig('community/user/config.php');
 
+require_once \Ip\Config::oldModuleFile('community/user/config.php');
 
 class Zone extends \Ip\Frontend\Zone {
     var $zoneName;
