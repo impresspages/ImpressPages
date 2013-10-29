@@ -188,7 +188,7 @@ class Model
         }
         $theme = $themes[$themeName];
 
-        $configModel = new \Modules\standard\configuration\Model();
+        $configModel = new \Ip\Module\Config\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
         $configModel->changeConfigurationConstantValue('THEME_DIR', \Ip\Config::getRaw('THEME_DIR'), $theme->getPath());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());

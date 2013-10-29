@@ -431,7 +431,7 @@ class View{
         );
 
         if ($viewFile === null) {
-            $viewFile = \Ip\Config::oldModuleFile('standard/configuration/view/menu.php');
+            $viewFile = \Ip\Config::coreModuleFile('Config/view/menu.php');
         }
         $viewFile = self::findView($viewFile);
         $view = self::create($viewFile, $data);

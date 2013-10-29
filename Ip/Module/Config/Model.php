@@ -4,9 +4,8 @@
  *
  */
 
-namespace Modules\standard\configuration;
+namespace Ip\Module\Config;
 
-if (!defined('CMS')) exit;
 
 
 class Model{

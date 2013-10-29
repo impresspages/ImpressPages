@@ -5,7 +5,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo $this->subview('_header.php'); ?>
+<?php echo $this->subview('_header.php')->render(); ?>
         <div class="sidenav col_12 col_md_12 col_lg_3 left">
             <nav>
                 <?php

@@ -189,20 +189,27 @@ class Widget{
 
     }
 
+
     public function managementHtml($instanceId, $data, $layout) {
+        $answer = '';
         try {
-            if ($this->core) {
-                $viewFile = BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+            if ($this->core ) {
+                $adminView = \Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                if (is_file($adminView)) {
+                    $answer = \Ip\View::create($adminView, $data)->render();
+                }
             } else {
+                //TODOX new plugin way
                 $viewFile = BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+                $answer = \Ip\View::create($viewFile, $data)->render();
             }
-            $answer = \Ip\View::create($viewFile, $data)->render();
         } catch (\Ip\CoreException $e){
             echo $e->getMessage();
             //do nothing. Administration view does not exist
         }
         return $answer;
     }
+
 
     public function previewHtml($instanceId, $data, $layout) {
         $answer = '';

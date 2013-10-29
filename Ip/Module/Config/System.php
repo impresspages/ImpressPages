@@ -4,8 +4,7 @@
 
  *
  */
-namespace Modules\standard\configuration;
-if (!defined('CMS')) exit;
+namespace Ip\Module\Config;
 
 
 class System{
