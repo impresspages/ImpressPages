@@ -36,7 +36,6 @@ return array(
       'MODULE_DIR' => 'ip_cms/modules/',
       'THEME_DIR' => 'ip_themes/',
       
-      'BACKEND_MAIN_FILE' => 'admin.php',
       'BACKEND_WORKER_FILE' => 'ip_backend_worker.php',
     
     // END BACKEND

@@ -34,7 +34,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['MODULE_DIR'], 'ip_cms/modules/'); //system modules directory
         $this->assertEquals($configuration['THEME_DIR'], 'ip_themes/'); //themes directory
 
-        $this->assertEquals($configuration['BACKEND_MAIN_FILE'], 'admin.php'); //backend root file
         $this->assertEquals($configuration['BACKEND_WORKER_FILE'], 'ip_backend_worker.php'); //backend worker root file
         // END BACKEND
 
