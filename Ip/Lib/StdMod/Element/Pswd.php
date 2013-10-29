@@ -4,10 +4,10 @@
  *
  *
  */
-namespace Ip\Lib\StdMod;
+namespace Ip\Lib\StdMod\Element;
 
 
-class ElementPswd extends Element{ //data element in area
+class Pswd extends Element{ //data element in area
     var $hashSalt = '';
     var $useHash = true;
 
