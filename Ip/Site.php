@@ -842,7 +842,7 @@ class Site{
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
                     $controller = new $controllerClass();
-                    $this->setLayout(BASE_DIR . CORE_DIR . 'Ip/Module/Admin/View/layout.php');
+                    $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
                     $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
                     $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
 
