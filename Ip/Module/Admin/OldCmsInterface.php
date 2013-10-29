@@ -189,7 +189,7 @@ class OldCmsInterface{
     function deleteTmpFiles() {
         $dirs = array();
         $dirs[] = \Ip\Config::temporaryFile('');
-        $dirs[] = BASE_DIR.TMP_SECURE_DIR;
+        $dirs[] = \Ip\Config::temporarySecureFile('');
 
         foreach($dirs as $key => $dir) {
             $this->cleanDirRecursive($dir);
