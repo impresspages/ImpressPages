@@ -136,7 +136,7 @@ class ElementImage extends Element{ //data element in area
         $this->newMemImages = array();
         foreach($this->copies as $key => $copy){
             $upload_image = new \Library\Php\File\UploadImage();
-            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_FILE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
+            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], \Ip\Config::temporaryFile(''), $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->memImages) != sizeof($this->copies)) && $action== 'insert'){

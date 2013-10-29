@@ -163,7 +163,7 @@ class Model {
                 $galleryId = $lockMax['max_id'];
                 foreach($values['logos'] as $logoKey => $logo){
                     $tmpValues = array();
-                    copy($logo['logo'], BASE_DIR.TMP_FILE_DIR.basename($logo['logo']));
+                    copy($logo['logo'], \Ip\Config::temporaryFile(basename($logo['logo'])));
                     $tmpValues['new_photo1'] = basename($logo['logo']);
                     $tmpValues['title1'] = $logo['link'];
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
