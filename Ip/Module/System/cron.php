@@ -61,12 +61,12 @@ class Cron {
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
+                if (\Ip\Config::getRaw('ERRORS_SEND')) {
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
                         $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
                         $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
-                        ERRORS_SEND,
+                        \Ip\Config::getRaw('ERRORS_SEND'),
                         '',
                         $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
                         $message,
