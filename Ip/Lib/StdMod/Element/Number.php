@@ -4,10 +4,10 @@
  *
  *
  */
-namespace Ip\Lib\StdMod;
+namespace Ip\Lib\StdMod\Element;
 
 
-class ElementNumber extends Element{ //data element in area
+class Number extends Element{ //data element in area
     var $defaultValue;
     var $memValue;
     var $regExpression;

@@ -5,13 +5,8 @@
  *
  */
 
-namespace Modules\community\user;
+namespace Ip\Module\User;
 
-if (!defined('CMS')) exit;
-
-global $site;
-
-require_once \Ip\Config::oldModuleFile('community/user/config.php');
 
 class System {
 
@@ -22,7 +17,7 @@ class System {
 
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
-        $site->addJavascript(\Ip\Config::oldModuleUrl('community/user/public/ipUser.js'));
+        $site->addJavascript(\Ip\Config::oldModuleUrl('community/user/assets/ipUser.js'));
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateLogin');

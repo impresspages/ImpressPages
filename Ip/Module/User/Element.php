@@ -5,10 +5,9 @@
  * @license see license.html
  */
 
-namespace Modules\community\user;
+namespace Ip\Module\User;
 
 
-if (!defined('CMS')) exit;
 
 
 /**
