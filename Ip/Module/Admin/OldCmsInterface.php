@@ -256,7 +256,7 @@ class OldCmsInterface{
                     if($newModule['core']) {
                         require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
+                        //require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Actions();');
                     $tmpModule->makeActions();

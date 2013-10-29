@@ -91,6 +91,15 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['FILE_DIR'] . $path;
     }
 
+    public static function baseUrl($path, $query = array())
+    {
+        $url = static::$rawConfig['BASE_URL'] . $path;
+        if ($query) {
+            $url .= http_build_query($query);
+        }
+
+        return $url;
+    }
 //    public static function fileDir()
 //    {
 //        return static::$config['fileDir'];

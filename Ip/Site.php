@@ -661,9 +661,9 @@ class Site{
         // get parameter for cms management
 
         if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
-            $answer = BASE_URL.urlencode($this->languages[$languageId]['url']).'/';
+            $answer = \Ip\Config::baseUrl(urlencode($this->languages[$languageId]['url']).'/');
         }else{
-            $answer = BASE_URL;
+            $answer = \Ip\Config::baseUrl('');
         }
 
         if($zoneName != null){
@@ -1229,7 +1229,7 @@ class Site{
             'title' => $this->getTitle(),
             'keywords' => $this->getKeywords(),
             'description' => $this->getDescription(),
-            'favicon' => BASE_URL.'favicon.ico',
+            'favicon' => \Ip\Config::baseUrl('favicon.ico'),
             'charset' => CHARSET,
             'css' => $cssFiles
         );
