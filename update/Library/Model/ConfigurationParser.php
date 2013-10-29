@@ -82,7 +82,6 @@ class ConfigurationParser
             'LIBRARY_DIR',
             'MODULE_DIR',
             'THEME_DIR',
-            'BACKEND_MAIN_FILE',
             'BACKEND_WORKER_FILE',
             'CHARSET',
             'MYSQL_CHARSET',
