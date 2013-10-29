@@ -33,7 +33,7 @@ class Db{
         $sql = "insert into `".DB_PREF."m_administrator_email_queue` set
 		`from` = '".mysql_real_escape_string($from)."', `from_name` = '".mysql_real_escape_string($fromName)."', `to` = '".mysql_real_escape_string($to)."',
      `to_name` = '".mysql_real_escape_string($toName)."', `subject` = '".mysql_real_escape_string($subject)."', 
-     `email` = '".mysql_real_escape_string($email)."', `immediate` = ".$immediate.", `html` = ".$html.",
+     `email` = '".mysql_real_escape_string($email)."', `immediate` = ".(int)$immediate.", `html` = ".(int)$html.",
      `files` = '".mysql_real_escape_string($filesStr)."', `file_names` = '".mysql_real_escape_string($fileNamesStr)."', `file_mime_types` = '".mysql_real_escape_string($mimeTypesStr)."'";
         $rs = mysql_query($sql);
         if(!$rs){
