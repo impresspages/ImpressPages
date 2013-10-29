@@ -868,7 +868,7 @@ class StandardModule {
         var ip = {
             baseUrl : '.json_encode(BASE_URL).',
             libraryDir : '.json_encode(LIBRARY_DIR).',
-            themeDir : '.json_encode(THEME_DIR).',
+            themeDir : '.json_encode(\Ip\Config::getCore('THEME_DIR')).',
             moduleDir : '.json_encode(MODULE_DIR).',
             theme : '. json_encode(THEME) .',
             zoneName : '.json_encode(null).',

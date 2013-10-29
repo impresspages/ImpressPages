@@ -90,7 +90,7 @@ class Block
      */
     public function exampleContentFrom($filename)
     {
-        $this->exampleContent = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $filename);
+        $this->exampleContent = \Ip\View::create(\Ip\Config::themeFile($filename));
         return $this;
     }
 

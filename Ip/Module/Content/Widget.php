@@ -27,7 +27,7 @@ class Widget{
         if ($core) {
             $this->widgetDir = 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         } else {
-            $this->widgetDir = PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
+            // TODOX Plugin dir
         }
     }
 
@@ -79,16 +79,17 @@ class Widget{
                 }
             }
 
+            // TODOX make it according to new module structure
             //collect overriden theme view files
-            $themeViewsFolder = BASE_DIR.THEME_DIR.THEME.'/modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR;
-            if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
-                $availableViewFiles = scandir($themeViewsFolder);
-                foreach ($availableViewFiles as $viewKey => $viewFile) {
-                    if (is_file($themeViewsFolder.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
-                        $views[substr($viewFile, 0, -4)] = 1;
-                    }
-                }
-            }
+//            $themeViewsFolder = \Ip\Config::themeFile('modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR);
+//            if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
+//                $availableViewFiles = scandir($themeViewsFolder);
+//                foreach ($availableViewFiles as $viewKey => $viewFile) {
+//                    if (is_file($themeViewsFolder.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
+//                        $views[substr($viewFile, 0, -4)] = 1;
+//                    }
+//                }
+//            }
 
             $layouts = array();
             foreach ($views as $viewKey => $view) {
@@ -209,7 +210,7 @@ class Widget{
             if ($this->core) {
                 $answer = \Ip\View::create(BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
             } else {
-                $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+                // TODOX Plugin dir
             }
         } catch (\Ip\CoreException $e){
             global $site;

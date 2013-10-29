@@ -591,7 +591,7 @@ class Site{
 
         $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
-        if (!$layout || !is_file(BASE_DIR . THEME_DIR . THEME . DIRECTORY_SEPARATOR . $layout)) {
+        if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
             $layout = $zone->getLayout();
         }
 
@@ -736,7 +736,7 @@ class Site{
                     if($newModule['core']){
                         require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
+                        // TODOX Pugin dir
                     }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Actions();');
                     $tmpModule->makeActions();
@@ -972,32 +972,6 @@ class Site{
 
     /**
      *
-     * Import required template file or modified version of it from current theme directory.
-     *
-     * @param $file File name of template that need to be required relative to MODULE_DIR folder.
-     *
-     * <b>Example:</b>
-     *
-     * requireTemplate('group/module/template.php');
-     * this line will try to require such files:
-     * BASE_DIR.THEME_DIR.THEME.'/modules/'.'group/module/template.php'; //customized template file in current theme
-     * BASE_DIR.MODULE_DIR.'group/module/template.php';  //original template in module directory
-     *
-     */
-    public function requireTemplate($file){
-        if (file_exists(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file)) {
-            require_once(BASE_DIR.THEME_DIR.THEME.'/modules/'.$file);
-        } else {
-            if (file_exists(\Ip\Config::oldModuleFile($file))) {
-                require_once \ip\Config::oldModuleFile($file);
-            } else {
-                // TODOX require from plugin directory
-            }
-        }
-    }
-
-    /**
-     *
      * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
      *
      * @param $folderName
@@ -1009,7 +983,7 @@ class Site{
         $systemDirs = array();
 
         $systemDirs[PLUGIN_DIR] = 1;
-        $systemDirs[THEME_DIR] = 1;
+        // TODOX theme dir
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
         $systemDirs['install'] = 1;
@@ -1092,7 +1066,7 @@ class Site{
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
-                    $dir = BASE_DIR.PLUGIN_DIR;
+                    // TODOX Plugin dir
                 }
 
                 $systemFileExists = false;
@@ -1144,7 +1118,7 @@ class Site{
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
-                    $dir = BASE_DIR.PLUGIN_DIR;
+                    // TODOX Plugin dir
                 }
 
                 $systemFileExists = false;
@@ -1197,7 +1171,7 @@ class Site{
                 if ($layout[0] == '/') {
                     $viewFile = $layout;
                 } else {
-                    $viewFile = BASE_DIR . THEME_DIR . THEME . '/' . $layout;
+                    $viewFile = \Ip\Config::themeFile($layout);
                 }
                 $this->output = \Ip\View::create($viewFile, array())->render();
 
@@ -1317,7 +1291,7 @@ class Site{
 
                 $path = pathinfo($file);
 
-                if ($path['dirname'] == BASE_URL . THEME_DIR . THEME && file_exists(BASE_DIR . THEME_DIR . THEME . "/{$path['filename']}.less")) {
+                if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(THEME, $path['filename']);
                 } else {
@@ -1353,8 +1327,7 @@ class Site{
             'ipBaseUrl' => BASE_URL,
             'ipLanguageUrl' => $this->generateUrl(),
             'ipLibraryDir' => LIBRARY_DIR,
-            'ipThemeDir' => THEME_DIR,
-            'ipPluginDir' => PLUGIN_DIR,
+            'ipThemeDir' => \Ip\Config::getCore('THEME_DIR'),
             'ipModuleDir' => MODULE_DIR,
             'ipTheme' => THEME,
             'ipManagementUrl' => $this->generateUrl(),

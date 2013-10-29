@@ -29,7 +29,7 @@ class LessCompiler
 
         $model = Model::instance();
 
-        $theme = $model->getTheme(THEME_DIR, $themeName);
+        $theme = $model->getTheme($themeName);
         $options = $theme->getOptionsAsArray();
 
         $configModel = ConfigModel::instance();
@@ -40,7 +40,8 @@ class LessCompiler
 
         require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
         $lessc = new \lessc();
-        $lessc->setImportDir(array(BASE_DIR . THEME_DIR . $themeName, BASE_DIR . LIBRARY_DIR . 'css/ipContent'));
+        $themeDir = rtrim(\Ip\Config::themeFile('', $themeName), '/');
+        $lessc->setImportDir(array($themeDir, \Ip\config::libraryFile('css/ipContent')));
         //$lessc->setFormatter('compressed');
         $lessc->setVariables(array(
                 'ipContentDir' => 'less/ipContent',
@@ -91,7 +92,7 @@ class LessCompiler
 
     public function shouldRebuild($themeName)
     {
-        $items = $this->globRecursive(BASE_DIR . THEME_DIR . $themeName . '/*.less');
+        $items = $this->globRecursive(\Ip\Config::themeFile('', $themeName) . '*.less');
         if (!$items) {
             return false;
         }
@@ -123,7 +124,7 @@ class LessCompiler
 
     protected function getLessFiles($themeName)
     {
-        $lessFiles = glob(BASE_DIR . THEME_DIR . $themeName . DIRECTORY_SEPARATOR . '*.less');
+        $lessFiles = glob(\Ip\Config::themeFile('', $themeName) . '*.less');
         if (!is_array($lessFiles)) {
             return array();
         }
@@ -141,7 +142,7 @@ class LessCompiler
         foreach ($lessFiles as $file) {
             $lessFile = basename($file);
             $css = $this->compileFile($themeName, basename($lessFile));
-            file_put_contents(BASE_DIR . THEME_DIR . $themeName . '/' . substr($lessFile, 0, -4) . 'css', $css);
+            file_put_contents(\Ip\Config::themeFile(substr($lessFile, 0, -4) . 'css', $css), $themeName);
         }
     }
 
@@ -169,7 +170,7 @@ class LessCompiler
 
     public function rebuildIpContent()
     {
-        $items = $this->globRecursive(BASE_DIR . LIBRARY_DIR . 'css/ipContent/less/*.less');
+        $items = $this->globRecursive(\Ip\Config::libraryFile('css/ipContent/less/') . '*.less');
         if (!$items) {
             return false;
         }
