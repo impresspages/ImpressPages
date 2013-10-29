@@ -5,8 +5,6 @@
  *
  */
 namespace Ip\Event;
-if (!defined('CMS')) exit;
-
 
 class UrlChanged extends \Ip\Event{
 

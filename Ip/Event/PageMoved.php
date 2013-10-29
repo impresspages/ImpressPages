@@ -5,8 +5,6 @@
  *
  */
 namespace Ip\Event;
-if (!defined('CMS')) exit;
-
 
 class PageMoved extends \Ip\Event{
     
