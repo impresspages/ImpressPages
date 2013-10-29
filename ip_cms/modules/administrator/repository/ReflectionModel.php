@@ -109,7 +109,7 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
-        $reflection = FILE_DIR.\Library\Php\File\Functions::genUnoccupiedName($desiredName, FILE_DIR);
+        $reflection = \Ip\Config::fileDirFile(\Library\Php\File\Functions::genUnoccupiedName($desiredName, \Ip\Config::fileDirFile('')));
         $transform->transform($file, BASE_DIR.$reflection);
 
         $transformFingerprint = $transform->getFingerprint();
