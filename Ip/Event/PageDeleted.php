@@ -5,8 +5,6 @@
  *
  */
 namespace Ip\Event;
-if (!defined('CMS')) exit;
-
 
 class PageDeleted extends \Ip\Event{
     
