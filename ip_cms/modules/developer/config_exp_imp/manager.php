@@ -172,7 +172,7 @@ class Manager{
                         $file = $this->writeParametersToFile();
                         header("Content-type: application/octet-stream");
                         header("Content-Disposition: attachment; filename=\"".$file."\"");
-                        $answer = (file_get_contents(TMP_SECURE_DIR.$file));
+                        $answer = file_get_contents(\Ip\Config::temporarySecureFile($file));
                     }
 
 

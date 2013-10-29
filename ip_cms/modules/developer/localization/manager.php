@@ -96,7 +96,7 @@ class Manager{
                                 }
                             }
                             if ($error) {
-                                unlink(BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName);
+                                unlink(\Ip\Config::temporarySecureFile($fileUpload->fileName));
                                 $errors['config'] = 'Incorrect language file';
                                 $answer .= HtmlOutput::header();
                                 $answer .= $standardForm->generateErrorAnswer($errors);
