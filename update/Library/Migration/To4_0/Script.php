@@ -36,6 +36,7 @@ class Script extends \IpUpdate\Library\Migration\General
         //TODOX remove newsletter zone
 
         //TODOX remove sitemap zone
+        //TODOX communit/user zone to user zone
     }
 
 

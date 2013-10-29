@@ -4,12 +4,9 @@
  *
  *
  */
-namespace Modules\community\user;
+namespace Ip\Module\User;
 
-if (!defined('CMS')) exit;
 
-require_once \Ip\Config::libraryFile('php/form/standard.php');
-require_once \Ip\Config::oldModuleFile('community/user/db.php');
 
 /**
  * User area (registration) configuration.

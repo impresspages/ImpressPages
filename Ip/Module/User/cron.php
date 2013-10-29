@@ -5,12 +5,10 @@
  *
  */
 
-namespace Modules\community\user;
-
-if (!defined('CMS')) exit;
+namespace Ip\Module\User;
 
 
-require_once(__DIR__."/db.php");
+
 
 
 class Cron {
