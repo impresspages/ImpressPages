@@ -42,7 +42,7 @@ class Db{
                 }
             }
 
-            if(isset($urls[$url]) || \Ip\Backend\Cms::usedUrl($url)){
+            if(isset($urls[$url])){
                 $i = 1;
                 while(isset($urls[$url.$i]) || \Ip\Backend\CmS::usedUrl($url.$i)){
                     $i++;

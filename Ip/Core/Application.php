@@ -126,23 +126,6 @@ class Application {
             }
         }
 
-        if (defined('WORKER')) {
-
-            global $site;
-            global $log;
-
-            $site = \Ip\ServiceLocator::getSite();
-
-            $log = new \Ip\Module\Log\Module();
-
-            global $cms;
-            $cms = new \Ip\Backend\Cms();
-
-            $cms->worker();
-
-            return null;
-        }
-
         return $site->generateOutput();
     }
 
