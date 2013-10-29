@@ -63,7 +63,7 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         $log->log('system', 'error', $message);
     }
 
-    if(ERRORS_SHOW){
+    if(\Ip\Config::getRaw('ERRORS_SHOW')){
         restore_error_handler();
         throw new \Ip\PhpException($message, $errno);
     }
