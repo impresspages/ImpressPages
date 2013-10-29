@@ -7,9 +7,6 @@
 
 namespace Ip\Module\Content;
 
-
-if (!defined('CMS')) exit;
-
 /**
  * IpCmsException class
  */

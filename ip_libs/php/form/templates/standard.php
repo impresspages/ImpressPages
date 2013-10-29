@@ -7,8 +7,6 @@
 
 namespace Library\Php\Form\Templates;
 
-if (!defined('CMS')) exit;
-
 require_once \Ip\Config::libraryFile('php/form/standard_fields.php');
 
 /**

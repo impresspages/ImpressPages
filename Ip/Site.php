@@ -7,9 +7,6 @@
  *
  */
 
-if (!defined('CMS')) exit;
-
-
 //this is not the right place for such config. But it si temporary solution while we don't have single bootstrap for front/back-end.
 /**
  * @internal

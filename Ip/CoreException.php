@@ -8,8 +8,6 @@
 namespace Ip;
 
 
-if (!defined('CMS')) exit;
-
 /**
  * IpCmsException class
  */

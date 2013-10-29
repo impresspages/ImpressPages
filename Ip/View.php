@@ -7,11 +7,6 @@
 
 namespace Ip;
 
-
-if (!defined('CMS')) exit;
-
-
-
 /**
  *
  * View class

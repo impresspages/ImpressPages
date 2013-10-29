@@ -32,7 +32,6 @@
 	error_reporting(E_ALL|E_STRICT);
 	ini_set('display_errors', '1');
 	define("BACKEND", "true");  // make sure files are accessed through admin.
-    define("CMS", "true");  // make sure files are accessed through admin.
 
     $msConfigPath = '../../../../../../../../../ms_config.php';
 

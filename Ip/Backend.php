@@ -7,9 +7,6 @@
 
 namespace Ip;
 
-
-if (!defined('CMS')) exit;
-
 /**
  *
  * Event dispatcher class

@@ -7,9 +7,6 @@
 
 namespace Modules\administrator\rss;
 
-
-if (!defined('CMS')) exit;
-
 require_once (__DIR__.'/db.php');
 
 /**

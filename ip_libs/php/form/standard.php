@@ -7,9 +7,6 @@
 
 namespace Library\Php\Form;
 
-
-if (!defined('CMS')) exit;
-
 /** @private */
 require_once \Ip\Config::libraryFile('php/form/hn_captcha/hn_captcha.class.php');
 /** @private */
