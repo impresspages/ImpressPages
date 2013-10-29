@@ -171,14 +171,14 @@ class ElementImage extends Element{ //data element in area
             if(sizeof($this->memImages) == sizeof($this->copies)){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 foreach($this->copies as $key => $copy){
-                    $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_FILE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                        $rs = mysql_query($sql);
-                        if (!$rs)
-                        trigger_error("Can't update photo field ".$sql);
-                    }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+
+                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($newBasename)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $rs = mysql_query($sql);
+                    if (!$rs)
+                    trigger_error("Can't update photo field ".$sql);
+
                 }
             }
 
@@ -226,16 +226,15 @@ class ElementImage extends Element{ //data element in area
              
 
             if(sizeof($this->memImages) == sizeof($this->copies)){
-                require_once(LIBRARY_DIR.'php/file/functions.php');
-                foreach($this->copies as $key => $copy){
-                    $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_FILE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$new_name."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                        $rs = mysql_query($sql);
-                        if (!$rs)
-                        trigger_error("Can't update photo field ".$sql);
-                    }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_FILE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+
+                foreach($this->copies as $key => $copy) {
+
+                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $rs = mysql_query($sql);
+                    if (!$rs)
+                    trigger_error("Can't update photo field ".$sql);
                 }
             }
 
