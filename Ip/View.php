@@ -335,8 +335,8 @@ class View{
 
 
         $moduleView = ''; //relative link to view according to modules root.
-        if (strpos($file, BASE_DIR.MODULE_DIR) === 0) {
-            $moduleView = substr($file, strlen(BASE_DIR.MODULE_DIR));
+        if (strpos($file, \Ip\Config::oldModuleFile('')) === 0) {
+            $moduleView = substr($file, strlen(\Ip\Config::oldModuleFile('')));
         }
 
         // TODOX Plugin dir

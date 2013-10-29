@@ -103,7 +103,7 @@ class Cron{
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
                 if($lock['core']){
-                    $file = MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+                    $file = \Ip\Config::oldModuleFile($lock['mg_name'].'/'.$lock['m_name'].'/cron.php');
                 } else {
                     // TODOX fix
                     // $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
