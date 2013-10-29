@@ -1,28 +1,31 @@
 <?php
 /**
  * @package ImpressPages
-
+ *
  *
  */
 
-namespace Modules\community\user;
-
-if (!defined('CMS')) exit;
-
-require_once __DIR__.'/db.php';
+namespace Ip\Module\User;
 
 
-class Controller  extends \Ip\Controller{
+
+class SiteController {
 
     private $userZone;
 
-    public function init() {
-        global $site;
-        $userZone = $site->getZoneByModule('community', 'user');
+
+    protected function getUserZone()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        if (!$this->userZone) {
+            $userZone = $site->getZoneByModule('community', 'user');
+        }
+
         if(!$userZone) {
             throw new \Exception("There is no user zone on ImpressPages system");
         }
-        $this->userZone = $userZone;
+
+        return $this->userZone;
     }
 
     public function login() {
@@ -49,7 +52,7 @@ class Controller  extends \Ip\Controller{
         }
 
         if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-            $tmp_password = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
+            $tmp_password = md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
         } else {
             $tmp_password = $_POST['password'];
         }
@@ -63,17 +66,17 @@ class Controller  extends \Ip\Controller{
 
             if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
                 setCookie(
-                Config::$autologinCookieName,
-                json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
-                time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
-                Config::$autologinCookiePath,
-                Config::getCookieDomain()
+                    Config::$autologinCookieName,
+                    json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
+                    time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
+                    Config::$autologinCookiePath,
+                    Config::getCookieDomain()
                 );
             }
 
             $answer = array(
                 'status' => 'success',
-                'redirectUrl' => $this->redirectAfterLoginUrl() 
+                'redirectUrl' => $this->redirectAfterLoginUrl()
             );
             $this->returnJson($answer);
             return;
@@ -90,7 +93,7 @@ class Controller  extends \Ip\Controller{
             $log->log('community/user', 'incorrect frontend login', $_SERVER['REMOTE_ADDR']);
             $answer = array(
                 'status' => 'error',
-                'errors' => $errors 
+                'errors' => $errors
             );
             $this->returnJson($answer);
             return;
@@ -114,11 +117,11 @@ class Controller  extends \Ip\Controller{
 
         if($parametersMod->getValue('community','user','options','enable_autologin')) {
             setCookie(
-            Config::$autologinCookieName,
-            '',
-            time()-60,
-            Config::$autologinCookiePath,
-            Config::getCookieDomain()
+                Config::$autologinCookieName,
+                '',
+                time()-60,
+                Config::$autologinCookiePath,
+                Config::getCookieDomain()
             );
         }
         $this->redirect(BASE_URL);
@@ -170,7 +173,7 @@ class Controller  extends \Ip\Controller{
         } else {
             $tmp_code = md5(uniqid(rand(), true));
             if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                $password = md5($postData['password'].\Modules\community\user\Config::$hashSalt);
+                $password = md5($postData['password'].\Ip\Module\User\Config::$hashSalt);
             } else {
                 $password = $postData['password'];
             }
@@ -212,7 +215,7 @@ class Controller  extends \Ip\Controller{
                 $this->sendVerificationLink($postData['email'], $tmp_code, $insertId);
                 $data = array (
                     'status' => 'success',
-                    'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationRequired))
+                    'redirectUrl' => $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerificationRequired))
                 );
                 $this->returnJson($data);
                 return;
@@ -231,8 +234,8 @@ class Controller  extends \Ip\Controller{
                     }
                 } else {
                     $data = array (
-                            'status' => 'success',
-                            'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified))
+                        'status' => 'success',
+                        'redirectUrl' => $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerified))
                     );
                     $this->returnJson($data);
                     return;
@@ -251,7 +254,7 @@ class Controller  extends \Ip\Controller{
             $site->setOutput('');
             return;
         }
-            
+
         $postData = $_POST;
         $registrationForm = Config::getProfileForm();
         $errors = $registrationForm->validate($postData);
@@ -294,7 +297,7 @@ class Controller  extends \Ip\Controller{
 
             if(isset($_POST['password']) && $_POST['password'] != '') {
                 if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                    $additionalFields['password'] =  md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
+                    $additionalFields['password'] =  md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
                 } else {
                     $additionalFields['password'] =  $_POST['password'];
                 }
@@ -307,7 +310,7 @@ class Controller  extends \Ip\Controller{
             $data['email'] = null;
             $data['confirm_password'] = null;
             $data['submit'] = null;
-            
+
             $insertId = $registrationForm->updateDatabase(DB_PREF.'m_community_user', 'id', $tmpUser['id'], $data, $additionalFields);
 
             //deprecated event
@@ -320,11 +323,11 @@ class Controller  extends \Ip\Controller{
 
             if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
                 $this->sendUpdateVerificationLink($_POST['email'], $tmp_code, $tmpUser['id']);
-                $redirectUrl = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlEmailVerificationRequired));
+                $redirectUrl = $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlEmailVerificationRequired));
             }else {
-                $redirectUrl = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlProfile), array("message"=>"updated"));
+                $redirectUrl = $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlProfile), array("message"=>"updated"));
             }
-            
+
             $answer = array(
                 'status' => 'success',
                 'redirectUrl' => $redirectUrl
@@ -359,9 +362,9 @@ class Controller  extends \Ip\Controller{
             $sameLoginUser = Db::userByLogin ($current['login']);
             if ($current['verification_code'] == $code) {
                 if ($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
-                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlVerificationErrorEmailExist)));
+                    $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlVerificationErrorEmailExist)));
                 } elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser['id'] != $current['id']) {
-                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlVerificationErrorUserExist)));
+                    $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlVerificationErrorUserExist)));
                 } else {
                     if (!$current['verified']) {
                         Db::verify($current['id']);
@@ -379,13 +382,13 @@ class Controller  extends \Ip\Controller{
                         }
                     }
 
-                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
+                    $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerified)));
                 }
             } else {
-                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationError)));
+                $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerificationError)));
             }
         } else {
-            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerificationError)));
+            $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerificationError)));
         }
     }
 
@@ -396,20 +399,20 @@ class Controller  extends \Ip\Controller{
         if (!isset($_REQUEST['id']) || !isset($_REQUEST['code'])) {
             return; //do nothing. Rendar as a regular page.
         }
-    
+
         $sameEmailUser = Db::userById($_REQUEST['id']);
         if($sameEmailUser) {
             if($sameEmailUser['verification_code'] == $_REQUEST['code']) {
                 $user_with_new_email = Db::userByEmail($sameEmailUser['new_email']);
                 if($user_with_new_email) {
                     if($user_with_new_email['id'] == $sameEmailUser['id']) {
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerified)));
                     } else {
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlNewEmailVerificationError)));
                     }
                 }else {
                     if($sameEmailUser['new_email'] == '') {
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRegistrationVerified)));
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRegistrationVerified)));
                     }else {
                         Db::verifyNewEmail($sameEmailUser['id']);
 
@@ -419,21 +422,21 @@ class Controller  extends \Ip\Controller{
                         //new event
                         $data = array('userId' => $sameEmailUser['id']);
                         $dispatcher->notify(new Event($this, Event::NEW_EMAIL_VERIFICATION, $data));
-    
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerified)));
+
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlNewEmailVerified)));
                     }
                 }
             } else {
-                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+                $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlNewEmailVerificationError)));
             }
         }else {
-            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlNewEmailVerificationError)));
+            $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlNewEmailVerificationError)));
         }
-    
-    
+
+
     }
-    
-    
+
+
     public function passwordReset() {
         global $parametersMod;
         global $site;
@@ -441,18 +444,18 @@ class Controller  extends \Ip\Controller{
         $postData = $_POST;
         $passwordResetForm = Config::getPasswordResetForm();
         $errors = $passwordResetForm->validate($postData);
-    
+
         $tmpUser = Db::userByEmail($_POST['email']);
         if (!$tmpUser) {
             $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_doesnt_exist');
         }
-    
+
         if(!isset($_POST['password']) || $_POST['password'] == '' || $parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
             $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
             $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
         }
-    
-    
+
+
         if (sizeof($errors) > 0) {
             $data = array(
                 'status' => 'error',
@@ -461,10 +464,10 @@ class Controller  extends \Ip\Controller{
             $this->returnJson($data);
             return;
         } else {
-            
+
             $tmp_code = md5(uniqid(rand(), true));
             if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
-                $additionalFields['new_password'] = md5($_POST['password'].\Modules\community\user\Config::$hashSalt);
+                $additionalFields['new_password'] = md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
             } else {
                 $additionalFields['new_password'] = $_POST['password'];
             }
@@ -474,17 +477,17 @@ class Controller  extends \Ip\Controller{
 
             $data = array('userId' => $tmpUser['id'], 'password' => $_POST['password']);
             $dispatcher->notify(new Event($this, Event::PASSWORD_RESET, $data));
-            
+
             $data = array(
                 'status' => 'success',
-                'redirectUrl' => $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetSentText)) 
+                'redirectUrl' => $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetSentText))
             );
             $this->returnJson($data);
             return;
         }
 
     }
-    
+
     public function passwordResetVerification () {
         global $site;
         global $dispatcher;
@@ -499,23 +502,23 @@ class Controller  extends \Ip\Controller{
                         $data = array('userId' => $current['id']);
                         $dispatcher->notify(new Event($this, Event::PASSWORD_RESET_VERIFICATION, $data));
 
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerified)));
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetVerified)));
                     } else {
-                        $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+                        $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetVerificationError)));
                     }
                 } else {
-                    $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerified)));
+                    $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetVerified)));
                 }
             } else {
-                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+                $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetVerificationError)));
             }
         } else {
-            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlPasswordResetVerificationError)));
+            $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlPasswordResetVerificationError)));
         }
     }
-    
-    
-    
+
+
+
     private function redirectAfterLoginUrl () {
         global $parametersMod;
         global $site;
@@ -528,7 +531,7 @@ class Controller  extends \Ip\Controller{
             if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
                 $url = $site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'));
             } else {
-                $url = $site->generateUrl(null, $this->userZone->getName(), array(Config::$urlProfile));
+                $url = $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlProfile));
             }
         }
         return $url;
@@ -574,72 +577,72 @@ class Controller  extends \Ip\Controller{
 
         $emailQueue->send();
     }
-    
+
     private function sendUpdateVerificationLink($to, $code, $userId) {
         global $parametersMod;
         global $site;
-        
-        
+
+
         $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
         $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "newEmailVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
-        
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
-        
-        
-        $emailData = array(
-                    'content' => $content,
-                    'name' => $websiteName,
-                    'email' => $websiteEmail
-        );
-        
-        $email = \Ip\View::create('view/email.php', $emailData)->render();
-        $from = $websiteEmail;
-        
-        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email');
-        
-        $files = array();
-        $emailQueue = new \Ip\Module\Email\Module();
-        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
-        
-        $emailQueue->send();
 
-    }
-    
-    function sendPasswordResetLink($to, $code, $userId) {
-        global $parametersMod;
-        global $site;
-    
-        $emailQueue = new \Ip\Module\Email\Module();
-        
-        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
-        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "passwordResetVerification", "id" => $userId, "code" => $code));
-        $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
-        
         $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
         $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
-        
-        
+
+
         $emailData = array(
             'content' => $content,
             'name' => $websiteName,
             'email' => $websiteEmail
         );
-        
+
         $email = \Ip\View::create('view/email.php', $emailData)->render();
         $from = $websiteEmail;
-        
-        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset');
-        
+
+        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email');
+
         $files = array();
         $emailQueue = new \Ip\Module\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
-        
+
         $emailQueue->send();
 
     }
-    
+
+    function sendPasswordResetLink($to, $code, $userId) {
+        global $parametersMod;
+        global $site;
+
+        $emailQueue = new \Ip\Module\Email\Module();
+
+        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
+        $link = $site->generateUrl(null, null, array(), array("g" => "community", "m" => "user", "a" => "passwordResetVerification", "id" => $userId, "code" => $code));
+        $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
+
+        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+
+
+        $emailData = array(
+            'content' => $content,
+            'name' => $websiteName,
+            'email' => $websiteEmail
+        );
+
+        $email = \Ip\View::create('view/email.php', $emailData)->render();
+        $from = $websiteEmail;
+
+        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset');
+
+        $files = array();
+        $emailQueue = new \Ip\Module\Email\Module();
+        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
+
+        $emailQueue->send();
+
+    }
+
     public function renewRegistration () {
         global $site;//userById
         global $dispatcher;
@@ -651,16 +654,14 @@ class Controller  extends \Ip\Controller{
                 $data = array('userId' => $_GET['id']);
                 $dispatcher->notify(new Event($this, Event::RENEW_REGISTRATION, $data));
 
-                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewedRegistration)));
+                $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRenewedRegistration)));
             } else {
-                $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
+                $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRenewRegistrationError)));
             }
         } else {
-            $this->redirect($site->generateUrl(null, $this->userZone->getName(), array(Config::$urlRenewRegistrationError)));
+            $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlRenewRegistrationError)));
         }
     }
-    
-    
 
 
 

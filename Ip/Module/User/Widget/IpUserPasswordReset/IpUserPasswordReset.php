@@ -4,19 +4,14 @@
 
  *
  */
-namespace Modules\community\user\widget;
-
-if (!defined('CMS')) exit;
+namespace Ip\Module\User\Widget;
 
 
 
-class IpUserProfile extends \Ip\Module\Content\Widget{
+
+class IpUserPasswordReset extends \Ip\Module\Content\Widget{
 
 
-    public function getTitle() {
-        global $parametersMod;
-        return $parametersMod->getValue('community', 'user', 'admin_translations', 'registration');
-    }
     
     public function previewHtml($instanceId, $data, $layout) {
         global $session;
@@ -29,15 +24,17 @@ class IpUserProfile extends \Ip\Module\Content\Widget{
             ';
         }
         
-        $profileForm = \Modules\community\user\Config::getProfileForm();
+        $passwordResetForm = \Ip\Module\User\Config::getPasswordResetForm();
         
         $data = array (
-            'profileForm' => $profileForm,
-            'loggedIn' => $session->loggedIn()
+            'passwordResetForm' => $passwordResetForm,
+            'loggedIn' => $session->loggedIn(),
+            'passwordResetEnabled' => $parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')
         );
         return parent::previewHtml($instanceId, $data, $layout);
         
     }
+    
     
     /**
     * Return true if you like to hide widget in administration panel.
@@ -46,6 +43,4 @@ class IpUserProfile extends \Ip\Module\Content\Widget{
     public function getUnderTheHood() {
         return true;
     }
-    
-    
 }

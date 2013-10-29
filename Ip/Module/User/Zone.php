@@ -5,19 +5,12 @@
  *
  */
 
-namespace Modules\community\user;
+namespace Ip\Module\User;
 
 
 
-if (!defined('CMS')) exit;
 
-global $site;
 
-require_once('element.php');
-
-global $site;
-
-require_once \Ip\Config::oldModuleFile('community/user/config.php');
 
 class Zone extends \Ip\Frontend\Zone {
     var $zoneName;

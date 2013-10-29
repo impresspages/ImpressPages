@@ -4,7 +4,7 @@
 
  *
  */
-namespace Modules\community\user;
+namespace Ip\Module\User;
 
 
 

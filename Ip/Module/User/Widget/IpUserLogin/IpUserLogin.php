@@ -4,11 +4,10 @@
 
  *
  */
-namespace Modules\community\user\widget;
-
-if (!defined('CMS')) exit;
+namespace Ip\Module\User\Widget;
 
 
+//TODOX make this and other user widgets to appear / work
 
 class IpUserLogin extends \Ip\Module\Content\Widget{
 
@@ -36,7 +35,7 @@ class IpUserLogin extends \Ip\Module\Content\Widget{
 
             return parent::previewHtml($instanceId, $data, $layout);
         }else {
-            $loginForm = \Modules\community\user\Config::getLoginForm();
+            $loginForm = \Ip\Module\User\Config::getLoginForm();
             
             $data = array ();
             

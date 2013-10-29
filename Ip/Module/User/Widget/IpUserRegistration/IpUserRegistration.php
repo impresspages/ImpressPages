@@ -4,9 +4,8 @@
 
  *
  */
-namespace Modules\community\user\widget;
+namespace Ip\Module\User\Widget;
 
-if (!defined('CMS')) exit;
 
 
 
@@ -29,7 +28,7 @@ class IpUserRegistration extends \Ip\Module\Content\Widget{
             ';
         }
         
-        $registrationForm = \Modules\community\user\Config::getRegistrationForm();
+        $registrationForm = \Ip\Module\User\Config::getRegistrationForm();
         
         $data = array (
             'registrationForm' => $registrationForm,
