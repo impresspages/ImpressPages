@@ -237,7 +237,7 @@ class OldCmsInterface{
         $systemDirs[INCLUDE_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[MODULE_DIR] = 1;
-        $systemDirs[THEME_DIR] = 1;
+        // TODOX theme dir
         $systemDirs['.htaccess'] = 1;
         $systemDirs['admin.php'] = 1;
         $systemDirs['ip_backend_frames.php'] = 1;
