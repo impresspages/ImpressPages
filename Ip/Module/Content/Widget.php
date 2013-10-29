@@ -27,7 +27,7 @@ class Widget{
         if ($core) {
             $this->widgetDir = 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
         } else {
-            $this->widgetDir = PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
+            // TODOX Plugin dir
         }
     }
 
@@ -209,7 +209,7 @@ class Widget{
             if ($this->core) {
                 $answer = \Ip\View::create(BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
             } else {
-                $answer = \Ip\View::create(BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+                // TODOX Plugin dir
             }
         } catch (\Ip\CoreException $e){
             global $site;

@@ -339,9 +339,7 @@ class View{
             $moduleView = substr($file, strlen(BASE_DIR.MODULE_DIR));
         }
 
-        if ($moduleView == '' && strpos($file, BASE_DIR.PLUGIN_DIR) === 0) {
-            $moduleView = substr($file, strlen(BASE_DIR.PLUGIN_DIR));
-        }
+        // TODOX Plugin dir
 
         if ($moduleView == '' && strpos($file, BASE_DIR.THEME_DIR.'modules/') === 0) {
             $moduleView = substr($file, strlen(BASE_DIR.THEME_DIR.'modules/'));
@@ -351,9 +349,7 @@ class View{
                 return BASE_DIR.THEME_DIR.THEME.'/modules/'.$moduleView;
             }
 
-            if (file_exists(BASE_DIR.PLUGIN_DIR.$moduleView)) {
-                return(BASE_DIR.PLUGIN_DIR.$moduleView);
-            }
+            // TODOX Plugin dir
 
             if (file_exists(\Ip\Config::oldModuleFile($moduleView))) {
                 return \Ip\Config::oldModuleFile($moduleView);

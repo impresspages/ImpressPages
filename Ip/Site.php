@@ -736,7 +736,7 @@ class Site{
                     if($newModule['core']){
                         require_once(BASE_DIR.MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
+                        // TODOX Pugin dir
                     }
                     eval('$tmpModule = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\Actions();');
                     $tmpModule->makeActions();
@@ -1092,7 +1092,7 @@ class Site{
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
-                    $dir = BASE_DIR.PLUGIN_DIR;
+                    // TODOX Plugin dir
                 }
 
                 $systemFileExists = false;
@@ -1144,7 +1144,7 @@ class Site{
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
-                    $dir = BASE_DIR.PLUGIN_DIR;
+                    // TODOX Plugin dir
                 }
 
                 $systemFileExists = false;
@@ -1354,7 +1354,6 @@ class Site{
             'ipLanguageUrl' => $this->generateUrl(),
             'ipLibraryDir' => LIBRARY_DIR,
             'ipThemeDir' => THEME_DIR,
-            'ipPluginDir' => PLUGIN_DIR,
             'ipModuleDir' => MODULE_DIR,
             'ipTheme' => THEME,
             'ipManagementUrl' => $this->generateUrl(),

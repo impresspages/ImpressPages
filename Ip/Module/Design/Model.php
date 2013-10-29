@@ -70,6 +70,7 @@ class Model
     public function installThemePlugin($pluginGroup, $pluginName)
     {
         //refactor to new plugins
+        // TODOX Plugin dir
         $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
         $fromDir = BASE_DIR . $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
 
