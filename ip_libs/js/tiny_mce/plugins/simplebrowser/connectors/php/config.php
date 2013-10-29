@@ -115,8 +115,8 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 		
 */
 
-$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'].MANUAL_DIR;
-$manualRepositoryPath = $Config['UserFilesPath'].MANUAL_DIR;
+$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'] . \Ip\Config::getRaw('MANUAL_DIR');
+$manualRepositoryPath = $Config['UserFilesPath'] . \Ip\Config::getRaw('MANUAL_DIR');
 if (!file_exists($manualRepositoryAbsolutePath) || !is_dir($manualRepositoryAbsolutePath)) {
     mkdir($manualRepositoryAbsolutePath);
 }
