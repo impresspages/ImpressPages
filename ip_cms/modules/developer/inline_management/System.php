@@ -30,8 +30,8 @@ class System
             $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
             $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
 
-            $site->addJavascript(\Ip\Config::oldModuleUrl('developer/upload/jquery.ip.uploadImage.js?v=1'));
-            $site->addJavascript(\Ip\Config::oldModuleUrl('developer/upload/jquery.ip.uploadFile.js?v=1'));
+            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
+            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
             $site->addJavascript(\Ip\Config::oldModuleUrl('developer/inline_management/public/jquery.fontselector.js'));
 

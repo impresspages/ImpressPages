@@ -64,7 +64,7 @@ class File extends Field
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             foreach($values[$valueKey]['file'] as $key => $file) {
-                $uploadModel = \Modules\administrator\repository\UploadModel::instance();
+                $uploadModel = \Ip\Module\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     $parametersMod = \Ip\ServiceLocator::getParametersMod();
                     return $parametersMod->getValue("developer", "form", "error_messages", "file_upload_session");
@@ -90,7 +90,7 @@ class File extends Field
                     $originalFileName = $values[$valueKey]['originalFileName'][$key];
                 }
 
-                $uploadModel = \Modules\administrator\repository\UploadModel::instance();
+                $uploadModel = \Ip\Module\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     throw new \Exception("Security risk. Current user doesn't seem to have uploaded this file");
                 }
