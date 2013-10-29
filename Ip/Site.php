@@ -419,10 +419,6 @@ class Site{
                         require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
                         require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    } elseif (file_exists(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
-                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
                 } else {
@@ -986,7 +982,6 @@ class Site{
      * this line will try to require such files:
      * BASE_DIR.THEME_DIR.THEME.'/modules/'.'group/module/template.php'; //customized template file in current theme
      * BASE_DIR.MODULE_DIR.'group/module/template.php';  //original template in module directory
-     * BASE_DIR.PLUGIN_DIR.'group/module/template.php';  //original template in plugin directory
      *
      */
     public function requireTemplate($file){
@@ -996,15 +991,7 @@ class Site{
             if (file_exists(\Ip\Config::oldModuleFile($file))) {
                 require_once \ip\Config::oldModuleFile($file);
             } else {
-                if(file_exists(BASE_DIR.PLUGIN_DIR.$file)){
-                    require_once(BASE_DIR.PLUGIN_DIR.$file);
-                } else {
-                    $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-                    trigger_error('Required template does not exist '.$file.'. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-                    else
-                    trigger_error('Required template does not exist '.$file.'.');
-                }
+                // TODOX require from plugin directory
             }
         }
     }
