@@ -73,7 +73,7 @@ class OldCmsInterface{
                 /*new module*/
                 $newModule = \Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
-                    require(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
+                    require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                 } else {
                     // TODOX Plugin dir
                 }
@@ -133,8 +133,8 @@ class OldCmsInterface{
                 $newModule = \Db::getModule($_GET['module_id']);
 
                 if(Db::allowedModule($_GET['module_id'], $this->session->userId())){
-                    if(file_exists(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php')) {
-                        require_once(MODULE_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
+                    if(file_exists(\Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php'))) {
+                        require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
                     } else {
                         // TODOX Plugin dir
                     }
