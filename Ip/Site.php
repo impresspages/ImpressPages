@@ -910,7 +910,7 @@ class Site{
         $systemDirs[PLUGIN_DIR] = 1;
         // TODOX theme dir
         $systemDirs[LIBRARY_DIR] = 1;
-        $systemDirs[FILE_DIR] = 1;
+        // TODOX file dir
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){

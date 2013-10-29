@@ -17,7 +17,7 @@ class Functions{
     {
         $fileName = realpath(BASE_DIR.$fileName);
         $publicDirs = array(
-            BASE_DIR . FILE_DIR,
+            \Ip\Config::fileDirFile(''),
             \Ip\Config::temporaryFile(''),
             BASE_DIR . FILE_REPOSITORY_DIR,
         );
