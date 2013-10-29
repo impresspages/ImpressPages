@@ -114,7 +114,7 @@ class View{
         global $parametersMod;
         $parts = explode('/', $parameterKey);
         if (count($parts) != 4) {
-            if (DEVELOPMENT_ENVIRONMENT) {
+            if (\Ip\Config::isDevelopmentEnvironment()) {
                 throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
             } else {
                 return '';

@@ -35,7 +35,7 @@ require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
 \Ip\Config::init($config);
 
 error_reporting(E_ALL|E_STRICT);
-if (DEVELOPMENT_ENVIRONMENT){ 
+if (\Ip\Config::isDevelopmentEnvironment()){
     ini_set('display_errors', '1');
 } else {
     ini_set('display_errors', '0');

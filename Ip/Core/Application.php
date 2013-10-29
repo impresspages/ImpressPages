@@ -38,7 +38,7 @@ class Application {
         mb_internal_encoding(CHARSET);
         date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.
 
-        if (DEVELOPMENT_ENVIRONMENT){
+        if (\Ip\Config::isDevelopmentEnvironment()){
             error_reporting(E_ALL|E_STRICT);
             ini_set('display_errors', '1');
         } else {
