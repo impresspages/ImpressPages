@@ -35,7 +35,7 @@ class Application {
         global $site;
         $site = new \Site();
 
-        mb_internal_encoding(CHARSET);
+        mb_internal_encoding(\Ip\Config::getRaw('CHARSET'));
         date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.
 
         if (\Ip\Config::isDevelopmentEnvironment()){

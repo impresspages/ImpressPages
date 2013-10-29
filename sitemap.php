@@ -123,12 +123,12 @@ class sitemap{
         }
 
 
-        header('Content-type: application/xml; charset="'.CHARSET.'"',true);
+        header('Content-type: application/xml; charset="'.\Ip\Config::getRaw('CHARSET').'"',true);
          
 
 
         $answer = '';
-        $answer .= '<'.'?xml version="1.0" encoding="'.CHARSET.'"?'.'>
+        $answer .= '<'.'?xml version="1.0" encoding="'.\Ip\Config::getRaw('CHARSET').'"?'.'>
   		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   	
   	';
@@ -218,11 +218,11 @@ class sitemap{
     function getSitemapIndex(){
         global $site;
 
-        header('Content-type: application/xml; charset="'.CHARSET.'"',true);
+        header('Content-type: application/xml; charset="'.\Ip\Config::getRaw('CHARSET').'"',true);
 
         $answer = '';
 
-        $answer .= '<'.'?xml version="1.0" encoding="'.CHARSET.'"?'.'>
+        $answer .= '<'.'?xml version="1.0" encoding="'.\Ip\Config::getRaw('CHARSET').'"?'.'>
   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
         foreach($this->mappedZones as $curZone => $curDepth){

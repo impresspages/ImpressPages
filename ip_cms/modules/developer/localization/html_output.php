@@ -18,7 +18,7 @@ class HtmlOutput{
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="'.CHARSET.'">
+    <meta charset="'.\Ip\Config::getRaw('CHARSET').'">
     <title>ImpressPages</title>
     <link rel="stylesheet" href="' . \Ip\Config::getCoreModuleUrl('Admin/assets/backend/ip_admin.css') . '">
     <link rel="stylesheet" href="' . \Ip\Config::oldModuleUrl('developer/config_exp_imp/design/style.css') . '">

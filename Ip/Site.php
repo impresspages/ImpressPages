@@ -1229,7 +1229,7 @@ class Site{
             'keywords' => $this->getKeywords(),
             'description' => $this->getDescription(),
             'favicon' => \Ip\Config::baseUrl('favicon.ico'),
-            'charset' => CHARSET,
+            'charset' => \Ip\Config::getRaw('CHARSET'),
             'css' => $cssFiles
         );
 

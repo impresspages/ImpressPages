@@ -234,7 +234,7 @@ class Standard{
         $answer = "
 <html>
   <head>
-    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
   </head>
   <body>
     <script type=\"text/javascript\">
