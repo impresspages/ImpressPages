@@ -40,7 +40,6 @@ class ConfigurationParser
         }
         $configSource = str_replace('<?php', '', $configSource);
         $configSource = preg_replace('/exit\\s*;/i', 'TRUE;', $configSource);
-        $configSource = preg_replace('/mb_internal_encoding\\s*\(\\s*CHARSET\\s*\)\\s*;/', '', $configSource);
 
         eval($configSource);
 

@@ -120,7 +120,7 @@ class System{
         global $site;
         global $parametersMod;
         $headers = 'MIME-Version: 1.0'. "\r\n";
-        $headers .= 'Content-type: text/html; charset='.CHARSET."\r\n";
+        $headers .= 'Content-type: text/html; charset='.\Ip\Config::getRaw('CHARSET')."\r\n";
         $headers .= 'From: sender@sender.com' . "\r\n";
         $message = '';
         if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
