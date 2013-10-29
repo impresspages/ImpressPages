@@ -219,7 +219,13 @@ class View{
             */
             $log = \Ip\ServiceLocator::getLog();
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
-            throw $e;
+
+            if (\Ip\Config::isDevelopmentEnvironment()) {
+                return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
+            } else {
+                // TODOX return appropriate string
+                throw $e;
+            }
         }
 
         return $content;
