@@ -10,7 +10,8 @@ namespace Modules\community\user;
 if (!defined('CMS')) exit;
 
 global $site;
-$site->requireConfig('community/user/config.php');
+
+require_once \Ip\Config::oldModuleFile('community/user/config.php');
 
 class System {
 

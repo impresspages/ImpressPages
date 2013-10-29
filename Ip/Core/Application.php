@@ -17,7 +17,7 @@ class Application {
         require_once \Ip\Config::includePath('parameters.php');
         require_once \Ip\Config::includePath('db.php');
 
-        require_once (BASE_DIR . CORE_DIR.'Ip/Site.php');
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
         require_once \Ip\Config::includePath('error_handler.php');
 
         if(!\Db::connect()){

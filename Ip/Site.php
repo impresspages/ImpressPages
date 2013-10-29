@@ -419,10 +419,6 @@ class Site{
                         require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
                         require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    } elseif (file_exists(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php')) {
-                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    } else {
-                        require_once(BASE_DIR.PLUGIN_DIR.$tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
                     }
                     eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
                 } else {
@@ -842,7 +838,7 @@ class Site{
                         throw new \Ip\CoreException('Requested controller doesn\'t exist');
                     }
                     $controller = new $controllerClass();
-                    $this->setLayout(BASE_DIR . CORE_DIR . 'Ip/Module/Admin/View/layout.php');
+                    $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
                     $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
                     $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
 
@@ -986,7 +982,6 @@ class Site{
      * this line will try to require such files:
      * BASE_DIR.THEME_DIR.THEME.'/modules/'.'group/module/template.php'; //customized template file in current theme
      * BASE_DIR.MODULE_DIR.'group/module/template.php';  //original template in module directory
-     * BASE_DIR.PLUGIN_DIR.'group/module/template.php';  //original template in plugin directory
      *
      */
     public function requireTemplate($file){
@@ -996,38 +991,8 @@ class Site{
             if (file_exists(\Ip\Config::oldModuleFile($file))) {
                 require_once \ip\Config::oldModuleFile($file);
             } else {
-                if(file_exists(BASE_DIR.PLUGIN_DIR.$file)){
-                    require_once(BASE_DIR.PLUGIN_DIR.$file);
-                } else {
-                    $backtrace = debug_backtrace();
-                    if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-                    trigger_error('Required template does not exist '.$file.'. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-                    else
-                    trigger_error('Required template does not exist '.$file.'.');
-                }
+                // TODOX require from plugin directory
             }
-        }
-    }
-
-    /**
-     *
-     * Import required configuration file or modified version of it from CONFIG_DIR directory.
-     * @param $file File name of configuration file that needs to be required (relative to MODULE_DIR folder).
-     * <b>Example:</b>
-     * requireConfig('group/module/config.php');
-     * this line will try to require such files:
-     * BASE_DIR.CONFIG_DIR.'group/module/config.php'; //customized config file in config directory
-     * BASE_DIR.MODULE_DIR.'group/module/config.php'; //original module config file
-     * BASE_DIR.PLUGIN_DIR.'group/module/config.php'; //original plugin config file
-     *
-     */
-    public function requireConfig($file){
-        if (file_exists(BASE_DIR.CONFIG_DIR.$file)) {
-            require_once(BASE_DIR.CONFIG_DIR.$file);
-        } elseif (file_exists(\Ip\Config::oldModuleFile($file))) {
-            require_once \Ip\Config::oldModuleFile($file);
-        } else {
-            require_once(BASE_DIR.PLUGIN_DIR.$file);
         }
     }
 
@@ -1044,7 +1009,6 @@ class Site{
         $systemDirs = array();
 
         $systemDirs[PLUGIN_DIR] = 1;
-        $systemDirs[CONFIG_DIR] = 1;
         $systemDirs[THEME_DIR] = 1;
         $systemDirs[LIBRARY_DIR] = 1;
         $systemDirs[FILE_DIR] = 1;
