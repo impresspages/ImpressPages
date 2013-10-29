@@ -5,7 +5,6 @@
  *
  */
 namespace Ip\Module\Email;
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Db{
 

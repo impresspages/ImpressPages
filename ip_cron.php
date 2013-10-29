@@ -11,14 +11,8 @@
  */
 
 /** @private */
-if (!defined('CMS')) {
-    define('CMS', true); // make sure other files are accessed through this file.
-}
 if (!defined('BACKEND')) {
     define('BACKEND', true); // make sure other files are accessed through this file.
-}
-if (!defined('FRONTEND')) {
-    define('FRONTEND', true); // make sure other files are accessed through this file.
 }
 if (!defined('CRON')) {
     define('CRON', true);

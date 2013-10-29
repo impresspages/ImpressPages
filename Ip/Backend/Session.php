@@ -7,10 +7,6 @@
 
 namespace Ip\Backend;
 
-if (!defined('BACKEND')) {
-    exit;
-}
-
 class Session
 {
     function __construct()

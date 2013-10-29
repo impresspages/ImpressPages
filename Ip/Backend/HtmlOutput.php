@@ -8,10 +8,6 @@
 
 namespace Ip\Backend;
 
-if (!defined('BACKEND')) {
-    exit;
-}
-
 class HtmlOutput {
 
     var $html;

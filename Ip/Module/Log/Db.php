@@ -6,8 +6,6 @@
  */
 namespace Ip\Module\Log;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
 class Db {
 
 

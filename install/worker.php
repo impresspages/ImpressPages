@@ -126,7 +126,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
             
             define('BASE_DIR', get_parent_dir());
             define('BACKEND', 1);
-            define('CMS', 1);
             define('INCLUDE_DIR', 'ip_cms/includes/');
             define('MODULE_DIR', 'ip_cms/modules/');
             define('LIBRARY_DIR', 'ip_libs/');

@@ -6,8 +6,6 @@
  */
 namespace Modules\standard\seo;
 
-if (!defined('BACKEND')) exit;
-
 require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
 require_once(__DIR__.'/db.php');
 require_once(__DIR__.'/element_seo.php');

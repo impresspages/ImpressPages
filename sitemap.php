@@ -19,10 +19,6 @@ if (!defined('SITEMAP_MAX_LENGTH')) {
     define('SITEMAP_MAX_LENGTH', 50000);
 }
 
-
-if (!defined('CMS')) {
-    define('CMS', true); // make sure other files are accessed through this file.
-}
 if (!defined('BACKEND')) {
     define('BACKEND', true); // make sure other files are accessed through this file.
 }

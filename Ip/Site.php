@@ -973,8 +973,6 @@ class Site{
      *
      * namespace Modules\your_plugin_group\your_plugin_name;
      *
-     * if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-     *
      * class System{
      *   public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
      *       //your actions

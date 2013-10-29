@@ -6,9 +6,6 @@
  */
 namespace Modules\administrator\search;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-
 require_once('element.php');
 
 

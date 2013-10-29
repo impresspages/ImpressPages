@@ -7,8 +7,6 @@
 
 namespace Modules\standard\languages;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
 /** @private */
 require_once (__DIR__.'/db.php');
 

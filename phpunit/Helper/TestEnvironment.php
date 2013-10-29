@@ -15,12 +15,6 @@ class TestEnvironment {
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
 
-        if (!defined('CMS')) {
-            define('CMS', true); // make sure other files are accessed through this file.
-        }
-        if (!defined('FRONTEND')) {
-            define('FRONTEND', true); // make sure other files are accessed through this file.
-        }
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
         }

@@ -6,8 +6,6 @@
  */
 
 namespace Ip\Module\Email;
-if (!defined('BACKEND')) exit;
-
 
 require_once(__DIR__ . '/db.php');
 

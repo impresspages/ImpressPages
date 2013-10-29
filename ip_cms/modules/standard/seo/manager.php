@@ -6,7 +6,6 @@
  */
 namespace Modules\standard\seo;
 
-if (!defined('BACKEND')) exit;
 require_once(__DIR__.'/seo_area.php');
 
 
