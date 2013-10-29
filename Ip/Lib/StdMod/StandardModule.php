@@ -761,7 +761,7 @@ class StandardModule {
         if($rs) {
             if($this->treeDepth == $depth + 1) {
                 if($lock = mysql_fetch_assoc($rs)) {
-                    $answer = $this->generateUrlRoot().$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area);
+                    $answer = $this->generateUrlRoot().'&amp;'.$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area);
                 }
             }else {
                 while($answer == '' && $lock = mysql_fetch_assoc($rs)) {
@@ -840,7 +840,7 @@ class StandardModule {
                 if($subnodes != '')
                 $answer .= '<div '.$nodeClass.' style="padding-left:'.($depth*15).'px;"><div '.$leafClass.'><a>'.$area->nameElement->previewValue($lock, $area).'</a></div></div>';
                 else
-                $answer .= '<div '.$nodeClass.' onclick="document.location = \''.$this->generateUrlRoot().$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area).'\'" style="padding-left:'.($depth*15).'px;"><div '.$leafClass.'><a href="'.$this->generateUrlRoot().$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area).'">'.$area->nameElement->previewValue($lock, $area).'</a></div></div>';
+                $answer .= '<div '.$nodeClass.' onclick="document.location = \''.$this->generateUrlRoot().'&amp;'.$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area).'\'" style="padding-left:'.($depth*15).'px;"><div '.$leafClass.'><a href="'.$this->generateUrlRoot().'&amp;'.$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area).'">'.$area->nameElement->previewValue($lock, $area).'</a></div></div>';
 
                 $answer .= $subnodes;
             }
@@ -1763,9 +1763,11 @@ class StandardModule {
             }
         }
 
-        if($max_level == $this->level && isset($_GET['road_edit']))
-        $tmp_url .= '&amp;road_edit=1';
-        return $this->generateUrlRoot() . $tmp_url;
+        if($max_level == $this->level && isset($_GET['road_edit'])) {
+            $tmp_url .= '&amp;road_edit=1';
+        }
+
+        return $this->generateUrlRoot() . '&amp;' . $tmp_url;
     }
 
     function generateUrlSort($field, $direction) {

@@ -4,7 +4,7 @@
  *
  *
  */
-namespace Modules\developer\modules_configuration;
+namespace Ip\Module\Config;
 
 class Db{
 
