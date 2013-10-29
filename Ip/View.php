@@ -64,7 +64,7 @@ class View{
         } else {
             $this->languageId = $languageId;
         }
-        eval('$this->doctype = self::'.DEFAULT_DOCTYPE.';');
+        eval('$this->doctype = self::'. \Ip\Config::getRaw('DEFAULT_DOCTYPE').';');
     }
     
     /**

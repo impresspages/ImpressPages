@@ -191,7 +191,7 @@ class Model
         $configModel = new \Ip\Module\Config\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
         $configModel->changeConfigurationConstantValue('THEME_DIR', \Ip\Config::getRaw('THEME_DIR'), $theme->getPath());
-        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', DEFAULT_DOCTYPE, $theme->getDoctype());
+        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', \Ip\Config::getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
         $parametersFile = \Ip\Config::themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
