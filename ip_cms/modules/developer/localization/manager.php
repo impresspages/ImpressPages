@@ -79,13 +79,13 @@ class Manager{
                     else{
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php"));
-                        $file = $fileUpload->upload('config', TMP_SECURE_DIR);
+                        $file = $fileUpload->upload('config', \Ip\Config::temporarySecureFile(''));
 
 
                         //security check
                         if ($file == UPLOAD_ERR_OK && function_exists('token_get_all')){
                             $error = false;
-                            $content = file_get_contents(BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName);
+                            $content = file_get_contents(\Ip\Config::temporarySecureFile($fileUpload->fileName));
                             $tokens = token_get_all($content);
                             foreach($tokens as $key => $token)
                             {
@@ -107,7 +107,7 @@ class Manager{
                         //end security check
 
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = BASE_DIR.TMP_SECURE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = \Ip\Config::temporarySecureFile($fileUpload->fileName);
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
