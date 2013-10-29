@@ -323,10 +323,10 @@ class FieldCaptcha extends Field{
         $this->captcha_init = array(
 
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-      'tempfolder'     => BASE_DIR.TMP_FILE_DIR,
+      'tempfolder'     => \Ip\Config::temporaryFile(''),
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-      'TTF_folder'     => BASE_DIR.LIBRARY_DIR.'php/form/hn_captcha/fonts/',
+      'TTF_folder'     => \Ip\Config::libraryFile('php/form/hn_captcha/fonts/'),
 
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!

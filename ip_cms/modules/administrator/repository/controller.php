@@ -256,7 +256,7 @@ class Controller extends \Ip\Controller{
 
         $file = realpath($_POST['file']);
 
-        if (strpos($file, BASE_DIR.TMP_FILE_DIR) !== 0) {
+        if (strpos($file, \Ip\Config::temporaryFile('')) !== 0) {
             $answer = array(
                 'status' => 'error',
                 'error' => 'Trying to access file outside temporary dir'

@@ -17,14 +17,13 @@ class Functions{
     {
         $fileName = realpath(BASE_DIR.$fileName);
         $publicDirs = array(
-            FILE_DIR,
-            TMP_FILE_DIR,
-            FILE_REPOSITORY_DIR,
+            BASE_DIR . FILE_DIR,
+            \Ip\Config::temporaryFile(''),
+            BASE_DIR . FILE_REPOSITORY_DIR,
         );
         foreach ($publicDirs as $publicDir) {
             //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
-            $tmpPath = realpath(BASE_DIR.$publicDir);
-            if (strpos($fileName, $tmpPath) === 0) {
+            if (strpos($fileName, $publicDir) === 0) {
                 return true;
             }
         }
