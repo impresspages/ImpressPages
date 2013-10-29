@@ -92,10 +92,6 @@ function __impressPagesAutoloaderTry($fileName) {
         require_once \Ip\Config::oldModuleFile($fileName);
         return true;
     }
-    if (file_exists(BASE_DIR.PLUGIN_DIR.$fileName)) {
-        require_once(BASE_DIR.PLUGIN_DIR.$fileName);
-        return true;
-    }
 }
 
 spl_autoload_register('__impressPagesAutoloader');

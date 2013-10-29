@@ -261,9 +261,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
             'value' => 'ip_cms/modules/',
             'comment' => 'system modules directory',
         ),
-        'PLUGIN_DIR' => array(
-            'value' => 'ip_plugins/',
-            'comment' => 'plugins directory',
+        'pluginDir' => array(
+            'value' => './Plugin',
+            'comment' => 'Plugins directory',
         ),
         'THEME_DIR' => array(
             'value' => 'ip_themes/',

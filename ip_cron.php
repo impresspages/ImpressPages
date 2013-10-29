@@ -105,7 +105,8 @@ class Cron{
                 if($lock['core']){
                     $file = MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
                 } else {
-                    $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+                    // TODOX fix
+                    // $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
                 }
                 if(file_exists($file)){
                     require($file);
