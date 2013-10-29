@@ -81,7 +81,6 @@ class ConfigurationParser
             'INCLUDE_DIR',
             'LIBRARY_DIR',
             'MODULE_DIR',
-            'CONFIG_DIR',
             'PLUGIN_DIR',
             'THEME_DIR',
             'BACKEND_MAIN_FILE',
