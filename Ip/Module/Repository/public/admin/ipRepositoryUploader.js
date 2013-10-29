@@ -29,9 +29,7 @@
                         chunk_size : '1mb',
                         url : ip.baseUrl, //website root (available globally in ImpressPages environment)
                         multipart_params : {
-                            g : 'administrator',
-                            m : 'repository',
-                            a : 'upload',
+                            sa : 'Repository.upload',
                             securityToken : ip.securityToken
                         },
 
@@ -144,9 +142,7 @@
                 var data = $this.data('ipRepositoryUploader');
 
                 var data = Object();
-                data.g = 'administrator';
-                data.m = 'repository';
-                data.a = 'storeNewFiles';
+                data.aa = 'Repository.storeNewFiles';
                 data.files = files;
                 data.securityToken = ip.securityToken;
 

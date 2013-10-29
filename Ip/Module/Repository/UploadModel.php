@@ -4,7 +4,7 @@
 
      *
      */
-namespace Modules\administrator\repository;
+namespace Ip\Module\Repository;
 
 
 /**
@@ -56,9 +56,9 @@ class UploadModel{
         }
 
         if ($secureFolder) {
-            $targetDir = TMP_SECURE_DIR;
+            $targetDir = \Ip\Config::getRaw('TMP_SECURE_DIR');
         } else {
-            $targetDir = \Ip\Config::temporaryFile('');
+            $targetDir = \Ip\Config::getRaw('TMP_FILE_DIR');
         }
 
         // Get parameters

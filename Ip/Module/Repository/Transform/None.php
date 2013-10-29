@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\administrator\repository\Transform;
+namespace Ip\Module\Repository\Transform;
 
 class None extends Base
 {

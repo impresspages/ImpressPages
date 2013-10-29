@@ -5,9 +5,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $this = $(this);
         var postData = {};
-        postData.g = 'standard';
-        postData.m = 'design';
-        postData.aa = 'installPlugin';
+        postData.aa = 'Design.installPlugin';
         postData.securityToken = ip.securityToken;
         postData.params = {
             'pluginGroup' : $this.data('plugingroup'),

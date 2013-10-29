@@ -45,9 +45,7 @@
                     }); 
                     
                     var data = Object();
-                    data.g = 'developer';
-                    data.m = 'upload';
-                    data.a = 'getFileContainerHtml';
+                    data.a = 'Upload.getFileContainerHtml';
                     
                     $.ajax({
                         type : 'GET',
@@ -88,9 +86,7 @@
                     max_file_size : data.maxFileSize,
                     url : ip.baseUrl, //website root (available globaly in ImpressPages environment)
                     multipart_params : {
-                        g : 'developer',
-                        m : 'upload',
-                        a : 'upload',
+                        aa : 'Upload.upload',
                         securityToken : ip.securityToken
                     },
                     

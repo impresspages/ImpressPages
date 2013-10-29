@@ -4,7 +4,7 @@
 
  *
  */
-namespace Modules\administrator\repository\Event;
+namespace Ip\Module\Repository\Event;
 if (!defined('CMS')) exit;
 
 

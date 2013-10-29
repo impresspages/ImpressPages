@@ -4,9 +4,7 @@
 
  *
  */
-namespace Modules\administrator\repository;
-if (!defined('CMS')) exit;
-
+namespace Ip\Module\Repository;
 
 
 /**
@@ -126,7 +124,7 @@ class BrowserModel{
             }
         }
 
-        return MODULE_DIR.'administrator/repository/public/admin/icons/general.png';
+        return \Ip\config::getCoreModuleUrl('Repository/public/admin/icons/general.png');
     }
 
     

@@ -4,20 +4,12 @@
 
  *
  */
-namespace Modules\developer\upload;
+namespace Ip\Module\Upload;
 
 
 
-class Controller extends \Ip\Controller{
+class AdminController extends \Ip\Controller{
 
-
-    public function allowAction($action) {
-        if (\Ip\Backend::loggedIn()) {
-            return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
-        } else {
-            return false;
-        }
-    }
 
     public function getImageContainerHtml() {
         global $site;
@@ -148,7 +140,7 @@ class Controller extends \Ip\Controller{
             "jsonrpc" => "2.0",
             "result" => null, 
             "id" => "id",
-            "fileName" => \Ip\Config::getCore('TMP_FILE_DIR') . $fileName
+            "fileName" => \Ip\Config::temporaryFile($fileName)
         );
         $answer =  json_encode($answerArray);
         $site->setOutput($answer);

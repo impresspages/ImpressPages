@@ -5,22 +5,21 @@
  *
  */
 
-namespace Modules\administrator\repository;
+namespace Ip\Module\Repository;
 
 
 
 /**
  * IpCmsException class
  */
-class UploadException extends \Exception
+class TransformException extends \Exception
 {
     //error codes
-    const NO_PERMISSION = 1;
-    const FORBIDDEN_FILE_EXTENSION = 2;
-    const INPUT_STREAM_ERROR = 3;
-    const OUTPUT_STREAM_ERROR = 4;
-    const FAILED_TO_MOVE_UPLOADED_FILE = 5;
-    const SESSION_NOT_FOUND = 6;
+    const UNKNOWN_MIME_TYPE  = 1;
+    const TOO_BIG_IMAGE = 2;
+    const WRITE_PERMISSION = 3;
+    const MISSING_FILE = 4;
+
 
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null) {

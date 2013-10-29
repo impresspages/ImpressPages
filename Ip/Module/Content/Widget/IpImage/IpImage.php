@@ -32,11 +32,11 @@ class IpImage extends \Ip\Module\Content\Widget{
         if (isset($postData['newImage']) && file_exists(BASE_DIR.$postData['newImage']) && is_file(BASE_DIR.$postData['newImage'])) {
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
+                \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
             }
             
             //new original image
-            \Modules\administrator\repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
             $newData['imageOriginal'] = $postData['newImage'];
             
         }
@@ -70,7 +70,7 @@ class IpImage extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
     }
     
@@ -89,7 +89,7 @@ class IpImage extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
+            \Ip\Module\Repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
         }
     }
 
@@ -98,10 +98,10 @@ class IpImage extends \Ip\Module\Content\Widget{
     public function previewHtml($instanceId, $data, $layout) {
 
         if (isset($data['imageOriginal'])) {
-            $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+            $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
             $desiredName = isset($data['title']) ? $data['title'] : '';
 
-            $transformBig = new \Modules\administrator\repository\Transform\None();
+            $transformBig = new \Ip\Module\Repository\Transform\None();
             $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
             if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['maxWidth']) && isset($data['scale'])) {
@@ -111,7 +111,7 @@ class IpImage extends \Ip\Module\Content\Widget{
                     $requiredHeight = round($requiredWidth / $ratio);
 
 
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(
                         $data['cropX1'],
                         $data['cropY1'],
                         $data['cropX2'],

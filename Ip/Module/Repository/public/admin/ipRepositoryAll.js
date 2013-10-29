@@ -297,9 +297,7 @@
                 });
 
                 var data = Object();
-                data.g = 'administrator';
-                data.m = 'repository';
-                data.a = 'deleteFiles';
+                data.aa = 'Repository.deleteFiles';
                 data.files = files;
                 data.securityToken = ip.securityToken;
 

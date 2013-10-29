@@ -148,9 +148,7 @@
                     
                     
                     var data = Object();
-                    data.g = 'developer';
-                    data.m = 'upload';
-                    data.a = 'getImageContainerHtml';
+                    data.aa = 'Upload.getImageContainerHtml';
                     
                     $.ajax({
                         type : 'GET',
