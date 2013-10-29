@@ -23,7 +23,7 @@ class System{
             $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/repository/public/admin/ipRepositoryUploader.js'));
             $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/repository/public/admin/ipRepositoryAll.js'));
             $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/repository/public/admin/ipRepositoryBuy.js'));
-            $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/system/public/market.js'));
+            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/market.js'));
             $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
