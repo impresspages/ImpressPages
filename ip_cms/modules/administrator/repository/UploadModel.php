@@ -58,7 +58,7 @@ class UploadModel{
         if ($secureFolder) {
             $targetDir = TMP_SECURE_DIR;
         } else {
-            $targetDir = TMP_FILE_DIR;
+            $targetDir = \Ip\Config::temporaryFile('');
         }
 
         // Get parameters
@@ -177,7 +177,7 @@ class UploadModel{
         if ($secure) {
             $targetDir = TMP_SECURE_DIR;
         } else {
-            $targetDir = TMP_FILE_DIR;
+            $targetDir = \Ip\Config::temporaryFile('');
         }
         $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
         return $isUploaded;
