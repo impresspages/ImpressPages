@@ -105,7 +105,7 @@ class AdminController{
 
 
         $std = new \Ip\Lib\StdMod\StandardModule($area0, 'Email.index');
-        $site->setOutput($std->manage());
+        return $std->manage();
 
     }
 
