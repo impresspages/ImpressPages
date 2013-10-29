@@ -96,6 +96,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['FILE_DIR'] . $path;
     }
 
+    public static function repositoryFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['FILE_REPOSITORY_DIR'] . $path;
+    }
+
     public static function baseUrl($path, $query = array())
     {
         $url = static::$rawConfig['BASE_URL'] . $path;

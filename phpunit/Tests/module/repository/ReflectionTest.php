@@ -20,8 +20,8 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
     {
         $repository = \Ip\Module\Repository\Model::instance();
 
-        $file = FILE_REPOSITORY_DIR.'impresspages.png';
-        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', BASE_DIR.FILE_REPOSITORY_DIR.'impresspages.png');
+        $file = \Ip\Config::getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
+        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', \Ip\Config::repositoryFile('impresspages.png'));
 
         //Bind file to module (twice)
         $repository->bindFile($file, 'modulexxx', 1);

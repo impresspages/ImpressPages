@@ -53,7 +53,7 @@ class BrowserModel{
     {
         $answer = array();
 
-        $iterator = new \DirectoryIterator(BASE_DIR.FILE_REPOSITORY_DIR);
+        $iterator = new \DirectoryIterator(\Ip\Config::repositoryFile(''));
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
@@ -75,7 +75,7 @@ class BrowserModel{
     }
 
     /**
-     * @param $fileName file within FILE_REPOSITORY_DIR
+     * @param $fileName file within file repository directory
      */
     public function getFile($fileName)
     {
@@ -84,7 +84,7 @@ class BrowserModel{
 
     private function getFileData($fileName)
     {
-        $file = BASE_DIR.FILE_REPOSITORY_DIR.$fileName;
+        $file = \Ip\Config::repositoryFile($fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new Exception("File doesn't exist ".$file);
         }
@@ -92,12 +92,13 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
+        $relativeRepositoryDir = \Ip\Config::getRaw('FILE_REPOSITORY_DIR');
         $data = array(
             'fileName' => $fileName,
-            'dir' => FILE_REPOSITORY_DIR,
-            'file' => FILE_REPOSITORY_DIR.$fileName,
+            'dir' => $relativeRepositoryDir,
+            'file' => $relativeRepositoryDir . $fileName,
             'ext' => $ext,
-            'preview' => $this->createPreview(FILE_REPOSITORY_DIR.$fileName),
+            'preview' => $this->createPreview($relativeRepositoryDir . $fileName),
             'modified' => filemtime($file)
         );
         return $data;

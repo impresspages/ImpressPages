@@ -19,7 +19,7 @@ class Functions{
         $publicDirs = array(
             \Ip\Config::fileDirFile(''),
             \Ip\Config::temporaryFile(''),
-            BASE_DIR . FILE_REPOSITORY_DIR,
+            \Ip\Config::repositoryFile(''),
         );
         foreach ($publicDirs as $publicDir) {
             //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
