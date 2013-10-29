@@ -47,7 +47,7 @@ class Module{
     public static function logAndReport($module, $name, $valueStr = null , $valueInt = null, $valueFloat = null)
     {
         self::log($module, $name, $valueStr, $valueInt, $valueFloat);
-        if (defined('ERRORS_SEND') && ERRORS_SEND != '') {
+        if (\Ip\Config::getRaw('ERRORS_SEND')) {
             $queue = new \Ip\Module\Email\Module();
             $message = 'SERVER ERROR<br/><br/>';
             $message .= $module.'<br/>';
@@ -55,7 +55,7 @@ class Module{
             $message .= $valueStr.'<br/>';
             $message .= $valueInt.'<br/>';
             $message .= $valueFloat.'<br/>';
-            $queue->addEmail(ERRORS_SEND, '', ERRORS_SEND, '', BASE_URL." CRITICAL ERROR", $message, true, true);
+            $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', BASE_URL." CRITICAL ERROR", $message, true, true);
             $queue->send();
         }
 
