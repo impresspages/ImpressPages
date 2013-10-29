@@ -23,9 +23,7 @@
                     $this.data('ipRepositoryAll', {});
 
                     var data = Object();
-                    data.g = 'administrator';
-                    data.m = 'repository';
-                    data.a = 'getAll';
+                    data.aa = 'Repository.getAll';
                     data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
 
