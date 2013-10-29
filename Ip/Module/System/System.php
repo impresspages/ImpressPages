@@ -20,7 +20,7 @@ class System{
         global $dispatcher;
 
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::oldModuleUrl('administrator/system/public/system.js'), 0);
+            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/system.js'), 0);
         }
 
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');
@@ -81,7 +81,7 @@ class System{
             'title' => $parametersMod->getVAlue('standard', 'configuration', 'error_404', 'error_title'),
             'text' => self::error404Message()
         );
-        $content = \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/error404.php'), $data)->render();
+        $content = \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/error404.php'), $data)->render();
         $event->setValue('content', $content );
         $event->addProcessed();
         

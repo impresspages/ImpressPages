@@ -6,7 +6,7 @@ class Model{
 
     public static function getModules()
     {
-        return array("Content", "Pages", "Admin", "Design", "Plugins", "System", "Log", "Email", "User", "Config", "Breadcrumb");
+        return array("Content", "Pages", "Admin", "Design", "Plugins", "System", "Log", "Email", "User", "Config", "Breadcrumb", "Repository", "Upload");
     }
 
     public static function activatePlugin($pluginName)

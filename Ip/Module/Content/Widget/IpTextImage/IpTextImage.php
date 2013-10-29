@@ -28,10 +28,10 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                \Modules\administrator\repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
+                \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
             }
             //new original image
-            \Modules\administrator\repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
             $newData['imageOriginal'] = $postData['newImage'];
             
         }
@@ -59,14 +59,14 @@ class IpTextImage extends \Ip\Module\Content\Widget{
         global $parametersMod;
 
         if (isset($data['imageOriginal'])) {
-            $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
-            $transformBig = new \Modules\administrator\repository\Transform\None();
+            $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
+            $transformBig = new \Ip\Module\Repository\Transform\None();
 
             $desiredName = isset($data['title']) ? $data['title'] : '';
 
             try {
                 $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
-            } catch (\Modules\administrator\repository\Exception $e) {
+            } catch (\Ip\Module\Repository\Exception $e) {
                 //do nothing
             }
 
@@ -78,7 +78,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
                     $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'width'));
                     $requiredHeight = round($requiredWidth / $ratio);
 
-                    $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(
+                    $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(
                         $data['cropX1'],
                         $data['cropY1'],
                         $data['cropX2'],
@@ -88,7 +88,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
                     );
                     try {
                         $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
-                    } catch (\Modules\administrator\repository\Exception $e) {
+                    } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }
                 }
@@ -110,7 +110,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Modules\administrator\repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
         }
     }
     
@@ -128,7 +128,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Modules\administrator\repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
+            \Ip\Module\Repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
         }
     }
 

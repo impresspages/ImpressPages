@@ -762,7 +762,7 @@ class Site{
                     $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
                 }
                 if (!class_exists($controllerClass)) {
-                    throw new \Ip\CoreException('Requested controller doesn\'t exist');
+                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
                 }
                 $controller = new $controllerClass();
                 $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
@@ -1234,7 +1234,7 @@ class Site{
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/head.php'), $data)->render();
+        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -1263,7 +1263,7 @@ class Site{
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/javascript.php'), $data)->render();
+        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/javascript.php'), $data)->render();
     }
 
     public function setBlockContent($block, $content)

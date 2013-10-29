@@ -42,9 +42,7 @@
             $this.css('height', '');
 
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'getManagementPopupImage';
+            data.aa = 'InlineManagement.getManagementPopupImage';
             data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementImage').key;
 
@@ -164,9 +162,7 @@
             }
 
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'removeImage';
+            data.aa = 'InlineManagement.removeImage';
 
             data.key = $this.data('ipInlineManagementImage').key;
             data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;
@@ -235,9 +231,7 @@
             var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
-            data.g = 'developer';
-            data.m = 'inline_management';
-            data.a = 'saveImage';
+            data.aa = 'InlineManagement.saveImage';
             data.securityToken = ip.securityToken;
 
             data.key = $this.data('ipInlineManagementImage').key;

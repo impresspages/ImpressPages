@@ -58,7 +58,7 @@ class Controller{
         $variables = array(
             'content' => $content
         );
-        $view = \Ip\View::create(\Ip\Config::oldModuleFile('standard/configuration/view/adminLayout.php'), $variables);
+        $view = \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/adminLayout.php'), $variables);
         return $view;
     }
 

@@ -16,6 +16,11 @@ class Config
         return BASE_URL . 'Ip/Module/' . $path;
     }
 
+    public static function coreModuleFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . 'Ip/Module/' . $path;
+    }
+
     public static function getRaw($name)
     {
         return array_key_exists($name, static::$rawConfig) ? static::$rawConfig[$name] : null;

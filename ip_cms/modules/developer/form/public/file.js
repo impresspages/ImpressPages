@@ -42,9 +42,7 @@
                         chunk_size : '1mb',
                         url : ip.baseUrl, //website root (available globally in ImpressPages environment)
                         multipart_params : {
-                            g : 'administrator',
-                            m : 'repository',
-                            a : 'upload',
+                            aa : 'Repository.upload',
                             secureFolder : 1,
                             securityToken : ip.securityToken
                         },

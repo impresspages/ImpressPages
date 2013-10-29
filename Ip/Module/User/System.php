@@ -17,7 +17,7 @@ class System {
 
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
-        $site->addJavascript(\Ip\Config::oldModuleUrl('community/user/assets/ipUser.js'));
+        $site->addJavascript(\Ip\Config::getCoreModuleUrl('User/assets/ipUser.js'));
         
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateContent');
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateLogin');

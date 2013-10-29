@@ -37,7 +37,7 @@ body {
 }
 .ipModuleDesign .ipmThemeMarket {
     background-color: #d5d5d5;
-    background-image: url(../../../administrator/repository/public/admin/bg_upload.png);
+    background-image: url(../../Repository/public/admin/bg_upload.png);
     color: #000;
 }
 .ipModuleDesign .ipmThemeMarket .ipmButtonWrapper {

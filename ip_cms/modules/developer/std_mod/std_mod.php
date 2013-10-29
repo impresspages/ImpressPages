@@ -901,7 +901,7 @@ class StandardModule {
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
-    <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>    
+    <script src="' . BASE_URL . '?pa=Config.tinymceConfig"></script>
 </head>
 	 
 <body> <!-- display loading until page is loaded-->
