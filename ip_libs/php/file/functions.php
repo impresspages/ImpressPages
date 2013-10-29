@@ -125,5 +125,17 @@ class Functions{
         }
         return $mtype;
     }
+
+    public static function copyTemporaryFile($relativePath, $destinationDir)
+    {
+        $newBasename = \Library\Php\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
+
+        if (!copy(\Ip\Config::temporaryFile($relativePath), $destinationDir . $newBasename)) {
+            trigger_error("Can't copy file from " . htmlspecialchars(\Ip\Config::getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
+        }
+
+        return $newBasename;
+    }
+
 }
 
