@@ -13,7 +13,7 @@ class Config
 
     public static function getCoreModuleUrl($path = null)
     {
-        return BASE_URL . 'Ip/Module/' . $path;
+        return static::$rawConfig['BASE_URL'] . 'Ip/Module/' . $path;
     }
 
     public static function coreModuleFile($path)
@@ -106,11 +106,11 @@ class Config
         return !empty(static::$rawConfig['DEVELOPMENT_ENVIRONMENT']);
     }
 
-    public static function baseUrl($path, $query = array())
+    public static function baseUrl($path, $query = array(), $querySeparator = '&')
     {
         $url = static::$rawConfig['BASE_URL'] . $path;
         if ($query) {
-            $url .= http_build_query($query);
+            $url .= http_build_query($query, null, $querySeparator);
         }
 
         return $url;

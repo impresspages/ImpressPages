@@ -11,7 +11,7 @@ class Application {
     public static function init()
     {
         if (!defined('IP_VERSION')) {
-            define('IP_VERSION', '3.6');
+            define('IP_VERSION', '3.7');
         }
 
         require_once \Ip\Config::includePath('parameters.php');
