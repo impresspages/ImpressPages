@@ -64,8 +64,8 @@ class ReflectionModel
         $reflections = $this->getReflections($file);
         $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
-            if (file_exists(BASE_DIR.$reflection['reflection'])) {
-                unlink(BASE_DIR.$reflection['reflection']);
+            if (file_exists(\Ip\Config::baseFile($reflection['reflection']))) {
+                unlink(\Ip\Config::baseFile($reflection['reflection']));
             }
         }
 

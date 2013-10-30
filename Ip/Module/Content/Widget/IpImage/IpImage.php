@@ -29,7 +29,7 @@ class IpImage extends \Ip\Module\Content\Widget{
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
-        if (isset($postData['newImage']) && file_exists(BASE_DIR.$postData['newImage']) && is_file(BASE_DIR.$postData['newImage'])) {
+        if (isset($postData['newImage']) && is_file(\Ip\Config::baseFile($postData['newImage']))) {
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);

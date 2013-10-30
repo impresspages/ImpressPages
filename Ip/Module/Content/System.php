@@ -86,7 +86,7 @@ class System{
 
             
             //register widget if widget controller exists
-            $widgetPhpFile = BASE_DIR.$widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php';
+            $widgetPhpFile = \Ip\Config::baseFile($widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php');
             if (file_exists($widgetPhpFile) && is_file($widgetPhpFile)) {
                 require_once($widgetPhpFile);
                 if ($widgetDirRecord['core']) {
@@ -159,10 +159,10 @@ class System{
         } else {
             // TODOX Plugin dir
         }
-        if (! file_exists(BASE_DIR.$widgetDir) || ! is_dir(BASE_DIR.$widgetDir)) {
+        if (!is_dir(\Ip\Config::baseFile($widgetDir))) {
             return array();
         }
-        $widgetFolders = scandir(BASE_DIR.$widgetDir);
+        $widgetFolders = scandir(\Ip\Config::baseFile($widgetDir));
         if ($widgetFolders === false) {
             return array();
         }
@@ -170,7 +170,7 @@ class System{
         //foreach all widget folders
         foreach ($widgetFolders as $widgetFolder) {
             //each directory is a widget
-            if (!is_dir(BASE_DIR.$widgetDir.$widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..'){
+            if (!is_dir(\Ip\Config::baseFile($widgetDir.$widgetFolder)) || $widgetFolder == '.' || $widgetFolder == '..'){
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
@@ -190,16 +190,16 @@ class System{
     public static function includeResources($resourcesFolder, $overrideFolder = null){
         global $site;
 
-        if (file_exists(BASE_DIR.$resourcesFolder) && is_dir(BASE_DIR.$resourcesFolder)) {
-            $files = scandir(BASE_DIR.$resourcesFolder);
+        if (is_dir(\Ip\Config::baseFile($resourcesFolder))) {
+            $files = scandir(\Ip\Config::baseFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
             
             
             foreach ($files as $fileKey => $file) {
-                if (is_dir(BASE_DIR.$resourcesFolder.$file) && $file != '.' && $file != '..'){
-                    self::includeResources(BASE_DIR.$resourcesFolder.$file, BASE_DIR.$overrideFolder.$file);
+                if (is_dir(\Ip\Config::baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
+                    self::includeResources(\Ip\Config::baseFile($resourcesFolder.$file), \Ip\Config::baseFile($overrideFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){

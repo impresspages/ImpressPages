@@ -15,7 +15,7 @@ if (!defined('IP_CONFIG_FILE')) {
     /**
      * @internal
      */
-    define('IP_CONFIG_FILE', BASE_DIR.'ip_config.php'); //where ip_config file is located
+    define('IP_CONFIG_FILE', \Ip\Config::baseFile('ip_config.php')); //where ip_config file is located
 }
 
 /**

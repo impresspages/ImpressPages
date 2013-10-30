@@ -19,8 +19,8 @@ function __impressPagesAutoloader($name) {
         $fileName = substr($fileName, 1);
     }
 
-    if (file_exists(BASE_DIR.$fileName)) {
-        require_once(BASE_DIR.$fileName);
+    if (file_exists(\Ip\Config::baseFile($fileName))) {
+        require_once \Ip\Config::baseFile($fileName);
         return true;
     }
 
@@ -69,9 +69,9 @@ function __impressPagesAutoloader($name) {
 
     } elseif ($path[0] == 'Plugin') {
 
-        if (file_exists(BASE_DIR . $fileName)) {
+        if (file_exists(\Ip\Config::baseFile($fileName))) {
 
-            require_once(BASE_DIR . $fileName);
+            require_once \Ip\Config::baseFile($fileName);
             return true;
         }
     }

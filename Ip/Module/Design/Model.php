@@ -39,7 +39,7 @@ class Model
     public function getThemePlugins()
     {
         //TODOX refactor to new plugins
-        if (!is_dir(BASE_DIR . $this->getThemePluginDir())) {
+        if (!is_dir(\Ip\Config::baseFile($this->getThemePluginDir()))) {
             return array();
         }
 
@@ -47,7 +47,7 @@ class Model
 
         $groups = scandir($this->getThemePluginDir());
         foreach ($groups as $group) {
-            $groupDir = BASE_DIR . $this->getThemePluginDir() . $group ;
+            $groupDir = \Ip\Config::baseFile($this->getThemePluginDir() . $group);
             if (is_dir($groupDir) && $group[0] != '.') {//don't add slash before is_dir check as it throws open basedir error
                 $groupDir .= '/';
                 $plugins = scandir($groupDir);
@@ -71,8 +71,8 @@ class Model
     {
         //refactor to new plugins
         // TODOX Plugin dir
-        $toDir = BASE_DIR . PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/';
-        $fromDir = BASE_DIR . $this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/';
+        $toDir = \Ip\Config::baseFile(PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/');
+        $fromDir = \Ip\Config::baseFile($this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/');
 
         if (is_dir($toDir)) {
             throw new \Exception('This plugin has been already installed');

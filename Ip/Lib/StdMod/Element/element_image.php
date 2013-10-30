@@ -69,9 +69,9 @@ class ElementImage extends Element{ //data element in area
 
     $sizing = '';
 
-    if(file_exists(BASE_DIR.$this->copies[0]['destDir'].$value) && is_file(BASE_DIR.$this->copies[0]['destDir'].$value))
+    if(file_exists(\Ip\Config::baseFile($this->copies[0]['destDir'].$value)) && is_file(\Ip\Config::baseFile($this->copies[0]['destDir'].$value)))
     {
-        $imageSize = getimagesize(BASE_DIR.$this->copies[0]['destDir'].$value);
+        $imageSize = getimagesize(\Ip\Config::baseFile($this->copies[0]['destDir'].$value));
 
         if( $imageSize[0] >= 200 && $imageSize[0]>=$imageSize[1] ) // width more than 200 and image is horizontal
         {

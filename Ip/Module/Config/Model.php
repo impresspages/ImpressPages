@@ -43,7 +43,7 @@ class Model{
     
     public function getConfigFileName() {
         if (! defined('CONFIGURATION_FILE_DIR')) {
-            return BASE_DIR.self::CONFIG_FILE_NAME;
+            return \Ip\Config::baseFile(self::CONFIG_FILE_NAME);
         } else {
             return CONFIGURATION_FILE_DIR.self::CONFIG_FILE_NAME;
         }
