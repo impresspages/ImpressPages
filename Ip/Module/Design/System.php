@@ -23,8 +23,8 @@ class System{
 
         $lessCompiler = LessCompiler::instance();
         if (\Ip\Config::isDevelopmentEnvironment()) {
-            if ($lessCompiler->shouldRebuild(THEME)) {
-                $lessCompiler->rebuild(THEME);
+            if ($lessCompiler->shouldRebuild(\Ip\Config::theme())) {
+                $lessCompiler->rebuild(\Ip\Config::theme());
             }
         }
 
@@ -61,7 +61,7 @@ class System{
         }
 
         $model = Model::instance();
-        $theme = $model->getTheme(THEME);
+        $theme = $model->getTheme(\Ip\Config::theme());
         if (!$theme) {
             throw new \Ip\CoreException("Theme doesn't exist");
         }
@@ -82,7 +82,7 @@ class System{
     {
         $configModel = ConfigModel::instance();
 
-        $form = $configModel->getThemeConfigForm(THEME);
+        $form = $configModel->getThemeConfigForm(\Ip\Config::theme());
         $form->removeClass('ipModuleForm');
         $variables = array(
             'form' => $form
@@ -94,7 +94,7 @@ class System{
     public function clearCacheEvent(\Ip\Event\ClearCache $e)
     {
         $lessCompiler = LessCompiler::instance();
-        $lessCompiler->rebuild(THEME);
+        $lessCompiler->rebuild(\Ip\Config::theme());
     }
 
 }

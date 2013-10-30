@@ -870,7 +870,7 @@ class StandardModule {
             libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
             themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
             moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
-            theme : '. json_encode(THEME) .',
+            theme : '. json_encode(\\\\Ip\\\\Config::theme()) .',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
             revisionId : '.json_encode(null).',

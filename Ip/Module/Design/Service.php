@@ -62,8 +62,11 @@ class Service
      * @param string $themeName
      * @return string
      */
-    public function getThemeOption($name, $default = null, $themeName = THEME)
+    public function getThemeOption($name, $default = null, $themeName = null)
     {
+        if (!$themeName) {
+            $themeName = \Ip\Config::theme();
+        }
         $configModel = ConfigModel::instance();
         $value = $configModel->getConfigValue($themeName, $name, $default);
         return $value;
