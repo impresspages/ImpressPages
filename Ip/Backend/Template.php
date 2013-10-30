@@ -18,7 +18,7 @@ class Template {
             <head>
                 <meta charset="UTF-8">
                 <title>ImpressPages</title>
-                <link rel="stylesheet" href="' . \Ip\Config::getCoreModuleUrl('Admin/assets/backend/login/login.css') . '">
+                <link rel="stylesheet" href="' . \Ip\Config::coreModuleUrl('Admin/assets/backend/login/login.css') . '">
                 <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
             </head>
             <body>
@@ -36,7 +36,7 @@ class Template {
 
         $answer = '';
         $answer .= '
-            <a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="' . \Ip\Config::getCoreModuleUrl('Admin/assets/backend/login/logo.png') . '"></a>
+            <a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="' . \Ip\Config::coreModuleUrl('Admin/assets/backend/login/logo.png') . '"></a>
             <div class="verticalAlign"></div>
             <div class="login">
                 <div class="loginTitle">

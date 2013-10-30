@@ -125,7 +125,7 @@ class BrowserModel{
             }
         }
 
-        return \Ip\config::getCoreModuleUrl('Repository/public/admin/icons/general.png');
+        return \Ip\config::coreModuleUrl('Repository/public/admin/icons/general.png');
     }
 
     

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="<?php echo \Ip\Config::getCoreModuleUrl('Admin/assets/backend/login/login.css') ?>">
+    <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Admin/assets/backend/login/login.css') ?>">
     <link rel="stylesheet" href="<?php echo \Ip\Config::libraryUrl('css/bootstrap/bootstrap.css') ?>">
     <link rel="shortcut icon" href="<?php echo BASE_URL ?>'favicon.ico">
 </head>
 <body>
 
 
-<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo \Ip\Config::getCoreModuleUrl('Admin/assets/backend/login/logo.png') ?>"></a>
+<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo \Ip\Config::coreModuleUrl('Admin/assets/backend/login/logo.png') ?>"></a>
 <div class="verticalAlign"></div>
 <div class="login">
     <div class="loginTitle">

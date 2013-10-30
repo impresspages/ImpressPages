@@ -9,7 +9,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(\Ip\Config::getCoreModuleUrl('Config/public/admin.css'));
+    $site->addCss(\Ip\Config::coreModuleUrl('Config/public/admin.css'));
     echo $site->generateHead();
     ?>
 </head>
