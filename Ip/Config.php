@@ -126,65 +126,6 @@ class Config
         return static::$rawConfig['THEME'];
     }
 
-//    public static function fileDir()
-//    {
-//        return static::$config['fileDir'];
-//    }
-//
-//    public static function homeUrl()
-//    {
-//        return static::$config['homeUrl'];
-//    }
-//
-//    /**
-//     * @environment
-//     */
-//    public static function isFrontend()
-//    {
-//
-//    }
-//
-//    /**
-//     * @environment
-//     */
-//    public static function isBackend()
-//    {
-//
-//    }
-//
-//    /**
-//     * @environment
-//     */
-//    public static function isDevelopmentEnvironment()
-//    {
-//
-//    }
-//
-//    public static function shouldShowErrors()
-//    {
-//
-//    }
-//
-//    public static function errorReportingEmail()
-//    {
-//
-//    }
-//
-//    public static function includeDir()
-//    {
-//
-//    }
-//
-//    public static function libraryDir()
-//    {
-//
-//    }
-//
-//    public static function moduleDir()
-//    {
-//
-//    }
-
     public static function init($config)
     {
         self::$rawConfig = $config;
