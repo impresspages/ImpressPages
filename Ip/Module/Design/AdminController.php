@@ -39,7 +39,7 @@ class AdminController extends \Ip\Controller
         $themes = $model->getAvailableThemes();
 
         $model = Model::instance();
-        $theme = $model->getTheme(THEME);
+        $theme = $model->getTheme(\Ip\Config::theme());
         $options = $theme->getOptionsAsArray();
 
         if (!defined('BACKEND')) {
@@ -71,7 +71,7 @@ class AdminController extends \Ip\Controller
 
         $data = array(
             'pluginNote' => $pluginNote,
-            'theme' => $model->getTheme(THEME),
+            'theme' => $model->getTheme(\Ip\Config::theme()),
             'plugins' => $notInstalledPlugins,
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
@@ -192,7 +192,7 @@ class AdminController extends \Ip\Controller
 
         $configModel = ConfigModel::instance();
 
-        $form = $configModel->getThemeConfigForm(THEME);
+        $form = $configModel->getThemeConfigForm(\Ip\Config::theme());
 
         $post = \Ip\Request::getPost();
 
@@ -206,7 +206,7 @@ class AdminController extends \Ip\Controller
         } else {
             $configModel = ConfigModel::instance();
             $model = Model::instance();
-            $theme = $model->getTheme(THEME);
+            $theme = $model->getTheme(\Ip\Config::theme());
             if (!$theme) {
                 throw new \Ip\CoreException("Theme doesn't exist");
             }
@@ -230,11 +230,11 @@ class AdminController extends \Ip\Controller
                     default:
                         $value = $field->getValueAsString($post, $option['name']);
                 }
-                $configModel->setConfigValue(THEME, $option['name'], $value);
+                $configModel->setConfigValue(\Ip\Config::theme(), $option['name'], $value);
             }
 
             $lessCompiler = LessCompiler::instance();
-            $lessCompiler->rebuild(THEME);
+            $lessCompiler->rebuild(\Ip\Config::theme());
 
         }
 
@@ -259,7 +259,7 @@ class AdminController extends \Ip\Controller
         $file = basename($file);
 
         $lessCompiler = LessCompiler::instance();
-        $css = $lessCompiler->compileFile(THEME, $file);
+        $css = $lessCompiler->compileFile(\Ip\Config::theme(), $file);
 
         header("Content-type: text/css", null, 200);
         $site->setOutput($css);

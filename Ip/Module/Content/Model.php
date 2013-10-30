@@ -564,7 +564,7 @@ class Model{
      * @param bool $includeHidden true - returns all layouts, false - only public layouts
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
-    public static function getThemeLayouts($theme = THEME, $includeHidden = false) {
+    public static function getThemeLayouts($theme = null, $includeHidden = false) {
         $themeDir = \Ip\Config::themeFile('', $theme);
 
         $files = scandir($themeDir);

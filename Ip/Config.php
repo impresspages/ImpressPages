@@ -121,6 +121,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . $path;
     }
 
+    public static function theme()
+    {
+        return static::$rawConfig['THEME'];
+    }
+
 //    public static function fileDir()
 //    {
 //        return static::$config['fileDir'];

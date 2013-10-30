@@ -1212,7 +1212,7 @@ class Site{
 
                 if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(THEME, $path['filename']);
+                    $file = $designService->getRealTimeUrl(\Ip\Config::theme(), $path['filename']);
                 } else {
                     $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
                 }
