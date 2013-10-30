@@ -131,7 +131,9 @@ class Config
         self::$rawConfig = $config;
 
         // TODOX remove
-        define('DB_PREF', static::$rawConfig['db']['tablePrefix']);
+        if (!defined('DB_PREF')) {
+            define('DB_PREF', static::$rawConfig['db']['tablePrefix']);
+        }
 
         static::$core['CORE_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['CORE_DIR'];
         static::$core['THEME_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['THEME_DIR'];
