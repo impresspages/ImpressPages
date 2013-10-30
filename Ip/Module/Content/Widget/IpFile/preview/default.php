@@ -4,7 +4,7 @@
     foreach ($files as $fileKey => $file) {
         $curFilePath = isset($file['fileName']) ? $file['fileName'] : '';
         $curFileName = basename($curFilePath);
-        $curFileSize = $curFilePath && file_exists(BASE_DIR.$curFilePath) && is_file(BASE_DIR.$curFilePath) ? filesize(BASE_DIR.$curFilePath) : '';
+        $curFileSize = $curFilePath && is_file(\Ip\Config::baseFile($curFilePath)) ? filesize(\Ip\Config::baseFile($curFilePath)) : '';
         $curTitle = isset($file['title']) ? $file['title'] : '';
 ?>
     <li>

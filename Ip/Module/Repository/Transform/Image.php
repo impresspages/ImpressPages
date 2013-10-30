@@ -26,15 +26,15 @@ abstract class Image extends Base
         switch ($mime) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
-                $image = imagecreatefromjpeg(BASE_DIR.$imageFile);
+                $image = imagecreatefromjpeg(\Ip\Config::baseFile($imageFile));
                 break;
             case IMAGETYPE_GIF:
-                $image = imagecreatefromgif(BASE_DIR.$imageFile);
+                $image = imagecreatefromgif(\Ip\Config::baseFile($imageFile));
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
             case IMAGETYPE_PNG:
-                $image = imagecreatefrompng(BASE_DIR.$imageFile);
+                $image = imagecreatefrompng(\Ip\Config::baseFile($imageFile));
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -79,10 +79,10 @@ abstract class Image extends Base
      * @return bool true on success
      */
     protected function getMemoryNeeded($imageFile){
-        if (!file_exists(BASE_DIR.$imageFile)) {
+        if (!file_exists(\Ip\Config::baseFile($imageFile))) {
             return 0;
         }
-        $imageInfo = getimagesize(BASE_DIR.$imageFile);
+        $imageInfo = getimagesize(\Ip\Config::baseFile($imageFile));
         if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;
         }
@@ -144,7 +144,7 @@ abstract class Image extends Base
      * @throws \Ip\Module\Repository\TransformException
      */
     protected function getMimeType($imageFile) {
-        $imageInfo = getimagesize(BASE_DIR.$imageFile);
+        $imageInfo = getimagesize(\Ip\Config::baseFile($imageFile));
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
         } else {

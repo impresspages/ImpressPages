@@ -39,7 +39,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
             switch($image['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(BASE_DIR.$image['fileName'])) {
+                    if (!file_exists(\Ip\Config::baseFile($image['fileName']))) {
                         break;
                     }
 

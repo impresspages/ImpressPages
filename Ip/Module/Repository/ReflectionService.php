@@ -81,7 +81,7 @@ class ReflectionService
      */
     public function getReflection($file, $desiredName = null, Transform\Base $transform = null)
     {
-        if (!file_exists(BASE_DIR.$file) || !is_file(BASE_DIR.$file)) {
+        if (!is_file(\Ip\Config::baseFile($file))) {
             $this->lastException = new TransformException("File doesn't exist", TransformException::MISSING_FILE);
             return false;
         }

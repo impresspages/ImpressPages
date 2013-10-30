@@ -330,7 +330,7 @@ class View{
     }
     
     private static function findFile($file, $sourceFile) {
-        if (strpos($file, BASE_DIR) !== 0) {
+        if (strpos($file, \Ip\Config::baseFile('')) !== 0) {
             $file = dirname($sourceFile).'/'.$file;
         }
 

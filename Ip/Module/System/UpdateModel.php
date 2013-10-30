@@ -27,10 +27,10 @@ class UpdateModel
         $this->extractArchive(\Ip\Config::temporaryFile('update/ImpressPages.zip'), \Ip\Config::temporaryFile('update/extracted/'));
 
         $fs = new Helper\FileSystem();
-        $fs->rm(BASE_DIR.'update');
-        $fs->createWritableDir(BASE_DIR.'update/extracted/update');
-        $fs->clean(BASE_DIR.'update/extracted/update');
-        $fs->cpContent(\Ip\Config::temporaryFile('update/extracted/update'), BASE_DIR.'update');
+        $fs->rm(\Ip\Config::baseFile('update'));
+        $fs->createWritableDir(\Ip\Config::baseFile('update/extracted/update'));
+        $fs->clean(\Ip\Config::baseFile('update/extracted/update'));
+        $fs->cpContent(\Ip\Config::temporaryFile('update/extracted/update'), \Ip\Config::baseFile('update'));
     }
 
 

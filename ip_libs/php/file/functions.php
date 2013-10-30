@@ -15,7 +15,7 @@ class Functions{
      */
     public static function isFileInPublicDir($fileName)
     {
-        $fileName = realpath(BASE_DIR.$fileName);
+        $fileName = realpath(\Ip\Config::baseFile($fileName));
         $publicDirs = array(
             \Ip\Config::fileDirFile(''),
             \Ip\Config::temporaryFile(''),

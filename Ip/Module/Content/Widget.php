@@ -52,7 +52,7 @@ class Widget{
     }
     
     public function getIcon() {
-        if (file_exists(BASE_DIR.$this->widgetDir.self::PUBLIC_DIR.'/icon.png')) {
+        if (file_exists(\Ip\Config::baseFile($this->widgetDir.self::PUBLIC_DIR.'/icon.png'))) {
             return $this->widgetDir.self::PUBLIC_DIR.'/icon.png';
         } else {
             return 'Ip/Module/Content/img/icon_widget.png';
@@ -67,14 +67,14 @@ class Widget{
         try {
 
             //collect default view files
-            $layoutsDir = BASE_DIR.$this->widgetDir.self::PREVIEW_DIR;
+            $layoutsDir = \Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR);
             if (!file_exists($layoutsDir) || !is_dir($layoutsDir)) {
                 throw new Exception('Layouts directory does not exist', Exception::NO_LAYOUTS);
             }
 
-            $availableViewFiles = scandir(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR);
+            $availableViewFiles = scandir(\Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR));
             foreach ($availableViewFiles as $viewKey => $viewFile) {
-                if (is_file(BASE_DIR.$this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
+                if (is_file(\Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile)) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
@@ -200,7 +200,7 @@ class Widget{
                 }
             } else {
                 //TODOX new plugin way
-                $viewFile = BASE_DIR . PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php';
+                $viewFile = \Ip\Config::baseFile(PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
                 $answer = \Ip\View::create($viewFile, $data)->render();
             }
         } catch (\Ip\CoreException $e){
@@ -215,7 +215,7 @@ class Widget{
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(BASE_DIR . 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php', $data)->render();
+                $answer = \Ip\View::create(\Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
                 // TODOX Plugin dir
             }

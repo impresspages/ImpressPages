@@ -44,8 +44,8 @@ class AdminController extends \Ip\Controller{
         $destination = \Ip\Config::repositoryFile('');
         foreach ($files as $key => $file) {
             $newName = \Library\Php\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(BASE_DIR.$file['file'], $destination.$newName);
-            unlink(BASE_DIR.$file['file']); //this is a temporary file
+            copy(\Ip\Config::baseFile($file['file']), $destination.$newName);
+            unlink(\Ip\Config::baseFile($file['file'])); //this is a temporary file
             $browserModel = \Ip\Module\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;
