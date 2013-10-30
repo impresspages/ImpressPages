@@ -867,9 +867,9 @@ class StandardModule {
     <script type="text/javascript">
         var ip = {
             baseUrl : '.json_encode(BASE_URL).',
-            libraryDir : '.json_encode(\Ip\Config::getCore('LIBRARY_DIR')).',
-            themeDir : '.json_encode(\Ip\Config::getCore('THEME_DIR')).',
-            moduleDir : '.json_encode(\Ip\Config::getCore('MODULE_DIR')).',
+            libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
+            themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
+            moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
             theme : '. json_encode(THEME) .',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
@@ -881,7 +881,7 @@ class StandardModule {
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
-    <script src="' . BASE_URL . '?pa=Config.tinymceConfig"></script>
+    <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.$site->generateHead().'
 </head>
 	 
