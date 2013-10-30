@@ -238,7 +238,7 @@ class sitemap{
                 if($language['visible']){
                     $answer .= '
            <sitemap>
-              <loc>' .BASE_URL.'sitemap.php?zone='.$curZone.'&amp;lang='.$language['id'].'&amp;nr=0</loc>
+              <loc>' . \Ip\Config::baseUrl('sitemap.php', array('zone' => $curZone, 'lang' => $language['id'], 'nr' => 0), '&amp;') . '</loc>
            </sitemap>
            ';  
                 }
