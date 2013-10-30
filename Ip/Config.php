@@ -189,11 +189,8 @@ class Config
     {
         self::$rawConfig = $config;
 
-        foreach ($config as $key => $value) {
-            if (preg_match('%^[_A-Z]+$%', $key) && !defined($key)) {
-                define($key, $value);
-            }
-        }
+        // TODOX remove
+        define('DB_PREF', static::$rawConfig['db']['tablePrefix']);
 
         static::$core['CORE_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['CORE_DIR'];
         static::$core['THEME_DIR'] = static::$rawConfig['BASE_DIR'] . static::$rawConfig['THEME_DIR'];
