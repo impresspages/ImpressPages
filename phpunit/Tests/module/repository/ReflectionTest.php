@@ -21,6 +21,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $repository = \Ip\Module\Repository\Model::instance();
 
         $file = \Ip\Config::getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
+
         copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', \Ip\Config::repositoryFile('impresspages.png'));
 
         //Bind file to module (twice)
@@ -33,7 +34,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         //Create reflection
         $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
-        $this->assertEquals('file/impresspages.png', $reflection);
+        $this->assertEquals(\Ip\Config::getRaw('FILE_DIR') . 'impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
         $this->assertEquals(true, file_exists(BASE_DIR.$reflection));
 
