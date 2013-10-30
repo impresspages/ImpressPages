@@ -106,14 +106,17 @@ class OldCmsInterface{
             }
 
         }else {
-            if(strpos(BASE_URL, $_SERVER['HTTP_HOST']) != 7 && strpos(BASE_URL, $_SERVER['HTTP_HOST']) != 8 ) {
+            // TODOX write good comment
+            $baseUrl = \Ip\Config::baseUrl('');
+
+            if(strpos($baseUrl, $_SERVER['HTTP_HOST']) != 7 && strpos($baseUrl, $_SERVER['HTTP_HOST']) != 8 ) {
                 /*check if we are in correct subdomain. www.yoursite.com not allways equal to yoursite.com from session perspective)*/
-                header("location: ".BASE_URL."admin.php");
+                header("location: ". \Ip\Config::baseUrl("admin.php"));
                 \db::disconnect();
                 exit;
             }
             $this->html->html(Template::headerLogin());
-            $this->html->html('<script type="text/javascript">if(parent.header && parent.content)parent.window.top.location=\'admin.php\';</script>');
+            $this->html->html('<script type="text/javascript">if(parent.header && parent.content)parent.window.top.location=\'' . \Ip\Config::baseUrl('admin.php') . '\';</script>');
             $this->html->html(Template::loginForm($this->loginError)); //login window
             $this->html->footer();
         }
@@ -163,13 +166,17 @@ class OldCmsInterface{
 
 
     function generateUrl($moduleId = null, $getVars = null) { //url to cms module
-        if($moduleId == null)
+        if ($moduleId == null) {
             $moduleId = $this->curModId;
-        if($getVars != '')
-            return BASE_URL.'?admin=1&module_id='.$moduleId.'&'.$getVars.'&security_token='.$this->session->securityToken();
-        else
-            return BASE_URL.'?admin=1&module_id='.$moduleId.'&security_token='.$this->session->securityToken();
+        }
+
+        if ($getVars != '') {
+            return \Ip\Config::baseUrl('?admin=1&module_id='.$moduleId.'&'.$getVars.'&security_token='.$this->session->securityToken());
+        } else {
+            return \Ip\Config::baseUrl('?admin=1&module_id='.$moduleId.'&security_token='.$this->session->securityToken());
+        }
     }
+
 
     // TODOX move to appropriate place
     function deleteTmpFiles() {

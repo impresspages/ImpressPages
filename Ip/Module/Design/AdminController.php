@@ -25,12 +25,14 @@ class AdminController extends \Ip\Controller
         $site->addCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
         $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
-        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/options.js');
-        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/market.js');
-        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/design.js');
-        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/pluginInstall.js');
-        $site->addCss(BASE_URL.'Ip/Module/Design/public/design.css');
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
+        $site->addCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
         $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
+
+
 
         $model = Model::instance();
 

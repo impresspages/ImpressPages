@@ -528,7 +528,7 @@ class Controller extends \Ip\Controller{
         $imageSrc = '';
 
         if ($image->getImage()) {
-            $imageSrc = BASE_URL.$image->getImage();
+            $imageSrc = \Ip\Config::baseUrl($image->getImage());
         }
 
         $inlineManagementService = new Service();

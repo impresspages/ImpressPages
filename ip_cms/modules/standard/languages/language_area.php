@@ -157,8 +157,8 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
         $tmpLanguage = Db::getLanguageById($id);
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
-            $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
-            $newUrl = BASE_URL.$tmpLanguage['url'].'/';
+            $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
+            $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
             global $dispatcher;
             $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 

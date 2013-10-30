@@ -1243,7 +1243,7 @@ class Site{
         }
         $revision = $this->getRevision();
         $data = array (
-            'ipBaseUrl' => BASE_URL,
+            'ipBaseUrl' => \Ip\Config::baseUrl(''),
             'ipLanguageUrl' => $this->generateUrl(),
             'ipLibraryDir' => \Ip\Config::getRaw('LIBRARY_DIR'),
             'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),

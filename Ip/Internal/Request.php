@@ -131,7 +131,7 @@ class Request
 //            $urlVarsStr = substr($_SERVER['REQUEST_URI'], 1);
 //        }
 
-        $basePath = parse_url(BASE_URL, PHP_URL_PATH);
+        $basePath = parse_url(\Ip\Config::baseUrl(''), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
             if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {

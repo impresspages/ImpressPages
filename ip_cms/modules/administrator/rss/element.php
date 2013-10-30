@@ -104,7 +104,7 @@ class Element extends \Ip\Frontend\Element {
         }else {
             $tmpTitle = $parametersMod->getValue('administrator', 'rss', 'options', 'title');
             $tmpDescription = $parametersMod->getValue('administrator', 'rss', 'options', 'description');
-            $tmpLink = BASE_URL;
+            $tmpLink = \Ip\Config::baseUrl('');
         }
 
         $rss .= '<?xml version="1.0" encoding="UTF-8"?'.'>

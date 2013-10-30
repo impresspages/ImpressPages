@@ -24,11 +24,11 @@ class HtmlOutput {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+    <link rel="shortcut icon" href="' . \Ip\Config::baseUrl('favicon.ico') . '">
     
     <script type="text/javascript">
         var ip = {
-            baseUrl : '.json_encode(BASE_URL).',
+            baseUrl : '.json_encode(\Ip\Config::baseUrl('')).',
             libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
             themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
             moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
@@ -93,7 +93,7 @@ class HtmlOutput {
     <meta charset="UTF-8">
     <title>ImpressPages</title>
     <link rel="stylesheet" href="' . \Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css') . '">
-    <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+    <link rel="shortcut icon" href="' . \Ip\Config::baseUrl('favicon.ico') . '">
     <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>

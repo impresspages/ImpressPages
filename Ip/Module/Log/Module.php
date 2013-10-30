@@ -55,7 +55,7 @@ class Module{
             $message .= $valueStr.'<br/>';
             $message .= $valueInt.'<br/>';
             $message .= $valueFloat.'<br/>';
-            $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', BASE_URL." CRITICAL ERROR", $message, true, true);
+            $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::baseUrl('')." CRITICAL ERROR", $message, true, true);
             $queue->send();
         }
 

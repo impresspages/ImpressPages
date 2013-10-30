@@ -51,9 +51,9 @@ class System{
         $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
         $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
         $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-        $site->addJavascript(BASE_URL.'Ip/Module/Design/public/optionsBox.js');
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/optionsBox.js'));
         $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        $site->addCss(BASE_URL.'Ip/Module/Design/public/optionsBox.css');
+        $site->addCss(\Ip\Config::coreModuleUrl('Design/public/optionsBox.css'));
         if (file_exists(\Ip\Config::themeFile(Model::INSTALL_DIR.'Options.js'))) {
             $site->addJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(\Ip\Config::themeFile(Model::INSTALL_DIR.'options.js'))) {

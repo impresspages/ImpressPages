@@ -36,20 +36,20 @@ class System{
         
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
-        $site->addJavascript(BASE_URL.'Ip/Module/Content/public/widgets.js');
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
         
         $site->addJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
         $site->addJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
         
         if ($site->managementState()) {
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/ipContentManagement.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.contentManagement.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.pageOptions.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.widgetbutton.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.block.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/jquery.ip.widget.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/exampleContent.js');
-            $site->addJavascript(BASE_URL.'Ip/Module/Content/public/drag.js');
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.block.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widget.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/exampleContent.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
 
 
             $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
@@ -68,7 +68,7 @@ class System{
             $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
             $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
-            $site->addCss(BASE_URL.'Ip/Module/Content/public/widgets.css');
+            $site->addCss(\Ip\Config::coreModuleUrl('Content/public/widgets.css'));
             $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
         }
@@ -205,17 +205,17 @@ class System{
                 if (strtolower(substr($file, -3)) == '.js'){
                     //overriden js version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        $site->addJavascript(BASE_URL.$overrideFolder.'/'.$file);
+                        $site->addJavascript(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        $site->addJavascript(BASE_URL.$resourcesFolder.'/'.$file);
+                        $site->addJavascript(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
                     //overriden css version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        $site->addCss(BASE_URL.$overrideFolder.'/'.$file);
+                        $site->addCss(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        $site->addCss(BASE_URL.$resourcesFolder.'/'.$file);
+                        $site->addCss(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
             }

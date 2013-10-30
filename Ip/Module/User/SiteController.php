@@ -124,7 +124,7 @@ class SiteController {
                 Config::getCookieDomain()
             );
         }
-        $this->redirect(BASE_URL);
+        $this->redirect(\Ip\Config::baseUrl(''));
     }
 
     public function registration() {

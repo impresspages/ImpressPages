@@ -19,7 +19,7 @@ class Template {
                 <meta charset="UTF-8">
                 <title>ImpressPages</title>
                 <link rel="stylesheet" href="' . \Ip\Config::coreModuleUrl('Admin/assets/backend/login/login.css') . '">
-                <link rel="shortcut icon" href="' . BASE_URL . 'favicon.ico">
+                <link rel="shortcut icon" href="' . \Ip\Config::baseUrl('favicon.ico') . '">
             </head>
             <body>
         ';

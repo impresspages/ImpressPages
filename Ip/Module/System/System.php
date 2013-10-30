@@ -59,7 +59,7 @@ class System{
             &&
            ($site->languageUrl != '' || $site->zoneUrl != '' || sizeof($site->getUrlVars()) > 0 || sizeof($site->getGetVars()) > 0 )
         ){
-            \Ip\Response::redirect(BASE_URL);
+            \Ip\Response::redirect(\Ip\Config::baseUrl(''));
 
             // TODOX make it not necessary
             $site->setOutput(null);
@@ -102,9 +102,9 @@ class System{
         if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
             $message = $parametersMod->getValue('standard','configuration','error_404', 'error_mistyped_url', $site->getCurrentLanguage()->getId());
         }else{
-            if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
+            if(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) !== false){
                 $message = $parametersMod->getValue('standard','configuration','error_404', 'error_broken_link_inside', $site->getCurrentLanguage()->getId());
-            }if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) === false){
+            }if(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) === false){
                 $message = $parametersMod->getValue('standard','configuration','error_404', 'error_broken_link_outside', $site->getCurrentLanguage()->getId());
             }
         }
@@ -129,13 +129,13 @@ class System{
                 <p> Link: <a href="'.$site->getCurrentUrl().'">'.htmlspecialchars($site->getCurrentUrl()).'</a></p>';
             }
         }else{
-            if(strpos($_SERVER['HTTP_REFERER'], BASE_URL) < 5 && strpos($_SERVER['HTTP_REFERER'], BASE_URL) !== false){
+            if(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) !== false){
                 if (\Ip\Config::getRaw('ERRORS_SEND') && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_inside_link', $site->getCurrentLanguage()->getId())) {
                     $message = self::error404Message().'
                      <p>Link: <a href="'.$site->getCurrentUrl().'">'.htmlspecialchars($site->getCurrentUrl()).'</a></p>
                      <p>Http referer: <a href="'.$_SERVER['HTTP_REFERER'].'">'.htmlspecialchars($_SERVER['HTTP_REFERER']).'</a></p>';
                 }
-            } elseif(strpos($_SERVER['HTTP_REFERER'], BASE_URL) === false){
+            } elseif(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) === false){
                 if (\Ip\Config::getRaw('ERRORS_SEND') && $parametersMod->getValue('standard', 'configuration','error_404', 'report_broken_outside_link', $site->getCurrentLanguage()->getId())) {
                     $message = self::error404Message().'
                      <p>Link: <a href="'.$site->getCurrentUrl().'">'.htmlspecialchars($site->getCurrentUrl()).'</a></p>
@@ -146,7 +146,7 @@ class System{
         if ($message != '') {
             //send email
             $queue = new \Ip\Module\Email\Module();
-            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email', $site->getCurrentLanguage()->getId()), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name', $site->getCurrentLanguage()->getId()), \Ip\Config::getRaw('ERRORS_SEND'), '', BASE_URL." ERROR", $message, false, true);
+            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email', $site->getCurrentLanguage()->getId()), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name', $site->getCurrentLanguage()->getId()), \Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
             $queue->send();
 
         }
