@@ -65,8 +65,8 @@ class System{
             $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
 
 
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
             $site->addCss(BASE_URL.'Ip/Module/Content/public/widgets.css');
             $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());

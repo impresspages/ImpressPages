@@ -83,10 +83,9 @@ class SiteController extends \Ip\Controller{
         );
 
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
-        $site->addJavascript(BASE_URL . 'Ip/Module/Admin/Public/login.js');
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
-        $config = \Ip\ServiceLocator::getConfig();
-        $site->removeJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
+        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
         $view = \Ip\View::create('View/login.php', $variables);
         $site->setOutput($view);
     }

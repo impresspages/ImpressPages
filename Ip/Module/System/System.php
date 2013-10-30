@@ -20,7 +20,7 @@ class System{
         global $dispatcher;
 
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/system.js'), 0);
+            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
         }
 
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');

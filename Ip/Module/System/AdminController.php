@@ -38,12 +38,12 @@ class AdminController extends \Ip\Controller{
         $site->addJavascript(\Ip\Config::libraryUrl('js/default.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
 
-        $site->addCss(\Ip\Config::getCoreModuleUrl('Admin/assets/backend/ip_admin.css'));
+        $site->addCss(\Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/update.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/update.js'));
         }
-        $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/clearCache.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/clearCache.js'));
 
         return $content;
     }

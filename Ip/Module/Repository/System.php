@@ -17,13 +17,13 @@ class System{
         if ($site->managementState()) {
             $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
             $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Repository/public/admin/ipRepository.js'));
-            $site->addCss(\Ip\Config::getCoreModuleUrl('Repository/public/admin/repository.css'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
+            $site->addCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
             $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
-            $site->addJavascript(\Ip\Config::getCoreModuleUrl('System/public/market.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
             $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
