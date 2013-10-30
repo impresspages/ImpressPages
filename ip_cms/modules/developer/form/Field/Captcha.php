@@ -59,7 +59,7 @@ class Captcha extends Field{
         return '
         <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
         <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
-        <img src="'.BASE_URL.$captcha->get_filename_url().'" alt="Captcha"/><br />
+        <img src="'.\Ip\Config::baseUrl($captcha->get_filename_url()).'" alt="Captcha"/><br />
         ';
     }
     

@@ -2,7 +2,7 @@
     $lightboxImage = $imageOriginal; // Original
     //$lightboxImage = $imageBig; // Big (cropped by parameters)
 ?>
-<a href="<?php echo BASE_URL.$lightboxImage; ?>" title="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>">
-    <img src="<?php echo BASE_URL.$imageSmall; ?>" alt="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>" />
+<a href="<?php echo \Ip\Config::baseUrl($lightboxImage) ?>" title="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>">
+    <img src="<?php echo \Ip\Config::baseUrl($imageSmall) ?>" alt="<?php echo isset($title) ? htmlspecialchars($title) : ''; ?>" />
 </a>
 <?php } ?>

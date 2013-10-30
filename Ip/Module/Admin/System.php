@@ -40,7 +40,7 @@ class System {
         }
 
         if ('ip_backend_frames.php' == $relativePath) {
-            header('Location: ' . BASE_URL . 'admin');
+            header('Location: ' . \Ip\Config::baseUrl('admin'));
             exit();
         }
     }
@@ -79,7 +79,7 @@ class System {
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule['m_name'];
             $curModTitle = $curModule['m_translation'];
-            $curModUrl = BASE_URL . '?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken();
+            $curModUrl = \Ip\Config::baseUrl('?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken());
         }
 
 

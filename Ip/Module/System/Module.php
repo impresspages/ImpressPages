@@ -19,14 +19,14 @@ class Module
     public function updateRobotsTxt($oldUrl)
     {
         $robotsFile = 'robots.txt';
-        if ($oldUrl != BASE_URL && file_exists($robotsFile)) { //update robots.txt file.
+        if ($oldUrl != \Ip\Config::baseUrl('') && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach ($data as $dataKey => $dataVal) {
                 $tmpVal = $dataVal;
                 $tmpVal = trim($tmpVal);
 
-                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . BASE_URL . 'sitemap.php', $tmpVal);
+                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . \Ip\Config::baseUrl('sitemap.php'), $tmpVal);
                 $newData .= $tmpVal . "\n";
             }
             if (is_writable($robotsFile)) {
@@ -76,7 +76,7 @@ class Module
 
         }
 
-        \DbSystem::setSystemVariable('cached_base_url', BASE_URL); // update system variable
+        \DbSystem::setSystemVariable('cached_base_url', \Ip\Config::baseUrl('')); // update system variable
 
 
         $cacheVersion = \DbSystem::getSystemVariable('cache_version');
@@ -85,7 +85,7 @@ class Module
 
 
         //throw event in 2.X style
-        $dispatcher->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, BASE_URL));
+        $dispatcher->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, \Ip\Config::baseUrl('')));
 
         $dispatcher->notify(new \Ip\Event\ClearCache($this));
 
@@ -114,7 +114,7 @@ class Module
 //                }
 //            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
+            curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);

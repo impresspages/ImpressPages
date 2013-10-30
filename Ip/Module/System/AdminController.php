@@ -103,7 +103,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array (
             'status' => 'success',
-            'redirectUrl' => BASE_URL.'update'
+            'redirectUrl' => \Ip\Config::baseUrl('update')
         );
         $this->returnJson($data);
     }

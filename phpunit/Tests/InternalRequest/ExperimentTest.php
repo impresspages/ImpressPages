@@ -65,12 +65,12 @@ class ExperimentTest extends \PhpUnit\GeneralTestCase
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        $session->visit(BASE_URL . 'someNonExistentPage');
+        $session->visit(\Ip\Config::baseUrl('someNonExistentPage'));
 
         $this->assertEquals(404, $session->getStatusCode());
 
         \PhpUnit\Helper\TestEnvironment::initCode();
-        $session->visit(BASE_URL . 'en/');
+        $session->visit(\Ip\Config::baseUrl('en/'));
 
         $page = $session->getPage();
 

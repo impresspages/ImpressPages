@@ -1029,7 +1029,7 @@ class AdminController extends \Ip\Controller
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt($ch, CURLOPT_URL, $remote['url']);
-        curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
+        curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla4/1.0");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -1178,6 +1178,10 @@ class AdminController extends \Ip\Controller
         $page = Db::getPage($pageId);
 
         $widgets = Db::pageWidgets($page['id']);
+
+        $baseDir = \Ip\Config::baseFile('');
+        $baseUrl = \Ip\Config::baseUrl('');
+        
         foreach($widgets as $key => &$widget){
             require_once \Ip\Config::oldModuleFile('standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
@@ -1185,30 +1189,30 @@ class AdminController extends \Ip\Controller
 
             switch ($widget['group_key'].'/'.$widget['module_key']) {
                 case 'text_photos/photo':
-                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
-                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace($baseDir, $baseUrl, $widget['data']['photo_big']);
                     break;
                 case 'text_photos/text_photo':
-                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
-                    $widget['data']['photo_big'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo_big']);
+                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
+                    $widget['data']['photo_big'] = str_replace($baseDir, $baseUrl, $widget['data']['photo_big']);
                     break;
                 case 'misc/file':
-                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
                     break;
                 case 'misc/video':
-                    $widget['data']['photo'] = str_replace(BASE_DIR, BASE_URL, $widget['data']['photo']);
+                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
                     break;
                 case 'text_photos/logo_gallery':
                     foreach($widget['data']['logos'] as $logoKey => $logo){
                         $tmpValues = array();
-                        $logo['logo'] = str_replace(BASE_DIR, BASE_URL, $logo['logo']);
+                        $logo['logo'] = str_replace($baseDir, $baseUrl, $logo['logo']);
                     }
                     break;
                 case 'text_photos/photo_gallery':
                     foreach($widget['data']['photos'] as $photoKey => $photo){
                         $tmpValues = array();
-                        $photo['photo'] = str_replace(BASE_DIR, BASE_URL, $photo['photo']);
-                        $photo['photo_big'] = str_replace(BASE_DIR, BASE_URL, $photo['photo_big']);
+                        $photo['photo'] = str_replace($baseDir, $baseUrl, $photo['photo']);
+                        $photo['photo_big'] = str_replace($baseDir, $baseUrl, $photo['photo_big']);
                     }
                     break;
             }

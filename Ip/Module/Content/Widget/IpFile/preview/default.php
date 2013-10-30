@@ -8,7 +8,7 @@
         $curTitle = isset($file['title']) ? $file['title'] : '';
 ?>
     <li>
-        <a href="<?php echo htmlspecialchars(BASE_URL.$curFilePath); ?>" 
+        <a href="<?php echo htmlspecialchars(\Ip\Config::baseUrl($curFilePath)) ?>"
            title="<?php echo htmlspecialchars($curFileName) . ($curFileSize ? ' ('.$curFileSize.'b)' : ''); ?>">
             <?php echo htmlspecialchars($curTitle); ?>
         </a>

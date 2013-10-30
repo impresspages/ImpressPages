@@ -65,7 +65,7 @@ class ElementImage extends Element{ //data element in area
         $deleteTranslation = '&nbsp;'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations','delete').'&nbsp;';
         /*eof translation*/
 
-        $image = BASE_URL.$this->copies[0]['destDir'].$value;
+        $image = \Ip\Config::baseUrl($this->copies[0]['destDir'].$value);
 
     $sizing = '';
 

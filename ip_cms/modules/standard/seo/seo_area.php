@@ -144,9 +144,9 @@ class SeoArea extends \Modules\developer\std_mod\Area {
         global $parametersMod;
         $answer = '';
         if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
-            $answer = BASE_URL.urlencode($languageUrl).'/'.urlencode($zoneUrl).'/';
+            $answer = \Ip\Config::baseUrl(urlencode($languageUrl).'/'.urlencode($zoneUrl).'/');
         }else{
-            $answer = BASE_URL.urlencode($zoneUrl).'/';
+            $answer = \Ip\Config::baseUrl(urlencode($zoneUrl).'/');
         }
         return $answer;
     }

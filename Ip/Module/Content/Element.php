@@ -93,7 +93,7 @@ class Element extends \Ip\Frontend\Element {
                 break;
             case 'redirect':
                 if($site->managementState()) {
-                    if(strpos($this->redirectUrl, BASE_URL) === 0) {
+                    if(strpos($this->redirectUrl, \Ip\Config::baseUrl('')) === 0) {
                         if(strpos($this->redirectUrl, 'cms_action=manage') === false) {
                             if(strpos($this->redirectUrl, '?') === false) {
                                 $this->redirectUrl .= '?cms_action=manage';

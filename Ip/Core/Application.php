@@ -161,8 +161,8 @@ class Application {
             // create a new curl resource
 
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, BASE_URL.'ip_cron.php');
-            curl_setopt($ch, CURLOPT_REFERER, BASE_URL);
+            curl_setopt($ch, CURLOPT_URL, \Ip\Config::baseUrl('ip_cron.php'));
+            curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             $fakeCronAnswer = curl_exec($ch);

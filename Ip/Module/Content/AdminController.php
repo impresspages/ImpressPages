@@ -11,7 +11,7 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        header('location: ' . BASE_URL.'?cms_action=manage');
+        header('location: ' . \Ip\Config::baseUrl('', array('cms_action' => 'manage'));
     }
 
     public function getSitemapInList()
@@ -20,7 +20,7 @@ class AdminController extends \Ip\Controller
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
 
-        $answer .= '<li><a href="' . BASE_URL . '">Home</a></li>' . "\n";
+        $answer .= '<li><a href="' . \Ip\Config::baseUrl('') . '">Home</a></li>' . "\n";
 
         $languages = \Ip\Frontend\Db::getLanguages(true); //get all languages including hidden
 

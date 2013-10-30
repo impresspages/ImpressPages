@@ -113,8 +113,8 @@ class Service
         }
 
         if ($site->managementState()) {
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), BASE_URL)."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), BASE_URL)."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
+            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
+            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
         }
 
         $data = array (

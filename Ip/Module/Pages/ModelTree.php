@@ -20,7 +20,7 @@ class ModelTree {
 
         $answer[] = array(
             'id' => self::$websiteId,
-            'title' => BASE_URL
+            'title' => \Ip\Config::baseUrl('')
         );
 
         require_once(__DIR__ . '/remotes.php');

@@ -66,7 +66,7 @@ class Module{
         $cachedFileNamesStr = implode("\n", $cached_file_names);
         $cachedFileMimeTypesStr = implode("\n", $cached_file_mime_types);
          
-        $email = str_replace('src="'.BASE_URL, 'src="', $email);
+        $email = str_replace('src="'. \Ip\Config::baseUrl(''), 'src="', $email);
          
         Db::addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $cachedFilesStr, $cachedFileNamesStr, $cachedFileMimeTypesStr);
     }

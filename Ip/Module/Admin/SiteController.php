@@ -32,7 +32,7 @@ class SiteController extends \Ip\Controller{
 
 
 
-        $redirectUrl = BASE_URL . '?cms_action=manage';
+        $redirectUrl = \Ip\Config::baseUrl('', array('cms_action' => 'manage'));
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -55,7 +55,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        $this->redirect(BASE_URL.'admin/');
+        $this->redirect(\Ip\Config::baseUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -67,7 +67,7 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Backend::userId()) {
             //user has already been logged in
-            $this->redirect(BASE_URL . '?cms_action=manage');
+            $this->redirect(\Ip\Config::baseUrl('', array('cms_action' => 'manage')));
             return;
         }
 

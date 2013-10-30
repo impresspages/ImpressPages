@@ -19,7 +19,7 @@
             ?>
             <ul>
                 <li>
-                    <a href="<?php echo BASE_URL ?>?sa=Admin.logout">
+                    <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>">
                         <?php echo $this->escPar('standard/configuration/system_translations/logout') ?>
                         <span class="icon-stack">
                             <i class="icon-sign-blank icon-stack-base"></i>
@@ -35,7 +35,7 @@
 
 
 
-        <a href="<?php echo BASE_URL ?>?sa=Admin.logout" class="ipmAdminAction ipmMobileHide">
+        <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
             <?php echo $this->escPar('standard/configuration/system_translations/logout') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
