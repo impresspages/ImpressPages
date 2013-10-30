@@ -11,7 +11,7 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        header('location: ' . \Ip\Config::baseUrl('', array('cms_action' => 'manage'));
+        header('location: ' . \Ip\Config::baseUrl('', array('cms_action' => 'manage')));
     }
 
     public function getSitemapInList()
