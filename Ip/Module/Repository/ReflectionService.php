@@ -73,10 +73,10 @@ class ReflectionService
 
 
     /**
-     * @param string $file - absolute path to image which reflection is requested
+     * @param string $file relative path from BASE_DIR
      * @param $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param Transform\Base $transform - how to crop the image. Leave null if you want original file to be reflected.
-     * @return string - file name
+     * @return string - file name from BASE_DIR
      * @throws TransformException
      */
     public function getReflection($file, $desiredName = null, Transform\Base $transform = null)

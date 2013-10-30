@@ -17,9 +17,9 @@ return array(
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
     'CORE_DIR' => '',
     'BASE_URL' => 'http://localhost/',
-    'FILE_DIR' => 'file/',
-    'TMP_FILE_DIR' => 'file/tmp/',
-    'FILE_REPOSITORY_DIR' => 'file/repository/',
+    'FILE_DIR' => 'phpunit/tmp/file/',
+    'TMP_FILE_DIR' => 'phpunit/tmp/file/tmp/',
+    'FILE_REPOSITORY_DIR' => 'phpunit/tmp/file/repository/',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
@@ -42,7 +42,7 @@ return array(
     'timezone' => 'Africa/Bujumbura',
     // END FRONTEND
 
-    'SECURE_DIR' => 'file/secure/',
-    'TMP_SECURE_DIR' => 'file/secure/tmp/',
-    'MANUAL_DIR' => 'file/manual/',
+    'SECURE_DIR' => 'phpunit/tmp/file/secure/',
+    'TMP_SECURE_DIR' => 'phpunit/tmp/file/secure/tmp/',
+    'MANUAL_DIR' => 'phpunit/tmp/file/manual/',
 );

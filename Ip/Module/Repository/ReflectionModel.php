@@ -38,10 +38,10 @@ class ReflectionModel
 
 
     /**
-     * @param string $file - absolute path to image which reflection is requested
+     * @param string $file relative path from BASE_DIR
      * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param Transform\Base $transform - file transformation class
-     * @return string - file name
+     * @return string file name relative to BASE_DIR
      */
     public function getReflection($file, $desiredName = null, Transform\Base $transform = null)
     {
@@ -109,8 +109,8 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
-        $reflection = \Ip\Config::fileDirFile(\Library\Php\File\Functions::genUnoccupiedName($desiredName, \Ip\Config::fileDirFile('')));
-        $transform->transform($file, BASE_DIR.$reflection);
+        $reflection = \Ip\Config::getRaw('FILE_DIR') . \Library\Php\File\Functions::genUnoccupiedName($desiredName, \Ip\Config::fileDirFile(''));
+        $transform->transform($file, $reflection);
 
         $transformFingerprint = $transform->getFingerprint();
         $this->storeReflectionRecord($file, $reflection, $transformFingerprint);

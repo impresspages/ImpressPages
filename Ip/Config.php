@@ -115,6 +115,12 @@ class Config
 
         return $url;
     }
+
+    public static function baseFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . $path;
+    }
+
 //    public static function fileDir()
 //    {
 //        return static::$config['fileDir'];

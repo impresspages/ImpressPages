@@ -126,7 +126,7 @@ abstract class Image extends Base
      * @throws \Ip\Module\Repository\TransformException
      */
     protected function savePng($image, $fileName, $compression) {
-        if (!imagepng($image, $fileName, $compression)) {
+        if (!imagepng($image, \Ip\Config::baseFile($fileName), $compression)) {
             throw new \Ip\Module\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Module\Repository\TransformException::WRITE_PERMISSION);
         }
         return true;
