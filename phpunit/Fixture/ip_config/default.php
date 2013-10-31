@@ -47,5 +47,5 @@ return array(
     'MANUAL_DIR' => 'phpunit/tmp/file/manual/',
 
     'FRONTEND' => 1,
-    
+
 );
