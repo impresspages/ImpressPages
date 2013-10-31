@@ -20,9 +20,9 @@ namespace Ip {
             $translator->setLocale('lt_LT');
             $translator->addTranslationFilePattern(
                 'gettext',
-                BASE_DIR . THEME_DIR . THEME . '/languages/',
+                \Ip\Config::themeFile('languages/'),
                 '%s.mo',
-                'theme-' . THEME
+                'theme-' . \Ip\Config::theme()
             );
             static::$translator = $translator;
         }

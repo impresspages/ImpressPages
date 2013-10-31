@@ -44,6 +44,8 @@ class Application {
         } else {
             ini_set('display_errors', '0');
         }
+
+        \Ip\Translator::init();
     }
 
     public function __construct()
