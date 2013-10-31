@@ -45,4 +45,7 @@ return array(
     'SECURE_DIR' => 'phpunit/tmp/file/secure/',
     'TMP_SECURE_DIR' => 'phpunit/tmp/file/secure/tmp/',
     'MANUAL_DIR' => 'phpunit/tmp/file/manual/',
+
+    'FRONTEND' => 1,
+    
 );
