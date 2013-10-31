@@ -6,10 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
-
-require_once(LIBRARY_DIR.'php/file/upload_image.php');
-
 
 class ElementImage extends Element{ //data element in area
     var $copies;
@@ -69,13 +65,13 @@ class ElementImage extends Element{ //data element in area
         $deleteTranslation = '&nbsp;'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations','delete').'&nbsp;';
         /*eof translation*/
 
-        $image = BASE_URL.$this->copies[0]['destDir'].$value;
+        $image = \Ip\Config::baseUrl($this->copies[0]['destDir'].$value);
 
     $sizing = '';
 
-    if(file_exists(BASE_DIR.$this->copies[0]['destDir'].$value) && is_file(BASE_DIR.$this->copies[0]['destDir'].$value))
+    if (is_file(\Ip\Config::baseFile($this->copies[0]['destDir'].$value)))
     {
-        $imageSize = getimagesize(BASE_DIR.$this->copies[0]['destDir'].$value);
+        $imageSize = getimagesize(\Ip\Config::baseFile($this->copies[0]['destDir'].$value));
 
         if( $imageSize[0] >= 200 && $imageSize[0]>=$imageSize[1] ) // width more than 200 and image is horizontal
         {
@@ -137,7 +133,7 @@ class ElementImage extends Element{ //data element in area
         $this->newMemImages = array();
         foreach($this->copies as $key => $copy){
             $upload_image = new \Library\Php\File\UploadImage();
-            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], TMP_IMAGE_DIR, $copy['type'], $copy['forced'], $copy['quality']);
+            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], \Ip\Config::temporaryFile(''), $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->memImages) != sizeof($this->copies)) && $action== 'insert'){
@@ -172,14 +168,14 @@ class ElementImage extends Element{ //data element in area
             if(sizeof($this->memImages) == sizeof($this->copies)){
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 foreach($this->copies as $key => $copy){
-                    $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($new_name)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                        $rs = mysql_query($sql);
-                        if (!$rs)
-                        trigger_error("Can't update photo field ".$sql);
-                    }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+
+                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($newBasename)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $rs = mysql_query($sql);
+                    if (!$rs)
+                    trigger_error("Can't update photo field ".$sql);
+
                 }
             }
 
@@ -227,16 +223,15 @@ class ElementImage extends Element{ //data element in area
              
 
             if(sizeof($this->memImages) == sizeof($this->copies)){
-                require_once(LIBRARY_DIR.'php/file/functions.php');
-                foreach($this->copies as $key => $copy){
-                    $new_name = \Library\Php\File\Functions::genUnoccupiedName($this->memImages[$key], $copy['destDir']);
-                    if(copy(TMP_IMAGE_DIR.$this->memImages[$key],$copy['destDir'].$new_name)){
-                        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$new_name."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                        $rs = mysql_query($sql);
-                        if (!$rs)
-                        trigger_error("Can't update photo field ".$sql);
-                    }else
-                    trigger_error("Can't copy file from ".htmlspecialchars(TMP_IMAGE_DIR.$this->memImages[$key])." to ".htmlspecialchars($copy['destDir'].$new_name));
+
+                foreach($this->copies as $key => $copy) {
+
+                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $rs = mysql_query($sql);
+                    if (!$rs)
+                    trigger_error("Can't update photo field ".$sql);
                 }
             }
 

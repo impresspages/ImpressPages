@@ -11,14 +11,8 @@
  */
 
 /** @private */
-if (!defined('CMS')) {
-    define('CMS', true); // make sure other files are accessed through this file.
-}
 if (!defined('BACKEND')) {
     define('BACKEND', true); // make sure other files are accessed through this file.
-}
-if (!defined('FRONTEND')) {
-    define('FRONTEND', true); // make sure other files are accessed through this file.
 }
 if (!defined('CRON')) {
     define('CRON', true);
@@ -31,27 +25,30 @@ if(is_file(__DIR__.'/ip_config.php')) {
     require (__DIR__.'/../ip_config.php');
 }
 
+require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
+\Ip\Config::init($config);
+
 error_reporting(E_ALL|E_STRICT);
-if (DEVELOPMENT_ENVIRONMENT){ 
+if (\Ip\Config::isDevelopmentEnvironment()){
     ini_set('display_errors', '1');
 } else {
     ini_set('display_errors', '0');
 }
 
 
-require_once(BASE_DIR.FRONTEND_DIR.'init.php');
-
+require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Core/Application.php';
+\Ip\Core\Application::init();
 
 $db = new db();
 
 
 if($db->connect()){
 
-    $log = new \Modules\administrator\log\Module();
+    $log = new \Ip\Module\Log\Module();
     try {
         $dispatcher = new \Ip\Dispatcher();
         $parametersMod = new ParametersMod();
-        $session = new Frontend\Session();
+        $session = new \Ip\Frontend\Session();
 
         $site = new \Site();
         $site->init();
@@ -100,9 +97,10 @@ class Cron{
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
                 if($lock['core']){
-                    $file = MODULE_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+                    $file = \Ip\Config::oldModuleFile($lock['mg_name'].'/'.$lock['m_name'].'/cron.php');
                 } else {
-                    $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
+                    // TODOX fix
+                    // $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
                 }
                 if(file_exists($file)){
                     require($file);

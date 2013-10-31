@@ -16,11 +16,19 @@ class FileSystem
 
 
     public function cpDir( $source, $destination ) {
+
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
-        
+
         if (is_dir( $source ) ) {
-            @mkdir($destination);
+            if (!is_dir($destination)) {
+                mkdir($destination);
+            }
+
+            // TODOX comment out optimization
+            `cp -r $source/* $destination`;
+            return;
+
             $directory = dir( $source );
             while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
                 if ( $readdirectory == '.' || $readdirectory == '..' ) {
@@ -63,6 +71,10 @@ class FileSystem
             return false;
         }
 
+        // TODOX comment out optimization
+        system(sprintf("chmod -R %o %s", $permissions, $dir));
+        return;
+
         $success = chmod($dir, $permissions);
         if (!$success) {
             throw new \Exception("Can't change permissions on ".$dir);
@@ -101,6 +113,12 @@ class FileSystem
         if (!file_exists($dir)) {
             return;
         }
+
+        if ($depth > 1) {
+            // TODOX comment out optimization
+            `rm -rf $dir`;
+            return;
+        }
         
         $dir = $this->removeTrailingSlash($dir);
         
@@ -122,7 +140,7 @@ class FileSystem
                 rmdir($dir);
             }
         } else {
-            if ($dir != TEST_TMP_DIR.'readme.txt') {
+            if ($dir != TEST_TMP_DIR.'readme.txt' && $dir != TEST_TMP_DIR.'readme.md' && $dir != TEST_TMP_DIR.'.gitignore') {
                 unlink($dir);
             }
         }
@@ -130,6 +148,6 @@ class FileSystem
     
     private function removeTrailingSlash($path)
     {
-        return preg_replace('{/$}', '', $path);
+        return rtrim($path, '/');
     }        
 }

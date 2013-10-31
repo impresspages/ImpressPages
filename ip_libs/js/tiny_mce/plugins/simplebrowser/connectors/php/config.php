@@ -1,7 +1,7 @@
 <?php
 
 
-if (!defined('BACKEND')) exit; 
+if (!defined('BACKEND')) exit;
 
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
@@ -37,13 +37,13 @@ $Config['Enabled'] = true ;
 
 
 // Path to user files relative to the document root.
-$Config['UserFilesPath'] = BASE_URL;//'/';//dirname(__file__).'/../../../../../../../';//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
+$Config['UserFilesPath'] = \Ip\Config::baseUrl('');//'/';//dirname(__file__).'/../../../../../../../';//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
 
 // Fill the following value it you prefer to specify the absolute path for the
 // user files directory. Useful if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
-$Config['UserFilesAbsolutePath'] = BASE_DIR;//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
+$Config['UserFilesAbsolutePath'] = \Ip\Config::baseFile('');//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
 
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
@@ -115,8 +115,8 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 		
 */
 
-$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'].MANUAL_DIR;
-$manualRepositoryPath = $Config['UserFilesPath'].MANUAL_DIR;
+$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'] . \Ip\Config::getRaw('MANUAL_DIR');
+$manualRepositoryPath = $Config['UserFilesPath'] . \Ip\Config::getRaw('MANUAL_DIR');
 if (!file_exists($manualRepositoryAbsolutePath) || !is_dir($manualRepositoryAbsolutePath)) {
     mkdir($manualRepositoryAbsolutePath);
 }
@@ -134,15 +134,11 @@ $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 
 //$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
 //$Config['DeniedExtensions']['Image']	= array() ;
-//$Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . IMAGE_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].IMAGE_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
 //
 //$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
 //$Config['DeniedExtensions']['Flash']	= array() ;
-//$Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . VIDEO_REPOSITORY_DIR;
-//$Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].VIDEO_REPOSITORY_DIR ;
 //$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
 //$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 

@@ -79,7 +79,7 @@ abstract class Field{
     public abstract function render($doctype);
     
     public function __toString() {
-        return $this->render(DEFAULT_DOCTYPE);
+        return $this->render(\Ip\Config::getRaw('DEFAULT_DOCTYPE'));
     }
     
     public function getLayout() {

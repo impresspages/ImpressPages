@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 class ElementTextLang extends Element { //data element in area
     var $translationField;
     var $translationTable;
@@ -25,7 +24,7 @@ class ElementTextLang extends Element { //data element in area
         $this->maxLenght = null;
         $this->previewLength = 60;
 
-        require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_db.php');
+        require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_db.php');
         $stdModDb = new StdModDb();
 
         $languages = $stdModDb->languages();
@@ -152,7 +151,7 @@ class ElementTextLang extends Element { //data element in area
     function previewValue($record, $area) {
         global $stdModDb;
 
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+        require_once \Ip\Config::libraryFile('php/text/string.php');
 
 
         $answer='';

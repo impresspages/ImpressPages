@@ -5,7 +5,6 @@
  *
  */
 namespace Modules\administrator\rss;
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
 
 class Db{
     function __construct(){

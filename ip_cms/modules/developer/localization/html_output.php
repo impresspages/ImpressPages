@@ -8,7 +8,6 @@
 
 namespace Modules\developer\localization;
 
-if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 
@@ -19,11 +18,11 @@ class HtmlOutput{
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="'.CHARSET.'">
+    <meta charset="'.\Ip\Config::getRaw('CHARSET').'">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="'.BASE_URL.BACKEND_DIR.'design/ip_admin.css">
-    <link rel="stylesheet" href="'.BASE_URL.MODULE_DIR.'developer/config_exp_imp/design/style.css">
-    <script src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
+    <link rel="stylesheet" href="' . \Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css') . '">
+    <link rel="stylesheet" href="' . \Ip\Config::oldModuleUrl('developer/config_exp_imp/design/style.css') . '">
+    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
 </head>
 <body>
       ';

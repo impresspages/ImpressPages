@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 class ElementBoolLang extends Element{ //data element in area
     var $defaultValues; //array of default values for all languages
     var $translationField;
@@ -22,7 +21,7 @@ class ElementBoolLang extends Element{ //data element in area
         $this->languageIdField = 'language_id';
         $this->translationField = 'translation';
 
-        require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod_db.php');
+        require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_db.php');
         $stdModDb = new StdModDb();
 
         $languages = $stdModDb->languages();

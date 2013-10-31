@@ -15,7 +15,7 @@ namespace Modules\administrator\search;
  * @package ImpressPages
  */
 
-class Element extends \Frontend\Element{
+class Element extends \Ip\Frontend\Element{
 
     public function getLink(){
         global $site;

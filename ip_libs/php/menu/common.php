@@ -12,9 +12,6 @@
 
 namespace Library\Php\Menu;
 
-if (!defined('CMS')) exit;
-
-
 class Common {
 
     /**

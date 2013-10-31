@@ -19,10 +19,6 @@ if (!defined('SITEMAP_MAX_LENGTH')) {
     define('SITEMAP_MAX_LENGTH', 50000);
 }
 
-
-if (!defined('CMS')) {
-    define('CMS', true); // make sure other files are accessed through this file.
-}
 if (!defined('BACKEND')) {
     define('BACKEND', true); // make sure other files are accessed through this file.
 }
@@ -37,23 +33,23 @@ if(is_file(__DIR__.'/ip_config.php')) {
 }
 
 error_reporting(E_ALL|E_STRICT);
-if (DEVELOPMENT_ENVIRONMENT){ 
+if (\Ip\Config::isDevelopmentEnvironment()){
     ini_set('display_errors', '1');
 } else {
     ini_set('display_errors', '0');
 }
 
 
-require_once(BASE_DIR.FRONTEND_DIR.'init.php');
+\Ip\Core\Application::init();
 
 if(\Db::connect()){
-    $log = new \Modules\administrator\log\Module();
+    $log = new \Ip\Module\Log\Module();
 
     try {
         $dispatcher = new \Ip\Dispatcher();
 
         $parametersMod = new ParametersMod();
-        $session = new \Frontend\Session();
+        $session = new \Ip\Frontend\Session();
 
 
         $site = new \Site();
@@ -123,12 +119,12 @@ class sitemap{
         }
 
 
-        header('Content-type: application/xml; charset="'.CHARSET.'"',true);
+        header('Content-type: application/xml; charset="'.\Ip\Config::getRaw('CHARSET').'"',true);
          
 
 
         $answer = '';
-        $answer .= '<'.'?xml version="1.0" encoding="'.CHARSET.'"?'.'>
+        $answer .= '<'.'?xml version="1.0" encoding="'.\Ip\Config::getRaw('CHARSET').'"?'.'>
   		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   	
   	';
@@ -218,11 +214,11 @@ class sitemap{
     function getSitemapIndex(){
         global $site;
 
-        header('Content-type: application/xml; charset="'.CHARSET.'"',true);
+        header('Content-type: application/xml; charset="'.\Ip\Config::getRaw('CHARSET').'"',true);
 
         $answer = '';
 
-        $answer .= '<'.'?xml version="1.0" encoding="'.CHARSET.'"?'.'>
+        $answer .= '<'.'?xml version="1.0" encoding="'.\Ip\Config::getRaw('CHARSET').'"?'.'>
   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
         foreach($this->mappedZones as $curZone => $curDepth){
@@ -242,7 +238,7 @@ class sitemap{
                 if($language['visible']){
                     $answer .= '
            <sitemap>
-              <loc>'.BASE_URL.'sitemap.php?zone='.$curZone.'&amp;lang='.$language['id'].'&amp;nr=0</loc>    
+              <loc>' . \Ip\Config::baseUrl('sitemap.php', array('zone' => $curZone, 'lang' => $language['id'], 'nr' => 0), '&amp;') . '</loc>
            </sitemap>
            ';  
                 }

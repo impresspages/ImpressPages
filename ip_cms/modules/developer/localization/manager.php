@@ -11,11 +11,12 @@ namespace Modules\developer\localization;
 require_once (__DIR__.'/html_output.php');
 require_once (__DIR__.'/db.php');
 
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard_fields.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/file/upload_file.php');
+require_once \Ip\Config::libraryFile('php/form/standard.php');
+require_once \Ip\Config::libraryFile('php/form/standard_fields.php');
 require_once (__DIR__.'/additional_standard_form_fields.php');
+require_once \Ip\Config::oldModuleFile('developer/localization/ConfigParser.php'); //can't be replaced by autoloader because it is required for install script and MultiSite
 
 class Manager{
 
@@ -78,13 +79,13 @@ class Manager{
                     else{
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php"));
-                        $file = $fileUpload->upload('config', TMP_FILE_DIR);
+                        $file = $fileUpload->upload('config', \Ip\Config::temporarySecureFile(''));
 
 
                         //security check
                         if ($file == UPLOAD_ERR_OK && function_exists('token_get_all')){
                             $error = false;
-                            $content = file_get_contents(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+                            $content = file_get_contents(\Ip\Config::temporarySecureFile($fileUpload->fileName));
                             $tokens = token_get_all($content);
                             foreach($tokens as $key => $token)
                             {
@@ -95,7 +96,7 @@ class Manager{
                                 }
                             }
                             if ($error) {
-                                unlink(BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName);
+                                unlink(\Ip\Config::temporarySecureFile($fileUpload->fileName));
                                 $errors['config'] = 'Incorrect language file';
                                 $answer .= HtmlOutput::header();
                                 $answer .= $standardForm->generateErrorAnswer($errors);
@@ -106,7 +107,7 @@ class Manager{
                         //end security check
 
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['localization']['uploaded_file'] = \Ip\Config::temporarySecureFile($fileUpload->fileName);
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
@@ -124,6 +125,9 @@ class Manager{
                     }
                     break;
                 case 'import_uploaded':
+                    if (empty($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])) {
+                        break;
+                    }
                     $answer .= HtmlOutput::header();
                     $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'preview')).'</h1>';
                     $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'localization', 'admin_translations', 'import_language_file')).'</a><br /><br /><br />';
@@ -133,7 +137,7 @@ class Manager{
                     break;
                 case 'import_confirmed':
                     if(isset($_SESSION['backend_modules']['developer']['localization']['uploaded_file'])){
-                        //$config = unserialize(file_get_contents(TMP_FILE_DIR.$_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
+                        //$config = unserialize(file_get_contents(TMP_SECURE_DIR.$_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
                         $answer .= HtmlOutput::header();
                         //$config_import = new mod_developer_config_exp_imp_parameters();
                         //$config_import->save_parameters();
@@ -173,7 +177,7 @@ class Manager{
                             $answer .= HtmlOutput::footer();
                         }else{
                             header("Content-type: application/octet-stream");
-                            $language = Db::getLanguage($_REQUEST['language']);
+                            $language = Db::getLanguage((int)$_REQUEST['language']);
                             header("Content-Disposition: attachment; filename=\"public_interface_".$language['code'].".php\"");
                             $answer = $this->generatePublicInterfaceLanguageFile($_REQUEST['language']);
                         }
@@ -198,12 +202,14 @@ class Manager{
     }
 
     public static function saveParameters($file, $ignoreLanguage = false){
-        require_once(BASE_DIR.MODULE_DIR.'standard/languages/db.php');
+        require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
 
-        //require_once(MODULE_DIR."standard/seo/db.php");
         global $parametersMod;
         global $site;
-        require($file);
+
+        $config = ConfigParser::parseConfig($file);
+        extract($config);
+
         $answer = '';
 
         //get languageId
@@ -352,7 +358,9 @@ class Manager{
 
 
     public static function previewParameters($file){
-        require($file);
+        $config = ConfigParser::parseConfig($file);
+        extract($config);
+
         $answer = '';
 
         $preparedParameters = array();

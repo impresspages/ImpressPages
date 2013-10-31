@@ -6,7 +6,7 @@
  */
 
 namespace IpUpdate\Library\Model;
-use Modules\administrator\system\UpdateException;
+use Ip\Module\System\UpdateException;
 
 /**
  * Store data in file system required for update process

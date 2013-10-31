@@ -63,12 +63,11 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         $log->log('system', 'error', $message);
     }
 
-    if(ERRORS_SHOW){
+    if(\Ip\Config::getRaw('ERRORS_SHOW')){
         restore_error_handler();
         throw new \Ip\PhpException($message, $errno);
     }
-    if($log && defined('ERRORS_SEND') && ERRORS_SEND != ''){
-        require_once(BASE_DIR.MODULE_DIR.'administrator/email_queue/module.php');
+    if($log && \Ip\Config::getRaw('ERRORS_SEND')){
         $logsCount = $log->lastLogsCount(60, 'system/error');
         if($logsCount <= 9){
             if($logsCount == 9)
@@ -76,15 +75,15 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
 
 Error emails count has reached the limit. See logs for more errors.';
 
-            $queue = new \Modules\administrator\email_queue\Module();
+            $queue = new \Ip\Module\Email\Module();
             if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), ERRORS_SEND, '', BASE_URL." ERROR", $message, false, true);
+            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), ERRORS_SEND, '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
             else
-            $queue->addEmail(ERRORS_SEND, '', ERRORS_SEND, '', BASE_URL." ERROR", $message, false, true);
+            $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
             $queue->send();
 
 
-            $log->log('system/error', 'Sent e-mail to '.ERRORS_SEND, $message);
+            $log->log('system/error', 'Sent e-mail to '.\Ip\Config::getRaw('ERRORS_SEND'), $message);
         }
     }
 

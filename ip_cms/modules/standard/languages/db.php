@@ -6,7 +6,6 @@
  */
 namespace Modules\standard\languages;
 
-if (!defined('CMS')) exit;
 class Db {
 
     public static function getLanguages() {
@@ -83,8 +82,8 @@ class Db {
     }
 
     public static function createRootZoneElement($language) {
-        $firstLanguage = \Frontend\Db::getFirstLanguage();
-        $zones = \Frontend\Db::getZones($firstLanguage['id']);
+        $firstLanguage = \Ip\Frontend\Db::getFirstLanguage();
+        $zones = \Ip\Frontend\Db::getZones($firstLanguage['id']);
         foreach($zones as $key => $zone) {
             $sql2 = "insert into `".DB_PREF."zone_parameter` set
         language_id = '".mysql_real_escape_string($language)."',

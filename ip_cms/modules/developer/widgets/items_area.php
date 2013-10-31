@@ -2,9 +2,8 @@
 
 namespace Modules\developer\widgets;
 
-if (!defined('BACKEND')) exit;  //this file can't be accessed directly
 
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod.php'); //include standard module to manage data records
+require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php'); //include standard module to manage data records
 
 class ItemsArea extends \Modules\developer\std_mod\Area{  //extending standard data management module area
 

@@ -6,9 +6,7 @@
  */
 namespace Modules\standard\languages;
 
-if (!defined('BACKEND')) exit;
-
-require_once(BASE_DIR.MODULE_DIR.'developer/std_mod/std_mod.php');
+require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
 require_once(__DIR__.'/db.php');
 require_once(__DIR__.'/element_url.php');
 
@@ -159,8 +157,8 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
         $tmpLanguage = Db::getLanguageById($id);
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
-            $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
-            $newUrl = BASE_URL.$tmpLanguage['url'].'/';
+            $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
+            $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
             global $dispatcher;
             $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
@@ -172,9 +170,8 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
     function allowDelete($id) {
         global $parametersMod;
-        require_once (MODULE_DIR."standard/menu_management/db.php");
 
-        $dbMenuManagement = new \Modules\standard\menu_management\Db();
+        $dbMenuManagement = new \Ip\Module\Pages\Db();
 
         $answer = true;
 

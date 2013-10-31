@@ -8,13 +8,12 @@
 
 namespace Modules\administrator\rss;
 
-if (!defined('FRONTEND') && !defined('BACKEND'))
 exit;
 
 require_once (__DIR__ . '/db.php');
 require_once (__DIR__ . '/element.php');
 
-class Zone extends \Frontend\Zone {
+class Zone extends \Ip\Frontend\Zone {
 
     var $zoneName;
     var $db;

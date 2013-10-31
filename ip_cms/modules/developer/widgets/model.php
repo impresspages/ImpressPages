@@ -67,7 +67,7 @@ class Model {
             throw new Exception('Can\'t mark widgets as deleted '.$sql.' '.mysql_error(), Exception::DB);
         }
         
-        $widgets = \Modules\standard\content_management\Model::getAvailableWidgetObjects();
+        $widgets = \Ip\Module\Content\Model::getAvailableWidgetObjects();
         
         foreach ($widgets as $widgetKey => $widget) {
             self::_addWidget($widget->getName());

@@ -77,6 +77,9 @@ function output($html, $requiredJs = array()){
                 <div id="content">
 '.$html.'
                 </div>
+                <div id="loading">
+                <img src="design/loading.gif" ?>
+                </div>
                 <div class="clear"></div>
             </div>
             <img class="border" src="design/cms_main_bottom.gif" alt="Design">

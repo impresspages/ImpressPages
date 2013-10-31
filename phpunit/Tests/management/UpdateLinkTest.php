@@ -5,10 +5,12 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
+
 class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 {
-
-
     public function testPageUrlChanged()
     {
         $installation = $this->getInstallation();
@@ -20,7 +22,7 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $this->windowMaximize();
 
         $ipActions->addWidget('IpHtml');
-        $this->storeAttribute('css=.side nav ul li:eq(1) a@href', 'linkValue');
+        $this->storeAttribute('css=.topmenu ul li:eq(1) a@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
         $this->type('css=.ipAdminWidget-IpHtml textarea', '<a class="seleniumUpdateLinkTest" href="'.$linkValue.'">TEST</a>');
         $ipActions->confirmWidget();
@@ -40,7 +42,7 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 
         //add html widget to check its presents later
         $ipActions->addWidget('IpHtml');
-        $this->storeAttribute('css=.side nav ul li:eq(1) a@href', 'linkValue');
+        $this->storeAttribute('css=.topmenu ul li:eq(1) a@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
         $this->type('css=.ipAdminWidget-IpHtml textarea', '<span class="seleniumPageUrlChangedTest" href="'.$linkValue.'">TEST</span>');
         $ipActions->confirmWidget();
@@ -55,9 +57,10 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=span.seleniumPageUrlChangedTest');
     }
 
-
     public function testLinkWebsiteMove()
     {
+        $this->windowMaximize();
+
         $installation = $this->getInstallation();
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
@@ -79,7 +82,9 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $newSubdir = 'moved';
         $fs = new \PhpUnit\Helper\FileSystem();
         $fs->cpDir($installation->getInstallationDir(), $installation->getInstallationDir().'../'.$newSubdir.'/');
+        $fs->chmod ($installation->getInstallationDir().'../'.$newSubdir.'/', 0777);
         $fs->cleanDir($installation->getInstallationDir());
+
 
         $newInstallation = clone $installation;
         $newInstallation->setInstallationDir(str_replace($baseName, $newSubdir, $installation->getInstallationDir()));
@@ -95,7 +100,8 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
 
         $ipActions->openModule('system');
-        $this->click('css=.content a.button');
+        $this->waitForElementPresent('css=.ipsClearCache');
+        $this->click('css=.ipsClearCache');
         $this->waitForText('css=.note p', 'exact:Cache was cleared.');
         $this->assertNoErrors();
 

@@ -15,25 +15,15 @@ class Functions{
      */
     public static function isFileInPublicDir($fileName)
     {
-        $fileName = realpath(BASE_DIR.$fileName);
+        $fileName = realpath(\Ip\Config::baseFile($fileName));
         $publicDirs = array(
-            FILE_DIR,
-            TMP_FILE_DIR,
-            FILE_REPOSITORY_DIR,
-            IMAGE_DIR,
-            TMP_IMAGE_DIR,
-            IMAGE_REPOSITORY_DIR,
-            AUDIO_DIR,
-            TMP_AUDIO_DIR,
-            AUDIO_REPOSITORY_DIR,
-            VIDEO_DIR,
-            TMP_VIDEO_DIR,
-            VIDEO_REPOSITORY_DIR
+            \Ip\Config::fileDirFile(''),
+            \Ip\Config::temporaryFile(''),
+            \Ip\Config::repositoryFile(''),
         );
         foreach ($publicDirs as $publicDir) {
             //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
-            $tmpPath = realpath(BASE_DIR.$publicDir);
-            if (strpos($fileName, $tmpPath) === 0) {
+            if (strpos($fileName, $publicDir) === 0) {
                 return true;
             }
         }
@@ -66,7 +56,6 @@ class Functions{
      * @return string new (or the same) file name that don't collide with existing files in specified directory
      */
     public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
-        require_once (BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
         $new_name = basename($file);
         $ext_pos = strrpos($new_name, ".");
         if ($ext_pos !== false){
@@ -98,7 +87,7 @@ class Functions{
      * @return string new (or the same) file without special characters
      */
     public static function cleanupFileName($fileName){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         $fileName = \Library\Php\Text\Transliteration::transform($fileName);
         $fileName = utf8_decode($fileName);
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
@@ -134,6 +123,17 @@ class Functions{
             //any other ideas?
         }
         return $mtype;
+    }
+
+    public static function copyTemporaryFile($relativePath, $destinationDir)
+    {
+        $newBasename = \Library\Php\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
+
+        if (!copy(\Ip\Config::temporaryFile($relativePath), $destinationDir . $newBasename)) {
+            trigger_error("Can't copy file from " . htmlspecialchars(\Ip\Config::getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
+        }
+
+        return $newBasename;
     }
 
 }
