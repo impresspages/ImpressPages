@@ -6,13 +6,10 @@
  */
 namespace Modules\administrator\search;
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-
 require_once('element.php');
 
 
-class Zone extends \Frontend\Zone {
+class Zone extends \Ip\Frontend\Zone {
 
 
     /**

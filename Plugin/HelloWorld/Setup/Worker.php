@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\HelloWorld;
+namespace Plugin\HelloWorld\Setup;
 
 class Worker extends \Ip\SetupWorker{
 
@@ -14,7 +14,7 @@ class Worker extends \Ip\SetupWorker{
 
     }
 
-    public function delete()
+    public function remove()
     {
 
     }

@@ -6,12 +6,10 @@
  */
 
 namespace Modules\administrator\administrators;
-if (!defined('BACKEND')) exit;
 
-require_once (BASE_DIR.LIBRARY_DIR.'php/standard_module/std_mod.php');
 require_once (__DIR__.'/element_administrators.php');
 
-class mod_administrator_area extends \Library\Php\StandardModule\Area{
+class mod_administrator_area extends \Ip\Lib\StdMod\Area{
     public function after_delete($id){
         $sql = "delete from `".DB_PREF."user_to_mod` where `user_id` = ".(int)$id."";
         $rs = mysql_query($sql);
@@ -35,7 +33,7 @@ class Manager{
         $element->name = $parametersMod->getValue('administrator', 'administrators','admin_translations','name');
         $element->db_field = "name";
         $element->required = true;
-        $element->show_on_list = true;
+        $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
 
@@ -45,7 +43,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_pass("text");
         $element->name = $parametersMod->getValue('administrator', 'administrators','admin_translations','password');
         $element->db_field = "pass";
-        $element->show_on_list = false;
+        $element->showOnList = false;
         //   $element->searchable = true;
         $elements[] = $element;
 
@@ -54,7 +52,7 @@ class Manager{
         // $element->set_db_field("id");
 
 
-        $modules = \Backend\Db::modules(true);
+        $modules = \Ip\Backend\Db::modules(true);
         $values = array();
         foreach($modules as $key => $group){
             $tmp_values = array();
@@ -101,7 +99,7 @@ class Manager{
 
 
 
-        $this->standard_module = new \Library\Php\StandardModule\StandardModule($area0);
+        $this->standard_module = new \Ip\Lib\StdMod\StandardModule($area0);
     }
     function manage(){
 

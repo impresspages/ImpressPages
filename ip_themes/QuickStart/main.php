@@ -2,8 +2,8 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/ip_content.css');
-    $site->addCss(BASE_URL.THEME_DIR.THEME.'/theme.css');
+    $site->addCss(\Ip\Config::themeUrl('ip_content.css'));
+    $site->addCss(\Ip\Config::themeUrl('theme.css'));
     echo $site->generateHead();
     ?>
 </head>
@@ -14,11 +14,11 @@
         ?>
     </div>
     <div class="content">
-        <?php echo $this->generateBlock('main'); ?>
+        <?php echo $this->generateBlock('main')->render(); ?>
     </div>
     <?php
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-        $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/theme.js');
+        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::themeUrl('theme.js'));
         echo $site->generateJavascript();
     ?>
 </body>

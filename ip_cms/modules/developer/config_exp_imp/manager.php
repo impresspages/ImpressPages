@@ -8,15 +8,14 @@
 
 namespace Modules\developer\config_exp_imp;
 
-if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/html_output.php');
 require_once (__DIR__.'/parameters.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/functions.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/file/upload_file.php');
-require_once (BASE_DIR.LIBRARY_DIR.'php/form/standard.php');
+require_once \Ip\Config::libraryFile('php/file/functions.php');
+require_once \Ip\Config::libraryFile('php/file/upload_file.php');
+require_once \Ip\Config::libraryFile('php/form/standard.php');
 require_once (__DIR__.'/additional_standard_form_fields.php');
-require_once (BASE_DIR.MODULE_DIR.'developer/localization/manager.php');
+require_once \Ip\Config::oldModuleFile('developer/localization/manager.php');
 
 
 class Manager{
@@ -71,18 +70,17 @@ class Manager{
         if(isset($_GET['action'])){
             switch($_GET['action']){
                 case 'import':
-
                     $standardForm = new \Library\Php\Form\Standard($this->importFields);
                     $errors = $standardForm->getErrors();
 
-                    if(sizeof($errors) > 0)
-                    $answer = $standardForm->generateErrorAnswer($errors);
-                    else{
+                    if (sizeof($errors) > 0) {
+                        $answer = $standardForm->generateErrorAnswer($errors);
+                    } else {
                         $fileUpload = new \Library\Php\File\UploadFile();
                         $fileUpload->allowOnly(array("php", "conf", "txt"));
-                        $file = $fileUpload->upload('config', TMP_FILE_DIR);
+                        $file = $fileUpload->upload('config', \Ip\Config::temporarySecureFile(''));
                         if($file == UPLOAD_ERR_OK){
-                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = BASE_DIR.TMP_FILE_DIR.$fileUpload->fileName;
+                            $_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'] = \Ip\Config::temporarySecureFile($fileUpload->fileName);
                             $answer .= HtmlOutput::header();
                             $answer .= '
                 <script type="text/javascript">
@@ -103,6 +101,9 @@ class Manager{
 
                     break;
                 case 'import_uploaded':
+                    if (empty($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file'])) {
+                        break;
+                    }
                     $info = pathinfo($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
                     if($info['extension'] == 'conf'){
                         $answer .= HtmlOutput::header();
@@ -171,7 +172,7 @@ class Manager{
                         $file = $this->writeParametersToFile();
                         header("Content-type: application/octet-stream");
                         header("Content-Disposition: attachment; filename=\"".$file."\"");
-                        $answer = (file_get_contents(TMP_FILE_DIR.$file));
+                        $answer = file_get_contents(\Ip\Config::temporarySecureFile($file));
                     }
 
 
@@ -194,75 +195,6 @@ class Manager{
     }
 
 
-    public function previewParameters($file){
-        require($file);
-        $answer = '';
-
-        $preparedParameters = array();
-        if(isset($parameterValue))
-        foreach($parameterValue as $moduleGroupName => $moduleGroup){
-            foreach($moduleGroup as $moduleName => $module){
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    foreach($parameterGroup as $parameterName => $value){
-                        $preparedParameters[$moduleGroupName][$moduleName][$parameterGroupName][$parameterName]['value'] = $value;
-                    }
-                }
-            }
-        }
-
-        if(isset($parameterTitle))
-        foreach($parameterTitle as $moduleGroupName => $moduleGroup){
-            foreach($moduleGroup as $moduleName => $module){
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    foreach($parameterGroup as $parameterName => $title){
-                        $preparedParameters[$moduleGroupName][$moduleName][$parameterGroupName][$parameterName]['title'] = $title;
-                    }
-                }
-            }
-        }
-
-
-        foreach($preparedParameters as $moduleGroupName => $moduleGroup){
-            $answer .= '<div class="content">';
-            if(isset($moduleGroupTitle[$moduleGroupName]))
-            $moduleGroupTranslation = $moduleGroupTitle[$moduleGroupName];
-            else
-            $moduleGroupTranslation = $moduleGroupName;
-
-            foreach($moduleGroup as $moduleName => $module){
-                if(isset($moduleTitle[$moduleGroupName][$moduleName]))
-                $moduleTranslation = $moduleTitle[$moduleGroupName][$moduleName];
-                else
-                $moduleTranslation = $moduleName;
-
-                $answer .= '<h1>'.htmlspecialchars($moduleGroupTranslation.' -> '.$moduleTranslation).'</h1>';
-                foreach($module as $parameterGroupName => $parameterGroup){
-                    if(isset($parameterGroupTitle[$moduleGroupName][$moduleName][$parameterGroupName]))
-                    $parameterGroupTranslation = $parameterGroupTitle[$moduleGroupName][$moduleName][$parameterGroupName];
-                    else
-                    $parameterGroupTranslation = $parameterGroupName;
-
-                    $answer .= '<h2>'.htmlspecialchars($parameterGroupTranslation).'</h2>';
-                    foreach($parameterGroup as $parameterName => $parameter){
-                        if(!isset($parameter['title']))
-                        $parameter['title'] = '';
-
-                        if(!isset($parameter['value']))
-                        $parameter['value'] = '';
-                        //if(sizeof($this->parameters) > 0){
-                        //foreach($this->parameters as $parameterKey => $parameter){
-                        $answer .= '<div class="parameter"><div class="parameterName">'.htmlspecialchars($parameter['title']).'</div> <div class="parameterValue">'.htmlspecialchars($parameter['value']).'</div><div class="clear"></div></div>';
-                         
-                    }
-                }
-            }
-            $answer .= '</div>';
-        }
-
-
-
-        return $answer;
-    }
     private function importForm(){
         global $parametersMod;
         global $cms;
@@ -290,7 +222,7 @@ class Manager{
 
 
     private function writeParametersToFile(){
-        $parameters = new Parameters($_POST['language'], $_POST['types']);
+        $parameters = new Parameters((int)$_POST['language'], $_POST['types']);
         $fileName = '';
         foreach($_POST['modules'] as $groupKey => $group){
             foreach ($group as $moduleKey => $value){
@@ -300,13 +232,15 @@ class Manager{
             }
         }
 
-        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, TMP_FILE_DIR);
-        $fh = fopen(TMP_FILE_DIR.$fileName, 'w');
+        $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, \Ip\Config::temporarySecureFile(''));
+        $fh = fopen(\Ip\Config::temporarySecureFile($fileName), 'w');
         if($fh){
             fwrite($fh, $this->generateConfigurationFile($parameters));
             fclose($fh);
             return $fileName;
-        }else trigger_error("can't open file ".$TMP_FILE_DIR.$fileName);
+        } else {
+            trigger_error("can't open file " . \Ip\Config::getRaw('TMP_SECURE_DIR') . $fileName);
+        }
 
         return false;
     }

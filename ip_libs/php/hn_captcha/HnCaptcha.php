@@ -1040,7 +1040,7 @@ class HnCaptcha
         public function get_filename_url($public='')
         {
             if($public==='') $public = $this->public_key;
-            return str_replace(BASE_DIR, '', $this->tempfolder).$public.'.jpg';
+            return str_replace(\Ip\Config::baseFile(''), '', $this->tempfolder).$public.'.jpg';
         }
 
         /** @private **/

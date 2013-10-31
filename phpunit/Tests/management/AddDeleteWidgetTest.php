@@ -5,6 +5,9 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
 class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
 {
     public function testInstallCurrent()
@@ -69,6 +72,9 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
         $ipActions->cancelWidget();
         $this->assertNoErrors();
         $ipActions->addWidget('IpForm');
+        $this->assertNoErrors();
+        $ipActions->cancelWidget();
+        $ipActions->addWidget('IpColumns');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();

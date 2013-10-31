@@ -54,7 +54,7 @@ class Installation
         $this->setDbHost('localhost');
         $this->setDbUser(TEST_DB_USER);
         $this->setDbPass(TEST_DB_PASS);
-        $this->setDbPrefix('ipt_');
+        $this->setDbPrefix('ip_');
         $this->setSiteName('TestSite');
         $this->setSiteEmail('test@example.com');
         $this->setSiteTimeZone('Europe/London');
@@ -277,10 +277,11 @@ class Installation
     public function getDbConn()
     {
         if (!$this->conn) {
-            $connection = mysql_connect($this->getConfig('DB_SERVER'), $this->getConfig('DB_USERNAME'), $this->getConfig('DB_PASSWORD'));
+            $config = \Ip\Config::getRaw('db');
+            $connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
             if ($connection) {
-                mysql_select_db($this->getConfig('DB_DATABASE'));
-                mysql_query("SET CHARACTER SET ".$this->getConfig('MYSQL_CHARSET'));
+                mysql_select_db($config['database']);
+                mysql_query("SET CHARACTER SET ".$config['charset']);
                 $this->conn = $connection;
             } else {
                 throw new \Exception("Can\'t connect to database.");
@@ -467,29 +468,24 @@ class Installation
         mkdir($destination);
 
         $folders = array(
-            'audio',
+            'Ip',
             'file',
-            'image',
             'install',
             'ip_cms',
-            'ip_configs',
             'ip_libs',
             'ip_plugins',
             'ip_themes',
             'update',
-            'video'
         );
 
         $files = array(
-            'admin.php',
             'favicon.ico',
             'index.php',
-            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
             'ip_cron.php',
             'ip_license.html',
-            'readme.txt',
+            'readme.md',
             'robots.txt',
             'sitemap.php',
             '.htaccess'

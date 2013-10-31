@@ -8,11 +8,10 @@
 
 namespace Modules\developer\config_exp_imp;
 
-if (!defined('BACKEND')) exit;
 
 require_once (__DIR__.'/parameter_group.php');
 require_once (__DIR__.'/db.php');
-require_once (BASE_DIR.MODULE_DIR.'standard/languages/db.php');
+require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
 
 class Parameters{
     public $parameterGroups;
@@ -23,7 +22,7 @@ class Parameters{
 
     function __construct($languageId, $types){
         $this->parameterGroups = array();
-        $this->languageId = $languageId;
+        $this->languageId = (int)$languageId;
         $this->cachedLanguage = Db::getLanguage($languageId);
         $this->languageCode = $this->cachedLanguage['code'];
         $this->types = $types;

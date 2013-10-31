@@ -6,9 +6,6 @@
  */
 
 
-if (!defined('FRONTEND')&&!defined('BACKEND')) exit;
-
-
 /**
  * @access private
  * @package ImpressPages
@@ -193,6 +190,7 @@ class ParametersMod {
             if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
             return($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->value);
             else {
+                return '[[' . $parameter . ']]';
                 $backtrace = debug_backtrace();
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
                 trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");
@@ -200,6 +198,7 @@ class ParametersMod {
                 trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")");
             }
         }else {
+            return '[[' . $parameter . ']]';
             $backtrace = debug_backtrace();
             if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
             trigger_error("Parameter doesn't exists (".$modGroup.", ".$module.", ".$parGroup.", ".$parameter.")  (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ");

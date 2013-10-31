@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 
 abstract class Element { //data element in area
 

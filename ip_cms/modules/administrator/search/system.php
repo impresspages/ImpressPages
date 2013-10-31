@@ -5,9 +5,6 @@
  *
  */
 namespace Modules\administrator\search;
-if (!defined('CMS')) exit;
-
-
 
 class System{
 

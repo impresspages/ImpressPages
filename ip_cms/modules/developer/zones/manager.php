@@ -8,14 +8,13 @@
 namespace Modules\developer\zones;
 
 
-if (!defined('BACKEND')) exit;
 
 
-require_once (BASE_DIR.LIBRARY_DIR.'php/standard_module/std_mod.php');
+require_once \Ip\Config::libraryFile('php/standard_module/std_mod.php');
 require_once (__DIR__.'/db.php');
 
 
-class ZonesArea extends \Library\Php\StandardModule\Area{
+class ZonesArea extends \Ip\Lib\StdMod\Area{
     function after_insert($id){
 
         Db::afterInsert($id);
@@ -149,7 +148,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','name');
         $element->db_field = "translation";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         $element->required = true;
         $element->sortable = false;
         $elements[] = $element;
@@ -157,7 +156,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','key');
         $element->db_field = "name";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         $element->required = true;
         $element->sortable = false;
         $elements[] = $element;
@@ -194,7 +193,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','associated_group');
         $element->db_field = "associated_group";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         $element->default_value = 'standard';
         $element->sortable = false;
         $elements[] = $element;
@@ -202,7 +201,7 @@ class Manager{
         $element = new \Library\Php\StandardModule\element_text("text");
         $element->name = $parametersMod->getValue('developer', 'zones','admin_translations','associated_module');
         $element->db_field = "associated_module";
-        $element->show_on_list = true;
+        $element->showOnList = true;
         $element->default_value = 'content_management';
         $element->sortable = false;
         $elements[] = $element;
@@ -220,7 +219,7 @@ class Manager{
 
 
          
-        $this->standardModule = new \Library\Php\StandardModule\StandardModule($area0);
+        $this->standardModule = new \Ip\Lib\StdMod\StandardModule($area0);
     }
     function manage(){
         return $this->standardModule->manage();

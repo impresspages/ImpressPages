@@ -5,10 +5,11 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
 class UpdateTest extends \PhpUnit\SeleniumTestCase
 {
-
- 
     public function testGeneral()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -43,7 +44,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
         
     }
-    
+
     public function testWritePermissionError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -92,7 +93,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
     }
-    
+
     public function testInProgressError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -136,8 +137,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertElementPresent('css=.sitename');
         $this->assertNoErrors();
     }
-    
-    
+
     public function testUnknownVersionError()
     {
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
@@ -173,7 +173,6 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->assertTextPresent('Your system has been successfully updated');
 
     }
-
 
     public function testUpdateButtonOnSystemTab()
     {

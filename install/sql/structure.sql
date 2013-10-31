@@ -195,36 +195,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_rss` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_community_newsletter`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_m_community_newsletter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `subject` varchar(255) DEFAULT NULL,
-  `text` mediumtext,
-  `language_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_m_community_newsletter_subscribers`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_m_community_newsletter_subscribers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `verification_code` varchar(32) DEFAULT NULL,
-  `language_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
 DROP TABLE IF EXISTS `ip_cms_m_community_user`;
 
 -- Table structure
@@ -453,6 +423,20 @@ CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
   `parameter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_plugin`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
+  `name` varchar(30) NOT NULL,
+  `version` decimal(10,2) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 

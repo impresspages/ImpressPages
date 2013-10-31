@@ -6,7 +6,6 @@
  */
 namespace Modules\developer\std_mod;
 
-if (!defined('BACKEND')) exit;
 class ElementTextarea extends Element{ //data element in area
     var $defaultValue;
     var $memValue;
@@ -89,7 +88,7 @@ class ElementTextarea extends Element{ //data element in area
 
 
     function previewValue($record, $area){
-        require_once(BASE_DIR.LIBRARY_DIR.'php/text/string.php');
+        require_once \Ip\Config::libraryFile('php/text/string.php');
 
         $answer = htmlspecialchars(mb_substr($record[$this->dbField], 0, $this->previewLength));
         $answer = \Library\Php\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);

@@ -7,9 +7,6 @@
 
 namespace Modules\administrator\rss;
 
-
-if (!defined('CMS')) exit;
-
 require_once (__DIR__.'/db.php');
 
 /**
@@ -18,7 +15,7 @@ require_once (__DIR__.'/db.php');
  * @package ImpressPages
  */
 
-class Element extends \Frontend\Element {
+class Element extends \Ip\Frontend\Element {
 
     public function getLink() {
         global $site;
@@ -107,7 +104,7 @@ class Element extends \Frontend\Element {
         }else {
             $tmpTitle = $parametersMod->getValue('administrator', 'rss', 'options', 'title');
             $tmpDescription = $parametersMod->getValue('administrator', 'rss', 'options', 'description');
-            $tmpLink = BASE_URL;
+            $tmpLink = \Ip\Config::baseUrl('');
         }
 
         $rss .= '<?xml version="1.0" encoding="UTF-8"?'.'>

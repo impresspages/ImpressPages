@@ -1,4 +1,3 @@
-<?php if (!defined('CMS')) exit; ?>
 <?php
 /**
  * This comment block is used just to make IDE suggestions to work
@@ -16,10 +15,9 @@
 </footer>
 </div>
 <?php
-    $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery/jquery.js');
-    $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/colorbox/jquery.colorbox.js');
-    $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/site.js');
-    $site->addJavascript(BASE_URL.THEME_DIR.THEME.'/drag.js?1');
+    $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+    $site->addJavascript(\Ip\Config::libraryUrl('js/colorbox/jquery.colorbox.js'));
+    $site->addJavascript(\Ip\Config::themeUrl('site.js'));
     echo $site->generateJavascript();
 ?>
 </body>

@@ -8,7 +8,6 @@
 
 
 
-if (!defined('BACKEND')) exit;
 
 //$parameter["parameterValue"] ["standard"]["configuration"]["advanced_options"]["administrator_interface_language"] = "en" //insert RFC 4646 code of language into whish you are translating now
 
@@ -96,6 +95,7 @@ $parameterGroupTitle["standard"]["content_management"]["widget_text"] = "Widget:
 $parameterGroupTitle["standard"]["content_management"]["widget_text_photo"] = "Widget: Text with photo";
 $parameterGroupTitle["standard"]["content_management"]["widget_text_title"] = "Widget: Title/Text";
 $parameterGroupTitle["standard"]["content_management"]["widget_title"] = "Widget: Title";
+$parameterGroupTitle["standard"]["content_management"]["widget_columns"] = "Widget: Columns";
 $parameterGroupTitle["standard"]["content_management"]["widget_video"] = "Widget: Video";
 $parameterGroupTitle["standard"]["languages"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["standard"]["languages"]["options"] = "Options";
@@ -103,6 +103,7 @@ $parameterGroupTitle["standard"]["menu_management"]["admin_translations"] = "Adm
 $parameterGroupTitle["standard"]["menu_management"]["options"] = "Options";
 $parameterGroupTitle["standard"]["seo"]["admin_translations"] = "Admin translations";
 $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+$parameterGroupTitle["standard"]["design"]["options"] = "Options";
 
 
 
@@ -665,6 +666,9 @@ $parameter["parameterValue/standard/configuration/admin_translations/save"] = "s
 $parameter["parameterTitle/standard/configuration/admin_translations/install"] = "Install";
 $parameter["parameterValue/standard/configuration/admin_translations/install"] = "Install";
 
+$parameter["parameterTitle/standard/configuration/translations/menu"] = "Menu";
+$parameter["parameterValue/standard/configuration/translations/menu"] = "Menu";
+
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/use_fake_cron"] = "Use fake cron";
@@ -1159,6 +1163,9 @@ $parameter["parameterValue/standard/content_management/widget_title/widget_title
 $parameter["parameterTitle/standard/content_management/widget_title/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_title/layout_default"] = "Default";
 
+$parameter["parameterTitle/standard/content_management/widget_title/anchor"] = "Anchor";
+$parameter["parameterValue/standard/content_management/widget_title/anchor"] = "Anchor";
+
 $parameter["parameterTitle/standard/content_management/widget_video/bad_type"] = "Bad type";
 $parameter["parameterValue/standard/content_management/widget_video/bad_type"] = "Incorrect file type. Acceptable file type: FLV";
 
@@ -1188,6 +1195,12 @@ $parameter["parameterValue/standard/content_management/widget_video/widget_title
 
 $parameter["parameterTitle/standard/content_management/widget_video/layout_default"] = "Layout default";
 $parameter["parameterValue/standard/content_management/widget_video/layout_default"] = "Default";
+
+$parameter["parameterTitle/standard/content_management/widget_columns/number_of_columns"] = "Number of columns";
+$parameter["parameterValue/standard/content_management/widget_columns/number_of_columns"] = "Number of columns";
+
+$parameter["parameterTitle/standard/content_management/widget_columns/widget_title"] = "Widget title";
+$parameter["parameterValue/standard/content_management/widget_columns/widget_title"] = "Columns";
 
 $parameter["parameterTitle/standard/design/admin_translations/theme_write_error"] = "Theme write error";
 $parameter["parameterValue/standard/design/admin_translations/theme_write_error"] = "Directory is not writable. Please check your email and install the theme manually.";
@@ -1221,6 +1234,14 @@ $parameter["parameterValue/standard/design/admin_translations/default_group"] = 
 
 $parameter["parameterTitle/standard/design/admin_translations/reload_notice"] = "Reload notice";
 $parameter["parameterValue/standard/design/admin_translations/reload_notice"] = "Preview window needs to be reloaded";
+
+$parameter["parameterTitle/standard/design/admin_translations/available_plugins"] = "Available plugins";
+$parameter["parameterValue/standard/design/admin_translations/available_plugins"] = "Available plugins";
+
+$parameter["parameterTitle/standard/design/admin_translations/plugin_installed"] = "Note about installed plugin";
+$parameter["parameterValue/standard/design/admin_translations/plugin_installed"] = "Plugin has been successfully installed. Please refresh the browser.";
+
+$parameter["parameterTitle/standard/design/options/theme_dirs"] = "Theme folders (one per line)";
 
 $parameter["parameterTitle/standard/languages/admin_translations/cant_delete_last_language"] = "Can't delete last language";
 $parameter["parameterValue/standard/languages/admin_translations/cant_delete_last_language"] = "There should be at least one language.";

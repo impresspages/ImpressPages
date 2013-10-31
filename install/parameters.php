@@ -990,6 +990,11 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterAdmin["standard"]["content_management"]["widget_title"]["layout_default"] = "1";
         $parameterType["standard"]["content_management"]["widget_title"]["layout_default"] = "string";
 
+        $parameterTitle["standard"]["content_management"]["widget_title"]["anchor"] = "Anchor";
+        $parameterValue["standard"]["content_management"]["widget_title"]["anchor"] = "Anchor";
+        $parameterAdmin["standard"]["content_management"]["widget_title"]["anchor"] = "0";
+        $parameterType ["standard"]["content_management"]["widget_title"]["anchor"] = "string";
+
     $parameterGroupTitle["standard"]["content_management"]["widget_video"] = "Widget: Video";
     $parameterGroupAdmin["standard"]["content_management"]["widget_video"] = "1";
 
@@ -1042,6 +1047,20 @@ $moduleTitle["standard"]["content_management"] = "Content management";
         $parameterValue["standard"]["content_management"]["widget_video"]["layout_default"] = "Default";
         $parameterAdmin["standard"]["content_management"]["widget_video"]["layout_default"] = "1";
         $parameterType["standard"]["content_management"]["widget_video"]["layout_default"] = "string";
+
+    $parameterGroupTitle["standard"]["content_management"]["widget_columns"] = "Widget: Columns";
+    $parameterGroupAdmin["standard"]["content_management"]["widget_columns"] = "1";
+
+        $parameterTitle["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "Number of columns";
+        $parameterValue["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "Number of columns";
+        $parameterAdmin["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "1";
+        $parameterType["standard"]["content_management"]["widget_columns"]["number_of_columns"] = "string";
+
+        $parameterTitle["standard"]["content_management"]["widget_columns"]["widget_title"] = "Widget title";
+        $parameterValue["standard"]["content_management"]["widget_columns"]["widget_title"] = "Columns";
+        $parameterAdmin["standard"]["content_management"]["widget_columns"]["widget_title"] = "1";
+        $parameterType["standard"]["content_management"]["widget_columns"]["widget_title"] = "string";
+
 
         $parameterTitle["standard"]["menu_management"]["admin_translations"]["untitled"] = "Untitled";
         $parameterValue["standard"]["menu_management"]["admin_translations"]["untitled"] = "Untitled";
@@ -1322,6 +1341,11 @@ menu3";
         $parameterAdmin["standard"]["configuration"]["admin_translations"]["install"] = "0";
         $parameterType ["standard"]["configuration"]["admin_translations"]["install"] = "string";
 
+        $parameterTitle["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+        $parameterValue["standard"]["configuration"]["admin_translations"]["menu"] = "Menu";
+        $parameterAdmin["standard"]["configuration"]["admin_translations"]["menu"] = "1";
+        $parameterType["standard"]["configuration"]["admin_translations"]["menu"] = "string";
+
 
 
 
@@ -1433,7 +1457,7 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
         $parameterAdmin["standard"]["configuration"]["main_parameters"]["closed_site"] = "0";
         $parameterType["standard"]["configuration"]["main_parameters"]["closed_site"] = "bool";
 
-        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template (deprecated. Use ip_cms/modules/standard/configuration/view/email.php instead)";
+        $parameterTitle["standard"]["configuration"]["main_parameters"]["email_template"] = "E-mail template (deprecated. Use \Ip\Config::coreModuleFile('Config/view/email.php') instead)";
         $parameterValue["standard"]["configuration"]["main_parameters"]["email_template"] = "<table border=\"0\" width=\"100%\">
 <tbody>
 <tr>
@@ -1671,6 +1695,24 @@ $parameterGroupTitle["standard"]["configuration"]["error_404"] = "Error 404";
         $parameterValue["standard"]["design"]["admin_translations"]["reload_notice"] = "Preview window needs to be reloaded";
         $parameterAdmin["standard"]["design"]["admin_translations"]["reload_notice"] = "0";
         $parameterType ["standard"]["design"]["admin_translations"]["reload_notice"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["available_plugins"] = "Available plugins";
+        $parameterValue["standard"]["design"]["admin_translations"]["available_plugins"] = "Available plugins";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["available_plugins"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["available_plugins"] = "string";
+
+        $parameterTitle["standard"]["design"]["admin_translations"]["plugin_installed"] = "Note about installed plugin";
+        $parameterValue["standard"]["design"]["admin_translations"]["plugin_installed"] = "Plugin has been successfully installed. Please refresh the browser.";
+        $parameterAdmin["standard"]["design"]["admin_translations"]["plugin_installed"] = "0";
+        $parameterType ["standard"]["design"]["admin_translations"]["plugin_installed"] = "string";
+
+    $parameterGroupTitle["standard"]["design"]["admin_translations"] = "Admin translations";
+    $parameterGroupAdmin["standard"]["design"]["admin_translations"] = "1";
+
+        $parameterTitle["standard"]["design"]["options"]["theme_dirs"] = "Theme folders (one per line)";
+        $parameterValue["standard"]["design"]["options"]["theme_dirs"] = "";
+        $parameterAdmin["standard"]["design"]["options"]["theme_dirs"] = "0";
+        $parameterType ["standard"]["design"]["options"]["theme_dirs"] = "textarea";
 
 $moduleGroupTitle["community"] = "Community";
 $moduleTitle["community"]["newsletter"] = "Newsletter";

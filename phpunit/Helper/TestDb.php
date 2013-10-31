@@ -15,7 +15,7 @@ class TestDb
 
     public function __construct()
     {
-        $this->createDatabase('ipTest_'.date('Y-m-d-H-i-s'));
+        $this->createDatabase('ip_test_'.date('Y-m-d-H-i-s'));
     }
 
     public function getPdoConnection()

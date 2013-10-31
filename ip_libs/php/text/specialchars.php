@@ -35,7 +35,7 @@ class Specialchars
     }
 
     public static function url($string){
-        require_once (BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         $url = mb_strtolower($string);
         $url = \Library\Php\Text\Transliteration::transform($url);
         $url = str_replace(" ", "-", $url);

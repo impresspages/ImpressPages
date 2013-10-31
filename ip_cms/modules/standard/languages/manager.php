@@ -6,7 +6,6 @@
  */
 namespace Modules\standard\languages;
 
-if (!defined('BACKEND')) exit;
 require_once(__DIR__.'/language_area.php');
 
 

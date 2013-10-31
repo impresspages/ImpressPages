@@ -18,37 +18,38 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
     public function testCreateRemoveReflection()
     {
-        $repository = \Modules\administrator\repository\Model::instance();
+        $repository = \Ip\Module\Repository\Model::instance();
 
-        $file = FILE_REPOSITORY_DIR.'impresspages.png';
-        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', BASE_DIR.FILE_REPOSITORY_DIR.'impresspages.png');
+        $file = \Ip\Config::getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
+
+        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', \Ip\Config::repositoryFile('impresspages.png'));
 
         //Bind file to module (twice)
         $repository->bindFile($file, 'modulexxx', 1);
         $repository->bindFile($file, 'modulexxx', 1);
 
 
-        $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
+        $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
         //Create reflection
-        $transformSmall = new \Modules\administrator\repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
+        $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
-        $this->assertEquals('phpunit/Tmp/file/impresspages.png', $reflection);
+        $this->assertEquals(\Ip\Config::getRaw('FILE_DIR') . 'impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
-        $this->assertEquals(true, file_exists(BASE_DIR.$reflection));
+        $this->assertEquals(true, file_exists(\Ip\Config::baseFile($reflection)));
 
 
         //Unbind file from repository (once)
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //check if reflection still exists
-        $this->assertEquals(true, file_exists(BASE_DIR.$reflection));
+        $this->assertEquals(true, file_exists(\Ip\Config::baseFile($reflection)));
 
         //unbind next file instance
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //Check if reflection has been removed
-        $this->assertEquals(false, file_exists(BASE_DIR.$reflection));
+        $this->assertEquals(false, file_exists(\Ip\Config::baseFile($reflection)));
 
 
     }

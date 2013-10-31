@@ -57,7 +57,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['imageOrig']) && file_exists(BASE_DIR.$data['imageOrig']) ) {
+        if (!empty($data['imageOrig']) && file_exists(\Ip\Config::baseFile($data['imageOrig']))) {
             $this->imageOrig = $data['imageOrig'];
 
             if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {
@@ -76,8 +76,8 @@ class Logo
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
-                $reflectionService = \Modules\administrator\repository\ReflectionService::instance();
-                $transform = new \Modules\administrator\repository\Transform\ImageCrop(
+                $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
+                $transform = new \Ip\Module\Repository\Transform\ImageCrop(
                     $this->getX1(),
                     $this->getY1(),
                     $this->getX2(),

@@ -8,7 +8,6 @@
 namespace Modules\developer\std_mod;
 
 
-if (!defined('BACKEND')) exit;
 
 require_once (__dir__.'/std_mod_db.php');
 require_once (__dir__.'/std_mod_html_output.php');
@@ -66,7 +65,7 @@ class StandardModule {
             }
 
             if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->currentArea->currentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->currentArea->currentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
         } else {
@@ -74,7 +73,7 @@ class StandardModule {
                 $this->currentArea =& $this->currentArea->getArea();
             }
             if ($this->currentArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->currentArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->currentArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
         }
@@ -109,7 +108,7 @@ class StandardModule {
                 if ($this->upArea) $this->upArea =& $this->upArea->getArea();
             }
             if ($this->upArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-2)]) && $_GET['road'][(sizeof($_GET['road'])-2)]!='') {
-                $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-2)];
+                $this->upArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-2)];
             }
 
 
@@ -118,7 +117,7 @@ class StandardModule {
                 if ($this->upArea) $this->upArea =& $this->upArea->getArea();
             }
             if ($this->upArea && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-                $this->upArea->parentId = $_GET['road'][(sizeof($_GET['road'])-1)];
+                $this->upArea->parentId = (int)$_GET['road'][(sizeof($_GET['road'])-1)];
             }
 
 
@@ -354,7 +353,7 @@ class StandardModule {
                                     echo "
               <html>
                 <head>
-                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
@@ -367,7 +366,7 @@ class StandardModule {
                                     echo "
               <html>
                 <head>
-                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
@@ -497,7 +496,7 @@ class StandardModule {
                         $answer = "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">
@@ -522,7 +521,7 @@ class StandardModule {
                         $answer = "
           <html>
             <head>
-              <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+              <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
             </head>
             <body>
               <script type=\"text/javascript\">
@@ -569,7 +568,7 @@ class StandardModule {
                                     echo "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">                  
@@ -582,7 +581,7 @@ class StandardModule {
                                     echo "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">                  
@@ -651,7 +650,7 @@ class StandardModule {
                         $answer = "
               <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">
@@ -669,7 +668,7 @@ class StandardModule {
                         $answer = "
                <html>
                <head>
-                 <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".CHARSET."\" />
+                 <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".\Ip\Config::getRaw('CHARSET')."\" />
                </head>
                <body>
                  <script type=\"text/javascript\">
@@ -887,22 +886,22 @@ class StandardModule {
     
     <script type="text/javascript">
         var ip = {
-            baseUrl : '.json_encode(BASE_URL).',
-            libraryDir : '.json_encode(LIBRARY_DIR).',
-            themeDir : '.json_encode(THEME_DIR).',
-            moduleDir : '.json_encode(MODULE_DIR).',
-            theme : '. json_encode(THEME) .',
+            baseUrl : '.json_encode(\Ip\Config::baseUrl('')).',
+            libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
+            themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
+            moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
+            theme : '. json_encode(\Ip\Config::theme()) .',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
             revisionId : '.json_encode(null).',
         };
     </script>
     
-    <script src="'.BASE_URL.LIBRARY_DIR.'js/default.js"></script>
-    <script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/jquery/jquery.js"></script>
-    <script src="' . BASE_URL . LIBRARY_DIR . 'js/tiny_mce/jquery.tinymce.js"></script>
-    <script src="' . BASE_URL . '?g=standard&amp;m=configuration&amp;a=tinymceConfig"></script>    
+    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
+    <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
+    <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
 </head>
 	 
 <body> <!-- display loading until page is loaded-->
@@ -926,13 +925,13 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/style.css" type="text/css" rel="stylesheet" media="screen">
-		<script src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/scripts.js"></script>
-		<script src="'.BASE_URL.LIBRARY_DIR.'js/tabs.js"></script>
-		<script src="'.LIBRARY_DIR.'js/windowsize.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/mouse.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/positioning.js" ></script>
-		<script src="'.LIBRARY_DIR.'js/default.js" ></script>
+		<link href="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
+		<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/scripts.js') . '"></script>
+		<script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+		<script src="' . \Ip\Config::libraryUrl('js/windowsize.js') .'" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/mouse.js'). '" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/positioning.js') .'" ></script>
+		<script src="' . \Ip\Config::libraryUrl('js/default.js') . '" ></script>
 		
 		';
 
@@ -987,9 +986,9 @@ class StandardModule {
     function printRoad() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->treeDepth)
-        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal.png" alt=""></a>';
+        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal.png') . '" alt=""></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/atgal_disabled.png" alt=""></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal_disabled.png') . '" alt=""></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1354,7 +1353,7 @@ class StandardModule {
 					<option value="100000">100000</option>
 				 </select>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
-					<img src="'.LIBRARY_DIR.'/php/standard_module/design/previous_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
+					<img src="' . \Ip\Config::libraryUrl('php/standard_module/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
@@ -1613,10 +1612,10 @@ class StandardModule {
 
         if($this->currentArea->allowInsert)
         $answer .= '
-			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
+			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
 
         if($this->currentArea->searchable)
-        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
+        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
 
 
         $answer .= '</ul>';
@@ -1630,9 +1629,9 @@ class StandardModule {
 					<div id="std_mod_new_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img 
-								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
@@ -1650,9 +1649,9 @@ class StandardModule {
 					<div id="std_mod_search_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img
-								onmouseover="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close_hover.gif\'"
-								onmouseout="this.src=\''.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif\'"
-							src="'.BASE_URL.MODULE_DIR.'developer/std_mod/design/popup_close.gif" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::olModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
@@ -1668,7 +1667,7 @@ class StandardModule {
         if(sizeof($this->errors) != 0) {
             $answer .= '
 			<script>
-				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\';
+				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 190) + \'px\';
 				document.getElementById(\'std_mod_new_popup\').style.display = \'block\';
 			</script>
 			';
@@ -1734,7 +1733,7 @@ class StandardModule {
     }
 
     function generateUrlEdit($id, $title) {
-        return $this->generateUrlLevel($this->level)."&amp;road[]=".$id."&amp;title[]=".urlencode($title);
+        return $this->generateUrlLevel($this->level)."&amp;road[]=".(int)$id."&amp;title[]=".urlencode($title);
     }
 
     function generateUrlLevel($max_level, $ignore = null) {
@@ -1745,7 +1744,7 @@ class StandardModule {
             if($i != $max_level) {
                 if($tmp_url != '')
                 $tmp_url.='&amp;';
-                $tmp_url.='road[]='.$_GET['road'][$i];
+                $tmp_url.='road[]='.(int)$_GET['road'][$i];
                 $tmp_url.='&amp;';
                 $tmp_url.='title[]='.urlencode($_GET['title'][$i]);
             }
@@ -1763,7 +1762,7 @@ class StandardModule {
                 if(isset($_GET['page'][$i]))
                 $tmp_url.='&amp;page['.$i.']='.$_GET['page'][$i];
                 if(isset($_GET['pageSize'][$i]))
-                $tmp_url.='&amp;pageSize['.$i.']='.$_GET['pageSize'][$i];
+                $tmp_url.='&amp;pageSize['.$i.']='.(int)$_GET['pageSize'][$i];
 
             }
 
@@ -1797,7 +1796,7 @@ class StandardModule {
      */
     function generateUrlPage($page, $size) {
         $url = $this->generateUrlLevel($this->level, 'page');
-        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.$size;
+        $url .= '&amp;page['.$this->level.']='.$page.'&amp;pageSize['.$this->level.']='.(int)$size;
         return $url;
     }
 

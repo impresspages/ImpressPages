@@ -5,6 +5,9 @@
  *
  */
 
+/**
+ * @group ignoreOnTravis
+ */
 class InstallTest extends \PhpUnit\SeleniumTestCase
 {
     public function testInstallCurrent()
@@ -29,6 +32,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $this->type('css=#db_pass', 'wrong'); //wrong password
         $this->type('css=#db_db', $testDbHelper->getDbName());
         $this->click('css=.button_act');
+        sleep(1);
         $this->assertTextPresent('Can\'t connect to database');
 
 
@@ -137,6 +141,7 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         $testUrl = TEST_TMP_URL;
 
         $folders = array(
+            'Ip',
             'audio',
             'file',
             'image',
@@ -151,15 +156,16 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
         );
 
         $files = array(
-            'admin.php',
+//            'admin.php',
             'favicon.ico',
             'index.php',
-            'ip_backend_frames.php',
+//            'ip_backend_frames.php',
             'ip_backend_worker.php',
             'ip_config.php',
+            'ipConfig.php',
             'ip_cron.php',
             'ip_license.html',
-            'readme.txt',
+            'readme.md',
             'robots.txt',
             'sitemap.php',
             '.htaccess'

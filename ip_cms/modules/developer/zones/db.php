@@ -6,9 +6,8 @@
  */
 namespace Modules\developer\zones;
 
-if (!defined('BACKEND')) exit;
 
-require_once(BASE_DIR.LIBRARY_DIR.'php/text/transliteration.php');
+require_once \Ip\Config::libraryFile('php/text/transliteration.php');
 
 class Db{
 
@@ -202,12 +201,14 @@ class Db{
     
     public static function getAvailableTemplates(){
         $answer = array();
-        if(is_dir(THEME_DIR.THEME)){
-            $handle = opendir(THEME_DIR.THEME);
-            if($handle !== false){
+        $themeDir = \Ip\Config::themeFile('');
+        if (is_dir($themeDir)) {
+            $handle = opendir($themeDir);
+            if ($handle !== false){
                 while (false !== ($file = readdir($handle))) {
-                    if(strtolower(substr($file, -4, 4)) == '.php' && file_exists(THEME_DIR.THEME.'/'.$file) && is_file(THEME_DIR.THEME.'/'.$file) && $file != '..' && $file != '.')
-                    $answer[$file] = $file;
+                    if (strtolower(substr($file, -4, 4)) == '.php' && is_file($themeDir . '/' . $file) && $file != '..' && $file != '.') {
+                        $answer[$file] = $file;
+                    }
                 }
                 return $answer;
             }
