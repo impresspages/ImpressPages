@@ -53,6 +53,15 @@ class ExperimentTest extends \PhpUnit\GeneralTestCase
 //        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
 //    }
 
+    public function testLanguages()
+    {
+        \PhpUnit\Helper\TestEnvironment::initCode();
+        $languages = \Ip\Frontend\Db::getLanguages(true);
+        $this->assertNotEmpty($languages);
+        $language = array_shift($languages);
+        $this->assertEquals('en', $language['url']);
+    }
+
     public function testUseMinkToRenderEnVersion()
     {
         \PhpUnit\Helper\TestEnvironment::cleanupFiles();
