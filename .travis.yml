@@ -10,8 +10,8 @@ notifications:
   email: false
 before_script:
   - mysql -e 'create database ip_test;'
-  - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < install/sql/structure.sql | mysql -D ip_test
-  - mysql -D ip_test < install/sql/data.sql
+  - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
+  - sed -e 's/`ip_cms_/`ip_/g' < install/sql/data.sql | mysql -D ip_test # replace ip_cms_ to ip_
   - cd phpunit
   - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
 
