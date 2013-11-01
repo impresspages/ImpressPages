@@ -18,7 +18,7 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         \PhpUnit\Helper\TestEnvironment::initCode();
 
         $this->assertEquals('non existent string', __('non existent string', 'ip'));
-        $this->assertEquals('{{keyword}}', __k('keyword', 'ip'));
+        $this->assertEquals('{{keyword}}', _k('keyword', 'ip'));
     }
 }
 
