@@ -18,21 +18,21 @@ namespace Ip {
             $translator = new \Zend\I18n\Translator\Translator();
 
             $translator->setLocale($locale);
-            if (0) {
-                $translator->addTranslationFilePattern(
-                    'gettext',
-                    \Ip\Config::themeFile('languages/'),
-                    '%s.mo',
-                    'theme-' . \Ip\Config::theme()
-                );
-            }
 
             $translator->addTranslationFilePattern(
-                'phparray',
+                'gettext',
                 \Ip\Config::themeFile('languages/'),
-                '%s.php',
+                '%s.mo',
                 'theme-' . \Ip\Config::theme()
             );
+
+//
+//            $translator->addTranslationFilePattern(
+//                'phparray',
+//                \Ip\Config::themeFile('languages/'),
+//                '%s.php',
+//                'theme-' . \Ip\Config::theme()
+//            );
 
             static::$translator = $translator;
         }
