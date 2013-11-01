@@ -14,16 +14,27 @@ namespace Ip {
          */
         protected static $translator;
 
-        public static function init()
+        public static function init($locale)
         {
             $translator = new \Zend\I18n\Translator\Translator();
-            $translator->setLocale('lt_LT');
+            // TODOX set according to language
+            $translator->setLocale($locale);
+            if (0) {
+                $translator->addTranslationFilePattern(
+                    'gettext',
+                    \Ip\Config::themeFile('languages/'),
+                    '%s.mo',
+                    'theme-' . \Ip\Config::theme()
+                );
+            }
+
             $translator->addTranslationFilePattern(
-                'gettext',
+                'phparray',
                 \Ip\Config::themeFile('languages/'),
-                '%s.mo',
+                '%s.php',
                 'theme-' . \Ip\Config::theme()
             );
+
             static::$translator = $translator;
         }
 

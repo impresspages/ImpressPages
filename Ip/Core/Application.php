@@ -44,8 +44,6 @@ class Application {
         } else {
             ini_set('display_errors', '0');
         }
-
-        \Ip\Translator::init();
     }
 
     public function __construct()
@@ -92,6 +90,11 @@ class Application {
         }
         $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
         /*eof detect browser language*/
+
+        $language = $site->getCurrentLanguage();
+        $languageCode = $language->getCode();
+
+        \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
 
         /*check if the website is closed*/
         if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
