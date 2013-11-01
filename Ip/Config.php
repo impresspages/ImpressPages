@@ -110,7 +110,7 @@ class Config
     {
         $url = static::$rawConfig['BASE_URL'] . $path;
         if ($query) {
-            $url .= http_build_query($query, null, $querySeparator);
+            $url .= '?' . http_build_query($query, null, $querySeparator);
         }
 
         return $url;
