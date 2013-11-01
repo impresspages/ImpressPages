@@ -5,7 +5,6 @@
 
 namespace Ip {
 
-
     class Translator
     {
 
@@ -14,10 +13,10 @@ namespace Ip {
          */
         protected static $translator;
 
-        public static function init($locale)
+        public static function init($locale = 'en_EN')
         {
             $translator = new \Zend\I18n\Translator\Translator();
-            // TODOX set according to language
+
             $translator->setLocale($locale);
             if (0) {
                 $translator->addTranslationFilePattern(
@@ -47,6 +46,11 @@ namespace Ip {
         {
             return static::$translator->translatePlural($singular, $plural, $number, $domain);
         }
+
+        public static function translateKeyword($keyword, $domain)
+        {
+
+        }
     }
 }
 
@@ -60,5 +64,20 @@ namespace {
     function _n($singular, $plural, $number, $domain)
     {
         return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
+    }
+
+    function _x($text, $context, $domain)
+    {
+        return $text;
+    }
+
+    function _nx($single, $plural, $number, $context, $domain)
+    {
+
+    }
+
+    function _k($text, $domain)
+    {
+        return '{{' . $text .'}}';
     }
 }
