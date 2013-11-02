@@ -80,6 +80,7 @@ class Db
         }
 
         $query->execute();
+        // TODOX check if $query->fetchColumn() would do
         $result = $query->fetchAll(\PDO::FETCH_NUM);
 
         return $result ? $result[0][0] : null;
@@ -136,9 +137,7 @@ class Db
         }
 
         $query->execute();
-        $result = $query->fetchColumn();
-
-        return $result;
+        return $query->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**
