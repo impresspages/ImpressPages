@@ -36,7 +36,13 @@ class Db
                 if (!self::$pdoConnection) {
                     try {
                         $config = \Ip\Config::getRaw('db');
-                        self::$pdoConnection = new \PDO('mysql:host='.str_replace(':', ';port=', $config['hostname']).';dbname='. $config['database'], $config['username'], $config['password']);
+
+                        $dsn = 'mysql:host='.str_replace(':', ';port=', $config['hostname']);
+                        if (!empty($config['database'])) {
+                            $dsn .= ';dbname='. $config['database'];
+                        }
+
+                        self::$pdoConnection = new \PDO($dsn, $config['username'], $config['password']);
                         self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
                         $dt = new \DateTime();
                         $offset = $dt->format("P");
