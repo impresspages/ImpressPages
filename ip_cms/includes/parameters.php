@@ -66,7 +66,7 @@ class Parameters {
         $parameters = array();
 
 
-        $pTemp = \Db::getParString($id, $reference);
+        $pTemp = \Ip\Deprecated\Db::getParString($id, $reference);
         foreach($pTemp as $type => $categories) {
             foreach($categories as $key => $category) {
                 foreach($category as $key2 => $value) {
@@ -74,7 +74,7 @@ class Parameters {
                 }
             }
         }
-        $pTemp = \Db::getParInteger($id, $reference);
+        $pTemp = \Ip\Deprecated\Db::getParInteger($id, $reference);
         foreach($pTemp as $type => $categories) {
             foreach($categories as $key => $category) {
                 foreach($category as $key2 => $value) {
@@ -83,7 +83,7 @@ class Parameters {
             }
         }
 
-        $pTemp = \Db::getParBool($id, $reference);
+        $pTemp = \Ip\Deprecated\Db::getParBool($id, $reference);
         foreach($pTemp as $type => $categories) {
             foreach($categories as $key => $category) {
                 foreach($category as $key2 => $value) {
@@ -93,7 +93,7 @@ class Parameters {
         }
 
         if($languageId) {
-            $pTemp = \Db::getParLang($id, $reference, $languageId);
+            $pTemp = \Ip\Deprecated\Db::getParLang($id, $reference, $languageId);
             foreach($pTemp as $type => $categories) {
                 foreach($categories as $key => $category) {
                     foreach($category as $key2 => $value) {
@@ -147,7 +147,7 @@ class ParametersMod {
         if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
         return $this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->type;
         elseif(!isset($this->parameters[$languageId][$modGroup][$module])) {
-            $tmpModule = \Db::getModule(null, $modGroup, $module);
+            $tmpModule = \Ip\Deprecated\Db::getModule(null, $modGroup, $module);
             $this->parameters[$languageId][$modGroup][$module] = $this->parClass->loadParameters($tmpModule['id'], 'module_id', $languageId);
             if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
             return($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->type);
@@ -185,7 +185,7 @@ class ParametersMod {
         if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
         return $this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->value;
         elseif(!isset($this->parameters[$languageId][$modGroup][$module])) {
-            $tmpModule = \Db::getModule(null, $modGroup, $module);
+            $tmpModule = \Ip\Deprecated\Db::getModule(null, $modGroup, $module);
             $this->parameters[$languageId][$modGroup][$module] = $this->parClass->loadParameters($tmpModule['id'], 'module_id', $languageId);
             if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
             return($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->value);
@@ -224,7 +224,7 @@ class ParametersMod {
         if(isset($this->parameters[$languageId][$modGroup][$module]))
         return $this->parameters[$languageId][$modGroup][$module];
         else {
-            $tmpModule = \Db::getModule(null, $modGroup, $module);
+            $tmpModule = \Ip\Deprecated\Db::getModule(null, $modGroup, $module);
             $this->parameters[$languageId][$modGroup][$module] = $this->parClass->loadParameters($tmpModule['id'], 'module_id', $languageId);
             if(isset($this->parameters[$languageId][$modGroup][$module]))
             return($this->parameters[$languageId][$modGroup][$module]);
@@ -245,8 +245,8 @@ class ParametersMod {
      * @return mixed value
      */
     function setValue($modGroup, $module, $parGroup, $parameter, $value, $languageId = null) {
-        $tmpModule = \Db::getModule(null, $modGroup, $module);
-        $parameter = \Db::getParameter($tmpModule['id'], 'module_id', $parGroup, $parameter);
+        $tmpModule = \Ip\Deprecated\Db::getModule(null, $modGroup, $module);
+        $parameter = \Ip\Deprecated\Db::getParameter($tmpModule['id'], 'module_id', $parGroup, $parameter);
 
 
 
@@ -255,18 +255,18 @@ class ParametersMod {
                 case 'string':
                 case 'textarea':
                 case 'string_wysiwyg':
-                    $parameter = \Db::setParString($parameter['id'], $value);
+                    $parameter = \Ip\Deprecated\Db::setParString($parameter['id'], $value);
                     break;
                 case 'integer':
-                    $parameter = \Db::setParInteger($parameter['id'], $value);
+                    $parameter = \Ip\Deprecated\Db::setParInteger($parameter['id'], $value);
                 case 'bool':
-                    $parameter = \Db::setParBool($parameter['id'], $value);
+                    $parameter = \Ip\Deprecated\Db::setParBool($parameter['id'], $value);
                     break;
                 case 'lang':
                 case 'lang_textarea':
                 case 'lang_wysiwyg':
                     if($languageId)
-                    $parameter = \Db::setParLang($parameter['id'], $value, $languageId);
+                    $parameter = \Ip\Deprecated\Db::setParLang($parameter['id'], $value, $languageId);
                     else {
                         $backtrace = debug_backtrace();
                         if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -291,9 +291,9 @@ class ParametersMod {
      * @return true if parameter exists
      */
     function exist($modGroup, $module, $parGroup, $parameter) {
-        $tmpModule = \Db::getModule(null, $modGroup, $module);
+        $tmpModule = \Ip\Deprecated\Db::getModule(null, $modGroup, $module);
         if($tmpModule) {
-            $parameter = \Db::getParameter($tmpModule['id'], 'module_id', $parGroup, $parameter);
+            $parameter = \Ip\Deprecated\Db::getParameter($tmpModule['id'], 'module_id', $parGroup, $parameter);
             if($parameter) {
                 return true;
             } else {

@@ -23,7 +23,7 @@ class Session
         <script type="text/javascript">document.location=\'admin.php\'</script>
         ';
                 /*        trigger_error("Possible CSRF atack.\n Referer:".(isset($_SERVER['HTTP_REFERER'])?"No":$_SERVER["http_referer"])."\n Destination:".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);*/
-                \Db::disconnect();
+                \Ip\Deprecated\Db::disconnect();
                 exit;
             }
         }

@@ -268,7 +268,6 @@ class Model
 //            define('THEME', 'Blank');
 //            define('THEME_DIR', 'ip_themes/');
 
-            require \Ip\Config::includePath('db.php');
             require \Ip\Config::includePath('parameters.php');
             require (__DIR__.'/themeParameters.php');
             require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');

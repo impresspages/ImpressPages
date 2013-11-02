@@ -160,7 +160,7 @@ class StandardModule {
                         $this->currentArea->afterSort();
                     }
 
-                    \Db::disconnect();
+                    \Ip\Deprecated\Db::disconnect();
                     exit;
                     break;
                 case 'row_number_increase': {
@@ -230,7 +230,7 @@ class StandardModule {
                     }
 
 
-                    \Db::disconnect();
+                    \Ip\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -302,7 +302,7 @@ class StandardModule {
                     }
 
 
-                    \Db::disconnect();
+                    \Ip\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -311,7 +311,7 @@ class StandardModule {
                         $this->delete($this->currentArea, $_REQUEST['key_id']);
                         echo "delete_row(".$_POST['key_id'].")";
                     }
-                    \Db::disconnect();
+                    \Ip\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -494,7 +494,7 @@ class StandardModule {
 
 
 
-                        \Db::disconnect();
+                        \Ip\Deprecated\Db::disconnect();
                         exit;
                     }else {
 
@@ -522,7 +522,7 @@ class StandardModule {
             </body></html>
         ";		          
                         echo $answer;
-                        \Db::disconnect();
+                        \Ip\Deprecated\Db::disconnect();
                         exit;
                     }
 
@@ -642,7 +642,7 @@ class StandardModule {
               </body></html>
             ";		          
                         echo $answer;
-                        \Db::disconnect();
+                        \Ip\Deprecated\Db::disconnect();
                         exit;
                     }else {
                         $answer = "
@@ -669,7 +669,7 @@ class StandardModule {
                </body></html>
               ";		          
                         echo $answer;
-                        \Db::disconnect();
+                        \Ip\Deprecated\Db::disconnect();
                         exit;
                     }
 

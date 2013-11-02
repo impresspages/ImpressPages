@@ -32,7 +32,7 @@ class Db
     {
         switch ($type) {
             case self::TYPE_MYSQL:
-                return \Db::getConnection();
+                return Deprecated\Db::getConnection();
                 break;
             case self::TYPE_PDO:
                 if (!self::$pdoConnection) {

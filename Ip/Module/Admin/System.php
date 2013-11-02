@@ -69,11 +69,11 @@ class System {
         $helpUrl = 'http://www.impresspages.org/help2';
 
         if (!empty($requestData['module_id']) && !empty($requestData['module_id'])){
-            $curModule = \Db::getModule($requestData['module_id']);
+            $curModule = \Ip\Deprecated\Db::getModule($requestData['module_id']);
         } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
-            $curModule = \Db::getModule(null, 'standard', 'content_management');
+            $curModule = \Ip\Deprecated\Db::getModule(null, 'standard', 'content_management');
         } elseif (!empty($_GET['m']) && !empty($_GET['g'])) {
-            $curModule = \Db::getModule(null, $_GET['g'], $_GET['m']);
+            $curModule = \Ip\Deprecated\Db::getModule(null, $_GET['g'], $_GET['m']);
         }
 
         if (isset($curModule) && $curModule) {

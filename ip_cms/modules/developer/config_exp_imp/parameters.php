@@ -65,7 +65,7 @@ class Parameters{
                     }
 
                     //set module translation
-                    $tmpModule = \Db::getModule(null, $group->moduleGroupName, $group->moduleName);
+                    $tmpModule = \Ip\Deprecated\Db::getModule(null, $group->moduleGroupName, $group->moduleName);
                     if($tmpModule && $group->moduleTranslation) {
                         Db::updateModuleTranslation($tmpModule['id'], $group->moduleTranslation);
                     }
