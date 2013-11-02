@@ -17,6 +17,9 @@ class Db
     const TYPE_PDO = 1;
     const TYPE_MYSQL = 2;
 
+    /**
+     * @var \PDO
+     */
     private static $pdoConnection;
 
     /**
@@ -51,10 +54,17 @@ class Db
                         throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
                         //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
                     }
+
+                    \Ip\Config::_setRaw('db', null);
                 }
                 return self::$pdoConnection;
                 break;
         }
+    }
+
+    public static function disconnect()
+    {
+        self::$pdoConnection = null;
     }
 
     public static function fetchValue($sql, $params = array())
