@@ -26,6 +26,11 @@ class Config
         return array_key_exists($name, static::$rawConfig) ? static::$rawConfig[$name] : null;
     }
 
+    public static function _setRaw($name, $value)
+    {
+        static::$rawConfig[$name] = $value;
+    }
+
     public static function getCore($name)
     {
         return static::$core[$name];
