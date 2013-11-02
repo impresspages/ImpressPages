@@ -30,7 +30,7 @@ class Db
         } else {
             mysql_select_db($config['database']);
             mysql_query("SET CHARACTER SET " . $config['charset']);
-            $dt = new DateTime();
+            $dt = new \DateTime();
             $offset = $dt->format("P");
             mysql_query('SET time_zone = \'' . $offset . '\'');
             return true;
@@ -339,5 +339,3 @@ class Db
     //end parameters
 
 }
-
-?>

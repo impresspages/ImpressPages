@@ -268,16 +268,16 @@ class Model
 //            define('THEME', 'Blank');
 //            define('THEME_DIR', 'ip_themes/');
 
-            require \Ip\Config::includePath('parameters.php');
-            require (__DIR__.'/themeParameters.php');
-            require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
+            require_once \Ip\Config::includePath('parameters.php');
+//            require \Ip\Config::baseFile('install/themeParameters.php');
+//            require_once \Ip\Config::baseFile('ip_cms/modules/developer/localization/manager.php');
 
             global $parametersMod;
             $parametersMod = new parametersMod();
 
-            \Modules\developer\localization\Manager::saveParameters(__DIR__.'/parameters.php');
+            \Modules\developer\localization\Manager::saveParameters(\Ip\Config::baseFile('install/parameters.php'));
 
-            \Modules\developer\localization\Manager::saveParameters(__DIR__.'/themeParameters.php');
+            \Modules\developer\localization\Manager::saveParameters(\Ip\Config::baseFile('install/themeParameters.php'));
 
             if ($error) {
                 return '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
