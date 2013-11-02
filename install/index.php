@@ -107,7 +107,9 @@ try {
 
     $controller = new \Ip\Module\Install\SiteController();
 
-    $action = 'step' . $cur_step;
+    $action = \Ip\Request::getRequest('a', 'step' . $cur_step);
+
+    // TODOX check if method exists
     echo $controller->$action();
 
 } catch (\Exception $e) {

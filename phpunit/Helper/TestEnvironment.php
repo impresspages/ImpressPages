@@ -8,9 +8,9 @@ namespace PhpUnit\Helper;
 
 class TestEnvironment {
 
-    public static function initCode()
+    public static function initCode($configBasename = 'default.php')
     {
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
+        $config = include TEST_FIXTURE_DIR . 'ip_config/' . $configBasename;
         \Ip\Config::init($config);
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
