@@ -1,4 +1,6 @@
 <?php
+use Ip\Deprecated\Db;
+
 /**
  * ImpressPages CMS main cron file
  *
