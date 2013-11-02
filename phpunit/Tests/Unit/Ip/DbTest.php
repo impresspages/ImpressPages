@@ -5,20 +5,38 @@
 
 namespace Tests\Unit\Ip;
 
+use \Ip\Db;
 
-class Db extends \PHPUnit_Framework_TestCase
+class DbTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConnect()
+    public function setup()
     {
-        $config = include TEST_CODEBASE_DIR . 'install/ip_config-template.php';
+        parent::setup();
+        $config = include __DIR__ . '/ipConfig-default.php';
         \Ip\Config::init($config);
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
+    }
 
+    public function testConnect()
+    {
         $this->assertNotEmpty(\Ip\Config::getRaw('db'));
 
-        \Ip\Db::getConnection();
+        Db::getConnection();
 
         $this->assertEmpty(\Ip\Config::getRaw('db'));
     }
+
+    public function testDisconnect()
+    {
+        Db::disconnect();
+
+        try {
+            Db::getConnection();
+            $this->assertFalse(true, 'Not disconnected');
+        } catch (\Ip\CoreException $e) {
+            $this->assertEquals($e->getCode(), \Ip\CoreException::DB);
+        }
+    }
+
 } 

@@ -39,6 +39,10 @@ class Db
                     try {
                         $config = \Ip\Config::getRaw('db');
 
+                        if (empty($config)) {
+                            throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
+                        }
+
                         $dsn = 'mysql:host='.str_replace(':', ';port=', $config['hostname']);
                         if (!empty($config['database'])) {
                             $dsn .= ';dbname='. $config['database'];
@@ -64,6 +68,7 @@ class Db
 
     public static function disconnect()
     {
+        \Ip\Config::_setRaw('db', null);
         self::$pdoConnection = null;
     }
 

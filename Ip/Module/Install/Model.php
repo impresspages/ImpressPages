@@ -191,4 +191,100 @@ class Model
 
         return $answer;
     }
+
+    public static function createAndUseDatabase($database)
+    {
+        try {
+            \Ip\Db::execute('USE `' . $database . '`');
+        } catch (\PDOException $e) {
+            try {
+                \Ip\Db::execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+                \Ip\Db::execute('USE `' . $database . '`');
+            } catch (\PDOException $e2) {
+                throw new \Ip\CoreException('Could not create database');
+            }
+        }
+
+        return true;
+    }
+
+    public static function installDatabase($db)
+    {
+        $error = false;
+
+        {
+            /*structure*/
+            $all_sql = file_get_contents(\Ip\Config::baseFile('install/sql/structure.sql'));
+
+            $all_sql = str_replace("[[[[database]]]]", $db['database'], $all_sql);
+            $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $db['tablePrefix'], $all_sql);
+            $all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$db['tablePrefix'], $all_sql);
+            $sql_list = explode("-- Table structure", $all_sql);
+
+            $errorMessage = '';
+
+            foreach($sql_list as $key => $sql){
+                try {
+                    \Ip\Db::execute($sql);
+                } catch (Exception $e) {
+                    $error = true;
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '. $pdo->errorInfo());
+                    echo $errorMessage;
+                }
+            }
+            /*end structure*/
+
+            /*data*/
+            // TODOX Algimantas: why so complicated?
+            $sqlFile = \Ip\Config::baseFile("install/sql/data.sql");
+            $fh = fopen($sqlFile, 'r');
+            $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
+            fclose($fh);
+
+            //$all_sql = utf8_encode($all_sql);
+            $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $db['tablePrefix'], $all_sql);
+            $all_sql = str_replace("[[[[base_url]]]]", \Ip\Config::baseUrl(''), $all_sql);
+            $sql_list = explode("-- Dumping data for table--", $all_sql);
+
+
+            foreach($sql_list as $key => $sql){
+                try {
+                    \Ip\Db::execute($sql);
+                } catch (Exception $e) {
+                    $error = true;
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '. $pdo->errorInfo());
+                    echo $errorMessage;
+                }
+            }
+
+            /*end data*/
+
+//            define('BASE_DIR', get_parent_dir());
+//            define('BACKEND', 1);
+//            define('INCLUDE_DIR', 'ip_cms/includes/');
+//            define('MODULE_DIR', 'ip_cms/modules/');
+//            define('LIBRARY_DIR', 'ip_libs/');
+//            define('DB_PREF', $_POST['prefix']);
+//            define('THEME', 'Blank');
+//            define('THEME_DIR', 'ip_themes/');
+
+            require \Ip\Config::includePath('db.php');
+            require \Ip\Config::includePath('parameters.php');
+            require (__DIR__.'/themeParameters.php');
+            require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
+
+            global $parametersMod;
+            $parametersMod = new parametersMod();
+
+            \Modules\developer\localization\Manager::saveParameters(__DIR__.'/parameters.php');
+
+            \Modules\developer\localization\Manager::saveParameters(__DIR__.'/themeParameters.php');
+
+            if ($error) {
+                return '{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}';
+            }
+
+
+        }
+    }
 }
