@@ -4,12 +4,12 @@
 
  *
  */
-namespace Modules\developer\inline_management;
+namespace Ip\Module\InlineManagement;
 use Modules\developer\inline_value\Entity\Scope as Scope;
 
 
 
-class Controller extends \Ip\Controller{
+class AdminController extends \Ip\Controller{
 
     var $dao;
 
@@ -17,15 +17,6 @@ class Controller extends \Ip\Controller{
     {
 
         $this->dao = new Dao();
-    }
-
-    public function allowAction($action)
-    {
-        if (\Ip\Backend::loggedIn()) {
-            return \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management');
-        } else {
-            return false;
-        }
     }
 
 
@@ -525,11 +516,6 @@ class Controller extends \Ip\Controller{
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
         $image = new Entity\Image($imageStr);
 
-        $imageSrc = '';
-
-        if ($image->getImage()) {
-            $imageSrc = \Ip\Config::baseUrl($image->getImage());
-        }
 
         $inlineManagementService = new Service();
         $newHtml = $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);

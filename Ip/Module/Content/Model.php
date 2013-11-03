@@ -45,6 +45,55 @@ class Model{
         return $answer;
     }
 
+    public static function sortWidgets($widgets) {
+        $priorities = self::_getPriorities();
+        $sortedWidgets = array();
+        $unsortedWidgets = array();
+        foreach ($widgets as $widgetKey => $widget) {
+            if (isset($priorities[$widget->getName()])) {
+                $position = $priorities[$widget->getName()];
+                $sortedWidgets[(int)$position] = $widget;
+            } else {
+                $unsortedWidgets[] = $widget;
+            }
+        }
+        ksort($sortedWidgets);
+        $answer = array();
+        foreach ($sortedWidgets as $widgetKey => $widget) {
+            $answer[$widget->getName()] = $widget;
+        }
+
+        foreach ($unsortedWidgets as $widgetKey => $widget) {
+            $answer[$widget->getName()] = $widget;
+        }
+
+        return $answer;
+    }
+
+    private static function _getPriorities() {
+        $sql = "
+        SELECT
+            *
+        FROM
+            `".DB_PREF."m_developer_widget_sort`
+        WHERE
+            1
+        ORDER BY
+            `priority` asc
+        ";
+        $rs = mysql_query($sql);
+        if (!$rs) {
+            throw new Exception('Can\'t add widget '.$sql.' '.mysql_error(), Exception::DB);
+        }
+
+        $answer = array();
+
+        while ($lock = mysql_fetch_assoc($rs)) {
+            $answer[$lock['widgetName']] = $lock['priority'];
+        }
+        return $answer;
+    }
+
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null) {
         if ($layout == null) {
             $layout = self::DEFAULT_LAYOUT;

@@ -21,6 +21,7 @@ class Model{
             "Repository",
             "Upload",
             "Search",
+            "InlineManagement",
         );
     }
 

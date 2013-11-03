@@ -6,11 +6,15 @@
  */
 
 
-namespace Modules\developer\inline_management\Entity;
+namespace Ip\Module\InlineManagement\Entity;
 
 
-class Image
+class Logo
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_IMAGE = 'image';
+
+    private $type;
     private $imageOrig;
     private $x1;
     private $y1;
@@ -18,16 +22,39 @@ class Image
     private $y2;
     private $requiredWidth;
     private $requiredHeight;
-    /** @var randomly created hopefully unique id   */
-    private $id;
+
+    private $text;
+    private $font;
+    private $color;
 
     /**
      * @param array|string $data
      */
-    public function __construct($data, $defaultImage = null)
+    public function __construct($data, $defaultLogo = null)
     {
+        global $parametersMod;
         if(is_string($data)) {
             $data = $this->parseStr($data);
+        }
+
+        if (!isset($data['type'])) {
+            if ($defaultLogo) {
+                $data['type'] = self::TYPE_IMAGE;
+            } else {
+                $data['type'] = self::TYPE_TEXT;
+            }
+        }
+
+        switch($data['type']) {
+            case self::TYPE_TEXT:
+                $this->type = self::TYPE_TEXT;
+                break;
+            case self::TYPE_IMAGE:
+                $this->type = self::TYPE_IMAGE;
+                break;
+            default:
+                $this->type = self::TYPE_TEXT;
+                break;
         }
 
         if (!empty($data['imageOrig']) && file_exists(\Ip\Config::baseFile($data['imageOrig']))) {
@@ -56,37 +83,54 @@ class Image
                     $this->getX2(),
                     $this->getY2(),
                     $this->getRequiredWidth(),
-                    $this->getRequiredHeight()
+                    $this->getRequiredHeight(),
+                    100
                 );
-                $this->image = $reflectionService->getReflection($this->getImageOrig(), null, $transform);
-
-
+                $requestedName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+                $this->image = $reflectionService->getReflection($this->getImageOrig(), $requestedName, $transform);
             }
         } else {
-            $this->image = $defaultImage;
+            $this->image = $defaultLogo;
         }
-        if (!empty($data['id'])) {
-            $this->id = $data['id'];
+
+        if (!empty($data['text'])) {
+            $this->setText($data['text']);
         } else {
-            $this->id = mt_rand(2, 2147483647); //1 used for inline logo
+            $this->setText($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'));
         }
+
+        if (isset($data['color'])) {
+            $this->setColor($data['color']);
+        }
+        if (isset($data['font'])) {
+            $this->setFont($data['font']);
+        }
+
     }
 
     public function getValueStr()
     {
         $data = array();
+        $data['type'] = $this->type;
         $data['imageOrig'] = $this->imageOrig;
         $data['x1'] = $this->x1;
         $data['y1'] = $this->y1;
         $data['x2'] = $this->x2;
         $data['y2'] = $this->y2;
+        $data['text'] = $this->text;
+        $data['color'] = $this->color;
+        $data['font'] = $this->font;
         $data['requiredWidth'] = $this->requiredWidth;
         $data['requiredHeight'] = $this->requiredHeight;
-        $data['id'] = $this->id;
         return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
     }
 
     //GETTERS
+
+    public function getType()
+    {
+        return $this->type;
+    }
 
     public function getImage()
     {
@@ -128,13 +172,27 @@ class Image
         return $this->requiredHeight;
     }
 
-    public function getId()
+    public function getText()
     {
-        return $this->id;
+        return $this->text;
     }
 
+    public function getFont()
+    {
+        return $this->font;
+    }
+
+    public function getColor()
+    {
+        return $this->color;
+    }
 
     //SETTERS
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
     public function setImageOrig($imageOrig)
     {
@@ -171,6 +229,20 @@ class Image
         $this->requiredHeight = $requiredHeight;
     }
 
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
+    public function setFont($font)
+    {
+        $this->font = $font;
+    }
+
+    public function setColor($color)
+    {
+        $this->color = $color;
+    }
 
     //---
 

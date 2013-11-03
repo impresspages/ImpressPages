@@ -380,25 +380,25 @@ class View{
 
     public function generateManagedLogo($cssClass = null)
     {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
         return $inlineManagementService->generateManagedLogo($cssClass);
     }
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
         return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
     }
 
     public function generateManagedText($key, $tag = 'div', $defaultValue = null, $cssClass = null)
     {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
         return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
     }
 
     public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
-        $inlineManagementService = new \Modules\developer\inline_management\Service();
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
         return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
     }
 
