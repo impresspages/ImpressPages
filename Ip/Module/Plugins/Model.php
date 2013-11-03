@@ -22,6 +22,7 @@ class Model{
             "Upload",
             "Search",
             "InlineManagement",
+            "Languages",
         );
     }
 

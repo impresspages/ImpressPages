@@ -47,7 +47,6 @@ class AdminController extends \Ip\Controller
             return;
         }
         $externalLinking = $_REQUEST['externalLinking'];
-
         $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
@@ -64,23 +63,18 @@ class AdminController extends \Ip\Controller
      * @param mixed $parentId
      */
     private function getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId) {
-        global $site;
-        global $parametersMod;
+
 
         $jsTreeId = self::_jsTreeId($parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
-
 
         //store status only on local menu tree
         if (true || $parentWebsiteId == 0) {
             $_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId] = 1;
         }
 
-        require_once(__DIR__ . '/remotes.php');
-
         $remotes = Remotes::getRemotes();
 
         $answer = array();
-
         switch ($parentType) {
             case '' : //return websites
                 $items = ModelTree::getWebsites();
@@ -104,7 +98,6 @@ class AdminController extends \Ip\Controller
                         'children' => $children
                     );
                 }
-
                 break;
             case 'website' : //parent node is website
 
@@ -117,9 +110,8 @@ class AdminController extends \Ip\Controller
                     }
                 }
 
-
                 //generate jsTree response array
-                foreach ($items as $itemsKey => $item) {
+                foreach ($items as $item) {
 
                     $state = 'closed';
                     $children = false;
@@ -149,7 +141,6 @@ class AdminController extends \Ip\Controller
                 break;
             case 'language' : //parent node is language
 
-
                 if ($parentWebsiteId == 0) {
                     $items = ModelTree::getZones($externalLinking);
                 } else {
@@ -165,9 +156,8 @@ class AdminController extends \Ip\Controller
                     }
                 }
 
-
                 //generate jsTree response array
-                foreach ($items as $itemKey => $item) {
+                foreach ($items as $item) {
 
                     $state = 'closed';
                     $children = false;
@@ -868,7 +858,6 @@ class AdminController extends \Ip\Controller
      */
     public function copyPage() {
         global $site;
-        require_once(__DIR__ . '/remotes.php');
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {

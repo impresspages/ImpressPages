@@ -477,7 +477,7 @@ class Site{
      */
     public function getZones(){
         $answer = array();
-        foreach($this->zones as $key => $zone){
+        foreach($this->zones as $zone){
             $answer[] = $this->getZone($zone['name']);
         }
         return $answer;

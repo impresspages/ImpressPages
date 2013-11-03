@@ -217,7 +217,7 @@ class Manager{
         if($ignoreLanguage || !isset($languageCode)){
             $languageId = $site->currentLanguage['id'];
         } else {
-            $languages = \Modules\standard\languages\db::getLanguages();
+            $languages = \Ip\Module\Languages\db::getLanguages();
             foreach($languages as $key => $language){
                 if($language['code'] == $languageCode)
                 $languageId = $language['id'];
@@ -233,7 +233,7 @@ class Manager{
                 $parameter = array();
 
                 $rowNumber = -99999999999999999;
-                $languages = \Modules\standard\languages\Db::getLanguages();
+                $languages = \Ip\Module\Languages\Db::getLanguages();
                 foreach($languages as $language){
                     if($language['row_number'] >= $rowNumber){
                         $rowNumber = $language['row_number'] + 1;
@@ -242,8 +242,8 @@ class Manager{
 
 
                 $languageId = Db::insertLanguage($languageCode, $languageShort, $languageLong, $languageUrl, 0, $rowNumber);
-                \Modules\standard\languages\Db::createRootZoneElement($languageId);
-                \Modules\standard\languages\Db::createEmptyTranslations($languageId, 'par_lang');
+                \Ip\Module\Languages\Db::createRootZoneElement($languageId);
+                \Ip\Module\Languages\Db::createEmptyTranslations($languageId, 'par_lang');
             }
         }
 
