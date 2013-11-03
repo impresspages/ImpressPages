@@ -17,7 +17,6 @@ class StdModHtmlOutput{
     var $tinyMceFields;
 
     function __construct(){
-        global $cms;
         $this->tinyMceFields = array();
     }
 
@@ -92,7 +91,6 @@ class StdModHtmlOutput{
     //inputs
 
     function wysiwyg($name, $value = '', $disabled = false){
-        global $site;
         if($disabled) {
             $disabledStr = ' disabled ';
         } else {
@@ -100,14 +98,9 @@ class StdModHtmlOutput{
         }
 
 
-        if($name == '')
-        $this->html .= $this->error("Input without name ");
-        global $cms;
-
-
-
-
-
+        if($name == '') {
+            $this->html .= $this->error("Input without name ");
+        }
         $this->html .= '<div class="stdMod"><textarea class="mceEditor" '.$disabledStr.' cols="100" rows="10" name="'.htmlspecialchars($name).'">'.$value.'</textarea></div>' ;
     }
 
