@@ -271,9 +271,7 @@ function openIPlinks() {
             type: 'GET',
             url : parent.window.location,
             data : {
-                g : 'standard',
-                m : 'content_management',
-                aa : 'getSitemapInList',
+                aa : 'Content.getSitemapInList',
                 current_href : href
             },
             success : function(response) {updateIPlinks(response);}
