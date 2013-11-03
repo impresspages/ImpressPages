@@ -5,7 +5,7 @@
  *
  */
 namespace Ip\Module\InlineManagement;
-use Modules\developer\inline_value\Entity\Scope as Scope;
+use Ip\Module\InlineValue\Entity\Scope as Scope;
 
 
 

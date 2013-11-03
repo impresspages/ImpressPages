@@ -6,7 +6,7 @@
  */
 
 
-namespace Modules\developer\inline_value\Entity;
+namespace Ip\Module\InlineValue\Entity;
 
 
 class Scope

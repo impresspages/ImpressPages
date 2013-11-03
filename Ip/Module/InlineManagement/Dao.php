@@ -19,7 +19,7 @@ class Dao
 
     public function __construct()
     {
-        $this->inlineValueService = new \Modules\developer\inline_value\Service(self::MODULE_NAME);
+        $this->inlineValueService = new \Ip\Module\InlineValue\Service(self::MODULE_NAME);
     }
 
 

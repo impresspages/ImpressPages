@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\developer\inline_value;
+namespace Ip\Module\InlineValue;
 
 
 class Dao
