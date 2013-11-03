@@ -46,12 +46,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         // Cleanup:
         Db::execute('DROP DATABASE ' . $tempDbName);
-
         Db::disconnect();
     }
 
-    public function testInstallDatabase()
+    public function testImportData()
     {
+        // Prepare environment:
         TestEnvironment::initCode();
         Db::disconnect();
 
@@ -60,15 +60,26 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         \Ip\Config::_setRaw('db', $config['db']);
 
         $tempDbName = 'ip_test_install' . date('md_hi_') . rand(1, 100);
-
         Model::createAndUseDatabase($tempDbName);
 
+        // Create database structure:
         $config['db']['database'] = $tempDbName;
 
-        Model::installDatabase($config['db']);
+        Model::createDatabaseStructure($config['db']['database'], $config['db']['tablePrefix']);
 
         $tables = Db::fetchColumn('SHOW TABLES');
+        $this->assertTrue(in_array('ip_content_element', $tables));
+        $this->assertTrue(in_array('ip_plugin', $tables));
 
-        $this->assertArrayHasKey('labas', $tables);
+        // Import data:
+        Model::importData($config['db']['tablePrefix']);
+        $languages = Db::fetchAll('SELECT * FROM `ip_language`');
+        $this->assertEquals(1, count($languages));
+        $this->assertEquals('en', $languages[0]['url']);
+
+        // Cleanup:
+        Db::execute('DROP DATABASE ' . $tempDbName);
+        Db::disconnect();
     }
-} 
+
+}

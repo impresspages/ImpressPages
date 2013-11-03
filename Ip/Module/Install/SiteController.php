@@ -136,7 +136,7 @@ class SiteController extends \Ip\Controller
             return '{errorCode:"ERROR_DB", error:""}';
         }
 
-        Model::installDatabase($db);
+        Model::importDatabase($db);
 
         if($error == false){
             if($_SESSION['step'] < 3)
