@@ -4,7 +4,7 @@
  *
  *
  */
-namespace Modules\standard\languages;
+namespace Ip\Module\Languages;
 
 class Db {
 

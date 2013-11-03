@@ -4,11 +4,10 @@
  *
  *
  */
-namespace Modules\standard\languages;
+namespace Ip\Module\Languages;
 
-require_once \Ip\Config::oldModuleFile('developer/std_mod/elements/element_text.php');
 
-class ElementUrl extends \Modules\developer\std_mod\ElementText{
+class ElementUrl extends \Ip\Lib\StdMod\Element\Text{
 
     function checkField($prefix, $action, $area){
         global $parametersMod;

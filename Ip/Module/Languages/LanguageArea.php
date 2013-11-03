@@ -4,14 +4,11 @@
  *
  *
  */
-namespace Modules\standard\languages;
-
-require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod.php');
-require_once(__DIR__.'/db.php');
-require_once(__DIR__.'/element_url.php');
+namespace Ip\Module\Languages;
 
 
-class LanguageArea extends \Modules\developer\std_mod\Area {
+
+class LanguageArea extends \Ip\Lib\StdMod\Area {
 
     var $errors = array();
     private $urlBeforeUpdate;
@@ -33,7 +30,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
 
 
-            $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Ip\Lib\StdMod\Element\Text(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','short'),
                     'showOnList' => true,
@@ -44,7 +41,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
             $this->addElement($element);
 
 
-            $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Ip\Lib\StdMod\Element\Text(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','long'),
                     'useInBreadcrumb' => true,
@@ -54,7 +51,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
             );
             $this->addElement($element);
 
-            $element = new \Modules\developer\std_mod\ElementBool(
+            $element = new \Ip\Lib\StdMod\Element\Bool(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','visible'),
                     'showOnList' => true,
@@ -81,7 +78,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
 
 
-            $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Ip\Lib\StdMod\Element\Text(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','code'),
                     'showOnList' => true,
@@ -93,7 +90,7 @@ class LanguageArea extends \Modules\developer\std_mod\Area {
 
 
 
-            $element = new \Modules\developer\std_mod\ElementText(
+            $element = new \Ip\Lib\StdMod\Element\Text(
             array(
                     'title' => $parametersMod->getValue('standard','languages','admin_translations','text_direction'),
                     'showOnList' => true,

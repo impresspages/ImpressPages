@@ -5,10 +5,8 @@
  *
  */
 
-namespace Modules\standard\languages;
+namespace Ip\Module\Languages;
 
-/** @private */
-require_once (__DIR__.'/db.php');
 
 /**
  * class to ouput the languages
