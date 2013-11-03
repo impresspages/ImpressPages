@@ -4,10 +4,10 @@
 
  *
  */
-namespace Modules\administrator\wizard;
+namespace Ip\Module\Wizard;
 
 
-class Controller extends \Ip\Controller{
+class AdminController extends \Ip\Controller{
 
     public function loadContent() {
         global $site;

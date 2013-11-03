@@ -4,21 +4,19 @@
  *
  */
 
-"use strict";
-
 $(document).ready(function() {
+    "use strict";
     $(document).bind('initFinished.ipContentManagement', ipWizardInit);
 });
 
 // loading wizard content
 function ipWizardInit(event) {
+    "use strict";
     $.ajax({
         type : 'GET',
         url : ip.baseUrl,
         data : {
-            g: 'administrator',
-            m: 'wizard',
-            a: 'loadContent'
+            aa: 'Wizard.loadContent'
         },
         success : function(response) {
             if (response.status == 'success') {
@@ -281,9 +279,7 @@ function ipWizardTipDisable(tipId) {
         type : 'POST',
         url : ip.baseUrl,
         data : {
-            g: 'administrator',
-            m: 'wizard',
-            a: 'closeWizardTip',
+            aa: 'Wizard.closeWizardTip',
             id: tipId,
             securityToken: ip.securityToken
         },
