@@ -7,7 +7,6 @@
     echo $site->generateHead();
     ?>
 </head>
-<?php echo $this->generateSlot('ipSearch'); ?>
 <body>
     <div class="topmenu">
         <?php
