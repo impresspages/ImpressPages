@@ -135,7 +135,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'translation'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
+        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
         $element->showOnList = true;
         $elements[] = $element;
         $tmpEl = $element;
@@ -145,11 +145,10 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'name'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
+        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
         $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
         $element->regExpressionError = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
         $element->showOnList = true;
-        // $element->searchable = true;
         $elements[] = $element;
 
 
@@ -158,17 +157,15 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Parameter(array(
             'dbField' => 'id'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','value');
+        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','value');
         $element->showOnList = true;
-        // $element->searchable = true;
         $elements[] = $element;
 
         $element = new \Ip\Lib\StdMod\Element\Bool(array(
             'dbField' => 'admin'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
+        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
         $element->showOnList = true;
-        // $element->searchable = true;
         $elements[] = $element;
 
 

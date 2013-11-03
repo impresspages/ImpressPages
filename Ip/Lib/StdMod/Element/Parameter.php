@@ -113,193 +113,202 @@ class Parameter extends Element{ //data element in area
     }
 
 
-    function printFieldUpdate($prefix, $parent_id = null, $area = null){
+    function printFieldUpdate($prefix, $record, $area){
+        $parent_id = $record[$area->dbReference];
         $html = new \Ip\Lib\StdMod\StdModHtmlOutput();
         global $std_mod_db;
         $value = $this->default_value;
         $sql = "select * from `".DB_PREF."".$area->dbTable."` where ".$area->dbPrimaryKey." = '".$parent_id."' ";
         $rs = mysql_query($sql);
-        if (!$rs)
-        trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-        if ($lock = mysql_fetch_assoc($rs)){
-
-            if($lock['type'] == 'string_wysiwyg'){
-                $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $value = $lock2['value'];
-                    else
-                    trigger_error("Can not get text field data. ".$sql);
-                }
-                $html->wysiwyg($prefix.'_string', $value);
-            }
-            if($lock['type'] == 'string'){
-                $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $value = $lock2['value'];
-                    else
-                    trigger_error("Can not get text field data. ".$sql);
-                }
-                $html->input($prefix.'_string', $value);
-            }
-             
-            if($lock['type'] == 'integer'){
-                $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $value = $lock2['value'];
-                    else
-                    trigger_error("Can not get integer field data. ".$sql);
-                }
-                $html->input($prefix.'_integer', $value);
-            }
-
-
-            if($lock['type'] == 'bool'){
-                $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $value = $lock2['value'];
-                    else
-                    trigger_error("Can not get bool field data. ".$sql);
-                }
-                $html->input_checkbox($prefix.'_bool', $value);
-            }
-             
-            if($lock['type'] == 'textarea'){
-                $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $value = $lock2['value'];
-                    else
-                    trigger_error("Can not get text field data. ".$sql);
-                }
-                $html->textarea($prefix.'_string', $value);
-            }
-            if($lock['type'] == 'lang'){
-                $answer = '';
-                $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
-                    $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
-                        $values[$lock2['l_id']] = $lock2['translation'];
-                    }
-
-                    $languages = \Ip\Lib\StdMod\StdModDb::languages();
-
-                    $answer .= '';
-                    foreach($languages as $key => $language){
-                        $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
-                        $value='';
-                        if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $value = $lock3['translation'];
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
-                        $html->html('<span class="label">'.$language['d_short'].'</span><br />');
-                        $html->input($prefix.'_'.$language['id'], $value);
-                        $html->html("<br />");
-                    }
-
-                }
-            }
-
-            if($lock['type'] == 'lang_textarea'){
-                $answer = '';
-                $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
-                    $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
-                        $values[$lock2['l_id']] = $lock2['translation'];
-                    }
-
-                    $languages = \Ip\Lib\StdMod\StdModDb::languages();
-
-
-                     
-                     
-                    $answer .= '';
-                    foreach($languages as $key => $language){
-                        $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
-                        $value='';
-                        if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $value = $lock3['translation'];
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
-                        $html->html('<span class="label">'.$language['d_short'].'</span><br />');
-                        //	$html->html('<div class="label">');
-                        $html->textarea($prefix.'_'.$language['id'], $value);
-                        $html->html("<br />");
-                        //$html->html('</div>');
-                    }
-
-
-                }
-            }
-
-             
-            if($lock['type'] == 'lang_wysiwyg'){
-                $answer = '';
-                $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
-                    $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
-                        $values[$lock2['l_id']] = $lock2['translation'];
-                    }
-
-                    $languages = \Ip\Lib\StdMod\StdModDb::languages();
-
-
-                     
-                     
-                    $answer .= '';
-                    foreach($languages as $key => $language){
-                        $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
-                        $value='';
-                        if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $value = $lock3['translation'];
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
-                        $html->html('<span class="label">'.$language['d_short'].'</span><br />');
-                        $html->html('<div class="label">');
-                        $html->wysiwyg($prefix.'_'.$language['id'], $value);
-                        $html->html('</div>');
-                    }
-
-
-                }
-            }
-
+        if (!$rs) {
+            trigger_error("Can not get text field data. ".$sql." ".mysql_error());
         }
 
-        $html->html('<input type="hidden" name="'.$prefix.'" value="'.$lock['type'].'" //>');
+        if (!$lock = mysql_fetch_assoc($rs)){
+            throw new \Ip\Exception('Empty query result ' . $sql);
+        }
+        if($lock['type'] == 'string_wysiwyg'){
+            $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+            } else {
+                if($lock2 = mysql_fetch_assoc($rs))
+                $value = $lock2['value'];
+                else
+                trigger_error("Can not get text field data. ".$sql);
+            }
+            $html->wysiwyg($prefix.'_string', $value);
+        }
+        if($lock['type'] == 'string'){
+            $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+            } else {
+                if($lock2 = mysql_fetch_assoc($rs))
+                $value = $lock2['value'];
+                else
+                trigger_error("Can not get text field data. ".$sql);
+            }
+            $html->input($prefix.'_string', $value);
+        }
+
+        if($lock['type'] == 'integer'){
+            $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
+            } else {
+                if($lock2 = mysql_fetch_assoc($rs))
+                $value = $lock2['value'];
+                else
+                trigger_error("Can not get integer field data. ".$sql);
+            }
+            $html->input($prefix.'_integer', $value);
+        }
+
+
+        if($lock['type'] == 'bool'){
+            $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
+            } else {
+                if($lock2 = mysql_fetch_assoc($rs)) {
+                    $value = $lock2['value'];
+                } else {
+                    trigger_error("Can not get bool field data. ".$sql);
+                }
+            }
+            $html->input_checkbox($prefix.'_bool', $value);
+        }
+
+        if($lock['type'] == 'textarea'){
+            $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
+            $rs = mysql_query($sql);
+            if (!$rs) {
+                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+            } else {
+                if($lock2 = mysql_fetch_assoc($rs))
+                $value = $lock2['value'];
+                else
+                trigger_error("Can not get text field data. ".$sql);
+            }
+            $html->textarea($prefix.'_string', $value);
+        }
+        if($lock['type'] == 'lang'){
+            $answer = '';
+            $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $rs2 = mysql_query($sql2);
+            if (!$rs2) {
+                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+            } else{
+                $values = array();
+                while($lock2 = mysql_fetch_assoc($rs2)){
+                    $values[$lock2['l_id']] = $lock2['translation'];
+                }
+
+                $languages = \Ip\Lib\StdMod\StdModDb::languages();
+
+                $answer .= '';
+                foreach($languages as $key => $language){
+                    $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+                    $rs3 = mysql_query($sql3);
+                    $value='';
+                    if($rs3){
+                        if($lock3 = mysql_fetch_assoc($rs3))
+                        $value = $lock3['translation'];
+                    }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                    $html->html('<span class="label">'.$language['d_short'].'</span><br />');
+                    $html->input($prefix.'_'.$language['id'], $value);
+                    $html->html("<br />");
+                }
+
+            }
+        }
+
+        if($lock['type'] == 'lang_textarea'){
+            $answer = '';
+            $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $rs2 = mysql_query($sql2);
+            if (!$rs2) {
+                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+            } else {
+                $values = array();
+                while($lock2 = mysql_fetch_assoc($rs2)){
+                    $values[$lock2['l_id']] = $lock2['translation'];
+                }
+
+                $languages = \Ip\Lib\StdMod\StdModDb::languages();
+
+
+
+
+                $answer .= '';
+                foreach($languages as $key => $language){
+                    $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+                    $rs3 = mysql_query($sql3);
+                    $value='';
+                    if($rs3){
+                        if($lock3 = mysql_fetch_assoc($rs3)) {
+                            $value = $lock3['translation'];
+                        }
+                    } else {
+                        trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                    }
+                    $html->html('<span class="label">'.$language['d_short'].'</span><br />');
+                    //	$html->html('<div class="label">');
+                    $html->textarea($prefix.'_'.$language['id'], $value);
+                    $html->html("<br />");
+                    //$html->html('</div>');
+                }
+
+
+            }
+        }
+
+
+        if($lock['type'] == 'lang_wysiwyg'){
+            $answer = '';
+            $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+            $rs2 = mysql_query($sql2);
+            if (!$rs2) {
+                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+            } else {
+                $values = array();
+                while($lock2 = mysql_fetch_assoc($rs2)){
+                    $values[$lock2['l_id']] = $lock2['translation'];
+                }
+
+                $languages = \Ip\Lib\StdMod\StdModDb::languages();
+
+
+
+
+                $answer .= '';
+                foreach($languages as $key => $language){
+                    $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
+                    $rs3 = mysql_query($sql3);
+                    $value='';
+                    if($rs3){
+                        if($lock3 = mysql_fetch_assoc($rs3)) {
+                            $value = $lock3['translation'];
+                        }
+                    } else {
+                        trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                    }
+                    $html->html('<span class="label">'.$language['d_short'].'</span><br />');
+                    $html->html('<div class="label">');
+                    $html->wysiwyg($prefix.'_'.$language['id'], $value);
+                    $html->html('</div>');
+                }
+
+
+            }
+        }
+
+        $html->html('<input type="hidden" name="'.$prefix.'" value="'.$lock['type'].'" />');
 
         return $html->html;
     }
@@ -315,78 +324,83 @@ class Parameter extends Element{ //data element in area
         $value = $record[$area->dbPrimaryKey];
 
 
-        global $std_mod_db;
-
         $sql = "select * from `".DB_PREF."".$area->dbTable."` where ".$area->dbPrimaryKey." = '".$value."' ";
         $rs = mysql_query($sql);
-        if (!$rs)
-        trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+        if (!$rs) {
+            trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+        }
         if ($lock = mysql_fetch_assoc($rs)){
 
             if($lock['type'] == 'string_wysiwyg'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $answer = mb_substr($lock2['value'], 0, 25);
-                    else
-                    trigger_error("Can not get text field data. ".$sql);
+                if (!$rs) {
+                    trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                } else {
+                    if($lock2 = mysql_fetch_assoc($rs)) {
+                        $answer = mb_substr($lock2['value'], 0, 25);
+                    } else {
+                        trigger_error("Can not get text field data. ".$sql);
+                    }
                 }
             }
             if($lock['type'] == 'string'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $answer = $lock2['value'];
-                    else
-                    trigger_error("Can not get text field data. ".$sql);
+                if (!$rs) {
+                    trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                } else {
+                    if($lock2 = mysql_fetch_assoc($rs)) {
+                        $answer = $lock2['value'];
+                    } else {
+                        $answer = '';
+                    }
                 }
             }
 
             if($lock['type'] == 'integer'){
                 $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $answer = $lock2['value'];
-                    else
-                    trigger_error("Can not get integer field data. ".$sql);
+                if (!$rs) {
+                    trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
+                } else {
+                    if ($lock2 = mysql_fetch_assoc($rs)) {
+                        $answer = $lock2['value'];
+                    } else {
+                        trigger_error("Can not get integer field data. ".$sql);
+                    }
                 }
             }
 
             if($lock['type'] == 'bool'){
                 $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
-                else{
+                if (!$rs) {
+                    trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
+                } else {
                     if($lock2 = mysql_fetch_assoc($rs)){
-                        if($lock2['value'])
-                        $answer = '+';
-                        else
-                        $answer = '-';
-                    }else
-                    trigger_error("Can not get bool field data. ".$sql);
+                        if ($lock2['value']) {
+                            $answer = '+';
+                        } else {
+                            $answer = '-';
+                        }
+                    } else {
+                        trigger_error("Can not get bool field data. ".$sql);
+                    }
                 }
             }
 
             if($lock['type'] == 'textarea'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
                 $rs = mysql_query($sql);
-                if (!$rs)
-                trigger_error("Can not get textarea field data. ".$sql." ".mysql_error());
-                else{
-                    if($lock2 = mysql_fetch_assoc($rs))
-                    $answer = $lock2['value'];
-                    else
-                    trigger_error("Can not get textarea field data. ".$sql);
+                if (!$rs) {
+                    trigger_error("Can not get textarea field data. ".$sql." ".mysql_error());
+                } else {
+                    if($lock2 = mysql_fetch_assoc($rs)) {
+                        $answer = $lock2['value'];
+                    } else {
+                        trigger_error("Can not get textarea field data. ".$sql);
+                    }
                 }
             }
 
@@ -394,9 +408,9 @@ class Parameter extends Element{ //data element in area
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                 $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
+                if (!$rs2) {
+                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                } else {
                     $values = array();
                     while($lock2 = mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
@@ -407,11 +421,13 @@ class Parameter extends Element{ //data element in area
                     foreach($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                         $rs3 = mysql_query($sql3);
-                        $value='';
                         if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $answer .= '/'.$lock3['translation'];
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            if ($lock3 = mysql_fetch_assoc($rs3)) {
+                                $answer .= '/'.$lock3['translation'];
+                            }
+                        } else {
+                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                        }
                     }
 
 
@@ -422,9 +438,9 @@ class Parameter extends Element{ //data element in area
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                 $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
+                if (!$rs2) {
+                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                } else {
                     $values = array();
                     while($lock2 = mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
@@ -432,14 +448,17 @@ class Parameter extends Element{ //data element in area
 
                     $languages = \Ip\Lib\StdMod\StdModDb::languages();
 
-                    foreach($languages as $key => $language){
+                    foreach ($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                         $rs3 = mysql_query($sql3);
-                        $value='';
                         if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $answer .= '/'.substr($lock3['translation'], 0, 20);
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            if($lock3 = mysql_fetch_assoc($rs3)) {
+                                $answer .= '/'.substr($lock3['translation'], 0, 20);
+                            }
+                        } else {
+                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                        }
+
                     }
 
 
@@ -450,9 +469,9 @@ class Parameter extends Element{ //data element in area
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                 $rs2 = mysql_query($sql2);
-                if (!$rs2)
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
-                else{
+                if (!$rs2) {
+                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                } else {
                     $values = array();
                     while($lock2 = mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
@@ -460,14 +479,16 @@ class Parameter extends Element{ //data element in area
 
                     $languages = \Ip\Lib\StdMod\StdModDb::languages();
 
-                    foreach($languages as $key => $language){
+                    foreach ($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
                         $rs3 = mysql_query($sql3);
-                        $value='';
                         if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3))
-                            $answer .= '/'.substr($lock3['translation'], 0, 20);
-                        }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            if ($lock3 = mysql_fetch_assoc($rs3)) {
+                                $answer .= '/'.substr($lock3['translation'], 0, 20);
+                            }
+                        } else {
+                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                        }
                     }
 
 
@@ -485,11 +506,7 @@ class Parameter extends Element{ //data element in area
     }
 
     function getParameters($action, $prefix, $area){
-        if($this->read_only) {
-            return;
-        } else {
-            return array("name"=>"type", "value"=>$_REQUEST[''.$prefix]);
-        }
+        return array("name"=>"type", "value"=>$_REQUEST[''.$prefix]);
     }
 
     public function processInsert($prefix, $lastInsertId, $area) {
