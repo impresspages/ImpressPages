@@ -4,9 +4,8 @@
  *
  *
  */
-namespace Modules\administrator\rss;
+namespace Ip\Module\Rss;
 
-require_once (__DIR__.'/db.php');
 
 class System{
 

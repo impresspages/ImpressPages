@@ -4,9 +4,8 @@
  *
  *
  */
-namespace Modules\administrator\rss;
+namespace Ip\Module\Rss;
 
-require_once (__DIR__.'/db.php');
 
 
 class Cron{
@@ -16,9 +15,9 @@ class Cron{
     }
 
     function execute($options){
-        global $parametersMod;
-        if($options->firstTimeThisMonth)
-        $this->db->deleteOldRss();
+        if ($options->firstTimeThisMonth) {
+            $this->db->deleteOldRss();
+        }
     }
 
 }

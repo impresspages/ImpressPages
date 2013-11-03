@@ -4,30 +4,31 @@
  *
  *
  */
-namespace Modules\administrator\rss;
+namespace Ip\Module\Rss;
 
 class Db{
     function __construct(){
     }
 
-    public static function updateRss($languageId, $zoneKey, $elementId, $newRss){
-        if($languageId != null && $zoneKey!= null && $elementId != null){
+    public static function updateRss($languageId, $zoneKey, $elementId, $newRss) {
+        if ($languageId != null && $zoneKey!= null && $elementId != null) {
             $sql = "delete from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id = '".$elementId."' ";
             $sql2 = "insert into `".DB_PREF."m_administrator_rss` set language_id = '".$languageId."', zone_key = '".$zoneKey."', element_id = '".$elementId."', rss =  '".mysql_real_escape_string($newRss)."' ";
-        }elseif($languageId != null && $zoneKey != null){
+        } elseif ($languageId != null && $zoneKey != null) {
             $sql = "delete from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id is NULL ";
             $sql2 = "insert into `".DB_PREF."m_administrator_rss` set language_id = '".$languageId."', zone_key = '".$zoneKey."', element_id = NULL, rss =  '".mysql_real_escape_string($newRss)."' ";
-        }else{
+        } else {
             $sql = "delete from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key is NULL and element_id is NULL ";
             $sql2 = "insert into `".DB_PREF."m_administrator_rss` set language_id = '".$languageId."', zone_key = NULL, element_id = NULL, rss =  '".mysql_real_escape_string($newRss)."' ";
         }
         $rs = mysql_query($sql);
-        if(!$rs)
-        trigger_error($sql." ".mysql_error());
-        else{
+        if (!$rs) {
+            trigger_error($sql." ".mysql_error());
+        } else {
             $rs2 = mysql_query($sql2);
-            if(!$rs2)
-            trigger_error($sql2." ".mysql_error());
+            if(!$rs2) {
+                trigger_error($sql2." ".mysql_error());
+            }
         }
     }
 
