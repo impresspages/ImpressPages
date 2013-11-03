@@ -6,12 +6,8 @@
  *
  */
 
-namespace Modules\administrator\rss;
+namespace Ip\Module\Rss;
 
-exit;
-
-require_once (__DIR__ . '/db.php');
-require_once (__DIR__ . '/element.php');
 
 class Zone extends \Ip\Frontend\Zone {
 
@@ -58,31 +54,40 @@ class Zone extends \Ip\Frontend\Zone {
 
     function findElement($urlVars, $getVars) {
         global $site;
+        $contentLanguageId = $site->getCurrentLanguage()->getId();
+        $contentZoneName = null;
+        $contentElementId = null;
         if (
-        ($this->rssZoneKey != null && !($site->getZone($this->rssZoneKey)))
-        ||
-        ($this->rssElementId != null && !$site->getZone($this->rssZoneKey)->getElement($this->rssElementId))
+            ($this->rssZoneKey != null && !($site->getZone($this->rssZoneKey)))
+            ||
+            ($this->rssElementId != null && !$site->getZone($this->rssZoneKey)->getElement($this->rssElementId))
+        ) {
+            //returning false means error404
+            return false;
+        } else {
+            $id = $contentLanguageId;
 
-        )return false;  //returning false means error404
-        else {
+            if (isset($site->urlVars[0])) {
+                $id .= '_' . $site->urlVars[0];
+                $contentZoneName = $site->urlVars[0];
+            } else {
+                //do nothing
+            }
 
-            $id = array();
+            if (isset($site->urlVars[1])) {
+                $id .= '_' . $site->urlVars[1];
+                $contentElementId = $site->urlVars[1];
+            } else {
+                //do nothing
+            }
 
-            $id['language_id'] = $site->currentLanguage['id'];
+            $element = new Element($id, $this->name);
 
-            if (isset($site->urlVars[0]))
-            $id['zone_name'] = $site->urlVars[0];
-            else
-            $id['zone_name'] = null;
+            $element->contentLanguageId = $contentLanguageId;
+            $element->contentZoneName = $contentZoneName;
+            $element->contentElementId = $contentElementId;
 
-            if (isset($site->urlVars[1]))
-            $id['element_id'] = $site->urlVars[1];
-            else
-            $id['element_id'] = null;
-
-            $answer = new Element($id, $this->name);
-
-            return $answer;
+            return $element;
         }
     }
 

@@ -5,9 +5,8 @@
  *
  */
 
-namespace Modules\administrator\rss;
+namespace Ip\Module\Rss;
 
-require_once (__DIR__.'/db.php');
 
 /**
  *
@@ -16,10 +15,13 @@ require_once (__DIR__.'/db.php');
  */
 
 class Element extends \Ip\Frontend\Element {
+    public $contentZoneName;
+    public $contentLanguageId;
+    public $contentElementId;
 
     public function getLink() {
         global $site;
-        return $site->generateUrl(null, $this->zoneName);
+        return $site->generateUrl(null, $this->contentZoneName);
     }
 
     public function getDepth() {
@@ -28,7 +30,6 @@ class Element extends \Ip\Frontend\Element {
 
 
     protected function generateRss() {
-        global $site;
 
         $rss = null;
 
@@ -36,7 +37,7 @@ class Element extends \Ip\Frontend\Element {
 
         $rss = $this->cachedRss();
 
-        if(!$rss){
+        if (!$rss){
             $rss = $this->createRss();
         }
         return $rss;
@@ -44,38 +45,36 @@ class Element extends \Ip\Frontend\Element {
 
     protected function cachedRss() {
         global $site;
-        $rss = Db::getRss($site->currentLanguage['id'], $this->id['zone_name'], $this->id['element_id']);
-        $answer = $rss;
-        return $answer;
+        $rss = Db::getRss($this->contentLanguageId, $this->contentZoneName, $this->contentElementId);
+        return $rss;
     }
 
     public static function compareDate($element1, $element2) {
-        if($element1->getCreatedOn() == $element2->getCreatedOn())
-        return 0;
-        elseif($element1->getCreatedOn() < $element2->getCreatedOn())
-        return 1;
-        else
-        return -1;
+        if ($element1->getCreatedOn() == $element2->getCreatedOn()) {
+            return 0;
+        } elseif($element1->getCreatedOn() < $element2->getCreatedOn()) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
 
 
 
     protected function createRss() {
-        global $site;
+        $site = \Ip\ServiceLocator::getSite();
         global $parametersMod;
         $rss = '';
         $pages = array();
-        if($this->id['zone_name'] !== null && $this->id['element_id'] !== null) {
-            $elementId = $this->id['element_id'];
-            $tmpObj = $site->getZone($this->id['zone_name']);
-            $depth = $tmpObj->getElement($elementId)->getDepth();
-            $pages = $this->getPages($this->id['zone_name'], $elementId);
-        }elseif($this->id['zone_name'] !== null) {
-            $pages = $this->getPages($this->id['zone_name']);
-        }else {
+        if($this->contentZoneName !== null && $this->contentElementId !== null) {
+            $elementId = $this->contentElementId;
+            $pages = $this->getPages($this->contentZoneName, $elementId);
+        } elseif ($this->contentZoneName !== null) {
+            $pages = $this->getPages($this->contentZoneName);
+        } else {
             $zones = $site->getZones();
-            foreach($zones as $key => $zone){
+            foreach ($zones as $zone) {
                 $newPages = $this->getPages($zone->getName());
                 if(is_array($newPages)){
                     $pages = array_merge($pages, $this->getPages($zone->getName()));
@@ -83,25 +82,25 @@ class Element extends \Ip\Frontend\Element {
             }
         }
         $rssPages = array();
-        foreach($pages as $key => $page) {
-            if($page->getRss() && $page->getType() == 'default') {
+        foreach ($pages as $page) {
+            if ($page->getRss() && $page->getType() == 'default') {
                 $rssPages[] = $page;
             }
         }
 
 
 
-        usort($rssPages, array("\\Modules\\administrator\\rss\\Element", "compareDate"));
+        usort($rssPages, array("\\Ip\\Module\\Rss\\Element", "compareDate"));
 
         $xmlEncode1 = array("&", "'", '"', '>', '<');
         $xmlEncode2   = array("&amp;", "&apos;", "&quot;", "&gt;", "&lt;");
 
-        if($this->id['zone_name'] !== null && $this->id['element_id'] !== null) {
-            $tmpElement = $site->getZone($this->id['zone_name'])->getElement($this->id['element_id']);
+        if ($this->contentZoneName !== null && $this->contentElementId !== null) {
+            $tmpElement = $site->getZone($this->contentZoneName)->getElement($this->contentElementId);
             $tmpTitle = $tmpElement->getPageTitle();
             $tmpDescription = $tmpElement->getPageTitle();
             $tmpLink = $tmpElement->getLink();
-        }else {
+        } else {
             $tmpTitle = $parametersMod->getValue('administrator', 'rss', 'options', 'title');
             $tmpDescription = $parametersMod->getValue('administrator', 'rss', 'options', 'description');
             $tmpLink = \Ip\Config::baseUrl('');
@@ -113,7 +112,7 @@ class Element extends \Ip\Frontend\Element {
 		<title>'.str_replace($xmlEncode1, $xmlEncode2, $tmpTitle).'</title>
 		<link>'.str_replace($xmlEncode1, $xmlEncode2, $tmpLink).'</link>
 		<description>'.str_replace($xmlEncode1, $xmlEncode2, $tmpDescription).'</description>
-		<language>'.str_replace($xmlEncode1, $xmlEncode2, ($site->currentLanguage['code'])).'</language>
+		<language>'.str_replace($xmlEncode1, $xmlEncode2, ($site->getLanguageById($this->contentLanguageId)->getCode())).'</language>
 		<lastBuildDate>'.date("D, d M Y H:i:s").' GMT</lastBuildDate>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
 		<generator>ImpressPages CMS</generator>
@@ -136,16 +135,15 @@ class Element extends \Ip\Frontend\Element {
 	</channel>
 </rss>';
 
-        Db::updateRss($site->currentLanguage['id'], $this->id['zone_name'], $this->id['element_id'], $rss);
+        Db::updateRss($this->contentLanguageId, $this->contentZoneName, $this->contentElementId, $rss);
 
         return $rss;
     }
 
     protected function getPages($zoneName, $parentId = null, $depth = 1, $maxDepth = 1000) {
         global $site;
-        global $languages;
         $zone = $site->getZone($zoneName);
-        $pages = $zone->getElements($site->currentLanguage['id'], $parentId);
+        $pages = $zone->getElements($this->contentLanguageId, $parentId);
         if($depth < $maxDepth) {
             if(is_array($pages)) {
                 foreach($pages as $key => $page) {
