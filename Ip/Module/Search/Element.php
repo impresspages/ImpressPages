@@ -5,7 +5,7 @@
  *
  */
 
-namespace Modules\administrator\search;
+namespace Ip\Module\Search;
 
 
 
@@ -93,7 +93,7 @@ class Element extends \Ip\Frontend\Element{
             }
         }
         $answer = '';
-        usort($foundElementsCombined, 'Modules\administrator\search\Element::compareRank');
+        usort($foundElementsCombined, array(__CLASS__, 'compareRank'));
 
 
         if(sizeof($foundElements) > 0 || sizeof($foundElementsCombined) > 0) {

@@ -4,9 +4,8 @@
  *
  *
  */
-namespace Modules\administrator\search;
+namespace Ip\Module\Search;
 
-require_once('element.php');
 
 
 class Zone extends \Ip\Frontend\Zone {
