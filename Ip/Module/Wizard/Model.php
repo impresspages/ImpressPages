@@ -4,7 +4,7 @@
 
  *
  */
-namespace Modules\administrator\wizard;
+namespace Ip\Module\Wizard;
 
 
 

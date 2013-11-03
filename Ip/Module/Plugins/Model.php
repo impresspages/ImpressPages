@@ -23,6 +23,7 @@ class Model{
             "Search",
             "InlineManagement",
             "Languages",
+            "Wizard",
         );
     }
 
