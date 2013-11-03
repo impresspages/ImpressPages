@@ -146,7 +146,7 @@ class AdminController {
             'dbField' => 'name'
         ));
         $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
-        $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
+        $element->regExpression = "/^[A-Za-z0-9\\-_]+$/";
         $element->regExpressionError = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
         $element->showOnList = true;
         $elements[] = $element;
