@@ -59,15 +59,15 @@ class Template {
     	<div id="sideBar" class="ui-widget-content ui-resizable">
     		<div id="controlls">
                 <ul>
-                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</span>
                     </button>
-                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</span>
                     </button>
-                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</span>
                     </button>

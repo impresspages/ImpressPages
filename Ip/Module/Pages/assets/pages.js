@@ -456,6 +456,7 @@ function updatePageForm(event, data) {
             break;
         case 'website':
         case 'language':
+            $('#buttonNewPage').addClass('ui-state-disabled');
             $('#buttonDeletePage').addClass('ui-state-disabled');
             $('#buttonCopyPage').addClass('ui-state-disabled');
             $('#buttonPastePage').addClass('ui-state-disabled');
@@ -679,6 +680,7 @@ function copyPage() {
 
     tree.copiedNode = node;
     $('#buttonPastePage').removeClass('ui-state-disabled');
+
 }
 
 /**
