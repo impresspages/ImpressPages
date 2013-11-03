@@ -5,7 +5,7 @@
      *
      */
 
-    namespace Modules\developer\inline_management;
+    namespace Ip\Module\InlineManagement;
 
 
 class Service

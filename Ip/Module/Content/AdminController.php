@@ -159,7 +159,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         $tmpWidgets = Model::getAvailableWidgetObjects();
-        $tmpWidgets = \Modules\developer\widgets\Model::sortWidgets($tmpWidgets);
+        $tmpWidgets = Model::sortWidgets($tmpWidgets);
         $widgets = array();
         foreach($tmpWidgets as $key => $widget) {
             if (!$widget->getUnderTheHood()) {
