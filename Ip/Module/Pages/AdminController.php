@@ -376,6 +376,7 @@ class AdminController extends \Ip\Controller
         $answer = array();
 
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+
         $content = \Ip\View::create('view/zoneProperties.php', array())->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
