@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'PHP version >= 5.3' => 'PHP version >= 5.3',
-    'Apache module "mod_rewrite"' => 'Apache module "mod_rewrite"',
+    'IP_PHP_VERSION' => 'PHP version >= 5.3',
+    'IP_MOD_REWRITE' => 'Apache module "mod_rewrite"',
     'IP_HTACCESS' => '.htaccess file',
     'IP_MOD_PDO' => 'PHP module "PDO"',
     'IP_GD_LIB' => 'GD Graphics Library',
