@@ -94,12 +94,12 @@ class SiteController extends \Ip\Controller{
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
-        $form = new \Modules\developer\form\Form();
+        $form = new \Ip\Form();
 
         $form->removeXssCheck();
 
         //add text field to form object
-        $field = new \Modules\developer\form\Field\Hidden(
+        $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'sa',
                 'defaultValue' => 'Admin.loginAjax', //html "name" attribute
@@ -108,14 +108,14 @@ class SiteController extends \Ip\Controller{
 
 
         //add text field to form object
-        $field = new \Modules\developer\form\Field\Blank(
+        $field = new \Ip\Form\Field\Blank(
             array(
                 'name' => 'global_error',
             ));
         $form->addfield($field);
 
         //add text field to form object
-        $field = new \Modules\developer\form\Field\Text(
+        $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login', //html "name" attribute
                 'label' => $parametersMod->getValue('standard','configuration','system_translations','login_name')
@@ -124,7 +124,7 @@ class SiteController extends \Ip\Controller{
         $form->addField($field);
 
         //add text field to form object
-        $field = new \Modules\developer\form\Field\Password(
+        $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
                 'label' => $parametersMod->getValue('standard','configuration','system_translations','login_password')
@@ -134,7 +134,7 @@ class SiteController extends \Ip\Controller{
 
 
         //add text field to form object
-        $field = new \Modules\developer\form\Field\Submit(
+        $field = new \Ip\Form\Field\Submit(
             array(
                 'defaultValue' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
             ));

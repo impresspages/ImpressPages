@@ -7,7 +7,7 @@
 namespace Ip\Module\Design;
 
 
-use \Modules\developer\form as Form;
+use \Ip\Form as Form;
 
 class ConfigModel{
 
@@ -167,7 +167,7 @@ class ConfigModel{
 
     /**
      * @param string $name
-     * @return \Modules\developer\form\Form
+     * @return \Ip\Form
      * @throws \Ip\CoreException
      */
     public function getThemeConfigForm($name)
@@ -180,7 +180,7 @@ class ConfigModel{
         }
 
 
-        $form = new \Modules\developer\form\Form();
+        $form = new \Ip\Form();
         $form->addClass('ipsForm');
 
 
@@ -210,7 +210,7 @@ class ConfigModel{
         }
 
 
-        $form->addFieldset(new \Modules\developer\form\Fieldset());
+        $form->addFieldset(new \Ip\Form\Fieldset());
         $field = new Form\Field\Hidden();
         $field->setName('g');
         $field->setDefaultValue('standard');
@@ -236,7 +236,7 @@ class ConfigModel{
      */
     protected function getFieldset($themeName, $options)
     {
-        $fieldset = new \Modules\developer\form\Fieldset();
+        $fieldset = new \Ip\Form\Fieldset();
 
         foreach($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {

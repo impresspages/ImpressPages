@@ -54,7 +54,7 @@ class IpForm extends \Ip\Module\Content\Widget{
 
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if ($field->getType() == \Modules\developer\form\Field\Field::TYPE_REGULAR) {
+            if ($field->getType() == \Ip\Form\Field\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
@@ -68,7 +68,7 @@ class IpForm extends \Ip\Module\Content\Widget{
                 );
             }
 
-            if (get_class($field) == 'Modules\developer\form\Field\Email') {
+            if (get_class($field) == 'Ip\Form\Field\Email') {
                 $userFrom = $field->getValueAsString($postData, $field->getName());
                 if ($userFrom != '') {
                     $from = $userFrom;
@@ -76,9 +76,9 @@ class IpForm extends \Ip\Module\Content\Widget{
             }
 
 
-            if (get_class($field) == 'Modules\developer\form\Field\File') {
+            if (get_class($field) == 'Ip\Form\Field\File') {
                 /**
-                 * @var $uploadedFiles \Modules\developer\form\Field\Helper\UploadedFile[]
+                 * @var $uploadedFiles \Ip\Form\Field\Helper\UploadedFile[]
                  */
                 $uploadedFiles = $field->getFiles($postData, $field->getName());
                 foreach($uploadedFiles as $uploadedFile) {
@@ -185,11 +185,11 @@ class IpForm extends \Ip\Module\Content\Widget{
      * 
      * @param int $instanceId
      * @param array $data
-     * @return \Modules\developer\form\Form
+     * @return \Ip\Form
      */
     private function createForm($instanceId, $data) {
         global $parametersMod;
-        $form = new \Modules\developer\form\Form();
+        $form = new \Ip\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();
@@ -230,14 +230,14 @@ class IpForm extends \Ip\Module\Content\Widget{
         
 
         //special variable to post to widget controller
-        $field = new \Modules\developer\form\Field\Hidden(
+        $field = new \Ip\Form\Field\Hidden(
         array(
         'name' => 'sa',
         'defaultValue' => 'Content.widgetPost'
         ));
         $form->addField($field);
         
-        $field = new \Modules\developer\form\Field\Hidden(
+        $field = new \Ip\Form\Field\Hidden(
         array(
         'name' => 'instanceId',
         'defaultValue' => $instanceId
@@ -245,14 +245,14 @@ class IpForm extends \Ip\Module\Content\Widget{
         $form->addField($field);
 
         //antispam
-        $field = new \Modules\developer\form\Field\Check(
+        $field = new \Ip\Form\Field\Check(
         array(
         'name' => 'checkField'
         ));
         $form->addField($field);
         
         //submit
-        $field = new \Modules\developer\form\Field\Submit(
+        $field = new \Ip\Form\Field\Submit(
         array(
         	'defaultValue' => $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'send')
         ));

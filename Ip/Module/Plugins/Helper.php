@@ -7,7 +7,7 @@
 namespace Ip\Module\Plugins;
 
 
-use \Modules\developer\form as Form;
+use \Ip\Form as Form;
 
 class Helper
 {
