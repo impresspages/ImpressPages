@@ -50,7 +50,7 @@ class AdminController extends \Ip\Controller
         $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
-        $this->_printJson ($list);
+        $this->returnJson ($list);
     }
     /**
      *
@@ -294,7 +294,7 @@ class AdminController extends \Ip\Controller
 
     /**
      *
-     * Get page upadate form HTML
+     * Get page update form HTML
      */
     public function getPageForm() {
         global $site;
@@ -368,7 +368,27 @@ class AdminController extends \Ip\Controller
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
+    }
+
+    public function getZoneProperties() {
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+        $answer = array();
+
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+        $content = \Ip\View::create('view/zoneProperties.php', array())->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $data = array (
+            'tabs' => $tabs
+        );
+
+        $tabsView = \Ip\View::create('view/tabs.php', $data);
+
+
+
+        $answer['html'] = $tabsView->render();
+        $this->returnJson($answer);
     }
 
     /**
@@ -481,7 +501,7 @@ class AdminController extends \Ip\Controller
                 return false;
         }
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
     /**
@@ -542,7 +562,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
 
@@ -648,7 +668,7 @@ class AdminController extends \Ip\Controller
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
 
@@ -674,7 +694,7 @@ class AdminController extends \Ip\Controller
         $answer = array ();
         $answer['status'] = 'success';
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     /**
@@ -822,7 +842,7 @@ class AdminController extends \Ip\Controller
         $answer = array();
         $answer['status'] = 'success';
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
 
 
 
@@ -944,7 +964,7 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
         $answer['destinationPageId'] = $destinationPage->getId();
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
 
@@ -1083,7 +1103,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getLanguages(),
             'status' => 'success'
         );
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getZones()
@@ -1099,7 +1119,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
             'status' => 'success'
         );
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getZonePages()
@@ -1120,7 +1140,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getPages()
@@ -1138,7 +1158,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getData()
@@ -1158,7 +1178,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'response' => $pages
         );
-        $this->_printJson($data);
+        $this->returnJson($data);
     }
 
 
@@ -1254,13 +1274,6 @@ class AdminController extends \Ip\Controller
         return false;
     }
 
-
-    /*
-     * Print Json answer
-     */
-    private function _printJson ($data) {
-        $this->returnJson($data);
-    }
 
 
 }

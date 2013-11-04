@@ -481,28 +481,35 @@ function updatePageForm(event, data) {
     }
 
 
-    if (node.attr('rel') == 'page') {
+    switch (node.attr('rel')) {
+        case 'page':
+            var data = Object();
+            data.id = node.attr('id');
+            data.pageId = node.attr('pageId');
+            data.zoneName = node.attr('zoneName');
+            data.websiteId = node.attr('websiteId');
+            data.languageId = node.attr('languageId');
+            data.type = node.attr('rel');
+            data.aa = 'Pages.getPageForm';
 
-        var data = Object();
-        data.id = node.attr('id');
-        data.pageId = node.attr('pageId');
-        data.zoneName = node.attr('zoneName');
-        data.websiteId = node.attr('websiteId');
-        data.languageId = node.attr('languageId');
-        data.type = node.attr('rel');
-        data.aa = 'Pages.getPageForm';
-
-        $.ajax({
-            type: 'POST',
-            url: ip.baseUrl,
-            data: data,
-            success: updatePageFormResponse,
-            dataType: 'json'
-        });
-    } else {
-        $('#pageProperties').html('');
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                success: updatePageFormResponse,
+                dataType: 'json'
+            });
+            break;
+        case 'zone':
+            ipPagesZoneProperties.open(node.attr('websiteId'), node.attr('zoneName'), node.attr('languageId'));
+            break;
+        default:
+            $('#pageProperties').html('');
     }
+
 }
+
+
 
 /**
  * Select node request response.
