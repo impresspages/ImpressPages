@@ -18,7 +18,7 @@ class Template {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/menu_management.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.$site->generateHead().'
     '.$site->generateJavascript().'
@@ -26,7 +26,8 @@ class Template {
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/menu_management.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
 <body>
@@ -58,15 +59,15 @@ class Template {
     	<div id="sideBar" class="ui-widget-content ui-resizable">
     		<div id="controlls">
                 <ul>
-                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'new_page')).'</span>
                     </button>
-                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'delete')).'</span>
                     </button>
-                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false">
+                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
                     	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'copy')).'</span>
                     </button>

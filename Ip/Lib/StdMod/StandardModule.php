@@ -121,16 +121,7 @@ class StandardModule {
             }
         }
 
-        /*    if(isset($_GET['road'])&&$this->currentArea){
-         if($this->road != '')
-         $this->road .= '<a> / </a>';
 
-         if(isset($_GET['title'][sizeof($_GET['road'])-1]) && $_GET['title'][sizeof($_GET['road'])-1] != ''){
-         $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($_GET['title'][sizeof($_GET['road'])-1]).'c</a>';
-         } else {
-         $this->road .= '<a href="'.$this->generateUrlLevel((sizeof($_GET['road']))).'" class="navigation">'.htmlspecialchars($this->currentArea->title).'c</a>';
-         }
-         }*/
 
         //end find upArea
 
@@ -870,7 +861,7 @@ class StandardModule {
             libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
             themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
             moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
-            theme : '. json_encode(\\\\Ip\\\\Config::theme()) .',
+            theme : ' . json_encode(\Ip\Config::theme()) . ',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
             revisionId : '.json_encode(null).',
@@ -906,8 +897,8 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
-		<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/scripts.js') . '"></script>
+		<link href="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
+		<script src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/scripts.js') . '"></script>
 		<script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
 		<script src="' . \Ip\Config::libraryUrl('js/windowsize.js') .'" ></script>
 		<script src="' . \Ip\Config::libraryUrl('js/mouse.js'). '" ></script>
@@ -968,9 +959,9 @@ class StandardModule {
     function printRoad() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->treeDepth)
-        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal.png') . '" alt=""></a>';
+        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/atgal.png') . '" alt=""></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/atgal_disabled.png') . '" alt=""></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/atgal_disabled.png') . '" alt=""></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1335,12 +1326,12 @@ class StandardModule {
 					<option value="100000">100000</option>
 				 </select>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
-					<img src="'.\Ip\Config::libraryUrl('php/standard_module/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
-					<img src="'.LIBRARY_DIR.'/php/standard_module/design/next_page.png" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
 				 </a>
 			 </div>
 			</form>
@@ -1427,7 +1418,7 @@ class StandardModule {
                 $answer .= '<th class="header"><b>'.$parametersMod->getValue('developer', 'std_mod','admin_translations','sort_field').'</b></th>';
             }
 
-            foreach($this->currentArea->elements as $key => $value) {
+            foreach($this->currentArea->elements as $value) {
                 if($value->showOnList) {
                     if ($value->order) {
                         $class="button";
@@ -1495,7 +1486,7 @@ class StandardModule {
                         class="move_up">&nbsp;</a></td>';
                 }
 
-                foreach($this->currentArea->elements as $key => $value) {
+                foreach($this->currentArea->elements as $value) {
                     if($value->showOnList) {
                         $answer .= '<td >'.$value->previewValue($lock, $this->currentArea).'&nbsp;</td>';
                     }
@@ -1611,9 +1602,9 @@ class StandardModule {
 					<div id="std_mod_new_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img 
-								onmouseover="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
-								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
-							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
@@ -1631,9 +1622,9 @@ class StandardModule {
 					<div id="std_mod_search_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img
-								onmouseover="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close_hover.gif') . '\'"
-								onmouseout="this.src=\'' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '\'"
-							src="' . \Ip\Config::oldModuleUrl('developer/std_mod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
+							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
