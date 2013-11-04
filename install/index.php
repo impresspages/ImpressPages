@@ -32,15 +32,13 @@ if (get_magic_quotes_gpc()) { //fix magic quotes option
 
 session_start();
 
+$language = 'en';
+
 if(isset($_GET['lang']) && file_exists('translations/'.$_GET['lang'].'.php')){
     $_SESSION['installation_language'] = $_GET['lang'];
-    require_once('translations/'.$_GET['lang'].'.php');
-} else {
-    if(isset($_SESSION['installation_language'])){
-        require_once('translations/'.$_SESSION['installation_language'].'.php');
-    } else {
-        require_once('translations/en.php');
-    }
+    $lang = $_GET['lang'];
+} elseif (isset($_SESSION['installation_language'])) {
+    $lang = $_SESSION['installation_language'];
 }
 
 if(!isset($_SESSION['step']))
@@ -103,6 +101,8 @@ ini_set('display_errors', 1);
 
 try {
     \Ip\Core\Application::init();
+    \Ip\Translator::init($language);
+    \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
     $application = new \Ip\Core\Application();
 
     $controller = new \Ip\Module\Install\SiteController();
