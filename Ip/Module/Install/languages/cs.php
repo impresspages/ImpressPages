@@ -13,9 +13,8 @@ return array(
     'PHP memory limit ([[memory_limit]])' => 'PHP memory limit ([[memory_limit]])',
 
 
-    'Yes' => 'Ano',
-    'No' => 'Ne',
-    'Warning' => 'Warning',
+    'CHECK_OK' => 'Ano',
+    'CHECK_ERROR' => 'Ne',
     'writable' => 'zapisovatelný',
     'Check again' => 'Znovu zkontrolujte',
     'Back' => 'zpět',
