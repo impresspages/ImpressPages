@@ -24,10 +24,6 @@ class Model{
         $answer = array();
 
 
-        $oldCmsInterface = new OldCmsInterface();
-        $moduleGroups = $this->getOldModules(true, $this->getUserId());
-
-
         $modules = \Ip\Module\Plugins\Model::getModules();
         foreach($modules as $module) {
             $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
@@ -43,19 +39,7 @@ class Model{
         }
 
 
-        foreach($moduleGroups as $groupKey => $group) {
-            $newItem = new \Ip\Menu\Item();
-            $newItem->setTitle($groupKey);
-            $newItem->setType('inactive');
-            $answer[] = $newItem;
 
-            foreach($group as $module) {
-                $moduleItem = new \Ip\Menu\Item();
-                $moduleItem->setTitle($module['translation']);
-                $moduleItem->setUrl($oldCmsInterface->generateUrl($module['id']));
-                $answer[] = $moduleItem;
-            }
-        }
 
         return $answer;
     }

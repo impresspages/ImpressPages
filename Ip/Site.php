@@ -477,7 +477,7 @@ class Site{
      */
     public function getZones(){
         $answer = array();
-        foreach($this->zones as $key => $zone){
+        foreach($this->zones as $zone){
             $answer[] = $this->getZone($zone['name']);
         }
         return $answer;
@@ -529,12 +529,12 @@ class Site{
         for($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
         }
-        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual'))
-        $this->languageUrl = urldecode(array_shift($urlVars));
+        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+            $this->languageUrl = urldecode(array_shift($urlVars));
+        }
 
         $this->zoneUrl = urldecode(array_shift($urlVars));
         $this->urlVars = $urlVars;
-
         $this->getVars = \Ip\Request::getQuery();
     }
 
@@ -585,7 +585,6 @@ class Site{
 
         $zone = $this->getCurrentZone();
         $element = $this->getCurrentElement();
-
         $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
         if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
@@ -697,8 +696,9 @@ class Site{
         }
 
         if($urlVars){
-            foreach($urlVars as $key => $value)
-            $answer .= urlencode($value).'/';
+            foreach($urlVars as $value) {
+                $answer .= urlencode($value).'/';
+            }
         }
 
 

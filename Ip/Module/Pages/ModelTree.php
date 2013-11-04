@@ -23,8 +23,6 @@ class ModelTree {
             'title' => \Ip\Config::baseUrl('')
         );
 
-        require_once(__DIR__ . '/remotes.php');
-
         $remotes = Remotes::getRemotes();
 
         
@@ -59,14 +57,13 @@ class ModelTree {
     public static function getZones($includeNonManagedZones) {
         global $parametersMod;
         global $site;
-        
+
         $zones = $site->getZones();
 
         $managedZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'));
 
         $answer = array();
-
-        foreach ($zones as $zoneKey => $zone) {
+        foreach ($zones as $zone) {
             if ($includeNonManagedZones || in_array($zone->getName(), $managedZones)) {
 
                 $answer[] = array (

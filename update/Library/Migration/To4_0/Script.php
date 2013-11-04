@@ -37,6 +37,7 @@ class Script extends \IpUpdate\Library\Migration\General
 
         //TODOX remove sitemap zone
         //TODOX communit/user zone to user zone
+        //TODOX replace administrator/search zone with Search zone in zones list
     }
 
 
