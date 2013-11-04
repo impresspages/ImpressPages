@@ -17,7 +17,7 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         // Required for test
         $_SESSION = array('step' => 2);
 
-        \Ip\Translator::init('en_EN');
+        \Ip\Translator::init('en');
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
 
         $view = \Ip\View::create(\Ip\Config::coreModuleFile('Install/view/layout.php'), array('content' => ''));

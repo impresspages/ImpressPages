@@ -13,7 +13,7 @@ namespace Ip {
          */
         protected static $translator;
 
-        public static function init($locale = 'en_EN')
+        public static function init($locale = 'en')
         {
             $translator = new \Zend\I18n\Translator\Translator();
 
