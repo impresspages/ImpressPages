@@ -196,14 +196,36 @@ class Model
     {
         try {
             Db::execute('USE `' . $database . '`');
+            /*
+            var_export($database);
+            echo "\n" . __FILE__ . ":" . __LINE__;
+            exit;
+            //*/
         } catch (\PDOException $e) {
+            /*
+            var_export($database);
+            echo "\n" . __FILE__ . ":" . __LINE__;
+            exit;
+            //*/
+
             try {
+                /*
+                var_export($database);
+                echo "\n" . __FILE__ . ":" . __LINE__;
+                exit;
+                //*/
                 Db::execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
                 Db::execute('USE `' . $database . '`');
             } catch (\PDOException $e2) {
                 throw new \Ip\CoreException('Could not create database');
             }
         }
+
+        /*
+        var_export($database);
+        echo "\n" . __FILE__ . ":" . __LINE__;
+        exit;
+        //*/
 
         return true;
     }

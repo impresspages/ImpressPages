@@ -28,34 +28,34 @@ function ajaxMessage(url, parameters){
             var response = xmlHttp.responseText;
             if(response != ''){
             var responseObject = eval('(' + response + ')');
-            switch(responseObject.errorCode){
-                case 'ERROR_CONNECT':
-                    document.getElementById('errorConnect').style.display = 'block';
-                    break;
-                case 'ERROR_DB':
-                    document.getElementById('errorDb').style.display = 'block';
-                    break;
-                case 'ERROR_QUERY':
-                    var textNode = document.createTextNode(responseObject.error);
-                    document.getElementById('errorQuery').innerHTML = '';
-                    document.getElementById('errorQuery').appendChild(textNode);
-                    document.getElementById('errorQuery').innerHTML = '<p class="error">' + document.getElementById('errorQuery').innerHTML + '</p>';
-                    document.getElementById('errorQuery').style.display = 'block';
-                    break;
-                case 'ERROR_LONG_PREFIX':
-                    document.getElementById('errorLongPrefix').style.display = 'block';
-                    break;
-                case 'ERROR_INCORRECT_PREFIX':
-                    document.getElementById('errorIncorrectPrefix').style.display = 'block';
-                    break;
-                case 'ERROR_OK':
-                    document.location= 'index.php?step=4';
-                    break;
-                default:
-                    document.getElementById('errorQuery').style.display = 'block';
-                    break;
+            if (responseObject.result) { // success
+                document.location= 'index.php?step=4';
+            } else {
+                switch(responseObject.error.name) {
+                    case 'ERROR_CONNECT':
+                        document.getElementById('errorConnect').style.display = 'block';
+                        break;
+                    case 'ERROR_DB':
+                        document.getElementById('errorDb').style.display = 'block';
+                        break;
+                    case 'ERROR_QUERY':
+                        var textNode = document.createTextNode(responseObject.error);
+                        document.getElementById('errorQuery').innerHTML = '';
+                        document.getElementById('errorQuery').appendChild(textNode);
+                        document.getElementById('errorQuery').innerHTML = '<p class="error">' + document.getElementById('errorQuery').innerHTML + '</p>';
+                        document.getElementById('errorQuery').style.display = 'block';
+                        break;
+                    case 'ERROR_LONG_PREFIX':
+                        document.getElementById('errorLongPrefix').style.display = 'block';
+                        break;
+                    case 'ERROR_INCORRECT_PREFIX':
+                        document.getElementById('errorIncorrectPrefix').style.display = 'block';
+                        break;
+                    default:
+                        document.getElementById('errorQuery').style.display = 'block';
+                        break;
+                }
             }
-
         }
     }
 }

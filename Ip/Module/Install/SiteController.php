@@ -96,18 +96,21 @@ class SiteController extends \Ip\Controller
         return $this->applyLayout($content, array('requiredJs' => array('js/step3.js')));
     }
 
+    public function step4()
+    {
+
+    }
+
     public function createDatabase()
     {
         $db = \Ip\Request::getPost('db');
 
         if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
-            echo '{errorCode:"ERROR_LONG_PREFIX", error:""}';
-            exit;
+            return \Ip\Response\JsonRpc::error('ERROR_LONG_PREFIX');
         }
 
         if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            echo '{errorCode:"ERROR_INCORRECT_PREFIX", error:""}';
-            exit;
+            return \Ip\Response\JsonRpc::error('ERROR_INCORRECT_PREFIX');
         }
 
         // TODOX validate $db
@@ -116,7 +119,7 @@ class SiteController extends \Ip\Controller
             'username' => $db['username'],
             'password' => $db['password'],
             'tablePrefix' => $db['tablePrefix'],
-            'database' => '', // database doesn't exist, we will create it
+            'database' => '', // if database doesn't exist, we will create it
             'charset' => 'utf8',
         );
 
@@ -125,20 +128,22 @@ class SiteController extends \Ip\Controller
         try {
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
-            // TODOX JSON
-            return '{errorCode:"ERROR_CONNECT", error:""}';
+            return \Ip\Response\JsonRpc::errorName('ERROR_CONNECT');
         }
 
         try {
-            Model:createAndUseDatabase($dbConfig['database']);
+            Model::createAndUseDatabase($db['database']);
         } catch (\Ip\CoreException $e) {
-            // TODOX Json
-            return '{errorCode:"ERROR_DB", error:""}';
+            return \Ip\Response\JsonRpc::errorName('ERROR_DB');
         }
 
-        Model::importDatabase($db);
+        $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
 
-        if($error == false){
+        if (!$errors) {
+            $errors = Model::importData($dbConfig['tablePrefix']);
+        }
+
+        if ($errors){
             if($_SESSION['step'] < 3)
                 $_SESSION['step'] = 3;
 
@@ -148,6 +153,13 @@ class SiteController extends \Ip\Controller
             $_SESSION['db_pass'] = $_POST['db_pass'];
             $_SESSION['db_prefix'] = $_POST['prefix'];
 
+        }
+
+        if ($errors) {
+            return \Ip\Response\JsonRpc::errorName('ERROR_DB');
+        } else {
+            Model::completeStep(3);
+            return \Ip\Response\JsonRpc::result(true);
         }
     }
 
