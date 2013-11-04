@@ -4,16 +4,15 @@
  * @var $this \Ip\View
  */
 ?>
-<?php
-$exampleContent = '
+<?php ob_start(); // Example content ?>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
-<h2 class="ipwTitle">Heading in the second row</h2>
+<h2 class="ipwTitle"><?php echo __('Heading in the second row', 'theme-Blank') ?></h2>
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
-<p>You can still add any text with any styles. And at the end of it just put read more link. Don\'t worry about pasting text from your text editor, even if it\'s MS Word or any excerpt from the Internet.</p>
-<p><a href="#">Read more &gt;</a></p></div>
+<p><?php echo __('You can still add any text with any styles. And at the end of it just put read more link. Don\'t worry about pasting text from your text editor, even if it\'s MS Word or any excerpt from the Internet.', 'theme-Blank') ?></p>
+<p><a href="#"><?php echo $this->esc(__('Read more >', 'theme-Blank')) ?></a></p></div>
 ';
-?>
+<?php $exampleContent = ob_get_clean(); ?>
 
 <div class="homerow clearfix">
 
