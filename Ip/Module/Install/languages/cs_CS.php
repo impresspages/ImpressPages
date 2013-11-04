@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'IP_PHP_VERSION' => 'Verze PHP >= 5.3',
-    'IP_MOD_REWRITE' => 'Apache modul "mod_rewrite"',
+    'PHP version >= 5.3' => 'Verze PHP >= 5.3',
+    'Apache module "mod_rewrite"' => 'Apache modul "mod_rewrite"',
     'IP_HTACCESS' => '.htaccess file',
     'IP_MOD_PDO' => 'PHP module "PDO"',
     'IP_GD_LIB' => 'Grafická knihovna GD',
@@ -21,8 +21,8 @@ return array(
     'IP_BACK' => 'zpět',
     'IP_NEXT' => 'další',
     'IP_ACCEPT' => 'Přijmout',
-    'IP_INSTALLATION' => 'Průvodce instalací CMS ImpressPages',
-    'IP_VERSION' => 'Version %s',
+    'ImpressPages CMS installation wizard' => 'Průvodce instalací CMS ImpressPages',
+    'Version %s' => 'Version %s',
     'IP_SUBDIRECTORIES' => '(včetně podsložek a souborů)',
     'IP_OPTIONAL' => '(volitelné)',
 
