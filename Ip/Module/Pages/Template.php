@@ -27,6 +27,7 @@ class Template {
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
