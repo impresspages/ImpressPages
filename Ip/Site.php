@@ -749,7 +749,8 @@ class Site{
                 }
                 //check if user is logged in
                 if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
-                    throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
+                    header('location: ' . \Ip\Config::baseUrl('') . 'admin');
+                    exit;
                 }
 
 
