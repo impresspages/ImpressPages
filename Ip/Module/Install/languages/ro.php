@@ -12,9 +12,8 @@ return array(
     'index.html removed' => 'index.html removed',
     'PHP memory limit ([[memory_limit]])' => 'PHP memory limit ([[memory_limit]])',
 
-    'Yes' => 'Da',
-    'No' => 'Nu',
-    'Warning' => 'Warning',
+    'CHECK_OK' => 'Da',
+    'CHECK_ERROR' => 'Nu',
     'writable' => 'modificabil',
     'Check again' => 'Verifica din nou',
     'Back' => 'Inapoi',
