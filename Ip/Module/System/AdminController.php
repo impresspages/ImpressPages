@@ -84,7 +84,7 @@ class AdminController extends \Ip\Controller{
     protected function indexUrl()
     {
         $site = \Ip\ServiceLocator::getSite();
-        return str_replace('&amp;', '&', $site->generateUrl(null, null, null, array('g' => 'administrator', 'm' => 'system', 'aa' => 'index')));
+        return str_replace('&amp;', '&', $site->generateUrl(null, null, null, array('aa' => 'System.index')));
     }
 
     public function startUpdate() {

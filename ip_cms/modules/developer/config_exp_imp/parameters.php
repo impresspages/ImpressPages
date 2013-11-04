@@ -48,9 +48,9 @@ class Parameters{
         if ($this->languageId === false) {
             if ($allowCreateLanguage) {
                 $this->languageId = Db::insertLanguage($this->cachedLanguage);
-                \Modules\standard\languages\Db::createEmptyTranslations($this->languageId, 'par_lang');
+                \Ip\Module\Languages\Db::createEmptyTranslations($this->languageId, 'par_lang');
             } else {
-                $siteLanguages = \Modules\standard\languages\Db::getLanguages();
+                $siteLanguages = \Ip\Module\Languages\Db::getLanguages();
                 $this->languageId = $siteLanguages[0]['id'];
             }
         }
