@@ -50,12 +50,12 @@ class Helper
     {
         global $cur_step;
         $steps = array();
-        $steps[] = IP_STEP_LANGUAGE;
-        $steps[] = IP_STEP_CHECK;
-        $steps[] = IP_STEP_LICENSE;
-        $steps[] = IP_STEP_DB;
-        $steps[] = IP_STEP_CONFIGURATION;
-        $steps[] = IP_STEP_COMPLETED;
+        $steps[] = __('IP_STEP_LANGUAGE', 'ipInstall');
+        $steps[] = __('IP_STEP_CHECK', 'ipInstall');
+        $steps[] = __('IP_STEP_LICENSE', 'ipInstall');
+        $steps[] = __('IP_STEP_DB', 'ipInstall');
+        $steps[] = __('IP_STEP_CONFIGURATION', 'ipInstall');
+        $steps[] = __('IP_STEP_COMPLETED', 'ipInstall');
 
         $answer = '
     <ul>
