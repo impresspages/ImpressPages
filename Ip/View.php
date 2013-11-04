@@ -12,9 +12,9 @@ namespace Ip;
  * View class
  *
  */
-class View{
+class View implements \Ip\Response\ResponseInterface
+{
 
-    
     const DOCTYPE_XHTML1_STRICT = 1;
     const DOCTYPE_XHTML1_TRANSITIONAL = 2;
     const DOCTYPE_XHTML1_FRAMESET = 3;
@@ -202,6 +202,11 @@ class View{
 
         return $output;
 
+    }
+
+    public function send()
+    {
+        echo $this->render();
     }
 
     /**
