@@ -12,8 +12,9 @@ return array(
     'index.html removed' => 'index.html removed',
     'PHP memory limit ([[memory_limit]])' => 'PHP memory limit ([[memory_limit]])',
 
-    'CHECK_OK' => 'はい',
-    'CHECK_ERROR' => 'いいえ',
+    'Yes' => 'はい',
+    'No' => 'いいえ',
+    'Warning' => 'Warning',
     'writable' => '書込可能',
     'Check again' => '再度確認',
     'Back' => '戻る',

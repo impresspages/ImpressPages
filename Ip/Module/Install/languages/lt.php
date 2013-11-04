@@ -12,9 +12,9 @@ return array(
     'index.html removed' => 'index.html ištrintas',
     'PHP memory limit ([[memory_limit]])' => 'PHP atminties limitas ([[memory_limit]])',
 
-    'CHECK_OK' => 'Taip',
-    'CHECK_ERROR' => 'Ne',
-    'CHECK_WARNING' => 'Pastaba',
+    'Yes' => 'Taip',
+    'No' => 'Ne',
+    'Warning' => 'Pastaba',
     'writable' => 'įrašoma',
     'Check again' => 'Tikrinti dar kartą',
     'Back' => 'Atgal',
