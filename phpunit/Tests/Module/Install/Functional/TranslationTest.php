@@ -9,7 +9,7 @@ use PhpUnit\Helper\TestEnvironment;
 
 class TranslationTest extends \PHPUnit_Framework_TestCase
 {
-    
+
     public function testLayoutEnTranslation()
     {
         TestEnvironment::initCode();

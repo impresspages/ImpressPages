@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="NOINDEX,NOFOLLOW">
-    <title><?php echo __('IP_INSTALLATION', 'ipInstall') ?></title>
+    <title><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
     <link rel="stylesheet" href="design/style.css">
     <link rel="shortcut icon" href="favicon.ico">
 </head>
@@ -13,7 +13,7 @@
     <img id="logo" src="design/cms_logo.png" alt="ImpressPages CMS">
     <div class="clear"></div>
     <div id="wrapper">
-        <p id="installationNotice"><?php echo __('IP_INSTALLATION', 'ipInstall') ?> <span><?php printf(__('IP_VERSION', 'ipInstall'), IP_VERSION) ?></span></p>
+        <p id="installationNotice"><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php printf(__('Version %s', 'ipInstall'), IP_VERSION) ?></span></p>
         <div class="clear"></div>
         <img class="border" src="design/cms_main_top.gif" alt="Design">
         <div id="main">

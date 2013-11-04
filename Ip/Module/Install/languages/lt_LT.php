@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'IP_PHP_VERSION' => 'PHP versija >= 5.3',
-    'IP_MOD_REWRITE' => 'Apache modulis "mod_rewrite"',
+    'PHP version >= 5.3' => 'PHP versija >= 5.3',
+    'Apache module "mod_rewrite"' => 'Apache modulis "mod_rewrite"',
     'IP_HTACCESS' => '.htaccess failas',
     'IP_MOD_PDO' => 'PHP modulis "PDO"',
     'IP_GD_LIB' => 'GD grafinė biblioteka',
@@ -20,8 +20,8 @@ return array(
     'IP_BACK' => 'Atgal',
     'IP_NEXT' => 'Toliau',
     'IP_ACCEPT' => 'Sutinku',
-    'IP_INSTALLATION' => 'ImpressPages TVS diegimo vedlys',
-    'IP_VERSION' => 'Versija %s',
+    'ImpressPages CMS installation wizard' => 'ImpressPages TVS diegimo vedlys',
+    'Version %s' => 'Versija %s',
     'IP_SUBDIRECTORIES' => '(įskaitant pakatalogius ir failus)',
     'IP_OPTIONAL' => '(pasirinktinai)',
 

@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'IP_PHP_VERSION' => 'Wersja PHP >= 5.3',
-    'IP_MOD_REWRITE' => 'Modul Apache "mod_rewrite"',
+    'PHP version >= 5.3' => 'Wersja PHP >= 5.3',
+    'Apache module "mod_rewrite"' => 'Modul Apache "mod_rewrite"',
     'IP_HTACCESS' => '.htaccess file',
     'IP_MOD_PDO' => 'PHP module "PDO"',
     'IP_GD_LIB' => 'GD Graphics Library',
@@ -20,8 +20,8 @@ return array(
     'IP_BACK' => 'Wróć',
     'IP_NEXT' => 'Dalej',
     'IP_ACCEPT' => 'Akceptuj',
-    'IP_INSTALLATION' => 'Instalator ImpressPages CMS',
-    'IP_VERSION' => 'Wersja %s',
+    'ImpressPages CMS installation wizard' => 'Instalator ImpressPages CMS',
+    'Version %s' => 'Wersja %s',
     'IP_SUBDIRECTORIES' => '(włączając podfoldery i pliki)',
     'IP_OPTIONAL' => '(opcjonalnie)',
 
