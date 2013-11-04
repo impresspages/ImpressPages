@@ -252,7 +252,7 @@ class Manager{
             foreach($parameterGroupTitle as $groupName => $group){
                 foreach($group as $moduleName => $module){
                     foreach($module as $parameterGroupName => $value){
-                        $tmpModule = \Db::getModule(null, $groupName, $moduleName);
+                        $tmpModule = \Ip\Deprecated\Db::getModule(null, $groupName, $moduleName);
                         if($tmpModule){
                             $tmpParameterGroup = Db::getParameterGroup($tmpModule['id'], $parameterGroupName);
                             if($tmpParameterGroup) {
@@ -274,7 +274,7 @@ class Manager{
         if(isset($parameterValue)){
             foreach($parameterValue as $groupName => $moduleGroup){
                 foreach($moduleGroup as $moduleName => $module){
-                    $tmpModule = \Db::getModule(null, $groupName, $moduleName);
+                    $tmpModule = \Ip\Deprecated\Db::getModule(null, $groupName, $moduleName);
                     if($tmpModule){
                         foreach($module as $parameterGroupName => $parameterGroup){
                             $tmpParameterGroup = Db::getParameterGroup($tmpModule['id'], $parameterGroupName);

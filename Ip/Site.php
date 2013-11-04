@@ -306,7 +306,7 @@ class Site{
         if (!defined('BACKEND') && !defined('SITEMAP')) {
             if (sizeof($zones) == 0) {
                 trigger_error('Please insert at least one zone.');
-                \Db::disconnect();
+                \Ip\Deprecated\Db::disconnect();
                 exit;
             }
             
@@ -559,7 +559,7 @@ class Site{
                             header('HTTP/1.1 301 Moved Permanently');
                             header('Location: '.$curEl->getLink());
 
-                            \Db::disconnect();
+                            \Ip\Deprecated\Db::disconnect();
                             exit();
                         }
                     }

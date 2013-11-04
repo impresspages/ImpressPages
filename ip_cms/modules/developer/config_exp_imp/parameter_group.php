@@ -24,7 +24,7 @@ class ParameterGroup{
     public $groupId;
 
     function __construct($groupData){
-        $module = \Db::getModule($groupData['module_id']);
+        $module = \Ip\Deprecated\Db::getModule($groupData['module_id']);
         $this->admin = $groupData['admin'];
         $this->name = $groupData['name'];
         $this->groupId = $groupData['id'];
@@ -66,7 +66,7 @@ class ParameterGroup{
     public function saveToDb($languageId){
         global $parametersMod;
 
-        $tmpModule = \Db::getModule(null, $this->moduleGroupName, $this->moduleName);
+        $tmpModule = \Ip\Deprecated\Db::getModule(null, $this->moduleGroupName, $this->moduleName);
 
         if($tmpModule && sizeof($this->parameters) > 0){
             $tmpParameterGroup = Db::getParameterGroup($tmpModule['id'], $this->name);
@@ -77,7 +77,7 @@ class ParameterGroup{
                 $parameterGroupId = $tmpParameterGroup = Db::createParameterGroup($tmpModule['id'], $this->name, $this->translation, $this->admin);
             }
             foreach($this->parameters as $parameterKey => $parameter){
-                $tmpParameter = \Db::getParameter($tmpModule['id'], 'module_id', $this->name, $parameter['name']);
+                $tmpParameter = \Ip\Deprecated\Db::getParameter($tmpModule['id'], 'module_id', $this->name, $parameter['name']);
                 if($tmpParameter === false){
                     Db::insertParameter($parameterGroupId, $parameter);
                 }elseif($tmpParameter['type'] != $parameter['type']){
@@ -99,18 +99,18 @@ class ParameterGroup{
             case 'string_wysiwyg':
             case 'string':
             case 'textarea':
-                \Db::setParString($parameter['id'], $newValue);
+                \Ip\Deprecated\Db::setParString($parameter['id'], $newValue);
                 break;
             case 'integer':
-                \Db::setParInteger($parameter['id'], $newValue);
+                \Ip\Deprecated\Db::setParInteger($parameter['id'], $newValue);
                 break;
             case 'bool':
-                \Db::setParBool($parameter['id'], $newValue);
+                \Ip\Deprecated\Db::setParBool($parameter['id'], $newValue);
                 break;
             case 'lang':
             case 'lang_textarea':
             case 'lang_wysiwyg':
-                \Db::setParLang($parameter['id'],$newValue, $languageId);
+                \Ip\Deprecated\Db::setParLang($parameter['id'],$newValue, $languageId);
                 break;
         }
     }

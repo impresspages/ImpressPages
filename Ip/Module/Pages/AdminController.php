@@ -1236,7 +1236,7 @@ class AdminController extends \Ip\Controller
             } else {
                 $id = \Ip\Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
                 if($id !== false) {
-                    $module = \Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
+                    $module = \Ip\Deprecated\Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
                     if (\Ip\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
                         \Ip\Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                         return true;

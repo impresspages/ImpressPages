@@ -36,7 +36,7 @@ class Controller{
         $site = \Ip\ServiceLocator::getSite();
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         header("location: ".$url);
-        \Db::disconnect();
+        Deprecated\Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
         exit;
     }
