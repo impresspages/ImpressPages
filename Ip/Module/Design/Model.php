@@ -248,6 +248,7 @@ class Model
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
         $metadata->setPath(\Ip\Config::getCore('THEME_DIR'));
+        $metadata->setPath($dir);
 
         //old type config
         $themeIniFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.ini', $name);
