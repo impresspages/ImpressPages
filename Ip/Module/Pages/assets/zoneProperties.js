@@ -8,13 +8,14 @@ var ipPagesZoneProperties = new function () {
 
     this.open = function (websiteId, zoneName, languageId) {
         //hide current data
+        $('#pageProperties').tabs('destroy');
         $('#pageProperties').html('');
         curZoneName = zoneName;
         curWebsiteId = websiteId;
         curLanguageId = languageId;
 
         //load new data
-        var data = Object();
+        var data = {};
         data.zoneName = curZoneName;
         data.websiteId = curWebsiteId;
         data.languageId = curLanguageId;
