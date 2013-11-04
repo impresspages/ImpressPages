@@ -37,6 +37,16 @@ namespace Ip {
             static::$translator = $translator;
         }
 
+        public static function addTranslationFilePattern($type, $directory, $pattern, $domain)
+        {
+            static::$translator->addTranslationFilePattern(
+                $type,
+                $directory,
+                $pattern,
+                $domain
+            );
+        }
+
         public static function translate($text, $domain)
         {
             return static::$translator->translate($text, $domain);
@@ -45,11 +55,6 @@ namespace Ip {
         public static function translatePlural($singular, $plural, $number, $domain)
         {
             return static::$translator->translatePlural($singular, $plural, $number, $domain);
-        }
-
-        public static function translateKeyword($keyword, $domain)
-        {
-
         }
     }
 }
@@ -74,10 +79,5 @@ namespace {
     function _nx($single, $plural, $number, $context, $domain)
     {
 
-    }
-
-    function _k($text, $domain)
-    {
-        return '{{' . $text .'}}';
     }
 }
