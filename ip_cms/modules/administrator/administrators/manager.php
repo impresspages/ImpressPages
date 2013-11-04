@@ -111,12 +111,12 @@ class Manager{
                     if (!isset($_POST['module_group']) || !isset($_POST['module'])) {
                         break;
                     }
-                    $module = \Db::getModule(null, $_POST['module_group'], $_POST['module']);
+                    $module = \Ip\Deprecated\Db::getModule(null, $_POST['module_group'], $_POST['module']);
 
-                    $users = \Db::getAllUsers();
+                    $users = \Ip\Deprecated\Db::getAllUsers();
 
                     foreach ($users as $user) {
-                        \Db::addPermissions($user['id'], $module['id']);
+                        \Ip\Deprecated\Db::addPermissions($user['id'], $module['id']);
                     }
 
 
@@ -124,7 +124,7 @@ class Manager{
                         'status' => 'success'
                     );
                     echo json_encode($answer);
-                    \Db::disconnect();
+                    \Ip\Deprecated\Db::disconnect();
                     exit;
                 break;
             }

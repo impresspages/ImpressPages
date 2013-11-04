@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Tests\Configuration;
+namespace Tests\Unit\Ip;
 
 
 class DefaultConfigurationTest extends \PhpUnit\GeneralTestCase
