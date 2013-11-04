@@ -17,8 +17,7 @@ class Db {
      * @return array
      */
     public static function getLanguages () {
-        require_once \Ip\Config::oldModuleFile('standard/languages/db.php');
-        $languages = \Modules\standard\languages\Db::getLanguages();
+        $languages = \Ip\Module\Languages\Db::getLanguages();
         return $languages;
     }
 

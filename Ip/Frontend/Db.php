@@ -19,7 +19,7 @@ class Db {
     public static function getZones($languageId) {
         $sql = "select m.*, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` m,`".DB_PREF."zone_parameter` p where p.zone_id = m.id and p.language_id = '".mysql_real_escape_string($languageId)."' order by m.row_number";
         $rs = mysql_query($sql);
-        if($rs) {
+        if ($rs) {
             $zones = array();
             while($lock = mysql_fetch_assoc($rs))
             $zones[$lock['name']] = $lock;
@@ -39,11 +39,12 @@ class Db {
     public static function getLanguage($url) {
         $sql = "select * from `".DB_PREF."language` where `d_short` = '".mysql_real_escape_string($url)."' ";
         $rs = mysql_query($sql);
-        if($rs) {
+        if ($rs) {
             if($lock = mysql_fetch_assoc($rs))
             return $lock;
-        }else
-        trigger_error($sql." ".mysql_error());
+        } else {
+            trigger_error($sql." ".mysql_error());
+        }
     }
 
 
@@ -58,8 +59,9 @@ class Db {
         if($rs) {
             if($lock = mysql_fetch_assoc($rs))
             return $lock;
-        }else
-        trigger_error($sql." ".mysql_error());
+        } else {
+            trigger_error($sql." ".mysql_error());
+        }
     }
 
     /**
@@ -69,11 +71,12 @@ class Db {
     public static function getFirstLanguage() {
         $sql = "select * from `".DB_PREF."language` where visible order by row_number ";
         $rs = mysql_query($sql);
-        if($rs) {
+        if ($rs) {
             if($lock = mysql_fetch_assoc($rs))
             return $lock;
-        }else
-        trigger_error($sql." ".mysql_error());
+        } else {
+            trigger_error($sql." ".mysql_error());
+        }
 
     }
 
@@ -84,16 +87,16 @@ class Db {
      */
     public static function getLanguages($includeHidden = false) {
         $answer = array();
-        if($includeHidden) {
+        if ($includeHidden) {
             $sql = "select * from `".DB_PREF."language` where 1 order by row_number";
-        }else {
+        } else {
             $sql = "select * from `".DB_PREF."language` where visible order by row_number";
         }
         $rs = mysql_query($sql);
-        if($rs) {
+        if ($rs) {
             while($lock = mysql_fetch_assoc($rs))
             $answer[$lock['id']] = $lock;
-        }else {
+        } else {
             trigger_error($sql." ".mysql_error());
             return false;
         }
@@ -119,7 +122,7 @@ class Db {
         }
 
         $answer = array();
-        while($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = mysql_fetch_assoc($rs)) {
             $answer[] = $lock;
         }
         return $answer;
@@ -141,11 +144,12 @@ class Db {
 
         $dbh = \Ip\Db::getConnection();
         $q = $dbh->prepare($sql);
-        $q->execute(array(
+        $params = array(
             'groupName' => $groupName,
             'moduleName' => $moduleName,
             'pageId' => $pageId,
-        ));
+        );
+        $q->execute($params);
 
         return $q->fetchColumn(0);
     }
