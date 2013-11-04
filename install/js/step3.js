@@ -86,8 +86,8 @@ function execute_ajax(){
     if(server == '' ||  user == '' || db == '' || prefix == ''){
         document.getElementById('errorAllFields').style.display = 'block';
     }else{
-        url = 'action=create_database&server=' + encodeURIComponent(server) + '&db_user=' + encodeURIComponent(user) + '&db_pass=' + encodeURIComponent(pass) + '&db=' + encodeURIComponent(db) + '&prefix=' + encodeURIComponent(prefix);
-        ajaxMessage('worker.php', url);
+        url = 'a=createDatabase&db[hostname]=' + encodeURIComponent(server) + '&db[username]=' + encodeURIComponent(user) + '&db[password]=' + encodeURIComponent(pass) + '&db[database]=' + encodeURIComponent(db) + '&db[tablePrefix]=' + encodeURIComponent(prefix);
+        ajaxMessage('index.php', url);
     }
 }
 

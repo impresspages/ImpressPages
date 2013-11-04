@@ -42,7 +42,7 @@ if (\Ip\Config::isDevelopmentEnvironment()){
 
 \Ip\Core\Application::init();
 
-if(\Db::connect()){
+if(\Ip\Deprecated\Db::connect()){
     $log = new \Ip\Module\Log\Module();
 
     try {
@@ -66,7 +66,7 @@ if(\Db::connect()){
         }
 
 
-        \Db::disconnect();
+        \Ip\Deprecated\Db::disconnect();
     } catch (\Exception $e) {
         $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
         throw $e;
@@ -114,7 +114,7 @@ class sitemap{
 
         if (!isset($this->mappedZones[$zone]) || $site->getZone($zone) == false) {
             header('HTTP/1.0 404 Not Found');
-            \Db::disconnect();
+            \Ip\Deprecated\Db::disconnect();
             exit;
         }
 

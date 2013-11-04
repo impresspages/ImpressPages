@@ -12,11 +12,11 @@ class AdminController extends \Ip\Controller {
         if (!isset($_POST['module_group']) || !isset($_POST['module'])) {
             echo 'error'; return;
         }
-        $module = \Db::getModule(null, $_POST['module_group'], $_POST['module']);
+        $module = \Ip\Deprecated\Db::getModule(null, $_POST['module_group'], $_POST['module']);
 
-        $users = \Db::getAllUsers();
+        $users = \Ip\Deprecated\Db::getAllUsers();
         foreach ($users as $user) {
-            \Db::addPermissions($user['id'], $module['id']);
+            \Ip\Deprecated\Db::addPermissions($user['id'], $module['id']);
         }
         exit;
     }
