@@ -5,6 +5,8 @@
  *
  */
 
+exit('DEPRECATED');
+
 
 function install_available(){
     if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100)
