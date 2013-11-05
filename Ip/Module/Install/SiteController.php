@@ -129,6 +129,17 @@ class SiteController extends \Ip\Controller
         return $this->applyLayout($content, array('requiredJs' => array('js/step4.js')));
     }
 
+    public function step5()
+    {
+        $SESSION['step'] = 5;
+        $content = \Ip\View::create('view/step5.php')->render();
+        $html = $this->applyLayout($content)->render();
+
+        unset($_SESSION['step']);
+
+        return $html;
+    }
+
     public function createDatabase()
     {
         $db = \Ip\Request::getPost('db');
