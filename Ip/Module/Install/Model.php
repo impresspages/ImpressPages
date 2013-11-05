@@ -279,6 +279,152 @@ class Model
         return $errors;
     }
 
+    public static function writeConfig($config, $filename)
+    {
+        $configInfo = array(
+            // GLOBAL
+            'SESSION_NAME' => array(
+                'value' => 'changeThis',
+                'comment' => 'prevents session conflict when two sites runs on the same server',
+            ),
+            'BASE_DIR' => array(
+                'value' => '',
+                'comment' => 'root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
+            ),
+            'CORE_DIR' => array(
+                'value' => '',
+                'comment' => 'Directory where Ip directory resides',
+            ),
+            'BASE_URL' => array(
+                'value' => '',
+                'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
+            ),
+            'FILE_DIR' => array(
+                'value' => 'file/',
+                'comment' => 'uploded files directory',
+            ),
+            'TMP_FILE_DIR' => array(
+                'value' => 'file/tmp/',
+                'comment' => 'temporary files directory',
+            ),
+            'FILE_REPOSITORY_DIR' => array(
+                'value' => 'file/repository/',
+                'comment' => 'files repository.',
+            ),
+            'SECURE_DIR' => array(
+                'value' => 'file/secure/',
+                'comment' => 'directory not accessible from the Internet',
+            ),
+            'TMP_SECURE_DIR' => array(
+                'value' => 'file/secure/tmp/',
+                'comment' => 'directory for temporary files. Not accessible from the Internet.',
+            ),
+            'MANUAL_DIR' => array(
+                'value' => 'file/manual/',
+                'comment' => 'Used for TinyMCE file browser and others tools where user manually controls all files.',
+            ),
+            'DEVELOPMENT_ENVIRONMENT' => array(
+                'value' => 1,
+                'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
+            ),
+            'ERRORS_SHOW' => array(
+                'value' => 1,
+                'comment' => "0 if you don't wish to display errors on the page",
+            ),
+            'ERRORS_SEND' => array(
+                'value' => '',
+                'comment' => 'insert email address or leave blank. If email is set, you will get an email when an error occurs.',
+            ),
+            // END GLOBAL
+
+            // BACKEND
+            'INCLUDE_DIR' => array(
+                'value' => 'ip_cms/includes/',
+                'comment' => 'system directory',
+            ),
+            'LIBRARY_DIR' => array(
+                'value' => 'ip_libs/',
+                'comment' => 'general classes and third party libraries',
+            ),
+            'MODULE_DIR' => array(
+                'value' => 'ip_cms/modules/',
+                'comment' => 'system modules directory',
+            ),
+            'pluginDir' => array(
+                'value' => './Plugin',
+                'comment' => 'Plugins directory',
+            ),
+            'THEME_DIR' => array(
+                'value' => 'ip_themes/',
+                'comment' => 'themes directory',
+            ),
+            'BACKEND_MAIN_FILE' => array(
+                'value' => 'admin.php',
+                'comment' => 'backend root file',
+            ),
+            // END BACKEND
+
+            // FRONTEND
+            'CHARSET' => array(
+                'value' => 'UTF-8',
+                'comment' => 'system characterset',
+            ),
+            'THEME' => array(
+                'value' => 'Blank',
+                'comment' => 'theme from themes directory',
+            ),
+            'DEFAULT_DOCTYPE' => array(
+                'value' => 'DOCTYPE_HTML5',
+                'comment' => 'look ip_cms/includes/Ip/View.php for available options.'
+            ),
+            'timezone' => array(
+                'value' => 'changeThis',
+                'comment' => 'PHP 5 requires timezone to be set.',
+            ),
+            // DB
+            'db' => array(
+                'value' => array(
+                    'hostname' => 'localhost',
+                    'username' => '',
+                    'password' => '',
+                    'database' => '',
+                    'tablePrefix' => 'ip_',
+                    'charset' => 'utf8',
+                ),
+                'comment' => 'Database configuration',
+            ),
+            // END DB
+        );
+
+        // Override template values:
+        foreach ($configInfo as $key => $info) {
+            if (array_key_exists($key, $config)) {
+                $configInfo[$key]['value'] = $config[$key];
+            }
+        }
+
+        // Generate config code:
+        $configCode = "";
+        foreach ($configInfo as $key => $info) {
+            $configCode.= "\n    '{$key}' => " . var_export($info['value'], true) . ",";
+            if (!empty($info['comment'])) {
+                $configCode.= " // " . $info['comment'];
+            }
+        }
+
+        $configCode = "<"."?php
+
+/**
+ * @package ImpressPages
+ */
+
+ return array(" . $configCode . ");";
+
+        $fh = fopen($filename, 'w') or die('{errorCode:"ERROR_CONFIG", error:""}');
+        fwrite($fh, $configCode);
+        fclose($fh);
+    }
+
     public static function importParameters()
     {
 //        define('BASE_DIR', get_parent_dir());

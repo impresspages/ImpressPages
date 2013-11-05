@@ -31,7 +31,7 @@ function ajaxMessage(url, parameters){
             if (responseObject.result) { // success
                 document.location= 'index.php?step=4';
             } else {
-                switch(responseObject.error.name) {
+                switch(responseObject.error.message) {
                     case 'ERROR_CONNECT':
                         document.getElementById('errorConnect').style.display = 'block';
                         break;

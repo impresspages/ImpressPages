@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip;
+namespace Ip {
 
 /**
  *
@@ -21,6 +21,8 @@ class Db
      * @var \PDO
      */
     private static $pdoConnection;
+
+    private static $tablePrefix;
 
     /**
      * 
@@ -59,6 +61,7 @@ class Db
                         //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
                     }
 
+                    static::$tablePrefix = $config['tablePrefix'];
                     \Ip\Config::_setRaw('db', null);
                 }
                 return self::$pdoConnection;
@@ -224,5 +227,29 @@ class Db
 
         return static::execute($sql, $params);
     }
+
+    public static function tablePrefix()
+    {
+        return static::$tablePrefix;
+    }
 }
 
+}
+
+namespace {
+
+    function ipTable($name, $alias = '')
+    {
+        if (func_num_args() == 1) {
+            $alias = $name;
+        }
+
+        $tableName = '`' . \Ip\Db::tablePrefix() . $name . '`';
+        if ($alias) {
+            $tableName = ' AS `' . $alias . '`';
+        }
+
+        return $tableName;
+    }
+
+}

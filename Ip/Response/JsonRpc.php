@@ -69,6 +69,13 @@ class JsonRpc implements ResponseInterface
         return isset($this->data['error']['message']) ? $this->data['error']['message'] : null;
     }
 
+    public function addErrorData($key, $value)
+    {
+        $this->data['error'][$key] = $value;
+
+        return $this;
+    }
+
     public function getResult()
     {
         return array_key_exists('result', $this->data) ? $this->data['result'] : null;

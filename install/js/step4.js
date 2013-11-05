@@ -24,54 +24,54 @@ function ajaxMessage(url, parameters){
             var response = xmlHttp.responseText;
             if(response != ''){
             var responseObject = eval('(' + response + ')');
-            var responseString = responseObject.errorCode;
-            var responseArray = responseString.split(' ');
+            if (responseObject.result) {
+                document.location = 'index.php?step=5';
+            } else {
+                var responseArray = responseObject.error.message.split(' ');
 
-            for (var i in responseArray) {
-                var response = responseArray[i];
-                switch(response){
-                    case 'ERROR_SITE_NAME':
-                        document.getElementById('errorSiteName').style.display = 'block';
-                        break;
-                    case 'ERROR_SITE_EMAIL':
-                        document.getElementById('errorSiteEmail').style.display = 'block';
-                        break;
-                    case 'ERROR_EMAIL':
-                        document.getElementById('errorEmail').style.display = 'block';
-                        break;
-                    case 'ERROR_CONFIG':
-                        document.getElementById('errorConfig').style.display = 'block';
-                        break;
-                    case 'ERROR_ROBOTS':
-                        document.getElementById('errorRobots').style.display = 'block';
-                        break;
-                    case 'ERROR_CONNECT':
-                        document.getElementById('errorConnect').style.display = 'block';
-                        break;
-                    case 'ERROR_DB':
-                        document.getElementById('errorDb').style.display = 'block';
-                        break;
-                    case 'ERROR_QUERY':
-                        var textNode = document.createTextNode(responseObject.error);
-                        document.getElementById('errorQuery').innerHTML = '';
-                        document.getElementById('errorQuery').appendChild(textNode);
-                        document.getElementById('errorQuery').innerHTML = '<p class="error">' + document.getElementById('errorQuery').innerHTML + '</p>';
-                        document.getElementById('errorQuery').style.display = 'block';
-                        break;
-                    case 'ERROR_LOGIN':
-                        document.getElementById('errorLogin').style.display = 'block';
-                        break;
-                    case 'ERROR_TIME_ZONE':
-                        document.getElementById('errorTimeZone').style.display = 'block';						
-                        break;
-                    case 'ERROR_OK':
-                        document.location= 'index.php?step=5';
-                        break;
-                    default:
-                        alert('Server gave no answer');
-                        break;
+                for (var i in responseArray) {
+                    var response = responseArray[i];
+                    switch(response){
+                        case 'ERROR_SITE_NAME':
+                            document.getElementById('errorSiteName').style.display = 'block';
+                            break;
+                        case 'ERROR_SITE_EMAIL':
+                            document.getElementById('errorSiteEmail').style.display = 'block';
+                            break;
+                        case 'ERROR_EMAIL':
+                            document.getElementById('errorEmail').style.display = 'block';
+                            break;
+                        case 'ERROR_CONFIG':
+                            document.getElementById('errorConfig').style.display = 'block';
+                            break;
+                        case 'ERROR_ROBOTS':
+                            document.getElementById('errorRobots').style.display = 'block';
+                            break;
+                        case 'ERROR_CONNECT':
+                            document.getElementById('errorConnect').style.display = 'block';
+                            break;
+                        case 'ERROR_DB':
+                            document.getElementById('errorDb').style.display = 'block';
+                            break;
+                        case 'ERROR_QUERY':
+                            var textNode = document.createTextNode(responseObject.error);
+                            document.getElementById('errorQuery').innerHTML = '';
+                            document.getElementById('errorQuery').appendChild(textNode);
+                            document.getElementById('errorQuery').innerHTML = '<p class="error">' + document.getElementById('errorQuery').innerHTML + '</p>';
+                            document.getElementById('errorQuery').style.display = 'block';
+                            break;
+                        case 'ERROR_LOGIN':
+                            document.getElementById('errorLogin').style.display = 'block';
+                            break;
+                        case 'ERROR_TIME_ZONE':
+                            document.getElementById('errorTimeZone').style.display = 'block';
+                            break;
+                        default:
+                            alert('Server gave no answer');
+                            break;
+                    }
+
                 }
-
             }
         }
 
@@ -107,8 +107,8 @@ function execute_ajax(){
     var email = document.getElementById('config_email').value;
     var timezone = document.getElementById('config_timezone').value;
     {
-        url = 'action=config&install_login=' + encodeURIComponent(login) + '&install_pass=' + encodeURIComponent(pass) + '&email=' + encodeURIComponent(email) + '&timezone=' + encodeURIComponent(timezone) +'&site_name=' + encodeURIComponent(site_name) + '&site_email=' + encodeURIComponent(site_email); 
-        ajaxMessage('worker.php', url);
+        url = 'a=config&install_login=' + encodeURIComponent(login) + '&install_pass=' + encodeURIComponent(pass) + '&email=' + encodeURIComponent(email) + '&timezone=' + encodeURIComponent(timezone) +'&site_name=' + encodeURIComponent(site_name) + '&site_email=' + encodeURIComponent(site_email);
+        ajaxMessage('index.php', url);
     }
 }
 

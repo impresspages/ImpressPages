@@ -98,7 +98,38 @@ class SiteController extends \Ip\Controller
 
     public function step4()
     {
+        $dateTimeObject = new \DateTime();
+        $currentTimeZone = $dateTimeObject->getTimezone()->getName();
+        $timezoneSelectOptions = '';
 
+        $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::ALL_WITH_BC);
+
+        $lastGroup = '';
+        foreach($timezones as $timezone) {
+            $timezoneParts = explode('/', $timezone);
+            $curGroup = $timezoneParts[0];
+            if ($curGroup != $lastGroup) {
+                if ($lastGroup != '') {
+                    $timezoneSelectOptions .= '</optgroup>';
+                }
+                $timezoneSelectOptions .= '<optgroup label="'.addslashes($curGroup).'">';
+                $lastGroup = $curGroup;
+            }
+            if ($timezone == $currentTimeZone) {
+                $selected = 'selected';
+            } else {
+                $selected = '';
+            }
+            $timezoneSelectOptions .= '<option '.$selected.' value="'.addslashes($timezone).'">'.htmlspecialchars($timezone).'</option>';
+        }
+
+        $data = array(
+            'timezoneSelectOptions' => $timezoneSelectOptions,
+        );
+
+        $content = \Ip\View::create('view/step4.php', $data)->render();
+
+        return $this->applyLayout($content, array('requiredJs' => array('js/step4.js')));
     }
 
     public function createDatabase()
@@ -128,13 +159,13 @@ class SiteController extends \Ip\Controller
         try {
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::errorName('ERROR_CONNECT');
+            return \Ip\Response\JsonRpc::error('ERROR_CONNECT');
         }
 
         try {
             Model::createAndUseDatabase($db['database']);
         } catch (\Ip\CoreException $e) {
-            return \Ip\Response\JsonRpc::errorName('ERROR_DB');
+            return \Ip\Response\JsonRpc::error('ERROR_DB');
         }
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
@@ -156,11 +187,116 @@ class SiteController extends \Ip\Controller
         }
 
         if ($errors) {
-            return \Ip\Response\JsonRpc::errorName('ERROR_DB');
+            return \Ip\Response\JsonRpc::error('ERROR_DB');
         } else {
             Model::completeStep(3);
             return \Ip\Response\JsonRpc::result(true);
         }
+    }
+
+    public function writeConfig()
+    {
+        // Validate input:
+        $errors = array();
+
+        if ($_POST['site_name'] == '') {
+            $errors[] = 'ERROR_SITE_NAME';
+        }
+
+        $emailRegexp = '#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si';
+
+        if ($_POST['site_email'] == '' || !preg_match($emailRegexp, $_POST['site_email'])) {
+            $errors[] = 'ERROR_SITE_EMAIL';
+        }
+
+        if (!isset($_POST['install_login']) || !isset($_POST['install_pass']) || $_POST['install_login'] == '' || $_POST['install_pass'] == '') {
+            $errors[] = 'ERROR_LOGIN';
+        }
+
+        if (isset($_POST['timezone']) && $_POST['timezone'] != '') {
+            $timezone = $_POST['timezone'];
+        } else {
+            $errors[] = 'ERROR_TIME_ZONE';
+        }
+
+        if ($_POST['email'] != '' && !preg_match($emailRegexp, $_POST['email'])) {
+            $errors[] = 'ERROR_EMAIL';
+        }
+
+        if (sizeof($errors) > 0) {
+            return \Ip\Response\JsonRpc::error(implode(' ', $errors));
+        }
+
+        $config = array();
+        $config['SESSION_NAME'] = 'ses' . rand();
+        $config['BASE_DIR'] = get_parent_dir();
+        $config['BASE_URL'] = get_parent_url();
+        $config['ERRORS_SEND'] = $_POST['email'];
+        $config['timezone'] = $timezone;
+        $config['db'] = array(
+            'hostname' => $_SESSION['db_server'],
+            'username' => $_SESSION['db_user'],
+            'password' => $_SESSION['db_pass'],
+            'database' => $_SESSION['db_db'],
+            'tablePrefix' => $_SESSION['db_prefix'],
+            'charset' => 'utf8',
+        );
+
+        Model::writeConfig($config, \Ip\Config::baseFile('install/test/ip_config.php'));
+
+        $robots =
+            'User-agent: *
+            Disallow: /ip_cms/
+            Disallow: /ip_configs/
+            Disallow: /update/
+            Disallow: /install/
+            Disallow: /admin.php
+            Disallow: /ip_backend_frames.php
+            Disallow: /ip_backend_worker.php
+            Disallow: /ip_config.php
+            Disallow: /ip_cron.php
+            Disallow: /ip_license.html
+            Disallow: /readme.md
+            Sitemap: '.get_parent_url().'sitemap.php';
+
+        $myFile = "../robots.txt";
+        $fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_ROBOTS", error:""}');
+        fwrite($fh, $robots);
+        fclose($fh);
+
+        \Ip\Db::disconnect();
+
+        \Ip\Config::_setRaw('db', $config['db']);
+
+        try {
+            \Ip\Db::getConnection();
+        } catch (Exception $e) {
+            return \Ip\Response\JsonRpc::error('ERROR_CONNECT');
+        }
+
+        try {
+            $sql = "update `" .\Ip\Db::tablePrefix() . "user` set pass = ?, name = ? limit 1";
+            \Ip\Db::execute($sql, array(md5($_POST['install_pass']), $_POST['install_login']));
+
+            $sql = "update `".\Ip\Db::tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
+            \Ip\Db::execute($sql, array($_POST['site_name']));
+
+            $sql = "update `".\Ip\Db::tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
+            \Ip\Db::execute($sql, array($_POST['site_email']));
+
+        } catch (Exception $e) {
+            return \Ip\Response\JsonRpc::error('ERROR_QUERY')->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
+        }
+
+        /*TODOX follow the new structure
+         *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
+         $rs = mysql_query($sql);
+         if(!$rs){
+         $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+         die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
+         }*/
+
+        Model::completeStep(4);
     }
 
     protected function applyLayout($content, $data = array())
@@ -168,6 +304,6 @@ class SiteController extends \Ip\Controller
         $data['content'] = $content;
         $layout = \Ip\View::create('view/layout.php', $data);
 
-        return $layout->render();
+        return $layout;
     }
 }
