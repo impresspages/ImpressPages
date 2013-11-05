@@ -401,7 +401,7 @@ class AdminController extends \Ip\Controller
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
 
         $propertiesData = array (
-            'form' => Forms::zoneSeoForm($zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
+            'form' => Forms::zoneSeoForm($languageId, $zoneName, $zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
         );
         $content = \Ip\View::create('view/zoneProperties.php', $propertiesData)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
@@ -421,27 +421,41 @@ class AdminController extends \Ip\Controller
 
     public function saveZoneProperties()
     {
+        $site = \Ip\ServiceLocator::getSite();
         $request = \Ip\ServiceLocator::getRequest();
         $request->mustBePost();
         $params = $request->getPost();
 
-        $form = Forms::zoneSeoForm();
+
+        if (empty($params['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $zoneName = $params['zoneName'];
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $form = Forms::zoneSeoForm($languageId, $zoneName);
 
         $errors = $form->validate($params);
 
-        if ($errors) {
-            $data = array(
-                'status' => 'error',
-                'errors' => $errors
-            );
-        } else {
-            $data = array(
-                'status' => 'success'
-            );
-        }
+        $data = $form->filterValues($params);
 
-        $this->returnJson($data);
+        $zoneData = array(
+            'title' => $data['title'],
+            'url' => $data['url'],
+            'keywords' => $data['keywords'],
+            'description' => $data['description']
+        );
 
+        $zoneId = $site->getZone($zoneName)->getId();
+
+        Model::updateZone($languageId, $zoneId, $zoneData);
+
+
+        $this->returnJson(array(true));
     }
 
     /**

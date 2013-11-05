@@ -9,11 +9,33 @@ namespace Ip\Module\Pages;
 
 
 class Forms {
-    public static function zoneSeoForm($title = null, $url = null, $keywords = null, $description = null)
+    public static function zoneSeoForm($languageId, $zoneName, $title = null, $url = null, $keywords = null, $description = null)
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Ip\Form();
+
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa',
+                'defaultValue' => 'Pages.saveZoneProperties'
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'zoneName',
+                'defaultValue' => $zoneName
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'languageId',
+                'defaultValue' => $languageId
+            ));
+        $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
