@@ -239,21 +239,21 @@ class System{
         $typeCaptcha = $parametersMod->getValue('developer','form','admin_translations','type_captcha');
         $typeFile = $parametersMod->getValue('developer','form','admin_translations','type_file');
 
-        $newFieldType = new FieldType('IpText', '\Modules\developer\form\Field\Text', $typeText);
+        $newFieldType = new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpEmail', '\Modules\developer\form\Field\Email', $typeEmail);
+        $newFieldType = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpTextarea', '\Modules\developer\form\Field\Textarea', $typeTextarea);
+        $newFieldType = new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpSelect', '\Modules\developer\form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpConfirm', '\Modules\developer\form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $newFieldType = new FieldType('IpConfirm', '\Ip\Form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpRadio', '\Modules\developer\form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $newFieldType = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpCaptcha', '\Modules\developer\form\Field\Captcha', $typeCaptcha);
+        $newFieldType = new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpFile', '\Modules\developer\form\Field\File', $typeFile);
+        $newFieldType = new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
         $event->addField($newFieldType);
     }
 

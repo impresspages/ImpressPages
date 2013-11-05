@@ -10,7 +10,7 @@ class ValidatorTest extends \PhpUnit\GeneralTestCase
 
     public function testEmail()
     {
-        $emailValidator = new \Modules\developer\form\Validator\Email();
+        $emailValidator = new \Ip\Form\Validator\Email();
 
         $result = $emailValidator->validate(array('fieldKey' => 'not-an-email'), 'fieldKey');
         $this->assertEquals($result, 'Please enter a valid email address');
@@ -28,7 +28,7 @@ class ValidatorTest extends \PhpUnit\GeneralTestCase
 
     public function testFile()
     {
-        $fileField = new \Modules\developer\form\Field\File(array());
+        $fileField = new \Ip\Form\Field\File(array());
         $result = $fileField->validate(array('fieldKey' => array('file' => array('unexisting'))), 'fieldKey');
         $this->assertEquals('Session has ended. Please remove and re-upload files.', $result);
     }

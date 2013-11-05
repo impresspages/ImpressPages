@@ -68,18 +68,17 @@ class System {
         $curModUrl = '';
         $helpUrl = 'http://www.impresspages.org/help2';
 
-        if (!empty($requestData['module_id']) && !empty($requestData['module_id'])){
-            $curModule = \Ip\Deprecated\Db::getModule($requestData['module_id']);
+        if (!empty($requestData['aa'])) {
+            $parts = explode('.', $requestData['aa']);
+            $curModule = $parts[0];
         } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
-            $curModule = \Ip\Deprecated\Db::getModule(null, 'standard', 'content_management');
-        } elseif (!empty($_GET['m']) && !empty($_GET['g'])) {
-            $curModule = \Ip\Deprecated\Db::getModule(null, $_GET['g'], $_GET['m']);
+            $curModule = "Content";
         }
 
         if (isset($curModule) && $curModule) {
-            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule['m_name'];
-            $curModTitle = $curModule['m_translation'];
-            $curModUrl = \Ip\Config::baseUrl('?admin=1&module_id=' . $curModule['id'] . '&security_token=' . \Ip\ServiceLocator::getSession()->getSecurityToken());
+            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
+            $curModTitle = $curModule; //TODOX translation
+            $curModUrl = \Ip\Config::baseUrl('', array('aa' => $curModule . '.index'));
         }
 
 

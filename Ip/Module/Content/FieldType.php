@@ -38,7 +38,7 @@ class FieldType{
      * 
      * Create field that could be used in form class.
      * @param array $fieldData will be passed to field constructor
-     * @return \Modules\developer\form\Field\Field
+     * @return \Ip\Form\Field\Field
      */
     public function createField($fieldData) {
         if (!isset($fieldData['label'])) {
@@ -59,8 +59,8 @@ class FieldType{
         
         if (isset($fieldData['options'])) {
             switch($fieldClass) {
-                case '\Modules\developer\form\Field\Select':
-                case '\Modules\developer\form\Field\Radio':
+                case '\Ip\Form\Field\Select':
+                case '\Ip\Form\Field\Radio':
                     $selectValues = array();
                     if (isset($fieldData['options']['list']) && is_array($fieldData['options']['list'])) {
                         foreach($fieldData['options']['list'] as $option) {
@@ -72,7 +72,7 @@ class FieldType{
                     }
                     $fieldOptions['values'] = $selectValues;
                     break;
-                case '\Modules\developer\form\Field\Confirm':
+                case '\Ip\Form\Field\Confirm':
                     if (isset($fieldData['options']['text']) && is_string($fieldData['options']['text'])) {
                         $fieldOptions['text'] = $fieldData['options']['text'];
                     }
