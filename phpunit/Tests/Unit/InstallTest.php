@@ -5,7 +5,7 @@
 
 namespace Tests\Unit;
 
-use PhpUnit\Helper\TestEnvironment;
+use \PhpUnit\Helper\TestEnvironment;
 
 class InstallTest extends \PHPUnit_Framework_TestCase
 {

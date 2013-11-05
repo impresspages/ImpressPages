@@ -2,10 +2,10 @@
 /**
  * @package   ImpressPages
  */
-namespace Tests\Translation;
+namespace Tests\Translator;
 
 
-class TranslationTest extends \PHPUnit_Framework_TestCase
+class TranslatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      *   Scenario: Loading default test environment
@@ -19,6 +19,5 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         \Ip\Translator::init();
 
         $this->assertEquals('non existent string', __('non existent string', 'ip'));
-        $this->assertEquals('{{keyword}}', _k('keyword', 'ip'));
     }
 }
