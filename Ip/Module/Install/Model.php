@@ -279,7 +279,7 @@ class Model
         return $errors;
     }
 
-    public static function writeConfig($config, $filename)
+    public static function writeConfigFile($config, $filename)
     {
         $configInfo = array(
             // GLOBAL
@@ -420,9 +420,27 @@ class Model
 
  return array(" . $configCode . ");";
 
-        $fh = fopen($filename, 'w') or die('{errorCode:"ERROR_CONFIG", error:""}');
-        fwrite($fh, $configCode);
-        fclose($fh);
+        file_put_contents($filename, $configCode);
+    }
+
+    public static function writeRobotsFile($filename)
+    {
+        $content =
+'User-agent: *
+Disallow: /ip_cms/
+Disallow: /ip_configs/
+Disallow: /update/
+Disallow: /install/
+Disallow: /admin.php
+Disallow: /ip_backend_frames.php
+Disallow: /ip_backend_worker.php
+Disallow: /ip_config.php
+Disallow: /ip_cron.php
+Disallow: /ip_license.html
+Disallow: /readme.md
+Sitemap: '. \Ip\Config::baseUrl('sitemap.php');
+
+        file_put_contents($filename, $content);
     }
 
     public static function importParameters()
@@ -447,4 +465,24 @@ class Model
 
         \Modules\developer\localization\Manager::saveParameters(\Ip\Config::baseFile('install/themeParameters.php'));
     }
+
+    public static function insertAdmin($user, $pass)
+    {
+        $sql = "UPDATE `" .\Ip\Db::tablePrefix() . "user` SET `name` = ?, `pass` = ? limit 1";
+        // TODOX use salt for passwords
+        \Ip\Db::execute($sql, array($user, md5($pass)));
+    }
+
+    public static function setSiteName($siteName)
+    {
+        $sql = "update `".\Ip\Db::tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
+        \Ip\Db::execute($sql, array($siteName));
+    }
+
+    public static function setSiteEmail($siteEmail)
+    {
+        $sql = "update `".\Ip\Db::tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
+        \Ip\Db::execute($sql, array($siteEmail));
+    }
+
 }
