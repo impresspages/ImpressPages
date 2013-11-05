@@ -6,8 +6,11 @@
 ?>
 <footer class="clearfix">
     <div class="col_12">
-        <?php echo $this->generateManagedString('themeName', 'p', 'Theme "Blank"', 'left'); ?>
-        <?php echo $this->generateManagedText('slogan', 'div', 'Drag &amp; drop with <a href="http://www.impresspages.org">ImpressPages CMS</a>', 'right'); ?>
+        <?php echo $this->generateManagedString('themeName', 'p', __('Theme "Blank"', 'theme-Blank'), 'left'); ?>
+        <?php
+        $_slogan = sprintf($this->esc(__('Drag & drop with %s', 'theme-Blank')), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'theme-Blank') . '</a>');
+        ?>
+        <?php echo $this->generateManagedText('slogan', 'div', $_slogan, 'right'); ?>
     </div>
 </footer>
 </div>

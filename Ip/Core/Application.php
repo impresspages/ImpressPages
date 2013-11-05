@@ -11,7 +11,7 @@ class Application {
     public static function init()
     {
         if (!defined('IP_VERSION')) {
-            define('IP_VERSION', '3.7');
+            define('IP_VERSION', '4.0');
         }
 
         require_once \Ip\Config::includePath('parameters.php');
@@ -90,6 +90,11 @@ class Application {
         $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
         /*eof detect browser language*/
 
+        $language = $site->getCurrentLanguage();
+        $languageCode = $language->getCode();
+
+        \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
+
         /*check if the website is closed*/
         if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
             && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
@@ -142,8 +147,12 @@ class Application {
             // $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$response)));
             echo $response;
             // $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$response)));
-        } elseif (is_a($response, '\Ip\View')) {
-            echo $response->render();
+        } elseif ($response instanceof \Ip\Response\ResponseInterface) {
+            $response->send();
+        } elseif ($response === NULL) {
+            // TODOX should we do something
+        } else {
+            throw new \Ip\CoreException('Unknown response');
         }
     }
 
