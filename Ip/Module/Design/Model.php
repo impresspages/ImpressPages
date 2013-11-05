@@ -7,7 +7,7 @@
 namespace Ip\Module\Design;
 
 
-use \Modules\developer\form as Form;
+use \Ip\Form as Form;
 
 class Model
 {
@@ -247,7 +247,11 @@ class Model
 
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
-        $metadata->setPath(\Ip\Config::getCore('THEME_DIR'));
+        if ($dir) {
+            $metadata->setPath($dir);
+        } else {
+            $metadata->setPath(\Ip\Config::getRaw('THEME_DIR'));
+        }
 
         //old type config
         $themeIniFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.ini', $name);

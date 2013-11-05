@@ -48,11 +48,11 @@ class Zone extends \Ip\Frontend\Zone {
         global $parametersMod;
         global $site;
         
-        $form = new \Modules\developer\form\Form();
-        $form->setMethod(\Modules\developer\form\Form::METHOD_GET);
+        $form = new \Ip\Form();
+        $form->setMethod(\Ip\Form::METHOD_GET);
         $form->removeXssCheck();
         
-        $field = new \Modules\developer\form\Field\Text(
+        $field = new \Ip\Form\Field\Text(
         array(
             'name' => 'q',
             'label' => ''
@@ -63,7 +63,7 @@ class Zone extends \Ip\Frontend\Zone {
         $form->addField($field);
         
         //Submit button
-        $field = new \Modules\developer\form\Field\Submit(
+        $field = new \Ip\Form\Field\Submit(
         array(
             'name' => '',
             'defaultValue' => $parametersMod->getValue('administrator','search','translations','search')

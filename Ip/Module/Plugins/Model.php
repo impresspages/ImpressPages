@@ -24,6 +24,7 @@ class Model{
             "InlineManagement",
             "Languages",
             "Wizard",
+            "Form",
         );
     }
 
