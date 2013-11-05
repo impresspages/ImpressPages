@@ -372,12 +372,38 @@ class AdminController extends \Ip\Controller
     }
 
     public function getZoneProperties() {
+
+        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+
+        if (empty($params['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $zoneName = $params['zoneName'];
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $zones = \Ip\Frontend\Db::getZones($languageId);
+        if (!$zones) {
+            throw new \Ip\CoreException("Language doesn't exist");
+        }
+
+        if (empty($zones[$zoneName])) {
+            throw new \Ip\CoreException("Zone doesn't exist");
+        }
+        $zoneData = $zones[$zoneName];
+
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $answer = array();
 
         $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
 
-        $content = \Ip\View::create('view/zoneProperties.php', array())->render();
+        $propertiesData = array (
+            'form' => Forms::zoneSeoForm($zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
+        );
+        $content = \Ip\View::create('view/zoneProperties.php', $propertiesData)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
         $data = array (
@@ -390,6 +416,32 @@ class AdminController extends \Ip\Controller
 
         $answer['html'] = $tabsView->render();
         $this->returnJson($answer);
+    }
+
+
+    public function saveZoneProperties()
+    {
+        $request = \Ip\ServiceLocator::getRequest();
+        $request->mustBePost();
+        $params = $request->getPost();
+
+        $form = Forms::zoneSeoForm();
+
+        $errors = $form->validate($params);
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success'
+            );
+        }
+
+        $this->returnJson($data);
+
     }
 
     /**
@@ -1006,6 +1058,7 @@ class AdminController extends \Ip\Controller
         $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);
 
         unset($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId]);
+        $this->returnJson(array('success' => 1));
     }
 
 
