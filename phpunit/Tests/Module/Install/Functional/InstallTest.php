@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Tests\Unit;
+namespace Tests\Module\Install\Functional;
 
 use \PhpUnit\Helper\TestEnvironment;
 
