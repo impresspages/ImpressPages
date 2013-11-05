@@ -445,6 +445,7 @@ function updatePageForm(event, data) {
 
     switch (node.attr('rel')) {
         case 'page':
+            $('#buttonNewPage').removeClass('ui-state-disabled');
             $('#buttonDeletePage').removeClass('ui-state-disabled');
             $('#buttonCopyPage').removeClass('ui-state-disabled');
 
@@ -462,6 +463,7 @@ function updatePageForm(event, data) {
             $('#buttonPastePage').addClass('ui-state-disabled');
             break;
         case 'zone':
+            $('#buttonNewPage').removeClass('ui-state-disabled');
             $('#buttonDeletePage').addClass('ui-state-disabled');
             $('#buttonCopyPage').addClass('ui-state-disabled');
             if (tree.copiedNode) {

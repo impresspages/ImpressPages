@@ -22,7 +22,7 @@ var ipPagesLayout = new function () {
 
     var fixLayout = function () {
         $('#pageProperties').width($(window).width() - $('#sideBar').width() - 30);
-        $('#pageProperties').height($(window).height() - 45);
+        $('#pageProperties').height($(window).height() - 48);
         $('#tree').height($(window).height() - $('#controlls').height() - 87);
         $('#sideBar').height($(window).height() - 45);
         $('#sideBar').resizable('option', 'maxHeight', $(window).height() - 25);

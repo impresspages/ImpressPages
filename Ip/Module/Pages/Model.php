@@ -196,4 +196,22 @@ class Model {
 
     }
 
+    public static function updateZone($languageId, $zoneName, $data) {
+        $dbh = \Ip\Db::getConnection();
+        $sql = '
+            UPDATE
+                `'.DB_PREF.'m_modulegroup_modulename`
+            SET
+                `xxx` = :xxx,
+                `yyy` = :yyy
+        ';
+
+        $params = array (
+            'xxx' => 'something',
+            'yyy' => 'somethingelse'
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+    }
+
 }

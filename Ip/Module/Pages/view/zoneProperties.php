@@ -1,1 +1,1 @@
-Zone properties
+<?php echo $form->render(); ?>
