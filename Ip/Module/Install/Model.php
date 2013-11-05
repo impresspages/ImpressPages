@@ -391,7 +391,7 @@ class Model
                     'tablePrefix' => 'ip_',
                     'charset' => 'utf8',
                 ),
-                'comment' => 'Database configuration',
+                'comment' => "Database configuration",
             ),
             // END DB
         );
@@ -418,7 +418,7 @@ class Model
  * @package ImpressPages
  */
 
- return array(" . $configCode . ");";
+ return array(" . $configCode . "\n);";
 
         file_put_contents($filename, $configCode);
     }
