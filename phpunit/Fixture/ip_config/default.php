@@ -11,7 +11,6 @@ return array(
         'tablePrefix' => 'ip_',
         'charset' => 'utf8',
     ),
-    'DB_PREF' => 'ip_',
 
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
