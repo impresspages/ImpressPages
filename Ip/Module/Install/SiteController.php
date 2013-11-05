@@ -5,6 +5,8 @@
 
 namespace Ip\Module\Install;
 
+use \Ip\Request;
+
 class SiteController extends \Ip\Controller
 {
     public function step0()
@@ -71,27 +73,22 @@ class SiteController extends \Ip\Controller
 
     public function step3()
     {
-        if (!isset($_SESSION['db_server'])) {
-            $_SESSION['db_server'] = 'localhost';
+        if (!isset($_SESSION['db'])) {
+            $_SESSION['db'] = array(
+                'hostname' => 'localhost',
+                'username' => '',
+                'password' => '',
+                'database' => '',
+                'charset' => 'utf8',
+                'tablePrefix' => 'ip_'
+            );
         }
 
-        if (!isset($_SESSION['db_user'])) {
-            $_SESSION['db_user'] = '';
-        }
+        $data = array(
+            'db' => $_SESSION['db'],
+        );
 
-        if (!isset($_SESSION['db_pass'])) {
-            $_SESSION['db_pass'] = '';
-        }
-
-        if (!isset($_SESSION['db_db'])) {
-            $_SESSION['db_db'] = '';
-        }
-
-        if (!isset($_SESSION['db_prefix'])) {
-            $_SESSION['db_prefix'] = 'ip_';
-        }
-
-        $content = \Ip\View::create('view/step3.php')->render();
+        $content = \Ip\View::create('view/step3.php', $data)->render();
 
         return $this->applyLayout($content, array('requiredJs' => array('js/step3.js')));
     }
@@ -175,16 +172,14 @@ class SiteController extends \Ip\Controller
         }
 
         if ($errors){
-            if($_SESSION['step'] < 3)
+            if($_SESSION['step'] < 3) {
                 $_SESSION['step'] = 3;
-
-            $_SESSION['db_server'] = $_POST['server'];
-            $_SESSION['db_db'] = $_POST['db'];
-            $_SESSION['db_user'] = $_POST['db_user'];
-            $_SESSION['db_pass'] = $_POST['db_pass'];
-            $_SESSION['db_prefix'] = $_POST['prefix'];
-
+            }
         }
+
+        $dbConfig['database'] = $db['database'];
+
+        $_SESSION['db'] = $dbConfig;
 
         if ($errors) {
             return \Ip\Response\JsonRpc::error('ERROR_DB');
@@ -196,96 +191,78 @@ class SiteController extends \Ip\Controller
 
     public function writeConfig()
     {
+        if (empty($_SESSION['db'])) {
+            return \Ip\Response\JsonRpc::error("ERROR_SESSION_EXPIRED");
+        }
+
         // Validate input:
         $errors = array();
 
-        if ($_POST['site_name'] == '') {
+        if (!Request::getPost('site_name')) {
             $errors[] = 'ERROR_SITE_NAME';
         }
 
         $emailRegexp = '#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si';
 
-        if ($_POST['site_email'] == '' || !preg_match($emailRegexp, $_POST['site_email'])) {
+        if (!Request::getPost('site_email') || !filter_var(Request::getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'ERROR_SITE_EMAIL';
         }
 
-        if (!isset($_POST['install_login']) || !isset($_POST['install_pass']) || $_POST['install_login'] == '' || $_POST['install_pass'] == '') {
+        if (!Request::getPost('install_login') || !Request::getPost('install_pass')) {
             $errors[] = 'ERROR_LOGIN';
         }
 
-        if (isset($_POST['timezone']) && $_POST['timezone'] != '') {
-            $timezone = $_POST['timezone'];
+        if (Request::getPost('timezone')) {
+            $timezone = Request::getPost('timezone');
         } else {
             $errors[] = 'ERROR_TIME_ZONE';
         }
 
-        if ($_POST['email'] != '' && !preg_match($emailRegexp, $_POST['email'])) {
+        if (Request::getPost('email') && !filter_var(Request::getPost('email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'ERROR_EMAIL';
         }
 
-        if (sizeof($errors) > 0) {
+        if (!empty($errors)) {
             return \Ip\Response\JsonRpc::error(implode(' ', $errors));
         }
 
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = get_parent_dir();
-        $config['BASE_URL'] = get_parent_url();
+        $config['BASE_DIR'] = \Ip\Config::baseFile('');
+        $config['BASE_URL'] = \Ip\Config::baseUrl('');
         $config['ERRORS_SEND'] = $_POST['email'];
         $config['timezone'] = $timezone;
-        $config['db'] = array(
-            'hostname' => $_SESSION['db_server'],
-            'username' => $_SESSION['db_user'],
-            'password' => $_SESSION['db_pass'],
-            'database' => $_SESSION['db_db'],
-            'tablePrefix' => $_SESSION['db_prefix'],
-            'charset' => 'utf8',
-        );
-
-        Model::writeConfig($config, \Ip\Config::baseFile('install/test/ip_config.php'));
-
-        $robots =
-            'User-agent: *
-            Disallow: /ip_cms/
-            Disallow: /ip_configs/
-            Disallow: /update/
-            Disallow: /install/
-            Disallow: /admin.php
-            Disallow: /ip_backend_frames.php
-            Disallow: /ip_backend_worker.php
-            Disallow: /ip_config.php
-            Disallow: /ip_cron.php
-            Disallow: /ip_license.html
-            Disallow: /readme.md
-            Sitemap: '.get_parent_url().'sitemap.php';
-
-        $myFile = "../robots.txt";
-        $fh = fopen($myFile, 'w') or die('{errorCode:"ERROR_ROBOTS", error:""}');
-        fwrite($fh, $robots);
-        fclose($fh);
-
-        \Ip\Db::disconnect();
-
-        \Ip\Config::_setRaw('db', $config['db']);
+        $config['db'] = $_SESSION['db'];
 
         try {
+            Model::writeConfigFile($config, \Ip\Config::baseFile('install/test/ip_config.php'));
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error('ERROR_CONFIG');
+        }
+
+        try {
+            Model::writeRobotsFile(\Ip\Config::baseFile('robots.txt'));
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error("ERROR_ROBOTS");
+        }
+
+
+        try {
+            \Ip\Db::disconnect();
+            \Ip\Config::_setRaw('db', $config['db']);
             \Ip\Db::getConnection();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error('ERROR_CONNECT');
         }
 
         try {
-            $sql = "update `" .\Ip\Db::tablePrefix() . "user` set pass = ?, name = ? limit 1";
-            \Ip\Db::execute($sql, array(md5($_POST['install_pass']), $_POST['install_login']));
 
-            $sql = "update `".\Ip\Db::tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
-            \Ip\Db::execute($sql, array($_POST['site_name']));
+            Model::insertAdmin(Request::getPost('install_login'), Request::getPost('install_pass'));
+            Model::setSiteName(Request::getPost('site_name'));
+            Model::setSiteEmail(Request::getPost('site_email'));
 
-            $sql = "update `".\Ip\Db::tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
-            \Ip\Db::execute($sql, array($_POST['site_email']));
-
-        } catch (Exception $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_QUERY')->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error('ERROR_QUERY'); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
         }
 
         /*TODOX follow the new structure
@@ -297,6 +274,8 @@ class SiteController extends \Ip\Controller
          }*/
 
         Model::completeStep(4);
+
+        return \Ip\Response\JsonRpc::result(true);
     }
 
     protected function applyLayout($content, $data = array())

@@ -23,5 +23,5 @@
     </p>
 
 </form>
-<a class="button_act" href="#" ><?php echo __('IP_NEXT', 'ipInstall') ?></a>
-<a class="button" href="?step=3"><?php echo __('IP_BACK', 'ipInstall') ?></a>
+<a class="button_act" href="#" ><?php echo __('Next', 'ipInstall') ?></a>
+<a class="button" href="?step=3"><?php echo __('Back', 'ipInstall') ?></a>

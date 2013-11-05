@@ -149,6 +149,8 @@ class Application {
             // $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$response)));
         } elseif ($response instanceof \Ip\Response\ResponseInterface) {
             $response->send();
+        } elseif ($response === NULL) {
+            // TODOX should we do something
         } else {
             throw new \Ip\CoreException('Unknown response');
         }
