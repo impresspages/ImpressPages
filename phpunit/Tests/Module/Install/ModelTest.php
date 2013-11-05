@@ -22,7 +22,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         unset($config['db']['database']);
         \Ip\Config::_setRaw('db', $config['db']);
 
-        $tempDbName = 'ip_test_create' . date('md_hi_') . rand(1, 100);
+        $tempDbName = 'ip_test_create' . date('md_Hi_') . rand(1, 100);
 
         $database = Db::fetchValue('SELECT DATABASE()');
         $this->assertEmpty($database);
@@ -59,7 +59,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         unset($config['db']['database']);
         \Ip\Config::_setRaw('db', $config['db']);
 
-        $tempDbName = 'ip_test_install' . date('md_hi_') . rand(1, 100);
+        $tempDbName = 'ip_test_install' . date('md_Hi_') . rand(1, 100);
         Model::createAndUseDatabase($tempDbName);
 
         // Create database structure:
@@ -80,6 +80,16 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         // Cleanup:
         Db::execute('DROP DATABASE ' . $tempDbName);
         Db::disconnect();
+    }
+
+    public function testWriteConfig()
+    {
+        // Prepare environment:
+        TestEnvironment::initCode();
+
+        $config = array();
+
+        Model::writeConfigFile($config, TEST_TMP_DIR . 'ip_config-testWriteConfig1.php');
     }
 
 }
