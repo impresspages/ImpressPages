@@ -87,9 +87,13 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         // Prepare environment:
         TestEnvironment::initCode();
 
-        $config = array();
+        $emptyConfig = array();
 
-        Model::writeConfigFile($config, TEST_TMP_DIR . 'ip_config-testWriteConfig1.php');
+        Model::writeConfigFile($emptyConfig, TEST_TMP_DIR . 'ip_config-testWriteConfig1.php');
+
+        $config = include TEST_TMP_DIR . 'ip_config-testWriteConfig1.php';
+
+        $this->assertNotEmpty($config);
     }
 
 }

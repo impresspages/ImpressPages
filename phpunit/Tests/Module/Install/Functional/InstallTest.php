@@ -3,9 +3,9 @@
  * @package   ImpressPages
  */
 
-namespace Tests\Unit;
+namespace Tests\Module\Install\Functional;
 
-use PhpUnit\Helper\TestEnvironment;
+use \PhpUnit\Helper\TestEnvironment;
 
 class InstallTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,20 +16,21 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 
     public function testThis()
     {
+        $this->markTestSkipped();
 
-        $config = include TEST_CODEBASE_DIR . 'install/ip_config-template.php';
-        \Ip\Config::init($config);
+        return;
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
+        TestEnvironment::initCode();
 
-        \Ip\Core\Application::init();
+        $installation = new \PhpUnit\Helper\Installation(); //development version
+        $installation->install();
 
 
         $driver = new \Behat\Mink\Driver\GoutteDriver();
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        $session->visit(\Ip\Config::baseUrl('install/'));
+        $session->visit(TEST_TMP_URL . 'install/');
 
         $page = $session->getPage();
 

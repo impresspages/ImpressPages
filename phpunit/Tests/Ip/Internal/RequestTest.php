@@ -3,6 +3,8 @@
  * @package   ImpressPages
  */
 
+namespace Tests\Ip\Internal;
+
 class RequestTest extends \PhpUnit\GeneralTestCase
 {
     public function testGetAndPost()
