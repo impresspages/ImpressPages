@@ -19,10 +19,6 @@ class Application {
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
         require_once \Ip\Config::includePath('error_handler.php');
 
-        if(!\Ip\Deprecated\Db::connect()){
-            trigger_error("Database access");
-        }
-
         global $log;
         $log = new \Ip\Module\Log\Module();
         global $dispatcher;
