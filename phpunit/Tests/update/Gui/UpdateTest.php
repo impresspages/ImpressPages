@@ -156,9 +156,9 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         WHERE
             `name` = 'version'
         ";
-        $rs = mysql_query($sql, $conn);
+        $rs = ip_deprecated_mysql_query($sql, $conn);
         if (!$rs) {
-            throw new \Exception("Can't update installation version. ".mysql_error());
+            throw new \Exception("Can't update installation version. ".ip_deprecated_mysql_error());
         }
         
         
@@ -183,9 +183,9 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
 
         $sql = "update `".$installation->getDbPrefix()."variables` set `value` = '2.3' where
         `name` = 'version'";
-        $rs = mysql_query($sql, $conn);
+        $rs = ip_deprecated_mysql_query($sql, $conn);
         if (!$rs) {
-            throw new \Exception($sql." ".mysql_error());
+            throw new \Exception($sql." ".ip_deprecated_mysql_error());
         }
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);

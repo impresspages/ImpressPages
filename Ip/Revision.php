@@ -19,18 +19,18 @@ class Revision{
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE
-                `zoneName` = '".mysql_real_escape_string($zoneName)."' AND
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."' AND
                 `pageId` = '".(int)$pageId."'
             ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t find last revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             $revisionId = self::createRevision($zoneName, $pageId, 1);
@@ -44,19 +44,19 @@ class Revision{
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
             WHERE
-                `zoneName` = '".mysql_real_escape_string($zoneName)."' AND
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."' AND
                 `pageId` = '".(int)$pageId."' AND
                 `published`
             ORDER BY `created` DESC, `revisionId` DESC
             LIMIT 1
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t find last revision '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t find last revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             $revisionId = self::createRevision($zoneName, $pageId, 1);
@@ -71,12 +71,12 @@ class Revision{
             WHERE `revisionId` = ".(int)$revisionId."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t find revision '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t find revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             return $lock;
         } else {
             return false;
@@ -90,18 +90,18 @@ class Revision{
         $sql = "
             INSERT INTO `".DB_PREF."revision`
             SET
-                `zoneName` = '".mysql_real_escape_string($zoneName)."',
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."',
                 `pageId` = '".(int)$pageId."',
                 `published` = ".(int)$published.",
                 `created` = ".time()."
         ";   
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t create new revision '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t create new revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
-        $revisionId = mysql_insert_id();
+        $revisionId = ip_deprecated_mysql_insert_id();
 
         $eventData = array(
             'revisionId' => $revisionId
@@ -126,15 +126,15 @@ class Revision{
             SET
                 `published` = (revisionId = '".(int)$revisionId."')
             WHERE
-                `zoneName` = '".mysql_real_escape_string($revision['zoneName'])."'
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($revision['zoneName'])."'
                 AND
                 `pageId` = '".(int)$revision['pageId']."'
         ";   
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
 
         if (!$rs) {
-            throw new CoreException("Can't publish revision " . $sql . ' '. mysql_error(), CoreException::DB);
+            throw new CoreException("Can't publish revision " . $sql . ' '. ip_deprecated_mysql_error(), CoreException::DB);
         }
         
         $eventData = array(
@@ -181,17 +181,17 @@ class Revision{
     public static function getPageRevisions($zoneName, $pageId) {
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
-            WHERE `pageId` = ".(int)$pageId." AND `zoneName` = '".mysql_real_escape_string($zoneName)."'
+            WHERE `pageId` = ".(int)$pageId." AND `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."'
             ORDER BY `created` DESC, `revisionId` DESC
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t get page revisions '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t get page revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
         $answer = array();
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $answer[] = $lock;
         }
         return $answer;
@@ -212,12 +212,12 @@ class Revision{
             WHERE ".$sqlWhere."
         ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t find old revisions '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t find old revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $eventData = array(
                 'revisionId' => $lock['revisionId'],
             );
@@ -229,9 +229,9 @@ class Revision{
             WHERE ".$sqlWhere."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new CoreException('Can\'t delete old revisions '.$sql.' '.mysql_error(), CoreException::DB);
+            throw new CoreException('Can\'t delete old revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
     }
 

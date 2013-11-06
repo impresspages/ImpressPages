@@ -67,13 +67,13 @@ class TestDb
         }
 
         $sql = "CREATE DATABASE `".$dbName."` CHARACTER SET utf8";
-        $rs = mysql_query($sql, $connection);
+        $rs = ip_deprecated_mysql_query($sql, $connection);
         if (!$rs) {
             throw new \Exception("Can't create database. ".$sql);
         }
 
         $sql = "ALTER DATABASE `".$dbName."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
-        $rs = mysql_query($sql, $connection);
+        $rs = ip_deprecated_mysql_query($sql, $connection);
         if (!$rs) {
             throw new \Exception("Can't create database. ".$sql);
         }
@@ -92,7 +92,7 @@ class TestDb
             throw new \Exception('Can\'t connect to database.');
         }
 
-        mysql_query("DROP DATABASE `".$this->dbName."`", $connection);
+        ip_deprecated_mysql_query("DROP DATABASE `".$this->dbName."`", $connection);
 
         mysql_close($connection);
 

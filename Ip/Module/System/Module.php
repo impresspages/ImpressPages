@@ -51,9 +51,9 @@ class Module
 
 
         $sql = "select m.name as m_name, mg.name as mg_name from `" . DB_PREF . "module_group` mg, `" . DB_PREF . "module` m where m.group_id = mg.id";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            while ($lock = mysql_fetch_assoc($rs)) {
+            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
 
                 $systemFileExists = false;
                 if (file_exists(\Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/system.php"))) {

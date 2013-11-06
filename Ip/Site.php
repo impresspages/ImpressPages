@@ -967,9 +967,9 @@ class Site{
      */
     public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 if($lock['m_core']){
                     $dir = \ip\Config::oldModuleFile('');
                 } else {
@@ -1014,9 +1014,9 @@ class Site{
 
         //init old core modules
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
                     //no plugin initialization in safe mode
                     continue;

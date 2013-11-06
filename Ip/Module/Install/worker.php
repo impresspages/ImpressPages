@@ -64,7 +64,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
     {
         if(!mysql_select_db($_POST['db'], $conn)){
             //try to create
-            $rs = mysql_query("CREATE DATABASE `".$_POST['db']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+            $rs = ip_deprecated_mysql_query("CREATE DATABASE `".$_POST['db']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
             if (!$rs) {
                 echo '{errorCode:"ERROR_DB", error:""}';
                 exit;
@@ -78,7 +78,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
         }
 
 
-            mysql_query("SET CHARACTER SET utf8", $conn);
+            ip_deprecated_mysql_query("SET CHARACTER SET utf8", $conn);
             /*structure*/
             $sqlFile = "sql/structure.sql";
             $fh = fopen($sqlFile, 'r');
@@ -95,10 +95,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
 
             foreach($sql_list as $key => $sql){
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs){
                     $error = true;
-                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                     echo $errorMessage;
                 }
             }
@@ -117,10 +117,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
              
             foreach($sql_list as $key => $sql){
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs) {
                     $error = true;
-                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                    $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                 }
             }
 
@@ -358,39 +358,39 @@ Sitemap: '.get_parent_url().'sitemap.php';
         die('{errorCode:"ERROR_CONNECT", error:""}');
     } else {
         if(mysql_select_db($_SESSION['db_db'], $conn)){
-            mysql_query("SET CHARACTER SET utf8", $conn);
+            ip_deprecated_mysql_query("SET CHARACTER SET utf8", $conn);
 
 
             //login and password
-            $sql = "update `".$_SESSION['db_prefix']."user` set pass = '".md5($_POST['install_pass'])."', name='".mysql_real_escape_string($_POST['install_login'])."' where 1 limit 1";
-            $rs = mysql_query($sql);
+            $sql = "update `".$_SESSION['db_prefix']."user` set pass = '".md5($_POST['install_pass'])."', name='".ip_deprecated_mysql_real_escape_string($_POST['install_login'])."' where 1 limit 1";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs){
-                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
             //site name and email
-            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', '".mysql_real_escape_string($_POST['site_name'])."') where 1";
-            $rs = mysql_query($sql);
+            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', '".ip_deprecated_mysql_real_escape_string($_POST['site_name'])."') where 1";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs){
-                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
-            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-            $rs = mysql_query($sql);
+            $sql = "update `".$_SESSION['db_prefix']."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', '".ip_deprecated_mysql_real_escape_string($_POST['site_email'])."') where 1";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs){
-                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
             /*TODO follow the new structure
-             *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-             $rs = mysql_query($sql);
+             *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".ip_deprecated_mysql_real_escape_string($_POST['site_email'])."') where 1";
+             $rs = ip_deprecated_mysql_query($sql);
              if(!$rs){
-             $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+             $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
              die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
              }*/
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs){
-                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+                $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
                 die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
             }
              

@@ -14,10 +14,10 @@ class FieldLanguages extends \Library\Php\Form\Field{
 
         $answer = '';
 
-        $rs = mysql_query("select * from `".DB_PREF."language` where 1 order by row_number");
+        $rs = ip_deprecated_mysql_query("select * from `".DB_PREF."language` where 1 order by row_number");
         if($rs){
             $first = true;
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 if($first)
                 $checked = ' checked ';
                 else
@@ -26,7 +26,7 @@ class FieldLanguages extends \Library\Php\Form\Field{
                 $first = false;
             }
         }else
-        trigger_error($sql." ".mysql_error());
+        trigger_error($sql." ".ip_deprecated_mysql_error());
         return $answer;
     }
 }

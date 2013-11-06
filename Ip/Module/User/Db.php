@@ -18,17 +18,17 @@ class Db {
      * @return array requested record
      */
     public static function userById($id) {
-        $sql = "select * from ".DB_PREF."m_community_user where id  = '".mysql_real_escape_string($id)."' ";
+        $sql = "select * from ".DB_PREF."m_community_user where id  = '".ip_deprecated_mysql_real_escape_string($id)."' ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            if($lock = mysql_fetch_assoc($rs)) {
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 return $lock;
             } else {
                 return false;
             }
         } else {
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
             return false;
         }
     }
@@ -38,16 +38,16 @@ class Db {
      * @return array requested record
      */
     public static function userByEmail($email) {
-        $sql = "select * from ".DB_PREF."m_community_user where verified and email = '".mysql_real_escape_string($email)."' ";
+        $sql = "select * from ".DB_PREF."m_community_user where verified and email = '".ip_deprecated_mysql_real_escape_string($email)."' ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
-            if($lock = mysql_fetch_assoc($rs))
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
             return $lock;
             else
             return false;
         }else {
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
             exit;
         }
 
@@ -58,16 +58,16 @@ class Db {
      * @return array requested record
      */
     public static function userByLogin($login) {
-        $sql = "select * from ".DB_PREF."m_community_user where  verified and `login` = '".mysql_real_escape_string($login)."' ";
+        $sql = "select * from ".DB_PREF."m_community_user where  verified and `login` = '".ip_deprecated_mysql_real_escape_string($login)."' ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
-            if($lock = mysql_fetch_assoc($rs))
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
             return $lock;
             else
             return false;
         }else {
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
             exit;
         }
 
@@ -79,9 +79,9 @@ class Db {
      * @return bool true on success
      */
     public static function updatePassword($userId, $newPassword) {
-        $sql = "update ".DB_PREF."m_community_user set password = '".md5($newPassword)."' where id = '".mysql_real_escape_string($userId)."'";
-        $rs = mysql_query($sql);
-        if($rs && mysql_affected_rows() == 1)
+        $sql = "update ".DB_PREF."m_community_user set password = '".md5($newPassword)."' where id = '".ip_deprecated_mysql_real_escape_string($userId)."'";
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs && ip_deprecated_mysql_affected_rows() == 1)
         return true;
         else
         return false;
@@ -93,9 +93,9 @@ class Db {
      * @return bool true on success
      */
     public static function verify($userId) {
-        $sql = "update ".DB_PREF."m_community_user set verified = 1 where id = '".mysql_real_escape_string($userId)."'";
-        $rs = mysql_query($sql);
-        if($rs && mysql_affected_rows() == 1)
+        $sql = "update ".DB_PREF."m_community_user set verified = 1 where id = '".ip_deprecated_mysql_real_escape_string($userId)."'";
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs && ip_deprecated_mysql_affected_rows() == 1)
         return true;
         else
         return false;
@@ -108,8 +108,8 @@ class Db {
      */
     public static function verifyNewEmail($userId) {
         $sql = "update ".DB_PREF."m_community_user set email = new_email, new_email = null where id = '".(int)$userId."'";
-        $rs = mysql_query($sql);
-        if($rs && mysql_affected_rows() == 1)
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs && ip_deprecated_mysql_affected_rows() == 1)
         return true;
         else
         return false;
@@ -122,8 +122,8 @@ class Db {
      */
     public static function verifyNewPassword($userId) {
         $sql = "update ".DB_PREF."m_community_user set password = new_password, new_password = null where id = '".(int)$userId."'";
-        $rs = mysql_query($sql);
-        if($rs && mysql_affected_rows() == 1)
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs && ip_deprecated_mysql_affected_rows() == 1)
         return true;
         else
         return false;
@@ -135,9 +135,9 @@ class Db {
      * @return bool true on success
      */
     public static function loginTimestamp($userId) {
-        $sql = "update ".DB_PREF."m_community_user set last_login = CURRENT_TIMESTAMP where id = '".mysql_real_escape_string($userId)."'";
-        $rs = mysql_query($sql);
-        if($rs && mysql_affected_rows() == 1)
+        $sql = "update ".DB_PREF."m_community_user set last_login = CURRENT_TIMESTAMP where id = '".ip_deprecated_mysql_real_escape_string($userId)."'";
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs && ip_deprecated_mysql_affected_rows() == 1)
         return true;
         else
         return false;
@@ -153,21 +153,21 @@ class Db {
         if($months == '')
         $months = 0;
         $sql = "select * from ".DB_PREF."m_community_user where date_add(`last_login`, interval ".(int)$months." month) < current_timestamp() ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         $answer = array();
         if($rs) {
-            while($lock = mysql_fetch_assoc($rs)) {
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 $answer[] = $lock;
             }
 
             $sql2 = "delete from ".DB_PREF."m_community_user where date_add(`last_login`, interval ".(int)$months." month) < current_timestamp() ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if(!$rs2)
-            trigger_error($sql2." ".mysql_error());
+            trigger_error($sql2." ".ip_deprecated_mysql_error());
             else
             return $answer;
         }else
-        trigger_error($sql." ".mysql_error());
+        trigger_error($sql." ".ip_deprecated_mysql_error());
     }
 
     /**
@@ -183,14 +183,14 @@ class Db {
       select *, date_add(last_login, interval ".(int)$outdatedWithin." month) as valid_until from ".DB_PREF."m_community_user 
       where date_add(`last_login`, interval ".(int)$outdatedWithin." month) < date_add(now(), interval ".(int)$warnBefore." day) and 
       (`warned_on` is null or date_add(`warned_on`, interval ".(int)$warnEvery." day) < now())";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
             $answer = array();
-            while($lock = mysql_fetch_assoc($rs))
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
             $answer[] = $lock;
             return $answer;
         }else
-        trigger_error($sql." ".mysql_error());
+        trigger_error($sql." ".ip_deprecated_mysql_error());
 
     }
 
@@ -203,9 +203,9 @@ class Db {
         if(sizeof($userIds) > 0) {
             $ids = implode(',', $userIds);
             $sql = "update ".DB_PREF."m_community_user set `warned_on` = current_timestamp() where `id` in (".implode(',',$userIds).")";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
         }
     }
 
@@ -217,8 +217,8 @@ class Db {
      * @retrun bool true on success
      **/
     public static function renewRegistration($id) {
-        $sql = "update ".DB_PREF."m_community_user set `last_login` = current_timestamp() where id = '".mysql_real_escape_string($id)."' ";
-        $rs = mysql_query($sql);
+        $sql = "update ".DB_PREF."m_community_user set `last_login` = current_timestamp() where id = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+        $rs = ip_deprecated_mysql_query($sql);
         if(!$rs) {
             trigger_error($sql);
             return false;

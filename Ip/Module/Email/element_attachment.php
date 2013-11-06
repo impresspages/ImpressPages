@@ -42,7 +42,7 @@ class element_attachment extends \Library\Php\StandardModule\Element{ //data ele
     }
 
     function get_filter_option($value){
-        return " email like '%".mysql_real_escape_string($value)."%' ";
+        return " email like '%".ip_deprecated_mysql_real_escape_string($value)."%' ";
     }
 
     function preview_value($value){

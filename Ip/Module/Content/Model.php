@@ -81,14 +81,14 @@ class Model{
         ORDER BY
             `priority` asc
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            throw new Exception('Can\'t add widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t add widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
         $answer = array();
 
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $answer[$lock['widgetName']] = $lock['priority'];
         }
         return $answer;
@@ -234,18 +234,18 @@ class Model{
             WHERE
                 i.deleted is NULL AND
                 i.widgetId = w.widgetId AND
-                i.blockName = '".mysql_real_escape_string($blockName)."' AND
+                i.blockName = '".ip_deprecated_mysql_real_escape_string($blockName)."' AND
                 i.revisionId = ".(int)$revisionId."
             ORDER BY `position` ASC
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t get widgets '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t get widgets '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
         $answer = array();
 
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $lock['data'] = json_decode($lock['data'], true);
             $answer[] = $lock;
         }
@@ -267,12 +267,12 @@ class Model{
             ORDER BY `position` ASC
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t get revision data '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t get revision data '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
 
             $dataSql = '';
 
@@ -282,7 +282,7 @@ class Model{
                         $dataSql .= ', ';
                     }
                     if ($value !== null) {
-                        $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
+                        $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
                     } else {
                         $dataSql .= " `".$key."` = NULL ";
                     }
@@ -299,9 +299,9 @@ class Model{
                     
             ";    
 
-            $insertRs = mysql_query($insertSql);
+            $insertRs = ip_deprecated_mysql_query($insertSql);
             if (!$insertRs){
-                throw new Exception('Can\'t get revision data '.$insertSql.' '.mysql_error(), Exception::DB);
+                throw new Exception('Can\'t get revision data '.$insertSql.' '.ip_deprecated_mysql_error(), Exception::DB);
             }
         }
 
@@ -348,12 +348,12 @@ class Model{
             WHERE `widgetId` = ".(int)$widgetId."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t find widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $lock['data'] = json_decode($lock['data'], true);
             return $lock;
         } else {
@@ -377,12 +377,12 @@ class Model{
                 i.`instanceId` = ".(int)$instanceId." AND
                 i.widgetId = w.widgetId 
         ";    
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t find widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $lock['data'] = json_decode($lock['data'], true);
             return $lock;
         } else {
@@ -396,18 +396,18 @@ class Model{
             SELECT * FROM
                 `".DB_PREF."revision` 
             WHERE
-                `zoneName` = '".mysql_real_escape_string($zoneName)."'
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."'
                 AND
                 `pageId` = ".(int)$pageId."
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t get revisions '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t get revisions '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
         
         $answer = array();
 
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $answer[] = $lock;
         }
 
@@ -421,17 +421,17 @@ class Model{
             UPDATE
                 `".DB_PREF."revision`
             SET
-                 `zoneName` = '".mysql_real_escape_string($newZoneName)."'
+                 `zoneName` = '".ip_deprecated_mysql_real_escape_string($newZoneName)."'
             WHERE
-                `zoneName` = '".mysql_real_escape_string($oldZoneName)."'
+                `zoneName` = '".ip_deprecated_mysql_real_escape_string($oldZoneName)."'
                 AND
                 `pageId` = ".(int)$pageId."
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t udpate revisions '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t udpate revisions '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
-        return mysql_affected_rows();
+        return ip_deprecated_mysql_affected_rows();
     }
     
 
@@ -449,16 +449,16 @@ class Model{
                 `".DB_PREF."m_content_management_widget_instance` 
             WHERE
                 `revisionId` = ".$record['revisionId']." AND
-                `blockName` = '".mysql_real_escape_string($record['blockName'])."' AND
+                `blockName` = '".ip_deprecated_mysql_real_escape_string($record['blockName'])."' AND
                 `position` < ".$record['position']." AND
                 `deleted` IS NULL  
         ";    
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t find widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t find widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        if ($lock = mysql_fetch_assoc($rs)) {
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             return $lock['position'];
         } else {
             return false;
@@ -525,21 +525,21 @@ class Model{
           insert into
               ".DB_PREF."m_content_management_widget
           set
-              `name` = '".mysql_real_escape_string($widgetName)."',
-              `layout` = '".mysql_real_escape_string($layout)."',
+              `name` = '".ip_deprecated_mysql_real_escape_string($widgetName)."',
+              `layout` = '".ip_deprecated_mysql_real_escape_string($layout)."',
               `created` = ".time().",
               `recreated` = ".time().",
-              `data` = '".mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($data)))."',
+              `data` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($data)))."',
               `predecessor` = ".$predecessorSql."
               ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
 
         if (!$rs) {
-            throw new Exception('Can\'t create new widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t create new widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        $widgetId = mysql_insert_id();
+        $widgetId = ip_deprecated_mysql_insert_id();
 
         return $widgetId;
 
@@ -556,9 +556,9 @@ class Model{
             }
 
             if ($key == 'data') {
-                $dataSql .= " `".$key."` = '".mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($value)))."' ";
+                $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($value)))."' ";
             } else {
-                $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
+                $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
             }
         }
 
@@ -570,9 +570,9 @@ class Model{
             WHERE `widgetId` = ".(int)$widgetId."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t update widget '.$sql.' '.mysql_error());
+            throw new Exception('Can\'t update widget '.$sql.' '.ip_deprecated_mysql_error());
         }
 
         return true;
@@ -586,7 +586,7 @@ class Model{
             if ($dataSql != '') {
                 $dataSql .= ', ';
             }
-            $dataSql .= " `".$key."` = '".mysql_real_escape_string($value)."' ";
+            $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
         }
 
 
@@ -597,9 +597,9 @@ class Model{
             WHERE `instanceId` = ".(int)$widgetId."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t update instance '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t update instance '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
         return true;
@@ -641,7 +641,7 @@ class Model{
             SET
                 `widgetId` = ".(int)$widgetId.",
                 `revisionId` = ".(int)$revisionId.",
-                `blockName` = '".mysql_real_escape_string($blockName)."',
+                `blockName` = '".ip_deprecated_mysql_real_escape_string($blockName)."',
                 `position` = '".$positionNumber."', 
                 `visible` = ".(int)$visible.",
                 `created` = ".(int)time().",
@@ -649,12 +649,12 @@ class Model{
                 
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t create instance '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t create instance '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
-        return mysql_insert_id();
+        return ip_deprecated_mysql_insert_id();
     }
 
 
@@ -673,9 +673,9 @@ class Model{
                 `instanceId` = ".(int)$instanceId."
         ";    
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t delete instance '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t delete instance '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
 
         return true;
@@ -688,9 +688,9 @@ class Model{
             WHERE
                 `revisionId` = ".(int)$revisionId."
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t remove revision widgets instances '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t remove revision widgets instances '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
         
         $sql = "
@@ -699,9 +699,9 @@ class Model{
             WHERE
                 `revisionId` = ".(int)$revisionId."
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t remove revision '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t remove revision '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }        
     }
 
@@ -738,11 +738,11 @@ class Model{
                 i.instanceId IS NULL
           
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t get unused widgets '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t get unused widgets '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
-        while ($lock = mysql_fetch_assoc($rs)) {
+        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             self::deleteWidget($lock['widgetId']);
         }
     }
@@ -766,9 +766,9 @@ class Model{
           WHERE
               `widgetId` = ".(int)$widgetId."
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t delete widget '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t delete widget '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
     }
 
