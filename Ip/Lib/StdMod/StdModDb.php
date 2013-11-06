@@ -36,12 +36,4 @@ class StdModDb{
         return $answer;
     }
 
-
-    public static function updatedRowsCount() {
-        $infoStr = mysql_info();
-        preg_match('/Rows matched: ([0-9]*)/', $infoStr, $matches );
-        return $matches[1];
-    }
-
-
 }
