@@ -12,7 +12,7 @@ require_once (__DIR__.'/element_administrators.php');
 class mod_administrator_area extends \Ip\Lib\StdMod\Area{
     public function after_delete($id){
         $sql = "delete from `".DB_PREF."user_to_mod` where `user_id` = ".(int)$id."";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if(!$rs)
         trigger_error($sql);
     }
@@ -71,8 +71,8 @@ class Manager{
         global $cms;
         
        $sql = " select translation from `".DB_PREF."module` where `id` = \'".$value."\' ";
-       $rs = mysql_query($sql);
-       if ($rs && $lock = mysql_fetch_assoc($rs)){
+       $rs = ip_deprecated_mysql_query($sql);
+       if ($rs && $lock = ip_deprecated_mysql_fetch_assoc($rs)){
           $value = htmlspecialchars($lock[\'translation\']);
        }else
         $value = \'\';

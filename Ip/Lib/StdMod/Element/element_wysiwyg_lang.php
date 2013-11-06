@@ -115,13 +115,13 @@ class ElementWysiwygLang extends Element{ //data element in area
         global $stdModDb;
 
         $answer = '';
-        $sql2 = "select * from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
-        $rs2 = mysql_query($sql2);
+        $sql2 = "select * from `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
+        $rs2 = ip_deprecated_mysql_query($sql2);
         $values = array();
         if (!$rs2) {
-            trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+            trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
         } else {
-            while($lock2 = mysql_fetch_assoc($rs2)){
+            while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                 $values[$lock2[$this->languageIdField]] = $lock2[$this->translationField];
             }
 
@@ -156,12 +156,12 @@ class ElementWysiwygLang extends Element{ //data element in area
         $answer='';
         $values = array();
 
-        $sql2 = "select * from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
-        $rs2 = mysql_query($sql2);
+        $sql2 = "select * from `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."` t where t.`".$this->recordIdField."` = '".(int)$record[$area->dbPrimaryKey]."' ";
+        $rs2 = ip_deprecated_mysql_query($sql2);
         if (!$rs2) {
-            trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+            trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
         } else {
-            while($lock2 = mysql_fetch_assoc($rs2)){
+            while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                 $values[$lock2[$this->languageIdField]] = $lock2[$this->translationField];
             }
         }
@@ -232,23 +232,23 @@ class ElementWysiwygLang extends Element{ //data element in area
             }
 
 
-            $sql3 = "update `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-      set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."'
-      where `".mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."' and `".mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
-            $rs3 = mysql_query($sql3);
+            $sql3 = "update `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."`
+      set `".ip_deprecated_mysql_real_escape_string($this->translationField)."` = '".ip_deprecated_mysql_real_escape_string($value)."'
+      where `".ip_deprecated_mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."' and `".ip_deprecated_mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
+            $rs3 = ip_deprecated_mysql_query($sql3);
 
             if ($rs3){
                 if($stdModDb->updatedRowsCount() == 0){
-                    $sql4 = "insert into `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-          set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($value)."',
-          `".mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."', `".mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
-                    $rs4 = mysql_query($sql4);
+                    $sql4 = "insert into `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."`
+          set `".ip_deprecated_mysql_real_escape_string($this->translationField)."` = '".ip_deprecated_mysql_real_escape_string($value)."',
+          `".ip_deprecated_mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."', `".ip_deprecated_mysql_real_escape_string($this->recordIdField)."` = '".$lastInsertId."' ";
+                    $rs4 = ip_deprecated_mysql_query($sql4);
                     if(!$rs4)
-                    trigger_error($sql4." ".mysql_error());
+                    trigger_error($sql4." ".ip_deprecated_mysql_error());
 
                 }
             }else{
-                trigger_error("Can't insert language field values ".$sql3." ".mysql_error());
+                trigger_error("Can't insert language field values ".$sql3." ".ip_deprecated_mysql_error());
             }
 
 
@@ -262,33 +262,33 @@ class ElementWysiwygLang extends Element{ //data element in area
             $languages = $stdModDb->languages();
 
             foreach($languages as $key => $language){
-                $sql3 = "update `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-        set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."' 
+                $sql3 = "update `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."`
+        set `".ip_deprecated_mysql_real_escape_string($this->translationField)."` = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."'
         where 
-        `".mysql_real_escape_string($this->recordIdField)."` = '".(int)$rowId."' and `".mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']." '
+        `".ip_deprecated_mysql_real_escape_string($this->recordIdField)."` = '".(int)$rowId."' and `".ip_deprecated_mysql_real_escape_string($this->languageIdField)."` = '".(int)$language['id']." '
         ";
-                $rs3 = mysql_query($sql3);
+                $rs3 = ip_deprecated_mysql_query($sql3);
                 if ($rs3){
                     if($stdModDb->updatedRowsCount() == 0){
-                        $sql4 = "insert into `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-              set `".mysql_real_escape_string($this->translationField)."` = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."',
-              `".mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."', `".mysql_real_escape_string($this->recordIdField)."` = '".$rowId."' ";
-                        $rs4 = mysql_query($sql4);
+                        $sql4 = "insert into `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."`
+              set `".ip_deprecated_mysql_real_escape_string($this->translationField)."` = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."',
+              `".ip_deprecated_mysql_real_escape_string($this->languageIdField)."`  = '".(int)$language['id']."', `".ip_deprecated_mysql_real_escape_string($this->recordIdField)."` = '".$rowId."' ";
+                        $rs4 = ip_deprecated_mysql_query($sql4);
                         if(!$rs4)
-                        trigger_error($sql4." ".mysql_error());
+                        trigger_error($sql4." ".ip_deprecated_mysql_error());
 
                     }
                 }else{
-                    trigger_error("Can't update language field values ".$sql3." ".mysql_error());
+                    trigger_error("Can't update language field values ".$sql3." ".ip_deprecated_mysql_error());
                 }
             }
         }
     }
     function processDelete($area, $id){
-        $sql2 = "delete from `".DB_PREF.mysql_real_escape_string($this->translationTable)."` where `".$this->recordIdField."` = '".(int)$id."'";
-        $rs2 = mysql_query($sql2);
+        $sql2 = "delete from `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."` where `".$this->recordIdField."` = '".(int)$id."'";
+        $rs2 = ip_deprecated_mysql_query($sql2);
         if(!$rs2)
-        trigger_error("Can't delete language field values ".$sql2." ".mysql_error());
+        trigger_error("Can't delete language field values ".$sql2." ".ip_deprecated_mysql_error());
     }
 
 
@@ -303,17 +303,17 @@ class ElementWysiwygLang extends Element{ //data element in area
     function getFilterOption($value, $area){
         $answer = '';
 
-        $sql = "select `".mysql_real_escape_string($this->recordIdField)."` as 'id' from `".DB_PREF.mysql_real_escape_string($this->translationTable)."`
-    where `".mysql_real_escape_string($this->translationField)."` like '%".mysql_real_escape_string($value)."%'";
-        $rs = mysql_query($sql);
+        $sql = "select `".ip_deprecated_mysql_real_escape_string($this->recordIdField)."` as 'id' from `".DB_PREF.ip_deprecated_mysql_real_escape_string($this->translationTable)."`
+    where `".ip_deprecated_mysql_real_escape_string($this->translationField)."` like '%".ip_deprecated_mysql_real_escape_string($value)."%'";
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs){
             $ids = array();
-            while($lock = mysql_fetch_assoc($rs)){
-                $ids[] = mysql_real_escape_string($lock['id']);
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
+                $ids[] = ip_deprecated_mysql_real_escape_string($lock['id']);
             }
         }
         if(sizeof($ids) > 0)
-        $answer = ' `'.mysql_real_escape_string($area->dbPrimaryKey).'` in ('.implode($ids, ',').') ';
+        $answer = ' `'.ip_deprecated_mysql_real_escape_string($area->dbPrimaryKey).'` in ('.implode($ids, ',').') ';
         else
         $answer = ' 0 ';
 

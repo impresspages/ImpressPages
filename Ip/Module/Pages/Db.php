@@ -36,12 +36,12 @@ class Db {
 
         $dbZones = array();
         $sql = "select z.name, z.translation, z.id, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 $dbZones[$lock['name']] = $lock;
             }
-        }else trigger_error($sql." ".mysql_error());
+        }else trigger_error($sql." ".ip_deprecated_mysql_error());
 
         $answer = array();
         foreach($managedZones as $key => &$zone){
@@ -57,16 +57,16 @@ class Db {
 
     public static function languageByRootElement($element_id){ //returns root element of menu
         $sql = "select mte.language_id from `".DB_PREF."zone_to_content` mte where  mte.element_id = '".(int)$element_id."'";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 return $lock['language_id'];
             }
         }else
     
 
     
-        trigger_error("Can't find zone element ".$sql." ".mysql_error());
+        trigger_error("Can't find zone element ".$sql." ".ip_deprecated_mysql_error());
     }
 
     public static function getAutoRssZones() {
@@ -86,15 +86,15 @@ class Db {
      */
     public static function rootContentElement($zoneId, $languageId){
         $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$zoneId."' ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            if ($lock = mysql_fetch_assoc($rs)) {
+            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 return $lock['element_id'];
             } else { //try to create
                 self::createRootZoneElement($zoneId, $languageId);
-                $rs2 = mysql_query($sql);
+                $rs2 = ip_deprecated_mysql_query($sql);
                 if ($rs2) {
-                    if ($lock2 = mysql_fetch_assoc($rs2)) {
+                    if ($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)) {
                         return $lock2['element_id'];
                     } else { //try to create
                         return false;
@@ -103,7 +103,7 @@ class Db {
                 return false;
             }
         } else {
-            trigger_error("Can't find zone element ".$sql." ".mysql_error());
+            trigger_error("Can't find zone element ".$sql." ".ip_deprecated_mysql_error());
             return false;
         }
     }
@@ -116,16 +116,16 @@ class Db {
      */
     public static function createRootZoneElement($zoneId, $languageId){
         $sql = "insert into `".DB_PREF."content_element` set visible = 1";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            $elementId = mysql_insert_id();
+            $elementId = ip_deprecated_mysql_insert_id();
             $sql2 = "insert into `".DB_PREF."zone_to_content` set
-            language_id = '".mysql_real_escape_string($languageId)."',
+            language_id = '".ip_deprecated_mysql_real_escape_string($languageId)."',
             zone_id = '".$zoneId."',
 			element_id = '".$elementId."'";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if(!$rs2) {
-                trigger_error($sql2." ".mysql_error());
+                trigger_error($sql2." ".ip_deprecated_mysql_error());
             }
         }
     }
@@ -139,15 +139,15 @@ class Db {
      */
     public static function pageChildren($parentId){
         $sql = "select * from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
             $pages = array();
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 $pages[] = $lock;
             }
             return $pages;
         } else {
-            trigger_error("Can't get children ".$sql." ".mysql_error());
+            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
         }
     }
 
@@ -159,13 +159,13 @@ class Db {
      */
     public static function getPage($id){
         $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 return $lock;
             }
         } else {
-            trigger_error("Can't get children ".$sql." ".mysql_error());
+            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
         }
         return false;
     }
@@ -190,16 +190,16 @@ class Db {
         $oldUrl = $oldPage->getLink(true);
         
         if (isset($params['buttonTitle']))
-        $values[] = 'button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
+        $values[] = 'button_title = \''.ip_deprecated_mysql_real_escape_string($params['buttonTitle']).'\'';
 
         if (isset($params['pageTitle']))
-        $values[] =  'page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
+        $values[] =  'page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
 
         if (isset($params['keywords']))
-        $values[] =  'keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
+        $values[] =  'keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
 
         if (isset($params['description']))
-        $values[] =  'description = \''.mysql_real_escape_string($params['description']).'\'';
+        $values[] =  'description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
 
         if (isset($params['url'])){
             if ($params['url'] == '') {
@@ -221,47 +221,47 @@ class Db {
                 }
                 $params['url'] = $tmpUrl;
             }
-            $values[] =  'url= \''.mysql_real_escape_string($params['url']).'\'';
+            $values[] =  'url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
         }
 
         if (isset($params['createdOn']) && strtotime($params['createdOn']) !== false)
-        $values[] =  'created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+        $values[] =  'created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
 
         if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false)
-        $values[] =  'last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
+        $values[] =  'last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
 
         if (isset($params['type']))
-        $values[] =  'type = \''.mysql_real_escape_string($params['type']).'\'';
+        $values[] =  'type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
 
         if (isset($params['redirectURL']))
-        $values[] =  'redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
+        $values[] =  'redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
 
         if (isset($params['visible']))
-        $values[] =  'visible = \''.mysql_real_escape_string($params['visible']).'\'';
+        $values[] =  'visible = \''.ip_deprecated_mysql_real_escape_string($params['visible']).'\'';
 
         if (isset($params['rss']))
-        $values[] =  'rss = \''.mysql_real_escape_string($params['rss']).'\'';
+        $values[] =  'rss = \''.ip_deprecated_mysql_real_escape_string($params['rss']).'\'';
 
         if (isset($params['parentId']))
-        $values[] =  'parent = \''.mysql_real_escape_string($params['parentId']).'\'';
+        $values[] =  'parent = \''.ip_deprecated_mysql_real_escape_string($params['parentId']).'\'';
 
         if (isset($params['rowNumber']))
-        $values[] =  'row_number = \''.mysql_real_escape_string($params['rowNumber']).'\'';
+        $values[] =  'row_number = \''.ip_deprecated_mysql_real_escape_string($params['rowNumber']).'\'';
 
         if (isset($params['cached_html']))
-        $values[] =  '`cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
+        $values[] =  '`cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
 
         if (isset($params['cached_text']))
-        $values[] =  '`cached_text` = \''.mysql_real_escape_string($params['cached_text']).'\'';
+        $values[] =  '`cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
 
         if (count($values) == 0) {
             return true; //nothing to update.
         }
         
         $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.implode(', ', $values).' WHERE `id` = '.(int)$pageId.' ';
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
             return false;
         }
 
@@ -387,58 +387,58 @@ class Db {
         }
 
         if (isset($params['buttonTitle']))
-        $values .= ', button_title = \''.mysql_real_escape_string($params['buttonTitle']).'\'';
+        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['buttonTitle']).'\'';
 
         if (isset($params['pageTitle']))
-        $values .= ', page_title = \''.mysql_real_escape_string($params['pageTitle']).'\'';
+        $values .= ', page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
 
         if (isset($params['keywords']))
-        $values .= ', keywords = \''.mysql_real_escape_string($params['keywords']).'\'';
+        $values .= ', keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
 
         if (isset($params['description']))
-        $values .= ', description = \''.mysql_real_escape_string($params['description']).'\'';
+        $values .= ', description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
 
         if (isset($params['url']))
-        $values .= ', url= \''.mysql_real_escape_string($params['url']).'\'';
+        $values .= ', url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
 
         if (isset($params['createdOn'])) {
-            $values .= ', created_on = \''.mysql_real_escape_string($params['createdOn']).'\'';
+            $values .= ', created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
         } else {
             $values .= ', created_on = \''.date('Y-m-d').'\'';
         }
 
         if (isset($params['lastModified'])) {
-            $values .= ', last_modified= \''.mysql_real_escape_string($params['lastModified']).'\'';
+            $values .= ', last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
         } else {
             $values .= ', last_modified= \''.date('Y-m-d').'\'';
         }
 
         if (isset($params['type']))
-        $values .= ', type = \''.mysql_real_escape_string($params['type']).'\'';
+        $values .= ', type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
 
         if (isset($params['redirectURL']))
-        $values .= ', redirect_url = \''.mysql_real_escape_string($params['redirectURL']).'\'';
+        $values .= ', redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
 
         if (isset($params['visible']))
-        $values .= ', visible = \''.mysql_real_escape_string((int)$params['visible']).'\'';
+        $values .= ', visible = \''.ip_deprecated_mysql_real_escape_string((int)$params['visible']).'\'';
 
         if (isset($params['rss']))
-        $values .= ', rss = \''.mysql_real_escape_string((int)$params['rss']).'\'';
+        $values .= ', rss = \''.ip_deprecated_mysql_real_escape_string((int)$params['rss']).'\'';
 
         if (isset($params['cached_html']))
-        $values .= ', `cached_html` = \''.mysql_real_escape_string($params['cached_html']).'\'';
+        $values .= ', `cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
 
         if (isset($params['cached_text']))
-        $values .= ', `cached_text` = \''.mysql_real_escape_string($params['cached_text']).'\'';
+        $values .= ', `cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
 
         
         
         $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            return mysql_insert_id();
+            return ip_deprecated_mysql_insert_id();
         } else {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
             return false;
         }
     }
@@ -446,15 +446,15 @@ class Db {
 
     public static function getMaxIndex($parentId) {
         $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = ".(int)$parentId." ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            if ($lock = mysql_fetch_assoc($rs)) {
+            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 return $lock['max_row_number'];
             } else {
                 return false;
             }
         } else {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
             return false;
         }
     }
@@ -470,23 +470,23 @@ class Db {
     public static function deletePage($id) {
         global $globalWorker;
         $sql = "delete from `".DB_PREF."content_element` where id = '".$id."' ";
-        if (!mysql_query($sql))
-        $globalWorker->set_error("Can't delete element ".$sql." ".mysql_error());
+        if (!ip_deprecated_mysql_query($sql))
+        $globalWorker->set_error("Can't delete element ".$sql." ".ip_deprecated_mysql_error());
 
     }
 
 
     public static function copyPage($nodeId, $newParentId, $newIndex){
         $sql = "select * from `".DB_PREF."content_element` where `id` = ".(int)$nodeId." ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 $sql2 = "insert into `".DB_PREF."content_element` set `parent` = ".(int)$newParentId.", `row_number` = ".(int)$newIndex." ";
                  
                 foreach($lock as $key => $value){
                     switch($key){
                         case 'button_title':
-                            $sql2 .= ", `button_title` = '".mysql_real_escape_string($lock['button_title'])."'";
+                            $sql2 .= ", `button_title` = '".ip_deprecated_mysql_real_escape_string($lock['button_title'])."'";
                             break;
                         case 'id':
                              
@@ -497,29 +497,29 @@ class Db {
                         case 'row_number':
                             break;
                         case 'url':
-                            $sql2 .= ", `url` = '".mysql_real_escape_string(self::ensureUniqueUrl($value))."'";
+                            $sql2 .= ", `url` = '".ip_deprecated_mysql_real_escape_string(self::ensureUniqueUrl($value))."'";
                             break;
                         default:
                             if($value === null){
-                                $sql2 .= ", `".mysql_real_escape_string($key)."` = NULL ";
+                                $sql2 .= ", `".ip_deprecated_mysql_real_escape_string($key)."` = NULL ";
                             } else {
-                                $sql2 .= ", `".mysql_real_escape_string($key)."` = '".mysql_real_escape_string($value)."' ";
+                                $sql2 .= ", `".ip_deprecated_mysql_real_escape_string($key)."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
                             }
                             break;
                     }
                 }
-                $rs2 = mysql_query($sql2);
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if($rs2){
-                    return mysql_insert_id();
+                    return ip_deprecated_mysql_insert_id();
                 } else {
-                    trigger_error($sql2.' '.mysql_error());
+                    trigger_error($sql2.' '.ip_deprecated_mysql_error());
                 }
                  
             } else {
                 trigger_error("Element does not exist");
             }
         } else {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
         }
     }
 
@@ -531,15 +531,15 @@ class Db {
      */
     public static function availableUrl($url, $allowedId = null){
         if($allowedId)
-        $sql = "select url from `".DB_PREF."content_element` where url = '".mysql_real_escape_string($url)."' and id <> '".$allowedId."'";
+        $sql = "select url from `".DB_PREF."content_element` where url = '".ip_deprecated_mysql_real_escape_string($url)."' and id <> '".$allowedId."'";
         else
-        $sql = "select url from `".DB_PREF."content_element` where url = '".mysql_real_escape_string($url)."' ";
+        $sql = "select url from `".DB_PREF."content_element` where url = '".ip_deprecated_mysql_real_escape_string($url)."' ";
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if(!$rs)
-        trigger_error("Available url check ".$sql." ".mysql_error());
+        trigger_error("Available url check ".$sql." ".ip_deprecated_mysql_error());
 
-        if(mysql_num_rows($rs) > 0)
+        if(ip_deprecated_mysql_num_rows($rs) > 0)
         return false;
         else
         return true;

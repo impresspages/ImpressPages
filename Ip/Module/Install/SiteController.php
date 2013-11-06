@@ -277,10 +277,10 @@ class SiteController extends \Ip\Controller
         }
 
         /*TODOX follow the new structure
-         *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".mysql_real_escape_string($_POST['site_email'])."') where 1";
-         $rs = mysql_query($sql);
+         *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".ip_deprecated_mysql_real_escape_string($_POST['site_email'])."') where 1";
+         $rs = ip_deprecated_mysql_query($sql);
          if(!$rs){
-         $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.mysql_error());
+         $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
          die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
          }*/
 

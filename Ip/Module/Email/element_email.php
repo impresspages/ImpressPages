@@ -40,7 +40,7 @@ class element_email extends \Library\Php\StandardModule\Element{ //data element 
     }
 
     function get_filter_option($value){
-        return " email like '%".mysql_real_escape_string($value)."%' ";
+        return " email like '%".ip_deprecated_mysql_real_escape_string($value)."%' ";
     }
 
     function preview_value($value){

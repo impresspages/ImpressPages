@@ -28,7 +28,7 @@ body,html {
     width: 100%;
     position: absolute;
     min-height: 100%;
-    background: url(cms_bg.jpg) repeat-x left bottom;
+    background: url(img/cms_bg.jpg) repeat-x left bottom;
 }
 
 #wrapper {
@@ -39,7 +39,7 @@ body,html {
 #main {
     float: right;
     width: 840px;
-    background: url(cms_main_center.gif);
+    background: url(img/cms_main_center.gif);
     padding: 5px 0;
 }
 
@@ -139,7 +139,7 @@ img.border {
 a.button {
     float: right;
     height: 18px;
-    background: url(cms_buton.gif);
+    background: url(img/cms_buton.gif);
     padding: 6px 15px;
     font-family: Verdana, Arial, Helvetica;
     font-size: 14px;
@@ -154,7 +154,7 @@ a.button {
 a.button_act {
     float: right;
     height: 18px;
-    background: url(cms_buton.gif);
+    background: url(img/cms_buton.gif);
     padding: 6px 15px;
     font-family: Verdana, Arial, Helvetica;
     font-size: 14px;
@@ -167,7 +167,7 @@ a.button_act {
 }
 
 a.button:hover,a.button_act:hover {
-    background: url(cms_button_hover.gif);
+    background: url(img/cms_button_hover.gif);
     text-decoration: none;
 }
 

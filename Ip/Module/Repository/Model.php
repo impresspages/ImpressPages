@@ -111,17 +111,17 @@ class Model{
                 FROM
                     `".DB_PREF."m_administrator_repository_file`
                 WHERE
-                    `fileName` = '".mysql_real_escape_string($file)."' AND
-                    `module` = '".mysql_real_escape_string($module)."' AND
-                    `instanceId` = '".mysql_real_escape_string($instanceId)."'
+                    `fileName` = '".ip_deprecated_mysql_real_escape_string($file)."' AND
+                    `module` = '".ip_deprecated_mysql_real_escape_string($module)."' AND
+                    `instanceId` = '".ip_deprecated_mysql_real_escape_string($instanceId)."'
                 ";
         
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
         }
         
-        if($lock = mysql_fetch_assoc($rs)) {
+        if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             return $lock['date'];
         } else {
             return false;

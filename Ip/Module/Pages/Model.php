@@ -155,11 +155,11 @@ class Model {
         switch ($widget['group_key'].'/'.$widget['module_key']) {
             case 'text_photos/logo_gallery':
                 $sqlMax = "select max(id) as max_id from `".DB_PREF."mc_text_photos_logo_gallery` where 1";
-                $rsMax = mysql_query($sqlMax);
+                $rsMax = ip_deprecated_mysql_query($sqlMax);
                 if(!$rsMax){
-                    trigger_error($sqlMax.' '.mysql_error());
+                    trigger_error($sqlMax.' '.ip_deprecated_mysql_error());
                 }
-                $lockMax = mysql_fetch_assoc($rsMax);
+                $lockMax = ip_deprecated_mysql_fetch_assoc($rsMax);
                 $galleryId = $lockMax['max_id'];
                 foreach($values['logos'] as $logoKey => $logo){
                     $tmpValues = array();
@@ -172,11 +172,11 @@ class Model {
             case 'text_photos/photo_gallery':
 
                 $sqlMax = "select max(id) as max_id from `".DB_PREF."mc_text_photos_photo_gallery` where 1";
-                $rsMax = mysql_query($sqlMax);
+                $rsMax = ip_deprecated_mysql_query($sqlMax);
                 if(!$rsMax){
-                    trigger_error($sqlMax.' '.mysql_error());
+                    trigger_error($sqlMax.' '.ip_deprecated_mysql_error());
                 }
-                $lockMax = mysql_fetch_assoc($rsMax);
+                $lockMax = ip_deprecated_mysql_fetch_assoc($rsMax);
                 $galleryId = $lockMax['max_id'];
 
 
