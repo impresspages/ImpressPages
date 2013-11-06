@@ -128,7 +128,7 @@ class Model
 
         $cleanDirs = array();
 
-        $optionDirs = $parametersMod->getValue('standard', 'design', 'options', 'theme_dirs');
+        $optionDirs = $parametersMod->getValue('Design.theme_dirs');
         $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
         $lines = explode("\n", $optionDirs);
         foreach ($lines as $line) {

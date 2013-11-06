@@ -66,7 +66,7 @@ class Zone extends \Ip\Frontend\Zone {
         $field = new \Ip\Form\Field\Submit(
         array(
             'name' => '',
-            'defaultValue' => $parametersMod->getValue('administrator','search','translations','search')
+            'defaultValue' => $parametersMod->getValue('Search.search')
         ));
         $form->addField($field);
         $form->removeClass('ipModuleForm');

@@ -101,8 +101,8 @@ class Element extends \Ip\Frontend\Element {
             $tmpDescription = $tmpElement->getPageTitle();
             $tmpLink = $tmpElement->getLink();
         } else {
-            $tmpTitle = $parametersMod->getValue('administrator', 'rss', 'options', 'title');
-            $tmpDescription = $parametersMod->getValue('administrator', 'rss', 'options', 'description');
+            $tmpTitle = $parametersMod->getValue('Rss.title');
+            $tmpDescription = $parametersMod->getValue('Rss.description');
             $tmpLink = \Ip\Config::baseUrl('');
         }
 
@@ -118,7 +118,7 @@ class Element extends \Ip\Frontend\Element {
 		<generator>ImpressPages CMS</generator>
 		<atom:link href="'.addslashes($site->getCurrentUrl()).'" rel="self" type="application/rss+xml" />';
 
-        for($i=0; isset($rssPages[$i]) && $i<$parametersMod->getValue('administrator', 'rss', 'options', 'size'); $i++) {
+        for($i=0; isset($rssPages[$i]) && $i<$parametersMod->getValue('Rss.size'); $i++) {
             $page = $rssPages[$i];
             $rss .= '
 		<item>

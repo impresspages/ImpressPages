@@ -188,7 +188,7 @@ class ConfigModel{
         $options = $theme->getOptions();
 
         $generalFieldset = $this->getFieldset($name, $options);
-        $generalFieldset->setLabel($parametersMod->getValue('standard', 'design', 'admin_translations', 'default_group'));
+        $generalFieldset->setLabel($parametersMod->getValue('Design.default_group'));
         if (count($generalFieldset->getFields())) {
             $form->addFieldset($generalFieldset);
         }

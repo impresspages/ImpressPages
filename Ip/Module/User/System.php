@@ -95,7 +95,7 @@ class System {
             return;
         }
 
-        if (!$parametersMod->getValue('community','user','options','enable_autologin')) {
+        if (!$parametersMod->getValue('User.enable_autologin')) {
             return;
         }
         if ($moduleGroup == 'administrator' && $moduleName == 'system' && $event == 'init') {
@@ -110,7 +110,7 @@ class System {
                             setCookie(
                             Config::$autologinCookieName,
                             json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
-                            time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
+                            time() + $parametersMod->getValue('User.autologin_time') * 60 * 60 * 24,
                             Config::$autologinCookiePath,
                             Config::getCookieDomain()
                             );

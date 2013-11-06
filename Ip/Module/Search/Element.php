@@ -28,7 +28,7 @@ class Element extends \Ip\Frontend\Element{
 
     public function getButtonTitle(){
         global $parametersMod;
-        return $parametersMod->getValue('administrator', 'search', 'translations', 'search');
+        return $parametersMod->getValue('Search.search');
     }
 
 
@@ -51,8 +51,8 @@ class Element extends \Ip\Frontend\Element{
         
         
         
-        $searchableZones = explode("\n", $parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'));
-        $combinedZones = explode("\n", $parametersMod->getValue('administrator', 'search', 'options', 'combined_zones'));
+        $searchableZones = explode("\n", $parametersMod->getValue('Search.searchable_zones'));
+        $combinedZones = explode("\n", $parametersMod->getValue('Search.combined_zones'));
 
         $foundElements = array();
         $foundElementsCombined = array();

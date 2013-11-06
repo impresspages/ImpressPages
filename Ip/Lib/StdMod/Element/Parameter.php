@@ -20,14 +20,14 @@ class Parameter extends Element{ //data element in area
 
 			
         <select id="std_mod_parameter_type_'.$prefix.'" onchange="std_mod_parameter_type_change_'.$prefix.'()" name="'.$prefix.'">
-          <option value="string">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_string')).'</option>
-          <option value="integer">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_integer')).'</option>
-          <option value="bool">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_bool')).'</option>
-          <option value="textarea">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_textarea')).'</option>
-          <option value="string_wysiwyg">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_wysiwyg')).'</option>
-          <option value="lang">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_string_lang')).'</option>
-          <option value="lang_textarea">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_textarea_lang')).'</option>
-          <option value="lang_wysiwyg">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_wysiwyg_lang')).'</option>
+          <option value="string">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_string')).'</option>
+          <option value="integer">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_integer')).'</option>
+          <option value="bool">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_bool')).'</option>
+          <option value="textarea">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_textarea')).'</option>
+          <option value="string_wysiwyg">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_wysiwyg')).'</option>
+          <option value="lang">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_string_lang')).'</option>
+          <option value="lang_textarea">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_textarea_lang')).'</option>
+          <option value="lang_wysiwyg">'.htmlspecialchars($parametersMod->getValue('StdMod.parameter_wysiwyg_lang')).'</option>
          <!-- <option value="photo">Nuotrauka</option>-->
         </select>    <br /><br />
       ');

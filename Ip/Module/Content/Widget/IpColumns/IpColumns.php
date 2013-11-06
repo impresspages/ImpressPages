@@ -11,7 +11,7 @@ class IpColumns extends \Ip\Module\Content\Widget {
 	
 	public function getTitle() {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        return $parametersMod->getValue('standard', 'content_management', 'widget_columns', 'widget_title');
+        return $parametersMod->getValue('Content.widget_columns.widget_title');
     }
 
 

@@ -86,7 +86,7 @@ class Logo
                     $this->getRequiredHeight(),
                     100
                 );
-                $requestedName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
+                $requestedName = $parametersMod->getValue('Config.name');
                 $this->image = $reflectionService->getReflection($this->getImageOrig(), $requestedName, $transform);
             }
         } else {
@@ -96,7 +96,7 @@ class Logo
         if (!empty($data['text'])) {
             $this->setText($data['text']);
         } else {
-            $this->setText($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'));
+            $this->setText($parametersMod->getValue('Config.name'));
         }
 
         if (isset($data['color'])) {

@@ -78,12 +78,12 @@ class Config{
         ));
         $form->addField($field);
         
-        if($parametersMod->getValue('community','user','options','login_type') == 'login'){
+        if($parametersMod->getValue('User.login_type') == 'login'){
             $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login',
                 'dbField' => 'login',
-                'label' => $parametersMod->getValue('community','user','translations','field_login')
+                'label' => $parametersMod->getValue('User.field_login')
             ));
             $field->addValidator('Required');
             $form->addField($field);
@@ -93,7 +93,7 @@ class Config{
         array(
             'name' => 'email',
             'dbField' => 'email',
-            'label' => $parametersMod->getValue('community','user','translations','field_email')
+            'label' => $parametersMod->getValue('User.field_email')
         ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -101,18 +101,18 @@ class Config{
         $field = new \Ip\Form\Field\Password(
         array(
         'name' => 'password',
-        'label' => $parametersMod->getValue('community','user','translations','field_password')
+        'label' => $parametersMod->getValue('User.field_password')
         ));
         $field->addValidator('Required');
         $field->addAttribute('autocomplete', 'off');
         $form->addField($field);
 
-        if($parametersMod->getValue('community','user','options','type_password_twice')){
+        if($parametersMod->getValue('User.type_password_twice')){
             $field = new \Ip\Form\Field\Password(
             array(
             'name' => 'confirm_password',
             'disableAutocomplete' => true,
-            'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+            'label' => $parametersMod->getValue('User.field_confirm_password')
             ));
             
             $field->addValidator('Required');
@@ -127,7 +127,7 @@ class Config{
         $field = new \Ip\Form\Field\Submit(
         array(
         'name' => 'submit',
-        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_register')
+        'defaultValue' => $parametersMod->getValue('User.button_register')
         ));
         $form->addField($field);
         
@@ -180,7 +180,7 @@ class Config{
             array(
                         'name' => 'email',
                         'dbField' => 'email',
-                        'label' => $parametersMod->getValue('community','user','translations','field_email'),
+                        'label' => $parametersMod->getValue('User.field_email'),
                         'defaultValue' => $user['email']
             ));
             $field->addValidator('Required');
@@ -189,17 +189,17 @@ class Config{
             $field = new \Ip\Form\Field\Password(
             array(
                     'name' => 'password',
-                    'label' => $parametersMod->getValue('community','user','translations','field_password')
+                    'label' => $parametersMod->getValue('User.field_password')
             ));
             $field->addAttribute('autocomplete', 'off');
             $form->addField($field);
             
-            if($parametersMod->getValue('community','user','options','type_password_twice')){
+            if($parametersMod->getValue('User.type_password_twice')){
                 $field = new \Ip\Form\Field\Password(
                 array(
                         'name' => 'confirm_password',
                         'disableAutocomplete' => true,
-                        'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+                        'label' => $parametersMod->getValue('User.field_confirm_password')
                 ));
             
                 $field->addAttribute('autocomplete', 'off');
@@ -217,7 +217,7 @@ class Config{
         $field = new \Ip\Form\Field\Submit(
         array(
                 'name' => 'submit',
-                'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_update')
+                'defaultValue' => $parametersMod->getValue('User.button_update')
         ));
         $form->addField($field);
         
@@ -264,11 +264,11 @@ class Config{
         $form->addField($field);
 
         /*predefined fields (required)*/
-        if($parametersMod->getValue('community','user','options','login_type') == 'login'){
+        if($parametersMod->getValue('User.login_type') == 'login'){
             $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login',
-                'label' => $parametersMod->getValue('community','user','translations','field_login')
+                'label' => $parametersMod->getValue('User.field_login')
             ));
             $field->addValidator('Required');
             $form->addField($field);
@@ -276,7 +276,7 @@ class Config{
             $field = new \Ip\Form\Field\Email(
             array(
                 'name' => 'email',
-                'label' => $parametersMod->getValue('community','user','translations','field_email')
+                'label' => $parametersMod->getValue('User.field_email')
             ));
             $field->addValidator('Required');
             $form->addField($field);
@@ -286,16 +286,16 @@ class Config{
         $field = new \Ip\Form\Field\Password(
         array(
         'name' => 'password',
-        'label' => $parametersMod->getValue('community','user','translations','field_password')
+        'label' => $parametersMod->getValue('User.field_password')
         ));
         $field->addValidator('Required');
         $form->addField($field);
 
-        if($parametersMod->getValue('community','user','options','enable_autologin')){
+        if($parametersMod->getValue('User.enable_autologin')){
             $field = new \Ip\Form\Field\Check(
             array(
             'name' => 'autologin',
-            'label' => $parametersMod->getValue('community','user','translations','autologin')
+            'label' => $parametersMod->getValue('User.autologin')
             ));
             $form->addField($field);
         }
@@ -307,7 +307,7 @@ class Config{
         $field = new \Ip\Form\Field\Submit(
         array(
         'name' => 'submit',
-        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_login')
+        'defaultValue' => $parametersMod->getValue('User.button_login')
         ));
         $form->addField($field);
         
@@ -362,7 +362,7 @@ class Config{
         array(
             'name' => 'email',
             'dbField' => 'email',
-            'label' => $parametersMod->getValue('community','user','translations','field_email')
+            'label' => $parametersMod->getValue('User.field_email')
         ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -371,18 +371,18 @@ class Config{
         array(
             'name' => 'password',
             'disableAutocomplete' => true,
-            'label' => $parametersMod->getValue('community','user','translations','field_password')
+            'label' => $parametersMod->getValue('User.field_password')
         ));
         $field->addAttribute('autocomplete', 'off');
         $form->addField($field);
         
 
-        if($parametersMod->getValue('community','user','options','type_password_twice')){
+        if($parametersMod->getValue('User.type_password_twice')){
             $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'confirm_password',
                 'disableAutocomplete' => true,
-                'label' => $parametersMod->getValue('community','user','translations','field_confirm_password')
+                'label' => $parametersMod->getValue('User.field_confirm_password')
             ));
             
             $field->addAttribute('autocomplete', 'off');
@@ -394,7 +394,7 @@ class Config{
         $field = new \Ip\Form\Field\Submit(
         array(
         'name' => 'submit',
-        'defaultValue' => $parametersMod->getValue('community', 'user', 'translations', 'button_password_reset')
+        'defaultValue' => $parametersMod->getValue('User.button_password_reset')
         ));
         $form->addField($field);
         

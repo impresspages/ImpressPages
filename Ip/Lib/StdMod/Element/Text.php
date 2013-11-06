@@ -114,11 +114,11 @@ class Text extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+            return $parametersMod->getValue('StdMod.error_required');
 
             if($this->maxLength != null){
                 if (sizeof($_POST[$prefix]) > $this->maxLength) {
-                    return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_long');
+                    return $parametersMod->getValue('StdMod.error_long');
                 }
             }
 

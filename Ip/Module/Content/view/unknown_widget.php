@@ -6,7 +6,7 @@
         $tmpData['state'] = 'preview';
         echo \Ip\View::create('widget_data.php', array('widgetInstance' => $tmpData))->render();
 
-        echo $this->par('standard/content_management/admin_translations/missing_widget', array('widgetName' => $this->esc($widgetRecord['name'])));
+        echo $this->par('Content.missing_widget', array('widgetName' => $this->esc($widgetRecord['name'])));
     }
 ?>
 </div>

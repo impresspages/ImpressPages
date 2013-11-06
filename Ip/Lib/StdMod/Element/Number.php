@@ -124,7 +124,7 @@ class Number extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
-            return $std_par = $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+            return $std_par = $parametersMod->getValue('StdMod.error_required');
 
             if($_POST[$prefix] != null && $this->regExpression != null){
                 if(!preg_match($this->regExpression, $_POST[$prefix])){
@@ -133,13 +133,13 @@ class Number extends Element{ //data element in area
             }
 
             if($_POST[$prefix] != null && !is_numeric($_POST[$prefix]))
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_number');
+            return $parametersMod->getValue('StdMod.error_number');
 
             if($_POST[$prefix] != null && $this->maxVal !== null && $_POST[$prefix] > $this->maxVal)
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_number_big').$this->maxVal;
+            return $parametersMod->getValue('StdMod.error_number_big').$this->maxVal;
              
             if($_POST[$prefix] != null && $this->minVal !== null &&  $_POST[$prefix] < $this->minVal)
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_number_small').$this->minVal;
+            return $parametersMod->getValue('StdMod.error_number_small').$this->minVal;
         }
         return null;
     }

@@ -192,14 +192,14 @@ class ElementWysiwygLang extends Element{ //data element in area
         if ($this->required){
             foreach($languages as $key => $language){
                 if(!isset($_REQUEST[$prefix.'_'.$language['id']]) || $_REQUEST[$prefix.'_'.$language['id']] == null)
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+                return $parametersMod->getValue('StdMod.error_required');
             }
         }
 
         if($this->maxLength != null){
             foreach($languages as $key => $language){
                 if (sizeof($_REQUEST[$prefix.'_'.$language['id']]) > $this->maxLength) {
-                    return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_long');
+                    return $parametersMod->getValue('StdMod.error_long');
                 }
             }
         }

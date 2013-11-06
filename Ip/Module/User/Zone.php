@@ -83,19 +83,19 @@ class Zone extends \Ip\Frontend\Zone {
         if(sizeof($urlVars)> 0) {
             switch($urlVars[0]) {
                 case Config::$urlPasswordReset:
-                    if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
+                    if($parametersMod->getValue('User.allow_password_reset'))
                     return new Element('password_reset', $this->name);
                     break;
                 case Config::$urlPasswordResetVerified:
-                    if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
+                    if($parametersMod->getValue('User.allow_password_reset'))
                     return new Element('password_reset_verified', $this->name);
                     break;
                 case Config::$urlPasswordResetVerificationError:
-                    if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset'))
+                    if($parametersMod->getValue('User.allow_password_reset'))
                     return new Element('password_reset_verification_error', $this->name);
                     break;
                 case Config::$urlPasswordResetSentText:
-                    if($parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')) {
+                    if($parametersMod->getValue('User.allow_password_reset')) {
                         return new Element('password_reset_sent_text', $this->name);
                     }
                     break;
@@ -173,11 +173,11 @@ class Zone extends \Ip\Frontend\Zone {
         global $parametersMod;
         $data = array();
         
-        if($parametersMod->getValue('community','user','options','allow_password_reset')) {
+        if($parametersMod->getValue('User.allow_password_reset')) {
             $data['passwordResetLink'] = $this::getLinkPasswordReset();
         }
 
-        if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration')) {
+        if($parametersMod->getValue('User.registration_on_login_page') && $parametersMod->getValue('User.enable_registration')) {
             $data['registrationLink'] = $this::getLinkRegistration();
         }
 

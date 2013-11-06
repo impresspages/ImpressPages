@@ -27,6 +27,6 @@ class Zone404 extends \Ip\Frontend\Zone {
     
     public function getLayout() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template');
+        return $parametersMod->getValue('Config.error_page_template');
     }
 }

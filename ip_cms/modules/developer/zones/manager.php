@@ -88,17 +88,17 @@ class ZonesArea extends \Ip\Lib\StdMod\Area{
 
         $zone = Db::getZone($id);
         //if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
-        $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
-        $parametersMod->setValue('standard', 'menu_management', 'options', 'associated_zones', $associatedZonesStr);
+        $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('Pages.associated_zones'), $zone['name']);
+        $parametersMod->setValue('Pages.associated_zones', $associatedZonesStr);
 
-        $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'), $zone['name']);
-        $parametersMod->setValue('administrator', 'search', 'options', 'searchable_zones', $associatedZonesStr);
+        $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('Search.searchable_zones'), $zone['name']);
+        $parametersMod->setValue('Search.searchable_zones', $associatedZonesStr);
 
         $associatedZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $zone['name']);
         $parametersMod->setValue('administrator', 'sitemap', 'options', 'associated_zones', $associatedZonesStr);
         //}
-        $newZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $zone['name']);
-        $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones',  $newZonesStr);
+        $newZonesStr = $this->removeFromAssociatedZones($parametersMod->getValue('Config.xml_sitemap_associated_zones'), $zone['name']);
+        $parametersMod->setValue('Config.xml_sitemap_associated_zones',  $newZonesStr);
 
 
         Db::deleteParameters($id);
@@ -118,17 +118,17 @@ class ZonesArea extends \Ip\Lib\StdMod\Area{
         $zone = Db::getZone($id);
 
 
-        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $this->tmp_zone['name'], $zone['name']);
-        $parametersMod->setValue('standard', 'menu_management', 'options', 'associated_zones', $newZonesStr);
+        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('Pages.associated_zones'), $this->tmp_zone['name'], $zone['name']);
+        $parametersMod->setValue('Pages.associated_zones', $newZonesStr);
 
-        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'), $this->tmp_zone['name'], $zone['name']);
-        $parametersMod->setValue('administrator', 'search', 'options', 'searchable_zones', $newZonesStr);
+        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('Search.searchable_zones'), $this->tmp_zone['name'], $zone['name']);
+        $parametersMod->setValue('Search.searchable_zones', $newZonesStr);
 
         $newZonesStr = $this->update_associated_zones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $this->tmp_zone['name'], $zone['name']);
         $parametersMod->setValue('administrator', 'sitemap', 'options', 'associated_zones', $newZonesStr);
 
-        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $this->tmp_zone['name'], $zone['name']);
-        $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones', $newZonesStr);
+        $newZonesStr = $this->update_associated_zones($parametersMod->getValue('Config.xml_sitemap_associated_zones'), $this->tmp_zone['name'], $zone['name']);
+        $parametersMod->setValue('Config.xml_sitemap_associated_zones', $newZonesStr);
 
 
     }

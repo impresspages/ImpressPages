@@ -15,7 +15,7 @@ class Model{
     public function disableWizardTip($id)
     {
         global $parametersMod;
-        $parametersMod->setValue('administrator', 'wizard', 'options', 'tip_'.$id, false);
+        $parametersMod->setValue('Wizard.tip_'.$id, false);
     }
 
     public function getTipIds()

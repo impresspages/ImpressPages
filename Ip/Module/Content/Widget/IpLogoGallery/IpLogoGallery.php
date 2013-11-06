@@ -16,7 +16,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'logo_gallery');
+        return $parametersMod->getValue('Content.widget_logo_gallery.logo_gallery');
     }
     
 
@@ -177,8 +177,8 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['logoWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width');
-        $data['logoHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height');
+        $data['logoWidth'] = $parametersMod->getValue('Content.widget_logo_gallery.width');
+        $data['logoHeight'] = $parametersMod->getValue('Content.widget_logo_gallery.height');
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
@@ -202,9 +202,9 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
                 if (isset($curLogo['cropX1']) && isset($curLogo['cropY1']) && isset($curLogo['cropX2']) && isset($curLogo['cropY2']) ) {
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageFit(
-                        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'width'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'height'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_logo_gallery', 'quality'),
+                        $parametersMod->getValue('Content.widget_logo_gallery.width'),
+                        $parametersMod->getValue('Content.widget_logo_gallery.height'),
+                        $parametersMod->getValue('Content.widget_logo_gallery.quality'),
                         true
                     );
                     try {

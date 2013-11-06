@@ -341,7 +341,7 @@ class StandardModule {
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
-                    alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_insert'))."');
+                    alert('".addslashes($parametersMod->getValue('StdMod.cant_insert'))."');
                   </script>
                  </body>
                </html>
@@ -556,7 +556,7 @@ class StandardModule {
               </head>
               <body>
                 <script type=\"text/javascript\">                  
-                  alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_update'))."');
+                  alert('".addslashes($parametersMod->getValue('StdMod.cant_update'))."');
                 </script>
                </body>
              </html>
@@ -882,7 +882,7 @@ class StandardModule {
       <div id="loading" style="height: 60px; z-index: 1001; width: 100%; position: fixed; left:0px; top: 180px;">
 				<table style="margin-left: auto; margin-right: auto;"><tr>
 					<td style="font-family: Verdana, Tahoma, Arial; font-size: 14px; color: #505050; padding: 30px 33px; background-color: #d9d9d9; border: 1px solid #bcbdbf;">
-						'.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'loading')).'
+						'.htmlspecialchars($parametersMod->getValue('Config.loading')).'
 					</td>
 				</tr></table>
 			</div>
@@ -1024,7 +1024,7 @@ class StandardModule {
                 if(method_exists($area, 'lastError')) {
                     echo "alert('".addslashes($area->lastError('delete'))."');";
                 }else {
-                    echo "alert('".addslashes($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'cant_delete'))."');";
+                    echo "alert('".addslashes($parametersMod->getValue('StdMod.cant_delete'))."');";
                 }
                 return false;
             }
@@ -1130,7 +1130,7 @@ class StandardModule {
              $answer .= $tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area);*/
         }
         $answer .= '
-        <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'">
+        <input class="knob bolder" type="submit" value="'.$parametersMod->getValue('StdMod.save').'">
 				</div>
       </form>
 			<div class="separator"></div>
@@ -1211,7 +1211,7 @@ class StandardModule {
             }
         }
         $answer .= '
-        <input style="width: 0; height:0; overflow:hidden; border: 0;" class="knob bolder" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','save').'">
+        <input style="width: 0; height:0; overflow:hidden; border: 0;" class="knob bolder" type="submit" value="'.$parametersMod->getValue('StdMod.save').'">
 				</div>
       </form>';
 
@@ -1267,7 +1267,7 @@ class StandardModule {
                 $empty = false;
             }
         }
-        $answer .= '<input style="width: 0; height:0; border: 0; overflow:hidden;" type="submit" value="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','search').'"></form></div>';
+        $answer .= '<input style="width: 0; height:0; border: 0; overflow:hidden;" type="submit" value="'.$parametersMod->getValue('StdMod.search').'"></form></div>';
 
         if ($empty)
         return;
@@ -1315,7 +1315,7 @@ class StandardModule {
 			 <div class="paging">
 				<div class="clear"></div>
 				 <select onchange="std_mod_change_page()" id="std_mod_pages_select_id" name="std_mod_pages_select">
-					<option value="'.$this->currentArea->rowsPerPage.'">'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'record_count_on_one_page').'</option>
+					<option value="'.$this->currentArea->rowsPerPage.'">'.$parametersMod->getValue('StdMod.record_count_on_one_page').'</option>
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="50">50</option>
@@ -1325,13 +1325,13 @@ class StandardModule {
 					<option value="10000">10000</option>
 					<option value="100000">100000</option>
 				 </select>
-				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
-					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'previous_page')).'">
+				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('StdMod.previous_page')).'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('StdMod.previous_page')).'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
-				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
-					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'next_page')).'">
+				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars($parametersMod->getValue('StdMod.next_page')).'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.htmlspecialchars($parametersMod->getValue('StdMod.next_page')).'">
 				 </a>
 			 </div>
 			</form>
@@ -1413,9 +1413,9 @@ class StandardModule {
                 }
 
                 if($this->currentArea->sortType == 'numbers')
-                $answer .= '<th class="header"><a class="'.$class.'" href="'.$this->generateUrlSort($this->currentArea->sortField, $tmpSortDir).'"><b>'.$parametersMod->getValue('developer', 'std_mod','admin_translations','sort_field').'</b></a></th>';
+                $answer .= '<th class="header"><a class="'.$class.'" href="'.$this->generateUrlSort($this->currentArea->sortField, $tmpSortDir).'"><b>'.$parametersMod->getValue('StdMod.sort_field').'</b></a></th>';
                 if($this->currentArea->sortType == 'pointers')
-                $answer .= '<th class="header"><b>'.$parametersMod->getValue('developer', 'std_mod','admin_translations','sort_field').'</b></th>';
+                $answer .= '<th class="header"><b>'.$parametersMod->getValue('StdMod.sort_field').'</b></th>';
             }
 
             foreach($this->currentArea->elements as $value) {
@@ -1462,9 +1462,9 @@ class StandardModule {
 
 
                 if($this->currentArea->allowUpdate )
-                $answer .= '<td><a class="edit" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'&amp;road_edit=1" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','edit').'">&nbsp;</a></td>';
+                $answer .= '<td><a class="edit" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'&amp;road_edit=1" title="'.$parametersMod->getValue('StdMod.edit').'">&nbsp;</a></td>';
                 if($this->currentArea->childArea !=  null && $this->currentArea->childArea->visible)
-                $answer .= '<td><a class="goIn" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','go_in').'">&nbsp;</a></td>';
+                $answer .= '<td><a class="goIn" href="'.$this->generateUrlEdit($lock["".$this->currentArea->dbPrimaryKey], $tmpTitle) .'" title="'.$parametersMod->getValue('StdMod.go_in').'">&nbsp;</a></td>';
 
 
                 if ($this->currentArea->sortable && $this->currentArea->sortField != null) {
@@ -1473,13 +1473,13 @@ class StandardModule {
                     if($this->currentArea->sortType == 'pointers')
                     $answer .= '<td >
                         <a class="move_down"
-                        title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'move_down')).'"
+                        title="'.htmlspecialchars($parametersMod->getValue('StdMod.move_down')).'"
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_increase&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
                         "
                         >&nbsp;</a>
                         <a
-                        title="'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'move_up')).'"
+                        title="'.htmlspecialchars($parametersMod->getValue('StdMod.move_up')).'"
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_decrease&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
                         "
@@ -1494,7 +1494,7 @@ class StandardModule {
 
 
                 if($this->currentArea->allowDelete)
-                $answer .= '<td><a class="delete" onclick="confirmDelete(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=delete&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\', \''.$parametersMod->getValue('developer', 'std_mod','admin_translations','are_you_sure_you_wish_to_delete').'\'); return false;" title="'.$parametersMod->getValue('developer', 'std_mod','admin_translations','delete').'">&nbsp;</a></td>';
+                $answer .= '<td><a class="delete" onclick="confirmDelete(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=delete&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\', \''.$parametersMod->getValue('StdMod.are_you_sure_you_wish_to_delete').'\'); return false;" title="'.$parametersMod->getValue('StdMod.delete').'">&nbsp;</a></td>';
                 $answer .='
           </tr>';
             }
@@ -1605,12 +1605,12 @@ class StandardModule {
 								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
 								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
 							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
-							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','new')).'
+							'.htmlspecialchars($parametersMod->getValue('StdMod.new')).'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
 						<div class="moduleControlButtons">
-							<a onclick="document.getElementById(\'std_mod_new_f\').submit();" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','save')).'</a>
-							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','cancel')).'</a>
+							<a onclick="document.getElementById(\'std_mod_new_f\').submit();" class="button">'.htmlspecialchars($parametersMod->getValue('StdMod.save')).'</a>
+							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars($parametersMod->getValue('StdMod.cancel')).'</a>
 							<div class="clear"></div>
 						</div>
 					</div>
@@ -1625,12 +1625,12 @@ class StandardModule {
 								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
 								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
 							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
-							'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'
+							'.htmlspecialchars($parametersMod->getValue('StdMod.search')).'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
 						<div class="moduleControlButtons">
-							<a onclick="document.getElementById(\'std_mod_search_f\').submit();" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','search')).'</a>
-							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars($parametersMod->getValue('developer', 'std_mod','admin_translations','cancel')).'</a>
+							<a onclick="document.getElementById(\'std_mod_search_f\').submit();" class="button">'.htmlspecialchars($parametersMod->getValue('StdMod.search')).'</a>
+							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars($parametersMod->getValue('StdMod.cancel')).'</a>
 							<div class="clear"></div>
 						</div>
 					</div>

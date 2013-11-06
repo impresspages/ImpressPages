@@ -12,7 +12,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'text_image');
+        return $parametersMod->getValue('Content.widget_text_image.text_image');
     }
 
 
@@ -49,7 +49,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
     
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['translations']['title'] = $parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'title');
+        $data['translations']['title'] = $parametersMod->getValue('Content.widget_text_image.title');
         return parent::managementHtml($instanceId, $data, $layout);
     }    
 
@@ -75,7 +75,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
                 if ($data['cropY2'] - $data['cropY1'] > 0) {
                     $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
-                    $requiredWidth = round($parametersMod->getValue('standard', 'content_management', 'widget_text_image', 'width'));
+                    $requiredWidth = round($parametersMod->getValue('Content.widget_text_image.width'));
                     $requiredHeight = round($requiredWidth / $ratio);
 
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(

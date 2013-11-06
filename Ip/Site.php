@@ -265,7 +265,7 @@ class Site{
             'id' => '',
             'row_number' => 0,
             'name' => 'auto_error404',
-            'template' => $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template'),
+            'template' => $parametersMod->getValue('Config.error_page_template'),
             'translation' => 'Error404',
             'associated_group' => '',
             'associated_module' => '',
@@ -529,7 +529,7 @@ class Site{
         for($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
         }
-        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+        if($parametersMod->getValue('Config.multilingual')) {
             $this->languageUrl = urldecode(array_shift($urlVars));
         }
 
@@ -656,7 +656,7 @@ class Site{
         }
         // get parameter for cms management
 
-        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
+        if($parametersMod->getValue('Config.multilingual')){
             $answer = \Ip\Config::baseUrl(urlencode($this->languages[$languageId]['url']).'/');
         }else{
             $answer = \Ip\Config::baseUrl('');

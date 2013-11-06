@@ -86,7 +86,7 @@ class sitemap{
     function __construct(){
         global $parametersMod;
         $this->mappedZones = array();
-        $mappedZones = explode("\n", $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'));
+        $mappedZones = explode("\n", $parametersMod->getValue('Config.xml_sitemap_associated_zones'));
 
         $mapped_zone = null;
         for($i=0; $i<sizeof($mappedZones); $i++){

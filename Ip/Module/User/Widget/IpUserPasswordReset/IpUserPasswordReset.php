@@ -29,7 +29,7 @@ class IpUserPasswordReset extends \Ip\Module\Content\Widget{
         $data = array (
             'passwordResetForm' => $passwordResetForm,
             'loggedIn' => $session->loggedIn(),
-            'passwordResetEnabled' => $parametersMod->getValue('community', 'user', 'options', 'allow_password_reset')
+            'passwordResetEnabled' => $parametersMod->getValue('User.allow_password_reset')
         );
         return parent::previewHtml($instanceId, $data, $layout);
         

@@ -46,14 +46,14 @@ class Template {
                     <span class="loginError">' . $error . '</span>
                     <input type="hidden" name="action" value="login">
                     <label>
-                        <span>' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_name')) . '</span>
+                        <span>' . htmlspecialchars($parametersMod->getValue('Config.login_name')) . '</span>
                         <input class="loginInput" id="login_name" name="f_name" type="text">
                     </label>
                     <label>
-                        <span>' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_password')) . '</span>
+                        <span>' . htmlspecialchars($parametersMod->getValue('Config.login_password')) . '</span>
                         <input class="loginInput" type="password" name="f_pass">
                     </label>
-                    <input class="loginSubmit" type="submit" value="' . htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_login')) . '">
+                    <input class="loginSubmit" type="submit" value="' . htmlspecialchars($parametersMod->getValue('Config.login_login')) . '">
                 </form>
             </div>
             <div class="loginFooter">Copyright 2009-' . date("Y") . ' by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>

@@ -67,7 +67,7 @@ class File extends Field
                 $uploadModel = \Ip\Module\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     $parametersMod = \Ip\ServiceLocator::getParametersMod();
-                    return $parametersMod->getValue("developer", "form", "error_messages", "file_upload_session");
+                    return $parametersMod->getValue("Form.file_upload_session");
                 }
             }
         }
