@@ -20,7 +20,7 @@ class InstallTest extends \PHPUnit_Framework_TestCase
         $driver = new \Behat\Mink\Driver\GoutteDriver();
         $session = new \Behat\Mink\Session($driver);
 
-        /* @var $session \Behat\Mink\ProSession */
+        /* @var $session \Behat\Mink\FakeSession */ // Hack for PhpStorm bug
         $session->start();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
