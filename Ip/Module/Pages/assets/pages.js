@@ -445,6 +445,7 @@ function updatePageForm(event, data) {
 
     switch (node.attr('rel')) {
         case 'page':
+            $('#buttonNewPage').removeClass('ui-state-disabled');
             $('#buttonDeletePage').removeClass('ui-state-disabled');
             $('#buttonCopyPage').removeClass('ui-state-disabled');
 
@@ -462,6 +463,7 @@ function updatePageForm(event, data) {
             $('#buttonPastePage').addClass('ui-state-disabled');
             break;
         case 'zone':
+            $('#buttonNewPage').removeClass('ui-state-disabled');
             $('#buttonDeletePage').addClass('ui-state-disabled');
             $('#buttonCopyPage').addClass('ui-state-disabled');
             if (tree.copiedNode) {
@@ -481,28 +483,35 @@ function updatePageForm(event, data) {
     }
 
 
-    if (node.attr('rel') == 'page') {
+    switch (node.attr('rel')) {
+        case 'page':
+            var data = Object();
+            data.id = node.attr('id');
+            data.pageId = node.attr('pageId');
+            data.zoneName = node.attr('zoneName');
+            data.websiteId = node.attr('websiteId');
+            data.languageId = node.attr('languageId');
+            data.type = node.attr('rel');
+            data.aa = 'Pages.getPageForm';
 
-        var data = Object();
-        data.id = node.attr('id');
-        data.pageId = node.attr('pageId');
-        data.zoneName = node.attr('zoneName');
-        data.websiteId = node.attr('websiteId');
-        data.languageId = node.attr('languageId');
-        data.type = node.attr('rel');
-        data.aa = 'Pages.getPageForm';
-
-        $.ajax({
-            type: 'POST',
-            url: ip.baseUrl,
-            data: data,
-            success: updatePageFormResponse,
-            dataType: 'json'
-        });
-    } else {
-        $('#pageProperties').html('');
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                success: updatePageFormResponse,
+                dataType: 'json'
+            });
+            break;
+        case 'zone':
+            ipPagesZoneProperties.open(node.attr('websiteId'), node.attr('zoneName'), node.attr('languageId'));
+            break;
+        default:
+            $('#pageProperties').html('');
     }
+
 }
+
+
 
 /**
  * Select node request response.

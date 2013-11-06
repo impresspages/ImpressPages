@@ -50,7 +50,7 @@ class AdminController extends \Ip\Controller
         $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
-        $this->_printJson ($list);
+        $this->returnJson ($list);
     }
     /**
      *
@@ -294,7 +294,7 @@ class AdminController extends \Ip\Controller
 
     /**
      *
-     * Get page upadate form HTML
+     * Get page update form HTML
      */
     public function getPageForm() {
         global $site;
@@ -368,7 +368,111 @@ class AdminController extends \Ip\Controller
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
+    }
+
+    public function getZoneProperties() {
+
+        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+
+        if (empty($params['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $zoneName = $params['zoneName'];
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $zones = \Ip\Frontend\Db::getZones($languageId);
+        if (!$zones) {
+            throw new \Ip\CoreException("Language doesn't exist");
+        }
+
+        if (empty($zones[$zoneName])) {
+            throw new \Ip\CoreException("Zone doesn't exist");
+        }
+        $zoneData = $zones[$zoneName];
+
+        $parametersMod = \Ip\ServiceLocator::getParametersMod();
+        $answer = array();
+
+        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+
+        $propertiesData = array (
+            'form' => Forms::zoneSeoForm($languageId, $zoneName, $zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
+        );
+        $content = \Ip\View::create('view/zoneProperties.php', $propertiesData)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $data = array (
+            'tabs' => $tabs
+        );
+
+        $tabsView = \Ip\View::create('view/tabs.php', $data);
+
+
+
+        $answer['html'] = $tabsView->render();
+        $this->returnJson($answer);
+    }
+
+
+    public function saveZoneProperties()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $request = \Ip\ServiceLocator::getRequest();
+        $request->mustBePost();
+        $params = $request->getPost();
+
+
+        if (empty($params['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $zoneName = $params['zoneName'];
+        $zoneId = $site->getZone($zoneName)->getId();
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $form = Forms::zoneSeoForm($languageId, $zoneName);
+
+        $data = $form->filterValues($params);
+
+        $errors = $form->validate($params);
+
+
+
+        $zoneData = array(
+            'title' => $data['title'],
+            'url' => $data['url'],
+            'keywords' => $data['keywords'],
+            'description' => $data['description']
+        );
+
+        try {
+            ZoneModel::updateZone($languageId, $zoneId, $zoneData);
+        } catch (DuplicateUrlException $e) {
+            $errors['url'] = '{{Following url already has been used.}}';
+        }
+
+
+
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success',
+            );
+        }
+        $this->returnJson($data);
     }
 
     /**
@@ -481,7 +585,7 @@ class AdminController extends \Ip\Controller
                 return false;
         }
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
     /**
@@ -542,7 +646,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
 
@@ -648,7 +752,7 @@ class AdminController extends \Ip\Controller
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
 
-        $this->_printJson ($answer);
+        $this->returnJson ($answer);
     }
 
 
@@ -674,7 +778,7 @@ class AdminController extends \Ip\Controller
         $answer = array ();
         $answer['status'] = 'success';
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     /**
@@ -822,7 +926,7 @@ class AdminController extends \Ip\Controller
         $answer = array();
         $answer['status'] = 'success';
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
 
 
 
@@ -944,7 +1048,7 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
         $answer['destinationPageId'] = $destinationPage->getId();
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
 
@@ -985,6 +1089,7 @@ class AdminController extends \Ip\Controller
         $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);
 
         unset($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId]);
+        $this->returnJson(array('success' => 1));
     }
 
 
@@ -1083,7 +1188,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getLanguages(),
             'status' => 'success'
         );
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getZones()
@@ -1099,7 +1204,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
             'status' => 'success'
         );
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getZonePages()
@@ -1120,7 +1225,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getPages()
@@ -1138,7 +1243,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->_printJson($answer);
+        $this->returnJson($answer);
     }
 
     public function getData()
@@ -1158,7 +1263,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'response' => $pages
         );
-        $this->_printJson($data);
+        $this->returnJson($data);
     }
 
 
@@ -1254,13 +1359,6 @@ class AdminController extends \Ip\Controller
         return false;
     }
 
-
-    /*
-     * Print Json answer
-     */
-    private function _printJson ($data) {
-        $this->returnJson($data);
-    }
 
 
 }
