@@ -44,28 +44,23 @@ require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Core/Application.php';
 $db = new db();
 
 
-if($db->connect()){
+$log = new \Ip\Module\Log\Module();
+try {
+    $dispatcher = new \Ip\Dispatcher();
+    $parametersMod = new ParametersMod();
+    $session = new \Ip\Frontend\Session();
 
-    $log = new \Ip\Module\Log\Module();
-    try {
-        $dispatcher = new \Ip\Dispatcher();
-        $parametersMod = new ParametersMod();
-        $session = new \Ip\Frontend\Session();
+    $site = new \Site();
+    $site->init();
+    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
-        $site = new \Site();
-        $site->init();
-        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
-
-        $cron = new Cron();
-        $cron->execute();
-        $db->disconnect();
-    } catch (\Exception $e) {
-        $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
-        throw $e;
-    }
-
-}else   trigger_error('Database access');
-
+    $cron = new Cron();
+    $cron->execute();
+    $db->disconnect();
+} catch (\Exception $e) {
+    $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+    throw $e;
+}
 
 
 /**

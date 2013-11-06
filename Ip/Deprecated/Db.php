@@ -15,46 +15,12 @@ namespace Ip\Deprecated;
  */
 class Db
 {
-    private static $connection;
-
-    /**
-     * Connect to database.
-     */
-    public static function connect()
-    {
-        $config = \Ip\Config::getRaw('db');
-        self::$connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
-        if (!self::$connection) {
-            trigger_error('Can\'t connect to database.');
-            return false;
-        } else {
-            mysql_select_db($config['database']);
-            ip_deprecated_mysql_query("SET CHARACTER SET " . $config['charset']);
-            $dt = new \DateTime();
-            $offset = $dt->format("P");
-            ip_deprecated_mysql_query('SET time_zone = \'' . $offset . '\'');
-            return true;
-        }
-    }
-
-    /**
-     * Get active MySQL connection
-     */
-    public static function getConnection()
-    {
-        if (!self::$connection) {
-            self::connect();
-        }
-        return self::$connection;
-    }
-
-
     /**
      * Disconnect from database.
      */
     public static function disconnect()
     {
-        mysql_close(self::$connection);
+        \Ip\Db::disconnect();
     }
 
 

@@ -42,38 +42,34 @@ if (\Ip\Config::isDevelopmentEnvironment()){
 
 \Ip\Core\Application::init();
 
-if(\Ip\Deprecated\Db::connect()){
-    $log = new \Ip\Module\Log\Module();
+$log = new \Ip\Module\Log\Module();
 
-    try {
-        $dispatcher = new \Ip\Dispatcher();
+try {
+    $dispatcher = new \Ip\Dispatcher();
 
-        $parametersMod = new ParametersMod();
-        $session = new \Ip\Frontend\Session();
-
-
-        $site = new \Site();
-        $site->init();
-        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
-        
-
-        $sitemap = new Sitemap();
-
-        if(isset($_GET['nr']) && isset($_GET['lang']) && isset($_GET['zone'])){
-            echo $sitemap->getSitemap($_GET['zone'], $_GET['lang'], $_GET['nr']);
-        }else{
-            echo $sitemap->getSitemapIndex();
-        }
+    $parametersMod = new ParametersMod();
+    $session = new \Ip\Frontend\Session();
 
 
-        \Ip\Deprecated\Db::disconnect();
-    } catch (\Exception $e) {
-        $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
-        throw $e;
+    $site = new \Site();
+    $site->init();
+    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
+
+
+    $sitemap = new Sitemap();
+
+    if(isset($_GET['nr']) && isset($_GET['lang']) && isset($_GET['zone'])){
+        echo $sitemap->getSitemap($_GET['zone'], $_GET['lang'], $_GET['nr']);
+    }else{
+        echo $sitemap->getSitemapIndex();
     }
 
-}else   trigger_error('Database access');
 
+    \Ip\Deprecated\Db::disconnect();
+} catch (\Exception $e) {
+    $log->log('System', 'Fatal error', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+    throw $e;
+}
 
 
 /**
