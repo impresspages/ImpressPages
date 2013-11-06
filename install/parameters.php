@@ -5,7 +5,7 @@ $languageShort = "EN"; //Short description
 $languageLong = "English"; //Long title
 $languageUrl = "en";
 
-
+getParam('Config.');
 $moduleGroupTitle["standard"] = "Standard";
 $moduleTitle["standard"]["content_management"] = "Content management";
 
