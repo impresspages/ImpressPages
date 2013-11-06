@@ -444,7 +444,7 @@ class Installation
     }
 
 
-    private function putInstallationFiles($destinationDir)
+    public function putInstallationFiles($destinationDir)
     {
         if ($this->developmentVersion) {
             $this->putInstallationFilesDevelopment($destinationDir);

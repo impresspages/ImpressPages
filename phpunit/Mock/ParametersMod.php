@@ -14,7 +14,8 @@ class ParametersMod
 
     public function __construct()
     {
-        require \Ip\Config::baseFile('install/parameters.php');
+        $parameterValue = array(); // in order to silence IDE :)
+        require \Ip\Config::coreModuleFile('Install/parameters.php');
         require \Ip\Config::baseFile('update/Library/Migration/To3_0/newParameters.php');
         $this->parameters = $parameterValue;
     }
