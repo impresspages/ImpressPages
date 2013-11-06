@@ -20,7 +20,7 @@ class TestDb
 
     public function getPdoConnection()
     {
-        return $this->connection;
+        return \Ip\Db::getConnection();
     }
 
 
@@ -61,40 +61,16 @@ class TestDb
      */
     private function createDatabase($dbName)
     {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
-        }
-
-        $sql = "CREATE DATABASE `".$dbName."` CHARACTER SET utf8";
-        $rs = ip_deprecated_mysql_query($sql, $connection);
-        if (!$rs) {
-            throw new \Exception("Can't create database. ".$sql);
-        }
-
-        $sql = "ALTER DATABASE `".$dbName."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
-        $rs = ip_deprecated_mysql_query($sql, $connection);
-        if (!$rs) {
-            throw new \Exception("Can't create database. ".$sql);
-        }
-        mysql_close($connection);
-
+        \Ip\Module\Install\Model::createAndUseDatabase($dbName);
         $this->dbName = $dbName;
-        $this->connnection = new \PDO('mysql:host='.TEST_DB_HOST.';dbname='.$this->dbName, TEST_DB_USER, TEST_DB_PASS);
 
     }
 
 
     private function dropDatabase()
     {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
-        }
-
-        ip_deprecated_mysql_query("DROP DATABASE `".$this->dbName."`", $connection);
-
-        mysql_close($connection);
+        \Ip\Db::execute('DROP DATABASE `' . $this->dbname . '`');
+        \Ip\Db::disconnect();
 
         $this->dbName = null;
         $this->connection = null;
