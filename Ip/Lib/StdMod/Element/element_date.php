@@ -192,7 +192,7 @@ class ElementDate extends Element{ //data element in area
         $answer = '';
         if($from != '')
         {
-            $answer .= " `".$this->dbField."` >= '".mysql_real_escape_string($from)."' ";
+            $answer .= " `".$this->dbField."` >= '".ip_deprecated_mysql_real_escape_string($from)."' ";
         }
         if(isset($value['till']) && $value['till'] != '')
         {
@@ -200,7 +200,7 @@ class ElementDate extends Element{ //data element in area
             {
                 $answer .= " AND ";
             }
-            $answer .= " `".$this->dbField."` <= '".mysql_real_escape_string($till)."' ";
+            $answer .= " `".$this->dbField."` <= '".ip_deprecated_mysql_real_escape_string($till)."' ";
         }
         return $answer;
 

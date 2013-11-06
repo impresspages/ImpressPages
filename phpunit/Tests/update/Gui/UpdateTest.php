@@ -147,7 +147,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $dir = $installation->getInstallationDir();
 
         //setup unknown version number
-        $conn = $installation->getDbConn();
+
         $sql = "
         UPDATE
             `".$installation->getConfig('DB_PREF')."variables`
@@ -156,9 +156,11 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         WHERE
             `name` = 'version'
         ";
-        $rs = mysql_query($sql, $conn);
+        // TODOX use correct connection
+        // $conn = $installation->getDbConn();
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            throw new \Exception("Can't update installation version. ".mysql_error());
+            throw new \Exception("Can't update installation version. ".ip_deprecated_mysql_error());
         }
         
         
@@ -179,13 +181,15 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $installation = new \PhpUnit\Helper\Installation();
         $installation->install();
 
-        $conn = $installation->getDbConn();
+
 
         $sql = "update `".$installation->getDbPrefix()."variables` set `value` = '2.3' where
         `name` = 'version'";
-        $rs = mysql_query($sql, $conn);
+        // TODOX use correct connection
+        // $conn = $installation->getDbConn();
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            throw new \Exception($sql." ".mysql_error());
+            throw new \Exception($sql." ".ip_deprecated_mysql_error());
         }
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);

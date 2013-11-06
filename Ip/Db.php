@@ -14,8 +14,6 @@ namespace Ip {
  */
 class Db
 {
-    const TYPE_PDO = 1;
-    const TYPE_MYSQL = 2;
 
     /**
      * @var \PDO
@@ -25,48 +23,39 @@ class Db
     private static $tablePrefix;
 
     /**
-     * 
-     * @param int $type (eg. \Ip\Db::TYPE_PDO, \Ip\Db::TYPE_MYSQL)
      * @throws \Ip\CoreException
      * @return \PDO
      */
-    public static function getConnection($type = self::TYPE_PDO)
+    public static function getConnection()
     {
-        switch ($type) {
-            case self::TYPE_MYSQL:
-                return Deprecated\Db::getConnection();
-                break;
-            case self::TYPE_PDO:
-                if (!self::$pdoConnection) {
-                    try {
-                        $config = \Ip\Config::getRaw('db');
+        if (!self::$pdoConnection) {
+            try {
+                $config = \Ip\Config::getRaw('db');
 
-                        if (empty($config)) {
-                            throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
-                        }
-
-                        $dsn = 'mysql:host='.str_replace(':', ';port=', $config['hostname']);
-                        if (!empty($config['database'])) {
-                            $dsn .= ';dbname='. $config['database'];
-                        }
-
-                        self::$pdoConnection = new \PDO($dsn, $config['username'], $config['password']);
-                        self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
-                        $dt = new \DateTime();
-                        $offset = $dt->format("P");
-                        self::$pdoConnection->exec("SET time_zone='$offset';");
-                        self::$pdoConnection->exec("SET CHARACTER SET ". $config['charset']);
-                    } catch (\PDOException $e) {
-                        throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
-                        //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
-                    }
-
-                    static::$tablePrefix = $config['tablePrefix'];
-                    \Ip\Config::_setRaw('db', null);
+                if (empty($config)) {
+                    throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
                 }
-                return self::$pdoConnection;
-                break;
+
+                $dsn = 'mysql:host='.str_replace(':', ';port=', $config['hostname']);
+                if (!empty($config['database'])) {
+                    $dsn .= ';dbname='. $config['database'];
+                }
+
+                self::$pdoConnection = new \PDO($dsn, $config['username'], $config['password']);
+                self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
+                $dt = new \DateTime();
+                $offset = $dt->format("P");
+                self::$pdoConnection->exec("SET time_zone='$offset';");
+                self::$pdoConnection->exec("SET CHARACTER SET ". $config['charset']);
+            } catch (\PDOException $e) {
+                throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
+                //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
+            }
+
+            static::$tablePrefix = $config['tablePrefix'];
+            \Ip\Config::_setRaw('db', null);
         }
+        return self::$pdoConnection;
     }
 
     public static function disconnect()

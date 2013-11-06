@@ -276,20 +276,9 @@ class Installation
      */
     public function getDbConn()
     {
-        if (!$this->conn) {
-            $config = \Ip\Config::getRaw('db');
-            $connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
-            if ($connection) {
-                mysql_select_db($config['database']);
-                mysql_query("SET CHARACTER SET ".$config['charset']);
-                $this->conn = $connection;
-            } else {
-                throw new \Exception("Can\'t connect to database.");
-            }
-        }
-        return $this->conn;
+        throw new \Exception("Not implemented.");
     }
-    
+
     public function getSubdir($version)
     {
         $oldVersions = array(
@@ -444,7 +433,7 @@ class Installation
     }
 
 
-    private function putInstallationFiles($destinationDir)
+    public function putInstallationFiles($destinationDir)
     {
         if ($this->developmentVersion) {
             $this->putInstallationFilesDevelopment($destinationDir);

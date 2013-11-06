@@ -264,7 +264,7 @@ class Form{
             return false;
         }
         
-        $sql = 'INSERT INTO `'.mysql_real_escape_string($table).'` SET ';
+        $sql = 'INSERT INTO `'.ip_deprecated_mysql_real_escape_string($table).'` SET ';
         $first = true;
         foreach($this->getFields() as $field){
             if($field->getDbField()){
@@ -274,9 +274,9 @@ class Form{
                 if (!isset($data[$field->getDbField()])) {
                     $sqlValue = 'NULL';
                 } else {
-                    $sqlValue = "'".mysql_real_escape_string($data[$field->getDbField()])."'";
+                    $sqlValue = "'".ip_deprecated_mysql_real_escape_string($data[$field->getDbField()])."'";
                 }
-                $sql .= "`".mysql_real_escape_string($field->getDbField())."` = ".$sqlValue." ";
+                $sql .= "`".ip_deprecated_mysql_real_escape_string($field->getDbField())."` = ".$sqlValue." ";
                 $first = false;
             }
         }
@@ -290,9 +290,9 @@ class Form{
                 if ($additionalValue === null) {
                     $sqlValue = 'NULL';
                 } else {
-                    $sqlValue = "'".mysql_real_escape_string($additionalValue)."'";
+                    $sqlValue = "'".ip_deprecated_mysql_real_escape_string($additionalValue)."'";
                 }
-                $sql .= "`".mysql_real_escape_string($key)."` = ".$sqlValue." ";
+                $sql .= "`".ip_deprecated_mysql_real_escape_string($key)."` = ".$sqlValue." ";
                 $first = false;
                 
             }
@@ -303,11 +303,11 @@ class Form{
             return false;
         }
         
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if(!$rs){
-            throw new \Exception($sql." ".mysql_error());
+            throw new \Exception($sql." ".ip_deprecated_mysql_error());
         }else{
-            return mysql_insert_id();
+            return ip_deprecated_mysql_insert_id();
         }
         
     }
@@ -334,7 +334,7 @@ class Form{
         }
         
         
-        $sql = 'UPDATE `'.mysql_real_escape_string($table).'` SET ';
+        $sql = 'UPDATE `'.ip_deprecated_mysql_real_escape_string($table).'` SET ';
 
         $first = true;
         foreach($this->getFields() as $field){
@@ -342,7 +342,7 @@ class Form{
                 if(!$first) {
                     $sql .= ', ';
                 }
-                $sql .= "`".mysql_real_escape_string($field->getDbField())."` = '".mysql_real_escape_string($data[$field->getDbField()])."' ";
+                $sql .= "`".ip_deprecated_mysql_real_escape_string($field->getDbField())."` = '".ip_deprecated_mysql_real_escape_string($data[$field->getDbField()])."' ";
                 $first = false;
             }
         }
@@ -356,23 +356,23 @@ class Form{
                 if ($additionalValue === null) {
                     $sqlValue = 'NULL';
                 } else {
-                    $sqlValue = "'".mysql_real_escape_string($additionalValue)."'";
+                    $sqlValue = "'".ip_deprecated_mysql_real_escape_string($additionalValue)."'";
                 }
-                $sql .= "`".mysql_real_escape_string($key)."` = ".$sqlValue." ";
+                $sql .= "`".ip_deprecated_mysql_real_escape_string($key)."` = ".$sqlValue." ";
                 $first = false;
                 
             }
         }
             
-        $sql .= " WHERE `".mysql_real_escape_string($id_field)."` = '".mysql_real_escape_string($id)."' ";
+        $sql .= " WHERE `".ip_deprecated_mysql_real_escape_string($id_field)."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
 
         if($first){
             return false;
         }        
         
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if(!$rs) {
-            throw new \Exception($sql." ".mysql_error());
+            throw new \Exception($sql." ".ip_deprecated_mysql_error());
         }
     }
 

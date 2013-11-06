@@ -119,21 +119,21 @@ class Parameter extends Element{ //data element in area
         global $std_mod_db;
         $value = $this->default_value;
         $sql = "select * from `".DB_PREF."".$area->dbTable."` where ".$area->dbPrimaryKey." = '".$parent_id."' ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+            trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
         }
 
-        if (!$lock = mysql_fetch_assoc($rs)){
+        if (!$lock = ip_deprecated_mysql_fetch_assoc($rs)){
             throw new \Ip\Exception('Empty query result ' . $sql);
         }
         if($lock['type'] == 'string_wysiwyg'){
             $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs) {
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
             } else {
-                if($lock2 = mysql_fetch_assoc($rs))
+                if($lock2 = ip_deprecated_mysql_fetch_assoc($rs))
                 $value = $lock2['value'];
                 else
                 trigger_error("Can not get text field data. ".$sql);
@@ -142,11 +142,11 @@ class Parameter extends Element{ //data element in area
         }
         if($lock['type'] == 'string'){
             $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs) {
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
             } else {
-                if($lock2 = mysql_fetch_assoc($rs))
+                if($lock2 = ip_deprecated_mysql_fetch_assoc($rs))
                 $value = $lock2['value'];
                 else
                 trigger_error("Can not get text field data. ".$sql);
@@ -156,11 +156,11 @@ class Parameter extends Element{ //data element in area
 
         if($lock['type'] == 'integer'){
             $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs) {
-                trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
+                trigger_error("Can not get integer field data. ".$sql." ".ip_deprecated_mysql_error());
             } else {
-                if($lock2 = mysql_fetch_assoc($rs))
+                if($lock2 = ip_deprecated_mysql_fetch_assoc($rs))
                 $value = $lock2['value'];
                 else
                 trigger_error("Can not get integer field data. ".$sql);
@@ -171,11 +171,11 @@ class Parameter extends Element{ //data element in area
 
         if($lock['type'] == 'bool'){
             $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs) {
-                trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
+                trigger_error("Can not get bool field data. ".$sql." ".ip_deprecated_mysql_error());
             } else {
-                if($lock2 = mysql_fetch_assoc($rs)) {
+                if($lock2 = ip_deprecated_mysql_fetch_assoc($rs)) {
                     $value = $lock2['value'];
                 } else {
                     trigger_error("Can not get bool field data. ".$sql);
@@ -186,11 +186,11 @@ class Parameter extends Element{ //data element in area
 
         if($lock['type'] == 'textarea'){
             $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs) {
-                trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
             } else {
-                if($lock2 = mysql_fetch_assoc($rs))
+                if($lock2 = ip_deprecated_mysql_fetch_assoc($rs))
                 $value = $lock2['value'];
                 else
                 trigger_error("Can not get text field data. ".$sql);
@@ -200,12 +200,12 @@ class Parameter extends Element{ //data element in area
         if($lock['type'] == 'lang'){
             $answer = '';
             $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if (!$rs2) {
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
             } else{
                 $values = array();
-                while($lock2 = mysql_fetch_assoc($rs2)){
+                while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                     $values[$lock2['l_id']] = $lock2['translation'];
                 }
 
@@ -214,12 +214,12 @@ class Parameter extends Element{ //data element in area
                 $answer .= '';
                 foreach($languages as $key => $language){
                     $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                    $rs3 = mysql_query($sql3);
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     $value='';
                     if($rs3){
-                        if($lock3 = mysql_fetch_assoc($rs3))
+                        if($lock3 = ip_deprecated_mysql_fetch_assoc($rs3))
                         $value = $lock3['translation'];
-                    }else trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                    }else trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                     $html->html('<span class="label">'.$language['d_short'].'</span><br />');
                     $html->input($prefix.'_'.$language['id'], $value);
                     $html->html("<br />");
@@ -231,12 +231,12 @@ class Parameter extends Element{ //data element in area
         if($lock['type'] == 'lang_textarea'){
             $answer = '';
             $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if (!$rs2) {
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
             } else {
                 $values = array();
-                while($lock2 = mysql_fetch_assoc($rs2)){
+                while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                     $values[$lock2['l_id']] = $lock2['translation'];
                 }
 
@@ -248,14 +248,14 @@ class Parameter extends Element{ //data element in area
                 $answer .= '';
                 foreach($languages as $key => $language){
                     $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                    $rs3 = mysql_query($sql3);
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     $value='';
                     if($rs3){
-                        if($lock3 = mysql_fetch_assoc($rs3)) {
+                        if($lock3 = ip_deprecated_mysql_fetch_assoc($rs3)) {
                             $value = $lock3['translation'];
                         }
                     } else {
-                        trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                        trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                     }
                     $html->html('<span class="label">'.$language['d_short'].'</span><br />');
                     //	$html->html('<div class="label">');
@@ -272,12 +272,12 @@ class Parameter extends Element{ //data element in area
         if($lock['type'] == 'lang_wysiwyg'){
             $answer = '';
             $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if (!$rs2) {
-                trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
             } else {
                 $values = array();
-                while($lock2 = mysql_fetch_assoc($rs2)){
+                while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                     $values[$lock2['l_id']] = $lock2['translation'];
                 }
 
@@ -289,14 +289,14 @@ class Parameter extends Element{ //data element in area
                 $answer .= '';
                 foreach($languages as $key => $language){
                     $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                    $rs3 = mysql_query($sql3);
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     $value='';
                     if($rs3){
-                        if($lock3 = mysql_fetch_assoc($rs3)) {
+                        if($lock3 = ip_deprecated_mysql_fetch_assoc($rs3)) {
                             $value = $lock3['translation'];
                         }
                     } else {
-                        trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                        trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                     }
                     $html->html('<span class="label">'.$language['d_short'].'</span><br />');
                     $html->html('<div class="label">');
@@ -325,19 +325,19 @@ class Parameter extends Element{ //data element in area
 
 
         $sql = "select * from `".DB_PREF."".$area->dbTable."` where ".$area->dbPrimaryKey." = '".$value."' ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+            trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
         }
-        if ($lock = mysql_fetch_assoc($rs)){
+        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)){
 
             if($lock['type'] == 'string_wysiwyg'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs) {
-                    trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                    trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
                 } else {
-                    if($lock2 = mysql_fetch_assoc($rs)) {
+                    if($lock2 = ip_deprecated_mysql_fetch_assoc($rs)) {
                         $answer = mb_substr($lock2['value'], 0, 25);
                     } else {
                         trigger_error("Can not get text field data. ".$sql);
@@ -346,11 +346,11 @@ class Parameter extends Element{ //data element in area
             }
             if($lock['type'] == 'string'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs) {
-                    trigger_error("Can not get text field data. ".$sql." ".mysql_error());
+                    trigger_error("Can not get text field data. ".$sql." ".ip_deprecated_mysql_error());
                 } else {
-                    if($lock2 = mysql_fetch_assoc($rs)) {
+                    if($lock2 = ip_deprecated_mysql_fetch_assoc($rs)) {
                         $answer = $lock2['value'];
                     } else {
                         $answer = '';
@@ -360,11 +360,11 @@ class Parameter extends Element{ //data element in area
 
             if($lock['type'] == 'integer'){
                 $sql = "select value from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs) {
-                    trigger_error("Can not get integer field data. ".$sql." ".mysql_error());
+                    trigger_error("Can not get integer field data. ".$sql." ".ip_deprecated_mysql_error());
                 } else {
-                    if ($lock2 = mysql_fetch_assoc($rs)) {
+                    if ($lock2 = ip_deprecated_mysql_fetch_assoc($rs)) {
                         $answer = $lock2['value'];
                     } else {
                         trigger_error("Can not get integer field data. ".$sql);
@@ -374,11 +374,11 @@ class Parameter extends Element{ //data element in area
 
             if($lock['type'] == 'bool'){
                 $sql = "select value from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs) {
-                    trigger_error("Can not get bool field data. ".$sql." ".mysql_error());
+                    trigger_error("Can not get bool field data. ".$sql." ".ip_deprecated_mysql_error());
                 } else {
-                    if($lock2 = mysql_fetch_assoc($rs)){
+                    if($lock2 = ip_deprecated_mysql_fetch_assoc($rs)){
                         if ($lock2['value']) {
                             $answer = '+';
                         } else {
@@ -392,11 +392,11 @@ class Parameter extends Element{ //data element in area
 
             if($lock['type'] == 'textarea'){
                 $sql = "select value from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs) {
-                    trigger_error("Can not get textarea field data. ".$sql." ".mysql_error());
+                    trigger_error("Can not get textarea field data. ".$sql." ".ip_deprecated_mysql_error());
                 } else {
-                    if($lock2 = mysql_fetch_assoc($rs)) {
+                    if($lock2 = ip_deprecated_mysql_fetch_assoc($rs)) {
                         $answer = $lock2['value'];
                     } else {
                         trigger_error("Can not get textarea field data. ".$sql);
@@ -407,12 +407,12 @@ class Parameter extends Element{ //data element in area
             if($lock['type'] == 'lang'){
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if (!$rs2) {
-                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                    trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
                 } else {
                     $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
+                    while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
                     }
 
@@ -420,13 +420,13 @@ class Parameter extends Element{ //data element in area
 
                     foreach($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
+                        $rs3 = ip_deprecated_mysql_query($sql3);
                         if($rs3){
-                            if ($lock3 = mysql_fetch_assoc($rs3)) {
+                            if ($lock3 = ip_deprecated_mysql_fetch_assoc($rs3)) {
                                 $answer .= '/'.$lock3['translation'];
                             }
                         } else {
-                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                         }
                     }
 
@@ -437,12 +437,12 @@ class Parameter extends Element{ //data element in area
             if($lock['type'] == 'lang_textarea'){
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if (!$rs2) {
-                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                    trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
                 } else {
                     $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
+                    while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
                     }
 
@@ -450,13 +450,13 @@ class Parameter extends Element{ //data element in area
 
                     foreach ($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
+                        $rs3 = ip_deprecated_mysql_query($sql3);
                         if($rs3){
-                            if($lock3 = mysql_fetch_assoc($rs3)) {
+                            if($lock3 = ip_deprecated_mysql_fetch_assoc($rs3)) {
                                 $answer .= '/'.substr($lock3['translation'], 0, 20);
                             }
                         } else {
-                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                         }
 
                     }
@@ -468,12 +468,12 @@ class Parameter extends Element{ //data element in area
             if($lock['type'] == 'lang_wysiwyg'){
                 $answer = '';
                 $sql2 = "select t.translation, l.d_long, t.id as t_id, l.id as l_id from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                $rs2 = mysql_query($sql2);
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if (!$rs2) {
-                    trigger_error("Can not get language field data. ".$sql2." ".mysql_error());
+                    trigger_error("Can not get language field data. ".$sql2." ".ip_deprecated_mysql_error());
                 } else {
                     $values = array();
-                    while($lock2 = mysql_fetch_assoc($rs2)){
+                    while($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)){
                         $values[$lock2['l_id']] = $lock2['translation'];
                     }
 
@@ -481,13 +481,13 @@ class Parameter extends Element{ //data element in area
 
                     foreach ($languages as $key => $language){
                         $sql3 = "select t.translation from `".DB_PREF."par_lang` t, `".DB_PREF."language` l where l.id = '".$language['id']."' and t.language_id = l.id and t.parameter_id = '".$lock['id']."' ";
-                        $rs3 = mysql_query($sql3);
+                        $rs3 = ip_deprecated_mysql_query($sql3);
                         if($rs3){
-                            if ($lock3 = mysql_fetch_assoc($rs3)) {
+                            if ($lock3 = ip_deprecated_mysql_fetch_assoc($rs3)) {
                                 $answer .= '/'.substr($lock3['translation'], 0, 20);
                             }
                         } else {
-                            trigger_error("Can't get all languages ".$sql3." ".mysql_error());
+                            trigger_error("Can't get all languages ".$sql3." ".ip_deprecated_mysql_error());
                         }
                     }
 
@@ -515,27 +515,27 @@ class Parameter extends Element{ //data element in area
         global $std_mod_db;
         switch($_REQUEST[''.$prefix]){
             case "string_wysiwyg":
-                $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_wysiwyg'])."', parameter_id = ".$last_insert_id."";
-                $rs = mysql_query($sql);
+                $sql = "insert into `".DB_PREF."par_string` set value = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_wysiwyg'])."', parameter_id = ".$last_insert_id."";
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs)
-                trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                trigger_error("Can't insert parameter ".$sql." ".ip_deprecated_mysql_error());
                 break;
             case "string":
-                $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string($_REQUEST[$prefix.'_string'])."', parameter_id = ".$last_insert_id."";
-                $rs = mysql_query($sql);
+                $sql = "insert into `".DB_PREF."par_string` set value = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_string'])."', parameter_id = ".$last_insert_id."";
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs)
-                trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                trigger_error("Can't insert parameter ".$sql." ".ip_deprecated_mysql_error());
                 break;
             case "integer":
                 if($_REQUEST[$prefix.'_integer'] == '')
                 $value = ' NULL ';
                 else
-                $value = " '".mysql_real_escape_string($_REQUEST[$prefix.'_integer'])."' ";
+                $value = " '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_integer'])."' ";
 
                 $sql = "insert into `".DB_PREF."par_integer` set value = ".$value.", parameter_id = ".$last_insert_id."";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs)
-                trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                trigger_error("Can't insert parameter ".$sql." ".ip_deprecated_mysql_error());
                 break;
             case "bool":
                 if(isset($_REQUEST[$prefix.'_bool']))
@@ -544,42 +544,42 @@ class Parameter extends Element{ //data element in area
                 $value = " 0 ";
 
                 $sql = "insert into `".DB_PREF."par_bool` set value = ".$value.", parameter_id = ".$last_insert_id."";
-                $rs = mysql_query($sql);
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs)
-                trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                trigger_error("Can't insert parameter ".$sql." ".ip_deprecated_mysql_error());
                 break;
             case "textarea":
-                $sql = "insert into `".DB_PREF."par_string` set value = '".mysql_real_escape_string(str_replace("\r", '', $_REQUEST[$prefix.'_textarea']))."', parameter_id = ".$last_insert_id."";
-                $rs = mysql_query($sql);
+                $sql = "insert into `".DB_PREF."par_string` set value = '".ip_deprecated_mysql_real_escape_string(str_replace("\r", '', $_REQUEST[$prefix.'_textarea']))."', parameter_id = ".$last_insert_id."";
+                $rs = ip_deprecated_mysql_query($sql);
                 if(!$rs)
-                trigger_error("Can't insert parameter ".$sql." ".mysql_error());
+                trigger_error("Can't insert parameter ".$sql." ".ip_deprecated_mysql_error());
                 break;
 
             case "lang":
                 $languages = \Ip\Lib\StdMod\StdModDb::languages();
                 foreach($languages as $key => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_lang_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
                 break;
             case "lang_textarea":
                 $languages = \Ip\Lib\StdMod\StdModDb::languages();
                 foreach($languages as $key => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_textarea_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_lang_textarea_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
                 break;
             case "lang_wysiwyg":
                 $languages = \Ip\Lib\StdMod\StdModDb::languages();
                 foreach($languages as $key => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_lang_wysiwyg_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_lang_wysiwyg_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = ".$last_insert_id." ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
                 break;
         }
@@ -591,26 +591,26 @@ class Parameter extends Element{ //data element in area
 
 
         if($_REQUEST[''.$prefix] == 'string_wysiwyg'){
-            $sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
-            $rs = mysql_query($sql);
+            $sql = "update `".DB_PREF."par_string` set value='".ip_deprecated_mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error("Can't update parameter ".$sql." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql." ".ip_deprecated_mysql_error());
         }
         if($_REQUEST[''.$prefix] == 'string'){
-            $sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
-            $rs = mysql_query($sql);
+            $sql = "update `".DB_PREF."par_string` set value='".ip_deprecated_mysql_real_escape_string($_REQUEST[''.$prefix.'_string'])."' where parameter_id = '".$key."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error("Can't update parameter ".$sql." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql." ".ip_deprecated_mysql_error());
         }
 
         if($_REQUEST[''.$prefix] == 'integer'){
             if($_REQUEST[''.$prefix.'_integer'] != '')
-            $sql = "update `".DB_PREF."par_integer` set value='".mysql_real_escape_string($_REQUEST[''.$prefix.'_integer'])."' where parameter_id = '".$key."' ";
+            $sql = "update `".DB_PREF."par_integer` set value='".ip_deprecated_mysql_real_escape_string($_REQUEST[''.$prefix.'_integer'])."' where parameter_id = '".$key."' ";
             else
             $sql = "update `".DB_PREF."par_integer` set value=NULL where parameter_id = '".$key."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error("Can't update parameter ".$sql." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql." ".ip_deprecated_mysql_error());
         }
 
         if($_REQUEST[''.$prefix] == 'bool'){
@@ -620,16 +620,16 @@ class Parameter extends Element{ //data element in area
             $value = " 0 ";
 
             $sql = "update `".DB_PREF."par_bool` set value=".$value." where parameter_id = '".$key."' ";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error("Can't update parameter ".$sql." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql." ".ip_deprecated_mysql_error());
         }
 
         if($_REQUEST[''.$prefix] == 'textarea'){
-            $sql = "update `".DB_PREF."par_string` set value='".mysql_real_escape_string(str_replace("\r", "", $_REQUEST[''.$prefix.'_string']))."' where parameter_id = '".$key."' ";
-            $rs = mysql_query($sql);
+            $sql = "update `".DB_PREF."par_string` set value='".ip_deprecated_mysql_real_escape_string(str_replace("\r", "", $_REQUEST[''.$prefix.'_string']))."' where parameter_id = '".$key."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if(!$rs)
-            trigger_error("Can't update parameter ".$sql." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql." ".ip_deprecated_mysql_error());
         }
 
 
@@ -637,16 +637,16 @@ class Parameter extends Element{ //data element in area
             $languages = \Ip\Lib\StdMod\StdModDb::languages();
              
             $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if($rs2){
                 foreach($languages as $key2 => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."',  parameter_id = ".$key." ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."',  parameter_id = ".$key." ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
             }else
-            trigger_error("Can't update parameter ".$sql2." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql2." ".ip_deprecated_mysql_error());
              
              
              
@@ -656,32 +656,32 @@ class Parameter extends Element{ //data element in area
             $languages = \Ip\Lib\StdMod\StdModDb::languages();
              
             $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if($rs2){
                 foreach($languages as $key2 => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
             }else
-            trigger_error("Can't update parameter ".$sql2." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql2." ".ip_deprecated_mysql_error());
         }
 
         if($_REQUEST[''.$prefix] == 'lang_wysiwyg'){
             $languages = \Ip\Lib\StdMod\StdModDb::languages();
              
             $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$key."' ";
-            $rs2 = mysql_query($sql2);
+            $rs2 = ip_deprecated_mysql_query($sql2);
             if($rs2){
                 foreach($languages as $key2 => $language){
-                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
-                    $rs3 = mysql_query($sql3);
+                    $sql3 = "insert into `".DB_PREF."par_lang` set translation = '".ip_deprecated_mysql_real_escape_string($_REQUEST[$prefix.'_'.$language['id']])."', language_id = '".$language['id']."', parameter_id = '".$key."' ";
+                    $rs3 = ip_deprecated_mysql_query($sql3);
                     if(!$rs3)
-                    trigger_error("Can't update parameter ".$sql3." ".mysql_error());
+                    trigger_error("Can't update parameter ".$sql3." ".ip_deprecated_mysql_error());
                 }
             }else
-            trigger_error("Can't update parameter ".$sql2." ".mysql_error());
+            trigger_error("Can't update parameter ".$sql2." ".ip_deprecated_mysql_error());
         }
 
 
@@ -690,50 +690,50 @@ class Parameter extends Element{ //data element in area
         $key = $id;
         global $std_mod_db;
         $sql = "select * from `".DB_PREF."".$area->dbTable."` where ".$area->dbPrimaryKey." = '".$key."' ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if($lock = mysql_fetch_assoc($rs)){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
 
                 if($lock['type'] == 'string_wysiwyg'){
                     $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                    $rs = mysql_query($sql);
+                    $rs = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
                 }
                 if($lock['type'] == 'string'){
                     $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                    $rs = mysql_query($sql);
+                    $rs = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
                 }
 
 
                 if($lock['type'] == 'textarea'){
                     $sql = "delete from `".DB_PREF."par_string` where parameter_id = '".$lock['id']."' ";
-                    $rs = mysql_query($sql);
+                    $rs = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
                 }
                 if($lock['type'] == 'bool'){
                     $sql = "delete from `".DB_PREF."par_bool` where parameter_id = '".$lock['id']."' ";
-                    $rs = mysql_query($sql);
+                    $rs = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
                 }
 
                 if($lock['type'] == 'integer'){
                     $sql = "delete from `".DB_PREF."par_integer` where parameter_id = '".$lock['id']."' ";
-                    $rs = mysql_query($sql);
+                    $rs = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
                 }
                 if($lock['type'] == 'lang'){
                     $languages = \Ip\Lib\StdMod\StdModDb::languages();
 
                     $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
-                    $rs2 = mysql_query($sql2);
+                    $rs2 = ip_deprecated_mysql_query($sql2);
                     if(!$rs2)
-                    trigger_error("Can't delete parameter ".$sql2." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql2." ".ip_deprecated_mysql_error());
 
                 }
 
@@ -741,9 +741,9 @@ class Parameter extends Element{ //data element in area
                     $languages = \Ip\Lib\StdMod\StdModDb::languages();
 
                     $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
-                    $rs2 = mysql_query($sql2);
+                    $rs2 = ip_deprecated_mysql_query($sql2);
                     if(!$rs2)
-                    trigger_error("Can't delete parameter ".$sql2." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql2." ".ip_deprecated_mysql_error());
 
                 }
 
@@ -751,14 +751,14 @@ class Parameter extends Element{ //data element in area
                     $languages = \Ip\Lib\StdMod\StdModDb::languages();
 
                     $sql2 = "delete from `".DB_PREF."par_lang` where parameter_id = '".$lock['id']."' ";
-                    $rs2 = mysql_query($sql2);
+                    $rs2 = ip_deprecated_mysql_query($sql2);
                     if(!$rs2)
-                    trigger_error("Can't delete parameter ".$sql2." ".mysql_error());
+                    trigger_error("Can't delete parameter ".$sql2." ".ip_deprecated_mysql_error());
 
                 }
 
             } else trigger_error("Can't delete parameter ".$sql);
-        }else trigger_error("Can't delete parameter ".$sql." ".mysql_error());
+        }else trigger_error("Can't delete parameter ".$sql." ".ip_deprecated_mysql_error());
 
     }
 
