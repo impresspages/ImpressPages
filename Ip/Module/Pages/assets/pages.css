@@ -121,3 +121,8 @@ form .error {
     width: auto;
     font-weight: bold;
 }
+
+.ipmLoading {
+    background: url(loading.gif) no-repeat center;
+    padding-top: 100px;
+}
