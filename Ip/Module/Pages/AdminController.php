@@ -431,6 +431,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\CoreException("Missing required parameter");
         }
         $zoneName = $params['zoneName'];
+        $zoneId = $site->getZone($zoneName)->getId();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -439,9 +440,11 @@ class AdminController extends \Ip\Controller
 
         $form = Forms::zoneSeoForm($languageId, $zoneName);
 
+        $data = $form->filterValues($params);
+
         $errors = $form->validate($params);
 
-        $data = $form->filterValues($params);
+
 
         $zoneData = array(
             'title' => $data['title'],
@@ -450,12 +453,26 @@ class AdminController extends \Ip\Controller
             'description' => $data['description']
         );
 
-        $zoneId = $site->getZone($zoneName)->getId();
+        try {
+            ZoneModel::updateZone($languageId, $zoneId, $zoneData);
+        } catch (DuplicateUrlException $e) {
+            $errors['url'] = '{{Following url already has been used.}}';
+        }
 
-        Model::updateZone($languageId, $zoneId, $zoneData);
 
 
-        $this->returnJson(array(true));
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success',
+            );
+        }
+        $this->returnJson($data);
     }
 
     /**

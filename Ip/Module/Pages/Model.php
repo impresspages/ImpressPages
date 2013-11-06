@@ -196,12 +196,6 @@ class Model {
 
     }
 
-    public static function updateZone($languageId, $zoneId, $data) {
-        $condition = array(
-            'language_id' => $languageId,
-            'zone_id' => $zoneId
-        );
-        \Ip\Db::update(DB_PREF . 'zone_parameter', $data, $condition);
-    }
+
 
 }
