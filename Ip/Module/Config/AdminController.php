@@ -29,7 +29,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'translation'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
+        $element->name = $parametersMod->getValue('ModulesConfig.name');
         $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
@@ -38,9 +38,9 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'name'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
+        $element->name = $parametersMod->getValue('ModulesConfig.key');
         $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
-        $element->regExpressionError = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
+        $element->regExpressionError = $parametersMod->getValue('ModulesConfig.error_incorrect_name');
          
         $element->showOnList = true;
         //   $element->searchable = true;
@@ -50,7 +50,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Bool(array(
             'dbField' => 'admin'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
+        $element->name = $parametersMod->getValue('ModulesConfig.admin');
         $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
@@ -60,7 +60,7 @@ class AdminController {
 
         $area1 = new \Ip\Lib\StdMod\Area();
         $area1->dbTable = "module";
-        $area1->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','modules');
+        $area1->name = $parametersMod->getValue('ModulesConfig.modules');
         $area1->dbPrimaryKey = "id";
         $area1->elements = $elements;
         $area1->orderBy = 'row_number';
@@ -86,7 +86,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'translation'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
+        $element->name = $parametersMod->getValue('ModulesConfig.name');
         $element->showOnList = true;
         $elements[] = $element;
         $tmpEl = $element;
@@ -96,9 +96,9 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'name'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
+        $element->name = $parametersMod->getValue('ModulesConfig.key');
         $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
-        $element->regExpressionError = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
+        $element->regExpressionError = $parametersMod->getValue('ModulesConfig.error_incorrect_name');
 
         $element->showOnList = true;
         // $element->searchable = true;
@@ -108,7 +108,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Bool(array(
             'dbField' => 'admin'
         ));
-        $element->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
+        $element->name = $parametersMod->getValue('ModulesConfig.admin');
         $element->showOnList = true;
         // $element->searchable = true;
         $elements[] = $element;
@@ -117,7 +117,7 @@ class AdminController {
 
         $area2 = new \Ip\Lib\StdMod\Area();
         $area2->dbTable = "parameter_group";
-        $area2->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','parameter_groups');
+        $area2->name = $parametersMod->getValue('ModulesConfig.parameter_groups');
         $area2->dbPrimaryKey = "id";
         $area2->elements = $elements;
         $area2->sortField = "row_number";
@@ -135,7 +135,7 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'translation'
         ));
-        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','name');
+        $element->title = $parametersMod->getValue('ModulesConfig.name');
         $element->showOnList = true;
         $elements[] = $element;
         $tmpEl = $element;
@@ -145,9 +145,9 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'name'
         ));
-        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','key');
+        $element->title = $parametersMod->getValue('ModulesConfig.key');
         $element->regExpression = "/^[A-Za-z0-9\\-_]+$/";
-        $element->regExpressionError = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','error_incorrect_name');
+        $element->regExpressionError = $parametersMod->getValue('ModulesConfig.error_incorrect_name');
         $element->showOnList = true;
         $elements[] = $element;
 
@@ -157,14 +157,14 @@ class AdminController {
         $element = new \Ip\Lib\StdMod\Element\Parameter(array(
             'dbField' => 'id'
         ));
-        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','value');
+        $element->title = $parametersMod->getValue('ModulesConfig.value');
         $element->showOnList = true;
         $elements[] = $element;
 
         $element = new \Ip\Lib\StdMod\Element\Bool(array(
             'dbField' => 'admin'
         ));
-        $element->title = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','admin');
+        $element->title = $parametersMod->getValue('ModulesConfig.admin');
         $element->showOnList = true;
         $elements[] = $element;
 
@@ -172,7 +172,7 @@ class AdminController {
 
         $area3 = new \Ip\Lib\StdMod\Area();
         $area3->dbTable = "parameter";
-        $area3->name = $parametersMod->getValue('developer', 'modules_configuration','admin_translations','parameters');
+        $area3->name = $parametersMod->getValue('ModulesConfig.parameters');
         $area3->dbPrimaryKey = "id";
         $area3->elements = $elements;
         $area3->sortField = "row_number";

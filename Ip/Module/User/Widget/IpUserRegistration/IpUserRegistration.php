@@ -14,7 +14,7 @@ class IpUserRegistration extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('community', 'user', 'admin_translations', 'registration');
+        return $parametersMod->getValue('User.registration');
     }
     
     public function previewHtml($instanceId, $data, $layout) {
@@ -33,7 +33,7 @@ class IpUserRegistration extends \Ip\Module\Content\Widget{
         $data = array (
             'registrationForm' => $registrationForm,
             'loggedIn' => $session->loggedIn(),
-            'registrationEnabled' => $parametersMod->getValue('community','user','options','enable_registration')
+            'registrationEnabled' => $parametersMod->getValue('User.enable_registration')
         );
         return parent::previewHtml($instanceId, $data, $layout);
         

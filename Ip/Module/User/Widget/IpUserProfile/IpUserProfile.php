@@ -14,7 +14,7 @@ class IpUserProfile extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('community', 'user', 'admin_translations', 'registration');
+        return $parametersMod->getValue('User.registration');
     }
     
     public function previewHtml($instanceId, $data, $layout) {

@@ -45,13 +45,13 @@ class SiteController {
             return;
         }
 
-        if($parametersMod->getValue('community','user','options','login_type') == 'login') {
+        if($parametersMod->getValue('User.login_type') == 'login') {
             $tmpUser = Db::userByLogin($_POST['login']);
         } else {
             $tmpUser = Db::userByEmail($_POST['email']);
         }
 
-        if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+        if($parametersMod->getValue('User.encrypt_passwords')) {
             $tmp_password = md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
         } else {
             $tmp_password = $_POST['password'];
@@ -64,11 +64,11 @@ class SiteController {
             $data = array('userId' => $tmpUser['id']);
             $dispatcher->notify(new Event($this, Event::LOGIN, $data));
 
-            if($parametersMod->getValue('community','user','options','enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
+            if($parametersMod->getValue('User.enable_autologin') && isset($_POST['autologin']) && $_POST['autologin'] ) {
                 setCookie(
                     Config::$autologinCookieName,
                     json_encode(array('id' => $tmpUser['id'], 'pass' => md5($tmpUser['password'].$tmpUser['created_on']))),
-                    time() + $parametersMod->getValue('community','user','options','autologin_time') * 60 * 60 * 24,
+                    time() + $parametersMod->getValue('User.autologin_time') * 60 * 60 * 24,
                     Config::$autologinCookiePath,
                     Config::getCookieDomain()
                 );
@@ -84,10 +84,10 @@ class SiteController {
             $errors = array();
             $site->dispatchEvent('community', 'user', 'incorrect_login', array('post'=>$_POST));
 
-            if($parametersMod->getValue('community','user','options','login_type') == 'login') {
-                $errors['globalError'] = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_login_data');
+            if($parametersMod->getValue('User.login_type') == 'login') {
+                $errors['globalError'] = $parametersMod->getValue('User.incorrect_login_data');
             }else {
-                $errors['globalError'] = $parametersMod->getValue('community', 'user', 'errors', 'incorrect_email_data');
+                $errors['globalError'] = $parametersMod->getValue('User.incorrect_email_data');
                 $errors['email'] = '';
             }
             $log->log('community/user', 'incorrect frontend login', $_SERVER['REMOTE_ADDR']);
@@ -115,7 +115,7 @@ class SiteController {
             $dispatcher->notify(new Event($this, Event::LOGOUT, $data));
         }
 
-        if($parametersMod->getValue('community','user','options','enable_autologin')) {
+        if($parametersMod->getValue('User.enable_autologin')) {
             setCookie(
                 Config::$autologinCookieName,
                 '',
@@ -134,7 +134,7 @@ class SiteController {
 
         $html = '';
 
-        if(!$parametersMod->getValue('community','user','options','enable_registration')) {
+        if(!$parametersMod->getValue('User.enable_registration')) {
             $site->setOutput('');
             return;
         }
@@ -148,19 +148,19 @@ class SiteController {
         $sameEmailUser = Db::userByEmail($postData['email']);
 
         if($postData['email'] && $sameEmailUser) {
-            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
+            $errors['email'] = $parametersMod->getValue('User.already_registered');
         }
 
-        if($parametersMod->getValue('community','user','options','login_type') == 'login') {
+        if($parametersMod->getValue('User.login_type') == 'login') {
             $sameLoginUser = Db::userByLogin($postData['login']);
             if($sameLoginUser) {
-                $errors['login'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
+                $errors['login'] = $parametersMod->getValue('User.already_registered');
             }
         }
 
-        if($parametersMod->getValue('community','user','options','type_password_twice') && $postData['password'] != $postData['confirm_password']) {
-            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+        if($parametersMod->getValue('User.type_password_twice') && $postData['password'] != $postData['confirm_password']) {
+            $errors['password'] = $parametersMod->getValue('User.passwords_dont_match');
+            $errors['confirm_password'] = $parametersMod->getValue('User.passwords_dont_match');
         }
 
         if (sizeof($errors) > 0) {
@@ -172,13 +172,13 @@ class SiteController {
             return;
         } else {
             $tmp_code = md5(uniqid(rand(), true));
-            if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+            if($parametersMod->getValue('User.encrypt_passwords')) {
                 $password = md5($postData['password'].\Ip\Module\User\Config::$hashSalt);
             } else {
                 $password = $postData['password'];
             }
 
-            if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
+            if ($parametersMod->getValue('User.require_email_confirmation')) {
                 $verified = '0';
             } else {
                 $verified = '1';
@@ -211,7 +211,7 @@ class SiteController {
             $dispatcher->notify(new Event($this, Event::REGISTRATION, $data));
 
 
-            if ($parametersMod->getValue('community', 'user', 'options', 'require_email_confirmation')) {
+            if ($parametersMod->getValue('User.require_email_confirmation')) {
                 $this->sendVerificationLink($postData['email'], $tmp_code, $insertId);
                 $data = array (
                     'status' => 'success',
@@ -220,7 +220,7 @@ class SiteController {
                 $this->returnJson($data);
                 return;
             } else {
-                if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
+                if ($parametersMod->getValue('User.autologin_after_registration')) {
                     $tmpUser = Db::userById($insertId);
                     if ($tmpUser) {
                         $this->login($tmpUser);
@@ -263,15 +263,15 @@ class SiteController {
         if(isset($_POST['email']) && $_POST['email'] != $tmpUser['email']) {
             $user_by_new_email = Db::userByEmail($_POST['email']);
             if($user_by_new_email && $user_by_new_email['verified']) {
-                $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'already_registered');
+                $errors['email'] = $parametersMod->getValue('User.already_registered');
             }
 
         }
 
 
-        if($parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
-            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+        if($parametersMod->getValue('User.type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
+            $errors['password'] = $parametersMod->getValue('User.passwords_dont_match');
+            $errors['confirm_password'] = $parametersMod->getValue('User.passwords_dont_match');
         }
 
 
@@ -296,7 +296,7 @@ class SiteController {
             }
 
             if(isset($_POST['password']) && $_POST['password'] != '') {
-                if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+                if($parametersMod->getValue('User.encrypt_passwords')) {
                     $additionalFields['password'] =  md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
                 } else {
                     $additionalFields['password'] =  $_POST['password'];
@@ -363,7 +363,7 @@ class SiteController {
             if ($current['verification_code'] == $code) {
                 if ($sameEmailUser && $sameEmailUser['id'] != $current['id']) {
                     $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlVerificationErrorEmailExist)));
-                } elseif($parametersMod->getValue('community','user','options','login_type') == 'login' && $sameLoginUser && $sameLoginUser['id'] != $current['id']) {
+                } elseif($parametersMod->getValue('User.login_type') == 'login' && $sameLoginUser && $sameLoginUser['id'] != $current['id']) {
                     $this->redirect($site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlVerificationErrorUserExist)));
                 } else {
                     if (!$current['verified']) {
@@ -376,7 +376,7 @@ class SiteController {
                         $data = array('userId' => $current['id']);
                         $dispatcher->notify(new Event($this, Event::REGISTRATION_VERIFICATION, $data));
 
-                        if ($parametersMod->getValue('community', 'user', 'options', 'autologin_after_registration')) {
+                        if ($parametersMod->getValue('User.autologin_after_registration')) {
                             $this->loginUser($current);
                             $this->redirect($this->redirectAfterLoginUrl());
                         }
@@ -447,12 +447,12 @@ class SiteController {
 
         $tmpUser = Db::userByEmail($_POST['email']);
         if (!$tmpUser) {
-            $errors['email'] = $parametersMod->getValue('community', 'user', 'errors', 'email_doesnt_exist');
+            $errors['email'] = $parametersMod->getValue('User.email_doesnt_exist');
         }
 
-        if(!isset($_POST['password']) || $_POST['password'] == '' || $parametersMod->getValue('community','user','options','type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
-            $errors['password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
-            $errors['confirm_password'] = $parametersMod->getValue('community', 'user', 'errors', 'passwords_dont_match');
+        if(!isset($_POST['password']) || $_POST['password'] == '' || $parametersMod->getValue('User.type_password_twice') && $_POST['password'] != $_POST['confirm_password']) {
+            $errors['password'] = $parametersMod->getValue('User.passwords_dont_match');
+            $errors['confirm_password'] = $parametersMod->getValue('User.passwords_dont_match');
         }
 
 
@@ -466,7 +466,7 @@ class SiteController {
         } else {
 
             $tmp_code = md5(uniqid(rand(), true));
-            if($parametersMod->getValue('community', 'user', 'options', 'encrypt_passwords')) {
+            if($parametersMod->getValue('User.encrypt_passwords')) {
                 $additionalFields['new_password'] = md5($_POST['password'].\Ip\Module\User\Config::$hashSalt);
             } else {
                 $additionalFields['new_password'] = $_POST['password'];
@@ -528,8 +528,8 @@ class SiteController {
             $url = $_SESSION['modules']['community']['user']['page_after_login'];
             unset($_SESSION['modules']['community']['user']['page_after_login']);
         } else {
-            if($parametersMod->getValue('community', 'user', 'options', 'zone_after_login')) {
-                $url = $site->generateUrl(null, $parametersMod->getValue('community', 'user', 'options', 'zone_after_login'));
+            if($parametersMod->getValue('User.zone_after_login')) {
+                $url = $site->generateUrl(null, $parametersMod->getValue('User.zone_after_login'));
             } else {
                 $url = $site->generateUrl(null, $this->getUserZone()->getName(), array(Config::$urlProfile));
             }
@@ -552,12 +552,12 @@ class SiteController {
         global $site;
 
 
-        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_registration');
+        $content = $parametersMod->getValue('User.text_verify_registration');
         $link = $site->generateUrl(null, null, array(), array("aa" => "User.verification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        $websiteName = $parametersMod->getValue('Config.name');
+        $websiteEmail = $parametersMod->getValue('Config.email');
 
 
         $emailData = array(
@@ -569,7 +569,7 @@ class SiteController {
         $email = \Ip\View::create('view/email.php', $emailData)->render();
         $from = $websiteEmail;
 
-        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_registration');
+        $subject = $parametersMod->getValue('User.subject_verify_registration');
 
         $files = array();
         $emailQueue = new \Ip\Module\Email\Module();
@@ -583,12 +583,12 @@ class SiteController {
         global $site;
 
 
-        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_verify_new_email');
+        $content = $parametersMod->getValue('User.text_verify_new_email');
         $link = $site->generateUrl(null, null, array(), array("aa" => "User.newEmailVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        $websiteName = $parametersMod->getValue('Config.name');
+        $websiteEmail = $parametersMod->getValue('Config.email');
 
 
         $emailData = array(
@@ -600,7 +600,7 @@ class SiteController {
         $email = \Ip\View::create('view/email.php', $emailData)->render();
         $from = $websiteEmail;
 
-        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_verify_new_email');
+        $subject = $parametersMod->getValue('User.subject_verify_new_email');
 
         $files = array();
         $emailQueue = new \Ip\Module\Email\Module();
@@ -616,12 +616,12 @@ class SiteController {
 
         $emailQueue = new \Ip\Module\Email\Module();
 
-        $content = $parametersMod->getValue('community', 'user', 'email_messages', 'text_password_reset');
+        $content = $parametersMod->getValue('User.text_password_reset');
         $link = $site->generateUrl(null, null, array(), array("aa" => "User.passwordResetVerification", "id" => $userId, "code" => $code));
         $content = str_replace('[[link]]', '<a href="'.$link.'">'.$link.'</a>', $content);
 
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        $websiteName = $parametersMod->getValue('Config.name');
+        $websiteEmail = $parametersMod->getValue('Config.email');
 
 
         $emailData = array(
@@ -633,7 +633,7 @@ class SiteController {
         $email = \Ip\View::create('view/email.php', $emailData)->render();
         $from = $websiteEmail;
 
-        $subject = $parametersMod->getValue('community', 'user', 'email_messages', 'subject_password_reset');
+        $subject = $parametersMod->getValue('User.subject_password_reset');
 
         $files = array();
         $emailQueue = new \Ip\Module\Email\Module();

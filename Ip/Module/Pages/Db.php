@@ -29,7 +29,7 @@ class Db {
 
         global $parametersMod;
 
-        $managedZones = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'));
+        $managedZones = explode("\n",$parametersMod->getValue('Pages.associated_zones'));
         $sqlZonesArray = "'".implode("','",$managedZones)."'";
 
 
@@ -72,7 +72,7 @@ class Db {
     public static function getAutoRssZones() {
         global $parametersMod;
         
-        $answer = explode("\n",$parametersMod->getValue('standard', 'menu_management', 'options', 'auto_rss_zones'));
+        $answer = explode("\n",$parametersMod->getValue('Pages.auto_rss_zones'));
         return $answer;
     }
 

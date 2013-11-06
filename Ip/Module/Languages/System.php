@@ -23,7 +23,7 @@ class System{
         global $parametersMod;
         $name = $event->getValue('slotName');
         if ( $name == 'ipLanguages') {
-            if ($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+            if ($parametersMod->getValue('Config.multilingual')) {
                 $event->setValue('content', Module::generateLanguageList());
                 $event->addProcessed();
             }else {

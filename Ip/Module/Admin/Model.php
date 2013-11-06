@@ -118,7 +118,7 @@ class Model{
         $log = \Ip\ServiceLocator::getLog();
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
-            $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
+            $this->loginError = $parametersMod->getValue('Config.login_suspended');
             $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
         }else {
             $id = $this->userId($username, $pass);
@@ -127,7 +127,7 @@ class Model{
                 $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                 return true;
             } else {
-                $this->loginError = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
+                $this->loginError = $parametersMod->getValue('Config.login_incorrect');
                 $log->log('system', 'backend login incorrect', $username.'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 return false;
             }

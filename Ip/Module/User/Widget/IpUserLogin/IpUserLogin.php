@@ -14,7 +14,7 @@ class IpUserLogin extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('community', 'user', 'admin_translations', 'login');
+        return $parametersMod->getValue('User.login');
     }
     
     public function previewHtml($instanceId, $data, $layout) {
@@ -41,11 +41,11 @@ class IpUserLogin extends \Ip\Module\Content\Widget{
             
             $data['loginForm'] = $loginForm;
             
-            if($parametersMod->getValue('community','user','options','allow_password_reset')) {
+            if($parametersMod->getValue('User.allow_password_reset')) {
                 $data['passwordResetUrl'] = $userZone->getLinkPasswordReset();
             }
 
-            if($parametersMod->getValue('community','user','options','registration_on_login_page') && $parametersMod->getValue('community','user','options','enable_registration')) {
+            if($parametersMod->getValue('User.registration_on_login_page') && $parametersMod->getValue('User.enable_registration')) {
                 $data['registrationUrl'] = $userZone->getLinkRegistration();
             }
             

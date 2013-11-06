@@ -71,7 +71,7 @@ class ElementFile extends Element{ //data element in area
 
         /* translation */
         global $parametersMod;
-        $deleteTranslation = '&nbsp;'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations','delete').'&nbsp;';
+        $deleteTranslation = '&nbsp;'.$parametersMod->getValue('StdMod.delete').'&nbsp;';
         /*eof translation*/
 
         if($value != ''){
@@ -132,19 +132,19 @@ class ElementFile extends Element{ //data element in area
                 $this->memFile = $uploadFile->fileName;
                 return null;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && !isset($this->memFile) && $action== 'insert'){
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+                return $parametersMod->getValue('StdMod.error_required');
             }elseif($error ==  UPLOAD_ERR_NO_FILE){
                 return null;
             }elseif($error == UPLOAD_ERR_EXTENSION)
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_type').' '.implode(', ', $this->extensions);
+            return $parametersMod->getValue('StdMod.error_file_type').' '.implode(', ', $this->extensions);
             else{
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_upload')." ".$error;
+                return $parametersMod->getValue('StdMod.error_file_upload')." ".$error;
             }
 
         }
 
         if(isset($_POST[$prefix.'_delete']) && $this->required)
-        return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+        return $parametersMod->getValue('StdMod.error_required');
 
         return null;
     }

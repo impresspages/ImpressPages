@@ -60,7 +60,7 @@ class Application {
         $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
         /*detect browser language*/
-        if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
+        if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('Config.detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('Config.multilingual')){
             require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
 
             $browserLanguages = \Library\Php\BrowserDetection\Language::getLanguages();
@@ -96,9 +96,9 @@ class Application {
         \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
 
         /*check if the website is closed*/
-        if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
+        if($parametersMod->getValue('Config.closed_site') && !$site->managementState()
             && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
-            return $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
+            return $parametersMod->getValue('Config.closed_site_message');
         }
 
         /*eof check if the website is closed*/
@@ -106,7 +106,7 @@ class Application {
         if(!defined('BACKEND')){
             $session = \Ip\ServiceLocator::getSession();
             if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
-                $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xss_autocheck') &&
+                $parametersMod->getValue('Config.xss_autocheck') &&
                 (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) &&
                 (empty($_POST['pa']) || empty($_POST['m']) || empty($_POST['g']))
             ) {
@@ -165,7 +165,7 @@ class Application {
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
          By default fake cron is enabled
         */
-        if(!\Ip\Module\Admin\Model::isSafeMode() && $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
+        if(!\Ip\Module\Admin\Model::isSafeMode() && $parametersMod->getValue('Config.use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
             // create a new curl resource
 
             $ch = curl_init();

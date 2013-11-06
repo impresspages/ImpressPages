@@ -37,8 +37,8 @@ class System{
             );
 
             $site->addJavascriptVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
-            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'confirm_delete'));
-            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'delete_warning'));
+            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', $parametersMod->getValue('Repository.confirm_delete'));
+            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', $parametersMod->getValue('Repository.delete_warning'));
         }
 
 

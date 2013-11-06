@@ -22,7 +22,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $group = $this->getParametersGroup($module['id'], 'admin_translations');
         if ($group) {
-            if(!$this->getParameter('standard', 'menu_management', 'admin_translations', 'default')) {
+            if(!$this->getParameter('Pages.default')) {
                 $this->addStringParameter($group['id'], 'Default layout', 'default', 'Default', 1);
             }
 

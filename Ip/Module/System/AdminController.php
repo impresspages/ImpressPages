@@ -65,10 +65,10 @@ class AdminController extends \Ip\Controller{
         $success = $module->updateRobotsTxt($cachedUrl);
 
         if (!$success) {
-            $_SESSION['modules']['administrator']['system']['notes'][] = $parametersMod->getValue('administrator', 'system', 'admin_translations', 'robots_txt_update_failed');
+            $_SESSION['modules']['administrator']['system']['notes'][] = $parametersMod->getValue('System.robots_txt_update_failed');
         }
 
-        $_SESSION['modules']['administrator']['system']['notes'][] = $parametersMod->getValue('administrator', 'system', 'admin_translations', 'cache_cleared');
+        $_SESSION['modules']['administrator']['system']['notes'][] = $parametersMod->getValue('System.cache_cleared');
 
         $answer = array(
             'jsonrpc' => '2.0',

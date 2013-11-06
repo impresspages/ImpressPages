@@ -329,19 +329,19 @@ class AdminController extends \Ip\Controller
         $tabs = array();
 
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
+        $title = $parametersMod->getValue('Pages.general');
         $content = Template::generateTabGeneral();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+        $title = $parametersMod->getValue('Pages.seo');
         $content = Template::generateTabSEO();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
+        $title = $parametersMod->getValue('Pages.advanced');
         $content = Template::generateTabAdvanced();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
+        $title = $parametersMod->getValue('Pages.design');
         $content = $this->getPageDesignOptionsHtml($zone, $page, array('show_submit_button' => true));
         $tabs[] = array('title' => $title, 'content' => $content);
 
@@ -398,7 +398,7 @@ class AdminController extends \Ip\Controller
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $answer = array();
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+        $title = $parametersMod->getValue('Pages.seo');
 
         $propertiesData = array (
             'form' => Forms::zoneSeoForm($languageId, $zoneName, $zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
@@ -626,15 +626,15 @@ class AdminController extends \Ip\Controller
         //end make url
 
         if (strtotime($_POST['createdOn']) === false) {
-            $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
+            $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('Pages.error_date_format').date("Y-m-d"));
         }
 
         if (strtotime($_POST['lastModified']) === false) {
-            $answer['errors'][] = array('field' => 'lastModified', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_date_format').date("Y-m-d"));
+            $answer['errors'][] = array('field' => 'lastModified', 'message' => $parametersMod->getValue('Pages.error_date_format').date("Y-m-d"));
         }
 
         if ($_POST['type'] == 'redirect' && $_POST['redirectURL'] == '') {
-            $answer['errors'][] = array('field' => 'redirectURL', 'message' => $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'error_type_url_empty'));
+            $answer['errors'][] = array('field' => 'redirectURL', 'message' => $parametersMod->getValue('Pages.error_type_url_empty'));
         }
 
 
@@ -726,7 +726,7 @@ class AdminController extends \Ip\Controller
         $data['url'] = Db::makeUrl($buttonTitle);
         $data['createdOn'] = date("Y-m-d");
         $data['lastModified'] = date("Y-m-d");
-        $data['visible'] = !$parametersMod->getValue('standard', 'menu_management', 'options', 'hide_new_pages');
+        $data['visible'] = !$parametersMod->getValue('Pages.hide_new_pages');
 
         $autoRssZones = Db::getAutoRssZones();
         $data['rss'] = in_array($zone->getName(), $autoRssZones);

@@ -4,17 +4,17 @@
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
-                    <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->escPar('standard/content_management/admin_translations/search_widgets') ?>" />
+                    <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->escPar('Content.search_widgets') ?>" />
                     <a href="#" class="ipaButton"></a>
                 </div>
             </div>
-            <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->escPar('standard/content_management/admin_translations/advanced'); ?>"><span>&nbsp;</span></a>
-            <a href="<?php echo str_replace('cms_action=manage', '', $site->generateCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->escPar('standard/content_management/admin_translations/preview'); ?>"><span>&nbsp;</span></a>
-            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->escPar('standard/content_management/admin_translations/publish'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
+            <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->escPar('Content.advanced'); ?>"><span>&nbsp;</span></a>
+            <a href="<?php echo str_replace('cms_action=manage', '', $site->generateCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->escPar('Content.preview'); ?>"><span>&nbsp;</span></a>
+            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->escPar('Content.publish'); ?>"><?php echo $this->escPar('Content.publish') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
                 <div class="ipaDropdownBlock">
-                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->escPar('standard/content_management/admin_translations/save_now_hint'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/save_now') ?></a>
+                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->escPar('Content.save_now_hint'); ?>"><?php echo $this->escPar('Content.save_now') ?></a>
                     <ul>
     <?php foreach ($revisions as $revisionKey => $revision){
               $revisionClass = '';
@@ -29,7 +29,7 @@
     ?>
                         <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                             <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.$this->escPar('standard/content_management/admin_translations/published_revision_marker') . ' ' : ''; ?>
+                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.$this->escPar('Content.published_revision_marker') . ' ' : ''; ?>
                             </a>
                         </li>
     <?php } ?>
@@ -42,9 +42,9 @@
     <?php if(!$manageableRevision){ ?>
             <div class="ipAdminWidgetsDisable">
                 <p>
-                    <?php echo $this->escPar('standard/content_management/admin_translations/older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
-                    <a href="#" class="ipActionPublish"><?php echo $this->escPar('standard/content_management/admin_translations/older_revision_publish') ?></a>
-                    <a href="#" class="ipActionSave"><?php echo $this->escPar('standard/content_management/admin_translations/older_revision_edit') ?></a>
+                    <?php echo $this->escPar('Content.older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
+                    <a href="#" class="ipActionPublish"><?php echo $this->escPar('Content.older_revision_publish') ?></a>
+                    <a href="#" class="ipActionSave"><?php echo $this->escPar('Content.older_revision_edit') ?></a>
                 </p>
             </div>
     <?php } ?>
@@ -73,4 +73,4 @@
     </div>
 
 </div>
-<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo $this->escPar('standard/content_management/admin_translations/publish'); ?>"><?php echo $this->escPar('standard/content_management/admin_translations/publish') ?></a>
+<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo $this->escPar('Content.publish'); ?>"><?php echo $this->escPar('Content.publish') ?></a>

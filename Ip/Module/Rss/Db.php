@@ -35,11 +35,11 @@ class Db{
     public static function getRss($languageId, $zoneKey, $elementId){
         global $parametersMod;
         if($languageId != null && $zoneKey != null && $elementId != null){
-            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id = '".$elementId."' and ".((int)$parametersMod->getValue('administrator', 'rss', 'options', 'update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
+            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id = '".$elementId."' and ".((int)$parametersMod->getValue('Rss.update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
         }elseif($languageId != null && $zoneKey != null){
-            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id is NULL  and ".((int)$parametersMod->getValue('administrator', 'rss', 'options', 'update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
+            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id = '".$languageId."' and zone_key = '".$zoneKey."' and element_id is NULL  and ".((int)$parametersMod->getValue('Rss.update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
         }else{
-            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id is NULL and zone_key is NULL and element_id is NULL  and ".((int)$parametersMod->getValue('administrator', 'rss', 'options', 'update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
+            $sql = "select rss from `".DB_PREF."m_administrator_rss` where language_id is NULL and zone_key is NULL and element_id is NULL  and ".((int)$parametersMod->getValue('Rss.update_speed'))." > TIMESTAMPDIFF(MINUTE,`created_on`,NOW())";
         }
         $rs = mysql_query($sql);
         if($rs){

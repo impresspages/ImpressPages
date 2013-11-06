@@ -18,7 +18,7 @@ class Email extends Validator {
         
         if (!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $value)) {
             $parametersMod = \Ip\ServiceLocator::getParametersMod();
-            return $parametersMod->getValue("developer", "form", "error_messages", "email");
+            return $parametersMod->getValue("Form.email");
         } else {
             return false;
         }

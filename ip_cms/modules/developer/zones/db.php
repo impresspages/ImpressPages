@@ -226,17 +226,17 @@ class Db{
         
         if($zone['associated_group'] == 'standard' && $zone['associated_module'] == 'content_management'){
             /* add menu management associated zones */
-            $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('standard', 'menu_management', 'options', 'associated_zones'), $zone['name']);
-            $parametersMod->setValue('standard', 'menu_management', 'options', 'associated_zones', $newZonesStr);
+            $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('Pages.associated_zones'), $zone['name']);
+            $parametersMod->setValue('Pages.associated_zones', $newZonesStr);
         
-            $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('administrator', 'search', 'options', 'searchable_zones'), $zone['name']);
-            $parametersMod->setValue('administrator', 'search', 'options', 'searchable_zones', $newZonesStr);
+            $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('Search.searchable_zones'), $zone['name']);
+            $parametersMod->setValue('Search.searchable_zones', $newZonesStr);
         
             $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('administrator', 'sitemap', 'options', 'associated_zones'), $zone['name']);
             $parametersMod->setValue('administrator', 'sitemap', 'options', 'associated_zones', $newZonesStr);
         }
-        $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones'), $zone['name']);
-        $parametersMod->setValue('standard', 'configuration', 'advanced_options', 'xml_sitemap_associated_zones', $newZonesStr);
+        $newZonesStr = self::addToAssociatedZones($parametersMod->getValue('Config.xml_sitemap_associated_zones'), $zone['name']);
+        $parametersMod->setValue('Config.xml_sitemap_associated_zones', $newZonesStr);
         
         $site->dispatchEvent('developer', 'zones', 'zone_created', array('zone_id'=>$id));
         

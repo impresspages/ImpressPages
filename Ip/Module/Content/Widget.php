@@ -97,7 +97,7 @@ class Widget{
                     $translation = $parametersMod->getValue($this->moduleGroup, $this->moduleName, 'admin_translations', 'layout_'.$viewKey);
                 } else {
                     if ($viewKey == 'default') {
-                        $translation = $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'layout_default');
+                        $translation = $parametersMod->getValue('Content.layout_default');
                     } else {
                         $translation = $viewKey;
                     }
@@ -110,7 +110,7 @@ class Widget{
             }
 
         } catch (Exception $e) {
-            $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('standard', 'content_management', 'admin_translations', 'layout_default'));
+            $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('Content.layout_default'));
         }
 
 

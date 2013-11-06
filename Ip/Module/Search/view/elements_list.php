@@ -8,7 +8,7 @@
 ?>
     <li> 
         <a class="modAdministratorSearchLink" href="<?php echo $element->getLink(); ?>"><?php echo $this->esc($tmpTitle) ?></a>
-<?php   if($this->par('administrator/search/options/show_description')){ ?>
+<?php   if($this->par('Search.show_description')){ ?>
             <p class="modAdministratorSearchDescription">
                 <?php echo $this->esc($element->getDescription()) ?>
             </p>
