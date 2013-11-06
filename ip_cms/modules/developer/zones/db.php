@@ -14,12 +14,12 @@ class Db{
     public static function getLanguages(){
         $answer = array();
         $sql = "select * from `".DB_PREF."language` where 1 order by row_number";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            while($lock = mysql_fetch_assoc($rs))
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
             $answer[] = $lock;
         }else{
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
         }
         return $answer;
     }
@@ -34,44 +34,44 @@ class Db{
             WHERE
                 1
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
         }
-        $lock = mysql_fetch_assoc($rs);
+        $lock = ip_deprecated_mysql_fetch_assoc($rs);
         $maxRowNumber = $lock['max_row_number'];
         
         $sql = "
             INSERT INTO 
                 `".DB_PREF."zone`
             SET
-                `associated_group` = '".mysql_real_escape_string($associatedGroup)."',
-                `associated_module` = '".mysql_real_escape_string($associatedModule)."',
-                `translation` = '".mysql_real_escape_string($translation)."',
-                `template` = '".mysql_real_escape_string($template)."',
-                `name` = '".mysql_real_escape_string($name)."',
+                `associated_group` = '".ip_deprecated_mysql_real_escape_string($associatedGroup)."',
+                `associated_module` = '".ip_deprecated_mysql_real_escape_string($associatedModule)."',
+                `translation` = '".ip_deprecated_mysql_real_escape_string($translation)."',
+                `template` = '".ip_deprecated_mysql_real_escape_string($template)."',
+                `name` = '".ip_deprecated_mysql_real_escape_string($name)."',
                 `row_number` = '".($maxRowNumber + 1)."'
         ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
         } 
 
-        self::afterInsert(mysql_insert_id());
+        self::afterInsert(ip_deprecated_mysql_insert_id());
     }
     
 
 
     public static function getZone($zoneId){
         $sql = "select * from `".DB_PREF."zone` where id = '".$zoneId."'";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if($lock = mysql_fetch_assoc($rs))
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
             return $lock;
             else
             return false;
         }else{
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
             return false;
         }
          
@@ -80,10 +80,10 @@ class Db{
 
     public static function deleteParameters($zoneId){
         $sql = "delete from `".DB_PREF."zone_parameter` where `zone_id` = '".$zoneId."'";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
         }else{
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
             return false;
         }
     }
@@ -94,26 +94,26 @@ class Db{
 
         foreach($languages as $key => $language){
             $sql = "insert into `".DB_PREF."content_element` set `visible` = 1";
-            $rs = mysql_query($sql);
+            $rs = ip_deprecated_mysql_query($sql);
             if($rs){
                 $sql2 = "insert into `".DB_PREF."zone_to_content` set
-        `language_id` = '".mysql_real_escape_string($language['id'])."',
-        `zone_id` = '".mysql_real_escape_string($zoneId)."',
-        `element_id` = '".mysql_insert_id()."'";
-                $rs2 = mysql_query($sql2);
+        `language_id` = '".ip_deprecated_mysql_real_escape_string($language['id'])."',
+        `zone_id` = '".ip_deprecated_mysql_real_escape_string($zoneId)."',
+        `element_id` = '".ip_deprecated_mysql_insert_id()."'";
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if(!$rs2)
-                trigger_error($sql2." ".mysql_error());
+                trigger_error($sql2." ".ip_deprecated_mysql_error());
 
                 $sql2 = "insert into `".DB_PREF."zone_parameter` set
-        `title` = '".mysql_real_escape_string($translation)."',
-        `language_id` = '".mysql_real_escape_string($language['id'])."',
+        `title` = '".ip_deprecated_mysql_real_escape_string($translation)."',
+        `language_id` = '".ip_deprecated_mysql_real_escape_string($language['id'])."',
         `zone_id` = '".$zoneId."',
-        `url` = '".mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";
-                $rs2 = mysql_query($sql2);
+        `url` = '".ip_deprecated_mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";
+                $rs2 = ip_deprecated_mysql_query($sql2);
                 if(!$rs2)
-                trigger_error($sql2." ".mysql_error());
+                trigger_error($sql2." ".ip_deprecated_mysql_error());
             }else{
-                trigger_error($sql." ".mysql_error());
+                trigger_error($sql." ".ip_deprecated_mysql_error());
             }
         }
     }
@@ -147,11 +147,11 @@ class Db{
         $url = str_replace("~", "-", $url);
 
 
-        $sql = "select url from `".DB_PREF."zone_parameter` where `language_id` = '".mysql_real_escape_string($language)."' ";
-        $rs = mysql_query($sql);
+        $sql = "select url from `".DB_PREF."zone_parameter` where `language_id` = '".ip_deprecated_mysql_real_escape_string($language)."' ";
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
             $urls = array();
-            while($lock = mysql_fetch_assoc($rs))
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
             $urls[$lock['url']] = 1;
 
             $i = '';

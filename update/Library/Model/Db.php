@@ -37,7 +37,7 @@ class Db
                 $connection = mysql_connect($config['hostname'], $config['username'], $config['password']);
                 if ($connection) {
                     mysql_select_db($config['database']);
-                    mysql_query("SET CHARACTER SET ".$config['charset']);
+                    ip_deprecated_mysql_query("SET CHARACTER SET ".$config['charset']);
                     return $connection;
                 } else {
                     throw new \Exception("Can\'t connect to database.");

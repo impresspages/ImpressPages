@@ -170,8 +170,8 @@ class ElementImage extends Element{ //data element in area
                 foreach($this->copies as $key => $copy){
                     $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
 
-                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".mysql_real_escape_string($newBasename)."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                    $rs = mysql_query($sql);
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".ip_deprecated_mysql_real_escape_string($newBasename)."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                    $rs = ip_deprecated_mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }
@@ -192,10 +192,10 @@ class ElementImage extends Element{ //data element in area
             if(isset($_POST[$prefix.'_delete']) && !$this->required ){
 
                 foreach($this->copies as $key => $copy){
-                    $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                    $rs = mysql_query($sql);
+                    $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                    $rs = ip_deprecated_mysql_query($sql);
                     if ($rs){
-                        if ($lock = mysql_fetch_assoc($rs)){
+                        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                             if($lock['existing_photo'] != "" && file_exists($copy['destDir'].$lock['existing_photo']))
                             unlink($copy['destDir'].$lock['existing_photo']);
                         }
@@ -209,8 +209,8 @@ class ElementImage extends Element{ //data element in area
 
                 foreach($this->copies as $key => $copy){
 
-                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                    $rs = mysql_query($sql);
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                    $rs = ip_deprecated_mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
                 }
@@ -224,8 +224,8 @@ class ElementImage extends Element{ //data element in area
                 foreach($this->copies as $key => $copy){
                     $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
 
-                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                    $rs = mysql_query($sql);
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                    $rs = ip_deprecated_mysql_query($sql);
                     if (!$rs) {
                         trigger_error("Can't update photo field ".$sql);
                     }
@@ -242,10 +242,10 @@ class ElementImage extends Element{ //data element in area
 
 
         foreach($this->copies as $key => $copy){
-            $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-            $rs = mysql_query($sql);
+            $sql = "select `".$copy['dbField']."` as existing_photo from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if ($rs){
-                if ($lock = mysql_fetch_assoc($rs)){
+                if ($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                     if($lock['existing_photo'] != "" && file_exists($copy['destDir'].$lock['existing_photo']))
                     unlink($copy['destDir'].$lock['existing_photo']);
                 }
@@ -254,8 +254,8 @@ class ElementImage extends Element{ //data element in area
                 return;
             }
 
-            $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-            $rs = mysql_query($sql);
+            $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = NULL where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if (!$rs)
             trigger_error("Can't update photo field ".$sql);
         }
@@ -277,7 +277,7 @@ class ElementImage extends Element{ //data element in area
         foreach($this->copies as $copy){
             if($answer != '')
             $answer .= ' or ';
-            $answer .= " `".mysql_real_escape_string($copy['dbField'])."` like '%".mysql_real_escape_string($value)."%' ";
+            $answer .= " `".ip_deprecated_mysql_real_escape_string($copy['dbField'])."` like '%".ip_deprecated_mysql_real_escape_string($value)."%' ";
         }
         $answer = ' ( '.$answer.' ) ';
         return $answer;

@@ -141,11 +141,11 @@ class StandardModule {
                         $this->currentArea->beforeSort();
                     }
 
-                    $sql = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = '".mysql_real_escape_string($_POST['new_row_number'])."'
-				where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
-                    $rs  = mysql_query($sql);
+                    $sql = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = '".ip_deprecated_mysql_real_escape_string($_POST['new_row_number'])."'
+				where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($_POST['key_id'])."'";
+                    $rs  = ip_deprecated_mysql_query($sql);
                     if(!$rs)
-                    trigger_error($sql." ".mysql_error());
+                    trigger_error($sql." ".ip_deprecated_mysql_error());
 
                     if(method_exists($this->currentArea, 'afterSort')) {
                         $this->currentArea->afterSort();
@@ -160,54 +160,54 @@ class StandardModule {
                         $this->currentArea->beforeSort();
                     }
 
-                    $sql_current = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."` from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
-                    $rs_current  = mysql_query($sql_current);
+                    $sql_current = "select `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($_POST['key_id'])."'";
+                    $rs_current  = ip_deprecated_mysql_query($sql_current);
                     if($rs_current)
-                    if($lock_current = mysql_fetch_assoc($rs_current)) { //current record (need to be moved up)
+                    if($lock_current = ip_deprecated_mysql_fetch_assoc($rs_current)) { //current record (need to be moved up)
                         /*searching upper record*/
 
                         if (($this->level > 0))
-                        $sql_add = " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
+                        $sql_add = " and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' ";
                         else
                         $sql_add = '';
 
-                        $sql_upper = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
-                              from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                              where `".mysql_real_escape_string($this->currentArea->sortField)."` >= '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."'
-                              and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add."
+                        $sql_upper = "select `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`
+                              from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                              where `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` >= '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->sortField])."'
+                              and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add."
                               order by `".$this->currentArea->sortField."` asc limit 1";
 
 
-                        $rs_upper  = mysql_query($sql_upper);
+                        $rs_upper  = ip_deprecated_mysql_query($sql_upper);
                         if($rs_upper)
-                        if($lock_upper = mysql_fetch_assoc($rs_upper)) { //upper record (need to be moved down)
+                        if($lock_upper = ip_deprecated_mysql_fetch_assoc($rs_upper)) { //upper record (need to be moved down)
                             if($lock_upper[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]) {
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` - 1
-                                    where `".mysql_real_escape_string($this->currentArea->sortField)."` <= ".mysql_real_escape_string($lock_upper[$this->currentArea->sortField])." and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." ";
-                                $rs_update = mysql_query($sql_update);
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                    set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` - 1
+                                    where `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` <= ".ip_deprecated_mysql_real_escape_string($lock_upper[$this->currentArea->sortField])." and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." ";
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update)
-                                trigger_error($sql." ".mysql_error());
+                                trigger_error($sql." ".ip_deprecated_mysql_error());
 
                             }else {
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_upper[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                    set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
+                                    where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lock_upper[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
 
 
-                                $rs_update = mysql_query($sql_update);
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
+                                trigger_error($sql_update." ".ip_deprecated_mysql_error());
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-									set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_upper[$this->currentArea->sortField]."
-									where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+									set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_upper[$this->currentArea->sortField]."
+									where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
 
-                                $rs_update = mysql_query($sql_update);
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update)
-                                trigger_error($sql." ".mysql_error());
+                                trigger_error($sql." ".ip_deprecated_mysql_error());
                             }
 
                         }
@@ -230,58 +230,58 @@ class StandardModule {
                         $this->currentArea->beforeSort();
                     }
 
-                    $sql_current = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
-                            from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                            where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($_POST['key_id'])."'";
+                    $sql_current = "select `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`
+                            from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                            where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($_POST['key_id'])."'";
 
-                    $rs_current  = mysql_query($sql_current);
+                    $rs_current  = ip_deprecated_mysql_query($sql_current);
                     if($rs_current)
-                    if($lock_current = mysql_fetch_assoc($rs_current)) { //current record (need to be moved down)
+                    if($lock_current = ip_deprecated_mysql_fetch_assoc($rs_current)) { //current record (need to be moved down)
                         /*searching under record*/
 
                         if (($this->level > 0))
-                        $sql_add = " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
+                        $sql_add = " and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' ";
                         else
                         $sql_add = '';
 
 
-                        $sql_under = "select `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".mysql_real_escape_string($this->currentArea->sortField)."`
-                              from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                              where `".mysql_real_escape_string($this->currentArea->sortField)."` <= '".mysql_real_escape_string($lock_current[$this->currentArea->sortField])."' ".$sql_add."
-                              and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'
-                              order by `".mysql_real_escape_string($this->currentArea->sortField)."` desc limit 1";
+                        $sql_under = "select `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`, `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`
+                              from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                              where `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` <= '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->sortField])."' ".$sql_add."
+                              and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'
+                              order by `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` desc limit 1";
 
-                        $rs_under  = mysql_query($sql_under);
+                        $rs_under  = ip_deprecated_mysql_query($sql_under);
                         if($rs_under)
-                        if($lock_under = mysql_fetch_assoc($rs_under)) { //under record (need to be moved up)
+                        if($lock_under = ip_deprecated_mysql_fetch_assoc($rs_under)) { //under record (need to be moved up)
                             if($lock_under[$this->currentArea->sortField] == $lock_current[$this->currentArea->sortField]) {
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1
-                                    where `".mysql_real_escape_string($this->currentArea->sortField)."` >= ".mysql_real_escape_string($lock_under[$this->currentArea->sortField])."
-                                    and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add."";
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                    set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` + 1
+                                    where `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` >= ".ip_deprecated_mysql_real_escape_string($lock_under[$this->currentArea->sortField])."
+                                    and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add."";
 
-                                $rs_update = mysql_query($sql_update);
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update) {
-                                    trigger_error($sql_update." ".mysql_error());
+                                    trigger_error($sql_update." ".ip_deprecated_mysql_error());
                                 }
                             }else {
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_under[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                    set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_current[$this->currentArea->sortField]."
+                                    where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lock_under[$this->currentArea->dbPrimaryKey])."' ".$sql_add." limit 1";
 
-                                $rs_update = mysql_query($sql_update);
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
+                                trigger_error($sql_update." ".ip_deprecated_mysql_error());
 
-                                $sql_update = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
-                                    set `".mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_under[$this->currentArea->sortField]."
-                                    where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add." limit 1";
+                                $sql_update = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."`
+                                    set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = ".(int)$lock_under[$this->currentArea->sortField]."
+                                    where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lock_current[$this->currentArea->dbPrimaryKey])."'  ".$sql_add." limit 1";
 
-                                $rs_update = mysql_query($sql_update);
+                                $rs_update = ip_deprecated_mysql_query($sql_update);
                                 if(!$rs_update)
-                                trigger_error($sql_update." ".mysql_error());
+                                trigger_error($sql_update." ".ip_deprecated_mysql_error());
                             }
 
                         }
@@ -367,10 +367,10 @@ class StandardModule {
                             }
 
                         }
-                        $sql = "insert into `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set  `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`= DEFAULT ";
+                        $sql = "insert into `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set  `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."`= DEFAULT ";
                         $need_comma = true;
                         if ($this->level > 0) {
-                            $sql .= ", `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
+                            $sql .= ", `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' ";
                             $need_comma = true;
                         }
 
@@ -384,74 +384,74 @@ class StandardModule {
                             if($parameter['value'] === null)
                             $value =  " NULL ";
                             else
-                            $value =  "'".mysql_real_escape_string($parameter['value'])."'";
+                            $value =  "'".ip_deprecated_mysql_real_escape_string($parameter['value'])."'";
 
 
                             if ($need_comma)
-                            $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+                            $sql .= ", `".ip_deprecated_mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                             else {
-                                $sql .= " `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+                                $sql .= " `".ip_deprecated_mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                                 $need_comma = true;
                             }
                         }
 
             if(!$sortFieldDefined && $this->currentArea->sortField){
                             if ($need_comma)
-                            $sql .= ", `".mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
+                            $sql .= ", `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
                             else {
-                                $sql .= " `".mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
+                                $sql .= " `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = 0 ";
                                 $need_comma = true;
                             }
                         }
 
 
-                        $rs = mysql_query($sql);
+                        $rs = ip_deprecated_mysql_query($sql);
                         if (!$rs) {
-                            trigger_error("Impossible to insert new data ".$sql." ".mysql_error());
+                            trigger_error("Impossible to insert new data ".$sql." ".ip_deprecated_mysql_error());
                         }else {
-                            $lastInsertId = mysql_insert_id();
+                            $lastInsertId = ip_deprecated_mysql_insert_id();
 
                             /* update sort field value */
                             if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'top') {
                                 /* increase all sort field numbers */
-                                $sql = "update `".mysql_real_escape_string(DB_PREF."".$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = `".mysql_real_escape_string($this->currentArea->sortField)."` + 1";
-                                $rs = mysql_query($sql);
-                                if(!$rs) trigger_error("Can't change sort numbers ".$sql." ".mysql_error());
+                                $sql = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF."".$this->currentArea->dbTable)."` set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` + 1";
+                                $rs = ip_deprecated_mysql_query($sql);
+                                if(!$rs) trigger_error("Can't change sort numbers ".$sql." ".ip_deprecated_mysql_error());
 
                                 /* find lowest walue */
                                 if (($this->level > 0))
-                                $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
+                                $sql = "select min(`".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
                                 else
-                                $sql = "select min(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
-                                $rs = mysql_query($sql);
+                                $sql = "select min(`".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`) as 'min_value' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId." ";
+                                $rs = ip_deprecated_mysql_query($sql);
                                 if($rs) {
-                                    if($lock = mysql_fetch_assoc($rs)) {
+                                    if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                                         /* update inserted record to have the smallest sort field number*/
-                                        $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['min_value']." - 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
-                                        $rs = mysql_query($sql2);
+                                        $sql2 = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['min_value']." - 1) where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lastInsertId)."' ";
+                                        $rs = ip_deprecated_mysql_query($sql2);
                                         if(!$rs)
-                                        trigger_error($sql." ".mysql_error());
+                                        trigger_error($sql." ".ip_deprecated_mysql_error());
                                     }
                                 }
-                                else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
+                                else trigger_error("Can't find lowest value ".$sql." ".ip_deprecated_mysql_error());
                             }
                             if($this->currentArea->sortable && $this->currentArea->sortField && $this->currentArea->newRecordPosition == 'bottom') {
                                 /* find biggest walue */
                                 if (($this->level > 0))
-                                $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' and `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
+                                $sql = "select max(`".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
                                 else
-                                $sql = "select max(`".mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
-                                $rs = mysql_query($sql);
+                                $sql = "select max(`".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."`) as 'max_value' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` <> ".(int)$lastInsertId."";
+                                $rs = ip_deprecated_mysql_query($sql);
                                 if($rs) {
-                                    if($lock = mysql_fetch_assoc($rs)) {
+                                    if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                                         /* update inserted record to have the smallest sort field number*/
-                                        $sql2 = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['max_value']." + 1) where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($lastInsertId)."' ";
-                                        $rs = mysql_query($sql2);
+                                        $sql2 = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".ip_deprecated_mysql_real_escape_string($this->currentArea->sortField)."` = (".(int)$lock['max_value']." + 1) where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($lastInsertId)."' ";
+                                        $rs = ip_deprecated_mysql_query($sql2);
                                         if(!$rs)
-                                        trigger_error($sql." ".mysql_error());
+                                        trigger_error($sql." ".ip_deprecated_mysql_error());
                                     }
                                 }
-                                else trigger_error("Can't find lowest value ".$sql." ".mysql_error());
+                                else trigger_error("Can't find lowest value ".$sql." ".ip_deprecated_mysql_error());
                             }
 
                             foreach($this->currentArea->elements as $key => $element) {
@@ -583,24 +583,24 @@ class StandardModule {
 
                         $main_update = false;
                         if(sizeof($parameters) > 0) {
-                            $sql = "update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set ";
+                            $sql = "update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set ";
                             $need_comma = false;
 
                             foreach($parameters as $key => $parameter) {
                                 if($parameter['value'] === null)
                                 $value =  " NULL ";
                                 else
-                                $value =  "'".mysql_real_escape_string($parameter['value'])."'";
+                                $value =  "'".ip_deprecated_mysql_real_escape_string($parameter['value'])."'";
 
                                 if ($need_comma)
-                                $sql .= ", `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+                                $sql .= ", `".ip_deprecated_mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                                 else {
-                                    $sql .= " `".mysql_real_escape_string($parameter['name'])."` = ".$value." ";
+                                    $sql .= " `".ip_deprecated_mysql_real_escape_string($parameter['name'])."` = ".$value." ";
                                     $need_comma = true;
                                 }
                             }
-                            $sql .= " where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($this->currentArea->currentId)."' ";
-                            $rs = mysql_query($sql);
+                            $sql .= " where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($this->currentArea->currentId)."' ";
+                            $rs = ip_deprecated_mysql_query($sql);
                             if (!$rs) {
                                 trigger_error("Impossible to update ".$sql);
                             }else
@@ -737,25 +737,25 @@ class StandardModule {
 
         $answer = '';
 
-        $sql = " select * from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where 1 ";
+        $sql = " select * from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$area->dbTable)."` where 1 ";
         if ($parentId)
-        $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
+        $sql .= " and `".ip_deprecated_mysql_real_escape_string($area->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($parentId)."' ";
         if($area->whereCondition)
         $sql .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
 
         if ($this->currentArea->orderBy != "") {
-            $sql .= " order by `".mysql_real_escape_string($this->currentArea->orderBy)."` ";
+            $sql .= " order by `".ip_deprecated_mysql_real_escape_string($this->currentArea->orderBy)."` ";
             if($this->currentArea->orderDirection != "")
             $sql .= " ".$this->currentArea->orderDirection." ";
         }
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
             if($this->treeDepth == $depth + 1) {
-                if($lock = mysql_fetch_assoc($rs)) {
+                if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                     $answer = $this->generateUrlRoot().'&amp;'.$url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area);
                 }
             }else {
-                while($answer == '' && $lock = mysql_fetch_assoc($rs)) {
+                while($answer == '' && $lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                     if($area->childArea) {
                         $answer = $this->linkToFirstTreeNode($area->childArea, $depth + 1, $lock[$area->dbPrimaryKey], $url.'&amp;road[]='.$lock[$area->dbPrimaryKey].'&amp;title[]='.$area->nameElement->previewValue($lock, $area));
                     }
@@ -793,21 +793,21 @@ class StandardModule {
         $answer = '';
 
         $sql = " select *
-    from `".mysql_real_escape_string(DB_PREF.mysql_real_escape_string($area->dbTable))."` where 1 ";
+    from `".ip_deprecated_mysql_real_escape_string(DB_PREF.ip_deprecated_mysql_real_escape_string($area->dbTable))."` where 1 ";
         if ($parentId)
-        $sql .= " and `".mysql_real_escape_string($area->dbReference)."` = '".mysql_real_escape_string($parentId)."' ";
+        $sql .= " and `".ip_deprecated_mysql_real_escape_string($area->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($parentId)."' ";
         if($area->whereCondition)
         $sql .= " and ".$area->whereCondition;  //extra condition to sql where part
 
         if ($area->orderBy != "") {
-            $sql .= " order by `".mysql_real_escape_string($area->orderBy)."` ";
+            $sql .= " order by `".ip_deprecated_mysql_real_escape_string($area->orderBy)."` ";
             if($area->orderDirection != "")
             $sql .= " ".$area->orderDirection." ";
         }
-        //`".mysql_real_escape_string($area->dbPrimaryKey)."` as current_id, `".mysql_real_escape_string($area->nameElement->dbField)."` as name_value
-        $rs = mysql_query($sql);
+        //`".ip_deprecated_mysql_real_escape_string($area->dbPrimaryKey)."` as current_id, `".ip_deprecated_mysql_real_escape_string($area->nameElement->dbField)."` as name_value
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
-            while($lock = mysql_fetch_assoc($rs)) {
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 $subnodes = '';
                 $thisSelected = $parent_selected && isset($_GET['road'][$depth]) && $lock[$area->dbPrimaryKey] == $_GET['road'][$depth];
 
@@ -976,10 +976,10 @@ class StandardModule {
                 if (isset($_REQUEST['sortField']) && $_REQUEST['sortField'] != null) {
                     foreach($_REQUEST['sortField'] as $key => $field_number) {
                         if(isset($_REQUEST['sortField_'.$field_number]) && $_REQUEST['sortField_'.$field_number] != null && is_numeric($_REQUEST['sortField_'.$field_number])) {
-                            $sql = " update `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".mysql_real_escape_string($this->currentArea->getSortField)."` = '".(int)$_REQUEST['sortField_'.$field_number]."' where `".mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($field_number)."'";
-                            $rs = mysql_query($sql);
+                            $sql = " update `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` set `".ip_deprecated_mysql_real_escape_string($this->currentArea->getSortField)."` = '".(int)$_REQUEST['sortField_'.$field_number]."' where `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($field_number)."'";
+                            $rs = ip_deprecated_mysql_query($sql);
                             if (!$rs) {
-                                trigger_error("Can't change sort order ".$sql." ".mysql_error());
+                                trigger_error("Can't change sort order ".$sql." ".ip_deprecated_mysql_error());
                             }
                         }
                     }
@@ -1031,19 +1031,19 @@ class StandardModule {
 
             $child = $area->getArea();
             if ($child != null) {
-                $sql = " select `".mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".mysql_real_escape_string($child->dbReference)."` = '".mysql_real_escape_string($id)."' ";
-                $rs = mysql_query($sql);
+                $sql = " select `".ip_deprecated_mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($child->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                $rs = ip_deprecated_mysql_query($sql);
                 if ($rs) {
-                    $limit = mysql_num_rows($rs);
+                    $limit = ip_deprecated_mysql_num_rows($rs);
                     for($i=0; $i<$limit; $i++) {
-                        $lock = mysql_fetch_assoc($rs);
+                        $lock = ip_deprecated_mysql_fetch_assoc($rs);
                         $allowDelete = $this->allowDelete($child, $lock['key']);
                         if(!$allowDelete) {
                             return false;
                         }
                     }
                 }else {
-                    trigger_error("Can't get children ".$sql." ".mysql_error());
+                    trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
                 }
             }
         }
@@ -1059,24 +1059,24 @@ class StandardModule {
 
         $child =& $currentArea->getArea();
         if ($child != null) {
-            $sql = " select `".mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".mysql_real_escape_string($child->dbReference)."` = '".mysql_real_escape_string($id)."' ";
-            $rs = mysql_query($sql);
+            $sql = " select `".ip_deprecated_mysql_real_escape_string($child->dbPrimaryKey)."` as 'key' from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$child->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($child->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+            $rs = ip_deprecated_mysql_query($sql);
             if ($rs) {
-                $limit = mysql_num_rows($rs);
+                $limit = ip_deprecated_mysql_num_rows($rs);
                 for($i=0; $i<$limit; $i++) {
-                    $lock = mysql_fetch_assoc($rs);
+                    $lock = ip_deprecated_mysql_fetch_assoc($rs);
                     $this->delete($child, $lock['key']);
                 }
             }else {
-                trigger_error("Can't get children ".$sql." ".mysql_error());
+                trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
             }
         }
         foreach($currentArea->elements as $key => $element)
         $new_parameter = $element->processDelete($currentArea, $id);
-        $sql = "delete from `".mysql_real_escape_string(DB_PREF.$currentArea->dbTable)."` where `".mysql_real_escape_string($currentArea->dbPrimaryKey)."` = '".mysql_real_escape_string($id)."' ";
-        $rs = mysql_query($sql);
+        $sql = "delete from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$currentArea->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($currentArea->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs) {
-            trigger_error("Unable to delete ".$sql." ".mysql_error());
+            trigger_error("Unable to delete ".$sql." ".ip_deprecated_mysql_error());
         }
 
         if(method_exists($currentArea, 'afterDelete')) {
@@ -1102,14 +1102,14 @@ class StandardModule {
         return;
 
 
-        $sqlCurrent = "select * from `".mysql_real_escape_string(DB_PREF.$area->dbTable)."` where `".mysql_real_escape_string($area->dbPrimaryKey)."` = '".mysql_real_escape_string($area->currentId)."'";
-        $rs = mysql_query($sqlCurrent);
+        $sqlCurrent = "select * from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$area->dbTable)."` where `".ip_deprecated_mysql_real_escape_string($area->dbPrimaryKey)."` = '".ip_deprecated_mysql_real_escape_string($area->currentId)."'";
+        $rs = ip_deprecated_mysql_query($sqlCurrent);
         if($rs) {
-            if(!$lock = mysql_fetch_assoc($rs)) {
+            if(!$lock = ip_deprecated_mysql_fetch_assoc($rs)) {
                 trigger_error('Record does not exist.');
             }
         } else {
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
         }
 
 
@@ -1276,10 +1276,10 @@ class StandardModule {
     }
 
     function calculatePages($sql) {
-        $rs_count = mysql_query($sql);
+        $rs_count = ip_deprecated_mysql_query($sql);
 
         if ($rs_count) {
-            $count = mysql_num_rows($rs_count);
+            $count = ip_deprecated_mysql_num_rows($rs_count);
             $this->pagesCount = ceil($count/$this->currentArea->rowsPerPage);
             if($this->pagesCount < 1)
             $this->pagesCount = 1;
@@ -1344,7 +1344,7 @@ class StandardModule {
 
         $pages = "";
         if ($rs_count) {
-            $count = mysql_num_rows($rs_count);
+            $count = ip_deprecated_mysql_num_rows($rs_count);
             if ($count/$this->currentArea->rowsPerPage > 1) {
                 for($i=0; $i<$count/$this->currentArea->rowsPerPage; $i++) {
                     if ($this->currentArea->currentPage == $i)
@@ -1383,9 +1383,9 @@ class StandardModule {
         ';
 
 
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
-            $limit = mysql_num_rows($rs);
+            $limit = ip_deprecated_mysql_num_rows($rs);
 
 
 
@@ -1448,7 +1448,7 @@ class StandardModule {
             //end column names
 
             for($i=0; $i<$limit; $i++) {
-                $lock = mysql_fetch_assoc($rs);
+                $lock = ip_deprecated_mysql_fetch_assoc($rs);
                 $answer .= '<tr id="table_row_'.$lock[$this->currentArea->dbPrimaryKey].'">';
 
                 if(isset($this->currentArea->nameElement)) {
@@ -1499,7 +1499,7 @@ class StandardModule {
           </tr>';
             }
         }else {
-            trigger_error("Area not found. ".$sql." ".mysql_error());
+            trigger_error("Area not found. ".$sql." ".ip_deprecated_mysql_error());
         }
 
         $answer .= '</table>
@@ -1516,9 +1516,9 @@ class StandardModule {
 
 
 
-        $sql_pages = " select * from `".mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where 1 ";
+        $sql_pages = " select * from `".ip_deprecated_mysql_real_escape_string(DB_PREF.$this->currentArea->dbTable)."` where 1 ";
         if (($this->level > 0))
-        $sql_pages .= " and `".mysql_real_escape_string($this->currentArea->dbReference)."` = '".mysql_real_escape_string($this->upArea->parentId)."' ";
+        $sql_pages .= " and `".ip_deprecated_mysql_real_escape_string($this->currentArea->dbReference)."` = '".ip_deprecated_mysql_real_escape_string($this->upArea->parentId)."' ";
         if($this->currentArea->whereCondition)
         $sql_pages .= " and ".$this->currentArea->whereCondition;  //extra condition to sql where part
         foreach($this->currentArea->elements as $key => $value) {
@@ -1535,10 +1535,10 @@ class StandardModule {
 
         $sql = $sql_pages;
         if(isset($_GET['sortField'][$this->level]) && isset($_GET['sortDir'][$this->level]) && ($_GET['sortDir'][$this->level] == "desc" || $_GET['sortDir'][$this->level] == "asc"))
-        $sql .= " order by `".mysql_real_escape_string($_GET['sortField'][$this->level])."` ".mysql_real_escape_string($_GET['sortDir'][$this->level])." ";
+        $sql .= " order by `".ip_deprecated_mysql_real_escape_string($_GET['sortField'][$this->level])."` ".ip_deprecated_mysql_real_escape_string($_GET['sortDir'][$this->level])." ";
         else {
             if ($this->currentArea->orderBy != "") {
-                $sql .= " order by `".mysql_real_escape_string($this->currentArea->orderBy)."` ";
+                $sql .= " order by `".ip_deprecated_mysql_real_escape_string($this->currentArea->orderBy)."` ";
                 if($this->currentArea->orderDirection != "")
                 $sql .= " ".$this->currentArea->orderDirection." ";
             }

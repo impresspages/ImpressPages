@@ -55,15 +55,15 @@ class ZoneModel{
 
     public static function getParameter($zoneId, $languageId){
         $sql = "select * from `".DB_PREF."zone_parameter` where `zone_id` = ".(int)$zoneId." and `language_id` = ".(int)$languageId." ";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
             $answer = false;
-            if($lock = mysql_fetch_assoc($rs)){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 $answer = $lock;
             }
             return $answer;
         } else {
-            trigger_error($sql." ".mysql_error());
+            trigger_error($sql." ".ip_deprecated_mysql_error());
         }
         return false;
     }

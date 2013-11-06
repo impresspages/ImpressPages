@@ -95,9 +95,9 @@ class Cron{
         $log->log('system/cron', 'start');
 
         $sql = 'select m.core, m.name as m_name, mg.name as mg_name from `'.DB_PREF.'module_group` mg, `'.DB_PREF.'module` m where m.group_id = mg.id';
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            while($lock = mysql_fetch_assoc($rs)){
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 if($lock['core']){
                     $file = \Ip\Config::oldModuleFile($lock['mg_name'].'/'.$lock['m_name'].'/cron.php');
                 } else {
@@ -170,9 +170,9 @@ class cronInformation{
 			WHERE  `module` =  'system/cron' AND  `name` =  'executed'
 			ORDER BY id desc LIMIT 1 
 		";
-        $rs = mysql_query($sql);
+        $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if(($lock = mysql_fetch_assoc($rs)) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['user_id']))){
+            if(($lock = ip_deprecated_mysql_fetch_assoc($rs)) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['user_id']))){
                 if($lock['same_year'])
                 $this->firstTimeThisYear = false;
                 if($lock['same_year'] && $lock['same_month'])
@@ -186,7 +186,7 @@ class cronInformation{
                 $this->last_time_before = $lock['time'];
             }
         }else{
-            trigger_error($sql.' '.mysql_error());
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
         }
 
     }

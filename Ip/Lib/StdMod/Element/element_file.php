@@ -163,8 +163,8 @@ class ElementFile extends Element{ //data element in area
 
                 $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
 
-                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                $rs = mysql_query($sql);
+                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs)
                 trigger_error("Can't update photo field ".$sql);
             }
@@ -174,10 +174,10 @@ class ElementFile extends Element{ //data element in area
     function processUpdate($prefix, $id, $area){
         if($this->visibleOnUpdate && !$this->disabledOnUpdate){
             if(isset($_POST[$prefix.'_delete']) && !$this->required || isset($this->memFile) && $this->memFile != ''){
-                $sql = "select `".$this->dbField."` as existing_file from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                $rs = mysql_query($sql);
+                $sql = "select `".$this->dbField."` as existing_file from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                $rs = ip_deprecated_mysql_query($sql);
                 if ($rs){
-                    if ($lock = mysql_fetch_assoc($rs)){
+                    if ($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                         if($lock['existing_file'] != "" && file_exists($this->destDir.$lock['existing_file']))
                         unlink($this->destDir.$lock['existing_file']);
                     }
@@ -189,8 +189,8 @@ class ElementFile extends Element{ //data element in area
 
             // delete file selected
             if(isset($_POST[$prefix.'_delete']) && !$this->required){
-                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                $rs = mysql_query($sql);
+                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = NULL where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs)
                 trigger_error("Can't update photo field ".$sql);
             }
@@ -200,8 +200,8 @@ class ElementFile extends Element{ //data element in area
 
                 $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
 
-                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-                $rs = mysql_query($sql);
+                $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+                $rs = ip_deprecated_mysql_query($sql);
                 if (!$rs)
                 trigger_error("Can't update photo field ".$sql);
             }
@@ -213,10 +213,10 @@ class ElementFile extends Element{ //data element in area
         // delete photo selected
 
 
-        $sql = "select `".$this->dbField."` as existing_file from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-        $rs = mysql_query($sql);
+        $sql = "select `".$this->dbField."` as existing_file from `".DB_PREF."".$area->dbTable."` where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+        $rs = ip_deprecated_mysql_query($sql);
         if ($rs){
-            if ($lock = mysql_fetch_assoc($rs)){
+            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)){
                 if($lock['existing_file'] != "" && file_exists($this->destDir.$lock['existing_file']))
                 unlink($this->destDir.$lock['existing_file']);
             }
@@ -225,8 +225,8 @@ class ElementFile extends Element{ //data element in area
             return;
         }
 
-        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = NULL where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
-        $rs = mysql_query($sql);
+        $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = NULL where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
+        $rs = ip_deprecated_mysql_query($sql);
         if (!$rs)
         trigger_error("Can't update photo field ".$sql);
 
@@ -241,7 +241,7 @@ class ElementFile extends Element{ //data element in area
     }
 
     function getFilterOption($value, $area){
-        return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
+        return " `".$this->dbField."` like '%".ip_deprecated_mysql_real_escape_string($value)."%' ";
     }
 
 
