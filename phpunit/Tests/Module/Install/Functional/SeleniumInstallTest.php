@@ -19,7 +19,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         );
 
         $session = new \Behat\Mink\Session($driver);
-        /* @var $session \Behat\Mink\ProSession */ // Hack for PhpStorm bug
+        /* @var $session \Behat\Mink\FakeSession */ // Hack for PhpStorm bug
         $session->start();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
