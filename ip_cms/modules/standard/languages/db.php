@@ -6,7 +6,6 @@
  */
 namespace Modules\standard\languages;
 
-if (!defined('CMS')) exit;
 class Db {
 
     public static function getLanguages() {

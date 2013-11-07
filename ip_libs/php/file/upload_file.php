@@ -6,7 +6,6 @@
  */
 
 namespace Library\Php\File;
-if (!defined('CMS')) exit;
 
 
 
