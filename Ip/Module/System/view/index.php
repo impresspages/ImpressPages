@@ -18,7 +18,7 @@ echo $this->subview('header.php')->render();
 </div>
 <div class="content">
     <h1><?php echo $this->escPar('System.cache') ?></h1>
-    <?php echo $this->par('System.cache_comments') ?>
+    <p><?php echo $this->par('System.cache_comments') ?></p>
     <a class="ipsClearCache button" href="#" ><?php echo $this->escPar('System.cache_clear') ?></a>
     <div class="clear"></div>
     </div>
