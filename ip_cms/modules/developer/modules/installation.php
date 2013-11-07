@@ -231,24 +231,6 @@ class ModulesInstallation{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function recursiveInstall($moduleGroupKey, $moduleKey){
         //we don't need to check any errors. They are found before.
         $module = \Db::getModule(null, $moduleGroupKey, $moduleKey);
