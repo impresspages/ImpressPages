@@ -109,8 +109,9 @@ class ModulesInstallation{
         if($group !== false){//group exist or is successfully created
             $newModuleId = Db::insertModule($config->getModuleTitle(), $config->getModuleKey(), $config->getModuleAdmin(), $config->getModuleManaged(), $group['id'], $config->getModuleVersion());
             $module = \Db::getModule($newModuleId);
-             
+
             if($module !== false){
+                require_once(__DIR__ . '/manager.php');
                 ModulesArea::after_insert($module['id']);
             }
 
