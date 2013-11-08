@@ -126,6 +126,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . $path;
     }
 
+    public static function pluginFile($path)
+    {
+        return static::$rawConfig['BASE_DIR'] . static::$rawConfig['PLUGIN_DIR'] . $path;
+    }
+
     public static function theme()
     {
         return static::$rawConfig['THEME'];
