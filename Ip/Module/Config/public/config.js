@@ -5,6 +5,9 @@ $( document ).ready(function() {
     $('.ipsAutoSave').on('change', IpConfig.autoSaveValue);
     $('.ipsAutoSave').on('keyup', IpConfig.autoSaveValue);
 
+    $('.ipsConfigForm').validator(validatorConfig);
+    $('.ipsConfigForm').data("validator").checkValidity();
+
 });
 
 var IpConfig = new function () {
@@ -70,6 +73,7 @@ var IpConfig = new function () {
 
 
     this.autoSaveValue = function () {
+        $('.ipsConfigForm').data("validator").checkValidity();
         queueAdd($(this).data('fieldname'));
     };
 
