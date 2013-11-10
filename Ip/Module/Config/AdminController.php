@@ -45,10 +45,24 @@ class AdminController extends \Ip\Controller{
             throw new \Exception('Unknown config value');
         }
 
+        $emailValidator = new \Ip\Form\Validator\Email();
+        if ($fieldName === 'websiteEmail' && $emailValidator->validate(array('value' => $value), 'value') !== false) {
+            $this->returnError("Invalid value");
+            return;
+        }
+
         \Ip\Storage::set('Config', $fieldName, $value);
 
 
         $this->returnJson(array(1));
 
+    }
+
+    private function returnError($errorMessage)
+    {
+        $data = array(
+            'error' => $errorMessage
+        );
+        $this->returnJson($data);
     }
 }

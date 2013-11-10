@@ -13,6 +13,7 @@ class Forms {
     public static function getForm()
     {
         $form = new \Ip\Form();
+        $form->addClass('ipsConfigForm');
 
 
         $field = new \Ip\Form\Field\Text(
