@@ -29,11 +29,26 @@ class Forms {
         $form->addField($field);
 
 
+        $field = new \Ip\Form\Field\Email(
+            array(
+                'name' => 'websiteEmail', //html "name" attribute
+                'defaultValue' => \Ip\Storage::get('Config', 'websiteEmail'),
+                'label' => __('Website email', 'Config'), //field label that will be displayed next to input field
+                'hint' => __('Email address used as a sender to send emails on behalf of the website.', 'Config')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addClass('ips' . $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $field->addAttribute('data-autosavetype', 'input');
+        $form->addField($field);
+
+
         $field = new \Ip\Form\Field\Confirm(
             array(
                 'name' => 'automaticCron', //html "name" attribute
-                'defaultValue' => \Ip\Storage::get('Config', 'automaticCron', 1),
+                'defaultValue' => \Ip\Storage::get('Confhaig', 'automaticCron', 1),
                 'label' => __('Execute cron automatically', 'Config'), //field label that will be displayed next to input field
+                'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'Config')
             ));
         $field->addClass('ipsAutoSave');
         $field->addClass('ips' . $field->getName());
