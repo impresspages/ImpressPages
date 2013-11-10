@@ -771,9 +771,6 @@ class Site{
 //            }
         }
 
-        //old deprecated way. Need to refactor to controllers
-        $currentZone = $this->getZone($this->currentZone);
-
 
 
     }
