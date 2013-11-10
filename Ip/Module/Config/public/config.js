@@ -3,6 +3,7 @@ $( document ).ready(function() {
     "use strict";
 
     $('.ipsAutoSave').on('change', IpConfig.autoSaveValue);
+    $('.ipsAutoSave').on('keyup', IpConfig.autoSaveValue);
 
 });
 
@@ -53,8 +54,14 @@ var IpConfig = new function () {
                 processing = false;
                 queueProcess();
             },
-            error: function () {
-                alert('Autosave error');
+            error: function (response) {
+                if (response && response.readyState === 4) {
+                    if (response.responseText) {
+                        alert(response.responseText);
+                    } else {
+                        alert('Autosave error');
+                    }
+                }
                 processing = false;
                 queueProcess();
             }
