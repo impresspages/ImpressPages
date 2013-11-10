@@ -16,7 +16,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> >
+<body class="ip">
 
 <?php echo $this->generateBlock('main'); ?>
 
