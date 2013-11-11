@@ -64,11 +64,11 @@ class Cron {
                 if (\Ip\Config::getRaw('ERRORS_SEND')) {
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
+                        ipGetOption('Config.websiteEmail'),
+                        ipGetOption('Config.websiteTitle'),
                         \Ip\Config::getRaw('ERRORS_SEND'),
                         '',
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
+                        ipGetOption('Config.websiteTitle'),
                         $message,
                         false,
                         true);

@@ -16,6 +16,7 @@ class Forms {
         $form->addClass('ipsConfigForm');
 
 
+        //TODOX make multilingual create ipGetOptionLang function
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'websiteTitle', //html "name" attribute
@@ -30,6 +31,7 @@ class Forms {
         $form->addField($field);
 
 
+        //TODOX make multilingual create ipGetOptionLang function
         $field = new \Ip\Form\Field\Email(
             array(
                 'name' => 'websiteEmail', //html "name" attribute
