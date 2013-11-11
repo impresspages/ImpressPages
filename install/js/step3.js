@@ -27,7 +27,18 @@ function ajaxMessage(url, parameters){
 
             var response = xmlHttp.responseText;
             if(response != ''){
-            var responseObject = eval('(' + response + ')');
+
+try {
+	var responseObject = eval('(' + response + ')');
+}
+catch(e)
+{
+	alert('Server error: ' + response + '');
+	return;
+}
+
+            
+
             switch(responseObject.errorCode){
                 case 'ERROR_CONNECT':
                     document.getElementById('errorConnect').style.display = 'block';

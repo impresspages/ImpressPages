@@ -52,7 +52,7 @@ output('
 <a class="button" href="?step=2">'.IP_BACK.'</a>
 
 ',
-array('js/step3.js'));
+array('js/step3.js?nocache=1'));
 
 
 
