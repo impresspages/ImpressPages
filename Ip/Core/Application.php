@@ -55,8 +55,6 @@ class Application {
         \Ip\Response::reset();
 
         $site->init();
-        $site->dispatchEvent('administrator', 'system', 'init', array());
-        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
         /*detect browser language*/
         if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
             require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
@@ -92,34 +90,36 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
-        if(!defined('BACKEND')){
-            $session = \Ip\ServiceLocator::getSession();
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
-                $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xss_autocheck') &&
-                (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) &&
-                (empty($_POST['pa']) || empty($_POST['m']) || empty($_POST['g']))
-            ) {
-                $data = array(
-                    'status' => 'error',
-                    'errors' => array(
-                        'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
-                    )
-                );
-
-                \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-                return json_encode($data);
-            }
 
 
-            $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+        $session = \Ip\ServiceLocator::getSession();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
+            (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
+        ) {
+            $data = array(
+                'status' => 'error',
+                'errors' => array(
+                    'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
+                )
+            );
 
-
-            if (!$site->managementState() && !\Ip\Module\Design\ConfigModel::instance()->isInPreviewState()) {
-                $site->makeRedirect(); //if required;
-            }
+            \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+            return json_encode($data);
         }
 
         $site->modulesInit();
+        $site->dispatchEvent('administrator', 'system', 'init', array());
+        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
+
+
+
+
+        $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+
+
+        if (!$site->managementState() && !\Ip\Module\Design\ConfigModel::instance()->isInPreviewState()) {
+            $site->makeRedirect(); //if required;
+        }
 
         return $site->generateOutput();
     }
