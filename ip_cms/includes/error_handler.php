@@ -77,7 +77,7 @@ Error emails count has reached the limit. See logs for more errors.';
 
             $queue = new \Ip\Module\Email\Module();
             if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-            $queue->addEmail($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'), $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'), ERRORS_SEND, '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
+            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
             else
             $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
             $queue->send();

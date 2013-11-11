@@ -18,7 +18,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
         parent::__construct(
         array(
             'dbTable' => 'language',
-            'title' => $parametersMod->getValue('standard','languages','admin_translations','languages'),
+            'title' => __('Languages', 'ipAdmin'),
             'dbPrimaryKey' => 'id',
             'searchable' => false,
             'orderBy' => 'row_number',
@@ -32,7 +32,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','short'),
+                    'title' => __('Short', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'd_short',
                     'required' => true
@@ -43,7 +43,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','long'),
+                    'title' => __('Long', 'ipAdmin'),
                     'useInBreadcrumb' => true,
                     'showOnList' => true,
                     'dbField' => 'd_long',
@@ -53,7 +53,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Bool(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','visible'),
+                    'title' => __('Visible', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'visible',
             )
@@ -66,12 +66,12 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new ElementUrl(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','url'),
+                    'title' => __('URL', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'url',
                     'required' => true,
                     'regExpression' => '/^([^\/\\\])+$/',
-                    'regExpressionError' => $parametersMod->getValue('standard','languages','admin_translations','error_incorrect_url')
+                    'regExpressionError' => __('Incorrect URL. You can\'t use slash in URL.', 'ipAdmin')
             )
             );
             $this->addElement($element);
@@ -80,7 +80,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','code'),
+                    'title' => __('RFC 4646 code', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'code',
                     'required' => true
@@ -92,7 +92,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('standard','languages','admin_translations','text_direction'),
+                    'title' => $parametersMod->getValue('Config.text_direction'),
                     'showOnList' => true,
                     'dbField' => 'text_direction',
                     'required' => true,
@@ -153,7 +153,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
         global $parametersMod;
 
         $tmpLanguage = Db::getLanguageById($id);
-        if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+        if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('Config.multilingual')) {
             $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
             $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
             global $dispatcher;
@@ -179,13 +179,13 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
             $elements = $dbMenuManagement->pageChildren($rootElement);
             if(sizeof($elements) > 0) {
                 $answer = false;
-                $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_not_empty_language');
+                $this->errors['delete'] = __('Please delete all pages in this language and then try again.', 'ipAdmin');
             }
         }
 
         if(sizeof(Db::getLanguages()) ==1) {
             $answer = false;
-            $this->errors['delete'] = $parametersMod->getValue('standard', 'languages', 'admin_translations', 'cant_delete_last_language');
+            $this->errors['delete'] = __('There should be at least one language.', 'ipAdmin');
         }
 
 

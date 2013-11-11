@@ -22,7 +22,7 @@ class IpTitle extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_title', 'title');
+        return __('Title', 'ipAdmin');
     }
     
 }

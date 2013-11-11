@@ -24,6 +24,7 @@ class Model{
             "Languages",
             "Wizard",
             "Form",
+            "Ip",
         );
     }
 

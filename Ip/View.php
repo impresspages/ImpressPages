@@ -102,10 +102,12 @@ class View implements \Ip\Response\ResponseInterface
      * @param string $parameterKey
      */    
     public function escPar($parameterKey, $variables = null){
+        //TODOX remove all instances
         return $this->esc($this->par($parameterKey), $variables);
     }
 
     public function par($parameterKey, $variables = null){
+        return $parameterKey; //TODOX remove all instances
         global $parametersMod;
         $parts = explode('/', $parameterKey);
         if (count($parts) != 4) {

@@ -57,7 +57,7 @@ class Parameters{
 
         foreach($this->parameterGroups as $groupKey => $group){
             if($moduleGroup == null || $moduleName == null || ($moduleGroup == $group->moduleGroupName && $moduleName == $group->moduleName)){
-                if($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'administrator_interface_language') == $this->languageCode){
+                if($parametersMod->getValue('Config.administrator_interface_language') == $this->languageCode){
                     //set module group translation
                     $tmpGroup = Db::getGroup($group->moduleGroupName);
                     if($tmpGroup && $group->moduleGroupTranslation) {

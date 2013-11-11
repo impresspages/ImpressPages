@@ -62,7 +62,7 @@ class ElementImage extends Element{ //data element in area
 
         /* translation */
         global $parametersMod;
-        $deleteTranslation = '&nbsp;'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations','delete').'&nbsp;';
+        $deleteTranslation = '&nbsp;'.__('Delete', 'ipAdmin').'&nbsp;';
         /*eof translation*/
 
         $image = \Ip\Config::baseUrl($this->copies[0]['destDir'].$value);
@@ -126,7 +126,7 @@ class ElementImage extends Element{ //data element in area
         }
 
         if(isset($_POST[$prefix.'_delete']) && $this->required)
-        return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+        return __('Required field', 'ipAdmin');
 
 
 
@@ -137,13 +137,13 @@ class ElementImage extends Element{ //data element in area
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->memImages) != sizeof($this->copies)) && $action== 'insert'){
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+                return __('Required field', 'ipAdmin');
             }elseif($error ==  UPLOAD_ERR_NO_FILE){
                 return null;
             }elseif($error == UPLOAD_ERR_EXTENSION)
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_type').' JPEG, GIF, PNG';
+            return __('Incorrect file type', 'ipAdmin').' JPEG, GIF, PNG';
             else{
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_upload')." ".$error;
+                return __('File upload error', 'ipAdmin')." ".$error;
             }
         }
 

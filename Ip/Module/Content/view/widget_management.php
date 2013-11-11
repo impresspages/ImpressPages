@@ -19,7 +19,7 @@
 <?php echo $managementHtml; ?>
     </div>
     <div class="ipaFooter ipgClear">
-        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave"><?php echo $this->escPar('standard/content_management/admin_translations/man_paragraph_confirm'); ?></a>
-        <a href="#" class="ipAdminButton ipActionWidgetCancel"><?php echo $this->escPar('standard/content_management/admin_translations/man_paragraph_cancel'); ?></a>
+        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave"><?php echo $this->escPar('Content.man_paragraph_confirm'); ?></a>
+        <a href="#" class="ipAdminButton ipActionWidgetCancel"><?php echo $this->escPar('Content.man_paragraph_cancel'); ?></a>
     </div>
 </div>

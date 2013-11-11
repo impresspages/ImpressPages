@@ -14,7 +14,7 @@ class IpTable extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_table', 'widget_title');
+        return $parametersMod->getValue('Content.widget_table.widget_title');
     }
     
 }

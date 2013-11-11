@@ -22,7 +22,7 @@ class AdminController{
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'to'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'to');
+        $element->title = __('To', 'ipAdmin');
         $element->showOnList = true;
         $element->searchable = true;
         $element->sortable = true;
@@ -31,7 +31,7 @@ class AdminController{
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'from'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'from');
+        $element->title = __('From', 'ipAdmin');
         $element->showOnList = true;
         $element->searchable = true;
         $element->sortable = true;
@@ -41,7 +41,7 @@ class AdminController{
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'subject'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'subject');
+        $element->title = __('Subject', 'ipAdmin');
         $element->showOnList = true;
         $element->searchable = true;
         $element->sortable = true;
@@ -51,7 +51,7 @@ class AdminController{
         $element = new \Ip\Lib\StdMod\Element\Bool(array(
             'dbField' => 'immediate'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'immediate');
+        $element->title = __('Immediate', 'ipAdmin');
         $element->showOnList = true;
         $element->read_only = true;
         $element->searchable = true;
@@ -62,7 +62,7 @@ class AdminController{
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'send'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'send');
+        $element->title = __('Sent on', 'ipAdmin');
         $element->showOnList = true;
         $element->searchable = true;
         $element->sortable = true;
@@ -74,7 +74,7 @@ class AdminController{
 //        $element = new element_email(array(
 //            'dbField' => 'id'
 //        ));
-//        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'email');
+//        $element->title = __('Email', 'ipAdmin');
 //        $element->showOnList = true;
 //        $element->read_only = true;
 //        $element->searchable = true;
@@ -83,7 +83,7 @@ class AdminController{
 //        $element = new element_attachment(array(
 //            'dbField' => 'id'
 //        ));
-//        $element->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'attachments');
+//        $element->title = __('Attachments', 'ipAdmin');
 //        $element->showOnList = true;
 //        $element->read_only = true;
 //        $element->searchable = true;
@@ -92,7 +92,7 @@ class AdminController{
 
         $area0 = new \Ip\Lib\StdMod\Area();
         $area0->dbTable = "m_administrator_email_queue";
-        $area0->title = $parametersMod->getValue('administrator', 'email_queue', 'admin_translations', 'email_queue');
+        $area0->title = __('Email queue', 'ipAdmin');
         $area0->dbPrimaryKey= "id";
         $area0->elements = $elements;
         $area0->searchable = true;

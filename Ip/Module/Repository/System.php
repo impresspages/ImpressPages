@@ -37,8 +37,8 @@ class System{
             );
 
             $site->addJavascriptVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
-            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'confirm_delete'));
-            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', $parametersMod->getValue('administrator', 'repository', 'admin_translations', 'delete_warning'));
+            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'ipAdmin'));
+            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'ipAdmin'));
         }
 
 

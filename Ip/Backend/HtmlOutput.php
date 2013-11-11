@@ -67,7 +67,7 @@ class HtmlOutput {
       >
         <table style="margin-left: auto; margin-right: auto;"><tr>
         <td style="font-family: Verdana, Tahoma, Arial; font-size: 14px; color: #505050; padding: 30px 33px; background-color: #eeeeee; border: 1px solid #999999;">
-        ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'loading') . '								</td>
+        ' . __('Loading ...', 'ipAdmin') . '								</td>
         </tr></table>
       </div>
     </div>
@@ -192,7 +192,7 @@ class HtmlOutput {
         if($systemModule != null && !empty($_SESSION['modules']['administrator']['system']['show_system_message'])) {
             $systemMessage = '
             <a href="' . $cms->generateUrl($systemModule['id']) . '" target="content" class="ipaNotice">
-                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'system_message') . '
+                ' . __('System message', 'ipAdmin') . '
             </a>';
         } else {
             $systemMessage = '';
@@ -203,10 +203,10 @@ class HtmlOutput {
         <div class="ipAdminNavActions">
             ' . $systemMessage . '
             <a class="ipaHelp" target="_blank" href="http://www.impresspages.org/help2">
-                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'help') . '
+                ' . $parametersMod->getValue('Config.help') . '
             </a>
             <a class="ipaLogout" href="' . $cms->generateActionUrl('logout') . '">
-                ' . $parametersMod->getValue('standard', 'configuration', 'system_translations', 'logout') . '
+                ' . __('Logout', 'ipAdmin') . '
             </a>
         </div>
         <div class="ipAdminNavLinks">

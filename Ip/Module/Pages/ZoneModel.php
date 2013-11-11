@@ -44,7 +44,7 @@ class ZoneModel{
 
     private static function makeUrl($languageUrl, $zoneUrl){
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        if ($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+        if ($parametersMod->getValue('Config.multilingual')) {
             $answer = \Ip\Config::baseUrl(urlencode($languageUrl).'/'.urlencode($zoneUrl).'/');
         } else {
             $answer = \Ip\Config::baseUrl(urlencode($zoneUrl).'/');

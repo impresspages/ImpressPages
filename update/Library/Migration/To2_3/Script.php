@@ -25,10 +25,10 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $group = $this->getParametersGroup($module['id'], 'admin_translations');
         if ($group) {
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'save_now_hint')) {
+            if(!$this->getParameter('Content.save_now_hint')) {
                 $this->addStringParameter($group['id'], 'Save now hint', 'save_now_hint', 'Save now - publish later', 1);
             }
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'search_widgets')) {
+            if(!$this->getParameter('Content.search_widgets')) {
                 $this->addStringParameter($group['id'], 'Search widgets', 'search_widgets', 'Search widgets', 1);
             }
         }

@@ -25,7 +25,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $group = $this->getParametersGroup($module['id'], 'error_404');
         if ($group) {
-            if(!$this->getParameter('standard', 'configuration', 'error_404', 'error_title')) {
+            if(!$this->getParameter('Config.error_title')) {
                 $this->addStringParameter($group['id'], 'Error page title', 'error_title', 'Page not found', 0);
             }
         }
@@ -34,10 +34,10 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $group = $this->getParametersGroup($module['id'], 'admin_translations');
         if ($group) {
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'layout_default')) {
+            if(!$this->getParameter('Content.layout_default')) {
                 $this->addStringParameter($group['id'], 'Layout default', 'layout_default', 'Default', 1);
             }
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'layout_right')) {
+            if(!$this->getParameter('Content.layout_right')) {
                 $this->addStringParameter($group['id'], 'Layout right', 'layout_right', 'Right', 1);
             }
         }

@@ -1,10 +1,10 @@
 <div class="ipWidget_ipLogoGallery_container">
-    <a href="#" class="ipAdminButton ipmBrowseButton"><?php echo $this->escPar('standard/configuration/admin_translations/add_new'); ?></a>
+    <a href="#" class="ipAdminButton ipmBrowseButton"><?php echo $this->escPar('Config.add_new'); ?></a>
 </div>
 <div class="ipgHide">
     <div class="ipaLogoTemplate">
-        <a href="#" class="ipaButton ipaLogoMove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/move') ?></a>
-        <a href="#" class="ipaButton ipaLogoRemove"><?php echo $this->escPar('standard/content_management/widget_logo_gallery/remove') ?></a>
+        <a href="#" class="ipaButton ipaLogoMove"><?php echo $this->escPar('Content.widget_logo_gallery.move') ?></a>
+        <a href="#" class="ipaButton ipaLogoRemove"><?php echo $this->escPar('Content.widget_logo_gallery.remove') ?></a>
         <a href="#" class="ipaButton ipaLogoLink">Link</a>
         <br />
         <br />
