@@ -30,7 +30,7 @@ class Manager{
         $elements = array();
 
         $element = new \Library\Php\StandardModule\element_text("text");
-        $element->name = $parametersMod->getValue('Administrators.name');
+        $element->name = __('Name', 'ipAdmin');
         $element->db_field = "name";
         $element->required = true;
         $element->showOnList = true;
@@ -41,14 +41,14 @@ class Manager{
 
 
         $element = new \Library\Php\StandardModule\element_pass("text");
-        $element->name = $parametersMod->getValue('Administrators.password');
+        $element->name = __('Password', 'ipAdmin');
         $element->db_field = "pass";
         $element->showOnList = false;
         //   $element->searchable = true;
         $elements[] = $element;
 
         $element = new element_administrators("select");
-        $element->set_name($parametersMod->getValue('Administrators.permissions'));
+        $element->set_name(__('Permissions', 'ipAdmin'));
         // $element->set_db_field("id");
 
 
@@ -89,7 +89,7 @@ class Manager{
 
         $area0 = new mod_administrator_area();
         $area0->db_table = "user";
-        $area0->name = $parametersMod->getValue('Administrators.administrators');
+        $area0->name = __('Administrators', 'ipAdmin');
         $area0->db_key = "id";
         $area0->elements = $elements;
         $area0->sort_field = "row_number";

@@ -142,7 +142,7 @@ class ElementDate extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
-            return $parametersMod->getValue('StdMod.error_required');
+            return __('Required field', 'ipAdmin');
 
             if($this->regExpression != null){
                 if($_POST[$prefix] == null || preg_match($this->regExpression, $_POST[$prefix]))

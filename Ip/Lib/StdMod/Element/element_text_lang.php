@@ -191,7 +191,7 @@ class ElementTextLang extends Element { //data element in area
         if ($this->required) {
             foreach($languages as $key => $language) {
                 if(!isset($_REQUEST[$prefix.'_'.$language['id']]) || $_REQUEST[$prefix.'_'.$language['id']] == null)
-                return $parametersMod->getValue('StdMod.error_required');
+                return __('Required field', 'ipAdmin');
             }
         }
 

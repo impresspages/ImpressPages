@@ -18,7 +18,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
         parent::__construct(
         array(
             'dbTable' => 'language',
-            'title' => $parametersMod->getValue('Config.languages'),
+            'title' => __('Languages', 'ipAdmin'),
             'dbPrimaryKey' => 'id',
             'searchable' => false,
             'orderBy' => 'row_number',
@@ -32,7 +32,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('Config.short'),
+                    'title' => __('Short', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'd_short',
                     'required' => true
@@ -43,7 +43,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('Config.long'),
+                    'title' => __('Long', 'ipAdmin'),
                     'useInBreadcrumb' => true,
                     'showOnList' => true,
                     'dbField' => 'd_long',
@@ -53,7 +53,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Bool(
             array(
-                    'title' => $parametersMod->getValue('Config.visible'),
+                    'title' => __('Visible', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'visible',
             )
@@ -66,12 +66,12 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new ElementUrl(
             array(
-                    'title' => $parametersMod->getValue('Config.url'),
+                    'title' => __('URL', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'url',
                     'required' => true,
                     'regExpression' => '/^([^\/\\\])+$/',
-                    'regExpressionError' => $parametersMod->getValue('Config.error_incorrect_url')
+                    'regExpressionError' => __('Incorrect URL. You can\'t use slash in URL.', 'ipAdmin')
             )
             );
             $this->addElement($element);
@@ -80,7 +80,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('Config.code'),
+                    'title' => __('RFC 4646 code', 'ipAdmin'),
                     'showOnList' => true,
                     'dbField' => 'code',
                     'required' => true
@@ -179,13 +179,13 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
             $elements = $dbMenuManagement->pageChildren($rootElement);
             if(sizeof($elements) > 0) {
                 $answer = false;
-                $this->errors['delete'] = $parametersMod->getValue('Config.cant_delete_not_empty_language');
+                $this->errors['delete'] = __('Please delete all pages in this language and then try again.', 'ipAdmin');
             }
         }
 
         if(sizeof(Db::getLanguages()) ==1) {
             $answer = false;
-            $this->errors['delete'] = $parametersMod->getValue('Config.cant_delete_last_language');
+            $this->errors['delete'] = __('There should be at least one language.', 'ipAdmin');
         }
 
 

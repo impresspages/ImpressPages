@@ -52,7 +52,7 @@ class OldCmsInterface{
         if(isset($_REQUEST['action']) && isset($_POST['f_name']) && isset($_POST['f_pass']) && $_REQUEST['action'] == "login" && !isset($_REQUEST['module_id'])) {
 
             if(\Ip\Backend\Db::incorrectLoginCount($_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
-                $this->loginError = $parametersMod->getValue('Config.login_suspended');
+                $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
                 \Ip\Backend\Db::log('system', 'backend login suspended', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }else {
                 $id = \Ip\Backend\Db::userId($_POST['f_name'], $_POST['f_pass']);
@@ -61,7 +61,7 @@ class OldCmsInterface{
                     \Ip\Backend\Db::log('system', 'backend login', $_POST['f_name'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                     header("location:ip_backend_frames.php");
                 } else {
-                    $this->loginError = $parametersMod->getValue('Config.login_incorrect');
+                    $this->loginError = __('Incorrect name or password', 'ipAdmin');
                     \Ip\Backend\Db::log('system', 'backend login incorrect', $_POST['f_name'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 }
             }

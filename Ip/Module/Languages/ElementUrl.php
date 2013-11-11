@@ -17,14 +17,14 @@ class ElementUrl extends \Ip\Lib\StdMod\Element\Text{
             case 'insert':
                 $tmpLanguage = Db::getLanguageByUrl($_REQUEST[''.$prefix]);
                 if($tmpLanguage){
-                    return $parametersMod->getValue('Config.error_duplicate_url');
+                    return __('Duplicate URL', 'ipAdmin');
                 }
 
                 break;
             case 'update':
                 $tmpLanguage = Db::getLanguageByUrl($_REQUEST[''.$prefix]);
                 if($tmpLanguage && $tmpLanguage['id'] != $area->currentId){
-                    return $parametersMod->getValue('Config.error_duplicate_url');
+                    return __('Duplicate URL', 'ipAdmin');
                 }
                 break;
         }

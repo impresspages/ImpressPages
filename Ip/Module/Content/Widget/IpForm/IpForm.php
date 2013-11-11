@@ -14,7 +14,7 @@ class IpForm extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_contact_form.contact_form');
+        return __('Contact form', 'ipAdmin');
     }
     
     public function post ($controller, $instanceId, $postData, $data) {
