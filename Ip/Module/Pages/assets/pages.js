@@ -512,6 +512,9 @@ function updatePageForm(event, data) {
         case 'zone':
             ipPagesZoneProperties.open(node.attr('websiteId'), node.attr('zoneName'), node.attr('languageId'));
             break;
+        case 'language':
+            ipPagesLanguageProperties.open(node.attr('websiteId'), node.attr('languageId'));
+            break;
         default:
             $('#pageProperties').html('');
     }

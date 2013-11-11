@@ -419,6 +419,42 @@ class AdminController extends \Ip\Controller
     }
 
 
+    public function getLanguageProperties() {
+
+        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+        $answer = array();
+
+        $title = __('SEO', 'ipAdmin');
+
+        $language = \Ip\ServiceLocator::getSite()->getLanguageById($languageId);
+
+        if (!$language) {
+            throw new \Ip\CoreException("Language doesn't exist. Language id: " . $languageId);
+        }
+
+        $propertiesData = array (
+            'form' => Forms::languageForm($languageId, $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
+        );
+        $content = \Ip\View::create('view/zoneProperties.php', $propertiesData)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $data = array (
+            'tabs' => $tabs
+        );
+
+        $tabsView = \Ip\View::create('view/tabs.php', $data);
+
+
+
+        $answer['html'] = $tabsView->render();
+        $this->returnJson($answer);
+    }
+
     public function saveZoneProperties()
     {
         $site = \Ip\ServiceLocator::getSite();
