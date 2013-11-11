@@ -21,7 +21,7 @@ if(!install_available()) {
 
 
 
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 session_start();
 
 
@@ -139,15 +139,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'create_database'){
 
             require (BASE_DIR.FRONTEND_DIR.'db.php');
             require (BASE_DIR.INCLUDE_DIR.'db.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters1.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters2.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters3.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters4.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters5.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters6.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters7.php');
-            require (BASE_DIR.INCLUDE_DIR.'parameters8.php');
-            require (__DIR__.'/themeParameters.php');
+            require (BASE_DIR.INCLUDE_DIR.'parameters.php');
             require_once(BASE_DIR.'ip_cms/modules/developer/localization/manager.php');
 
             global $parametersMod;
