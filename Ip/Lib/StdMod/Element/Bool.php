@@ -105,8 +105,8 @@ class Bool extends Element{ //data element in area
             }
         }
 
-        return '<span class="label"><input class="stdModRadio" type="radio" '.$checked1.' name="search['.$level.']['.$key.']" value="1" />'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'yes').'</span>'.
-		'<span class="label"><input  class="stdModRadio" type="radio" '.$checked2.' name="search['.$level.']['.$key.']" value="0" />'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'no').'</span>';
+        return '<span class="label"><input class="stdModRadio" type="radio" '.$checked1.' name="search['.$level.']['.$key.']" value="1" />'.__('Yes', 'ipAdmin').'</span>'.
+		'<span class="label"><input  class="stdModRadio" type="radio" '.$checked2.' name="search['.$level.']['.$key.']" value="0" />'.__('No', 'ipAdmin').'</span>';
     }
 
     function getFilterOption($value, $area){

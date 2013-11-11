@@ -71,7 +71,7 @@ class ElementFile extends Element{ //data element in area
 
         /* translation */
         global $parametersMod;
-        $deleteTranslation = '&nbsp;'.$parametersMod->getValue('developer', 'std_mod', 'admin_translations','delete').'&nbsp;';
+        $deleteTranslation = '&nbsp;'.__('Delete', 'ipAdmin').'&nbsp;';
         /*eof translation*/
 
         if($value != ''){
@@ -132,19 +132,19 @@ class ElementFile extends Element{ //data element in area
                 $this->memFile = $uploadFile->fileName;
                 return null;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && !isset($this->memFile) && $action== 'insert'){
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+                return __('Required field', 'ipAdmin');
             }elseif($error ==  UPLOAD_ERR_NO_FILE){
                 return null;
             }elseif($error == UPLOAD_ERR_EXTENSION)
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_type').' '.implode(', ', $this->extensions);
+            return __('Incorrect file type', 'ipAdmin').' '.implode(', ', $this->extensions);
             else{
-                return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_file_upload')." ".$error;
+                return __('File upload error', 'ipAdmin')." ".$error;
             }
 
         }
 
         if(isset($_POST[$prefix.'_delete']) && $this->required)
-        return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+        return __('Required field', 'ipAdmin');
 
         return null;
     }

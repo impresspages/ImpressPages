@@ -16,7 +16,7 @@ class IpImage extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_image', 'image');
+        return __('Image', 'ipAdmin');
     }
 
     
@@ -130,12 +130,12 @@ class IpImage extends \Ip\Module\Content\Widget{
         global $parametersMod;
         $bigImageName = \Library\Php\Image\Functions::resize(
             $imageOriginal,
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_width'),
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_height'),
+            $parametersMod->getValue('Content.widget_image.big_width'),
+            $parametersMod->getValue('Content.widget_image.big_height'),
             \Ip\Config::temporaryFile(''),
             \Library\Php\Image\Functions::CROP_TYPE_FIT,
             false,
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'big_quality')
+            $parametersMod->getValue('Content.widget_image.big_quality')
         );
         return $bigImageName;
     }
@@ -152,7 +152,7 @@ class IpImage extends \Ip\Module\Content\Widget{
             $cropY1,
             $cropX2,
             $cropY2,
-            $parametersMod->getValue('standard', 'content_management', 'widget_image', 'quality'),
+            $parametersMod->getValue('Content.widget_image.quality'),
             $requiredWidth,
             $requiredHeight
         );

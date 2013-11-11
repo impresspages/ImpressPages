@@ -107,19 +107,19 @@ class AdminController extends \Ip\Controller
         );
 
         $tabs = array();
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'general');
+        $title = __('General', 'ipAdmin');
         $content = \Ip\View::create('view/page_options_general.php', $data)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'seo');
+        $title = __('SEO', 'ipAdmin');
         $content = \Ip\View::create('view/page_options_seo.php', $data)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'advanced');
+        $title = __('Advanced', 'ipAdmin');
         $content = \Ip\View::create('view/page_options_advanced.php', $data)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('standard', 'menu_management', 'admin_translations', 'design');
+        $title = __('Design', 'ipAdmin');
         $content = $this->_getPageDesignOptionsHtml($zone, $element, array('show_confirm_notification' => true));
         $tabs[] = array('title' => $title, 'content' => $content);
 

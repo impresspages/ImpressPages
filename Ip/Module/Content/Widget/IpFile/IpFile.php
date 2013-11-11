@@ -14,7 +14,7 @@ class IpFile extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_file', 'file');
+        return $parametersMod->getValue('Content.widget_file', 'file');
     }
 
     public function update($widgetId, $postData, $currentData) {

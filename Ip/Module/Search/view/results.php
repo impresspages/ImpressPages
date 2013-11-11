@@ -1,5 +1,5 @@
 <?php 
-echo $this->renderWidget('IpTitle', array('title' => $this->par('administrator/search/translations/search')));
+echo $this->renderWidget('IpTitle', array('title' => $this->par('Search.search')));
 $listHtml = \Ip\View::create('elements_list.php', array('elements' => $foundElementsCombined));
 echo $this->renderWidget('IpText', array('text' => $listHtml));
 

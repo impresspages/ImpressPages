@@ -26,7 +26,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         $parametersGroup = $this->getParameterGroup($moduleId, 'admin_translations');
         $groupId = $parametersGroup['id'];
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'robots_txt_update_failed')) {
+            if(!$this->getParameter('InlineManagement.robots_txt_update_failed')) {
                 $this->addStringParameter($groupId, 'robots.txt update failed', 'robots_txt_update_failed', 'robots.txt file needs to be updated manually.', 0);
             }
 
@@ -75,45 +75,45 @@ class Script extends \IpUpdate\Library\Migration\General{
             $groupId = $this->addParameterGroup($moduleId, 'admin_translations', 'Admin translations', 1);
         }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'type_text')) {
+            if(!$this->getParameter('InlineManagement.type_text')) {
                 $this->addStringParameter($groupId, 'Text logo', 'type_text', 'Text logo', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'type_image')) {
+            if(!$this->getParameter('InlineManagement.type_image')) {
                 $this->addStringParameter($groupId, 'Image logo', 'type_image', 'Image logo', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'default')) {
+            if(!$this->getParameter('InlineManagement.default')) {
                 $this->addStringParameter($groupId, 'Default', 'default', 'Default', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'remove_image')) {
+            if(!$this->getParameter('InlineManagement.remove_image')) {
                 $this->addStringParameter($groupId, 'Remove image', 'remove_image', 'Remove this image', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'remove_image_confirm')) {
+            if(!$this->getParameter('InlineManagement.remove_image_confirm')) {
                 $this->addStringParameter($groupId, 'Remove image confirm', 'remove_image_confirm', 'There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'image_assignment_type')) {
+            if(!$this->getParameter('InlineManagement.image_assignment_type')) {
                 $this->addStringParameter($groupId, 'Image assignment type', 'image_assignment_type', 'Apply to', 1);
             }
 
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_page')) {
+            if(!$this->getParameter('InlineManagement.assign_to_page')) {
                 $this->addStringParameter($groupId, 'Assign to page', 'assign_to_page', 'Current page and sub-pages', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_parent_page')) {
+            if(!$this->getParameter('InlineManagement.assign_to_parent_page')) {
                 $this->addStringParameter($groupId, 'Assigne to parent page', 'assign_to_parent_page', 'Page "[[page]]" and all sub-pages', 1);
             }
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_language')) {
+            if(!$this->getParameter('InlineManagement.assign_to_language')) {
                 $this->addStringParameter($groupId, 'Assign to language', 'assign_to_language', 'All [[language]] pages', 1);
             }
 
 
-            if(!$this->getParameter('developer', 'inline_management', 'admin_translations', 'assign_to_all_pages')) {
+            if(!$this->getParameter('InlineManagement.assign_to_all_pages')) {
                 $this->addStringParameter($groupId, 'Assign to all pages', 'assign_to_all_pages', 'All pages', 1);
             }
 
@@ -124,7 +124,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         } else {
             $groupId = $this->addParameterGroup($moduleId, 'options', 'Options', 1);
         }
-            if(!$this->getParameter('developer', 'inline_management', 'options', 'available_fonts')) {
+            if(!$this->getParameter('InlineManagement.available_fonts')) {
                 $fonts = 
 'Arial,Arial,Helvetica,sans-serif
 Arial Black,Arial Black,Gadget,sans-serif

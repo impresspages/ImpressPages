@@ -17,8 +17,8 @@ class Cron {
         
         
         if ($options->firstTimeThisDay) {
-            if ($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
-                \Ip\Revision::removeOldRevisions($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for'));
+            if (ipGetOption('Config.keepOldRevision') != 0) {
+                \Ip\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }
             $this->checkForUpdates();
         }        
@@ -64,11 +64,11 @@ class Cron {
                 if (\Ip\Config::getRaw('ERRORS_SEND')) {
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email'),
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
+                        ipGetOption('Config.websiteEmail'),
+                        ipGetOption('Config.websiteTitle'),
                         \Ip\Config::getRaw('ERRORS_SEND'),
                         '',
-                        $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name'),
+                        ipGetOption('Config.websiteTitle'),
                         $message,
                         false,
                         true);

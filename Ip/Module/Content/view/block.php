@@ -13,7 +13,7 @@
     } elseif ($managementState) {
 ?>
         <div class="ipbExampleContent">
-            <div class="ipbDefault"><?php echo $this->escPar('standard/content_management/admin_translations/placeholder_text') ?></div>
+            <div class="ipbDefault"><?php echo $this->escPar('Content.placeholder_text') ?></div>
             <div class="ipbUser">
 <?php
         if ($exampleContent) {

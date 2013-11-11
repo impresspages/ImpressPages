@@ -1,0 +1,230 @@
+<?php
+/**
+ * @package ImpressPages
+ *
+ *
+ */
+namespace Ip\Module\Config;
+
+
+
+
+class AdminController extends \Ip\Controller{
+
+    public function index()
+    {
+
+        \Ip\ServiceLocator::getSite()->addJavascript(\Ip\Config::coreModuleUrl('Config/public/config.js'));
+
+        $form = Forms::getForm();
+        $data = array (
+            'form' => $form
+        );
+        return \Ip\View::create('view/configWindow.php', $data)->render();
+
+    }
+
+
+    public function saveValue()
+    {
+        $request = \Ip\ServiceLocator::getRequest();
+
+        $request->mustBePost();
+
+        $post = $request->getPost();
+        if (empty($post['fieldName'])) {
+            throw new \Exception('Missing required parameter');
+        }
+        $fieldName = $post['fieldName'];
+        if (!isset($post['value'])) {
+            throw new \Exception('Missing required parameter');
+        }
+        $value = $post['value'];
+
+        if (!in_array($fieldName, array('automaticCron', 'keepOldRevision', 'websiteTitle', 'websiteEmail'))) {
+            throw new \Exception('Unknown config value');
+        }
+
+        $emailValidator = new \Ip\Form\Validator\Email();
+        if ($fieldName === 'websiteEmail' && $emailValidator->validate(array('value' => $value), 'value') !== false) {
+            $this->returnError("Invalid value");
+            return;
+        }
+
+<<<<<<< HEAD
+        ipSetOption('Config.' . $fieldName, $value);
+=======
+        $elements = array();
+
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'translation'
+        ));
+        $element->name = __('Name', 'ipAdmin');
+        $element->showOnList = true;
+        // $element->searchable = true;
+        $elements[] = $element;
+        $tmpEl = $element;
+
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'name'
+        ));
+        $element->name = __('Key', 'ipAdmin');
+        $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
+        $element->regExpressionError = __('0', 'ipAdmin');
+         
+        $element->showOnList = true;
+        //   $element->searchable = true;
+        $elements[] = $element;
+
+
+        $element = new \Ip\Lib\StdMod\Element\Bool(array(
+            'dbField' => 'admin'
+        ));
+        $element->name = $parametersMod->getValue('ModulesConfig.admin');
+        $element->showOnList = true;
+        // $element->searchable = true;
+        $elements[] = $element;
+
+
+
+
+        $area1 = new \Ip\Lib\StdMod\Area();
+        $area1->dbTable = "module";
+        $area1->name = __('Modules', 'ipAdmin');
+        $area1->dbPrimaryKey = "id";
+        $area1->elements = $elements;
+        $area1->orderBy = 'row_number';
+        $area1->nameElement = $tmpEl;
+         
+
+
+
+
+
+
+
+
+        //==============================================
+
+
+
+
+
+        $elements = array();
+
+
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'translation'
+        ));
+        $element->name = __('Name', 'ipAdmin');
+        $element->showOnList = true;
+        $elements[] = $element;
+        $tmpEl = $element;
+
+
+
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'name'
+        ));
+        $element->name = __('Key', 'ipAdmin');
+        $element->regExpression = "/^[A-Za-z0-9\-_]+$/";
+        $element->regExpressionError = __('0', 'ipAdmin');
+
+        $element->showOnList = true;
+        // $element->searchable = true;
+        $elements[] = $element;
+
+
+        $element = new \Ip\Lib\StdMod\Element\Bool(array(
+            'dbField' => 'admin'
+        ));
+        $element->name = $parametersMod->getValue('ModulesConfig.admin');
+        $element->showOnList = true;
+        // $element->searchable = true;
+        $elements[] = $element;
+
+
+
+        $area2 = new \Ip\Lib\StdMod\Area();
+        $area2->dbTable = "parameter_group";
+        $area2->name = __('Parameters groups', 'ipAdmin');
+        $area2->dbPrimaryKey = "id";
+        $area2->elements = $elements;
+        $area2->sortField = "row_number";
+        $area2->dbReference = "module_id";
+        $area2->orderBy = 'translation';
+        $area2->nameElement = $tmpEl;
+
+
+
+        //==============================================
+
+
+
+        $elements = array();
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'translation'
+        ));
+        $element->title = __('Name', 'ipAdmin');
+        $element->showOnList = true;
+        $elements[] = $element;
+        $tmpEl = $element;
+
+
+
+        $element = new \Ip\Lib\StdMod\Element\Text(array(
+            'dbField' => 'name'
+        ));
+        $element->title = __('Key', 'ipAdmin');
+        $element->regExpression = "/^[A-Za-z0-9\\-_]+$/";
+        $element->regExpressionError = __('0', 'ipAdmin');
+        $element->showOnList = true;
+        $elements[] = $element;
+
+
+
+
+        $element = new \Ip\Lib\StdMod\Element\Parameter(array(
+            'dbField' => 'id'
+        ));
+        $element->title = __('Value', 'ipAdmin');
+        $element->showOnList = true;
+        $elements[] = $element;
+
+        $element = new \Ip\Lib\StdMod\Element\Bool(array(
+            'dbField' => 'admin'
+        ));
+        $element->title = $parametersMod->getValue('ModulesConfig.admin');
+        $element->showOnList = true;
+        $elements[] = $element;
+
+
+
+        $area3 = new \Ip\Lib\StdMod\Area();
+        $area3->dbTable = "parameter";
+        $area3->name = __('Parameters', 'ipAdmin');
+        $area3->dbPrimaryKey = "id";
+        $area3->elements = $elements;
+        $area3->sortField = "row_number";
+        $area3->dbReference = "group_id";
+        $area3->orderBy = 'translation';
+        $area3->nameElement = $tmpEl;
+         
+         
+        $area2->addArea($area3);
+        $area1->addArea($area2);
+>>>>>>> f13a03e59e1b54041dd337d6b1b30d42fda644b6
+
+
+        $this->returnJson(array(1));
+
+    }
+
+    private function returnError($errorMessage)
+    {
+        $data = array(
+            'error' => $errorMessage
+        );
+        $this->returnJson($data);
+    }
+}
