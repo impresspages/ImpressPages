@@ -47,7 +47,7 @@ class Form{
     /**
      * Remove securityToken field
      */
-    public function removeXssCheck()
+    public function removeCsrfCheck()
     {
         $this->removeField('securityToken');
     }

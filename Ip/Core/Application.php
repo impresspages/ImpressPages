@@ -96,12 +96,16 @@ class Application {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
         ) {
+            $log = \Ip\ServiceLocator::getLog();
+            $log->log('ImpressPages Core', 'CSRF check', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
             $data = array(
-                'status' => 'error',
-                'errors' => array(
-                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.')
-                )
+                'status' => 'error'
             );
+            if (\Ip\Config::isDevelopmentEnvironment()) {
+                $data['errors'] = array(
+                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
+                );
+            }
 
             \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
             return json_encode($data);

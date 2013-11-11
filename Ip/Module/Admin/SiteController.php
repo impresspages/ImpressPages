@@ -94,8 +94,6 @@ class SiteController extends \Ip\Controller{
         //create form object
         $form = new \Ip\Form();
 
-        $form->removeXssCheck();
-
         //add text field to form object
         $field = new \Ip\Form\Field\Hidden(
             array(

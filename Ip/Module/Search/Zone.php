@@ -50,7 +50,7 @@ class Zone extends \Ip\Frontend\Zone {
         
         $form = new \Ip\Form();
         $form->setMethod(\Ip\Form::METHOD_GET);
-        $form->removeXssCheck();
+        $form->removeCsrfCheck();
         
         $field = new \Ip\Form\Field\Text(
         array(
