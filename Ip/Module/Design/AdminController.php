@@ -101,7 +101,7 @@ class AdminController extends \Ip\Controller
         try {
             $model->installThemePlugin($pluginGroup, $pluginName);
             $this->rpcSuccess(1, 1);
-            $_SESSION['module']['design']['pluginNote'] = $parametersMod->getValue('Design.plugin_installed');
+            $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed. Please refresh the browser.', 'ipAdmin');
         } catch (\Exception $e) {
             $this->rpcError($e->getCode(), $e->getMessage());
         }
@@ -117,7 +117,7 @@ class AdminController extends \Ip\Controller
         $themes = \Ip\Request::getPost('themes');
 
         if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
-            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => $parametersMod->getValue('Design.theme_write_error')), 'id' => null);
+            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => __('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin')), 'id' => null);
             $this->returnJson($error);
             return;
         }

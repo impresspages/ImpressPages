@@ -329,19 +329,19 @@ class AdminController extends \Ip\Controller
         $tabs = array();
 
 
-        $title = $parametersMod->getValue('Pages.general');
+        $title = __('General', 'ipAdmin');
         $content = Template::generateTabGeneral();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('Pages.seo');
+        $title = __('SEO', 'ipAdmin');
         $content = Template::generateTabSEO();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('Pages.advanced');
+        $title = __('Advanced', 'ipAdmin');
         $content = Template::generateTabAdvanced();
         $tabs[] = array('title' => $title, 'content' => $content);
 
-        $title = $parametersMod->getValue('Pages.design');
+        $title = __('Design', 'ipAdmin');
         $content = $this->getPageDesignOptionsHtml($zone, $page, array('show_submit_button' => true));
         $tabs[] = array('title' => $title, 'content' => $content);
 
@@ -398,7 +398,7 @@ class AdminController extends \Ip\Controller
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $answer = array();
 
-        $title = $parametersMod->getValue('Pages.seo');
+        $title = __('SEO', 'ipAdmin');
 
         $propertiesData = array (
             'form' => Forms::zoneSeoForm($languageId, $zoneName, $zoneData['title'], $zoneData['url'], $zoneData['keywords'], $zoneData['description'])
@@ -626,15 +626,15 @@ class AdminController extends \Ip\Controller
         //end make url
 
         if (strtotime($_POST['createdOn']) === false) {
-            $answer['errors'][] = array('field' => 'createdOn', 'message' => $parametersMod->getValue('Pages.error_date_format').date("Y-m-d"));
+            $answer['errors'][] = array('field' => 'createdOn', 'message' => __('Incorrect date format. Example:  ', 'ipAdmin').date("Y-m-d"));
         }
 
         if (strtotime($_POST['lastModified']) === false) {
-            $answer['errors'][] = array('field' => 'lastModified', 'message' => $parametersMod->getValue('Pages.error_date_format').date("Y-m-d"));
+            $answer['errors'][] = array('field' => 'lastModified', 'message' => __('Incorrect date format. Example:  ', 'ipAdmin').date("Y-m-d"));
         }
 
         if ($_POST['type'] == 'redirect' && $_POST['redirectURL'] == '') {
-            $answer['errors'][] = array('field' => 'redirectURL', 'message' => $parametersMod->getValue('Pages.error_type_url_empty'));
+            $answer['errors'][] = array('field' => 'redirectURL', 'message' => __('External url can\'t be empty', 'ipAdmin'));
         }
 
 

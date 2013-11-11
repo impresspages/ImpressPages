@@ -46,14 +46,14 @@ class Template {
 '
     <script type="text/javascript">
         var imageDir= \''.$data['imageDir'].'\';
-        var deleteConfirmText= \''.addslashes($parametersMod->getValue('Pages.question_delete')).'\';
+        var deleteConfirmText= \''.addslashes(__('Do you really want to delete?', 'ipAdmin')).'\';
 
-        var textSave = \''.addslashes($parametersMod->getValue('Pages.save')).'\';
+        var textSave = \''.addslashes(__('Save', 'ipAdmin')).'\';
         var textCancel = \''.addslashes($parametersMod->getValue('Pages.cancel')).'\';
-        var textDelete = \''.addslashes($parametersMod->getValue('Pages.delete')).'\';
-        var textEdit = \''.addslashes($parametersMod->getValue('Pages.edit')).'\';
-        var textNewPage = \''.addslashes($parametersMod->getValue('Pages.new_page')).'\';
-        var textCopy = \''.addslashes($parametersMod->getValue('Pages.copy')).'\';
+        var textDelete = \''.addslashes(__('Delete', 'ipAdmin')).'\';
+        var textEdit = \''.addslashes(__('Edit', 'ipAdmin')).'\';
+        var textNewPage = \''.addslashes(__('New page', 'ipAdmin')).'\';
+        var textCopy = \''.addslashes(__('Copy', 'ipAdmin')).'\';
         var textPaste = \''.addslashes($parametersMod->getValue('Pages.paste')).'\';
     </script>
     <div>
@@ -62,15 +62,15 @@ class Template {
                 <ul>
                     <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('Pages.new_page')).'</span>
+                    	<span class="ui-button-text">'.htmlspecialchars(__('New page', 'ipAdmin')).'</span>
                     </button>
                     <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('Pages.delete')).'</span>
+                    	<span class="ui-button-text">'.htmlspecialchars(__('Delete', 'ipAdmin')).'</span>
                     </button>
                     <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('Pages.copy')).'</span>
+                    	<span class="ui-button-text">'.htmlspecialchars(__('Copy', 'ipAdmin')).'</span>
                     </button>
                     <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
@@ -83,9 +83,9 @@ class Template {
     	</div>
     	<div id="pageProperties" class="ui-widget-content"></div>
     </div>	
-	<div id="createPageForm" title="'.htmlspecialchars($parametersMod->getValue('Pages.new_page')).'">
+	<div id="createPageForm" title="'.htmlspecialchars(__('New page', 'ipAdmin')).'">
 		<form id="formCreatePage">
-            <label for="createPageButtonTitle">'.htmlspecialchars($parametersMod->getValue('Pages.button_title')).'</label>
+            <label for="createPageButtonTitle">'.htmlspecialchars(__('Button title', 'ipAdmin')).'</label>
             <input id="createPageButtonTitle" name="buttonTitle" value="" />
 		</form>
 	</div>    	
@@ -139,24 +139,24 @@ class Template {
 '
 <form id="formGeneral">
 	<p class="field">
-        <label for="generalButtonTitle">'.htmlspecialchars($parametersMod->getValue('Pages.button_title')).'</label>
+        <label for="generalButtonTitle">'.htmlspecialchars(__('Button title', 'ipAdmin')).'</label>
         <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
     </p>
 	<p class="field">
-        <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('Pages.visible')).'</label>
+        <label for="generalVisible">'.htmlspecialchars(__('Visible', 'ipAdmin')).'</label>
     	<input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="yes"' : '' ).' /><br />
     </p>
 	<p class="field">
-    	<label for="generalCreatedOn">'.htmlspecialchars($parametersMod->getValue('Pages.created_on')).'</label>
+    	<label for="generalCreatedOn">'.htmlspecialchars(__('Created on', 'ipAdmin')).'</label>
     	<span class="error" id="createdOnError"></span>
     	<input id="generalCreatedOn" name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" /><br />
     </p>
 	<p class="field">
-    	<label for="lastModifiedError">'.htmlspecialchars($parametersMod->getValue('Pages.last_modified')).'</label>
+    	<label for="lastModifiedError">'.htmlspecialchars(__('Last modified', 'ipAdmin')).'</label>
     	<span class="error" id="lastModifiedError"></span>
     	<input id="generalLastModified" name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" /><br />
 	</p>    
-    <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('Pages.save')).'" />
+    <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
 </form>
 ';
 
@@ -174,23 +174,23 @@ class Template {
 <form id="formSEO">
 
 	<p class="field">
-        <label for="seoPageTitle">'.htmlspecialchars($parametersMod->getValue('Pages.page_title')).'</label>
+        <label for="seoPageTitle">'.htmlspecialchars(__('Meta title', 'ipAdmin')).'</label>
         <input id="seoPageTitle" name="pageTitle" value="'.htmlspecialchars($element->getPageTitle()).'" /><br />
     </p>
 	<p class="field">
-        <label for="seoKeywords">'.htmlspecialchars($parametersMod->getValue('Pages.keywords')).'</label>
+        <label for="seoKeywords">'.htmlspecialchars(__('Meta keywords', 'ipAdmin')).'</label>
         <textarea id="seoKeywords" name="keywords">'.htmlspecialchars($element->getKeywords()).'</textarea><br />
     </p>
 	<p class="field">
-        <label for="seoDescription">'.htmlspecialchars($parametersMod->getValue('Pages.description')).'</label>
+        <label for="seoDescription">'.htmlspecialchars(__('Meta description', 'ipAdmin')).'</label>
         <textarea id="seoDescription" name="description">'.htmlspecialchars($element->getDescription()).'</textarea><br />
     </p>
 	<p class="field">
-        <label for="seoUrl">'.htmlspecialchars($parametersMod->getValue('Pages.url')).'</label>
+        <label for="seoUrl">'.htmlspecialchars(__('URL', 'ipAdmin')).'</label>
         <input id="seoUrl" name="url" value="'.htmlspecialchars($element->getURL()).'" /><br />
     </p>
 
-    <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('Pages.save')).'" />
+    <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
 
 </form>  
 ';
@@ -207,34 +207,34 @@ class Template {
         $answer .=
 '
 <form id="formAdvanced">
-        <label>'.htmlspecialchars($parametersMod->getValue('Pages.type')).'</label>
+        <label>'.htmlspecialchars(__('Type', 'ipAdmin')).'</label>
         <p class="field">
             <input id="typeDefault" class="stdModBox" name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />
-            <label for="typeDefault" class="small">'.htmlspecialchars($parametersMod->getValue('Pages.no_redirect')).'</label><br />
+            <label for="typeDefault" class="small">'.htmlspecialchars(__('Display page content', 'ipAdmin')).'</label><br />
         </p>
         <p class="field">
             <input id="typeInactive" class="stdModBox" name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeInactive" class="small">'.htmlspecialchars($parametersMod->getValue('Pages.inactive')).'</label><br />
+            <label for="typeInactive" class="small">'.htmlspecialchars(__('Inactive (without link on it)', 'ipAdmin')).'</label><br />
         </p>
         <p class="field">
             <input id="typeSubpage" class="stdModBox" name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeSubpage" class="small">'.htmlspecialchars($parametersMod->getValue('Pages.redirect_to_subpage')).'</label><br />
+            <label for="typeSubpage" class="small">'.htmlspecialchars(__('Redirect to first sub-page', 'ipAdmin')).'</label><br />
             
         </p>
         
         <span class="error" id="redirectURLError"></span>
         <p class="field">
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeRedirect" class="small">'.htmlspecialchars($parametersMod->getValue('Pages.redirect_to_external_page')).'</label><br/>
+            <label for="typeRedirect" class="small">'.htmlspecialchars(__('Redirect to external page', 'ipAdmin')).'</label><br/>
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
             <img class="linkList" id="internalLinkingIcon" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
         <p class="field">
-            <label for="generalVisible">'.htmlspecialchars($parametersMod->getValue('Pages.rss')).'</label>
+            <label for="generalVisible">'.htmlspecialchars(__('RSS', 'ipAdmin')).'</label>
             <input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
         </p>
         
-        <input class="submit" type="submit" value="'.htmlspecialchars($parametersMod->getValue('Pages.save')).'" />
+        <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
 
 </form>
 ';

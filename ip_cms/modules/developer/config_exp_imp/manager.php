@@ -32,7 +32,7 @@ class Manager{
 
         $field = new \Library\Php\Form\FieldFile();
         $field->name = 'config';
-        $field->caption = $parametersMod->getValue('Config.config_file');
+        $field->caption = __('Configuration file', 'ipAdmin');
         $field->required = true;
         $this->importFields[] = $field;
 
@@ -43,19 +43,19 @@ class Manager{
 
         $field = new FieldModules();
         $field->name = 'modules';
-        $field->caption = $parametersMod->getValue('Config.modules');
+        $field->caption = __('Modules to export', 'ipAdmin');
         $field->required = true;
         $this->exportFields[]  = $field;
 
         $field = new FieldTypes();
         $field->name = 'types';
-        $field->caption = $parametersMod->getValue('Config.types');
+        $field->caption = __('Parameter types to export', 'ipAdmin');
         $field->required = true;
         $this->exportFields[]  = $field;
 
         $field = new FieldLanguages();
         $field->name = 'language';
-        $field->caption = $parametersMod->getValue('Config.language');
+        $field->caption = __('Language', 'ipAdmin');
         $field->required = true;
         $this->exportFields[]  = $field;
 
@@ -108,17 +108,17 @@ class Manager{
                     if($info['extension'] == 'conf'){
                         $answer .= HtmlOutput::header();
                         $config = unserialize(file_get_contents($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']));
-                        $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('Config.import_title_preview')).'</h1>';
-                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.import_button_preview')).'</a><br /><br /><br />';
+                        $answer .= '<h1>'.htmlspecialchars(__('Config preview', 'ipAdmin')).'</h1>';
+                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars(__('Import these parameters', 'ipAdmin')).'</a><br /><br /><br />';
                         $answer .= $config->previewParameters();
-                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.import_button_preview')).'</a><br /><br />';
+                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars(__('Import these parameters', 'ipAdmin')).'</a><br /><br />';
                         $answer .= HtmlOutput::footer();
                     } else {
                         $answer .= HtmlOutput::header();
-                        $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('Config.import_title_preview')).'</h1>';
-                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.import_button_preview')).'</a><br /><br /><br />';
+                        $answer .= '<h1>'.htmlspecialchars(__('Config preview', 'ipAdmin')).'</h1>';
+                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars(__('Import these parameters', 'ipAdmin')).'</a><br /><br /><br />';
                         $answer .= \Modules\developer\localization\Manager::previewParameters($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
-                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.import_button_preview')).'</a><br /><br />';
+                        $answer .= '<br /><a href="'.$cms->generateUrl($cms->curModId, 'action=import_confirmed').'" class="button">'.htmlspecialchars(__('Import these parameters', 'ipAdmin')).'</a><br /><br />';
                         $answer .= HtmlOutput::footer();
                         $answer .= HtmlOutput::header();
                     }
@@ -134,8 +134,8 @@ class Manager{
                             $config->saveParameters();
                             $answer .= '
                 <div class="content">
-                  <h1>'.htmlspecialchars($parametersMod->getValue('Config.parameters_imported')).'</h1>
-                  <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.continue')).'</a>
+                  <h1>'.htmlspecialchars(__('Configuration parameters successfully installed.', 'ipAdmin')).'</h1>
+                  <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars(__('Continue', 'ipAdmin')).'</a>
                   <div class="clear"><!-- --></div>
                 </div>
               ';
@@ -148,8 +148,8 @@ class Manager{
                             \Modules\developer\localization\Manager::saveParameters($_SESSION['backend_modules']['developer']['config_exp_imp']['uploaded_file']);
                             $answer .=  '
               <div class="content">
-                <h1>'.htmlspecialchars($parametersMod->getValue('Config.parameters_imported')).'</h1>
-                <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars($parametersMod->getValue('Config.continue')).'</a>
+                <h1>'.htmlspecialchars(__('Configuration parameters successfully installed.', 'ipAdmin')).'</h1>
+                <a href="'.$cms->generateUrl($cms->curModId).'" class="button">'.htmlspecialchars(__('Continue', 'ipAdmin')).'</a>
                 <div class="clear">&nbsp;<!-- --></div>
               </div>
                 ';
@@ -181,10 +181,10 @@ class Manager{
         }else{
             $answer .= HtmlOutput::header();
             $answer .= '<div class="content">';
-            $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('Config.import_title')).'</h1>';
+            $answer .= '<h1>'.htmlspecialchars(__('Import configuration file', 'ipAdmin')).'</h1>';
             $answer .= $this->importForm();
             $answer .= '</div><div class="content">';
-            $answer .= '<h1>'.htmlspecialchars($parametersMod->getValue('Config.export_title')).'</h1>';
+            $answer .= '<h1>'.htmlspecialchars(__('Export configuration to file', 'ipAdmin')).'</h1>';
             $answer .= $this->exportForm();
             $answer .= '</div>';
              
@@ -201,7 +201,7 @@ class Manager{
         $answer = '';
 
         $import_form = new \Library\Php\Form\Standard($this->importFields);
-        $answer .= ''.$import_form->generateForm($parametersMod->getValue('Config.import_button'), $cms->generateUrl($cms->curModId, 'action=import'));
+        $answer .= ''.$import_form->generateForm(__('Preview', 'ipAdmin'), $cms->generateUrl($cms->curModId, 'action=import'));
 
 
         return $answer;
@@ -213,7 +213,7 @@ class Manager{
         $answer = '';
 
         $export_form = new \Library\Php\Form\Standard($this->exportFields);
-        $answer .= $export_form->generateForm($parametersMod->getValue('Config.export_button'), $cms->generateUrl($cms->curModId, 'action=export'));
+        $answer .= $export_form->generateForm(__('Export', 'ipAdmin'), $cms->generateUrl($cms->curModId, 'action=export'));
 
         return $answer;
     }

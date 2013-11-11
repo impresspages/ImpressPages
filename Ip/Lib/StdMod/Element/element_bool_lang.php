@@ -175,7 +175,7 @@ class ElementBoolLang extends Element{ //data element in area
         if ($this->required){
             foreach($languages as $key => $language){
                 if(!isset($_REQUEST[$prefix.'_'.$language['id']]) || $_REQUEST[$prefix.'_'.$language['id']] == null)
-                return $parametersMod->getValue('StdMod.error_required');
+                return __('Required field', 'ipAdmin');
             }
         }
 
@@ -288,8 +288,8 @@ class ElementBoolLang extends Element{ //data element in area
 
             $answer .= '
       <span class="label">'.htmlspecialchars($language['d_short']).'</span> <br />
-      <span class="label"><input class="stdModRadio" type="radio" '.$checked1.' name="search['.$level.']['.$key.']['.$language['id'].']" value="1" />'.$parametersMod->getValue('StdMod.yes').'</span>
-      <span class="label"><input  class="stdModRadio" type="radio" '.$checked2.' name="search['.$level.']['.$key.']['.$language['id'].']" value="0" />'.$parametersMod->getValue('StdMod.no').'</span>
+      <span class="label"><input class="stdModRadio" type="radio" '.$checked1.' name="search['.$level.']['.$key.']['.$language['id'].']" value="1" />'.__('Yes', 'ipAdmin').'</span>
+      <span class="label"><input  class="stdModRadio" type="radio" '.$checked2.' name="search['.$level.']['.$key.']['.$language['id'].']" value="0" />'.__('No', 'ipAdmin').'</span>
       <br />
       ';
 

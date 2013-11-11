@@ -123,7 +123,7 @@ class Pswd extends Element{ //data element in area
             }
 
             if ($_REQUEST[''.$prefix] != $_REQUEST[''.$prefix.'_confirm'] )
-            return $parametersMod->getValue('StdMod.passwords_do_not_match');
+            return __('Passwords do not match', 'ipAdmin');
             else
             return null;
         }

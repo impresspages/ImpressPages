@@ -14,7 +14,7 @@ class IpHtml extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_html_code.widget_title');
+        return __('HTML code', 'ipAdmin');
     }
     
 }
