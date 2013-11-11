@@ -191,40 +191,30 @@ class Site{
             \Ip\Internal\Scripts::fixMagicQuotes();
         }
 
-        if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
-            $this->parseUrl();
-            $this->languages = \Ip\Frontend\Db::getLanguages(true);
+        $this->parseUrl();
 
-            if(sizeof($this->languages) > 0){
+        $this->languages = \Ip\Frontend\Db::getLanguages(true);
+        if(sizeof($this->languages) == 0){
+            trigger_error('All website languages are hidden.');
+            exit;
+        }
+
+        if($this->languageUrl != null){
+            foreach($this->languages as $key => $language){
+                if($language['url'] == $this->languageUrl){
+                    $this->currentLanguage = $language;
+                }
+            }
+            if($this->currentLanguage == null){
                 $this->currentLanguage = reset($this->languages);
+                $this->error404();
             }
         } else {
-            $this->parseUrl();
+            $this->currentLanguage = reset($this->languages);
+        }
 
-            $this->languages = \Ip\Frontend\Db::getLanguages(true);
-            if(sizeof($this->languages) == 0){
-                trigger_error('All website languages are hidden.');
-                exit;
-            }
+        setlocale(LC_ALL, $this->currentLanguage['code']);
 
-            if($this->languageUrl != null){
-                foreach($this->languages as $key => $language){
-                    if($language['url'] == $this->languageUrl){
-                        $this->currentLanguage = $language;
-                    }
-                }
-                if($this->currentLanguage == null){
-                    $this->currentLanguage = reset($this->languages);
-                    $this->error404();
-                }
-            } else {
-                $this->currentLanguage = reset($this->languages);
-            }
-
-            setlocale(LC_ALL, $this->currentLanguage['code']);
-        }        
-        
-        
         
         $this->configZones();
 
@@ -290,43 +280,42 @@ class Site{
             $this->zones[$zone['name']] = $zone;
         }
         
-        if (!defined('BACKEND') && !defined('SITEMAP')) {
-            if (sizeof($zones) == 0) {
-                trigger_error('Please insert at least one zone.');
-                \Ip\Deprecated\Db::disconnect();
-                exit;
-            }
-            
-            if ($this->error404) {
-                //current zone set to auto_error404.
-                return;
-            }
+        if (sizeof($zones) == 0) {
+            trigger_error('Please insert at least one zone.');
+            \Ip\Deprecated\Db::disconnect();
+            exit;
+        }
 
-            //find current zone
-            if ($this->zoneUrl) {
-                foreach ($zones as $key => $zone) {
-                    if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
-                        $this->currentZone = $zone['name'];
-                        break;
-                    }
-                }
-            } else {
-                foreach ($this->zones as $key => $zone) { //find first not empty zone.
-                    $this->currentZone = $key;
-                    if ($this->getZone($key)->getCurrentElement()) {
-                        break;
-                    }
+        if ($this->error404) {
+            //current zone set to auto_error404.
+            return;
+        }
+
+        //find current zone
+        if ($this->zoneUrl) {
+            foreach ($zones as $key => $zone) {
+                if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
+                    $this->currentZone = $zone['name'];
+                    break;
                 }
             }
-                
-            if (!$this->currentZone) {
-                $this->homeZone();
-            }
-
-            if (!$this->currentZone) {
-                $this->error404();
+        } else {
+            foreach ($this->zones as $key => $zone) { //find first not empty zone.
+                $this->currentZone = $key;
+                if ($this->getZone($key)->getCurrentElement()) {
+                    break;
+                }
             }
         }
+
+        if (!$this->currentZone) {
+            $this->homeZone();
+        }
+
+        if (!$this->currentZone) {
+            $this->error404();
+        }
+
     }
 
     protected function homeZone()

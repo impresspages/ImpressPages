@@ -14,6 +14,7 @@ class Application {
             define('IP_VERSION', '4.0');
         }
 
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
         require_once \Ip\Config::includePath('parameters.php');
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
@@ -92,15 +93,6 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
-
-        /*check if the website is closed*/
-        if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
-            && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
-            return $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
-        }
-
-        /*eof check if the website is closed*/
-
         if(!defined('BACKEND')){
             $session = \Ip\ServiceLocator::getSession();
             if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
