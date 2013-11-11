@@ -92,7 +92,7 @@ class Application {
         $language = $site->getCurrentLanguage();
         $languageCode = $language->getCode();
 
-        \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
+        \Ip\Translator::init($languageCode);
         if(!defined('BACKEND')){
             $session = \Ip\ServiceLocator::getSession();
             if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
