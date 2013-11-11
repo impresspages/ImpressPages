@@ -1,10 +1,6 @@
 <?php
 
-// TODO:
-// - užregistruoti ipAdmin domeną
-// - replace parameter mod calls to __()
-// - replace keys in ipAdmin with values
-// - replace __() keys with values
+// TODOX remove this file
 
 $translations = include __DIR__ . '/ipAdmin-source.php';
 

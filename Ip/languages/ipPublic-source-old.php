@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+// TODOX remove this file
+
 return array (
   'Rss.rss' => 'RSS news',
   'Search.no_results' => '<p>No pages containing your search term were found.</p>',

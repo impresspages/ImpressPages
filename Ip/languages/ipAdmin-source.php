@@ -1,4 +1,7 @@
 <?php
+
+// TODOX remove this file
+
 return array (
   'Administrators.administrators' => 'Administrators',
   'Administrators.allowed_modules' => 'Allowed modules',
