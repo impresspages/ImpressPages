@@ -17,8 +17,8 @@ class Cron {
         
         
         if ($options->firstTimeThisDay) {
-            if ($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for') != 0) {
-                \Ip\Revision::removeOldRevisions($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'keep_old_revisions_for'));
+            if (ipGetOption('Config.keepOldRevision') != 0) {
+                \Ip\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }
             $this->checkForUpdates();
         }        
