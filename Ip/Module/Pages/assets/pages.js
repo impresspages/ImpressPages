@@ -63,6 +63,7 @@ function initializeTreeManagement(id) {
 
                     return {
                         'aa': 'Pages.getChildren',
+                        'securityToken': ip.securityToken,
                         'id': n.attr ? n.attr('id') : '',
                         'pageId': n.attr ? n.attr('pageId') : '',
                         'type': n.attr ? n.attr('rel') : '',
@@ -261,7 +262,7 @@ function editPage() {
     data.aa = 'Pages.getPageLink';
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: ip.baseUrl,
         data: data,
         success: editPageResponse,
@@ -291,6 +292,7 @@ function closeNode(event, data) {
     data.zoneName = node.attr('zoneName');
     data.languageId = node.attr('languageId');
     data.websiteId = node.attr('websiteId');
+    data.securityToken = ip.securityToken;
 
     data.aa = 'Pages.closePage';
 
@@ -353,6 +355,7 @@ function createPage() {
         data.websiteId = node.attr('websiteId');
     }
     data.buttonTitle = $('#createPageButtonTitle').val();
+    data.securityToken = ip.securityToken;
 
 
     $('#createPageForm input').val(''); //remove value from input field
@@ -406,6 +409,7 @@ function deletePageConfirm() {
         data.languageId = node.attr('languageId');
         data.type = node.attr('rel');
         data.aa = 'Pages.deletePage';
+        data.securityToken = ip.securityToken;
 
         $.ajax({
             type: 'POST',
@@ -494,9 +498,11 @@ function updatePageForm(event, data) {
             data.languageId = node.attr('languageId');
             data.type = node.attr('rel');
             data.aa = 'Pages.getPageForm';
+            data.securityToken = ip.securityToken;
+
 
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: ip.baseUrl,
                 data: data,
                 success: updatePageFormResponse,
@@ -580,6 +586,8 @@ function updatePage() {
     data.layout = $('#formLayout select[name="layout"]').val();
 
     data.aa = 'Pages.updatePage';
+    data.securityToken = ip.securityToken;
+
 
     $.ajax({
         type: 'POST',
@@ -643,6 +651,8 @@ function movePage(e, moveData) {
         data.destinationPageType = moveData.rslt.np.attr("rel");
         data.destinationPosition = moveData.rslt.cp + i;
         data.aa = 'Pages.movePage';
+        data.securityToken = ip.securityToken;
+
 
         //if we move withing the same parent, fix destination position value.
         if (
@@ -717,6 +727,8 @@ function pastePage() {
     data.destinationZoneName = selectedNode.attr('zoneName');
     data.destinationLanguageId = selectedNode.attr('languageId');
     data.aa = 'Pages.copyPage';
+    data.securityToken = ip.securityToken;
+
 
     tree.destinationId = selectedNode.attr('id');
 
@@ -762,7 +774,7 @@ function treePopupSelect(event, data) {
     data.aa = 'Pages.getPageLink';
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: ip.baseUrl,
         data: data,
         success: treePopupSelectResponse,
