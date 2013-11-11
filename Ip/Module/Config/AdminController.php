@@ -51,7 +51,8 @@ class AdminController extends \Ip\Controller{
             return;
         }
 
-        \Ip\Storage::set('Config', $fieldName, $value);
+        $storage = \Ip\ServiceLocator::getStorage();
+        $storage->set('Config', $fieldName, $value);
 
 
         $this->returnJson(array(1));
