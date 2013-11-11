@@ -17,7 +17,6 @@ class HtmlOutput {
     }
 
     function headerModule() {
-        global $parametersMod;
         $this->html .= '
 <!DOCTYPE html>
 <html>
@@ -156,7 +155,6 @@ class HtmlOutput {
 
     function modules($groups) {
         global $cms;
-        global $parametersMod;
         $modulesHtml = '';
         $systemModule = null;
 
@@ -203,7 +201,7 @@ class HtmlOutput {
         <div class="ipAdminNavActions">
             ' . $systemMessage . '
             <a class="ipaHelp" target="_blank" href="http://www.impresspages.org/help2">
-                ' . $parametersMod->getValue('Config.help') . '
+                ' . __('Help', 'ipAdmin') . '
             </a>
             <a class="ipaLogout" href="' . $cms->generateActionUrl('logout') . '">
                 ' . __('Logout', 'ipAdmin') . '

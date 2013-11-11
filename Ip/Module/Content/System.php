@@ -227,7 +227,6 @@ class System{
      * @param \Modules\standard\content_managemet\EventFormFields $event
      */
     public static function collectFieldTypes(EventFormFields $event){
-        global $site;
         global $parametersMod;
         
         $typeText = $parametersMod->getValue('Form.type_text');

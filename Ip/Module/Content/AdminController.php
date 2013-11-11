@@ -75,7 +75,6 @@ class AdminController extends \Ip\Controller
 
     public function getPageOptionsHtml() {
         global $site;
-        global $parametersMod;
         if (!isset($_REQUEST['pageId'])) {
             $this->_errorAnswer('Page id is not set');
             return;

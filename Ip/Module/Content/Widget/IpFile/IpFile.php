@@ -13,8 +13,7 @@ require_once \Ip\Config::libraryFile('php/file/functions.php');
 class IpFile extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
-        global $parametersMod;
-        return $parametersMod->getValue('Content.widget_file', 'file');
+        return __('File', 'ipAdmin');
     }
 
     public function update($widgetId, $postData, $currentData) {

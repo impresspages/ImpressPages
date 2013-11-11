@@ -13,7 +13,6 @@ class IpForm extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('Contact form', 'ipAdmin');
     }
     
@@ -40,7 +39,6 @@ class IpForm extends \Ip\Module\Content\Widget{
     }
     
     public function sendEmail ($form, $postData, $data) {
-        global $parametersMod;
         global $site;
         
         $contentData = array();
