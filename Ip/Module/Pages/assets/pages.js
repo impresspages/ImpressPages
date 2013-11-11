@@ -14,7 +14,8 @@ $(document).ready(function () {
     $('#tree').bind('close_node.jstree', closeNode);
     $('#tree').bind('select_node.jstree', function (e, data) {
         // expands menu item when it is selected (shows children)
-        $('#tree').jstree('toggle_node', data.rslt.obj);
+
+        $('#tree').jstree('open_node', data.rslt.obj);
     });
 
     $('#tree').bind('refresh.jstree', function (e, data) {
