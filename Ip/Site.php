@@ -218,17 +218,9 @@ class Site{
         
         $this->configZones();
 
-        $this->modulesInit();
-
-        if ($curElement = $this->getCurrentElement()) {
-            $controller = new \Ip\Controller();
-            $curElement->init($controller);
-        }
-        
         if (!defined('BACKEND')) {
             $this->checkError404();
         }
-
 
         if ($this->error404) {
             $dispatcher->bind('site.afterInit', array($this, 'dispatchError404'));
