@@ -79,10 +79,9 @@ class AdminController extends \Ip\Controller
             'contentManagementUrl' => $contentManagementUrl,
             'contentManagementText' => $contentManagementModule['m_translation']
         );
-
         $contentView = \Ip\View::create('view/index.php', $data);
-        $layout = $this->createAdminView($contentView);
-        $site->setOutput($layout->render());
+
+        return $contentView->render();
     }
 
     public function installPlugin()
