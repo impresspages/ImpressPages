@@ -230,14 +230,14 @@ class System{
         global $site;
         global $parametersMod;
         
-        $typeText = $parametersMod->getValue('developer','form','admin_translations','type_text');
-        $typeEmail = $parametersMod->getValue('developer','form','admin_translations','type_email');
-        $typeTextarea = $parametersMod->getValue('developer','form','admin_translations','type_textarea');
-        $typeSelect = $parametersMod->getValue('developer','form','admin_translations','type_select');
-        $typeConfirm = $parametersMod->getValue('developer','form','admin_translations','type_confirm');
-        $typeRadio = $parametersMod->getValue('developer','form','admin_translations','type_radio');
-        $typeCaptcha = $parametersMod->getValue('developer','form','admin_translations','type_captcha');
-        $typeFile = $parametersMod->getValue('developer','form','admin_translations','type_file');
+        $typeText = $parametersMod->getValue('Form.type_text');
+        $typeEmail = $parametersMod->getValue('Form.type_email');
+        $typeTextarea = $parametersMod->getValue('Form.type_textarea');
+        $typeSelect = $parametersMod->getValue('Form.type_select');
+        $typeConfirm = $parametersMod->getValue('Form.type_confirm');
+        $typeRadio = $parametersMod->getValue('Form.type_radio');
+        $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
+        $typeFile = $parametersMod->getValue('Form.type_file');
 
         $newFieldType = new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $event->addField($newFieldType);

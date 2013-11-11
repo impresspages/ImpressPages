@@ -20,11 +20,11 @@ var validatorConfig = {
 
 
 $.tools.validator.localize('<?php echo addslashes($languageCode); ?>', {
-    '*'           : '<?php echo addslashes($this->par('developer/form/error_messages/unknown')) ?>',
-    ':email'      : '<?php echo addslashes($this->par('developer/form/error_messages/email')) ?>',
-    ':number'     : '<?php echo addslashes($this->par('developer/form/error_messages/number')) ?>',
-    ':url'        : '<?php echo addslashes($this->par('developer/form/error_messages/url')) ?>',
-    '[max]'       : '<?php echo addslashes($this->par('developer/form/error_messages/max')) ?>',
-    '[min]'       : '<?php echo addslashes($this->par('developer/form/error_messages/min')) ?>',
-    '[required]'  : '<?php echo addslashes($this->par('developer/form/error_messages/required')) ?>'
+    '*'           : '<?php echo addslashes($this->par('Form.unknown')) ?>',
+    ':email'      : '<?php echo addslashes($this->par('Form.email')) ?>',
+    ':number'     : '<?php echo addslashes($this->par('Form.number')) ?>',
+    ':url'        : '<?php echo addslashes($this->par('Form.url')) ?>',
+    '[max]'       : '<?php echo addslashes($this->par('Form.max')) ?>',
+    '[min]'       : '<?php echo addslashes($this->par('Form.min')) ?>',
+    '[required]'  : '<?php echo addslashes($this->par('Form.required')) ?>'
 });

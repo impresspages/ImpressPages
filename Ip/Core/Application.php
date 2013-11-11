@@ -14,6 +14,7 @@ class Application {
             define('IP_VERSION', '4.0');
         }
 
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
         require_once \Ip\Config::includePath('parameters.php');
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
@@ -54,9 +55,6 @@ class Application {
         \Ip\Response::reset();
 
         $site->init();
-        $site->dispatchEvent('administrator', 'system', 'init', array());
-        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
-
         /*detect browser language*/
         if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
             require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
@@ -91,41 +89,36 @@ class Application {
         $language = $site->getCurrentLanguage();
         $languageCode = $language->getCode();
 
-        \Ip\Translator::init($languageCode . '_' . strtoupper($languageCode));
+        \Ip\Translator::init($languageCode);
 
-        /*check if the website is closed*/
-        if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
-            && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
-            return $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
+
+        $session = \Ip\ServiceLocator::getSession();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
+            (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
+        ) {
+            $data = array(
+                'status' => 'error',
+                'errors' => array(
+                    'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
+                )
+            );
+
+            \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
+            return json_encode($data);
         }
 
-        /*eof check if the website is closed*/
-
-        if(!defined('BACKEND')){
-            $session = \Ip\ServiceLocator::getSession();
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
-                $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'xss_autocheck') &&
-                (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) &&
-                (empty($_POST['pa']) || empty($_POST['m']) || empty($_POST['g']))
-            ) {
-                $data = array(
-                    'status' => 'error',
-                    'errors' => array(
-                        'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
-                    )
-                );
-
-                \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-                return json_encode($data);
-            }
+        $site->modulesInit();
+        $site->dispatchEvent('administrator', 'system', 'init', array());
+        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
 
-            $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
 
 
-            if (!$site->managementState() && !\Ip\Module\Design\ConfigModel::instance()->isInPreviewState()) {
-                $site->makeRedirect(); //if required;
-            }
+        $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+
+
+        if (!$site->managementState() && !\Ip\Module\Design\ConfigModel::instance()->isInPreviewState()) {
+            $site->makeRedirect(); //if required;
         }
 
         return $site->generateOutput();
@@ -163,7 +156,7 @@ class Application {
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
          By default fake cron is enabled
         */
-        if(!\Ip\Module\Admin\Model::isSafeMode() && $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
+        if(!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1) && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
             // create a new curl resource
 
             $ch = curl_init();

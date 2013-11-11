@@ -21,35 +21,35 @@ class Script extends \IpUpdate\Library\Migration\General{
         $this->dbPref = $cf['DB_PREF'];
 
 
-        $this->deleteParameter('standard', 'content_management', 'widget_faq', 'title');
-        $this->deleteParameter('standard', 'content_management', 'widget_faq', 'text');
+        $this->deleteParameter('Content.widget_faq', 'title');
+        $this->deleteParameter('Content.widget_faq', 'text');
 
         $module = $this->getModule(null, 'standard', 'content_management');
 
         $group = $this->getParametersGroup($module['id'], 'widget_faq');
         if ($group) {
-            if(!$this->getParameter('standard', 'content_management', 'widget_faq', 'question')) {
+            if(!$this->getParameter('Content.widget_faq', 'question')) {
                 $this->addStringParameter($group['id'], 'Question', 'question', 'Question', 1);
             }
-            if(!$this->getParameter('standard', 'content_management', 'admin_translations', 'answer')) {
+            if(!$this->getParameter('Content.answer')) {
                 $this->addStringParameter($group['id'], 'Answer', 'answer', 'Answer', 1);
             }
         }
 
         $group = $this->getParametersGroup($module['id'], 'widget_contact_form');
         if ($group) {
-            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'move')) {
+            if(!$this->getParameter('Content.widget_contact_form', 'move')) {
                 $this->addStringParameter($group['id'], 'Move', 'move', 'Move', 1);
             }
-            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'remove')) {
+            if(!$this->getParameter('Content.widget_contact_form', 'remove')) {
                 $this->addStringParameter($group['id'], 'Remove', 'remove', 'Remove', 1);
             }
 
-            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'options')) {
+            if(!$this->getParameter('Content.widget_contact_form', 'options')) {
                 $this->addStringParameter($group['id'], 'Options', 'options', 'Options', 1);
             }
 
-            if(!$this->getParameter('standard', 'content_management', 'widget_contact_form', 'send')) {
+            if(!$this->getParameter('Content.widget_contact_form', 'send')) {
                 $this->addParameter($group['id'], array('name' => 'send', 'translation' => 'Send', 'admin' => 0, 'type'=> 'lang', 'value' => 'Send', 'comment' => ''));
             }
 
@@ -58,7 +58,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         $module = $this->getModule(null, 'standard', 'configuration');
         $group = $this->getParametersGroup($module['id'], 'main_parameters');
         if ($group) {
-            if(!$this->getParameter('standard', 'configuration', 'main_parameters', 'email_title')) {
+            if(!$this->getParameter('Config.email_title')) {
                 $this->addParameter($group['id'], array('name' => 'email_title', 'translation' => 'Default email title', 'admin' => 0, 'type'=> 'lang', 'value' => 'Hi,', 'comment' => ''));
             }
 
@@ -67,7 +67,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         $module = $this->getModule(null, 'community', 'user');
         $group = $this->getParametersGroup($module['id'], 'admin_translations');
         if ($group) {
-            if(!$this->getParameter('community', 'user', 'admin_translations', 'registration')) {
+            if(!$this->getParameter('User.registration')) {
                 $this->addStringParameter($group['id'], 'Registration', 'registration', 'Registration', 1);
             }
 
@@ -77,7 +77,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
         $group = $this->getParametersGroup($module['id'], 'translations');
         if ($group) {
-            if(!$this->getParameter('community', 'user', 'translations', 'text_registration_verified')) {
+            if(!$this->getParameter('User.text_registration_verified')) {
                 $this->addParameter($group['id'], array('name' => 'text_registration_verified', 'translation' => 'Text - registration verified', 'admin' => 0, 'type'=> 'lang_wysiwyg', 'value' => 'Registration has been aproved. You can login now.', 'comment' => ''));
             }
         }

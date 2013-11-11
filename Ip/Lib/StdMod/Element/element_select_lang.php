@@ -216,7 +216,7 @@ class ElementSelectLang extends Element{ //data element in area
                 }
 
                 if ($this->required && (!isset($_POST[$prefix.'_'.$language['id']]) || $_POST[$prefix.'_'.$language['id']] == ''))
-                return $std_par = $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+                return $std_par = __('Required field', 'ipAdmin');
             }
 
         }

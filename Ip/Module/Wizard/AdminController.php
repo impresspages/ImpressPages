@@ -13,11 +13,11 @@ class AdminController extends \Ip\Controller{
         global $site;
         global $parametersMod;
         $viewData = array (
-            'tip_dragWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_dragWidget'),
-            'tip_dropWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_dropWidget'),
-            'tip_changeWidgetContent' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_changeWidgetContent'),
-            'tip_confirmWidget' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_confirmWidget'),
-            'tip_publish' => $parametersMod->getValue('administrator', 'wizard', 'options', 'tip_publish')
+            'tip_dragWidget' => $parametersMod->getValue('Wizard.tip_dragWidget'),
+            'tip_dropWidget' => $parametersMod->getValue('Wizard.tip_dropWidget'),
+            'tip_changeWidgetContent' => $parametersMod->getValue('Wizard.tip_changeWidgetContent'),
+            'tip_confirmWidget' => $parametersMod->getValue('Wizard.tip_confirmWidget'),
+            'tip_publish' => $parametersMod->getValue('Wizard.tip_publish')
         );
         $content = \Ip\View::create('view/content.php', $viewData)->render();
 

@@ -1,5 +1,5 @@
 <h1 style="font-family: Trebuchet MS, Verdana, Tahoma; font-size: 28px; color: #00a8da;">
-<?php echo $this->esc(isset($title) ? $title : $this->par('standard/configuration/main_parameters/email_title')); ?>
+<?php echo $this->esc(isset($title) ? $title : ''); ?>
 </h1>
 <p><?php echo (isset($content) ? $content : ''); ?></p>
 <p style="border-top: 1px dotted #7db113; height: 1px; font-size: 1px;"> </p>

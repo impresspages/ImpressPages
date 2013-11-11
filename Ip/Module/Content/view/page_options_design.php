@@ -14,11 +14,11 @@
             </select>
             <br/>
             <?php if (!empty($show_confirm_notification)) { ?>
-                <p><?php echo $this->par('standard/menu_management/admin_translations/page_design_confirm_notification') ?></p>
+                <p><?php echo $this->par('Pages.page_design_confirm_notification') ?></p>
             <?php } ?>
-            <p><?php echo $this->par('standard/menu_management/admin_translations/page_layout_instructions') ?></p>
+            <p><?php echo $this->par('Pages.page_layout_instructions') ?></p>
         <?php } else { ?>
-            <?php echo $this->par('standard/menu_management/admin_translations/page_layout_add_layout_instructions') ?>
+            <?php echo $this->par('Pages.page_layout_add_layout_instructions') ?>
         <?php } ?>
     <p/>
     <?php if (!empty($show_submit_button)) { ?>

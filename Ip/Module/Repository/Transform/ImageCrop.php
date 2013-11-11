@@ -31,7 +31,7 @@ class ImageCrop extends Image
         global $parametersMod;
         if ($quality === null)
         {
-            $quality = $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'default_image_quality');
+            $quality = $parametersMod->getValue('Config.default_image_quality');
         }
 
         list($x1, $y1, $x2, $y2) = $this->fixSourceRatio($x1, $y1, $x2, $y2, $widthDest, $heightDest);

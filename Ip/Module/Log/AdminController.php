@@ -23,7 +23,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'module'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'module');
+        $element->title = __('Module', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'time'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'time');
+        $element->title = __('Time', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -45,7 +45,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'name'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'name');
+        $element->title = __('Name', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -55,7 +55,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'value_str'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'value_str');
+        $element->title = __('Value string', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -67,7 +67,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'value_int'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'value_int');
+        $element->title = __('Value integer', 'ipAdmin');
         $element->showPnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -77,7 +77,7 @@ class AdminController extends \Ip\Controller
         $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'value_float'
         ));
-        $element->title = $parametersMod->getValue('administrator', 'log', 'admin_translations', 'value_float');
+        $element->title = __('Value float', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;

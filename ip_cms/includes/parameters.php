@@ -178,7 +178,8 @@ class ParametersMod {
      * @param int $languageId Language id if you wish to get parameters for specified language
      * @return mixed value
      */
-    function getValue($modGroup, $module, $parGroup, $parameter, $languageId = null) {
+    function getValue($tmp) {
+        return $tmp;//TODOX remove all instances
         global $site;
         if($languageId == null && $site) //some parameters are accessed until site class is created. So, no language is specified.
         $languageId = $site->currentLanguage['id'];

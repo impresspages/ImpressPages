@@ -15,7 +15,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'gallery');
+        return __('Photo gallery', 'ipAdmin');
     }
 
     
@@ -178,8 +178,8 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
 
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['smallImageWidth'] = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width');
-        $data['smallImageHeight'] = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height');
+        $data['smallImageWidth'] = $parametersMod->getValue('Content.widget_image_gallery.width');
+        $data['smallImageHeight'] = $parametersMod->getValue('Content.widget_image_gallery.height');
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
@@ -197,8 +197,8 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                 $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
 
                 //create big image reflection
-                $bigWidth = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_width');
-                $bigHeight = $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'big_height');
+                $bigWidth = $parametersMod->getValue('Content.widget_image_gallery.big_width');
+                $bigHeight = $parametersMod->getValue('Content.widget_image_gallery.big_height');
                 $transformBig = new \Ip\Module\Repository\Transform\ImageFit($bigWidth, $bigHeight);
 
                 try {
@@ -215,16 +215,16 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                         $curImage['cropY1'],
                         $curImage['cropX2'],
                         $curImage['cropY2'],
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
+                        $parametersMod->getValue('Content.widget_image_gallery.width'),
+                        $parametersMod->getValue('Content.widget_image_gallery.height'),
+                        $parametersMod->getValue('Content.widget_image_gallery.quality')
                     );
 
                 } else {
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageCropCenter(
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'width'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'height'),
-                        $parametersMod->getValue('standard', 'content_management', 'widget_image_gallery', 'quality')
+                        $parametersMod->getValue('Content.widget_image_gallery.width'),
+                        $parametersMod->getValue('Content.widget_image_gallery.height'),
+                        $parametersMod->getValue('Content.widget_image_gallery.quality')
                     );
 
                 }

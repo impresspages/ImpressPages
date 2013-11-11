@@ -16,7 +16,7 @@ class ElementDate extends Element{ //data element in area
         global $parametersMod;
 
         $this->regExpression = '/^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])$/';
-        $this->regExpressionError = $parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'incorrect_date_format');
+        $this->regExpressionError = $parametersMod->getValue('StdMod.incorrect_date_format');
         $this->type = 'mysql';
 
         if(!isset($variables['order'])){
@@ -142,7 +142,7 @@ class ElementDate extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
-            return $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+            return __('Required field', 'ipAdmin');
 
             if($this->regExpression != null){
                 if($_POST[$prefix] == null || preg_match($this->regExpression, $_POST[$prefix]))

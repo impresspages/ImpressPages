@@ -191,54 +191,36 @@ class Site{
             \Ip\Internal\Scripts::fixMagicQuotes();
         }
 
-        if (defined('BACKEND') || defined('CRON') || defined('SITEMAP')) {
-            $this->parseUrl();
-            $this->languages = \Ip\Frontend\Db::getLanguages(true);
+        $this->parseUrl();
 
-            if(sizeof($this->languages) > 0){
+        $this->languages = \Ip\Frontend\Db::getLanguages(true);
+        if(sizeof($this->languages) == 0){
+            trigger_error('All website languages are hidden.');
+            exit;
+        }
+
+        if($this->languageUrl != null){
+            foreach($this->languages as $key => $language){
+                if($language['url'] == $this->languageUrl){
+                    $this->currentLanguage = $language;
+                }
+            }
+            if($this->currentLanguage == null){
                 $this->currentLanguage = reset($this->languages);
+                $this->error404();
             }
         } else {
-            $this->parseUrl();
+            $this->currentLanguage = reset($this->languages);
+        }
 
-            $this->languages = \Ip\Frontend\Db::getLanguages(true);
-            if(sizeof($this->languages) == 0){
-                trigger_error('All website languages are hidden.');
-                exit;
-            }
+        setlocale(LC_ALL, $this->currentLanguage['code']);
 
-            if($this->languageUrl != null){
-                foreach($this->languages as $key => $language){
-                    if($language['url'] == $this->languageUrl){
-                        $this->currentLanguage = $language;
-                    }
-                }
-                if($this->currentLanguage == null){
-                    $this->currentLanguage = reset($this->languages);
-                    $this->error404();
-                }
-            } else {
-                $this->currentLanguage = reset($this->languages);
-            }
-
-            setlocale(LC_ALL, $this->currentLanguage['code']);
-        }        
-        
-        
         
         $this->configZones();
 
-        $this->modulesInit();
-
-        if ($curElement = $this->getCurrentElement()) {
-            $controller = new \Ip\Controller();
-            $curElement->init($controller);
-        }
-        
         if (!defined('BACKEND')) {
             $this->checkError404();
         }
-
 
         if ($this->error404) {
             $dispatcher->bind('site.afterInit', array($this, 'dispatchError404'));
@@ -247,12 +229,11 @@ class Site{
     }
     
     private function error404() {
-        global $parametersMod;
         $zone = array (
             'id' => '',
             'row_number' => 0,
             'name' => 'auto_error404',
-            'template' => $parametersMod->getValue('standard', 'configuration', 'error_404', 'error_page_template'),
+            'template' => is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php',
             'translation' => 'Error404',
             'associated_group' => '',
             'associated_module' => '',
@@ -290,43 +271,42 @@ class Site{
             $this->zones[$zone['name']] = $zone;
         }
         
-        if (!defined('BACKEND') && !defined('SITEMAP')) {
-            if (sizeof($zones) == 0) {
-                trigger_error('Please insert at least one zone.');
-                \Ip\Deprecated\Db::disconnect();
-                exit;
-            }
-            
-            if ($this->error404) {
-                //current zone set to auto_error404.
-                return;
-            }
+        if (sizeof($zones) == 0) {
+            trigger_error('Please insert at least one zone.');
+            \Ip\Deprecated\Db::disconnect();
+            exit;
+        }
 
-            //find current zone
-            if ($this->zoneUrl) {
-                foreach ($zones as $key => $zone) {
-                    if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
-                        $this->currentZone = $zone['name'];
-                        break;
-                    }
-                }
-            } else {
-                foreach ($this->zones as $key => $zone) { //find first not empty zone.
-                    $this->currentZone = $key;
-                    if ($this->getZone($key)->getCurrentElement()) {
-                        break;
-                    }
+        if ($this->error404) {
+            //current zone set to auto_error404.
+            return;
+        }
+
+        //find current zone
+        if ($this->zoneUrl) {
+            foreach ($zones as $key => $zone) {
+                if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
+                    $this->currentZone = $zone['name'];
+                    break;
                 }
             }
-                
-            if (!$this->currentZone) {
-                $this->homeZone();
-            }
-
-            if (!$this->currentZone) {
-                $this->error404();
+        } else {
+            foreach ($this->zones as $key => $zone) { //find first not empty zone.
+                $this->currentZone = $key;
+                if ($this->getZone($key)->getCurrentElement()) {
+                    break;
+                }
             }
         }
+
+        if (!$this->currentZone) {
+            $this->homeZone();
+        }
+
+        if (!$this->currentZone) {
+            $this->error404();
+        }
+
     }
 
     protected function homeZone()
@@ -516,7 +496,7 @@ class Site{
         for($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
         }
-        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+        if($parametersMod->getValue('Config.multilingual')) {
             $this->languageUrl = urldecode(array_shift($urlVars));
         }
 
@@ -643,7 +623,7 @@ class Site{
         }
         // get parameter for cms management
 
-        if($parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
+        if($parametersMod->getValue('Config.multilingual')){
             $answer = \Ip\Config::baseUrl(urlencode($this->languages[$languageId]['url']).'/');
         }else{
             $answer = \Ip\Config::baseUrl('');

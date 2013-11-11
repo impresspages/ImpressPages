@@ -3,7 +3,7 @@
 /* @var $this \Ip\View */
 ?>
 <div class="ip ipModuleDesign" xmlns="http://www.w3.org/1999/html">
-    <h1><?php echo $this->escPar('standard/design/admin_translations/my_theme'); ?></h1>
+    <h1><?php echo $this->escPar('Design.my_theme'); ?></h1>
 
     <div class="ipmSelectedTheme">
         <div class="ipmThemePreview">
@@ -13,7 +13,7 @@
         <div class="ipmThemeActions">
 <!--            <a href="#" class="btn btn-link">Download</a>-->
             <?php if ($showConfiguration){ ?>
-                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('standard/design/admin_translations/options'); ?></a>
+                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo $this->escPar('Design.options'); ?></a>
                 <br/><br/>
             <?php } ?>
             <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo $this->esc($contentManagementText); ?></a>
@@ -31,10 +31,10 @@
             <?php } ?>
             <dl class="dl-horizontal">
                 <?php foreach ($plugins as $key => $plugin ) {?>
-                    <dt><?php echo $key == 0 ? $this->escPar('standard/design/admin_translations/available_plugins') . ':' : '' ?></dt>
+                    <dt><?php echo $key == 0 ? $this->escPar('Design.available_plugins') . ':' : '' ?></dt>
                     <dd>
                         <?php echo $this->esc($plugin->getModuleTitle()); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo $this->esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo $this->esc($plugin->getModuleGroupKey()) ?>"><?php echo $this->escPar('standard/configuration/admin_translations/install'); ?></a>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo $this->esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo $this->esc($plugin->getModuleGroupKey()) ?>"><?php echo $this->escPar('Config.install'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>
@@ -44,14 +44,14 @@
     <div class="ipmOtherThemes">
         <div class="ipmThemeMarket">
             <div class="ipmButtonWrapper">
-                <span class="ipmTitle"><?php echo $this->escPar('standard/design/admin_translations/theme_market'); ?></span>
-                <span class="impNotice"><?php echo $this->escPar('standard/design/admin_translations/theme_market_description'); ?></span>
-                <a href="#" class="btn btn-success ipsOpenMarket"><?php echo $this->escPar('standard/design/admin_translations/theme_market_browse'); ?></a>
+                <span class="ipmTitle"><?php echo $this->escPar('Design.theme_market'); ?></span>
+                <span class="impNotice"><?php echo $this->escPar('Design.theme_market_description'); ?></span>
+                <a href="#" class="btn btn-success ipsOpenMarket"><?php echo $this->escPar('Design.theme_market_browse'); ?></a>
             </div>
         </div>
         <div class="ipmLocalThemes">
             <?php if (count($availableThemes) > 1) { ?>
-                <h2><?php echo $this->escPar('standard/design/admin_translations/local_themes'); ?></h2>
+                <h2><?php echo $this->escPar('Design.local_themes'); ?></h2>
                 <ul class="ipmThemesList clearfix">
                     <?php
                         foreach ($availableThemes as $localTheme) {
@@ -68,7 +68,7 @@
                                 </span>
                                 <div class="ipmThemeActions">
                                     <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'>
-                                        <?php echo $this->escPar('standard/configuration/admin_translations/install'); ?>
+                                        <?php echo $this->escPar('Config.install'); ?>
                                     </a>
                                 </div>
                             </li>
@@ -81,7 +81,7 @@
     <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
         <div class="ipmPopupTabs">
             <ul>
-                <li><a href="#ipModuleThemeMarketAll"><?php echo $this->escPar('standard/design/admin_translations/theme_market'); ?></a></li>
+                <li><a href="#ipModuleThemeMarketAll"><?php echo $this->escPar('Design.theme_market'); ?></a></li>
             </ul>
 
             <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
