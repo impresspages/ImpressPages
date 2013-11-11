@@ -99,7 +99,7 @@ class Application {
             $data = array(
                 'status' => 'error',
                 'errors' => array(
-                    'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
+                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.')
                 )
             );
 
