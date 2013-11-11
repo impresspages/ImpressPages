@@ -17,7 +17,7 @@ class Storage {
      * @param null $defaultValue
      * @return string
      */
-    public static function get($pluginName, $key, $defaultValue = null)
+    public function get($pluginName, $key, $defaultValue = null)
     {
 
         $sql = '
@@ -51,7 +51,7 @@ class Storage {
      * @param $key
      * @param $value
      */
-    public static function set($pluginName, $key, $value)
+    public function set($pluginName, $key, $value)
     {
 
         $sql = '
