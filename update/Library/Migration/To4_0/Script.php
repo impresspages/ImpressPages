@@ -38,8 +38,29 @@ class Script extends \IpUpdate\Library\Migration\General
         //TODOX remove sitemap zone
         //TODOX communit/user zone to user zone
         //TODOX replace administrator/search zone with Search zone in zones list
+
+        $this->createStorageTable();
     }
 
+
+    protected function createStorageTable()
+    {
+        $dbh = $this->dbh;
+        $sql = "
+        CREATE TABLE IF NOT EXISTS `{$this->dbPref}storage` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `plugin` varchar(40) NOT NULL,
+    `key` varchar(100) NOT NULL,
+    `value` text NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `pluginkey` (`plugin`,`key`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
+    }
 
     protected function createPluginTable()
     {
