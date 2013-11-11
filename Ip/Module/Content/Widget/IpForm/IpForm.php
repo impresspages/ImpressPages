@@ -45,8 +45,8 @@ class IpForm extends \Ip\Module\Content\Widget{
         
         $contentData = array();
 
-        $websiteName = $parametersMod->getValue('Config.name');
-        $websiteEmail = $parametersMod->getValue('Config.email');
+        $websiteName = ipGetOption('Config.websiteTitle');
+        $websiteEmail = ipGetOption('Config.websiteEmail');
 
 
         $to = $from = $websiteEmail;
