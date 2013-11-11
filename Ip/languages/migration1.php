@@ -1,5 +1,7 @@
 <?php
 
+// TODOX remove this file
+
 $parameter = array();
 
 include __DIR__ . '/publicTranslations.php';

@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+// TODOX remove this file
+
 return array (
   'Config.home' => 'Home',
   'Config.error_broken_link_inside' => 'Sorry, but the page you were trying to get to, does not exist.',
