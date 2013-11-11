@@ -15,7 +15,6 @@ class Model{
             "System",
             "Log",
             "Email",
-            "User",
             "Config",
             "Breadcrumb",
             "Repository",
@@ -161,7 +160,7 @@ class Model{
         $q->execute($params);
 
         // TODOX Plugin dir
-        $pluginDir = BASE_DIR . PLUGIN_DIR . $pluginName;
+        $pluginDir = \Ip\Config::pluginFile ($pluginName);
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
@@ -198,7 +197,7 @@ class Model{
     {
         $answer = array();
         // TODOX Plugin dir
-        $pluginDir = BASE_DIR . PLUGIN_DIR;
+        $pluginDir = \Ip\Config::pluginFile ( '');
         $files = scandir($pluginDir);
         if (!$files) {
             return array();
@@ -234,7 +233,7 @@ class Model{
     public static function getPluginConfig($pluginName)
     {
         // TODOX Plugin dir
-        $configFile = BASE_DIR . PLUGIN_DIR . $pluginName . '/Setup/plugin.json';
+        $configFile = \Ip\Config::pluginFile ( $pluginName . '/Setup/plugin.json' );
         if (!is_file($configFile)) {
             return array();
         }
