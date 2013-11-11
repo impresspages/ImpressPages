@@ -229,12 +229,11 @@ class Site{
     }
     
     private function error404() {
-        global $parametersMod;
         $zone = array (
             'id' => '',
             'row_number' => 0,
             'name' => 'auto_error404',
-            'template' => $parametersMod->getValue('Config.error_page_template'),
+            'template' => is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php',
             'translation' => 'Error404',
             'associated_group' => '',
             'associated_module' => '',
