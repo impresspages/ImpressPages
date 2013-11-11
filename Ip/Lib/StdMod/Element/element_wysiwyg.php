@@ -99,7 +99,7 @@ class ElementWysiwyg extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == null))
-            return $parametersMod->getValue('StdMod.error_required');
+            return __('Required field', 'ipAdmin');
 
             if($this->maxLength != null){
                 if (sizeof($_POST[$prefix]) > $this->maxLength) {

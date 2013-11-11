@@ -14,7 +14,7 @@ class IpSeparator extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_separator.widget_title');
+        return __('Separator', 'ipAdmin');
     }
     
 }

@@ -12,7 +12,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_text_image.text_image');
+        return __('Text with image', 'ipAdmin');
     }
 
 
@@ -49,7 +49,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
     
     public function managementHtml($instanceId, $data, $layout) {
         global $parametersMod;
-        $data['translations']['title'] = $parametersMod->getValue('Content.widget_text_image.title');
+        $data['translations']['title'] = __('Title', 'ipAdmin');
         return parent::managementHtml($instanceId, $data, $layout);
     }    
 
