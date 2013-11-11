@@ -2,7 +2,6 @@
 
 namespace PhpUnit;
 
-//class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 use PhpUnit\Helper\TestEnvironment;
 
 class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
@@ -13,10 +12,6 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
     // only instantiate PHPUnit_Extensions_Database_DB_IDatabaseConnection once per test
     private $conn = null;
-
-
-
-    static $init;
 
     /**
      * @return \PHPUnit_Extensions_Database_DB_IDatabaseConnection
