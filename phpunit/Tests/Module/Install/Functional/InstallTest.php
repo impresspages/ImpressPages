@@ -26,7 +26,10 @@ class InstallTest extends \PHPUnit_Framework_TestCase
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
         $page = $session->getPage();
+        $this->assertNotEmpty($page);
 
-        $this->assertEquals('ImpressPages CMS installation wizard', $page->find('css', 'title')->getText());
+        $title = $page->find('css', 'title');
+        $this->assertNotEmpty($title);
+        $this->assertEquals('ImpressPages CMS installation wizard', $title->getText());
     }
 }
