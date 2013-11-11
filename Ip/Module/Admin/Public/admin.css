@@ -1,3 +1,7 @@
+.ipgHide {
+    display: none;
+}
+
 .ipAdminToolbar {
     background-color: #2f313f;
     border-bottom: 1px solid #000;
