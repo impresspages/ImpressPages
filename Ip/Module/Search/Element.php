@@ -28,7 +28,7 @@ class Element extends \Ip\Frontend\Element{
 
     public function getButtonTitle(){
         global $parametersMod;
-        return $parametersMod->getValue('Search.search');
+        return __('Search', 'ipAdmin');
     }
 
 

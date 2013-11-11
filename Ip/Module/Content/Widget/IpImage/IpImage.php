@@ -16,7 +16,7 @@ class IpImage extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_image.image');
+        return __('Image', 'ipAdmin');
     }
 
     

@@ -53,54 +53,54 @@ $parameter["Email.to"] = "To";
 
 
 
-$parameter["Logmodule"] = "Module";
+$parameter["Log.module"] = "Module";
 
 
-$parameter["Logname"] = "Name";
+$parameter["Log.name"] = "Name";
 
 
-$parameter["Logtime"] = "Time";
+$parameter["Log.time"] = "Time";
 
 
-$parameter["Logvalue_float"] = "Value float";
+$parameter["Log.value_float"] = "Value float";
 
 
-$parameter["Logvalue_int"] = "Value integer";
+$parameter["Log.value_int"] = "Value integer";
 
 
-$parameter["Logvalue_str"] = "Value string";
+$parameter["Log.value_str"] = "Value string";
 
 
 
 
-$parameter["Repositoryupload_description"] = "Drag&drop files here or click a button to upload.";
+$parameter["Repository.upload_description"] = "Drag&drop files here or click a button to upload.";
 
 
-$parameter["Repositorytab_upload"] = "Upload new";
+$parameter["Repository.tab_upload"] = "Upload new";
 
 
-$parameter["Repositorytab_files"] = "All files";
+$parameter["Repository.tab_files"] = "All files";
 
 
-$parameter["Repositorybuy_images"] = "Buy images";
+$parameter["Repository.buy_images"] = "Buy images";
 
 
-$parameter["Repositorybuy_images_invitation"] = "Need more images? Browse and choose from thousands of them.";
+$parameter["Repository.buy_images_invitation"] = "Need more images? Browse and choose from thousands of them.";
 
 
-$parameter["Repositoryrecent_files"] = "Recent files";
+$parameter["Repository.recent_files"] = "Recent files";
 
 
-$parameter["Repositoryselected"] = "Selected:";
+$parameter["Repository.selected"] = "Selected:";
 
 
-$parameter["Repositorydownload_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.";
+$parameter["Repository.download_in_progress"] = "Your images are being downloaded to your website. It may take some time to finish. Please wait.";
 
 
-$parameter["Repositoryconfirm_delete"] = "Are you sure you want to delete selected files?";
+$parameter["Repository.confirm_delete"] = "Are you sure you want to delete selected files?";
 
 
-$parameter["Repositorydelete_warning"] = "Some of the selected files cannot be deleted because they are used.";
+$parameter["Repository.delete_warning"] = "Some of the selected files cannot be deleted because they are used.";
 
 
 

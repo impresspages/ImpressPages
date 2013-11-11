@@ -16,7 +16,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_logo_gallery.logo_gallery');
+        return __('Logo gallery', 'ipAdmin');
     }
     
 

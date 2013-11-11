@@ -99,12 +99,12 @@ class System{
         //find reason
         $message = '';
         if(!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == ''){
-            $message = $parametersMod->getValue('Config.error_mistyped_url', $site->getCurrentLanguage()->getId());
+            $message = __('Config.error_mistyped_url', 'ipPublic');
         }else{
             if(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) !== false){
-                $message = $parametersMod->getValue('Config.error_broken_link_inside', $site->getCurrentLanguage()->getId());
-            }if(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) === false){
-                $message = $parametersMod->getValue('Config.error_broken_link_outside', $site->getCurrentLanguage()->getId());
+                $message = '<p>' . __('Config.error_broken_link_inside', 'ipPublic') . '</p>';
+            } elseif(strpos($_SERVER['HTTP_REFERER'], \Ip\Config::baseUrl('')) === false) {
+                $message = '<p>' . __('Config.error_broken_link_outside', 'ipPublic') . '</p>';
             }
         }
         //end find reason

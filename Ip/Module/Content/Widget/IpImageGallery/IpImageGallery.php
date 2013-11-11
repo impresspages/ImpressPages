@@ -15,7 +15,7 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('Content.widget_image_gallery.gallery');
+        return __('Photo gallery', 'ipAdmin');
     }
 
     
