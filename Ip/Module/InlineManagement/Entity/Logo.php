@@ -86,7 +86,7 @@ class Logo
                     $this->getRequiredHeight(),
                     100
                 );
-                $requestedName = $parametersMod->getValue('Config.name');
+                $requestedName = ipGetOption('Config.websiteTitle');
                 $this->image = $reflectionService->getReflection($this->getImageOrig(), $requestedName, $transform);
             }
         } else {
@@ -96,7 +96,7 @@ class Logo
         if (!empty($data['text'])) {
             $this->setText($data['text']);
         } else {
-            $this->setText($parametersMod->getValue('Config.name'));
+            $this->setText(ipGetOption('Config.websiteTitle'));
         }
 
         if (isset($data['color'])) {
