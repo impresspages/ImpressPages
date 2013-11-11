@@ -53,7 +53,7 @@ class Language{
      * @return string Eg. English
      *
      */
-    public function getLongDescription(){
+    public function getTitle(){
         return $this->longDescription;
     }
 
@@ -62,7 +62,7 @@ class Language{
      * @return string Eg. en
      *
      */
-    public function getShortDescription(){
+    public function getAbbreviation(){
         return $this->shortDescription;
     }
 

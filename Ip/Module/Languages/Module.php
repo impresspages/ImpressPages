@@ -55,8 +55,8 @@ class Module{
             }
         
             $tmpData = array();
-            $tmpData['shortTitle'] = $language->getShortDescription();
-            $tmpData['longTitle'] = $language->getLongDescription();
+            $tmpData['shortTitle'] = $language->getAbbreviation();
+            $tmpData['longTitle'] = $language->getTitle();
             $tmpData['visible'] = $language->getVisible();
             $tmpData['current'] = $language->getCurrent();
             $tmpData['url'] = $site->generateUrl($language->getId());
