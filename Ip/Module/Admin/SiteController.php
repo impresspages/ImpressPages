@@ -5,7 +5,6 @@ class SiteController extends \Ip\Controller{
 
     public function loginAjax()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         \Ip\Request::mustBePost();
 
@@ -92,7 +91,6 @@ class SiteController extends \Ip\Controller{
 
     protected function getLoginForm()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Ip\Form();
 

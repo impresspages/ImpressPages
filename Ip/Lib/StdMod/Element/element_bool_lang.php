@@ -168,7 +168,6 @@ class ElementBoolLang extends Element{ //data element in area
 
     function checkField($prefix, $action, $area){
         global $stdModDb;
-        global $parametersMod;
 
         $languages = $stdModDb->languages();
 
@@ -268,7 +267,6 @@ class ElementBoolLang extends Element{ //data element in area
 
     function printSearchField($level, $key, $area){
 
-        global $parametersMod;
         global $stdModDb;
 
         $answer = '';

@@ -31,7 +31,6 @@ class OldCmsInterface{
      */
 
     function manage() {
-        global $parametersMod;
 
         //log off
         if(isset($_REQUEST['action']) && $_REQUEST['action'] == "logout" && !isset($_REQUEST['module_id'])) {

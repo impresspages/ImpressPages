@@ -116,7 +116,6 @@ class Model{
     public function login($username, $pass)
     {
         $log = \Ip\ServiceLocator::getLog();
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
             $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
