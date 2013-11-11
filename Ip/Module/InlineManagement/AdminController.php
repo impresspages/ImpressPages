@@ -170,10 +170,10 @@ class AdminController extends \Ip\Controller{
 
         $types = array();
 
-        $scopePageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_page');
-        $scopeParentPageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_parent_page');
-        $scopeLanguageTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_language');
-        $scopeAllPagesTitle = $parametersMod->getValue('developer', 'inline_management', 'admin_translations', 'assign_to_all_pages');
+        $scopePageTitle = $parametersMod->getValue('InlineManagement.assign_to_page');
+        $scopeParentPageTitle = $parametersMod->getValue('InlineManagement.assign_to_parent_page');
+        $scopeLanguageTitle = $parametersMod->getValue('InlineManagement.assign_to_language');
+        $scopeAllPagesTitle = $parametersMod->getValue('InlineManagement.assign_to_all_pages');
 
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {

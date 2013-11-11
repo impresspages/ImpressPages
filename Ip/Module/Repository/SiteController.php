@@ -29,7 +29,7 @@ class SiteController extends \Ip\Controller{
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
             //upload to secure publicly not accessible folder.
-            if ($parametersMod->getValue('administrator', 'repository', 'options', 'allow_anonymous_uploads')) {
+            if ($parametersMod->getValue('Repository.allow_anonymous_uploads')) {
                 //do nothing. Anonymous uploads are allowed to secure folder
             } else {
                 throw new \Exception('Anonymous uploads are not enabled. You can enable them in config.');
@@ -49,7 +49,7 @@ class SiteController extends \Ip\Controller{
 
             switch($e->getCode()){
                 case UploadException::FORBIDDEN_FILE_EXTENSION:
-                    $message = $parametersMod->getValue("developer", "form", "error_messages", "file_type");
+                    $message = $parametersMod->getValue("Form.file_type");
                     break;
                 case UploadException::FAILED_TO_MOVE_UPLOADED_FILE:
                 case UploadException::NO_PERMISSION:
@@ -58,7 +58,7 @@ class SiteController extends \Ip\Controller{
                 default:
                     $log = \Ip\ServiceLocator::getLog();
                     $log->log('administrator/repository', 'File upload error', 'Error: '.$e->getMessage().' ('.$e->getCode().')');
-                    $message = $parametersMod->getValue("developer", "form", "error_messages", "server");
+                    $message = $parametersMod->getValue("Form.server");
                     break;
 
             }

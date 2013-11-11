@@ -25,7 +25,7 @@ class ImageFit extends Image
         global $parametersMod;
         if ($quality === null)
         {
-            $quality = $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'default_image_quality');
+            $quality = $parametersMod->getValue('Config.default_image_quality');
         }
 
         $this->width = $width;

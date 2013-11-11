@@ -16,10 +16,10 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body<?php if ($site->managementState()) { echo ' class="manage"'; } ?> >
-
-<?php echo $this->generateBlock('main'); ?>
-
+<body class="manage">
+    <div class="ip">
+        <?php echo $this->generateBlock('main'); ?>
+    </div>
 <?php echo $site->generateJavascript(); ?>
 </body>
 </html>

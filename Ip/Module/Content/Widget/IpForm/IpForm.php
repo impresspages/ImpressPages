@@ -14,7 +14,7 @@ class IpForm extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
         global $parametersMod;
-        return $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'contact_form');
+        return __('Contact form', 'ipAdmin');
     }
     
     public function post ($controller, $instanceId, $postData, $data) {
@@ -45,8 +45,8 @@ class IpForm extends \Ip\Module\Content\Widget{
         
         $contentData = array();
 
-        $websiteName = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'name');
-        $websiteEmail = $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'email');
+        $websiteName = ipGetOption('Config.websiteTitle');
+        $websiteEmail = ipGetOption('Config.websiteEmail');
 
 
         $to = $from = $websiteEmail;
@@ -254,7 +254,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => $parametersMod->getValue('standard', 'content_management', 'widget_contact_form', 'send')
+        	'defaultValue' => $parametersMod->getValue('Content.widget_contact_form.send')
         ));
         $form->addField($field);
         

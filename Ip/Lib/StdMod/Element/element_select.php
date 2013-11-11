@@ -110,7 +110,7 @@ class ElementSelect extends Element{ //data element in area
             $_POST[$prefix] = $this->defaultValue;
 
             if ($this->required && (!isset($_POST[$prefix]) || $_POST[$prefix] == ''))
-            return $std_par = $parametersMod->getValue('developer', 'std_mod','admin_translations','error_required');
+            return $std_par = __('Required field', 'ipAdmin');
         }
     }
 

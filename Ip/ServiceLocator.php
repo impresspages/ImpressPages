@@ -20,6 +20,18 @@ class ServiceLocator
     protected static $request = null;
     protected static $config = null;
 
+
+    public static function getOptions()
+    {
+        return new \Ip\Options();
+    }
+
+
+    public static function getStorage()
+    {
+        return new \Ip\Storage();
+    }
+
     public static function getConfig()
     {
         if (self::$config == null) {

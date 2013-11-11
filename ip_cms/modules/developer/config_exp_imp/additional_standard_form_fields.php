@@ -68,14 +68,14 @@ class FieldTypes extends \Library\Php\Form\Field{
         $answer .= '
 
      
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[string]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_string')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[integer]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_integer')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[bool]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_bool')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[textarea]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_textarea')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[string_wysiwyg]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_wysiwyg')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_string_lang')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang_textarea]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_textarea_lang')).'</div>
-      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang_wysiwyg]" value="1"/> '.htmlspecialchars($parametersMod->getValue('developer', 'std_mod', 'admin_translations', 'parameter_wysiwyg_lang')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[string]" value="1"/> '.htmlspecialchars(__('String', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[integer]" value="1"/> '.htmlspecialchars(__('Integer', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[bool]" value="1"/> '.htmlspecialchars(__('Boolean', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[textarea]" value="1"/> '.htmlspecialchars(__('Textarea', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[string_wysiwyg]" value="1"/> '.htmlspecialchars(__('Wysiwyg', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang]" value="1"/> '.htmlspecialchars(__('String languages', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang_textarea]" value="1"/> '.htmlspecialchars(__('Textarea languages', 'ipAdmin')).'</div>
+      <div><input checked class="'.$class.' checkbox" type="checkbox" name="'.$this->name.'[lang_wysiwyg]" value="1"/> '.htmlspecialchars(__('Wysiwyg languages', 'ipAdmin')).'</div>
       
       
       

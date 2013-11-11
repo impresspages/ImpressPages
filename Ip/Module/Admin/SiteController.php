@@ -14,7 +14,7 @@ class SiteController extends \Ip\Controller{
 
         if (empty($errors)) {
             if (\Ip\Backend\Db::incorrectLoginCount(\Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
-                $errors['password'] = $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_suspended');
+                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
                 \Ip\Backend\Db::log('system', 'backend login suspended', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
@@ -25,7 +25,7 @@ class SiteController extends \Ip\Controller{
                 \Ip\Backend\Db::log('system', 'backend login', \Ip\Request::getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
                 \Ip\Backend\Db::log('system', 'backend login incorrect', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
-                $errors['password'] =  $parametersMod->getValue('standard', 'configuration', 'system_translations', 'login_incorrect');
+                $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
             }
         }
 
@@ -118,7 +118,7 @@ class SiteController extends \Ip\Controller{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login', //html "name" attribute
-                'label' => $parametersMod->getValue('standard','configuration','system_translations','login_name')
+                'label' => __('Name', 'ipAdmin')
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -127,7 +127,7 @@ class SiteController extends \Ip\Controller{
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
-                'label' => $parametersMod->getValue('standard','configuration','system_translations','login_password')
+                'label' => __('Password', 'ipAdmin')
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -136,7 +136,7 @@ class SiteController extends \Ip\Controller{
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'defaultValue' => $parametersMod->getValue('standard','configuration','system_translations','login_login')
+                'defaultValue' => __('Login', 'ipAdmin')
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
