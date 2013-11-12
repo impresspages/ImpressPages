@@ -100,7 +100,7 @@ class Text extends Element{ //data element in area
 
         $answer = mb_substr($record[$this->dbField], 0, $this->previewLength);
         $answer = htmlspecialchars($answer);
-        $answer = \Library\Php\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
+        $answer = \Ip\Internal\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
         return $answer;
 
     }

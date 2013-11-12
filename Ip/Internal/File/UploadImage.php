@@ -4,11 +4,9 @@
  *
  *
  */
-namespace Library\Php\File;
+namespace Ip\Internal\File;
 
 
-/** @private */
-require_once (__DIR__.'/functions.php');
 
 
 /**
@@ -86,7 +84,7 @@ class UploadImage{
                     $newName = $_FILES[$postName]['name'];
                     if($_FILES[$postName]['type'] == "image/gif")
                     $newName = substr($newName, -4, 4).'.png'; //gif are converted top PNG
-                    $newName = \Library\Php\File\Functions::genUnoccupiedName($newName, $destDir);
+                    $newName = \Ip\Internal\File\Functions::genUnoccupiedName($newName, $destDir);
 
                     switch ($_FILES[$postName]['type']) {
                         case 'image/gif':
@@ -118,7 +116,7 @@ class UploadImage{
                     return UPLOAD_ERR_CANT_WRITE;
                 }
             } else {
-                $newName = \Library\Php\File\Functions::genUnoccupiedName($_FILES[$postName]['name'], $destDir);
+                $newName = \Ip\Internal\File\Functions::genUnoccupiedName($_FILES[$postName]['name'], $destDir);
                 copy($_FILES[$postName]['tmp_name'], $destDir.$newName);
                 $this->fileName = $newName;
                 return UPLOAD_ERR_OK;

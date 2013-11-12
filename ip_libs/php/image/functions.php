@@ -7,7 +7,6 @@
 
 namespace Library\Php\Image;
 
-require_once \Ip\Config::libraryFile('php/file/functions.php');
 
 
 
@@ -43,7 +42,7 @@ class Functions{
         $imageInfo = getimagesize($imageFile);
 
         if (!self::resizeRequired($imageInfo[0], $imageInfo[1], $widthDest, $heightDest, $type, $forced)) {
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($imageFile, $destDir);
+            $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
             copy($imageFile, $destDir.$newName);
             return $newName;
         }
@@ -63,7 +62,7 @@ class Functions{
 
         $imageNew = self::resizeImage($image, $widthDest, $heightDest, $imageInfo[0], $imageInfo[1], $type);
 
-        $newName = \Library\Php\File\Functions::genUnoccupiedName($imageFile, $destDir);
+        $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
         $newFile = $destDir.$newName;
 
 
@@ -97,7 +96,7 @@ class Functions{
         $imageInfo = getimagesize($imageFile);
 
         if ($imageInfo[0] == $widthDest && $imageInfo[1] == $heightDest && $x1 == 0 && $y1 == 0) {//don't need to crop or resize
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($imageFile, $destDir);
+            $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
             copy($imageFile, $destDir.$newName);
             return $newName;
         }
@@ -174,14 +173,14 @@ class Functions{
             } else {
                 $tmpImageName = $imageFile;
             }
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($tmpImageName, $destDir);
+            $newName = \Ip\Internal\File\Functions::genUnoccupiedName($tmpImageName, $destDir);
         } else {
             $sx1 = $x1;
             $sx2 = $x2;
             $sy1 = $y1;
             $sy2 = $y2;
             $mime = self::getMimeType($imageFile);
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($imageFile, $destDir);
+            $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
         }
 
         /**

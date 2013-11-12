@@ -666,7 +666,7 @@ class AdminController extends \Ip\Controller
         if (isset($data['managementHtml'])) {
             // $data['managementHtml'] = utf8_encode($data['managementHtml']);
         }
-        $answer = json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
+        $answer = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data));
         $site->setOutput($answer);
     }
 

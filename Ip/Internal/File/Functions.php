@@ -5,7 +5,7 @@
  *
  */
 
-namespace Library\Php\File;
+namespace Ip\Internal\File;
 
 
 class Functions{
@@ -87,8 +87,7 @@ class Functions{
      * @return string new (or the same) file without special characters
      */
     public static function cleanupFileName($fileName){
-        require_once \Ip\Config::libraryFile('php/text/transliteration.php');
-        $fileName = \Library\Php\Text\Transliteration::transform($fileName);
+        $fileName = \Ip\Internal\Text\Transliteration::transform($fileName);
         $fileName = utf8_decode($fileName);
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
         $fileName = str_replace($spec, "_", $fileName);
@@ -127,7 +126,7 @@ class Functions{
 
     public static function copyTemporaryFile($relativePath, $destinationDir)
     {
-        $newBasename = \Library\Php\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
+        $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
         if (!copy(\Ip\Config::temporaryFile($relativePath), $destinationDir . $newBasename)) {
             trigger_error("Can't copy file from " . htmlspecialchars(\Ip\Config::getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));

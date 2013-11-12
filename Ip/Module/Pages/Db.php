@@ -278,7 +278,7 @@ class Db {
             $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }
 
-        if (!empty($params['layout']) && \Library\Php\File\Functions::isFileInDir($params['layout'], \Ip\Config::themeFile(''))) {
+        if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], \Ip\Config::themeFile(''))) {
             $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
             self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
         }
@@ -566,7 +566,7 @@ class Db {
         if($url == '')
         $url = 'page';
         $url = mb_strtolower($url);
-        $url = \Library\Php\Text\Transliteration::transform($url);
+        $url = \Ip\Internal\Text\Transliteration::transform($url);
         $url = str_replace(" ", "-", $url);
         $url = str_replace("/", "-", $url);
         $url = str_replace("\\", "-", $url);

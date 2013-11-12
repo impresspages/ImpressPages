@@ -14,10 +14,6 @@
 namespace Ip\Module\Email;
 
 /** @private */
-require_once(__DIR__ . '/db.php');
-require_once \Ip\Config::libraryFile('php/text/html2text.php');
-require_once \Ip\Config::libraryFile('php/mail/phpmailer/class.phpmailer.php');
-require_once \Ip\Config::libraryFile('php/file/functions.php');
 
 /**
  * Class to send emails. Typically all emails should be send trouht this class.
@@ -49,11 +45,11 @@ class Module{
         if($files)
         foreach($files as $key => $file){
             $new_name = 'contact_form_'.rand();
-            $new_name = \Library\Php\File\Functions::genUnoccupiedName($new_name, \Ip\Config::temporaryFile(''));
+            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, \Ip\Config::temporaryFile(''));
             if (copy($file['real_name'], \Ip\Config::temporaryFile($new_name))) {
                 $cached_files[] = \Ip\Config::temporaryFile($new_name);
                 $cached_file_names[] = $file['required_name'];
-                $tmpMimeType = \Library\Php\File\Functions::getMimeType($file['real_name']);
+                $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                 if($tmpMimeType == null)
                 $tmpMimeType = 'Application/octet-stream';
                 $cached_file_mime_types[] = $tmpMimeType;
@@ -144,12 +140,12 @@ class Module{
                     if($email['html']){
                         $mail->IsHTML(true);// send as HTML
                          
-                        $h2t = new \Library\Php\Text\Html2text($email['email'], false);
+                        $h2t = new \Ip\Internal\Text\Html2text($email['email'], false);
                         //$mail->Body = $email['email'];
                         $mail->MsgHTML($email['email']);
                         $mail->AltBody  =  $h2t->get_text();
                     }else{
-                        /*$h2t = new \Library\Php\Text\Html2text($content, false);
+                        /*$h2t = new \Ip\Internal\Text\Html2text($content, false);
                          $mail->Body  =  $h2t->get_text();*/
                         $mail->Body = $email['email'];
                     }
