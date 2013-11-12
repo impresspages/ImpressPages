@@ -37,9 +37,16 @@
     $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
     /*eof detect browser language*/
 
+    $request = \Ip\ServiceLocator::getRequest();
+    $relativePath = $request->getRelativePath();
     /*check if the website is closed*/
     if($parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site') && !$site->managementState()
-            && (!\Ip\Backend::loggedIn() || !isset($_REQUEST['g']) || !isset($_REQUEST['m']) || !isset($_REQUEST['a']))){
+        && !\Ip\Backend::loggedIn()
+        && !in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))
+        && strpos(BASE_URL . $relativePath, $site->generateUrl(null) . 'validatorConfig.js') !== 0
+        && strpos(BASE_URL . $relativePath, $site->generateUrl(null) . 'tinymceConfig.js') !== 0
+
+    ){
         echo $parametersMod->getValue('standard', 'configuration', 'main_parameters', 'closed_site_message');
         \Db::disconnect();
         exit;
