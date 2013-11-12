@@ -16,7 +16,7 @@ class System
         if ($site->managementState()) {
             $site->addCss(\Ip\Config::coreModuleUrl('InlineManagement/public/inline_management.css'));
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
 
             $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementControls.js'));
             $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementLogo.js'));

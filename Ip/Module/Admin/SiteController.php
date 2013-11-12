@@ -81,7 +81,7 @@ class SiteController extends \Ip\Controller{
             'loginForm' => $this->getLoginForm()
         );
 
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
         $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));

@@ -15,7 +15,7 @@
 </footer>
 </div>
 <?php
-    $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+    $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
     $site->addJavascript(\Ip\Config::libraryUrl('js/colorbox/jquery.colorbox.js'));
     $site->addJavascript(\Ip\Config::themeUrl('site.js'));
     echo $site->generateJavascript();

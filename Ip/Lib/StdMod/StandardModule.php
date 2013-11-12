@@ -867,7 +867,7 @@ class StandardModule {
     
     <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
-    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
+    <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.$site->generateHead().'

@@ -34,7 +34,7 @@ class System{
 
         
         
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
         $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
         
