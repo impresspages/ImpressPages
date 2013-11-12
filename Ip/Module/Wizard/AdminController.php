@@ -11,13 +11,12 @@ class AdminController extends \Ip\Controller{
 
     public function loadContent() {
         global $site;
-        global $parametersMod;
         $viewData = array (
-            'tip_dragWidget' => $parametersMod->getValue('Wizard.tip_dragWidget'),
-            'tip_dropWidget' => $parametersMod->getValue('Wizard.tip_dropWidget'),
-            'tip_changeWidgetContent' => $parametersMod->getValue('Wizard.tip_changeWidgetContent'),
-            'tip_confirmWidget' => $parametersMod->getValue('Wizard.tip_confirmWidget'),
-            'tip_publish' => $parametersMod->getValue('Wizard.tip_publish')
+            'tip_dragWidget' => ipGetOption('Wizard.tip_dragWidget'),
+            'tip_dropWidget' => ipGetOption('Wizard.tip_dropWidget'),
+            'tip_changeWidgetContent' => ipGetOption('Wizard.tip_changeWidgetContent'),
+            'tip_confirmWidget' => ipGetOption('Wizard.tip_confirmWidget'),
+            'tip_publish' => ipGetOption('Wizard.tip_publish')
         );
         $content = \Ip\View::create('view/content.php', $viewData)->render();
 

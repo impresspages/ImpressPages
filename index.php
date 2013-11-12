@@ -20,20 +20,19 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
     exit;
 }
 
-if(is_file(__DIR__.'/ip_config.php')) {
-    $config = require (__DIR__.'/ip_config.php');
-} else {
-    $config = require (__DIR__.'/../ip_config.php');
-}
+$config = require (__DIR__.'/ip_config.php');
 
 require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
 \Ip\Config::init($config);
 
 require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
 
+//TODOX remove
 ini_set('display_errors', 1);
 
 try {
+
+    //TODOX make init as an object method
     \Ip\Core\Application::init();
     $application = new \Ip\Core\Application();
     $application->run();

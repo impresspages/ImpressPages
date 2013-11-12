@@ -141,7 +141,7 @@ class SiteController extends \Ip\Controller{
     {
 
         //download image to TMP dir and get $resultFilename
-        $net = \Library\Php\Net::instance();
+        $net = \Ip\Internal\NetHelper::instance();
         $tmpFilename = $net->downloadFile($url, \Ip\Config::temporaryFile(''), 'bigstock_'.time());
         if (!$tmpFilename) {
             return;
@@ -150,7 +150,7 @@ class SiteController extends \Ip\Controller{
 
         //find out file mime type to know required extension
         try {
-            $mime = \Library\Php\File\Functions::getMimeType(\Ip\Config::temporaryFile($tmpFilename));
+            $mime = \Ip\Internal\File\Functions::getMimeType(\Ip\Config::temporaryFile($tmpFilename));
             switch($mime) {
                 case 'image/png':
                     $ext = '.jpg';
@@ -173,7 +173,7 @@ class SiteController extends \Ip\Controller{
         }
 
         //get real nice new file name
-        $title = \Library\Php\File\Functions::cleanupFileName($title);
+        $title = \Ip\Internal\File\Functions::cleanupFileName($title);
         $words = explode(' ', $title);
         $cleanTitle = '';
         foreach($words as $word) { //limit file name to 30 symbols
@@ -191,7 +191,7 @@ class SiteController extends \Ip\Controller{
 
         $niceFileName = $cleanTitle.$ext;
         $destinationDir = \Ip\Config::repositoryFile('');
-        $destinationFileName = \Library\Php\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
+        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
         copy(\Ip\Config::temporaryFile($tmpFilename), $destinationDir . $destinationFileName);
 

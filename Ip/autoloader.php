@@ -24,66 +24,14 @@ function __impressPagesAutoloader($name) {
         return true;
     }
 
-    if (file_exists(\Ip\Config::includePath($fileName))) {
-        require_once \Ip\Config::includePath($fileName);
+    $vendorFile = \Ip\Config::baseFile('Ip' . DIRECTORY_SEPARATOR . 'Internal' . DIRECTORY_SEPARATOR . 'Vendor' . DIRECTORY_SEPARATOR . $fileName);
+    if (file_exists($vendorFile)) {
+        require_once $vendorFile;
         return true;
     }
 
-    $path = explode('/', $fileName);
-
-    if ($path[0] == 'Modules') {
-        $relativeFileName = substr($fileName, 8);
-        $success = __impressPagesAutoloaderTry($relativeFileName);
-        if ($success) {
-            return true;
-        }
-        $success = __impressPagesAutoloaderTry(strtolower($relativeFileName));
-        if ($success) {
-            return true;
-        }
-    } elseif ($path[0] == 'Library') {
-        $relativeFileName = substr($fileName, 8);
-        if (file_exists(\Ip\Config::libraryFile($relativeFileName))) {
-            require_once \Ip\Config::libraryFile($relativeFileName);
-            return true;
-        }
-
-        if (!empty($path[1]) && $path[1] == 'Php') { // Library\Php
-
-            if ($path[2] == 'Text') { // Library\Php\Text
-                $relativeFileName = 'php/text/' . substr($fileName, 17);
-            } elseif ($path[2] == 'Image' && $path[3] == 'Functions.php') {
-                $relativeFileName = 'php/image/functions.php';
-            } elseif ($path[2] == 'File' && $path[3] == 'Functions.php') {
-                $relativeFileName = 'php/file/functions.php';
-            } else {
-                $relativeFileName = 'php/' . substr($fileName, 12);
-            }
-
-            //second try
-            if (file_exists(\Ip\Config::libraryFile($relativeFileName))) {
-                require_once \Ip\Config::libraryFile($relativeFileName);
-                return true;
-            }
-        }
-
-    } elseif ($path[0] == 'Plugin') {
-
-        if (file_exists(\Ip\Config::baseFile($fileName))) {
-
-            require_once \Ip\Config::baseFile($fileName);
-            return true;
-        }
-    }
-
-    if ($fileName == 'PclZip.php') {
-        if (file_exists(\Ip\Config::libraryFile('php/pclzip/PclZip.php'))) {
-            require_once \Ip\Config::libraryFile('php/pclzip/PclZip.php');
-            return true;
-        }
-    }
-
     return false;
+
 }
 
 

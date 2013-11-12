@@ -122,7 +122,7 @@ class Logo
         $data['font'] = $this->font;
         $data['requiredWidth'] = $this->requiredWidth;
         $data['requiredHeight'] = $this->requiredHeight;
-        return json_encode(\Library\Php\Text\Utf8::checkEncoding($data));
+        return json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data));
     }
 
     //GETTERS

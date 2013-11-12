@@ -197,7 +197,7 @@ class ElementSelectLang extends Element{ //data element in area
         }
 
         $valuesAnswer = htmlspecialchars(mb_substr($valuesAnswer, 0, $this->previewLength));
-        $valuesAnswer = \Library\Php\Text\String::mb_wordwrap($valuesAnswer, 10, "&#x200B;", 1);
+        $valuesAnswer = \Ip\Internal\Text\String::mb_wordwrap($valuesAnswer, 10, "&#x200B;", 1);
 
         return $valuesAnswer;
     }

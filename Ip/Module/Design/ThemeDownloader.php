@@ -30,7 +30,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
     {
         $model = Model::instance();
         //download theme
-        $net = \Library\Php\Net::instance();
+        $net = \Ip\Internal\NetHelper::instance();
         $themeTempFilename = $net->downloadFile($url, \Ip\Config::temporarySecureFile(''), $name . '.zip');
 
         if (!$themeTempFilename) {
@@ -53,14 +53,14 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         //extract
         $helper = Helper::instance();
-        $tmpExtractedDir = \Library\Php\File\Functions::genUnoccupiedName($name, \Ip\Config::temporarySecureFile(''));
+        $tmpExtractedDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, \Ip\Config::temporarySecureFile(''));
         $helper->extractZip(\Ip\Config::temporarySecureFile($themeTempFilename), \Ip\Config::temporarySecureFile($tmpExtractedDir));
         unlink($archivePath);
 
         //install
         $extractedDir = $helper->getFirstDir(\Ip\Config::temporarySecureFile($tmpExtractedDir));
         $installDir = $model->getThemeInstallDir();
-        $newThemeDir = \Library\Php\File\Functions::genUnoccupiedName($name, $installDir);
+        $newThemeDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, $installDir);
         rename(\Ip\Config::temporarySecureFile($tmpExtractedDir . '/' . $extractedDir), $installDir . $newThemeDir);
 
     }

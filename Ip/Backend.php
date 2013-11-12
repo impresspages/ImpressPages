@@ -15,20 +15,20 @@ namespace Ip;
 class Backend{
 
     public static function userId(){
-        if(isset($_SESSION['backend_session']['user_id'])){
-            return $_SESSION['backend_session']['user_id'];
+        if(isset($_SESSION['backend_session']['userId'])){
+            return $_SESSION['backend_session']['userId'];
         }else {
             return false;
         }
     }
 
     public static function loggedIn(){
-        return isset($_SESSION['backend_session']['user_id']) && $_SESSION['backend_session']['user_id'] != null;
+        return isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
     }
 
     public static function logout(){
-        if(isset($_SESSION['backend_session']['user_id'])){
-            unset($_SESSION['backend_session']['user_id']);
+        if(isset($_SESSION['backend_session']['userId'])){
+            unset($_SESSION['backend_session']['userId']);
         }
         if(isset($_SESSION['backend_session'])){
             unset($_SESSION['backend_session']);
@@ -44,7 +44,7 @@ class Backend{
     }
 
     public static function login($id){
-        $_SESSION['backend_session']['user_id'] = $id;
+        $_SESSION['backend_session']['userId'] = $id;
     }
 
     public static function userHasPermission($userId, $moduleGroup, $moduleName) {
@@ -61,7 +61,7 @@ class Backend{
 
 
 
-        $sql = "select * from `".DB_PREF."user_to_mod` where `user_id`='".ip_deprecated_mysql_real_escape_string($userId)."' and `module_id`='".ip_deprecated_mysql_real_escape_string($module['id'])."' ";
+        $sql = "select * from `".DB_PREF."user_to_mod` where `userId`='".ip_deprecated_mysql_real_escape_string($userId)."' and `module_id`='".ip_deprecated_mysql_real_escape_string($module['id'])."' ";
         $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
             if(ip_deprecated_mysql_num_rows($rs) > 0) {

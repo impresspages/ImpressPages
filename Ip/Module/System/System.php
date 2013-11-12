@@ -39,15 +39,16 @@ class System{
 
     public static function urlChanged (\Ip\Event\UrlChanged $event)
     {
-        \DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
+        \Ip\DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
     }
     
     public static function catchError404 (\Ip\Event $event) {
         global $parametersMod;
-        global $log;
         global $site;
         global $dispatcher;
-        
+
+        $log = \Ip\ServiceLocator::getLog();
+
         $log->log("system", "error404", $site->getCurrentUrl()." ".self::error404Message());
         
         self::$error404 = true;

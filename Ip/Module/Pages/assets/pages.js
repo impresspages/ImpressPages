@@ -14,7 +14,8 @@ $(document).ready(function () {
     $('#tree').bind('close_node.jstree', closeNode);
     $('#tree').bind('select_node.jstree', function (e, data) {
         // expands menu item when it is selected (shows children)
-        $('#tree').jstree('toggle_node', data.rslt.obj);
+
+        $('#tree').jstree('open_node', data.rslt.obj);
     });
 
     $('#tree').bind('refresh.jstree', function (e, data) {
@@ -62,6 +63,7 @@ function initializeTreeManagement(id) {
 
                     return {
                         'aa': 'Pages.getChildren',
+                        'securityToken': ip.securityToken,
                         'id': n.attr ? n.attr('id') : '',
                         'pageId': n.attr ? n.attr('pageId') : '',
                         'type': n.attr ? n.attr('rel') : '',
@@ -94,10 +96,10 @@ function initializeTreeManagement(id) {
                     'icon': {
                         'image': imageDir + 'folder.png'
                     },
-                    'start_drag': false,
-                    'move_node': false,
-                    'delete_node': false,
-                    'remove': false
+//                    'start_drag': false,
+//                    'move_node': false,
+//                    'delete_node': false,
+//                    'remove': false
                 },
 
                 'language': {
@@ -105,10 +107,10 @@ function initializeTreeManagement(id) {
                     'icon': {
                         'image': imageDir + 'folder.png'
                     },
-                    'start_drag': false,
-                    'move_node': false,
-                    'delete_node': false,
-                    'remove': false
+//                    'start_drag': false,
+//                    'move_node': false,
+//                    'delete_node': false,
+//                    'remove': false
                 },
 
                 'website': {
@@ -260,7 +262,7 @@ function editPage() {
     data.aa = 'Pages.getPageLink';
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: ip.baseUrl,
         data: data,
         success: editPageResponse,
@@ -290,6 +292,7 @@ function closeNode(event, data) {
     data.zoneName = node.attr('zoneName');
     data.languageId = node.attr('languageId');
     data.websiteId = node.attr('websiteId');
+    data.securityToken = ip.securityToken;
 
     data.aa = 'Pages.closePage';
 
@@ -352,6 +355,7 @@ function createPage() {
         data.websiteId = node.attr('websiteId');
     }
     data.buttonTitle = $('#createPageButtonTitle').val();
+    data.securityToken = ip.securityToken;
 
 
     $('#createPageForm input').val(''); //remove value from input field
@@ -405,6 +409,7 @@ function deletePageConfirm() {
         data.languageId = node.attr('languageId');
         data.type = node.attr('rel');
         data.aa = 'Pages.deletePage';
+        data.securityToken = ip.securityToken;
 
         $.ajax({
             type: 'POST',
@@ -493,9 +498,11 @@ function updatePageForm(event, data) {
             data.languageId = node.attr('languageId');
             data.type = node.attr('rel');
             data.aa = 'Pages.getPageForm';
+            data.securityToken = ip.securityToken;
+
 
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: ip.baseUrl,
                 data: data,
                 success: updatePageFormResponse,
@@ -504,6 +511,9 @@ function updatePageForm(event, data) {
             break;
         case 'zone':
             ipPagesZoneProperties.open(node.attr('websiteId'), node.attr('zoneName'), node.attr('languageId'));
+            break;
+        case 'language':
+            ipPagesLanguageProperties.open(node.attr('websiteId'), node.attr('languageId'));
             break;
         default:
             $('#pageProperties').html('');
@@ -579,6 +589,8 @@ function updatePage() {
     data.layout = $('#formLayout select[name="layout"]').val();
 
     data.aa = 'Pages.updatePage';
+    data.securityToken = ip.securityToken;
+
 
     $.ajax({
         type: 'POST',
@@ -642,6 +654,8 @@ function movePage(e, moveData) {
         data.destinationPageType = moveData.rslt.np.attr("rel");
         data.destinationPosition = moveData.rslt.cp + i;
         data.aa = 'Pages.movePage';
+        data.securityToken = ip.securityToken;
+
 
         //if we move withing the same parent, fix destination position value.
         if (
@@ -716,6 +730,8 @@ function pastePage() {
     data.destinationZoneName = selectedNode.attr('zoneName');
     data.destinationLanguageId = selectedNode.attr('languageId');
     data.aa = 'Pages.copyPage';
+    data.securityToken = ip.securityToken;
+
 
     tree.destinationId = selectedNode.attr('id');
 
@@ -761,7 +777,7 @@ function treePopupSelect(event, data) {
     data.aa = 'Pages.getPageLink';
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: ip.baseUrl,
         data: data,
         success: treePopupSelectResponse,

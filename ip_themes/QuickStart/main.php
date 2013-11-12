@@ -17,7 +17,7 @@
         <?php echo $this->generateBlock('main')->render(); ?>
     </div>
     <?php
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         $site->addJavascript(\Ip\Config::themeUrl('theme.js'));
         echo $site->generateJavascript();
     ?>

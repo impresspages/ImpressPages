@@ -273,7 +273,7 @@ class Site{
         
         if (sizeof($zones) == 0) {
             trigger_error('Please insert at least one zone.');
-            \Ip\Deprecated\Db::disconnect();
+            \Ip\Internal\Deprecated\Db::disconnect();
             exit;
         }
 
@@ -526,7 +526,7 @@ class Site{
                             header('HTTP/1.1 301 Moved Permanently');
                             header('Location: '.$curEl->getLink());
 
-                            \Ip\Deprecated\Db::disconnect();
+                            \Ip\Internal\Deprecated\Db::disconnect();
                             exit();
                         }
                     }
@@ -849,7 +849,7 @@ class Site{
      *
      */
     public function managementState(){
-        $backendLoggedIn = isset($_SESSION['backend_session']['user_id']) && $_SESSION['backend_session']['user_id'] != null;
+        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
         return ($backendLoggedIn && isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
     }
 
@@ -912,61 +912,6 @@ class Site{
         $zone = $this->getCurrentZone();
         if ($zone) {
             return $zone->getCurrentElement();
-        }
-    }
-
-    /**
-     *
-     * Dispatch any event to system. Any module can catch this event.
-     *
-     *
-     * @param $moduleGroup group name of module whish throws the event
-     * @param $moduleName name of module whish throws the event
-     * @param $event event name
-     * @param $parameters array of parameters. You can decide what to pass here.
-     *
-     * To catch the event, create "system.php" file in your plugin (module) directory with content:
-     *
-     * <?php
-     *
-     * namespace Modules\your_plugin_group\your_plugin_name;
-     *
-     * class System{
-     *   public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
-     *       //your actions
-     *   }
-     * }
-     *  ?>
-     */
-    public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
-        $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                if($lock['m_core']){
-                    $dir = \ip\Config::oldModuleFile('');
-                } else {
-                    // TODOX Plugin dir
-                }
-
-                $systemFileExists = false;
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
-                    $systemFileExists = true;
-                }
-
-                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
-                    $systemFileExists = true;
-                }
-
-                if ($systemFileExists) {
-                    eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
-                    if(method_exists($moduleSystem, 'catchEvent')){
-                        $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
-                    }
-                }
-            }
         }
     }
 
@@ -1149,7 +1094,7 @@ class Site{
     }
 
     public function generateHead() {
-        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
         $cssFiles = $this->getCss();
 
         $inDesignPreview = false;
@@ -1166,7 +1111,7 @@ class Site{
                 $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
             }
         } else {
-            $securityToken = \Ip\ServiceLocator::getSession()->getSecurityToken();
+            $securityToken = \Ip\ServiceLocator::getApplication()->getSecurityToken();
             foreach($cssFiles as &$file) {
 
                 $path = pathinfo($file);
@@ -1193,7 +1138,7 @@ class Site{
     }
 
     public function generateJavascript() {
-        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
         $javascriptFiles = $this->getJavascript();
         foreach($javascriptFiles as &$level) {
             foreach($level as &$file) {
@@ -1214,7 +1159,7 @@ class Site{
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
             'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getSession()->getSecurityToken(),
+            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

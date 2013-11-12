@@ -10,26 +10,26 @@ class Application {
 
     public static function init()
     {
+        //TODOX remove constant. Constants are evil
         if (!defined('IP_VERSION')) {
             define('IP_VERSION', '4.0');
         }
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
-        require_once \Ip\Config::includePath('parameters.php');
-
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
-        require_once \Ip\Config::includePath('error_handler.php');
-
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
-        global $log;
-        $log = new \Ip\Module\Log\Module();
         global $dispatcher;
         $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;
-        $parametersMod = new \parametersMod();
-        global $session;
-        $session = new \Ip\Frontend\Session();
+        $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
+
+        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+            session_name(\Ip\Config::getRaw('SESSION_NAME'));
+            session_start();
+        }
+
         global $site;
         $site = new \Site();
 
@@ -59,7 +59,7 @@ class Application {
         if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
             require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
 
-            $browserLanguages = \Library\Php\BrowserDetection\Language::getLanguages();
+            $browserLanguages = \Ip\Browser::getLanguages();
             $selectedLanguageId = null;
             foreach($browserLanguages as $browserLanguageKey => $browserLanguage){
                 foreach($site->languages as $siteLanguageKey => $siteLanguage){
@@ -90,25 +90,29 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
+        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
-
-        $session = \Ip\ServiceLocator::getSession();
+        $session = \Ip\ServiceLocator::getApplication();
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
         ) {
+            $log = \Ip\ServiceLocator::getLog();
+            $log->log('ImpressPages Core', 'CSRF check', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
             $data = array(
-                'status' => 'error',
-                'errors' => array(
-                    'securityToken' => $parametersMod->getValue('developer', 'form', 'error_messages', 'xss')
-                )
+                'status' => 'error'
             );
+            if (\Ip\Config::isDevelopmentEnvironment()) {
+                $data['errors'] = array(
+                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
+                );
+            }
 
             \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
             return json_encode($data);
         }
 
         $site->modulesInit();
-        $site->dispatchEvent('administrator', 'system', 'init', array());
         $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
 
@@ -149,7 +153,7 @@ class Application {
 
     public function close()
     {
-        global $dispatcher, $site, $log, $parametersMod;
+        global $dispatcher, $site, $log;
 
         /*
          Automatic execution of cron.
@@ -168,7 +172,19 @@ class Application {
             $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
         }
 
-        \Ip\Deprecated\Db::disconnect();
+        \Ip\Internal\Deprecated\Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+    }
+
+    /**
+     * Get security token used to prevent cros site scripting
+     * @return string
+     */
+    public function getSecurityToken()
+    {
+        if (empty($_SESSION['ipSecurityToken'])) {
+            $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
+        }
+        return $_SESSION['ipSecurityToken'];
     }
 }

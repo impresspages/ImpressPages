@@ -60,7 +60,10 @@ class ModelTree {
 
         $zones = $site->getZones();
 
-        $managedZones = explode("\n",$parametersMod->getValue('Pages.associated_zones'));
+        $managedZones = array();
+        foreach ($zones as $zone) {
+            $managedZones[] = $zone->getName();
+        }
 
         $answer = array();
         foreach ($zones as $zone) {

@@ -110,40 +110,17 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
         Db::createRootZoneElement($id);
         Db::createEmptyTranslations($id,'par_lang');
-
-        $site->dispatchEvent('standard', 'languages', 'language_created', array('language_id'=>$id));
     }
-
-    function beforeDelete($id) {
-        global $site;
-
-
-
-        $site->dispatchEvent('standard', 'languages', 'before_delete', array('language_id'=>$id));
-    }
-
 
     function afterDelete($id) {
-        global $site;
-
-
         Db::deleteRootZoneElement($id);
         Db::deleteTranslations($id, 'par_lang');
-
-        $site->dispatchEvent('standard', 'languages', 'language_deleted', array('language_id'=>$id));    //deprecated
-        $site->dispatchEvent('standard', 'languages', 'after_delte', array('language_id'=>$id));
-
     }
 
 
     function beforeUpdate($id) {
-        global $site;
-
         $tmpLanguage = Db::getLanguageById($id);
         $this->urlBeforeUpdate = $tmpLanguage['url'];
-
-
-        $site->dispatchEvent('standard', 'languages', 'before_update', array('language_id'=>$id));
 
     }
 
@@ -160,9 +137,6 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
             $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
         }
-
-        $site->dispatchEvent('standard', 'languages', 'language_updated', array('language_id'=>$id));    //deprecated
-        $site->dispatchEvent('standard', 'languages', 'after_update', array('language_id'=>$id));
     }
 
     function allowDelete($id) {

@@ -47,7 +47,7 @@ class AdminController extends \Ip\Controller
         }
 
         $helper = Helper::instance();
-        $contentManagementModule = \Ip\Deprecated\Db::getModule(null, 'standard', 'content_management');
+        $contentManagementModule = \Ip\Internal\Deprecated\Db::getModule(null, 'standard', 'content_management');
         $contentManagementUrl = $helper->generateAdminUrl($contentManagementModule['id']);
 
         $themePlugins = $model->getThemePlugins();
@@ -79,10 +79,9 @@ class AdminController extends \Ip\Controller
             'contentManagementUrl' => $contentManagementUrl,
             'contentManagementText' => $contentManagementModule['m_translation']
         );
-
         $contentView = \Ip\View::create('view/index.php', $data);
-        $layout = $this->createAdminView($contentView);
-        $site->setOutput($layout->render());
+
+        return $contentView->render();
     }
 
     public function installPlugin()

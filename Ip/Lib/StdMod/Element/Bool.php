@@ -94,7 +94,6 @@ class Bool extends Element{ //data element in area
 
 
     function printSearchField($level, $key, $area){
-        global $parametersMod;
         $checked1 = '';
         $checked2 = '';
         if (isset($_REQUEST['search'][$level][$key])){

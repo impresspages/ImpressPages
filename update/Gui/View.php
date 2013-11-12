@@ -107,10 +107,8 @@ class View{
     public function render ()
     {
         global $site;
-        global $log;
         global $dispatcher;
         global $parametersMod;
-        global $session;
 
         extract($this->data);
 

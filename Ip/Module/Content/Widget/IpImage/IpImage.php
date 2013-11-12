@@ -7,8 +7,6 @@
 namespace Ip\Module\Content\Widget;
 
 
-require_once \Ip\Config::libraryFile('php/file/functions.php');
-require_once \Ip\Config::libraryFile('php/image/functions.php');
 
 
 class IpImage extends \Ip\Module\Content\Widget{
@@ -128,12 +126,12 @@ class IpImage extends \Ip\Module\Content\Widget{
 
     private function cropBigImage($imageOriginal) {
         global $parametersMod;
-        $bigImageName = \Library\Php\Image\Functions::resize(
+        $bigImageName = \Ip\Image\Helper::resize(
             $imageOriginal,
             $parametersMod->getValue('Content.widget_image.big_width'),
             $parametersMod->getValue('Content.widget_image.big_height'),
             \Ip\Config::temporaryFile(''),
-            \Library\Php\Image\Functions::CROP_TYPE_FIT,
+            \Ip\Image\Helper::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('Content.widget_image.big_quality')
         );
@@ -145,7 +143,7 @@ class IpImage extends \Ip\Module\Content\Widget{
         $ratio = ($cropX2 - $cropX1) / ($cropY2 - $cropY1);
         $requiredWidth = round($maxWidth * $scale);
         $requiredHeight = round($requiredWidth / $ratio);
-        $imageName = \Library\Php\Image\Functions::crop (
+        $imageName = \Ip\Image\Helper::crop (
             $imageOriginal,
             \Ip\Config::temporaryFile(''),
             $cropX1,

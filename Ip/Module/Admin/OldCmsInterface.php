@@ -31,7 +31,6 @@ class OldCmsInterface{
      */
 
     function manage() {
-        global $parametersMod;
 
         //log off
         if(isset($_REQUEST['action']) && $_REQUEST['action'] == "logout" && !isset($_REQUEST['module_id'])) {
@@ -41,7 +40,7 @@ class OldCmsInterface{
             $this->deleteTmpFiles();
             $this->html->footer();
             $this->html->send();
-            \Ip\Deprecated\db::disconnect();
+            \Ip\Internal\Deprecated\db::disconnect();
             exit;
         }
         //eof log off
@@ -71,7 +70,7 @@ class OldCmsInterface{
             //create module
             if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Ip\Backend\Db::allowedModule($_GET['module_id'], $this->session->userId())) {
                 /*new module*/
-                $newModule = \Ip\Deprecated\Db::getModule($_GET['module_id']);
+                $newModule = \Ip\Internal\Deprecated\Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
                     require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                 } else {
@@ -112,7 +111,7 @@ class OldCmsInterface{
             if(strpos($baseUrl, $_SERVER['HTTP_HOST']) != 7 && strpos($baseUrl, $_SERVER['HTTP_HOST']) != 8 ) {
                 /*check if we are in correct subdomain. www.yoursite.com not allways equal to yoursite.com from session perspective)*/
                 header("location: ". \Ip\Config::baseUrl("admin.php"));
-                \Ip\Deprecated\db::disconnect();
+                \Ip\Internal\Deprecated\db::disconnect();
                 exit;
             }
             $this->html->html(Template::headerLogin());
@@ -127,13 +126,12 @@ class OldCmsInterface{
 
     function worker() { //make worker actions.
         global $cms;
-        global $log;
         global $globalWorker;
         if($this->session->loggedIn()) {  //login check
 
             if(isset($_GET['module_id']) && $_GET['module_id'] != '' && \Ip\Backend\Db::allowedModule($_GET['module_id'], $cms->session->userId())) {
                 $this->curModId = $_GET['module_id'];
-                $newModule = \Ip\Deprecated\Db::getModule($_GET['module_id']);
+                $newModule = \Ip\Internal\Deprecated\Db::getModule($_GET['module_id']);
 
                 if(Db::allowedModule($_GET['module_id'], $this->session->userId())){
                     if(file_exists(\Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php'))) {
@@ -258,7 +256,7 @@ class OldCmsInterface{
         if(sizeof($_REQUEST) > 0) {
             if(isset($_REQUEST['module_group']) && isset($_REQUEST['module_name'])) { //old deprecated way
                 //actions may be set by post or get. The prime way is trouht post. But in some cases it is not possible
-                $newModule = \Ip\Deprecated\Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
+                $newModule = \Ip\Internal\Deprecated\Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
                 if($newModule) {
                     if($newModule['core']) {
                         require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');

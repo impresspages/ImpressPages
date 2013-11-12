@@ -51,7 +51,7 @@ class UploadModel{
     {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
-        if (!$secureFolder && !isset($_SESSION['backend_session']['user_id'])) {
+        if (!$secureFolder && !isset($_SESSION['backend_session']['userId'])) {
             throw new UploadException("Try to upload image to temporary directory without permission.", UploadException::NO_PERMISSION);
         }
 
@@ -67,11 +67,11 @@ class UploadModel{
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
 
         // Clean the fileName for security reasons
-        $fileName = \Library\Php\File\Functions::cleanupFileName($fileName);
+        $fileName = \Ip\Internal\File\Functions::cleanupFileName($fileName);
 
         // Make sure the fileName is unique but only if chunking is disabled
         if ($chunks < 2 && file_exists($targetDir.$fileName)) {
-            $fileName = \Library\Php\File\Functions::genUnoccupiedName($fileName, $targetDir);
+            $fileName = \Ip\Internal\File\Functions::genUnoccupiedName($fileName, $targetDir);
         }
 
 

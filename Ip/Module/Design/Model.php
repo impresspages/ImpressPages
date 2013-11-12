@@ -188,6 +188,7 @@ class Model
         }
         $theme = $themes[$themeName];
 
+        //TODOX new way of doing.
         $configModel = new \Ip\Module\Config\Model();
         $configModel->changeConfigurationConstantValue('THEME', \Ip\Config::theme(), $theme->getName());
         $configModel->changeConfigurationConstantValue('THEME_DIR', \Ip\Config::getRaw('THEME_DIR'), $theme->getPath());
@@ -219,7 +220,7 @@ class Model
             $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
-        \DbSystem::setSystemVariable('theme_changed', time());
+        \Ip\DbSystem::setSystemVariable('theme_changed', time());
 
     }
 
