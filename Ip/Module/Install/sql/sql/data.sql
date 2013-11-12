@@ -86,7 +86,7 @@ INSERT INTO `ip_cms_user` (`id`, `name`, `pass`, `wrong_logins`, `blocked`, `e_m
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_user_to_mod` (`id`, `user_id`, `module_id`) VALUES
+INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
 (530, 8, 436),
 (525, 8, 361),
 (523, 8, 330),

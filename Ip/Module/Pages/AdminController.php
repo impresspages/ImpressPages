@@ -17,7 +17,7 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         $site = \Ip\ServiceLocator::getSite();
-        $session = \Ip\ServiceLocator::getSession();
+        $session = \Ip\ServiceLocator::getApplication();
         $data = array (
             'securityToken' =>  $session->getSecurityToken(),
             'imageDir' => \Ip\Config::coreUrl('Ip/Module/Pages/img/')

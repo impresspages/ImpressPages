@@ -849,7 +849,7 @@ class Site{
      *
      */
     public function managementState(){
-        $backendLoggedIn = isset($_SESSION['backend_session']['user_id']) && $_SESSION['backend_session']['user_id'] != null;
+        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
         return ($backendLoggedIn && isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
     }
 
@@ -1166,7 +1166,7 @@ class Site{
                 $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
             }
         } else {
-            $securityToken = \Ip\ServiceLocator::getSession()->getSecurityToken();
+            $securityToken = \Ip\ServiceLocator::getApplication()->getSecurityToken();
             foreach($cssFiles as &$file) {
 
                 $path = pathinfo($file);
@@ -1214,7 +1214,7 @@ class Site{
             'ipZoneName' => $this->getCurrentZone()->getName(),
             'ipPageId' => $this->getCurrentElement()->getId(),
             'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getSession()->getSecurityToken(),
+            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

@@ -78,15 +78,12 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Frontend\Session
+     * @return \Ip\Frontend\User
      */
-    public static function getSession()
+    public static function getApplication()
     {
-        /**
-         * @var $session \Ip\Frontend\Session
-         */
-        global $session;
-        return $session;
+        global $application;
+        return $application;
     }
 
 

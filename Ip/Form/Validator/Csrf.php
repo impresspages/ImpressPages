@@ -21,7 +21,7 @@ class Csrf extends Validator {
             return 'error';
         }
 
-        $session = \Ip\ServiceLocator::getSession();
+        $session = \Ip\ServiceLocator::getApplication();
 
         if ($values[$valueKey] != $session->getSecurityToken()) {
             $parametersMod = \Ip\ServiceLocator::getParametersMod();

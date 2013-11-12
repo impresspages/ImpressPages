@@ -39,7 +39,7 @@ class AdminController extends \Ip\Controller{
     public function upload(){
         global $site;
 
-        if (!isset($_SESSION['backend_session']['user_id'])) {
+        if (!isset($_SESSION['backend_session']['userId'])) {
             die('{"jsonrpc" : "2.0", "error" : {"code": 201, "message": "Try to upload image to temporary directory without permission."}, "id" : "id"}');
         }
 

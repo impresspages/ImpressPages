@@ -31,8 +31,8 @@ class Session
 
     function userId()
     {
-        if (isset($_SESSION['backend_session']['user_id'])) {
-            return $_SESSION['backend_session']['user_id'];
+        if (isset($_SESSION['backend_session']['userId'])) {
+            return $_SESSION['backend_session']['userId'];
         } else {
             return false;
         }
@@ -40,14 +40,14 @@ class Session
 
     function loggedIn()
     {
-        return isset($_SESSION['backend_session']['user_id']) && $_SESSION['backend_session']['user_id'] != null;
+        return isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
     }
 
     function logout()
     {
         $this->user = null;
-        if (isset($_SESSION['backend_session']['user_id'])) {
-            unset($_SESSION['backend_session']['user_id']);
+        if (isset($_SESSION['backend_session']['userId'])) {
+            unset($_SESSION['backend_session']['userId']);
         }
         if (isset($_SESSION['backend_session'])) {
             unset($_SESSION['backend_session']);
@@ -65,7 +65,7 @@ class Session
 
     function login($id)
     {
-        $_SESSION['backend_session']['user_id'] = $id;
+        $_SESSION['backend_session']['userId'] = $id;
     }
 
 

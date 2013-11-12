@@ -49,7 +49,7 @@ class System {
     {
         $site = \Ip\ServiceLocator::getSite();
 
-        if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['user_id'])) {
+        if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             $site->addCss(\Ip\Config::coreModuleUrl('Admin/Public/admin.css'));
 
             $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
