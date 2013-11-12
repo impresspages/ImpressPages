@@ -6,7 +6,7 @@
 namespace Library\Php;
 
 
-class Net
+class NetHelper
 {
 
     /**
@@ -18,7 +18,7 @@ class Net
 
     public static function instance()
     {
-        return new Net();
+        return new NetHelper();
     }
 
     /**
