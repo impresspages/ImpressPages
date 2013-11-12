@@ -6,7 +6,7 @@
  *
  */
 
-
+//TODOX refactor
 /**
  * Error handler for all errors and warnings. Depending on configuration he
  * prints error to output, sends by the email and logs to database.
