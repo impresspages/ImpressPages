@@ -243,7 +243,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         $form->addField($field);
 
         //antispam
-        $field = new \Ip\Form\Field\Check(
+        $field = new \Ip\Form\Field\Antispam(
         array(
         'name' => 'checkField'
         ));

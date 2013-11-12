@@ -36,7 +36,7 @@
 namespace Ip\Form\Field;
 
 
-class Check extends Field{
+class Antispam extends Field{
     
     public function __construct($options = array()) {
         parent::__construct($options);

@@ -6,7 +6,7 @@
 
 /**
  * 
- * Add this field to your form to prevent XSS.
+ * Add this field to your form to prevent CSRF attacks.
  * It adds hidden field with security token.
  * Form class adds this field by default in constructor.
  * 
@@ -17,11 +17,11 @@
 namespace Ip\Form\Field;
 
 
-class XSS extends Blank{
+class Csrf extends Blank{
     
     public function __construct($options = array()) {
         parent::__construct($options);
-        $this->addValidator('XSS');
+        $this->addValidator('Csrf');
     }
     
     public function render($doctype) {
