@@ -5,12 +5,12 @@
  *
  */
 
-namespace Library\Php\Image;
+namespace Ip\Image;
 
 
 
 
-class Functions{
+class Helper{
 
     const ERROR_MEMORY = 1; //Can't get required memory
     const ERROR_INCOMPATIBLE = 2; //Incompatible file MIME type
@@ -74,7 +74,7 @@ class Functions{
         }
 
 
-         
+
         return $newName;
 
 
@@ -205,7 +205,7 @@ class Functions{
             throw new \Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-         
+
         return $newName;
 
     }
@@ -238,15 +238,15 @@ class Functions{
         if(!isset($imageInfo['bits']) || !$imageInfo['bits']) {
             $imageInfo['bits'] = 8;
         }
-        
+
         if (!isset($imageInfo[0])) {
             $imageInfo[0] = 1;
         }
-        
+
         if (!isset($imageInfo[1])) {
             $imageInfo[1] = 1;
         }
-        
+
         $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + Pow(2, 16)) * 1.65);
         if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded > (integer) ini_get('memory_limit') * pow(1024, 2)) {
             $success = ini_set('memory_limit', (integer) ini_get('memory_limit')+ 10 + ceil(((memory_get_usage() + $memoryNeeded) - (integer) ini_get('memory_limit') * pow(1024, 2)) / pow(1024, 2)) . 'M');
@@ -256,7 +256,7 @@ class Functions{
         return $success;
     }
 
-     
+
     public static function createImageImage($image){
 
         $mime = self::getMimeType($image);
@@ -306,8 +306,8 @@ class Functions{
         $sourceProportion = (double)$widthSource / (double)$heightSource;
 
 
-         
-         
+
+
         switch($type){
             case self::CROP_TYPE_FIT:
                 if($sourceProportion > $dest_proportion){
@@ -319,7 +319,7 @@ class Functions{
                 }
 
                 if($height_skirtumas == 0 && $width_skirtumas != 0)
-                $widthDest = $heightDest * $sourceProportion;
+                    $widthDest = $heightDest * $sourceProportion;
                 elseif($height_skirtumas != 0 && $width_skirtumas == 0){
                     $heightDest = $widthDest / $sourceProportion;
                 }
@@ -388,7 +388,7 @@ class Functions{
                 throw new \Exception("Unknown crop type: ".$type, self::ERROR_UNKNOWN_CROP_TYPE);
 
         }
-         
+
 
         return $imageNew;
 
