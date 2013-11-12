@@ -10,19 +10,16 @@ class Application {
 
     public static function init()
     {
+        //TODOX remove constant. Constants are evil
         if (!defined('IP_VERSION')) {
             define('IP_VERSION', '4.0');
         }
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
-
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
-
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
-        global $log;
-        $log = new \Ip\Module\Log\Module();
         global $dispatcher;
         $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;

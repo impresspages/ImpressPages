@@ -218,7 +218,7 @@ class IpForm extends \Ip\Module\Content\Widget{
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Module\Content\Exception $e) {
-                    global $log;
+                    $log = \Ip\ServiceLocator::getLog();
                     $log->log('standard/content_management', 'create field', $e->getMessage());
                 }
                 

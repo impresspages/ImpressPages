@@ -45,11 +45,10 @@ class ServiceLocator
      */
     public static function getLog()
     {
-        /**
-         * @var $log \Ip\Module\Log\Module
-         */
-        global $log;
-        return $log;
+        if (self::$loog== null) {
+            self::$log= new \Ip\Module\Log\Module();
+        }
+        return self::$log;
     }
 
     /**

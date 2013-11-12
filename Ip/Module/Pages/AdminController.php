@@ -878,8 +878,6 @@ class AdminController extends \Ip\Controller
      */
     public function movePage () {
         global $site;
-        global $log;
-        global $dispatcher;
 
 
         if (!isset($_REQUEST['pageId'])) {

@@ -15,7 +15,6 @@
 function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
 
-    global $log;
     global $parametersMod;
     $message = '';
     switch ($errno) {
