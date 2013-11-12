@@ -438,7 +438,7 @@ class AdminController extends \Ip\Controller
         }
 
         $propertiesData = array (
-            'form' => Forms::languageForm($languageId, $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
+            'form' => Forms::languageForm($languageId, $language->getVisible(), $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
         );
         $content = \Ip\View::create('view/languageProperties.php', $propertiesData)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
@@ -526,7 +526,7 @@ class AdminController extends \Ip\Controller
         }
         $languageId = $params['languageId'];
 
-        $form = Forms::languageForm($languageId, '', '', '', '', '');
+        $form = Forms::languageForm($languageId, '', '', '', '', '', '');
 
         $data = $form->filterValues($params);
 
@@ -534,13 +534,13 @@ class AdminController extends \Ip\Controller
 
 
         if (empty($errors)) {
-
             $languageData = array(
                 'd_long' => $data['title'],
                 'url' => urlencode($data['url']),
                 'd_short' => $data['abbreviation'],
                 'text_direction' => $data['direction'],
-                'code' => $data['code']
+                'code' => $data['code'],
+                'visible' => isset($data['visible']) ? 1 : 0
             );
 
             try {
