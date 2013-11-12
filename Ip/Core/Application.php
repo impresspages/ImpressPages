@@ -24,8 +24,12 @@ class Application {
         $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
-        global $session;
-        $session = new \Ip\Frontend\Session();
+
+        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+            session_name(\Ip\Config::getRaw('SESSION_NAME'));
+            session_start();
+        }
+
         global $site;
         $site = new \Site();
 
@@ -89,7 +93,7 @@ class Application {
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
-        $session = \Ip\ServiceLocator::getSession();
+        $session = \Ip\ServiceLocator::getApplication();
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
         ) {
@@ -150,7 +154,7 @@ class Application {
 
     public function close()
     {
-        global $dispatcher, $site, $log, $parametersMod;
+        global $dispatcher, $site, $log;
 
         /*
          Automatic execution of cron.
@@ -171,5 +175,17 @@ class Application {
 
         \Ip\Internal\Deprecated\Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+    }
+
+    /**
+     * Get security token used to prevent cros site scripting
+     * @return string
+     */
+    public function getSecurityToken()
+    {
+        if (empty($_SESSION['ipSecurityToken'])) {
+            $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
+        }
+        return $_SESSION['ipSecurityToken'];
     }
 }

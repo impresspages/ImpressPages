@@ -51,7 +51,7 @@ class UploadModel{
     {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
-        if (!$secureFolder && !isset($_SESSION['backend_session']['user_id'])) {
+        if (!$secureFolder && !isset($_SESSION['backend_session']['userId'])) {
             throw new UploadException("Try to upload image to temporary directory without permission.", UploadException::NO_PERMISSION);
         }
 

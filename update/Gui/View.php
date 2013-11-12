@@ -109,7 +109,6 @@ class View{
         global $site;
         global $dispatcher;
         global $parametersMod;
-        global $session;
 
         extract($this->data);
 

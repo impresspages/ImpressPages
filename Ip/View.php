@@ -190,7 +190,6 @@ class View implements \Ip\Response\ResponseInterface
         global $site;
         global $dispatcher;
         global $parametersMod;
-        global $session;
 
         extract($this->data);
 
