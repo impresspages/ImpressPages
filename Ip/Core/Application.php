@@ -113,7 +113,6 @@ class Application {
         }
 
         $site->modulesInit();
-        $site->dispatchEvent('administrator', 'system', 'init', array());
         $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
 

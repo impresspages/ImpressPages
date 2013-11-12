@@ -915,61 +915,6 @@ class Site{
         }
     }
 
-    /**
-     *
-     * Dispatch any event to system. Any module can catch this event.
-     *
-     *
-     * @param $moduleGroup group name of module whish throws the event
-     * @param $moduleName name of module whish throws the event
-     * @param $event event name
-     * @param $parameters array of parameters. You can decide what to pass here.
-     *
-     * To catch the event, create "system.php" file in your plugin (module) directory with content:
-     *
-     * <?php
-     *
-     * namespace Modules\your_plugin_group\your_plugin_name;
-     *
-     * class System{
-     *   public function catchEvent($moduleGroup, $moduleName, $event, $parameters){
-     *       //your actions
-     *   }
-     * }
-     *  ?>
-     */
-    public function dispatchEvent($moduleGroup, $moduleName, $event, $parameters){
-        $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                if($lock['m_core']){
-                    $dir = \ip\Config::oldModuleFile('');
-                } else {
-                    // TODOX Plugin dir
-                }
-
-                $systemFileExists = false;
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
-                    $systemFileExists = true;
-                }
-
-                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
-                    $systemFileExists = true;
-                }
-
-                if ($systemFileExists) {
-                    eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
-                    if(method_exists($moduleSystem, 'catchEvent')){
-                        $moduleSystem->catchEvent($moduleGroup, $moduleName, $event, $parameters);
-                    }
-                }
-            }
-        }
-    }
-
 
 
     public function modulesInit(){
