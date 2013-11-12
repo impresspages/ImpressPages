@@ -127,6 +127,7 @@ class Forms {
                 'label' => __('URL', 'ipAdmin'),
                 'defaultValue' => $url
             ));
+        $field->addValidator('Required');
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
@@ -141,7 +142,7 @@ class Forms {
             array(
                 'name' => 'direction', //html "name" attribute
                 'label' => __('Text direction', 'ipAdmin'),
-                'defaultValue' => 'ltr'
+                'defaultValue' => $textDirection
             ));
         $field->setValues(array(array('ltr', 'Left To Right'), array('rtl', 'Right To Left')));
         $form->addField($field);

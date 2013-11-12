@@ -440,7 +440,7 @@ class AdminController extends \Ip\Controller
         $propertiesData = array (
             'form' => Forms::languageForm($languageId, $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
         );
-        $content = \Ip\View::create('view/zoneProperties.php', $propertiesData)->render();
+        $content = \Ip\View::create('view/languageProperties.php', $propertiesData)->render();
         $tabs[] = array('title' => $title, 'content' => $content);
 
         $data = array (
@@ -481,20 +481,75 @@ class AdminController extends \Ip\Controller
         $errors = $form->validate($params);
 
 
+        if (empty($errors)) {
+            $zoneData = array(
+                'title' => $data['title'],
+                'url' => $data['url'],
+                'keywords' => $data['keywords'],
+                'description' => $data['description']
+            );
 
-        $zoneData = array(
-            'title' => $data['title'],
-            'url' => $data['url'],
-            'keywords' => $data['keywords'],
-            'description' => $data['description']
-        );
-
-        try {
-            ZoneModel::updateZone($languageId, $zoneId, $zoneData);
-        } catch (DuplicateUrlException $e) {
-            $errors['url'] = '{{Following url already has been used.}}';
+            try {
+                ZoneModel::updateZone($languageId, $zoneId, $zoneData);
+            } catch (DuplicateUrlException $e) {
+                $errors['url'] = __('Following url already has been used.', 'ipAdmin');
+            }
         }
 
+
+
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success',
+            );
+        }
+        $this->returnJson($data);
+    }
+
+
+
+    public function saveLanguageProperties()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $request = \Ip\ServiceLocator::getRequest();
+        $request->mustBePost();
+        $params = $request->getPost();
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $form = Forms::languageForm($languageId, '', '', '', '', '');
+
+        $data = $form->filterValues($params);
+
+        $errors = $form->validate($params);
+
+
+        if (empty($errors)) {
+
+            $languageData = array(
+                'd_long' => $data['title'],
+                'url' => urlencode($data['url']),
+                'd_short' => $data['abbreviation'],
+                'text_direction' => $data['direction'],
+                'code' => $data['code']
+            );
+
+            try {
+                $languageModel = new LanguageModel();
+                $languageModel->updateLanguage($languageId, $languageData);
+            } catch (DuplicateUrlException $e) {
+                $errors['url'] = __('Following url already has been used.', 'ipAdmin');
+            }
+        }
 
 
 
