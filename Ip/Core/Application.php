@@ -15,7 +15,6 @@ class Application {
         }
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
-        require_once \Ip\Config::includePath('parameters.php');
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
         require_once \Ip\Config::includePath('error_handler.php');
@@ -27,7 +26,7 @@ class Application {
         global $dispatcher;
         $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;
-        $parametersMod = new \parametersMod();
+        $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
         global $session;
         $session = new \Ip\Frontend\Session();
         global $site;

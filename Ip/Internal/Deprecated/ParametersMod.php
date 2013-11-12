@@ -5,7 +5,7 @@
  *
  */
 //TODOX refactor
-
+namespace Ip\Internal\Deprecated;
 /**
  * @access private
  * @package ImpressPages
@@ -309,9 +309,3 @@ class ParametersMod {
 
 
 }
-
-
-
-
-
-?>
