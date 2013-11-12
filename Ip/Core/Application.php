@@ -90,7 +90,8 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
-
+        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $session = \Ip\ServiceLocator::getSession();
         if ($_SERVER['REQUEST_METHOD'] == 'POST' &&

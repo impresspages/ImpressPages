@@ -37,7 +37,7 @@ var ipPagesLanguageProperties = new function () {
             $form.validator(validatorConfig);
 
             $form.on("submit", function (e) {
-                updateZone(e, $form);
+                updateLanguage(e, $form);
                 return false;
             });
 
@@ -47,7 +47,7 @@ var ipPagesLanguageProperties = new function () {
         hideLoader();
     };
 
-    var updateZone = function (e, $form) {
+    var updateLanguage = function (e, $form) {
         if (!e.isDefaultPrevented()) {
             showLoader();
             $.ajax({
