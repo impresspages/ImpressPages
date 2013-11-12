@@ -6,7 +6,7 @@
  */
 
 
-namespace Ip\Deprecated;
+namespace Ip\Internal\Deprecated;
 
 /**
  * Main db class

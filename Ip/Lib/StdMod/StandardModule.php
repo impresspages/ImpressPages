@@ -149,7 +149,7 @@ class StandardModule {
                         $this->currentArea->afterSort();
                     }
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                     break;
                 case 'row_number_increase': {
@@ -219,7 +219,7 @@ class StandardModule {
                     }
 
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -291,7 +291,7 @@ class StandardModule {
                     }
 
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -300,7 +300,7 @@ class StandardModule {
                         $this->delete($this->currentArea, $_REQUEST['key_id']);
                         echo "delete_row(".$_POST['key_id'].")";
                     }
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -483,7 +483,7 @@ class StandardModule {
 
 
 
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }else {
 
@@ -511,7 +511,7 @@ class StandardModule {
             </body></html>
         ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }
 
@@ -631,7 +631,7 @@ class StandardModule {
               </body></html>
             ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }else {
                         $answer = "
@@ -658,7 +658,7 @@ class StandardModule {
                </body></html>
               ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }
 

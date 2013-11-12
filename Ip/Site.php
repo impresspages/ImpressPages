@@ -273,7 +273,7 @@ class Site{
         
         if (sizeof($zones) == 0) {
             trigger_error('Please insert at least one zone.');
-            \Ip\Deprecated\Db::disconnect();
+            \Ip\Internal\Deprecated\Db::disconnect();
             exit;
         }
 
@@ -526,7 +526,7 @@ class Site{
                             header('HTTP/1.1 301 Moved Permanently');
                             header('Location: '.$curEl->getLink());
 
-                            \Ip\Deprecated\Db::disconnect();
+                            \Ip\Internal\Deprecated\Db::disconnect();
                             exit();
                         }
                     }
