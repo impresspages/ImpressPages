@@ -1,11 +1,6 @@
 <h1><?php echo __('Database installation', 'ipInstall') ?></h1>
 
-<div id="errorAllFields" class="noDisplay"><p class="error"><?php echo __('Please fill in all fields', 'ipInstall') ?></p></div>
-<div id="errorConnect" class="noDisplay"><p class="error"><?php echo __('Can\'t connect to database', 'ipInstall') ?></p></div>
-<div id="errorDb" class="noDisplay"><p class="error"><?php echo __('Specified database does not exists', 'ipInstall') ?></p></div>
-<div id="errorQuery" class="noDisplay"><p class="error"><?php echo __('Unknown SQL error', 'ipInstall') ?></p></div>
-<div id="errorLongPrefix" class="noDisplay"><p class="error"><?php echo __('Prefix can\'t be longer than 7 symbols', 'ipInstall') ?></p></div>
-<div id="errorIncorrectPrefix" class="noDisplay"><p class="error"><?php echo __('Prefix can\'t contain any special characters and should sart with letter', 'ipInstall') ?></p></div>
+<div class="errorContainer"></div>
 <form onsubmit="return false">
     <p><strong><?php echo __('Database Host (eg. localhost or 127.0.0.1)', 'ipInstall') ?></strong><input id="db_server" type="text" name="server" value="<?php echo htmlspecialchars($db['hostname']) ?>"></p>
     <p><strong><?php echo __('User name', 'ipInstall') ?></strong><input id="db_user" type="text" name="db_user" value="<?php echo htmlspecialchars($db['username']) ?>"></p>

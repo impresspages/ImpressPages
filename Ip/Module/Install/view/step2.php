@@ -1,4 +1,4 @@
-<h1><?php __('ImpressPages Legal Notices', 'ipInstall') ?></h1>
+<h1><?php echo __('ImpressPages Legal Notices', 'ipInstall') ?></h1>
 <p>
     ImpressPages - Content Management System<br/>
     Copyright <?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages UAB</a>
