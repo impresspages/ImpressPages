@@ -14,8 +14,7 @@ class Model{
 
     public function disableWizardTip($id)
     {
-        global $parametersMod;
-        $parametersMod->setValue('Wizard.tip_'.$id, false);
+        ipSetOption('Wizard.tip_'.$id, false);
     }
 
     public function getTipIds()
