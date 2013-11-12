@@ -1,5 +1,5 @@
 <?php
-use Ip\Deprecated\Db;
+use Ip\Internal\Deprecated\Db;
 //TODOX refactor cron
 /**
  * ImpressPages CMS main cron file

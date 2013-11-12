@@ -47,7 +47,7 @@ class AdminController extends \Ip\Controller
         }
 
         $helper = Helper::instance();
-        $contentManagementModule = \Ip\Deprecated\Db::getModule(null, 'standard', 'content_management');
+        $contentManagementModule = \Ip\Internal\Deprecated\Db::getModule(null, 'standard', 'content_management');
         $contentManagementUrl = $helper->generateAdminUrl($contentManagementModule['id']);
 
         $themePlugins = $model->getThemePlugins();

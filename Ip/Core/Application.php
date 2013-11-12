@@ -172,7 +172,7 @@ class Application {
             $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
         }
 
-        \Ip\Deprecated\Db::disconnect();
+        \Ip\Internal\Deprecated\Db::disconnect();
         $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
     }
 }
