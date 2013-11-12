@@ -19,6 +19,7 @@ class ServiceLocator
 {
     protected static $request = null;
     protected static $config = null;
+    protected static $log = null;
 
 
     public static function getOptions()
@@ -45,7 +46,7 @@ class ServiceLocator
      */
     public static function getLog()
     {
-        if (self::$loog== null) {
+        if (self::$log== null) {
             self::$log= new \Ip\Module\Log\Module();
         }
         return self::$log;
