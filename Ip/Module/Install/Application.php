@@ -68,8 +68,8 @@ class Application
 
             \Ip\Translator::init($language);
             \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
-            \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages/ipAdmin-%s.php', 'ipAdmin');
-            \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages/ipPublic-%s.php', 'ipPublic');
+            \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
+            \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
             $application = new \Ip\Core\Application();
 
             $controller = new \Ip\Module\Install\SiteController();

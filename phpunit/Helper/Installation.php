@@ -476,7 +476,6 @@ class Installation
             'ip_license.html',
             'readme.md',
             'robots.txt',
-            'sitemap.php',
             '.htaccess'
         );
 
