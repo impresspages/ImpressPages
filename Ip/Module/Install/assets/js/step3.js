@@ -1,3 +1,6 @@
+
+
+
 function ajaxMessage(url, parameters){
     $('#content').hide();
     $('#loading').show();
@@ -94,7 +97,7 @@ function execute_ajax(){
 $(document).ready(function() {
     $('.button_act').click(function(e){
         e.preventDefault();
-        execute_ajax();
+        ModuleInstall.step3Click();
     });
 });
 

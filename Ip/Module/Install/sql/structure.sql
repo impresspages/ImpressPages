@@ -455,6 +455,21 @@ CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
 
 -- Table structure
 
+DROP TABLE IF EXISTS `ip_cms_storage`;
+
+-- Table structure
+
+CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `plugin` varchar(40) NOT NULL,
+    `key` varchar(100) NOT NULL,
+    `value` text NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `pluginkey` (`plugin`,`key`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- Table structure
+
 DROP TABLE IF EXISTS `ip_cms_user`;
 
 -- Table structure
