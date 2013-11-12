@@ -50,6 +50,14 @@ class Application {
 
     public function handleRequest()
     {
+        //parse request
+
+
+        //initialize plugins
+
+
+        //execute controller
+
         global $site, $parametersMod, $dispatcher;
 
         \Ip\Response::reset();
