@@ -1149,7 +1149,7 @@ class Site{
     }
 
     public function generateHead() {
-        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
         $cssFiles = $this->getCss();
 
         $inDesignPreview = false;
@@ -1193,7 +1193,7 @@ class Site{
     }
 
     public function generateJavascript() {
-        $cacheVersion = \DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
         $javascriptFiles = $this->getJavascript();
         foreach($javascriptFiles as &$level) {
             foreach($level as &$file) {

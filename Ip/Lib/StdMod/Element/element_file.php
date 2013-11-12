@@ -122,7 +122,7 @@ class ElementFile extends Element{ //data element in area
             return null;
         }
 
-        $uploadFile = new \Library\Php\File\UploadFile();
+        $uploadFile = new \Ip\Internal\File\UploadFile();
         if(sizeof($this->extensions) > 0){
             $uploadFile->allowOnly($this->extensions);
         }
@@ -161,7 +161,7 @@ class ElementFile extends Element{ //data element in area
 
             if(isset($this->memFile) && $this->memFile != ''){
 
-                $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
+                $newBasename = \Ip\Internal\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
 
                 $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
                 $rs = ip_deprecated_mysql_query($sql);
@@ -198,7 +198,7 @@ class ElementFile extends Element{ //data element in area
              
             if(isset($this->memFile) && $this->memFile != ''){
 
-                $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
+                $newBasename = \Ip\Internal\File\Functions::copyTemporaryFile($this->memFile, $this->destDir);
 
                 $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
                 $rs = ip_deprecated_mysql_query($sql);

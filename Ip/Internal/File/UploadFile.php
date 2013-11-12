@@ -5,13 +5,11 @@
  *
  */
 
-namespace Library\Php\File;
+namespace Ip\Internal\File;
 
 
 
 
-/** @private */
-require_once (__DIR__.'/functions.php');
 
 /**
  * moves uploaded file to specified directory
@@ -100,7 +98,7 @@ class UploadFile{
         $error = $this->getError($postName);
         if($error == UPLOAD_ERR_OK){
             //if($this->is_uploaded($postName)){
-            $newName = \Library\Php\File\Functions::genUnoccupiedName($_FILES[$postName]['name'], $destDir);
+            $newName = \Ip\Internal\File\Functions::genUnoccupiedName($_FILES[$postName]['name'], $destDir);
             if(move_uploaded_file ($_FILES[$postName]['tmp_name'], $destDir.$newName)){
                 $this->fileName = $newName;
                 return UPLOAD_ERR_OK;

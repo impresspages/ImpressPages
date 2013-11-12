@@ -220,7 +220,7 @@ class Model
             $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
-        \DbSystem::setSystemVariable('theme_changed', time());
+        \Ip\DbSystem::setSystemVariable('theme_changed', time());
 
     }
 

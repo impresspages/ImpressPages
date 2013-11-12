@@ -113,7 +113,7 @@
  * @package Library
  */ 
  
-namespace Library\Php\Text; 
+namespace Ip\Internal\Text;
  
 class Html2Text
 {

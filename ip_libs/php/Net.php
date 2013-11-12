@@ -31,7 +31,7 @@ class Net
 
     public function downloadFile($url, $destinationDir, $desiredFilename)
     {
-        $desiredFilename = \Library\Php\File\Functions::genUnoccupiedName($desiredFilename, $destinationDir);
+        $desiredFilename = \Ip\Internal\File\Functions::genUnoccupiedName($desiredFilename, $destinationDir);
 
         if (!function_exists('curl_init')) {
             throw new \CoreException('CURL is not installed. Cannot download file from URL.');

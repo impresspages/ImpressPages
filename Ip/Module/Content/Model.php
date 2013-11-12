@@ -147,7 +147,7 @@ class Model{
 
     private static function _generateWidgetPreview($widgetRecord, $managementState) {
         //check if we don't need to recreate the widget
-        $themeChanged = \DbSystem::getSystemVariable('theme_changed');
+        $themeChanged = \Ip\DbSystem::getSystemVariable('theme_changed');
         if ($themeChanged > $widgetRecord['recreated']) {
             $widgetData = $widgetRecord['data'];
             if (!is_array($widgetData)) {
@@ -529,7 +529,7 @@ class Model{
               `layout` = '".ip_deprecated_mysql_real_escape_string($layout)."',
               `created` = ".time().",
               `recreated` = ".time().",
-              `data` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($data)))."',
+              `data` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)))."',
               `predecessor` = ".$predecessorSql."
               ";
 
@@ -556,7 +556,7 @@ class Model{
             }
 
             if ($key == 'data') {
-                $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Library\Php\Text\Utf8::checkEncoding($value)))."' ";
+                $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string(json_encode(\Ip\Internal\Text\Utf8::checkEncoding($value)))."' ";
             } else {
                 $dataSql .= " `".$key."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
             }
@@ -779,7 +779,7 @@ class Model{
         $revision = \Ip\Revision::getRevision($revisionId);
         $pageContent = Model::generateBlock('main', $revisionId, FALSE);
         
-        $html2text = new \Library\Php\Text\Html2Text();
+        $html2text = new \Ip\Internal\Text\Html2Text();
         $html2text->set_html($pageContent);
         $pageContentText = $html2text->get_text();
         

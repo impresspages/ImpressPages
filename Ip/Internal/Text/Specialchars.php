@@ -5,7 +5,7 @@
  *
  */
 
-namespace Library\Php\Text;
+namespace Ip\Internal\Text;
 
 /**
  * replaces special characters in a string
@@ -37,7 +37,7 @@ class Specialchars
     public static function url($string){
         require_once \Ip\Config::libraryFile('php/text/transliteration.php');
         $url = mb_strtolower($string);
-        $url = \Library\Php\Text\Transliteration::transform($url);
+        $url = \Ip\Internal\Text\Transliteration::transform($url);
         $url = str_replace(" ", "-", $url);
         $url = str_replace("/", "-", $url);
         $url = str_replace("\\", "-", $url);

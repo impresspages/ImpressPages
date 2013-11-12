@@ -3,14 +3,14 @@
  * @package		Library
  */
 
-namespace Library\Php\Ecommerce;
+namespace Ip\Ecommerce;
 
 
 /**
  * Some function to speed up ecommerce products development
  * @package Library\Php\Ecommerce
  */
-class Helper{
+class Helper {
 
 
     protected function __construct(){}

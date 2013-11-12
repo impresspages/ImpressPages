@@ -5,7 +5,7 @@
  *
  */
 
-namespace Library\Php\Text;
+namespace Ip\Internal\Text;
 
 /**
  * replaces special characters in a string
