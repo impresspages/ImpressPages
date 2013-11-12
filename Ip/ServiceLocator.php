@@ -19,6 +19,7 @@ class ServiceLocator
 {
     protected static $request = null;
     protected static $config = null;
+    protected static $log = null;
 
 
     public static function getOptions()
@@ -45,11 +46,10 @@ class ServiceLocator
      */
     public static function getLog()
     {
-        /**
-         * @var $log \Ip\Module\Log\Module
-         */
-        global $log;
-        return $log;
+        if (self::$log== null) {
+            self::$log= new \Ip\Module\Log\Module();
+        }
+        return self::$log;
     }
 
     /**
@@ -78,15 +78,12 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Frontend\Session
+     * @return \Ip\Frontend\User
      */
-    public static function getSession()
+    public static function getApplication()
     {
-        /**
-         * @var $session \Ip\Frontend\Session
-         */
-        global $session;
-        return $session;
+        global $application;
+        return $application;
     }
 
 

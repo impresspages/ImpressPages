@@ -617,7 +617,7 @@ to style forms.</p>
         $sql = "insert into `".$this->dbPref."user_to_mod`
         set
         module_id = '".(int)$moduleId."',
-        user_id = '".(int)$userId."'
+        userId = '".(int)$userId."'
 
         ";
         $rs = mysql_query($sql, $this->conn);

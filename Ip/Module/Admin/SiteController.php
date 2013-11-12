@@ -5,7 +5,6 @@ class SiteController extends \Ip\Controller{
 
     public function loginAjax()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         \Ip\Request::mustBePost();
 
@@ -82,7 +81,7 @@ class SiteController extends \Ip\Controller{
             'loginForm' => $this->getLoginForm()
         );
 
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
         $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
@@ -92,11 +91,8 @@ class SiteController extends \Ip\Controller{
 
     protected function getLoginForm()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Ip\Form();
-
-        $form->removeXssCheck();
 
         //add text field to form object
         $field = new \Ip\Form\Field\Hidden(

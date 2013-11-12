@@ -87,7 +87,7 @@ class Model{
                 }else {
                     $sql2 = "select m.name as m_name, m.id, m.translation, core from
           `".DB_PREF."user_to_mod` um,`".DB_PREF."module` m where
-          um.user_id = '".ip_deprecated_mysql_real_escape_string($userId)."' and um.module_id = m.id and
+          um.userId = '".ip_deprecated_mysql_real_escape_string($userId)."' and um.module_id = m.id and
           m.group_id = '".$lock['id']."' ".$managedSql." order by row_number";
                 }
                 $rs2 = ip_deprecated_mysql_query($sql2);
@@ -107,8 +107,8 @@ class Model{
     }
 
     public function getUserId(){
-        if(isset($_SESSION['backend_session']['user_id']))
-            return $_SESSION['backend_session']['user_id'];
+        if(isset($_SESSION['backend_session']['userId']))
+            return $_SESSION['backend_session']['userId'];
         else
             return false;
     }
@@ -116,14 +116,13 @@ class Model{
     public function login($username, $pass)
     {
         $log = \Ip\ServiceLocator::getLog();
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
             $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
         }else {
             $id = $this->userId($username, $pass);
             if($id !== false) {
-                $_SESSION['backend_session']['user_id'] = $id;
+                $_SESSION['backend_session']['userId'] = $id;
                 $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                 return true;
             } else {

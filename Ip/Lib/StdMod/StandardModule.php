@@ -132,8 +132,6 @@ class StandardModule {
     }
 
     function ajaxAction() {
-        global $parametersMod;
-        global $cms;
         if(isset($_POST['action'])) {
             switch($_POST['action']) {
                 case 'new_row_number':
@@ -151,7 +149,7 @@ class StandardModule {
                         $this->currentArea->afterSort();
                     }
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                     break;
                 case 'row_number_increase': {
@@ -221,7 +219,7 @@ class StandardModule {
                     }
 
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -293,7 +291,7 @@ class StandardModule {
                     }
 
 
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -302,7 +300,7 @@ class StandardModule {
                         $this->delete($this->currentArea, $_REQUEST['key_id']);
                         echo "delete_row(".$_POST['key_id'].")";
                     }
-                    \Ip\Deprecated\Db::disconnect();
+                    \Ip\Internal\Deprecated\Db::disconnect();
                     exit;
                 }
                 break;
@@ -485,7 +483,7 @@ class StandardModule {
 
 
 
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }else {
 
@@ -513,7 +511,7 @@ class StandardModule {
             </body></html>
         ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }
 
@@ -633,7 +631,7 @@ class StandardModule {
               </body></html>
             ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }else {
                         $answer = "
@@ -660,7 +658,7 @@ class StandardModule {
                </body></html>
               ";		          
                         echo $answer;
-                        \Ip\Deprecated\Db::disconnect();
+                        \Ip\Internal\Deprecated\Db::disconnect();
                         exit;
                     }
 
@@ -841,7 +839,6 @@ class StandardModule {
 
     function makeHtml() {
         global $stdModDb;
-        global $parametersMod;
         $site = \Ip\ServiceLocator::getSite();
         $stdModDb = new StdModDb();
 
@@ -870,7 +867,7 @@ class StandardModule {
     
     <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
-    <script src="' . \Ip\Config::libraryUrl('js/jquery/jquery.js') . '"></script>
+    <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.$site->generateHead().'
@@ -1016,7 +1013,6 @@ class StandardModule {
 
 
     function allowDelete($area, $id) {
-        global $parametersMod;
         $allowDelete = true;
         if(method_exists($area, 'allowDelete')) {
             $allowDelete = $area->allowDelete($id);
@@ -1089,9 +1085,6 @@ class StandardModule {
 
     function printForm() {
         $area = $this->currentArea;
-        $level = $this->level;
-
-        global $parametersMod;
 
         if (
         $this->level <= 0
@@ -1188,10 +1181,6 @@ class StandardModule {
 
     function printNew() { //form for new element in current area
 
-
-
-        global $parametersMod;
-
         $answer = '';
         $answer .= '<form id="std_mod_new_f" target="std_mod_new_f_iframe" action="'.$this->generateUrlLevel($this->level).'" method="post" enctype="multipart/form-data">';
         $answer .= '<div class="search">';
@@ -1257,8 +1246,6 @@ class StandardModule {
     }
 
     function printSearchFields($area, $level) {
-        global $parametersMod;
-        global $cms;
         $empty = true;
         $answer = '<div class="search"><form id="std_mod_search_f" method="POST" class="stdMod" action="'.$this->generateUrlLevel($this->level).'">';
         foreach($area->elements as $key => $value) {
@@ -1295,7 +1282,6 @@ class StandardModule {
     }
 
     function printPages() {
-        global $parametersMod;
         $answer = '';
 
         $answer .= '
@@ -1360,11 +1346,6 @@ class StandardModule {
     }
 
     function printTable($sql) {
-
-        global $parametersMod;
-        global $cms;
-
-
 
         $answer = '';
         $pages = $this->printPages();
@@ -1575,7 +1556,6 @@ class StandardModule {
     }
 
     function printTabs() {
-        global $parametersMod;
 
         $answer = '';
 
@@ -1585,10 +1565,10 @@ class StandardModule {
 
         if($this->currentArea->allowInsert)
         $answer .= '
-			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
+			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>' . __('New', 'ipAdmin') . '</span></li>';
 
         if($this->currentArea->searchable)
-        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
+        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>' . __('Search', 'ipAdmin') . '</span></li>';
 
 
         $answer .= '</ul>';

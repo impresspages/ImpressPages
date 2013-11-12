@@ -82,7 +82,7 @@ class ReflectionModel
 
     private function createReflection($file, $desiredName, Transform\Base $transform)
     {
-        if (!\Library\Php\File\Functions::isFileInPublicDir($file)) {
+        if (!\Ip\Internal\File\Functions::isFileInPublicDir($file)) {
             throw new Exception("Security notice. Try to access a file (".$file.") from a non public folder.", Exception::SECURITY);
         }
 
@@ -109,7 +109,7 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
-        $reflection = \Ip\Config::getRaw('FILE_DIR') . \Library\Php\File\Functions::genUnoccupiedName($desiredName, \Ip\Config::fileDirFile(''));
+        $reflection = \Ip\Config::getRaw('FILE_DIR') . \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, \Ip\Config::fileDirFile(''));
         $transform->transform($file, $reflection);
 
         $transformFingerprint = $transform->getFingerprint();

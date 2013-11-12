@@ -19,7 +19,6 @@ class Model{
             "Breadcrumb",
             "Repository",
             "Upload",
-            "Search",
             "InlineManagement",
             "Languages",
             "Wizard",

@@ -82,7 +82,7 @@ class Db {
                 }else {
                     $sql2 = "select m.name as m_name, m.id, m.translation, core from
           `".DB_PREF."user_to_mod` um,`".DB_PREF."module` m where
-          um.user_id = '".ip_deprecated_mysql_real_escape_string($userId)."' and um.module_id = m.id and
+          um.userId = '".ip_deprecated_mysql_real_escape_string($userId)."' and um.module_id = m.id and
           m.group_id = '".$lock['id']."' ".$managedSql." order by row_number";
                 }
                 $rs2 = ip_deprecated_mysql_query($sql2);
@@ -103,7 +103,7 @@ class Db {
 
     //return true if user have permission to use the module
     public static function allowedModule($moduleId, $userId) {
-        $sql = "select * from `".DB_PREF."user_to_mod` where `user_id`='".ip_deprecated_mysql_real_escape_string($userId)."' and `module_id`='".ip_deprecated_mysql_real_escape_string($moduleId)."' ";
+        $sql = "select * from `".DB_PREF."user_to_mod` where `userId`='".ip_deprecated_mysql_real_escape_string($userId)."' and `module_id`='".ip_deprecated_mysql_real_escape_string($moduleId)."' ";
         $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
             if(ip_deprecated_mysql_num_rows($rs) > 0)
@@ -118,7 +118,7 @@ class Db {
 
     public static function firstAllowedModule($userId) {
         $sql = "select m.id, g.name as g_name, m.name as m_name, m.core  from `".DB_PREF."user_to_mod` utm, `".DB_PREF."module` m, `".DB_PREF."module_group` g
-  	where m.id = utm.module_id and m.group_id = g.id and utm.user_id='".ip_deprecated_mysql_real_escape_string($userId)."'
+  	where m.id = utm.module_id and m.group_id = g.id and utm.userId='".ip_deprecated_mysql_real_escape_string($userId)."'
   	order by g.row_number asc, m.row_number asc";
         $rs = ip_deprecated_mysql_query($sql);
         if($rs) {

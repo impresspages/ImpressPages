@@ -34,7 +34,7 @@ class System{
 
         
         
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
         $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
         
@@ -227,7 +227,6 @@ class System{
      * @param \Modules\standard\content_managemet\EventFormFields $event
      */
     public static function collectFieldTypes(EventFormFields $event){
-        global $site;
         global $parametersMod;
         
         $typeText = $parametersMod->getValue('Form.type_text');

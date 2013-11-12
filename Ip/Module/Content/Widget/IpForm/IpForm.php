@@ -13,7 +13,6 @@ class IpForm extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('Contact form', 'ipAdmin');
     }
     
@@ -40,7 +39,6 @@ class IpForm extends \Ip\Module\Content\Widget{
     }
     
     public function sendEmail ($form, $postData, $data) {
-        global $parametersMod;
         global $site;
         
         $contentData = array();
@@ -220,7 +218,7 @@ class IpForm extends \Ip\Module\Content\Widget{
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Module\Content\Exception $e) {
-                    global $log;
+                    $log = \Ip\ServiceLocator::getLog();
                     $log->log('standard/content_management', 'create field', $e->getMessage());
                 }
                 
@@ -245,7 +243,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         $form->addField($field);
 
         //antispam
-        $field = new \Ip\Form\Field\Check(
+        $field = new \Ip\Form\Field\Antispam(
         array(
         'name' => 'checkField'
         ));

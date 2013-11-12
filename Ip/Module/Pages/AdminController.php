@@ -17,7 +17,7 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         $site = \Ip\ServiceLocator::getSite();
-        $session = \Ip\ServiceLocator::getSession();
+        $session = \Ip\ServiceLocator::getApplication();
         $data = array (
             'securityToken' =>  $session->getSecurityToken(),
             'imageDir' => \Ip\Config::coreUrl('Ip/Module/Pages/img/')
@@ -419,6 +419,42 @@ class AdminController extends \Ip\Controller
     }
 
 
+    public function getLanguageProperties() {
+
+        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+        $answer = array();
+
+        $title = __('SEO', 'ipAdmin');
+
+        $language = \Ip\ServiceLocator::getSite()->getLanguageById($languageId);
+
+        if (!$language) {
+            throw new \Ip\CoreException("Language doesn't exist. Language id: " . $languageId);
+        }
+
+        $propertiesData = array (
+            'form' => Forms::languageForm($languageId, $language->getVisible(), $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
+        );
+        $content = \Ip\View::create('view/languageProperties.php', $propertiesData)->render();
+        $tabs[] = array('title' => $title, 'content' => $content);
+
+        $data = array (
+            'tabs' => $tabs
+        );
+
+        $tabsView = \Ip\View::create('view/tabs.php', $data);
+
+
+
+        $answer['html'] = $tabsView->render();
+        $this->returnJson($answer);
+    }
+
     public function saveZoneProperties()
     {
         $site = \Ip\ServiceLocator::getSite();
@@ -445,20 +481,75 @@ class AdminController extends \Ip\Controller
         $errors = $form->validate($params);
 
 
+        if (empty($errors)) {
+            $zoneData = array(
+                'title' => $data['title'],
+                'url' => $data['url'],
+                'keywords' => $data['keywords'],
+                'description' => $data['description']
+            );
 
-        $zoneData = array(
-            'title' => $data['title'],
-            'url' => $data['url'],
-            'keywords' => $data['keywords'],
-            'description' => $data['description']
-        );
-
-        try {
-            ZoneModel::updateZone($languageId, $zoneId, $zoneData);
-        } catch (DuplicateUrlException $e) {
-            $errors['url'] = '{{Following url already has been used.}}';
+            try {
+                ZoneModel::updateZone($languageId, $zoneId, $zoneData);
+            } catch (DuplicateUrlException $e) {
+                $errors['url'] = __('Following url already has been used.', 'ipAdmin');
+            }
         }
 
+
+
+
+        if ($errors) {
+            $data = array(
+                'status' => 'error',
+                'errors' => $errors
+            );
+        } else {
+            $data = array(
+                'status' => 'success',
+            );
+        }
+        $this->returnJson($data);
+    }
+
+
+
+    public function saveLanguageProperties()
+    {
+        $site = \Ip\ServiceLocator::getSite();
+        $request = \Ip\ServiceLocator::getRequest();
+        $request->mustBePost();
+        $params = $request->getPost();
+
+        if (empty($params['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameter");
+        }
+        $languageId = $params['languageId'];
+
+        $form = Forms::languageForm($languageId, '', '', '', '', '', '');
+
+        $data = $form->filterValues($params);
+
+        $errors = $form->validate($params);
+
+
+        if (empty($errors)) {
+            $languageData = array(
+                'd_long' => $data['title'],
+                'url' => urlencode($data['url']),
+                'd_short' => $data['abbreviation'],
+                'text_direction' => $data['direction'],
+                'code' => $data['code'],
+                'visible' => isset($data['visible']) ? 1 : 0
+            );
+
+            try {
+                $languageModel = new LanguageModel();
+                $languageModel->updateLanguage($languageId, $languageData);
+            } catch (DuplicateUrlException $e) {
+                $errors['url'] = __('Following url already has been used.', 'ipAdmin');
+            }
+        }
 
 
 
@@ -787,8 +878,6 @@ class AdminController extends \Ip\Controller
      */
     public function movePage () {
         global $site;
-        global $log;
-        global $dispatcher;
 
 
         if (!isset($_REQUEST['pageId'])) {
@@ -1341,7 +1430,7 @@ class AdminController extends \Ip\Controller
             } else {
                 $id = \Ip\Backend\Db::userId($_REQUEST['username'], $_REQUEST['password']);
                 if($id !== false) {
-                    $module = \Ip\Deprecated\Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
+                    $module = \Ip\Internal\Deprecated\Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
                     if (\Ip\Backend\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
                         \Ip\Backend\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                         return true;

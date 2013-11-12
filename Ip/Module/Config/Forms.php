@@ -46,7 +46,7 @@ class Forms {
         $form->addField($field);
 
 
-        $field = new \Ip\Form\Field\Confirm(
+        $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'automaticCron', //html "name" attribute
                 'defaultValue' => ipGetOption('Config.automaticCron', 1),

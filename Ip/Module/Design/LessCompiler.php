@@ -142,7 +142,7 @@ class LessCompiler
         foreach ($lessFiles as $file) {
             $lessFile = basename($file);
             $css = $this->compileFile($themeName, basename($lessFile));
-            file_put_contents(\Ip\Config::themeFile(substr($lessFile, 0, -4) . 'css', $css), $themeName);
+            file_put_contents(\Ip\Config::themeFile(substr($lessFile, 0, -4) . 'css'), $css);
         }
     }
 

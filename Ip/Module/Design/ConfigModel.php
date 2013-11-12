@@ -266,7 +266,7 @@ class ConfigModel{
                     $newField = new Form\Field\Range();
                     break;
                 case 'check':
-                    $newField = new Form\Field\Confirm();
+                    $newField = new Form\Field\Checkbox();
                     break;
                 default:
                     //do nothing

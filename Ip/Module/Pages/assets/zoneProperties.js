@@ -23,7 +23,7 @@ var ipPagesZoneProperties = new function () {
         data.aa = 'Pages.getZoneProperties';
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: ip.baseUrl,
             data: data,
             success: openResponse,

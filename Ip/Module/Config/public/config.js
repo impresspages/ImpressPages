@@ -45,7 +45,8 @@ var IpConfig = new function () {
         var postData = {
             'aa' : 'Config.saveValue',
             'fieldName' : curItem,
-            'value' : getFieldValue(curItem)
+            'value' : getFieldValue(curItem),
+            'securityToken' : ip.securityToken
         };
 
         $.ajax({

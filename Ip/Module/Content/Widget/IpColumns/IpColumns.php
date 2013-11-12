@@ -10,7 +10,6 @@ namespace Ip\Module\Content\Widget;
 class IpColumns extends \Ip\Module\Content\Widget {
 	
 	public function getTitle() {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         return __('Columns', 'ipAdmin');
     }
 

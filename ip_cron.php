@@ -1,6 +1,6 @@
 <?php
-use Ip\Deprecated\Db;
-
+use Ip\Internal\Deprecated\Db;
+//TODOX refactor cron
 /**
  * ImpressPages CMS main cron file
  *
@@ -48,7 +48,7 @@ $log = new \Ip\Module\Log\Module();
 try {
     $dispatcher = new \Ip\Dispatcher();
     $parametersMod = new ParametersMod();
-    $session = new \Ip\Frontend\Session();
+    $session = new \Ip\Frontend\User();
 
     $site = new \Site();
     $site->init();
@@ -167,7 +167,7 @@ class cronInformation{
 		";
         $rs = ip_deprecated_mysql_query($sql);
         if($rs){
-            if(($lock = ip_deprecated_mysql_fetch_assoc($rs)) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['user_id']))){
+            if(($lock = ip_deprecated_mysql_fetch_assoc($rs)) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['userId']))){
                 if($lock['same_year'])
                 $this->firstTimeThisYear = false;
                 if($lock['same_year'] && $lock['same_month'])

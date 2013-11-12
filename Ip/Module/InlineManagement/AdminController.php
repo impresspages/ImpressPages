@@ -95,7 +95,7 @@ class AdminController extends \Ip\Controller{
             }
 
             $values[] = array(
-                'language' => $language->getShortDescription(),
+                'language' => $language->getAbbreviation(),
                 'languageId' => $language->getId(),
                 'text' => $text
             );
@@ -138,7 +138,7 @@ class AdminController extends \Ip\Controller{
             }
 
             $values[] = array(
-                'language' => $language->getShortDescription(),
+                'language' => $language->getAbbreviation(),
                 'languageId' => $language->getId(),
                 'text' => $text
             );
@@ -189,7 +189,7 @@ class AdminController extends \Ip\Controller{
             $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
 
-        $scopeLanguageTitle = str_replace('[[language]]', $site->getCurrentLanguage()->getLongDescription(), $scopeLanguageTitle);
+        $scopeLanguageTitle = str_replace('[[language]]', $site->getCurrentLanguage()->getTitle(), $scopeLanguageTitle);
         $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 

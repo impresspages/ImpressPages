@@ -132,7 +132,7 @@ class ElementImage extends Element{ //data element in area
 
         $this->newMemImages = array();
         foreach($this->copies as $key => $copy){
-            $upload_image = new \Library\Php\File\UploadImage();
+            $upload_image = new \Ip\Internal\File\UploadImage();
             $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], \Ip\Config::temporaryFile(''), $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
@@ -168,7 +168,7 @@ class ElementImage extends Element{ //data element in area
             if(sizeof($this->memImages) == sizeof($this->copies)){
 
                 foreach($this->copies as $key => $copy){
-                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+                    $newBasename = \Ip\Internal\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
 
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".ip_deprecated_mysql_real_escape_string($newBasename)."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
                     $rs = ip_deprecated_mysql_query($sql);
@@ -222,7 +222,7 @@ class ElementImage extends Element{ //data element in area
 
             if(sizeof($this->memImages) == sizeof($this->copies)){
                 foreach($this->copies as $key => $copy){
-                    $newBasename = \Library\Php\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
+                    $newBasename = \Ip\Internal\File\Functions::copyTemporaryFile($this->memImages[$key], $copy['destDir']);
 
                     $sql = "update `".DB_PREF."".$area->dbTable."` set `".$copy['dbField']."` = '".$newBasename."' where `".$area->dbPrimaryKey."` = '".ip_deprecated_mysql_real_escape_string($id)."' ";
                     $rs = ip_deprecated_mysql_query($sql);

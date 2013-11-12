@@ -31,15 +31,15 @@ class Form{
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
 
-        $this->addXssCheck();
+        $this->addCsrfCheck();
     }
 
     /**
      * Add securityToken field
      */
-    public function addXssCheck()
+    public function addCsrfCheck()
     {
-        $tokenField = new \Ip\Form\Field\XSS();
+        $tokenField = new \Ip\Form\Field\Csrf();
         $tokenField->setName('securityToken');
         $this->addField($tokenField);
     }
@@ -47,7 +47,7 @@ class Form{
     /**
      * Remove securityToken field
      */
-    public function removeXssCheck()
+    public function removeCsrfCheck()
     {
         $this->removeField('securityToken');
     }

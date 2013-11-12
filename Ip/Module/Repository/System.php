@@ -15,7 +15,7 @@ class System{
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery/jquery.js'));
+            $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
             $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
             $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
             $site->addCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
