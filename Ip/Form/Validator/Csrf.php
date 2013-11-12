@@ -14,7 +14,7 @@ namespace Ip\Form\Validator;
  *
  */
 
-class XSS extends Validator {
+class Csrf extends Validator {
     
     public function validate($values, $valueKey) {
         if (empty($values[$valueKey])) {

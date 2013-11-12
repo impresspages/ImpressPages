@@ -105,7 +105,7 @@ class Forms {
             ));
         $form->addField($field);
 
-        $field = new \Ip\Form\Field\Confirm(
+        $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'visible',
                 'label' => __('Visible', 'ipAdmin'),
