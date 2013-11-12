@@ -72,7 +72,6 @@ class Module{
      */
     function send(){
         global $parametersMod;
-        global $log;
         $alreadySent = Db::sentOrLockedCount(60);
         if($alreadySent !== false){
             $available = floor($parametersMod->getValue('Email.emails_per_hour')*0.8 - $alreadySent); //20% for imediate emails

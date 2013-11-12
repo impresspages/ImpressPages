@@ -126,7 +126,6 @@ class OldCmsInterface{
 
     function worker() { //make worker actions.
         global $cms;
-        global $log;
         global $globalWorker;
         if($this->session->loggedIn()) {  //login check
 

@@ -105,7 +105,6 @@ class DbSystem{    //system variables
             `".DB_PREF."m_content_management_widget` 
         SET 
             `data` = REPLACE(`data`, '".ip_deprecated_mysql_real_escape_string($fromJsonUrl)."', '".ip_deprecated_mysql_real_escape_string($toJsonUrl)."') where 1";
-        global $log;
         $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
             return true;
