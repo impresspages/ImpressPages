@@ -17,7 +17,7 @@ class Application {
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
-        require_once \Ip\Config::includePath('error_handler.php');
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
