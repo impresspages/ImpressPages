@@ -460,9 +460,7 @@ class Installation
             'Ip',
             'file',
             'install',
-            'ip_cms',
             'ip_libs',
-            'ip_plugins',
             'ip_themes',
             'update',
         );

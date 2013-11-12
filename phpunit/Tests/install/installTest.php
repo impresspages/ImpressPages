@@ -149,7 +149,6 @@ class InstallTest extends \PhpUnit\SeleniumTestCase
             'ip_cms',
             'ip_configs',
             'ip_libs',
-            'ip_plugins',
             'ip_themes',
             'update',
             'video'

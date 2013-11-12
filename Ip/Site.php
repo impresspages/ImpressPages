@@ -987,7 +987,7 @@ class Site{
         if (!isset($this->output)) {
             if (\Ip\Module\Admin\Model::isSafeMode()) {
                 //TODOX skip this for admin pages with admin layout
-                return \Ip\View::create(\Ip\Config::includePath('Ip/Module/Admin/View/safeModeLayout.php'), array())->render();
+                return \Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render();
             }
 
 
