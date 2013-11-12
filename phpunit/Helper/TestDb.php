@@ -50,7 +50,7 @@ class TestDb
     public function __destruct()
     {
         if ($this->dbName) {
-            $this->dropDatabase($this->dbName);
+            $this->dropDatabase();
         }
     }
 
@@ -69,7 +69,7 @@ class TestDb
 
     private function dropDatabase()
     {
-        \Ip\Db::execute('DROP DATABASE `' . $this->dbname . '`');
+        \Ip\Db::execute('DROP DATABASE `' . $this->dbName . '`');
         \Ip\Db::disconnect();
 
         $this->dbName = null;

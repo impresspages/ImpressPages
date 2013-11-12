@@ -9,4 +9,4 @@
 <?php } ?>
 <br/><br/>
 
-<a class="button_act" href="?step=2"><?php echo __('Next', 'ipInstall') ?></a>
+<a class="button_act" href="?step=1"><?php echo __('Next', 'ipInstall') ?></a>

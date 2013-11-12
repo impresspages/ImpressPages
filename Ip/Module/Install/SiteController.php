@@ -90,7 +90,12 @@ class SiteController extends \Ip\Controller
 
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
-        return $this->applyLayout($content, array('requiredJs' => array('js/step3.js')));
+        $js = array(
+            \Ip\Config::coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            \Ip\Config::coreModuleUrl('Install/assets/js/step3.js')
+        );
+
+        return $this->applyLayout($content, array('requiredJs' => $js));
     }
 
     public function step4()
@@ -126,7 +131,12 @@ class SiteController extends \Ip\Controller
 
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
-        return $this->applyLayout($content, array('requiredJs' => array('js/step4.js')));
+        $js = array(
+            \Ip\Config::coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            \Ip\Config::coreModuleUrl('Install/assets/js/step4.js')
+        );
+
+        return $this->applyLayout($content, array('requiredJs' => $js));
     }
 
     public function step5()
@@ -144,15 +154,26 @@ class SiteController extends \Ip\Controller
     {
         $db = \Ip\Request::getPost('db');
 
-        if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
-            return \Ip\Response\JsonRpc::error('ERROR_LONG_PREFIX');
-        }
-
-        if (!preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error('ERROR_INCORRECT_PREFIX');
-        }
-
         // TODOX validate $db
+        foreach (array('hostname', 'username', 'password', 'database') as $key) {
+            if (empty($db[$key])) {
+                return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'ipInstall'));
+            }
+        }
+
+        if (empty($db['tablePrefix'])) {
+            $db['tablePrefix'] = '';
+        }
+
+        if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'ipInstall'));
+        }
+
+        if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should sart with letter.', 'ipInstall'));
+        }
+
+
         $dbConfig = array(
             'hostname' => $db['hostname'],
             'username' => $db['username'],
@@ -167,13 +188,13 @@ class SiteController extends \Ip\Controller
         try {
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_CONNECT');
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall'));
         }
 
         try {
             Model::createAndUseDatabase($db['database']);
         } catch (\Ip\CoreException $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_DB');
+            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'ipInstall'));
         }
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
@@ -193,7 +214,8 @@ class SiteController extends \Ip\Controller
         $_SESSION['db'] = $dbConfig;
 
         if ($errors) {
-            return \Ip\Response\JsonRpc::error('ERROR_DB');
+            // TODOX show SQL queries that failed
+            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries.', 'ipInstall'));
         } else {
             Model::completeStep(3);
             return \Ip\Response\JsonRpc::result(true);
@@ -203,38 +225,36 @@ class SiteController extends \Ip\Controller
     public function writeConfig()
     {
         if (empty($_SESSION['db'])) {
-            return \Ip\Response\JsonRpc::error("ERROR_SESSION_EXPIRED");
+            return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'ipInstall'));
         }
 
         // Validate input:
         $errors = array();
 
         if (!Request::getPost('site_name')) {
-            $errors[] = 'ERROR_SITE_NAME';
+            $errors[] = __('Please enter website name.', 'ipInstall');
         }
 
-        $emailRegexp = '#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si';
-
         if (!Request::getPost('site_email') || !filter_var(Request::getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'ERROR_SITE_EMAIL';
+            $errors[] = __('Please enter correct website email.', 'ipInstall');
         }
 
         if (!Request::getPost('install_login') || !Request::getPost('install_pass')) {
-            $errors[] = 'ERROR_LOGIN';
+            $errors[] = __('Please enter administrator login and password.', 'ipInstall');
         }
 
         if (Request::getPost('timezone')) {
             $timezone = Request::getPost('timezone');
         } else {
-            $errors[] = 'ERROR_TIME_ZONE';
+            $errors[] = __('Please choose website time zone.', 'ipInstall');
         }
 
         if (Request::getPost('email') && !filter_var(Request::getPost('email'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'ERROR_EMAIL';
+            $errors[] = __('Please enter correct administrator e-mail address.', 'ipInstall');
         }
 
         if (!empty($errors)) {
-            return \Ip\Response\JsonRpc::error(implode(' ', $errors));
+            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'ipInstall'))->addErrorData('errors', $errors);
         }
 
         $config = array();
@@ -246,15 +266,15 @@ class SiteController extends \Ip\Controller
         $config['db'] = $_SESSION['db'];
 
         try {
-            Model::writeConfigFile($config, \Ip\Config::baseFile('install/test/ip_config.php'));
+            Model::writeConfigFile($config, \Ip\Config::baseFile('ip_config.php'));
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_CONFIG');
+            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/ip_config.php"', 'ipInstall'));
         }
 
         try {
             Model::writeRobotsFile(\Ip\Config::baseFile('robots.txt'));
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error("ERROR_ROBOTS");
+            return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'ipInstall'));
         }
 
 
@@ -263,7 +283,7 @@ class SiteController extends \Ip\Controller
             \Ip\Config::_setRaw('db', $config['db']);
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_CONNECT');
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall'));
         }
 
         try {
@@ -273,7 +293,7 @@ class SiteController extends \Ip\Controller
             Model::setSiteEmail(Request::getPost('site_email'));
 
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error('ERROR_QUERY'); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
+            return \Ip\Response\JsonRpc::error(__('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
         }
 
         /*TODOX follow the new structure
