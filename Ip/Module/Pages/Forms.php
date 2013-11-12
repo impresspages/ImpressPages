@@ -83,7 +83,7 @@ class Forms {
 
     }
 
-    public static function languageForm($languageId, $title, $abbreviation, $url, $code, $textDirection)
+    public static function languageForm($languageId, $visible, $title, $abbreviation, $url, $code, $textDirection)
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
@@ -102,6 +102,14 @@ class Forms {
             array(
                 'name' => 'languageId',
                 'defaultValue' => $languageId
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Confirm(
+            array(
+                'name' => 'visible',
+                'label' => __('Visible', 'ipAdmin'),
+                'defaultValue' => $visible
             ));
         $form->addField($field);
 

@@ -96,10 +96,10 @@ function initializeTreeManagement(id) {
                     'icon': {
                         'image': imageDir + 'folder.png'
                     },
-                    'start_drag': false,
-                    'move_node': false,
-                    'delete_node': false,
-                    'remove': false
+//                    'start_drag': false,
+//                    'move_node': false,
+//                    'delete_node': false,
+//                    'remove': false
                 },
 
                 'language': {
@@ -107,10 +107,10 @@ function initializeTreeManagement(id) {
                     'icon': {
                         'image': imageDir + 'folder.png'
                     },
-                    'start_drag': false,
-                    'move_node': false,
-                    'delete_node': false,
-                    'remove': false
+//                    'start_drag': false,
+//                    'move_node': false,
+//                    'delete_node': false,
+//                    'remove': false
                 },
 
                 'website': {
