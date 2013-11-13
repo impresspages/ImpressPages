@@ -27,7 +27,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
             $desiredCapabilities = array(
                 'tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER'),
                 'build' => getenv('TRAVIS_BUILD_NUMBER'),
-                'tags' => array(getenv('TRAVIS_PHP_VERSION', 'CI'))
+                'tags' => array(getenv('TRAVIS_PHP_VERSION'), 'CI')
             );
 
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
