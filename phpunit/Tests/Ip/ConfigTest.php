@@ -6,7 +6,7 @@
 namespace Tests\Ip;
 
 
-class DefaultConfigurationTest extends \PhpUnit\GeneralTestCase
+class ConfigTest extends \PhpUnit\GeneralTestCase
 {
     public function setup()
     {

@@ -6,7 +6,7 @@
 namespace Tests\InternalRequest;
 
 
-class ExperimentTest extends \PhpUnit\GeneralTestCase
+class InternalRequestTest extends \PhpUnit\GeneralTestCase
 {
     public function setup()
     {
