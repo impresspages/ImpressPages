@@ -14,7 +14,7 @@ define ('TEST_UNWRITABLE_DIR', '/var/tmp/testDir'); //root owned empty dir which
 
 define ('TEST_DB_HOST', 'localhost');
 define ('TEST_DB_USER', $isTravis ? 'travis'    : 'test');
-define ('TEST_DB_PASS', $isTravis ? ''          : 'test');
+define ('TEST_DB_PASS', $isTravis ? 'travis'    : 'test');
 define ('TEST_DB_NAME', 'ip_test');
 
 define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
