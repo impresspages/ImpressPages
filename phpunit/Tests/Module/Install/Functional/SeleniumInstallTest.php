@@ -132,6 +132,8 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($headline);
         $this->assertEquals('ImpressPages theme Blank', $headline->getText());
 
+        $session->stop();
+
     }
 
     public function testCustomPort()
