@@ -42,7 +42,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
     /**
      * @group Sauce
      */
-    public function testFullWorkflow()
+    public function testInstallCurrent($customPort = NULL)
     {
         $session = $this->getSession();
 
@@ -73,7 +73,11 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
         $testDbHelper = new \PhpUnit\Helper\TestDb();
 
-        $page->findById('db_server')->setValue($testDbHelper->getDbHost());
+        $dbHost = $testDbHelper->getDbHost();
+        if ($customPort) {
+            $dbHost .= ':' . $customPort;
+        }
+        $page->findById('db_server')->setValue($dbHost);
         $page->findById('db_user')->setValue($testDbHelper->getDbUser());
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
@@ -113,6 +117,11 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($headline);
         $this->assertEquals('ImpressPages theme Blank', $headline->getText());
 
+    }
+
+    public function testCustomPort()
+    {
+        $this->testInstallCurrent(3306);
     }
 
     /**
