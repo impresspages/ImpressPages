@@ -69,8 +69,12 @@ class TestDb
 
     private function dropDatabase()
     {
-        \Ip\Db::execute('DROP DATABASE `' . $this->dbName . '`');
-        \Ip\Db::disconnect();
+        try {
+            \Ip\Db::execute('DROP DATABASE `' . $this->dbName . '`');
+            \Ip\Db::disconnect();
+        } catch (\Ip\CoreException $e) {
+            // TODOX catch database exception
+        }
 
         $this->dbName = null;
         $this->connection = null;

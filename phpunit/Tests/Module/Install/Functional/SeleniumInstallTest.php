@@ -36,9 +36,13 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $session = new \Behat\Mink\Session($driver);
+        try {
+            $session = new \Behat\Mink\Session($driver);
 
-        $session->start();
+            $session->start();
+        } catch (\Behat\Mink\Exception\DriverException $e) {
+            $this->markTestSkipped('Could not connect open Mink connection.');
+        }
 
         return $session;
     }
@@ -93,11 +97,9 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
         $page->findById('db_pass')->setValue($testDbHelper->getDbPass());
         $page->find('css', '.button_act')->click();
-        if (getenv('TRAVIS')) {
-            sleep(5);
-        } else {
-            sleep(1);
-        }
+
+        sleep(1);
+
         $this->assertTrue($page->has('css', '#config_site_name'), 'Site name input is not available');
 
         $page->findById('config_site_name')->setValue('TestSiteName');
