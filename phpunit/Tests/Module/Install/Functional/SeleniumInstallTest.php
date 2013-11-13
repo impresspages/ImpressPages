@@ -20,9 +20,17 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
      */
     protected function getSession()
     {
-        $driver = new \Behat\Mink\Driver\Selenium2Driver(
-            'firefox', TEST_TMP_DIR
-        );
+        if (getenv('TRAVIS')) {
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox',
+                array('tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER')),
+                'http://username:access_key@ondemand.saucelabs.com/wd/hub'
+            );
+        } else {
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox', TEST_TMP_DIR
+            );
+        }
 
         $session = new \Behat\Mink\Session($driver);
 
@@ -31,6 +39,9 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         return $session;
     }
 
+    /**
+     * @group Sauce
+     */
     public function testFullWorkflow()
     {
         $session = $this->getSession();
