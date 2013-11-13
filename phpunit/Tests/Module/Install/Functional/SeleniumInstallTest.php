@@ -21,10 +21,14 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
     protected function getSession()
     {
         if (getenv('TRAVIS')) {
+
+            // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+            $url = sprintf('http://%s:%s@ondemand.saucelabs.com/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
                 'firefox',
                 array('tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER')),
-                'http://username:access_key@ondemand.saucelabs.com/wd/hub'
+                $url
             );
         } else {
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
@@ -44,19 +48,12 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstallCurrent($customPort = NULL)
     {
-        // TODOX remove debug
-        $this->assertEquals('username', getenv('SAUCE_USERNAME'));
-        return;
-
         $session = $this->getSession();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
         $page = $session->getPage();
         $this->assertNotEmpty($page, 'Page should not be empty');
-
-        // TODOX remove
-        echo $page->getContent(); exit();
 
         $title = $page->find('css', 'title');
         $this->assertNotEmpty($title, 'Title should not be empty');
