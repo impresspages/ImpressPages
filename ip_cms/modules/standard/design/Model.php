@@ -177,6 +177,22 @@ class Model
     }
 
 
+    /**
+     * @param Theme $theme
+     * @param string $newDir
+     * @return Theme
+     */
+    private function duplicateTheme($theme, $newDir)
+    {
+        if (substr($newDir, -1) != '/' && substr($newDir, -1) != '\\') {
+            $newDir .= '/';
+        }
+        $helper = Helper::instance();
+        $helper->cpDir($theme->getPath() . $theme->getName(), $newDir . $theme->getName() . '/');
+        $theme = $this->getTheme($newDir, $theme->getName());
+        return $theme;
+    }
+
     public function installTheme($themeName)
     {
         $themes = $this->getAvailableThemes();
@@ -184,6 +200,16 @@ class Model
             throw new \Ip\CoreException("Theme '" . $themeName . "' does not exist.");
         }
         $theme = $themes[$themeName];
+
+        if (defined('MULTISITE_CORE_VERSION')) {
+            //Duplicate theme to the user themes dir.
+            $themeDirs = $this->getThemeDirs();
+            if ($theme->getPath() != $themeDirs[0] && count($themeDirs) > 1) {
+                $theme = $this->duplicateTheme($theme, $themeDirs[0]);
+            }
+        }
+
+
 
         $configModel = new \Modules\standard\configuration\Model();
         $configModel->changeConfigurationConstantValue('THEME', THEME, $theme->getName());
