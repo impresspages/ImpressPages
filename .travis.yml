@@ -1,7 +1,6 @@
 branches:
   only:
-    - evolution
-    - develop
+    - 4.0
     - /^feature-.*$/
 language: php
 php:
