@@ -49,10 +49,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
         $page = $session->getPage();
-        $this->assertNotEmpty($page);
+        $this->assertNotEmpty($page, 'Page should not be empty');
 
         $title = $page->find('css', 'title');
-        $this->assertNotEmpty($title);
+        $this->assertNotEmpty($title, 'Title should not be empty');
         $this->assertEquals('ImpressPages CMS installation wizard', $title->getHtml());
 
         $page->find('css', '.button_act')->click();
