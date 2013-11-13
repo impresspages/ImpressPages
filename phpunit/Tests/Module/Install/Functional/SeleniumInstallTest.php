@@ -51,6 +51,9 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page = $session->getPage();
         $this->assertNotEmpty($page, 'Page should not be empty');
 
+        // TODOX remove
+        echo $page->getContent(); exit();
+
         $title = $page->find('css', 'title');
         $this->assertNotEmpty($title, 'Title should not be empty');
         $this->assertEquals('ImpressPages CMS installation wizard', $title->getHtml());
