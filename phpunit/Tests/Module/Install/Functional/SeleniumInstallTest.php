@@ -75,7 +75,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('db_pass')->setValue($testDbHelper->getDbPass());
         $page->find('css', '.button_act')->click();
         sleep(1);
-        $this->assertTrue($page->has('css', '#config_site_name'));
+        $this->assertTrue($page->has('css', '#config_site_name'));ip
 
         $page->findById('config_site_name')->setValue('TestSiteName');
         $page->findById('config_site_email')->setValue('test@example.com');
