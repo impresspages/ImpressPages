@@ -8,6 +8,7 @@ namespace PhpUnit\Helper;
  *
  */
 
+use \Ip\Module\Install\Model as InstallModel;
 
 class Installation
 {
@@ -83,6 +84,35 @@ class Installation
         $this->testDbHelper = $testDbHelper; //database will be destroyed on this object destruction;
 
         $this->putInstallationFiles($this->getInstallationDir());
+
+        InstallModel::createAndUseDatabase($this->getDbName());
+        InstallModel::createDatabaseStructure($this->getDbName(), $this->getDbPrefix());
+        InstallModel::importData($this->getDbPrefix());
+        InstallModel::insertAdmin($this->getAdminLogin(), $this->getAdminPass());
+        InstallModel::setSiteEmail($this->getSiteEmail());
+        InstallModel::setSiteName($this->getSiteName());
+
+        $config = array();
+        $config['SESSION_NAME'] = 'ses' . rand();
+        $config['BASE_DIR'] = $this->getInstallationDir();
+        $config['BASE_URL'] = $this->getInstallationUrl();
+        $config['timezone'] = $this->getSiteTimeZone();
+        $config['db'] = array(
+            'hostname' => $this->getDbHost(),
+            'username' => $this->getDbPass(),
+            'password' => $this->getDbPass(),
+            'database' => $this->getDbName(),
+            'tablePrefix' => $this->getDbPrefix(),
+            'charset' => 'utf8'
+        );
+
+        InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'ip_config.php');
+        InstallModel::writeRobotsFile($this->getInstallationDir() . 'robots.txt');
+
+        // TODOX define('TEST_MODE', 1);
+        $this->installed = true;
+
+        return;
 
         // INIT CURL
         $ch = curl_init();
