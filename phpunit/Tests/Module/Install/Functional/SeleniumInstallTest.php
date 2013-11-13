@@ -44,6 +44,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstallCurrent($customPort = NULL)
     {
+        // TODOX remove debug
+        $this->assertEquals('username', getenv('SAUCE_USERNAME'));
+        return;
+
         $session = $this->getSession();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
