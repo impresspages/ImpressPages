@@ -44,13 +44,12 @@ class Helper
         }
         //end variable check
 
-        $site = \Ip\ServiceLocator::getSite();
-        $zone = $site->getZone($zoneName);
+        $content = \Ip\ServiceLocator::getContent();
+        $zone = $content->getZone($zoneName);
         if(!$zone) {
             return array();
         }
 
-        $answer = array();
         $breadcrumb = $zone->getBreadcrumb();
         if($depthFrom == 1) {
             $elements = $zone->getElements(); //get first level elements
@@ -77,14 +76,14 @@ class Helper
      */
     public static function getChildItems($zoneName = null, $pageId = null, $depthTo = 10000)
     {
-        $site = \Ip\ServiceLocator::getSite();
+        $content = \Ip\ServiceLocator::getContent();
         if ($zoneName === null || $pageId === null) { //in case zone is set, but elementId is null
-            $zoneName = $site->getCurrentZone()->getName();
+            $zoneName = $content->getCurrentZone()->getName();
         }
-        if ($pageId === null) {
-            $pageId = $site->getCurrentPage()->getId();
+        if ($pageId === null && $content->getCurrentPage()) {
+            $pageId = $content->getCurrentPage()->getId();
         }
-        $zone = $site->getZone($zoneName);
+        $zone = $content->getZone($zoneName);
 
         $pages = $zone->getElements(null, $pageId);
         $items = array();
@@ -107,21 +106,21 @@ class Helper
      * @return Item[]
      */
     private static function getSubElementsData($elements, $zoneName, $depth, $curDepth) {
-        $site = \Ip\ServiceLocator::getSite();
+        $content = \Ip\ServiceLocator::getContent();
 
         $items = array();
         foreach($elements as $element) {
             $item = new Item();
             $subSelected = false;
             if($curDepth < $depth) {
-                $zone = $site->getZone($zoneName);
+                $zone = $content->getZone($zoneName);
                 $children = $zone->getElements(null, $element->getId());
                 if(sizeof($children) > 0) {
                     $childrenItems = self::getSubElementsData($children, $zoneName, $depth, $curDepth+1);
                     $item->setChildren($childrenItems);
                 }
             }
-            if($element->getCurrent()  || $element->getType() == 'redirect' && $element->getLink() == $site->getCurrentUrl()) {
+            if($element->getCurrent()  || $element->getType() == 'redirect' && $element->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
                 $item->setCurrent(true);
             } elseif($element->getSelected() || $subSelected || $element->getType() == 'redirect' && self::existInBreadcrumb($element->getLink())) {
                 $item->setSelected(true);
@@ -139,15 +138,15 @@ class Helper
 
 
     private static function existInBreadcrumb($link) {
-        $site = \Ip\ServiceLocator::getSite();
-        $breadcrumb = $site->getBreadcrumb();
+        $content = \Ip\ServiceLocator::getContent();
+        $breadcrumb = $content->getBreadcrumb();
         array_pop($breadcrumb);
         foreach($breadcrumb as $key => $element) {
             if($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
                 return true;
             }
         }
-        if ($link == $site->generateUrl(null, $site->getCurrentZone()->getName())) {
+        if ($link == $content->generateUrl(null, $content->getCurrentZone()->getName())) {
             return true;
         }
         return false;

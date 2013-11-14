@@ -111,10 +111,9 @@ class Zone extends \Ip\Frontend\Zone {
     }
 
     function findElement($urlVars, $getVars) {
-        global $site;
         $currentEl = null;
 
-        $elId = $this->db->getRootElementId($this->getName(), $site->currentLanguage['id']);
+        $elId = $this->db->getRootElementId($this->getName(), ipGetCurrentLanguage()->getId());
         if($elId) {
             if(sizeof($urlVars) == 0) {
                 return $this->getFirstElement($elId, 1);

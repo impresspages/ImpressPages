@@ -19,7 +19,6 @@ class Request
     protected $_POST = array();
     protected $_GET = array();
     protected $_REQUEST = array();
-    protected $currentLanguage = null;
 
 
 
@@ -66,20 +65,6 @@ class Request
     {
         $this->_REQUEST = $request;
     }
-
-
-
-    public function getCurrentLanguage()
-    {
-        if ($this->currentLanguage === null) {
-
-            //TODOX
-        }
-        return $this->currentLanguage;
-    }
-
-
-
 
 
     public function isGet()

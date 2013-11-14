@@ -282,5 +282,9 @@ class Content {
         $this->urlVars = $urlVars;
     }
 
+    public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
+        return \Ip\ServiceLocator::getSite()->generateUrl($languageId, $zoneName, $urlVars, $getVars, $escape);
+    }
+
 
 }
