@@ -32,11 +32,6 @@ function ipGetCurrentPage()
 }
 
 
-function ipSetBlockContent($block, $content)
-{
-//    $content = \Ip\ServiceLocator::getContent();
-//    $content->setBlockContent();
-}
 
 
 function __($text, $domain)
