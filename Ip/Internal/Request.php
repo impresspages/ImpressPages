@@ -7,6 +7,7 @@
 
 namespace Ip\Internal;
 
+//TODOX move outside Internal
 /**
  *
  * Class to get information about current request
@@ -18,6 +19,14 @@ class Request
     protected $_POST = array();
     protected $_GET = array();
     protected $_REQUEST = array();
+    protected $currentLanguage;
+
+
+
+    protected $languageUrl;
+    protected $urlVars;
+    protected $zoneUrl;
+
 
     public function __construct()
     {
@@ -25,7 +34,45 @@ class Request
         $this->_POST = $_POST;
         $this->_GET = $_GET;
         $this->_REQUEST = $_REQUEST;
+//        $this->parseUrl();
     }
+
+    public function setPost($post)
+    {
+        $this->_POST = $post;
+        $this->_REQUEST = array_merge($this->_REQUEST, $post);
+    }
+
+    public function setServer($server)
+    {
+        $this->_SERVER = $server;
+    }
+
+    public function setGet($get)
+    {
+        $this->_GET = $get;
+        $this->_REQUEST = array_merge($this->_REQUEST, $get);
+    }
+
+    public function setRequest($request)
+    {
+        $this->_REQUEST = $request;
+    }
+
+
+
+    public function getCurrentLanguage()
+    {
+        if ($this->currentLanguage === null) {
+
+            //TODOX
+        }
+        return $this->currentLanguage;
+    }
+
+
+
+
 
     public function isGet()
     {
@@ -123,14 +170,6 @@ class Request
      */
     public function getRelativePath()
     {
-//        //$urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
-//        $scriptPath = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1 );
-//        if( strpos($_SERVER['REQUEST_URI'] , $scriptPath ) === 0 ) { //script location is the same as url path
-//            $urlVarsStr = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
-//        } else { //script is in the other location than request url (urls are rewriten)
-//            $urlVarsStr = substr($_SERVER['REQUEST_URI'], 1);
-//        }
-
         $basePath = parse_url(\Ip\Config::baseUrl(''), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
@@ -142,5 +181,61 @@ class Request
         }
 
         return substr($this->_SERVER['REQUEST_URI'], strlen($basePath));
+    }
+
+    public function fixMagicQuotes()
+    {
+        if (!get_magic_quotes_gpc()) {
+            return;
+        }
+
+        $process = array(&$this->_GET, &$this->_POST, &$this->_COOKIE, &$this->_REQUEST);
+        while (list($key, $val) = each($process)) {
+            foreach ($val as $k => $v) {
+                unset($process[$key][$k]);
+                if (is_array($v)) {
+                    $process[$key][stripslashes($k)] = $v;
+                    $process[] = & $process[$key][stripslashes($k)];
+                } else {
+                    $process[$key][stripslashes($k)] = stripslashes($v);
+                }
+            }
+        }
+        unset($process);
+    }
+
+    public function getZoneUrl()
+    {
+        return $this->zoneUrl;
+    }
+
+    public function getLanguageUrl()
+    {
+        return $this->languageUrl;
+    }
+
+    public function getUrlVars()
+    {
+        if ($this->urlVars === null) {
+            $this->parseUrl();
+        }
+        return $this->urlVars;
+    }
+
+    private function parseUrl()
+    {
+        $this->parseUrl();
+        $path = $this->getRelativePath();
+        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
+        $this->urlVars = $urlVars;
+        for ($i=0; $i< sizeof($urlVars); $i++){
+            $urlVars[$i] = urldecode($urlVars[$i]);
+        }
+        if (ipGetOption('Config.multilingual')) {
+            $this->languageUrl = urldecode(array_shift($urlVars));
+        }
+
+        $this->zoneUrl = urldecode(array_shift($urlVars));
+        $this->urlVars = $urlVars;
     }
 }

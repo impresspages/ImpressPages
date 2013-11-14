@@ -42,21 +42,12 @@ if (!defined('IP_CONFIG_FILE')) {
  */
 class Site{
 
-    /** array of variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum') */
-    public $urlVars;
-
-    /** array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility. */
-    public $getVars;
 
     /** bool true if page does not exists */
     private $error404;
     
 
-    /** @deprecated use getCurrentZone()->getUrl() instead */
-    public $zoneUrl;
 
-    /** @deprecated use getCurrentLanguage->getUrl() insead */
-    public $languageUrl; //
 
     /** @deprecated use getCurrentZone()->getName() instead */
     public $currentZone;
@@ -113,30 +104,8 @@ class Site{
         return $this->getVars;
     }
 
-    /**
-     *
-     * @param data array from database
-     * @return Language
-     *
-     *
-     */
-    private function createLanguage($data){
-        $language = new \Ip\Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
-        return $language;
-    }
 
-    /**
-     *
-     * @return array - all website languages. Each element is an object Language
-     *
-     */
-    public function getLanguages(){
-        $languages = array();
-        foreach($this->languages as $key => $data){
-            $languages[] = $this->createLanguage($data);
-        }
-        return $languages;
-    }
+
 
     /**
      *
@@ -187,31 +156,26 @@ class Site{
 
         $dispatcher  = \Ip\ServiceLocator::getDispatcher();
 
-        if (get_magic_quotes_gpc()) {
-            \Ip\Internal\Scripts::fixMagicQuotes();
-        }
 
-        $this->parseUrl();
-
-        $this->languages = \Ip\Frontend\Db::getLanguages(true);
-        if(sizeof($this->languages) == 0){
-            trigger_error('All website languages are hidden.');
-            exit;
-        }
-
-        if($this->languageUrl != null){
-            foreach($this->languages as $key => $language){
-                if($language['url'] == $this->languageUrl){
-                    $this->currentLanguage = $language;
-                }
-            }
-            if($this->currentLanguage == null){
-                $this->currentLanguage = reset($this->languages);
-                $this->error404();
-            }
-        } else {
-            $this->currentLanguage = reset($this->languages);
-        }
+//        $this->languages = \Ip\Frontend\Db::getLanguages(true);
+//        if(sizeof($this->languages) == 0){
+//            trigger_error('All website languages are hidden.');
+//            exit;
+//        }
+//
+//        if($this->languageUrl != null){
+//            foreach($this->languages as $key => $language){
+//                if($language['url'] == $this->languageUrl){
+//                    $this->currentLanguage = $language;
+//                }
+//            }
+//            if($this->currentLanguage == null){
+//                $this->currentLanguage = reset($this->languages);
+//                $this->error404();
+//            }
+//        } else {
+//            $this->currentLanguage = reset($this->languages);
+//        }
 
         setlocale(LC_ALL, $this->currentLanguage['code']);
 
@@ -364,60 +328,7 @@ class Site{
         }
     }
 
-    /**
-     *
-     * @param $zoneName Name of zone you wish to get
-     * @return \Ip\Frontend\Zone
-     *
-     */
-    public function getZone($zoneName){
-        //if refactoring, keep in mind auto_error404 zone!!!
-        if(isset($this->zones[$zoneName]))
-        {
-            if(!isset($this->zones[$zoneName]['object']))
-            {
-                //initialize zone object
-                $tmpZone = $this->zones[$zoneName];
-                if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
-                    if (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
-                    } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    }
-                    eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
-                } else {
-                    if ($tmpZone['associated_module']) {
-                        $class = '\\Plugin\\' . $tmpZone['associated_module'] . '\\Zone';
-                        if (class_exists($class)) {
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        } else {
-                            $class = '\\Ip\\Module\\' . $tmpZone['associated_module'] . '\\Zone';
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        }
-                    } else {
-                        $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
-                    }
-                }
 
-                $tmpZoneObject->setId($tmpZone['id']);
-                $tmpZoneObject->setName($tmpZone['name']);
-                $tmpZoneObject->setLayout($tmpZone['template']);
-                $tmpZoneObject->setTitle($tmpZone['title']);
-                $tmpZoneObject->setUrl($tmpZone['url']);
-                $tmpZoneObject->setKeywords($tmpZone['keywords']);
-                $tmpZoneObject->setDescription($tmpZone['description']);
-                $tmpZoneObject->setAssociatedModuleGroup($tmpZone['associated_group']);
-                $tmpZoneObject->setAssociatedModule($tmpZone['associated_module']);
-
-
-                $this->zones[$zoneName]['object'] = $tmpZoneObject;
-                //end initialize zone object
-            }
-            return $this->zones[$zoneName]['object'];
-        }else{
-            return false;
-        }
-    }
 
     /**
      *
@@ -466,44 +377,7 @@ class Site{
         return $answer;
     }
 
-    /**
-     * Parse url and detect language url, zone url, url variables, get variables
-     *
-     * <b>Example URL</b>
-     *
-     * www.example.com/lt/left-menu/var1/var2/?mod=123
-     *
-     * <b>Result:</b>
-     *
-     * languageUrl - 'lt'
-     *
-     * zoneUrl - 'left-menu'
-     *
-     * urlVars - array(var1, var2)
-     *
-     * getVars - array("mod"=>"123")
-     *
-     * @return void
-     *
-     */
-    private function parseUrl(){
-        global $parametersMod;
 
-        $path = \Ip\Request::getRelativePath();
-
-        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
-         
-        for($i=0; $i< sizeof($urlVars); $i++){
-            $urlVars[$i] = urldecode($urlVars[$i]);
-        }
-        if($parametersMod->getValue('Config.multilingual')) {
-            $this->languageUrl = urldecode(array_shift($urlVars));
-        }
-
-        $this->zoneUrl = urldecode(array_shift($urlVars));
-        $this->urlVars = $urlVars;
-        $this->getVars = \Ip\Request::getQuery();
-    }
 
     /*
      * Redirect to another page if required
@@ -683,82 +557,6 @@ class Site{
     }
 
 
-
-    /**
-     * Pass parameter "a" using GET or POST with value plugin.action to access your plugin Controller public method
-     * Or pass the same parameter naming it "ba" to access secured action in Backend class of your plugin
-     *
-     */
-    public function makeActions(){
-
-
-        if(sizeof($_REQUEST) > 0){
-
-            $actionString = '';
-            if(isset($_REQUEST['aa'])) {
-                $actionString = $_REQUEST['aa'];
-                $controllerClass = 'AdminController';
-            } elseif(isset($_REQUEST['sa'])) {
-                $actionString = $_REQUEST['sa'];
-                $controllerClass = 'SiteController';
-            } elseif(isset($_REQUEST['pa'])) {
-                $actionString = $_REQUEST['pa'];
-                $controllerClass = 'PublicController';
-            }
-
-            if ($actionString) {
-                $parts = explode('.', $actionString);
-                $module = array_shift($parts);
-                if (isset($parts[0])) {
-                    $action = $parts[0];
-                } else {
-                    $action = 'index';
-                }
-                //check if user is logged in
-                if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
-                    header('location: ' . \Ip\Config::baseUrl('') . 'admin');
-                    exit;
-                }
-
-
-                if ($this->isDefaultModule($module)) {
-                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                } else {
-                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                }
-                if (!class_exists($controllerClass)) {
-                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
-                }
-                $controller = new $controllerClass();
-                $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-                $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-                $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-
-                $answer = $controller->$action();
-                if ($answer) {
-                    $this->setBlockContent('main', $answer);
-                }
-            }
-
-//            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
-//                $controller = new \Ip\Module\Admin\Backend();
-//
-//                ob_start();
-//                $controller->deprecatedBootstrap();
-//                $output = ob_get_clean();
-//
-//                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
-//            }
-        }
-
-
-
-    }
-
-    private function isDefaultModule($moduleName)
-    {
-        return in_array($moduleName, \Ip\Module\Plugins\Model::getModules());
-    }
 
     /**
      *

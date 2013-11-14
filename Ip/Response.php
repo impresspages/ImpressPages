@@ -1,49 +1,174 @@
 <?php
-/**
- * @package   ImpressPages
- */
 
 namespace Ip;
 
-
 class Response
 {
-    static $headers = array();
-    static $status = 200;
 
-    public static function reset()
+    protected $statusCode = 200;
+    protected $statusMessage = null;
+    protected $headers = array();
+    protected $content = null;
+
+
+    public function addHeader($value)
     {
-        self::$headers = array();
+        $this->headers[] = $value;
     }
 
-    public static function redirect($url)
+    public function getHeaders()
     {
-        self::header('Location: ' . $url);
-        self::status(302);
+        return $this->headers;
     }
 
-    public static function pageNotFound()
+    /**
+     * @param  int $code
+     * @return Response
+     */
+    public function setStatusCode($code)
     {
-        self::status(404);
-        self::header('HTTP/1.0 404 Not Found');
+        $this->statusCode = (int) $code;
+        return $this;
     }
 
-    public static function header($header)
+    /**
+     * Retrieve HTTP status code
+     *
+     * @return int
+     */
+    public function getStatusCode()
     {
-        self::$headers[]= $header;
+        return $this->statusCode;
     }
 
-    public static function headers()
+    /**
+     * @param string $reasonPhrase
+     * @return Response
+     */
+    public function setStatusMessage($message)
     {
-        return self::$headers;
+        $this->statusMessage = $message;
+        return $this;
     }
 
-    public static function status($code = null)
+    /**
+     * @return bool
+     */
+    public function isClientError()
     {
-        if ($code) {
-            self::$status = $code;
+        $code = $this->getStatusCode();
+        $error = $code < 500 && $code >= 400;
+        return ($error);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForbidden()
+    {
+        $forbidden = 403 == $this->getStatusCode();
+        return $forbidden;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInformational()
+    {
+        $code = $this->getStatusCode();
+        $info = $code >= 100 && $code < 200;
+        return $info;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotFound()
+    {
+        $notFound = 404 === $this->getStatusCode();
+        return $notFound;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOk()
+    {
+        $ok = 200 === $this->getStatusCode();
+        return $ok;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isServerError()
+    {
+        $code = $this->getStatusCode();
+        $error =  500 <= $code && 600 > $code;
+        return $error;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRedirect()
+    {
+        $code = $this->getStatusCode();
+        $redirect = 300 <= $code && 400 > $code;
+        return $redirect;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuccess()
+    {
+        $code = $this->getStatusCode();
+        $success = 200 <= $code && 300 > $code;
+        return $success;
+    }
+
+
+    /**
+     * @param String $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->getContent();
+    }
+
+    public function send()
+    {
+        $headers = $this->getHeaders();
+        foreach($headers as $header) {
+            header($header);
         }
-
-        return self::$status;
+        if ($this->getStatusCode()) {
+            if (function_exists('http_response_code')) {
+                http_response_code($this->getStatusCode());
+            } else {
+                header('X-Ignore-This: workaround', true, $this->getStatusCode());
+            }
+        }
+        echo $this->getContent();
     }
+
+
 }
