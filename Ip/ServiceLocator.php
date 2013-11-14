@@ -19,6 +19,7 @@ class ServiceLocator
 {
     protected static $requests = array();
     protected static $dispatchers = array();
+    protected static $contents = array();
     protected static $config = null;
     protected static $log = null;
 
@@ -105,6 +106,7 @@ class ServiceLocator
     {
         self::$requests[] = $request;
         self::$dispatchers[] = new \Ip\Dispatcher();
+        self::$contents[] = new \Ip\Content();
     }
 
     /**
@@ -115,6 +117,7 @@ class ServiceLocator
         if (count(self::$requests) >1 ) {
             array_pop(self::$dispatchers);
             array_pop(self::$requests);
+            array_pop(self::$contents);
         }
     }
 
@@ -130,5 +133,13 @@ class ServiceLocator
     {
         array_pop(self::$requests);
         self::$requests[] = $request;
+    }
+
+    /**
+     * @return \Ip\Content
+     */
+    public static function getContent()
+    {
+        return end(self::$contents);
     }
 }

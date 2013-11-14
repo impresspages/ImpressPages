@@ -119,23 +119,6 @@ class Application {
 
             if ($site->getOutput()) {
                 $response->setContent($site->getOutput());
-            } else {
-                if (\Ip\Module\Admin\Model::isSafeMode()) {
-                    //TODOX skip this for admin pages with admin layout
-                    $response->setContent(\Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render());
-                }
-
-
-                $layout = $site->getLayout();
-                if ($layout) {
-                    if ($layout[0] == '/') {
-                        $viewFile = $layout;
-                    } else {
-                        $viewFile = \Ip\Config::themeFile($layout);
-                    }
-                    $this->output = \Ip\View::create($viewFile, array())->render();
-
-                }
             }
 
             return $this->output;

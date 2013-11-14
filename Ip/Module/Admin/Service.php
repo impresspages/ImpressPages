@@ -19,4 +19,10 @@ class Service
         $system = new System();
         return $system->injectAdminHtml($html);
     }
+
+    public static function isSafeMode()
+    {
+        return \Ip\Module\Admin\Model::isSafeMode();
+    }
+
 }

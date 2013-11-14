@@ -54,7 +54,7 @@ class Block
             }
 
             if ($this->name == 'main') {
-                $currentElement =  $site->getCurrentElement();
+                $currentElement =  $site->getCurrentPage();
                 if (!($currentElement instanceof \Ip\Module\Content\Element)) {
                     return $currentElement->generateContent();
                 }

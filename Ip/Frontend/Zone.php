@@ -131,7 +131,7 @@ abstract class Zone{
         if($elementId !== null)
         $element = $this->getElement($elementId);
         else
-        $element = $this->getCurrentElement();
+        $element = $this->getCurrentPage();
          
         if($element){
             $elements[] = $element;
@@ -153,17 +153,17 @@ abstract class Zone{
      * @return Element - element that represents current requested page.
      *
      */
-    public function getCurrentElement(){
-        global $site;
+    public function getCurrentPage(){
         if($this->currentElement !== null){
             return $this->currentElement;
         }
-        if($this->name != $site->currentZone){
+        $content = \Ip\ServiceLocator::getContent();
+        if($this->name != $content->getCurrentZone()->getName()){
             $this->currentElement = null;
             return null;
         }
 
-        $this->currentElement = $this->findElement($site->urlVars, $site->getVars);
+        $this->currentElement = $this->findElement($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
         return $this->currentElement;
     }
 
@@ -198,8 +198,8 @@ abstract class Zone{
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;
                 } else {
-                    if($this->getCurrentElement()){
-                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentElement()->getId());
+                    if($this->getCurrentPage()){
+                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentPage()->getId());
                         return $this->breadcrumb;
                     } else {
                         return array();
