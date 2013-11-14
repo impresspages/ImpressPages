@@ -59,12 +59,12 @@ class System{
             &&
            ($site->languageUrl != '' || $site->zoneUrl != '' || sizeof($site->getUrlVars()) > 0 || sizeof($site->getGetVars()) > 0 )
         ){
-            \Ip\Response::redirect(\Ip\Config::baseUrl(''));
+            \Ip\ResponseSugar::redirect(\Ip\Config::baseUrl(''));
 
             // TODOX make it not necessary
             $site->setOutput(null);
         }else{
-            \Ip\Response::pageNotFound();
+            \Ip\ResponseSugar::pageNotFound();
         }
     }
     

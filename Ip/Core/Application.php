@@ -44,67 +44,29 @@ class Application {
         }
     }
 
-    public function __construct()
+
+
+    public function handleRequest(\Ip\Internal\Request $request)
     {
-    }
+        global $site;
+        \Ip\ServiceLocator::addRequest($request);
+        $response = new \Ip\Response();
 
-    public function handleRequest()
-    {
-        //parse request
+        $request->fixMagicQuotes();
 
-
-        //initialize plugins
-
-
-        //execute controller
-
-        global $site, $parametersMod, $dispatcher;
-
-        \Ip\Response::reset();
-
-        $site->init();
-        /*detect browser language*/
-        if((!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') && $parametersMod->getValue('standard', 'languages', 'options', 'detect_browser_language') && $site->getCurrentUrl() == \Ip\Config::baseUrl('') && !isset($_SESSION['modules']['standard']['languages']['language_selected_by_browser']) && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')){
-            require_once \Ip\Config::libraryFile('php/browser_detection/language.php');
-
-            $browserLanguages = \Ip\Browser::getLanguages();
-            $selectedLanguageId = null;
-            foreach($browserLanguages as $browserLanguageKey => $browserLanguage){
-                foreach($site->languages as $siteLanguageKey => $siteLanguage){
-                    if(strpos($browserLanguage, '-') !== false) {
-                        $browserLanguage = substr($browserLanguage, 0, strpos($browserLanguage, '-'));
-                    }
-                    if(strpos($siteLanguage['code'], '-') !== false) {
-                        $siteLanguage['code'] = substr($siteLanguage['code'], 0, strpos($siteLanguage['code'], '-'));
-                    }
-
-                    if($siteLanguage['code'] == $browserLanguage){
-                        $selectedLanguageId = $siteLanguage['id'];
-                        break;
-                    }
-                }
-                if ($selectedLanguageId != null) {
-                    break;
-                }
-            }
-
-            if($selectedLanguageId != $site->currentLanguage['id'] && $selectedLanguageId !== null)
-                header("location:".$site->generateUrl($selectedLanguageId));
-        }
-        $_SESSION['modules']['standard']['languages']['language_selected_by_browser'] = true;
-        /*eof detect browser language*/
-
-        $language = $site->getCurrentLanguage();
+        $language = ipGetCurrentLanguage();
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
-        $session = \Ip\ServiceLocator::getApplication();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
-            (empty($_POST['securityToken']) || $_POST['securityToken'] !=  $session->getSecurityToken()) && empty($_POST['pa'])
-        ) {
+        //$this->modulesInit();
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($site, 'site.afterInit', null));
+
+
+        $application = \Ip\ServiceLocator::getApplication();
+        if ($request->isPost() && ($request->getPost('securityToken') !=  $application->getSecurityToken()) && empty($_POST['pa'])) {
             $log = \Ip\ServiceLocator::getLog();
             $log->log('ImpressPages Core', 'CSRF check', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
             $data = array(
@@ -115,53 +77,113 @@ class Application {
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
             }
-
-            \Ip\Response::header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-            return json_encode($data);
+            $response->addHeader('Content-type: text/json; charset=utf-8');
+            $response->setContent(json_encode($data));
+            \Ip\ServiceLocator::removeRequest();
+            return $response;
         }
 
-        $site->modulesInit();
-        $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
 
 
 
 
-        $site->makeActions(); //all posts are handled by "site" and redirected to current module actions.php before any output.
+
+        if (sizeof($request->getRequest()) > 0) {
+
+            $actionString = '';
+            if(isset($_REQUEST['aa'])) {
+                $actionString = $_REQUEST['aa'];
+                $controllerClass = 'AdminController';
+            } elseif(isset($_REQUEST['sa'])) {
+                $actionString = $_REQUEST['sa'];
+                $controllerClass = 'SiteController';
+            } elseif(isset($_REQUEST['pa'])) {
+                $actionString = $_REQUEST['pa'];
+                $controllerClass = 'PublicController';
+            }
+
+            if ($actionString) {
+                $parts = explode('.', $actionString);
+                $module = array_shift($parts);
+                if (isset($parts[0])) {
+                    $action = $parts[0];
+                } else {
+                    $action = 'index';
+                }
+                //check if user is logged in
+                if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
+                    header('location: ' . \Ip\Config::baseUrl('') . 'admin');
+                    exit;
+                }
+                //TODOX check if user has access to given module
 
 
-        if (!$site->managementState() && !\Ip\Module\Design\ConfigModel::instance()->isInPreviewState()) {
-            $site->makeRedirect(); //if required;
+                if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
+                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+                } else {
+                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+                }
+                if (!class_exists($controllerClass)) {
+                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
+                }
+                $controller = new $controllerClass();
+                $site->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
+                $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+                $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+
+                $answer = $controller->$action();
+
+                if (is_string($answer)) {
+                    $this->setBlockContent('main', $answer);
+                } elseif ($answer instanceof \Ip\Response) {
+                    \Ip\ServiceLocator::removeRequest();
+                    return $answer;
+                } elseif ($response === NULL) {
+                    \Ip\ServiceLocator::removeRequest();
+                    return $response;
+                } else {
+                    throw new \Ip\CoreException('Unknown response');
+                }
+            }
+
+
         }
 
-        return $site->generateOutput();
+        \Ip\ServiceLocator::removeRequest();
+        return $response;
+
+//        $response =  $site->generateOutput();
+
+
+
+
     }
 
     public function run()
     {
-        $response = $this->handleRequest();
+        $request = new \Ip\Internal\Request();
+        $request->setGet($_GET);
+        $request->setPost($_POST);
+        $request->setServer($_SERVER);
+        $request->setRequest($_REQUEST);
+        $response = $this->handleRequest($request);
         $this->handleResponse($response);
         $this->close();
     }
 
-    public function handleResponse($response)
+    /**
+     * @param \Ip\Response $response
+     * @throws \Ip\CoreException
+     */
+    public function handleResponse(\Ip\Response $response)
     {
-        if (is_string($response)) {
-            // global $dispather, $site;
-            // $dispatcher->notify(new \Ip\Event($site, 'site.outputGenerated', array('output' => &$response)));
-            echo $response;
-            // $dispatcher->notify(new \Ip\Event($site, 'site.outputPrinted', array('output' => &$response)));
-        } elseif ($response instanceof \Ip\Response\ResponseInterface) {
-            $response->send();
-        } elseif ($response === NULL) {
-            // TODOX should we do something
-        } else {
-            throw new \Ip\CoreException('Unknown response');
-        }
+        $response->send();
     }
 
     public function close()
     {
-        global $dispatcher, $site, $log;
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+        global $site;
 
         /*
          Automatic execution of cron.

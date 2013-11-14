@@ -16,7 +16,20 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::getOptions()->setOption($option, $value);
 }
 
+function ipGetCurrentZone()
+{
+    return \Ip\Content::instance()->getCurrentZone();
+}
 
+function ipGetCurrentLanguage()
+{
+    return \Ip\Content::instance()->getCurrentLanguage();
+}
+
+function ipGetCurrentPage()
+{
+    return \Ip\Content::instance()->getCurrentPage();
+}
 
 
 

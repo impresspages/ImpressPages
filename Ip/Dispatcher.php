@@ -15,12 +15,12 @@ namespace Ip;
  */
 class Dispatcher{
 
-    private $_handlers;
+    private $handlers;
     protected $initCompleted = false;
 
 
     public function __construct() {
-        $this->_handlers = array();
+        $this->handlers = array();
         $this->bind('site.afterInit', array($this, 'registerInit'));
     }
 
@@ -47,11 +47,11 @@ class Dispatcher{
             throw new CoreException($errorMessage, CoreException::EVENT);
         }
 
-        if (! isset($this->_handlers[$eventName])) {
-            $this->_handlers[$eventName] = array();
+        if (! isset($this->handlers[$eventName])) {
+            $this->handlers[$eventName] = array();
         }
 
-        $this->_handlers[$eventName][] = $callable;
+        $this->handlers[$eventName][] = $callable;
     }
 
     public function notify(Event $event) {
@@ -64,11 +64,11 @@ class Dispatcher{
             }
             throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
         }
-        if ( ! isset($this->_handlers[$event->getName()])) {
+        if ( ! isset($this->handlers[$event->getName()])) {
             return false;
         }
 
-        foreach ($this->_handlers[$event->getName()] as $callable) {
+        foreach ($this->handlers[$event->getName()] as $callable) {
             call_user_func($callable, $event);
         }
 
@@ -77,16 +77,37 @@ class Dispatcher{
 
 
     public function notifyUntil(Event $event) {
-        if ( ! isset($this->_handlers[$event->getName()])) {
+        if ( ! isset($this->handlers[$event->getName()])) {
             return false;
         }
 
-        foreach ($this->_handlers[$event->getName()] as $callable) {
+        foreach ($this->handlers[$event->getName()] as $callable) {
             call_user_func($callable, $event);
             if ($event->getProcessed() > 0){
                 return $event->getProcessed();
             }
         }
     }
+
+    //TODOX remove the comment :)
+//    public function addRequest()
+//    {
+//        $this->frozenStates[] = array(
+//            'handlers' => $this->handlers,
+//            'initCompleted' => $this->initCompleted,
+//        );
+//        $this->handlers = array();
+//        $this->initCompleted = false;
+//    }
+//
+//    public function removeRequest()
+//    {
+//        $frozenRequest = array_pop($this->frozenStates);
+//        if (!$frozenRequest) {
+//            throw new \Ip\CoreException("No request to remove");
+//        }
+//        $this->handlers = $frozenRequest['handlers'];
+//        $this->initCompleted = $frozenRequest['initCompleted'];
+//    }
 
 }
