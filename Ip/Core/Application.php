@@ -105,24 +105,25 @@ class Application {
 
         $action = $request->getControllerAction();
         $controllerAnswer = $controller->$action();
-
         if (is_string($controllerAnswer)) {
-            if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
-                $site->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-                $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-                $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-            }
-
-
-
-            $site->setBlockContent('main', $controllerAnswer);
-
-            if ($site->getOutput()) {
-                $response->setContent($site->getOutput());
-            }
-
-            return $this->output;
-            \Ip\ServiceLocator::removeRequest();
+//            if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
+//                $site->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
+//                $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+//                $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+//            }
+//
+//
+//
+//            $site->setBlockContent('main', $controllerAnswer);
+//
+//            if ($site->getOutput()) {
+//                $response->setContent($site->getOutput());
+//            }
+//
+//            return $this->output;
+//            $response = new \Ip\Response();
+//
+//            \Ip\ServiceLocator::removeRequest();
             return $response;
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
