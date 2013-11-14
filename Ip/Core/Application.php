@@ -50,7 +50,7 @@ class Application {
     {
         global $site;
         \Ip\ServiceLocator::addRequest($request);
-        $response = new \Ip\Response();
+
 
         $request->fixMagicQuotes();
 
@@ -77,6 +77,7 @@ class Application {
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
             }
+            $response = new \Ip\Response();
             $response->addHeader('Content-type: text/json; charset=utf-8');
             $response->setContent(json_encode($data));
             \Ip\ServiceLocator::removeRequest();
@@ -84,78 +85,72 @@ class Application {
         }
 
 
+        $controllerClass = $request->getControllerClass();
+        if (!class_exists($controllerClass)) {
+            throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
+        }
+
+        $controller = new $controllerClass();
+
+        //check if user is logged in
+        if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Backend::userId()) {
+            //TODOX check if user has access to given module
+            $response = new \Ip\Response();
+            $response->addHeader('location: ' . \Ip\Config::baseUrl('') . 'admin');
+            \Ip\ServiceLocator::removeRequest();
+            return $response;
+        }
 
 
 
+        $action = $request->getControllerAction();
+        $controllerAnswer = $controller->$action();
 
-        if (sizeof($request->getRequest()) > 0) {
-
-            $actionString = '';
-            if(isset($_REQUEST['aa'])) {
-                $actionString = $_REQUEST['aa'];
-                $controllerClass = 'AdminController';
-            } elseif(isset($_REQUEST['sa'])) {
-                $actionString = $_REQUEST['sa'];
-                $controllerClass = 'SiteController';
-            } elseif(isset($_REQUEST['pa'])) {
-                $actionString = $_REQUEST['pa'];
-                $controllerClass = 'PublicController';
-            }
-
-            if ($actionString) {
-                $parts = explode('.', $actionString);
-                $module = array_shift($parts);
-                if (isset($parts[0])) {
-                    $action = $parts[0];
-                } else {
-                    $action = 'index';
-                }
-                //check if user is logged in
-                if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
-                    header('location: ' . \Ip\Config::baseUrl('') . 'admin');
-                    exit;
-                }
-                //TODOX check if user has access to given module
-
-
-                if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
-                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                } else {
-                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                }
-                if (!class_exists($controllerClass)) {
-                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
-                }
-                $controller = new $controllerClass();
+        if (is_string($controllerAnswer)) {
+            if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
                 $site->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
                 $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
                 $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-
-                $answer = $controller->$action();
-
-                if (is_string($answer)) {
-                    $this->setBlockContent('main', $answer);
-                } elseif ($answer instanceof \Ip\Response) {
-                    \Ip\ServiceLocator::removeRequest();
-                    return $answer;
-                } elseif ($response === NULL) {
-                    \Ip\ServiceLocator::removeRequest();
-                    return $response;
-                } else {
-                    throw new \Ip\CoreException('Unknown response');
-                }
             }
 
 
+
+            $site->setBlockContent('main', $controllerAnswer);
+
+            if ($site->getOutput()) {
+                $response->setContent($site->getOutput());
+            } else {
+                if (\Ip\Module\Admin\Model::isSafeMode()) {
+                    //TODOX skip this for admin pages with admin layout
+                    $response->setContent(\Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render());
+                }
+
+
+                $layout = $site->getLayout();
+                if ($layout) {
+                    if ($layout[0] == '/') {
+                        $viewFile = $layout;
+                    } else {
+                        $viewFile = \Ip\Config::themeFile($layout);
+                    }
+                    $this->output = \Ip\View::create($viewFile, array())->render();
+
+                }
+            }
+
+            return $this->output;
+            \Ip\ServiceLocator::removeRequest();
+            return $response;
+        } elseif ($controllerAnswer instanceof \Ip\Response) {
+            \Ip\ServiceLocator::removeRequest();
+            return $controllerAnswer;
+        } elseif ($response === NULL) {
+            $response = new \Ip\Response();
+            \Ip\ServiceLocator::removeRequest();
+            return $response;
+        } else {
+            throw new \Ip\CoreException('Unknown response');
         }
-
-        \Ip\ServiceLocator::removeRequest();
-        return $response;
-
-//        $response =  $site->generateOutput();
-
-
-
 
     }
 

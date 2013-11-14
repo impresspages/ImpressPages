@@ -19,13 +19,28 @@ class Request
     protected $_POST = array();
     protected $_GET = array();
     protected $_REQUEST = array();
-    protected $currentLanguage;
+    protected $currentLanguage = null;
 
 
 
-    protected $languageUrl;
-    protected $urlVars;
-    protected $zoneUrl;
+    protected $languageUrl = null;
+    protected $urlVars = null;
+    protected $zoneUrl = null;
+    protected $controllerAction = null;
+    protected $controllerClass = null;
+    protected $controllerType = null;
+    protected $defaultControllerAction = 'index';
+    protected $defaultControllerClass = '\\Ip\\Module\\Content\\PublicController';
+
+    const CONTROLLER_TYPE_PUBLIC = 0;
+    const CONTROLLER_TYPE_SITE = 1;
+    const CONTROLLER_TYPE_ADMIN = 2;
+
+
+    /**
+     * @var \Ip\controller
+     */
+    protected $controller = null;
 
 
     public function __construct()
@@ -238,4 +253,76 @@ class Request
         $this->zoneUrl = urldecode(array_shift($urlVars));
         $this->urlVars = $urlVars;
     }
+
+
+    public function setController(\Ip\Controller $controller)
+    {
+        $this->controller = $controller;
+    }
+
+    public function getControllerAction()
+    {
+        if (!$this->controllerAction) {
+            $this->parseControllerAction();
+        }
+        return $this->controllerAction;
+    }
+
+    public function getControllerClass()
+    {
+        if (!$this->controllerClass) {
+            $this->parseControllerAction();
+        }
+        return $this->controllerClass;
+    }
+
+    protected function parseControllerAction()
+    {
+        $action = $this->defaultControllerAction;
+        $controllerClass = $this->defaultControllerClass;
+        $controllerType = self::CONTROLLER_TYPE_PUBLIC;
+        if (sizeof($this->getRequest()) > 0) {
+            $actionString = null;
+            if(isset($_REQUEST['aa'])) {
+                $actionString = $_REQUEST['aa'];
+                $controllerClass = 'AdminController';
+                $controllerType = self::CONTROLLER_TYPE_ADMIN;
+            } elseif(isset($_REQUEST['sa'])) {
+                $actionString = $_REQUEST['sa'];
+                $controllerClass = 'SiteController';
+            } elseif(isset($_REQUEST['pa'])) {
+                $actionString = $_REQUEST['pa'];
+                $controllerClass = 'PublicController';
+            }
+
+            if ($actionString) {
+                $parts = explode('.', $actionString);
+                $module = array_shift($parts);
+                if (isset($parts[0])) {
+                    $action = $parts[0];
+                }
+
+
+                if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
+                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+                } else {
+                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+                }
+            }
+
+        }
+
+        $this->controllerClass = $controllerClass;
+        $this->controllerAction = $action;
+        $this->controllertype = $controllerType;
+    }
+
+    public function getControllerType()
+    {
+        if ($this->controllerType === null) {
+            $this->parseControllerAction();
+        }
+        return $this->controllerType;
+    }
+
 }
