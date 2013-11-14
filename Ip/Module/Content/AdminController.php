@@ -166,18 +166,18 @@ class AdminController extends \Ip\Controller
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revision) {
-            $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId'];
+            $managementUrls[] = $site->getCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
         }
 
         $revision = $site->getRevision();
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
-        $page = $site->getCurrentElement();
+        $page = $site->getCurrentPage();
 
         $data = array (
             'widgets' => $widgets,
@@ -632,9 +632,9 @@ class AdminController extends \Ip\Controller
 
         $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
-            $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
+            $newRevisionUrl = $site->getCurrentPage()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
         } else {
-            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$lastRevision['revisionId'];
+            $newRevisionUrl = $site->getCurrentPage()->getLink().'&cms_revision='.$lastRevision['revisionId'];
         }
 
         $data = array (

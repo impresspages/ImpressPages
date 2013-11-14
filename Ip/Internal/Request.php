@@ -23,9 +23,7 @@ class Request
 
 
 
-    protected $languageUrl = null;
-    protected $urlVars = null;
-    protected $zoneUrl = null;
+
     protected $controllerAction = null;
     protected $controllerClass = null;
     protected $controllerType = null;
@@ -45,11 +43,6 @@ class Request
 
     public function __construct()
     {
-        $this->_SERVER = $_SERVER;
-        $this->_POST = $_POST;
-        $this->_GET = $_GET;
-        $this->_REQUEST = $_REQUEST;
-//        $this->parseUrl();
     }
 
     public function setPost($post)
@@ -219,40 +212,6 @@ class Request
         unset($process);
     }
 
-    public function getZoneUrl()
-    {
-        return $this->zoneUrl;
-    }
-
-    public function getLanguageUrl()
-    {
-        return $this->languageUrl;
-    }
-
-    public function getUrlVars()
-    {
-        if ($this->urlVars === null) {
-            $this->parseUrl();
-        }
-        return $this->urlVars;
-    }
-
-    private function parseUrl()
-    {
-        $this->parseUrl();
-        $path = $this->getRelativePath();
-        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
-        $this->urlVars = $urlVars;
-        for ($i=0; $i< sizeof($urlVars); $i++){
-            $urlVars[$i] = urldecode($urlVars[$i]);
-        }
-        if (ipGetOption('Config.multilingual')) {
-            $this->languageUrl = urldecode(array_shift($urlVars));
-        }
-
-        $this->zoneUrl = urldecode(array_shift($urlVars));
-        $this->urlVars = $urlVars;
-    }
 
 
     public function setController(\Ip\Controller $controller)
@@ -290,9 +249,11 @@ class Request
             } elseif(isset($_REQUEST['sa'])) {
                 $actionString = $_REQUEST['sa'];
                 $controllerClass = 'SiteController';
+                $controllerType = self::CONTROLLER_TYPE_SITE;
             } elseif(isset($_REQUEST['pa'])) {
                 $actionString = $_REQUEST['pa'];
                 $controllerClass = 'PublicController';
+                $controllerType = self::CONTROLLER_TYPE_PUBLIC;
             }
 
             if ($actionString) {

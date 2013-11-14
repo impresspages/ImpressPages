@@ -22,7 +22,7 @@
         <?php echo $this->generateManagedLogo(); ?>
 
         <div class="right">
-            <span class="currentPage"><?php echo $site->getCurrentElement()->getButtonTitle(); ?></span>
+            <span class="currentPage"><?php echo $site->getCurrentPage()->getButtonTitle(); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php

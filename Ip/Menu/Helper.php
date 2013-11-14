@@ -82,7 +82,7 @@ class Helper
             $zoneName = $site->getCurrentZone()->getName();
         }
         if ($pageId === null) {
-            $pageId = $site->getCurrentElement()->getId();
+            $pageId = $site->getCurrentPage()->getId();
         }
         $zone = $site->getZone($zoneName);
 

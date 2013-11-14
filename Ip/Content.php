@@ -20,30 +20,59 @@ class Content {
      */
     protected $languages;
 
-    protected function __construct() {}
-    protected function __clone(){}
+    protected $layout;
 
-    /**
-     * Get singleton instance
-     * @return Content
-     */
-    public static function instance()
+    protected $zones = null;
+    protected $zonesData = null;
+
+    protected $languageUrl = null;
+    protected $urlVars = null;
+    protected $zoneUrl = null;
+    protected $currentZoneName = null;
+
+
+    public function setLayout($layout)
     {
-        return new self();
+        $this->layout = $layout;
     }
 
+    public function getLayout()
+    {
+        if (!$this->layout) {
+            $layout = 'main.php';
+
+            $zone = $this->getCurrentZone();
+            if ($zone) {
+                $page = $this->getCurrentPage();
+                if ($page) {
+                    $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
+                }
+
+                if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
+                    $layout = $zone->getLayout();
+                }
+
+            }
+            if (!is_file(\Ip\Config::themeFile($layout))) {
+                $layout = 'main.php';
+            }
+
+            $this->layout = $layout;
+        }
+
+        return $this->layout;
+    }
+
+    /**
+     * @return \Ip\Frontend\Language
+     */
     public function getCurrentLanguage()
     {
         if (!$this->currentLanguage) {
-            $languageUrl = \Ip\ServiceLocator::getRequest()->getLanguageUrl();
-            if ($languageUrl === null) {
-                $allLanguages = $this->getLanguages();
-                $this->currentLanguage = reset($allLanguages);
-            } else {
-                foreach ($this->languages as $language) {
-                    if ($language->getUrl() == $languageUrl) {
-                        $this->currentLanguage = $language;
-                    }
+            $languageUrl = $this->getLanguageUrl();
+            foreach ($this->getLanguages() as $language) {
+                if ($language->getUrl() == $languageUrl) {
+                    $this->currentLanguage = $language;
                 }
             }
         }
@@ -58,110 +87,55 @@ class Content {
      */
     public function getZone($zoneName)
     {
-        //if refactoring, keep in mind auto_error404 zone!!!
-        if(isset($this->zones[$zoneName]))
+        if (isset($this->zones[$zoneName])) {
+            return $this->zones[$zoneName];
+        }
+
+        $zonesData= $this->getZonesData();
+
+        if(!isset($zonesData[$zoneName]))
         {
-            if(!isset($this->zones[$zoneName]['object']))
-            {
-                //initialize zone object
-                $tmpZone = $this->zones[$zoneName];
-                if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
-                    if (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
-                    } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    }
-                    eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
-                } else {
-                    if ($tmpZone['associated_module']) {
-                        $class = '\\Plugin\\' . $tmpZone['associated_module'] . '\\Zone';
-                        if (class_exists($class)) {
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        } else {
-                            $class = '\\Ip\\Module\\' . $tmpZone['associated_module'] . '\\Zone';
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        }
-                    } else {
-                        $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
-                    }
-                }
-
-                $tmpZoneObject->setId($tmpZone['id']);
-                $tmpZoneObject->setName($tmpZone['name']);
-                $tmpZoneObject->setLayout($tmpZone['template']);
-                $tmpZoneObject->setTitle($tmpZone['title']);
-                $tmpZoneObject->setUrl($tmpZone['url']);
-                $tmpZoneObject->setKeywords($tmpZone['keywords']);
-                $tmpZoneObject->setDescription($tmpZone['description']);
-                $tmpZoneObject->setAssociatedModuleGroup($tmpZone['associated_group']);
-                $tmpZoneObject->setAssociatedModule($tmpZone['associated_module']);
-
-
-                $this->zones[$zoneName]['object'] = $tmpZoneObject;
-                //end initialize zone object
-            }
-            return $this->zones[$zoneName]['object'];
-        } else {
             return false;
         }
+
+        $zoneData = $this->zonesData[$zoneName];
+        $this->zones[$zoneName] = $this->createZone($zoneData);
+        return $this->zones[$zoneName];
+
     }
 
     /**
      *
-     * @return array All registered zones. Use with caution. On big websites it can be very resource demanding operation because it requires all zone objects to be created.
+     * @return \Ip\Frontend\Zone[]
      *
      */
     public function getZones(){
         $answer = array();
-        foreach($this->zones as $zone){
-            $answer[] = $this->getZone($zone['name']);
+        foreach ($this->getZonesData() as $zoneData) {
+            $answer[] = $this->getZone($zoneData['name']);
         }
         return $answer;
     }
 
+    protected function getZonesData()
+    {
+        if (!$this->zonesData) {
+            $this->zonesData = \Ip\Frontend\Db::getZones($this->getCurrentLanguage()->getId());
+        }
+        return $this->zonesData;
+    }
+
     public function getCurrentZone()
     {
-        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zone) {
-            $this->zones[$zone['name']] = $zone;
+        if ($this->currentZoneName === null) {
+            $this->parseUrl();
         }
-
-        if (sizeof($zones) == 0) {
-            trigger_error('Please insert at least one zone.');
-            \Ip\Internal\Deprecated\Db::disconnect();
-            exit;
-        }
-
-
-        //find current zone
-        if ($this->zoneUrl) {
-            foreach ($zones as $key => $zone) {
-                if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
-                    $this->currentZone = $zone['name'];
-                    break;
-                }
-            }
-        } else {
-            foreach ($this->zones as $key => $zone) { //find first not empty zone.
-                $this->currentZone = $key;
-                if ($this->getZone($key)->getCurrentElement()) {
-                    break;
-                }
-            }
-        }
-
-        if (!$this->currentZone) {
-            $this->homeZone();
-        }
-
-        if (!$this->currentZone) {
-            $this->error404();
-        }
+        return $this->getZone($this->currentZoneName);
     }
 
     public function getCurrentPage()
     {
-
+        return $this->getCurrentZone()->getCurrentPage();
     }
 
 
@@ -192,9 +166,121 @@ class Content {
      *
      *
      */
-    private function createLanguage($data){
+    private function createLanguage($data)
+    {
         $language = new \Ip\Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
         return $language;
     }
+
+    private function createZone($zoneData)
+    {
+        if ($zoneData['associated_module']) {
+            $class = '\\Ip\\Module\\' . $zoneData['associated_module'] . '\\Zone';
+            if (class_exists($class)) {
+                $zoneObject = new $class($zoneData['name']);
+            } else {
+                $class = '\\Plugin\\' . $zoneData['associated_module'] . '\\Zone';
+                $zoneObject = new $class($zoneData['name']);
+            }
+        } else {
+            $zoneObject = new \Ip\Frontend\DefaultZone($zoneData);
+        }
+
+        $zoneObject->setId($zoneData['id']);
+        $zoneObject->setName($zoneData['name']);
+        $zoneObject->setLayout($zoneData['template']);
+        $zoneObject->setTitle($zoneData['title']);
+        $zoneObject->setUrl($zoneData['url']);
+        $zoneObject->setKeywords($zoneData['keywords']);
+        $zoneObject->setDescription($zoneData['description']);
+        $zoneObject->setAssociatedModuleGroup($zoneData['associated_group']);
+        $zoneObject->setAssociatedModule($zoneData['associated_module']);
+        return $zoneObject;
+    }
+
+
+
+    public function getZoneUrl()
+    {
+        if ($this->zoneUrl === null) {
+            $this->parseUrl();
+        }
+        return $this->zoneUrl;
+    }
+
+    public function getLanguageUrl()
+    {
+        if ($this->languageUrl === null) {
+            $this->parseUrl();
+        }
+        return $this->languageUrl;
+    }
+
+    public function getUrlVars()
+    {
+        if ($this->urlVars === null) {
+            $this->parseUrl();
+        }
+        return $this->urlVars;
+    }
+
+    private function parseUrl()
+    {
+        $path = \Ip\ServiceLocator::getRequest()->getRelativePath();
+        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
+        if ($urlVars[0] == '') {
+            array_shift($urlVars);
+        }
+        $this->urlVars = $urlVars;
+        for ($i=0; $i< sizeof($urlVars); $i++){
+            $urlVars[$i] = urldecode($urlVars[$i]);
+        }
+        if (ipGetOption('Config.multilingual')) {
+            $this->languageUrl = urldecode(array_shift($urlVars));
+        } else {
+            $firstLanguageData = \Ip\Frontend\Db::getFirstLanguage();
+            $this->languageUrl = $firstLanguageData['url'];
+        }
+
+        $zonesData = $this->getZonesData();
+
+        if (count($urlVars)) {
+            $potentialZoneUrl = urldecode($urlVars[0]);
+            foreach ($zonesData as $zoneData) {
+                if ($zoneData['url'] == $potentialZoneUrl) {
+                    $this->zoneUrl = $potentialZoneUrl;
+                    $this->currentZoneName = $zoneData['name'];
+                    array_shift($urlVars);
+                    break;
+                }
+            }
+            if (!$this->zoneUrl) {
+                $zoneWithNoUrl = null;
+                foreach ($zonesData as $zoneData) {
+                    if ($zoneData['url'] === '') {
+                        $zoneWithNoUrl = $zoneData['name'];
+                        $this->currentZoneName = $zoneData['name'];
+                        break;
+                    }
+                }
+                if ($zoneWithNoUrl) {
+                    $this->zoneUrl = '';
+                }
+
+            }
+        } else {
+            if (empty($zonesData)) {
+                throw new \Ip\CoreException('Please insert at least one zone');
+            } else {
+                $firstZoneData = array_shift($zonesData);
+                $this->currentZoneName = $firstZoneData['name'];
+            }
+        }
+
+
+
+        $this->urlVars = $urlVars;
+    }
+
 
 }

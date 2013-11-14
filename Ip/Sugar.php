@@ -18,17 +18,17 @@ function ipSetOption($option, $value)
 
 function ipGetCurrentZone()
 {
-    return \Ip\Content::instance()->getCurrentZone();
+    return \Ip\ServiceLocator::getContent()->getCurrentZone();
 }
 
 function ipGetCurrentLanguage()
 {
-    return \Ip\Content::instance()->getCurrentLanguage();
+    return \Ip\ServiceLocator::getContent()->getCurrentLanguage();
 }
 
 function ipGetCurrentPage()
 {
-    return \Ip\Content::instance()->getCurrentPage();
+    return \Ip\ServiceLocator::getContent()->getCurrentPage();
 }
 
 

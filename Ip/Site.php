@@ -143,7 +143,7 @@ class Site{
      *
      */
     public function getCurrentLanguage(){
-        return $this->createLanguage($this->currentLanguage);
+        \Ip\ServiceLocator::getContent()->getCurrentLanguage();
     }
 
     /**
@@ -224,6 +224,8 @@ class Site{
         }
     }
 
+
+
     /**
      *
      * Prepare main website parameters (current zone and so on). Executed once at startup.
@@ -257,7 +259,7 @@ class Site{
         } else {
             foreach ($this->zones as $key => $zone) { //find first not empty zone.
                 $this->currentZone = $key;
-                if ($this->getZone($key)->getCurrentElement()) {
+                if ($this->getZone($key)->getCurrentPage()) {
                     break;
                 }
             }
@@ -303,7 +305,7 @@ class Site{
             return; //error404 already has been registered because of incorrect language or zone url.
         }
 
-        if (!$this->getZone($this->currentZone)->getCurrentElement()) {
+        if (!$this->getZone($this->currentZone)->getCurrentPage()) {
             if (empty($this->urlVars) && (empty($this->getVars) || empty($this->urlVars) && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
                 $redirect = false;
                 foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
@@ -336,7 +338,8 @@ class Site{
      *
      */
     public function getCurrentZone(){
-        return $this->getZone($this->currentZone);
+        $content = \Ip\ServiceLocator::getContent();
+        return $content->getCurrentZone();
     }
 
     /**
@@ -385,7 +388,7 @@ class Site{
      *
      */
     public function makeRedirect(){
-        $curEl =  $this->getCurrentElement();
+        $curEl =  $this->getCurrentPage();
         if($curEl){ //if page exist.
             switch($curEl->getType()){
                 case 'subpage':
@@ -410,30 +413,7 @@ class Site{
         unset($_SESSION['frontend']['redirects']);
     }
 
-    public function setLayout($layout) {
-        $this->layout = $layout;
-    }
 
-    /**
-     *
-     * @return string Current layout file
-     *
-     */
-    public function getLayout(){
-        if ($this->layout) {
-            return $this->layout;
-        }
-
-        $zone = $this->getCurrentZone();
-        $element = $this->getCurrentElement();
-        $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
-
-        if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
-            $layout = $zone->getLayout();
-        }
-
-        return $layout;
-    }
 
     /**
      * Get current URL.
@@ -568,7 +548,7 @@ class Site{
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentElement();
+        $curEl =  $curZone->getCurrentPage();
         if($curEl && $curEl->getPageTitle() != '') {
             return $curEl->getPageTitle();
         } else {
@@ -586,7 +566,7 @@ class Site{
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentElement();
+        $curEl =  $curZone->getCurrentPage();
         if($curEl && $curEl->getDescription() != '') {
             return $curEl->getDescription();
         } else {
@@ -605,7 +585,7 @@ class Site{
             return '';
         }
         
-        $curEl =  $curZone->getCurrentElement();
+        $curEl =  $curZone->getCurrentPage();
         if($curEl && $curEl->getUrl() != '') {
             return $curEl->getUrl();
         } else {
@@ -633,7 +613,7 @@ class Site{
             return '';
         }
         
-        $curEl = $curZone->getCurrentElement();
+        $curEl = $curZone->getCurrentPage();
         if($curEl && $curEl->getKeywords() != '') {
             return $curEl->getKeywords();
         } else {
@@ -706,10 +686,10 @@ class Site{
      * @return \Ip\Frontend\Element - Current page
      *
      */
-    public function getCurrentElement(){
+    public function getCurrentPage(){
         $zone = $this->getCurrentZone();
         if ($zone) {
-            return $zone->getCurrentElement();
+            return $zone->getCurrentPage();
         }
     }
 
@@ -955,7 +935,7 @@ class Site{
             'ipTheme' => \Ip\Config::getRaw('THEME'),
             'ipManagementUrl' => $this->generateUrl(),
             'ipZoneName' => $this->getCurrentZone()->getName(),
-            'ipPageId' => $this->getCurrentElement()->getId(),
+            'ipPageId' => $this->getCurrentPage()->getId(),
             'ipRevisionId' => $revision['revisionId'],
             'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
             'javascript' => $javascriptFiles,
@@ -1038,18 +1018,18 @@ class Site{
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
              
-            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
-                if (!$this->getCurrentElement()) {
+            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+                if (!$this->getCurrentPage()) {
                     return null;
                 }
-                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
                     $revision = $this->_duplicateRevision($revision['revisionId']);
                 }
             }
 
         } else {
-            $currentElement = $this->getCurrentElement();
+            $currentElement = $this->getCurrentPage();
             if ($currentElement) {
                 $revision = \Ip\Revision::getPublishedRevision($this->getCurrentZone()->getName(), $currentElement->getId());
             }
@@ -1060,7 +1040,7 @@ class Site{
 
 
     private function _createRevision(){
-        $revisionId = \Ip\Revision::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId(),0);
+        $revisionId = \Ip\Revision::createRevision($this->getCurrentZone()->getName(), $this->getCurrentPage()->getId(),0);
         $revision = \Ip\Revision::getRevision($revisionId);
         if ($revision === false) {
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
