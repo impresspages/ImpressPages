@@ -24,8 +24,9 @@ class AdminController extends \Ip\Controller{
             'status' => 'success',
             'content' => $content
         );
-        $answer = json_encode($data);
-        $site->setOutput($answer);
+
+        // TODOX JsonRpc
+        return new \Ip\Response\Json($data);
     }
 
 
