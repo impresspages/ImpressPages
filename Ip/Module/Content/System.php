@@ -38,10 +38,26 @@ class System{
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
-        
-        ipAddJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
-        ipAddJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
-        
+
+        // TODOX Mangirdas has some ideas how to rename tinymce files
+        // TODOX load only for management mode
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/paste_preprocess'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/min.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/med.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/max.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/table.js'));
+
+        // TODOX move to more appropriate place
+        $response = \Ip\ServiceLocator::getResponse();
+        if (method_exists($response, 'addJavascriptContent')) {
+            $data = array(
+                'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
+            );
+
+            $validatorJs = \Ip\View::create(\Ip\Config::coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
+        }
+
         if ($site->managementState()) {
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
