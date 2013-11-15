@@ -247,7 +247,7 @@ class Site{
         }
         // get parameter for cms management
 
-        if($parametersMod->getValue('Config.multilingual')){
+        if(ipGetOption('Config.multilingual')){
             $answer = \Ip\Config::baseUrl(urlencode($this->languages[$languageId]['url']).'/');
         }else{
             $answer = \Ip\Config::baseUrl('');
