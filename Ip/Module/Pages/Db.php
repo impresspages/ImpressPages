@@ -30,7 +30,7 @@ class Db {
         global $parametersMod;
 
         $managedZones = array();
-        $zones = \Ip\ServiceLocator::getSite()->getZones();
+        $zones = ipGetZones();
         foreach ($zones as $zone) {
             $managedZones[] = $zone->getName();
         }

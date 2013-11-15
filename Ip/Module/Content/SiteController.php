@@ -19,6 +19,7 @@ class SiteController extends \Ip\Controller{
         if (!$instanceId) {
             return \Ip\Response\JsonRpc::error('Mising instanceId POST variable');
         }
+        $instanceId = $_POST['instanceId'];
 
         $widgetRecord = Model::getWidgetFullRecord($instanceId);
 
@@ -26,6 +27,11 @@ class SiteController extends \Ip\Controller{
             if (!$widgetRecord) {
                 return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
             }
+        } catch (Exception $e) {
+            $this->_errorAnswer($e->getMessage());
+        }
+    }
+    
 
             $widgetObject = Model::getWidgetObject($widgetRecord['name']);
             if (!$widgetObject) {
@@ -37,5 +43,8 @@ class SiteController extends \Ip\Controller{
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }
+        $answer = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data));
+        $site->setOutput($answer);
     }
+
 }
