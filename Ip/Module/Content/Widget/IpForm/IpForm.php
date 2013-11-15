@@ -106,7 +106,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (isset($revision['zoneName']) && $revision['pageId']) {
-                $pageTitle = $site->getZone($revision['zoneName'])->getElement($revision['pageId'])->getButtonTitle();
+                $pageTitle = ipGetZone($revision['zoneName'])->getElement($revision['pageId'])->getButtonTitle();
             }
         }
         

@@ -19,7 +19,7 @@ class Module{
         global $site;
         global $parametersMod;
 
-        if(!$parametersMod->getValue('Config.multilingual')) {
+        if(!ipGetOption('Config.multilingual')) {
             return;
         }
          
@@ -39,7 +39,7 @@ class Module{
         global $site;
         global $parametersMod;
 
-        if(!$parametersMod->getValue('Config.multilingual')) {
+        if(!ipGetOption('Config.multilingual')) {
             return;
         }
         

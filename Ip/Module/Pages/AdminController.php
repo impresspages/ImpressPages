@@ -312,7 +312,7 @@ class AdminController extends \Ip\Controller
             return false;
         }
 
-        $zone = $site->getZone($_REQUEST['zoneName']);
+        $zone = ipGetZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             trigger_error("Can't find zone");
@@ -467,7 +467,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\CoreException("Missing required parameter");
         }
         $zoneName = $params['zoneName'];
-        $zoneId = $site->getZone($zoneName)->getId();
+        $zoneId = ipGetZone($zoneName)->getId();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -652,7 +652,7 @@ class AdminController extends \Ip\Controller
                 }
 
                 $pageId = (int)$_REQUEST['pageId'];
-                $zone = $site->getZone($_REQUEST['zoneName']);
+                $zone = ipGetZone($_REQUEST['zoneName']);
                 if (! $zone) {
                     trigger_error("Can't find zone");
                     return false;
@@ -772,12 +772,12 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['zoneName'])) {
-            $zone = $site->getZone($_REQUEST['zoneName']);
+            $zone = ipGetZone($_REQUEST['zoneName']);
         } else {
             $associatedZones = Db::getZones();
             $zoneArray = array_shift($associatedZones);
             if ($zoneArray) {
-                $zone = $site->getZone($zoneArray['name']);
+                $zone = ipGetZone($zoneArray['name']);
             }
         }
 
@@ -938,7 +938,7 @@ class AdminController extends \Ip\Controller
         $destinationLanguageId = $_REQUEST['destinationLanguageId'];
 
         //check if destination page exists
-        $destinationZone = $site->getZone($destinationZoneName);
+        $destinationZone = ipGetZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
@@ -1002,7 +1002,7 @@ class AdminController extends \Ip\Controller
         Db::updatePage($zoneName, $pageId, $data);
 
         //report url change
-        $pageZone = $site->getZone($zoneName);
+        $pageZone = ipGetZone($zoneName);
         $page = $pageZone->getElement($pageId);
         $newUrl = $page->getLink(true);
 
@@ -1036,7 +1036,7 @@ class AdminController extends \Ip\Controller
         $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
         \Ip\ServiceLocator::getDispatcher()->notify($movePageEvent);
 
-        $children = $site->getZone($zoneName)->getElements($languageId, $pageId);
+        $children = ipGetZone($zoneName)->getElements($languageId, $pageId);
         foreach ($children as $key => $child) {
             self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
         }
@@ -1103,7 +1103,7 @@ class AdminController extends \Ip\Controller
         //check if destination page exists
 
 
-        $destinationZone = $site->getZone($destinationZoneName);
+        $destinationZone = ipGetZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
