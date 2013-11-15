@@ -47,8 +47,17 @@ class System{
         ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/max.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/table.js'));
 
-        ipAddJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
-        
+        // TODOX move to more appropriate place
+        $response = \Ip\ServiceLocator::getResponse();
+        if (method_exists($response, 'addJavascriptContent')) {
+            $data = array(
+                'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
+            );
+
+            $validatorJs = \Ip\View::create(\Ip\Config::coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
+        }
+
         if ($site->managementState()) {
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
