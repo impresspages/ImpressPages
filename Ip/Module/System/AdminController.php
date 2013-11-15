@@ -78,7 +78,7 @@ class AdminController extends \Ip\Controller{
             'id' => null,
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     protected function indexUrl()
@@ -97,7 +97,7 @@ class AdminController extends \Ip\Controller{
                 'status' => 'error',
                 'error' => $e->getMessage()
             );
-            $this->returnJson($data);
+            return new \Ip\Response\Json($data);
         }
 
 
@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
             'status' => 'success',
             'redirectUrl' => \Ip\Config::baseUrl('update')
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 

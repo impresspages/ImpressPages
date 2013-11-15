@@ -70,7 +70,7 @@ class AdminController extends \Ip\Controller{
                 'id' => null,
             );
 
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
             return;
         }
 
@@ -82,7 +82,7 @@ class AdminController extends \Ip\Controller{
             'id' => null,
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function deactivate ()
@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
                 'id' => null,
             );
 
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
             return;
         }
 
@@ -117,7 +117,7 @@ class AdminController extends \Ip\Controller{
             'id' => null,
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function remove ()
@@ -140,7 +140,7 @@ class AdminController extends \Ip\Controller{
                 'id' => null,
             );
 
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
             return;
         }
 
@@ -152,7 +152,7 @@ class AdminController extends \Ip\Controller{
             'id' => null,
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 }
