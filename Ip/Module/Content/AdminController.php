@@ -54,7 +54,7 @@ class AdminController extends \Ip\Controller
         $answer = str_replace('?cms_action=manage', '', $answer);
         $answer = str_replace('&cms_action=manage', '', $answer);
 
-        $site->setOutput($answer);
+        return new \Ip\Response($answer);
     }
 
     private function getPagesList($language, $zone, $parentElementId = null) {
@@ -76,29 +76,25 @@ class AdminController extends \Ip\Controller
     public function getPageOptionsHtml() {
         global $site;
         if (!isset($_REQUEST['pageId'])) {
-            $this->_errorAnswer('Page id is not set');
-            return;
+            return $this->_errorAnswer('Page id is not set');
         }
 
         $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
-            $this->_errorAnswer('Zone name is not set');
-            return;
+            return $this->_errorAnswer('Zone name is not set');
         }
 
         $zone = $site->getZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
-            $this->_errorAnswer('Can\'t find zone');
-            return;
+            return $this->_errorAnswer('Can\'t find zone');
         }
 
         $element = $zone->getElement($pageId);
 
         if (! $element) {
-            $this->_errorAnswer('Page does not exist');
-            return;
+            return $this->_errorAnswer('Page does not exist');
         }
 
         $data = array(
@@ -127,7 +123,8 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'optionsHtml' => $optionsHtml
         );
-        self::_outputAnswer($answer);
+
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -214,8 +211,7 @@ class AdminController extends \Ip\Controller
             !isset($_POST['revisionId']) ||
             !isset($_POST['managementState'])
         ) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
+            return $this->_errorAnswer('Mising POST variable');
         }
 
         $instanceId = $_POST['instanceId'];
@@ -229,8 +225,7 @@ class AdminController extends \Ip\Controller
 
         if (!$record)
         {
-            $this->_errorAnswer('Unknown instance '.$instanaceId);
-            return;
+            return $this->_errorAnswer('Unknown instance '.$instanaceId);
         }
 
         Model::deleteInstance($instanceId);
@@ -264,8 +259,7 @@ class AdminController extends \Ip\Controller
             !isset($_POST['blockName']) ||
             !isset($_POST['revisionId'])
         ) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
+            return $this->_errorAnswer('Mising POST variable');
         }
 
         $widgetName = $_POST['widgetName'];
@@ -290,21 +284,18 @@ class AdminController extends \Ip\Controller
 
             $zone = $site->getZone($zoneName);
             if ($zone === false) {
-                $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
-                return;
+                return $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
             }
 
             $page = $zone->getElement($pageId);
             if ($page === false) {
-                $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
-                return;
+                return $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
             }
 
         }
         $widgetObject = Model::getWidgetObject($widgetName);
         if ($widgetObject === false) {
-            $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
-            return;
+            return $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
         }
 
 
@@ -314,8 +305,7 @@ class AdminController extends \Ip\Controller
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetManagementHtml = Model::generateWidgetManagement($instanceId);
         } catch (Exception $e) {
-            $this->_errorAnswer($e);
-            return;
+            return $this->_errorAnswer($e);
         }
 
 
@@ -336,8 +326,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
+            return $this->_errorAnswer('Mising POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
@@ -356,8 +345,7 @@ class AdminController extends \Ip\Controller
         $widgetObject = Model::getWidgetObject($widgetRecord['name']);
 
         if (!$widgetObject) {
-            $this->_errorAnswer("Controlls of this widget does not exist. You need to install required plugin \"" . $widgetRecord['name'] . "\" or remove this widget");
-            return;
+            return $this->_errorAnswer("Controlls of this widget does not exist. You need to install required plugin \"" . $widgetRecord['name'] . "\" or remove this widget");
         }
 
 
@@ -409,8 +397,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising POST variable');
-            return;
+            return $this->_errorAnswer('Mising POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
@@ -448,14 +435,12 @@ class AdminController extends \Ip\Controller
 
     public function updateWidget(){
         if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising POST variable instanceId');
-            return;
+            return $this->_errorAnswer('Mising POST variable instanceId');
         }
         $instanceId = $_POST['instanceId'];
 
         if (!isset($_POST['layout'])) {
-            $this->_errorAnswer('Mising POST variable layout');
-            return;
+            return $this->_errorAnswer('Mising POST variable layout');
         }
         $layout = $_POST['layout'];
 
@@ -495,8 +480,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising instanceId POST variable');
-            return;
+            return $this->_errorAnswer('Mising instanceId POST variable');
         }
         $instanceId = (int)$_POST['instanceId'];
 
@@ -516,8 +500,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         if (!isset($_POST['revisionId'])) {
-            $this->_errorAnswer('Mising revisionId POST variable');
-            return;
+            return $this->_errorAnswer('Mising revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
 
@@ -528,16 +511,14 @@ class AdminController extends \Ip\Controller
         $revision = \Ip\Revision::getRevision($revisionId);
 
         if (!$revision) {
-            $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
-            return;
+            return $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
         }
 
         $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
 
         $zone = $site->getZone($revision['zoneName']);
         if (!$zone) {
-            $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
-            return;
+            return $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
         }
 
         $data = array (
@@ -555,23 +536,20 @@ class AdminController extends \Ip\Controller
     public function savePageOptions () {
         global $site;
         if (empty($_POST['revisionId'])) {
-            $this->_errorAnswer('Mising revisionId POST variable');
-            return;
+            return $this->_errorAnswer('Mising revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
 
 
         if (empty($_POST['pageOptions'])){
-            $this->_errorAnswer('Mising pageOptions POST variable');
-            return;
+            return $this->_errorAnswer('Mising pageOptions POST variable');
         }
         $pageOptions = $_POST['pageOptions'];
 
         $revision = \Ip\Revision::getRevision($revisionId);
 
         if (!$revision) {
-            $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
-            return;
+            return $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
         }
 
         $page = \Ip\Module\Pages\Db::getPage($revision['pageId']);
@@ -614,8 +592,7 @@ class AdminController extends \Ip\Controller
         global $site;
 
         if (!isset($_POST['revisionId'])) {
-            $this->_errorAnswer('Mising revisionId POST variable');
-            return;
+            return $this->_errorAnswer('Mising revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
         $revision = \Ip\Revision::getRevision($revisionId);
@@ -649,26 +626,14 @@ class AdminController extends \Ip\Controller
 
 
     private function _errorAnswer($errorMessage) {
+
         $data = array (
             'status' => 'error',
             'errorMessage' => $errorMessage
         );
 
-        new \Ip\Response\Json($data);
+        // TODOX use jsonrpc response
+        return new \Ip\Response\Json($data);
     }
-
-    private function _outputAnswer($data) {
-        global $site;
-
-
-
-        //header('Content-type: text/json; charset=utf-8'); throws save file dialog on firefox if iframe is used
-        if (isset($data['managementHtml'])) {
-            // $data['managementHtml'] = utf8_encode($data['managementHtml']);
-        }
-        $answer = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data));
-        $site->setOutput($answer);
-    }
-
 
 }
