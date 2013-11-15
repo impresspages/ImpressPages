@@ -73,11 +73,11 @@ function ipHead()
     return \Ip\ServiceLocator::getResponse()->generateHead();
 }
 
-function ipSetLayout()
+function ipSetLayout($file)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'setLayout')) {
-        $response->setLayout($file, $stage);
+        $response->setLayout($file);
     } else {
         ipLogNotice('Core', 'Response method has no method setLayout');
     }

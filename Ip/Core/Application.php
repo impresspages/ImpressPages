@@ -108,11 +108,7 @@ class Application {
                 $controllerAnswer = $controllerAnswer->render();
             }
 
-//            if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
-//                ipSetLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-//                ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-//                ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-//            }
+
 //
 //
 //
