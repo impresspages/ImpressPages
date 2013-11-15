@@ -12,7 +12,7 @@
                 <span class="ipmMenuBar"></span>
             </a>
 
-            <span class="ipmMenuTitle"><?php echo $this->escPar('Config.menu'); ?></span>
+            <span class="ipmMenuTitle"><?php echo $this->esc(__('Menu', 'ipAdmin')) ?></span>
             <?php
                 echo $this->generateMenu('admin_navigation', $menuItems, 'bootstrapNav.php');
                 //TODOX in this way anyone who can access menu config, can change this menu to anything :| secure somehow
@@ -20,7 +20,7 @@
             <ul>
                 <li>
                     <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>">
-                        <?php echo $this->escPar('Config.logout') ?>
+                        <?php echo $this->esc(__('Logout', 'ipAdmin')) ?>
                         <span class="icon-stack">
                             <i class="icon-sign-blank icon-stack-base"></i>
                             <i class="icon-remove icon-light"></i>
@@ -36,14 +36,14 @@
 
 
         <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
-            <?php echo $this->escPar('Config.logout') ?>
+            <?php echo $this->esc(__('Logout', 'ipAdmin')) ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-remove icon-light"></i>
             </span>
         </a>
         <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
-            <?php echo $this->escPar('Config.help') ?>
+            <?php echo $this->esc(__('Help', 'ipAdmin')) ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-question icon-light"></i>
