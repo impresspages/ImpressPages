@@ -255,7 +255,7 @@ class Request
 
         $this->controllerClass = $controllerClass;
         $this->controllerAction = $action;
-        $this->controllertype = $controllerType;
+        $this->controllerType = $controllerType;
     }
 
     public function getControllerType()

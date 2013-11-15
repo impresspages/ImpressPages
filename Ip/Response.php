@@ -10,6 +10,10 @@ class Response
     protected $headers = array();
     protected $content = null;
 
+    public function __construct()
+    {
+
+    }
 
     public function addHeader($value)
     {

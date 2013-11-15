@@ -12,6 +12,7 @@ class System {
         $request = \Ip\ServiceLocator::getRequest();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
+            \Ip\ServiceLocator::getResponse()->setLayout(\Ip\Config::coreModuleFile('/Admin/View/layout.php'));
             $request->setAction('Admin', 'login', \Ip\Internal\Request::CONTROLLER_TYPE_SITE);
         }
 
