@@ -21,10 +21,20 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
     protected function getSession()
     {
         if (getenv('TRAVIS')) {
+
+            // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+            $url = sprintf('http://%s:%s@ondemand.saucelabs.com/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+            $desiredCapabilities = array(
+                'name' => __METHOD__,
+                'tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER'),
+                'build' => getenv('TRAVIS_BUILD_NUMBER'),
+                'tags' => array(getenv('TRAVIS_PHP_VERSION'), 'CI')
+            );
+
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
                 'firefox',
-                array('tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER')),
-                'http://username:access_key@ondemand.saucelabs.com/wd/hub'
+                $desiredCapabilities,
+                $url
             );
         } else {
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
@@ -32,9 +42,13 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $session = new \Behat\Mink\Session($driver);
+        try {
+            $session = new \Behat\Mink\Session($driver);
 
-        $session->start();
+            $session->start();
+        } catch (\Behat\Mink\Exception\DriverException $e) {
+            $this->markTestSkipped('Could not connect open Mink connection.');
+        }
 
         return $session;
     }
@@ -49,10 +63,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
         $page = $session->getPage();
-        $this->assertNotEmpty($page);
+        $this->assertNotEmpty($page, 'Page should not be empty');
 
         $title = $page->find('css', 'title');
-        $this->assertNotEmpty($title);
+        $this->assertNotEmpty($title, 'Title should not be empty');
         $this->assertEquals('ImpressPages CMS installation wizard', $title->getHtml());
 
         $page->find('css', '.button_act')->click();
@@ -89,8 +103,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
         $page->findById('db_pass')->setValue($testDbHelper->getDbPass());
         $page->find('css', '.button_act')->click();
+
         sleep(1);
-        $this->assertTrue($page->has('css', '#config_site_name'));ip
+
+        $this->assertTrue($page->has('css', '#config_site_name'), 'Site name input is not available');
 
         $page->findById('config_site_name')->setValue('TestSiteName');
         $page->findById('config_site_email')->setValue('test@example.com');
@@ -116,6 +132,8 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $headline = $page->find('css', '.homeHeadline');
         $this->assertNotEmpty($headline);
         $this->assertEquals('ImpressPages theme Blank', $headline->getText());
+
+        $session->stop();
 
     }
 
