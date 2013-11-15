@@ -19,18 +19,18 @@ class AdminController extends \Ip\Controller
     {
         $site = \Ip\ServiceLocator::getSite();
 
-        $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
-        $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-        $site->addCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
-        $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
-        $site->addCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
+        ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        ipAddCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
+        ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
 
 
 
@@ -117,14 +117,14 @@ class AdminController extends \Ip\Controller
 
         if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => __('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin')), 'id' => null);
-            $this->returnJson($error);
+            return new \Ip\Response\Json($error);
             return;
         }
 
         try {
             if (!is_array($themes)) {
                 $error = array('jsonrpc' => '2.0', 'error' => array('code' => 101, 'message' => 'Download failed: invalid parameters'), 'id' => null);
-                $this->returnJson($error);
+                return new \Ip\Response\Json($error);
                 return;
             }
 
@@ -141,11 +141,11 @@ class AdminController extends \Ip\Controller
             }
         } catch (\Ip\CoreException $e) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 234, 'message' => $e->getMessage()), 'id' => null);
-            $this->returnJson($error);
+            return new \Ip\Response\Json($error);
             return;
         } catch (\Exception $e) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 987, 'message' => 'Unknown error. Please see logs.'), 'id' => null);
-            $this->returnJson($error);
+            return new \Ip\Response\Json($error);
             return;
         }
 
@@ -157,7 +157,7 @@ class AdminController extends \Ip\Controller
             "id" => null,
         );
 
-        $this->returnJson($response);
+        return new \Ip\Response\Json($response);
     }
 
     /**
@@ -178,11 +178,11 @@ class AdminController extends \Ip\Controller
         try {
             $model->installTheme($themeName);
         } catch (\Ip\CoreException $e) {
-            $this->returnJson(array('status' => 'error', 'error' => $e->getMessage()));
+            return new \Ip\Response\Json(array('status' => 'error', 'error' => $e->getMessage()));
             return;
         }
 
-        $this->returnJson(array('status' => 'success'));
+        return new \Ip\Response\Json(array('status' => 'success'));
     }
 
     public function updateConfig()
@@ -275,7 +275,7 @@ class AdminController extends \Ip\Controller
                 'id' => 'id'
             )
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
         return;
     }
 
@@ -287,7 +287,7 @@ class AdminController extends \Ip\Controller
             "result" => $result,
             "id" => $id
         );
-        $this->returnJson($answerArray);
+        return new \Ip\Response\Json($answerArray);
         return;
     }
 }

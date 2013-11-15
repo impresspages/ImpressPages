@@ -38,7 +38,7 @@ class InternalClient extends BaseClient
         $application = new \Ip\Core\Application();
         $ipResponse = $application->handleRequest();
 
-        $response = new Response($ipResponse, \Ip\Response::status(), \Ip\Response::headers());
+        $response = new Response($ipResponse, \Ip\ResponseSugar::status(), \Ip\ResponseSugar::headers());
 
         return $response;
     }

@@ -25,7 +25,7 @@ class Zone extends \Ip\Frontend\Zone {
 
 
         if($languageId == null)
-        $languageId = $site->currentLanguage['id'];
+        $languageId = ipGetCurrentLanguage()->getId();
 
         $urlVars = array();
 
@@ -89,7 +89,7 @@ class Zone extends \Ip\Frontend\Zone {
     function getFirstElement($parentId, $level) {
         global $site;
 
-        $elements = $this->db->getElements($this->getName(), $parentId, $site->currentLanguage['id'], null, null, 'asc', 0, null);
+        $elements = $this->db->getElements($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
         foreach($elements as $key => $element) {
             switch($element['type']) {
                 case 'inactive':
@@ -111,10 +111,9 @@ class Zone extends \Ip\Frontend\Zone {
     }
 
     function findElement($urlVars, $getVars) {
-        global $site;
         $currentEl = null;
 
-        $elId = $this->db->getRootElementId($this->getName(), $site->currentLanguage['id']);
+        $elId = $this->db->getRootElementId($this->getName(), ipGetCurrentLanguage()->getId());
         if($elId) {
             if(sizeof($urlVars) == 0) {
                 return $this->getFirstElement($elId, 1);

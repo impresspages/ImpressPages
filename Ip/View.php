@@ -51,11 +51,11 @@ class View implements \Ip\Response\ResponseInterface
      * @param int $languageId language in which to render the view. Current language by default
      */
     private function __construct($file, $data = array(), $languageId = null) {
-        global $site;
+        $content = \Ip\ServiceLocator::getContent();
         $this->file = $file;
         $this->data = $data;
         if ($languageId == null) {
-            $this->languageId = $site->getCurrentLanguage()->getId();
+            $this->languageId = $content->getCurrentLanguage()->getId();
         } else {
             $this->languageId = $languageId;
         }
@@ -188,7 +188,6 @@ class View implements \Ip\Response\ResponseInterface
     public function render () {
         //don't delete these globals. They might be used in the view
         global $site;
-        global $dispatcher;
         global $parametersMod;
 
         extract($this->data);
@@ -285,7 +284,7 @@ class View implements \Ip\Response\ResponseInterface
     
     
     public function htmlAttributes($doctype = null) {
-        global $site;
+        $content = \Ip\ServiceLocator::getContent();
         if ($doctype === null) {
             $doctype = $this->getDoctype();
         }
@@ -293,7 +292,7 @@ class View implements \Ip\Response\ResponseInterface
             case self::DOCTYPE_XHTML1_STRICT:
             case self::DOCTYPE_XHTML1_TRANSITIONAL:
             case self::DOCTYPE_XHTML1_FRAMESET:
-                $lang = $site->getCurrentLanguage()->getCode();
+                $lang = $content->getCurrentLanguage()->getCode();
                 return ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
                 break;
             case self::DOCTYPE_HTML4_STRICT:
@@ -303,7 +302,7 @@ class View implements \Ip\Response\ResponseInterface
                 return '';
                 break;
             case self::DOCTYPE_HTML5:
-                $lang = $site->getCurrentLanguage()->getCode();
+                $lang = $content->getCurrentLanguage()->getCode();
                 return ' lang="'.$lang.'"';
                 break;
         }        
@@ -371,10 +370,9 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    public function generateBlock($blockName, $static = false)
+    public function generateBlock($blockName)
     {
-        $site = \Ip\ServiceLocator::getSite();
-        return $site->generateBlock($blockName, $static);
+        return \Ip\ServiceLocator::getContent()->generateBlock($blockName);
     }
 
     public function generateSlot($name)

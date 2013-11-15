@@ -15,6 +15,7 @@ namespace Ip\Frontend;
  * This class is responsable to generate the content and tell all information about the page of website.
  *
  */
+//TODOX renamet o Page
 class Element{
     /** int - unique number of element in that zone. */
     protected $id;
@@ -119,8 +120,7 @@ class Element{
      */
     private function findPreviousAndNextElements()
     {
-        global $site;
-        $zone = $site->getZone($this->zoneName);
+        $zone = ipGetZone($this->zoneName);
         $elements = $zone->getElements(null, $this->parentId);
         for($i = 0; $i<sizeof($elements); $i++){
             if($elements[$i]->getId() == $this->getId()){

@@ -58,7 +58,7 @@ class ModelTree {
         global $parametersMod;
         global $site;
 
-        $zones = $site->getZones();
+        $zones = ipGetZones();
 
         $managedZones = array();
         foreach ($zones as $zone) {
@@ -83,7 +83,7 @@ class ModelTree {
 
     public static function getZonePages ($languageId, $zoneName) {
         global $site;
-        $zone = $site->getZone($zoneName);
+        $zone = ipGetZone($zoneName);
         
         if ( ! $zone) {
             trigger_error('Can\'t find zone ' . $zoneName);

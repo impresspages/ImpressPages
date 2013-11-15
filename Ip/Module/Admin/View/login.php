@@ -14,11 +14,11 @@
 <div class="verticalAlign"></div>
 <div class="login">
     <div class="loginTitle">
-        <h1>Login</h1>
+        <h1><?php echo $this->esc(__('Login', 'ipAdmin')) ?></h1>
     </div>
     <?php echo $loginForm->render() ?>
 </div>
 <div class="loginFooter">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
-<?php echo $site->generateJavascript(); ?>
+<?php echo ipJavascript(); ?>
 </body>
 </html>

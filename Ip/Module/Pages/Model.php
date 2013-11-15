@@ -24,7 +24,7 @@ class Model {
     public static function deletePage ($zoneName, $pageId) {
         global $site;
         
-        $zone = $site->getZone($zoneName);
+        $zone = ipGetZone($zoneName);
         if (!$zone) {
             throw new \Exception("Unknown zone " + $zoneName);
         } 
@@ -34,7 +34,6 @@ class Model {
 
 
     private static function _deletePageRecursion (\Ip\Frontend\Zone $zone, $id) {
-        global $dispatcher;
         $children = Db::pageChildren($id);
         if ($children) {
             foreach($children as $key => $lock) {
@@ -45,7 +44,7 @@ class Model {
         Db::deletePage($id);
 
         $event = new \Ip\Event\PageDeleted(null, $zone->getName(), $id);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
     }
 
 

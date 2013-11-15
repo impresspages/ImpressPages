@@ -25,19 +25,13 @@ class Controller{
     public function init() {
     }
     
-    public function returnJson($data) {
-        $site = \Ip\ServiceLocator::getSite();
-        header('Content-type: text/json; charset=utf-8'); //throws save file dialog on firefox if iframe is used
-        $answer = json_encode($this->utf8Encode($data));
-        $site->setOutput($answer);
-    }
-    
     public function redirect ($url) {
         $site = \Ip\ServiceLocator::getSite();
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         header("location: ".$url);
-        Deprecated\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+
+        \Ip\Db::disconnect();
+        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null)); // TODOX \Ip\Db should throw this event
         exit;
     }
 

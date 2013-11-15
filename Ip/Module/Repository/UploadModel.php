@@ -82,7 +82,7 @@ class UploadModel{
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
         $event = new Event\ForbiddenExtensions($this);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
         $disallow = $event->getForbiddenExtensions();
         if (in_array($fileExtension, $disallow)) {
             //security risk

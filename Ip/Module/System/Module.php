@@ -45,10 +45,6 @@ class Module
         global $cms;
         global $parametersMod;
         global $site;
-        global $dispatcher;
-
-
-
 
         $sql = "select m.name as m_name, mg.name as mg_name from `" . DB_PREF . "module_group` mg, `" . DB_PREF . "module` m where m.group_id = mg.id";
         $rs = ip_deprecated_mysql_query($sql);
@@ -84,11 +80,9 @@ class Module
 
 
 
-        //throw event in 2.X style
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $dispatcher->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, \Ip\Config::baseUrl('')));
-
         $dispatcher->notify(new \Ip\Event\ClearCache($this));
-
 
     }
 

@@ -33,17 +33,17 @@ class AdminController extends \Ip\Controller{
 
         $content = \Ip\View::create('view/index.php', $data)->render();
 
-        $site->addJavascript(\Ip\Config::libraryUrl('js/default.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/default.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
 
-        $site->addCss(\Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/update.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/update.js'));
         }
-        $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/clearCache.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/clearCache.js'));
 
         return $content;
     }
@@ -78,7 +78,7 @@ class AdminController extends \Ip\Controller{
             'id' => null,
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     protected function indexUrl()
@@ -97,7 +97,7 @@ class AdminController extends \Ip\Controller{
                 'status' => 'error',
                 'error' => $e->getMessage()
             );
-            $this->returnJson($data);
+            return new \Ip\Response\Json($data);
         }
 
 
@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
             'status' => 'success',
             'redirectUrl' => \Ip\Config::baseUrl('update')
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 

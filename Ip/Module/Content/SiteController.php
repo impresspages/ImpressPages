@@ -14,26 +14,18 @@ class SiteController extends \Ip\Controller{
 
     public function widgetPost()
     {
-        global $site;
+        $instanceId = \Ip\Request::getPost('instanceId');
 
-        if (!isset($_POST['instanceId'])) {
-            $this->_errorAnswer('Mising instanceId POST variable');
-            return;
+        if (!$instanceId) {
+            return \Ip\Response\JsonRpc::error('Mising instanceId POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
         $widgetRecord = Model::getWidgetFullRecord($instanceId);
 
         try {
-            if ($widgetRecord) {
-                $widgetObject = Model::getWidgetObject($widgetRecord['name']);
-                if ($widgetObject) {
-                    $widgetObject->post($this, $instanceId, $_POST, $widgetRecord['data']);
-                } else {
-                    throw new Exception("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
-                }
-            } else {
-                throw new Exception("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
+            if (!$widgetRecord) {
+                return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
             }
         } catch (Exception $e) {
             $this->_errorAnswer($e->getMessage());
@@ -41,26 +33,15 @@ class SiteController extends \Ip\Controller{
     }
     
 
-    
+            $widgetObject = Model::getWidgetObject($widgetRecord['name']);
+            if (!$widgetObject) {
+                return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
+            }
 
-    private function _errorAnswer($errorMessage) {
-        $data = array (
-            'status' => 'error',
-            'errorMessage' => $errorMessage
-        );
-
-        $this->_outputAnswer($data);
-    }
-
-
-    private function _outputAnswer($data) {
-        global $site;
-
-
-
-        //header('Content-type: text/json; charset=utf-8'); throws save file dialog on firefox if iframe is used
-        if (isset($data['managementHtml'])) {
-            // $data['managementHtml'] = utf8_encode($data['managementHtml']);
+            // TODOX Trello #133 remove $post parameter
+            return $widgetObject->post($instanceId, \Ip\Request::getPost(), $widgetRecord['data']);
+        } catch (Exception $e) {
+            return \Ip\Response\JsonRpc::error($e->getMessage());
         }
         $answer = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data));
         $site->setOutput($answer);

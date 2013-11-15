@@ -14,11 +14,10 @@ class Model{
     const WIDGET_DIR = 'Widget';
 
     public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
-        global $site;
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
 
         $widgetsHtml = array();
-        foreach ($widgets as $key => $widget) {
+        foreach ($widgets as $widget) {
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
             } catch (Exception $e) {
@@ -308,14 +307,13 @@ class Model{
     }
 
     public static function getAvailableWidgetObjects() {
-        global $dispatcher;
 
         if (self::$widgetObjects !== null) {
             return self::$widgetObjects;
         }
 
         $event = new EventWidget(null, 'contentManagement.collectWidgets', null);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
 
         $widgetObjects = $event->getWidgets();
 
@@ -330,8 +328,6 @@ class Model{
      * @return \Ip\Module\Content\Widget
      */
     public static function getWidgetObject($widgetName) {
-        global $dispatcher;
-
         $widgetObjects = self::getAvailableWidgetObjects();
 
         if (isset($widgetObjects[$widgetName])) {
