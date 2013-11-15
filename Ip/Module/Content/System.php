@@ -41,7 +41,7 @@ class System{
 
         // TODOX Mangirdas has some ideas how to rename tinymce files
         // TODOX load only for management mode
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/paste_preprocess'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/paste_preprocess.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/min.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/med.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/max.js'));

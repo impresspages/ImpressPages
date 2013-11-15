@@ -16,15 +16,15 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        $site = \Ip\ServiceLocator::getSite();
-        $session = \Ip\ServiceLocator::getApplication();
+        $app = \Ip\ServiceLocator::getApplication();
         $data = array (
-            'securityToken' =>  $session->getSecurityToken(),
+            'securityToken' =>  $app->getSecurityToken(),
             'imageDir' => \Ip\Config::coreUrl('Ip/Module/Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
-        $site->setOutput($answer);
+
+        return new \Ip\Response($answer);
     }
 
 

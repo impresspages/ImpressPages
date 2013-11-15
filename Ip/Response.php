@@ -5,14 +5,28 @@ namespace Ip;
 class Response
 {
 
-    protected $statusCode = 200;
+    protected $statusCode = null;
     protected $statusMessage = null;
     protected $headers = array();
     protected $content = null;
 
-    public function __construct()
+    public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
     {
+        if ($content !== NULL) {
+            $this->setContent($content);
+        }
 
+        if ($statusCode !== NULL) {
+            $this->setStatusCode($statusCode);
+        }
+
+        if ($headers !== NULL) {
+            if (is_array($headers)) {
+                $this->headers = $headers;
+            } elseif (is_string($headers)) {
+                $this->addHeader($headers);
+            }
+        }
     }
 
     public function addHeader($value)

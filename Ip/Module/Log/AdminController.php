@@ -100,7 +100,7 @@ class AdminController extends \Ip\Controller
 
 
         $std = new \Ip\Lib\StdMod\StandardModule($area0, 'Log.index');
-        $site->setOutput($std->manage());
+        return new \Ip\Response($std->manage());
     }
 
 
