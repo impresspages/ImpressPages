@@ -18,7 +18,7 @@
 </head>
 <body class="manage">
     <div class="ip">
-        <?php echo $this->generateBlock('main'); ?>
+        <?php echo ipBlock('main'); ?>
     </div>
 <?php echo ipJavascript(); ?>
 </body>

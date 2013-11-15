@@ -24,6 +24,8 @@ class Layout extends \Ip\Response {
     /** array required css files */
     private $requiredCss = array();
 
+    private $layoutVariables = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +46,7 @@ class Layout extends \Ip\Response {
         } else {
             $viewFile = \Ip\Config::themeFile($layout);
         }
-        $this->setContent(\Ip\View::create($viewFile, array())->render());
+        $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
 
         parent::send();
     }
@@ -229,5 +231,15 @@ class Layout extends \Ip\Response {
         return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/javascript.php'), $data)->render();
     }
 
+
+    public function setLayoutVariable($name, $value)
+    {
+        $this->layoutVariables[$name] = $value;
+    }
+
+    public function getLayoutVariables()
+    {
+        return $this->layoutVariables;
+    }
 
 }

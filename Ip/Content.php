@@ -30,6 +30,10 @@ class Content {
     protected $zoneUrl = null;
     protected $currentZoneName = null;
 
+    protected $blockContent = null;
+    protected $slotContent = null;
+
+
 
     public function setLayout($layout)
     {
@@ -289,5 +293,69 @@ class Content {
         return \Ip\ServiceLocator::getSite()->generateUrl($languageId, $zoneName, $urlVars, $getVars, $escape);
     }
 
+
+
+
+
+    public function setBlockContent($block, $content)
+    {
+        $this->blockContent[$block] = $content;
+    }
+
+    public function getBlockContent($block)
+    {
+        if (isset($this->blockContent[$block])) {
+            return $this->blockContent[$block];
+        } else {
+            return null;
+        }
+    }
+
+    public function generateBlock($blockName, $static = false) {
+        $block = new \Ip\Block($blockName);
+        if ($static) {
+            $block->asStatic();
+        }
+
+        return $block;
+    }
+
+
+    public function setSlotContent($name, $content)
+    {
+        $this->slotContent[$name] = $content;
+    }
+
+    public function getSlotContent($name)
+    {
+        if (isset($this->slotContent[$name])) {
+            return $this->slotContent[$name];
+        } else {
+            return null;
+        }
+    }
+
+    public function generateSlot($name) {
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+        $data = array (
+            'slotName' => $name,
+        );
+        $event = new \Ip\Event($this, 'site.generateSlot', $data);
+        $processed = $dispatcher->notifyUntil($event);
+
+        if ($processed && $event->issetValue('content')) {
+            $content = $event->getValue('content');
+            if (is_object($content) && method_exists($content, 'render')) {
+                $content = $content->render();
+            }
+            return (string)$content;
+        } else {
+            $predefinedContent = $this->getSlotContent($name);
+            if ($predefinedContent !== null) {
+                return $predefinedContent;
+            }
+        }
+        return '';
+    }
 
 }

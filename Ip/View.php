@@ -370,10 +370,9 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    public function generateBlock($blockName, $static = false)
+    public function generateBlock($blockName)
     {
-        $site = \Ip\ServiceLocator::getSite();
-        return $site->generateBlock($blockName, $static);
+        return \Ip\ServiceLocator::getContent()->generateBlock($blockName);
     }
 
     public function generateSlot($name)
