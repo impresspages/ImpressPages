@@ -415,7 +415,7 @@ class AdminController extends \Ip\Controller
 
 
         $answer['html'] = $tabsView->render();
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -452,7 +452,7 @@ class AdminController extends \Ip\Controller
 
 
         $answer['html'] = $tabsView->render();
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function saveZoneProperties()
@@ -509,7 +509,7 @@ class AdminController extends \Ip\Controller
                 'status' => 'success',
             );
         }
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -563,7 +563,7 @@ class AdminController extends \Ip\Controller
                 'status' => 'success',
             );
         }
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     /**
@@ -869,7 +869,7 @@ class AdminController extends \Ip\Controller
         $answer = array ();
         $answer['status'] = 'success';
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -1014,7 +1014,7 @@ class AdminController extends \Ip\Controller
         $answer = array();
         $answer['status'] = 'success';
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
 
 
 
@@ -1135,7 +1135,7 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
         $answer['destinationPageId'] = $destinationPage->getId();
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -1176,7 +1176,7 @@ class AdminController extends \Ip\Controller
         $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);
 
         unset($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId]);
-        $this->returnJson(array('success' => 1));
+        return new \Ip\Response\Json(array('success' => 1));
     }
 
 
@@ -1275,7 +1275,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getLanguages(),
             'status' => 'success'
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZones()
@@ -1291,7 +1291,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
             'status' => 'success'
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZonePages()
@@ -1312,7 +1312,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getPages()
@@ -1330,7 +1330,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getData()
@@ -1350,7 +1350,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'response' => $pages
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 

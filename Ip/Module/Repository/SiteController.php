@@ -71,7 +71,7 @@ class SiteController extends \Ip\Controller{
                     'id' => 'id'
                 )
             );
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
             return;
         }
         $fileName = $uploadModel->getUploadedFileName();
@@ -92,7 +92,7 @@ class SiteController extends \Ip\Controller{
             $answerArray['file'] = $file;
         }
 
-        $this->returnJson($answerArray);
+        return new \Ip\Response\Json($answerArray);
 
     }
 
@@ -130,7 +130,7 @@ class SiteController extends \Ip\Controller{
 
         }
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -211,7 +211,7 @@ class SiteController extends \Ip\Controller{
                 'status' => 'error',
                 'error' => 'Missing post variable'
             );
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
         }
 
         $file = realpath($_POST['file']);
@@ -221,7 +221,7 @@ class SiteController extends \Ip\Controller{
                 'status' => 'error',
                 'error' => 'Trying to access file outside temporary dir'
             );
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
         }
 
 
@@ -232,7 +232,7 @@ class SiteController extends \Ip\Controller{
         $answer = array(
             'status' => 'success'
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -258,7 +258,7 @@ class SiteController extends \Ip\Controller{
             'notRemovedCount' => $notRemovedCount
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     private function removeFile($file)

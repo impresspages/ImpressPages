@@ -44,7 +44,8 @@ class SiteController extends \Ip\Controller{
             );
         }
         if (\Ip\Request::getPost('ajax', 1)) {
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
+            return new \Ip\Response\Json($answer);
         } else {
             //MultiSite autologin
             $this->redirect($redirectUrl);
@@ -59,7 +60,7 @@ class SiteController extends \Ip\Controller{
 
     public function sessionRefresh()
     {
-        $this->returnJson(array());
+        return new \Ip\Response\Json(array());
     }
 
     public function login()

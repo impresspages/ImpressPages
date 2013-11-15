@@ -48,7 +48,7 @@ class AdminController extends \Ip\Controller{
             'tipId' => $tipId
         );
 
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 }

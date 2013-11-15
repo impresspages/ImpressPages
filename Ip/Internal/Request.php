@@ -301,5 +301,10 @@ class Request
         return $controllerClass;
     }
 
+    public function isDefaultAction()
+    {
+        return $this->getControllerClass() == $this->defaultControllerClass && $this->getControllerAction() == $this->defaultControllerAction;
+    }
+
 
 }

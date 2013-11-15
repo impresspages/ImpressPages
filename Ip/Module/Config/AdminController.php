@@ -54,7 +54,7 @@ class AdminController extends \Ip\Controller{
         ipSetOption('Config.' . $fieldName, $value);
 
 
-        $this->returnJson(array(1));
+        return new \Ip\Response\Json(array(1));
 
     }
 
@@ -63,6 +63,6 @@ class AdminController extends \Ip\Controller{
         $data = array(
             'error' => $errorMessage
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 }

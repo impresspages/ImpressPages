@@ -64,7 +64,7 @@ class AdminController extends \Ip\Controller{
             'textPreview' => $service->generateTextLogo($cssClass),
             'imagePreview' => $service->generateImageLogo($cssClass)
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -109,7 +109,7 @@ class AdminController extends \Ip\Controller{
             'curLanguageId' => $site->getCurrentLanguage()->getId(),
             'html' => $html
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function getManagementPopupText()
@@ -152,7 +152,7 @@ class AdminController extends \Ip\Controller{
             'curLanguageId' => $site->getCurrentLanguage()->getId(),
             "html" => $html
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function getManagementPopupImage()
@@ -228,7 +228,7 @@ class AdminController extends \Ip\Controller{
             "imageData" => $imageData,
             "html" => $html
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function saveLogo()
@@ -292,7 +292,7 @@ class AdminController extends \Ip\Controller{
             "status" => "success",
             "logoHtml" => $inlineManagementService->generateManagedLogo($cssClass)
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function saveString()
@@ -316,7 +316,7 @@ class AdminController extends \Ip\Controller{
             "status" => "success",
             "stringHtml" => $inlineManagementService->generateManagedString($key, $tag, null, $cssClass)
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -342,7 +342,7 @@ class AdminController extends \Ip\Controller{
             "status" => "success",
             "stringHtml" => $inlineManagementService->generateManagedText($key, $tag, null, $cssClass)
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -477,7 +477,7 @@ class AdminController extends \Ip\Controller{
             "status" => "success",
             "newHtml" => $newHtml
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -525,7 +525,7 @@ class AdminController extends \Ip\Controller{
             "status" => "success",
             "newHtml" => $newHtml
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -560,7 +560,7 @@ class AdminController extends \Ip\Controller{
             "status" => "error",
             "error" => $errorMessage
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 
