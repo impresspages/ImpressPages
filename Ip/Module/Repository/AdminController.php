@@ -25,7 +25,7 @@ class AdminController extends \Ip\Controller{
     {
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
-            $this->returnJson(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
+            return new \Ip\Response\Json(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
         }
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
@@ -55,7 +55,7 @@ class AdminController extends \Ip\Controller{
             'files' => $newFiles
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -81,7 +81,7 @@ class AdminController extends \Ip\Controller{
             'fileGroups' => $fileGroups
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     private function sortFiles($a, $b)

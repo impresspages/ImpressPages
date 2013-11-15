@@ -44,7 +44,7 @@ class SiteController extends \Ip\Controller{
             );
         }
         if (\Ip\Request::getPost('ajax', 1)) {
-            $this->returnJson($answer);
+            return new \Ip\Response\Json($answer);
         } else {
             //MultiSite autologin
             $this->redirect($redirectUrl);
@@ -59,7 +59,7 @@ class SiteController extends \Ip\Controller{
 
     public function sessionRefresh()
     {
-        $this->returnJson(array());
+        return new \Ip\Response\Json(array());
     }
 
     public function login()
@@ -71,22 +71,22 @@ class SiteController extends \Ip\Controller{
         }
 
 
-
-        $site = \Ip\ServiceLocator::getSite();
-
         global $cms;
         $cms = new OldCmsInterface();
 
-        $variables = array(
-            'loginForm' => $this->getLoginForm()
-        );
 
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
-        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
+
+
+        $response = new \Ip\Response\Layout();
+        $response->setLayout(\Ip\Config::coreMOduleFile('Admin/View/login.php'));
+        $response->setLayoutVariable('loginForm', $this->getLoginForm());
+        return $response;
+//        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
         $view = \Ip\View::create('View/login.php', $variables);
-        $site->setOutput($view);
+        return $view;
     }
 
     protected function getLoginForm()

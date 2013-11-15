@@ -33,10 +33,9 @@ class Model{
     }
     
     private static function collectFieldTypes() {
-        global $dispatcher;
         //collect available field types
         $event = new \Ip\Module\Content\EventFormFields(null, 'contentManagement.collectFieldTypes', null);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
         self::$fields = $event->getFields();
     }
 }

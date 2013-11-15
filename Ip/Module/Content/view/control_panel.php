@@ -9,7 +9,7 @@
                 </div>
             </div>
             <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->escPar('Content.advanced'); ?>"><span>&nbsp;</span></a>
-            <a href="<?php echo str_replace('cms_action=manage', '', $site->generateCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->escPar('Content.preview'); ?>"><span>&nbsp;</span></a>
+            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->escPar('Content.preview'); ?>"><span>&nbsp;</span></a>
             <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->escPar('Content.publish'); ?>"><?php echo $this->escPar('Content.publish') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>

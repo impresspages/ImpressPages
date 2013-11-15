@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
                     $language['d_short']
                 ) . ')</a>' . "\n";
 
-            $zones = $site->getZones();
+            $zones = ipGetZones();
             if (sizeof($zones) > 0) {
                 $answer .= '<ul>';
                 foreach ($zones as $key => $zone) {
@@ -87,7 +87,7 @@ class AdminController extends \Ip\Controller
             return;
         }
 
-        $zone = $site->getZone($_REQUEST['zoneName']);
+        $zone = ipGetZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             $this->_errorAnswer('Can\'t find zone');
@@ -166,18 +166,18 @@ class AdminController extends \Ip\Controller
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), $site->getCurrentElement()->getId());
+        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revision) {
-            $managementUrls[] = $site->getCurrentElement()->getLink().'&cms_revision='.$revision['revisionId'];
+            $managementUrls[] = ipGetCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
         }
 
         $revision = $site->getRevision();
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
-        $page = $site->getCurrentElement();
+        $page = ipGetCurrentPage();
 
         $data = array (
             'widgets' => $widgets,
@@ -201,7 +201,7 @@ class AdminController extends \Ip\Controller
             'manageableRevision' => $manageableRevision
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function moveWidget() {
@@ -251,7 +251,7 @@ class AdminController extends \Ip\Controller
             'newInstanceId' => $newInstanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function createWidget() {
@@ -288,7 +288,7 @@ class AdminController extends \Ip\Controller
             $pageId = $revisionRecord['pageId'];
 
 
-            $zone = $site->getZone($zoneName);
+            $zone = ipGetZone($zoneName);
             if ($zone === false) {
                 $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
                 return;
@@ -328,7 +328,7 @@ class AdminController extends \Ip\Controller
             'instanceId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -380,7 +380,7 @@ class AdminController extends \Ip\Controller
             'newInstanceId' => $newInstanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     //    public function previewWidget() {
@@ -401,7 +401,7 @@ class AdminController extends \Ip\Controller
     //            'widgetId' => $widgetId
     //        );
     //
-    //        $this->_outputAnswer($data);
+    //        return new \Ip\Response\Json($data);
     //    }
 
 
@@ -428,7 +428,7 @@ class AdminController extends \Ip\Controller
                 'oldInstanceId' => $newInstanceId
             );
 
-            $this->_outputAnswer($data);
+            return new \Ip\Response\Json($data);
         } else {
             Model::deleteInstance($instanceId);
             $data = array (
@@ -439,7 +439,7 @@ class AdminController extends \Ip\Controller
                 'oldInstanceId' => ''
             );
 
-            $this->_outputAnswer($data);
+            return new \Ip\Response\Json($data);
         }
 
 
@@ -488,7 +488,7 @@ class AdminController extends \Ip\Controller
             'instanceId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function deleteWidget() {
@@ -508,7 +508,7 @@ class AdminController extends \Ip\Controller
             'widgetId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -534,7 +534,7 @@ class AdminController extends \Ip\Controller
 
         $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
 
-        $zone = $site->getZone($revision['zoneName']);
+        $zone = ipGetZone($revision['zoneName']);
         if (!$zone) {
             $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
             return;
@@ -547,7 +547,7 @@ class AdminController extends \Ip\Controller
             'newRevisionUrl' => $zone->getElement($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -582,7 +582,7 @@ class AdminController extends \Ip\Controller
         }
 
         if ($changedUrl) {
-            $zone = $site->getZone($revision['zoneName']);
+            $zone = ipGetZone($revision['zoneName']);
             $oldElement = $zone->getElement($revision['pageId']);
             $oldUrl = $oldElement->getLink();
         }
@@ -606,7 +606,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
 
     }
 
@@ -632,9 +632,9 @@ class AdminController extends \Ip\Controller
 
         $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
-            $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
+            $newRevisionUrl = ipGetCurrentPage()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
         } else {
-            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$lastRevision['revisionId'];
+            $newRevisionUrl = ipGetCurrentPage()->getLink().'&cms_revision='.$lastRevision['revisionId'];
         }
 
         $data = array (
@@ -643,7 +643,7 @@ class AdminController extends \Ip\Controller
             'newRevisionUrl' => $newRevisionUrl
         );
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
 
     }
 
@@ -654,7 +654,7 @@ class AdminController extends \Ip\Controller
             'errorMessage' => $errorMessage
         );
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
     }
 
     private function _outputAnswer($data) {

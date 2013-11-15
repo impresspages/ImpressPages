@@ -31,40 +31,40 @@ You can make lists:
         case 2:
 ?>
             <div class="col_12 col_md_6 col_lg_6">
-                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_6">
-                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
         case 3:
 ?>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_4 col_lg_4">
-                <?php echo $this->generateBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;
         case 4:
 ?>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home1')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home2')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="clear hidden_md hidden_lg"></div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home3')->asStatic()->exampleContent($exampleContent); ?>
             </div>
             <div class="col_12 col_md_6 col_lg_3">
-                <?php echo $this->generateBlock('home4')->asStatic()->exampleContent($exampleContent); ?>
+                <?php echo ipBlock('home4')->asStatic()->exampleContent($exampleContent); ?>
             </div>
 <?php
             break;

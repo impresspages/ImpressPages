@@ -2,17 +2,17 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(\Ip\Config::libraryUrl('css/ipContent/ip_content.css'));
-    echo $site->generateHead();
+    ipAddCss(\Ip\Config::libraryUrl('css/ipContent/ip_content.css'));
+    echo ipHead();
     ?>
 </head>
 <body>
 <div class="content">
-    <?php echo $this->generateBlock('main'); ?>
+    <?php echo ipBlock('main'); ?>
 </div>
 <?php
-$site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-echo $site->generateJavascript();
+ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+echo ipJavascript();
 ?>
 </body>
 </html>

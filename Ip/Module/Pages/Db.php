@@ -30,7 +30,7 @@ class Db {
         global $parametersMod;
 
         $managedZones = array();
-        $zones = \Ip\ServiceLocator::getSite()->getZones();
+        $zones = ipGetZones();
         foreach ($zones as $zone) {
             $managedZones[] = $zone->getName();
         }
@@ -187,7 +187,7 @@ class Db {
         global $site;
         $values = array();
 
-        $zone = $site->getZone($zoneName);
+        $zone = ipGetZone($zoneName);
         if (!$zone) {
             return;
         }
@@ -274,8 +274,7 @@ class Db {
         if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
             $newPage = $zone->getElement($pageId);
             $newUrl = $newPage->getLink(true);
-            global $dispatcher;
-            $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }
 
         if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], \Ip\Config::themeFile(''))) {

@@ -11,9 +11,7 @@ class System{
 
 
     function init(){
-        global $dispatcher;
-
-        $dispatcher->bind('site.generateSlot', __NAMESPACE__ .'\System::generateLanguagesSlot');
+        \Ip\ServiceLocator::getDispatcher()->bind('site.generateSlot', __NAMESPACE__ .'\System::generateLanguagesSlot');
     }
 
 
@@ -23,7 +21,7 @@ class System{
         global $parametersMod;
         $name = $event->getValue('slotName');
         if ( $name == 'ipLanguages') {
-            if ($parametersMod->getValue('Config.multilingual')) {
+            if (ipGetOption('Config.multilingual')) {
                 $event->setValue('content', Module::generateLanguageList());
                 $event->addProcessed();
             }else {

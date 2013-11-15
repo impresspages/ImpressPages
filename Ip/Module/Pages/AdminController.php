@@ -50,7 +50,7 @@ class AdminController extends \Ip\Controller
         $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
-        $this->returnJson ($list);
+        return new \Ip\Response\Json($list);
     }
     /**
      *
@@ -312,7 +312,7 @@ class AdminController extends \Ip\Controller
             return false;
         }
 
-        $zone = $site->getZone($_REQUEST['zoneName']);
+        $zone = ipGetZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             trigger_error("Can't find zone");
@@ -368,7 +368,7 @@ class AdminController extends \Ip\Controller
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZoneProperties() {
@@ -415,7 +415,7 @@ class AdminController extends \Ip\Controller
 
 
         $answer['html'] = $tabsView->render();
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -452,7 +452,7 @@ class AdminController extends \Ip\Controller
 
 
         $answer['html'] = $tabsView->render();
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function saveZoneProperties()
@@ -467,7 +467,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\CoreException("Missing required parameter");
         }
         $zoneName = $params['zoneName'];
-        $zoneId = $site->getZone($zoneName)->getId();
+        $zoneId = ipGetZone($zoneName)->getId();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -509,7 +509,7 @@ class AdminController extends \Ip\Controller
                 'status' => 'success',
             );
         }
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -563,7 +563,7 @@ class AdminController extends \Ip\Controller
                 'status' => 'success',
             );
         }
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
     /**
@@ -652,7 +652,7 @@ class AdminController extends \Ip\Controller
                 }
 
                 $pageId = (int)$_REQUEST['pageId'];
-                $zone = $site->getZone($_REQUEST['zoneName']);
+                $zone = ipGetZone($_REQUEST['zoneName']);
                 if (! $zone) {
                     trigger_error("Can't find zone");
                     return false;
@@ -676,7 +676,7 @@ class AdminController extends \Ip\Controller
                 return false;
         }
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -736,8 +736,7 @@ class AdminController extends \Ip\Controller
             $answer['status'] = 'error';
         }
 
-
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -773,12 +772,12 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['zoneName'])) {
-            $zone = $site->getZone($_REQUEST['zoneName']);
+            $zone = ipGetZone($_REQUEST['zoneName']);
         } else {
             $associatedZones = Db::getZones();
             $zoneArray = array_shift($associatedZones);
             if ($zoneArray) {
-                $zone = $site->getZone($zoneArray['name']);
+                $zone = ipGetZone($zoneArray['name']);
             }
         }
 
@@ -843,7 +842,7 @@ class AdminController extends \Ip\Controller
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -869,7 +868,7 @@ class AdminController extends \Ip\Controller
         $answer = array ();
         $answer['status'] = 'success';
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -939,7 +938,7 @@ class AdminController extends \Ip\Controller
         $destinationLanguageId = $_REQUEST['destinationLanguageId'];
 
         //check if destination page exists
-        $destinationZone = $site->getZone($destinationZoneName);
+        $destinationZone = ipGetZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
@@ -1003,19 +1002,18 @@ class AdminController extends \Ip\Controller
         Db::updatePage($zoneName, $pageId, $data);
 
         //report url change
-        $pageZone = $site->getZone($zoneName);
+        $pageZone = ipGetZone($zoneName);
         $page = $pageZone->getElement($pageId);
         $newUrl = $page->getLink(true);
 
-        global $dispatcher;
-        $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
         //report url change
 
 
         $answer = array();
         $answer['status'] = 'success';
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
 
 
 
@@ -1035,11 +1033,10 @@ class AdminController extends \Ip\Controller
      */
     private function notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
         global $site;
-        global $dispatcher;
         $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
-        $dispatcher->notify($movePageEvent);
+        \Ip\ServiceLocator::getDispatcher()->notify($movePageEvent);
 
-        $children = $site->getZone($zoneName)->getElements($languageId, $pageId);
+        $children = ipGetZone($zoneName)->getElements($languageId, $pageId);
         foreach ($children as $key => $child) {
             self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
         }
@@ -1106,7 +1103,7 @@ class AdminController extends \Ip\Controller
         //check if destination page exists
 
 
-        $destinationZone = $site->getZone($destinationZoneName);
+        $destinationZone = ipGetZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
@@ -1137,7 +1134,7 @@ class AdminController extends \Ip\Controller
         $answer['status'] = 'success';
         $answer['destinationPageId'] = $destinationPage->getId();
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -1178,7 +1175,7 @@ class AdminController extends \Ip\Controller
         $jsTreeId = $this->_jsTreeId($websiteId, $languageId, $zoneName, $id);
 
         unset($_SESSION['modules']['standard']['menu_management']['openNode'][$jsTreeId]);
-        $this->returnJson(array('success' => 1));
+        return new \Ip\Response\Json(array('success' => 1));
     }
 
 
@@ -1277,7 +1274,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getLanguages(),
             'status' => 'success'
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZones()
@@ -1293,7 +1290,7 @@ class AdminController extends \Ip\Controller
             'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
             'status' => 'success'
         );
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZonePages()
@@ -1314,7 +1311,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getPages()
@@ -1332,7 +1329,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success'
         );
 
-        $this->returnJson($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getData()
@@ -1352,7 +1349,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'response' => $pages
         );
-        $this->returnJson($data);
+        return new \Ip\Response\Json($data);
     }
 
 

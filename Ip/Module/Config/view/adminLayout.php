@@ -9,14 +9,14 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(\Ip\Config::coreModuleUrl('Config/public/admin.css'));
-    echo $site->generateHead();
+    ipAddCss(\Ip\Config::coreModuleUrl('Config/public/admin.css'));
+    echo ipHead();
     ?>
 </head>
 <body>
     <?php echo empty($content) ? '' : $content ?>
 <?php
-echo $site->generateJavascript();
+echo ipJavascript();
 ?>
 </body>
 </html>

@@ -16,11 +16,11 @@
             </nav>
         </div>
         <div class="main col_12 col_md_12 col_lg_8 right">
-            <?php echo $site->generateBlock('main')->render(); ?>
+            <?php echo ipBlock('main'); ?>
         </div>
         <div class="side col_12 col_md_12 col_lg_3 left">
             <aside>
-                <?php echo $this->generateBlock('side1', true)->render(); ?>
+                <?php echo ipBlock('side1', true)->render(); ?>
             </aside>
         </div>
         <div class="clear"></div>

@@ -17,7 +17,10 @@ namespace Ip;
  */
 class ServiceLocator
 {
-    protected static $request = null;
+    protected static $requests = array();
+    protected static $dispatchers = array();
+    protected static $contents = array();
+    protected static $responses = array();
     protected static $config = null;
     protected static $log = null;
 
@@ -57,11 +60,7 @@ class ServiceLocator
      */
     public static function getDispatcher()
     {
-        /**
-         * @var $dispatcher \Ip\Dispatcher
-         */
-        global $dispatcher;
-        return $dispatcher;
+        return end(self::$dispatchers);
     }
 
     /**
@@ -78,7 +77,7 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Frontend\User
+     * @return \Ip\Core\Application
      */
     public static function getApplication()
     {
@@ -101,19 +100,58 @@ class ServiceLocator
     }
 
     /**
+     * Add new request to HMVC queue
+     * @param $request
+     */
+    public static function addRequest($request)
+    {
+        self::$requests[] = $request;
+        self::$dispatchers[] = new \Ip\Dispatcher();
+        self::$contents[] = new \Ip\Content();
+        self::$responses[] = new \Ip\Response\Layout();
+    }
+
+    /**
+     * Remove request from HMVC. Last request should always stay intact and can't be removed as it is needed for application close action
+     */
+    public static function removeRequest()
+    {
+        if (count(self::$requests) >1 ) {
+            array_pop(self::$dispatchers);
+            array_pop(self::$requests);
+            array_pop(self::$contents);
+            array_pop(self::$responses);
+        }
+    }
+
+    /**
      * @return \Ip\Internal\Request
      */
     public static function getRequest()
     {
-        if (self::$request == null) {
-            self::$request = new \Ip\Internal\Request();
-        }
-
-        return self::$request;
+        return end(self::$requests);
     }
 
     public static function replaceRequestService($request)
     {
-        self::$request = $request;
+        array_pop(self::$requests);
+        self::$requests[] = $request;
+    }
+
+    /**
+     * @return \Ip\Content
+     */
+    public static function getContent()
+    {
+        return end(self::$contents);
+    }
+
+
+    /**
+     * @return \Ip\Content
+     */
+    public static function getResponse()
+    {
+        return end(self::$responses);
     }
 }

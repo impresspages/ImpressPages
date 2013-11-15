@@ -78,6 +78,7 @@ abstract class Zone{
      * @return array Element
      *
      */
+    //TODOX rename to Pages
     public abstract function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
 
@@ -131,8 +132,8 @@ abstract class Zone{
         if($elementId !== null)
         $element = $this->getElement($elementId);
         else
-        $element = $this->getCurrentElement();
-         
+        $element = $this->getCurrentPage();
+
         if($element){
             $elements[] = $element;
             $parentElementId = $element->getParentId();
@@ -153,17 +154,17 @@ abstract class Zone{
      * @return Element - element that represents current requested page.
      *
      */
-    public function getCurrentElement(){
-        global $site;
+    public function getCurrentPage(){
         if($this->currentElement !== null){
             return $this->currentElement;
         }
-        if($this->name != $site->currentZone){
+        $content = \Ip\ServiceLocator::getContent();
+        if($this->name != $content->getCurrentZone()->getName()){
             $this->currentElement = null;
             return null;
         }
 
-        $this->currentElement = $this->findElement($site->urlVars, $site->getVars);
+        $this->currentElement = $this->findElement($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
         return $this->currentElement;
     }
 
@@ -193,13 +194,13 @@ abstract class Zone{
 
     public function getBreadcrumb($pageId = null){
         global $site;
-        if ($site->getCurrentZone()&& $site->getCurrentZone()->getName() == $this->name) {
+        if (ipGetCurrentZone()&& ipGetCurrentZone()->getName() == $this->name) {
             if ($pageId == null) {
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;
                 } else {
-                    if($this->getCurrentElement()){
-                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentElement()->getId());
+                    if($this->getCurrentPage()){
+                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentPage()->getId());
                         return $this->breadcrumb;
                     } else {
                         return array();

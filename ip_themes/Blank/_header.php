@@ -8,9 +8,9 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php $site->addCss(\Ip\Config::libraryUrl('js/colorbox/themes/').$this->getThemeOption('lightboxStyle').'/colorbox.css'); ?>
-    <?php $site->addCss(\Ip\Config::themeUrl('theme.css')); ?>
-    <?php echo $site->generateHead(); ?>
+    <?php ipAddCss(\Ip\Config::libraryUrl('js/colorbox/themes/').$this->getThemeOption('lightboxStyle').'/colorbox.css'); ?>
+    <?php ipAddCss(\Ip\Config::themeUrl('theme.css')); ?>
+    <?php echo ipHead(); ?>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -22,7 +22,7 @@
         <?php echo $this->generateManagedLogo(); ?>
 
         <div class="right">
-            <span class="currentPage"><?php echo $site->getCurrentElement()->getButtonTitle(); ?></span>
+            <span class="currentPage"><?php echo ipGetCurrentPage()->getButtonTitle(); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php

@@ -42,21 +42,12 @@ if (!defined('IP_CONFIG_FILE')) {
  */
 class Site{
 
-    /** array of variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum') */
-    public $urlVars;
-
-    /** array of GET variables. Use this function instead of direcly acessing $_GET array for code flexibility. */
-    public $getVars;
 
     /** bool true if page does not exists */
     private $error404;
     
 
-    /** @deprecated use getCurrentZone()->getUrl() instead */
-    public $zoneUrl;
 
-    /** @deprecated use getCurrentLanguage->getUrl() insead */
-    public $languageUrl; //
 
     /** @deprecated use getCurrentZone()->getName() instead */
     public $currentZone;
@@ -67,14 +58,6 @@ class Site{
     /** @deprecated use getCurrentLanguage() instead */
     public $currentLanguage;
 
-    /** array js variables */
-    private $javascriptVariables = array();
-
-    /** array required javascript files */
-    private $requiredJavascript = array();
-    
-    /** array required css files */
-    private $requiredCss = array();
 
     /** string HTML or any other output. If is not null, it will be send to the output. If it is null, required page by request URL will be generated  */
     protected $output;
@@ -82,12 +65,6 @@ class Site{
     /** int Revision of current page.  */
     protected $revision;
 
-    protected $zones;
-    protected $otherZones;
-
-    protected $layout;
-
-    protected $blockContent;
 
     public function __construct(){
 
@@ -113,30 +90,8 @@ class Site{
         return $this->getVars;
     }
 
-    /**
-     *
-     * @param data array from database
-     * @return Language
-     *
-     *
-     */
-    private function createLanguage($data){
-        $language = new \Ip\Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
-        return $language;
-    }
 
-    /**
-     *
-     * @return array - all website languages. Each element is an object Language
-     *
-     */
-    public function getLanguages(){
-        $languages = array();
-        foreach($this->languages as $key => $data){
-            $languages[] = $this->createLanguage($data);
-        }
-        return $languages;
-    }
+
 
     /**
      *
@@ -174,140 +129,11 @@ class Site{
      *
      */
     public function getCurrentLanguage(){
-        return $this->createLanguage($this->currentLanguage);
+        \Ip\ServiceLocator::getContent()->getCurrentLanguage();
     }
 
-    /**
-     *
-     * Initialize required components. Executed once at startup.
-     *
-     */
-    public function init()
-    {
 
-        $dispatcher  = \Ip\ServiceLocator::getDispatcher();
 
-        if (get_magic_quotes_gpc()) {
-            \Ip\Internal\Scripts::fixMagicQuotes();
-        }
-
-        $this->parseUrl();
-
-        $this->languages = \Ip\Frontend\Db::getLanguages(true);
-        if(sizeof($this->languages) == 0){
-            trigger_error('All website languages are hidden.');
-            exit;
-        }
-
-        if($this->languageUrl != null){
-            foreach($this->languages as $key => $language){
-                if($language['url'] == $this->languageUrl){
-                    $this->currentLanguage = $language;
-                }
-            }
-            if($this->currentLanguage == null){
-                $this->currentLanguage = reset($this->languages);
-                $this->error404();
-            }
-        } else {
-            $this->currentLanguage = reset($this->languages);
-        }
-
-        setlocale(LC_ALL, $this->currentLanguage['code']);
-
-        
-        $this->configZones();
-
-        if (!defined('BACKEND')) {
-            $this->checkError404();
-        }
-
-        if ($this->error404) {
-            $dispatcher->bind('site.afterInit', array($this, 'dispatchError404'));
-            ///$this->dispatchError404();
-        }
-    }
-    
-    private function error404() {
-        $zone = array (
-            'id' => '',
-            'row_number' => 0,
-            'name' => 'auto_error404',
-            'template' => is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php',
-            'translation' => 'Error404',
-            'associated_group' => '',
-            'associated_module' => '',
-            'url' => (($this->zoneUrl) ? $this->zoneUrl.'asd' : 'error404'),
-            'description' => '',
-            'keywords' => '',
-            'title' => 'error404'
-        );
-        
-        
-        $zone['object'] = new \Ip\Frontend\Zone404($zone);
-        
-        $this->zones['auto_error404'] = $zone;
-        $this->currentZone = 'auto_error404';
-        $this->error404 = true;
-    }
-    
-    public function dispatchError404() {
-        global $dispatcher;
-        $event = new \Ip\Event($this, 'site.beforeError404', null);
-        $dispatcher->notify($event);
-        if (!$event->getProcessed()) {
-            $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
-        }
-    }
-
-    /**
-     *
-     * Prepare main website parameters (current zone and so on). Executed once at startup.
-     *
-     */
-    private function configZones(){
-        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zone) {
-            $this->zones[$zone['name']] = $zone;
-        }
-        
-        if (sizeof($zones) == 0) {
-            trigger_error('Please insert at least one zone.');
-            \Ip\Internal\Deprecated\Db::disconnect();
-            exit;
-        }
-
-        if ($this->error404) {
-            //current zone set to auto_error404.
-            return;
-        }
-
-        //find current zone
-        if ($this->zoneUrl) {
-            foreach ($zones as $key => $zone) {
-                if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
-                    $this->currentZone = $zone['name'];
-                    break;
-                }
-            }
-        } else {
-            foreach ($this->zones as $key => $zone) { //find first not empty zone.
-                $this->currentZone = $key;
-                if ($this->getZone($key)->getCurrentElement()) {
-                    break;
-                }
-            }
-        }
-
-        if (!$this->currentZone) {
-            $this->homeZone();
-        }
-
-        if (!$this->currentZone) {
-            $this->error404();
-        }
-
-    }
 
     protected function homeZone()
     {
@@ -331,124 +157,7 @@ class Site{
 
 
 
-    /*
-     * Check if current zone can find current page.
-     */
-    public function checkError404(){
-        if ($this->error404) {
-            return; //error404 already has been registered because of incorrect language or zone url.
-        }
 
-        if (!$this->getZone($this->currentZone)->getCurrentElement()) {
-            if (empty($this->urlVars) && (empty($this->getVars) || empty($this->urlVars) && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
-                $redirect = false;
-                foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
-                    $tmpZone = $this->getZone($key);
-                    if ($tmpZone->getAssociatedModuleGroup() == 'standard'
-                    && $tmpZone->getAssociatedModule() == 'content_management' &&
-                    $tmpZone->findElement(array(), array())) {
-                        $this->currentZone = $key;
-                        $redirect = true;
-                        header("Location: ".$this->generateUrl(null, $key));
-                        break;
-                    }
-                }
-
-                if(!$redirect) {
-                    $this->error404();
-                }
-
-            } else {
-                $this->error404();
-            }
-        }
-    }
-
-    /**
-     *
-     * @param $zoneName Name of zone you wish to get
-     * @return \Ip\Frontend\Zone
-     *
-     */
-    public function getZone($zoneName){
-        //if refactoring, keep in mind auto_error404 zone!!!
-        if(isset($this->zones[$zoneName]))
-        {
-            if(!isset($this->zones[$zoneName]['object']))
-            {
-                //initialize zone object
-                $tmpZone = $this->zones[$zoneName];
-                if ($tmpZone['associated_group'] && $tmpZone['associated_module']) {
-                    if (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/zone.php');
-                    } elseif (file_exists(\Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php'))) {
-                        require_once \Ip\Config::oldModuleFile($tmpZone['associated_group'].'/'.$tmpZone['associated_module'].'/Zone.php');
-                    }
-                    eval ('$tmpZoneObject = new \\Modules\\'.$tmpZone['associated_group'].'\\'.$tmpZone['associated_module'].'\\Zone($tmpZone[\'name\']);');
-                } else {
-                    if ($tmpZone['associated_module']) {
-                        $class = '\\Plugin\\' . $tmpZone['associated_module'] . '\\Zone';
-                        if (class_exists($class)) {
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        } else {
-                            $class = '\\Ip\\Module\\' . $tmpZone['associated_module'] . '\\Zone';
-                            $tmpZoneObject = new $class($tmpZone['name']);
-                        }
-                    } else {
-                        $tmpZoneObject = new \Ip\Frontend\DefaultZone($tmpZone);
-                    }
-                }
-
-                $tmpZoneObject->setId($tmpZone['id']);
-                $tmpZoneObject->setName($tmpZone['name']);
-                $tmpZoneObject->setLayout($tmpZone['template']);
-                $tmpZoneObject->setTitle($tmpZone['title']);
-                $tmpZoneObject->setUrl($tmpZone['url']);
-                $tmpZoneObject->setKeywords($tmpZone['keywords']);
-                $tmpZoneObject->setDescription($tmpZone['description']);
-                $tmpZoneObject->setAssociatedModuleGroup($tmpZone['associated_group']);
-                $tmpZoneObject->setAssociatedModule($tmpZone['associated_module']);
-
-
-                $this->zones[$zoneName]['object'] = $tmpZoneObject;
-                //end initialize zone object
-            }
-            return $this->zones[$zoneName]['object'];
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @return \Ip\Frontend\Zone Current zone object
-     *
-     */
-    public function getCurrentZone(){
-        return $this->getZone($this->currentZone);
-    }
-
-    /**
-     *
-     * @return String Current zone name
-     *
-     */
-    public function getCurrentZoneName(){
-        return $this->currentZone;
-    }
-
-    /**
-     *
-     * @return array All registered zones. Use with caution. On big websites it can be very resource demanding operation because it requires all zone objects to be created.
-     *
-     */
-    public function getZones(){
-        $answer = array();
-        foreach($this->zones as $zone){
-            $answer[] = $this->getZone($zone['name']);
-        }
-        return $answer;
-    }
 
     /**
      * Find website zone by module group and name.
@@ -466,44 +175,7 @@ class Site{
         return $answer;
     }
 
-    /**
-     * Parse url and detect language url, zone url, url variables, get variables
-     *
-     * <b>Example URL</b>
-     *
-     * www.example.com/lt/left-menu/var1/var2/?mod=123
-     *
-     * <b>Result:</b>
-     *
-     * languageUrl - 'lt'
-     *
-     * zoneUrl - 'left-menu'
-     *
-     * urlVars - array(var1, var2)
-     *
-     * getVars - array("mod"=>"123")
-     *
-     * @return void
-     *
-     */
-    private function parseUrl(){
-        global $parametersMod;
 
-        $path = \Ip\Request::getRelativePath();
-
-        $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
-         
-        for($i=0; $i< sizeof($urlVars); $i++){
-            $urlVars[$i] = urldecode($urlVars[$i]);
-        }
-        if($parametersMod->getValue('Config.multilingual')) {
-            $this->languageUrl = urldecode(array_shift($urlVars));
-        }
-
-        $this->zoneUrl = urldecode(array_shift($urlVars));
-        $this->urlVars = $urlVars;
-        $this->getVars = \Ip\Request::getQuery();
-    }
 
     /*
      * Redirect to another page if required
@@ -511,12 +183,12 @@ class Site{
      *
      */
     public function makeRedirect(){
-        $curEl =  $this->getCurrentElement();
+        $curEl =  $this->getCurrentPage();
         if($curEl){ //if page exist.
             switch($curEl->getType()){
                 case 'subpage':
                 case 'redirect':
-                    $currentUrl = $this->getCurrentUrl();
+                    $currentUrl = \Ip\Internal\UrlHelper::getCurrentUrl();
                     if(isset($_SESSION['frontend']['redirects'][$currentUrl])){
                         unset($_SESSION['frontend']['redirects']);
                         return;//infinite redirect loop. Stop redirecting;
@@ -536,57 +208,9 @@ class Site{
         unset($_SESSION['frontend']['redirects']);
     }
 
-    public function setLayout($layout) {
-        $this->layout = $layout;
-    }
 
-    /**
-     *
-     * @return string Current layout file
-     *
-     */
-    public function getLayout(){
-        if ($this->layout) {
-            return $this->layout;
-        }
 
-        $zone = $this->getCurrentZone();
-        $element = $this->getCurrentElement();
-        $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $element->getId());
 
-        if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
-            $layout = $zone->getLayout();
-        }
-
-        return $layout;
-    }
-
-    /**
-     * Get current URL.
-     * @return string Current URL
-     */
-    public function getCurrentUrl(){
-        $pageURL = 'http';
-        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on"){
-            $pageURL .= "s";
-        }
-        $pageURL .= '://';
-        if ($_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-        } else {
-            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-        }
-        return $pageURL;
-    }
-
-    /**
-     * @deprecated Use getCurrentUrl() instead;
-     *
-     * @return string - Current URL
-     */
-    public function generateCurrentUrl(){
-     return $this->getCurrentUrl();
-    }
 
     /**
      * Generate link to website. Use it with no arguments to get link to main page of current language.
@@ -623,7 +247,7 @@ class Site{
         }
         // get parameter for cms management
 
-        if($parametersMod->getValue('Config.multilingual')){
+        if(ipGetOption('Config.multilingual')){
             $answer = \Ip\Config::baseUrl(urlencode($this->languages[$languageId]['url']).'/');
         }else{
             $answer = \Ip\Config::baseUrl('');
@@ -685,92 +309,16 @@ class Site{
 
 
     /**
-     * Pass parameter "a" using GET or POST with value plugin.action to access your plugin Controller public method
-     * Or pass the same parameter naming it "ba" to access secured action in Backend class of your plugin
-     *
-     */
-    public function makeActions(){
-
-
-        if(sizeof($_REQUEST) > 0){
-
-            $actionString = '';
-            if(isset($_REQUEST['aa'])) {
-                $actionString = $_REQUEST['aa'];
-                $controllerClass = 'AdminController';
-            } elseif(isset($_REQUEST['sa'])) {
-                $actionString = $_REQUEST['sa'];
-                $controllerClass = 'SiteController';
-            } elseif(isset($_REQUEST['pa'])) {
-                $actionString = $_REQUEST['pa'];
-                $controllerClass = 'PublicController';
-            }
-
-            if ($actionString) {
-                $parts = explode('.', $actionString);
-                $module = array_shift($parts);
-                if (isset($parts[0])) {
-                    $action = $parts[0];
-                } else {
-                    $action = 'index';
-                }
-                //check if user is logged in
-                if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
-                    header('location: ' . \Ip\Config::baseUrl('') . 'admin');
-                    exit;
-                }
-
-
-                if ($this->isDefaultModule($module)) {
-                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                } else {
-                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                }
-                if (!class_exists($controllerClass)) {
-                    throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
-                }
-                $controller = new $controllerClass();
-                $this->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-                $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-                $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-
-                $answer = $controller->$action();
-                if ($answer) {
-                    $this->setBlockContent('main', $answer);
-                }
-            }
-
-//            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
-//                $controller = new \Ip\Module\Admin\Backend();
-//
-//                ob_start();
-//                $controller->deprecatedBootstrap();
-//                $output = ob_get_clean();
-//
-//                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
-//            }
-        }
-
-
-
-    }
-
-    private function isDefaultModule($moduleName)
-    {
-        return in_array($moduleName, \Ip\Module\Plugins\Model::getModules());
-    }
-
-    /**
      *
      * @return string title of current page
      *
      */
     public function getTitle(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentElement();
+        $curEl =  $curZone->getCurrentPage();
         if($curEl && $curEl->getPageTitle() != '') {
             return $curEl->getPageTitle();
         } else {
@@ -784,11 +332,11 @@ class Site{
      *
      */
     public function getDescription(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentElement();
+        $curEl =  $curZone->getCurrentPage();
         if($curEl && $curEl->getDescription() != '') {
             return $curEl->getDescription();
         } else {
@@ -796,33 +344,7 @@ class Site{
         }
     }
 
-    /**
-     *
-     * @return string url of current page. This is not a complete URL. It is only url parameter of current page.
-     *
-     */
-    public function getUrl(){
-        $curZone = $this->getCurrentZone();
-        if (!$curZone) {
-            return '';
-        }
-        
-        $curEl =  $curZone->getCurrentElement();
-        if($curEl && $curEl->getUrl() != '') {
-            return $curEl->getUrl();
-        } else {
-            return $curZone->getUrl();
-        }
-    }
-    
-    /**
-     * This is very specific function that returns zone url string.
-     * You should use this only if you are doing something really complicated.
-     * Usually you would like to use $site->getCurrentZone()->getUrl() instead. 
-     */
-    public function getZoneUrl() {
-        return $this->zoneUrl;
-    }
+
 
     /**
      *
@@ -830,12 +352,12 @@ class Site{
      *
      */
     public function getKeywords(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
         
-        $curEl = $curZone->getCurrentElement();
+        $curEl = $curZone->getCurrentPage();
         if($curEl && $curEl->getKeywords() != '') {
             return $curEl->getKeywords();
         } else {
@@ -850,7 +372,7 @@ class Site{
      */
     public function managementState(){
         $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && isset($this->getVars['cms_action']) && $this->getVars['cms_action'] == 'manage');
+        return ($backendLoggedIn && \Ip\ServiceLocator::getRequest()->getQuery('cms_action', 0) == 'manage');
     }
 
     /**
@@ -877,97 +399,21 @@ class Site{
         }
     }
 
-    /**
-     *
-     * @return array Each element in array is an Element
-     *
-     */
-    public function getBreadcrumb($zoneName = null, $pageId = null){
-        if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
-            trigger_error("This method can accept none or both parameters");
-        }
 
-        if ($zoneName === null && $pageId === null) {
-            $zone = $this->getCurrentZone();
-            if (!$zone) {
-                return array();
-            }
-            return $zone->getBreadcrumb();
-        } else {
-            $zone = $this->getZone($zoneName);
-            if (!$zone) {
-                return array();
-            }
-            return $zone->getBreadcrumb($pageId);
-        }
-
-    }
 
     /**
      *
      * @return \Ip\Frontend\Element - Current page
      *
      */
-    public function getCurrentElement(){
-        $zone = $this->getCurrentZone();
+    public function getCurrentPage(){
+        $zone = ipGetCurrentZone();
         if ($zone) {
-            return $zone->getCurrentElement();
+            return $zone->getCurrentPage();
         }
     }
 
 
-
-    public function modulesInit(){
-        //init core modules
-        $coreModules = \Ip\Module\Plugins\Model::getModules();
-        foreach($coreModules as $module) {
-            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
-            if(class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
-        }
-
-        //init old core modules
-        $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
-                    //no plugin initialization in safe mode
-                    continue;
-                }
-
-                if($lock['m_core']){
-                    $dir = \Ip\Config::oldModuleFile('');
-                } else {
-                    // TODOX Plugin dir
-                }
-
-                $systemFileExists = false;
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
-                    $systemFileExists = true;
-                }
-
-                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
-                    $systemFileExists = true;
-                }
-
-                if ($systemFileExists) {
-                    eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
-                    if(method_exists($moduleSystem, 'init')){
-                        $moduleSystem->init();
-                    }
-                }
-            }
-        }
-
-
-    }
 
 
     public function setOutput ($output) {
@@ -1003,7 +449,7 @@ class Site{
             } else {
                 // DEPRECATED just for backward compatibility
                 $site = \Ip\ServiceLocator::getSite();
-                $this->output = $site->generateBlock('main')->render();
+                $this->output = ipBlock('main')->render();
             }
         }
 
@@ -1011,221 +457,6 @@ class Site{
     }
 
 
-    public function addCss($file, $stage = 1) {
-        $this->requiredCss[(int)$stage][$file] = $file;
-    }
-
-    public function removeCss($file) {
-        foreach($this->requiredCss as $levelKey => &$level) {
-            if (isset($this->requiredCss[$levelKey][$file])) {
-                unset($this->requiredCss[$levelKey][$file]);
-            }
-        }
-    }
-
-    public function getCss() {
-        ksort($this->requiredCss);
-        $cssFiles = array();
-        foreach($this->requiredCss as $levelKey => $level) {
-            $cssFiles = array_merge($cssFiles, $level);
-        }
-        return $cssFiles;
-    }
-
-    public function addJavascriptContent($key, $javascript, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$key] = array (
-            'type' => 'content', 
-            'value' => $javascript
-        );
-    }
-
-    /**
-     * @deprecated
-     * @param $name
-     * @param $value
-     * @param int $stage
-     */
-    public function addJavascriptVar($name, $value, $stage = 1) {
-        $this->addJavascriptVariable($name, $value);
-    }
-    
-    public function addJavascript($file, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$file] = array (
-            'type' => 'file',
-            'value' => $file
-        );
-    }
-
-    public function removeJavascript($file) {
-        foreach($this->requiredJavascript as $levelKey => &$level) {
-            if (isset($this->requiredJavascript[$levelKey][$file]) && $this->requiredJavascript[$levelKey][$file]['type'] == 'file') {
-                unset($this->requiredJavascript[$levelKey][$file]);
-            }
-        }
-    }
-
-
-
-    public function removeJavascriptContent($key) {
-        foreach($this->requiredJavascript as $levelKey => &$level) {
-            if (isset($this->requiredJavascript[$levelKey][$key]) && $this->requiredJavascript[$levelKey][$key]['type'] == 'content') {
-                unset($this->requiredJavascript[$levelKey][$key]);
-            }
-        }
-    }
-
-    public function getJavascript() {
-        ksort($this->requiredJavascript);
-        return $this->requiredJavascript;
-    }
-
-    public function addJavascriptVariable($name, $value) {
-        $this->javascriptVariables[$name] = $value;
-    }
-
-    public function removeJavascriptVariable($name) {
-        if (isset($this->javascriptVariables[$name])) {
-            unset($this->javascriptVariables[$name]);
-        }
-    }
-
-    public function getJavascriptVariables() {
-        return $this->javascriptVariables;
-    }
-
-    public function generateHead() {
-        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
-        $cssFiles = $this->getCss();
-
-        $inDesignPreview = false;
-
-        $data = \Ip\Request::getRequest();
-
-        if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
-            $config = \Ip\Module\Design\ConfigModel::instance();
-            $inDesignPreview = $config->isInPreviewState();
-        }
-
-        if (!$inDesignPreview) {
-            foreach($cssFiles as &$file) {
-                $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
-            }
-        } else {
-            $securityToken = \Ip\ServiceLocator::getApplication()->getSecurityToken();
-            foreach($cssFiles as &$file) {
-
-                $path = pathinfo($file);
-
-                if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
-                    $designService = \Ip\Module\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(\Ip\Config::theme(), $path['filename']);
-                } else {
-                    $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
-                }
-            }
-        }
-
-        $data = array (
-            'title' => $this->getTitle(),
-            'keywords' => $this->getKeywords(),
-            'description' => $this->getDescription(),
-            'favicon' => \Ip\Config::baseUrl('favicon.ico'),
-            'charset' => \Ip\Config::getRaw('CHARSET'),
-            'css' => $cssFiles
-        );
-
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/head.php'), $data)->render();
-    }
-
-    public function generateJavascript() {
-        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
-        $javascriptFiles = $this->getJavascript();
-        foreach($javascriptFiles as &$level) {
-            foreach($level as &$file) {
-                if ($file['type'] == 'file') {
-                    $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
-                }
-            }
-        }
-        $revision = $this->getRevision();
-        $data = array (
-            'ipBaseUrl' => \Ip\Config::baseUrl(''),
-            'ipLanguageUrl' => $this->generateUrl(),
-            'ipLibraryDir' => \Ip\Config::getRaw('LIBRARY_DIR'),
-            'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),
-            'ipModuleDir' => \Ip\Config::getRaw('MODULE_DIR'),
-            'ipTheme' => \Ip\Config::getRaw('THEME'),
-            'ipManagementUrl' => $this->generateUrl(),
-            'ipZoneName' => $this->getCurrentZone()->getName(),
-            'ipPageId' => $this->getCurrentElement()->getId(),
-            'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
-            'javascript' => $javascriptFiles,
-            'javascriptVariables' => $this->getJavascriptVariables()
-        );
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/javascript.php'), $data)->render();
-    }
-
-    public function setBlockContent($block, $content)
-    {
-        $this->blockContent[$block] = $content;
-    }
-
-    public function getBlockContent($block)
-    {
-        if (isset($this->blockContent[$block])) {
-            return $this->blockContent[$block];
-        } else {
-            return null;
-        }
-    }
-
-    public function generateBlock($blockName, $static = false) {
-        $block = new \Ip\Block($blockName);
-        if ($static) {
-            $block->asStatic();
-        }
-
-        return $block;
-    }
-
-
-    public function setSlotContent($name, $content)
-    {
-        $this->slotContent[$name] = $content;
-    }
-
-    public function getSlotContent($name)
-    {
-        if (isset($this->slotContent[$name])) {
-            return $this->slotContent[$name];
-        } else {
-            return null;
-        }
-    }
-
-    public function generateSlot($name) {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $data = array (
-            'slotName' => $name,
-        );
-        $event = new \Ip\Event($this, 'site.generateSlot', $data);
-        $processed = $dispatcher->notifyUntil($event);
-
-        if ($processed && $event->issetValue('content')) {
-            $content = $event->getValue('content');
-            if (is_object($content) && method_exists($content, 'render')) {
-                $content = $content->render();
-            }
-            return (string)$content;
-        } else {
-            $predefinedContent = $this->getSlotContent($name);
-            if ($predefinedContent !== null) {
-                return $predefinedContent;
-            }
-        }
-        return '';
-    }
 
     /**
      * If we are in the management state and last revision is published, then create new revision.
@@ -1239,37 +470,29 @@ class Site{
                 $revisionId = $this->getVars['cms_revision'];
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
-             
-            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentElement()->getId() ) {
-                if (!$this->getCurrentElement()) {
+
+            if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+                if (!$this->getCurrentPage()) {
                     return null;
                 }
-                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId());
+                $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
                     $revision = $this->_duplicateRevision($revision['revisionId']);
                 }
             }
 
         } else {
-            $currentElement = $this->getCurrentElement();
+            $currentElement = $this->getCurrentPage();
             if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision($this->getCurrentZone()->getName(), $currentElement->getId());
+                $revision = \Ip\Revision::getPublishedRevision(ipGetCurrentZone()->getName(), $currentElement->getId());
             }
-            
+
         }
         return $revision;
     }
 
 
-    private function _createRevision(){
-        $revisionId = \Ip\Revision::createRevision($this->getCurrentZone()->getName(), $this->getCurrentElement()->getId(),0);
-        $revision = \Ip\Revision::getRevision($revisionId);
-        if ($revision === false) {
-            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
-        }
-        return $revision;
-    }
-    
+
     private function _duplicateRevision($oldRevisionId){
         $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
         $revision = \Ip\Revision::getRevision($revisionId);
@@ -1277,6 +500,6 @@ class Site{
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
         }
         return $revision;
-    }    
+    }
 }
 

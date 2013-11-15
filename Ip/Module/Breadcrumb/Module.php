@@ -22,7 +22,7 @@ class Module{
         
         $data = array (
             'homeUrl' => $site->generateUrl(),
-            'breadcrumbElements' => $site->getBreadcrumb(),
+            'breadcrumbElements' => ipGetBreadcrumb(),
             'separator' => $separator,
         );
         

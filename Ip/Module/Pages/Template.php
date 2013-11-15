@@ -20,8 +20,8 @@ class Template {
     <title>ImpressPages</title>
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    '.$site->generateHead().'
-    '.$site->generateJavascript().'
+    '.ipHead().'
+    '.ipJavascript().'
     <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>

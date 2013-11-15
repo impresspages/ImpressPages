@@ -92,7 +92,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
             $element = new \Ip\Lib\StdMod\Element\Text(
             array(
-                    'title' => $parametersMod->getValue('Config.text_direction'),
+                    'title' => ipGetOption('Config.text_direction'),
                     'showOnList' => true,
                     'dbField' => 'text_direction',
                     'required' => true,
@@ -130,11 +130,10 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
         global $parametersMod;
 
         $tmpLanguage = Db::getLanguageById($id);
-        if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('Config.multilingual')) {
+        if($tmpLanguage['url'] != $this->urlBeforeUpdate && ipGetOption('Config.multilingual')) {
             $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
             $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
-            global $dispatcher;
-            $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
         }
     }
