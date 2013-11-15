@@ -26,20 +26,16 @@ class Layout extends \Ip\Response {
 
     private $layoutVariables = array();
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function send()
     {
         ipSetBlockContent('main', $this->content);
 
 
-        if ($this->layout === null) {
+        if ($this->getLayout() === null) {
             $this->chooseLayout();
         }
-        $layout = $this->layout;
+        $layout = $this->getLayout();
 
         if ($layout[0] == '/') {
             $viewFile = $layout;

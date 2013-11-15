@@ -12,9 +12,9 @@ namespace Ip\Response;
  * Event dispatcher class
  *
  */
-class Status404 extends \Ip\Response {
+class Status404 extends \Ip\Response\Layout {
 //TODOX fix
-//is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php'
+//
 
     public function __construct($content = null) {
         if ($content === null) {
@@ -24,6 +24,14 @@ class Status404 extends \Ip\Response {
         $this->setStatusCode(404);
         ipSetBlockContent('main', $content);
         parent::__construct($content);
+    }
+
+    public function getLayout()
+    {
+        if ($this->layout) {
+            return $this->layout;
+        }
+        return is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php';
     }
 
     protected function generateError404Content() {
