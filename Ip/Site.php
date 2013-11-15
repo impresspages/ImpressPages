@@ -65,12 +65,6 @@ class Site{
     /** int Revision of current page.  */
     protected $revision;
 
-    protected $zones;
-    protected $otherZones;
-
-    protected $layout;
-
-    protected $blockContent;
 
     public function __construct(){
 
@@ -704,7 +698,7 @@ class Site{
             } else {
                 // DEPRECATED just for backward compatibility
                 $site = \Ip\ServiceLocator::getSite();
-                $this->output = $site->generateBlock('main')->render();
+                $this->output = ipBlock('main')->render();
             }
         }
 
@@ -712,67 +706,6 @@ class Site{
     }
 
 
-
-    public function setBlockContent($block, $content)
-    {
-        $this->blockContent[$block] = $content;
-    }
-
-    public function getBlockContent($block)
-    {
-        if (isset($this->blockContent[$block])) {
-            return $this->blockContent[$block];
-        } else {
-            return null;
-        }
-    }
-
-    public function generateBlock($blockName, $static = false) {
-        $block = new \Ip\Block($blockName);
-        if ($static) {
-            $block->asStatic();
-        }
-
-        return $block;
-    }
-
-
-    public function setSlotContent($name, $content)
-    {
-        $this->slotContent[$name] = $content;
-    }
-
-    public function getSlotContent($name)
-    {
-        if (isset($this->slotContent[$name])) {
-            return $this->slotContent[$name];
-        } else {
-            return null;
-        }
-    }
-
-    public function generateSlot($name) {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $data = array (
-            'slotName' => $name,
-        );
-        $event = new \Ip\Event($this, 'site.generateSlot', $data);
-        $processed = $dispatcher->notifyUntil($event);
-
-        if ($processed && $event->issetValue('content')) {
-            $content = $event->getValue('content');
-            if (is_object($content) && method_exists($content, 'render')) {
-                $content = $content->render();
-            }
-            return (string)$content;
-        } else {
-            $predefinedContent = $this->getSlotContent($name);
-            if ($predefinedContent !== null) {
-                return $predefinedContent;
-            }
-        }
-        return '';
-    }
 
     /**
      * If we are in the management state and last revision is published, then create new revision.

@@ -35,7 +35,7 @@ class Block
             }
             return (string)$content;
         } else {
-            $predefinedContent = $site->getBlockContent($this->name);
+            $predefinedContent = \Ip\ServiceLocator::getContent()->getBlockContent($this->name);
             if ($predefinedContent !== null) {
                 return $predefinedContent;
             }
@@ -108,7 +108,7 @@ class Block
             */
             $log = \Ip\ServiceLocator::getLog();
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
-            throw $e;
+            return $e->getTraceAsString();
         }
 
         return $content;

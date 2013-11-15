@@ -33,8 +33,17 @@ function ipGetCurrentPage()
 
 function ipSetBlockContent($block, $content)
 {
-    $site = \Ip\ServiceLocator::getSite();
-    $site->setBlockContent($block, $content);
+    \Ip\ServiceLocator::getContent()->setBlockContent($block, $content);
+}
+
+function ipSetLayoutVariable($name, $value)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'setLayoutVariable')) {
+        $response->setLayoutVariable($name, $value);
+    } else {
+        ipLog('Core', 'Response method has no method setLayoutVariable');
+    }
 }
 
 function ipAddJavascript($file, $stage = 1)
@@ -83,6 +92,23 @@ function ipSetLayout($file)
     }
 }
 
+/**
+ * @param $block
+ * @return \Ip\Block
+ */
+function ipBlock($block)
+{
+    return \Ip\ServiceLocator::getContent()->generateBlock($block);
+}
+
+/**
+ * @param $slot
+ * @return string
+ */
+function ipSlot($slot)
+{
+    return \Ip\ServiceLocator::getContent()->generateSlot($slot);
+}
 
 function __($text, $domain)
 {
@@ -95,11 +121,11 @@ function _n($singular, $plural, $number, $domain)
 }
 
 function _x($text, $context, $domain)
-{
+{ //TODOX
     return $text;
 }
 
 function _nx($single, $plural, $number, $context, $domain)
 {
-
+//TODOX
 }

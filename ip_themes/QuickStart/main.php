@@ -14,7 +14,7 @@
         ?>
     </div>
     <div class="content">
-        <?php echo $this->generateBlock('main')->render(); ?>
+        <?php echo ipBlock('main')->render(); ?>
     </div>
     <?php
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));

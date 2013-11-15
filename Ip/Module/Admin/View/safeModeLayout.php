@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="content">
-    <?php echo $this->generateBlock('main'); ?>
+    <?php echo ipBlock('main'); ?>
 </div>
 <?php
 ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));

@@ -107,7 +107,7 @@ class Application {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
             }
-
+            \Ip\ServiceLocator::getResponse()->setcontent($controllerAnswer);
 
 //
 //

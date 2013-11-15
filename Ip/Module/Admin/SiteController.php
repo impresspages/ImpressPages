@@ -71,19 +71,19 @@ class SiteController extends \Ip\Controller{
         }
 
 
-
-        $site = \Ip\ServiceLocator::getSite();
-
         global $cms;
         $cms = new OldCmsInterface();
 
-        $variables = array(
-            'loginForm' => $this->getLoginForm()
-        );
 
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
+
+
+        $response = new \Ip\Response\Layout();
+        $response->setLayout(\Ip\Config::coreMOduleFile('Admin/View/login.php'));
+        $response->setLayoutVariable('loginForm', $this->getLoginForm());
+        return $response;
 //        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
         $view = \Ip\View::create('View/login.php', $variables);
         return $view;
