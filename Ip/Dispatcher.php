@@ -89,25 +89,4 @@ class Dispatcher{
         }
     }
 
-    //TODOX remove the comment :)
-//    public function addRequest()
-//    {
-//        $this->frozenStates[] = array(
-//            'handlers' => $this->handlers,
-//            'initCompleted' => $this->initCompleted,
-//        );
-//        $this->handlers = array();
-//        $this->initCompleted = false;
-//    }
-//
-//    public function removeRequest()
-//    {
-//        $frozenRequest = array_pop($this->frozenStates);
-//        if (!$frozenRequest) {
-//            throw new \Ip\CoreException("No request to remove");
-//        }
-//        $this->handlers = $frozenRequest['handlers'];
-//        $this->initCompleted = $frozenRequest['initCompleted'];
-//    }
-
 }

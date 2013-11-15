@@ -274,8 +274,7 @@ class Db {
         if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
             $newPage = $zone->getElement($pageId);
             $newUrl = $newPage->getLink(true);
-            global $dispatcher;
-            $dispatcher->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }
 
         if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], \Ip\Config::themeFile(''))) {

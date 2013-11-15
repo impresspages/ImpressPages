@@ -12,8 +12,9 @@ class System{
 
     function init(){
         global $site;
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+        
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
         $dispatcher->bind('site.afterInit', __NAMESPACE__ .'\System::initWidgets');
         
