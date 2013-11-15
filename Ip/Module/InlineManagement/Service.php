@@ -141,7 +141,7 @@ class Service
             $defaultValue = \Ip\Config::getRaw('MODULE_DIR') . 'inline_management/public/empty.gif';
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (

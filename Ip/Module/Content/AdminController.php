@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
                     $language['d_short']
                 ) . ')</a>' . "\n";
 
-            $zones = $site->getZones();
+            $zones = ipGetZones();
             if (sizeof($zones) > 0) {
                 $answer .= '<ul>';
                 foreach ($zones as $key => $zone) {
@@ -166,7 +166,7 @@ class AdminController extends \Ip\Controller
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revision) {
@@ -201,7 +201,7 @@ class AdminController extends \Ip\Controller
             'manageableRevision' => $manageableRevision
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function moveWidget() {
@@ -251,7 +251,7 @@ class AdminController extends \Ip\Controller
             'newInstanceId' => $newInstanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function createWidget() {
@@ -328,7 +328,7 @@ class AdminController extends \Ip\Controller
             'instanceId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -380,7 +380,7 @@ class AdminController extends \Ip\Controller
             'newInstanceId' => $newInstanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     //    public function previewWidget() {
@@ -401,7 +401,7 @@ class AdminController extends \Ip\Controller
     //            'widgetId' => $widgetId
     //        );
     //
-    //        $this->_outputAnswer($data);
+    //        return new \Ip\Response\Json($data);
     //    }
 
 
@@ -428,7 +428,7 @@ class AdminController extends \Ip\Controller
                 'oldInstanceId' => $newInstanceId
             );
 
-            $this->_outputAnswer($data);
+            return new \Ip\Response\Json($data);
         } else {
             Model::deleteInstance($instanceId);
             $data = array (
@@ -439,7 +439,7 @@ class AdminController extends \Ip\Controller
                 'oldInstanceId' => ''
             );
 
-            $this->_outputAnswer($data);
+            return new \Ip\Response\Json($data);
         }
 
 
@@ -488,7 +488,7 @@ class AdminController extends \Ip\Controller
             'instanceId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
     public function deleteWidget() {
@@ -508,7 +508,7 @@ class AdminController extends \Ip\Controller
             'widgetId' => $instanceId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
     }
 
 
@@ -547,7 +547,7 @@ class AdminController extends \Ip\Controller
             'newRevisionUrl' => $zone->getElement($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
         );
 
-        $this->_outputAnswer($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -606,7 +606,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
 
     }
 
@@ -643,7 +643,7 @@ class AdminController extends \Ip\Controller
             'newRevisionUrl' => $newRevisionUrl
         );
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
 
     }
 
@@ -654,7 +654,7 @@ class AdminController extends \Ip\Controller
             'errorMessage' => $errorMessage
         );
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
     }
 
     private function _outputAnswer($data) {

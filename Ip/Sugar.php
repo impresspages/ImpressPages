@@ -16,6 +16,16 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::getOptions()->setOption($option, $value);
 }
 
+function ipGetBreadcrumb()
+{
+    return \Ip\ServiceLocator::getContent()->getBreadcrumb();
+}
+
+function ipGetZones()
+{
+    return \Ip\ServiceLocator::getContent()->getZones();
+}
+
 function ipGetCurrentZone()
 {
     return \Ip\ServiceLocator::getContent()->getCurrentZone();
@@ -53,6 +63,26 @@ function ipAddJavascript($file, $stage = 1)
         $response->addJavascript($file, $stage);
     } else {
         ipLog('Core', 'Response method has no method addJavascript');
+    }
+}
+
+function ipAddJavascriptVariable($name, $value)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascriptVariable')) {
+        $response->addJavascriptVariable($name, $value);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascriptVariable');
+    }
+}
+
+function ipAddJavascriptContent($key, $javascript, $stage = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascriptContent')) {
+        $response->addJavascriptContent($key, $javascript, $stage = 1);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascriptContent');
     }
 }
 
