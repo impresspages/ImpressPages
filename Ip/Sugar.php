@@ -16,6 +16,11 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::getOptions()->setOption($option, $value);
 }
 
+function ipGetZones()
+{
+    return \Ip\ServiceLocator::getContent()->getZones();
+}
+
 function ipGetCurrentZone()
 {
     return \Ip\ServiceLocator::getContent()->getCurrentZone();

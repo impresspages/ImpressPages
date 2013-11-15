@@ -58,7 +58,7 @@ class ModelTree {
         global $parametersMod;
         global $site;
 
-        $zones = $site->getZones();
+        $zones = ipGetZones();
 
         $managedZones = array();
         foreach ($zones as $zone) {
