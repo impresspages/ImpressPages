@@ -20,8 +20,6 @@ class Application {
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
-        global $dispatcher;
-        $dispatcher = new \Ip\Dispatcher();
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
 

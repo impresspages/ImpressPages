@@ -11,9 +11,7 @@ class System{
 
 
     function init(){
-        global $dispatcher;
-
-        $dispatcher->bind('site.generateSlot', __NAMESPACE__ .'\System::generateLanguagesSlot');
+        \Ip\ServiceLocator::getDispatcher()->bind('site.generateSlot', __NAMESPACE__ .'\System::generateLanguagesSlot');
     }
 
 

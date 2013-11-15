@@ -17,12 +17,12 @@ class System{
 
     public function init(){
         global $site;
-        global $dispatcher;
 
         if ($site->managementState()) {
             $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
         }
 
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');
         $dispatcher->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
     }
@@ -45,14 +45,13 @@ class System{
     public static function catchError404 (\Ip\Event $event) {
         global $parametersMod;
         global $site;
-        global $dispatcher;
 
         $log = \Ip\ServiceLocator::getLog();
 
         $log->log("system", "error404", $site->getCurrentUrl()." ".self::error404Message());
         
         self::$error404 = true;
-        $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateError404Content');
+        \Ip\ServiceLocator::getDispatcher()->bind('site.generateBlock', __NAMESPACE__ .'\System::generateError404Content');
 
         if(
             $parametersMod->getValue('Config.send_to_main_page')
