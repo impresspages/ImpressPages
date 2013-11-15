@@ -18,11 +18,6 @@ class System{
         global $site;
         
         switch($site->getZoneUrl()) {
-            case 'tinymceConfig.js':
-                $site->setOutput($this::generateTinyMceConfig());
-                $this->setJsHeader();
-                $event->addProcessed();
-                break;
             case 'validatorConfig.js':
                 $site->setOutput($this::generateValidatorConfig());
                 $this->setJsHeader();
@@ -36,28 +31,13 @@ class System{
         
     }
     
-
-    
-    private function generateTinyMceConfig() {
-        $configJs = '';
-        $configJs .= \Ip\View::create('tinymce/paste_preprocess.js')->render();
-        $configJs .= \Ip\View::create('tinymce/min.js')->render();
-        $configJs .= \Ip\View::create('tinymce/med.js')->render();
-        $configJs .= \Ip\View::create('tinymce/max.js')->render();
-        $configJs .= \Ip\View::create('tinymce/table.js')->render();
-        return $configJs;
-    }
-    
     private function generateValidatorConfig() {
         global $site;
-        $configJs = '';
         $data = array(
             'languageCode' => $site->getCurrentLanguage()->getCode()
         );
-        $configJs = '';
-        $configJs .= \Ip\View::create('jquerytools/validator.js', $data)->render();
-        return $configJs;
-    }    
+        return \Ip\View::create('jquerytools/validator.js', $data)->render();
+    }
     
     private function setJsHeader() {
         header("Content-type: application/x-javascript");

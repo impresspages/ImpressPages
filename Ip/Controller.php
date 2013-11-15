@@ -36,8 +36,9 @@ class Controller{
         $site = \Ip\ServiceLocator::getSite();
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         header("location: ".$url);
-        Deprecated\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+
+        \Ip\Db::disconnect();
+        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null)); // TODOX \Ip\Db should throw this event
         exit;
     }
 
