@@ -91,7 +91,7 @@ class IpActions
     {
         switch ($module) {
             case 'system':
-                $this->testCase->open($this->installation->getInstallationUrl().'?g=administrator&m=system&aa=index');
+                $this->testCase->open($this->installation->getInstallationUrl().'?aa=System.index');
                 $this->testCase->waitForElementPresent('css=.ipsClearCache');
                 break;
             default:

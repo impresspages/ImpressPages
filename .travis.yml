@@ -17,6 +17,7 @@ before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < Ip/Module/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
   - sed -e 's/`ip_cms_/`ip_/g' < Ip/Module/Install/sql/data.sql | mysql -D ip_test # replace ip_cms_ to ip_
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('travis') WHERE user='travis';\nFLUSH PRIVILEGES;\n" | mysql -u travis # ImpressPages does not allow empty db password
   - cd phpunit
   - composer install
   - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
