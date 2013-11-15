@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
                     $language['d_short']
                 ) . ')</a>' . "\n";
 
-            $zones = $site->getZones();
+            $zones = ipGetZones();
             if (sizeof($zones) > 0) {
                 $answer .= '<ul>';
                 foreach ($zones as $key => $zone) {
@@ -166,7 +166,7 @@ class AdminController extends \Ip\Controller
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions($site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revision) {

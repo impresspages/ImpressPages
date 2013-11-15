@@ -132,7 +132,7 @@ abstract class Zone{
         $element = $this->getElement($elementId);
         else
         $element = $this->getCurrentPage();
-         
+
         if($element){
             $elements[] = $element;
             $parentElementId = $element->getParentId();
@@ -193,7 +193,7 @@ abstract class Zone{
 
     public function getBreadcrumb($pageId = null){
         global $site;
-        if ($site->getCurrentZone()&& $site->getCurrentZone()->getName() == $this->name) {
+        if (ipGetCurrentZone()&& ipGetCurrentZone()->getName() == $this->name) {
             if ($pageId == null) {
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;

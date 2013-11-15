@@ -132,133 +132,8 @@ class Site{
         \Ip\ServiceLocator::getContent()->getCurrentLanguage();
     }
 
-    /**
-     *
-     * Initialize required components. Executed once at startup.
-     *
-     */
-    public function init()
-    {
-
-        $dispatcher  = \Ip\ServiceLocator::getDispatcher();
 
 
-//        $this->languages = \Ip\Frontend\Db::getLanguages(true);
-//        if(sizeof($this->languages) == 0){
-//            trigger_error('All website languages are hidden.');
-//            exit;
-//        }
-//
-//        if($this->languageUrl != null){
-//            foreach($this->languages as $key => $language){
-//                if($language['url'] == $this->languageUrl){
-//                    $this->currentLanguage = $language;
-//                }
-//            }
-//            if($this->currentLanguage == null){
-//                $this->currentLanguage = reset($this->languages);
-//                $this->error404();
-//            }
-//        } else {
-//            $this->currentLanguage = reset($this->languages);
-//        }
-
-        setlocale(LC_ALL, $this->currentLanguage['code']);
-
-        
-        $this->configZones();
-
-        if (!defined('BACKEND')) {
-            $this->checkError404();
-        }
-
-        if ($this->error404) {
-            \Ip\ServiceLocator::getDispatcher()->bind('site.afterInit', array($this, 'dispatchError404'));
-            ///$this->dispatchError404();
-        }
-    }
-    
-    private function error404() {
-        $zone = array (
-            'id' => '',
-            'row_number' => 0,
-            'name' => 'auto_error404',
-            'template' => is_file(\Ip\Config::themeFile('404.php')) ? '404.php' : 'main.php',
-            'translation' => 'Error404',
-            'associated_group' => '',
-            'associated_module' => '',
-            'url' => (($this->zoneUrl) ? $this->zoneUrl.'asd' : 'error404'),
-            'description' => '',
-            'keywords' => '',
-            'title' => 'error404'
-        );
-        
-        
-        $zone['object'] = new \Ip\Frontend\Zone404($zone);
-        
-        $this->zones['auto_error404'] = $zone;
-        $this->currentZone = 'auto_error404';
-        $this->error404 = true;
-    }
-    
-    public function dispatchError404() {
-        $event = new \Ip\Event($this, 'site.beforeError404', null);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
-        if (!$event->getProcessed()) {
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.error404', null));
-        }
-    }
-
-
-
-    /**
-     *
-     * Prepare main website parameters (current zone and so on). Executed once at startup.
-     *
-     */
-    private function configZones(){
-        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zone) {
-            $this->zones[$zone['name']] = $zone;
-        }
-        
-        if (sizeof($zones) == 0) {
-            trigger_error('Please insert at least one zone.');
-            \Ip\Internal\Deprecated\Db::disconnect();
-            exit;
-        }
-
-        if ($this->error404) {
-            //current zone set to auto_error404.
-            return;
-        }
-
-        //find current zone
-        if ($this->zoneUrl) {
-            foreach ($zones as $key => $zone) {
-                if($this->zoneUrl && $this->zoneUrl == $zone['url']) {
-                    $this->currentZone = $zone['name'];
-                    break;
-                }
-            }
-        } else {
-            foreach ($this->zones as $key => $zone) { //find first not empty zone.
-                $this->currentZone = $key;
-                if ($this->getZone($key)->getCurrentPage()) {
-                    break;
-                }
-            }
-        }
-
-        if (!$this->currentZone) {
-            $this->homeZone();
-        }
-
-        if (!$this->currentZone) {
-            $this->error404();
-        }
-
-    }
 
     protected function homeZone()
     {
@@ -282,72 +157,7 @@ class Site{
 
 
 
-    /*
-     * Check if current zone can find current page.
-     */
-    public function checkError404(){
-        if ($this->error404) {
-            return; //error404 already has been registered because of incorrect language or zone url.
-        }
 
-        if (!$this->getZone($this->currentZone)->getCurrentPage()) {
-            if (empty($this->urlVars) && (empty($this->getVars) || empty($this->urlVars) && sizeof($this->getVars) == 1 && isset($this->getVars['cms_action']))) { //first zone has no pages.
-                $redirect = false;
-                foreach ($this->zones as $key => $zone) { //try to find first zone with at least one page
-                    $tmpZone = $this->getZone($key);
-                    if ($tmpZone->getAssociatedModuleGroup() == 'standard'
-                    && $tmpZone->getAssociatedModule() == 'content_management' &&
-                    $tmpZone->findElement(array(), array())) {
-                        $this->currentZone = $key;
-                        $redirect = true;
-                        header("Location: ".$this->generateUrl(null, $key));
-                        break;
-                    }
-                }
-
-                if(!$redirect) {
-                    $this->error404();
-                }
-
-            } else {
-                $this->error404();
-            }
-        }
-    }
-
-
-
-    /**
-     *
-     * @return \Ip\Frontend\Zone Current zone object
-     *
-     */
-    public function getCurrentZone(){
-        $content = \Ip\ServiceLocator::getContent();
-        return $content->getCurrentZone();
-    }
-
-    /**
-     *
-     * @return String Current zone name
-     *
-     */
-    public function getCurrentZoneName(){
-        return $this->currentZone;
-    }
-
-    /**
-     *
-     * @return array All registered zones. Use with caution. On big websites it can be very resource demanding operation because it requires all zone objects to be created.
-     *
-     */
-    public function getZones(){
-        $answer = array();
-        foreach($this->zones as $zone){
-            $answer[] = $this->getZone($zone['name']);
-        }
-        return $answer;
-    }
 
     /**
      * Find website zone by module group and name.
@@ -401,15 +211,6 @@ class Site{
 
 
 
-
-    /**
-     * @deprecated Use getCurrentUrl() instead;
-     *
-     * @return string - Current URL
-     */
-    public function generateCurrentUrl(){
-     return \Ip\Internal\UrlHelper::getCurrentUrl();
-    }
 
     /**
      * Generate link to website. Use it with no arguments to get link to main page of current language.
@@ -513,7 +314,7 @@ class Site{
      *
      */
     public function getTitle(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -531,7 +332,7 @@ class Site{
      *
      */
     public function getDescription(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -543,33 +344,7 @@ class Site{
         }
     }
 
-    /**
-     *
-     * @return string url of current page. This is not a complete URL. It is only url parameter of current page.
-     *
-     */
-    public function getUrl(){
-        $curZone = $this->getCurrentZone();
-        if (!$curZone) {
-            return '';
-        }
-        
-        $curEl =  $curZone->getCurrentPage();
-        if($curEl && $curEl->getUrl() != '') {
-            return $curEl->getUrl();
-        } else {
-            return $curZone->getUrl();
-        }
-    }
-    
-    /**
-     * This is very specific function that returns zone url string.
-     * You should use this only if you are doing something really complicated.
-     * Usually you would like to use $site->getCurrentZone()->getUrl() instead. 
-     */
-    public function getZoneUrl() {
-        return $this->zoneUrl;
-    }
+
 
     /**
      *
@@ -577,7 +352,7 @@ class Site{
      *
      */
     public function getKeywords(){
-        $curZone = $this->getCurrentZone();
+        $curZone = ipGetCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -635,7 +410,7 @@ class Site{
         }
 
         if ($zoneName === null && $pageId === null) {
-            $zone = $this->getCurrentZone();
+            $zone = ipGetCurrentZone();
             if (!$zone) {
                 return array();
             }
@@ -656,7 +431,7 @@ class Site{
      *
      */
     public function getCurrentPage(){
-        $zone = $this->getCurrentZone();
+        $zone = ipGetCurrentZone();
         if ($zone) {
             return $zone->getCurrentPage();
         }
@@ -720,11 +495,11 @@ class Site{
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
-            if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+            if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
                 if (!$this->getCurrentPage()) {
                     return null;
                 }
-                $revision = \Ip\Revision::getLastRevision($this->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
                     $revision = $this->_duplicateRevision($revision['revisionId']);
                 }
@@ -733,7 +508,7 @@ class Site{
         } else {
             $currentElement = $this->getCurrentPage();
             if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision($this->getCurrentZone()->getName(), $currentElement->getId());
+                $revision = \Ip\Revision::getPublishedRevision(ipGetCurrentZone()->getName(), $currentElement->getId());
             }
 
         }
