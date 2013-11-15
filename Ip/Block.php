@@ -19,7 +19,6 @@ class Block
 
     public function render()
     {
-        global $dispatcher;
         global $site;
         $data = array (
             'blockName' => $this->name,
@@ -27,7 +26,7 @@ class Block
 
         $event = new \Ip\Event($site, 'site.generateBlock', $data);
 
-        $processed = $dispatcher->notifyUntil($event);
+        $processed = \Ip\ServiceLocator::getDispatcher()->notifyUntil($event);
 
         if ($processed && $event->issetValue('content')) {
             $content = $event->getValue('content');

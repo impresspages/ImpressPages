@@ -11,10 +11,7 @@ class System{
 
 
     public function init() {
-        global $site;
-        global $dispatcher;
-        
-        $dispatcher->bind('site.beforeError404', array($this, 'catchConfig'));
+        \Ip\ServiceLocator::getDispatcher()->bind('site.beforeError404', array($this, 'catchConfig'));
     }
     
     public function catchConfig(\Ip\Event $event) {

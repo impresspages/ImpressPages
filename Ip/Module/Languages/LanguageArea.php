@@ -133,8 +133,7 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('Config.multilingual')) {
             $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
             $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
-            global $dispatcher;
-            $dispatcher->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
         }
     }
