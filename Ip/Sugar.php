@@ -16,6 +16,11 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::getOptions()->setOption($option, $value);
 }
 
+function ipGetBreadcrumb()
+{
+    return \Ip\ServiceLocator::getContent()->getBreadcrumb();
+}
+
 function ipGetZones()
 {
     return \Ip\ServiceLocator::getContent()->getZones();
