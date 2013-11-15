@@ -7,16 +7,7 @@
  *
  */
 
-//this is not the right place for such config. But it si temporary solution while we don't have single bootstrap for front/back-end.
-/**
- * @internal
- */
-if (!defined('IP_CONFIG_FILE')) {
-    /**
-     * @internal
-     */
-    define('IP_CONFIG_FILE', \Ip\Config::baseFile('ip_config.php')); //where ip_config file is located
-}
+
 
 /**
  *
@@ -71,24 +62,7 @@ class Site{
 
     }
 
-    /**
-     *
-     * @return array - all variables in URL. If page URL is http://yoursite.com/en/zone_url/lorem/ipsum, then result will be array('lorem', 'ipsum');
-     *
-     */
-    public function getUrlVars(){
-        return $this->urlVars;
-    }
 
-
-    /**
-     *
-     * @return array - all GET variables. Use this function instead of direcly accessing $_GET array for code flexibility.
-     *
-     */
-    public function getGetVars(){
-        return $this->getVars;
-    }
 
 
 
