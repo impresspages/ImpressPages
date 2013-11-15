@@ -61,7 +61,7 @@ class Application {
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
-        //$this->modulesInit();
+        $this->modulesInit();
         \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($site, 'site.afterInit', null));
 
 
@@ -105,11 +105,15 @@ class Application {
 
         $action = $request->getControllerAction();
         $controllerAnswer = $controller->$action();
-        if (is_string($controllerAnswer)) {
+        if (is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
+            if ($controllerAnswer instanceof \Ip\View) {
+                $controllerAnswer = $controllerAnswer->render();
+            }
+
 //            if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
-//                $site->setLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
-//                $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
-//                $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+//                ipSetLayout(\Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php');
+//                ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+//                ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
 //            }
 //
 //
@@ -121,14 +125,13 @@ class Application {
 //            }
 //
 //            return $this->output;
-//            $response = new \Ip\Response();
-//
-//            \Ip\ServiceLocator::removeRequest();
-            return $response;
+
+            \Ip\ServiceLocator::removeRequest();
+            return \Ip\ServiceLocator::getResponse();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
             return $controllerAnswer;
-        } elseif ($response === NULL) {
+        } elseif ($controllerAnswer === NULL) {
             $response = new \Ip\Response();
             \Ip\ServiceLocator::removeRequest();
             return $response;
@@ -137,6 +140,23 @@ class Application {
         }
 
     }
+
+
+    public function modulesInit(){
+        //init core modules
+        $coreModules = \Ip\Module\Plugins\Model::getModules();
+        foreach($coreModules as $module) {
+            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
+            if(class_exists($systemClass)) {
+                $system = new $systemClass();
+                if (method_exists($system, 'init')) {
+                    $system->init();
+                }
+            }
+        }
+        //TODOX init plugins
+    }
+
 
     public function run()
     {

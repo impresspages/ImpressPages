@@ -54,8 +54,8 @@ class Script extends \IpUpdate\Library\Migration\General{
     </p>
     <pre>
     &lt;?php
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/jquery/jquery.js\');
-        $site->addJavascript(BASE_URL.LIBRARY_DIR.\'js/colorbox/jquery.colorbox.js\');
+        ipAddJavascript(BASE_URL.LIBRARY_DIR.\'js/jquery/jquery.js\');
+        ipAddJavascript(BASE_URL.LIBRARY_DIR.\'js/colorbox/jquery.colorbox.js\');
     ?&gt;
     </pre>
     <p>

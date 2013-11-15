@@ -15,16 +15,16 @@ class System{
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
-            $site->addCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
-            $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
+            ipAddCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
+            ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
                 $marketUrl = TEST_MARKET_URL.'images-v1/';
@@ -36,9 +36,9 @@ class System{
                 'marketUrl' => $marketUrl
             );
 
-            $site->addJavascriptVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
-            $site->addJavascriptVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'ipAdmin'));
-            $site->addJavascriptVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'ipAdmin'));
+            ipAddJavascriptVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
+            ipAddJavascriptVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'ipAdmin'));
+            ipAddJavascriptVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'ipAdmin'));
         }
 
 

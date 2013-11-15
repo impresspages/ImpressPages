@@ -2,9 +2,9 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    $site->addCss(\Ip\Config::themeUrl('ip_content.css'));
-    $site->addCss(\Ip\Config::themeUrl('theme.css'));
-    echo $site->generateHead();
+    ipAddCss(\Ip\Config::themeUrl('ip_content.css'));
+    ipAddCss(\Ip\Config::themeUrl('theme.css'));
+    echo ipHead();
     ?>
 </head>
 <body>
@@ -17,9 +17,9 @@
         <?php echo $this->generateBlock('main')->render(); ?>
     </div>
     <?php
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        $site->addJavascript(\Ip\Config::themeUrl('theme.js'));
-        echo $site->generateJavascript();
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::themeUrl('theme.js'));
+        echo ipJavascript();
     ?>
 </body>
 </html>

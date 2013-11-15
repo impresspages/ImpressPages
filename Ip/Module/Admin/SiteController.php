@@ -81,12 +81,12 @@ class SiteController extends \Ip\Controller{
             'loginForm' => $this->getLoginForm()
         );
 
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
-        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
+//        $site->removeJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
         $view = \Ip\View::create('View/login.php', $variables);
-        $site->setOutput($view);
+        return $view;
     }
 
     protected function getLoginForm()

@@ -135,7 +135,10 @@ class Content {
 
     public function getCurrentPage()
     {
-        return $this->getCurrentZone()->getCurrentPage();
+        if ($this->getCurrentZone()) {
+            return $this->getCurrentZone()->getCurrentPage();
+        }
+        return false;
     }
 
 

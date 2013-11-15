@@ -8,10 +8,17 @@ class System {
 
     public function init()
     {
+        $relativePath = \Ip\Request::getRelativePath();
+        $request = \Ip\ServiceLocator::getRequest();
+
+        if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
+            $request->setAction('Admin', 'login', \Ip\Internal\Request::CONTROLLER_TYPE_SITE);
+        }
+
+
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         $dispatcher->bind('site.afterInit', array($this, 'initAdmin'));
-        $dispatcher->bind('site.beforeError404', array($this, 'catchAdminUrls'));
 
         $site = \Ip\ServiceLocator::getSite();
         if ($site->managementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
@@ -19,7 +26,7 @@ class System {
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
             }
-            $site->addJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+            ipAddJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
         $getVariables = \Ip\Request::getRequest();
@@ -28,34 +35,18 @@ class System {
         }
     }
 
-    public function catchAdminUrls(\Ip\Event $event)
-    {
-        $relativePath = \Ip\Request::getRelativePath();
-
-        if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
-            $event->addProcessed();
-            self::$disablePanel = true;
-            $controller = new \Ip\Module\Admin\SiteController();
-            $controller->login();
-        }
-
-        if ('ip_backend_frames.php' == $relativePath) {
-            header('Location: ' . \Ip\Config::baseUrl('admin'));
-            exit();
-        }
-    }
 
     public function initAdmin()
     {
         $site = \Ip\ServiceLocator::getSite();
 
         if (!self::$disablePanel && ($site->managementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
-            $site->addCss(\Ip\Config::coreModuleUrl('Admin/Public/admin.css'));
+            ipAddCss(\Ip\Config::coreModuleUrl('Admin/Public/admin.css'));
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Admin/Public/admin.js'));
 
-            $site->addJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
+            ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }
 
     }

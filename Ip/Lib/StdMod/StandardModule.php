@@ -870,7 +870,7 @@ class StandardModule {
     <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
     <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
-    '.$site->generateHead().'
+    '.ipHead().'
 </head>
 	 
 <body> <!-- display loading until page is loaded-->
@@ -943,7 +943,7 @@ class StandardModule {
   $(\'.mceEditor\').tinymce(ipTinyMceConfigMed);
   //]]>
 </script>
-'.$site->generateJavascript().'
+'.ipJavascript().'
 		   </body>
       </html>   
 		 ';

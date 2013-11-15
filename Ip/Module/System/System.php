@@ -20,7 +20,7 @@ class System{
         global $dispatcher;
 
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
+            ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
         }
 
         $dispatcher->bind('site.error404', __NAMESPACE__ .'\System::catchError404');
@@ -49,7 +49,7 @@ class System{
 
         $log = \Ip\ServiceLocator::getLog();
 
-        $log->log("system", "error404", $site->getCurrentUrl()." ".self::error404Message());
+        $log->log("system", "error404", \Ip\Internal\UrlHelper::getCurrentUrl()." ".self::error404Message());
         
         self::$error404 = true;
         $dispatcher->bind('site.generateBlock', __NAMESPACE__ .'\System::generateError404Content');

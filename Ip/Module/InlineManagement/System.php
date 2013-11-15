@@ -14,29 +14,29 @@ class System
         global $site;
 
         if ($site->managementState()) {
-            $site->addCss(\Ip\Config::coreModuleUrl('InlineManagement/public/inline_management.css'));
+            ipAddCss(\Ip\Config::coreModuleUrl('InlineManagement/public/inline_management.css'));
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementControls.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementLogo.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementString.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementText.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementImage.js'));
-            $site->addJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagement.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementControls.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementLogo.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementString.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementText.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementImage.js'));
+            ipAddJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagement.js'));
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.full.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.full.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/jquery.fontselector.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/jquery.fontselector.js'));
 
-            $site->addCSS(\Ip\Config::libraryUrl('js/jquery-colorpicker/colorpicker.css'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-colorpicker/colorpicker.js'));
+            ipAddCss(\Ip\Config::libraryUrl('js/jquery-colorpicker/colorpicker.css'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-colorpicker/colorpicker.js'));
         }
     }
 }

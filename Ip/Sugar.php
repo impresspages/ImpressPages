@@ -37,6 +37,52 @@ function ipSetBlockContent($block, $content)
     $site->setBlockContent($block, $content);
 }
 
+function ipAddJavascript($file, $stage = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript($file, $stage);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascript');
+    }
+}
+
+function ipAddCss($file, $stage = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addCss')) {
+        $response->addCss($file, $stage);
+    } else {
+        ipLog('Core', 'Response method has no method addCss');
+    }
+
+}
+
+function ipLog($module, $message, $severity, $debugInfo = null)
+{
+    //TODOX
+}
+
+function ipJavascript()
+{
+    return \Ip\ServiceLocator::getResponse()->generateJavascript();
+}
+
+function ipHead()
+{
+    return \Ip\ServiceLocator::getResponse()->generateHead();
+}
+
+function ipSetLayout()
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'setLayout')) {
+        $response->setLayout($file, $stage);
+    } else {
+        ipLogNotice('Core', 'Response method has no method setLayout');
+    }
+}
+
 
 function __($text, $domain)
 {

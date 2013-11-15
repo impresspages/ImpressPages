@@ -5,7 +5,7 @@
 
 namespace Ip\Response;
 
-
+//TODOX refactor
 class JsonRpc implements ResponseInterface
 {
     protected $data;

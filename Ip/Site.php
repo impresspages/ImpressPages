@@ -58,14 +58,6 @@ class Site{
     /** @deprecated use getCurrentLanguage() instead */
     public $currentLanguage;
 
-    /** array js variables */
-    private $javascriptVariables = array();
-
-    /** array required javascript files */
-    private $requiredJavascript = array();
-    
-    /** array required css files */
-    private $requiredCss = array();
 
     /** string HTML or any other output. If is not null, it will be send to the output. If it is null, required page by request URL will be generated  */
     protected $output;
@@ -679,58 +671,6 @@ class Site{
 
 
 
-    public function modulesInit(){
-        //init core modules
-        $coreModules = \Ip\Module\Plugins\Model::getModules();
-        foreach($coreModules as $module) {
-            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
-            if(class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
-        }
-
-        //init old core modules
-        $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
-                    //no plugin initialization in safe mode
-                    continue;
-                }
-
-                if($lock['m_core']){
-                    $dir = \Ip\Config::oldModuleFile('');
-                } else {
-                    // TODOX Plugin dir
-                }
-
-                $systemFileExists = false;
-                if(file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/system.php");
-                    $systemFileExists = true;
-                }
-
-                if(!$systemFileExists && file_exists($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php")){
-                    require_once($dir.$lock['mg_name'].'/'.$lock['m_name']."/System.php");
-                    $systemFileExists = true;
-                }
-
-                if ($systemFileExists) {
-                    eval('$moduleSystem = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\System();');
-                    if(method_exists($moduleSystem, 'init')){
-                        $moduleSystem->init();
-                    }
-                }
-            }
-        }
-
-
-    }
-
 
     public function setOutput ($output) {
         if ($output === null) {
@@ -773,160 +713,6 @@ class Site{
     }
 
 
-    public function addCss($file, $stage = 1) {
-        $this->requiredCss[(int)$stage][$file] = $file;
-    }
-
-    public function removeCss($file) {
-        foreach($this->requiredCss as $levelKey => &$level) {
-            if (isset($this->requiredCss[$levelKey][$file])) {
-                unset($this->requiredCss[$levelKey][$file]);
-            }
-        }
-    }
-
-    public function getCss() {
-        ksort($this->requiredCss);
-        $cssFiles = array();
-        foreach($this->requiredCss as $levelKey => $level) {
-            $cssFiles = array_merge($cssFiles, $level);
-        }
-        return $cssFiles;
-    }
-
-    public function addJavascriptContent($key, $javascript, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$key] = array (
-            'type' => 'content', 
-            'value' => $javascript
-        );
-    }
-
-    /**
-     * @deprecated
-     * @param $name
-     * @param $value
-     * @param int $stage
-     */
-    public function addJavascriptVar($name, $value, $stage = 1) {
-        $this->addJavascriptVariable($name, $value);
-    }
-    
-    public function addJavascript($file, $stage = 1) {
-        $this->requiredJavascript[(int)$stage][$file] = array (
-            'type' => 'file',
-            'value' => $file
-        );
-    }
-
-    public function removeJavascript($file) {
-        foreach($this->requiredJavascript as $levelKey => &$level) {
-            if (isset($this->requiredJavascript[$levelKey][$file]) && $this->requiredJavascript[$levelKey][$file]['type'] == 'file') {
-                unset($this->requiredJavascript[$levelKey][$file]);
-            }
-        }
-    }
-
-
-
-    public function removeJavascriptContent($key) {
-        foreach($this->requiredJavascript as $levelKey => &$level) {
-            if (isset($this->requiredJavascript[$levelKey][$key]) && $this->requiredJavascript[$levelKey][$key]['type'] == 'content') {
-                unset($this->requiredJavascript[$levelKey][$key]);
-            }
-        }
-    }
-
-    public function getJavascript() {
-        ksort($this->requiredJavascript);
-        return $this->requiredJavascript;
-    }
-
-    public function addJavascriptVariable($name, $value) {
-        $this->javascriptVariables[$name] = $value;
-    }
-
-    public function removeJavascriptVariable($name) {
-        if (isset($this->javascriptVariables[$name])) {
-            unset($this->javascriptVariables[$name]);
-        }
-    }
-
-    public function getJavascriptVariables() {
-        return $this->javascriptVariables;
-    }
-
-    public function generateHead() {
-        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
-        $cssFiles = $this->getCss();
-
-        $inDesignPreview = false;
-
-        $data = \Ip\Request::getRequest();
-
-        if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
-            $config = \Ip\Module\Design\ConfigModel::instance();
-            $inDesignPreview = $config->isInPreviewState();
-        }
-
-        if (!$inDesignPreview) {
-            foreach($cssFiles as &$file) {
-                $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
-            }
-        } else {
-            $securityToken = \Ip\ServiceLocator::getApplication()->getSecurityToken();
-            foreach($cssFiles as &$file) {
-
-                $path = pathinfo($file);
-
-                if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
-                    $designService = \Ip\Module\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(\Ip\Config::theme(), $path['filename']);
-                } else {
-                    $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
-                }
-            }
-        }
-
-        $data = array (
-            'title' => $this->getTitle(),
-            'keywords' => $this->getKeywords(),
-            'description' => $this->getDescription(),
-            'favicon' => \Ip\Config::baseUrl('favicon.ico'),
-            'charset' => \Ip\Config::getRaw('CHARSET'),
-            'css' => $cssFiles
-        );
-
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/head.php'), $data)->render();
-    }
-
-    public function generateJavascript() {
-        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
-        $javascriptFiles = $this->getJavascript();
-        foreach($javascriptFiles as &$level) {
-            foreach($level as &$file) {
-                if ($file['type'] == 'file') {
-                    $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
-                }
-            }
-        }
-        $revision = $this->getRevision();
-        $data = array (
-            'ipBaseUrl' => \Ip\Config::baseUrl(''),
-            'ipLanguageUrl' => $this->generateUrl(),
-            'ipLibraryDir' => \Ip\Config::getRaw('LIBRARY_DIR'),
-            'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),
-            'ipModuleDir' => \Ip\Config::getRaw('MODULE_DIR'),
-            'ipTheme' => \Ip\Config::getRaw('THEME'),
-            'ipManagementUrl' => $this->generateUrl(),
-            'ipZoneName' => ipGetCurrentZone()->getName(),
-            'ipPageId' => ipGetCurrentPage()->getId(),
-            'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
-            'javascript' => $javascriptFiles,
-            'javascriptVariables' => $this->getJavascriptVariables()
-        );
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/javascript.php'), $data)->render();
-    }
 
     public function setBlockContent($block, $content)
     {
@@ -1001,7 +787,7 @@ class Site{
                 $revisionId = $this->getVars['cms_revision'];
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
-             
+
             if ($revision === false || $revision['zoneName'] != $this->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
                 if (!$this->getCurrentPage()) {
                     return null;
@@ -1017,21 +803,13 @@ class Site{
             if ($currentElement) {
                 $revision = \Ip\Revision::getPublishedRevision($this->getCurrentZone()->getName(), $currentElement->getId());
             }
-            
+
         }
         return $revision;
     }
 
 
-    private function _createRevision(){
-        $revisionId = \Ip\Revision::createRevision($this->getCurrentZone()->getName(), $this->getCurrentPage()->getId(),0);
-        $revision = \Ip\Revision::getRevision($revisionId);
-        if ($revision === false) {
-            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
-        }
-        return $revision;
-    }
-    
+
     private function _duplicateRevision($oldRevisionId){
         $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
         $revision = \Ip\Revision::getRevision($revisionId);
@@ -1039,6 +817,6 @@ class Site{
             throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
         }
         return $revision;
-    }    
+    }
 }
 
