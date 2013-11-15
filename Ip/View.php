@@ -378,7 +378,7 @@ class View implements \Ip\Response\ResponseInterface
     public function generateSlot($name)
     {
         $site = \Ip\ServiceLocator::getSite();
-        return $site->generateSlot($name);
+        return ipSlot($name);
     }
 
     public function generateManagedLogo($cssClass = null)
