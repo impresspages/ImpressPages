@@ -13,7 +13,7 @@ namespace Ip\Response;
  *
  */
 class Layout extends \Ip\Response {
-    protected $layout = 'main.php';
+    protected $layout = null;
 
     /** array js variables */
     private $javascriptVariables = array();
@@ -24,11 +24,42 @@ class Layout extends \Ip\Response {
     /** array required css files */
     private $requiredCss = array();
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function send()
     {
         ipSetBlockContent('main', $this->content);
-        $this->content = 'TODOX';
+
+
+        if ($this->layout === null) {
+            $this->chooseLayout();
+        }
+        $layout = $this->layout;
+
+        if ($layout[0] == '/') {
+            $viewFile = $layout;
+        } else {
+            $viewFile = \Ip\Config::themeFile($layout);
+        }
+        $this->setContent(\Ip\View::create($viewFile, array())->render());
+
         parent::send();
+    }
+
+    protected function chooseLayout()
+    {
+        if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
+            $this->layout = \Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
+            $this->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'  ));
+            $this->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
+            $this->layout = '/Admin/View/safeModeLayout.php';
+        } else {
+            $this->layout = 'main.php';
+        }
     }
 
     public function setLayout($layout)
