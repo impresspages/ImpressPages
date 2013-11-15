@@ -87,7 +87,7 @@ class AdminController extends \Ip\Controller
             return;
         }
 
-        $zone = $site->getZone($_REQUEST['zoneName']);
+        $zone = ipGetZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             $this->_errorAnswer('Can\'t find zone');
@@ -288,7 +288,7 @@ class AdminController extends \Ip\Controller
             $pageId = $revisionRecord['pageId'];
 
 
-            $zone = $site->getZone($zoneName);
+            $zone = ipGetZone($zoneName);
             if ($zone === false) {
                 $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
                 return;
@@ -534,7 +534,7 @@ class AdminController extends \Ip\Controller
 
         $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
 
-        $zone = $site->getZone($revision['zoneName']);
+        $zone = ipGetZone($revision['zoneName']);
         if (!$zone) {
             $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
             return;
@@ -582,7 +582,7 @@ class AdminController extends \Ip\Controller
         }
 
         if ($changedUrl) {
-            $zone = $site->getZone($revision['zoneName']);
+            $zone = ipGetZone($revision['zoneName']);
             $oldElement = $zone->getElement($revision['pageId']);
             $oldUrl = $oldElement->getLink();
         }
