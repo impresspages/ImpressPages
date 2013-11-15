@@ -102,15 +102,6 @@ class Layout extends \Ip\Response {
         );
     }
 
-    /**
-     * @deprecated
-     * @param $name
-     * @param $value
-     * @param int $stage
-     */
-    public function addJavascriptVar($name, $value, $stage = 1) {
-        $this->addJavascriptVariable($name, $value);
-    }
 
     public function addJavascript($file, $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = array (
