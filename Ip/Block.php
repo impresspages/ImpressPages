@@ -52,12 +52,12 @@ class Block
                 }
             }
 
-            if ($this->name == 'main') {
-                $currentElement =  ipGetCurrentPage();
-                if (!($currentElement instanceof \Ip\Module\Content\Element)) {
-                    return $currentElement->generateContent();
-                }
-            }
+//            if ($this->name == 'main') {
+//                $currentElement =  ipGetCurrentPage();
+//                if (!($currentElement instanceof \Ip\Module\Content\Element)) {
+//                    return $currentElement->generateContent();
+//                }
+//            }
 
             return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, $site->managementState(), $this->exampleContent);
         }
@@ -110,7 +110,6 @@ class Block
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
             return $e->getTraceAsString();
         }
-
         return $content;
     }
 
