@@ -19,18 +19,18 @@ class AdminController extends \Ip\Controller
     {
         $site = \Ip\ServiceLocator::getSite();
 
-        $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
-        $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-        $site->addCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
-        $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
-        $site->addCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
+        ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        ipAddCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
+        ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
 
 
 

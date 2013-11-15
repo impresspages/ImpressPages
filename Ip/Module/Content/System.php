@@ -12,8 +12,8 @@ class System{
 
     function init(){
         global $site;
-        global $dispatcher;
-        
+        $dispatcher = \Ip\ServiceLocator::getDispatcher();
+
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
         $dispatcher->bind('site.afterInit', __NAMESPACE__ .'\System::initWidgets');
         
@@ -34,42 +34,42 @@ class System{
 
         
         
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
         
-        $site->addJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
-        $site->addJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
+        ipAddJavascript($site->generateUrl(null, null, array('tinymceConfig.js')));
+        ipAddJavascript($site->generateUrl(null, null, array('validatorConfig.js')));
         
         if ($site->managementState()) {
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.block.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widget.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/exampleContent.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.block.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widget.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/exampleContent.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
 
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-            $site->addCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+            ipAddCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.ui.scrollable.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.ui.scrollable.js'));
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js'));
 
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.full.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
-            $site->addJavascript(\Ip\Config::libraryUrl('js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.full.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
+            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
 
 
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
-            $site->addJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
-            $site->addCss(\Ip\Config::coreModuleUrl('Content/public/widgets.css'));
-            $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
+            ipAddCss(\Ip\Config::coreModuleUrl('Content/public/widgets.css'));
+            ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
         }
 
@@ -77,7 +77,6 @@ class System{
 
     
     public static function collectWidgets(EventWidget $event){
-        global $site;
         $widgetDirs = self::_getWidgetDirs();
         foreach($widgetDirs as $widgetDirRecord) {
             
@@ -105,12 +104,12 @@ class System{
     
     public static function initWidgets () {
         global $site;
-        
+
         //widget JS and CSS are included automatically only in administration state
         if (!$site->managementState()) {
             return;
         }
-        
+
         $widgetDirs = self::_getWidgetDirs();
         foreach($widgetDirs as $widgetRecord) {
             
@@ -133,8 +132,6 @@ class System{
     }
     
     private static function _getWidgetDirs() {
-        $answer = array();
-
         $answer = array();
         $modules = \Ip\Module\Plugins\Model::getModules();
         foreach ($modules as $module) {
@@ -205,17 +202,17 @@ class System{
                 if (strtolower(substr($file, -3)) == '.js'){
                     //overriden js version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        $site->addJavascript(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
+                        ipAddJavascript(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        $site->addJavascript(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
+                        ipAddJavascript(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
                     //overriden css version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        $site->addCss(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
+                        ipAddCss(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        $site->addCss(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
+                        ipAddCss(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
             }

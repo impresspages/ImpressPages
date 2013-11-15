@@ -20,6 +20,7 @@ class ServiceLocator
     protected static $requests = array();
     protected static $dispatchers = array();
     protected static $contents = array();
+    protected static $responses = array();
     protected static $config = null;
     protected static $log = null;
 
@@ -107,6 +108,7 @@ class ServiceLocator
         self::$requests[] = $request;
         self::$dispatchers[] = new \Ip\Dispatcher();
         self::$contents[] = new \Ip\Content();
+        self::$responses[] = new \Ip\Response\Layout();
     }
 
     /**
@@ -118,6 +120,7 @@ class ServiceLocator
             array_pop(self::$dispatchers);
             array_pop(self::$requests);
             array_pop(self::$contents);
+            array_pop(self::$responses);
         }
     }
 
@@ -141,5 +144,14 @@ class ServiceLocator
     public static function getContent()
     {
         return end(self::$contents);
+    }
+
+
+    /**
+     * @return \Ip\Content
+     */
+    public static function getResponse()
+    {
+        return end(self::$responses);
     }
 }

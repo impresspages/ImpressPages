@@ -26,7 +26,7 @@ class Form{
         $site = \Ip\ServiceLocator::getSite();
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
-        $this->action = $site->getCurrentUrl();
+        $this->action = \Ip\Internal\UrlHelper::getCurrentUrl();
         $this->pages = array();
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);

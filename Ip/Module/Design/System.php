@@ -47,17 +47,17 @@ class System{
     protected function initConfig()
     {
         $site = \Ip\ServiceLocator::getSite();
-        $site->addJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-        $site->addCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
-        $site->addJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
-        $site->addCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
-        $site->addJavascript(\Ip\Config::coreModuleUrl('Design/public/optionsBox.js'));
-        $site->addJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        $site->addCss(\Ip\Config::coreModuleUrl('Design/public/optionsBox.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
+        ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/optionsBox.js'));
+        ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
+        ipAddCss(\Ip\Config::coreModuleUrl('Design/public/optionsBox.css'));
         if (file_exists(\Ip\Config::themeFile(Model::INSTALL_DIR.'Options.js'))) {
-            $site->addJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'Options.js'));
+            ipAddJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(\Ip\Config::themeFile(Model::INSTALL_DIR.'options.js'))) {
-            $site->addJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'options.js'));
+            ipAddJavascript(\Ip\Config::themeUrl(Model::INSTALL_DIR . 'options.js'));
         }
 
         $model = Model::instance();
@@ -75,7 +75,7 @@ class System{
             }
             $fieldNames[] = $option['name'];
         }
-        $site->addJavascriptVariable('ipModuleDesignOptionNames', $fieldNames);
+        ipAddJavascriptVariable('ipModuleDesignOptionNames', $fieldNames);
     }
 
     protected function getConfigurationBoxHtml()

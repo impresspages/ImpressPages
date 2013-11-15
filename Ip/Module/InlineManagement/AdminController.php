@@ -165,7 +165,7 @@ class AdminController extends \Ip\Controller{
         $key = $_POST['key'];
 
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $scope = $this->dao->getLastOperationScope();
 
         $types = array();
@@ -377,7 +377,7 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr);
         $scope = $this->dao->getLastOperationScope();
 
@@ -428,7 +428,7 @@ class AdminController extends \Ip\Controller{
             switch($type) {
                 case Scope::SCOPE_PAGE:
                     //this always should return false. But just in case JS part would change, we implement it.
-                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
+                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
                     break;
                 case Scope::SCOPE_PARENT_PAGE:
                     trigger_error("developer/inline_management", "Unexpected situation"); //there is no option to save to parent if $sameScope is true.
@@ -454,7 +454,7 @@ class AdminController extends \Ip\Controller{
 
         switch($type) {
             case Scope::SCOPE_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId(), $image->getValueStr());
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_PARENT_PAGE:
                 $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId(), $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
@@ -506,14 +506,14 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         if ($imageStr) {
             $image = new Entity\Image($imageStr);
             $scope = $this->dao->getLastOperationScope();
             $this->removeImageRecord($image, $key, $scope);
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), $site->getCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), $site->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr);
 
 

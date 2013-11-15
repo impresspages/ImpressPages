@@ -248,12 +248,7 @@ class Request
                     $action = $parts[0];
                 }
 
-
-                if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
-                    $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
-                } else {
-                    $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
-                }
+                $controllerClass = $this->generateControllerClass($module, $controllerType);
             }
 
         }
@@ -270,5 +265,41 @@ class Request
         }
         return $this->controllerType;
     }
+
+    public function setAction($module, $action, $type)
+    {
+        if (!in_array($type, array (self::CONTROLLER_TYPE_ADMIN, self::CONTROLLER_TYPE_PUBLIC, self::CONTROLLER_TYPE_SITE))) {
+            throw new \Ip\CoreException("Incorrect controller type");
+        }
+        $this->controllerType = $type;
+        $this->controller = null;
+        $this->controllerClass = $this->generateControllerClass($module, $type);
+
+        $this->controllerAction = $action;
+    }
+
+    private function generateControllerClass($module, $type)
+    {
+        switch ($type) {
+            case self::CONTROLLER_TYPE_ADMIN:
+                $className = 'AdminController';
+                break;
+            case self::CONTROLLER_TYPE_SITE:
+                $className = 'SiteController';
+                break;
+            case self::CONTROLLER_TYPE_PUBLIC:
+                $className = 'PublicController';
+                break;
+        }
+
+
+        if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
+            $controllerClass = 'Ip\\Module\\'.$module.'\\'.$className;
+        } else {
+            $controllerClass = 'Plugin\\'.$module.'\\'.$className;
+        }
+        return $controllerClass;
+    }
+
 
 }
