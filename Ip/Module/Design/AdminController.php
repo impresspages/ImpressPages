@@ -10,6 +10,7 @@ namespace Ip\Module\Design;
 
 
 use Ip\ServiceLocator;
+use Ip\Response\JsonRpc;
 
 class AdminController extends \Ip\Controller
 {
@@ -99,10 +100,12 @@ class AdminController extends \Ip\Controller
         $model = Model::instance();
         try {
             $model->installThemePlugin($pluginGroup, $pluginName);
-            $this->rpcSuccess(1, 1);
+
             $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed. Please refresh the browser.', 'ipAdmin');
+
+            return JsonRpc::result(1);
         } catch (\Exception $e) {
-            $this->rpcError($e->getCode(), $e->getMessage());
+            return JsonRpc::error($e->getMessage(), $e->getCode());
         }
 
     }
@@ -116,16 +119,12 @@ class AdminController extends \Ip\Controller
         $themes = \Ip\Request::getPost('themes');
 
         if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
-            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => __('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin')), 'id' => null);
-            return new \Ip\Response\Json($error);
-            return;
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin'), 777);
         }
 
         try {
             if (!is_array($themes)) {
-                $error = array('jsonrpc' => '2.0', 'error' => array('code' => 101, 'message' => 'Download failed: invalid parameters'), 'id' => null);
-                return new \Ip\Response\Json($error);
-                return;
+                return JsonRpc::error(__('Download failed: invalid parameters', 'ipAdmin'), 101);
             }
 
             if (function_exists('set_time_limit')) {
@@ -140,24 +139,12 @@ class AdminController extends \Ip\Controller
                 }
             }
         } catch (\Ip\CoreException $e) {
-            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 234, 'message' => $e->getMessage()), 'id' => null);
-            return new \Ip\Response\Json($error);
-            return;
+            return JsonRpc::error($e->getMessage(), $e->getCode());
         } catch (\Exception $e) {
-            $error = array('jsonrpc' => '2.0', 'error' => array('code' => 987, 'message' => 'Unknown error. Please see logs.'), 'id' => null);
-            return new \Ip\Response\Json($error);
-            return;
+            return JsonRpc::error(__('Unknown error. Please see logs.', 'ipAdmin'), 987);
         }
 
-        $response = array(
-            "jsonrpc" => "2.0",
-            "result" => array(
-                "themes" => $themes,
-            ),
-            "id" => null,
-        );
-
-        return new \Ip\Response\Json($response);
+        return JsonRpc::result(array('themes' => $themes));
     }
 
     /**
@@ -178,10 +165,10 @@ class AdminController extends \Ip\Controller
         try {
             $model->installTheme($themeName);
         } catch (\Ip\CoreException $e) {
-            return new \Ip\Response\Json(array('status' => 'error', 'error' => $e->getMessage()));
-            return;
+            return JsonRpc::error($e->getMessage());
         }
 
+        // TODOX jsonrpc
         return new \Ip\Response\Json(array('status' => 'success'));
     }
 
@@ -260,34 +247,6 @@ class AdminController extends \Ip\Controller
         $lessCompiler = LessCompiler::instance();
         $css = $lessCompiler->compileFile(\Ip\Config::theme(), $file);
 
-        header("Content-type: text/css", null, 200);
-        $site->setOutput($css);
-    }
-
-
-    protected function rpcError($code, $message)
-    {
-        $answer = array(
-            'jsonrpc' => '2.0',
-            'error' => array(
-                'code' => $code,
-                'message' => $message,
-                'id' => 'id'
-            )
-        );
-        return new \Ip\Response\Json($answer);
-        return;
-    }
-
-    protected function rpcSuccess($id, $result)
-    {
-        // Return JSON-RPC response
-        $answerArray = array(
-            "jsonrpc" => "2.0",
-            "result" => $result,
-            "id" => $id
-        );
-        return new \Ip\Response\Json($answerArray);
-        return;
+        return new \Ip\Response($css, 'Content-type: text/css');
     }
 }
