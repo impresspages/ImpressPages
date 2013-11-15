@@ -13,10 +13,12 @@ class PublicController extends \Ip\Controller
         $response = new \Ip\Response();
 
 
-        if (\Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl()) {
+        if (
+            \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
+            ipGetCurrentPage() instanceof \Ip\Frontend\Page404
+        ) {
             //TODOX output some content alongside the header
-            $response->addHeader('HTTP/1.0 404 Not Found');
-            return $response;
+            return new \Ip\Response\Status404();
         }
 
         if (ipGetCurrentPage()) {

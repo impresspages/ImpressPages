@@ -33,6 +33,8 @@ class Content {
     protected $blockContent = null;
     protected $slotContent = null;
 
+    protected $currentPage = null;
+
 
 
     public function setLayout($layout)
@@ -91,6 +93,10 @@ class Content {
      */
     public function getZone($zoneName)
     {
+        if ($zoneName === '') {
+            return new \Ip\Frontend\Zone404(null, null);
+        }
+
         if (isset($this->zones[$zoneName])) {
             return $this->zones[$zoneName];
         }
@@ -139,10 +145,10 @@ class Content {
 
     public function getCurrentPage()
     {
-        if ($this->getCurrentZone()) {
-            return $this->getCurrentZone()->getCurrentPage();
+        if ($this->currentPage === null) {
+            $this->currentPage = $this->getCurrentZone()->getCurrentPage();
         }
-        return false;
+        return $this->currentPage;
     }
 
 
@@ -266,12 +272,13 @@ class Content {
                 foreach ($zonesData as $zoneData) {
                     if ($zoneData['url'] === '') {
                         $zoneWithNoUrl = $zoneData['name'];
+                        $this->zoneUrl = '';
                         $this->currentZoneName = $zoneData['name'];
                         break;
                     }
                 }
-                if ($zoneWithNoUrl) {
-                    $this->zoneUrl = '';
+                if (!$zoneWithNoUrl) {
+                    $this->currentZoneName = '';
                 }
 
             }
@@ -311,13 +318,8 @@ class Content {
         }
     }
 
-    public function generateBlock($blockName, $static = false) {
-        $block = new \Ip\Block($blockName);
-        if ($static) {
-            $block->asStatic();
-        }
-
-        return $block;
+    public function generateBlock($blockName) {
+        return new \Ip\Block($blockName);
     }
 
 

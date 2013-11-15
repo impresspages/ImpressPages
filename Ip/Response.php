@@ -160,6 +160,17 @@ class Response
 
     public function send()
     {
+        /**
+         * TODOX send event if status is 404
+
+        $event = new \Ip\Event($this, 'site.beforeError404', null);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
+        if (!$event->getProcessed()) {
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.error404', null));
+        }
+        
+         **/
+
         $headers = $this->getHeaders();
         foreach($headers as $header) {
             header($header);

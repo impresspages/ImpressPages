@@ -437,7 +437,7 @@ class Site{
      *
      */
     public function getRevision() {
-        //todo cache revision
+        //TODOX cache revision
         $revision = null;
         if ($this->managementState()){
             if (isset($this->getVars['cms_revision'])) {
