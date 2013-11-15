@@ -20,9 +20,17 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
      */
     protected function getSession()
     {
-        $driver = new \Behat\Mink\Driver\Selenium2Driver(
-            'firefox', TEST_TMP_DIR
-        );
+        if (getenv('TRAVIS')) {
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox',
+                array('tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER')),
+                'http://username:access_key@ondemand.saucelabs.com/wd/hub'
+            );
+        } else {
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox', TEST_TMP_DIR
+            );
+        }
 
         $session = new \Behat\Mink\Session($driver);
 
@@ -31,7 +39,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         return $session;
     }
 
-    public function testFullWorkflow()
+    /**
+     * @group Sauce
+     */
+    public function testInstallCurrent($customPort = NULL)
     {
         $session = $this->getSession();
 
@@ -62,7 +73,11 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
         $testDbHelper = new \PhpUnit\Helper\TestDb();
 
-        $page->findById('db_server')->setValue($testDbHelper->getDbHost());
+        $dbHost = $testDbHelper->getDbHost();
+        if ($customPort) {
+            $dbHost .= ':' . $customPort;
+        }
+        $page->findById('db_server')->setValue($dbHost);
         $page->findById('db_user')->setValue($testDbHelper->getDbUser());
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
@@ -75,7 +90,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('db_pass')->setValue($testDbHelper->getDbPass());
         $page->find('css', '.button_act')->click();
         sleep(1);
-        $this->assertTrue($page->has('css', '#config_site_name'));
+        $this->assertTrue($page->has('css', '#config_site_name'));ip
 
         $page->findById('config_site_name')->setValue('TestSiteName');
         $page->findById('config_site_email')->setValue('test@example.com');
@@ -102,6 +117,11 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($headline);
         $this->assertEquals('ImpressPages theme Blank', $headline->getText());
 
+    }
+
+    public function testCustomPort()
+    {
+        $this->testInstallCurrent(3306);
     }
 
     /**
