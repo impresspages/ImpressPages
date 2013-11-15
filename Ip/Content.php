@@ -7,7 +7,7 @@
 
 namespace Ip;
 
-
+//TODOX move to Content service
 /**
  *
  * Event dispatcher class
@@ -356,6 +356,33 @@ class Content {
             }
         }
         return '';
+    }
+
+
+    /**
+     *
+     * @return array Each element in array is an Element
+     *
+     */
+    public function getBreadcrumb($zoneName = null, $pageId = null){
+        if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
+            trigger_error("This method can accept none or both parameters");
+        }
+
+        if ($zoneName === null && $pageId === null) {
+            $zone = ipGetCurrentZone();
+            if (!$zone) {
+                return array();
+            }
+            return $zone->getBreadcrumb();
+        } else {
+            $zone = $this->getZone($zoneName);
+            if (!$zone) {
+                return array();
+            }
+            return $zone->getBreadcrumb($pageId);
+        }
+
     }
 
 }
