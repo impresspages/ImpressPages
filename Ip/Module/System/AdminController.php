@@ -145,7 +145,7 @@ class AdminController extends \Ip\Controller{
         }
 
 
-        $site->setOutput($systemInfo);
+        return new \Ip\Response($systemInfo);
     }
 
 }

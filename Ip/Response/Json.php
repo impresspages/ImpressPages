@@ -16,8 +16,7 @@ class Json extends \Ip\Response {
 
     public function __construct($data)
     {
-        $this->setContent($data);
-        parent::__construct();
+        parent::__construct($data);
     }
 
     public function send()
