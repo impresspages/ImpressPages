@@ -187,7 +187,7 @@ class Db {
         global $site;
         $values = array();
 
-        $zone = $site->getZone($zoneName);
+        $zone = ipGetZone($zoneName);
         if (!$zone) {
             return;
         }

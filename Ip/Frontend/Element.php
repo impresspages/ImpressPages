@@ -120,8 +120,7 @@ class Element{
      */
     private function findPreviousAndNextElements()
     {
-        global $site;
-        $zone = $site->getZone($this->zoneName);
+        $zone = ipGetZone($this->zoneName);
         $elements = $zone->getElements(null, $this->parentId);
         for($i = 0; $i<sizeof($elements); $i++){
             if($elements[$i]->getId() == $this->getId()){

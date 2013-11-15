@@ -85,7 +85,7 @@ class Element extends \Ip\Frontend\Element {
 
         switch($this->type) {
             case 'subpage':
-                $tmpChildren = $site->getZone($this->zoneName)->getElements($languageId, $this->id, 0, $limit = 1);
+                $tmpChildren = ipGetZone($this->zoneName)->getElements($languageId, $this->id, 0, $limit = 1);
                 if(sizeof($tmpChildren) == 1)
                 $this->link = $tmpChildren[0]->getLink();
                 else
