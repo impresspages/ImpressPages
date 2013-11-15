@@ -119,7 +119,7 @@ class Language{
      */
     public function getCurrent() {
         global $site;
-        if ($this->getId() == $site->getCurrentLanguage()->getId()) {
+        if ($this->getId() == ipGetCurrentLanguage()->getId()) {
             return true;
         } else {
             return false;

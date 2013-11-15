@@ -70,8 +70,8 @@ class Service
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-        global $site;
-        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $site->getCurrentLanguage()->getId());
+        $site = \Ip\ServiceLocator::getSite();
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, ipGetCurrentLanguage()->getId());
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -106,7 +106,7 @@ class Service
             throw new \Ip\CoreException('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
         }
 
-        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $site->getCurrentLanguage()->getId());
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipGetCurrentLanguage()->getId());
 
         if ($curValue === false) {
             $curValue = $defaultValue;
@@ -141,7 +141,7 @@ class Service
             $defaultValue = \Ip\Config::getRaw('MODULE_DIR') . 'inline_management/public/empty.gif';
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $site->getCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (

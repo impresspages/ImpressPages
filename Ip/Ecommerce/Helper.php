@@ -58,7 +58,7 @@ class Helper {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $site = \Ip\ServiceLocator::getSite();
         if ($languageId === null) {
-            $languageId = $site->getCurrentLanguage()->getId();
+            $languageId = ipGetCurrentLanguage()->getId();
         }
 
         $data = array (
