@@ -378,7 +378,7 @@ class Site{
             switch($curEl->getType()){
                 case 'subpage':
                 case 'redirect':
-                    $currentUrl = $this->getCurrentUrl();
+                    $currentUrl = \Ip\Internal\UrlHelper::getCurrentUrl();
                     if(isset($_SESSION['frontend']['redirects'][$currentUrl])){
                         unset($_SESSION['frontend']['redirects']);
                         return;//infinite redirect loop. Stop redirecting;
@@ -408,7 +408,7 @@ class Site{
      * @return string - Current URL
      */
     public function generateCurrentUrl(){
-     return $this->getCurrentUrl();
+     return \Ip\Internal\UrlHelper::getCurrentUrl();
     }
 
     /**

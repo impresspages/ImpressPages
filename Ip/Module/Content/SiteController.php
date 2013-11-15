@@ -49,7 +49,7 @@ class SiteController extends \Ip\Controller{
             'errorMessage' => $errorMessage
         );
 
-        $this->_outputAnswer($data);
+        new \Ip\Response\Json($data);
     }
 
 
