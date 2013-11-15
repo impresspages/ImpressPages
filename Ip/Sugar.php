@@ -56,6 +56,26 @@ function ipAddJavascript($file, $stage = 1)
     }
 }
 
+function ipAddJavascriptVariable($name, $value)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascriptVariable')) {
+        $response->addJavascriptVariable($name, $value);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascriptVariable');
+    }
+}
+
+function ipAddJavascriptContent($key, $javascript, $stage = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascriptContent')) {
+        $response->addJavascriptContent($key, $javascript, $stage = 1);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascriptContent');
+    }
+}
+
 function ipAddCss($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
