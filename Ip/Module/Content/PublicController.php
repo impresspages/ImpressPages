@@ -19,6 +19,8 @@ class PublicController extends \Ip\Controller
             return $response;
         }
 
+        ipSetBlockContent('main', ipGetCurrentPage()->generateContent());
+
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             $response->setContent(\Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render());
         } else {
