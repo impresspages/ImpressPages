@@ -50,7 +50,7 @@ class AdminController extends \Ip\Controller
         $list = $this->getList ($externalLinking, $parentType, $parentWebsiteId, $parentLanguageId, $parentZoneName, $parentId);
 
 
-        $this->returnJson ($list);
+        return new \Ip\Response\Json($list);
     }
     /**
      *
@@ -368,7 +368,7 @@ class AdminController extends \Ip\Controller
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     public function getZoneProperties() {
@@ -676,7 +676,7 @@ class AdminController extends \Ip\Controller
                 return false;
         }
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
     /**
@@ -736,8 +736,7 @@ class AdminController extends \Ip\Controller
             $answer['status'] = 'error';
         }
 
-
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 
@@ -843,7 +842,7 @@ class AdminController extends \Ip\Controller
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());
 
-        $this->returnJson ($answer);
+        return new \Ip\Response\Json($answer);
     }
 
 

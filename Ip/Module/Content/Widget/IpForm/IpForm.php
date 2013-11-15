@@ -16,7 +16,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         return __('Contact form', 'ipAdmin');
     }
     
-    public function post ($controller, $instanceId, $postData, $data) {
+    public function post ($instanceId, $postData, $data) {
         
         
         $form = $this->createForm($instanceId, $data);
@@ -34,8 +34,9 @@ class IpForm extends \Ip\Module\Content\Widget{
                 'status' => 'success'
             );
         }
-        
-        $controller->returnJson($data);
+
+        // TODOX use JsonRpc
+        return \Ip\Response\Json($data);
     }
     
     public function sendEmail ($form, $postData, $data) {
