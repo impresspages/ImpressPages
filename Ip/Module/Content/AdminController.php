@@ -589,7 +589,6 @@ class AdminController extends \Ip\Controller
     }
 
     public function publishPage () {
-        global $site;
 
         if (!isset($_POST['revisionId'])) {
             return $this->_errorAnswer('Mising revisionId POST variable');
@@ -620,8 +619,7 @@ class AdminController extends \Ip\Controller
             'newRevisionUrl' => $newRevisionUrl
         );
 
-        new \Ip\Response\Json($data);
-
+        return new \Ip\Response\Json($data);
     }
 
 
