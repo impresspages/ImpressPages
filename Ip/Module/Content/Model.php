@@ -14,11 +14,10 @@ class Model{
     const WIDGET_DIR = 'Widget';
 
     public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
-        global $site;
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
 
         $widgetsHtml = array();
-        foreach ($widgets as $key => $widget) {
+        foreach ($widgets as $widget) {
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
             } catch (Exception $e) {
