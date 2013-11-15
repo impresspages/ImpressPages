@@ -86,7 +86,6 @@ class Revision{
 
 
     public static function createRevision ($zoneName, $pageId, $published) {
-        global $dispatcher;
         $sql = "
             INSERT INTO `".DB_PREF."revision`
             SET
@@ -106,7 +105,7 @@ class Revision{
         $eventData = array(
             'revisionId' => $revisionId
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));
 
 
 
@@ -114,7 +113,6 @@ class Revision{
     }
 
     public static function publishRevision ($revisionId) {
-        global $dispatcher;
         $revision = self::getRevision($revisionId);
         if (!$revision) {
             return false;
@@ -140,13 +138,12 @@ class Revision{
         $eventData = array(
             'revisionId' => $revisionId,
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.publishRevision', $eventData));
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.publishRevision', $eventData));
         
 
     }
 
     public static function duplicateRevision ($oldRevisionId, $zoneName = null, $pageId = null, $published = null) {
-        global $dispatcher;
 
         $oldRevision = self::getRevision($oldRevisionId);
         
@@ -172,7 +169,7 @@ class Revision{
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        $dispatcher->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));
 
         return $newRevisionId;
     }
@@ -204,8 +201,7 @@ class Revision{
      * @param int $days
      */
     public static function removeOldRevisions($days) {
-        global $dispatcher;
-        
+
         $sqlWhere = "`created` < ".(time() - $days * 24 * 60 * 60)." AND NOT `published`";
         $sql = "
             SELECT * FROM `".DB_PREF."revision`
@@ -221,7 +217,7 @@ class Revision{
             $eventData = array(
                 'revisionId' => $lock['revisionId'],
             );
-            $dispatcher->notify(new \Ip\Event(null, 'site.removeRevision', $eventData));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.removeRevision', $eventData));
         }
 
         $sql = "

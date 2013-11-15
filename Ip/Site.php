@@ -187,7 +187,7 @@ class Site{
         }
 
         if ($this->error404) {
-            $dispatcher->bind('site.afterInit', array($this, 'dispatchError404'));
+            \Ip\ServiceLocator::getDispatcher()->bind('site.afterInit', array($this, 'dispatchError404'));
             ///$this->dispatchError404();
         }
     }
@@ -216,11 +216,10 @@ class Site{
     }
     
     public function dispatchError404() {
-        global $dispatcher;
         $event = new \Ip\Event($this, 'site.beforeError404', null);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
         if (!$event->getProcessed()) {
-            $dispatcher->notify(new \Ip\Event($this, 'site.error404', null));
+            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.error404', null));
         }
     }
 

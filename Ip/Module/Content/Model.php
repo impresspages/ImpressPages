@@ -328,8 +328,6 @@ class Model{
      * @return \Ip\Module\Content\Widget
      */
     public static function getWidgetObject($widgetName) {
-        global $dispatcher;
-
         $widgetObjects = self::getAvailableWidgetObjects();
 
         if (isset($widgetObjects[$widgetName])) {
