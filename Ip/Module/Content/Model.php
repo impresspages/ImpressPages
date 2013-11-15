@@ -307,14 +307,13 @@ class Model{
     }
 
     public static function getAvailableWidgetObjects() {
-        global $dispatcher;
 
         if (self::$widgetObjects !== null) {
             return self::$widgetObjects;
         }
 
         $event = new EventWidget(null, 'contentManagement.collectWidgets', null);
-        $dispatcher->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify($event);
 
         $widgetObjects = $event->getWidgets();
 
