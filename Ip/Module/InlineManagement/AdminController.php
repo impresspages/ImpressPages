@@ -178,7 +178,7 @@ class AdminController extends \Ip\Controller{
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
             $pageName = '';
-            $zone = $site->getZone($scope->getZoneName());
+            $zone = ipGetZone($scope->getZoneName());
             if ($zone) {
                 $element = $zone->getElement($scope->getPageId());
                 if ($element) {

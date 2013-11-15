@@ -83,7 +83,7 @@ class ModelTree {
 
     public static function getZonePages ($languageId, $zoneName) {
         global $site;
-        $zone = $site->getZone($zoneName);
+        $zone = ipGetZone($zoneName);
         
         if ( ! $zone) {
             trigger_error('Can\'t find zone ' . $zoneName);

@@ -31,6 +31,11 @@ function ipGetCurrentZone()
     return \Ip\ServiceLocator::getContent()->getCurrentZone();
 }
 
+function ipGetZone($zoneName)
+{
+    return \Ip\ServiceLocator::getContent()->getZone($zoneName);
+}
+
 function ipGetCurrentLanguage()
 {
     return \Ip\ServiceLocator::getContent()->getCurrentLanguage();
