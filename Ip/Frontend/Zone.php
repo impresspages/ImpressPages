@@ -78,6 +78,7 @@ abstract class Zone{
      * @return array Element
      *
      */
+    //TODOX rename to Pages
     public abstract function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
 
