@@ -93,40 +93,26 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Backend::userId()) {
             //TODOX check if user has access to given module
-            $response = new \Ip\Response();
-            $response->addHeader('location: ' . \Ip\Config::baseUrl('') . 'admin');
-            \Ip\ServiceLocator::removeRequest();
-            return $response;
+            return new \Ip\Response\Redirect(\Ip\Config::baseUrl('') . 'admin');
         }
 
 
 
         $action = $request->getControllerAction();
         $controllerAnswer = $controller->$action();
+
         if (is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
             }
             \Ip\ServiceLocator::getResponse()->setcontent($controllerAnswer);
-
-//
-//
-//
-//            $site->setBlockContent('main', $controllerAnswer);
-//
-//            if ($site->getOutput()) {
-//                $response->setContent($site->getOutput());
-//            }
-//
-//            return $this->output;
-
             \Ip\ServiceLocator::removeRequest();
             return \Ip\ServiceLocator::getResponse();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
             return $controllerAnswer;
         } elseif ($controllerAnswer === NULL) {
-            $response = new \Ip\Response();
+            $response = \Ip\ServiceLocator::getResponse();
             \Ip\ServiceLocator::removeRequest();
             return $response;
         } else {

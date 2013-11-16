@@ -5,7 +5,7 @@
 
 namespace Ip\Response;
 
-//TODOX refactor
+//TODOX use it instead of status404?
 class PageNotFound {
 
 } 

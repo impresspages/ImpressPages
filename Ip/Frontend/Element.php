@@ -60,6 +60,7 @@ class Element{
      * inactive - without link on it<br />
      * subpage - redirect to first subpage<br />
      * redirect - redirect to external page<br />
+     * error404
      */
     protected $type;
     /** string - redirect URL if element type is "redirect" */

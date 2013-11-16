@@ -123,7 +123,17 @@ function ipSetLayout($file)
     if (method_exists($response, 'setLayout')) {
         $response->setLayout($file);
     } else {
-        ipLogNotice('Core', 'Response method has no method setLayout');
+        ipLog('Core', 'Response method has no method setLayout');
+    }
+}
+
+function ipGetLayout()
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'getLayout')) {
+        $response->getLayout();
+    } else {
+        ipLog('Core', 'Response method has no method getLayout');
     }
 }
 
@@ -143,6 +153,12 @@ function ipBlock($block)
 function ipSlot($slot)
 {
     return \Ip\ServiceLocator::getContent()->generateSlot($slot);
+}
+
+
+function isManagementState()
+{
+    return \Ip\ServiceLocator::getContent()->isManagementState();
 }
 
 function __($text, $domain)

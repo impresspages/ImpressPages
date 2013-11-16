@@ -10,37 +10,21 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        $response = new \Ip\Response();
-
-
         if (
             \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
-            ipGetCurrentPage() instanceof \Ip\Frontend\Page404
+            ipGetCurrentPage()->getType() === 'error404'
         ) {
-            //TODOX output some content alongside the header
             return new \Ip\Response\Status404();
         }
 
-        if (ipGetCurrentPage()) {
-            ipSetBlockContent('main', ipGetCurrentPage()->generateContent());
+        if (in_array(ipGetCurrentPage()->getType(), array('subpage', 'redirect')) && !isManagementState()) {
+            return new \Ip\Response\Redirect(ipGetCurrentPage()->getLink());
         }
 
+        ipSetBlockContent('main', ipGetCurrentPage()->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
-            $response->setContent(\Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render());
-        } else {
-            $layout = \Ip\ServiceLocator::getContent()->getLayout();
-            if ($layout) {
-                if ($layout[0] == '/') {
-                    $viewFile = $layout;
-                } else {
-                    $viewFile = \Ip\Config::themeFile($layout);
-                }
-                $response->setContent(\Ip\View::create($viewFile, array())->render());
-
-            }
-
+            ipSetLayout(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'));
         }
 
-        return $response;
     }
 }

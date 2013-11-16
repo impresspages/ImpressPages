@@ -34,11 +34,6 @@
 class Site{
 
 
-    /** bool true if page does not exists */
-    private $error404;
-    
-
-
 
     /** @deprecated use getCurrentZone()->getName() instead */
     public $currentZone;
@@ -97,90 +92,13 @@ class Site{
         return $answer;
     }
 
-    /**
-     *
-     * @return Language - current language
-     *
-     */
-    public function getCurrentLanguage(){
-        \Ip\ServiceLocator::getContent()->getCurrentLanguage();
-    }
-
-
-
-
-    protected function homeZone()
-    {
-        $zones = \Ip\Frontend\Db::getZones($this->currentLanguage['id']);
-        foreach ($zones as $key => $zoneInfo) {
-            if ($zoneInfo['url'] == '') {
-                $zone = $this->getZone($zoneInfo['name']);
-
-                // if first url element is not in home zone, we are not in home zone
-                if (!$zone->findElement(array($this->zoneUrl), array())) {
-                    return;
-                }
-
-                $this->currentZone = $zoneInfo['name'];
-                array_unshift($this->urlVars, urlencode($this->zoneUrl));
-                $this->zoneUrl = '';
-                break;
-            }
-        }
-    }
 
 
 
 
 
-    /**
-     * Find website zone by module group and name.
-     * @param $group Module group name (string)
-     * @param $module Module name (string)
-     * @return \Ip\Frontend\Zone
-     */
-    public function getZoneByModule($group, $module){
-        $answer = false;
-        foreach($this->zones as $key => $zone){
-            if ($zone['associated_group'] == $group && $zone['associated_module'] == $module) {
-                $answer = $this->getZone($zone['name']);
-            }
-        }
-        return $answer;
-    }
 
 
-
-    /*
-     * Redirect to another page if required
-     * @return null
-     *
-     */
-    public function makeRedirect(){
-        $curEl =  $this->getCurrentPage();
-        if($curEl){ //if page exist.
-            switch($curEl->getType()){
-                case 'subpage':
-                case 'redirect':
-                    $currentUrl = \Ip\Internal\UrlHelper::getCurrentUrl();
-                    if(isset($_SESSION['frontend']['redirects'][$currentUrl])){
-                        unset($_SESSION['frontend']['redirects']);
-                        return;//infinite redirect loop. Stop redirecting;
-                    } else {
-                        if (!isset($_GET['cms_action']) || $_GET['cms_action'] != 'manage_content') {
-                            $_SESSION['frontend']['redirects'][$currentUrl] = 1; //to detect infinite loop
-                            header('HTTP/1.1 301 Moved Permanently');
-                            header('Location: '.$curEl->getLink());
-
-                            \Ip\Internal\Deprecated\Db::disconnect();
-                            exit();
-                        }
-                    }
-                    break;
-            }
-        }
-        unset($_SESSION['frontend']['redirects']);
-    }
 
 
 
