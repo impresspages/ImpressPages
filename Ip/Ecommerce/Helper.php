@@ -51,6 +51,7 @@ class Helper {
     /**
      * @param int $price in cents
      * @param string $currency three letter currency code
+     * @param int $languageId
      * @return string
      */
     public function formatPrice($price, $currency, $languageId = null)
@@ -71,7 +72,7 @@ class Helper {
             $formattedPrice = $event->getValue('formattedPrice');
         } else {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
-                $language = $site->getLanguageById($languageId);
+                $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageId);
                 $locale = str_replace('-', '_', $language->getCode());
                 $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
 

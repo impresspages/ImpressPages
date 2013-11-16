@@ -756,11 +756,11 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['languageId'])) {
-            $language = $site->getLanguageById($_REQUEST['languageId']);
+            $language = \Ip\ServiceLocator::getContent()->getLanguageById($_REQUEST['languageId']);
         } else {
             $languages = Db::getLanguages();
             $languageArray = $languages[0];
-            $language = $site->getLanguageById($languageArray['id']);
+            $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageArray['id']);
         }
 
         if (empty($language) || !$language) {

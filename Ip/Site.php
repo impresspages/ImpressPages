@@ -62,20 +62,6 @@ class Site{
 
 
 
-    /**
-     *
-     * @return \Ip\Frontend\Language
-     *
-     */
-    public function getLanguageById($id){
-        $answer = false;
-        foreach($this->languages as $key => $data){
-            if($data['id'] == $id){
-                $answer = $this->createLanguage($data);
-            }
-        }
-        return $answer;
-    }
 
     /**
      *
