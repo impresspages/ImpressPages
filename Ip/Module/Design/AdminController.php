@@ -18,7 +18,6 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
         ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
@@ -235,7 +234,6 @@ class AdminController extends \Ip\Controller
      */
     public function realTimeLess()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         $file = \Ip\Request::getRequest('file');
         if (empty($file)) {

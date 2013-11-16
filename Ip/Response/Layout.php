@@ -174,12 +174,11 @@ class Layout extends \Ip\Response {
             }
         }
 
-        $site = \Ip\ServiceLocator::getSite();
 
         $data = array (
-            'title' => $site->getTitle(),
-            'keywords' => $site->getKeywords(),
-            'description' => $site->getDescription(),
+            'title' => \Ip\ServiceLocator::getContent()->gettitle(),
+            'keywords' => \Ip\ServiceLocator::getContent()->getKeywords(),
+            'description' => \Ip\ServiceLocator::getContent()->getDescription(),
             'favicon' => \Ip\Config::baseUrl('favicon.ico'),
             'charset' => \Ip\Config::getRaw('CHARSET'),
             'css' => $cssFiles

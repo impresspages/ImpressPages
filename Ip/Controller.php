@@ -26,12 +26,11 @@ class Controller{
     }
     
     public function redirect ($url) {
-        $site = \Ip\ServiceLocator::getSite();
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         header("location: ".$url);
 
         \Ip\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null)); // TODOX \Ip\Db should throw this event
+        $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null)); // TODOX \Ip\Db should throw this event
         exit;
     }
 

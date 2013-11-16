@@ -46,7 +46,6 @@ class System{
 
     protected function initConfig()
     {
-        $site = \Ip\ServiceLocator::getSite();
         ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
         ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
         ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));

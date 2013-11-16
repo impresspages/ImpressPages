@@ -71,7 +71,6 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupString()
     {
-        global $site;
 
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
@@ -83,7 +82,7 @@ class AdminController extends \Ip\Controller{
         }
         $defaultValue = $_POST['defaultValue'];
 
-        $languages = $site->getLanguages();
+        $languages = ipGetLanguages();
 
         $values = array();
         foreach ($languages as $language) {
@@ -114,7 +113,6 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupText()
     {
-        global $site;
 
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
@@ -126,7 +124,7 @@ class AdminController extends \Ip\Controller{
         }
         $defaultValue = $_POST['defaultValue'];
 
-        $languages = $site->getLanguages();
+        $languages = ipGetLanguages();
 
         $values = array();
         foreach ($languages as $language) {

@@ -34,7 +34,6 @@ class Service
      */
     public function getRealTimeUrl($themeName, $filename) {
         $configModel = ConfigModel::instance();
-        $site = \Ip\ServiceLocator::getSite();
         $data = array(
             'g' => 'standard',
             'm' => 'design',

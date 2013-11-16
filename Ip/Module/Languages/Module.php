@@ -41,9 +41,8 @@ class Module{
     }
     
     private static function getViewData() {
-        global $site;
         $languages = array();
-        foreach($site->getLanguages() as $language){
+        foreach(ipGetLanguages() as $language){
             if (!$language->getVisible()) {
                 continue;
             }

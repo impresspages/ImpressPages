@@ -50,9 +50,7 @@ try {
     $parametersMod = new ParametersMod();
     $session = new \Ip\Frontend\User();
 
-    $site = new \Site();
-    $site->init();
-    $dispatcher->notify(new \Ip\Event($site, 'site.afterInit', null));
+    $dispatcher->notify(new \Ip\Event($this, 'site.afterInit', null));
 
     $cron = new Cron();
     $cron->execute();
