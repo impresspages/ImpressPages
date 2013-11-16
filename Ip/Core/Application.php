@@ -13,9 +13,8 @@ class Application {
         return '4.0';
     }
 
-    public static function init()
+    public function init()
     {
-
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
