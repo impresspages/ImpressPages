@@ -25,7 +25,7 @@ class Application {
         require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
         \Ip\Config::init($config);
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Autoloader.php';
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 

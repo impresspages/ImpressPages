@@ -13,7 +13,7 @@ class TestEnvironment {
         $config = include TEST_FIXTURE_DIR . 'ip_config/' . $configBasename;
         \Ip\Config::init($config);
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
 
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
