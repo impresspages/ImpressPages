@@ -4,11 +4,11 @@
  */
 
 namespace Ip;
-
+//TODOX do we still want to throw exceptions instead of warnings?
 
 
 /**
- * IpCmsException class
+ * Exception class used to throw exceptions instead of default PHP warnings and notices
  */
 class PhpException extends \Exception
 {
