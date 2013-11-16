@@ -8,12 +8,13 @@ namespace Ip\Core;
 
 class Application {
 
+    public static function getVersion()
+    {
+        return '4.0';
+    }
+
     public static function init()
     {
-        //TODOX remove constant. Constants are evil
-        if (!defined('IP_VERSION')) {
-            define('IP_VERSION', '4.0');
-        }
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
