@@ -118,7 +118,7 @@ class Application {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
             }
-            \Ip\ServiceLocator::getResponse()->setcontent($controllerAnswer);
+            \Ip\ServiceLocator::getResponse()->setContent($controllerAnswer);
             \Ip\ServiceLocator::removeRequest();
             return \Ip\ServiceLocator::getResponse();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
@@ -198,7 +198,7 @@ class Application {
     }
 
     /**
-     * Get security token used to prevent cros site scripting
+     * Get security token used to prevent cross site scripting
      * @return string
      */
     public function getSecurityToken()
