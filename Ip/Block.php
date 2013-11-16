@@ -44,20 +44,13 @@ class Block
             if ($this->isStatic) {
                 $revisionId = null;
             } else {
-                $revision = $site->getRevision();
+                $revision = \Ip\ServiceLocator::getContent()->getRevision();
                 if ($revision) {
                     $revisionId = $revision['revisionId'];
                 } else {
                     return '';
                 }
             }
-
-//            if ($this->name == 'main') {
-//                $currentElement =  ipGetCurrentPage();
-//                if (!($currentElement instanceof \Ip\Module\Content\Element)) {
-//                    return $currentElement->generateContent();
-//                }
-//            }
 
             return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, \Ip\ServiceLocator::getContent()->isManagementState(), $this->exampleContent);
         }

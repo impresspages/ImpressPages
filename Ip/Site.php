@@ -300,48 +300,5 @@ class Site{
 
 
 
-    /**
-     * If we are in the management state and last revision is published, then create new revision.
-     *
-     */
-    public function getRevision() {
-        //TODOX cache revision
-        $revision = null;
-        if (\Ip\ServiceLocator::getContent()->isManagementState()){
-            if (isset($this->getVars['cms_revision'])) {
-                $revisionId = $this->getVars['cms_revision'];
-                $revision = \Ip\Revision::getRevision($revisionId);
-            }
-
-            if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
-                if (!$this->getCurrentPage()) {
-                    return null;
-                }
-                $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
-                if ($revision['published']) {
-                    $revision = $this->_duplicateRevision($revision['revisionId']);
-                }
-            }
-
-        } else {
-            $currentElement = $this->getCurrentPage();
-            if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision(ipGetCurrentZone()->getName(), $currentElement->getId());
-            }
-
-        }
-        return $revision;
-    }
-
-
-
-    private function _duplicateRevision($oldRevisionId){
-        $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
-        $revision = \Ip\Revision::getRevision($revisionId);
-        if ($revision === false) {
-            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
-        }
-        return $revision;
-    }
 }
 
