@@ -14,7 +14,7 @@ class PublicController extends \Ip\Controller
             \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
             ipGetCurrentPage()->getType() === 'error404'
         ) {
-            return new \Ip\Response\Status404();
+            return new \Ip\Response\PageNotFound();
         }
 
         if (in_array(ipGetCurrentPage()->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
