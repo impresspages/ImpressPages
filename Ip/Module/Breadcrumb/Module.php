@@ -18,8 +18,7 @@ class Module{
      * @return string HTML with links to website languages
      */
     static function generateBreadcrumb($separator, $showHome = true){
-        global $site;
-        
+
         $data = array (
             'homeUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'breadcrumbElements' => ipGetBreadcrumb(),

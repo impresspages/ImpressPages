@@ -157,7 +157,6 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupImage()
     {
-        global $site;
         global $parametersMod;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
@@ -349,7 +348,6 @@ class AdminController extends \Ip\Controller{
 
     public function saveImage()
     {
-        global $site;
 
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
@@ -484,7 +482,6 @@ class AdminController extends \Ip\Controller{
 
     public function removeImage()
     {
-        global $site;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }

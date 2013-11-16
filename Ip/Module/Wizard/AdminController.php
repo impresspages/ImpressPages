@@ -10,7 +10,6 @@ namespace Ip\Module\Wizard;
 class AdminController extends \Ip\Controller{
 
     public function loadContent() {
-        global $site;
         $viewData = array (
             'tip_dragWidget' => ipGetOption('Wizard.tip_dragWidget'),
             'tip_dropWidget' => ipGetOption('Wizard.tip_dropWidget'),

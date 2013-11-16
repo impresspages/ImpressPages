@@ -15,7 +15,6 @@ class ModelTree {
     private static $websiteId = 0;
 
     public static function getWebsites () {
-        global $site;
         $answer = array();
 
         $answer[] = array(
@@ -55,9 +54,6 @@ class ModelTree {
 
 
     public static function getZones($includeNonManagedZones) {
-        global $parametersMod;
-        global $site;
-
         $zones = ipGetZones();
 
         $managedZones = array();
@@ -82,7 +78,6 @@ class ModelTree {
 
 
     public static function getZonePages ($languageId, $zoneName) {
-        global $site;
         $zone = ipGetZone($zoneName);
         
         if ( ! $zone) {

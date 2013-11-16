@@ -40,8 +40,7 @@ class IpForm extends \Ip\Module\Content\Widget{
     }
     
     public function sendEmail ($form, $postData, $data) {
-        global $site;
-        
+
         $contentData = array();
 
         $websiteName = ipGetOption('Config.websiteTitle');

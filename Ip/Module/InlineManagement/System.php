@@ -11,7 +11,6 @@ class System
 {
     function init()
     {
-        global $site;
 
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             ipAddCss(\Ip\Config::coreModuleUrl('InlineManagement/public/inline_management.css'));

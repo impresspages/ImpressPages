@@ -106,8 +106,6 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
 
     function afterInsert($id) {
-        global $site;
-
         Db::createRootZoneElement($id);
         Db::createEmptyTranslations($id,'par_lang');
     }
@@ -126,9 +124,6 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
 
     function afterUpdate($id) {
-        global $site;
-        global $parametersMod;
-
         $tmpLanguage = Db::getLanguageById($id);
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && ipGetOption('Config.multilingual')) {
             $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');

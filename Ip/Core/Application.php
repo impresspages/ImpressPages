@@ -46,7 +46,6 @@ class Application {
 
     public function handleRequest(\Ip\Internal\Request $request)
     {
-        global $site;
         \Ip\ServiceLocator::addRequest($request);
 
 
@@ -60,7 +59,7 @@ class Application {
         \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($site, 'site.afterInit', null));
+        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.afterInit', null));
 
 
         $application = \Ip\ServiceLocator::getApplication();
@@ -162,7 +161,6 @@ class Application {
     public function close()
     {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        global $site;
 
         /*
          Automatic execution of cron.
@@ -178,11 +176,11 @@ class Application {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 1);
             $fakeCronAnswer = curl_exec($ch);
-            $dispatcher->notify(new \Ip\Event($site, 'cron.afterFakeCron', $fakeCronAnswer));
+            $dispatcher->notify(new \Ip\Event($this, 'cron.afterFakeCron', $fakeCronAnswer));
         }
 
         \Ip\Internal\Deprecated\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($site, 'site.databaseDisconnect', null));
+        $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
     }
 
     /**

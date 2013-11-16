@@ -16,9 +16,6 @@ class Module{
 
 
     public static function generateLanguageList(){
-        global $site;
-        global $parametersMod;
-
         if(!ipGetOption('Config.multilingual')) {
             return;
         }
@@ -36,9 +33,6 @@ class Module{
      *
      */
     public static function generatehtml(){
-        global $site;
-        global $parametersMod;
-
         if(!ipGetOption('Config.multilingual')) {
             return;
         }

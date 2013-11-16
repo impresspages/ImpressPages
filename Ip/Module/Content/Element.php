@@ -21,7 +21,6 @@ class Element extends \Ip\Frontend\Element {
     protected $linkIgnoreRedirect;
 
     public function getLink($ignoreRedirect = false) {
-        global $site;
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $ignoreRedirect = true;
         }
@@ -64,7 +63,6 @@ class Element extends \Ip\Frontend\Element {
     }
 
     private function generateDepthAndLink() {
-        global $site;
         $tmpUrlVars = array();
         $tmpId = $this->getId();
         $element = DbFrontend::getElement($tmpId);

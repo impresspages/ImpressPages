@@ -11,7 +11,6 @@ class System{
 
 
     function init(){
-        global $site;
 
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         
@@ -120,7 +119,6 @@ class System{
     }
     
     public static function initWidgets () {
-        global $site;
 
         //widget JS and CSS are included automatically only in administration state
         if (!\Ip\ServiceLocator::getContent()->isManagementState()) {
@@ -202,7 +200,6 @@ class System{
     }
 
     public static function includeResources($resourcesFolder, $overrideFolder = null){
-        global $site;
 
         if (is_dir(\Ip\Config::baseFile($resourcesFolder))) {
             $files = scandir(\Ip\Config::baseFile($resourcesFolder));

@@ -219,8 +219,7 @@ class Widget{
                 // TODOX Plugin dir
             }
         } catch (\Ip\CoreException $e){
-            global $site;
-            
+
             if (\Ip\ServiceLocator::getContent()->isManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,

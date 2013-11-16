@@ -297,8 +297,6 @@ class AdminController extends \Ip\Controller
      * Get page update form HTML
      */
     public function getPageForm() {
-        global $site;
-        global $parametersMod;
 
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
@@ -593,7 +591,6 @@ class AdminController extends \Ip\Controller
      * Get URL of the page
      */
     public function getPageLink() {
-        global $site;
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {
@@ -682,8 +679,6 @@ class AdminController extends \Ip\Controller
      * Update page
      */
     public function updatePage () {
-        global $parametersMod;
-        global $site;
 
         $answer = array();
 
@@ -744,7 +739,6 @@ class AdminController extends \Ip\Controller
      */
     public function createPage () {
         global $parametersMod;
-        global $site;
 
         $answer = array();
 
@@ -874,9 +868,6 @@ class AdminController extends \Ip\Controller
      * Move page to another location
      */
     public function movePage () {
-        global $site;
-
-
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -1030,7 +1021,6 @@ class AdminController extends \Ip\Controller
      * @param unknown_type $destinationPosition
      */
     private function notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
-        global $site;
         $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
         \Ip\ServiceLocator::getDispatcher()->notify($movePageEvent);
 
@@ -1045,7 +1035,6 @@ class AdminController extends \Ip\Controller
      * Copy page from one place to another
      */
     public function copyPage() {
-        global $site;
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {

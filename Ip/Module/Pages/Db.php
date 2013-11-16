@@ -184,7 +184,6 @@ class Db {
      * @param array $params
      */
     public static function updatePage($zoneName, $pageId, $params){
-        global $site;
         $values = array();
 
         $zone = ipGetZone($zoneName);

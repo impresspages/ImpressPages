@@ -19,7 +19,6 @@ class Service
 
     public function generateManagedLogo($cssClass = null)
     {
-        global $site;
 
         $data = $this->getLogoData();
 
@@ -93,7 +92,6 @@ class Service
 
     public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-        global $site;
 
         if ($tag == 'p') {
             $backtrace = debug_backtrace();
@@ -134,7 +132,6 @@ class Service
 
     public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
-        global $site;
 
         if ($defaultValue === null) {
             $defaultValue = \Ip\Config::getRaw('MODULE_DIR') . 'inline_management/public/empty.gif';
@@ -163,7 +160,6 @@ class Service
 
     private function getLogoData()
     {
-        global $site;
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
 
