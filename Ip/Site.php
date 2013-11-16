@@ -59,41 +59,6 @@ class Site{
 
 
 
-
-
-
-
-    /**
-     *
-     * @return Language
-     *
-     */
-    public function getLanguageByUrl($url){
-        $answer = false;
-        foreach($this->languages as $key => $data){
-            if($data['url'] == $url){
-                $answer = $this->createLanguage($data);
-            }
-        }
-        return $answer;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      *
      * @return string title of current page
