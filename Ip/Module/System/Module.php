@@ -68,11 +68,11 @@ class Module
 
         }
 
-        \Ip\DbSystem::setSystemVariable('cached_base_url', \Ip\Config::baseUrl('')); // update system variable
+        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', \Ip\Config::baseUrl('')); // update system variable
 
 
-        $cacheVersion = \Ip\DbSystem::getSystemVariable('cache_version');
-        \Ip\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
+        $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
+        \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
 
 
 
@@ -93,7 +93,7 @@ class Module
             curl_setopt($ch, CURLOPT_POST, 1);
 
             $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
-            $postFields .= '&systemVersion=' . \Ip\DbSystem::getSystemVariable('version');
+            $postFields .= '&systemVersion=' . \Ip\Internal\DbSystem::getSystemVariable('version');
 
             //TODOX refactor
 //            $groups = \Modules\developer\modules\Db::getGroups();
@@ -128,7 +128,7 @@ class Module
 
         $ch = curl_init();
 
-        $curVersion = \Ip\DbSystem::getSystemVariable('version');
+        $curVersion = \Ip\Internal\DbSystem::getSystemVariable('version');
 
         $options = array(
             CURLOPT_RETURNTRANSFER => true,

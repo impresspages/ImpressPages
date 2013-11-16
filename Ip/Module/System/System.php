@@ -23,7 +23,7 @@ class System{
     
     public static function urlChanged (\Ip\Event\UrlChanged $event)
     {
-        \Ip\DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
+        \Ip\Internal\DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
     }
     
 

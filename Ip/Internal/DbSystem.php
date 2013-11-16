@@ -6,7 +6,7 @@
  */
 
 
-namespace Ip;
+namespace Ip\Internal;
 //TODOX REFACTOR
 
 /**

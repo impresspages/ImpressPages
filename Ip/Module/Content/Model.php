@@ -146,7 +146,7 @@ class Model{
 
     private static function _generateWidgetPreview($widgetRecord, $managementState) {
         //check if we don't need to recreate the widget
-        $themeChanged = \Ip\DbSystem::getSystemVariable('theme_changed');
+        $themeChanged = \Ip\Internal\DbSystem::getSystemVariable('theme_changed');
         if ($themeChanged > $widgetRecord['recreated']) {
             $widgetData = $widgetRecord['data'];
             if (!is_array($widgetData)) {
