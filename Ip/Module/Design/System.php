@@ -49,7 +49,7 @@ class System{
         ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
         ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
-        ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         ipAddCss(\Ip\Config::coreModuleUrl('Design/public/optionsBox.css'));

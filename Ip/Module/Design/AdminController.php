@@ -23,7 +23,7 @@ class AdminController extends \Ip\Controller
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
         ipAddCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
-        ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
         ipAddJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));

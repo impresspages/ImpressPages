@@ -17,7 +17,7 @@ class System{
             ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
             ipAddCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
-            ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
+            ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
