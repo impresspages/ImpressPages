@@ -89,7 +89,7 @@ class Element extends \Ip\Frontend\Element {
                 if(sizeof($tmpChildren) == 1)
                 $this->link = $tmpChildren[0]->getLink();
                 else
-                $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
+                $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
                 break;
             case 'redirect':
                 if(\Ip\ServiceLocator::getContent()->isManagementState()) {
@@ -108,11 +108,11 @@ class Element extends \Ip\Frontend\Element {
             case 'inactive':
             case 'default':
             default:
-                $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);
+                $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);
                 break;
         }
 
-        $this->linkIgnoreRedirect = $site->generateUrl($languageId, $this->zoneName, $urlVars);
+        $this->linkIgnoreRedirect = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);
     }
 
 

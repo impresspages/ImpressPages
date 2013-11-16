@@ -25,7 +25,7 @@ class AdminController extends \Ip\Controller
         $languages = \Ip\Frontend\Db::getLanguages(true); //get all languages including hidden
 
         foreach ($languages as $language) {
-            $link = $site->generateUrl($language['id']);
+            $link = \Ip\Internal\Deprecated\Url::generate($language['id']);
             $answer .= '<li><a href="' . $link . '">' . htmlspecialchars($language['d_long']) . ' (' . htmlspecialchars(
                     $language['d_short']
                 ) . ')</a>' . "\n";
@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller
             if (sizeof($zones) > 0) {
                 $answer .= '<ul>';
                 foreach ($zones as $key => $zone) {
-                    $answer .= '<li><a href="' . $site->generateUrl(
+                    $answer .= '<li><a href="' . \Ip\Internal\Deprecated\Url::generate(
                             $language['id'],
                             $zone->getName()
                         ) . '">' . $zone->getTitle() . '</a>' . "\n";

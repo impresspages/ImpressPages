@@ -64,7 +64,7 @@ class Zone extends \Ip\Frontend\Zone {
 
         foreach($elements as $key => $element) { //link generation optimization.
             if($elements[$key]->getType() == 'default')
-            $elements[$key]->setLink($site->generateUrl($languageId, $this->getName(), array_merge($urlVars, array($element->getUrl())), null));
+            $elements[$key]->setLink(\Ip\Internal\Deprecated\Url::generate($languageId, $this->getName(), array_merge($urlVars, array($element->getUrl())), null));
         }
 
         return $elements;

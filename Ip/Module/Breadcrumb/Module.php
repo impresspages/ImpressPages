@@ -21,7 +21,7 @@ class Module{
         global $site;
         
         $data = array (
-            'homeUrl' => $site->generateUrl(),
+            'homeUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'breadcrumbElements' => ipGetBreadcrumb(),
             'separator' => $separator,
         );

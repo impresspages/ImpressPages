@@ -1677,7 +1677,7 @@ class StandardModule {
 
     function generateUrlRoot() {
         $site = \Ip\ServiceLocator::getSite();
-        $url = $site->generateUrl(null, null, array(), array(
+        $url = \Ip\Internal\Deprecated\Url::generate(null, null, array(), array(
                 'aa' => $this->actionString
             ));
         return $url;

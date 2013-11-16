@@ -621,7 +621,7 @@ class AdminController extends \Ip\Controller
                     trigger_error("Language Id is not set");
                     return false;
                 }
-                $answer['link'] = $site->generateUrl($_REQUEST['languageId']);
+                $answer['link'] = \Ip\Internal\Deprecated\Url::generate($_REQUEST['languageId']);
                 break;
 
             case 'zone':
@@ -634,7 +634,7 @@ class AdminController extends \Ip\Controller
                     return false;
                 }
 
-                $answer['link'] = $site->generateUrl($_REQUEST['languageId'], $_REQUEST['zoneName']);
+                $answer['link'] = \Ip\Internal\Deprecated\Url::generate($_REQUEST['languageId'], $_REQUEST['zoneName']);
 
                 break;
             case 'page':

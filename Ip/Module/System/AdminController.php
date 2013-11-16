@@ -84,7 +84,7 @@ class AdminController extends \Ip\Controller{
     protected function indexUrl()
     {
         $site = \Ip\ServiceLocator::getSite();
-        return str_replace('&amp;', '&', $site->generateUrl(null, null, null, array('aa' => 'System.index')));
+        return str_replace('&amp;', '&', \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index')));
     }
 
     public function startUpdate() {
