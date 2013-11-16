@@ -17,7 +17,7 @@ class PublicController extends \Ip\Controller
             return new \Ip\Response\Status404();
         }
 
-        if (in_array(ipGetCurrentPage()->getType(), array('subpage', 'redirect')) && !isManagementState()) {
+        if (in_array(ipGetCurrentPage()->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
             return new \Ip\Response\Redirect(ipGetCurrentPage()->getLink());
         }
 

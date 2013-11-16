@@ -156,9 +156,14 @@ function ipSlot($slot)
 }
 
 
-function isManagementState()
+function ipIsManagementState()
 {
     return \Ip\ServiceLocator::getContent()->isManagementState();
+}
+
+function ipGetRequest()
+{
+    return \Ip\ServiceLocator::getRequest();
 }
 
 function __($text, $domain)
