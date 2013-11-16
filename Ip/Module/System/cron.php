@@ -34,7 +34,7 @@ class Cron {
         $systemInfo = $module->getSystemInfo();
         if ($systemInfo != '') { //send an email
 
-            $md5 = \Ip\DbSystem::getSystemVariable('last_system_message_sent');
+            $md5 = \Ip\Internal\DbSystem::getSystemVariable('last_system_message_sent');
 
             if( !$md5 || $md5 != md5($systemInfo) ) { //we have a new message
 
@@ -75,7 +75,7 @@ class Cron {
                     $queue->send();
                 }
 
-                \Ip\DbSystem::setSystemVariable('last_system_message_sent', md5($systemInfo));
+                \Ip\Internal\DbSystem::setSystemVariable('last_system_message_sent', md5($systemInfo));
             }
 
 
