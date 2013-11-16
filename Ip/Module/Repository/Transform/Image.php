@@ -193,8 +193,17 @@ abstract class Image extends Base
         $heightSource = $y2 - $y1;
         if ($heightSource > 0 && $widthSource > 0) {
             //fix ratio if needed
-            $sourceRatio = $widthSource / $heightSource;
-            $destRatio = $widthDest / $heightDest;
+            if ($heightSource == 0) {
+                $sourceRatio = 1; //to avoid division by zero
+            } else {
+                $sourceRatio = $widthSource / $heightSource;
+            }
+
+            if ($heightDest == 0) {
+                $destRatio = 1; //to avoid division by zero
+            } else {
+                $destRatio = $widthDest / $heightDest;
+            }
             if ($sourceRatio > $destRatio) {
                 //lower source width
                 $requiredWidth = $heightSource * $destRatio;
