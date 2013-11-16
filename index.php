@@ -31,10 +31,8 @@ require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
 ini_set('display_errors', 1);
 
 try {
-
-    //TODOX make init as an object method
-    \Ip\Core\Application::init();
     $application = new \Ip\Core\Application();
+    $application->init();
     $application->run();
 } catch (\Exception $e) {
     if (isset($log)) {
