@@ -147,7 +147,7 @@ class Revision{
 
         $oldRevision = self::getRevision($oldRevisionId);
         
-        if ($oldRevision === null) {
+        if (!$oldRevision) {
             throw new \Ip\CoreException("Can't find old revision: ".$oldRevisionId, \Ip\CoreException::REVISION);
         }
         

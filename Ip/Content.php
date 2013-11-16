@@ -36,7 +36,7 @@ class Content {
     protected $slotContent = null;
 
     protected $currentPage = null;
-
+    protected $revision = null;
 
     /**
      *
@@ -389,7 +389,9 @@ class Content {
      *
      */
     public function getRevision() {
-        //TODOX cache revision
+        if ($this->revision !== null) {
+            return $this->revision;
+        }
         $revision = null;
         if (\Ip\ServiceLocator::getContent()->isManagementState()){
             if (ipGetRequest()->getQuery('cms_revision')) {
@@ -399,7 +401,8 @@ class Content {
 
             if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
                 if (!$this->getCurrentPage()) {
-                    return null;
+                    $this->revision = false;
+                    return false;
                 }
                 $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
@@ -414,6 +417,7 @@ class Content {
             }
 
         }
+        $this->revision = $revision;
         return $revision;
     }
 
