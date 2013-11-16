@@ -147,6 +147,9 @@ class Content {
     {
         if ($this->currentPage === null) {
             $this->currentPage = $this->getCurrentZone()->getCurrentPage();
+            if ($this->currentPage === null) {
+                $this->currentPage = new \Ip\Frontend\Page404(1, '');
+            }
         }
         return $this->currentPage;
     }

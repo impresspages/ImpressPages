@@ -87,7 +87,6 @@ class Zone extends \Ip\Frontend\Zone {
 
 
     function getFirstElement($parentId, $level) {
-        global $site;
 
         $elements = $this->db->getElements($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
         foreach($elements as $key => $element) {
@@ -114,11 +113,11 @@ class Zone extends \Ip\Frontend\Zone {
         $currentEl = null;
 
         $elId = $this->db->getRootElementId($this->getName(), ipGetCurrentLanguage()->getId());
-        if($elId) {
-            if(sizeof($urlVars) == 0) {
+        if ($elId) {
+            if (sizeof($urlVars) == 0) {
                 return $this->getFirstElement($elId, 1);
-            }else {
-                foreach($urlVars as $key => $value) {
+            } else {
+                foreach ($urlVars as $value) {
                     $tmp = $this->db->getElementByUrl($value, $elId);
                     if ($tmp) {
                         $currentEl = $tmp;
@@ -129,7 +128,7 @@ class Zone extends \Ip\Frontend\Zone {
                 }
                 return $this->makeElementFromDb($currentEl, sizeof($urlVars) == 0);
             }
-        }else {
+        } else {
             return false;
             //trigger_error("Can't find menu element");
         }
