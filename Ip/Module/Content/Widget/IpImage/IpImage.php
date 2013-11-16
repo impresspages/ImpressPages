@@ -126,12 +126,12 @@ class IpImage extends \Ip\Module\Content\Widget{
 
     private function cropBigImage($imageOriginal) {
         global $parametersMod;
-        $bigImageName = \Ip\Image\Helper::resize(
+        $bigImageName = \Ip\Internal\ImageHelper::resize(
             $imageOriginal,
             $parametersMod->getValue('Content.widget_image.big_width'),
             $parametersMod->getValue('Content.widget_image.big_height'),
             \Ip\Config::temporaryFile(''),
-            \Ip\Image\Helper::CROP_TYPE_FIT,
+            \Ip\Internal\ImageHelper::CROP_TYPE_FIT,
             false,
             $parametersMod->getValue('Content.widget_image.big_quality')
         );
@@ -143,7 +143,7 @@ class IpImage extends \Ip\Module\Content\Widget{
         $ratio = ($cropX2 - $cropX1) / ($cropY2 - $cropY1);
         $requiredWidth = round($maxWidth * $scale);
         $requiredHeight = round($requiredWidth / $ratio);
-        $imageName = \Ip\Image\Helper::crop (
+        $imageName = \Ip\Internal\ImageHelper::crop (
             $imageOriginal,
             \Ip\Config::temporaryFile(''),
             $cropX1,
