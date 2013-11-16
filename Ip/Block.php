@@ -19,12 +19,11 @@ class Block
 
     public function render()
     {
-        global $site;
         $data = array (
             'blockName' => $this->name,
         );
 
-        $event = new \Ip\Event($site, 'site.generateBlock', $data);
+        $event = new \Ip\Event($this, 'site.generateBlock', $data);
 
         $processed = \Ip\ServiceLocator::getDispatcher()->notifyUntil($event);
 

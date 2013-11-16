@@ -29,7 +29,6 @@ class View{
      */
     private function __construct($file, $data = array())
     {
-        global $site;
         $this->file = $file;
         $this->data = $data;
     }
@@ -106,10 +105,6 @@ class View{
 
     public function render ()
     {
-        global $site;
-        global $dispatcher;
-        global $parametersMod;
-
         extract($this->data);
 
         ob_start();

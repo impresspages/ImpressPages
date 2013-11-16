@@ -21,7 +21,6 @@ class Zone extends \Ip\Frontend\Zone {
 
 
     function getElements($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
-        global $site;
 
 
         if($languageId == null)

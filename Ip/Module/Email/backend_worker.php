@@ -13,8 +13,6 @@ require_once(__DIR__ . '/db.php');
 class BackendWorker {
 
     function work() {
-        global $site;
-        global $parametersMod;
         if (isset($_REQUEST['action'])) {
             switch ($_REQUEST['action']) {
                 case 'preview':

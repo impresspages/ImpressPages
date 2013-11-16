@@ -42,10 +42,6 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        global $cms;
-        global $parametersMod;
-        global $site;
-
         $sql = "select m.name as m_name, mg.name as mg_name from `" . DB_PREF . "module_group` mg, `" . DB_PREF . "module` m where m.group_id = mg.id";
         $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {

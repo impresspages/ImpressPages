@@ -61,8 +61,7 @@ class Parameters {
 
 
     function loadParameters($id, $reference, $languageId = null) {
-        global $cms; //exists only in backend
-        global $site; //exists only in frontend
+
         $parameters = array();
 
 

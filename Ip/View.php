@@ -186,9 +186,7 @@ class View implements \Ip\Response\ResponseInterface
 
 
     public function render () {
-        //don't delete these globals. They might be used in the view
-        global $site;
-        global $parametersMod;
+
 
         extract($this->data);
 

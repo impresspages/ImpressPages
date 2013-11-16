@@ -25,7 +25,6 @@ class Dao
     // GET
     public function getValue($key, $languageId, $zoneName, $pageId)
     {
-        global $site;
 
         //Find value in breadcrumb
         if ($pageId === null) {

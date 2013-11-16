@@ -145,7 +145,6 @@ class Element{
      */
     public function getNextElement()
     {
-        global $site;
         if($this->nextElement === null){
             $this->findPreviousAndNextElements();
         }
@@ -159,7 +158,6 @@ class Element{
      */
     public function getPreviousElement()
     {
-        global $site;
         if($this->previousElement === null){
             $this->findPreviousAndNextElements();
         }

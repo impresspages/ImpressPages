@@ -22,8 +22,7 @@ class Model {
 
 
     public static function deletePage ($zoneName, $pageId) {
-        global $site;
-        
+
         $zone = ipGetZone($zoneName);
         if (!$zone) {
             throw new \Exception("Unknown zone " + $zoneName);

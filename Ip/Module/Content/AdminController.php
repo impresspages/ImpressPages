@@ -16,7 +16,6 @@ class AdminController extends \Ip\Controller
 
     public function getSitemapInList()
     {
-        global $site;
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
 
@@ -74,7 +73,6 @@ class AdminController extends \Ip\Controller
 
 
     public function getPageOptionsHtml() {
-        global $site;
         if (!isset($_REQUEST['pageId'])) {
             return $this->_errorAnswer('Page id is not set');
         }
@@ -152,7 +150,6 @@ class AdminController extends \Ip\Controller
 
 
     public function initManagementData(){
-        global $site;
 
         $tmpWidgets = Model::getAvailableWidgetObjects();
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
@@ -202,7 +199,6 @@ class AdminController extends \Ip\Controller
     }
 
     public function moveWidget() {
-        global $site;
 
 
         if (!isset($_POST['instanceId']) ||
@@ -250,7 +246,6 @@ class AdminController extends \Ip\Controller
     }
 
     public function createWidget() {
-        global $site;
 
 
 
@@ -323,7 +318,6 @@ class AdminController extends \Ip\Controller
     }
 
     public function manageWidget() {
-        global $site;
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Mising POST variable');
@@ -371,30 +365,10 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    //    public function previewWidget() {
-    //        global $site;
-    //
-    //        if (!isset($_POST['instanceId'])) {
-    //            $this->_errorAnswer('Mising POST variable');
-    //            return;
-    //        }
-    //        $instanceId = $_POST['instanceId'];
-    //
-    //        $previewHtml = Model::generateWidgetPreview($instanceId, true);
-    //
-    //        $data = array (
-    //            'status' => 'success',
-    //            'action' => '_manageWidgetResponse',
-    //            'previewHtml' => $previewHtml,
-    //            'widgetId' => $widgetId
-    //        );
-    //
-    //        return new \Ip\Response\Json($data);
-    //    }
+
 
 
     public function cancelWidget() {
-        global $site;
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Mising POST variable');
@@ -477,7 +451,6 @@ class AdminController extends \Ip\Controller
     }
 
     public function deleteWidget() {
-        global $site;
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Mising instanceId POST variable');
@@ -497,7 +470,6 @@ class AdminController extends \Ip\Controller
 
 
     public function savePage () {
-        global $site;
 
         if (!isset($_POST['revisionId'])) {
             return $this->_errorAnswer('Mising revisionId POST variable');
@@ -534,7 +506,6 @@ class AdminController extends \Ip\Controller
 
 
     public function savePageOptions () {
-        global $site;
         if (empty($_POST['revisionId'])) {
             return $this->_errorAnswer('Mising revisionId POST variable');
         }
