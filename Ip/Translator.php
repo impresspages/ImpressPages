@@ -26,7 +26,7 @@ namespace Ip {
                 'theme-' . \Ip\Config::theme()
             );
 
-//
+// TODOX ask Algimantas if it is still needed
 //            $translator->addTranslationFilePattern(
 //                'phparray',
 //                \Ip\Config::themeFile('languages/'),
