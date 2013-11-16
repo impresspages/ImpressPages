@@ -36,7 +36,7 @@ class Service
 
         $data['cssClass'] = $cssClass;
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             return \Ip\View::create('view/management/logo.php', $data)->render();
         } else {
             return \Ip\View::create('view/display/logo.php', $data)->render();
@@ -84,7 +84,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $view = \Ip\View::create('view/management/string.php', $data);
         } else {
             $view = \Ip\View::create('view/display/string.php', $data);
@@ -112,7 +112,7 @@ class Service
             $curValue = $defaultValue;
         }
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
             $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
         }
@@ -125,7 +125,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $view = \Ip\View::create('view/management/text.php', $data);
         } else {
             $view = \Ip\View::create('view/display/text.php', $data);
@@ -153,7 +153,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $view = \Ip\View::create('view/management/image.php', $data);
         } else {
             $view = \Ip\View::create('view/display/image.php', $data);

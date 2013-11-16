@@ -58,7 +58,7 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
@@ -123,7 +123,7 @@ class System{
         global $site;
 
         //widget JS and CSS are included automatically only in administration state
-        if (!$site->managementState()) {
+        if (!\Ip\ServiceLocator::getContent()->isManagementState()) {
             return;
         }
 
@@ -138,7 +138,7 @@ class System{
             
             
             //scan for js and css files required for widget management
-            if ($site->managementState()) {
+            if (\Ip\ServiceLocator::getContent()->isManagementState()) {
                 $publicResourcesDir = $widgetDir.Widget::PUBLIC_DIR;
                 // TODOX refactor according to new module structure
                 // $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;

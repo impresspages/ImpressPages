@@ -13,7 +13,7 @@ class System{
     function init(){
         $site = \Ip\ServiceLocator::getSite();
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             // loading required Javascript libraries
             ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.ui.tooltip.js'),2);
             ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.ui.overlay.js'),2);

@@ -22,7 +22,7 @@ class Element extends \Ip\Frontend\Element {
 
     public function getLink($ignoreRedirect = false) {
         global $site;
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             $ignoreRedirect = true;
         }
         
@@ -92,7 +92,7 @@ class Element extends \Ip\Frontend\Element {
                 $this->link = $site->generateUrl($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
                 break;
             case 'redirect':
-                if($site->managementState()) {
+                if(\Ip\ServiceLocator::getContent()->isManagementState()) {
                     if(strpos($this->redirectUrl, \Ip\Config::baseUrl('')) === 0) {
                         if(strpos($this->redirectUrl, 'cms_action=manage') === false) {
                             if(strpos($this->redirectUrl, '?') === false) {

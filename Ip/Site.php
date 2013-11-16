@@ -339,15 +339,7 @@ class Site{
         }
     }
 
-    /**
-     *
-     * @return bool true if the system is in management state
-     *
-     */
-    public function managementState(){
-        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && \Ip\ServiceLocator::getRequest()->getQuery('cms_action', 0) == 'manage');
-    }
+
 
     /**
      *
@@ -439,7 +431,7 @@ class Site{
     public function getRevision() {
         //TODOX cache revision
         $revision = null;
-        if ($this->managementState()){
+        if (\Ip\ServiceLocator::getContent()->isManagementState()){
             if (isset($this->getVars['cms_revision'])) {
                 $revisionId = $this->getVars['cms_revision'];
                 $revision = \Ip\Revision::getRevision($revisionId);
