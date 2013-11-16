@@ -117,7 +117,6 @@ class ElementSelect extends Element{ //data element in area
 
 
     function previewValue($record, $area){
-        require_once \Ip\Config::libraryFile('php/text/string.php');
 
         $answer = $record[$this->dbField];
 
