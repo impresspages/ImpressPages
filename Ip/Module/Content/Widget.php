@@ -151,8 +151,8 @@ class Widget{
      * Use return new \Ip\Response\Json($jsonArray) to return json.
      *
      * Be carefull. This method is accessible from outside administration panel.
-     * If your post should be handled only in administration mode, you need to check that using \Ip\Backend::loggedIn() method
-     * Also you prabably would like to check if user has permission to access content_management module: \Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'content_management')
+     * If your post should be handled only in administration mode, you need to check that using \Ip\Module\Admin\Backend::loggedIn() method
+     * Also you prabably would like to check if user has permission to access content_management module: \Ip\Module\Admin\Backend::userHasPermission(\Ip\Module\Admin\Backend::userId(), 'standard', 'content_management')
      * 
      * @param int $instanceId
      * @param array $postData untouched post data
