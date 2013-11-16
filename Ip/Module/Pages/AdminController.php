@@ -429,7 +429,7 @@ class AdminController extends \Ip\Controller
 
         $title = __('SEO', 'ipAdmin');
 
-        $language = \Ip\ServiceLocator::getSite()->getLanguageById($languageId);
+        $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageId);
 
         if (!$language) {
             throw new \Ip\CoreException("Language doesn't exist. Language id: " . $languageId);
