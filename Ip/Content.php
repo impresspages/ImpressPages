@@ -8,6 +8,8 @@
 namespace Ip;
 
 //TODOX move to Content service
+use Guzzle\Parser\ParserRegistry;
+
 /**
  *
  * Event dispatcher class
@@ -183,6 +185,19 @@ class Content {
         return $this->languages;
     }
 
+    /**
+     *
+     * @return \Ip\Frontend\Language
+     *
+     */
+    public function getLanguageById($id){
+        foreach($this->getLanguages() as $language){
+            if ($language->getId() === $id) {
+                return $language;
+            }
+        }
+        return false;
+    }
 
 
     /**
