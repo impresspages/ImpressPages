@@ -13,7 +13,7 @@
     <img id="logo" src="<?php echo \Ip\Config::coreModuleUrl('Install/assets/img/cms_logo.png') ?>" alt="ImpressPages CMS">
     <div class="clear"></div>
     <div id="wrapper">
-        <p id="installationNotice"><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php printf(__('Version %s', 'ipInstall'), IP_VERSION) ?></span></p>
+        <p id="installationNotice"><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php printf(__('Version %s', 'ipInstall'), \Ip\Core\Application::getVersion()) ?></span></p>
         <div class="clear"></div>
         <img class="border" src="<?php echo \Ip\Config::coreModuleUrl('Install/assets/img/cms_main_top.gif') ?>" alt="Design">
         <div id="main">
