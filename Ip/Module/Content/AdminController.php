@@ -170,7 +170,7 @@ class AdminController extends \Ip\Controller
             $managementUrls[] = ipGetCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
         }
 
-        $revision = $site->getRevision();
+        $revision = \Ip\ServiceLocator::getContent()->getRevision();
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 

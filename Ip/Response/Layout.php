@@ -199,7 +199,7 @@ class Layout extends \Ip\Response {
             }
         }
         $site = \Ip\ServiceLocator::getSite();
-        $revision = $site->getRevision();
+        $revision = \Ip\ServiceLocator::getContent()->getRevision();
         $data = array (
             'ipBaseUrl' => \Ip\Config::baseUrl(''),
             'ipLanguageUrl' => $site->generateUrl(),

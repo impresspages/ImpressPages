@@ -94,8 +94,7 @@ class Element{
      */
     public function generateContent ()
     {
-        $site = \Ip\ServiceLocator::getSite();
-        $revision = $site->getRevision();
+        $revision = \Ip\ServiceLocator::getContent()->getRevision();
         if ($revision) {
             return \Ip\Module\Content\Model::generateBlock('main', $revision['revisionId'], \Ip\ServiceLocator::getContent()->isManagementState());
         } else {
