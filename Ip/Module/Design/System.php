@@ -47,8 +47,8 @@ class System{
     protected function initConfig()
     {
         ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-        ipAddCss(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.css'));
-        ipAddJavascript(\Ip\Config::libraryUrl('css/bootstrap/bootstrap.js'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         ipAddCss(\Ip\Config::libraryUrl('fonts/font-awesome/font-awesome.css'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());

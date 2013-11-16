@@ -2,7 +2,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss(\Ip\Config::libraryUrl('css/ipContent/ip_content.css'));
+    ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/ipContent/ip_content.css'));
     echo ipHead();
     ?>
 </head>

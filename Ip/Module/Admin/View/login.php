@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ImpressPages</title>
     <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Admin/assets/backend/login/login.css') ?>">
-    <link rel="stylesheet" href="<?php echo \Ip\Config::libraryUrl('css/bootstrap/bootstrap.css') ?>">
+    <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') ?>">
     <link rel="shortcut icon" href="<?php echo \Ip\Config::baseUrl('favicon.ico') ?>">
 </head>
 <body>
