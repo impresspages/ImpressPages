@@ -112,6 +112,7 @@ class Application {
 
 
         $action = $request->getControllerAction();
+        $controller->init();
         $controllerAnswer = $controller->$action();
 
         if (is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {

@@ -50,12 +50,8 @@ class AdminController extends \Ip\Controller{
     public function clearCache()
     {
         $log = \Ip\ServiceLocator::getLog();
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
-        if (!\Ip\Request::isPost()) {
-            $this->redirect($this->indexUrl());
-            return;
-        }
+        ipGetRequest()->mustBePost();
 
         $log->log('administrator/system', 'Cache was cleared');
         $module = new Module;

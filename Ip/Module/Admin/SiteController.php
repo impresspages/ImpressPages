@@ -47,14 +47,14 @@ class SiteController extends \Ip\Controller{
             return new \Ip\Response\Json($answer);
         } else {
             //MultiSite autologin
-            $this->redirect($redirectUrl);
+            return new \Ip\Response\Redirect($redirectUrl);
         }
     }
 
     public function logout()
     {
         Model::instance()->logout();
-        $this->redirect(\Ip\Config::baseUrl('admin/'));
+        return new \Ip\Response\Redirect(\Ip\Config::baseUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -66,8 +66,7 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
-            $this->redirect(\Ip\Config::baseUrl('', array('cms_action' => 'manage')));
-            return;
+            return new \Ip\Response\Redirect(\Ip\Config::baseUrl('', array('cms_action' => 'manage')));
         }
 
 

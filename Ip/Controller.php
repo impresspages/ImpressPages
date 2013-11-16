@@ -17,19 +17,11 @@ class Controller{
 
 
     /**
-     * Do any initializatoin becore actual controller method
+     * Do any initialization before actual controller method
      */
     public function init() {
     }
     
-    public function redirect ($url) {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        header("location: ".$url);
-
-        \Ip\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null)); // TODOX \Ip\Db should throw this event
-        exit;
-    }
 
 
     /**
