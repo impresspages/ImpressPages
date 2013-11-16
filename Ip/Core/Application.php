@@ -104,7 +104,7 @@ class Application {
         $controller = new $controllerClass();
 
         //check if user is logged in
-        if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Backend::userId()) {
+        if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
             return new \Ip\Response\Redirect(\Ip\Config::baseUrl('') . 'admin');
         }

@@ -292,7 +292,7 @@ class SiteController extends \Ip\Controller{
 
     protected function backendOnly()
     {
-        if (!\Ip\Backend::loggedIn()) {
+        if (!\Ip\Module\Admin\Backend::loggedIn()) {
             throw new \Exception('This controller can be accessed only by administrator');
         }
     }

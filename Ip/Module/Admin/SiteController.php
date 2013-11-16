@@ -64,7 +64,7 @@ class SiteController extends \Ip\Controller{
 
     public function login()
     {
-        if (\Ip\Backend::userId()) {
+        if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
             $this->redirect(\Ip\Config::baseUrl('', array('cms_action' => 'manage')));
             return;

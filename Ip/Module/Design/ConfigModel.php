@@ -306,11 +306,11 @@ class ConfigModel{
     protected function hasPermission()
     {
 
-        if (!\Ip\Backend::loggedIn()) {
+        if (!\Ip\Module\Admin\Backend::loggedIn()) {
             return false;
         }
 
-        if (!\Ip\Backend::userHasPermission(\Ip\Backend::userId(), 'standard', 'design')) {
+        if (!\Ip\Module\Admin\Backend::userHasPermission(\Ip\Module\Admin\Backend::userId(), 'standard', 'design')) {
             return false;
         }
 

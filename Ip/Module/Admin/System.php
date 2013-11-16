@@ -30,7 +30,7 @@ class System {
         }
 
         $getVariables = \Ip\Request::getRequest();
-        if (isset($getVariables['safemode']) && \Ip\Backend::userId()) {
+        if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }
     }
