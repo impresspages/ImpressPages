@@ -59,7 +59,7 @@ class Module{
             $tmpData['longTitle'] = $language->getTitle();
             $tmpData['visible'] = $language->getVisible();
             $tmpData['current'] = $language->getCurrent();
-            $tmpData['url'] = $site->generateUrl($language->getId());
+            $tmpData['url'] = \Ip\Internal\Deprecated\Url::generate($language->getId());
             $languages[] = $tmpData;
         }
         $data = array (

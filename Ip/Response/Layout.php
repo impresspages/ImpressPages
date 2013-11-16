@@ -202,12 +202,12 @@ class Layout extends \Ip\Response {
         $revision = \Ip\ServiceLocator::getContent()->getRevision();
         $data = array (
             'ipBaseUrl' => \Ip\Config::baseUrl(''),
-            'ipLanguageUrl' => $site->generateUrl(),
+            'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipLibraryDir' => \Ip\Config::getRaw('LIBRARY_DIR'),
             'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),
             'ipModuleDir' => \Ip\Config::getRaw('MODULE_DIR'),
             'ipTheme' => \Ip\Config::getRaw('THEME'),
-            'ipManagementUrl' => $site->generateUrl(),
+            'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
             'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],

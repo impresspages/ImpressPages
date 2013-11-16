@@ -170,7 +170,7 @@ class Service
 
         $data = array (
             'type' => $logo->getType(),
-            'link' => $site->generateUrl(),
+            'link' => \Ip\Internal\Deprecated\Url::generate(),
             'text' => $logo->getText(),
             'image' => $logo->getImage() ? $logo->getImage() : '',
             'font' => $logo->getFont(),
