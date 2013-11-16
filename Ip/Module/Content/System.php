@@ -35,7 +35,7 @@ class System{
         
         
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
 
         // TODOX Mangirdas has some ideas how to rename tinymce files
@@ -68,17 +68,17 @@ class System{
             ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
 
 
-            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
-            ipAddCss(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.css'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
+            ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
 
-            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-tools/jquery.tools.ui.scrollable.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
 
-            ipAddJavascript(\Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js'));
 
-            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.full.js'));
-            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.browserplus.js'));
-            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/plupload.gears.js'));
-            ipAddJavascript(\Ip\Config::libraryUrl('js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.browserplus.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.gears.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
 
 
             ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));

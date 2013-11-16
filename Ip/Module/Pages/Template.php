@@ -21,7 +21,7 @@ class Template {
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipHead().'
     '.ipJavascript().'
-    <script type="text/javascript" src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
+    <script type="text/javascript" src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/default.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
