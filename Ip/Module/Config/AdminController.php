@@ -14,7 +14,8 @@ class AdminController extends \Ip\Controller{
     public function index()
     {
 
-        \Ip\ServiceLocator::getSite()->addJavascript(\Ip\Config::coreModuleUrl('Config/public/config.js'));
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/config.js'));
 
         $form = Forms::getForm();
         $data = array (

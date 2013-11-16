@@ -146,7 +146,8 @@ class Helper
                 return true;
             }
         }
-        if ($link == $content->generateUrl(null, $content->getCurrentZone()->getName())) {
+
+        if ($link == \Ip\Internal\Deprecated\Url::generate(null, $content->getCurrentZone()->getName())) {
             return true;
         }
         return false;
