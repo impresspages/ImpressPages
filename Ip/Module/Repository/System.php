@@ -14,7 +14,7 @@ class System{
 
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-            ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepository.js'));
             ipAddCss(\Ip\Config::coreModuleUrl('Repository/public/admin/repository.css'));
             ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
@@ -22,7 +22,7 @@ class System{
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
-            ipAddJavascript(\Ip\Config::libraryUrl('js/easyXDM/easyXDM.min.js'));
+            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
                 $marketUrl = TEST_MARKET_URL.'images-v1/';

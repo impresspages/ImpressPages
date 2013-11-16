@@ -46,7 +46,7 @@ class System{
 
     protected function initConfig()
     {
-        ipAddJavascript(\Ip\Config::libraryUrl('js/jquery-ui/jquery-ui.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
         ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));

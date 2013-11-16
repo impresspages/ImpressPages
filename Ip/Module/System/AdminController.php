@@ -32,9 +32,9 @@ class AdminController extends \Ip\Controller{
 
         $content = \Ip\View::create('view/index.php', $data)->render();
 
-        ipAddJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/default.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(\Ip\Config::libraryUrl('js/default.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/default.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
 
         ipAddCss(\Ip\Config::coreModuleUrl('Admin/assets/backend/ip_admin.css'));

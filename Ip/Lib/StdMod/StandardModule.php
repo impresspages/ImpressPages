@@ -864,10 +864,10 @@ class StandardModule {
         };
     </script>
     
-    <script src="' . \Ip\Config::libraryUrl('js/default.js') . '"></script>
-    <script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
+    <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/default.js') . '"></script>
+    <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
     <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
-    <script src="' . \Ip\Config::libraryUrl('js/tiny_mce/jquery.tinymce.js') . '"></script>
+    <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.ipHead().'
 </head>
@@ -895,11 +895,11 @@ class StandardModule {
 		
 		<link href="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
 		<script src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/scripts.js') . '"></script>
-		<script src="' . \Ip\Config::libraryUrl('js/tabs.js') . '"></script>
-		<script src="' . \Ip\Config::libraryUrl('js/windowsize.js') .'" ></script>
-		<script src="' . \Ip\Config::libraryUrl('js/mouse.js'). '" ></script>
-		<script src="' . \Ip\Config::libraryUrl('js/positioning.js') .'" ></script>
-		<script src="' . \Ip\Config::libraryUrl('js/default.js') . '" ></script>
+		<script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
+		<script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/windowsize.js') .'" ></script>
+		<script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/mouse.js'). '" ></script>
+		<script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/positioning.js') .'" ></script>
+		<script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/default.js') . '" ></script>
 		
 		';
 
