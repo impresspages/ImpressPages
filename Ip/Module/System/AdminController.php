@@ -13,7 +13,6 @@ class AdminController extends \Ip\Controller{
 
     public function index()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         $notes = array();
 
@@ -83,7 +82,6 @@ class AdminController extends \Ip\Controller{
 
     protected function indexUrl()
     {
-        $site = \Ip\ServiceLocator::getSite();
         return str_replace('&amp;', '&', \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index')));
     }
 
@@ -111,7 +109,6 @@ class AdminController extends \Ip\Controller{
 
     public function getSystemInfo()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         $module = new Module();
         $systemInfo = $module->getSystemInfo();

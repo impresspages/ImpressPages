@@ -198,7 +198,6 @@ class Layout extends \Ip\Response {
                 }
             }
         }
-        $site = \Ip\ServiceLocator::getSite();
         $revision = \Ip\ServiceLocator::getContent()->getRevision();
         $data = array (
             'ipBaseUrl' => \Ip\Config::baseUrl(''),

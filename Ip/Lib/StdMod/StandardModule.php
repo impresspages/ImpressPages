@@ -839,7 +839,6 @@ class StandardModule {
 
     function makeHtml() {
         global $stdModDb;
-        $site = \Ip\ServiceLocator::getSite();
         $stdModDb = new StdModDb();
 
         $answer = '';
@@ -1676,7 +1675,6 @@ class StandardModule {
     }
 
     function generateUrlRoot() {
-        $site = \Ip\ServiceLocator::getSite();
         $url = \Ip\Internal\Deprecated\Url::generate(null, null, array(), array(
                 'aa' => $this->actionString
             ));

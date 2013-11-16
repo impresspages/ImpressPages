@@ -23,7 +23,6 @@ class Form{
     protected $classes;
 
     public function __construct() {
-        $site = \Ip\ServiceLocator::getSite();
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = \Ip\Internal\UrlHelper::getCurrentUrl();

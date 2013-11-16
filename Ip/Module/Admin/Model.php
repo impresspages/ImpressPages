@@ -20,7 +20,6 @@ class Model{
 
     public function getAdminMenuItems()
     {
-        $site = \Ip\ServiceLocator::getSite();
         $answer = array();
 
 
