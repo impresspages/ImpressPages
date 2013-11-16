@@ -12,18 +12,18 @@ class SiteController extends \Ip\Controller{
         $errors = $validateForm->validate(\Ip\Request::getPost());
 
         if (empty($errors)) {
-            if (\Ip\Backend\Db::incorrectLoginCount(\Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+            if (\Ip\Internal\Db::incorrectLoginCount(\Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
                 $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-                \Ip\Backend\Db::log('system', 'backend login suspended', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Internal\Db::log('system', 'backend login suspended', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
         }
 
         if (empty($errors)) {
             if (Model::instance()->login(\Ip\Request::getPost('login'), \Ip\Request::getPost('password'))) {
-                \Ip\Backend\Db::log('system', 'backend login', \Ip\Request::getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                \Ip\Internal\Db::log('system', 'backend login', \Ip\Request::getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
-                \Ip\Backend\Db::log('system', 'backend login incorrect', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                \Ip\Internal\Db::log('system', 'backend login incorrect', \Ip\Request::getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
             }
         }
