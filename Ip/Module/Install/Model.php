@@ -443,28 +443,6 @@ Sitemap: '. \Ip\Config::baseUrl('sitemap.php');
         file_put_contents($filename, $content);
     }
 
-    public static function importParameters()
-    {
-//        define('BASE_DIR', get_parent_dir());
-//        define('BACKEND', 1);
-//        define('INCLUDE_DIR', 'ip_cms/includes/');
-//        define('MODULE_DIR', 'ip_cms/modules/');
-//        define('LIBRARY_DIR', 'ip_libs/');
-//        define('DB_PREF', $_POST['prefix']);
-//        define('THEME', 'Blank');
-//        define('THEME_DIR', 'ip_themes/');
-
-        require_once \Ip\Config::includePath('parameters.php');
-        require \Ip\Config::baseFile('install/themeParameters.php');
-        require_once \Ip\Config::baseFile('ip_cms/modules/developer/localization/manager.php');
-
-        global $parametersMod;
-        $parametersMod = new parametersMod();
-
-        \Modules\developer\localization\Manager::saveParameters(\Ip\Config::baseFile('install/parameters.php'));
-
-        \Modules\developer\localization\Manager::saveParameters(\Ip\Config::baseFile('install/themeParameters.php'));
-    }
 
     public static function insertAdmin($user, $pass)
     {
