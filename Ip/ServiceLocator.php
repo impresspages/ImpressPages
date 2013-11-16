@@ -63,17 +63,6 @@ class ServiceLocator
         return end(self::$dispatchers);
     }
 
-    /**
-     * @return \Site
-     */
-    public static function getSite()
-    {
-        /**
-         * @var $site \Site
-         */
-        global $site;
-        return $site;
-    }
 
 
     /**

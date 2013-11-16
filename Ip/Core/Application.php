@@ -16,7 +16,6 @@ class Application {
         }
 
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Site.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
@@ -28,8 +27,7 @@ class Application {
             session_start();
         }
 
-        global $site;
-        $site = new \Site();
+
 
         mb_internal_encoding(\Ip\Config::getRaw('CHARSET'));
         date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.

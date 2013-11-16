@@ -41,6 +41,11 @@ function ipGetCurrentLanguage()
     return \Ip\ServiceLocator::getContent()->getCurrentLanguage();
 }
 
+function ipGetLanguages()
+{
+    return \Ip\ServiceLocator::getContent()->getLanguages();
+}
+
 function ipGetCurrentPage()
 {
     return \Ip\ServiceLocator::getContent()->getCurrentPage();

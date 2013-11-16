@@ -10,7 +10,6 @@ namespace Ip\Module\Pages;
 class ZoneModel{
 
     public static function updateZone($languageId, $zoneId, $data) {
-        $site = \Ip\ServiceLocator::getSite();
 
         $condition = array(
             'language_id' => $languageId,

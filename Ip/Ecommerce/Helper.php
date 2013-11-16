@@ -57,7 +57,6 @@ class Helper {
     public function formatPrice($price, $currency, $languageId = null)
     {
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $site = \Ip\ServiceLocator::getSite();
         if ($languageId === null) {
             $languageId = ipGetCurrentLanguage()->getId();
         }

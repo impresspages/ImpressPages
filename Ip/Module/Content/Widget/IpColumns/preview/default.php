@@ -7,8 +7,8 @@
  * For example, to generate two bootstrap columns, markup could look like this:
  *
  *  <div class="row">
- *    <div class="span4"><?php echo $site->generateBlock('multicol'.$baseId.'left') ?></div>
- *    <div class="span8"><?php echo $site->generateBlock('multicol'.$baseId.'right') ?></div>
+ *    <div class="span4"><?php echo ipBlock('multicol'.$baseId.'left') ?></div>
+ *    <div class="span8"><?php echo ipBlock('multicol'.$baseId.'right') ?></div>
  *  </div>
  *
  * The following code based on <table> is ONLY included to support templates which do
@@ -25,6 +25,6 @@ if (empty($columns)) {
 
 <?php for($i = 1; $i <= $columns; $i++) { ?>
     <div class="ipwCol" style="width:<?php echo (100 / $columns) ?>%;" style="width: 25%; vertical-align: top;">
-        <?php echo $site->generateBlock('multicol'.$baseId.'_'.$i)->exampleContent(' '); ?>
+        <?php echo ipBlock('multicol'.$baseId.'_'.$i)->exampleContent(' '); ?>
     </div>
 <?php } ?>

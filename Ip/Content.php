@@ -486,4 +486,64 @@ class Content {
         }
     }
 
+
+
+    /**
+     *
+     * @return string title of current page
+     *
+     */
+    public function getTitle(){
+        $curZone = ipGetCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        $curEl =  $curZone->getCurrentPage();
+        if($curEl && $curEl->getPageTitle() != '') {
+            return $curEl->getPageTitle();
+        } else {
+            return $curZone->getTitle();
+        }
+    }
+
+    /**
+     *
+     * @return string description of current page
+     *
+     */
+    public function getDescription(){
+        $curZone = ipGetCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+        $curEl =  $curZone->getCurrentPage();
+        if($curEl && $curEl->getDescription() != '') {
+            return $curEl->getDescription();
+        } else {
+            return $curZone->getDescription();
+        }
+    }
+
+
+
+    /**
+     *
+     * @return string keywords of current page
+     *
+     */
+    public function getKeywords(){
+        $curZone = ipGetCurrentZone();
+        if (!$curZone) {
+            return '';
+        }
+
+        $curEl = $curZone->getCurrentPage();
+        if($curEl && $curEl->getKeywords() != '') {
+            return $curEl->getKeywords();
+        } else {
+            return $curZone->getKeywords();
+        }
+    }
+
+
 }
