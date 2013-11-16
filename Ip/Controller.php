@@ -15,9 +15,6 @@ namespace Ip;
  */
 class Controller{
 
-    public function allowAction($action){
-        return true;
-    }
 
     /**
      * Do any initializatoin becore actual controller method
