@@ -461,4 +461,29 @@ class Content {
 
     }
 
+
+    /**
+     * TODOX check zone and language url's against this function
+     * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
+     *
+     * @param $folderName
+     * @return bool true if URL is reserved for CMS core
+     *
+     */
+    public function usedUrl($folderName){
+
+        $systemDirs = array();
+        $systemDirs[\Ip\Config::getRaw('PLUGIN_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('LIBRARY_DIR')] = 1;
+        $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
+        $systemDirs['install'] = 1;
+        $systemDirs['update'] = 1;
+        if(isset($systemDirs[$folderName])){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
