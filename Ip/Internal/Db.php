@@ -6,7 +6,7 @@
  */
 
 
-namespace Ip\Backend;
+namespace Ip\Internal;
 
 class Db {
 
