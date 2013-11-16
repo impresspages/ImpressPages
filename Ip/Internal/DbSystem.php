@@ -7,7 +7,7 @@
 
 
 namespace Ip\Internal;
-//TODOX REFACTOR
+
 
 /**
  * db class to make system operations
