@@ -17,8 +17,8 @@ class User{
      * @return int loggedIn user id or false
      */
     function userId(){
-        if (isset($_SESSION['ipFrontend']['userId'])) {
-            return $_SESSION['ipFrontend']['userId'];
+        if (isset($_SESSION['ipUser']['userId'])) {
+            return $_SESSION['ipUser']['userId'];
         } else {
             return false;
         }
@@ -28,7 +28,7 @@ class User{
      * @return bool true if user is logged in
      */
     function loggedIn(){
-        return isset($_SESSION['ipFrontend']['userId']);
+        return isset($_SESSION['ipUser']['userId']);
     }
 
     /**
@@ -36,10 +36,10 @@ class User{
      * @return void
      */
     function logout(){
-        if(isset($_SESSION['ipFrontend']['userId'])) {
+        if(isset($_SESSION['ipUser']['userId'])) {
             $dispatcher = \Ip\ServiceLocator::getDispatcher();
-            $dispatcher->notify(new \Ip\Event(null, 'ipUserLogout',  array('userId'=>$_SESSION['ipFrontend']['userId'])));
-            unset($_SESSION['ipFrontend']['userId']);
+            $dispatcher->notify(new \Ip\Event(null, 'ipUserLogout',  array('userId'=>$_SESSION['ipUser']['userId'])));
+            unset($_SESSION['ipUser']['userId']);
         }
     }
     
@@ -54,7 +54,7 @@ class User{
     function login($id){
         $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $dispatcher->notify(new \Ip\Event(null, 'ipUserLogin',  array('userId'=>$id)));
-        $_SESSION['ipFrontend']['userId'] = $id;
+        $_SESSION['ipUser']['userId'] = $id;
     }
 
 
