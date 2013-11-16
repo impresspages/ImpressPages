@@ -377,7 +377,6 @@ class View implements \Ip\Response\ResponseInterface
 
     public function generateSlot($name)
     {
-        $site = \Ip\ServiceLocator::getSite();
         return ipSlot($name);
     }
 

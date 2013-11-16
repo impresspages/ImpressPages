@@ -11,7 +11,6 @@ class Template {
 
 
     public static function addLayout ($content) {
-        $site = \Ip\ServiceLocator::getSite();
         return
 '<!DOCTYPE html>
 <html>

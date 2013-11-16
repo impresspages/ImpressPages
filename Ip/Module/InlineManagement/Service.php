@@ -70,7 +70,6 @@ class Service
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-        $site = \Ip\ServiceLocator::getSite();
         $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, ipGetCurrentLanguage()->getId());
         if ($curValue === false) {
             $curValue = $defaultValue;

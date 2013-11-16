@@ -21,7 +21,6 @@ class System {
 
         $dispatcher->bind('site.afterInit', array($this, 'initAdmin'));
 
-        $site = \Ip\ServiceLocator::getSite();
         if (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
@@ -39,7 +38,6 @@ class System {
 
     public function initAdmin()
     {
-        $site = \Ip\ServiceLocator::getSite();
 
         if (!self::$disablePanel && (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(\Ip\Config::coreModuleUrl('Admin/Public/admin.css'));

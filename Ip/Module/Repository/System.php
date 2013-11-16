@@ -11,8 +11,6 @@ class System{
 
 
     public function init(){
-        $site = \Ip\ServiceLocator::getSite();
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));

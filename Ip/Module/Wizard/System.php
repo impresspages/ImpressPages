@@ -11,7 +11,6 @@ namespace Ip\Module\Wizard;
 class System{
 
     function init(){
-        $site = \Ip\ServiceLocator::getSite();
 
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             // loading required Javascript libraries

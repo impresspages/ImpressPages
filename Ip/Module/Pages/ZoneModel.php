@@ -11,7 +11,6 @@ class ZoneModel{
 
     public static function updateZone($languageId, $zoneId, $data) {
         $site = \Ip\ServiceLocator::getSite();
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         $condition = array(
             'language_id' => $languageId,

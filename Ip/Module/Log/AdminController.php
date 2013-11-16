@@ -12,11 +12,6 @@ class AdminController extends \Ip\Controller
 {
     public function index()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        $site = \Ip\ServiceLocator::getSite();
-
-
-
 
         $elements = array();
 

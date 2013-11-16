@@ -11,11 +11,6 @@ namespace Ip\Module\Email;
 class AdminController{
     function index(){
 
-        $site = \Ip\ServiceLocator::getSite();
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
-
-
-
 
         $elements = array();
 

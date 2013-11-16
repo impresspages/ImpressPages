@@ -457,7 +457,6 @@ class AdminController extends \Ip\Controller
 
     public function saveZoneProperties()
     {
-        $site = \Ip\ServiceLocator::getSite();
         $request = \Ip\ServiceLocator::getRequest();
         $request->mustBePost();
         $params = $request->getPost();
@@ -516,7 +515,6 @@ class AdminController extends \Ip\Controller
 
     public function saveLanguageProperties()
     {
-        $site = \Ip\ServiceLocator::getSite();
         $request = \Ip\ServiceLocator::getRequest();
         $request->mustBePost();
         $params = $request->getPost();
