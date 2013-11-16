@@ -7,6 +7,12 @@ namespace Ip\Core;
 
 
 class Application {
+    protected $configPath = null;
+
+    public function __construct($configPath)
+    {
+        $this->configPath = $configPath;
+    }
 
     public static function getVersion()
     {
@@ -15,6 +21,16 @@ class Application {
 
     public function init()
     {
+        $config = require ($this->configPath);
+        require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
+        \Ip\Config::init($config);
+
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Autoloader.php';
+        $autoloader = new \Ip\Autoloader();
+        spl_autoload_register(array($autoloader, 'load'));
+
+
+
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
