@@ -5,12 +5,12 @@
  *
  */
 
-namespace Ip\Image;
+namespace Ip\Internal;
 
 
 
 
-class Helper{
+class ImageHelper{
 
     const ERROR_MEMORY = 1; //Can't get required memory
     const ERROR_INCOMPATIBLE = 2; //Incompatible file MIME type
