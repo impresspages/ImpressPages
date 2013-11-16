@@ -269,7 +269,7 @@ class AdminController extends \Ip\Controller
             //check revision consistency
             $revisionRecord = \Ip\Revision::getRevision($revisionId);
 
-            if ($revisionRecord === false) {
+            if (!$revisionRecord) {
                 throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
             }
 
