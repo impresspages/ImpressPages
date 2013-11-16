@@ -21,6 +21,10 @@ class Page404 extends Element {
 
     public function generateContent()
     {
+    }
 
+    public function getType()
+    {
+        return 'error404';
     }
 }
