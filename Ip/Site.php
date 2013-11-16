@@ -300,48 +300,6 @@ class Site{
 
 
 
-    public function setOutput ($output) {
-        if ($output === null) {
-            $output = '';
-        }
-        $this->output = $output;
-    }
-
-    public function getOutput () {
-        return $this->output;
-    }
-
-
-    public function generateOutput() {
-
-        if (!isset($this->output)) {
-            if (\Ip\Module\Admin\Model::isSafeMode()) {
-                //TODOX skip this for admin pages with admin layout
-                return \Ip\View::create(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'), array())->render();
-            }
-
-
-            $layout = $this->getLayout();
-            if ($layout) {
-                if ($layout[0] == '/') {
-                    $viewFile = $layout;
-                } else {
-                    $viewFile = \Ip\Config::themeFile($layout);
-                }
-                $this->output = \Ip\View::create($viewFile, array())->render();
-
-            } else {
-                // DEPRECATED just for backward compatibility
-                $site = \Ip\ServiceLocator::getSite();
-                $this->output = ipBlock('main')->render();
-            }
-        }
-
-        return $this->output;
-    }
-
-
-
     /**
      * If we are in the management state and last revision is published, then create new revision.
      *
