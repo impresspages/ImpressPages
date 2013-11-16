@@ -107,7 +107,6 @@ class Pswd extends Element{ //data element in area
 
 
     function previewValue($record, $area){
-        require_once \Ip\Config::libraryFile('php/text/string.php');
         $answer = mb_substr($record[$this->dbField], 0, $this->previewLength);
         $answer = htmlspecialchars($answer);
         $answer = \Ip\Internal\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
