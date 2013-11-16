@@ -20,7 +20,7 @@ require_once dirname(__DIR__) . '/Ip/Config.php';
 
 $core = \Ip\Config::getCore('CORE_DIR');
 
-require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
+require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
 
 $installation = new \Ip\Module\Install\Application();
 $installation->run();

@@ -15,7 +15,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         \Ip\Config::init($config);
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/autoloader.php';
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
     }
 
     public function testConnect()
