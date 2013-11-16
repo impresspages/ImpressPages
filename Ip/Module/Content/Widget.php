@@ -221,7 +221,7 @@ class Widget{
         } catch (\Ip\CoreException $e){
             global $site;
             
-            if ($site->managementState()) {
+            if (\Ip\ServiceLocator::getContent()->isManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,
                     'layout' => $layout

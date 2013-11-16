@@ -21,8 +21,6 @@ class PublicController extends \Ip\Controller
             return new \Ip\Response\Status404();
         }
 
-        echo get_class(ipGetCurrentPage());exit;
-
         if (ipGetCurrentPage()) {
             ipSetBlockContent('main', ipGetCurrentPage()->generateContent());
         }

@@ -13,7 +13,7 @@ class System
     {
         global $site;
 
-        if ($site->managementState()) {
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
             ipAddCss(\Ip\Config::coreModuleUrl('InlineManagement/public/inline_management.css'));
 
             ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));

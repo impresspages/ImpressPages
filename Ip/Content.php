@@ -36,6 +36,16 @@ class Content {
     protected $currentPage = null;
 
 
+    /**
+     *
+     * @return bool true if the system is in management state
+     *
+     */
+    public function isManagementState(){
+        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
+        return ($backendLoggedIn && \Ip\ServiceLocator::getRequest()->getQuery('cms_action', 0) === 'manage');
+    }
+
 
     public function setLayout($layout)
     {

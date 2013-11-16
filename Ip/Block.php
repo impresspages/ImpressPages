@@ -59,7 +59,7 @@ class Block
 //                }
 //            }
 
-            return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, $site->managementState(), $this->exampleContent);
+            return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, \Ip\ServiceLocator::getContent()->isManagementState(), $this->exampleContent);
         }
     }
 
