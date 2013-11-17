@@ -36,7 +36,7 @@ class InternalClient extends BaseClient
 
         \Ip\ServiceLocator::replaceRequestService(new \Ip\Internal\Request());
         //TODOX Application needs a config param
-        $application = new \Ip\Core\Application();
+        $application = new \Ip\Application();
         $ipResponse = $application->handleRequest();
 
         //TODOX ResponseSugar doesn't exist

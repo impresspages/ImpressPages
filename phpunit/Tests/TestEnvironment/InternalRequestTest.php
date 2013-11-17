@@ -21,7 +21,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 //        \PhpUnit\Helper\TestEnvironment::prepareFiles();
 //        \PhpUnit\Helper\TestEnvironment::initCode();
 //
-//        $application = new \Ip\Core\Application();
+//        $application = new \Ip\Application();
 //        $response = $application->handleRequest();
 //        $this->assertNotEmpty($response);
 //    }

@@ -54,7 +54,7 @@ class Application
         ini_set('display_errors', 1);
 
         try {
-            \Ip\Core\Application::init();
+            \Ip\Application::init();
 
             $language = 'en';
 
@@ -70,7 +70,7 @@ class Application
             \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
             \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
             \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
-            $application = new \Ip\Core\Application();
+            $application = new \Ip\Application();
 
             $controller = new \Ip\Module\Install\SiteController();
 

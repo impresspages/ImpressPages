@@ -12,7 +12,7 @@ class CheckVersionTest extends \PhpUnit\GeneralTestCase
      */
     public function testVersionConstant()
     {
-        $code = file_get_contents(TEST_CODEBASE_DIR.'Ip/Core/Application.php');
+        $code = file_get_contents(TEST_CODEBASE_DIR.'Ip/Application.php');
 
         $position =  strpos($code, '\''.RECENT_VERSION.'\';');
         $this->assertNotEquals($position, FALSE);
