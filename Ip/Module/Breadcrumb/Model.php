@@ -12,7 +12,7 @@ namespace Ip\Module\Breadcrumb;
  * class to ouput current breadcrumb
  * @package ImpressPages
  */
-class Module{
+class Model{
 
     /**
      * @return string HTML with links to website languages
@@ -20,7 +20,7 @@ class Module{
     static function generateBreadcrumb($separator, $showHome = true){
 
         $data = array (
-            'homeUrl' => \Ip\Internal\Deprecated\Url::generate(),
+            'homeUrl' => $showHome ? \Ip\Internal\Deprecated\Url::generate() : null,
             'breadcrumbElements' => ipGetBreadcrumb(),
             'separator' => $separator,
         );

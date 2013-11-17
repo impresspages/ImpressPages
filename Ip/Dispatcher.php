@@ -54,6 +54,17 @@ class Dispatcher{
         $this->handlers[$eventName][] = $callable;
     }
 
+    /**
+     *
+     * Bind to a slot generation event
+     * @param string $action Eg. module_name.event_name
+     * @param callable $callable
+     * @throws CoreException
+     */
+    public function bindSlot ($slot, $callable) {
+        $this->bind('site.generateSlot.' . $slot, $callable);
+    }
+
     public function notify(Event $event) {
         if (!$this->initCompleted && $event->getName() != 'site.afterInit') {
             $backtrace = debug_backtrace();
