@@ -345,8 +345,6 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function getFilesToReplace()
     {
         return array (
-            'ip_backend_worker.php',
-            'ip_cron.php',
             'ip_license.html',
             'sitemap.php',
             $this->cf['FILE_DIR'].'.htaccess',
