@@ -15,7 +15,12 @@ namespace Ip\Module\Ip;
 class Slot {
     public static function breadcrumb($params)
     {
-        $showHome = isset($params['showHome']) ? $params['showHome'] : null;
+        $showHome = isset($params['showHome']) ? $params['showHome'] : true;
         return \Ip\Module\Breadcrumb\Model::generateBreadcrumb(' &rsaquo; ', $showHome);
+    }
+
+    public static function languages($params)
+    {
+        return \Ip\Module\Languages\Model::generateLanguageList();
     }
 }

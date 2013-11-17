@@ -12,16 +12,14 @@ namespace Ip\Module\Languages;
  * class to ouput the languages
  * @package ImpressPages
  */
-class Module{
+class Model{
 
 
     public static function generateLanguageList(){
         if(!ipGetOption('Config.multilingual')) {
-            return;
+            return '';
         }
          
-
-        
         return \Ip\View::create('view/list.php', self::getViewData());
     }
 
@@ -34,7 +32,7 @@ class Module{
      */
     public static function generatehtml(){
         if(!ipGetOption('Config.multilingual')) {
-            return;
+            return '';
         }
         
         return \Ip\View::create('view/links.php', self::getViewData());

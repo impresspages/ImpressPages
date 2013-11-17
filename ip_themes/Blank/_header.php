@@ -20,7 +20,7 @@
 <div class="theme clearfix">
     <header class="clearfix col_12">
         <?php echo $this->generateManagedLogo(); ?>
-        <?php echo ipSlot('Ip.Breadcrumb') ?>
+        <?php echo ipSlot('Ip.languages') ?>
         <div class="right">
             <span class="currentPage"><?php echo ipGetCurrentPage()->getButtonTitle(); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>

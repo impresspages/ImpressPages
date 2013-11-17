@@ -88,11 +88,15 @@ class Content {
     {
         if (!$this->currentLanguage) {
             $languageUrl = $this->getLanguageUrl();
-            foreach ($this->getLanguages() as $language) {
+            $languages = $this->getLanguages();
+            $this->currentLanguage = $languages[0];
+            foreach ($languages as $language) {
                 if ($language->getUrl() == $languageUrl) {
                     $this->currentLanguage = $language;
+                    break;
                 }
             }
+
         }
         return $this->currentLanguage;
     }
