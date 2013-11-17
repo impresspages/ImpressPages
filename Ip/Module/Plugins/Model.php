@@ -23,6 +23,7 @@ class Model{
             "Languages",
             "Wizard",
             "Form",
+            "Cron",
             "Ip",
         );
     }

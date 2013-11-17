@@ -57,8 +57,13 @@ class Application {
     }
 
 
-
-    public function handleRequest(\Ip\Request $request)
+    /**
+     * @param Request $request
+     * @param boold $subrequest
+     * @return Response
+     * @throws CoreException
+     */
+    public function handleRequest(\Ip\Request $request, $subrequest = true)
     {
         \Ip\ServiceLocator::addRequest($request);
 
@@ -159,7 +164,7 @@ class Application {
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
-        $response = $this->handleRequest($request);
+        $response = $this->handleRequest($request, false);
         $this->handleResponse($response);
         $this->close();
     }
@@ -182,19 +187,33 @@ class Application {
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
          By default fake cron is enabled
         */
-        if(!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1) && function_exists('curl_init') && \Ip\ServiceLocator::getLog()->lastLogsCount(60, 'system/cron') == 0){
+        if(!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1) && \Ip\ServiceLocator::getLog()->lastLogsCount(60, 'system/cron') == 0){
             // create a new curl resource
+            if (function_exists('curl_init')) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, \Ip\Config::baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+                $fakeCronAnswer = curl_exec($ch);
+            } else {
+                $request = new \Ip\Request();
+                $request->setGet(array(
+                        'pa' => 'Cron',
+                        'pass' => ipGetOption('Config.cronPassword')
+                ));
+                $fakeCronAnswer = $this->handleRequest($request);
+                $fakeCronAnswer = $fakeCronAnswer->getContent();
+            }
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, \Ip\Config::baseUrl('ip_cron.php'));
-            curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-            $fakeCronAnswer = curl_exec($ch);
-            $dispatcher->notify(new \Ip\Event($this, 'cron.afterFakeCron', $fakeCronAnswer));
+            if ($fakeCronAnswer != __('OK', 'ipAdmin')) {
+                $log = \Ip\ServiceLocator::getLog();
+                $log->log('Cron', 'failed fake cron', $fakeCronAnswer);
+            }
+
         }
 
-        \Ip\Internal\Deprecated\Db::disconnect();
+        \Ip\Db::disconnect();
         $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
     }
 

@@ -347,7 +347,7 @@ body {
 .ipModuleForm .ipmType-confirm .ipmControlCheckbox {
   float: left;
 }
-.ipModuleForm .ipmControlConfirmOptions {
+.ipModuleForm .ipmCheckboxText {
   margin-left: 25px;
 }
 .ipModuleForm .ipmType-captcha .ipmControl img {
@@ -2662,7 +2662,7 @@ body {
 .ipModuleSearch .ipmType-confirm .ipmControlCheckbox {
   float: left;
 }
-.ipModuleSearch .ipmControlConfirmOptions {
+.ipModuleSearch .ipmCheckboxText {
   margin-left: 25px;
 }
 .ipModuleSearch .ipmType-captcha .ipmControl img {

@@ -42,7 +42,7 @@ class AdminController extends \Ip\Controller{
         }
         $value = $post['value'];
 
-        if (!in_array($fieldName, array('automaticCron', 'keepOldRevision', 'websiteTitle', 'websiteEmail'))) {
+        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'keepOldRevision', 'websiteTitle', 'websiteEmail'))) {
             throw new \Exception('Unknown config value');
         }
 

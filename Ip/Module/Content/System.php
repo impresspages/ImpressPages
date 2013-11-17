@@ -22,7 +22,10 @@ class System{
         $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
         
         $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
-        
+
+        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
+
+
         $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
         
         $dispatcher->bind(\Ip\Event\PageMoved::SITE_PAGE_MOVED, __NAMESPACE__ .'\System::pageMoved');
@@ -91,6 +94,12 @@ class System{
 
     }
 
+    public function executeCron(\Ip\Event $e)
+    {
+        if ($e->getValue('firstTimeThisDay') || $e->getValue('test')) {
+            Model::deleteUnusedWidgets();
+        }
+    }
     
     public static function collectWidgets(EventWidget $event){
         $widgetDirs = self::_getWidgetDirs();

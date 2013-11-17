@@ -42,6 +42,7 @@ class Request
 
     public function __construct()
     {
+        $this->setServer($_SERVER);
     }
 
     public function setPost($post)
@@ -131,6 +132,11 @@ class Request
     public function getRequest($name = null, $default = null)
     {
         return $this->getParam($name, $this->_REQUEST, $default);
+    }
+
+    public function getServer($name = null, $default = null)
+    {
+        return $this->getParam($name, $this->_SERVER, $default);
     }
 
     protected function getParam($name, $values, $default)
@@ -227,16 +233,16 @@ class Request
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
         if (sizeof($this->getRequest()) > 0) {
             $actionString = null;
-            if(isset($_REQUEST['aa'])) {
-                $actionString = $_REQUEST['aa'];
+            if(isset($this->_REQUEST['aa'])) {
+                $actionString = $this->_REQUEST['aa'];
                 $controllerClass = 'AdminController';
                 $controllerType = self::CONTROLLER_TYPE_ADMIN;
-            } elseif(isset($_REQUEST['sa'])) {
-                $actionString = $_REQUEST['sa'];
+            } elseif(isset($this->_REQUEST['sa'])) {
+                $actionString = $this->_REQUEST['sa'];
                 $controllerClass = 'SiteController';
                 $controllerType = self::CONTROLLER_TYPE_SITE;
-            } elseif(isset($_REQUEST['pa'])) {
-                $actionString = $_REQUEST['pa'];
+            } elseif(isset($this->_REQUEST['pa'])) {
+                $actionString = $this->_REQUEST['pa'];
                 $controllerClass = 'PublicController';
                 $controllerType = self::CONTROLLER_TYPE_PUBLIC;
             }
