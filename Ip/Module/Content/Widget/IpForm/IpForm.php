@@ -36,7 +36,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         }
 
         // TODOX use JsonRpc
-        return \Ip\Response\Json($data);
+        return new \Ip\Response\Json($data);
     }
     
     public function sendEmail ($form, $postData, $data) {
