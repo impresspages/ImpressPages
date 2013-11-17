@@ -15,9 +15,7 @@ class Cron{
     }
 
     function execute($options){
-        global $parametersMod;
-        if($options->firstTimeThisMonth)
-        $this->db->deleteOldLogs($parametersMod->getValue('administrator', 'log', 'parameters', 'log_size_in_days'));
+
     }
 
 }

@@ -378,7 +378,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm .ipmType-confirm .ipmControlCheckbox {
   float: left;
 }
-.ipModuleForm .ipmControlConfirmOptions {
+.ipModuleForm .ipmCheckboxText {
   margin-left: 25px;
 }
 .ipModuleForm .ipmType-captcha .ipmControl img {

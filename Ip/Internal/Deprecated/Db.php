@@ -15,13 +15,6 @@ namespace Ip\Internal\Deprecated;
  */
 class Db
 {
-    /**
-     * Disconnect from database.
-     */
-    public static function disconnect()
-    {
-        \Ip\Db::disconnect();
-    }
 
 
     /**

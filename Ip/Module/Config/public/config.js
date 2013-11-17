@@ -2,6 +2,8 @@
 $( document ).ready(function() {
     "use strict";
 
+    IpConfig.init();
+
     $('.ipsAutoSave').on('change', IpConfig.autoSaveValue);
     $('.ipsAutoSave').on('keyup', IpConfig.autoSaveValue);
 
@@ -11,8 +13,13 @@ $( document ).ready(function() {
 });
 
 var IpConfig = new function () {
+    "use strict";
     var queue = [],
         processing = false;
+
+    this.init = function () {
+        updateCronUrl();
+    }
 
     var queueAdd = function (fieldName) {
         queue = removeFromArray(queue, fieldName);
@@ -41,6 +48,9 @@ var IpConfig = new function () {
             processing = false;
             return;
         }
+
+        updateCronUrl();
+
 
         var postData = {
             'aa' : 'Config.saveValue',
@@ -72,6 +82,19 @@ var IpConfig = new function () {
         });
     }
 
+    var updateCronUrl = function () {
+        var $urlText = $('.ipsautomaticCron').closest('.ipmField').find('.ipmCheckboxText');
+        var $url = $urlText.find('.ipsUrl');
+        var $passField = $('.ipscronPassword').closest('.ipmField');
+        if (getFieldValue('automaticCron')) {
+            $urlText.addClass('ipgHide');
+            $passField.addClass('ipgHide');
+        } else {
+            $url.text(ip.baseUrl + '?pa=Cron&pass=' + $('.ipscronPassword').val());
+            $passField.removeClass('ipgHide');
+            $urlText.removeClass('ipgHide');
+        }
+    }
 
     this.autoSaveValue = function () {
         $('.ipsConfigForm').data("validator").checkValidity();

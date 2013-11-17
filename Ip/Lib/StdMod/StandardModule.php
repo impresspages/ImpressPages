@@ -300,7 +300,7 @@ class StandardModule {
                         $this->delete($this->currentArea, $_REQUEST['key_id']);
                         echo "delete_row(".$_POST['key_id'].")";
                     }
-                    \Ip\Internal\Deprecated\Db::disconnect();
+                    \Ip\Db::disconnect();
                     exit;
                 }
                 break;
@@ -483,7 +483,7 @@ class StandardModule {
 
 
 
-                        \Ip\Internal\Deprecated\Db::disconnect();
+                        \Ip\Db::disconnect();
                         exit;
                     }else {
 
@@ -511,7 +511,7 @@ class StandardModule {
             </body></html>
         ";		          
                         echo $answer;
-                        \Ip\Internal\Deprecated\Db::disconnect();
+                        \Ip\Db::disconnect();
                         exit;
                     }
 
@@ -631,7 +631,7 @@ class StandardModule {
               </body></html>
             ";		          
                         echo $answer;
-                        \Ip\Internal\Deprecated\Db::disconnect();
+                        \Ip\Db::disconnect();
                         exit;
                     }else {
                         $answer = "
@@ -658,7 +658,7 @@ class StandardModule {
                </body></html>
               ";		          
                         echo $answer;
-                        \Ip\Internal\Deprecated\Db::disconnect();
+                        \Ip\Db::disconnect();
                         exit;
                     }
 

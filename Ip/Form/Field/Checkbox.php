@@ -54,7 +54,7 @@ class Checkbox extends Field{
 
         $answer .= '<input '.$this->getAttributesStr($doctype).' class="ipmControlCheckbox '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.'  '.$this->getValidationAttributesStr($doctype).' '.$value.' />'."\n";
         if ($this->getText()) {
-            $answer .= '<div class="ipmControlConfirmOptions">'.$this->getText().'</div>';
+            $answer .= '<div class="ipmCheckboxText">'.$this->getText().'</div>';
         }
     
         return $answer; 

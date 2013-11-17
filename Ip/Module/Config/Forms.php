@@ -51,12 +51,26 @@ class Forms {
                 'name' => 'automaticCron', //html "name" attribute
                 'defaultValue' => ipGetOption('Config.automaticCron', 1),
                 'label' => __('Execute cron automatically', 'Config'), //field label that will be displayed next to input field
-                'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'Config')
+                'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'Config'),
+                'text' => __('Cron URL: ', 'ipAdmin') . '<span class="ipsUrl"></span>'
             ));
         $field->addClass('ipsAutoSave');
         $field->addClass('ips' . $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $field->addAttribute('data-autosavetype', 'checkbox');
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'cronPassword', //html "name" attribute
+                'defaultValue' => ipGetOption('Config.cronPassword', 1),
+                'label' => __('Cron password', 'Config'), //field label that will be displayed next to input field
+                'hint' => __('Protect cron from being abusively executed by the strangers.', 'Config')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addClass('ips' . $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $field->addAttribute('data-autosavetype', 'input');
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Number(

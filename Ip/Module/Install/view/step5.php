@@ -8,4 +8,5 @@
  * Some issues are avoided while executing cron before going to administration panel.
  */
 ?>
-<img width="1px" height="1px" style="border: none;" src="<?php echo \Ip\Config::baseUrl('ip_cron.php') ?>" alt=""/>
+
+<img width="1px" height="1px" style="border: none;" src="<?php echo \Ip\Config::baseUrl() . '?pa=Cron&' . ipGetOption('Config.cronPassword') ?>" alt=""/>
