@@ -70,7 +70,6 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         //put new files
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_WRITE_NEW_FILES);
         $this->assertEquals(true, count(scandir($installation->getInstallationDir().'Ip')) > 2);
-        $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_backend_worker.php')) > 10);
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_license.html')) > 10);
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);
 

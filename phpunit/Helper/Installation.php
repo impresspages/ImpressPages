@@ -497,9 +497,7 @@ class Installation
         $files = array(
             'favicon.ico',
             'index.php',
-            'ip_backend_worker.php',
             'ip_config.php',
-            'ip_cron.php',
             'ip_license.html',
             'readme.md',
             'robots.txt',
