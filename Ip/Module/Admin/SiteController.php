@@ -70,10 +70,6 @@ class SiteController extends \Ip\Controller{
         }
 
 
-        global $cms;
-        $cms = new OldCmsInterface();
-
-
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Admin/Public/login.js'));
 
