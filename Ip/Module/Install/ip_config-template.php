@@ -50,5 +50,4 @@ return array(
 
     'timezone' => 'Europe/Vilnius',
     // END FRONTEND
-    'FRONTEND' => 1,
 );
