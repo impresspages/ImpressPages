@@ -134,7 +134,7 @@ class Model{
 
         $pluginRecord = self::getPluginRecord($pluginName);
         if ($pluginRecord) {
-            $version = $pluginRecord['versoin'];
+            $version = $pluginRecord['version'];
         } else {
             $version = null;
         }
