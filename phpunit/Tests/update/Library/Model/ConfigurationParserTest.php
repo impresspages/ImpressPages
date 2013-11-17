@@ -29,9 +29,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         // END GLOBAL
 
         // BACKEND
-        $this->assertEquals($configuration['INCLUDE_DIR'], 'ip_cms/includes/'); //system directory
-        $this->assertEquals($configuration['LIBRARY_DIR'], 'ip_libs/'); //general classes and third party libraries
-        $this->assertEquals($configuration['MODULE_DIR'], 'ip_cms/modules/'); //system modules directory
         $this->assertEquals($configuration['THEME_DIR'], 'ip_themes/'); //themes directory
         // END BACKEND
 
@@ -39,6 +36,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['CHARSET'], 'UTF-8'); //system characterset
         $this->assertEquals($configuration['MYSQL_CHARSET'], 'utf8');
         $this->assertEquals($configuration['THEME'], 'Blank'); //theme from themes directory
-        $this->assertEquals($configuration['DEFAULT_DOCTYPE'], 'DOCTYPE_HTML5'); //look ip_cms/includes/Ip/View.php for available options.
+        $this->assertEquals($configuration['DEFAULT_DOCTYPE'], 'DOCTYPE_HTML5'); //look /Ip/View.php for available options.
     }
 }

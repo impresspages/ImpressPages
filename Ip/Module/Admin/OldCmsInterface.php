@@ -72,7 +72,6 @@ class OldCmsInterface{
                 /*new module*/
                 $newModule = \Ip\Internal\Deprecated\Db::getModule($_GET['module_id']);
                 if ($newModule['core']) {
-                    require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/manager.php');
                 } else {
                     // TODOX Plugin dir
                 }
@@ -134,11 +133,7 @@ class OldCmsInterface{
                 $newModule = \Ip\Internal\Deprecated\Db::getModule($_GET['module_id']);
 
                 if(Db::allowedModule($_GET['module_id'], $this->session->userId())){
-                    if(file_exists(\Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php'))) {
-                        require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/backend_worker.php');
-                    } else {
                         // TODOX Plugin dir
-                    }
                     eval('$globalWorker = new \\Modules\\'.$newModule['g_name'].'\\'.$newModule['m_name'].'\\BackendWorker();');
                     $globalWorker->work();
                 }
@@ -259,7 +254,6 @@ class OldCmsInterface{
                 $newModule = \Ip\Internal\Deprecated\Db::getModule(null, $_REQUEST['module_group'], $_REQUEST['module_name']);
                 if($newModule) {
                     if($newModule['core']) {
-                        require_once \Ip\Config::oldModuleFile($newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     } else {
                         //require_once(BASE_DIR.PLUGIN_DIR.$newModule['g_name'].'/'.$newModule['m_name'].'/actions.php');
                     }

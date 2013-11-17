@@ -1349,8 +1349,8 @@ class AdminController extends \Ip\Controller
         $baseDir = \Ip\Config::baseFile('');
         $baseUrl = \Ip\Config::baseUrl('');
         
-        foreach($widgets as $key => &$widget){
-            require_once \Ip\Config::oldModuleFile('standard/content_management/widgets/'.$widget['group_key'].'/'.$widget['module_key'].'/module.php');
+        foreach($widgets as &$widget){
+            //TODOX create new widget object
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
             $widget['data'] = $widgetObject->getData($widget['module_id']);
 

@@ -338,9 +338,7 @@ class View implements \Ip\Response\ResponseInterface
 
 
         $moduleView = ''; //relative link to view according to modules root.
-        if (strpos($file, \Ip\Config::oldModuleFile('')) === 0) {
-            $moduleView = substr($file, strlen(\Ip\Config::oldModuleFile('')));
-        }
+
 
         // TODOX Plugin dir
 
@@ -352,9 +350,7 @@ class View implements \Ip\Response\ResponseInterface
 
             // TODOX Plugin dir
 
-            if (file_exists(\Ip\Config::oldModuleFile($moduleView))) {
-                return \Ip\Config::oldModuleFile($moduleView);
-            }
+
 
         } else {
             if (file_exists($file)) {

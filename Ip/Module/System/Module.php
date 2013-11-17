@@ -42,31 +42,8 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        $sql = "select m.name as m_name, mg.name as mg_name from `" . DB_PREF . "module_group` mg, `" . DB_PREF . "module` m where m.group_id = mg.id";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
 
-                $systemFileExists = false;
-                if (file_exists(\Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/system.php"))) {
-                    require_once \Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/system.php");
-                    $systemFileExists = true;
-                }
-
-                if (!$systemFileExists && file_exists(\Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/System.php"))) {
-                    require_once \Ip\Config::oldModuleFile($lock['mg_name'] . '/' . $lock['m_name'] . "/System.php");
-                    $systemFileExists = true;
-                }
-
-                if ($systemFileExists) {
-                    eval('$module_system = new \\Modules\\' . $lock['mg_name'] . '\\' . $lock['m_name'] . '\\System();');
-                    if (method_exists($module_system, 'clearCache')) {
-                        $module_system->clearCache($cachedUrl);
-                    }
-                }
-            }
-
-        }
+        //TODOX throw clear cache event
 
         \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', \Ip\Config::baseUrl('')); // update system variable
 
