@@ -20,7 +20,6 @@
 <div class="theme clearfix">
     <header class="clearfix col_12">
         <?php echo $this->generateManagedLogo(); ?>
-        <?php echo ipSlot('Ip.languages') ?>
         <div class="right">
             <span class="currentPage"><?php echo ipGetCurrentPage()->getButtonTitle(); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
@@ -30,7 +29,7 @@
                     echo $this->generateMenu('top', 'menu1');
                 ?>
                 <div class="languages">
-                    <?php echo $this->generateSlot('ipLanguages'); ?>
+                    <?php echo $this->generateSlot('Ip.languages'); ?>
                 </div>
             </div>
 

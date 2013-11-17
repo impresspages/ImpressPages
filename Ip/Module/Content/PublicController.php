@@ -10,6 +10,7 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
+        //TODOX set page specific layout
         if (
             \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
             ipGetCurrentPage()->getType() === 'error404'
