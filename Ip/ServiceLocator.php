@@ -114,7 +114,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Internal\Request
+     * @return \Ip\Request
      */
     public static function getRequest()
     {

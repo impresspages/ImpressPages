@@ -58,7 +58,7 @@ class Application {
 
 
 
-    public function handleRequest(\Ip\Internal\Request $request)
+    public function handleRequest(\Ip\Request $request)
     {
         \Ip\ServiceLocator::addRequest($request);
 
@@ -104,7 +104,7 @@ class Application {
         $controller = new $controllerClass();
 
         //check if user is logged in
-        if ($request->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
+        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
             return new \Ip\Response\Redirect(\Ip\Config::baseUrl('') . 'admin');
         }
@@ -154,7 +154,7 @@ class Application {
 
     public function run()
     {
-        $request = new \Ip\Internal\Request();
+        $request = new \Ip\Request();
         $request->setGet($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);

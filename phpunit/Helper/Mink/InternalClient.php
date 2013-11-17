@@ -34,7 +34,7 @@ class InternalClient extends BaseClient
             $_POST = $request->getParameters();
         }
 
-        \Ip\ServiceLocator::replaceRequestService(new \Ip\Internal\Request());
+        \Ip\ServiceLocator::replaceRequestService(new \Ip\Request());
         //TODOX Application needs a config param
         $application = new \Ip\Application();
         $ipResponse = $application->handleRequest();

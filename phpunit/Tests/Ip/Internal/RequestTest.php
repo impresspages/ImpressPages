@@ -11,9 +11,9 @@ class RequestTest extends \PhpUnit\GeneralTestCase
     {
         \PhpUnit\Helper\TestEnvironment::initCode();
 
-        \Ip\ServiceLocator::addRequest(new \Ip\Internal\Request());
+        \Ip\ServiceLocator::addRequest(new \Ip\Request());
 
-        $request = new \Ip\Internal\Request();
+        $request = new \Ip\Request();
         $request->setGet(array(
             'rise' => 'and shine',
             'look' => 'and smile',
