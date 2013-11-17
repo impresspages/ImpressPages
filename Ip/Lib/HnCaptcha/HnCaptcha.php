@@ -1,6 +1,6 @@
 <?php
 
-namespace Library\Php\hn_captcha;  
+namespace Ip\Lib\HnCaptcha;
 
 /**
   * PHP-Class hn_captcha Version 1.5.1, released 28-Jan-2008
@@ -196,7 +196,8 @@ namespace Library\Php\hn_captcha;
   * Tabsize: 4
   *
   **/
-
+use Library\Php\hn_captcha\HTML;
+use Library\Php\hn_captcha\nothing;
 
 
 /**

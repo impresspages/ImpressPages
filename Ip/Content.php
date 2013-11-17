@@ -507,7 +507,6 @@ class Content {
         $systemDirs = array();
         $systemDirs[\Ip\Config::getRaw('PLUGIN_DIR')] = 1;
         $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
-        $systemDirs[\Ip\Config::getRaw('LIBRARY_DIR')] = 1;
         $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;

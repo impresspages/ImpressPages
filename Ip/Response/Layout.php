@@ -201,9 +201,7 @@ class Layout extends \Ip\Response {
         $data = array (
             'ipBaseUrl' => \Ip\Config::baseUrl(''),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipLibraryDir' => \Ip\Config::getRaw('LIBRARY_DIR'),
             'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),
-            'ipModuleDir' => \Ip\Config::getRaw('MODULE_DIR'),
             'ipTheme' => \Ip\Config::getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,

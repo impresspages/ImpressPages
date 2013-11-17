@@ -854,9 +854,7 @@ class StandardModule {
     <script type="text/javascript">
         var ip = {
             baseUrl : '.json_encode(\Ip\Config::baseUrl('')).',
-            libraryDir : '.json_encode(\Ip\Config::getRaw('LIBRARY_DIR')).',
             themeDir : '.json_encode(\Ip\Config::getRaw('THEME_DIR')).',
-            moduleDir : '.json_encode(\Ip\Config::getRaw('MODULE_DIR')).',
             theme : ' . json_encode(\Ip\Config::theme()) . ',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
