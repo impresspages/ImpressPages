@@ -48,7 +48,6 @@
 					field_name : params[0],
     					editor_id : tinyMCE.selectedInstance.editorId,
 					plugin_url: url
-					//local_path_to_replace: '/home/xxx/domains/site.com/public_html/ip_libs/js/tiny_mce/plugins/simplebrowser'
 				});
 			});
 
