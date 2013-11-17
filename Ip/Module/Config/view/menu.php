@@ -7,9 +7,8 @@
 ?>
 <?php if (isset($items[0])){?>
     <?php $firstItem = $items[0]; ?>
-    <ul class="level<?php echo $depth ?>">
-        <?php foreach($items as $item){ ?>
-            <?php echo $this->subview('menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render() ?>
-        <?php } ?>
-    </ul>
+    <ul class="level<?php echo $depth ?>"><?php
+foreach($items as $item) {
+    echo $this->subview('menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render();
+} ?></ul>
 <?php } ?>

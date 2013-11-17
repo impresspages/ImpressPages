@@ -4,9 +4,7 @@
  * @var $menuItem \Ip\Menu\Item
  * @var $this \Ip\View
  */
-?>
 
-<?php
 $css = array();
 if($menuItem->getCurrent()) {
     $css[] = 'current';
@@ -27,9 +25,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
 } else {
     $href = '';
 }
-?>
-
-<li class="<?php echo implode(' ', $css) ?>">
+?><li class="<?php echo implode(' ', $css) ?>">
     <a <?php echo $href ?> title="<?php addslashes($menuItem->getPageTitle()) ?>">
         <?php echo $this->esc($menuItem->getTitle()) ?>
     </a>
