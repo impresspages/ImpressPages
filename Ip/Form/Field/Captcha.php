@@ -15,9 +15,9 @@ class Captcha extends Field{
         
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
               'tempfolder'     => \Ip\Config::temporaryFile(''),
-        
+
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-              'TTF_folder'     => \Ip\Config::libraryFile('php/hn_captcha/fonts/'),
+              'TTF_folder'     => \Ip\Config::coreModuleFile('Assets/assets/fonts/HnCaptcha/'),
         
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!
@@ -39,7 +39,7 @@ class Captcha extends Field{
               'maxtry'         => 3,       // integer: [1-9]
         
               'badguys_url'    => '/',     // string: URL
-              'secretstring'   => md5(DB_PASSWORD),//'A very, very secret string which is used to generate a md5-key!',
+              'secretstring'   => md5(\Ip\Config::getRaw('DB_PASSWORD')),//'A very, very secret string which is used to generate a md5-key!',
               'secretposition' => 9        // integer: [1-32]
         );
         
@@ -51,7 +51,7 @@ class Captcha extends Field{
     public function render($doctype) {
         $attributesStr = '';
 
-        $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
+        $captcha = new \Ip\Lib\HnCaptcha\HnCaptcha($this->captchaInit, TRUE);
         
         $captcha->make_captcha();
         
@@ -82,7 +82,7 @@ class Captcha extends Field{
         $code = $values[$this->getName()]['code'];
         $id = $values[$this->getName()]['id'];
 
-        $captcha = new \Library\Php\hn_captcha\HnCaptcha($this->captchaInit, TRUE);
+        $captcha = new \Ip\Lib\HnCaptcha\HnCaptcha($this->captchaInit, TRUE);
 
         if (!isset($_SESSION['developer']['form']['field']['captcha'][$id]['public_key'])) {
             return ''; //that means error. We just don't have the text

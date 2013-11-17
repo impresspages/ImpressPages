@@ -338,8 +338,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
     private function getFoldersToReplace() 
     {
         return array (
-            'Ip/',
-            $this->cf['LIBRARY_DIR']
+            'Ip/'
         );
     }
     
