@@ -38,7 +38,7 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less.= $this->generateLessVariables($options, $config);
 
-        require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
+        require_once \Ip\Config::coreFile('Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $themeDir = rtrim(\Ip\Config::themeFile('', $themeName), '/');
         $lessc->setImportDir(array($themeDir, \Ip\Config::coreModulefile('Assets/assets/css/ipContent')));
@@ -191,7 +191,7 @@ class LessCompiler
             return;
         }
 
-        require_once \Ip\Config::libraryFile('php/leafo/lessphp/lessc.inc.php');
+        require_once \Ip\Config::coreFile('Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $lessc->setImportDir(\Ip\Config::coreModulefile('Assets/assets/css/ipContent'));
         $lessc->setPreserveComments(true);
