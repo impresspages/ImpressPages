@@ -87,8 +87,8 @@ class AdminController extends \Ip\Controller
     public function installPlugin()
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        \Ip\Request::mustBePost();
-        $postData = \Ip\Request::getPost();
+        ipGetRequest()->mustBePost();
+        $postData = ipGetRequest()->getPost();
 
         if (empty($postData['params']['pluginGroup']) || empty($postData['params']['pluginName'])) {
             throw new \Exception("Missing required parameters");
@@ -114,8 +114,8 @@ class AdminController extends \Ip\Controller
     {
         $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
-        \Ip\Request::mustBePost();
-        $themes = \Ip\Request::getPost('themes');
+        ipGetRequest()->mustBePost();
+        $themes = ipGetRequest()->getPost('themes');
 
         if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
             return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin'), 777);
@@ -173,13 +173,13 @@ class AdminController extends \Ip\Controller
 
     public function updateConfig()
     {
-        \Ip\Request::mustBePost();
+        ipGetRequest()->mustBePost();
 
         $configModel = ConfigModel::instance();
 
         $form = $configModel->getThemeConfigForm(\Ip\Config::theme());
 
-        $post = \Ip\Request::getPost();
+        $post = ipGetRequest()->getPost();
 
         $errors = $form->validate($post);
 
@@ -235,7 +235,7 @@ class AdminController extends \Ip\Controller
     public function realTimeLess()
     {
 
-        $file = \Ip\Request::getRequest('file');
+        $file = ipGetRequest()->getRequest('file');
         if (empty($file)) {
             throw new \Ip\CoreException("Required parameter missing");
         }
