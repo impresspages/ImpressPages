@@ -1,6 +1,5 @@
 <?php
 
-if (!defined('BACKEND')) exit; 
 
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
@@ -188,5 +187,3 @@ function IsImageValid( $filePath, $extension )
 	
 	return true;
 }
-
-?>

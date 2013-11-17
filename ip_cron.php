@@ -12,13 +12,7 @@ use Ip\Internal\Deprecated\Db;
  *
  */
 
-/** @private */
-if (!defined('BACKEND')) {
-    define('BACKEND', true); // make sure other files are accessed through this file.
-}
-if (!defined('CRON')) {
-    define('CRON', true);
-}
+
 
 
 if(is_file(__DIR__.'/ip_config.php')) {
