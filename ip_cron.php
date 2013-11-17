@@ -87,23 +87,8 @@ class Cron{
 
         $log->log('system/cron', 'start');
 
-        $sql = 'select m.core, m.name as m_name, mg.name as mg_name from `'.DB_PREF.'module_group` mg, `'.DB_PREF.'module` m where m.group_id = mg.id';
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                if($lock['core']){
-                    $file = \Ip\Config::oldModuleFile($lock['mg_name'].'/'.$lock['m_name'].'/cron.php');
-                } else {
-                    // TODOX fix
-                    // $file = PLUGIN_DIR.$lock['mg_name'].'/'.$lock['m_name'].'/cron.php';
-                }
-                if(file_exists($file)){
-                    require($file);
-                    eval('$tmpCron = new \\Modules\\'.$lock['mg_name'].'\\'.$lock['m_name'].'\\Cron();');
-                    $tmpCron->execute($this->information);
-                }
-            }
-        }
+        //TODOX execut on all modules / plugins
+
         $log->log('system/cron', 'executed');
 
 

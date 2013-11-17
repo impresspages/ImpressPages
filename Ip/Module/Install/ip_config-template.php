@@ -40,9 +40,6 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    /*OK*/'INCLUDE_DIR' => 'ip_cms/includes/', //system directory
-    /*OK*/'LIBRARY_DIR' => 'ip_libs/', //general classes and third party libraries
-    /*OK*/'MODULE_DIR' => 'ip_cms/modules/', //system modules directory
     /*OK*/'THEME_DIR' => 'ip_themes/', //themes directory
     // END BACKEND
 

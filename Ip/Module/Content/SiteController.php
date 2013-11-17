@@ -7,7 +7,6 @@
 namespace Ip\Module\Content;
 
 
-require_once \Ip\Config::oldModuleFile('standard/menu_management/db.php');
 
 class SiteController extends \Ip\Controller{
 

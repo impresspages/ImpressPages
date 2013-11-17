@@ -62,8 +62,8 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $installation->setupUpdate();
         
         $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->clean($installation->getInstallationDir().'ip_cms/');
-        symlink(TEST_UNWRITABLE_DIR, $installation->getInstallationDir().'ip_cms/unwritableDir');
+        $fs->clean($installation->getInstallationDir().'Ip/');
+        symlink(TEST_UNWRITABLE_DIR, $installation->getInstallationDir().'Ip/unwritableDir');
 
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
@@ -78,7 +78,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->waitForElementPresent('css=.seleniumWritePermission');
 
         //fix error
-        unlink($installation->getInstallationDir().'ip_cms/unwritableDir');
+        unlink($installation->getInstallationDir().'Ip/unwritableDir');
 
         //resume update process
         $this->click('css=.actProceed');

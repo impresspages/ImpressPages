@@ -30,10 +30,6 @@ return array(
     // END GLOBAL
       
     // BACKEND
-      
-      'INCLUDE_DIR' => 'ip_cms/includes/',
-      'LIBRARY_DIR' => 'ip_libs/',
-      'MODULE_DIR' => 'ip_cms/modules/',
       'THEME_DIR' => 'ip_themes/',
     // END BACKEND
     

@@ -338,18 +338,6 @@ class Model
             // END GLOBAL
 
             // BACKEND
-            'INCLUDE_DIR' => array(
-                'value' => 'ip_cms/includes/',
-                'comment' => 'system directory',
-            ),
-            'LIBRARY_DIR' => array(
-                'value' => 'ip_libs/',
-                'comment' => 'general classes and third party libraries',
-            ),
-            'MODULE_DIR' => array(
-                'value' => 'ip_cms/modules/',
-                'comment' => 'system modules directory',
-            ),
             'pluginDir' => array(
                 'value' => './Plugin',
                 'comment' => 'Plugins directory',

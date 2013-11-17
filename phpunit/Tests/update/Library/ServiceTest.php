@@ -59,8 +59,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         
         //check if old files have been removed
         $updateModel->proceed(\IpUpdate\Library\Model\Update::STEP_REMOVE_OLD_FILES);
-        $this->assertEquals(2, count(scandir($installation->getInstallationDir().'ip_cms')));
-        $this->assertEquals(2, count(scandir($installation->getInstallationDir().'ip_libs')));
+        $this->assertEquals(2, count(scandir($installation->getInstallationDir().'Ip')));
         $this->assertEquals('', file_get_contents($installation->getInstallationDir().'ip_backend_worker.php'));
         $this->assertEquals('', file_get_contents($installation->getInstallationDir().'ip_license.html'));
         $this->assertEquals('', file_get_contents($installation->getInstallationDir().'sitemap.php'));
@@ -70,8 +69,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
 
         //put new files
         $service->proceed(\IpUpdate\Library\Model\Update::STEP_WRITE_NEW_FILES);
-        $this->assertEquals(true, count(scandir($installation->getInstallationDir().'ip_cms')) > 2);
-        $this->assertEquals(true, count(scandir($installation->getInstallationDir().'ip_libs')) > 2);
+        $this->assertEquals(true, count(scandir($installation->getInstallationDir().'Ip')) > 2);
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_backend_worker.php')) > 10);
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'ip_license.html')) > 10);
         $this->assertEquals(true, strlen(file_get_contents($installation->getInstallationDir().'sitemap.php')) > 10);

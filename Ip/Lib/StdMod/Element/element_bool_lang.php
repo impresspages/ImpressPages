@@ -21,7 +21,6 @@ class ElementBoolLang extends Element{ //data element in area
         $this->languageIdField = 'language_id';
         $this->translationField = 'translation';
 
-        require_once \Ip\Config::oldModuleFile('developer/std_mod/std_mod_db.php');
         $stdModDb = new StdModDb();
 
         $languages = $stdModDb->languages();
