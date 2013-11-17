@@ -1,6 +1,5 @@
 <?php
 
-if (!defined('BACKEND')) exit; 
 
 
 if ( !isset( $_SERVER ) ) {

@@ -198,9 +198,7 @@ class Model
         $parametersFile = \Ip\Config::themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
         if (file_exists($parametersFile)) {
             //TODOX new type of parameters
-            if (!defined('BACKEND')) {
-                define('BACKEND', TRUE);
-            }
+
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
 

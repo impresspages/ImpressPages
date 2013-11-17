@@ -1,6 +1,5 @@
 <?php
 
-if (!defined('BACKEND')) exit; 
 
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
@@ -276,4 +275,3 @@ function SendUploadResults( $errorNumber, $fileUrl = '', $fileName = '', $custom
 	exit ;
 }
 
-?>

@@ -1,7 +1,6 @@
 <?php
 
 
-if (!defined('BACKEND')) exit;
 
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
@@ -132,22 +131,4 @@ $Config['FileTypesAbsolutePath']['File']= ($Config['UserFilesAbsolutePath'] == '
 $Config['QuickUploadPath']['File']		= $Config['UserFilesPath'] ;
 $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] ;
 
-//$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
-//$Config['DeniedExtensions']['Image']	= array() ;
-//$Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] ;
-//$Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] ;
-//
-//$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
-//$Config['DeniedExtensions']['Flash']	= array() ;
-//$Config['QuickUploadPath']['Flash']		= $Config['UserFilesPath'] ;
-//$Config['QuickUploadAbsolutePath']['Flash']= $Config['UserFilesAbsolutePath'] ;
 
-/*
-$Config['AllowedExtensions']['Media']	= array('aiff', 'asf', 'avi', 'bmp', 'fla', 'flv', 'gif', 'jpeg', 'jpg', 'mid', 'mov', 'mp3', 'mp4', 'mpc', 'mpeg', 'mpg', 'png', 'qt', 'ram', 'rm', 'rmi', 'rmvb', 'swf', 'tif', 'tiff', 'wav', 'wma', 'wmv') ;
-$Config['DeniedExtensions']['Media']	= array() ;
-$Config['FileTypesPath']['Media']		= $Config['UserFilesPath'] . 'media/' ;
-$Config['FileTypesAbsolutePath']['Media']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'media/' ;
-$Config['QuickUploadPath']['Media']		= $Config['UserFilesPath'] ;
-$Config['QuickUploadAbsolutePath']['Media']= $Config['UserFilesAbsolutePath'] ;
-*/
-?>

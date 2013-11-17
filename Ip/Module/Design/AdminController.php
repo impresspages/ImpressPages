@@ -42,9 +42,6 @@ class AdminController extends \Ip\Controller
         $theme = $model->getTheme(\Ip\Config::theme());
         $options = $theme->getOptionsAsArray();
 
-        if (!defined('BACKEND')) {
-            define('BACKEND', 1);
-        }
 
         $helper = Helper::instance();
         $contentManagementModule = \Ip\Internal\Deprecated\Db::getModule(null, 'standard', 'content_management');
