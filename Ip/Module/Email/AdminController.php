@@ -8,7 +8,7 @@
 namespace Ip\Module\Email;
 
 
-class AdminController{
+class AdminController extends \Ip\Controller{
     function index(){
 
 
