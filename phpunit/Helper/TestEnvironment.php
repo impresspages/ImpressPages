@@ -19,9 +19,9 @@ class TestEnvironment {
             define('IUL_TESTMODE', 1);
         }
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Core/Application.php';
+        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Application.php';
         //because of PHPUnit magic, we have to repeat it on every test
-        \Ip\Core\Application::init();
+        \Ip\Application::init();
 
         global $parametersMod;
         $parametersMod = new \PhpUnit\Mock\ParametersMod();

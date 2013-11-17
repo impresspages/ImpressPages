@@ -11,10 +11,10 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
 }
 ini_set('display_errors', 1);
 
-require_once('Ip/Core/Application.php');
+require_once('Ip/Application.php');
 
 try {
-    $application = new \Ip\Core\Application(__DIR__ . '/ip_config.php');
+    $application = new \Ip\Application(__DIR__ . '/ip_config.php');
     $application->init();
     $application->run();
 } catch (\Exception $e) {

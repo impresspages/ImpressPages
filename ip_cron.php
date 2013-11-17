@@ -38,8 +38,8 @@ if (\Ip\Config::isDevelopmentEnvironment()){
 }
 
 
-require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Core/Application.php';
-\Ip\Core\Application::init();
+require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Application.php';
+\Ip\Application::init();
 
 $db = new db();
 

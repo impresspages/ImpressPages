@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Core;
+namespace Ip;
 
 
 class Application {

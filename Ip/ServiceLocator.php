@@ -66,7 +66,7 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Core\Application
+     * @return \Ip\Application
      */
     public static function getApplication()
     {
