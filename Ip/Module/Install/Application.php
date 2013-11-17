@@ -74,7 +74,7 @@ class Application
 
             $controller = new \Ip\Module\Install\SiteController();
 
-            $action = \Ip\Request::getRequest('a', 'step' . $cur_step);
+            $action = ipGetRequest()->getRequest('a', 'step' . $cur_step);
 
             // TODOX check if method exists
             $response = $controller->$action();

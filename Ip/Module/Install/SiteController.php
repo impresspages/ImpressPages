@@ -5,7 +5,7 @@
 
 namespace Ip\Module\Install;
 
-use \Ip\Request;
+
 
 class SiteController extends \Ip\Controller
 {
@@ -152,7 +152,7 @@ class SiteController extends \Ip\Controller
 
     public function createDatabase()
     {
-        $db = \Ip\Request::getPost('db');
+        $db = ipGetRequest()->getPost('db');
 
         // TODOX validate $db
         foreach (array('hostname', 'username', 'password', 'database') as $key) {
@@ -231,25 +231,25 @@ class SiteController extends \Ip\Controller
         // Validate input:
         $errors = array();
 
-        if (!Request::getPost('site_name')) {
+        if (!ipGetRequest()->getPost('site_name')) {
             $errors[] = __('Please enter website name.', 'ipInstall');
         }
 
-        if (!Request::getPost('site_email') || !filter_var(Request::getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
+        if (!ipGetRequest()->getPost('site_email') || !filter_var(ipGetRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = __('Please enter correct website email.', 'ipInstall');
         }
 
-        if (!Request::getPost('install_login') || !Request::getPost('install_pass')) {
+        if (!ipGetRequest()->getPost('install_login') || !ipGetRequest()->getPost('install_pass')) {
             $errors[] = __('Please enter administrator login and password.', 'ipInstall');
         }
 
-        if (Request::getPost('timezone')) {
-            $timezone = Request::getPost('timezone');
+        if (ipGetRequest()->getPost('timezone')) {
+            $timezone = ipGetRequest()->getPost('timezone');
         } else {
             $errors[] = __('Please choose website time zone.', 'ipInstall');
         }
 
-        if (Request::getPost('email') && !filter_var(Request::getPost('email'), FILTER_VALIDATE_EMAIL)) {
+        if (ipGetRequest()->getPost('email') && !filter_var(ipGetRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = __('Please enter correct administrator e-mail address.', 'ipInstall');
         }
 
@@ -288,9 +288,9 @@ class SiteController extends \Ip\Controller
 
         try {
 
-            Model::insertAdmin(Request::getPost('install_login'), Request::getPost('install_pass'));
-            Model::setSiteName(Request::getPost('site_name'));
-            Model::setSiteEmail(Request::getPost('site_email'));
+            Model::insertAdmin(ipGetRequest()->getPost('install_login'), ipGetRequest()->getPost('install_pass'));
+            Model::setSiteName(ipGetRequest()->getPost('site_name'));
+            Model::setSiteEmail(ipGetRequest()->getPost('site_email'));
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());

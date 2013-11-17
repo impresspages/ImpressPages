@@ -8,7 +8,7 @@ class System {
 
     public function init()
     {
-        $relativePath = \Ip\Request::getRelativePath();
+        $relativePath = ipGetRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::getRequest();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
@@ -29,7 +29,7 @@ class System {
             ipAddJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
-        $getVariables = \Ip\Request::getRequest();
+        $getVariables = ipGetRequest()->getRequest();
         if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }

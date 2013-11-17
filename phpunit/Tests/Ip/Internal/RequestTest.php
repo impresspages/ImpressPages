@@ -21,10 +21,10 @@ class RequestTest extends \PhpUnit\GeneralTestCase
 
         \Ip\ServiceLocator::addRequest($request);
 
-        $this->assertEquals('and smile', \Ip\Request::getQuery('look'));
+        $this->assertEquals('and smile', ipGetRequest()->getQuery('look'));
 
         \Ip\ServiceLocator::removeRequest();
 
-        $this->assertNull(\Ip\Request::getQuery('look'));
+        $this->assertNull(ipGetRequest()->getQuery('look'));
     }
 }

@@ -13,7 +13,7 @@ class SiteController extends \Ip\Controller{
 
     public function widgetPost()
     {
-        $instanceId = \Ip\Request::getPost('instanceId');
+        $instanceId = ipGetRequest()->getPost('instanceId');
 
         if (!$instanceId) {
             return \Ip\Response\JsonRpc::error('Mising instanceId POST variable');
@@ -33,7 +33,7 @@ class SiteController extends \Ip\Controller{
             }
 
             // TODOX Trello #133 remove $post parameter
-            return $widgetObject->post($instanceId, \Ip\Request::getPost(), $widgetRecord['data']);
+            return $widgetObject->post($instanceId, ipGetRequest()->getPost(), $widgetRecord['data']);
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }
