@@ -8,7 +8,7 @@ namespace Ip\Module\Languages;
 
 
 
-class AdminController{
+class AdminController extends \Ip\Controller{
 
     public function index() {
         $languageArea = new LanguageArea();
