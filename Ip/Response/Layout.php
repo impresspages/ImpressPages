@@ -49,7 +49,7 @@ class Layout extends \Ip\Response {
 
     protected function chooseLayout()
     {
-        if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Internal\Request::CONTROLLER_TYPE_ADMIN) {
+        if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->layout = \Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
             $this->addCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
             $this->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
