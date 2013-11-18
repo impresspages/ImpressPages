@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip {
+namespace Ip;
 
 /**
  *
@@ -66,42 +66,56 @@ class Db
 
     public static function fetchValue($sql, $params = array())
     {
-        $query = static::getConnection()->prepare($sql . " LIMIT 1");
-        foreach ($params as $key => $value) {
-            $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+        try {
+            $query = static::getConnection()->prepare($sql . " LIMIT 1");
+            foreach ($params as $key => $value) {
+                $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+            }
+
+            $query->execute();
+            // TODOX check if $query->fetchColumn() would do
+            $result = $query->fetchAll(\PDO::FETCH_NUM);
+
+            return $result ? $result[0][0] : null;
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
-
-        $query->execute();
-        // TODOX check if $query->fetchColumn() would do
-        $result = $query->fetchAll(\PDO::FETCH_NUM);
-
-        return $result ? $result[0][0] : null;
     }
 
     public static function fetchRow($sql, $params = array())
     {
-        $query = static::getConnection()->prepare($sql . " LIMIT 1");
-        foreach ($params as $key => $value) {
-            $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+        try {
+            $query = static::getConnection()->prepare($sql . " LIMIT 1");
+            foreach ($params as $key => $value) {
+                $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+            }
+
+            $query->execute();
+            $result = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $result ? $result[0] : null;
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
-
-        $query->execute();
-        $result = $query->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $result ? $result[0] : null;
     }
 
     public static function fetchAll($sql, $params = array())
     {
-        $query = static::getConnection()->prepare($sql);
-        foreach ($params as $key => $value) {
-            $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+        try {
+            $query = static::getConnection()->prepare($sql);
+            foreach ($params as $key => $value) {
+                $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+            }
+
+            $query->execute();
+
+
+            $result = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $result ? $result : array();
+        } catch (\Exception $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
-
-        $query->execute();
-        $result = $query->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $result ? $result : array();
     }
 
     /**
@@ -111,25 +125,33 @@ class Db
      */
     public static function execute($sql, $params = array())
     {
-        $query = static::getConnection()->prepare($sql);
-        foreach ($params as $key => $value) {
-            $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+        try {
+            $query = static::getConnection()->prepare($sql);
+            foreach ($params as $key => $value) {
+                $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+            }
+
+            $query->execute();
+
+            return $query->rowCount();
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
-
-        $query->execute();
-
-        return $query->rowCount();
     }
 
     public static function fetchColumn($sql, $params = array())
     {
-        $query = static::getConnection()->prepare($sql);
-        foreach ($params as $key => $value) {
-            $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
-        }
+        try {
+            $query = static::getConnection()->prepare($sql);
+            foreach ($params as $key => $value) {
+                $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
+            }
 
-        $query->execute();
-        return $query->fetchAll(\PDO::FETCH_COLUMN);
+            $query->execute();
+            return $query->fetchAll(\PDO::FETCH_COLUMN);
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -222,6 +244,3 @@ class Db
         return static::$tablePrefix;
     }
 }
-
-}
-
