@@ -193,12 +193,22 @@ function ipGetRequest()
 
 function __($text, $domain)
 {
-    return \Ip\Translator::translate($text, $domain);
+    return htmlentities(\Ip\Translator::translate($text, $domain), (ENT_COMPAT), 'UTF-8');
 }
 
 function _esc($text, $domain)
 {
-    return htmlentities(__($text, $domain), (ENT_COMPAT), 'UTF-8');
+    __($text, $domain);
+}
+
+function _e($text, $domain)
+{
+    echo __($text, $domain);
+}
+
+function _s($text, $domain)
+{
+    return \Ip\Translator::translate($text, $domain);
 }
 
 function _n($singular, $plural, $number, $domain)
