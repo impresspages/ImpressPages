@@ -76,6 +76,26 @@ function ipAddJavascript($file, $stage = 1)
     }
 }
 
+function ipAddPluginAsset($plugin, $file, $priority = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $priority);
+    } else {
+        ipLog('Core', 'Response method has no method addJavascript');
+    }
+}
+
+function ipAddThemeAsset($file, $priority = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript(\Ip\Config::themeUrl(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority));
+    } else {
+        ipLog('Core', 'Response method has no method addJavascript');
+    }
+}
+
 function ipAddJavascriptVariable($name, $value)
 {
     $response = \Ip\ServiceLocator::getResponse();

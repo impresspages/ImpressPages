@@ -133,6 +133,11 @@ class Config
         return static::$rawConfig['BASE_DIR'] . static::$rawConfig['PLUGIN_DIR'] . $path;
     }
 
+    public static function pluginUrl($path)
+    {
+        return static::$rawConfig['BASE_URL'] . static::$rawConfig['PLUGIN_DIR'] . $path;
+    }
+
     public static function theme()
     {
         return static::$rawConfig['THEME'];
