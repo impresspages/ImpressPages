@@ -4,7 +4,7 @@
 
 $translations = include __DIR__ . '/ipAdmin-source.php';
 
-$path = '/var/www/ip4.x';
+$path = '/var/www/ip4.x/Ip/Module';
 
 $directoryIterator = new RecursiveDirectoryIterator($path);
 $recursiveIterator = new RecursiveIteratorIterator($directoryIterator);
@@ -23,14 +23,14 @@ foreach ($files as $filename) {
     $contents = file_get_contents($filename);
 
     $replace = preg_replace_callback(
-        '/\\$parametersMod->getValue\\(\'([^\']+)\'\\)/',
+        '/\\$this->escPar\\(\'([^\']+)\'\\)/',
         function ($matches) {
             global $translations, $found;
 
             if (array_key_exists($matches[1], $translations)) {
                 $found++;
 
-                return "__('" . addslashes($translations[$matches[1]]) . "', 'ipAdmin')";
+                return "_esc('" . addslashes($translations[$matches[1]]) . "', 'ipAdmin')";
             }
 
             return $matches[0];
