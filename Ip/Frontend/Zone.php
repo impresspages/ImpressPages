@@ -13,7 +13,7 @@ use Ip\Page;
  *
  *  ImpressPages system doesn't manage separate pages by itself.
  *  For this task special modules called "zones" are created.
- *  Each zone can have any number of pages with any content. Pages are the objects that extend class Element.
+ *  Each zone can have any number of pages with any content. Pages are the objects that extend class Page.
  *  CMS only finds currently required zone (by specified url), asks to supply current Element and displays the content.
  *
  *  If you wish to create your own zone of website, extend this class. Overwrite abstract methods and you are done.
@@ -52,7 +52,7 @@ abstract class Zone{
     protected $associatedModule;
 
     /** Element - Once it is found, it is stored for future use. */
-    protected $currentElement;
+    protected $currentPage;
 
     /** array of Elements (Element). Once the breadcrumb is generated, it is stored for future use.  */
     protected $breadcrumb;
@@ -68,7 +68,7 @@ abstract class Zone{
     /**
      *
      * Finds elements of this zone. This function returns only one level of menu tree.
-     * If $parentElementId is null, then function returns the first level of elements.
+     * If $parentPageId is null, then function returns the first level of elements.
      * Otherwise, if you specify $parentElementId, then child elements of specified parent Element is returned.
      *
      * @param $language Language id. If not set, current website language is used.
@@ -81,23 +81,23 @@ abstract class Zone{
      *
      */
     //TODOX rename to Pages
-    public abstract function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
+    public abstract function getPages($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
 
     /**
      *
      * Returns Element by specified id.
      *
-     * @param $elementId int
+     * @param $pageId int
      * @return Page by specified id.
      *
      */
-    public abstract function getElement($elementId);
+    public abstract function getPage($pageId);
 
 
     /**
      *
-     * Finds element by URL and GET variables. This function is used to find current Element (page) of requested URL.
+     * Finds page by URL and GET variables. This function is used to find current Element (page) of requested URL.
      *
      * If requested url is http://yoursite.com/en/zone_url/var1/var2/?page=2
      *
@@ -114,7 +114,7 @@ abstract class Zone{
      * @return Page
      *
      */
-    public abstract function findElement($urlVars, $getVars);
+    public abstract function findPage($urlVars, $getVars);
 
 
 
@@ -123,30 +123,30 @@ abstract class Zone{
      *
      * Get breadcrumb from root to required Element.
      *
-     * @param $elementId
+     * @param $pageId
      * @return array of elements - breadcrumb from root to required Element
      *
      */
 
-    public function getRoadToElement($elementId=null){
+    public function getRoadToPage($pageId=null){
 
-        $elements = array();
-        if($elementId !== null)
-        $element = $this->getElement($elementId);
+        $pages = array();
+        if($pageId !== null)
+        $page = $this->getPage($pageId);
         else
-        $element = $this->getCurrentPage();
+        $page = $this->getCurrentPage();
 
-        if($element){
-            $elements[] = $element;
-            $parentElementId = $element->getParentId();
-            while($parentElementId !== null && $parentElementId !== false){
-                $parentElement = $this->getElement($parentElementId);
-                $elements[] = $parentElement;
-                $parentElementId = $parentElement->getParentId();
+        if($page){
+            $pages[] = $page;
+            $parentPageId = $page->getParentId();
+            while($parentPageId !== null && $parentPageId !== false){
+                $parentPage = $this->getPage($parentPageId);
+                $pages[] = $parentPage;
+                $parentPageId = $parentPage->getParentId();
             }
 
         }
-        return array_reverse($elements);
+        return array_reverse($pages);
     }
 
     /**
@@ -157,40 +157,40 @@ abstract class Zone{
      *
      */
     public function getCurrentPage(){
-        if($this->currentElement !== null){
-            return $this->currentElement;
+        if($this->currentPage !== null){
+            return $this->currentPage;
         }
         $content = \Ip\ServiceLocator::getContent();
         if($this->name != $content->getCurrentZone()->getName()){
-            $this->currentElement = null;
+            $this->currentPage = null;
             return null;
         }
 
-        $this->currentElement = $this->findElement($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
-        return $this->currentElement;
+        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
+        return $this->currentPage;
     }
 
     /**
      *
-     * Finds and returns all elements of that zone
+     * Finds and returns all pages of that zone
      *
-     * @return array Element
+     * @return Page[]
      *
      */
-    public function getAllElements($languageId = null, $parentId = null){
-        $elements = $this->getElements($languageId, $parentId);
-        $tmpElements = array();
-        foreach($elements as $key => $element){
-            $tmpElements = array_merge($tmpElements, $this->getAllElements($languageId, $element->getId()));
+    public function getAllPages($languageId = null, $parentId = null){
+        $pages = $this->getPages($languageId, $parentId);
+        $tmpPages = array();
+        foreach($pages as $page){
+            $tmpPages = array_merge($tmpPages, $this->getAllPages($languageId, $page->getId()));
         }
-        $answer = array_merge($elements, $tmpElements);
+        $answer = array_merge($pages, $tmpPages);
         return $answer;
     }
 
     /**
      *
-     * Get breadcrumb to current element.
-     * @return array
+     * Get breadcrumb to current page.
+     * @return Page[]
      *
      */
 
@@ -201,14 +201,14 @@ abstract class Zone{
                     return $this->breadcrumb;
                 } else {
                     if($this->getCurrentPage()){
-                        $this->breadcrumb = $this->getRoadToElement($this->getCurrentPage()->getId());
+                        $this->breadcrumb = $this->getRoadToPage($this->getCurrentPage()->getId());
                         return $this->breadcrumb;
                     } else {
                         return array();
                     }
                 }
             } else {
-                return $this->getRoadToElement($pageId);
+                return $this->getRoadToPage($pageId);
             }
         }
         return array();

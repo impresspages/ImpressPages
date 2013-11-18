@@ -317,7 +317,7 @@ class AdminController extends \Ip\Controller
             return false;
         }
 
-        $page = $zone->getElement($pageId);
+        $page = $zone->getPage($pageId);
 
         if (! $page) {
             trigger_error ("Page does not exist");
@@ -653,7 +653,7 @@ class AdminController extends \Ip\Controller
                     return false;
                 }
 
-                $page = $zone->getElement($pageId);
+                $page = $zone->getPage($pageId);
 
                 if (! $page) {
                     trigger_error("Can't find page");
@@ -779,7 +779,7 @@ class AdminController extends \Ip\Controller
         }
 
         if (isset($_REQUEST['pageId'])) {
-            $parentPage = $zone->getElement((int)$_REQUEST['pageId']);
+            $parentPage = $zone->getPage((int)$_REQUEST['pageId']);
         }
 
 
@@ -792,7 +792,7 @@ class AdminController extends \Ip\Controller
                 return false;
             }
 
-            $parentPage = $zone->getElement($parentPageId);
+            $parentPage = $zone->getPage($parentPageId);
         }
 
         if (empty($parentPage)) {
@@ -934,9 +934,9 @@ class AdminController extends \Ip\Controller
                 trigger_error('Can\'t find root zone element.');
                 return false;
             }
-            $destinationPage = $destinationZone->getElement($rootElementId);
+            $destinationPage = $destinationZone->getPage($rootElementId);
         } else {
-            $destinationPage = $destinationZone->getElement($destinationPageId);
+            $destinationPage = $destinationZone->getPage($destinationPageId);
         }
 
 
@@ -957,7 +957,7 @@ class AdminController extends \Ip\Controller
 
 
         //report url cange
-        $page = $destinationZone->getElement($pageId);
+        $page = $destinationZone->getPage($pageId);
         $oldUrl = $page->getLink(true);
         //report url change
 
@@ -992,7 +992,7 @@ class AdminController extends \Ip\Controller
 
         //report url change
         $pageZone = ipGetZone($zoneName);
-        $page = $pageZone->getElement($pageId);
+        $page = $pageZone->getPage($pageId);
         $newUrl = $page->getLink(true);
 
         \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
@@ -1024,7 +1024,7 @@ class AdminController extends \Ip\Controller
         $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
         \Ip\ServiceLocator::getDispatcher()->notify($movePageEvent);
 
-        $children = ipGetZone($zoneName)->getElements($languageId, $pageId);
+        $children = ipGetZone($zoneName)->getPages($languageId, $pageId);
         foreach ($children as $key => $child) {
             self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
         }
@@ -1098,9 +1098,9 @@ class AdminController extends \Ip\Controller
                 return false;
             }
 
-            $destinationPage = $destinationZone->getElement($rootElementId);
+            $destinationPage = $destinationZone->getPage($rootElementId);
         } else {
-            $destinationPage = $destinationZone->getElement($destinationPageId);
+            $destinationPage = $destinationZone->getPage($destinationPageId);
         }
 
 

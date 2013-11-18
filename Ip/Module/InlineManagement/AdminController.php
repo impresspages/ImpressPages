@@ -177,7 +177,7 @@ class AdminController extends \Ip\Controller{
             $pageName = '';
             $zone = ipGetZone($scope->getZoneName());
             if ($zone) {
-                $element = $zone->getElement($scope->getPageId());
+                $element = $zone->getPage($scope->getPageId());
                 if ($element) {
                     $pageName = $element->getButtonTitle();
                 }
