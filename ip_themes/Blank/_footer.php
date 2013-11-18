@@ -15,10 +15,10 @@
 </footer>
 </div>
 <?php
-    ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-    ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/colorbox/jquery.colorbox.js'));
-    ipAddJavascript(\Ip\Config::themeUrl('site.js'));
-    echo ipJavascript();
+    ipAddJQuery();
+    ipAddThemeAsset('colorbox/jquery.colorbox.js');
+    ipAddThemeAsset('site.js');
+    ipPrintJavascript();
 ?>
 </body>
 </html>

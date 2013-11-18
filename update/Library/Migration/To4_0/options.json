@@ -9,5 +9,22 @@
 
 
     "Content.widgetImageGalleryQuality": 90,
-    "Content.widgetLogoGalleryQuality": 100
+    "Content.widgetLogoGalleryQuality": 100,
+
+
+    "Content.widgetImageWidth": 1000,
+    "Content.widgetImageHeight": 200,
+    "Content.widgetImageBigWidth": 800,
+    "Content.widgetImageBigHeight": 600,
+    "Content.widgetImageGalleryWidth": 200,
+    "Content.widgetImageGalleryHeight": 200,
+    "Content.widgetImageGalleryBigWidth": 800,
+    "Content.widgetImageGalleryBigHeight": 600,
+    "Content.widgetLogoGalleryWidth": 200,
+    "Content.widgetLogoGalleryHeight": 200,
+    "Content.widgetTextImageWidth": 300,
+    "Content.widgetTextImageHeight": 600,
+    "Content.widgetTextImageBigWidth": 800,
+    "Content.widgetTextImageBigHeight": 600
+
 }

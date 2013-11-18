@@ -13,7 +13,6 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('Logo gallery', 'ipAdmin');
     }
     
@@ -191,7 +190,6 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
                 $logo['link'] = 'http://'.$logo['link'];
             }
         }
-
         if (isset($data['logos']) && is_array($data['logos'])) {
             //loop all current images
             foreach ($data['logos'] as &$curLogo) {
