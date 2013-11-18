@@ -175,9 +175,8 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
 
 
     public function managementHtml($instanceId, $data, $layout) {
-        global $parametersMod;
-        $data['smallImageWidth'] = $parametersMod->getValue('Content.widget_image_gallery.width');
-        $data['smallImageHeight'] = $parametersMod->getValue('Content.widget_image_gallery.height');
+        $data['smallImageWidth'] = ipGetOption('Content.widgetImageGalleryWidth');
+        $data['smallImageHeight'] = ipGetOption('Content.widgetImageGalleryHeight');
         return parent::managementHtml($instanceId, $data, $layout);
     }
 
@@ -195,8 +194,8 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                 $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
 
                 //create big image reflection
-                $bigWidth = $parametersMod->getValue('Content.widget_image_gallery.big_width');
-                $bigHeight = $parametersMod->getValue('Content.widget_image_gallery.big_height');
+                $bigWidth = ipGetOption('Content.widgetImageGalleryBigWidth');
+                $bigHeight = ipGetOption('Content.widgetImageGalleryBigHeight');
                 $transformBig = new \Ip\Module\Repository\Transform\ImageFit($bigWidth, $bigHeight);
 
                 try {
@@ -213,16 +212,16 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                         $curImage['cropY1'],
                         $curImage['cropX2'],
                         $curImage['cropY2'],
-                        $parametersMod->getValue('Content.widget_image_gallery.width'),
-                        $parametersMod->getValue('Content.widget_image_gallery.height'),
-                        $parametersMod->getValue('Content.widget_image_gallery.quality')
+                        $parametersMod->getValue('Content.widgetImageGalleryWidth'),
+                        $parametersMod->getValue('Content.widgetImageGalleryHeight'),
+                        $parametersMod->getValue('Content.widgetImageGalleryQuality')
                     );
 
                 } else {
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageCropCenter(
-                        $parametersMod->getValue('Content.widget_image_gallery.width'),
-                        $parametersMod->getValue('Content.widget_image_gallery.height'),
-                        $parametersMod->getValue('Content.widget_image_gallery.quality')
+                        $parametersMod->getValue('Content.widgetImageGalleryWidth'),
+                        $parametersMod->getValue('Content.widgetImageGalleryHeight'),
+                        $parametersMod->getValue('Content.widgetImageGalleryQuality')
                     );
 
                 }

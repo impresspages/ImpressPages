@@ -56,7 +56,6 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
     public function previewHtml($instanceId, $data, $layout)
     {
-        global $parametersMod;
 
         if (isset($data['imageOriginal'])) {
             $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
@@ -75,7 +74,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
 
                 if ($data['cropY2'] - $data['cropY1'] > 0) {
                     $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
-                    $requiredWidth = round($parametersMod->getValue('Content.widget_text_image.width'));
+                    $requiredWidth = round(ipGetOption('Content.widgetTextImageWidth'));
                     $requiredHeight = round($requiredWidth / $ratio);
 
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(
