@@ -18,7 +18,7 @@ echo $this->subview('header.php')->render();
 </div>
 <div class="content">
     <h1><?php _e('Cache', 'ipAdmin') ?></h1>
-    <p><?php echo $this->par('System.cache_comments') ?></p>
+    <p><?php _e('Some modules use cache. If you move your site to another location (domain, folder, etc.), you need to clear cache.', 'ipAdmin') ?></p>
     <a class="ipsClearCache button" href="#" ><?php _e('Clear cache', 'ipAdmin') ?></a>
     <div class="clear"></div>
     </div>
