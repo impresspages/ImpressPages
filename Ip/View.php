@@ -87,6 +87,7 @@ class View implements \Ip\Response\ResponseInterface
      * Escape and echo text
      * @param string $text
      */
+    //TODOX remove. use ipEsc()
     public function esc($text, $variables = null){
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
