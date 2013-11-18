@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Frontend;
+namespace Ip;
 
 
 use Ip\Page;

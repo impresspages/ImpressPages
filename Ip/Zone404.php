@@ -4,11 +4,12 @@
  *
  *
  */
-namespace Ip\Frontend;
+namespace Ip;
 
+use Ip\Page404;
 use Ip\Page;
 
-class Zone404 extends \Ip\Frontend\Zone {
+class Zone404 extends \Ip\Zone {
     
     
     public function getPages($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){

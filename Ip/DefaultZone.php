@@ -9,7 +9,7 @@ namespace Ip;
 
 use Ip\Element;
 use Ip\Frontend\Page;
-use Ip\Frontend\Zone;
+use Ip\Zone;
 
 /**
  *
