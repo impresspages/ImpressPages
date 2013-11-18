@@ -72,8 +72,6 @@ function ipAddJavascript($file, $stage = 1)
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
         $response->addJavascript($file, $stage);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascript');
     }
 }
 
@@ -82,8 +80,6 @@ function ipAddPluginAsset($plugin, $file, $priority = 1)
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
         $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $priority);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascript');
     }
 }
 
@@ -109,7 +105,7 @@ function ipAddJQuery()
     }
 }
 
-//TODOX refactor
+
 function ipAddJavascriptVariable($name, $value)
 {
     $response = \Ip\ServiceLocator::getResponse();
@@ -120,16 +116,7 @@ function ipAddJavascriptVariable($name, $value)
     }
 }
 
-//TODOX refactor
-function ipAddJavascriptContent($key, $javascript, $stage = 1)
-{
-    $response = \Ip\ServiceLocator::getResponse();
-    if (method_exists($response, 'addJavascriptContent')) {
-        $response->addJavascriptContent($key, $javascript, $stage = 1);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascriptContent');
-    }
-}
+
 
 function ipAddCss($file, $stage = 1)
 {
