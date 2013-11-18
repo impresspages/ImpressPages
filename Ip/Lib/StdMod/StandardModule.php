@@ -1451,13 +1451,13 @@ class StandardModule {
                     if($this->currentArea->sortType == 'pointers')
                     $answer .= '<td >
                         <a class="move_down"
-                        title="'.htmlspecialchars(__('Move down', 'ipAdmin')).'"
+                        title="'.__('Move down', 'ipAdmin').'"
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_increase&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
                         "
                         >&nbsp;</a>
                         <a
-                        title="'.htmlspecialchars(__('Move up', 'ipAdmin')).'"
+                        title="'.__('Move up', 'ipAdmin').'"
                         onclick="
                         LibDefault.ajaxMessage(\''.$this->generateUrlLevel($this->level).'&amp;type=ajax\', \'action=row_number_decrease&amp;key_id='.$lock[$this->currentArea->dbPrimaryKey].'\')
                         "
@@ -1606,8 +1606,8 @@ class StandardModule {
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
 						<div class="moduleControlButtons">
-							<a onclick="document.getElementById(\'std_mod_search_f\').submit();" class="button">'.htmlspecialchars(__('Search', 'ipAdmin')).'</a>
-							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars(__('Cancel', 'ipAdmin')).'</a>
+							<a onclick="document.getElementById(\'std_mod_search_f\').submit();" class="button">'.__('Search', 'ipAdmin').'</a>
+							<a onclick="std_mod_hide_popups();" class="button">'.__('Cancel', 'ipAdmin').'</a>
 							<div class="clear"></div>
 						</div>
 					</div>
