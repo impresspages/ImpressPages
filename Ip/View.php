@@ -418,6 +418,7 @@ class View implements \Ip\Response\ResponseInterface
      */
     public function generateMenu($menuKey, $items, $viewFile = null)
     {
+        //TODOX create sugar method
         if(is_string($items)) {
             $items = \Ip\Menu\Helper::getZoneItems($items);
         }
