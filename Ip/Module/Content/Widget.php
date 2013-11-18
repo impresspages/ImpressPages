@@ -25,9 +25,9 @@ class Widget{
         $this->core = $core;
 
         if ($core) {
-            $this->widgetDir = 'Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/';
+            $this->widgetDir = \Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
         } else {
-            // TODOX Plugin dir
+            $this->widgetDir = \Ip\Config::pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
         }
     }
 
@@ -52,10 +52,14 @@ class Widget{
     }
     
     public function getIcon() {
-        if (file_exists(\Ip\Config::baseFile($this->widgetDir.self::PUBLIC_DIR.'/icon.png'))) {
-            return $this->widgetDir.self::PUBLIC_DIR.'/icon.png';
+        if (file_exists($this->widgetDir . self::PUBLIC_DIR . '/icon.png')) {
+            if ($this->core) {
+                return \Ip\Config::coreModuleUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
+            } else {
+                return \Ip\Config::pluginUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
+            }
         } else {
-            return 'Ip/Module/Content/img/icon_widget.png';
+            return \Ip\Config::coreModuleUrl('Content/assets/img/icon_widget.png');
         }
     }
 
@@ -194,13 +198,11 @@ class Widget{
         try {
             if ($this->core ) {
                 $adminView = \Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
-                if (is_file($adminView)) {
-                    $answer = \Ip\View::create($adminView, $data)->render();
-                }
             } else {
-                //TODOX new plugin way
-                $viewFile = \Ip\Config::baseFile(PLUGIN_DIR . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
-                $answer = \Ip\View::create($viewFile, $data)->render();
+                $adminView = \Ip\Config::pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+            }
+            if (is_file($adminView)) {
+                $answer = \Ip\View::create($adminView, $data)->render();
             }
         } catch (\Ip\CoreException $e){
             echo $e->getMessage();

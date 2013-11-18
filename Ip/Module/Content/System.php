@@ -176,14 +176,14 @@ class System{
     private static function findModuleWidgets($moduleName, $core)
     {
         if ($core) {
-            $widgetDir = 'Ip/Module/' . $moduleName . '/' . Model::WIDGET_DIR.'/';
+            $widgetDir = \Ip\Config::coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         } else {
-            // TODOX Plugin dir
+            $widgetDir = \Ip\Config::pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         }
-        if (!is_dir(\Ip\Config::baseFile($widgetDir))) {
+        if (!is_dir($widgetDir)) {
             return array();
         }
-        $widgetFolders = scandir(\Ip\Config::baseFile($widgetDir));
+        $widgetFolders = scandir($widgetDir);
         if ($widgetFolders === false) {
             return array();
         }
@@ -191,12 +191,12 @@ class System{
         //foreach all widget folders
         foreach ($widgetFolders as $widgetFolder) {
             //each directory is a widget
-            if (!is_dir(\Ip\Config::baseFile($widgetDir.$widgetFolder)) || $widgetFolder == '.' || $widgetFolder == '..'){
+            if (!is_dir($widgetDir.$widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..'){
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
                 $log = \Ip\ServiceLocator::getLog();
-                $log->log('stadard', 'content_management', 'duplicatedWidget', $widgetFolder);
+                $log->log('standard', 'content_management', 'duplicatedWidget', $widgetFolder);
             }
             $answer[] = array (
                 'module' => $moduleName,

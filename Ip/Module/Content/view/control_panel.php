@@ -58,7 +58,7 @@
                         <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
                             <a href="#">
                                 <span class="ipaTitle"><span><?php echo htmlspecialchars($widget->getTitle()); ?></span></span>
-                                <img src="<?php echo \Ip\Config::baseUrl($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
+                                <img src="<?php echo ipEsc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
                             </a>
                         </div>
                     </li>
