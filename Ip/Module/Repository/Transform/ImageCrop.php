@@ -42,7 +42,7 @@ class ImageCrop extends Image
         $this->y2 = $y2;
         $this->widthDest = $widthDest;
         $this->heightDest = $heightDest;
-        $this->quality = $quality;
+        $this->quality = (int)$quality;
     }
 
     /**

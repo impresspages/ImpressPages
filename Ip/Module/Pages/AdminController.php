@@ -221,7 +221,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = \Ip\Config::oldModuleUrl('standard/menu_management/img/file_hidden.png');
+                        $icon = \Ip\Config::coreModuleUrl('Pages/img/file_hidden.png');
                     }
 
 
@@ -258,7 +258,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = \Ip\Config::oldModuleUrl('standard/menu_management/img/file_hidden.png');
+                        $icon = \Ip\Config::coreModuleUrl('Pages/img/file_hidden.png');
                     }
 
                     //if node status is open
