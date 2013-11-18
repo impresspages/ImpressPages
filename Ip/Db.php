@@ -73,10 +73,7 @@ class Db
             }
 
             $query->execute();
-            // TODOX check if $query->fetchColumn() would do
-            $result = $query->fetchAll(\PDO::FETCH_NUM);
-
-            return $result ? $result[0][0] : null;
+            return $query->fetchColumn(0);
         } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
