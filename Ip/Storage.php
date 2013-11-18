@@ -76,7 +76,29 @@ class Storage {
         \Ip\Db::execute($sql, $params);
     }
 
+    /**
+     * @param $pluginName
+     * @param $key
+     * @return array
+     */
+    public function getAll($plugin)
+    {
+
+        $sql = '
+            SELECT
+                `key`, `value`
+            FROM
+                `'.DB_PREF.'storage`
+            WHERE
+                `plugin` = :plugin AND
+        ';
 
 
+        $params = array (
+            ':plugin' => $plugin
+        );
+
+        return \Ip\Db::fetchAll($sql, $params);
+    }
 
 }
