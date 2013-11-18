@@ -15,8 +15,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-<body<?php if (\Ip\ServiceLocator::getContent()->isManagementState()) { echo ' class="manage"'; } ?> >
-
+<body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
         <?php echo $this->generateManagedLogo(); ?>
