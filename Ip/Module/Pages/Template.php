@@ -62,15 +62,15 @@ class Template {
                 <ul>
                     <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars(__('New page', 'ipAdmin')).'</span>
+                    	<span class="ui-button-text">'.__('New page', 'ipAdmin').'</span>
                     </button>
                     <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars(__('Delete', 'ipAdmin')).'</span>
+                    	<span class="ui-button-text">'.__('Delete', 'ipAdmin').'</span>
                     </button>
                     <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars(__('Copy', 'ipAdmin')).'</span>
+                    	<span class="ui-button-text">'.__('Copy', 'ipAdmin').'</span>
                     </button>
                     <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
                     	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
@@ -83,9 +83,9 @@ class Template {
     	</div>
     	<div id="pageProperties" class="ui-widget-content"></div>
     </div>	
-	<div id="createPageForm" title="'.htmlspecialchars(__('New page', 'ipAdmin')).'">
+	<div id="createPageForm" title="'.__('New page', 'ipAdmin').'">
 		<form id="formCreatePage">
-            <label for="createPageButtonTitle">'.htmlspecialchars(__('Button title', 'ipAdmin')).'</label>
+            <label for="createPageButtonTitle">'.__('Button title', 'ipAdmin').'</label>
             <input id="createPageButtonTitle" name="buttonTitle" value="" />
 		</form>
 	</div>    	
@@ -139,24 +139,24 @@ class Template {
 '
 <form id="formGeneral">
 	<p class="field">
-        <label for="generalButtonTitle">'.htmlspecialchars(__('Button title', 'ipAdmin')).'</label>
+        <label for="generalButtonTitle">'.__('Button title', 'ipAdmin').'</label>
         <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
     </p>
 	<p class="field">
-        <label for="generalVisible">'.htmlspecialchars(__('Visible', 'ipAdmin')).'</label>
+        <label for="generalVisible">'.__('Visible', 'ipAdmin').'</label>
     	<input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="yes"' : '' ).' /><br />
     </p>
 	<p class="field">
-    	<label for="generalCreatedOn">'.htmlspecialchars(__('Created on', 'ipAdmin')).'</label>
+    	<label for="generalCreatedOn">'.__('Created on', 'ipAdmin').'</label>
     	<span class="error" id="createdOnError"></span>
     	<input id="generalCreatedOn" name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" /><br />
     </p>
 	<p class="field">
-    	<label for="lastModifiedError">'.htmlspecialchars(__('Last modified', 'ipAdmin')).'</label>
+    	<label for="lastModifiedError">'.__('Last modified', 'ipAdmin').'</label>
     	<span class="error" id="lastModifiedError"></span>
     	<input id="generalLastModified" name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" /><br />
 	</p>    
-    <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
+    <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
 </form>
 ';
 
@@ -174,23 +174,23 @@ class Template {
 <form id="formSEO">
 
 	<p class="field">
-        <label for="seoPageTitle">'.htmlspecialchars(__('Meta title', 'ipAdmin')).'</label>
+        <label for="seoPageTitle">'.__('Meta title', 'ipAdmin').'</label>
         <input id="seoPageTitle" name="pageTitle" value="'.htmlspecialchars($element->getPageTitle()).'" /><br />
     </p>
 	<p class="field">
-        <label for="seoKeywords">'.htmlspecialchars(__('Meta keywords', 'ipAdmin')).'</label>
+        <label for="seoKeywords">'.__('Meta keywords', 'ipAdmin').'</label>
         <textarea id="seoKeywords" name="keywords">'.htmlspecialchars($element->getKeywords()).'</textarea><br />
     </p>
 	<p class="field">
-        <label for="seoDescription">'.htmlspecialchars(__('Meta description', 'ipAdmin')).'</label>
+        <label for="seoDescription">'.__('Meta description', 'ipAdmin').'</label>
         <textarea id="seoDescription" name="description">'.htmlspecialchars($element->getDescription()).'</textarea><br />
     </p>
 	<p class="field">
-        <label for="seoUrl">'.htmlspecialchars(__('URL', 'ipAdmin')).'</label>
+        <label for="seoUrl">'.__('URL', 'ipAdmin').'</label>
         <input id="seoUrl" name="url" value="'.htmlspecialchars($element->getURL()).'" /><br />
     </p>
 
-    <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
+    <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
 
 </form>  
 ';
@@ -207,34 +207,34 @@ class Template {
         $answer .=
 '
 <form id="formAdvanced">
-        <label>'.htmlspecialchars(__('Type', 'ipAdmin')).'</label>
+        <label>'.__('Type', 'ipAdmin').'</label>
         <p class="field">
             <input id="typeDefault" class="stdModBox" name="type" value="default" '.($element->getType() == 'default' ? 'checked="checkded"' : '' ).' type="radio" />
-            <label for="typeDefault" class="small">'.htmlspecialchars(__('Display page content', 'ipAdmin')).'</label><br />
+            <label for="typeDefault" class="small">'.__('Display page content', 'ipAdmin').'</label><br />
         </p>
         <p class="field">
             <input id="typeInactive" class="stdModBox" name="type" value="inactive" '.($element->getType() == 'inactive' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeInactive" class="small">'.htmlspecialchars(__('Inactive (without link on it)', 'ipAdmin')).'</label><br />
+            <label for="typeInactive" class="small">'.__('Inactive (without link on it)', 'ipAdmin').'</label><br />
         </p>
         <p class="field">
             <input id="typeSubpage" class="stdModBox" name="type" value="subpage" '.($element->getType() == 'subpage' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeSubpage" class="small">'.htmlspecialchars(__('Redirect to first sub-page', 'ipAdmin')).'</label><br />
+            <label for="typeSubpage" class="small">'.__('Redirect to first sub-page', 'ipAdmin').'</label><br />
             
         </p>
         
         <span class="error" id="redirectURLError"></span>
         <p class="field">
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
-            <label for="typeRedirect" class="small">'.htmlspecialchars(__('Redirect to external page', 'ipAdmin')).'</label><br/>
+            <label for="typeRedirect" class="small">'.__('Redirect to external page', 'ipAdmin').'</label><br/>
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
             <img class="linkList" id="internalLinkingIcon" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
         <p class="field">
-            <label for="generalVisible">'.htmlspecialchars(__('RSS', 'ipAdmin')).'</label>
+            <label for="generalVisible">'.__('RSS', 'ipAdmin').'</label>
             <input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
         </p>
         
-        <input class="submit" type="submit" value="'.htmlspecialchars(__('Save', 'ipAdmin')).'" />
+        <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
 
 </form>
 ';

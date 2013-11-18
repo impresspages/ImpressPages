@@ -206,7 +206,7 @@ class Application {
                 $fakeCronAnswer = $fakeCronAnswer->getContent();
             }
 
-            if ($fakeCronAnswer != __('OK', 'ipAdmin')) {
+            if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
                 $log = \Ip\ServiceLocator::getLog();
                 $log->log('Cron', 'failed fake cron', $fakeCronAnswer);
             }

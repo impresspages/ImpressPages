@@ -4,17 +4,17 @@
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
-                    <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->esc(__('Search widgets', 'ipAdmin')) ?>" />
+                    <input type="text" class="ipAdminInput ipaInput" value="<?php _e('Search widgets', 'ipAdmin') ?>" />
                     <a href="#" class="ipaButton"></a>
                 </div>
             </div>
-            <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->esc(__('Advanced', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
-            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->esc(__('Preview', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
-            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->esc(__('Publish', 'ipAdmin')); ?>"><?php echo _esc('Publish', 'ipAdmin') ?></a>
+            <a href="#" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
+            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php _e('Preview', 'ipAdmin') ?>"><span>&nbsp;</span></a>
+            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
                 <div class="ipaDropdownBlock">
-                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->esc(__('Save', 'ipAdmin')); ?>"><?php echo _esc('Save now', 'ipAdmin') ?></a>
+                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php _e('Save', 'ipAdmin') ?>"><?php _e('Save now', 'ipAdmin') ?></a>
                     <ul>
     <?php foreach ($revisions as $revisionKey => $revision){
               $revisionClass = '';
@@ -43,8 +43,8 @@
             <div class="ipAdminWidgetsDisable">
                 <p>
                     <?php echo $this->escPar('Content.older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
-                    <a href="#" class="ipActionPublish"><?php echo $this->escPar('Content.older_revision_publish') ?></a>
-                    <a href="#" class="ipActionSave"><?php echo $this->escPar('Content.older_revision_edit') ?></a>
+                    <a href="#" class="ipActionPublish"><?php _e('Publish this revision', 'ipAdmin') ?></a>
+                    <a href="#" class="ipActionSave"><?php _e('Duplicate and edit this revision', 'ipAdmin') ?></a>
                 </p>
             </div>
     <?php } ?>
@@ -73,4 +73,4 @@
     </div>
 
 </div>
-<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo _esc('Publish', 'ipAdmin') ?>"><?php echo _esc('Publish', 'ipAdmin') ?></a>
+<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>

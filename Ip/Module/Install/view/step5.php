@@ -1,5 +1,5 @@
-<h1><?php echo __('ImpressPages CMS successfully installed.', 'ipInstall') ?></h1>
-<?php echo __('FINISH_MESSAGE', 'ipInstall') ?>
+<h1><?php _e('ImpressPages CMS successfully installed.', 'ipInstall') ?></h1>
+<?php _e('FINISH_MESSAGE', 'ipInstall') ?>
 
 <?php
 /*

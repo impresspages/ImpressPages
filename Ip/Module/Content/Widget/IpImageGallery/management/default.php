@@ -1,10 +1,10 @@
 <div class="ipWidget_ipImageGallery_container">
-    <a href="#" class="ipAdminButton ipmBrowseButton"><?php echo $this->escPar('Config.add_new'); ?></a>
+    <a href="#" class="ipAdminButton ipmBrowseButton"><?php _e('Add new', 'ipAdmin') ?></a>
 </div>
 <div class="ipgHide">
     <div class="ipaImageTemplate">
-        <a href="#" class="ipaButton ipaImageMove"><?php echo $this->escPar('Content.widget_image_gallery.move') ?></a>
-        <a href="#" class="ipaButton ipaImageRemove"><?php echo $this->escPar('Content.widget_image_gallery.remove') ?></a>
+        <a href="#" class="ipaButton ipaImageMove"><?php _e('Move', 'ipAdmin') ?></a>
+        <a href="#" class="ipaButton ipaImageRemove"><?php _e('Remove', 'ipAdmin') ?></a>
         <input type="text" class="ipAdminInput ipaImageTitle" name="title" value="" />
         <div class="ipaImage" style="width: 200px;"></div>
     </div>
