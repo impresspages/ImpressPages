@@ -8,7 +8,7 @@
     <div class="col_12">
         <?php echo $this->generateManagedString('themeName', 'p', __('Theme "Blank"', 'theme-Blank'), 'left'); ?>
         <?php
-        $_slogan = sprintf($this->esc(__('Drag & drop with %s', 'theme-Blank')), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'theme-Blank') . '</a>');
+        $_slogan = sprintf(__('Drag & drop with %s', 'theme-Blank'), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'theme-Blank') . '</a>');
         ?>
         <?php echo $this->generateManagedText('slogan', 'div', $_slogan, 'right'); ?>
     </div>

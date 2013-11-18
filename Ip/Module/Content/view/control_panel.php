@@ -9,8 +9,8 @@
                 </div>
             </div>
             <a href="#" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
-            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->esc(__('Preview', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
-            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->esc(__('Publish', 'ipAdmin')); ?>"><?php echo __('Publish', 'ipAdmin') ?></a>
+            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php _e('Preview', 'ipAdmin') ?>"><span>&nbsp;</span></a>
+            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
                 <div class="ipaDropdownBlock">

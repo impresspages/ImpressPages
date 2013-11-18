@@ -20,7 +20,7 @@
             <ul>
                 <li>
                     <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>">
-                        <?php echo $this->esc(__('Logout', 'ipAdmin')) ?>
+                        <?php _e('Logout', 'ipAdmin') ?>
                         <span class="icon-stack">
                             <i class="icon-sign-blank icon-stack-base"></i>
                             <i class="icon-remove icon-light"></i>
@@ -36,14 +36,14 @@
 
 
         <a href="<?php echo \Ip\Config::baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
-            <?php echo $this->esc(__('Logout', 'ipAdmin')) ?>
+            <?php _e('Logout', 'ipAdmin') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-remove icon-light"></i>
             </span>
         </a>
         <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
-            <?php echo $this->esc(__('Help', 'ipAdmin')) ?>
+            <?php _e('Help', 'ipAdmin') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>
                 <i class="icon-question icon-light"></i>
