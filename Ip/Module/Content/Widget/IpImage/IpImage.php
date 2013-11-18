@@ -13,16 +13,11 @@ class IpImage extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('Image', 'ipAdmin');
     }
 
     
     public function update($widgetId, $postData, $currentData) {
-        global $parametersMod;
-        $answer = '';
-
-
 
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
@@ -124,37 +119,6 @@ class IpImage extends \Ip\Module\Content\Widget{
         return parent::previewHtml($instanceId, $data, $layout);
     }
 
-    private function cropBigImage($imageOriginal) {
-        global $parametersMod;
-        $bigImageName = \Ip\Internal\ImageHelper::resize(
-            $imageOriginal,
-            $parametersMod->getValue('Content.widget_image.big_width'),
-            $parametersMod->getValue('Content.widget_image.big_height'),
-            \Ip\Config::temporaryFile(''),
-            \Ip\Internal\ImageHelper::CROP_TYPE_FIT,
-            false,
-            $parametersMod->getValue('Content.widget_image.big_quality')
-        );
-        return $bigImageName;
-    }
-    
-    private function cropImage($imageOriginal, $cropX1, $cropY1, $cropX2, $cropY2, $scale, $maxWidth) {
-        global $parametersMod;
-        $ratio = ($cropX2 - $cropX1) / ($cropY2 - $cropY1);
-        $requiredWidth = round($maxWidth * $scale);
-        $requiredHeight = round($requiredWidth / $ratio);
-        $imageName = \Ip\Internal\ImageHelper::crop (
-            $imageOriginal,
-            \Ip\Config::temporaryFile(''),
-            $cropX1,
-            $cropY1,
-            $cropX2,
-            $cropY2,
-            $parametersMod->getValue('Content.widget_image.quality'),
-            $requiredWidth,
-            $requiredHeight
-        );
-        return $imageName;
-    }
+
 
 }

@@ -10,5 +10,5 @@
     </div>
 </div>
 
-<input type="hidden" name="smallImageWidth" value="<?php echo $this->escPar('Content.widget_image_gallery.width') ?>" />
-<input type="hidden" name="smallImageHeight" value="<?php echo $this->escPar('Content.widget_image_gallery.height') ?>" />
+<input type="hidden" name="smallImageWidth" value="<?php echo (int)ipGetOption('Content.widgetImageGalleryWidth') ?>" />
+<input type="hidden" name="smallImageHeight" value="<?php echo (int)ipGetOption('Content.widgetImageGalleryHeight') ?>" />
