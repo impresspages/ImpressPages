@@ -15,8 +15,6 @@
 </head>
 <body>
     <?php echo empty($content) ? '' : $content ?>
-<?php
-echo ipJavascript();
-?>
+<?php ipPrintJavascript() ?>
 </body>
 </html>

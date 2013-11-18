@@ -20,6 +20,6 @@
     <div class="ip">
         <?php echo ipBlock('main'); ?>
     </div>
-<?php echo ipJavascript(); ?>
+<?php ipPrintJavascript() ?>
 </body>
 </html>
