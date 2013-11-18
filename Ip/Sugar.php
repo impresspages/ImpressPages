@@ -89,10 +89,14 @@ function ipAddPluginAsset($plugin, $file, $priority = 1)
 function ipAddThemeAsset($file, $priority = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
-    if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::themeUrl(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority));
+    if (strtolower(substr($file, -3)) == '.js') {
+        if (method_exists($response, 'addJavascript')) {
+            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority);
+        }
     } else {
-        ipLog('Core', 'Response method has no method addJavascript');
+        if (method_exists($response, 'addJavascript')) {
+            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority);
+        }
     }
 }
 
