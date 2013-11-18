@@ -67,8 +67,9 @@ class Application {
     {
         \Ip\ServiceLocator::addRequest($request);
 
-
-        $request->fixMagicQuotes();
+        if (!$subrequest) { // Do not fix magic quotoes for internal requests because php didn't touched it
+            $request->fixMagicQuotes();
+        }
 
         $language = ipGetCurrentLanguage();
         $languageCode = $language->getCode();
@@ -81,10 +82,9 @@ class Application {
         \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.afterInit', null));
 
 
-        $application = \Ip\ServiceLocator::getApplication();
-        if ($request->isPost() && ($request->getPost('securityToken') !=  $application->getSecurityToken()) && empty($_POST['pa'])) {
-            $log = \Ip\ServiceLocator::getLog();
-            $log->log('ImpressPages Core', 'CSRF check', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
+        if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
+
+            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
             $data = array(
                 'status' => 'error'
             );
@@ -93,6 +93,7 @@ class Application {
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
             }
+            // TODOX JSONRPC
             $response = new \Ip\Response();
             $response->addHeader('Content-type: text/json; charset=utf-8');
             $response->setContent(json_encode($data));
