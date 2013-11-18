@@ -5,4 +5,4 @@
         <p class="ipUploadTitle"></p>
     </div>
 </div>
-<a href="#" class="ipAdminButton ipUploadBrowseButton"><?php echo $this->escPar('Config.add_new'); ?></a>
+<a href="#" class="ipAdminButton ipUploadBrowseButton"><?php echo __('Add new', 'ipAdmin') ?></a>

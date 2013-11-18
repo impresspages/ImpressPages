@@ -1,7 +1,7 @@
 <div class="ipWidget_ipForm_container"></div>
 <div class="ipgHide">
     <div class="ipaFieldTemplate">
-        <a href="#" class="ipaButton ipaFieldMove"><?php echo $this->escPar('Content.widget_contact_form.move'); ?></a>
+        <a href="#" class="ipaButton ipaFieldMove"><?php echo _esc('Move', 'ipAdmin') ?></a>
         <input type="text" class="ipAdminInput ipaFieldLabel" name="label" value="" />
         <select class="ipaFieldType">
             <?php foreach($fieldTypes as $fieldType) { ?>
@@ -9,8 +9,8 @@
             <?php } ?>
         </select>
         <input type="checkbox" class="ipaFieldRequired" />
-        <a href="#" class="ipaButton ipaFieldOptions"><?php echo $this->escPar('Content.widget_contact_form.options'); ?></a>
-        <a href="#" class="ipaButton ipaFieldRemove"><?php echo $this->escPar('Content.widget_contact_form.remove'); ?></a>
+        <a href="#" class="ipaButton ipaFieldOptions"><?php echo _esc('Options', 'ipAdmin') ?></a>
+        <a href="#" class="ipaButton ipaFieldRemove"><?php echo _esc('Remove', 'ipAdmin') ?></a>
     </div>
     <div class="ipaFieldOptionsPopup"></div>
 </div>

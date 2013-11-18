@@ -43,8 +43,8 @@
             <div class="ipAdminWidgetsDisable">
                 <p>
                     <?php echo $this->escPar('Content.older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
-                    <a href="#" class="ipActionPublish"><?php echo $this->escPar('Content.older_revision_publish') ?></a>
-                    <a href="#" class="ipActionSave"><?php echo $this->escPar('Content.older_revision_edit') ?></a>
+                    <a href="#" class="ipActionPublish"><?php echo _esc('Publish this revision', 'ipAdmin') ?></a>
+                    <a href="#" class="ipActionSave"><?php echo _esc('Duplicate and edit this revision', 'ipAdmin') ?></a>
                 </p>
             </div>
     <?php } ?>
