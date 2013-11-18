@@ -2,7 +2,7 @@
 <div id="ipAdminWizardTip-dragWidget" class="ipAdminWizardTip">
     <a href="#" class="ipaClose"></a>
     <span class="ipaArrowTop"></span>
-    <p><?php echo __('Drag this widget to your page.', 'ipAdmin') ?></p>
+    <p><?php _e('Drag this widget to your page.', 'ipAdmin') ?></p>
 </div>
 <?php } ?>
 
@@ -10,7 +10,7 @@
 <div id="ipAdminWizardTip-dropWidget" class="ipAdminWizardTip">
     <a href="#" class="ipaClose"></a>
     <span class="ipaArrowBottom"></span>
-    <p><?php echo __('Release it here.', 'ipAdmin') ?></p>
+    <p><?php _e('Release it here.', 'ipAdmin') ?></p>
 </div>
 <?php } ?>
 
@@ -18,7 +18,7 @@
 <div id="ipAdminWizardTip-changeWidgetContent" class="ipAdminWizardTip">
     <a href="#" class="ipaClose"></a>
     <span class="ipaArrowBottom"></span>
-    <p><?php echo __('Add or change something.', 'ipAdmin') ?></p>
+    <p><?php _e('Add or change something.', 'ipAdmin') ?></p>
 </div>
 <?php } ?>
 
@@ -26,7 +26,7 @@
 <div id="ipAdminWizardTip-confirmWidget" class="ipAdminWizardTip">
     <a href="#" class="ipaClose"></a>
     <span class="ipaArrowTop"></span>
-    <p><?php echo __('Confirm your changes.', 'ipAdmin') ?></p>
+    <p><?php _e('Confirm your changes.', 'ipAdmin') ?></p>
 </div>
 <?php } ?>
 
@@ -34,6 +34,6 @@
 <div id="ipAdminWizardTip-publish" class="ipAdminWizardTip">
     <a href="#" class="ipaClose"></a>
     <span class="ipaArrowTop"></span>
-    <p><?php echo _esc('Changes are not visible until you press "Publish".', 'ipAdmin') ?></p>
+    <p><?php _e('Changes are not visible until you press "Publish".', 'ipAdmin') ?></p>
 </div>
 <?php } ?>

@@ -3,7 +3,7 @@
 /* @var $this \Ip\View */
 ?>
 <div class="ip ipModuleDesign" xmlns="http://www.w3.org/1999/html">
-    <h1><?php echo _esc('My theme', 'ipAdmin'); ?></h1>
+    <h1><?php _e('My theme', 'ipAdmin'); ?></h1>
 
     <div class="ipmSelectedTheme">
         <div class="ipmThemePreview">
@@ -13,7 +13,7 @@
         <div class="ipmThemeActions">
 <!--            <a href="#" class="btn btn-link">Download</a>-->
             <?php if ($showConfiguration){ ?>
-                <a href="#" class="btn btn-primary ipsOpenOptions"><?php echo _esc('Options', 'ipAdmin'); ?></a>
+                <a href="#" class="btn btn-primary ipsOpenOptions"><?php _e('Options', 'ipAdmin'); ?></a>
                 <br/><br/>
             <?php } ?>
             <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo $this->esc($contentManagementText); ?></a>
@@ -31,10 +31,10 @@
             <?php } ?>
             <dl class="dl-horizontal">
                 <?php foreach ($plugins as $key => $plugin ) {?>
-                    <dt><?php echo $key == 0 ? _esc('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
+                    <dt><?php echo $key == 0 ? __('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
                     <dd>
                         <?php echo $this->esc($plugin->getModuleTitle()); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo $this->esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo $this->esc($plugin->getModuleGroupKey()) ?>"><?php echo _esc('Install', 'ipAdmin'); ?></a>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo $this->esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo $this->esc($plugin->getModuleGroupKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>
@@ -44,14 +44,14 @@
     <div class="ipmOtherThemes">
         <div class="ipmThemeMarket">
             <div class="ipmButtonWrapper">
-                <span class="ipmTitle"><?php echo _esc('Marketplace', 'ipAdmin'); ?></span>
-                <span class="impNotice"><?php echo _esc('Want a new look? Search for a new theme.', 'ipAdmin'); ?></span>
-                <a href="#" class="btn btn-success ipsOpenMarket"><?php echo _esc('Browse themes', 'ipAdmin'); ?></a>
+                <span class="ipmTitle"><?php _e('Marketplace', 'ipAdmin'); ?></span>
+                <span class="impNotice"><?php _e('Want a new look? Search for a new theme.', 'ipAdmin'); ?></span>
+                <a href="#" class="btn btn-success ipsOpenMarket"><?php _e('Browse themes', 'ipAdmin'); ?></a>
             </div>
         </div>
         <div class="ipmLocalThemes">
             <?php if (count($availableThemes) > 1) { ?>
-                <h2><?php echo _esc('Local themes', 'ipAdmin'); ?></h2>
+                <h2><?php _e('Local themes', 'ipAdmin'); ?></h2>
                 <ul class="ipmThemesList clearfix">
                     <?php
                         foreach ($availableThemes as $localTheme) {
@@ -68,7 +68,7 @@
                                 </span>
                                 <div class="ipmThemeActions">
                                     <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo $this->esc($localTheme->getName()) ?>'>
-                                        <?php echo _esc('Install', 'ipAdmin'); ?>
+                                        <?php _e('Install', 'ipAdmin'); ?>
                                     </a>
                                 </div>
                             </li>
@@ -81,7 +81,7 @@
     <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
         <div class="ipmPopupTabs">
             <ul>
-                <li><a href="#ipModuleThemeMarketAll"><?php echo _esc('Marketplace', 'ipAdmin'); ?></a></li>
+                <li><a href="#ipModuleThemeMarketAll"><?php _e('Marketplace', 'ipAdmin'); ?></a></li>
             </ul>
 
             <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>

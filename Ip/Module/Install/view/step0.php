@@ -1,4 +1,4 @@
-<h1><?php echo __('Choose interface language', 'ipInstall') ?></h1>
+<h1><?php _e('Choose interface language', 'ipInstall') ?></h1>
 
 <?php foreach ($languages as $key => $language) { ?>
     <?php if ($key == $selectedLanguage) { ?>
@@ -9,4 +9,4 @@
 <?php } ?>
 <br/><br/>
 
-<a class="button_act" href="?step=1"><?php echo __('Next', 'ipInstall') ?></a>
+<a class="button_act" href="?step=1"><?php _e('Next', 'ipInstall') ?></a>

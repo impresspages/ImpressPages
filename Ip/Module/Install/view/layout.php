@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="NOINDEX,NOFOLLOW">
-    <title><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
+    <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
     <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Install/assets/style.css') ?>">
     <link rel="shortcut icon" href="<?php echo \Ip\Config::baseUrl('favicon.ico') ?>">
 </head>
@@ -13,7 +13,7 @@
     <img id="logo" src="<?php echo \Ip\Config::coreModuleUrl('Install/assets/img/cms_logo.png') ?>" alt="ImpressPages CMS">
     <div class="clear"></div>
     <div id="wrapper">
-        <p id="installationNotice"><?php echo __('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php $this->esc(printf(_s('Version %s', 'ipInstall'), \Ip\Application::getVersion())) ?></span></p>
+        <p id="installationNotice"><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php $this->esc(printf(_s('Version %s', 'ipInstall'), \Ip\Application::getVersion())) ?></span></p>
         <div class="clear"></div>
         <img class="border" src="<?php echo \Ip\Config::coreModuleUrl('Install/assets/img/cms_main_top.gif') ?>" alt="Design">
         <div id="main">

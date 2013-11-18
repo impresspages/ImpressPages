@@ -196,11 +196,6 @@ function __($text, $domain)
     return htmlentities(\Ip\Translator::translate($text, $domain), (ENT_COMPAT), 'UTF-8');
 }
 
-function _esc($text, $domain)
-{
-    __($text, $domain);
-}
-
 function _e($text, $domain)
 {
     echo __($text, $domain);
@@ -211,17 +206,7 @@ function _s($text, $domain)
     return \Ip\Translator::translate($text, $domain);
 }
 
-function _n($singular, $plural, $number, $domain)
-{
-    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
-}
-
-function _x($text, $context, $domain)
-{ //TODOX
-    return $text;
-}
-
-function _nx($single, $plural, $number, $context, $domain)
-{
-//TODOX
-}
+//function _n($singular, $plural, $number, $domain)
+//{
+//    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
+//}
