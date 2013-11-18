@@ -52,9 +52,9 @@ class Helper
 
         $breadcrumb = $zone->getBreadcrumb();
         if($depthFrom == 1) {
-            $elements = $zone->getElements(); //get first level elements
+            $elements = $zone->getPages(); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom-2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
-            $elements = $zone->getElements(null, $breadcrumb[$depthFrom-2]->getId());
+            $elements = $zone->getPages(null, $breadcrumb[$depthFrom-2]->getId());
         }
         $items = array();
         if(isset($elements) && sizeof($elements) > 0) {
@@ -85,7 +85,7 @@ class Helper
         }
         $zone = $content->getZone($zoneName);
 
-        $pages = $zone->getElements(null, $pageId);
+        $pages = $zone->getPages(null, $pageId);
         $items = array();
         if(isset($pages) && sizeof($pages) > 0) {
             $curDepth = $pages[0]->getDepth();
@@ -114,7 +114,7 @@ class Helper
             $subSelected = false;
             if($curDepth < $depth) {
                 $zone = $content->getZone($zoneName);
-                $children = $zone->getElements(null, $element->getId());
+                $children = $zone->getPages(null, $element->getId());
                 if(sizeof($children) > 0) {
                     $childrenItems = self::getSubElementsData($children, $zoneName, $depth, $curDepth+1);
                     $item->setChildren($childrenItems);

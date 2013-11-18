@@ -11,16 +11,16 @@ use Ip\Page;
 class Zone404 extends \Ip\Frontend\Zone {
     
     
-    public function getElements($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
+    public function getPages($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
         return array($this->getCurrentPage());
     }
 
-    public function getElement($elementId) {
+    public function getPage($pageId) {
         return false;
     }
 
     
-    public function findElement($urlVars, $getVars) {
+    public function findPage($urlVars, $getVars) {
         return new Page(null, $this->getName());
     }
 

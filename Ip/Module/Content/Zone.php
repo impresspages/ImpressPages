@@ -20,7 +20,7 @@ class Zone extends \Ip\Frontend\Zone {
 
 
 
-    function getElements($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
+    function getPages($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
 
 
         if($languageId == null)
@@ -29,7 +29,7 @@ class Zone extends \Ip\Frontend\Zone {
         $urlVars = array();
 
         if($parentElementId != null) {  //if parent specified
-            $parentElements = $this->getRoadToElement($parentElementId);
+            $parentElements = $this->getRoadToPage($parentElementId);
             foreach($parentElements as $key => $element)
             $urlVars[] = $element->getUrl();
         }
@@ -42,9 +42,9 @@ class Zone extends \Ip\Frontend\Zone {
         $selectedId = null;
 
         if($reverseOrder)
-        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
+        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
         else
-        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentElement?$this->currentElement->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
+        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
         $elements = array();
         foreach($dbElements as $key => $dbElement) {
             $newElement = $this->makeElementFromDb($dbElement, sizeof($urlVars) == 1);
@@ -54,7 +54,7 @@ class Zone extends \Ip\Frontend\Zone {
             else
             $newElement->setSelected(0);
 
-            if($this->currentElement && $this->currentElement->getId() == $dbElement['id'])
+            if($this->currentPage && $this->currentPage->getId() == $dbElement['id'])
             $newElement->setCurrent(1);
             else
             $newElement->setCurrent(0);
@@ -72,8 +72,8 @@ class Zone extends \Ip\Frontend\Zone {
 
 
 
-    function getElement($elementId) {
-        $dbElement = $this->db->getElement($elementId);
+    function getPage($pageId) {
+        $dbElement = $this->db->getElement($pageId);
         if($dbElement) {
             $dbParentElement = $this->db->getElement($dbElement['parent']);
             $element = $this->makeElementFromDb($dbElement, $dbParentElement['parent'] == null);
@@ -108,7 +108,7 @@ class Zone extends \Ip\Frontend\Zone {
         return false;
     }
 
-    function findElement($urlVars, $getVars) {
+    function findPage($urlVars, $getVars) {
         $currentEl = null;
 
         $elId = $this->db->getRootElementId($this->getName(), ipGetCurrentLanguage()->getId());

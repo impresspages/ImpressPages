@@ -191,7 +191,7 @@ class Db {
             return;
         }
         
-        $oldPage = $zone->getElement($pageId);
+        $oldPage = $zone->getPage($pageId);
         $oldUrl = $oldPage->getLink(true);
         
         if (isset($params['buttonTitle']))
@@ -271,7 +271,7 @@ class Db {
         }
 
         if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
-            $newPage = $zone->getElement($pageId);
+            $newPage = $zone->getPage($pageId);
             $newUrl = $newPage->getLink(true);
             \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }

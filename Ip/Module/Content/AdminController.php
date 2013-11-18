@@ -89,7 +89,7 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Can\'t find zone');
         }
 
-        $element = $zone->getElement($pageId);
+        $element = $zone->getPage($pageId);
 
         if (! $element) {
             return $this->_errorAnswer('Page does not exist');
@@ -282,7 +282,7 @@ class AdminController extends \Ip\Controller
                 return $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
             }
 
-            $page = $zone->getElement($pageId);
+            $page = $zone->getPage($pageId);
             if ($page === false) {
                 return $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
             }
@@ -497,7 +497,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $zone->getElement($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
+            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
         );
 
         return new \Ip\Response\Json($data);
@@ -532,14 +532,14 @@ class AdminController extends \Ip\Controller
 
         if ($changedUrl) {
             $zone = ipGetZone($revision['zoneName']);
-            $oldElement = $zone->getElement($revision['pageId']);
+            $oldElement = $zone->getPage($revision['pageId']);
             $oldUrl = $oldElement->getLink();
         }
 
         \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
 
         if ($changedUrl) {
-            $newElement = $zone->getElement($revision['pageId']);
+            $newElement = $zone->getPage($revision['pageId']);
             $newUrl = $newElement->getLink();
         }
 
