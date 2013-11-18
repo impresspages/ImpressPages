@@ -13,7 +13,6 @@ class IpHtml extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('HTML code', 'ipAdmin');
     }
     

@@ -12,7 +12,6 @@ namespace Ip\Module\Content\Widget;
 class IpImageGallery extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
-        global $parametersMod;
         return __('Photo gallery', 'ipAdmin');
     }
 
