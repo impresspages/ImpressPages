@@ -10,18 +10,16 @@ class TestEnvironment {
 
     public static function initCode($configBasename = 'default.php')
     {
-        $config = include TEST_FIXTURE_DIR . 'ip_config/' . $configBasename;
-        \Ip\Config::init($config);
+        require_once TEST_CODEBASE_DIR . 'Ip/Application.php';
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+        $app = new \Ip\Application(TEST_FIXTURE_DIR . 'ip_config/' . $configBasename);
 
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
         }
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Application.php';
         //because of PHPUnit magic, we have to repeat it on every test
-        \Ip\Application::init();
+        $app->init();
 
         global $parametersMod;
         $parametersMod = new \PhpUnit\Mock\ParametersMod();
