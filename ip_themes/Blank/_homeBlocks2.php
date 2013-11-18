@@ -10,7 +10,7 @@
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
 <p><?php echo __('You can still add any text with any styles. And at the end of it just put read more link. Don\'t worry about pasting text from your text editor, even if it\'s MS Word or any excerpt from the Internet.', 'theme-Blank') ?></p>
-<p><a href="#"><?php echo $this->esc(__('Read more >', 'theme-Blank')) ?></a></p></div>
+<p><a href="#"><?php _e('Read more >', 'theme-Blank') ?></a></p></div>
 ';
 <?php $exampleContent = ob_get_clean(); ?>
 
