@@ -252,7 +252,7 @@ class IpForm extends \Ip\Module\Content\Widget{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => $parametersMod->getValue('Content.widget_contact_form.send')
+        	'defaultValue' => _s('Content.widget_contact_form.send', 'ipPublic')
         ));
         $form->addField($field);
         

@@ -70,7 +70,9 @@ class Layout extends \Ip\Response {
         return $this->layout;
     }
 
-    public function addCss($file, $stage = 1) {
+    public function addCss($file, $attributes = array(), $stage = 1) {
+        //TODOX add attributes
+        //TODOX add stage handling
         $this->requiredCss[(int)$stage][$file] = $file;
     }
 
@@ -85,7 +87,7 @@ class Layout extends \Ip\Response {
     public function getCss() {
         ksort($this->requiredCss);
         $cssFiles = array();
-        foreach($this->requiredCss as $levelKey => $level) {
+        foreach($this->requiredCss as $level) {
             $cssFiles = array_merge($cssFiles, $level);
         }
         return $cssFiles;
@@ -99,10 +101,11 @@ class Layout extends \Ip\Response {
     }
 
 
-    public function addJavascript($file, $stage = 1) {
+    public function addJavascript($file, $attributes = array(), $stage = 1) {
         $this->requiredJavascript[(int)$stage][$file] = array (
             'type' => 'file',
-            'value' => $file
+            'value' => $file,
+            'attributes' => $attributes
         );
     }
 

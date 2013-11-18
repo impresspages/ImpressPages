@@ -11,7 +11,6 @@ namespace Ip\Module\Content\Widget;
 class IpTextImage extends \Ip\Module\Content\Widget{
 
     public function getTitle() {
-        global $parametersMod;
         return __('Text with image', 'ipAdmin');
     }
 
@@ -48,7 +47,6 @@ class IpTextImage extends \Ip\Module\Content\Widget{
     
     
     public function managementHtml($instanceId, $data, $layout) {
-        global $parametersMod;
         $data['translations']['title'] = __('Title', 'ipAdmin');
         return parent::managementHtml($instanceId, $data, $layout);
     }    

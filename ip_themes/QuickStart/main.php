@@ -4,7 +4,7 @@
     <?php
     ipAddCss(\Ip\Config::themeUrl('ip_content.css'));
     ipAddCss(\Ip\Config::themeUrl('theme.css'));
-    echo ipHead();
+    ipPrintHead();
     ?>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <?php
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(\Ip\Config::themeUrl('theme.js'));
-        echo ipJavascript();
+        ipPrintJavascript();
     ?>
 </body>
 </html>

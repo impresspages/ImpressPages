@@ -13,7 +13,6 @@ class IpRichText extends \Ip\Module\Content\Widget{
 
 
     public function getTitle() {
-        global $parametersMod;
         return __('Rich text', 'ipAdmin');
     }
     

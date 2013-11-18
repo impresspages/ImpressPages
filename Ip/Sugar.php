@@ -66,35 +66,45 @@ function ipSetLayoutVariable($name, $value)
     }
 }
 
+//TODOX remove
 function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
         $response->addJavascript($file, $stage);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascript');
     }
 }
 
-function ipAddPluginAsset($plugin, $file, $priority = 1)
+function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $priority);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascript');
+        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
     }
 }
 
-function ipAddThemeAsset($file, $priority = 1)
+function ipAddThemeAsset($file, $attributes = array(), $priority = 1)
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (strtolower(substr($file, -3)) == '.js') {
+        if (method_exists($response, 'addJavascript')) {
+            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
+        }
+    } else {
+        if (method_exists($response, 'addJavascript')) {
+            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
+        }
+    }
+}
+
+function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::themeUrl(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority));
-    } else {
-        ipLog('Core', 'Response method has no method addJavascript');
+        $response->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
     }
 }
+
 
 function ipAddJavascriptVariable($name, $value)
 {
@@ -106,15 +116,7 @@ function ipAddJavascriptVariable($name, $value)
     }
 }
 
-function ipAddJavascriptContent($key, $javascript, $stage = 1)
-{
-    $response = \Ip\ServiceLocator::getResponse();
-    if (method_exists($response, 'addJavascriptContent')) {
-        $response->addJavascriptContent($key, $javascript, $stage = 1);
-    } else {
-        ipLog('Core', 'Response method has no method addJavascriptContent');
-    }
-}
+
 
 function ipAddCss($file, $stage = 1)
 {
@@ -132,14 +134,26 @@ function ipLog($module, $message, $severity, $debugInfo = null)
     //TODOX
 }
 
-function ipJavascript()
+function ipPrintJavascript($return = false)
 {
-    return \Ip\ServiceLocator::getResponse()->generateJavascript();
+    $script = \Ip\ServiceLocator::getResponse()->generateJavascript();
+    if ($return) {
+        return $script;
+    } else {
+        echo $script;
+        return '';
+    }
 }
 
-function ipHead()
+function ipPrintHead($return = false)
 {
-    return \Ip\ServiceLocator::getResponse()->generateHead();
+    $head = \Ip\ServiceLocator::getResponse()->generateHead();
+    if ($return) {
+        return $head;
+    } else {
+        echo $head;
+        return '';
+    }
 }
 
 function ipSetLayout($file)
@@ -160,6 +174,11 @@ function ipGetLayout()
     } else {
         ipLog('Core', 'Response method has no method getLayout');
     }
+}
+
+function ipEsc($text)
+{
+    return htmlspecialchars($text, ENT_QUOTES);
 }
 
 /**

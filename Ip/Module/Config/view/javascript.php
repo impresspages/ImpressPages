@@ -18,7 +18,20 @@ var ip = {
 <?php foreach ($javascript as $levelKey => $level) { ?>
     <?php foreach ($level as $recordKey => $record) { ?>
         <?php if ($record['type'] == 'file') { ?>
-            <script type="text/javascript" src="<?php echo $record['value'] ?>"></script>
+            <script type="text/javascript" src="<?php echo $record['value'] ?>" <?php
+            if (is_array($record['attributes'])) {
+                echo join(
+                    ' ',
+                    array_map(
+                        function ($sKey, $sValue) {
+                            return ipEsc($sKey) . '="' . ipEsc($sValue) . '"';
+                        },
+                        array_keys($record['attributes']),
+                        array_values($record['attributes'])
+                    )
+                );
+            }
+            ?>></script>
         <?php } ?>
         <?php if ($record['type'] == 'variable') { ?>
             <script type="text/javascript">
