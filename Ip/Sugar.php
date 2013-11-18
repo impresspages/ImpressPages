@@ -66,6 +66,7 @@ function ipSetLayoutVariable($name, $value)
     }
 }
 
+//TODOX remove
 function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
@@ -100,6 +101,15 @@ function ipAddThemeAsset($file, $priority = 1)
     }
 }
 
+function ipAddJQuery()
+{
+    $response = \Ip\ServiceLocator::getResponse();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+    }
+}
+
+//TODOX refactor
 function ipAddJavascriptVariable($name, $value)
 {
     $response = \Ip\ServiceLocator::getResponse();
@@ -110,6 +120,7 @@ function ipAddJavascriptVariable($name, $value)
     }
 }
 
+//TODOX refactor
 function ipAddJavascriptContent($key, $javascript, $stage = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
@@ -136,14 +147,26 @@ function ipLog($module, $message, $severity, $debugInfo = null)
     //TODOX
 }
 
-function ipJavascript()
+function ipPrintJavascript($return = false)
 {
-    return \Ip\ServiceLocator::getResponse()->generateJavascript();
+    $script = \Ip\ServiceLocator::getResponse()->generateJavascript();
+    if ($return) {
+        return $script;
+    } else {
+        echo $script;
+        return '';
+    }
 }
 
-function ipHead()
+function ipPrintHead($return = false)
 {
-    return \Ip\ServiceLocator::getResponse()->generateHead();
+    $head = \Ip\ServiceLocator::getResponse()->generateHead();
+    if ($return) {
+        return $head;
+    } else {
+        echo $head;
+        return '';
+    }
 }
 
 function ipSetLayout($file)
