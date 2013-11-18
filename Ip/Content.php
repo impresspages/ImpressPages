@@ -63,7 +63,7 @@ class Content {
             if ($zone) {
                 $page = $this->getCurrentPage();
                 if ($page) {
-                    $layout = \Ip\Frontend\Db::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
+                    $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
                 if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
@@ -149,7 +149,7 @@ class Content {
     protected function getZonesData()
     {
         if (!$this->zonesData) {
-            $this->zonesData = \Ip\Frontend\Db::getZones($this->getCurrentLanguage()->getId());
+            $this->zonesData = Internal\ContentDb::getZones($this->getCurrentLanguage()->getId());
         }
         return $this->zonesData;
     }
@@ -183,7 +183,7 @@ class Content {
     public function getLanguages()
     {
         if ($this->languages === null) {
-            $languages = \Ip\Frontend\Db::getLanguages(true);
+            $languages = Internal\ContentDb::getLanguages(true);
             $this->languages = array();
             foreach($languages as $data){
                 $this->languages[] = $this->createLanguage($data);
@@ -286,11 +286,11 @@ class Content {
         if (ipGetOption('Config.multilingual')) {
             $this->languageUrl = urldecode(array_shift($urlVars));
             if ($this->languageUrl == '') {
-                $firstLanguageData = \Ip\Frontend\Db::getFirstLanguage();
+                $firstLanguageData = Internal\ContentDb::getFirstLanguage();
                 $this->languageUrl = $firstLanguageData['url'];
             }
         } else {
-            $firstLanguageData = \Ip\Frontend\Db::getFirstLanguage();
+            $firstLanguageData = Internal\ContentDb::getFirstLanguage();
             $this->languageUrl = $firstLanguageData['url'];
         }
 
