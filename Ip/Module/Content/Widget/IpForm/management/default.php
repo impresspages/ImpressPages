@@ -16,6 +16,6 @@
 </div>
 <a href="#" class="ipAdminButton ipaFieldAdd">Add new</a>
 <div class="ipaOptions">
-    <label class="ipAdminLabel"><?php echo $this->escPar('Content.widget_contact_form.thank_you'); ?></label>
+    <label class="ipAdminLabel"><?php echo _esc('Thank you message', 'ipAdmin'); ?></label>
     <textarea class="ipWidgetIpFormSuccess"><?php echo isset($success) ? htmlentities($success, (ENT_COMPAT), 'UTF-8') : ''; ?></textarea>
 </div>
