@@ -182,7 +182,6 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
 
     public function previewHtml($instanceId, $data, $layout)
     {
-        global $parametersMod;
         $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
         if (isset($data['images']) && is_array($data['images'])) {
@@ -212,16 +211,16 @@ class IpImageGallery extends \Ip\Module\Content\Widget{
                         $curImage['cropY1'],
                         $curImage['cropX2'],
                         $curImage['cropY2'],
-                        $parametersMod->getValue('Content.widgetImageGalleryWidth'),
-                        $parametersMod->getValue('Content.widgetImageGalleryHeight'),
-                        $parametersMod->getValue('Content.widgetImageGalleryQuality')
+                        ipGetOption('Content.widgetImageGalleryWidth'),
+                        ipGetOption('Content.widgetImageGalleryHeight'),
+                        ipGetOption('Content.widgetImageGalleryQuality')
                     );
 
                 } else {
                     $transformSmall = new \Ip\Module\Repository\Transform\ImageCropCenter(
-                        $parametersMod->getValue('Content.widgetImageGalleryWidth'),
-                        $parametersMod->getValue('Content.widgetImageGalleryHeight'),
-                        $parametersMod->getValue('Content.widgetImageGalleryQuality')
+                        ipGetOption('Content.widgetImageGalleryWidth'),
+                        ipGetOption('Content.widgetImageGalleryHeight'),
+                        ipGetOption('Content.widgetImageGalleryQuality')
                     );
 
                 }
