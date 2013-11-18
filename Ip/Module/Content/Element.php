@@ -65,12 +65,12 @@ class Page extends \Ip\Page {
     private function generateDepthAndLink() {
         $tmpUrlVars = array();
         $tmpId = $this->getId();
-        $element = DbFrontend::getElement($tmpId);
+        $element = DbFrontend::getPage($tmpId);
         while($element['parent'] !== null) {
             $tmpUrlVars[] = $element['url'];
-            $element = DbFrontend::getElement($element['parent']);
+            $element = DbFrontend::getPage($element['parent']);
         }
-        $languageId = DbFrontend::languageByRootElement($element['id']);
+        $languageId = DbFrontend::languageByRootPage($element['id']);
 
         $urlVars = array();
 

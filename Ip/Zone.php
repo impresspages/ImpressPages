@@ -14,7 +14,7 @@ use Ip\Language;
  *  ImpressPages system doesn't manage separate pages by itself.
  *  For this task special modules called "zones" are created.
  *  Each zone can have any number of pages with any content. Pages are the objects that extend class Page.
- *  CMS only finds currently required zone (by specified url), asks to supply current Element and displays the content.
+ *  CMS only finds currently required zone (by specified url), asks to supply current Page and displays the content.
  *
  *  If you wish to create your own zone of website, extend this class. Overwrite abstract methods and you are done.
  *  Now you have full control of all pages in this zone. It’s up to you how to display the content.
@@ -51,10 +51,10 @@ abstract class Zone{
     /** string */
     protected $associatedModule;
 
-    /** Element - Once it is found, it is stored for future use. */
+    /** Page - Once it is found, it is stored for future use. */
     protected $currentPage;
 
-    /** array of Elements (Element). Once the breadcrumb is generated, it is stored for future use.  */
+    /** array of Pages (Page). Once the breadcrumb is generated, it is stored for future use.  */
     protected $breadcrumb;
 
 
@@ -67,26 +67,26 @@ abstract class Zone{
 
     /**
      *
-     * Finds elements of this zone. This function returns only one level of menu tree.
-     * If $parentPageId is null, then function returns the first level of elements.
-     * Otherwise, if you specify $parentElementId, then child elements of specified parent Element is returned.
+     * Finds pages of this zone. This function returns only one level of menu tree.
+     * If $parentPageId is null, then function returns the first level of pages.
+     * Otherwise, if you specify $parentPageId, then child pages of specified parent Pages is returned.
      *
      * @param $language Language id. If not set, current website language is used.
-     * @param $parentElementId if set, function returns only children
-     * @param $startFrom MySql syntax to limit returning elements count.
-     * @param $limit MySQL syntax to limit the number of elements to return.
-     * @param $includeHidden set to false if you need only visible elements (some elements might be temporary hidden).
-     * @param $reverseOrder set to true to return elements in reverse order.
-     * @return array Element
+     * @param $parentPageId if set, function returns only children
+     * @param $startFrom MySql syntax to limit returning pages count.
+     * @param $limit MySQL syntax to limit the number of pages to return.
+     * @param $includeHidden set to false if you need only visible pages (some pages might be temporary hidden).
+     * @param $reverseOrder set to true to return pages in reverse order.
+     * @return Page[]
      *
      */
     //TODOX rename to Pages
-    public abstract function getPages($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
+    public abstract function getPages($language = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
 
     /**
      *
-     * Returns Element by specified id.
+     * Returns Pages by specified id.
      *
      * @param $pageId int
      * @return Page by specified id.
@@ -97,7 +97,7 @@ abstract class Zone{
 
     /**
      *
-     * Finds page by URL and GET variables. This function is used to find current Element (page) of requested URL.
+     * Finds page by URL and GET variables. This function is used to find current Page (page) of requested URL.
      *
      * If requested url is http://yoursite.com/en/zone_url/var1/var2/?page=2
      *
@@ -106,7 +106,7 @@ abstract class Zone{
      * $urlVars == array('var1', 'var2');
      * $getVars == array('page' = 2);
      *
-     * Use these values to detect which of your zone is requested and create required Element (page).
+     * Use these values to detect which of your zone is requested and create required Page.
      *
      *
      * @param $urlVars array
@@ -121,10 +121,10 @@ abstract class Zone{
 
     /**
      *
-     * Get breadcrumb from root to required Element.
+     * Get breadcrumb from root to required Page.
      *
      * @param $pageId
-     * @return array of elements - breadcrumb from root to required Element
+     * @return array of pages - breadcrumb from root to required Page
      *
      */
 
@@ -153,7 +153,7 @@ abstract class Zone{
      *
      * Finds current (active) page of this zone. Calculated value is cached.
      *
-     * @return Page - element that represents current requested page.
+     * @return Page - that represents current requested page.
      *
      */
     public function getCurrentPage(){
