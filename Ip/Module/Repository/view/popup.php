@@ -14,10 +14,10 @@
                     <div class="ipmCurErrors"></div>
                     <div class="ipmBrowseButtonWrapper">
                         <span class="impDragdropNotice"><?php echo _esc('Drag&drop files here or click a button to upload.', 'ipAdmin') ?></span>
-                        <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('Config.add_new'); ?></a>
+                        <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo __('Add new', 'ipAdmin') ?></a>
                     </div>
                     <div class="ipmBrowseButtonWrapper">
-                        <span class="impDragdropNotice"><?php echo _esc('Need more images? Browse and choose from thousands of them.', 'ipAdmin') ?></span>
+                        <span class="impDragdropNotice"><?php echo __('Need more images? Browse and choose from thousands of them.', 'ipAdmin') ?></span>
                         <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php echo _esc('Buy images', 'ipAdmin') ?></a>
                     </div>
                 </div>

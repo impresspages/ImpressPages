@@ -198,7 +198,7 @@ function __($text, $domain)
 
 function _esc($text, $domain)
 {
-    return htmlspecialchars(__($text, $domain));
+    return htmlentities(__($text, $domain), (ENT_COMPAT), 'UTF-8');
 }
 
 function _n($singular, $plural, $number, $domain)
