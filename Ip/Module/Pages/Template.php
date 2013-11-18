@@ -19,7 +19,7 @@ class Template {
     <title>ImpressPages</title>
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    '.ipHead().'
+    '.ipPrintHead(true).'
     '.ipJavascript().'
     <script type="text/javascript" src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/default.js') . '"></script>
     <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>

@@ -867,7 +867,7 @@ class StandardModule {
     <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
     <script src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . \Ip\Config::baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
-    '.ipHead().'
+    '.ipPrintHead(true).'
 </head>
 	 
 <body> <!-- display loading until page is loaded-->

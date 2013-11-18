@@ -10,7 +10,7 @@
 <head>
     <?php
     ipAddCss(\Ip\Config::coreModuleUrl('Config/public/admin.css'));
-    echo ipHead();
+    ipPrintHead();
     ?>
 </head>
 <body>

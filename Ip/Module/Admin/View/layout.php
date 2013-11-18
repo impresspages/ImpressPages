@@ -11,7 +11,7 @@
 
     <link href="<?php echo  \Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') ?>" type="text/css" rel="stylesheet" media="screen" />
 
-    <?php echo ipHead(); ?>
+    <?php ipPrintHead() ?>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
