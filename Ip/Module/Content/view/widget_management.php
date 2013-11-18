@@ -19,7 +19,7 @@
 <?php echo $managementHtml; ?>
     </div>
     <div class="ipaFooter ipgClear">
-        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave"><?php echo _esc('Confirm', 'ipAdmin'); ?></a>
-        <a href="#" class="ipAdminButton ipActionWidgetCancel"><?php echo _esc('Cancel', 'ipAdmin'); ?></a>
+        <a href="#" class="ipAdminButton ipaConfirm ipActionWidgetSave"><?php _e('Confirm', 'ipAdmin'); ?></a>
+        <a href="#" class="ipAdminButton ipActionWidgetCancel"><?php _e('Cancel', 'ipAdmin'); ?></a>
     </div>
 </div>

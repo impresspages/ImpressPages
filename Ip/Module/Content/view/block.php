@@ -13,7 +13,7 @@
     } elseif ($managementState) {
 ?>
         <div class="ipbExampleContent">
-            <div class="ipbDefault"><?php echo _esc('Drag widgets here', 'ipAdmin') ?></div>
+            <div class="ipbDefault"><?php _e('Drag widgets here', 'ipAdmin') ?></div>
             <div class="ipbUser">
 <?php
         if ($exampleContent) {
