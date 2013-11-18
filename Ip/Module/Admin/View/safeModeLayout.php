@@ -3,7 +3,7 @@
 <head>
     <?php
     ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/ipContent/ip_content.css'));
-    echo ipHead();
+    ipPrintHead();
     ?>
 </head>
 <body>
