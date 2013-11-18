@@ -112,7 +112,7 @@ abstract class Image extends Base
      * @throws \Ip\Module\Repository\TransformException
      */
     protected function saveJpeg($image, $fileName, $quality) {
-        if(!imagejpeg($image, $fileName, $quality)){
+        if(!imagejpeg($image, $fileName, (int)$quality)){
             throw new \Ip\Module\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Module\Repository\TransformException::WRITE_PERMISSION);
         }
         return true;

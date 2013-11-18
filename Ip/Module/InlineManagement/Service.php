@@ -134,7 +134,7 @@ class Service
     {
 
         if ($defaultValue === null) {
-            $defaultValue = \Ip\Config::getRaw('MODULE_DIR') . 'inline_management/public/empty.gif';
+            $defaultValue = \Ip\Config::coreModuleFile('InlineManagement/public/empty.gif');
         }
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());

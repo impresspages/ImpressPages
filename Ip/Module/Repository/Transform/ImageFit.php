@@ -30,7 +30,7 @@ class ImageFit extends Image
 
         $this->width = $width;
         $this->height = $height;
-        $this->quality = $quality;
+        $this->quality = (int)$quality;
         $this->forced = $forced;
     }
 

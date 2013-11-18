@@ -61,9 +61,6 @@ class LanguageModel{
     }
 
     private function allowDelete($id) {
-        global $parametersMod;
-        require_once (MODULE_DIR."standard/menu_management/db.php");
-
         $dbMenuManagement = new Db();
 
         $answer = true;
