@@ -16,7 +16,7 @@ namespace Ip\Module\Content;
  * @package ImpressPages
  */
 
-class Element extends \Ip\Frontend\Element {
+class Page extends \Ip\Page {
     protected $dynamicModules;
     protected $linkIgnoreRedirect;
 

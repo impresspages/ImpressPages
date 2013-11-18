@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Frontend;
+namespace Ip;
 
 
 /**
@@ -16,7 +16,7 @@ namespace Ip\Frontend;
  *
  */
 //TODOX renamet o Page
-class Element{
+class Page{
     /** int - unique number of element in that zone. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
@@ -140,7 +140,7 @@ class Element{
 
     /**
      *
-     * @return Element or false if next element doesn't exist
+     * @return Page or false if next element doesn't exist
      *
      */
     public function getNextElement()
@@ -153,7 +153,7 @@ class Element{
 
     /**
      *
-     * @return Element or false if previous element doesn't exist
+     * @return Page or false if previous element doesn't exist
      *
      */
     public function getPreviousElement()

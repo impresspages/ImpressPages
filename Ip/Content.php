@@ -231,7 +231,7 @@ class Content {
                 $zoneObject = new $class($zoneData['name']);
             }
         } else {
-            $zoneObject = new \Ip\Frontend\DefaultZone($zoneData);
+            $zoneObject = new \Ip\DefaultZone($zoneData);
         }
 
         $zoneObject->setId($zoneData['id']);

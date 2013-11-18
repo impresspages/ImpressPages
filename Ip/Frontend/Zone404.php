@@ -6,7 +6,7 @@
  */
 namespace Ip\Frontend;
 
-use Ip\Frontend\Element;
+use Ip\Page;
 
 class Zone404 extends \Ip\Frontend\Zone {
     
@@ -21,7 +21,7 @@ class Zone404 extends \Ip\Frontend\Zone {
 
     
     public function findElement($urlVars, $getVars) {
-        return new Element(null, $this->getName());
+        return new Page(null, $this->getName());
     }
 
     public function getCurrentPage()
