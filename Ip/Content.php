@@ -285,6 +285,10 @@ class Content {
         }
         if (ipGetOption('Config.multilingual')) {
             $this->languageUrl = urldecode(array_shift($urlVars));
+            if ($this->languageUrl == '') {
+                $firstLanguageData = \Ip\Frontend\Db::getFirstLanguage();
+                $this->languageUrl = $firstLanguageData['url'];
+            }
         } else {
             $firstLanguageData = \Ip\Frontend\Db::getFirstLanguage();
             $this->languageUrl = $firstLanguageData['url'];
