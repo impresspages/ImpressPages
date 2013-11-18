@@ -1,5 +1,5 @@
 <div class="ipmFileContainer <?php echo $classes ?>" data-inputname='<?php echo addslashes($inputName) ?>'>
-    <a <?php echo $attributesStr ?> class="ipmFileAddButton"  href="#" ><?php echo $this->esc(__('Upload', 'ipAdmin')) ?></a>
+    <a <?php echo $attributesStr ?> class="ipmFileAddButton"  href="#" ><?php _e('Upload', 'ipAdmin') ?></a>
     <div>
         <input class="ipmControlBlank" type="text" name="<?php echo addslashes($inputName) ?>" /> <!-- It is needed for jQuery Tools to position error message -->
     </div>

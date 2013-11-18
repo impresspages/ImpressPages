@@ -1,5 +1,5 @@
 <?php if ($homeUrl) { ?>
-    <a href="<?php echo $homeUrl; ?>"><?php echo $this->esc(__('Home', 'ipPublic')); ?></a>
+    <a href="<?php echo $homeUrl; ?>"><?php _e('Home', 'ipPublic') ?></a>
     <?php echo $separator; ?>
 <?php } ?>
 <?php foreach ($breadcrumbElements as $key => $element) { ?>

@@ -14,7 +14,7 @@
 <div class="verticalAlign"></div>
 <div class="login">
     <div class="loginTitle">
-        <h1><?php echo $this->esc(__('Login', 'ipAdmin')) ?></h1>
+        <h1><?php _e('Login', 'ipAdmin') ?></h1>
     </div>
     <?php echo $loginForm->render() ?>
 </div>

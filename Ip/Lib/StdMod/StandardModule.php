@@ -339,7 +339,7 @@ class StandardModule {
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
-                    alert('".addslashes(__('Impossible to insert the record', 'ipAdmin'))."');
+                    alert('".addslashes(_s('Impossible to insert the record', 'ipAdmin'))."');
                   </script>
                  </body>
                </html>
@@ -554,7 +554,7 @@ class StandardModule {
               </head>
               <body>
                 <script type=\"text/javascript\">                  
-                  alert('".addslashes(__('Impossible to update the record', 'ipAdmin'))."');
+                  alert('".addslashes(_s('Impossible to update the record', 'ipAdmin'))."');
                 </script>
                </body>
              </html>
@@ -876,7 +876,7 @@ class StandardModule {
       <div id="loading" style="height: 60px; z-index: 1001; width: 100%; position: fixed; left:0px; top: 180px;">
 				<table style="margin-left: auto; margin-right: auto;"><tr>
 					<td style="font-family: Verdana, Tahoma, Arial; font-size: 14px; color: #505050; padding: 30px 33px; background-color: #d9d9d9; border: 1px solid #bcbdbf;">
-						'.htmlspecialchars(__('Loading ...', 'ipAdmin')).'
+						'.__('Loading ...', 'ipAdmin').'
 					</td>
 				</tr></table>
 			</div>
@@ -1017,7 +1017,7 @@ class StandardModule {
                 if(method_exists($area, 'lastError')) {
                     echo "alert('".addslashes($area->lastError('delete'))."');";
                 }else {
-                    echo "alert('".addslashes(__('Impossible to delete the record', 'ipAdmin'))."');";
+                    echo "alert('".addslashes(_s('Impossible to delete the record', 'ipAdmin'))."');";
                 }
                 return false;
             }
@@ -1308,13 +1308,13 @@ class StandardModule {
 					<option value="10000">10000</option>
 					<option value="100000">100000</option>
 				 </select>
-				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars(__('Previous page', 'ipAdmin')).'">
-					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.htmlspecialchars(__('Previous page', 'ipAdmin')).'">
+				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.__('Previous page', 'ipAdmin').'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.__('Previous page', 'ipAdmin').'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
-				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.htmlspecialchars(__('Next page', 'ipAdmin')).'">
-					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.htmlspecialchars(__('Next page', 'ipAdmin')).'">
+				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.__('Next page', 'ipAdmin').'">
+					<img src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.__('Next page', 'ipAdmin').'">
 				 </a>
 			 </div>
 			</form>
@@ -1582,12 +1582,12 @@ class StandardModule {
 								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
 								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
 							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
-							'.htmlspecialchars(__('New record', 'ipAdmin')).'
+							'.__('New record', 'ipAdmin').'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
 						<div class="moduleControlButtons">
-							<a onclick="document.getElementById(\'std_mod_new_f\').submit();" class="button">'.htmlspecialchars(__('Save', 'ipAdmin')).'</a>
-							<a onclick="std_mod_hide_popups();" class="button">'.htmlspecialchars(__('Cancel', 'ipAdmin')).'</a>
+							<a onclick="document.getElementById(\'std_mod_new_f\').submit();" class="button">'.__('Save', 'ipAdmin').'</a>
+							<a onclick="std_mod_hide_popups();" class="button">'.__('Cancel', 'ipAdmin').'</a>
 							<div class="clear"></div>
 						</div>
 					</div>
@@ -1602,7 +1602,7 @@ class StandardModule {
 								onmouseover="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
 								onmouseout="this.src=\'' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
 							src="' . \Ip\Config::coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
-							'.htmlspecialchars(__('Search', 'ipAdmin')).'
+							'.__('Search', 'ipAdmin').'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>
 						<div class="moduleControlButtons">

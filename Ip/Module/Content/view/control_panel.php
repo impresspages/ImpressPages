@@ -4,11 +4,11 @@
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
-                    <input type="text" class="ipAdminInput ipaInput" value="<?php echo $this->esc(__('Search widgets', 'ipAdmin')) ?>" />
+                    <input type="text" class="ipAdminInput ipaInput" value="<?php _e('Search widgets', 'ipAdmin') ?>" />
                     <a href="#" class="ipaButton"></a>
                 </div>
             </div>
-            <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->esc(__('Advanced', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
+            <a href="#" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
             <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->esc(__('Preview', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
             <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->esc(__('Publish', 'ipAdmin')); ?>"><?php echo __('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
