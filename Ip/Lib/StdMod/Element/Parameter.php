@@ -20,14 +20,14 @@ class Parameter extends Element{ //data element in area
 
 			
         <select id="std_mod_parameter_type_'.$prefix.'" onchange="std_mod_parameter_type_change_'.$prefix.'()" name="'.$prefix.'">
-          <option value="string">'.htmlspecialchars(__('String', 'ipAdmin')).'</option>
-          <option value="integer">'.htmlspecialchars(__('Integer', 'ipAdmin')).'</option>
-          <option value="bool">'.htmlspecialchars(__('Boolean', 'ipAdmin')).'</option>
-          <option value="textarea">'.htmlspecialchars(__('Textarea', 'ipAdmin')).'</option>
-          <option value="string_wysiwyg">'.htmlspecialchars(__('Wysiwyg', 'ipAdmin')).'</option>
-          <option value="lang">'.htmlspecialchars(__('String languages', 'ipAdmin')).'</option>
-          <option value="lang_textarea">'.htmlspecialchars(__('Textarea languages', 'ipAdmin')).'</option>
-          <option value="lang_wysiwyg">'.htmlspecialchars(__('Wysiwyg languages', 'ipAdmin')).'</option>
+          <option value="string">'.__('String', 'ipAdmin').'</option>
+          <option value="integer">'.__('Integer', 'ipAdmin').'</option>
+          <option value="bool">'.__('Boolean', 'ipAdmin').'</option>
+          <option value="textarea">'.__('Textarea', 'ipAdmin').'</option>
+          <option value="string_wysiwyg">'.__('Wysiwyg', 'ipAdmin').'</option>
+          <option value="lang">'.__('String languages', 'ipAdmin').'</option>
+          <option value="lang_textarea">'.__('Textarea languages', 'ipAdmin').'</option>
+          <option value="lang_wysiwyg">'.__('Wysiwyg languages', 'ipAdmin').'</option>
          <!-- <option value="photo">Nuotrauka</option>-->
         </select>    <br /><br />
       ');
