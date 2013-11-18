@@ -172,7 +172,6 @@ class ConfigModel{
      */
     public function getThemeConfigForm($name)
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $model = Model::instance();
         $theme = $model->getTheme($name);
         if (!$theme) {

@@ -3,7 +3,7 @@
 /**
  * Queue controls the amount of emails per hour.
  * All emails ar placed in queue and send as quiq as possible.
- * Parameter "emails_per_hour" defines how mutch emails can be send in one hour.
+ * Parameter "hourlyLimit" defines how much emails can be send in one hour.
  * If required amount of emails is bigger than this parameter, part of messages will wait until next hour.
  *
  * @package ImpressPages
@@ -71,10 +71,9 @@ class Module{
      * Checks if there is some emails waiting in queue and sends them if possible.
      */
     function send(){
-        global $parametersMod;
         $alreadySent = Db::sentOrLockedCount(60);
         if($alreadySent !== false){
-            $available = floor($parametersMod->getValue('Email.emails_per_hour')*0.8 - $alreadySent); //20% for imediate emails
+            $available = floor(ipGetOption('Email.hourlyLimit')*0.8 - $alreadySent); //20% for imediate emails
             $lockKey = md5(uniqid(rand(), true));
             if($available > 0) {
                 if($available > 5 && !defined('CRON')) { //only cron job can send many emails at once.
@@ -86,13 +85,11 @@ class Module{
                 $locked = 0;
             }
              
-            if($locked == $available) //if in queue left some messages
-            $locked = $locked + Db::lockOnlyImmediate($parametersMod->getValue('Email.emails_per_hour') - ($alreadySent + $available), $lockKey);
-            if($locked){
+            if ($locked == $available) { //if in queue left some messages
+                $locked = $locked + Db::lockOnlyImmediate(ipGetOption('Email.hourlyLimit') - ($alreadySent + $available), $lockKey);
+            }
+            if ($locked) {
                 $emails = Db::getLocked($lockKey);
-
-                 
-                $errors = false;
 
 
                 foreach($emails as $key => $email){
