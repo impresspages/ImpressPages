@@ -19,7 +19,7 @@ class Script extends \IpUpdate\Library\Migration\General
     {
         $this->cf = $cf;
         $db = new \IpUpdate\Library\Model\Db();
-        $conn = $db->connect($cf, \IpUpdate\Library\Model\Db::DRIVER_MYSQL);
+        $conn = $db->connect($cf);
         $this->conn = $conn;
         $dbh = $db->connect($cf);
         $this->dbh = $dbh;
@@ -28,6 +28,8 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->createPluginTable();
 
+        $helper = new Helper($cf, $this->conn);
+        $helper->import(__DIR__ . '/options.json');
 
         //TODOX remove modules and permissions: sitemap, modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue, system
 

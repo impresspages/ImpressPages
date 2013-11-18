@@ -1,0 +1,9 @@
+{
+    "Config.websiteTitle": "Title",
+    "Config.multilingual": "1",
+    "Config.websiteEmail": "test@test.com",
+    "Config.automaticCron": "1",
+    "Config.keepOldRevision": "3",
+    "Config.cronPassword": "randomCronPassword"
+
+}
