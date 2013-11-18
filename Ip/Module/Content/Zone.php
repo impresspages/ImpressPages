@@ -136,7 +136,7 @@ class Zone extends \Ip\Frontend\Zone {
 
 
     private function makeElementFromDb($dbElement, $firstLevel) {
-        $newElement = new Element($dbElement['id'], $this->getName());
+        $newElement = new \Ip\Page($dbElement['id'], $this->getName());
         $newElement->setButtonTitle($dbElement['button_title']);
         $newElement->setPageTitle($dbElement['page_title']);
         $newElement->setKeywords($dbElement['keywords']);
@@ -155,7 +155,6 @@ class Zone extends \Ip\Frontend\Zone {
         $newElement->setHtml($dbElement['html']);
         $newElement->setType($dbElement['type']);
         $newElement->setRedirectUrl($dbElement['redirect_url']);
-        $newElement->setDynamicModules($dbElement['dynamic_modules']);
         return $newElement;
     }
 

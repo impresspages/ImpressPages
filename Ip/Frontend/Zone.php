@@ -7,6 +7,8 @@
 
 namespace Ip\Frontend;
 
+use Ip\Page;
+
 /**
  *
  *  ImpressPages system doesn't manage separate pages by itself.
@@ -87,7 +89,7 @@ abstract class Zone{
      * Returns Element by specified id.
      *
      * @param $elementId int
-     * @return Element by specified id.
+     * @return Page by specified id.
      *
      */
     public abstract function getElement($elementId);
@@ -109,7 +111,7 @@ abstract class Zone{
      *
      * @param $urlVars array
      * @param $getVars array
-     * @return Element
+     * @return Page
      *
      */
     public abstract function findElement($urlVars, $getVars);
@@ -151,7 +153,7 @@ abstract class Zone{
      *
      * Finds current (active) page of this zone. Calculated value is cached.
      *
-     * @return Element - element that represents current requested page.
+     * @return Page - element that represents current requested page.
      *
      */
     public function getCurrentPage(){

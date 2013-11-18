@@ -8,7 +8,9 @@
 namespace Ip\Frontend;
 
 
-class Page404 extends Element {
+use Ip\Page;
+
+class Page404 extends Page {
     public function getButtonTitle()
     {
         return ipGetOption('Config.websiteTitle');
