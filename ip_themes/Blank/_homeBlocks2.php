@@ -6,10 +6,10 @@
 ?>
 <?php ob_start(); // Example content ?>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
-<h2 class="ipwTitle"><?php echo __('Heading in the second row', 'theme-Blank') ?></h2>
+<h2 class="ipwTitle"><?php _e('Heading in the second row', 'theme-Blank') ?></h2>
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
-<p><?php echo __('You can still add any text with any styles. And at the end of it just put read more link. Don\'t worry about pasting text from your text editor, even if it\'s MS Word or any excerpt from the Internet.', 'theme-Blank') ?></p>
+<p><?php _e('You can still add any text with any styles. And at the end of it just put read more link. Don\'t worry about pasting text from your text editor, even if it\'s MS Word or any excerpt from the Internet.', 'theme-Blank') ?></p>
 <p><a href="#"><?php _e('Read more >', 'theme-Blank') ?></a></p></div>
 ';
 <?php $exampleContent = ob_get_clean(); ?>

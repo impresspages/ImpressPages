@@ -30,7 +30,7 @@ foreach ($files as $filename) {
             if (array_key_exists($matches[1], $translations)) {
                 $found++;
 
-                return "_esc('" . addslashes($translations[$matches[1]]) . "', 'ipAdmin')";
+                return "__('" . addslashes($translations[$matches[1]]) . "', 'ipAdmin')";
             }
 
             return $matches[0];

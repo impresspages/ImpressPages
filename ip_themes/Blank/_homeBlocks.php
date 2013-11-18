@@ -9,10 +9,10 @@
     <img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
-    <h2 class="ipwTitle"><?php echo __('This is a level2 headline', 'theme-Blank') ?></h2>
+    <h2 class="ipwTitle"><?php _e('This is a level2 headline', 'theme-Blank') ?></h2>
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
-<?php echo __('<p>Here is a text block where to can put any information.
+<?php _e('<p>Here is a text block where to can put any information.
 It supports <strong>bold</strong>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>
 You can make lists:
 </p>
