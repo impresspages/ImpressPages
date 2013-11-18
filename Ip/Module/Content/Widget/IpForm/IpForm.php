@@ -186,7 +186,6 @@ class IpForm extends \Ip\Module\Content\Widget{
      * @return \Ip\Form
      */
     private function createForm($instanceId, $data) {
-        global $parametersMod;
         $form = new \Ip\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {

@@ -25,6 +25,10 @@
     "Content.widgetTextImageWidth": 300,
     "Content.widgetTextImageHeight": 600,
     "Content.widgetTextImageBigWidth": 800,
-    "Content.widgetTextImageBigHeight": 600
+    "Content.widgetTextImageBigHeight": 600,
+
+
+    "Design.themeDirs": '',
+    "Email.hourlyLimit": 100
 
 }

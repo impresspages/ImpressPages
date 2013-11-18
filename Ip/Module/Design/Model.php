@@ -124,11 +124,10 @@ class Model
     protected function getThemeDirs()
     {
         //the order of dirs is very important. First dir themes overrides following ones.
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         $cleanDirs = array();
 
-        $optionDirs = $parametersMod->getValue('Design.theme_dirs');
+        $optionDirs = ipGetOption('Design.themeDirs');
         $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
         $lines = explode("\n", $optionDirs);
         foreach ($lines as $line) {

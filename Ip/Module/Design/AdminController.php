@@ -83,7 +83,6 @@ class AdminController extends \Ip\Controller
 
     public function installPlugin()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         ipGetRequest()->mustBePost();
         $postData = ipGetRequest()->getPost();
 
@@ -109,7 +108,6 @@ class AdminController extends \Ip\Controller
 
     public function downloadThemes()
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
 
         ipGetRequest()->mustBePost();
         $themes = ipGetRequest()->getPost('themes');

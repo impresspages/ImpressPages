@@ -46,7 +46,6 @@ class element_attachment extends \Library\Php\StandardModule\Element{ //data ele
     }
 
     function preview_value($value){
-        global $parametersMod;
         global $cms;
 
         $answer = '';
