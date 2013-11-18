@@ -70,10 +70,12 @@ class Layout extends \Ip\Response {
         return $this->layout;
     }
 
-    public function addCss($file, $attributes = array(), $stage = 1) {
-        //TODOX add attributes
-        //TODOX add stage handling
-        $this->requiredCss[(int)$stage][$file] = $file;
+    public function addCss($file, $attributes = array(), $stage = 1, $cacheFix = true) {
+        $this->requiredCss[(int)$stage][$file] = array (
+            'value' => $file,
+            'attributes' => $attributes,
+            'cacheFix' => $cacheFix
+        );
     }
 
     public function removeCss($file) {
@@ -101,11 +103,12 @@ class Layout extends \Ip\Response {
     }
 
 
-    public function addJavascript($file, $attributes = array(), $stage = 1) {
+    public function addJavascript($file, $attributes = array(), $stage = 1, $cacheFix = true) {
         $this->requiredJavascript[(int)$stage][$file] = array (
             'type' => 'file',
             'value' => $file,
-            'attributes' => $attributes
+            'attributes' => $attributes,
+            'cacheFix' => $cacheFix
         );
     }
 
@@ -159,20 +162,22 @@ class Layout extends \Ip\Response {
             $inDesignPreview = $config->isInPreviewState();
         }
 
-        if (!$inDesignPreview) {
+        if ($inDesignPreview) {
             foreach($cssFiles as &$file) {
-                $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
-            }
-        } else {
-            foreach($cssFiles as &$file) {
-
-                $path = pathinfo($file);
-
+                $path = pathinfo($file['value']);
                 if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(\Ip\Config::theme(), $path['filename']);
                 } else {
-                    $file .= (strpos($file, '?') !== false ? '&' : '?') . $cacheVersion;
+                    if ($file['cacheFix']) {
+                        $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
+                    }
+                }
+            }
+        } else {
+            foreach($cssFiles as &$file) {
+                if ($file['cacheFix']) {
+                    $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }
         }
@@ -195,7 +200,7 @@ class Layout extends \Ip\Response {
         $javascriptFiles = $this->getJavascript();
         foreach($javascriptFiles as &$level) {
             foreach($level as &$file) {
-                if ($file['type'] == 'file') {
+                if ($file['type'] == 'file' && $file['cacheFix']) {
                     $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }

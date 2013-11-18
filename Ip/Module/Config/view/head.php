@@ -9,5 +9,18 @@
     <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
     <meta name="generator" content="ImpressPages CMS" />
 <?php foreach ($css as $key => $file) { ?>
-    <link href="<?php echo $file; ?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $file['value']; ?>" rel="stylesheet" type="text/css" <?php
+    if (is_array($file['attributes'])) {
+        echo join(
+            ' ',
+            array_map(
+                function ($sKey, $sValue) {
+                    return ipEsc($sKey) . '="' . ipEsc($sValue) . '"';
+                },
+                array_keys($file['attributes']),
+                array_values($file['attributes'])
+            )
+        );
+    }
+    ?>/>
 <?php } ?>
