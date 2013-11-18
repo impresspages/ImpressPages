@@ -7,6 +7,6 @@
         <a href="#" class="ipUploadImageButton ipUploadSmallerButton">Smaller</a> <?php // TODO: translate ?>
     </div>
     <div class="ipUploadDragContainer">
-        <img class="ipUploadImage" src="<?php echo \Ip\Config::oldModuleUrl('developer/upload/img/empty.gif') ?>" alt="image" /> <?php // TODO: translate ?>
+        <img class="ipUploadImage" src="<?php echo \Ip\Config::coreModuleUrl('Upload/img/empty.gif') ?>" alt="image" /> <?php // TODO: translate ?>
     </div>
 </div>

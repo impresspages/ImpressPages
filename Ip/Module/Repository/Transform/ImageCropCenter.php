@@ -32,7 +32,7 @@ class ImageCropCenter extends Image
         }
         $this->widthDest = $widthDest;
         $this->heightDest = $heightDest;
-        $this->quality = $quality;
+        $this->quality = (int)$quality;
     }
 
     /**
