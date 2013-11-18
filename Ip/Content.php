@@ -96,6 +96,9 @@ class Content {
                     break;
                 }
             }
+            if (!$this->currentLanguage) {
+                $this->currentLanguage = $languages[0];
+            }
 
         }
         return $this->currentLanguage;
