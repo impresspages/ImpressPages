@@ -18,29 +18,28 @@ class InternalClient extends BaseClient
      */
     protected function doRequest($request)
     {
-        $_GET = array();
-        $_POST = array();
-        $server = $request->getServer();
-        $_SERVER = array(
+        $serverInfo = $request->getServer();
+
+        $server = array(
             'REQUEST_URI' => parse_url($request->getUri(), PHP_URL_PATH),
             'REQUEST_METHOD' => $request->getMethod(),
             'SERVER_PORT' => 80,
-            'SERVER_NAME' => $server['HTTP_HOST'],
+            'SERVER_NAME' => $serverInfo['HTTP_HOST'],
         );
 
+        $ipRequest = new \Ip\Request();
+        $ipRequest->setServer($server);
+
         if ($request->getMethod() == 'GET') {
-            $_GET = $request->getParameters();
+            $ipRequest->setGet($request->getParameters());
         } elseif ($request->getMethod() == 'POST') {
-            $_POST = $request->getParameters();
+            $ipRequest->setPost($request->getParameters());
         }
 
-        \Ip\ServiceLocator::replaceRequestService(new \Ip\Request());
-        //TODOX Application needs a config param
-        $application = new \Ip\Application();
-        $ipResponse = $application->handleRequest();
+        $application = new \Ip\Application(NULL);
+        $ipResponse = $application->handleRequest($ipRequest);
 
-        //TODOX ResponseSugar doesn't exist
-        $response = new Response($ipResponse, \Ip\ResponseSugar::status(), \Ip\ResponseSugar::headers());
+        $response = new Response($ipResponse->getContent(), $ipResponse->getStatusCode(), $ipResponse->getHeaders());
 
         return $response;
     }

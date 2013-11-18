@@ -21,9 +21,6 @@ class TestEnvironment {
         //because of PHPUnit magic, we have to repeat it on every test
         $app->init();
 
-        global $parametersMod;
-        $parametersMod = new \PhpUnit\Mock\ParametersMod();
-
         $_GET = array();
         $_POST = array();
         $_SERVER = array(
