@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Module\Content\Widget;
+namespace Plugin\FullTinyMCE\Widget;
 
 
 
