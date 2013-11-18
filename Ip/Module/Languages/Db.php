@@ -82,8 +82,8 @@ class Db {
     }
 
     public static function createRootZoneElement($language) {
-        $firstLanguage = \Ip\Frontend\Db::getFirstLanguage();
-        $zones = \Ip\Frontend\Db::getZones($firstLanguage['id']);
+        $firstLanguage = \Ip\Internal\ContentDb::getFirstLanguage();
+        $zones = \Ip\Internal\ContentDb::getZones($firstLanguage['id']);
         foreach($zones as $key => $zone) {
             $sql2 = "insert into `".DB_PREF."zone_parameter` set
         language_id = '".ip_deprecated_mysql_real_escape_string($language)."',

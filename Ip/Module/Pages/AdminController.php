@@ -383,7 +383,7 @@ class AdminController extends \Ip\Controller
         }
         $languageId = $params['languageId'];
 
-        $zones = \Ip\Frontend\Db::getZones($languageId);
+        $zones = \Ip\Internal\ContentDb::getZones($languageId);
         if (!$zones) {
             throw new \Ip\CoreException("Language doesn't exist");
         }
@@ -572,7 +572,7 @@ class AdminController extends \Ip\Controller
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
 
-        $data['layout'] = \Ip\Frontend\Db::getPageLayout(
+        $data['layout'] = \Ip\Internal\ContentDb::getPageLayout(
             $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()

@@ -56,7 +56,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
     public function testLanguages()
     {
         \PhpUnit\Helper\TestEnvironment::initCode();
-        $languages = \Ip\Frontend\Db::getLanguages(true);
+        $languages = \Ip\Internal\ContentDb::getLanguages(true);
         $this->assertNotEmpty($languages);
         $language = array_shift($languages);
         $this->assertEquals('en', $language['url']);

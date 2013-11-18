@@ -4,13 +4,13 @@
  *
  *
  */
-namespace Ip\Frontend;
+namespace Ip\Internal;
 
 /**
  * Class for common tasks with database
  * @package ImpressPages
  */
-class Db {
+class ContentDb {
 
     /**
      * @param int $language_id

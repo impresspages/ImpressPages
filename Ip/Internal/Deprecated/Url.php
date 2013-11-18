@@ -12,7 +12,7 @@ class Url {
 
     protected static function init()
     {
-        self::$languages = \IP\Frontend\Db::getLanguages(true);
+        self::$languages = \Ip\Internal\ContentDb::getLanguages(true);
     }
 
 
@@ -73,7 +73,7 @@ class Url {
                 }
             } else {
                 if (!isset(self::$otherZones[$languageId])) {
-                    self::$otherZones[$languageId] = \Ip\Frontend\Db::getZones($languageId);
+                    self::$otherZones[$languageId] = \Ip\Internal\ContentDb::getZones($languageId);
                 }
 
                 if (isset(self::$otherZones[$languageId])) {

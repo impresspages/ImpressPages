@@ -21,7 +21,7 @@ class AdminController extends \Ip\Controller
 
         $answer .= '<li><a href="' . \Ip\Config::baseUrl('') . '">Home</a></li>' . "\n";
 
-        $languages = \Ip\Frontend\Db::getLanguages(true); //get all languages including hidden
+        $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
 
         foreach ($languages as $language) {
             $link = \Ip\Internal\Deprecated\Url::generate($language['id']);
@@ -135,7 +135,7 @@ class AdminController extends \Ip\Controller
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
 
-        $data['layout'] = \Ip\Frontend\Db::getPageLayout(
+        $data['layout'] = \Ip\Internal\ContentDb::getPageLayout(
             $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()
