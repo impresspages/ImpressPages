@@ -134,25 +134,33 @@ function ipLog($module, $message, $severity, $debugInfo = null)
     //TODOX
 }
 
-function ipPrintJavascript($return = false)
+/**
+ * @param bool $print false - return instead of print
+ * @return string
+ */
+function ipPrintJavascript($print = true)
 {
     $script = \Ip\ServiceLocator::getResponse()->generateJavascript();
-    if ($return) {
-        return $script;
-    } else {
+    if ($print) {
         echo $script;
         return '';
+    } else {
+        return $script;
     }
 }
 
-function ipPrintHead($return = false)
+/**
+ * @param bool $print false - return instead of print
+ * @return string
+ */
+function ipPrintHead($print = true)
 {
     $head = \Ip\ServiceLocator::getResponse()->generateHead();
-    if ($return) {
-        return $head;
-    } else {
+    if ($print) {
         echo $head;
         return '';
+    } else {
+        return $head;
     }
 }
 

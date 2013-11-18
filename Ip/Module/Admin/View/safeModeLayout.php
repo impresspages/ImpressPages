@@ -12,7 +12,7 @@
 </div>
 <?php
 ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-echo ipJavascript();
+ipPrintJavascript();
 ?>
 </body>
 </html>
