@@ -10,11 +10,11 @@
             </div>
             <a href="#" class="ipAdminButton ipaOptions" title="<?php echo $this->esc(__('Advanced', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
             <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php echo $this->esc(__('Preview', 'ipAdmin')); ?>"><span>&nbsp;</span></a>
-            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->esc(__('Publish', 'ipAdmin')); ?>"><?php echo $this->escPar('Content.publish') ?></a>
+            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php echo $this->esc(__('Publish', 'ipAdmin')); ?>"><?php echo _esc('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
                 <div class="ipaDropdownBlock">
-                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->esc(__('Save', 'ipAdmin')); ?>"><?php echo $this->escPar('Content.save_now') ?></a>
+                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php echo $this->esc(__('Save', 'ipAdmin')); ?>"><?php echo _esc('Save now', 'ipAdmin') ?></a>
                     <ul>
     <?php foreach ($revisions as $revisionKey => $revision){
               $revisionClass = '';
@@ -73,4 +73,4 @@
     </div>
 
 </div>
-<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo $this->escPar('Content.publish'); ?>"><?php echo $this->escPar('Content.publish') ?></a>
+<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php echo _esc('Publish', 'ipAdmin') ?>"><?php echo _esc('Publish', 'ipAdmin') ?></a>

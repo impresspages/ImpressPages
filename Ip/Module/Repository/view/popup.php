@@ -1,8 +1,8 @@
 <div class="ipModuleRepositoryPopup">
     <div class="tabs">
         <ul>
-            <li><a href="#ipModuleRepositoryTabUpload"><?php echo $this->escPar('Repository.tab_upload') ?></a></li>
-            <li><a href="#ipModuleRepositoryTabBuy"><?php echo $this->escPar('Repository.buy_images') ?></a>
+            <li><a href="#ipModuleRepositoryTabUpload"><?php echo _esc('Upload new', 'ipAdmin') ?></a></li>
+            <li><a href="#ipModuleRepositoryTabBuy"><?php echo _esc('Buy images', 'ipAdmin') ?></a>
         </ul>
 
         <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
@@ -13,12 +13,12 @@
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
                     <div class="ipmBrowseButtonWrapper">
-                        <span class="impDragdropNotice"><?php echo $this->escPar('Repository.upload_description') ?></span>
+                        <span class="impDragdropNotice"><?php echo _esc('Drag&drop files here or click a button to upload.', 'ipAdmin') ?></span>
                         <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php echo $this->escPar('Config.add_new'); ?></a>
                     </div>
                     <div class="ipmBrowseButtonWrapper">
-                        <span class="impDragdropNotice"><?php echo $this->escPar('Repository.buy_images_invitation') ?></span>
-                        <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php echo $this->escPar('Repository.buy_images') ?></a>
+                        <span class="impDragdropNotice"><?php echo _esc('Need more images? Browse and choose from thousands of them.', 'ipAdmin') ?></span>
+                        <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php echo _esc('Buy images', 'ipAdmin') ?></a>
                     </div>
                 </div>
                 <div class="ipUploadProgressItemSample ipgHide">
@@ -39,16 +39,16 @@
                     </div>
                 </div>
                 <div class="ipmBrowserContainer clearfix">
-                    <h2 class="ipgHide ipmListTitle ipmRecentTitle"><?php echo $this->escPar('Repository.recent_files') ?></h2>
+                    <h2 class="ipgHide ipmListTitle ipmRecentTitle"><?php echo _esc('Recent files', 'ipAdmin') ?></h2>
                     <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>
                 </div>
             </div>
             <div class="ipgHide ipmRepositoryActions">
                 <div class="ipmInner">
-                    <span class="ipmTitle"><?php echo $this->escPar('Repository.selected') ?> <strong class="ipmSelectionCount"></strong></span>
-                    <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo $this->escPar('Config.confirm') ?></a>
-                    <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo $this->escPar('Config.cancel') ?></a>
-                    <a class="ipAdminButton ipaSelectionDelete" href="#"><?php echo $this->escPar('Config.delete'); ?> <i class="icon-trash"></i></a>
+                    <span class="ipmTitle"><?php echo _esc('Selected:', 'ipAdmin') ?> <strong class="ipmSelectionCount"></strong></span>
+                    <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php echo _esc('Confirm', 'ipAdmin') ?></a>
+                    <a class="ipAdminButton ipaSelectionCancel" href="#"><?php echo _esc('Cancel', 'ipAdmin') ?></a>
+                    <a class="ipAdminButton ipaSelectionDelete" href="#"><?php echo _esc('Delete', 'ipAdmin'); ?> <i class="icon-trash"></i></a>
                 </div>
             </div>
             <?php // hidden templates for dynamic elements ?>
@@ -68,7 +68,7 @@
             <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
             <div class="ipgHide ipmLoading">
                 <span class="ipmLoadingText">
-                    <?php echo $this->escPar('Repository.download_in_progress') ?>
+                    <?php echo _esc('Your images are being downloaded to your website. It may take some time to finish. Please wait.', 'ipAdmin') ?>
                 </span>
             </div>
         </div>

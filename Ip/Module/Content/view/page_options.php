@@ -10,5 +10,5 @@
     <?php echo $tab['content'] ?>
 </div>
 <?php } ?>
-<a class="ipAdminButton ipaOptionsConfirm ipaConfirm" href="#"><?php echo $this->escPar('Config.confirm') ?></a>
-<a class="ipAdminButton ipaOptionsCancel ipaCancel" href="#"><?php echo $this->escPar('Config.cancel') ?></a>
+<a class="ipAdminButton ipaOptionsConfirm ipaConfirm" href="#"><?php echo _esc('Confirm', 'ipAdmin') ?></a>
+<a class="ipAdminButton ipaOptionsCancel ipaCancel" href="#"><?php echo _esc('Cancel', 'ipAdmin') ?></a>
