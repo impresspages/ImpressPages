@@ -75,24 +75,24 @@ function ipAddJavascript($file, $stage = 1)
     }
 }
 
-function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1)
+function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
+        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
     }
 }
 
-function ipAddThemeAsset($file, $attributes = array(), $priority = 1)
+function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') {
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
+            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
         }
     } else {
         if (method_exists($response, 'addJavascript')) {
-            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
+            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
