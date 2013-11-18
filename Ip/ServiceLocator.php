@@ -137,7 +137,7 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Content
+     * @return \Ip\Response
      */
     public static function getResponse()
     {
