@@ -8,7 +8,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/js/colorbox/themes/').$this->getThemeOption('lightboxStyle').'/colorbox.css'); ?>
+    <?php ipAddThemeAsset('colorbox/themes/' . $this->getThemeOption('lightboxStyle').'/colorbox.css'); ?>
     <?php ipAddCss(\Ip\Config::themeUrl('theme.css')); ?>
     <?php echo ipHead(); ?>
     <!--[if lt IE 9]>
