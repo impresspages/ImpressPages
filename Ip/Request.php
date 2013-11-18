@@ -231,6 +231,16 @@ class Request
         $action = $this->defaultControllerAction;
         $controllerClass = $this->defaultControllerClass;
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
+
+        $firstChar = substr(ipGetRequest()->getRelativePath(), 0, 1);
+        if ($firstChar !== '?' && $firstChar != '') {
+            $this->controllerClass = $controllerClass;
+            $this->controllerAction = $action;
+            $this->controllerType = $controllerType;
+            return; //default controller to display page content.
+        }
+
+
         if (sizeof($this->getRequest()) > 0) {
             $actionString = null;
             if(isset($this->_REQUEST['aa'])) {
