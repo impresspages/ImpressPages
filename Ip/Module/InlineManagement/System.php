@@ -22,7 +22,12 @@ class System
             ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementString.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementText.js'));
             ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagementImage.js'));
-            ipAddJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
+
+            $response = \Ip\ServiceLocator::getResponse();
+            if (method_exists($response, 'addJavascriptContent')) {
+                $response->addJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
+            }
+
             ipAddJavascript(\Ip\Config::coreModuleUrl('InlineManagement/public/inlineManagement.js'));
 
             ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
