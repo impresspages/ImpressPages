@@ -12,6 +12,6 @@
         <div class="ipaRemoveConfirm"><?php echo $this->escPar('InlineManagement.remove_image_confirm'); ?></div>
     <?php } ?>
     <br/>
-    <a class="ipAdminButton ipaConfirm" href="#"><?php echo $this->escPar('Config.confirm'); ?></a>
-    <a class="ipAdminButton ipaCancel" href="#"><?php echo $this->escPar('Config.cancel'); ?></a>
+    <a class="ipAdminButton ipaConfirm" href="#"><?php echo _esc('Confirm', 'ipAdmin'); ?></a>
+    <a class="ipAdminButton ipaCancel" href="#"><?php echo _esc('Cancel', 'ipAdmin'); ?></a>
 </div>

@@ -196,6 +196,11 @@ function __($text, $domain)
     return \Ip\Translator::translate($text, $domain);
 }
 
+function _esc($text, $domain)
+{
+    return htmlspecialchars(__($text, $domain));
+}
+
 function _n($singular, $plural, $number, $domain)
 {
     return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
