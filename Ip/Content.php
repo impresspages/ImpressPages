@@ -18,7 +18,7 @@ use Guzzle\Parser\ParserRegistry;
 class Content {
     protected $currentLanguage;
     /**
-     * @var \Ip\Frontend\Language[]
+     * @var \Ip\Language[]
      */
     protected $languages;
 
@@ -82,7 +82,7 @@ class Content {
     }
 
     /**
-     * @return \Ip\Frontend\Language
+     * @return \Ip\Language
      */
     public function getCurrentLanguage()
     {
@@ -107,13 +107,13 @@ class Content {
     /**
      *
      * @param $zoneName Name of zone you wish to get
-     * @return \Ip\Frontend\Zone
+     * @return \Ip\Zone
      *
      */
     public function getZone($zoneName)
     {
         if ($zoneName === '') {
-            return new \Ip\Frontend\Zone404(null, null);
+            return new \Ip\Zone404(null, null);
         }
 
         if (isset($this->zones[$zoneName])) {
@@ -135,7 +135,7 @@ class Content {
 
     /**
      *
-     * @return \Ip\Frontend\Zone[]
+     * @return \Ip\Zone[]
      *
      */
     public function getZones(){
@@ -167,7 +167,7 @@ class Content {
         if ($this->currentPage === null) {
             $this->currentPage = $this->getCurrentZone()->getCurrentPage();
             if ($this->currentPage === null) {
-                $this->currentPage = new \Ip\Frontend\Page404(1, '');
+                $this->currentPage = new \Ip\Page404(1, '');
             }
         }
         return $this->currentPage;
@@ -194,7 +194,7 @@ class Content {
 
     /**
      *
-     * @return \Ip\Frontend\Language
+     * @return \Ip\Language
      *
      */
     public function getLanguageById($id){
@@ -216,7 +216,7 @@ class Content {
      */
     private function createLanguage($data)
     {
-        $language = new \Ip\Frontend\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
+        $language = new \Ip\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
         return $language;
     }
 

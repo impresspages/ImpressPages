@@ -32,7 +32,7 @@ class Model {
     }
 
 
-    private static function _deletePageRecursion (\Ip\Frontend\Zone $zone, $id) {
+    private static function _deletePageRecursion (\Ip\Zone $zone, $id) {
         $children = Db::pageChildren($id);
         if ($children) {
             foreach($children as $key => $lock) {

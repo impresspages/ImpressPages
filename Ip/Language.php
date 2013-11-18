@@ -4,7 +4,7 @@
  *
  */
 
-namespace Ip\Frontend;
+namespace Ip;
 
 
 /**
