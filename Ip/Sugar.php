@@ -75,24 +75,24 @@ function ipAddJavascript($file, $stage = 1)
     }
 }
 
-function ipAddPluginAsset($plugin, $file, $priority = 1)
+function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $priority);
+        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
     }
 }
 
-function ipAddThemeAsset($file, $priority = 1)
+function ipAddThemeAsset($file, $attributes = array(), $priority = 1)
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') {
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority);
+            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
         }
     } else {
         if (method_exists($response, 'addJavascript')) {
-            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $priority);
+            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority);
         }
     }
 }
@@ -174,6 +174,11 @@ function ipGetLayout()
     } else {
         ipLog('Core', 'Response method has no method getLayout');
     }
+}
+
+function ipEsc($text)
+{
+    return htmlspecialchars($text, ENT_QUOTES);
 }
 
 /**
