@@ -36,6 +36,8 @@ class PublicController extends \Ip\Controller
             $log->log('Cron', 'incorrect cron password');
             throw new \Ip\CoreException('Incorrect cron password');
         }
+
+        \Ip\ServiceLocator::getStorage()->set('Cron', 'lastExecutionEnd', time());
         $log->log('Cron', 'start');
         $data = array(
             'firstTimeThisYear' => $this->firstTimeThisYear,
@@ -48,7 +50,9 @@ class PublicController extends \Ip\Controller
         );
 
         \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'Cron.execute', $data));
+
         $log->log('Cron', 'end');
+        \Ip\ServiceLocator::getStorage()->set('Cron', 'lastExecutionEnd', time());
 
         $response = new \Ip\Response();
         $response->setContent(__('OK', 'ipAdmin'));
@@ -64,44 +68,15 @@ class PublicController extends \Ip\Controller
         $this->firstTimeThisHour = true;
         $this->lastTime = null;
 
-        $sql = "
-               SELECT
-               `time`,
-               year(CURRENT_TIMESTAMP) = year(`time`) as `same_year`,
-               month(CURRENT_TIMESTAMP) = month(`time`) as `same_month`,
-               day(CURRENT_TIMESTAMP) = day(`time`) as `same_day`,
-               week(CURRENT_TIMESTAMP) = week(`time`) as `same_week`,
-               hour(CURRENT_TIMESTAMP) = hour(`time`) as `same_hour`
+        $lastExecutionEnd = \Ip\ServiceLocator::getStorage()->get('Cron', 'lastExecutionStart', NULL);
 
-               FROM  `" . DB_PREF . "log`
-               WHERE  `module` =  'system/cron' AND  `name` =  'executed'
-               ORDER BY id desc LIMIT 1
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if (($lock = ip_deprecated_mysql_fetch_assoc(
-                    $rs
-                )) && !(isset($_GET['test']) && isset($_SESSION['backend_session']['userId']))
-            ) {
-                if ($lock['same_year']) {
-                    $this->firstTimeThisYear = false;
-                }
-                if ($lock['same_year'] && $lock['same_month']) {
-                    $this->firstTimeThisMonth = false;
-                }
-                if ($lock['same_year'] && $lock['same_month'] && $lock['same_day']) {
-                    $this->firstTimeThisDay = false;
-                }
-                if ($lock['same_year'] && $lock['same_month'] && $lock['same_day'] && $lock['same_hour']) {
-                    $this->firstTimeThisHour = false;
-                }
-                if ($lock['same_year'] && $lock['same_week']) {
-                    $this->firstTimeThisWeek = false;
-                }
-                $this->lastTime = $lock['time'];
-            }
-        } else {
-            trigger_error($sql . ' ' . ip_deprecated_mysql_error());
+        if (!$lastExecutionEnd && !(\Ip\Request::getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
+            $this->firstTimeThisYear = date('Y') != date('Y', $lastExecutionEnd);
+            $this->firstTimeThisMonth = date('Y-m') != date('Y-m', $lastExecutionEnd);
+            $this->firstTimeThisWeek = date('Y-w') != date('Y-w', $lastExecutionEnd);
+            $this->firstTimeThisDay = date('Y-m-d') != date('Y-m-d', $lastExecutionEnd);
+            $this->firstTimeThisHour = date('Y-m-d H') != date('Y-m-d H', $lastExecutionEnd);
+            $this->lastTime = $lastExecutionEnd;
         }
     }
 
