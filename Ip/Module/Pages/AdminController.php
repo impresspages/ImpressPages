@@ -824,12 +824,12 @@ class AdminController extends \Ip\Controller
 
         //find language
         $tmpId = $parentPage->getId();
-        $element = \Ip\Module\Content\DbFrontend::getElement($tmpId);
+        $element = \Ip\Module\Content\DbFrontend::getPage($tmpId);
         while($element['parent'] !== null) {
             $tmpUrlVars[] = $element['url'];
-            $element = \Ip\Module\Content\DbFrontend::getElement($element['parent']);
+            $element = \Ip\Module\Content\DbFrontend::getPage($element['parent']);
         }
-        $languageId = \Ip\Module\Content\DbFrontend::languageByRootElement($element['id']);
+        $languageId = \Ip\Module\Content\DbFrontend::languageByRootPage($element['id']);
         //end find language
 
         $answer['refreshId'] = $this->_jsTreeId(0, $languageId, $parentPage->getZoneName(), $parentPage->getId());

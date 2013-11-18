@@ -12,7 +12,7 @@ use Ip\Page;
 class Zone404 extends \Ip\Zone {
     
     
-    public function getPages($language = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
+    public function getPages($language = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
         return array($this->getCurrentPage());
     }
 

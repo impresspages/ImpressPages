@@ -20,7 +20,7 @@ class Zone extends \Ip\Zone {
 
 
 
-    function getPages($languageId = null, $parentElementId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
+    function getPages($languageId = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
 
 
         if($languageId == null)
@@ -28,10 +28,10 @@ class Zone extends \Ip\Zone {
 
         $urlVars = array();
 
-        if($parentElementId != null) {  //if parent specified
-            $parentElements = $this->getRoadToPage($parentElementId);
-            foreach($parentElements as $key => $element)
-            $urlVars[] = $element->getUrl();
+        if($parentPageId != null) {  //if parent specified
+            $parentPages = $this->getRoadToPage($parentPageId);
+            foreach($parentPages as $key => $page)
+            $urlVars[] = $page->getUrl();
         }
 
         $breadCrumb = $this->getBreadCrumb();
@@ -42,42 +42,42 @@ class Zone extends \Ip\Zone {
         $selectedId = null;
 
         if($reverseOrder)
-        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
+        $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
         else
-        $dbElements = $this->db->getElements($this->getName(), $parentElementId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
-        $elements = array();
-        foreach($dbElements as $key => $dbElement) {
-            $newElement = $this->makeElementFromDb($dbElement, sizeof($urlVars) == 1);
+        $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
+        $pages = array();
+        foreach($dbPages as $key => $dbPage) {
+            $newPage = $this->makePageFromDb($dbPage, sizeof($urlVars) == 1);
 
-            if($selectedId == $dbElement['id'])
-            $newElement->setSelected(1);
+            if($selectedId == $dbPage['id'])
+            $newPage->setSelected(1);
             else
-            $newElement->setSelected(0);
+            $newPage->setSelected(0);
 
-            if($this->currentPage && $this->currentPage->getId() == $dbElement['id'])
-            $newElement->setCurrent(1);
+            if($this->currentPage && $this->currentPage->getId() == $dbPage['id'])
+            $newPage->setCurrent(1);
             else
-            $newElement->setCurrent(0);
-            $elements[] = $newElement;
+            $newPage->setCurrent(0);
+            $pages[] = $newPage;
         }
 
-        foreach($elements as $key => $element) { //link generation optimization.
-            if($elements[$key]->getType() == 'default')
-            $elements[$key]->setLink(\Ip\Internal\Deprecated\Url::generate($languageId, $this->getName(), array_merge($urlVars, array($element->getUrl())), null));
+        foreach($pages as $key => $page) { //link generation optimization.
+            if($pages[$key]->getType() == 'default')
+            $pages[$key]->setLink(\Ip\Internal\Deprecated\Url::generate($languageId, $this->getName(), array_merge($urlVars, array($page->getUrl())), null));
         }
 
-        return $elements;
+        return $pages;
 
     }
 
 
 
     function getPage($pageId) {
-        $dbElement = $this->db->getElement($pageId);
-        if($dbElement) {
-            $dbParentElement = $this->db->getElement($dbElement['parent']);
-            $element = $this->makeElementFromDb($dbElement, $dbParentElement['parent'] == null);
-            return $element;
+        $dbPage = $this->db->getPage($pageId);
+        if($dbPage) {
+            $dbParentPage = $this->db->getPage($dbPage['parent']);
+            $page = $this->makePageFromDb($dbPage, $dbParentPage['parent'] == null);
+            return $page;
         } else {
             return false;
         }
@@ -85,22 +85,22 @@ class Zone extends \Ip\Zone {
 
 
 
-    function getFirstElement($parentId, $level) {
+    function getFirstPage($parentId, $level) {
 
-        $elements = $this->db->getElements($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
-        foreach($elements as $key => $element) {
-            switch($element['type']) {
+        $pages = $this->db->getPages($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
+        foreach($pages as $page) {
+            switch($page['type']) {
                 case 'inactive':
                 case 'subpage':
                 case 'redirect':
-                    $subElement = $this->getFirstElement($element['id'], $level+1);
-                    if($subElement) {
-                        return $subElement;
+                    $subPage = $this->getFirstPage($page['id'], $level+1);
+                    if($subPage) {
+                        return $subPage;
                     }
                     break;
                 case 'default':
                 default:
-                    return $this->makeElementFromDb($element, $level == 1);
+                    return $this->makePageFromDb($page, $level == 1);
                     break;
             }
 
@@ -111,13 +111,13 @@ class Zone extends \Ip\Zone {
     function findPage($urlVars, $getVars) {
         $currentEl = null;
 
-        $elId = $this->db->getRootElementId($this->getName(), ipGetCurrentLanguage()->getId());
+        $elId = $this->db->getRootPageId($this->getName(), ipGetCurrentLanguage()->getId());
         if ($elId) {
             if (sizeof($urlVars) == 0) {
-                return $this->getFirstElement($elId, 1);
+                return $this->getFirstPage($elId, 1);
             } else {
                 foreach ($urlVars as $value) {
-                    $tmp = $this->db->getElementByUrl($value, $elId);
+                    $tmp = $this->db->getPageByUrl($value, $elId);
                     if ($tmp) {
                         $currentEl = $tmp;
                         $elId = $currentEl['id'];
@@ -125,37 +125,36 @@ class Zone extends \Ip\Zone {
                         return null;
                     }
                 }
-                return $this->makeElementFromDb($currentEl, sizeof($urlVars) == 0);
+                return $this->makePageFromDb($currentEl, sizeof($urlVars) == 0);
             }
         } else {
             return false;
-            //trigger_error("Can't find menu element");
         }
     }
 
 
 
-    private function makeElementFromDb($dbElement, $firstLevel) {
-        $newElement = new \Ip\Page($dbElement['id'], $this->getName());
-        $newElement->setButtonTitle($dbElement['button_title']);
-        $newElement->setPageTitle($dbElement['page_title']);
-        $newElement->setKeywords($dbElement['keywords']);
-        $newElement->setDescription($dbElement['description']);
-        $newElement->setUrl($dbElement['url']);
-        $newElement->setText($dbElement['cached_text']);
-        $newElement->setLastModified($dbElement['last_modified']);
-        $newElement->setCreatedOn($dbElement['created_on']);
-        $newElement->setModifyFrequency($dbElement['modify_frequency']);
-        $newElement->setRss($dbElement['rss']);
-        $newElement->setVisible($dbElement['visible']);
+    private function makePageFromDb($dbPage, $firstLevel) {
+        $newPage = new \Ip\Page($dbPage['id'], $this->getName());
+        $newPage->setButtonTitle($dbPage['button_title']);
+        $newPage->setPageTitle($dbPage['page_title']);
+        $newPage->setKeywords($dbPage['keywords']);
+        $newPage->setDescription($dbPage['description']);
+        $newPage->setUrl($dbPage['url']);
+        $newPage->setText($dbPage['cached_text']);
+        $newPage->setLastModified($dbPage['last_modified']);
+        $newPage->setCreatedOn($dbPage['created_on']);
+        $newPage->setModifyFrequency($dbPage['modify_frequency']);
+        $newPage->setRss($dbPage['rss']);
+        $newPage->setVisible($dbPage['visible']);
         if($firstLevel)
-        $newElement->setParentId(null);
+        $newPage->setParentId(null);
         else
-        $newElement->setParentId($dbElement['parent']);
-        $newElement->setHtml($dbElement['html']);
-        $newElement->setType($dbElement['type']);
-        $newElement->setRedirectUrl($dbElement['redirect_url']);
-        return $newElement;
+        $newPage->setParentId($dbPage['parent']);
+        $newPage->setHtml($dbPage['html']);
+        $newPage->setType($dbPage['type']);
+        $newPage->setRedirectUrl($dbPage['redirect_url']);
+        return $newPage;
     }
 
 

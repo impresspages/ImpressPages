@@ -21,9 +21,9 @@ class DefaultZone extends Zone{
      * Find elements of this zone.
      * @return array Element
      */
-    public function getPages($language = null, $parentElementId = null, $startFrom = 1, $limit = null, $includeHidden = false, $reverseOrder = null){
+    public function getPages($language = null, $parentPageId = null, $startFrom = 1, $limit = null, $includeHidden = false, $reverseOrder = null){
         $answer = array();
-        if($parentElementId == null){
+        if($parentPageId == null){
             $answer[] = new Page(1, $this->name);
             return $answer;
         }
