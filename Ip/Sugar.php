@@ -233,6 +233,14 @@ function _s($text, $domain)
     return \Ip\Translator::translate($text, $domain);
 }
 
+/**
+ * @return \Ip\Dispatcher
+ */
+function ipDispatcher()
+{
+    return \Ip\ServiceLocator::getDispatcher();
+}
+
 //function _n($singular, $plural, $number, $domain)
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
