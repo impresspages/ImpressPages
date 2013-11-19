@@ -379,14 +379,12 @@ class Content {
         );
 
         //dispatch event
-        $event = new \Ip\Event($this, 'site.generateSlot', $data);
-        $processed = ipDispatcher()->notifyUntil($event);
-        if (!$processed) {
-            $event = new \Ip\Event($this, 'site.generateSlot.' . $name, $data);
-            $processed = ipDispatcher()->notifyUntil($event);
+        $content = ipDispatcher()->job('site.generateSlot', $data);
+        if (!$content) {
+            $content = ipDispatcher()->job('site.generateSlot.' . $name, $data);
         }
-        if ($processed && $event->issetValue('content')) {
-            $content = $event->getValue('content');
+
+        if ($content) {
             if (is_object($content) && method_exists($content, 'render')) {
                 $content = $content->render();
             }
