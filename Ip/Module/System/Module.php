@@ -53,9 +53,8 @@ class Module
 
 
 
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $dispatcher->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, \Ip\Config::baseUrl('')));
-        $dispatcher->notify(new \Ip\Event\ClearCache($this));
+        ipDispatcher()->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, \Ip\Config::baseUrl('')));
+        ipDispatcher()->notify(new \Ip\Event\ClearCache($this));
 
     }
 

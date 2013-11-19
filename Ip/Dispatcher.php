@@ -54,6 +54,11 @@ class Dispatcher{
         $this->handlers[$eventName][] = $callable;
     }
 
+    public function replace ($eventName, $callable) {
+        $this->handlers[$eventName] = array();
+        $this->bind($eventName, $callable);
+    }
+
     /**
      *
      * Bind to a slot generation event
@@ -63,6 +68,53 @@ class Dispatcher{
      */
     public function bindSlot ($slot, $callable) {
         $this->bind('site.generateSlot.' . $slot, $callable);
+    }
+
+    public function filter($eventName, $defaultResult = NULL, $data = array()) {
+        if (!$this->initCompleted && $eventName != 'site.afterInit') {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
+            } else {
+                $file = '';
+            }
+            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
+        }
+        if ( ! isset($this->handlers[$eventName])) {
+            return $defaultResult;
+        }
+
+        foreach ($this->handlers[$eventName] as $callable) {
+            $defaultResult = call_user_func($callable, $defaultResult, $data);
+        }
+
+        return $defaultResult;
+    }
+
+    public function job($eventName, $data = array())
+    {
+        if (!$this->initCompleted && $eventName != 'site.afterInit') {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
+                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
+            } else {
+                $file = '';
+            }
+            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
+        }
+
+        if ( ! isset($this->handlers[$eventName])) {
+            return NULL;
+        }
+
+        foreach ($this->handlers[$eventName] as $callable) {
+            $result = call_user_func($callable, $data);
+            if ($result !== NULL) {
+                return $result;
+            }
+        }
+
+        return NULL;
     }
 
     public function notify(Event $event) {

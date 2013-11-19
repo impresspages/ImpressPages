@@ -10,8 +10,7 @@ class System {
 
     public function init()
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
     }
 
     public function executeCron(\Ip\Event $e)

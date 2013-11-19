@@ -30,22 +30,13 @@ class Helper {
      */
     public function findProduct($module, $productId, $options)
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $data = array(
             'module' => $module,
             'itemId' => $productId,
             'options' => $options
         );
-        $event = new \Ip\Event($this, 'global.getProduct', $data);
-        $dispatcher->notifyUntil($event);
 
-        if (!$event->issetValue('product')) {
-            return false;
-        }
-
-        $product = $event->getValue('product');
-        return $product;
-
+        return ipDispatcher()->job('global.getProduct', $data);
     }
 
     /**
@@ -56,7 +47,6 @@ class Helper {
      */
     public function formatPrice($price, $currency, $languageId = null)
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         if ($languageId === null) {
             $languageId = ipGetCurrentLanguage()->getId();
         }
@@ -65,11 +55,8 @@ class Helper {
             'price' => $price,
             'currency' => $currency
         );
-        $event = new \Ip\Event($this, 'global.formatCurrency', $data);
-        $dispatcher->notifyUntil($event);
-        if ($event->issetValue('formattedPrice')) {
-            $formattedPrice = $event->getValue('formattedPrice');
-        } else {
+        $formattedPrice = ipDispatcher()->job('global.formatCurrency', $data);
+        if ($formattedPrice === NULL) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
                 $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageId);
                 $locale = str_replace('-', '_', $language->getCode());

@@ -12,22 +12,22 @@ class System{
 
     function init(){
 
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        
+        $dispatcher = ipDispatcher();
+
         $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
         $dispatcher->bind('site.afterInit', __NAMESPACE__ .'\System::initWidgets');
-        
+
         $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
-        
+
         $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
-        
+
         $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
 
         $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
 
 
         $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
-        
+
         $dispatcher->bind(\Ip\Event\PageMoved::SITE_PAGE_MOVED, __NAMESPACE__ .'\System::pageMoved');
 
 
