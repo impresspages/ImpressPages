@@ -89,7 +89,7 @@ class Page extends \Ip\Page {
                 break;
             case 'redirect':
                 if(\Ip\ServiceLocator::getContent()->isManagementState()) {
-                    if(strpos($this->redirectUrl, \Ip\Config::baseUrl('')) === 0) {
+                    if(strpos($this->redirectUrl, ipGetConfig()->baseUrl('')) === 0) {
                         if(strpos($this->redirectUrl, 'cms_action=manage') === false) {
                             if(strpos($this->redirectUrl, '?') === false) {
                                 $this->redirectUrl .= '?cms_action=manage';

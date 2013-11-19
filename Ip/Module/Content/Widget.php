@@ -25,9 +25,9 @@ class Widget{
         $this->core = $core;
 
         if ($core) {
-            $this->widgetDir = \Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
+            $this->widgetDir = ipGetConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
         } else {
-            $this->widgetDir = \Ip\Config::pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
+            $this->widgetDir = ipGetConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
         }
     }
 
@@ -54,12 +54,12 @@ class Widget{
     public function getIcon() {
         if (file_exists($this->widgetDir . self::PUBLIC_DIR . '/icon.png')) {
             if ($this->core) {
-                return \Ip\Config::coreModuleUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
+                return ipGetConfig()->coreModuleUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
             } else {
-                return \Ip\Config::pluginUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
+                return ipGetConfig()->pluginUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
             }
         } else {
-            return \Ip\Config::coreModuleUrl('Content/assets/img/icon_widget.png');
+            return ipGetConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
         }
     }
 
@@ -71,21 +71,21 @@ class Widget{
         try {
 
             //collect default view files
-            $layoutsDir = \Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR);
+            $layoutsDir = ipGetConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR);
             if (!file_exists($layoutsDir) || !is_dir($layoutsDir)) {
                 throw new Exception('Layouts directory does not exist', Exception::NO_LAYOUTS);
             }
 
-            $availableViewFiles = scandir(\Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR));
+            $availableViewFiles = scandir(ipGetConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR));
             foreach ($availableViewFiles as $viewKey => $viewFile) {
-                if (is_file(\Ip\Config::baseFile($this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile)) && substr($viewFile, -4) == '.php') {
+                if (is_file(ipGetConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile)) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
 
             // TODOX make it according to new module structure
             //collect overriden theme view files
-//            $themeViewsFolder = \Ip\Config::themeFile('modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR);
+//            $themeViewsFolder = ipGetConfig()->themeFile('modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR);
 //            if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
 //                $availableViewFiles = scandir($themeViewsFolder);
 //                foreach ($availableViewFiles as $viewKey => $viewFile) {
@@ -197,9 +197,9 @@ class Widget{
         $answer = '';
         try {
             if ($this->core ) {
-                $adminView = \Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipGetConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             } else {
-                $adminView = \Ip\Config::pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipGetConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             }
             if (is_file($adminView)) {
                 $answer = \Ip\View::create($adminView, $data)->render();
@@ -216,7 +216,7 @@ class Widget{
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(\Ip\Config::coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipGetConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
                 // TODOX Plugin dir
             }

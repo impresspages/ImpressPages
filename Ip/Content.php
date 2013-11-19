@@ -66,12 +66,12 @@ class Content {
                     $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
-                if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
+                if (!$layout || !is_file(ipGetConfig()->themeFile($layout))) {
                     $layout = $zone->getLayout();
                 }
 
             }
-            if (!is_file(\Ip\Config::themeFile($layout))) {
+            if (!is_file(ipGetConfig()->themeFile($layout))) {
                 $layout = 'main.php';
             }
 
@@ -512,9 +512,9 @@ class Content {
     public function usedUrl($folderName){
 
         $systemDirs = array();
-        $systemDirs[\Ip\Config::getRaw('PLUGIN_DIR')] = 1;
-        $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
-        $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('PLUGIN_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('THEME_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('FILE_DIR')] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){

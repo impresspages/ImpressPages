@@ -88,6 +88,13 @@ class Request
         }
     }
 
+    public function isHttps()
+    {
+        return (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on");
+    }
+
+
+
     /**
      * get request method  'GET', 'HEAD', 'POST', 'PUT'.
      * @return string
@@ -169,7 +176,7 @@ class Request
      */
     public function getRelativePath()
     {
-        $basePath = parse_url(\Ip\Config::baseUrl(''), PHP_URL_PATH);
+        $basePath = parse_url(ipGetConfig()->baseUrl(''), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
             if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {

@@ -142,7 +142,7 @@ class SiteController extends \Ip\Controller{
 
         //download image to TMP dir and get $resultFilename
         $net = \Ip\Internal\NetHelper::instance();
-        $tmpFilename = $net->downloadFile($url, \Ip\Config::temporaryFile(''), 'bigstock_'.time());
+        $tmpFilename = $net->downloadFile($url, ipGetConfig()->temporaryFile(''), 'bigstock_'.time());
         if (!$tmpFilename) {
             return;
         }
@@ -150,7 +150,7 @@ class SiteController extends \Ip\Controller{
 
         //find out file mime type to know required extension
         try {
-            $mime = \Ip\Internal\File\Functions::getMimeType(\Ip\Config::temporaryFile($tmpFilename));
+            $mime = \Ip\Internal\File\Functions::getMimeType(ipGetConfig()->temporaryFile($tmpFilename));
             switch($mime) {
                 case 'image/png':
                     $ext = '.jpg';
@@ -190,12 +190,12 @@ class SiteController extends \Ip\Controller{
         }
 
         $niceFileName = $cleanTitle.$ext;
-        $destinationDir = \Ip\Config::repositoryFile('');
+        $destinationDir = ipGetConfig()->repositoryFile('');
         $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
-        copy(\Ip\Config::temporaryFile($tmpFilename), $destinationDir . $destinationFileName);
+        copy(ipGetConfig()->temporaryFile($tmpFilename), $destinationDir . $destinationFileName);
 
-        unlink(\Ip\Config::temporaryFile($tmpFilename));
+        unlink(ipGetConfig()->temporaryFile($tmpFilename));
 
         $browserModel = \Ip\Module\Repository\BrowserModel::instance();
         $file = $browserModel->getFile($destinationFileName);
@@ -216,7 +216,7 @@ class SiteController extends \Ip\Controller{
 
         $file = realpath($_POST['file']);
 
-        if (strpos($file, \Ip\Config::temporaryFile('')) !== 0) {
+        if (strpos($file, ipGetConfig()->temporaryFile('')) !== 0) {
             $answer = array(
                 'status' => 'error',
                 'error' => 'Trying to access file outside temporary dir'
@@ -269,7 +269,7 @@ class SiteController extends \Ip\Controller{
         }
         
         $realFile = realpath($file);
-        if (strpos($realFile, \Ip\Config::repositoryFile('')) !== 0) {
+        if (strpos($realFile, ipGetConfig()->repositoryFile('')) !== 0) {
             return false;
         }
 

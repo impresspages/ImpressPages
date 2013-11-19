@@ -37,17 +37,17 @@ class System{
 
         
         
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Content/public/widgets.js'));
 
         // TODOX Mangirdas has some ideas how to rename tinymce files
         // TODOX load only for management mode
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/paste_preprocess.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/min.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/med.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/max.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/table.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/tinymce/paste_preprocess.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/tinymce/min.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/tinymce/med.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/tinymce/max.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/tinymce/table.js'));
 
         // TODOX move to more appropriate place
         $response = \Ip\ServiceLocator::getResponse();
@@ -56,7 +56,7 @@ class System{
                 'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
             );
 
-            $validatorJs = \Ip\View::create(\Ip\Config::coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $validatorJs = \Ip\View::create(ipGetConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
@@ -110,7 +110,7 @@ class System{
             $widgetKey = $widgetRecord['widgetKey'];
 
             // TODOX refactor according to new module structure
-            // $themeDir = \Ip\Config::getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
+            // $themeDir = ipGetConfig()->getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
             
             
             //scan for js and css files required for widget management
@@ -145,9 +145,9 @@ class System{
     private static function findModuleWidgets($moduleName, $core)
     {
         if ($core) {
-            $widgetDir = \Ip\Config::coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+            $widgetDir = ipGetConfig()->coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         } else {
-            $widgetDir = \Ip\Config::pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+            $widgetDir = ipGetConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         }
         if (!is_dir($widgetDir)) {
             return array();
@@ -179,32 +179,32 @@ class System{
 
     public static function includeResources($resourcesFolder, $overrideFolder = null){
 
-        if (is_dir(\Ip\Config::baseFile($resourcesFolder))) {
-            $files = scandir(\Ip\Config::baseFile($resourcesFolder));
+        if (is_dir(ipGetConfig()->baseFile($resourcesFolder))) {
+            $files = scandir(ipGetConfig()->baseFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
             
             
             foreach ($files as $fileKey => $file) {
-                if (is_dir(\Ip\Config::baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(\Ip\Config::baseFile($resourcesFolder.$file), \Ip\Config::baseFile($overrideFolder.$file));
+                if (is_dir(ipGetConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
+                    self::includeResources(ipGetConfig()->baseFile($resourcesFolder.$file), ipGetConfig()->baseFile($overrideFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
                     //overriden js version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddJavascript(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
+                        ipAddJavascript(ipGetConfig()->baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        ipAddJavascript(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
+                        ipAddJavascript(ipGetConfig()->baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
                     //overriden css version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddCss(\Ip\Config::baseUrl($overrideFolder.'/'.$file));
+                        ipAddCss(ipGetConfig()->baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        ipAddCss(\Ip\Config::baseUrl($resourcesFolder.'/'.$file));
+                        ipAddCss(ipGetConfig()->baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
             }

@@ -33,7 +33,7 @@ class Model{
             $moduleItem = new \Ip\Menu\Item();
             $moduleItem->setTitle($module);
             $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $module.'.index')));
-            $moduleItem->setUrl(\Ip\Config::baseUrl('', array('aa' => $module . '.index')));
+            $moduleItem->setUrl(ipGetConfig()->baseUrl('', array('aa' => $module . '.index')));
             $answer[] = $moduleItem;
         }
 

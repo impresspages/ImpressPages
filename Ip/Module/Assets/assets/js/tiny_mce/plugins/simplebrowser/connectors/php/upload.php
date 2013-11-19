@@ -40,7 +40,7 @@
         require_once ('../../../../../../../../ip_config.php');
     }
 
-  session_name(\Ip\Config::getRaw('SESSION_NAME'));
+  session_name(ipGetConfig()->getRaw('SESSION_NAME'));
   session_start();
 	$admin = false;
   if(isset($_SESSION['backend_session']) && isset($_SESSION['backend_session']['userId']) && isset($_SESSION['backend_session']['userId']) != null){
