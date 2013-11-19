@@ -187,6 +187,11 @@ abstract class Zone{
         return $answer;
     }
 
+    public function getLink()
+    {
+        return ipGetCurrentLanguage()->getLink() . $this->getUrl() . '/';
+    }
+
     /**
      *
      * Get breadcrumb to current page.
