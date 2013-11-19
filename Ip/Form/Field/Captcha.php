@@ -14,10 +14,10 @@ class Captcha extends Field{
         $this->captchaInit = array(
         
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-              'tempfolder'     => \Ip\Config::temporaryFile(''),
+              'tempfolder'     => ipGetConfig()->temporaryFile(''),
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-              'TTF_folder'     => \Ip\Config::coreModuleFile('Assets/assets/fonts/HnCaptcha/'),
+              'TTF_folder'     => ipGetConfig()->coreModuleFile('Assets/assets/fonts/HnCaptcha/'),
         
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!
@@ -39,7 +39,7 @@ class Captcha extends Field{
               'maxtry'         => 3,       // integer: [1-9]
         
               'badguys_url'    => '/',     // string: URL
-              'secretstring'   => md5(\Ip\Config::getRaw('DB_PASSWORD')),//'A very, very secret string which is used to generate a md5-key!',
+              'secretstring'   => md5(ipGetConfig()->getRaw('DB_PASSWORD')),//'A very, very secret string which is used to generate a md5-key!',
               'secretposition' => 9        // integer: [1-32]
         );
         
@@ -59,7 +59,7 @@ class Captcha extends Field{
         return '
         <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
         <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
-        <img src="'.\Ip\Config::baseUrl($captcha->get_filename_url()).'" alt="Captcha"/><br />
+        <img src="'.ipGetConfig()->baseUrl($captcha->get_filename_url()).'" alt="Captcha"/><br />
         ';
     }
     

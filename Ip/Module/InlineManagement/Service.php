@@ -110,8 +110,8 @@ class Service
         }
 
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), \Ip\Config::baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
+            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipGetConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
+            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipGetConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
         }
 
         $data = array (
@@ -134,7 +134,7 @@ class Service
     {
 
         if ($defaultValue === null) {
-            $defaultValue = \Ip\Config::coreModuleFile('InlineManagement/public/empty.gif');
+            $defaultValue = ipGetConfig()->coreModuleFile('InlineManagement/public/empty.gif');
         }
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());

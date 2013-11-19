@@ -118,7 +118,7 @@ class Helper
 
     public function generateAdminUrl($moduleId)
     {
-        return \Ip\Config::baseUrl('', array('admin' => 1, 'module_id' => $moduleId, 'security_token' => $this->backendSecurityToken()));
+        return ipGetConfig()->baseUrl('', array('admin' => 1, 'module_id' => $moduleId, 'security_token' => $this->backendSecurityToken()));
     }
 
     private function backendSecurityToken()

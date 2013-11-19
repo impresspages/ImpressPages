@@ -19,18 +19,18 @@ class AdminController extends \Ip\Controller
     public function index()
     {
 
-        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
-        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/options.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/market.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/design.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Design/public/pluginInstall.js'));
-        ipAddCss(\Ip\Config::coreModuleUrl('Design/public/design.css'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/market.js'));
+        ipAddCss(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
+        ipAddCss(ipGetConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Design/public/options.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Design/public/market.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Design/public/design.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Design/public/pluginInstall.js'));
+        ipAddCss(ipGetConfig()->coreModuleUrl('Design/public/design.css'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('System/public/market.js'));
 
 
 
@@ -39,7 +39,7 @@ class AdminController extends \Ip\Controller
         $themes = $model->getAvailableThemes();
 
         $model = Model::instance();
-        $theme = $model->getTheme(\Ip\Config::theme());
+        $theme = $model->getTheme(ipGetConfig()->theme());
         $options = $theme->getOptionsAsArray();
 
 
@@ -68,7 +68,7 @@ class AdminController extends \Ip\Controller
 
         $data = array(
             'pluginNote' => $pluginNote,
-            'theme' => $model->getTheme(\Ip\Config::theme()),
+            'theme' => $model->getTheme(ipGetConfig()->theme()),
             'plugins' => $notInstalledPlugins,
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
@@ -112,7 +112,7 @@ class AdminController extends \Ip\Controller
         ipGetRequest()->mustBePost();
         $themes = ipGetRequest()->getPost('themes');
 
-        if (!is_writable(\Ip\Config::getCore('THEME_DIR'))) {
+        if (!is_writable(ipGetConfig()->getCore('THEME_DIR'))) {
             return JsonRpc::error(_s('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin'), 777);
         }
 
@@ -172,7 +172,7 @@ class AdminController extends \Ip\Controller
 
         $configModel = ConfigModel::instance();
 
-        $form = $configModel->getThemeConfigForm(\Ip\Config::theme());
+        $form = $configModel->getThemeConfigForm(ipGetConfig()->theme());
 
         $post = ipGetRequest()->getPost();
 
@@ -186,7 +186,7 @@ class AdminController extends \Ip\Controller
         } else {
             $configModel = ConfigModel::instance();
             $model = Model::instance();
-            $theme = $model->getTheme(\Ip\Config::theme());
+            $theme = $model->getTheme(ipGetConfig()->theme());
             if (!$theme) {
                 throw new \Ip\CoreException("Theme doesn't exist");
             }
@@ -210,11 +210,11 @@ class AdminController extends \Ip\Controller
                     default:
                         $value = $field->getValueAsString($post, $option['name']);
                 }
-                $configModel->setConfigValue(\Ip\Config::theme(), $option['name'], $value);
+                $configModel->setConfigValue(ipGetConfig()->theme(), $option['name'], $value);
             }
 
             $lessCompiler = LessCompiler::instance();
-            $lessCompiler->rebuild(\Ip\Config::theme());
+            $lessCompiler->rebuild(ipGetConfig()->theme());
 
         }
 
@@ -238,7 +238,7 @@ class AdminController extends \Ip\Controller
         $file = basename($file);
 
         $lessCompiler = LessCompiler::instance();
-        $css = $lessCompiler->compileFile(\Ip\Config::theme(), $file);
+        $css = $lessCompiler->compileFile(ipGetConfig()->theme(), $file);
 
         return new \Ip\Response($css, 'Content-type: text/css');
     }

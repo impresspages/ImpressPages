@@ -36,7 +36,7 @@ class IpLogoGallery extends \Ip\Module\Content\Widget{
             switch($logo['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(\Ip\Config::baseFile($logo['fileName']))) {
+                    if (!file_exists(ipGetConfig()->baseFile($logo['fileName']))) {
                         break;
                     }
 

@@ -23,25 +23,34 @@ class ServiceLocator
     protected static $responses = array();
     protected static $config = null;
     protected static $log = null;
-
+    protected static $options = null;
+    protected static $storage = null;
 
     public static function getOptions()
     {
-        return new \Ip\Options();
+        if (self::$options == null) {
+            self::$options = new \Ip\Options();
+        }
+        return self::$options;
     }
 
 
     public static function getStorage()
     {
-        return new \Ip\Storage();
+        if (self::$storage == null) {
+            self::$storage = new \Ip\Storage();
+        }
+        return self::$storage;
     }
 
     public static function getConfig()
     {
-        if (self::$config == null) {
-            self::$config = new \Ip\Config();
-        }
         return self::$config;
+    }
+
+    public static function setConfig($config)
+    {
+        self::$config = $config;
     }
 
     /**

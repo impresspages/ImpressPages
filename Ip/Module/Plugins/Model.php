@@ -161,7 +161,7 @@ class Model{
         $q->execute($params);
 
         // TODOX Plugin dir
-        $pluginDir = \Ip\Config::pluginFile ($pluginName);
+        $pluginDir = ipGetConfig()->pluginFile ($pluginName);
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
@@ -198,7 +198,7 @@ class Model{
     {
         $answer = array();
         // TODOX Plugin dir
-        $pluginDir = \Ip\Config::pluginFile ( '');
+        $pluginDir = ipGetConfig()->pluginFile ( '');
         $files = scandir($pluginDir);
         if (!$files) {
             return array();
@@ -234,7 +234,7 @@ class Model{
     public static function getPluginConfig($pluginName)
     {
         // TODOX Plugin dir
-        $configFile = \Ip\Config::pluginFile ( $pluginName . '/Setup/plugin.json' );
+        $configFile = ipGetConfig()->pluginFile ( $pluginName . '/Setup/plugin.json' );
         if (!is_file($configFile)) {
             return array();
         }
