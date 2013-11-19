@@ -372,7 +372,6 @@ class Content {
 
     public function generateSlot($name, $params = array())
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $content = null;
         $data = array (
             'slotName' => $name,
@@ -381,10 +380,10 @@ class Content {
 
         //dispatch event
         $event = new \Ip\Event($this, 'site.generateSlot', $data);
-        $processed = $dispatcher->notifyUntil($event);
+        $processed = ipDispatcher()->notifyUntil($event);
         if (!$processed) {
             $event = new \Ip\Event($this, 'site.generateSlot.' . $name, $data);
-            $processed = $dispatcher->notifyUntil($event);
+            $processed = ipDispatcher()->notifyUntil($event);
         }
         if ($processed && $event->issetValue('content')) {
             $content = $event->getValue('content');

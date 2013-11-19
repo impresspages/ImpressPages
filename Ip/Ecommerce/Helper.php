@@ -30,14 +30,13 @@ class Helper {
      */
     public function findProduct($module, $productId, $options)
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $data = array(
             'module' => $module,
             'itemId' => $productId,
             'options' => $options
         );
         $event = new \Ip\Event($this, 'global.getProduct', $data);
-        $dispatcher->notifyUntil($event);
+        ipDispatcher()->notifyUntil($event);
 
         if (!$event->issetValue('product')) {
             return false;
@@ -56,7 +55,6 @@ class Helper {
      */
     public function formatPrice($price, $currency, $languageId = null)
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         if ($languageId === null) {
             $languageId = ipGetCurrentLanguage()->getId();
         }
@@ -66,7 +64,7 @@ class Helper {
             'currency' => $currency
         );
         $event = new \Ip\Event($this, 'global.formatCurrency', $data);
-        $dispatcher->notifyUntil($event);
+        ipDispatcher()->notifyUntil($event);
         if ($event->issetValue('formattedPrice')) {
             $formattedPrice = $event->getValue('formattedPrice');
         } else {

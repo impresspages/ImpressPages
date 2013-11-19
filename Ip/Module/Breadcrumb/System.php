@@ -13,9 +13,7 @@ class System{
 
 
 //    function init(){
-//        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-//        //$dispatcher->bind('site.generateSlot.', __NAMESPACE__ .'\System::generateBreadcrumbSlot');
-//        $dispatcher->bindSlot('breadcrumb', array($this, 'breadcrumbSlot'));
+//        ipDispatcher()->bindSlot('breadcrumb', array($this, 'breadcrumbSlot'));
 //    }
 //
 //
