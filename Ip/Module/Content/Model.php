@@ -44,6 +44,55 @@ class Model{
         return $answer;
     }
 
+    public static function initManagementData() {
+
+        $tmpWidgets = Model::getAvailableWidgetObjects();
+        $tmpWidgets = Model::sortWidgets($tmpWidgets);
+        $widgets = array();
+        foreach($tmpWidgets as $key => $widget) {
+            if (!$widget->getUnderTheHood()) {
+                $widgets[$key] = $widget;
+            }
+        }
+
+        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
+
+        $managementUrls = array();
+        foreach($revisions as $revision) {
+            $managementUrls[] = ipGetCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
+        }
+
+        $revision = \Ip\ServiceLocator::getContent()->getRevision();
+
+        $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
+
+        $page = ipGetCurrentPage();
+
+        $data = array (
+            'widgets' => $widgets,
+            'page' => $page,
+            'revisions' => $revisions,
+            'currentRevision' => $revision,
+            'managementUrls' => $managementUrls,
+            'manageableRevision' => $manageableRevision
+        );
+
+        $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
+
+        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
+
+        $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
+        $data = array (
+            'status' => 'success',
+            'controlPanelHtml' => $controlPanelHtml,
+            'widgetControlsHtml' => $widgetControlsHtml,
+            'saveProgressHtml' => $saveProgressHtml,
+            'manageableRevision' => $manageableRevision
+        );
+
+        return $data;
+    }
+
     public static function sortWidgets($widgets) {
         $priorities = self::_getPriorities();
         $sortedWidgets = array();

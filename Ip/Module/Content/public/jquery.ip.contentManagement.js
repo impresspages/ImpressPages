@@ -19,40 +19,65 @@
             
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
+                    $this.bind('initFinished.ipContentManagement', $.proxy(methods._initBlocks, $this));
+                    $this.bind('pageSaveStart.ipContentManagement', $.proxy(methods.saveBlocksStart, $this));
+
                     $(this).trigger('initStarted.ipContentManagement');
  
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
                         optionsChanged : false,
-                        postUrl : document.location
                     });
                     var data = $this.data('ipContentManagement');
-                    
-                    
-//                    if ($(".ipAdminPanelContainer").length == 0) {
-//                        var $controlsBgDiv = $('<div class="ipAdminPanelContainer" />');
-//                        $('body').prepend($controlsBgDiv);
-//                    }
-                
-                    var postData = Object();
-                    postData.aa = 'Content.initManagementData';
-                    postData.securityToken = ip.securityToken;
-            
-                    $.ajax({
-                        type : 'POST',
-                        url : data.postUrl,
-                        data : postData,
-                        context : $this,
-                        success : methods.initResponse,
-                        dataType : 'json'
-                    });
-                    
-                    
+
+
+                    {
+                        $('body').prepend(ipContentInit.saveProgressHtml);
+                        $('body').prepend(ipContentInit.controlPanelHtml);
+
+                        var options = new Object;
+                        options.zoneName = ip.zoneName;
+                        options.pageId = ip.pageId;
+                        options.revisionId = ip.revisionId;
+                        options.widgetControlsHtml = ipContentInit.widgetControlsHtml;
+                        options.contentManagementObject = $this;
+                        options.manageableRevision = ipContentInit.manageableRevision;
+
+                        var data = $this.data('ipContentManagement');
+                        data.initInfo = options;
+                        $this.data('ipContentManagement', data);
+
+                        $('.ipActionWidgetButton').ipAdminWidgetButton();
+
+                        $('.ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
+
+                        $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
+                        $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
+
+                        $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
+                        $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
+
+                        $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
+
+                        $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
+
+                        $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
+
+                        $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('openPageOptions');});
+
+                        $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
+                        $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
+                        //$this.bind('dialogclose', methods._optionsCancel);
+
+                        $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
+
+                        $this.trigger('initFinished.ipContentManagement', options);
+                    }
+
 
                 }
 
-                $this.bind('initFinished.ipContentManagement', $.proxy(methods._initBlocks, $this));
-                $this.bind('pageSaveStart.ipContentManagement', $.proxy(methods.saveBlocksStart, $this));
+
 
 
             });
@@ -60,55 +85,6 @@
         
 
 
-        // ********INIT*********
-
-        initResponse : function(response) {
-            return this.each(function() {
-                if (response.status == 'success') {
-                    var $this = $(this);
-                    $('body').prepend(response.saveProgressHtml);
-                    $('body').prepend(response.controlPanelHtml);
-
-                    var options = new Object;
-                    options.zoneName = ip.zoneName;
-                    options.pageId = ip.pageId;
-                    options.revisionId = ip.revisionId;
-                    options.widgetControlsHtml = response.widgetControlsHtml;
-                    options.contentManagementObject = $this;
-                    options.manageableRevision = response.manageableRevision;
-
-                    var data = $this.data('ipContentManagement');
-                    data.initInfo = options;
-                    $this.data('ipContentManagement', data);
-
-                    $('.ipActionWidgetButton').ipAdminWidgetButton();
-                    
-                    $('.ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
-
-                    $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
-                    $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
-
-                    $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
-                    $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
-
-                    $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
-
-                    $this.bind('removeSaveJob.ipContentManagement', function(event, jobName){$(this).ipContentManagement('removeSaveJob', jobName);});
-
-                    $this.bind('saveCancel.ipContentManagement', function(event){$(this).ipContentManagement('saveCancel');});
-                    
-                    $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('openPageOptions');});
-
-                    $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
-                    $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
-                    //$this.bind('dialogclose', methods._optionsCancel);
-                    
-                    $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
-                    
-                    $this.trigger('initFinished.ipContentManagement', options);
-                }
-            });
-        },
 
 
         saveBlocksStart : function() {
@@ -167,7 +143,7 @@
 
             $.ajax({
                 type : 'POST',
-                url : data.postUrl,
+                url : ip.baseUrl,
                 data : postData,
                 context : $this,
                 success : methods._savePageOptionsResponse,
@@ -181,9 +157,6 @@
             if (response.status == 'success') {
                 $('.ipaOptionsDialog').remove();
                 if (response.newUrl && response.newUrl != '') {
-                    var data = $this.data('ipContentManagement');
-                    data.postUrl = response.newUrl;
-                    $this.data('ipContentManagement', data);
                     $('a[href="' + response.oldUrl + '"]').attr('href', response.newUrl);
                 }
             } else {
@@ -266,7 +239,7 @@
 
                 $.ajax({
                     type : 'POST',
-                    url : data.postUrl,
+                    url : ip.baseUrl,
                     data : postData,
                     context : $this,
                     success : methods._savePageResponse,
@@ -287,7 +260,7 @@
 
                     $.ajax({
                         type : 'POST',
-                        url : data.postUrl,
+                        url : ip.baseUrl,
                         data : postData,
                         context : $this,
                         success : methods._publishPageResponse,

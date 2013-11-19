@@ -60,39 +60,9 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.block.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widget.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/exampleContent.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
-
-
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-            ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
-
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
-
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js'));
-
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.browserplus.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.gears.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
-
-
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
-            ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
-
-            ipAddCss(\Ip\Config::coreModuleUrl('Content/public/widgets.css'));
-            ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
-
-        }
 
     }
+
 
     public function executeCron(\Ip\Event $e)
     {
@@ -103,14 +73,13 @@ class System{
     
     public static function collectWidgets(EventWidget $event){
         $widgetDirs = self::_getWidgetDirs();
-        foreach($widgetDirs as $widgetDirRecord) {
-            
-            $widgetDir = $widgetDirRecord['dir'];
+        foreach ($widgetDirs as $widgetDirRecord) {
+
             $widgetKey = $widgetDirRecord['widgetKey'];
 
             
             //register widget if widget controller exists
-            $widgetPhpFile = \Ip\Config::baseFile($widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php');
+            $widgetPhpFile = $widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php';
             if (file_exists($widgetPhpFile) && is_file($widgetPhpFile)) {
                 require_once($widgetPhpFile);
                 if ($widgetDirRecord['core']) {
@@ -162,7 +131,7 @@ class System{
             $answer = array_merge($answer, self::findModuleWidgets($module, 1));
         }
 
-        $plugins = \Ip\Module\Plugins\Model::getactivePlugins();
+        $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
             $answer = array_merge($answer, self::findModuleWidgets($plugin, 0));
         }

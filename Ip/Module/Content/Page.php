@@ -30,12 +30,9 @@ class Page extends \Ip\Page {
             $this->generateDepthAndLink();
         }
 
-        if($ignoreRedirect)
-        {
+        if($ignoreRedirect) {
             return $this->linkIgnoreRedirect;
-        }
-        else
-        {
+        } else {
             return $this->link;
         }
     }
@@ -43,8 +40,9 @@ class Page extends \Ip\Page {
 
 
     public function getDepth() {
-        if($this->depth == null)
-        $this->generateDepthAndLink();
+        if ($this->depth == null) {
+            $this->generateDepthAndLink();
+        }
 
         return $this->depth;
     }
@@ -66,7 +64,7 @@ class Page extends \Ip\Page {
         $tmpUrlVars = array();
         $tmpId = $this->getId();
         $element = DbFrontend::getPage($tmpId);
-        while($element['parent'] !== null) {
+        while ($element['parent'] !== null) {
             $tmpUrlVars[] = $element['url'];
             $element = DbFrontend::getPage($element['parent']);
         }
@@ -74,14 +72,14 @@ class Page extends \Ip\Page {
 
         $urlVars = array();
 
-        for($i=sizeof($tmpUrlVars)-1; $i >= 0; $i--) // " - 1: eliminating invisible root content element"
+        for ($i=sizeof($tmpUrlVars)-1; $i >= 0; $i--) // " - 1: eliminating invisible root content element"
         {
             $urlVars[] = $tmpUrlVars[$i];
         }
 
         $this->depth = sizeof($urlVars);
 
-        switch($this->type) {
+        switch ($this->type) {
             case 'subpage':
                 $tmpChildren = ipGetZone($this->zoneName)->getPages($languageId, $this->id, 0, $limit = 1);
                 if(sizeof($tmpChildren) == 1)

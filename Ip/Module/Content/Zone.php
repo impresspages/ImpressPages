@@ -23,12 +23,13 @@ class Zone extends \Ip\Zone {
     function getPages($languageId = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
 
 
-        if($languageId == null)
-        $languageId = ipGetCurrentLanguage()->getId();
+        if ($languageId == null) {
+            $languageId = ipGetCurrentLanguage()->getId();
+        }
 
         $urlVars = array();
 
-        if($parentPageId != null) {  //if parent specified
+        if ($parentPageId != null) {  //if parent specified
             $parentPages = $this->getRoadToPage($parentPageId);
             foreach($parentPages as $key => $page)
             $urlVars[] = $page->getUrl();
@@ -36,17 +37,19 @@ class Zone extends \Ip\Zone {
 
         $breadCrumb = $this->getBreadCrumb();
         $depth = sizeof($urlVars)+1;
-        if(isset($breadCrumb[$depth-1])) {
+        if (isset($breadCrumb[$depth-1])) {
             $selectedId = $breadCrumb[$depth-1]->getId();
-        }else
-        $selectedId = null;
+        } else {
+            $selectedId = null;
+        }
 
-        if($reverseOrder)
-        $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
-        else
-        $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
+        if ($reverseOrder) {
+            $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
+        } else {
+            $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
+        }
         $pages = array();
-        foreach($dbPages as $key => $dbPage) {
+        foreach ($dbPages as $dbPage) {
             $newPage = $this->makePageFromDb($dbPage, sizeof($urlVars) == 1);
 
             if($selectedId == $dbPage['id'])
@@ -74,7 +77,7 @@ class Zone extends \Ip\Zone {
 
     function getPage($pageId) {
         $dbPage = $this->db->getPage($pageId);
-        if($dbPage) {
+        if ($dbPage) {
             $dbParentPage = $this->db->getPage($dbPage['parent']);
             $page = $this->makePageFromDb($dbPage, $dbParentPage['parent'] == null);
             return $page;
@@ -88,7 +91,7 @@ class Zone extends \Ip\Zone {
     function getFirstPage($parentId, $level) {
 
         $pages = $this->db->getPages($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
-        foreach($pages as $page) {
+        foreach ($pages as $page) {
             switch($page['type']) {
                 case 'inactive':
                 case 'subpage':
@@ -135,7 +138,7 @@ class Zone extends \Ip\Zone {
 
 
     private function makePageFromDb($dbPage, $firstLevel) {
-        $newPage = new \Ip\Page($dbPage['id'], $this->getName());
+        $newPage = new Page($dbPage['id'], $this->getName());
         $newPage->setButtonTitle($dbPage['button_title']);
         $newPage->setPageTitle($dbPage['page_title']);
         $newPage->setKeywords($dbPage['keywords']);
