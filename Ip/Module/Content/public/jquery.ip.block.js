@@ -67,11 +67,9 @@
                             data.managementState = 0;
                         }
 
-                        var urlParts = window.location.href.split('#');
-                        var postUrl = urlParts[0];
                         $.ajax( {
                             type : 'POST',
-                            url : postUrl,
+                            url : ip.baseUrl,
                             data : data,
                             context : $this,
                             success : methods._moveWidgetResponse,
@@ -204,12 +202,10 @@
             data.securityToken = ip.securityToken;
             data.instanceId = instanceId;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
 
             $.ajax( {
             type : 'POST',
-            url : postUrl,
+            url : ip.baseUrl,
             data : data,
             context : $this,
             success : methods._deleteWidgetResponse,
@@ -242,11 +238,9 @@
             data.pageId = $this.data('ipBlock').pageId;
             data.revisionId = $this.data('ipBlock').revisionId;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax( {
             type : 'POST',
-            url : postUrl,
+            url : ip.baseUrl,
             data : data,
             context : $this,
             success : methods._createWidgetResponse,

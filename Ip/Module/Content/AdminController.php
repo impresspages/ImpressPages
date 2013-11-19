@@ -149,54 +149,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function initManagementData(){
 
-        $tmpWidgets = Model::getAvailableWidgetObjects();
-        $tmpWidgets = Model::sortWidgets($tmpWidgets);
-        $widgets = array();
-        foreach($tmpWidgets as $key => $widget) {
-            if (!$widget->getUnderTheHood()) {
-                $widgets[$key] = $widget;
-            }
-        }
-
-        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
-
-        $managementUrls = array();
-        foreach($revisions as $revision) {
-            $managementUrls[] = ipGetCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
-        }
-
-        $revision = \Ip\ServiceLocator::getContent()->getRevision();
-
-        $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
-
-        $page = ipGetCurrentPage();
-
-        $data = array (
-            'widgets' => $widgets,
-            'page' => $page,
-            'revisions' => $revisions,
-            'currentRevision' => $revision,
-            'managementUrls' => $managementUrls,
-            'manageableRevision' => $manageableRevision
-        );
-
-        $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
-
-        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
-
-        $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
-        $data = array (
-            'status' => 'success',
-            'controlPanelHtml' => $controlPanelHtml,
-            'widgetControlsHtml' => $widgetControlsHtml,
-            'saveProgressHtml' => $saveProgressHtml,
-            'manageableRevision' => $manageableRevision
-        );
-
-        return new \Ip\Response\Json($data);
-    }
 
     public function moveWidget() {
 
@@ -555,7 +508,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        new \Ip\Response\Json($data);
+        return new \Ip\Response\Json($data);
 
     }
 
@@ -577,13 +530,14 @@ class AdminController extends \Ip\Controller
         \Ip\Revision::publishRevision($revisionId);
 
 
+        $zone = ipGetZone($revision['zoneName']);
+        $page = $zone->getPage($revision['pageId']);
         $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
-            $newRevisionUrl = ipGetCurrentPage()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
+            $newRevisionUrl = $page->getLink() . '?cms_action=manage'; //we publish the last revision. We will not specify revision id. Then CMS will create new revision.
         } else {
-            $newRevisionUrl = ipGetCurrentPage()->getLink().'&cms_revision='.$lastRevision['revisionId'];
+            $newRevisionUrl = $page->getLink().'?cms_action=manage&cms_revision='.$lastRevision['revisionId'];
         }
-
         $data = array (
             'status' => 'success',
             'action' => '_publishPageResponse',

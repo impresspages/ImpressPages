@@ -48,10 +48,8 @@
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
-                    var urlParts = window.location.href.split('#');
-                    var postUrl = urlParts[0];
                     $.ajax({
-                        url: postUrl,
+                        url : ip.baseUrl,
                         dataType: 'json',
                         type : 'POST',
                         data: form.serialize(),

@@ -157,11 +157,9 @@
             data.instanceId = $this.data('ipWidget').instanceId;
 
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax( {
             type : 'POST',
-            url : postUrl,
+            url : ip.baseUrl,
             data : data,
             context : $this,
             success : methods._manageWidgetResponse,
@@ -246,11 +244,9 @@
             data.widgetData = widgetData;
             data.layout = $this.find('.ipaLayouts').val();
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax( {
             type : 'POST',
-            url : postUrl,
+            url : ip.baseUrl,
             data : data,
             context : $this,
             success : methods._saveDataResponse,
@@ -297,11 +293,9 @@
             data.securityToken = ip.securityToken;
             data.instanceId = $this.data('ipWidget').instanceId;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax( {
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._cancelResponse,

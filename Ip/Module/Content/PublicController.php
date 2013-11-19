@@ -27,5 +27,47 @@ class PublicController extends \Ip\Controller
             ipSetLayout(\Ip\Config::coreModuleFile('Admin/View/safeModeLayout.php'));
         }
 
+        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+            $this->initManagement();
+        }
+
+
+
     }
+
+    private function initManagement()
+    {
+        ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.block.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/jquery.ip.widget.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/exampleContent.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/drag.js'));
+
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js'));
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.browserplus.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/plupload.gears.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
+
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
+
+        ipAddCss(\Ip\Config::coreModuleUrl('Content/public/widgets.css'));
+        ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
+
+    }
+
 }

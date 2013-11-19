@@ -30,11 +30,9 @@
             data.pageId = pageId;
             data.zoneName = zoneName;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._refreshPageDataResponse,

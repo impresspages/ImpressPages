@@ -8,6 +8,7 @@ $(document).ready(function() {
         // client-side validation OK.
         if (!e.isDefaultPrevented()) {
             $.ajax({
+                url: ip.baseUrl,
                 dataType: 'json',
                 type : 'POST',
                 data: form.serialize(),
