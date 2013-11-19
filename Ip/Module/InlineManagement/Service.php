@@ -165,7 +165,7 @@ class Service
 
         $data = array (
             'type' => $logo->getType(),
-            'link' => \Ip\Internal\Deprecated\Url::generate(),
+            'link' => ipGetCurrentLanguage()->getLink(),
             'text' => $logo->getText(),
             'image' => $logo->getImage() ? $logo->getImage() : '',
             'font' => $logo->getFont(),
