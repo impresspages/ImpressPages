@@ -12,9 +12,7 @@ class System{
 
     public function init()
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-
-        $dispatcher->bind('site.clearCache', array($this, 'clearCacheEvent'));
+        ipDispatcher()->bind('site.clearCache', array($this, 'clearCacheEvent'));
 
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {
@@ -28,7 +26,7 @@ class System{
             }
         }
 
-        $dispatcher->bind('site.beforeError404', array($this, 'catchError404'));
+        ipDispatcher()->bind('site.beforeError404', array($this, 'catchError404'));
 
 
 
