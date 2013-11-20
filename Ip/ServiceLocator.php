@@ -134,12 +134,6 @@ class ServiceLocator
         return end(self::$requests);
     }
 
-    public static function replaceRequestService($request)
-    {
-        array_pop(self::$requests);
-        self::$requests[] = $request;
-    }
-
     /**
      * @return \Ip\Content
      */
