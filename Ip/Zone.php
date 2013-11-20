@@ -189,7 +189,7 @@ abstract class Zone{
 
     public function getLink()
     {
-        return ipGetCurrentLanguage()->getLink() . $this->getUrl() . '/';
+        return ipContent()->getCurrentLanguage()->getLink() . $this->getUrl() . '/';
     }
 
     /**

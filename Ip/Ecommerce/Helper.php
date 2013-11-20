@@ -48,7 +48,7 @@ class Helper {
     public function formatPrice($price, $currency, $languageId = null)
     {
         if ($languageId === null) {
-            $languageId = ipGetCurrentLanguage()->getId();
+            $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
         $data = array (

@@ -82,7 +82,7 @@ class AdminController extends \Ip\Controller{
         }
         $defaultValue = $_POST['defaultValue'];
 
-        $languages = ipGetLanguages();
+        $languages = ipContent()->getLanguages();
 
         $values = array();
         foreach ($languages as $language) {
@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             'status' => 'success',
-            'curLanguageId' => ipGetCurrentLanguage()->getId(),
+            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'html' => $html
         );
         return new \Ip\Response\Json($data);
@@ -124,7 +124,7 @@ class AdminController extends \Ip\Controller{
         }
         $defaultValue = $_POST['defaultValue'];
 
-        $languages = ipGetLanguages();
+        $languages = ipContent()->getLanguages();
 
         $values = array();
         foreach ($languages as $language) {
@@ -147,7 +147,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             "status" => "success",
-            'curLanguageId' => ipGetCurrentLanguage()->getId(),
+            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             "html" => $html
         );
         return new \Ip\Response\Json($data);
@@ -162,7 +162,7 @@ class AdminController extends \Ip\Controller{
         $key = $_POST['key'];
 
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $scope = $this->dao->getLastOperationScope();
 
         $types = array();
@@ -186,7 +186,7 @@ class AdminController extends \Ip\Controller{
             $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
 
-        $scopeLanguageTitle = str_replace('[[language]]', ipGetCurrentLanguage()->getTitle(), $scopeLanguageTitle);
+        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getCurrentLanguage()->getTitle(), $scopeLanguageTitle);
         $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 
@@ -373,7 +373,7 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr);
         $scope = $this->dao->getLastOperationScope();
 
@@ -424,13 +424,13 @@ class AdminController extends \Ip\Controller{
             switch($type) {
                 case Scope::SCOPE_PAGE:
                     //this always should return false. But just in case JS part would change, we implement it.
-                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
                     break;
                 case Scope::SCOPE_PARENT_PAGE:
                     trigger_error("developer/inline_management", "Unexpected situation"); //there is no option to save to parent if $sameScope is true.
                     break;
                 case Scope::SCOPE_LANGUAGE:
-                    $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId());
+                    $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId());
                     break;
                 case Scope::SCOPE_GLOBAL:
                     $oldImageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
@@ -450,13 +450,13 @@ class AdminController extends \Ip\Controller{
 
         switch($type) {
             case Scope::SCOPE_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId(), $image->getValueStr());
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_PARENT_PAGE:
                 $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId(), $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_LANGUAGE:
-                $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), $image->getValueStr());
+                $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_GLOBAL:
             default:
@@ -501,14 +501,14 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         if ($imageStr) {
             $image = new Entity\Image($imageStr);
             $scope = $this->dao->getLastOperationScope();
             $this->removeImageRecord($image, $key, $scope);
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
         $image = new Entity\Image($imageStr);
 
 
