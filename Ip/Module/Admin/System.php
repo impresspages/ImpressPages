@@ -58,7 +58,7 @@ class System {
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
             $curModule = $parts[0];
-        } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
+        } elseif (\Ip\Module\Content\Service::isManagementMode()) {
             $curModule = "Content";
         }
 

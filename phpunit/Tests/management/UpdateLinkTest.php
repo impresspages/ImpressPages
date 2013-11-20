@@ -75,7 +75,7 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 
         $this->storeAttribute('css=.ipWidget-IpHtml a.seleniumUpdateLinkTest@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
-        $this->assertEquals($installation->getInstallationUrl().'?cms_action=manage', $linkValue);
+        $this->assertEquals($installation->getInstallationUrl(), $linkValue);
 
         $installation->getInstallationDir();
 

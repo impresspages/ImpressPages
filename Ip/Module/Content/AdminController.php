@@ -11,7 +11,14 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        header('location: ' . ipConfig()->baseUrl('', array('cms_action' => 'manage')));
+        \Ip\Module\Content\Service::setManagementMode(1);
+        header('location: ' . ipConfig()->baseUrl(''));
+    }
+
+    public function setManagementMode()
+    {
+        Service::setManagementMode(intval(ipRequest()->getPost('value', 1)));
+        return new \Ip\Response\Json(array(1));
     }
 
     public function getSitemapInList()
@@ -49,9 +56,6 @@ class AdminController extends \Ip\Controller
 
 
         $answer .= '<ul>' . "\n";
-
-        $answer = str_replace('?cms_action=manage', '', $answer);
-        $answer = str_replace('&cms_action=manage', '', $answer);
 
         return new \Ip\Response($answer);
     }
@@ -174,7 +178,7 @@ class AdminController extends \Ip\Controller
 
         if (!$record)
         {
-            return $this->_errorAnswer('Unknown instance '.$instanaceId);
+            return $this->_errorAnswer('Unknown instance ' . $instanceId);
         }
 
         Model::deleteInstance($instanceId);
@@ -534,9 +538,9 @@ class AdminController extends \Ip\Controller
         $page = $zone->getPage($revision['pageId']);
         $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
-            $newRevisionUrl = $page->getLink() . '?cms_action=manage'; //we publish the last revision. We will not specify revision id. Then CMS will create new revision.
+            $newRevisionUrl = $page->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revision.
         } else {
-            $newRevisionUrl = $page->getLink().'?cms_action=manage&cms_revision='.$lastRevision['revisionId'];
+            $newRevisionUrl = $page->getLink().'?cms_revision='.$lastRevision['revisionId'];
         }
         $data = array (
             'status' => 'success',

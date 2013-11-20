@@ -30,8 +30,8 @@ class SiteController extends \Ip\Controller{
 
 
 
-
-        $redirectUrl = ipConfig()->baseUrl('', array('cms_action' => 'manage'));
+        //TODOX replace with url to first module;
+        $redirectUrl = ipConfig()->baseUrl('');
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -66,7 +66,8 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl('', array('cms_action' => 'manage')));
+            \Ip\Module\Content\Service::setManagementMode(1);
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl(''));
         }
 
 

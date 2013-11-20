@@ -55,6 +55,14 @@ class System{
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
 
+        $dispatcher->bind('Admin.login', array($this, 'adminLogin'));
+
+
+    }
+
+    public function adminLogin($data)
+    {
+        Service::setManagementMode(1);
     }
 
 

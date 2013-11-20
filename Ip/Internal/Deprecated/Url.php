@@ -38,16 +38,6 @@ class Url {
             $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
-        /*generates link to first page of current language*/
-        // get parameter for cms management
-        if (ipRequest()->getQuery('cms_action') == 'manage') {
-            if ($getVars == null) {
-                $getVars = array('cms_action' => 'manage');
-            } else {
-                $getVars['cms_action'] = 'manage';
-            }
-        }
-        // get parameter for cms management
 
         if (ipGetOption('Config.multilingual')) {
             $answer = ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::content()->getLanguageById($languageId)->getUrl()).'/');

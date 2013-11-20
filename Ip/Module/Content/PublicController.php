@@ -28,8 +28,12 @@ class PublicController extends \Ip\Controller
             ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
         }
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/content.js'));
+
+        if (ipIsManagementState()) {
             $this->initManagement();
+        } else {
+            ipAddJavascriptVariable('ipContentShowEditButton', 1);
         }
     }
 

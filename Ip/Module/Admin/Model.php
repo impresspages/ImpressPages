@@ -118,10 +118,12 @@ class Model{
         if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
             $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
-        }else {
+        } else {
             $id = $this->userId($username, $pass);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
+                \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
+
                 $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
                 return true;
             } else {

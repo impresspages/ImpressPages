@@ -109,10 +109,6 @@ class Service
             $curValue = $defaultValue;
         }
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
-        }
 
         $data = array (
             'defaultValue' => $defaultValue,
