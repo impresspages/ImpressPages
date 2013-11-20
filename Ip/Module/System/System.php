@@ -17,18 +17,18 @@ class System{
             ipAddJavascript(ipConfig()->coreModuleUrl('System/public/system.js'), 0);
         }
 
-        ipDispatcher()->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
+        ipDispatcher()->bind('site.urlChanged', __NAMESPACE__ .'\System::urlChanged');
         ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
     }
     
-    public static function urlChanged (\Ip\Event\UrlChanged $event)
+    public static function urlChanged($info)
     {
-        \Ip\Internal\DbSystem::replaceUrls($event->getOldUrl(), $event->getNewUrl());
+        \Ip\Internal\DbSystem::replaceUrls($info['oldUrl'], $info['newUrl']);
     }
     
-    public function executeCron(\Ip\Event $e)
+    public function executeCron($info)
     {
-        if ($e->getValue('firstTimeThisDay') || $e->getValue('test')) {
+        if ($info['firstTimeThisDay'] || $info['test']) {
             if (ipGetOption('Config.keepOldRevision') != 0) {
                 \Ip\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }

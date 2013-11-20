@@ -22,8 +22,9 @@ namespace Ip\Event;
  * event has attribute 'priority'. To override default URL with your, just add your own URL with higher priority
  *
  */
-class UserAfterPayment extends \Ip\Event{
+class UserAfterPayment {
 
+    // TODOX remove this event class
     const USER_AFTER_PAYMENT = 'global.userAfterPayment';
     const STATUS_ERROR = 1;
     const STATUS_PENDING = 2;

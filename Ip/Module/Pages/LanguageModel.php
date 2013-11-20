@@ -10,7 +10,6 @@ namespace Ip\Module\Pages;
 class LanguageModel{
 
     public function updateLanguage($languageId, $data) {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
 
         $condition = array(
             'id' => $languageId
@@ -29,7 +28,7 @@ class LanguageModel{
         $newUrl = ipConfig()->baseUrl($data['url']) . '/';
 
         if ($originalUrl != $newUrl){
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $originalUrl, $newUrl));
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $originalUrl, 'newUrl' => $newUrl));
         }
     }
 
@@ -55,8 +54,7 @@ class LanguageModel{
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
             $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
             $newUrl = BASE_URL.$tmpLanguage['url'].'/';
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
-
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 

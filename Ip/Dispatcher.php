@@ -13,14 +13,22 @@ namespace Ip;
  * Event dispatcher class
  *
  */
-class Dispatcher{
+class Dispatcher
+{
 
-    private $handlers;
+    protected $handlers;
+
+    /**
+     * @var array stores info which handlers are sorted
+     */
+    protected $sortedHandlers;
     protected $initCompleted = false;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->handlers = array();
+        $this->sortedHandlers = array();
         $this->bind('site.afterInit', array($this, 'registerInit'));
     }
 
@@ -36,27 +44,24 @@ class Dispatcher{
      * @param callable $callable
      * @throws CoreException
      */
-    public function bind ($eventName, $callable) {
+    public function bind($eventName, $callable, $priority = 10)
+    {
         if (!is_callable($callable)) {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                $errorMessage = "Incorrect callable ".$callable." (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
+            if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                $errorMessage = "Incorrect callable " . $callable . " (Error source: " . ($backtrace[0]['file']) . " line: " . ($backtrace[0]['line']) . " ) ";
             } else {
-                $errorMessage = "Incorrect callable ".$callable;
+                $errorMessage = "Incorrect callable " . $callable;
             }
             throw new CoreException($errorMessage, CoreException::EVENT);
         }
 
-        if (! isset($this->handlers[$eventName])) {
-            $this->handlers[$eventName] = array();
+        if (!isset($this->handlers[$eventName][$priority])) {
+            $this->handlers[$eventName][$priority] = array();
         }
 
-        $this->handlers[$eventName][] = $callable;
-    }
-
-    public function replace ($eventName, $callable) {
-        $this->handlers[$eventName] = array();
-        $this->bind($eventName, $callable);
+        $this->handlers[$eventName][$priority][] = $callable;
+        unset($this->sortedHandlers[$eventName]);
     }
 
     /**
@@ -66,90 +71,90 @@ class Dispatcher{
      * @param callable $callable
      * @throws CoreException
      */
-    public function bindSlot ($slot, $callable) {
-        $this->bind('site.generateSlot.' . $slot, $callable);
+    public function bindSlot($slot, $callable, $priority = 10)
+    {
+        $this->bind('site.generateSlot.' . $slot, $callable, $priority);
     }
 
-    public function filter($eventName, $defaultResult = NULL, $data = array()) {
+    private function check($eventName)
+    {
         if (!$this->initCompleted && $eventName != 'site.afterInit') {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
+            if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $file = ' (Error source: ' . $backtrace[1]['file'] . ' line: ' . $backtrace[1]['line'] . ' )';
             } else {
                 $file = '';
             }
-            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
-        }
-        if ( ! isset($this->handlers[$eventName])) {
-            return $defaultResult;
+            throw new \Ip\CoreException("Event notification can't be thrown before system init." . $file);
         }
 
-        foreach ($this->handlers[$eventName] as $callable) {
-            $defaultResult = call_user_func($callable, $defaultResult, $data);
+    }
+
+    public function filter($eventName, $value, $data = array())
+    {
+        $this->check($eventName);
+
+        if (!isset($this->handlers[$eventName])) {
+            return $value;
         }
 
-        return $defaultResult;
+        if (isset($this->sortedHandlers[$eventName])) {
+            ksort($this->handlers[$eventName]);
+            $this->sortedHandlers[$eventName] = true;
+        }
+
+        do {
+            foreach (current($this->handlers[$eventName]) as $callable) {
+                $value = call_user_func($callable, $value, $data);
+            }
+        } while (next($this->handlers[$eventName]) !== false);
+
+        return $value;
     }
 
     public function job($eventName, $data = array())
     {
-        if (!$this->initCompleted && $eventName != 'site.afterInit') {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
-            } else {
-                $file = '';
+        $this->check($eventName);
+
+        if (!isset($this->handlers[$eventName])) {
+            return null;
+        }
+
+        if (isset($this->sortedHandlers[$eventName])) {
+            ksort($this->handlers[$eventName]);
+            $this->sortedHandlers[$eventName] = true;
+        }
+
+        do {
+            foreach (current($this->handlers[$eventName]) as $callable) {
+                $result = call_user_func($callable, $data);
+                if ($result !== null) {
+                    return $result;
+                }
             }
-            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
-        }
+        } while (next($this->handlers[$eventName]) !== false);
 
-        if ( ! isset($this->handlers[$eventName])) {
-            return NULL;
-        }
-
-        foreach ($this->handlers[$eventName] as $callable) {
-            $result = call_user_func($callable, $data);
-            if ($result !== NULL) {
-                return $result;
-            }
-        }
-
-        return NULL;
+        return null;
     }
 
-    public function notify(Event $event) {
-        if (!$this->initCompleted && $event->getName() != 'site.afterInit') {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && isset($backtrace[0]['line'])) {
-                $file = ' (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' )';
-            } else {
-                $file = '';
+    public function notify($eventName, $data = array())
+    {
+        $this->check($eventName);
+
+        if (!isset($this->handlers[$eventName])) {
+            return null;
+        }
+
+        if (isset($this->sortedHandlers[$eventName])) {
+            ksort($this->handlers[$eventName]);
+            $this->sortedHandlers[$eventName] = true;
+        }
+
+        do {
+            foreach (current($this->handlers[$eventName]) as $callable) {
+                call_user_func($callable, $data);
             }
-            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
-        }
-        if ( ! isset($this->handlers[$event->getName()])) {
-            return false;
-        }
-
-        foreach ($this->handlers[$event->getName()] as $callable) {
-            call_user_func($callable, $event);
-        }
-
-        return $event->getProcessed();
-    }
-
-
-    public function notifyUntil(Event $event) {
-        if ( ! isset($this->handlers[$event->getName()])) {
-            return false;
-        }
-
-        foreach ($this->handlers[$event->getName()] as $callable) {
-            call_user_func($callable, $event);
-            if ($event->getProcessed() > 0){
-                return $event->getProcessed();
-            }
-        }
+        } while (next($this->handlers[$eventName]) !== false);
     }
 
 }
