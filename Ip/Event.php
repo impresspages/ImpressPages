@@ -14,6 +14,8 @@ namespace Ip;
  */
 class Event{
 
+    // TODOX remove this class
+
     private $object;
     private $name;
     private $values;
