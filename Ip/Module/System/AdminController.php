@@ -51,7 +51,7 @@ class AdminController extends \Ip\Controller{
     {
         $log = \Ip\ServiceLocator::getLog();
 
-        ipGetRequest()->mustBePost();
+        ipRequest()->mustBePost();
 
         $log->log('administrator/system', 'Cache was cleared');
         $module = new Module;

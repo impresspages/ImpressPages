@@ -6,24 +6,24 @@ class SiteController extends \Ip\Controller{
     public function loginAjax()
     {
 
-        ipGetRequest()->mustBePost();
+        ipRequest()->mustBePost();
 
         $validateForm = $this->getLoginForm();
-        $errors = $validateForm->validate(ipGetRequest()->getPost());
+        $errors = $validateForm->validate(ipRequest()->getPost());
 
         if (empty($errors)) {
-            if (\Ip\Internal\Db::incorrectLoginCount(ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
                 $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-                \Ip\Internal\Db::log('system', 'backend login suspended', ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Internal\Db::log('system', 'backend login suspended', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
         }
 
         if (empty($errors)) {
-            if (Model::instance()->login(ipGetRequest()->getPost('login'), ipGetRequest()->getPost('password'))) {
-                \Ip\Internal\Db::log('system', 'backend login', ipGetRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+            if (Model::instance()->login(ipRequest()->getPost('login'), ipRequest()->getPost('password'))) {
+                \Ip\Internal\Db::log('system', 'backend login', ipRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
-                \Ip\Internal\Db::log('system', 'backend login incorrect', ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                \Ip\Internal\Db::log('system', 'backend login incorrect', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
             }
         }
@@ -43,7 +43,7 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
-        if (ipGetRequest()->getPost('ajax', 1)) {
+        if (ipRequest()->getPost('ajax', 1)) {
             return new \Ip\Response\Json($answer);
         } else {
             //MultiSite autologin
