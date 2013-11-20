@@ -26,7 +26,7 @@ class ZoneModel{
         $parameter = self::getParameter($zoneId, $languageId);
         $originalUrl = $parameter['url'];
 
-        \Ip\Db::update(DB_PREF . 'zone_parameter', $data, $condition);
+        ipDb()->update(DB_PREF . 'zone_parameter', $data, $condition);
 
         $newUrl = $data['url'];
 
@@ -82,7 +82,7 @@ class ZoneModel{
             'allowedId' => (int) $allowedId
         );
 
-        $result = \Ip\Db::fetchRow($sql, $params);
+        $result = ipDb()->fetchRow($sql, $params);
         return $result;
     }
 

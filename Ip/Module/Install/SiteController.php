@@ -186,7 +186,7 @@ class SiteController extends \Ip\Controller
         ipConfig()->_setRaw('db', $dbConfig);
 
         try {
-            \Ip\Db::getConnection();
+            ipDb()->getConnection();
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t connect to database.', 'ipInstall'));
         }
@@ -279,9 +279,9 @@ class SiteController extends \Ip\Controller
 
 
         try {
-            \Ip\Db::disconnect();
+            ipDb()->disconnect();
             ipConfig()->_setRaw('db', $config['db']);
-            \Ip\Db::getConnection();
+            ipDb()->getConnection();
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t connect to database.', 'ipInstall'));
         }
@@ -293,7 +293,7 @@ class SiteController extends \Ip\Controller
             Model::setSiteEmail(ipRequest()->getPost('site_email'));
 
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(_s('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());
+            return \Ip\Response\JsonRpc::error(_s('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', ipDb()->getConnection()->errorInfo());
         }
 
         /*TODOX follow the new structure

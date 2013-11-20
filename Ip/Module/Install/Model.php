@@ -195,7 +195,7 @@ class Model
     public static function createAndUseDatabase($database)
     {
         try {
-            Db::execute('USE `' . $database . '`');
+            ipDb()->execute('USE `' . $database . '`');
             /*
             var_export($database);
             echo "\n" . __FILE__ . ":" . __LINE__;
@@ -214,8 +214,8 @@ class Model
                 echo "\n" . __FILE__ . ":" . __LINE__;
                 exit;
                 //*/
-                Db::execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
-                Db::execute('USE `' . $database . '`');
+            ipDb()->Db::execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+        ipDb()->    Db::execute('USE `' . $database . '`');
             } catch (\PDOException $e2) {
                 throw new \Ip\CoreException('Could not create database');
             }
@@ -243,9 +243,9 @@ class Model
 
         foreach ($sql_list as $sql) {
             try {
-                Db::execute($sql);
+    ipDb()->        Db::execute($sql);
             } catch (Exception $e) {
-                $errors[] = preg_replace("/[\n\r]/", "", $sql . ' ' . Db::getConnection()->errorInfo());
+                $errors[] = preg_replace("/[\n\r]/", "ipDb()->sql . ' ' . Db::getConnection()->errorInfo());
             }
         }
 
@@ -269,10 +269,9 @@ class Model
 
 
         foreach ($sql_list as $sql) {
-            try {
-                Db::execute($sql);
+            tripDb()->                Db::execute($sql);
             } catch (Exception $e) {
-                $errors[] = preg_replace("/[\n\r]/", "", $sql . ' ' . Db::getConnection()->errorInfo());
+                $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
             }
         }
 
@@ -426,21 +425,21 @@ Sitemap: '. ipConfig()->baseUrl('sitemap.php');
 
     public static function insertAdmin($user, $pass)
     {
-        $sql = "UPDATE `" .\Ip\Db::tablePrefix() . "user` SET `name` = ?, `pass` = ? limit 1";
+        $sql = "UPDATE `" .ipDb()->tablePrefix() . "user` SET `name` = ?, `pass` = ? limit 1";
         // TODOX use salt for passwords
-        \Ip\Db::execute($sql, array($user, md5($pass)));
+        ipDb()->execute($sql, array($user, md5($pass)));
     }
 
     public static function setSiteName($siteName)
     {
-        $sql = "update `".\Ip\Db::tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
-        \Ip\Db::execute($sql, array($siteName));
+        $sql = "update `".ipDb()->tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
+        ipDb()->execute($sql, array($siteName));
     }
 
     public static function setSiteEmail($siteEmail)
     {
-        $sql = "update `".\Ip\Db::tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
-        \Ip\Db::execute($sql, array($siteEmail));
+        $sql = "update `".ipDb()->tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
+        ipDb()->execute($sql, array($siteEmail));
     }
 
 }

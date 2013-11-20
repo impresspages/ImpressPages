@@ -66,7 +66,7 @@ class Model{
         }
 
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
         INSERT INTO
             `'.DB_PREF.'plugin`
@@ -110,7 +110,7 @@ class Model{
         }
 
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
         UPDATE
             `'.DB_PREF.'plugin`
@@ -146,7 +146,7 @@ class Model{
             $worker->remove();
         }
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
         DELETE FROM
             `'.DB_PREF.'plugin`
@@ -175,7 +175,7 @@ class Model{
 
     protected static function getPluginRecord($pluginName)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 *
@@ -214,7 +214,7 @@ class Model{
 
     public static function getActivePlugins()
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 `name`
