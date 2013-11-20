@@ -79,7 +79,7 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+        $response->addJavascript(\Ip\Config::pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
     }
 }
 
@@ -88,11 +88,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') {
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(\Ip\Config::themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else {
         if (method_exists($response, 'addJavascript')) {
-            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(\Ip\Config::themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
