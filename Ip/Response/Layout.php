@@ -37,7 +37,7 @@ class Layout extends \Ip\Response {
         }
         $layout = $this->getLayout();
 
-        if (realpath($layout)) {
+        if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } else {
             $viewFile = ipConfig()->themeFile($layout);
