@@ -25,42 +25,42 @@ function ipSetOption($option, $value)
 
 function ipGetBreadcrumb()
 {
-    return \Ip\ServiceLocator::getContent()->getBreadcrumb();
+    return \Ip\ServiceLocator::content()->getBreadcrumb();
 }
 
 function ipGetZones()
 {
-    return \Ip\ServiceLocator::getContent()->getZones();
+    return \Ip\ServiceLocator::content()->getZones();
 }
 
 function ipGetCurrentZone()
 {
-    return \Ip\ServiceLocator::getContent()->getCurrentZone();
+    return \Ip\ServiceLocator::content()->getCurrentZone();
 }
 
 function ipGetZone($zoneName)
 {
-    return \Ip\ServiceLocator::getContent()->getZone($zoneName);
+    return \Ip\ServiceLocator::content()->getZone($zoneName);
 }
 
 function ipGetCurrentLanguage()
 {
-    return \Ip\ServiceLocator::getContent()->getCurrentLanguage();
+    return \Ip\ServiceLocator::content()->getCurrentLanguage();
 }
 
 function ipGetLanguages()
 {
-    return \Ip\ServiceLocator::getContent()->getLanguages();
+    return \Ip\ServiceLocator::content()->getLanguages();
 }
 
 function ipGetCurrentPage()
 {
-    return \Ip\ServiceLocator::getContent()->getCurrentPage();
+    return \Ip\ServiceLocator::content()->getCurrentPage();
 }
 
 function ipSetBlockContent($block, $content)
 {
-    \Ip\ServiceLocator::getContent()->setBlockContent($block, $content);
+    \Ip\ServiceLocator::content()->setBlockContent($block, $content);
 }
 
 function ipSetLayoutVariable($name, $value)
@@ -208,7 +208,7 @@ function ipEsc($text)
  */
 function ipBlock($block)
 {
-    return \Ip\ServiceLocator::getContent()->generateBlock($block);
+    return \Ip\ServiceLocator::content()->generateBlock($block);
 }
 
 /**
@@ -217,13 +217,13 @@ function ipBlock($block)
  */
 function ipSlot($slot, $params = array())
 {
-    return \Ip\ServiceLocator::getContent()->generateSlot($slot, $params);
+    return \Ip\ServiceLocator::content()->generateSlot($slot, $params);
 }
 
 
 function ipIsManagementState()
 {
-    return \Ip\ServiceLocator::getContent()->isManagementState();
+    return \Ip\ServiceLocator::content()->isManagementState();
 }
 
 function ipRequest()

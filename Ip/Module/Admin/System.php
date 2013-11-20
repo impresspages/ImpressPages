@@ -18,7 +18,7 @@ class System {
 
         ipDispatcher()->bind('site.afterInit', array($this, 'initAdmin'));
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
+        if (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -36,7 +36,7 @@ class System {
     public function initAdmin()
     {
 
-        if (!self::$disablePanel && (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(ipConfig()->coreModuleUrl('Admin/Public/admin.css'));
 
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));

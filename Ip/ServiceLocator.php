@@ -137,7 +137,7 @@ class ServiceLocator
     /**
      * @return \Ip\Content
      */
-    public static function getContent()
+    public static function content()
     {
         return end(self::$contents);
     }

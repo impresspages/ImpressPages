@@ -12,7 +12,7 @@ class PublicController extends \Ip\Controller
     {
         //TODOX set page specific layout
         if (
-            \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
+            \Ip\ServiceLocator::content()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
             ipGetCurrentPage()->getType() === 'error404'
         ) {
             return new \Ip\Response\PageNotFound();
@@ -27,7 +27,7 @@ class PublicController extends \Ip\Controller
             ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
         }
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $this->initManagement();
         }
 

@@ -160,7 +160,7 @@ abstract class Zone{
         if($this->currentPage !== null){
             return $this->currentPage;
         }
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         if($this->name != $content->getCurrentZone()->getName()){
             $this->currentPage = null;
             return null;

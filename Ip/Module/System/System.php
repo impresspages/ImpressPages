@@ -13,7 +13,7 @@ class System{
     }
 
     public function init(){
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             ipAddJavascript(ipConfig()->coreModuleUrl('System/public/system.js'), 0);
         }
 

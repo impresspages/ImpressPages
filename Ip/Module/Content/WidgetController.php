@@ -221,7 +221,7 @@ class WidgetController{
                 $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e){
-            if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+            if (\Ip\ServiceLocator::content()->isManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,
                     'layout' => $layout
