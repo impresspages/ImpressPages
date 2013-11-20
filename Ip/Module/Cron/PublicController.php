@@ -31,7 +31,7 @@ class PublicController extends \Ip\Controller
 
     public function index()
     {
-        $log = \Ip\ServiceLocator::getLog();
+        $log = \Ip\ServiceLocator::log();
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
             $log->log('Cron', 'incorrect cron password');
             throw new \Ip\CoreException('Incorrect cron password');

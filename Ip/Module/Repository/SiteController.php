@@ -56,7 +56,7 @@ class SiteController extends \Ip\Controller{
                 case UploadException::INPUT_STREAM_ERROR:
                 case UploadException::OUTPUT_STREAM_ERROR:
                 default:
-                    $log = \Ip\ServiceLocator::getLog();
+                    $log = \Ip\ServiceLocator::log();
                     $log->log('administrator/repository', 'File upload error', 'Error: '.$e->getMessage().' ('.$e->getCode().')');
                     $message = $parametersMod->getValue("Form.server");
                     break;
