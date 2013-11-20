@@ -120,18 +120,17 @@ class Template {
         $tabsList = '';
         $contentList = '';
 
-
         foreach ($tabs as $tabKey => $tab) {
             $tabsList .=
 '
 <li>
-	<a href="#propertiesTabs-'.($tabKey + 1).'">'.htmlspecialchars($tab['title']).'</a>
+    <a href="#propertiesTabs-'.($tabKey + 1).'" data-toggle="tab">'.htmlspecialchars($tab['title']).'</a>
 </li>
 ';
 
             $contentList .=
 '
-<div id="propertiesTabs-'.($tabKey + 1).'">
+<div id="propertiesTabs-'.($tabKey + 1).'" class="tab-pane">
 '.$tab['content'].'
 </div>
 ';
@@ -139,10 +138,17 @@ class Template {
 
         $answer .=
 '
-    <ul class="tabs">
-    '.$tabsList.'
-    </ul>    
-    '.$contentList.'    
+    <ul class="nav nav-tabs" id="propertiesTabs">
+        '.$tabsList.'
+    </ul>
+    <div class="tab-content">
+        '.$contentList.'
+    </div>
+    <script>
+        $(function () {
+            $(\'#propertiesTabs a:first\').tab(\'show\')
+        })
+    </script>
 ';
 
         return $answer;
@@ -155,26 +161,31 @@ class Template {
         $element = new \Ip\Page('null', 'left');
         $answer .=
 '
-<form id="formGeneral">
-	<p class="field">
+<form id="formGeneral" role="form">
+    <div class="form-group">
         <label for="generalButtonTitle">'.__('Button title', 'ipAdmin').'</label>
-        <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" /><br />
-    </p>
-	<p class="field">
+        <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
         <label for="generalVisible">'.__('Visible', 'ipAdmin').'</label>
-    	<input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="yes"' : '' ).' /><br />
-    </p>
-	<p class="field">
-    	<label for="generalCreatedOn">'.__('Created on', 'ipAdmin').'</label>
-    	<span class="error" id="createdOnError"></span>
-    	<input id="generalCreatedOn" name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" /><br />
-    </p>
-	<p class="field">
-    	<label for="lastModifiedError">'.__('Last modified', 'ipAdmin').'</label>
-    	<span class="error" id="lastModifiedError"></span>
-    	<input id="generalLastModified" name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" /><br />
-	</p>    
-    <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
+        <div class="checkbox">
+            <label>
+                <input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="checked"' : '' ).' />
+                '.__('Visible', 'ipAdmin').'
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="generalCreatedOn">'.__('Created on', 'ipAdmin').'</label>
+        <span class="error" id="createdOnError"></span>
+        <input id="generalCreatedOn" name="createdOn" value="'.htmlspecialchars(substr($element->getCreatedOn(), 0, 10)).'" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="lastModifiedError">'.__('Last modified', 'ipAdmin').'</label>
+        <span class="error" id="lastModifiedError"></span>
+        <input id="generalLastModified" name="lastModified" value="'.htmlspecialchars(substr($element->getLastModified(), 0, 10)).'" type="text" class="form-control" />
+    </div>
+    <button class="btn btn-primary" type="submit">'.__('Save', 'ipAdmin').'</button>
 </form>
 ';
 

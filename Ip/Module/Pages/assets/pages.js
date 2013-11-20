@@ -562,8 +562,8 @@ function updatePageFormResponse(response) {
         });
         $("#internalLinkingIcon").bind("click", openInternalLinkingTree);
 
-        $('#pageProperties').tabs('destroy');
-        $('#pageProperties').tabs();
+        /*$('#pageProperties').tabs('destroy');
+        $('#pageProperties').tabs();*/
 
     }
 }
