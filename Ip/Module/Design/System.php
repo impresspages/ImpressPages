@@ -88,12 +88,10 @@ class System{
         return $optionsBox->render();
     }
 
-    public function clearCacheEvent(\Ip\Event\ClearCache $e)
+    public function clearCacheEvent($info)
     {
         $lessCompiler = LessCompiler::instance();
         $lessCompiler->rebuild(ipConfig()->theme());
     }
 
 }
-
-
