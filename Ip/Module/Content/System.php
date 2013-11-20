@@ -26,9 +26,9 @@ class System{
         $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
 
 
-        $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
+        $dispatcher->bind('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
 
-        $dispatcher->bind(\Ip\Event\PageMoved::SITE_PAGE_MOVED, __NAMESPACE__ .'\System::pageMoved');
+        $dispatcher->bind('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
 
 
 
@@ -254,26 +254,18 @@ class System{
         Model::clearCache($revisionId);
     }
 
-    public static function pageDeleted(\Ip\Event\PageDeleted $event) {
-        $zoneName = $event->getZoneName();
-        $pageId = $event->getPageId();
-        
-        Model::removePageRevisions($zoneName, $pageId);
+    public static function pageDeleted($info)
+    {
+        Model::removePageRevisions($info['zoneName'], $info['pageId']);
     }
     
-    public static function pageMoved(\Ip\Event\PageMoved $event) {
-        $sourceZoneName = $event->getSourceZoneName();
-        $destinationZoneName = $event->getDestinationZoneName();
-        $pageId = $event->getPageId();
-        
-        if ($sourceZoneName != $destinationZoneName) {
+    public static function pageMoved($info)
+    {
+        if ($info['newZoneName'] != $info['oldZoneName']) {
             //move revisions from one zone to another
-            Model::updatePageRevisionsZone($pageId, $sourceZoneName, $destinationZoneName);
-        } else {
-            // do nothing
+            Model::updatePageRevisionsZone($info['pageId'], $info['oldZoneName'], $info['newZoneName']);
         }
-
-    }    
+    }
 
 }
 
