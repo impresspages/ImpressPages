@@ -128,14 +128,14 @@ class Application {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
             }
-            \Ip\ServiceLocator::getResponse()->setContent($controllerAnswer);
+            \Ip\ServiceLocator::response()->setContent($controllerAnswer);
             \Ip\ServiceLocator::removeRequest();
-            return \Ip\ServiceLocator::getResponse();
+            return \Ip\ServiceLocator::response();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
             return $controllerAnswer;
         } elseif ($controllerAnswer === NULL) {
-            $response = \Ip\ServiceLocator::getResponse();
+            $response = \Ip\ServiceLocator::response();
             \Ip\ServiceLocator::removeRequest();
             return $response;
         } else {

@@ -43,7 +43,7 @@ class System{
 
 
         // TODOX move to more appropriate place
-        $response = \Ip\ServiceLocator::getResponse();
+        $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) {
             $data = array(
                 'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
