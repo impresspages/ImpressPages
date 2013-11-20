@@ -19,7 +19,7 @@
             ?>
             <ul>
                 <li>
-                    <a href="<?php echo ipGetConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>">
+                    <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>">
                         <?php _e('Logout', 'ipAdmin') ?>
                         <span class="icon-stack">
                             <i class="icon-sign-blank icon-stack-base"></i>
@@ -35,7 +35,7 @@
 
 
 
-        <a href="<?php echo ipGetConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
+        <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Logout', 'ipAdmin') ?>
             <span class="icon-stack">
                 <i class="icon-sign-blank icon-stack-base"></i>

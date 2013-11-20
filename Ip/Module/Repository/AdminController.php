@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller{
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
 
-        $temporaryDir = str_replace('/', rtrim(ipGetConfig()->temporaryFile(''), '/\\'), DIRECTORY_SEPARATOR); // for Windows compatibility
+        $temporaryDir = str_replace('/', rtrim(ipConfig()->temporaryFile(''), '/\\'), DIRECTORY_SEPARATOR); // for Windows compatibility
 
         foreach ($files as $key => $file) {
             if (realpath($file['dir']) != $temporaryDir) {
@@ -41,11 +41,11 @@ class AdminController extends \Ip\Controller{
 
         $newFiles = array();
 
-        $destination = ipGetConfig()->repositoryFile('');
+        $destination = ipConfig()->repositoryFile('');
         foreach ($files as $key => $file) {
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(ipGetConfig()->baseFile($file['file']), $destination.$newName);
-            unlink(ipGetConfig()->baseFile($file['file'])); //this is a temporary file
+            copy(ipConfig()->baseFile($file['file']), $destination.$newName);
+            unlink(ipConfig()->baseFile($file['file'])); //this is a temporary file
             $browserModel = \Ip\Module\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;

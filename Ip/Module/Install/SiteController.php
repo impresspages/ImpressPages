@@ -62,7 +62,7 @@ class SiteController extends \Ip\Controller
     public function step2()
     {
         // TODOX Algimantas: what this is for?
-        $license = file_get_contents(ipGetConfig()->baseFile('ip_license.html'));
+        $license = file_get_contents(ipConfig()->baseFile('ip_license.html'));
 
         Model::completeStep(2);
 
@@ -91,8 +91,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
         $js = array(
-            ipGetConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipGetConfig()->coreModuleUrl('Install/assets/js/step3.js')
+            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->coreModuleUrl('Install/assets/js/step3.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -132,8 +132,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
         $js = array(
-            ipGetConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipGetConfig()->coreModuleUrl('Install/assets/js/step4.js')
+            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->coreModuleUrl('Install/assets/js/step4.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -183,7 +183,7 @@ class SiteController extends \Ip\Controller
             'charset' => 'utf8',
         );
 
-        ipGetConfig()->_setRaw('db', $dbConfig);
+        ipConfig()->_setRaw('db', $dbConfig);
 
         try {
             \Ip\Db::getConnection();
@@ -259,20 +259,20 @@ class SiteController extends \Ip\Controller
 
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = ipGetConfig()->baseFile('');
-        $config['BASE_URL'] = ipGetConfig()->baseUrl('');
+        $config['BASE_DIR'] = ipConfig()->baseFile('');
+        $config['BASE_URL'] = ipConfig()->baseUrl('');
         $config['ERRORS_SEND'] = $_POST['email'];
         $config['timezone'] = $timezone;
         $config['db'] = $_SESSION['db'];
 
         try {
-            Model::writeConfigFile($config, ipGetConfig()->baseFile('ip_config.php'));
+            Model::writeConfigFile($config, ipConfig()->baseFile('ip_config.php'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t write configuration "/ip_config.php"', 'ipInstall'));
         }
 
         try {
-            Model::writeRobotsFile(ipGetConfig()->baseFile('robots.txt'));
+            Model::writeRobotsFile(ipConfig()->baseFile('robots.txt'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t write "/robots.txt"', 'ipInstall'));
         }
@@ -280,7 +280,7 @@ class SiteController extends \Ip\Controller
 
         try {
             \Ip\Db::disconnect();
-            ipGetConfig()->_setRaw('db', $config['db']);
+            ipConfig()->_setRaw('db', $config['db']);
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t connect to database.', 'ipInstall'));

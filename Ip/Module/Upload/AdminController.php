@@ -44,7 +44,7 @@ class AdminController extends \Ip\Controller
 
         // Settings
         //$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
-        $targetDir = ipGetConfig()->temporaryFile('');
+        $targetDir = ipConfig()->temporaryFile('');
 
         //$cleanupTargetDir = false; // Remove old files
         //$maxFileAge = 60 * 60; // Temp file age in seconds
@@ -150,7 +150,7 @@ class AdminController extends \Ip\Controller
             "jsonrpc" => "2.0",
             "result" => null, 
             "id" => "id",
-            "fileName" => ipGetConfig()->temporaryFile($fileName)
+            "fileName" => ipConfig()->temporaryFile($fileName)
         );
 
         return new \Ip\Response\Json($answerArray);

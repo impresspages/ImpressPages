@@ -20,9 +20,9 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
     {
         $repository = \Ip\Module\Repository\Model::instance();
 
-        $file = ipGetConfig()->getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
+        $file = ipConfig()->getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
 
-        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipGetConfig()->repositoryFile('impresspages.png'));
+        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipConfig()->repositoryFile('impresspages.png'));
 
         //Bind file to module (twice)
         $repository->bindFile($file, 'modulexxx', 1);
@@ -34,22 +34,22 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         //Create reflection
         $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
-        $this->assertEquals(ipGetConfig()->getRaw('FILE_DIR') . 'impresspages.png', $reflection);
+        $this->assertEquals(ipConfig()->getRaw('FILE_DIR') . 'impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
-        $this->assertEquals(true, file_exists(ipGetConfig()->baseFile($reflection)));
+        $this->assertEquals(true, file_exists(ipConfig()->baseFile($reflection)));
 
 
         //Unbind file from repository (once)
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //check if reflection still exists
-        $this->assertEquals(true, file_exists(ipGetConfig()->baseFile($reflection)));
+        $this->assertEquals(true, file_exists(ipConfig()->baseFile($reflection)));
 
         //unbind next file instance
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //Check if reflection has been removed
-        $this->assertEquals(false, file_exists(ipGetConfig()->baseFile($reflection)));
+        $this->assertEquals(false, file_exists(ipConfig()->baseFile($reflection)));
 
 
     }
