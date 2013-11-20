@@ -20,7 +20,7 @@ class TestDb
 
     public function getPdoConnection()
     {
-        return \Ip\Db::getConnection();
+        return ipDb()->getConnection();
     }
 
 
@@ -70,8 +70,8 @@ class TestDb
     private function dropDatabase()
     {
         try {
-            \Ip\Db::execute('DROP DATABASE `' . $this->dbName . '`');
-            \Ip\Db::disconnect();
+            ipDb()->execute('DROP DATABASE `' . $this->dbName . '`');
+            ipDb()->disconnect();
         } catch (\Ip\CoreException $e) {
             // TODOX catch database exception
         }

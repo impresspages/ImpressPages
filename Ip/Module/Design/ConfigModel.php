@@ -59,7 +59,7 @@ class ConfigModel{
             return $config[$name];
         }
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 value
@@ -114,7 +114,7 @@ class ConfigModel{
             return $config;
         }
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 `name`, `value`
@@ -143,7 +143,7 @@ class ConfigModel{
 
     public function setConfigValue($theme, $name, $value)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
                 `'.DB_PREF.'m_design`
