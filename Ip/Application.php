@@ -7,6 +7,7 @@ namespace Ip;
 
 
 class Application {
+    const ASSET_DIR = 'assets';
     protected $configPath = null;
 
     public function __construct($configPath)

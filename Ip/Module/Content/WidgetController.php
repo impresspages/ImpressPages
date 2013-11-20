@@ -7,7 +7,7 @@
 namespace Ip\Module\Content;
 
 
-class Widget{
+class WidgetController{
     var $name;
     var $moduleName;
 
@@ -15,8 +15,8 @@ class Widget{
      * @var boolean - true if widget is installed by default
      */
     var $core;
-    const PREVIEW_DIR = 'preview';
-    const MANAGEMENT_DIR = 'management';
+    const PREVIEW_DIR = 'view';
+    const MANAGEMENT_DIR = 'admin';
     const PUBLIC_DIR = 'public';
 
     public function __construct($name, $moduleName, $core = false) {
@@ -218,10 +218,9 @@ class Widget{
             if ($this->core) {
                 $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                // TODOX Plugin dir
+                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e){
-
             if (\Ip\ServiceLocator::getContent()->isManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,

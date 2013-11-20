@@ -9,9 +9,12 @@ function ipGetOption($option, $defaultValue = null)
     return \Ip\ServiceLocator::getOptions()->getOption($option, $defaultValue);
 }
 
+/**
+ * @return \Ip\Config
+ */
 function ipConfig()
 {
-    return \Ip\ServiceLocator::getconfig();
+    return \Ip\ServiceLocator::getConfig();
 }
 
 
@@ -84,11 +87,11 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -98,11 +101,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
