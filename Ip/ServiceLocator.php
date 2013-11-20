@@ -154,7 +154,7 @@ class ServiceLocator
     /**
      * @return \Ip\Db
      */
-    public static function getDb()
+    public static function db()
     {
         if (self::$db === null) {
             self::$db = new \Ip\Db();
