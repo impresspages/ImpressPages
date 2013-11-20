@@ -214,7 +214,7 @@ class Layout extends \Ip\Response {
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
-            'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
+            'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],
             'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),
             'javascript' => $javascriptFiles,

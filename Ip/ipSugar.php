@@ -23,16 +23,6 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
-function ipGetLanguages()
-{
-    return \Ip\ServiceLocator::content()->getLanguages();
-}
-
-function ipGetCurrentPage()
-{
-    return \Ip\ServiceLocator::content()->getCurrentPage();
-}
-
 function ipSetBlockContent($block, $content)
 {
     \Ip\ServiceLocator::content()->setBlockContent($block, $content);
