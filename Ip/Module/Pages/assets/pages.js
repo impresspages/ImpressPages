@@ -275,7 +275,7 @@ function editPageResponse(response) {
         return;
     }
 
-    document.location = response.link + '?cms_action=manage';
+    document.location = response.link;
 
 }
 

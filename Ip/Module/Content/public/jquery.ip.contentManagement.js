@@ -53,6 +53,7 @@
 
                         $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
                         $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
+                        $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
 
                         $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
                         $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
@@ -362,6 +363,9 @@
         // *********END SAVE*************//
         
     };
+
+
+
     
     
 

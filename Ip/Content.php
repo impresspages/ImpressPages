@@ -45,7 +45,7 @@ class Content {
      */
     public function isManagementState(){
         $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && \Ip\ServiceLocator::request()->getQuery('cms_action', 0) === 'manage');
+        return $backendLoggedIn && \Ip\Module\Content\Service::isManagementMode();
     }
 
 
