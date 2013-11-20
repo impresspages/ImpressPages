@@ -38,7 +38,14 @@ class Radio extends Field{
                 $id = '';
             }
             
-            $answer .= '<label><input '.$this->getAttributesStr($doctype).' '.$id.' class="ipmControlRadio '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getValidationAttributesStr($doctype).' '.$checked.' value="'.htmlspecialchars($value[0]).'" />'.htmlspecialchars($value[1]).'</label>'."\n";
+            $answer .= '
+            <div class="radio">
+                <label>
+                    <input '.$this->getAttributesStr($doctype).' '.$id.' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="radio" '.$this->getValidationAttributesStr($doctype).' '.$checked.' value="'.htmlspecialchars($value[0]).'" />
+                    '.htmlspecialchars($value[1]).'
+                </label>
+            </div>
+            ';
         }
 
         return $answer; 

@@ -1,15 +1,12 @@
-<div class="ipmField ipmType-<?php echo $field->getTypeClass(); ?><?php if($field->isRequired()) { echo " ipmRequired"; } ?>">
-    <label class="ipmLabel" for="<?php echo $field->getId(); ?>">
+<div class="form-group type-<?php echo $field->getTypeClass(); ?><?php if($field->isRequired()) { echo " required"; } ?>">
+    <label for="<?php echo $field->getId(); ?>">
         <?php echo $this->esc($field->getLabel()); ?>
-        <?php if($field->isRequired()) { ?>
-            <span class="ipmMarker">*</span>
-        <?php } ?>
     </label>
-    <div class="ipmControl"><?php echo $field->render($this->getDoctype()); ?></div>
+    <?php echo $field->render($this->getDoctype()); ?>
 <?php if($field->getNote()) { ?>
-    <div class="ipmNote"><?php echo $field->getNote(); ?></div>
+    <p class="help-block"><?php echo $field->getNote(); ?></p>
 <?php } ?>
 <?php if($field->getHint()) { ?>
-    <div class="ipmHint"><?php echo $field->getHint(); ?></div>
+    <p class="help-block"><?php echo $field->getHint(); ?></p>
 <?php } ?>
 </div>

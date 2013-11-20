@@ -57,9 +57,11 @@ class Captcha extends Field{
         
         $_SESSION['developer']['form']['field']['captcha'][$this->getId()]['public_key'] = $captcha->public_key;
         return '
-        <input '.$this->getAttributesStr($doctype).' class="ipmControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
+        <div class="captcha">
+        <input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
         <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
-        <img src="'.ipConfig()->baseUrl($captcha->get_filename_url()).'" alt="Captcha"/><br />
+        <img src="'.ipConfig()->baseUrl($captcha->get_filename_url()).'" alt="Captcha"/>
+        </div>
         ';
     }
     
