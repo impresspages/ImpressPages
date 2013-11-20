@@ -13,6 +13,7 @@ function IpWidget_IpText(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
+        alert(this.widgetObject.find('textarea'));
         this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
     }
 

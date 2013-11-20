@@ -37,6 +37,14 @@ class PublicController extends \Ip\Controller
 
     private function initManagement()
     {
+
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/tinymce/paste_preprocess.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/tinymce/min.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/tinymce/med.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/tinymce/max.js'));
+        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/tinymce/table.js'));
+
+
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
         ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/ipContentManagement.js'));
