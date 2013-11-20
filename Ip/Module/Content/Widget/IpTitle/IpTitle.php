@@ -12,7 +12,7 @@ namespace Ip\Module\Content\Widget;
 class IpTitle extends \Ip\Module\Content\Widget{
 
     public function managementHtml($instanceId, $data, $layout) {
-        $curUrl = ipGetRequest()->getUrl();
+        $curUrl = ipRequest()->getUrl();
         $parts = explode('?', $curUrl);
         $curUrl = $parts[0];
         $data['curUrl'] = $curUrl;

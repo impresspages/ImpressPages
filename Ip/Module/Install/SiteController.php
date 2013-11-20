@@ -152,7 +152,7 @@ class SiteController extends \Ip\Controller
 
     public function createDatabase()
     {
-        $db = ipGetRequest()->getPost('db');
+        $db = ipRequest()->getPost('db');
 
         // TODOX validate $db
         foreach (array('hostname', 'username', 'password', 'database') as $key) {
@@ -231,25 +231,25 @@ class SiteController extends \Ip\Controller
         // Validate input:
         $errors = array();
 
-        if (!ipGetRequest()->getPost('site_name')) {
+        if (!ipRequest()->getPost('site_name')) {
             $errors[] = _s('Please enter website name.', 'ipInstall');
         }
 
-        if (!ipGetRequest()->getPost('site_email') || !filter_var(ipGetRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
+        if (!ipRequest()->getPost('site_email') || !filter_var(ipRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = _s('Please enter correct website email.', 'ipInstall');
         }
 
-        if (!ipGetRequest()->getPost('install_login') || !ipGetRequest()->getPost('install_pass')) {
+        if (!ipRequest()->getPost('install_login') || !ipRequest()->getPost('install_pass')) {
             $errors[] = _s('Please enter administrator login and password.', 'ipInstall');
         }
 
-        if (ipGetRequest()->getPost('timezone')) {
-            $timezone = ipGetRequest()->getPost('timezone');
+        if (ipRequest()->getPost('timezone')) {
+            $timezone = ipRequest()->getPost('timezone');
         } else {
             $errors[] = _s('Please choose website time zone.', 'ipInstall');
         }
 
-        if (ipGetRequest()->getPost('email') && !filter_var(ipGetRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
+        if (ipRequest()->getPost('email') && !filter_var(ipRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = _s('Please enter correct administrator e-mail address.', 'ipInstall');
         }
 
@@ -288,9 +288,9 @@ class SiteController extends \Ip\Controller
 
         try {
 
-            Model::insertAdmin(ipGetRequest()->getPost('install_login'), ipGetRequest()->getPost('install_pass'));
-            Model::setSiteName(ipGetRequest()->getPost('site_name'));
-            Model::setSiteEmail(ipGetRequest()->getPost('site_email'));
+            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
+            Model::setSiteName(ipRequest()->getPost('site_name'));
+            Model::setSiteEmail(ipRequest()->getPost('site_email'));
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());

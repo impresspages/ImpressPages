@@ -432,8 +432,8 @@ class Content {
         }
         $revision = null;
         if (\Ip\ServiceLocator::getContent()->isManagementState()){
-            if (ipGetRequest()->getQuery('cms_revision')) {
-                $revisionId = ipGetRequest()->getQuery('cms_revision');
+            if (ipRequest()->getQuery('cms_revision')) {
+                $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
