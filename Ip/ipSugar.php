@@ -23,26 +23,6 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
-function ipGetBreadcrumb()
-{
-    return \Ip\ServiceLocator::content()->getBreadcrumb();
-}
-
-function ipGetZones()
-{
-    return \Ip\ServiceLocator::content()->getZones();
-}
-
-function ipGetCurrentZone()
-{
-    return \Ip\ServiceLocator::content()->getCurrentZone();
-}
-
-function ipGetZone($zoneName)
-{
-    return \Ip\ServiceLocator::content()->getZone($zoneName);
-}
-
 function ipGetCurrentLanguage()
 {
     return \Ip\ServiceLocator::content()->getCurrentLanguage();
@@ -61,6 +41,11 @@ function ipGetCurrentPage()
 function ipSetBlockContent($block, $content)
 {
     \Ip\ServiceLocator::content()->setBlockContent($block, $content);
+}
+
+function ipContent()
+{
+    return \Ip\ServiceLocator::content();
 }
 
 function ipSetLayoutVariable($name, $value)
