@@ -311,7 +311,7 @@ function createPageForm() {
 
     var node = treeSelectedNode('#tree');
 
-
+    /*
     var buttons = new Array;
 
     buttons.push({ text: textSave, click: createPage});
@@ -325,7 +325,11 @@ function createPageForm() {
         modal: true,
         resizable: false,
         buttons: buttons
-    });
+    });*/
+
+    $('#createPageForm')
+        .modal()
+        .find('.ipsSubmit').on('click', createPage);
 
     return;
 
@@ -337,7 +341,7 @@ function createPageForm() {
  */
 function createPage() {
 
-    $('#createPageForm').dialog('close');
+    $('#createPageForm').modal('hide');
 
 
     var data = Object();
@@ -358,7 +362,7 @@ function createPage() {
     data.securityToken = ip.securityToken;
 
 
-    $('#createPageForm input').val(''); //remove value from input field
+    $('#createPageForm #createPageButtonTitle').val(''); // remove value from input field
 
     data.aa = 'Pages.createPage';
 
@@ -450,39 +454,39 @@ function updatePageForm(event, data) {
 
     switch (node.attr('rel')) {
         case 'page':
-            $('#buttonNewPage').removeClass('ui-state-disabled');
-            $('#buttonDeletePage').removeClass('ui-state-disabled');
-            $('#buttonCopyPage').removeClass('ui-state-disabled');
+            $('#buttonNewPage').prop('disabled', false);
+            $('#buttonDeletePage').prop('disabled', false);
+            $('#buttonCopyPage').prop('disabled', false);
 
             if (tree.copiedNode) {
-                $('#buttonPastePage').removeClass('ui-state-disabled');
+                $('#buttonPastePage').prop('disabled', false);
             } else {
-                $('#buttonPastePage').addClass('ui-state-disabled');
+                $('#buttonPastePage').prop('disabled', true);
             }
             break;
         case 'website':
         case 'language':
-            $('#buttonNewPage').addClass('ui-state-disabled');
-            $('#buttonDeletePage').addClass('ui-state-disabled');
-            $('#buttonCopyPage').addClass('ui-state-disabled');
-            $('#buttonPastePage').addClass('ui-state-disabled');
+            $('#buttonNewPage').prop('disabled', true);
+            $('#buttonDeletePage').prop('disabled', true);
+            $('#buttonCopyPage').prop('disabled', true);
+            $('#buttonPastePage').prop('disabled', true);
             break;
         case 'zone':
-            $('#buttonNewPage').removeClass('ui-state-disabled');
-            $('#buttonDeletePage').addClass('ui-state-disabled');
-            $('#buttonCopyPage').addClass('ui-state-disabled');
+            $('#buttonNewPage').prop('disabled', false);
+            $('#buttonDeletePage').prop('disabled', true);
+            $('#buttonCopyPage').prop('disabled', true);
             if (tree.copiedNode) {
-                $('#buttonPastePage').removeClass('ui-state-disabled');
+                $('#buttonPastePage').prop('disabled', false);
             } else {
-                $('#buttonPastePage').addClass('ui-state-disabled');
+                $('#buttonPastePage').prop('disabled', true);
             }
             break;
     }
 
     if (node.attr('websiteId') != 0) {
-        $('#buttonNewPage').addClass('ui-state-disabled');
-        $('#buttonDeletePage').addClass('ui-state-disabled');
-        $('#buttonPastePage').addClass('ui-state-disabled');
+        $('#buttonNewPage').prop('disabled', true);
+        $('#buttonDeletePage').prop('disabled', true);
+        $('#buttonPastePage').prop('disabled', true);
         $('#pageProperties').html('');
         return;
     }
@@ -702,7 +706,7 @@ function copyPage() {
     }
 
     tree.copiedNode = node;
-    $('#buttonPastePage').removeClass('ui-state-disabled');
+    $('#buttonPastePage').prop('disabled', false);
 
 }
 
