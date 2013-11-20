@@ -16,8 +16,8 @@
 </div>
 <?php
     ipAddJQuery();
-    ipAddThemeAsset('colorbox/jquery.colorbox.js');
-    ipAddThemeAsset('site.js');
+    //TODOX incompatible with new jquery ipAddThemeAsset('colorbox/jquery.colorbox.js');
+    //ipAddThemeAsset('site.js');
     ipPrintJavascript();
 ?>
 </body>
