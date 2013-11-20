@@ -995,7 +995,7 @@ class AdminController extends \Ip\Controller
         $page = $pageZone->getPage($pageId);
         $newUrl = $page->getLink(true);
 
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
+        ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         //report url change
 
 
@@ -1021,8 +1021,20 @@ class AdminController extends \Ip\Controller
      * @param unknown_type $destinationPosition
      */
     private function notifyPageMove($pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition) {
-        $movePageEvent = new \Ip\Event\PageMoved(null, $pageId, $languageId, $zoneName, $parentId, $position, $destinationLanguageId, $destinationZoneName, $destinationParentId, $destinationPosition);
-        \Ip\ServiceLocator::getDispatcher()->notify($movePageEvent);
+
+        $eventData = array(
+            'pageId' => $pageId,
+            'oldLanguageId' => $languageId,
+            'oldZoneName' => $zoneName,
+            'oldParentId' => $parentId,
+            'oldPosition' => $position,
+            'newLanguageId' => $destinationLanguageId,
+            'newZoneName' => $destinationZoneName,
+            'newParentId' => $destinationParentId,
+            'newPosition' => $destinationPosition,
+        );
+
+        ipDispatcher()->notify('site.pageMoved', $eventData);
 
         $children = ipGetZone($zoneName)->getPages($languageId, $pageId);
         foreach ($children as $key => $child) {

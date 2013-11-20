@@ -361,12 +361,8 @@ class Model{
             return self::$widgetObjects;
         }
 
-        $event = new EventWidget(null, 'contentManagement.collectWidgets', null);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
+        self::$widgetObjects = ipDispatcher()->filter('contentManagement.collectWidgets', array());
 
-        $widgetObjects = $event->getWidgets();
-
-        self::$widgetObjects = $widgetObjects;
         return self::$widgetObjects;
     }
 
