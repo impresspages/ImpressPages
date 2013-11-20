@@ -10,7 +10,7 @@ namespace Ip\Form\Field;
 class Submit extends Field{
     
     public function render($doctype) {
-        return '<input '.$this->getAttributesStr($doctype).' class="ipmControlSubmit '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="submit" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<button '.$this->getAttributesStr($doctype).' class="btn btn-default '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="submit">'.htmlspecialchars($this->getDefaultValue()).'</button>';
     }
     
     public function getLayout() {
