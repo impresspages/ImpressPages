@@ -23,11 +23,9 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
-function ipSetBlockContent($block, $content)
-{
-    \Ip\ServiceLocator::content()->setBlockContent($block, $content);
-}
-
+/**
+ * @return \Ip\Content
+ */
 function ipContent()
 {
     return \Ip\ServiceLocator::content();

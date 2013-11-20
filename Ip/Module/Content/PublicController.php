@@ -23,7 +23,7 @@ class PublicController extends \Ip\Controller
             return new \Ip\Response\Redirect($currentPage->getLink());
         }
 
-        ipSetBlockContent('main', $currentPage->generateContent());
+        ipContent()->setBlockContent('main', $currentPage->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
         }
