@@ -82,20 +82,26 @@ function ipAddJavascript($file, $stage = 1)
 function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
-    if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+    if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
+        if (method_exists($response, 'addJavascript')) {
+            $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+        }
+    } else { // todox: make more foolproof checking
+        if (method_exists($response, 'addCss')) {
+            $response->addCss(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+        }
     }
 }
 
 function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
-    if (strtolower(substr($file, -3)) == '.js') {
+    if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
             $response->addJavascript(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
-    } else {
-        if (method_exists($response, 'addJavascript')) {
+    } else { // todox: make more foolproof checking
+        if (method_exists($response, 'addCss')) {
             $response->addCss(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
