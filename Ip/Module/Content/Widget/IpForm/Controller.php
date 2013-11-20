@@ -4,12 +4,12 @@
 
  *
  */
-namespace Ip\Module\Content\Widget;
+namespace Ip\Module\Content\Widget\IpForm;
 
 
 
 
-class IpForm extends \Ip\Module\Content\Widget{
+class Controller extends \Ip\Module\Content\WidgetController{
 
 
     public function getTitle() {
@@ -87,7 +87,7 @@ class IpForm extends \Ip\Module\Content\Widget{
                 }
             }
         }
-        $content = \Ip\View::create('view/email_content.php', array('values' => $contentData))->render();
+        $content = \Ip\View::create('helperView/email_content.php', array('values' => $contentData))->render();
 
         
         $emailData = array(
@@ -96,7 +96,7 @@ class IpForm extends \Ip\Module\Content\Widget{
             'email' => $websiteEmail
         );
         
-        $email = \Ip\View::create('view/email.php', $emailData)->render();
+        $email = \Ip\View::create('helperView/email.php', $emailData)->render();
 
         
         //get page where this widget sits :)
@@ -120,7 +120,7 @@ class IpForm extends \Ip\Module\Content\Widget{
     
     
     public function managementHtml($instanceId, $data, $layout) {
-        $fieldObjects = IpForm\Model::getAvailableFieldTypes();
+        $fieldObjects = Model::getAvailableFieldTypes();
         
         $fieldTypes = array ();
         foreach($fieldObjects as $fieldObject){
@@ -150,7 +150,7 @@ class IpForm extends \Ip\Module\Content\Widget{
     
     public function dataForJs($data) {
         //collect available field types
-        $fieldTypeObjects = IpForm\Model::getAvailableFieldTypes();
+        $fieldTypeObjects = Model::getAvailableFieldTypes();
         
         $fieldTypes = array ();
         foreach($fieldTypeObjects as $typeObject){
@@ -204,7 +204,7 @@ class IpForm extends \Ip\Module\Content\Widget{
             if (!isset($field['required'])) {
                 $field['required'] = false;
             }
-            $fieldType = IpForm\Model::getFieldType($field['type']);
+            $fieldType = Model::getFieldType($field['type']);
             if ($fieldType) {
                 $fieldData = array (
                     'label' => $field['label'],

@@ -4,10 +4,10 @@
 
  *
  */
-namespace Ip\Module\Content\Widget;
+namespace Ip\Module\Content\Widget\IpColumns;
 
 
-class IpColumns extends \Ip\Module\Content\Widget {
+class Controller extends \Ip\Module\Content\WidgetController {
 	
 	public function getTitle() {
         return __('Columns', 'ipAdmin');
