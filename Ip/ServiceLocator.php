@@ -71,7 +71,7 @@ class ServiceLocator
     /**
      * @return Dispatcher
      */
-    public static function getDispatcher()
+    public static function dispatcher()
     {
         return end(self::$dispatchers);
     }

@@ -251,7 +251,7 @@ function _s($text, $domain)
  */
 function ipDispatcher()
 {
-    return \Ip\ServiceLocator::getDispatcher();
+    return \Ip\ServiceLocator::dispatcher();
 }
 
 /**
