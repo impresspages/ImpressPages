@@ -185,9 +185,9 @@ class Layout extends \Ip\Response {
 
 
         $data = array (
-            'title' => \Ip\ServiceLocator::getContent()->gettitle(),
-            'keywords' => \Ip\ServiceLocator::getContent()->getKeywords(),
-            'description' => \Ip\ServiceLocator::getContent()->getDescription(),
+            'title' => \Ip\ServiceLocator::content()->gettitle(),
+            'keywords' => \Ip\ServiceLocator::content()->getKeywords(),
+            'description' => \Ip\ServiceLocator::content()->getDescription(),
             'favicon' => ipConfig()->baseUrl('favicon.ico'),
             'charset' => ipConfig()->getRaw('CHARSET'),
             'css' => $cssFiles
@@ -206,7 +206,7 @@ class Layout extends \Ip\Response {
                 }
             }
         }
-        $revision = \Ip\ServiceLocator::getContent()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
             'ipBaseUrl' => ipConfig()->baseUrl(''),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),

@@ -21,7 +21,7 @@ class Page extends \Ip\Page {
     protected $linkIgnoreRedirect;
 
     public function getLink($ignoreRedirect = false) {
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $ignoreRedirect = true;
         }
         
@@ -88,7 +88,7 @@ class Page extends \Ip\Page {
                 $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
                 break;
             case 'redirect':
-                if(\Ip\ServiceLocator::getContent()->isManagementState()) {
+                if(\Ip\ServiceLocator::content()->isManagementState()) {
                     if(strpos($this->redirectUrl, ipConfig()->baseUrl('')) === 0) {
                         if(strpos($this->redirectUrl, 'cms_action=manage') === false) {
                             if(strpos($this->redirectUrl, '?') === false) {

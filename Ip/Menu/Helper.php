@@ -44,7 +44,7 @@ class Helper
         }
         //end variable check
 
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         $zone = $content->getZone($zoneName);
         if(!$zone) {
             return array();
@@ -76,7 +76,7 @@ class Helper
      */
     public static function getChildItems($zoneName = null, $pageId = null, $depthTo = 10000)
     {
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         if ($zoneName === null || $pageId === null) { //in case zone is set, but elementId is null
             $zoneName = $content->getCurrentZone()->getName();
         }
@@ -106,7 +106,7 @@ class Helper
      * @return Item[]
      */
     private static function getSubElementsData($elements, $zoneName, $depth, $curDepth) {
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
 
         $items = array();
         foreach($elements as $element) {
@@ -138,7 +138,7 @@ class Helper
 
 
     private static function existInBreadcrumb($link) {
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         $breadcrumb = $content->getBreadcrumb();
         array_pop($breadcrumb);
         foreach($breadcrumb as $key => $element) {

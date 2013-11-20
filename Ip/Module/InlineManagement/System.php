@@ -12,7 +12,7 @@ class System
     function init()
     {
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             ipAddCss(ipConfig()->coreModuleUrl('InlineManagement/public/inline_management.css'));
 
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));

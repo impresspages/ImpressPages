@@ -46,7 +46,7 @@ class System{
         $response = \Ip\ServiceLocator::getResponse();
         if (method_exists($response, 'addJavascriptContent')) {
             $data = array(
-                'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
+                'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
             );
 
             $validatorJs = \Ip\View::create(ipConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
