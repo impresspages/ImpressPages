@@ -35,7 +35,7 @@ class Url {
      */
     public static function generate($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
         if($languageId == null){
-            $languageId = ipGetCurrentLanguage()->getId();
+            $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
         /*generates link to first page of current language*/
@@ -50,14 +50,14 @@ class Url {
         // get parameter for cms management
 
         if (ipGetOption('Config.multilingual')) {
-            $answer = ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($languageId)->getUrl()).'/');
+            $answer = ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::content()->getLanguageById($languageId)->getUrl()).'/');
         } else {
             $answer = ipConfig()->baseUrl('');
         }
 
         if ($zoneName != null){
-            if ($languageId == ipGetCurrentLanguage()->getId()){ //current language
-                $zone = ipGetZone($zoneName);
+            if ($languageId == ipContent()->getCurrentLanguage()->getId()){ //current language
+                $zone = ipContent()->getZone($zoneName);
                 if ($zone) {
                     if ($zone->getUrl()) {
                         $answer .= urlencode($zone->getUrl()).'/';

@@ -29,7 +29,7 @@ class Layout extends \Ip\Response {
 
     public function send()
     {
-        ipSetBlockContent('main', $this->content);
+        ipContent()->setBlockContent('main', $this->content);
 
 
         if ($this->getLayout() === null) {
@@ -50,7 +50,7 @@ class Layout extends \Ip\Response {
 
     protected function chooseLayout()
     {
-        if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
             $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
             $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
@@ -185,9 +185,9 @@ class Layout extends \Ip\Response {
 
 
         $data = array (
-            'title' => \Ip\ServiceLocator::getContent()->gettitle(),
-            'keywords' => \Ip\ServiceLocator::getContent()->getKeywords(),
-            'description' => \Ip\ServiceLocator::getContent()->getDescription(),
+            'title' => \Ip\ServiceLocator::content()->gettitle(),
+            'keywords' => \Ip\ServiceLocator::content()->getKeywords(),
+            'description' => \Ip\ServiceLocator::content()->getDescription(),
             'favicon' => ipConfig()->baseUrl('favicon.ico'),
             'charset' => ipConfig()->getRaw('CHARSET'),
             'css' => $cssFiles
@@ -206,17 +206,17 @@ class Layout extends \Ip\Response {
                 }
             }
         }
-        $revision = \Ip\ServiceLocator::getContent()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
             'ipBaseUrl' => ipConfig()->baseUrl(''),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
-            'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
+            'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
+            'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
+            'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

@@ -10,29 +10,27 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
+        $currentPage = ipContent()->getCurrentLanguage();
         //TODOX set page specific layout
         if (
-            \Ip\ServiceLocator::getContent()->getLanguageUrl() != ipGetCurrentlanguage()->getUrl() ||
-            ipGetCurrentPage()->getType() === 'error404'
+            ipContent()->getLanguageUrl() != $currentPage->getUrl() ||
+            $currentPage->getType() === 'error404'
         ) {
             return new \Ip\Response\PageNotFound();
         }
 
-        if (in_array(ipGetCurrentPage()->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
-            return new \Ip\Response\Redirect(ipGetCurrentPage()->getLink());
+        if (in_array($currentPage->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
+            return new \Ip\Response\Redirect($currentPage->getLink());
         }
 
-        ipSetBlockContent('main', ipGetCurrentPage()->generateContent());
+        ipContent()->setBlockContent('main', $currentPage->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
         }
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $this->initManagement();
         }
-
-
-
     }
 
     private function initManagement()

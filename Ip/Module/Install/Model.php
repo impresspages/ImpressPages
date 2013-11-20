@@ -196,36 +196,14 @@ class Model
     {
         try {
             ipDb()->execute('USE `' . $database . '`');
-            /*
-            var_export($database);
-            echo "\n" . __FILE__ . ":" . __LINE__;
-            exit;
-            //*/
         } catch (\PDOException $e) {
-            /*
-            var_export($database);
-            echo "\n" . __FILE__ . ":" . __LINE__;
-            exit;
-            //*/
-
             try {
-                /*
-                var_export($database);
-                echo "\n" . __FILE__ . ":" . __LINE__;
-                exit;
-                //*/
-            ipDb()->Db::execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
-        ipDb()->    Db::execute('USE `' . $database . '`');
+                ipDb()->execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+                ipDb()->execute('USE `' . $database . '`');
             } catch (\PDOException $e2) {
                 throw new \Ip\CoreException('Could not create database');
             }
         }
-
-        /*
-        var_export($database);
-        echo "\n" . __FILE__ . ":" . __LINE__;
-        exit;
-        //*/
 
         return true;
     }
@@ -243,9 +221,9 @@ class Model
 
         foreach ($sql_list as $sql) {
             try {
-    ipDb()->        Db::execute($sql);
+                ipDb()->execute($sql);
             } catch (Exception $e) {
-                $errors[] = preg_replace("/[\n\r]/", "ipDb()->sql . ' ' . Db::getConnection()->errorInfo());
+                $errors[] = preg_replace("/[\n\r]/", '', $sql . ' ' . Db::getConnection()->errorInfo());
             }
         }
 
@@ -269,7 +247,8 @@ class Model
 
 
         foreach ($sql_list as $sql) {
-            tripDb()->                Db::execute($sql);
+            try {
+                Db()->execute($sql);
             } catch (Exception $e) {
                 $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
             }
@@ -321,6 +300,10 @@ class Model
             'MANUAL_DIR' => array(
                 'value' => 'file/manual/',
                 'comment' => 'Used for TinyMCE file browser and others tools where user manually controls all files.',
+            ),
+            'PLUGIN_DIR' => array(
+                'value' => 'Plugin/',
+                'comment' => 'A place for plugins',
             ),
             'DEVELOPMENT_ENVIRONMENT' => array(
                 'value' => 1,

@@ -25,7 +25,7 @@ class Csrf extends Blank{
     }
     
     public function render($doctype) {
-        $session = \Ip\ServiceLocator::getApplication();
+        $session = \Ip\ServiceLocator::application();
         return '
 <input '.$this->getAttributesStr($doctype).' class="hidden '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="text" value="'.addslashes($session->getSecurityToken()).'" />
 ';

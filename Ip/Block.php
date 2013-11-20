@@ -31,7 +31,7 @@ class Block
             }
             return (string)$content;
         } else {
-            $predefinedContent = \Ip\ServiceLocator::getContent()->getBlockContent($this->name);
+            $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
             if ($predefinedContent !== null) {
                 return $predefinedContent;
             }
@@ -40,7 +40,7 @@ class Block
             if ($this->isStatic) {
                 $revisionId = null;
             } else {
-                $revision = \Ip\ServiceLocator::getContent()->getRevision();
+                $revision = \Ip\ServiceLocator::content()->getRevision();
                 if ($revision) {
                     $revisionId = $revision['revisionId'];
                 } else {
@@ -48,7 +48,7 @@ class Block
                 }
             }
 
-            return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, \Ip\ServiceLocator::getContent()->isManagementState(), $this->exampleContent);
+            return \Ip\Module\Content\Model::generateBlock($this->name, $revisionId, \Ip\ServiceLocator::content()->isManagementState(), $this->exampleContent);
         }
     }
 
@@ -95,7 +95,7 @@ class Block
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            $log = \Ip\ServiceLocator::getLog();
+            $log = \Ip\ServiceLocator::log();
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
             return $e->getTraceAsString();
         }

@@ -9,16 +9,16 @@ class System {
     public function init()
     {
         $relativePath = ipRequest()->getRelativePath();
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
-            \Ip\ServiceLocator::getResponse()->setLayout(ipConfig()->coreModuleFile('/Admin/View/layout.php'));
+            \Ip\ServiceLocator::response()->setLayout(ipConfig()->coreModuleFile('/Admin/View/layout.php'));
             $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
         }
 
         ipDispatcher()->bind('site.afterInit', array($this, 'initAdmin'));
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
+        if (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -36,7 +36,7 @@ class System {
     public function initAdmin()
     {
 
-        if (!self::$disablePanel && (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(ipConfig()->coreModuleUrl('Admin/Public/admin.css'));
 
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
@@ -50,7 +50,7 @@ class System {
 
     protected function getAdminToolbarHtml()
     {
-        $requestData = \Ip\ServiceLocator::getRequest()->getRequest();
+        $requestData = \Ip\ServiceLocator::request()->getRequest();
         $curModTitle = '';
         $curModUrl = '';
         $helpUrl = 'http://www.impresspages.org/help2';

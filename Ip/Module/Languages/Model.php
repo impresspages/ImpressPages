@@ -40,7 +40,8 @@ class Model{
     
     private static function getViewData() {
         $languages = array();
-        foreach(ipGetLanguages() as $language){
+
+        foreach (ipContent()->getLanguages() as $language) {
             if (!$language->getVisible()) {
                 continue;
             }

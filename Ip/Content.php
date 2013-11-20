@@ -45,7 +45,7 @@ class Content {
      */
     public function isManagementState(){
         $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && \Ip\ServiceLocator::getRequest()->getQuery('cms_action', 0) === 'manage');
+        return ($backendLoggedIn && \Ip\ServiceLocator::request()->getQuery('cms_action', 0) === 'manage');
     }
 
 
@@ -274,7 +274,7 @@ class Content {
 
     private function parseUrl()
     {
-        $path = \Ip\ServiceLocator::getRequest()->getRelativePath();
+        $path = \Ip\ServiceLocator::request()->getRelativePath();
         $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
         if ($urlVars[0] == '') {
             array_shift($urlVars);
@@ -431,18 +431,18 @@ class Content {
             return $this->revision;
         }
         $revision = null;
-        if (\Ip\ServiceLocator::getContent()->isManagementState()){
+        if (\Ip\ServiceLocator::content()->isManagementState()){
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
-            if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+            if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
                 if (!$this->getCurrentPage()) {
                     $this->revision = false;
                     return false;
                 }
-                $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
                     $revision = $this->duplicateRevision($revision['revisionId']);
                 }
@@ -451,7 +451,7 @@ class Content {
         } else {
             $currentElement = $this->getCurrentPage();
             if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision(ipGetCurrentZone()->getName(), $currentElement->getId());
+                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentElement->getId());
             }
 
         }
@@ -482,7 +482,7 @@ class Content {
         }
 
         if ($zoneName === null && $pageId === null) {
-            $zone = ipGetCurrentZone();
+            $zone = ipContent()->getCurrentZone();
             if (!$zone) {
                 return array();
             }
@@ -529,7 +529,7 @@ class Content {
      *
      */
     public function getTitle(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -547,7 +547,7 @@ class Content {
      *
      */
     public function getDescription(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -567,7 +567,7 @@ class Content {
      *
      */
     public function getKeywords(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }

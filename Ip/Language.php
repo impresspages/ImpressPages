@@ -118,7 +118,7 @@ class Language{
      * Enter description here ...
      */
     public function getCurrent() {
-        if ($this->getId() == ipGetCurrentLanguage()->getId()) {
+        if ($this->getId() == ipContent()->getCurrentLanguage()->getId()) {
             return true;
         } else {
             return false;
@@ -134,7 +134,7 @@ class Language{
     {
 
         if (ipGetOption('Config.multilingual')) {
-            return ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($this->getId())->getUrl()).'/');
+            return ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::content()->getLanguageById($this->getId())->getUrl()).'/');
         } else {
             return ipConfig()->baseUrl('');
         }

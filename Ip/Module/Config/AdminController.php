@@ -28,7 +28,7 @@ class AdminController extends \Ip\Controller{
 
     public function saveValue()
     {
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
 
         $request->mustBePost();
 

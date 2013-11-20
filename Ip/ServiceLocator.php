@@ -27,7 +27,7 @@ class ServiceLocator
     protected static $storage = null;
     protected static $db;
 
-    public static function getOptions()
+    public static function options()
     {
         if (self::$options == null) {
             self::$options = new \Ip\Options();
@@ -36,7 +36,7 @@ class ServiceLocator
     }
 
 
-    public static function getStorage()
+    public static function storage()
     {
         if (self::$storage == null) {
             self::$storage = new \Ip\Storage();
@@ -47,7 +47,7 @@ class ServiceLocator
     /**
      * @return \Ip\Config
      */
-    public static function getConfig()
+    public static function config()
     {
         return self::$config;
     }
@@ -60,7 +60,7 @@ class ServiceLocator
     /**
      * @return \Ip\Module\Log\Module
      */
-    public static function getLog()
+    public static function log()
     {
         if (self::$log== null) {
             self::$log= new \Ip\Module\Log\Module();
@@ -71,7 +71,7 @@ class ServiceLocator
     /**
      * @return Dispatcher
      */
-    public static function getDispatcher()
+    public static function dispatcher()
     {
         return end(self::$dispatchers);
     }
@@ -81,7 +81,7 @@ class ServiceLocator
     /**
      * @return \Ip\Application
      */
-    public static function getApplication()
+    public static function application()
     {
         global $application;
         return $application;
@@ -129,21 +129,15 @@ class ServiceLocator
     /**
      * @return \Ip\Request
      */
-    public static function getRequest()
+    public static function request()
     {
         return end(self::$requests);
-    }
-
-    public static function replaceRequestService($request)
-    {
-        array_pop(self::$requests);
-        self::$requests[] = $request;
     }
 
     /**
      * @return \Ip\Content
      */
-    public static function getContent()
+    public static function content()
     {
         return end(self::$contents);
     }
@@ -152,7 +146,7 @@ class ServiceLocator
     /**
      * @return \Ip\Response
      */
-    public static function getResponse()
+    public static function response()
     {
         return end(self::$responses);
     }
@@ -160,7 +154,7 @@ class ServiceLocator
     /**
      * @return \Ip\Db
      */
-    public static function getDb()
+    public static function db()
     {
         if (self::$db === null) {
             self::$db = new \Ip\Db();

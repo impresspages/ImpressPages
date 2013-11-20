@@ -94,9 +94,9 @@ class Page{
      */
     public function generateContent ()
     {
-        $revision = \Ip\ServiceLocator::getContent()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getRevision();
         if ($revision) {
-            return \Ip\Module\Content\Model::generateBlock('main', $revision['revisionId'], \Ip\ServiceLocator::getContent()->isManagementState());
+            return \Ip\Module\Content\Model::generateBlock('main', $revision['revisionId'], \Ip\ServiceLocator::content()->isManagementState());
         } else {
             return '';
         }
@@ -120,7 +120,7 @@ class Page{
      */
     private function findPreviousAndNextElements()
     {
-        $zone = ipGetZone($this->zoneName);
+        $zone = ipContent()->getZone($this->zoneName);
         $elements = $zone->getPages(null, $this->parentId);
         for($i = 0; $i<sizeof($elements); $i++){
             if($elements[$i]->getId() == $this->getId()){

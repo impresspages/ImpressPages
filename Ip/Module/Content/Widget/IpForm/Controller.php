@@ -105,7 +105,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (isset($revision['zoneName']) && $revision['pageId']) {
-                $pageTitle = ipGetZone($revision['zoneName'])->getPage($revision['pageId'])->getButtonTitle();
+                $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getButtonTitle();
             }
         }
         
@@ -217,7 +217,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Module\Content\Exception $e) {
-                    $log = \Ip\ServiceLocator::getLog();
+                    $log = \Ip\ServiceLocator::log();
                     $log->log('standard/content_management', 'create field', $e->getMessage());
                 }
                 
