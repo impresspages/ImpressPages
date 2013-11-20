@@ -32,7 +32,7 @@ return array(
     /*OK*/'SECURE_DIR' => 'file/secure/', //directory not accessible from the Internet
     /*OK*/'TMP_SECURE_DIR' => 'file/secure/tmp/', //directory for temporary files. Not accessible from the Internet.
     /*OK*/'MANUAL_DIR' => 'file/manual/', //Used for TinyMCE file browser and others tools where user manually controls all files.
-    'pluginDir' => './Plugin',
+    /*OK*/'PLUGIN_DIR' => 'Plugin/',
 
     /*OK*/'DEVELOPMENT_ENVIRONMENT' => 1, //displays error and debug information. Change to 0 before deployment to production server
     /*OK*/'ERRORS_SHOW' => 1,  //0 if you don't wish to display errors on the page
