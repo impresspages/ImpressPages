@@ -37,11 +37,12 @@ class Layout extends \Ip\Response {
         }
         $layout = $this->getLayout();
 
-        if ($layout[0] == 'C' || $layout[0] == '/') { // todox: fix Windows machines
+        if (realpath($layout)) {
             $viewFile = $layout;
         } else {
             $viewFile = ipConfig()->themeFile($layout);
         }
+
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
 
         parent::send();
