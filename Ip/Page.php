@@ -120,7 +120,7 @@ class Page{
      */
     private function findPreviousAndNextElements()
     {
-        $zone = ipGetZone($this->zoneName);
+        $zone = ipContent()->getZone($this->zoneName);
         $elements = $zone->getPages(null, $this->parentId);
         for($i = 0; $i<sizeof($elements); $i++){
             if($elements[$i]->getId() == $this->getId()){

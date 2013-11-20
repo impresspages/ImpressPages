@@ -81,7 +81,7 @@ class Page extends \Ip\Page {
 
         switch ($this->type) {
             case 'subpage':
-                $tmpChildren = ipGetZone($this->zoneName)->getPages($languageId, $this->id, 0, $limit = 1);
+                $tmpChildren = ipContent()->getZone($this->zoneName)->getPages($languageId, $this->id, 0, $limit = 1);
                 if(sizeof($tmpChildren) == 1)
                 $this->link = $tmpChildren[0]->getLink();
                 else

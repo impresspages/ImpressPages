@@ -213,7 +213,7 @@ class Layout extends \Ip\Response {
             'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
+            'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
             'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],
             'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),

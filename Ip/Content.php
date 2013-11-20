@@ -437,12 +437,12 @@ class Content {
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
-            if ($revision === false || $revision['zoneName'] != ipGetCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+            if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
                 if (!$this->getCurrentPage()) {
                     $this->revision = false;
                     return false;
                 }
-                $revision = \Ip\Revision::getLastRevision(ipGetCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
                 if ($revision['published']) {
                     $revision = $this->duplicateRevision($revision['revisionId']);
                 }
@@ -451,7 +451,7 @@ class Content {
         } else {
             $currentElement = $this->getCurrentPage();
             if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision(ipGetCurrentZone()->getName(), $currentElement->getId());
+                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentElement->getId());
             }
 
         }
@@ -482,7 +482,7 @@ class Content {
         }
 
         if ($zoneName === null && $pageId === null) {
-            $zone = ipGetCurrentZone();
+            $zone = ipContent()->getCurrentZone();
             if (!$zone) {
                 return array();
             }
@@ -529,7 +529,7 @@ class Content {
      *
      */
     public function getTitle(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -547,7 +547,7 @@ class Content {
      *
      */
     public function getDescription(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
@@ -567,7 +567,7 @@ class Content {
      *
      */
     public function getKeywords(){
-        $curZone = ipGetCurrentZone();
+        $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }

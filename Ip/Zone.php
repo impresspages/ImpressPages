@@ -200,7 +200,7 @@ abstract class Zone{
      */
 
     public function getBreadcrumb($pageId = null){
-        if (ipGetCurrentZone()&& ipGetCurrentZone()->getName() == $this->name) {
+        if (ipContent()->getCurrentZone()&& ipContent()->getCurrentZone()->getName() == $this->name) {
             if ($pageId == null) {
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;

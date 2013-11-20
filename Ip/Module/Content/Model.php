@@ -55,7 +55,7 @@ class Model{
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $revisions = \Ip\Revision::getPageRevisions(ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
 
         $managementUrls = array();
         foreach($revisions as $revision) {

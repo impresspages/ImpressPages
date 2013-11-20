@@ -57,7 +57,7 @@ class Url {
 
         if ($zoneName != null){
             if ($languageId == ipGetCurrentLanguage()->getId()){ //current language
-                $zone = ipGetZone($zoneName);
+                $zone = ipContent()->getZone($zoneName);
                 if ($zone) {
                     if ($zone->getUrl()) {
                         $answer .= urlencode($zone->getUrl()).'/';
