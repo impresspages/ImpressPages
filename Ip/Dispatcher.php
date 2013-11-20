@@ -13,9 +13,10 @@ namespace Ip;
  * Event dispatcher class
  *
  */
-class Dispatcher{
+class Dispatcher
+{
 
-    private $handlers;
+    protected $handlers;
 
     /**
      * @var array stores info which handlers are sorted
@@ -24,7 +25,8 @@ class Dispatcher{
     protected $initCompleted = false;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->handlers = array();
         $this->sortedHandlers = array();
         $this->bind('site.afterInit', array($this, 'registerInit'));
@@ -42,19 +44,19 @@ class Dispatcher{
      * @param callable $callable
      * @throws CoreException
      */
-    public function bind ($eventName, $callable, $priority = 10)
+    public function bind($eventName, $callable, $priority = 10)
     {
         if (!is_callable($callable)) {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                $errorMessage = "Incorrect callable ".$callable." (Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
+            if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                $errorMessage = "Incorrect callable " . $callable . " (Error source: " . ($backtrace[0]['file']) . " line: " . ($backtrace[0]['line']) . " ) ";
             } else {
-                $errorMessage = "Incorrect callable ".$callable;
+                $errorMessage = "Incorrect callable " . $callable;
             }
             throw new CoreException($errorMessage, CoreException::EVENT);
         }
 
-        if (! isset($this->handlers[$eventName][$priority])) {
+        if (!isset($this->handlers[$eventName][$priority])) {
             $this->handlers[$eventName][$priority] = array();
         }
 
@@ -69,7 +71,7 @@ class Dispatcher{
      * @param callable $callable
      * @throws CoreException
      */
-    public function bindSlot ($slot, $callable, $priority = 10)
+    public function bindSlot($slot, $callable, $priority = 10)
     {
         $this->bind('site.generateSlot.' . $slot, $callable, $priority);
     }
@@ -78,12 +80,12 @@ class Dispatcher{
     {
         if (!$this->initCompleted && $eventName != 'site.afterInit') {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
-                $file = ' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
+            if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $file = ' (Error source: ' . $backtrace[1]['file'] . ' line: ' . $backtrace[1]['line'] . ' )';
             } else {
                 $file = '';
             }
-            throw new \Ip\CoreException("Event notification can't be thrown before system init.".$file);
+            throw new \Ip\CoreException("Event notification can't be thrown before system init." . $file);
         }
 
     }
@@ -92,7 +94,7 @@ class Dispatcher{
     {
         $this->check($eventName);
 
-        if ( ! isset($this->handlers[$eventName])) {
+        if (!isset($this->handlers[$eventName])) {
             return $value;
         }
 
@@ -114,8 +116,8 @@ class Dispatcher{
     {
         $this->check($eventName);
 
-        if ( ! isset($this->handlers[$eventName])) {
-            return NULL;
+        if (!isset($this->handlers[$eventName])) {
+            return null;
         }
 
         if (isset($this->sortedHandlers[$eventName])) {
@@ -126,18 +128,19 @@ class Dispatcher{
         do {
             foreach (current($this->handlers[$eventName]) as $callable) {
                 $result = call_user_func($callable, $data);
-                if ($result !== NULL) {
+                if ($result !== null) {
                     return $result;
                 }
             }
         } while (next($this->handlers[$eventName]) !== false);
 
-        return NULL;
+        return null;
     }
 
-    public function notify(Event $event) {
+    public function notify(Event $event)
+    {
         $this->check($event->getName());
-        if ( ! isset($this->handlers[$event->getName()])) {
+        if (!isset($this->handlers[$event->getName()])) {
             return false;
         }
 
