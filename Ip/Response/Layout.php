@@ -29,7 +29,7 @@ class Layout extends \Ip\Response {
 
     public function send()
     {
-        ipSetBlockContent('main', $this->content);
+        ipContent()->setBlockContent('main', $this->content);
 
 
         if ($this->getLayout() === null) {
