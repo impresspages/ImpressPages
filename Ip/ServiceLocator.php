@@ -103,6 +103,7 @@ class ServiceLocator
 
     /**
      * Add new request to HMVC queue
+     * Used by Application. Never add requests manually.
      * @param $request
      */
     public static function addRequest($request)
