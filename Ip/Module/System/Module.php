@@ -19,14 +19,14 @@ class Module
     public function updateRobotsTxt($oldUrl)
     {
         $robotsFile = 'robots.txt';
-        if ($oldUrl != \Ip\Config::baseUrl('') && file_exists($robotsFile)) { //update robots.txt file.
+        if ($oldUrl != ipGetConfig()->baseUrl('') && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach ($data as $dataKey => $dataVal) {
                 $tmpVal = $dataVal;
                 $tmpVal = trim($tmpVal);
 
-                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . \Ip\Config::baseUrl('sitemap.php'), $tmpVal);
+                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipGetConfig()->baseUrl('sitemap.php'), $tmpVal);
                 $newData .= $tmpVal . "\n";
             }
             if (is_writable($robotsFile)) {
@@ -45,7 +45,7 @@ class Module
 
         //TODOX throw clear cache event
 
-        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', \Ip\Config::baseUrl('')); // update system variable
+        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipGetConfig()->baseUrl('')); // update system variable
 
 
         $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
@@ -53,7 +53,7 @@ class Module
 
 
 
-        ipDispatcher()->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, \Ip\Config::baseUrl('')));
+        ipDispatcher()->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, ipGetConfig()->baseUrl('')));
         ipDispatcher()->notify(new \Ip\Event\ClearCache($this));
 
     }
@@ -80,7 +80,7 @@ class Module
 //                }
 //            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
+            curl_setopt($ch, CURLOPT_REFERER, ipGetConfig()->baseUrl(''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);

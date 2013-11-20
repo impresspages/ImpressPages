@@ -22,11 +22,11 @@ class LanguageModel{
         }
 
         $originalLanguage = self::getLanguageById($languageId);
-        $originalUrl = \Ip\Config::baseUrl($originalLanguage['url']) . '/';
+        $originalUrl = ipGetConfig()->baseUrl($originalLanguage['url']) . '/';
 
         \Ip\Db::update(DB_PREF . 'language', $data, $condition);
 
-        $newUrl = \Ip\Config::baseUrl($data['url']) . '/';
+        $newUrl = ipGetConfig()->baseUrl($data['url']) . '/';
 
         if ($originalUrl != $newUrl){
             \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $originalUrl, $newUrl));

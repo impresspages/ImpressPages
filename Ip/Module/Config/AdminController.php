@@ -15,7 +15,7 @@ class AdminController extends \Ip\Controller{
     {
 
 
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/config.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Config/public/config.js'));
 
         $form = Forms::getForm();
         $data = array (

@@ -9,6 +9,10 @@ function ipGetOption($option, $defaultValue = null)
     return \Ip\ServiceLocator::getOptions()->getOption($option, $defaultValue);
 }
 
+function ipGetConfig()
+{
+    return \Ip\ServiceLocator::getconfig();
+}
 
 
 function ipSetOption($option, $value)
@@ -79,7 +83,7 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+        $response->addJavascript(ipGetConfig()->pluginUrl($plugin . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
     }
 }
 
@@ -88,11 +92,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') {
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipGetConfig()->themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
         }
     } else {
         if (method_exists($response, 'addJavascript')) {
-            $response->addCss(\Ip\Config::themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipGetConfig()->themeUrl('assets' . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -101,7 +105,7 @@ function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
     }
 }
 
@@ -129,7 +133,7 @@ function ipAddCss($file, $stage = 1)
 
 }
 
-function ipLog($module, $message, $severity, $debugInfo = null)
+function ipLog($module, $message, $severity = 0, $debugInfo = null)
 {
     //TODOX
 }

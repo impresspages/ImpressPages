@@ -126,8 +126,8 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
     function afterUpdate($id) {
         $tmpLanguage = Db::getLanguageById($id);
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && ipGetOption('Config.multilingual')) {
-            $oldUrl = \Ip\Config::baseUrl($this->urlBeforeUpdate.'/');
-            $newUrl = \Ip\Config::baseUrl($tmpLanguage['url'].'/');
+            $oldUrl = ipGetConfig()->baseUrl($this->urlBeforeUpdate.'/');
+            $newUrl = ipGetConfig()->baseUrl($tmpLanguage['url'].'/');
             \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
 
         }

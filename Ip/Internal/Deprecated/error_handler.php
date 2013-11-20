@@ -62,11 +62,11 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         $log->log('system', 'error', $message);
     }
 
-    if(\Ip\Config::getRaw('ERRORS_SHOW')){
+    if(ipGetConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
         throw new \Ip\PhpException($message, $errno);
     }
-    if($log && \Ip\Config::getRaw('ERRORS_SEND')){
+    if($log && ipGetConfig()->getRaw('ERRORS_SEND')){
         $logsCount = $log->lastLogsCount(60, 'system/error');
         if($logsCount <= 9){
             if($logsCount == 9)
@@ -76,13 +76,13 @@ Error emails count has reached the limit. See logs for more errors.';
 
             $queue = new \Ip\Module\Email\Module();
             if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
+            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipGetConfig()->baseUrl('')." ERROR", $message, false, true);
             else
-            $queue->addEmail(\Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::getRaw('ERRORS_SEND'), '', \Ip\Config::baseUrl('')." ERROR", $message, false, true);
+            $queue->addEmail(ipGetConfig()->getRaw('ERRORS_SEND'), '', ipGetConfig()->getRaw('ERRORS_SEND'), '', ipGetConfig()->baseUrl('')." ERROR", $message, false, true);
             $queue->send();
 
 
-            $log->log('system/error', 'Sent e-mail to '.\Ip\Config::getRaw('ERRORS_SEND'), $message);
+            $log->log('system/error', 'Sent e-mail to '.ipGetConfig()->getRaw('ERRORS_SEND'), $message);
         }
     }
 

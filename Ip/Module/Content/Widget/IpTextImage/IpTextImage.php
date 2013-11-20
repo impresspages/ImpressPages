@@ -23,7 +23,7 @@ class IpTextImage extends \Ip\Module\Content\Widget{
         $newData['text'] = $postData['text'];
         $newData['title'] = $postData['title'];
 
-        if (isset($postData['newImage']) && is_file(\Ip\Config::baseFile($postData['newImage']))) {
+        if (isset($postData['newImage']) && is_file(ipGetConfig()->baseFile($postData['newImage']))) {
 
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {

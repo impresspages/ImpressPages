@@ -40,7 +40,7 @@ class Layout extends \Ip\Response {
         if ($layout[0] == '/') {
             $viewFile = $layout;
         } else {
-            $viewFile = \Ip\Config::themeFile($layout);
+            $viewFile = ipGetConfig()->themeFile($layout);
         }
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
 
@@ -50,9 +50,9 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = \Ip\Config::getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
-            $this->addCss(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
-            $this->addJavascript(\Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
+            $this->layout = ipGetConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
+            $this->addCss(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
+            $this->addJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/View/safeModeLayout.php';
         } else {
@@ -165,9 +165,9 @@ class Layout extends \Ip\Response {
         if ($inDesignPreview) {
             foreach($cssFiles as &$file) {
                 $path = pathinfo($file['value']);
-                if ($path['dirname'] . '/' == \Ip\Config::themeFile('') && file_exists(\Ip\Config::themeFile($path['filename'] . '.less'))) {
+                if ($path['dirname'] . '/' == ipGetConfig()->themeFile('') && file_exists(ipGetConfig()->themeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(\Ip\Config::theme(), $path['filename']);
+                    $file = $designService->getRealTimeUrl(ipGetConfig()->theme(), $path['filename']);
                 } else {
                     if ($file['cacheFix']) {
                         $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
@@ -187,12 +187,12 @@ class Layout extends \Ip\Response {
             'title' => \Ip\ServiceLocator::getContent()->gettitle(),
             'keywords' => \Ip\ServiceLocator::getContent()->getKeywords(),
             'description' => \Ip\ServiceLocator::getContent()->getDescription(),
-            'favicon' => \Ip\Config::baseUrl('favicon.ico'),
-            'charset' => \Ip\Config::getRaw('CHARSET'),
+            'favicon' => ipGetConfig()->baseUrl('favicon.ico'),
+            'charset' => ipGetConfig()->getRaw('CHARSET'),
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipGetConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -207,10 +207,10 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::getContent()->getRevision();
         $data = array (
-            'ipBaseUrl' => \Ip\Config::baseUrl(''),
+            'ipBaseUrl' => ipGetConfig()->baseUrl(''),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipThemeDir' => \Ip\Config::getRaw('THEME_DIR'),
-            'ipTheme' => \Ip\Config::getRaw('THEME'),
+            'ipThemeDir' => ipGetConfig()->getRaw('THEME_DIR'),
+            'ipTheme' => ipGetConfig()->getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
             'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
@@ -219,7 +219,7 @@ class Layout extends \Ip\Response {
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(\Ip\Config::coreModuleFile('Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipGetConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
     }
 
 
