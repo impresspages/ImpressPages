@@ -27,7 +27,7 @@ class ServiceLocator
     protected static $storage = null;
     protected static $db;
 
-    public static function getOptions()
+    public static function options()
     {
         if (self::$options == null) {
             self::$options = new \Ip\Options();
