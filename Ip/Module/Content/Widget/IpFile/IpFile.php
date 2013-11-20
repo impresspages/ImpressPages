@@ -26,7 +26,7 @@ class IpFile extends \Ip\Module\Content\Widget{
                 if (isset($file['title']) && isset($file['fileName']) && isset($file['status'])){ //check if all require data present
                     switch($file['status']){
                         case 'new':
-                            if (file_exists(ipGetConfig()->baseFile($file['fileName']))) {
+                            if (file_exists(ipConfig()->baseFile($file['fileName']))) {
 
                                 \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
                                 

@@ -2,7 +2,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss(ipGetConfig()->coreModuleUrl('Assets/assets/css/ipContent/ip_content.css'));
+    ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/css/ipContent/ip_content.css'));
     ipPrintHead();
     ?>
 </head>
@@ -11,7 +11,7 @@
     <?php echo ipBlock('main'); ?>
 </div>
 <?php
-ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
 ipPrintJavascript();
 ?>
 </body>

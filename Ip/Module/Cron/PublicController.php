@@ -32,7 +32,7 @@ class PublicController extends \Ip\Controller
     public function index()
     {
         $log = \Ip\ServiceLocator::getLog();
-        if (ipGetRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
+        if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
             $log->log('Cron', 'incorrect cron password');
             throw new \Ip\CoreException('Incorrect cron password');
         }
@@ -46,7 +46,7 @@ class PublicController extends \Ip\Controller
             'firstTimeThisDay' => $this->firstTimeThisDay,
             'firstTimeThisHour' => $this->firstTimeThisHour,
             'lastTime' => $this->lastTime,
-            'test' => ipGetRequest()->getQuery('test')
+            'test' => ipRequest()->getQuery('test')
         );
 
         ipDispatcher()->notify('Cron.execute', $data);
@@ -70,7 +70,7 @@ class PublicController extends \Ip\Controller
 
         $lastExecutionEnd = \Ip\ServiceLocator::getStorage()->get('Cron', 'lastExecutionStart', NULL);
 
-        if (!$lastExecutionEnd && !(ipGetRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
+        if (!$lastExecutionEnd && !(ipRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
             $this->firstTimeThisYear = date('Y') != date('Y', $lastExecutionEnd);
             $this->firstTimeThisMonth = date('Y-m') != date('Y-m', $lastExecutionEnd);
             $this->firstTimeThisWeek = date('Y-w') != date('Y-w', $lastExecutionEnd);

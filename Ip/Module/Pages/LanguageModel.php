@@ -21,11 +21,11 @@ class LanguageModel{
         }
 
         $originalLanguage = self::getLanguageById($languageId);
-        $originalUrl = ipGetConfig()->baseUrl($originalLanguage['url']) . '/';
+        $originalUrl = ipConfig()->baseUrl($originalLanguage['url']) . '/';
 
         \Ip\Db::update(DB_PREF . 'language', $data, $condition);
 
-        $newUrl = ipGetConfig()->baseUrl($data['url']) . '/';
+        $newUrl = ipConfig()->baseUrl($data['url']) . '/';
 
         if ($originalUrl != $newUrl){
             ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $originalUrl, 'newUrl' => $newUrl));

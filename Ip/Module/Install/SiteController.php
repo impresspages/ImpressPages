@@ -62,7 +62,7 @@ class SiteController extends \Ip\Controller
     public function step2()
     {
         // TODOX Algimantas: what this is for?
-        $license = file_get_contents(ipGetConfig()->baseFile('ip_license.html'));
+        $license = file_get_contents(ipConfig()->baseFile('ip_license.html'));
 
         Model::completeStep(2);
 
@@ -91,8 +91,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
         $js = array(
-            ipGetConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipGetConfig()->coreModuleUrl('Install/assets/js/step3.js')
+            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->coreModuleUrl('Install/assets/js/step3.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -132,8 +132,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
         $js = array(
-            ipGetConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipGetConfig()->coreModuleUrl('Install/assets/js/step4.js')
+            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->coreModuleUrl('Install/assets/js/step4.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -152,7 +152,7 @@ class SiteController extends \Ip\Controller
 
     public function createDatabase()
     {
-        $db = ipGetRequest()->getPost('db');
+        $db = ipRequest()->getPost('db');
 
         // TODOX validate $db
         foreach (array('hostname', 'username', 'password', 'database') as $key) {
@@ -183,7 +183,7 @@ class SiteController extends \Ip\Controller
             'charset' => 'utf8',
         );
 
-        ipGetConfig()->_setRaw('db', $dbConfig);
+        ipConfig()->_setRaw('db', $dbConfig);
 
         try {
             \Ip\Db::getConnection();
@@ -231,25 +231,25 @@ class SiteController extends \Ip\Controller
         // Validate input:
         $errors = array();
 
-        if (!ipGetRequest()->getPost('site_name')) {
+        if (!ipRequest()->getPost('site_name')) {
             $errors[] = _s('Please enter website name.', 'ipInstall');
         }
 
-        if (!ipGetRequest()->getPost('site_email') || !filter_var(ipGetRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
+        if (!ipRequest()->getPost('site_email') || !filter_var(ipRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = _s('Please enter correct website email.', 'ipInstall');
         }
 
-        if (!ipGetRequest()->getPost('install_login') || !ipGetRequest()->getPost('install_pass')) {
+        if (!ipRequest()->getPost('install_login') || !ipRequest()->getPost('install_pass')) {
             $errors[] = _s('Please enter administrator login and password.', 'ipInstall');
         }
 
-        if (ipGetRequest()->getPost('timezone')) {
-            $timezone = ipGetRequest()->getPost('timezone');
+        if (ipRequest()->getPost('timezone')) {
+            $timezone = ipRequest()->getPost('timezone');
         } else {
             $errors[] = _s('Please choose website time zone.', 'ipInstall');
         }
 
-        if (ipGetRequest()->getPost('email') && !filter_var(ipGetRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
+        if (ipRequest()->getPost('email') && !filter_var(ipRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = _s('Please enter correct administrator e-mail address.', 'ipInstall');
         }
 
@@ -259,20 +259,20 @@ class SiteController extends \Ip\Controller
 
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = ipGetConfig()->baseFile('');
-        $config['BASE_URL'] = ipGetConfig()->baseUrl('');
+        $config['BASE_DIR'] = ipConfig()->baseFile('');
+        $config['BASE_URL'] = ipConfig()->baseUrl('');
         $config['ERRORS_SEND'] = $_POST['email'];
         $config['timezone'] = $timezone;
         $config['db'] = $_SESSION['db'];
 
         try {
-            Model::writeConfigFile($config, ipGetConfig()->baseFile('ip_config.php'));
+            Model::writeConfigFile($config, ipConfig()->baseFile('ip_config.php'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t write configuration "/ip_config.php"', 'ipInstall'));
         }
 
         try {
-            Model::writeRobotsFile(ipGetConfig()->baseFile('robots.txt'));
+            Model::writeRobotsFile(ipConfig()->baseFile('robots.txt'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t write "/robots.txt"', 'ipInstall'));
         }
@@ -280,7 +280,7 @@ class SiteController extends \Ip\Controller
 
         try {
             \Ip\Db::disconnect();
-            ipGetConfig()->_setRaw('db', $config['db']);
+            ipConfig()->_setRaw('db', $config['db']);
             \Ip\Db::getConnection();
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Can\'t connect to database.', 'ipInstall'));
@@ -288,9 +288,9 @@ class SiteController extends \Ip\Controller
 
         try {
 
-            Model::insertAdmin(ipGetRequest()->getPost('install_login'), ipGetRequest()->getPost('install_pass'));
-            Model::setSiteName(ipGetRequest()->getPost('site_name'));
-            Model::setSiteEmail(ipGetRequest()->getPost('site_email'));
+            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
+            Model::setSiteName(ipRequest()->getPost('site_name'));
+            Model::setSiteEmail(ipRequest()->getPost('site_email'));
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(_s('Unknown SQL error.', 'ipInstall')); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', \Ip\Db::getConnection()->errorInfo());

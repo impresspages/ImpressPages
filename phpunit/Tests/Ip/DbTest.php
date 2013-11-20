@@ -23,13 +23,13 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         //TODOX create object
-        ipGetConfig()->init($config);
+        ipConfig()->init($config);
 
-        $this->assertNotEmpty(ipGetConfig()->getRaw('db'));
+        $this->assertNotEmpty(ipConfig()->getRaw('db'));
 
         Db::getConnection();
 
-        $this->assertEmpty(ipGetConfig()->getRaw('db'));
+        $this->assertEmpty(ipConfig()->getRaw('db'));
     }
 
     public function testDisconnect()

@@ -37,10 +37,10 @@ class Layout extends \Ip\Response {
         }
         $layout = $this->getLayout();
 
-        if ($layout[0] == '/') {
+        if ($layout[0] == 'C') { // todox: fix Windows machines
             $viewFile = $layout;
         } else {
-            $viewFile = ipGetConfig()->themeFile($layout);
+            $viewFile = ipConfig()->themeFile($layout);
         }
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
 
@@ -50,9 +50,9 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = ipGetConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
-            $this->addCss(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
-            $this->addJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
+            $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
+            $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
+            $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/View/safeModeLayout.php';
         } else {
@@ -155,7 +155,7 @@ class Layout extends \Ip\Response {
 
         $inDesignPreview = false;
 
-        $data = ipGetRequest()->getRequest();
+        $data = ipRequest()->getRequest();
 
         if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
             $config = \Ip\Module\Design\ConfigModel::instance();
@@ -165,9 +165,9 @@ class Layout extends \Ip\Response {
         if ($inDesignPreview) {
             foreach($cssFiles as &$file) {
                 $path = pathinfo($file['value']);
-                if ($path['dirname'] . '/' == ipGetConfig()->themeFile('') && file_exists(ipGetConfig()->themeFile($path['filename'] . '.less'))) {
+                if ($path['dirname'] . '/' == ipConfig()->themeFile('') && file_exists(ipConfig()->themeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(ipGetConfig()->theme(), $path['filename']);
+                    $file = $designService->getRealTimeUrl(ipConfig()->theme(), $path['filename']);
                 } else {
                     if ($file['cacheFix']) {
                         $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
@@ -187,12 +187,12 @@ class Layout extends \Ip\Response {
             'title' => \Ip\ServiceLocator::getContent()->gettitle(),
             'keywords' => \Ip\ServiceLocator::getContent()->getKeywords(),
             'description' => \Ip\ServiceLocator::getContent()->getDescription(),
-            'favicon' => ipGetConfig()->baseUrl('favicon.ico'),
-            'charset' => ipGetConfig()->getRaw('CHARSET'),
+            'favicon' => ipConfig()->baseUrl('favicon.ico'),
+            'charset' => ipConfig()->getRaw('CHARSET'),
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipGetConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -207,10 +207,10 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::getContent()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipGetConfig()->baseUrl(''),
+            'ipBaseUrl' => ipConfig()->baseUrl(''),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipThemeDir' => ipGetConfig()->getRaw('THEME_DIR'),
-            'ipTheme' => ipGetConfig()->getRaw('THEME'),
+            'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
+            'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
             'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
@@ -219,7 +219,7 @@ class Layout extends \Ip\Response {
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(ipGetConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
     }
 
 

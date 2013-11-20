@@ -6,24 +6,24 @@ class SiteController extends \Ip\Controller{
     public function loginAjax()
     {
 
-        ipGetRequest()->mustBePost();
+        ipRequest()->mustBePost();
 
         $validateForm = $this->getLoginForm();
-        $errors = $validateForm->validate(ipGetRequest()->getPost());
+        $errors = $validateForm->validate(ipRequest()->getPost());
 
         if (empty($errors)) {
-            if (\Ip\Internal\Db::incorrectLoginCount(ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
                 $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-                \Ip\Internal\Db::log('system', 'backend login suspended', ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
+                \Ip\Internal\Db::log('system', 'backend login suspended', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
             }
 
         }
 
         if (empty($errors)) {
-            if (Model::instance()->login(ipGetRequest()->getPost('login'), ipGetRequest()->getPost('password'))) {
-                \Ip\Internal\Db::log('system', 'backend login', ipGetRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+            if (Model::instance()->login(ipRequest()->getPost('login'), ipRequest()->getPost('password'))) {
+                \Ip\Internal\Db::log('system', 'backend login', ipRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
             } else {
-                \Ip\Internal\Db::log('system', 'backend login incorrect', ipGetRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                \Ip\Internal\Db::log('system', 'backend login incorrect', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
                 $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
             }
         }
@@ -31,7 +31,7 @@ class SiteController extends \Ip\Controller{
 
 
 
-        $redirectUrl = ipGetConfig()->baseUrl('', array('cms_action' => 'manage'));
+        $redirectUrl = ipConfig()->baseUrl('', array('cms_action' => 'manage'));
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -43,7 +43,7 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
-        if (ipGetRequest()->getPost('ajax', 1)) {
+        if (ipRequest()->getPost('ajax', 1)) {
             return new \Ip\Response\Json($answer);
         } else {
             //MultiSite autologin
@@ -54,7 +54,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('admin/'));
+        return new \Ip\Response\Redirect(ipConfig()->baseUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -66,17 +66,17 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
-            return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('', array('cms_action' => 'manage')));
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl('', array('cms_action' => 'manage')));
         }
 
 
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/login.js'));
 
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipGetConfig()->coreMOduleFile('Admin/View/login.php'));
+        $response->setLayout(ipConfig()->coreMOduleFile('Admin/View/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
         $view = \Ip\View::create('View/login.php', $variables);

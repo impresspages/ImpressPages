@@ -176,7 +176,7 @@ class Request
      */
     public function getRelativePath()
     {
-        $basePath = parse_url(ipGetConfig()->baseUrl(''), PHP_URL_PATH);
+        $basePath = parse_url(ipConfig()->baseUrl(''), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
             if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {
@@ -239,7 +239,7 @@ class Request
         $controllerClass = $this->defaultControllerClass;
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
 
-        $firstChar = substr(ipGetRequest()->getRelativePath(), 0, 1);
+        $firstChar = substr(ipRequest()->getRelativePath(), 0, 1);
         if ($firstChar !== '?' && $firstChar != '') {
             $this->controllerClass = $controllerClass;
             $this->controllerAction = $action;

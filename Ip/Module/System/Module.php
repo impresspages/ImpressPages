@@ -19,14 +19,14 @@ class Module
     public function updateRobotsTxt($oldUrl)
     {
         $robotsFile = 'robots.txt';
-        if ($oldUrl != ipGetConfig()->baseUrl('') && file_exists($robotsFile)) { //update robots.txt file.
+        if ($oldUrl != ipConfig()->baseUrl('') && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach ($data as $dataKey => $dataVal) {
                 $tmpVal = $dataVal;
                 $tmpVal = trim($tmpVal);
 
-                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipGetConfig()->baseUrl('sitemap.php'), $tmpVal);
+                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipConfig()->baseUrl('sitemap.php'), $tmpVal);
                 $newData .= $tmpVal . "\n";
             }
             if (is_writable($robotsFile)) {
@@ -76,7 +76,7 @@ class Module
 //                }
 //            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_REFERER, ipGetConfig()->baseUrl(''));
+            curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);
