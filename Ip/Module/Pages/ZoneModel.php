@@ -35,7 +35,7 @@ class ZoneModel{
         if ($originalUrl != $newUrl){
             $fullOldUrl = self::makeUrl($language->getUrl(), $originalUrl);
             $fullNewUrl = self::makeUrl($language->getUrl(), $newUrl);
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $fullOldUrl, $fullNewUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify('site.urlChanged', array('oldUrl' => $fullOldUrl, 'newUrl' => $fullNewUrl));
         }
     }
 

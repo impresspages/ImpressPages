@@ -102,12 +102,7 @@ class Revision{
 
         $revisionId = ip_deprecated_mysql_insert_id();
 
-        $eventData = array(
-            'revisionId' => $revisionId
-        );
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.createdRevision', $eventData));
-
-
+        \Ip\ServiceLocator::getDispatcher()->notify('site.createdRevision', array('revisionId' => $revisionId));
 
         return $revisionId;
     }
@@ -138,7 +133,7 @@ class Revision{
         $eventData = array(
             'revisionId' => $revisionId,
         );
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.publishRevision', $eventData));
+        \Ip\ServiceLocator::getDispatcher()->notify('site.publishRevision', $eventData);
         
 
     }
@@ -169,7 +164,7 @@ class Revision{
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.duplicatedRevision', $eventData));
+        \Ip\ServiceLocator::getDispatcher()->notify('site.duplicatedRevision', $eventData);
 
         return $newRevisionId;
     }
@@ -217,7 +212,7 @@ class Revision{
             $eventData = array(
                 'revisionId' => $lock['revisionId'],
             );
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event(null, 'site.removeRevision', $eventData));
+            \Ip\ServiceLocator::getDispatcher()->notify('site.removeRevision', $eventData);
         }
 
         $sql = "

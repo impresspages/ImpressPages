@@ -42,20 +42,16 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-
-        //TODOX throw clear cache event
-
         \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipGetConfig()->baseUrl('')); // update system variable
-
 
         $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
         \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
 
-
-
-        ipDispatcher()->notify(new \Ip\Event\UrlChanged($this, $cachedUrl, ipGetConfig()->baseUrl('')));
-        ipDispatcher()->notify(new \Ip\Event\ClearCache($this));
-
+        // TODO move somewhere
+        if (ipGetConfig()->baseUrl('') != $cachedUrl) {
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipGetConfig()->baseUrl('')));
+        }
+        ipDispatcher()->notify('site.clearCache');
     }
 
     public function getSystemInfo()

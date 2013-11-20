@@ -82,7 +82,7 @@ class Application {
         \Ip\Translator::addTranslationFilePattern('phparray', ipGetConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.afterInit', null));
+        ipDispatcher()->notify('site.afterInit');
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
@@ -220,7 +220,7 @@ class Application {
         }
 
         \Ip\Db::disconnect();
-        ipDispatcher()->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
+        ipDispatcher()->notify('site.databaseDisconnect');
     }
 
     /**

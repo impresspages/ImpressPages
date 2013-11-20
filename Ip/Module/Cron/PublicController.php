@@ -49,7 +49,7 @@ class PublicController extends \Ip\Controller
             'test' => ipGetRequest()->getQuery('test')
         );
 
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'Cron.execute', $data));
+        \Ip\ServiceLocator::getDispatcher()->notify('Cron.execute', $data);
 
         $log->log('Cron', 'end');
         \Ip\ServiceLocator::getStorage()->set('Cron', 'lastExecutionEnd', time());

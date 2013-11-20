@@ -137,18 +137,24 @@ class Dispatcher
         return null;
     }
 
-    public function notify(Event $event)
+    public function notify($eventName, $data = array())
     {
-        $this->check($event->getName());
-        if (!isset($this->handlers[$event->getName()])) {
-            return false;
+        $this->check($eventName);
+
+        if (!isset($this->handlers[$eventName])) {
+            return null;
         }
 
-        foreach ($this->handlers[$event->getName()] as $callable) {
-            call_user_func($callable, $event);
+        if (isset($this->sortedHandlers[$eventName])) {
+            ksort($this->handlers[$eventName]);
+            $this->sortedHandlers[$eventName] = true;
         }
 
-        return $event->getProcessed();
+        do {
+            foreach (current($this->handlers[$eventName]) as $callable) {
+                call_user_func($callable, $data);
+            }
+        } while (next($this->handlers[$eventName]) !== false);
     }
 
 }
