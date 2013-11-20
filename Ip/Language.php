@@ -134,9 +134,9 @@ class Language{
     {
 
         if (ipGetOption('Config.multilingual')) {
-            return \Ip\Config::baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($this->getId())->getUrl()).'/');
+            return ipGetConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($this->getId())->getUrl()).'/');
         } else {
-            return \Ip\Config::baseUrl('');
+            return ipGetConfig()->baseUrl('');
         }
     }
 }

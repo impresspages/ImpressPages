@@ -50,9 +50,9 @@ class Url {
         // get parameter for cms management
 
         if (ipGetOption('Config.multilingual')) {
-            $answer = \Ip\Config::baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($languageId)->getUrl()).'/');
+            $answer = ipGetConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($languageId)->getUrl()).'/');
         } else {
-            $answer = \Ip\Config::baseUrl('');
+            $answer = ipGetConfig()->baseUrl('');
         }
 
         if ($zoneName != null){

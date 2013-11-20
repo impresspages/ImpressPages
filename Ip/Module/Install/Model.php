@@ -33,11 +33,11 @@ class Model
             $error['mod_pdo'] = 1;
         }
 
-        if (!file_exists(\Ip\Config::baseFile('.htaccess'))) {
+        if (!file_exists(ipGetConfig()->baseFile('.htaccess'))) {
             $error['htaccess'] = 1;
         }
 
-        if (file_exists(\Ip\Config::baseFile('index.html'))) {
+        if (file_exists(ipGetConfig()->baseFile('index.html'))) {
             $error['index.html'] = 1;
         }
 
@@ -145,7 +145,7 @@ class Model
 
         $table[] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
 
-        if (!Helper::isDirectoryWritable(\Ip\Config::fileDirFile(''))) {
+        if (!Helper::isDirectoryWritable(ipGetConfig()->fileDirFile(''))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_file'] = 1;
         } else
@@ -153,7 +153,7 @@ class Model
 
 
         $table[] = '<b>/ip_themes/</b> ' . __('writable', 'ipInstall');
-        if (!Helper::isDirectoryWritable(dirname(\Ip\Config::themeFile('')))) {
+        if (!Helper::isDirectoryWritable(dirname(ipGetConfig()->themeFile('')))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_themes'] = 1;
         } else
@@ -162,7 +162,7 @@ class Model
 
         $table[] = '<b>/ip_config.php</b> ' . __('writable', 'ipInstall');
 
-        if (!is_writable(\Ip\Config::baseFile('ip_config.php'))) {
+        if (!is_writable(ipGetConfig()->baseFile('ip_config.php'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_config'] = 1;
         } else
@@ -170,7 +170,7 @@ class Model
 
 
         $table[] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
-        if (!is_writable(\Ip\Config::baseFile('robots.txt'))) {
+        if (!is_writable(ipGetConfig()->baseFile('robots.txt'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_robots'] = 1;
         } else
@@ -232,7 +232,7 @@ class Model
 
     public static function createDatabaseStructure($database, $tablePrefix)
     {
-        $all_sql = file_get_contents(\Ip\Config::coreModuleFile('Install/sql/structure.sql'));
+        $all_sql = file_get_contents(ipGetConfig()->coreModuleFile('Install/sql/structure.sql'));
 
         $all_sql = str_replace("[[[[database]]]]", $database, $all_sql);
         $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $tablePrefix, $all_sql);
@@ -257,14 +257,14 @@ class Model
         $errors = array();
 
         // TODOX Algimantas: why so complicated?
-        $sqlFile = \Ip\Config::coreModuleFile("Install/sql/data.sql");
+        $sqlFile = ipGetConfig()->coreModuleFile("Install/sql/data.sql");
         $fh = fopen($sqlFile, 'r');
         $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);
 
         //$all_sql = utf8_encode($all_sql);
         $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("[[[[base_url]]]]", \Ip\Config::baseUrl(''), $all_sql);
+        $all_sql = str_replace("[[[[base_url]]]]", ipGetConfig()->baseUrl(''), $all_sql);
         $sql_list = explode("-- Dumping data for table--", $all_sql);
 
 
@@ -418,7 +418,7 @@ Disallow: /admin.php
 Disallow: /ip_config.php
 Disallow: /ip_license.html
 Disallow: /readme.md
-Sitemap: '. \Ip\Config::baseUrl('sitemap.php');
+Sitemap: '. ipGetConfig()->baseUrl('sitemap.php');
 
         file_put_contents($filename, $content);
     }

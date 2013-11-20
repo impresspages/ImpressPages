@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Admin/assets/backend/login/login.css') ?>">
-    <link rel="stylesheet" href="<?php echo \Ip\Config::coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') ?>">
-    <link rel="shortcut icon" href="<?php echo \Ip\Config::baseUrl('favicon.ico') ?>">
+    <link rel="stylesheet" href="<?php echo ipGetConfig()->coreModuleUrl('Admin/assets/backend/login/login.css') ?>">
+    <link rel="stylesheet" href="<?php echo ipGetConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') ?>">
+    <link rel="shortcut icon" href="<?php echo ipGetConfig()->baseUrl('favicon.ico') ?>">
 </head>
 <body>
 
 
-<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo \Ip\Config::coreModuleUrl('Admin/assets/backend/login/logo.png') ?>"></a>
+<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo ipGetConfig()->coreModuleUrl('Admin/assets/backend/login/logo.png') ?>"></a>
 <div class="verticalAlign"></div>
 <div class="login">
     <div class="loginTitle">

@@ -1,1 +1,1 @@
-<?php echo $this->create(\Ip\Config::coreModuleFile('Config/view/email.php'), $this->getData()); ?>
+<?php echo $this->create(ipGetConfig()->coreModuleFile('Config/view/email.php'), $this->getData()); ?>

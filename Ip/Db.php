@@ -30,7 +30,7 @@ class Db
     {
         if (!self::$pdoConnection) {
             try {
-                $config = \Ip\Config::getRaw('db');
+                $config = ipGetConfig()->getRaw('db');
 
                 if (empty($config)) {
                     throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
@@ -53,14 +53,14 @@ class Db
             }
 
             static::$tablePrefix = $config['tablePrefix'];
-            \Ip\Config::_setRaw('db', null);
+            ipGetConfig()->_setRaw('db', null);
         }
         return self::$pdoConnection;
     }
 
     public static function disconnect()
     {
-        \Ip\Config::_setRaw('db', null);
+        ipGetConfig()->_setRaw('db', null);
         self::$pdoConnection = null;
     }
 

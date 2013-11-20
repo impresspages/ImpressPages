@@ -189,7 +189,7 @@ class ImageCrop extends Image
 
     private function croppingGoesOutOfImage($sourceFile, $x1, $y1, $x2, $y2)
     {
-        $imageInfo = getimagesize(\Ip\Config::baseFile($sourceFile));
+        $imageInfo = getimagesize(ipGetConfig()->baseFile($sourceFile));
         $widthSource = $imageInfo[0];
         $heightSource = $imageInfo[1];
         $goesOut = $x2 - $x1 > $widthSource || $y2 - $y1 > $heightSource || $x1 < 0 || $y1 < 0;
@@ -199,7 +199,7 @@ class ImageCrop extends Image
 
     private function resizeRequired($imageFile)
     {
-        $imageInfo = getimagesize(\Ip\Config::baseFile($imageFile));
+        $imageInfo = getimagesize(ipGetConfig()->baseFile($imageFile));
         $widthS = $imageInfo[0];
         $heightS = $imageInfo[1];
         $widthT = $this->widthDest;

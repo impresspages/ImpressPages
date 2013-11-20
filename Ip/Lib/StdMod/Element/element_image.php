@@ -65,13 +65,13 @@ class ElementImage extends Element{ //data element in area
         $deleteTranslation = '&nbsp;'.__('Delete', 'ipAdmin').'&nbsp;';
         /*eof translation*/
 
-        $image = \Ip\Config::baseUrl($this->copies[0]['destDir'].$value);
+        $image = ipGetConfig()->baseUrl($this->copies[0]['destDir'].$value);
 
     $sizing = '';
 
-    if(file_exists(\Ip\Config::baseFile($this->copies[0]['destDir'].$value)) && is_file(\Ip\Config::baseFile($this->copies[0]['destDir'].$value)))
+    if(file_exists(ipGetConfig()->baseFile($this->copies[0]['destDir'].$value)) && is_file(ipGetConfig()->baseFile($this->copies[0]['destDir'].$value)))
     {
-        $imageSize = getimagesize(\Ip\Config::baseFile($this->copies[0]['destDir'].$value));
+        $imageSize = getimagesize(ipGetConfig()->baseFile($this->copies[0]['destDir'].$value));
 
         if( $imageSize[0] >= 200 && $imageSize[0]>=$imageSize[1] ) // width more than 200 and image is horizontal
         {
@@ -133,7 +133,7 @@ class ElementImage extends Element{ //data element in area
         $this->newMemImages = array();
         foreach($this->copies as $key => $copy){
             $upload_image = new \Ip\Internal\File\UploadImage();
-            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], \Ip\Config::temporaryFile(''), $copy['type'], $copy['forced'], $copy['quality']);
+            $error = $upload_image->upload($prefix,$copy['width'], $copy['height'], ipGetConfig()->temporaryFile(''), $copy['type'], $copy['forced'], $copy['quality']);
             if($error == UPLOAD_ERR_OK){
                 $this->newMemImages[$key] = $upload_image->fileName;
             }elseif($error ==  UPLOAD_ERR_NO_FILE && $this->required && (sizeof($this->memImages) != sizeof($this->copies)) && $action== 'insert'){

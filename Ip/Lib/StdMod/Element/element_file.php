@@ -35,7 +35,7 @@ class ElementFile extends Element{ //data element in area
         $this->tmpFiles = array();
         $this->extensions = array();
 
-        $this->destDir = \Ip\Config::fileDirFile('');
+        $this->destDir = ipGetConfig()->fileDirFile('');
 
         foreach ($variables as $name => $value) {
             switch ($name){
@@ -127,7 +127,7 @@ class ElementFile extends Element{ //data element in area
             $uploadFile->allowOnly($this->extensions);
         }
         if(isset($_FILES[$prefix])){
-            $error = $uploadFile->upload($prefix, \Ip\Config::temporaryFile(''));
+            $error = $uploadFile->upload($prefix, ipGetConfig()->temporaryFile(''));
             if($error == UPLOAD_ERR_OK){
                 $this->memFile = $uploadFile->fileName;
                 return null;

@@ -154,8 +154,8 @@ class Model{
     }
     
     private static function removeFile($file) {
-        if (file_exists(\Ip\Config::baseFile($file)) && !is_dir(\Ip\Config::baseFile($file))) {
-            unlink(\Ip\Config::baseFile($file));
+        if (file_exists(ipGetConfig()->baseFile($file)) && !is_dir(ipGetConfig()->baseFile($file))) {
+            unlink(ipGetConfig()->baseFile($file));
         }
         
     }
