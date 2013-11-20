@@ -53,6 +53,7 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
 
     }
 
