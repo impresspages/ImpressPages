@@ -1,0 +1,12 @@
+{
+    "bind": {
+        "Layout.printJavascript": {
+            "method": "printTinyMce",
+            "priority": "low"
+        },
+        "Wysiwyg.print": {
+            "method": "printTinyMceSmall",
+            "replace": true
+        }
+    }
+}

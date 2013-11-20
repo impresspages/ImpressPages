@@ -218,7 +218,7 @@ class Application {
         }
 
         \Ip\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
+        ipDispatcher()->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
     }
 
     /**
