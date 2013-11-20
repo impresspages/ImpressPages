@@ -190,7 +190,7 @@ class Application {
          By default fake cron is enabled
         */
         if (!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1)) {
-            $lastExecution = \Ip\ServiceLocator::getStorage()->get('Cron', 'lastExecutionStart');
+            $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
             if (!$lastExecution || date('Y-m-d H') != date('Y-m-d H', $lastExecution)) { // Execute Cron once an hour
 
                 // create a new curl resource

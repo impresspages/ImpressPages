@@ -36,7 +36,7 @@ class ServiceLocator
     }
 
 
-    public static function getStorage()
+    public static function storage()
     {
         if (self::$storage == null) {
             self::$storage = new \Ip\Storage();

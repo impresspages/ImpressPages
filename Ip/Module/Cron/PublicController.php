@@ -37,7 +37,7 @@ class PublicController extends \Ip\Controller
             throw new \Ip\CoreException('Incorrect cron password');
         }
 
-        \Ip\ServiceLocator::getStorage()->set('Cron', 'lastExecutionStart', time());
+        \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionStart', time());
         $log->log('Cron', 'start');
         $data = array(
             'firstTimeThisYear' => $this->firstTimeThisYear,
@@ -52,7 +52,7 @@ class PublicController extends \Ip\Controller
         ipDispatcher()->notify('Cron.execute', $data);
 
         $log->log('Cron', 'end');
-        \Ip\ServiceLocator::getStorage()->set('Cron', 'lastExecutionEnd', time());
+        \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionEnd', time());
 
         $response = new \Ip\Response();
         $response->setContent(__('OK', 'ipAdmin'));
@@ -68,7 +68,7 @@ class PublicController extends \Ip\Controller
         $this->firstTimeThisHour = true;
         $this->lastTime = null;
 
-        $lastExecutionEnd = \Ip\ServiceLocator::getStorage()->get('Cron', 'lastExecutionStart', NULL);
+        $lastExecutionEnd = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart', NULL);
 
         if (!$lastExecutionEnd && !(ipRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
             $this->firstTimeThisYear = date('Y') != date('Y', $lastExecutionEnd);
