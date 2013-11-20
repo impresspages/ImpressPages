@@ -126,7 +126,7 @@ class System{
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                $log = \Ip\ServiceLocator::getLog();
+                $log = \Ip\ServiceLocator::log();
                 $log->log('Content', 'duplicated widget', 'Widget name ' . $widgetFolder);
             }
             $answer[] = array (

@@ -60,7 +60,7 @@ class ServiceLocator
     /**
      * @return \Ip\Module\Log\Module
      */
-    public static function getLog()
+    public static function log()
     {
         if (self::$log== null) {
             self::$log= new \Ip\Module\Log\Module();
