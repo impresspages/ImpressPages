@@ -25,6 +25,7 @@ class ServiceLocator
     protected static $log = null;
     protected static $options = null;
     protected static $storage = null;
+    protected static $db;
 
     public static function getOptions()
     {
@@ -151,5 +152,17 @@ class ServiceLocator
     public static function getResponse()
     {
         return end(self::$responses);
+    }
+
+    /**
+     * @return \Ip\Db
+     */
+    public static function getDb()
+    {
+        if (self::$db === null) {
+            self::$db = new \Ip\Db();
+        }
+
+        return self::$db;
     }
 }

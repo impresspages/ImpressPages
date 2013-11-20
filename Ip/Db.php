@@ -14,60 +14,69 @@ namespace Ip;
  */
 class Db
 {
-
     /**
      * @var \PDO
      */
-    private static $pdoConnection;
+    protected $pdoConnection;
 
-    private static $tablePrefix;
+    protected $tablePrefix;
+
+    public function __construct()
+    {
+        $this->getConnection();
+    }
 
     /**
      * @throws \Ip\CoreException
      * @return \PDO
      */
-    public static function getConnection()
+    public function getConnection()
     {
-        if (!self::$pdoConnection) {
-            try {
-                $config = ipConfig()->getRaw('db');
+        if ($this->pdoConnection) {
+            return $this->pdoConnection;
+        }
 
-                if (empty($config)) {
-                    throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
-                }
+        $dbConfig = ipConfig()->getRaw('db');
 
-                $dsn = 'mysql:host='.str_replace(':', ';port=', $config['hostname']);
-                if (!empty($config['database'])) {
-                    $dsn .= ';dbname='. $config['database'];
-                }
+        if (empty($dbConfig)) {
+            throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
+        }
 
-                self::$pdoConnection = new \PDO($dsn, $config['username'], $config['password']);
-                self::$pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
-                $dt = new \DateTime();
-                $offset = $dt->format("P");
-                self::$pdoConnection->exec("SET time_zone='$offset';");
-                self::$pdoConnection->exec("SET CHARACTER SET ". $config['charset']);
-            } catch (\PDOException $e) {
-                throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
-                //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
+        try {
+
+
+            $dsn = 'mysql:host='.str_replace(':', ';port=', $dbConfig['hostname']);
+            if (!empty($dbConfig['database'])) {
+                $dsn .= ';dbname='. $dbConfig['database'];
             }
 
-            static::$tablePrefix = $config['tablePrefix'];
-            ipConfig()->_setRaw('db', null);
+            $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
+            $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
+            $dt = new \DateTime();
+            $offset = $dt->format("P");
+            $this->pdoConnection->exec("SET time_zone='$offset';");
+            $this->pdoConnection->exec("SET CHARACTER SET ". $dbConfig['charset']);
+        } catch (\PDOException $e) {
+            throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
+            //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
         }
-        return self::$pdoConnection;
+
+        $this->tablePrefix = $dbConfig['tablePrefix'];
+        ipConfig()->_setRaw('db', null);
+
+        return $this->pdoConnection;
     }
 
-    public static function disconnect()
+    public function disconnect()
     {
         ipConfig()->_setRaw('db', null);
-        self::$pdoConnection = null;
+        $this->pdoConnection = null;
     }
 
-    public static function fetchValue($sql, $params = array())
+    public function fetchValue($sql, $params = array())
     {
         try {
-            $query = static::getConnection()->prepare($sql . " LIMIT 1");
+            $query = $this->pdoConnection->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -79,10 +88,10 @@ class Db
         }
     }
 
-    public static function fetchRow($sql, $params = array())
+    public function fetchRow($sql, $params = array())
     {
         try {
-            $query = static::getConnection()->prepare($sql . " LIMIT 1");
+            $query = $this->pdoConnection->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -96,10 +105,10 @@ class Db
         }
     }
 
-    public static function fetchAll($sql, $params = array())
+    public function fetchAll($sql, $params = array())
     {
         try {
-            $query = static::getConnection()->prepare($sql);
+            $query = $this->pdoConnection->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -120,10 +129,10 @@ class Db
      * @param array $params
      * @return int the number of rows affected by the last SQL statement
      */
-    public static function execute($sql, $params = array())
+    public function execute($sql, $params = array())
     {
         try {
-            $query = static::getConnection()->prepare($sql);
+            $query = $this->pdoConnection->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -136,10 +145,10 @@ class Db
         }
     }
 
-    public static function fetchColumn($sql, $params = array())
+    public function fetchColumn($sql, $params = array())
     {
         try {
-            $query = static::getConnection()->prepare($sql);
+            $query = $this->pdoConnection->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -157,7 +166,7 @@ class Db
      * @param array $row
      * @return mixed
      */
-    public static function insert($table, $row, $ignore = false)
+    public function insert($table, $row, $ignore = false)
     {
         $params = array();
         $_ignore = $ignore ? "IGNORE" : "";
@@ -170,8 +179,8 @@ class Db
         }
         $sql = substr($sql, 0, -2);
 
-        if (static::execute($sql, $params)) {
-            $lastInsertId = static::getConnection()->lastInsertId();
+        if ($this->execute($sql, $params)) {
+            $lastInsertId = $this->pdoConnection->lastInsertId();
             if ($lastInsertId === '0') { // for tables that do not have auto increment id
                 return true;
             }
@@ -186,7 +195,7 @@ class Db
      * @param array $condition pvz. array("userId" => 5, "card_id" => 8)
      * @return type
      */
-    public static function delete($table, $condition)
+    public function delete($table, $condition)
     {
         $sql = "DELETE FROM `{$table}` WHERE ";
         $params = array();
@@ -196,7 +205,7 @@ class Db
         }
         $sql = substr($sql, 0, -4);
 
-        return static::execute($sql, $params);
+        return $this->execute($sql, $params);
     }
 
     /**
@@ -206,7 +215,7 @@ class Db
      * @param array|int $condition
      * @return int count of rows updated
      */
-    public static function update($table, $update, $condition)
+    public function update($table, $update, $condition)
     {
         if (empty($update)) {
             return false;
@@ -233,11 +242,11 @@ class Db
             $params[] = $condition;
         }
 
-        return static::execute($sql, $params);
+        return $this->execute($sql, $params);
     }
 
-    public static function tablePrefix()
+    public function tablePrefix()
     {
-        return static::$tablePrefix;
+        return $this->tablePrefix;
     }
 }

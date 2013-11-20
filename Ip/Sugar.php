@@ -245,6 +245,14 @@ function ipDispatcher()
     return \Ip\ServiceLocator::getDispatcher();
 }
 
+/**
+ * @return \Ip\Db
+ */
+function ipDb()
+{
+    return \Ip\ServiceLocator::getDb();
+}
+
 //function _n($singular, $plural, $number, $domain)
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);

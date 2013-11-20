@@ -24,7 +24,7 @@ class Config
         $this->core['CORE_DIR'] = $this->rawConfig['BASE_DIR'] . $this->rawConfig['CORE_DIR'];
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . $this->rawConfig['THEME_DIR'];
 
-        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
+        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") { // TODOX fix error
             $this->protocol = 'https://';
         } else {
             $this->protocol = 'http://';
