@@ -7,15 +7,8 @@
  */
 namespace Ip\Module\Pages;
 
-
-use Ip\Module\Content\EventWidget;
-
-
 require_once ipConfig()->libraryFile('php/file/upload_file.php');
 require_once ipConfig()->libraryFile('php/file/upload_image.php');
-
-
-
 
 class Model {
 
@@ -42,8 +35,7 @@ class Model {
 
         Db::deletePage($id);
 
-        $event = new \Ip\Event\PageDeleted(null, $zone->getName(), $id);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
+        ipDispatcher()->notify('site.pageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
     }
 
 

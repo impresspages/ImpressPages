@@ -26,9 +26,9 @@ class System{
         $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
 
 
-        $dispatcher->bind(\Ip\Event\PageDeleted::SITE_PAGE_DELETED, __NAMESPACE__ .'\System::pageDeleted');
+        $dispatcher->bind('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
 
-        $dispatcher->bind(\Ip\Event\PageMoved::SITE_PAGE_MOVED, __NAMESPACE__ .'\System::pageMoved');
+        $dispatcher->bind('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
 
 
 
@@ -57,9 +57,9 @@ class System{
     }
 
 
-    public function executeCron(\Ip\Event $e)
+    public function executeCron($info)
     {
-        if ($e->getValue('firstTimeThisDay') || $e->getValue('test')) {
+        if ($info['firstTimeThisDay'] || $info['test']) {
             Model::deleteUnusedWidgets();
         }
     }
@@ -206,9 +206,10 @@ class System{
 
     /**
      * IpForm widget
-     * @param \Modules\standard\content_managemet\EventFormFields $event
+     * @param array $value
      */
-    public static function collectFieldTypes(EventFormFields $event){
+    public static function collectFieldTypes($fieldTypes, $info = NULL)
+    {
         global $parametersMod;
         
         $typeText = $parametersMod->getValue('Form.type_text');
@@ -220,60 +221,46 @@ class System{
         $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
         $typeFile = $parametersMod->getValue('Form.type_file');
 
-        $newFieldType = new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpConfirm', '\Ip\Form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
-        $event->addField($newFieldType);
-        $newFieldType = new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
-        $event->addField($newFieldType);
+        $fieldTypes[]= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
+        $fieldTypes[]= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
+        $fieldTypes[]= new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
+        $fieldTypes[]= new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $fieldTypes[]= new FieldType('IpConfirm', '\Ip\Form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $fieldTypes[]= new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $fieldTypes[]= new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
+        $fieldTypes[]= new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
+
+        return $fieldTypes;
     }
 
     
-    public static function duplicatedRevision (\Ip\Event $event) {
-        Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
+    public static function duplicatedRevision($info)
+    {
+        Model::duplicateRevision($info['basedOn'], $info['newRevisionId']);
     }
 
     
-    public static function removeRevision (\Ip\Event $event) {
-        $revisionId = $event->getValue('revisionId');
-        Model::removeRevision($revisionId);
+    public static function removeRevision ($info) {
+        Model::removeRevision($info['revisionId']);
     }
     
-    public static function publishRevision (\Ip\Event $event) {
-        $revisionId = $event->getValue('revisionId');
-        Model::clearCache($revisionId);
+    public static function publishRevision($info)
+    {
+        Model::clearCache($info['revisionId']);
     }
 
-    public static function pageDeleted(\Ip\Event\PageDeleted $event) {
-        $zoneName = $event->getZoneName();
-        $pageId = $event->getPageId();
-        
-        Model::removePageRevisions($zoneName, $pageId);
+    public static function pageDeleted($info)
+    {
+        Model::removePageRevisions($info['zoneName'], $info['pageId']);
     }
     
-    public static function pageMoved(\Ip\Event\PageMoved $event) {
-        $sourceZoneName = $event->getSourceZoneName();
-        $destinationZoneName = $event->getDestinationZoneName();
-        $pageId = $event->getPageId();
-        
-        if ($sourceZoneName != $destinationZoneName) {
+    public static function pageMoved($info)
+    {
+        if ($info['newZoneName'] != $info['oldZoneName']) {
             //move revisions from one zone to another
-            Model::updatePageRevisionsZone($pageId, $sourceZoneName, $destinationZoneName);
-        } else {
-            // do nothing
+            Model::updatePageRevisionsZone($info['pageId'], $info['oldZoneName'], $info['newZoneName']);
         }
-
-    }    
+    }
 
 }
 

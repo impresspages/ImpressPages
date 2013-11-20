@@ -82,7 +82,7 @@ class Application {
         \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.afterInit', null));
+        ipDispatcher()->notify('site.afterInit');
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
@@ -183,8 +183,6 @@ class Application {
 
     public function close()
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-
         /*
          Automatic execution of cron.
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
@@ -220,7 +218,7 @@ class Application {
         }
 
         \Ip\Db::disconnect();
-        ipDispatcher()->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
+        ipDispatcher()->notify('site.databaseDisconnect');
     }
 
     /**
