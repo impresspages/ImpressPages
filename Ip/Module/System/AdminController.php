@@ -49,7 +49,7 @@ class AdminController extends \Ip\Controller{
 
     public function clearCache()
     {
-        $log = \Ip\ServiceLocator::getLog();
+        $log = \Ip\ServiceLocator::log();
 
         ipRequest()->mustBePost();
 

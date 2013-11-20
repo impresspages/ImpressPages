@@ -29,7 +29,7 @@ class AdminController extends \Ip\Controller
                     $language['d_short']
                 ) . ')</a>' . "\n";
 
-            $zones = ipGetZones();
+            $zones = ipContent()->getZones();
             if (sizeof($zones) > 0) {
                 $answer .= '<ul>';
                 foreach ($zones as $key => $zone) {
@@ -83,7 +83,7 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Zone name is not set');
         }
 
-        $zone = ipGetZone($_REQUEST['zoneName']);
+        $zone = ipContent()->getZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             return $this->_errorAnswer('Can\'t find zone');
@@ -230,7 +230,7 @@ class AdminController extends \Ip\Controller
             $pageId = $revisionRecord['pageId'];
 
 
-            $zone = ipGetZone($zoneName);
+            $zone = ipContent()->getZone($zoneName);
             if ($zone === false) {
                 return $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
             }
@@ -441,7 +441,7 @@ class AdminController extends \Ip\Controller
 
         $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
 
-        $zone = ipGetZone($revision['zoneName']);
+        $zone = ipContent()->getZone($revision['zoneName']);
         if (!$zone) {
             return $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
         }
@@ -484,7 +484,7 @@ class AdminController extends \Ip\Controller
         }
 
         if ($changedUrl) {
-            $zone = ipGetZone($revision['zoneName']);
+            $zone = ipContent()->getZone($revision['zoneName']);
             $oldElement = $zone->getPage($revision['pageId']);
             $oldUrl = $oldElement->getLink();
         }
@@ -530,7 +530,7 @@ class AdminController extends \Ip\Controller
         \Ip\Revision::publishRevision($revisionId);
 
 
-        $zone = ipGetZone($revision['zoneName']);
+        $zone = ipContent()->getZone($revision['zoneName']);
         $page = $zone->getPage($revision['pageId']);
         $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
         if ($lastRevision['revisionId'] == $revision['revisionId']) {

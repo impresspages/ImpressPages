@@ -43,16 +43,17 @@ class System{
 
 
         // TODOX move to more appropriate place
-        $response = \Ip\ServiceLocator::getResponse();
+        $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) {
             $data = array(
-                'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
+                'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
             );
 
             $validatorJs = \Ip\View::create(ipConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
 
     }
 
@@ -125,7 +126,7 @@ class System{
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                $log = \Ip\ServiceLocator::getLog();
+                $log = \Ip\ServiceLocator::log();
                 $log->log('Content', 'duplicated widget', 'Widget name ' . $widgetFolder);
             }
             $answer[] = array (

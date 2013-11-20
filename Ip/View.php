@@ -51,7 +51,7 @@ class View implements \Ip\Response\ResponseInterface
      * @param int $languageId language in which to render the view. Current language by default
      */
     private function __construct($file, $data = array(), $languageId = null) {
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         $this->file = $file;
         $this->data = $data;
         if ($languageId == null) {
@@ -220,7 +220,7 @@ class View implements \Ip\Response\ResponseInterface
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            $log = \Ip\ServiceLocator::getLog();
+            $log = \Ip\ServiceLocator::log();
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
 
             if (ipConfig()->isDevelopmentEnvironment()) {
@@ -283,7 +283,7 @@ class View implements \Ip\Response\ResponseInterface
     
     
     public function htmlAttributes($doctype = null) {
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         if ($doctype === null) {
             $doctype = $this->getDoctype();
         }
@@ -367,7 +367,7 @@ class View implements \Ip\Response\ResponseInterface
 
     public function generateBlock($blockName)
     {
-        return \Ip\ServiceLocator::getContent()->generateBlock($blockName);
+        return \Ip\ServiceLocator::content()->generateBlock($blockName);
     }
 
     public function generateSlot($name)

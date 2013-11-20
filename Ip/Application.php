@@ -35,7 +35,7 @@ class Application {
 
 
 
-        require_once $config->getCore('CORE_DIR') . 'Ip/Sugar.php';
+        require_once $config->getCore('CORE_DIR') . 'Ip/ipSugar.php';
         require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
@@ -75,7 +75,7 @@ class Application {
             $request->fixMagicQuotes();
         }
 
-        $language = ipGetCurrentLanguage();
+        $language = ipContent()->getCurrentLanguage();
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
@@ -87,7 +87,7 @@ class Application {
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
-            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
+            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::request()->getPost()));
             $data = array(
                 'status' => 'error'
             );
@@ -128,14 +128,14 @@ class Application {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
             }
-            \Ip\ServiceLocator::getResponse()->setContent($controllerAnswer);
+            \Ip\ServiceLocator::response()->setContent($controllerAnswer);
             \Ip\ServiceLocator::removeRequest();
-            return \Ip\ServiceLocator::getResponse();
+            return \Ip\ServiceLocator::response();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
             return $controllerAnswer;
         } elseif ($controllerAnswer === NULL) {
-            $response = \Ip\ServiceLocator::getResponse();
+            $response = \Ip\ServiceLocator::response();
             \Ip\ServiceLocator::removeRequest();
             return $response;
         } else {
@@ -190,7 +190,7 @@ class Application {
          By default fake cron is enabled
         */
         if (!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1)) {
-            $lastExecution = \Ip\ServiceLocator::getStorage()->get('Cron', 'lastExecutionStart');
+            $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
             if (!$lastExecution || date('Y-m-d H') != date('Y-m-d H', $lastExecution)) { // Execute Cron once an hour
 
                 // create a new curl resource
@@ -211,7 +211,7 @@ class Application {
                 }
 
                 if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
-                    $log = \Ip\ServiceLocator::getLog();
+                    $log = \Ip\ServiceLocator::log();
                     $log->log('Cron', 'Failed fake cron', $fakeCronAnswer);
                 }
             }

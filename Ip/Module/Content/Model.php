@@ -55,18 +55,19 @@ class Model{
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions(ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $revisions = \Ip\Revision::getPageRevisions(ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
 
         $managementUrls = array();
+        $currentPageLink = ipContent()->getCurrentPage()->getLink();
         foreach($revisions as $revision) {
-            $managementUrls[] = ipGetCurrentPage()->getLink().'&cms_revision='.$revision['revisionId'];
+            $managementUrls[] = $currentPageLink . '&cms_revision=' . $revision['revisionId'];
         }
 
-        $revision = \Ip\ServiceLocator::getContent()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getRevision();
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
-        $page = ipGetCurrentPage();
+        $page = ipContent()->getCurrentPage();
 
         $data = array (
             'widgets' => $widgets,

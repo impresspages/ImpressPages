@@ -54,7 +54,7 @@ class ModelTree {
 
 
     public static function getZones($includeNonManagedZones) {
-        $zones = ipGetZones();
+        $zones = ipContent()->getZones();
 
         $managedZones = array();
         foreach ($zones as $zone) {
@@ -78,7 +78,7 @@ class ModelTree {
 
 
     public static function getZonePages ($languageId, $zoneName) {
-        $zone = ipGetZone($zoneName);
+        $zone = ipContent()->getZone($zoneName);
         
         if ( ! $zone) {
             trigger_error('Can\'t find zone ' . $zoneName);

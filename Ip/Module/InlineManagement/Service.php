@@ -35,7 +35,7 @@ class Service
 
         $data['cssClass'] = $cssClass;
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             return \Ip\View::create('view/management/logo.php', $data)->render();
         } else {
             return \Ip\View::create('view/display/logo.php', $data)->render();
@@ -69,7 +69,7 @@ class Service
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, ipGetCurrentLanguage()->getId());
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, ipContent()->getCurrentLanguage()->getId());
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
@@ -82,7 +82,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $view = \Ip\View::create('view/management/string.php', $data);
         } else {
             $view = \Ip\View::create('view/display/string.php', $data);
@@ -103,13 +103,13 @@ class Service
             throw new \Ip\CoreException('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
         }
 
-        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipGetCurrentLanguage()->getId());
+        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipContent()->getCurrentLanguage()->getId());
 
         if ($curValue === false) {
             $curValue = $defaultValue;
         }
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
             $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
         }
@@ -122,7 +122,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $view = \Ip\View::create('view/management/text.php', $data);
         } else {
             $view = \Ip\View::create('view/display/text.php', $data);
@@ -137,7 +137,7 @@ class Service
             $defaultValue = ipConfig()->coreModuleFile('InlineManagement/public/empty.gif');
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipGetCurrentLanguage()->getId(), ipGetCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (
@@ -149,7 +149,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::getContent()->isManagementState()) {
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             $view = \Ip\View::create('view/management/image.php', $data);
         } else {
             $view = \Ip\View::create('view/display/image.php', $data);
@@ -165,7 +165,7 @@ class Service
 
         $data = array (
             'type' => $logo->getType(),
-            'link' => ipGetCurrentLanguage()->getLink(),
+            'link' => ipContent()->getCurrentLanguage()->getLink(),
             'text' => $logo->getText(),
             'image' => $logo->getImage() ? $logo->getImage() : '',
             'font' => $logo->getFont(),

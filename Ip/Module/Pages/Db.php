@@ -30,7 +30,7 @@ class Db {
         global $parametersMod;
 
         $managedZones = array();
-        $zones = ipGetZones();
+        $zones = ipContent()->getZones();
         foreach ($zones as $zone) {
             $managedZones[] = $zone->getName();
         }
@@ -186,7 +186,7 @@ class Db {
     public static function updatePage($zoneName, $pageId, $params){
         $values = array();
 
-        $zone = ipGetZone($zoneName);
+        $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
             return;
         }

@@ -16,7 +16,7 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        $app = \Ip\ServiceLocator::getApplication();
+        $app = \Ip\ServiceLocator::application();
         $data = array (
             'securityToken' =>  $app->getSecurityToken(),
             'imageDir' => ipConfig()->coreUrl('Ip/Module/Pages/img/')
@@ -310,7 +310,7 @@ class AdminController extends \Ip\Controller
             return false;
         }
 
-        $zone = ipGetZone($_REQUEST['zoneName']);
+        $zone = ipContent()->getZone($_REQUEST['zoneName']);
 
         if (!($zone)) {
             trigger_error("Can't find zone");
@@ -371,7 +371,7 @@ class AdminController extends \Ip\Controller
 
     public function getZoneProperties() {
 
-        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+        $params = \Ip\ServiceLocator::request()->getRequest();
 
         if (empty($params['zoneName'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -419,7 +419,7 @@ class AdminController extends \Ip\Controller
 
     public function getLanguageProperties() {
 
-        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+        $params = \Ip\ServiceLocator::request()->getRequest();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -429,7 +429,7 @@ class AdminController extends \Ip\Controller
 
         $title = __('SEO', 'ipAdmin');
 
-        $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageId);
+        $language = \Ip\ServiceLocator::content()->getLanguageById($languageId);
 
         if (!$language) {
             throw new \Ip\CoreException("Language doesn't exist. Language id: " . $languageId);
@@ -455,7 +455,7 @@ class AdminController extends \Ip\Controller
 
     public function saveZoneProperties()
     {
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
         $params = $request->getPost();
 
@@ -464,7 +464,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\CoreException("Missing required parameter");
         }
         $zoneName = $params['zoneName'];
-        $zoneId = ipGetZone($zoneName)->getId();
+        $zoneId = ipContent()->getZone($zoneName)->getId();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -513,7 +513,7 @@ class AdminController extends \Ip\Controller
 
     public function saveLanguageProperties()
     {
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
         $params = $request->getPost();
 
@@ -647,7 +647,7 @@ class AdminController extends \Ip\Controller
                 }
 
                 $pageId = (int)$_REQUEST['pageId'];
-                $zone = ipGetZone($_REQUEST['zoneName']);
+                $zone = ipContent()->getZone($_REQUEST['zoneName']);
                 if (! $zone) {
                     trigger_error("Can't find zone");
                     return false;
@@ -750,11 +750,11 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['languageId'])) {
-            $language = \Ip\ServiceLocator::getContent()->getLanguageById($_REQUEST['languageId']);
+            $language = \Ip\ServiceLocator::content()->getLanguageById($_REQUEST['languageId']);
         } else {
             $languages = Db::getLanguages();
             $languageArray = $languages[0];
-            $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageArray['id']);
+            $language = \Ip\ServiceLocator::content()->getLanguageById($languageArray['id']);
         }
 
         if (empty($language) || !$language) {
@@ -764,12 +764,12 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['zoneName'])) {
-            $zone = ipGetZone($_REQUEST['zoneName']);
+            $zone = ipContent()->getZone($_REQUEST['zoneName']);
         } else {
             $associatedZones = Db::getZones();
             $zoneArray = array_shift($associatedZones);
             if ($zoneArray) {
-                $zone = ipGetZone($zoneArray['name']);
+                $zone = ipContent()->getZone($zoneArray['name']);
             }
         }
 
@@ -927,7 +927,7 @@ class AdminController extends \Ip\Controller
         $destinationLanguageId = $_REQUEST['destinationLanguageId'];
 
         //check if destination page exists
-        $destinationZone = ipGetZone($destinationZoneName);
+        $destinationZone = ipContent()->getZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
@@ -991,7 +991,7 @@ class AdminController extends \Ip\Controller
         Db::updatePage($zoneName, $pageId, $data);
 
         //report url change
-        $pageZone = ipGetZone($zoneName);
+        $pageZone = ipContent()->getZone($zoneName);
         $page = $pageZone->getPage($pageId);
         $newUrl = $page->getLink(true);
 
@@ -1036,7 +1036,7 @@ class AdminController extends \Ip\Controller
 
         ipDispatcher()->notify('site.pageMoved', $eventData);
 
-        $children = ipGetZone($zoneName)->getPages($languageId, $pageId);
+        $children = ipContent()->getZone($zoneName)->getPages($languageId, $pageId);
         foreach ($children as $key => $child) {
             self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
         }
@@ -1102,7 +1102,7 @@ class AdminController extends \Ip\Controller
         //check if destination page exists
 
 
-        $destinationZone = ipGetZone($destinationZoneName);
+        $destinationZone = ipContent()->getZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
             $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {

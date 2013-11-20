@@ -48,7 +48,7 @@ class Helper {
     public function formatPrice($price, $currency, $languageId = null)
     {
         if ($languageId === null) {
-            $languageId = ipGetCurrentLanguage()->getId();
+            $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
         $data = array (
@@ -58,7 +58,7 @@ class Helper {
         $formattedPrice = ipDispatcher()->job('global.formatCurrency', $data);
         if ($formattedPrice === NULL) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
-                $language = \Ip\ServiceLocator::getContent()->getLanguageById($languageId);
+                $language = \Ip\ServiceLocator::content()->getLanguageById($languageId);
                 $locale = str_replace('-', '_', $language->getCode());
                 $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
 

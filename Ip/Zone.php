@@ -160,13 +160,13 @@ abstract class Zone{
         if($this->currentPage !== null){
             return $this->currentPage;
         }
-        $content = \Ip\ServiceLocator::getContent();
+        $content = \Ip\ServiceLocator::content();
         if($this->name != $content->getCurrentZone()->getName()){
             $this->currentPage = null;
             return null;
         }
 
-        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
+        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::request()->getQuery());
         return $this->currentPage;
     }
 
@@ -189,7 +189,7 @@ abstract class Zone{
 
     public function getLink()
     {
-        return ipGetCurrentLanguage()->getLink() . $this->getUrl() . '/';
+        return ipContent()->getCurrentLanguage()->getLink() . $this->getUrl() . '/';
     }
 
     /**
@@ -200,7 +200,7 @@ abstract class Zone{
      */
 
     public function getBreadcrumb($pageId = null){
-        if (ipGetCurrentZone()&& ipGetCurrentZone()->getName() == $this->name) {
+        if (ipContent()->getCurrentZone()&& ipContent()->getCurrentZone()->getName() == $this->name) {
             if ($pageId == null) {
                 if ($this->breadcrumb) {
                     return $this->breadcrumb;
