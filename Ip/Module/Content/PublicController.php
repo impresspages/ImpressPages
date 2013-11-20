@@ -10,10 +10,10 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        $currentPage = ipContent()->getCurrentLanguage();
+        $currentPage = ipContent()->getCurrentPage();
         //TODOX set page specific layout
         if (
-            ipContent()->getLanguageUrl() != $currentPage->getUrl() ||
+            ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
             $currentPage->getType() === 'error404'
         ) {
             return new \Ip\Response\PageNotFound();
