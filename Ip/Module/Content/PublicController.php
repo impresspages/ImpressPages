@@ -60,7 +60,8 @@ class PublicController extends \Ip\Controller
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.min.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/tinymce.min.js'));
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/plupload/plupload.browserplus.js'));
