@@ -47,7 +47,7 @@ class Module{
     public static function logAndReport($module, $name, $valueStr = null , $valueInt = null, $valueFloat = null)
     {
         self::log($module, $name, $valueStr, $valueInt, $valueFloat);
-        if (ipGetConfig()->getRaw('ERRORS_SEND')) {
+        if (ipConfig()->getRaw('ERRORS_SEND')) {
             $queue = new \Ip\Module\Email\Module();
             $message = 'SERVER ERROR<br/><br/>';
             $message .= $module.'<br/>';
@@ -55,7 +55,7 @@ class Module{
             $message .= $valueStr.'<br/>';
             $message .= $valueInt.'<br/>';
             $message .= $valueFloat.'<br/>';
-            $queue->addEmail(ipGetConfig()->getRaw('ERRORS_SEND'), '', ipGetConfig()->getRaw('ERRORS_SEND'), '', ipGetConfig()->baseUrl('')." CRITICAL ERROR", $message, true, true);
+            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." CRITICAL ERROR", $message, true, true);
             $queue->send();
         }
 

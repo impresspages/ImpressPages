@@ -15,11 +15,11 @@ class Functions{
      */
     public static function isFileInPublicDir($fileName)
     {
-        $fileName = realpath(ipGetConfig()->baseFile($fileName));
+        $fileName = realpath(ipConfig()->baseFile($fileName));
         $publicDirs = array(
-            ipGetConfig()->fileDirFile(''),
-            ipGetConfig()->temporaryFile(''),
-            ipGetConfig()->repositoryFile(''),
+            ipConfig()->fileDirFile(''),
+            ipConfig()->temporaryFile(''),
+            ipConfig()->repositoryFile(''),
         );
         foreach ($publicDirs as $publicDir) {
             //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
@@ -128,8 +128,8 @@ class Functions{
     {
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
-        if (!copy(ipGetConfig()->temporaryFile($relativePath), $destinationDir . $newBasename)) {
-            trigger_error("Can't copy file from " . htmlspecialchars(ipGetConfig()->getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
+        if (!copy(ipConfig()->temporaryFile($relativePath), $destinationDir . $newBasename)) {
+            trigger_error("Can't copy file from " . htmlspecialchars(ipConfig()->getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
         }
 
         return $newBasename;

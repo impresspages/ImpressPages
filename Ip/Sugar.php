@@ -9,7 +9,7 @@ function ipGetOption($option, $defaultValue = null)
     return \Ip\ServiceLocator::getOptions()->getOption($option, $defaultValue);
 }
 
-function ipGetConfig()
+function ipConfig()
 {
     return \Ip\ServiceLocator::getconfig();
 }
@@ -83,7 +83,7 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipGetConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
+        $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . 'assets' . '/' . $file), $attributes, $priority, $cacheFix);
     }
 }
 
@@ -92,11 +92,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::getResponse();
     if (strtolower(substr($file, -3)) == '.js') {
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipGetConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else {
         if (method_exists($response, 'addJavascript')) {
-            $response->addCss(ipGetConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipConfig()->themeUrl('assets' . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -105,7 +105,7 @@ function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::getResponse();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
     }
 }
 

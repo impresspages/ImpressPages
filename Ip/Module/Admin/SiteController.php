@@ -31,7 +31,7 @@ class SiteController extends \Ip\Controller{
 
 
 
-        $redirectUrl = ipGetConfig()->baseUrl('', array('cms_action' => 'manage'));
+        $redirectUrl = ipConfig()->baseUrl('', array('cms_action' => 'manage'));
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -54,7 +54,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('admin/'));
+        return new \Ip\Response\Redirect(ipConfig()->baseUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -66,17 +66,17 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
-            return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('', array('cms_action' => 'manage')));
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl('', array('cms_action' => 'manage')));
         }
 
 
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/login.js'));
 
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipGetConfig()->coreMOduleFile('Admin/View/login.php'));
+        $response->setLayout(ipConfig()->coreMOduleFile('Admin/View/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
         $view = \Ip\View::create('View/login.php', $variables);

@@ -2,8 +2,8 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss(ipGetConfig()->themeUrl('ip_content.css'));
-    ipAddCss(ipGetConfig()->themeUrl('theme.css'));
+    ipAddCss(ipConfig()->themeUrl('ip_content.css'));
+    ipAddCss(ipConfig()->themeUrl('theme.css'));
     ipPrintHead();
     ?>
 </head>
@@ -17,8 +17,8 @@
         <?php echo ipBlock('main')->render(); ?>
     </div>
     <?php
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipGetConfig()->themeUrl('theme.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipConfig()->themeUrl('theme.js'));
         ipPrintJavascript();
     ?>
 </body>

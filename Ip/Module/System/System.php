@@ -14,7 +14,7 @@ class System{
 
     public function init(){
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
-            ipAddJavascript(ipGetConfig()->coreModuleUrl('System/public/system.js'), 0);
+            ipAddJavascript(ipConfig()->coreModuleUrl('System/public/system.js'), 0);
         }
 
         ipDispatcher()->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
@@ -66,12 +66,12 @@ class System{
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                if (ipGetConfig()->getRaw('ERRORS_SEND')) {
+                if (ipConfig()->getRaw('ERRORS_SEND')) {
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
                         ipGetOption('Config.websiteEmail'),
                         ipGetOption('Config.websiteTitle'),
-                        ipGetConfig()->getRaw('ERRORS_SEND'),
+                        ipConfig()->getRaw('ERRORS_SEND'),
                         '',
                         ipGetOption('Config.websiteTitle'),
                         $message,
