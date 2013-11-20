@@ -5,7 +5,6 @@
 
 namespace Tests\Ip;
 
-use \Ip\Db;
 use PhpUnit\Helper\TestEnvironment;
 
 class DbTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +18,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testConnect()
     {
-        Db::disconnect();
+        ipDb()->disconnect();
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         //TODOX create object
@@ -27,17 +26,17 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty(ipConfig()->getRaw('db'));
 
-        Db::getConnection();
+        ipDb()->getConnection();
 
         $this->assertEmpty(ipConfig()->getRaw('db'));
     }
 
     public function testDisconnect()
     {
-        Db::disconnect();
+        ipDb()->disconnect();
 
         try {
-            Db::getConnection();
+            ipDb()->getConnection();
             $this->assertFalse(true, 'Not disconnected');
         } catch (\Ip\CoreException $e) {
             $this->assertEquals($e->getCode(), \Ip\CoreException::DB);
@@ -48,7 +47,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $file = __FILE__; $line = __LINE__ + 1;
-            Db::fetchAll('SELECT * FROM `nonExistingTable`');
+            ipDb()->fetchAll('SELECT * FROM `nonExistingTable`');
             $this->assertTrue(false, 'Exception was not thrown.');
         } catch (\PDOException $e) {
             $this->assertEquals($file, $e->getFile());
@@ -57,7 +56,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         try {
             $file = __FILE__; $line = __LINE__ + 1;
-            Db::update('nonExistingTable', array('id' => 0), array('dummy' => 'dummy'));
+            ipDb()->update('nonExistingTable', array('id' => 0), array('dummy' => 'dummy'));
             $this->assertTrue(false, 'Exception was not thrown.');
         } catch (\PDOException $e) {
             $this->assertEquals($file, $e->getFile());
@@ -68,7 +67,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchValue()
     {
-        $value = Db::fetchValue('SELECT `d_short` FROM `' . DB_PREF . 'language` WHERE `code` = ?', array('en'));
+        $value = ipDb()->fetchValue('SELECT `d_short` FROM `' . DB_PREF . 'language` WHERE `code` = ?', array('en'));
         $this->assertEquals('EN', $value);
     }
 
