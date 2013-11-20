@@ -45,7 +45,7 @@
 	
 	
 
-        session_name(ipGetConfig()->getRaw('SESSION_NAME'));
+        session_name(ipConfig()->getRaw('SESSION_NAME'));
         session_start();
 	$admin = false;
   if(isset($_SESSION['backend_session']) && isset($_SESSION['backend_session']['userId']) && isset($_SESSION['backend_session']['userId']) != null){

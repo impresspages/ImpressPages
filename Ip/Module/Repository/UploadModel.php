@@ -56,9 +56,9 @@ class UploadModel{
         }
 
         if ($secureFolder) {
-            $targetDir = ipGetConfig()->getRaw('TMP_SECURE_DIR');
+            $targetDir = ipConfig()->getRaw('TMP_SECURE_DIR');
         } else {
-            $targetDir = ipGetConfig()->getRaw('TMP_FILE_DIR');
+            $targetDir = ipConfig()->getRaw('TMP_FILE_DIR');
         }
 
         // Get parameters
@@ -175,9 +175,9 @@ class UploadModel{
             return false;
         }
         if ($secure) {
-            $targetDir = ipGetConfig()->getRaw('TMP_SECURE_DIR');
+            $targetDir = ipConfig()->getRaw('TMP_SECURE_DIR');
         } else {
-            $targetDir = ipGetConfig()->getRaw('TMP_FILE_DIR');
+            $targetDir = ipConfig()->getRaw('TMP_FILE_DIR');
         }
 
         $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
@@ -221,7 +221,7 @@ class UploadModel{
     public function getUploadedFilePath($fileName, $secure)
     {
         if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
-            return ipGetConfig()->temporarySecureFile($fileName);
+            return ipConfig()->temporarySecureFile($fileName);
         } else {
             throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
         }

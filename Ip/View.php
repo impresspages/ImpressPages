@@ -59,7 +59,7 @@ class View implements \Ip\Response\ResponseInterface
         } else {
             $this->languageId = $languageId;
         }
-        eval('$this->doctype = self::'. ipGetConfig()->getRaw('DEFAULT_DOCTYPE').';');
+        eval('$this->doctype = self::'. ipConfig()->getRaw('DEFAULT_DOCTYPE').';');
     }
     
     /**
@@ -112,7 +112,7 @@ class View implements \Ip\Response\ResponseInterface
         global $parametersMod;
         $parts = explode('/', $parameterKey);
         if (count($parts) != 4) {
-            if (ipGetConfig()->isDevelopmentEnvironment()) {
+            if (ipConfig()->isDevelopmentEnvironment()) {
                 throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
             } else {
                 return '';
@@ -223,7 +223,7 @@ class View implements \Ip\Response\ResponseInterface
             $log = \Ip\ServiceLocator::getLog();
             $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
 
-            if (ipGetConfig()->isDevelopmentEnvironment()) {
+            if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
             } else {
                 // TODOX return appropriate string
@@ -333,7 +333,7 @@ class View implements \Ip\Response\ResponseInterface
     }
     
     private static function findFile($file, $sourceFile) {
-        if (strpos($file, ipGetConfig()->baseFile('')) !== 0) {
+        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
             $file = dirname($sourceFile).'/'.$file;
         }
 
@@ -345,8 +345,8 @@ class View implements \Ip\Response\ResponseInterface
 
         if ($moduleView != '') {
             // TODOX override module views according to new structure
-//            if (file_exists(ipGetConfig()->themeFile('modules/'.$moduleView))) {
-//                return ipGetConfig()->themeFile('modules/'.$moduleView);
+//            if (file_exists(ipConfig()->themeFile('modules/'.$moduleView))) {
+//                return ipConfig()->themeFile('modules/'.$moduleView);
 //            }
 
             // TODOX Plugin dir
@@ -430,7 +430,7 @@ class View implements \Ip\Response\ResponseInterface
         );
 
         if ($viewFile === null) {
-            $viewFile = ipGetConfig()->coreModuleFile('Config/view/menu.php');
+            $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
         }
         $viewFile = self::findView($viewFile);
         $view = self::create($viewFile, $data);

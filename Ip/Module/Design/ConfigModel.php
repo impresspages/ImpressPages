@@ -47,7 +47,7 @@ class ConfigModel{
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
-                $theme = $model->getTheme(ipGetConfig()->theme());
+                $theme = $model->getTheme(ipConfig()->theme());
                 $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
@@ -103,7 +103,7 @@ class ConfigModel{
             if (isset($data['restoreDefault'])) {
                 //overwrite current config with default theme values
                 $model = Model::instance();
-                $theme = $model->getTheme(ipGetConfig()->theme());
+                $theme = $model->getTheme(ipConfig()->theme());
                 $options = $theme->getOptionsAsArray();
                 foreach($options as $option) {
                     if (isset($option['name']) && isset($option['default'])) {

@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         $app = \Ip\ServiceLocator::getApplication();
         $data = array (
             'securityToken' =>  $app->getSecurityToken(),
-            'imageDir' => ipGetConfig()->coreUrl('Ip/Module/Pages/img/')
+            'imageDir' => ipConfig()->coreUrl('Ip/Module/Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
@@ -221,7 +221,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipGetConfig()->coreModuleUrl('Pages/img/file_hidden.png');
+                        $icon = ipConfig()->coreModuleUrl('Pages/img/file_hidden.png');
                     }
 
 
@@ -258,7 +258,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipGetConfig()->coreModuleUrl('Pages/img/file_hidden.png');
+                        $icon = ipConfig()->coreModuleUrl('Pages/img/file_hidden.png');
                     }
 
                     //if node status is open
@@ -1196,7 +1196,7 @@ class AdminController extends \Ip\Controller
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt($ch, CURLOPT_URL, $remote['url']);
-        curl_setopt($ch, CURLOPT_REFERER, ipGetConfig()->baseUrl(''));
+        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla4/1.0");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -1346,8 +1346,8 @@ class AdminController extends \Ip\Controller
 
         $widgets = Db::pageWidgets($page['id']);
 
-        $baseDir = ipGetConfig()->baseFile('');
-        $baseUrl = ipGetConfig()->baseUrl('');
+        $baseDir = ipConfig()->baseFile('');
+        $baseUrl = ipConfig()->baseUrl('');
         
         foreach($widgets as &$widget){
             //TODOX create new widget object

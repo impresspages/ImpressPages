@@ -276,7 +276,7 @@ class Db {
             \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $oldUrl, $newUrl));
         }
 
-        if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipGetConfig()->themeFile(''))) {
+        if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipConfig()->themeFile(''))) {
             $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
             self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
         }
@@ -327,7 +327,7 @@ class Db {
                 );
                 $wasLayoutChanged = true;
             }
-        } elseif ($newLayout != $oldLayout && file_exists(ipGetConfig()->themeFile($newLayout))) {
+        } elseif ($newLayout != $oldLayout && file_exists(ipConfig()->themeFile($newLayout))) {
             if (!$oldLayout) {
                 $sql = 'INSERT IGNORE INTO `' . DB_PREF . 'page_layout`
                         (`group_name`, `module_name`, `page_id`, `layout`)
@@ -560,7 +560,7 @@ class Db {
      * @param int $allowed_id
      */
     public static function makeUrl($url, $allowed_id = null){
-        require_once ipGetConfig()->libraryFile('php/text/transliteration.php');
+        require_once ipConfig()->libraryFile('php/text/transliteration.php');
         if($url == '')
         $url = 'page';
         $url = mb_strtolower($url);

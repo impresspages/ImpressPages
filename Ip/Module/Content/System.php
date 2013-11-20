@@ -37,9 +37,9 @@ class System{
 
         
         
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipGetConfig()->coreModuleUrl('Content/public/widgets.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/widgets.js'));
 
 
         // TODOX move to more appropriate place
@@ -49,7 +49,7 @@ class System{
                 'languageCode' => \Ip\ServiceLocator::getContent()->getCurrentLanguage()->getCode()
             );
 
-            $validatorJs = \Ip\View::create(ipGetConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $validatorJs = \Ip\View::create(ipConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
@@ -103,7 +103,7 @@ class System{
             $widgetKey = $widgetRecord['widgetKey'];
 
             // TODOX refactor according to new module structure
-            // $themeDir = ipGetConfig()->getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
+            // $themeDir = ipConfig()->getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
             
             
             //scan for js and css files required for widget management
@@ -138,9 +138,9 @@ class System{
     private static function findModuleWidgets($moduleName, $core)
     {
         if ($core) {
-            $widgetDir = ipGetConfig()->coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+            $widgetDir = ipConfig()->coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         } else {
-            $widgetDir = ipGetConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+            $widgetDir = ipConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         }
         if (!is_dir($widgetDir)) {
             return array();
@@ -172,32 +172,32 @@ class System{
 
     public static function includeResources($resourcesFolder, $overrideFolder = null){
 
-        if (is_dir(ipGetConfig()->baseFile($resourcesFolder))) {
-            $files = scandir(ipGetConfig()->baseFile($resourcesFolder));
+        if (is_dir(ipConfig()->baseFile($resourcesFolder))) {
+            $files = scandir(ipConfig()->baseFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
             
             
             foreach ($files as $fileKey => $file) {
-                if (is_dir(ipGetConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(ipGetConfig()->baseFile($resourcesFolder.$file), ipGetConfig()->baseFile($overrideFolder.$file));
+                if (is_dir(ipConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
+                    self::includeResources(ipConfig()->baseFile($resourcesFolder.$file), ipConfig()->baseFile($overrideFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
                     //overriden js version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddJavascript(ipGetConfig()->baseUrl($overrideFolder.'/'.$file));
+                        ipAddJavascript(ipConfig()->baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        ipAddJavascript(ipGetConfig()->baseUrl($resourcesFolder.'/'.$file));
+                        ipAddJavascript(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
                     //overriden css version exists
                     if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddCss(ipGetConfig()->baseUrl($overrideFolder.'/'.$file));
+                        ipAddCss(ipConfig()->baseUrl($overrideFolder.'/'.$file));
                     } else {
-                        ipAddCss(ipGetConfig()->baseUrl($resourcesFolder.'/'.$file));
+                        ipAddCss(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
                     }
                 }
             }
