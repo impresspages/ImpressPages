@@ -75,7 +75,7 @@ class Application {
             $request->fixMagicQuotes();
         }
 
-        $language = ipGetCurrentLanguage();
+        $language = ipContent()->getCurrentLanguage();
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);

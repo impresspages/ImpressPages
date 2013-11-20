@@ -140,7 +140,7 @@ class ParametersMod {
      * @return string value
      */
     function getType($modGroup, $module, $parGroup, $parameter) {
-        $languageId = ipGetCurrentLanguage()->getId();
+        $languageId = ipContent()->getCurrentLanguage()->getId();
 
         if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
         return $this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->type;
@@ -180,7 +180,7 @@ class ParametersMod {
         return $tmp;//TODOX remove all instances
         global $site;
         if($languageId == null && $site) //some parameters are accessed until site class is created. So, no language is specified.
-        $languageId = ipGetCurrentLanguage()->getId();
+        $languageId = ipContent()->getCurrentLanguage()->getId();
         if(isset($this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]))
         return $this->parameters[$languageId][$modGroup][$module][$parGroup][$parameter]->value;
         elseif(!isset($this->parameters[$languageId][$modGroup][$module])) {
@@ -218,7 +218,7 @@ class ParametersMod {
         global $site;
 
         if($languageId == null && $site)//some parameters are accessed until site class is not created. So, no language is specified.
-        $languageId = ipGetCurrentLanguage()->getId();
+        $languageId = ipContent()->getCurrentLanguage()->getId();
 
         if(isset($this->parameters[$languageId][$modGroup][$module]))
         return $this->parameters[$languageId][$modGroup][$module];

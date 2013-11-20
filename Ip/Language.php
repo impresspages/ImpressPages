@@ -118,7 +118,7 @@ class Language{
      * Enter description here ...
      */
     public function getCurrent() {
-        if ($this->getId() == ipGetCurrentLanguage()->getId()) {
+        if ($this->getId() == ipContent()->getCurrentLanguage()->getId()) {
             return true;
         } else {
             return false;

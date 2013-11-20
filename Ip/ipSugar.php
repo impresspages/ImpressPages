@@ -23,11 +23,6 @@ function ipSetOption($option, $value)
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
-function ipGetCurrentLanguage()
-{
-    return \Ip\ServiceLocator::content()->getCurrentLanguage();
-}
-
 function ipGetLanguages()
 {
     return \Ip\ServiceLocator::content()->getLanguages();

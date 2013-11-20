@@ -24,7 +24,7 @@ class Zone extends \Ip\Zone {
 
 
         if ($languageId == null) {
-            $languageId = ipGetCurrentLanguage()->getId();
+            $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
         $urlVars = array();
@@ -90,7 +90,7 @@ class Zone extends \Ip\Zone {
 
     function getFirstPage($parentId, $level) {
 
-        $pages = $this->db->getPages($this->getName(), $parentId, ipGetCurrentLanguage()->getId(), null, null, 'asc', 0, null);
+        $pages = $this->db->getPages($this->getName(), $parentId, ipContent()->getCurrentLanguage()->getId(), null, null, 'asc', 0, null);
         foreach ($pages as $page) {
             switch($page['type']) {
                 case 'inactive':
@@ -114,7 +114,7 @@ class Zone extends \Ip\Zone {
     function findPage($urlVars, $getVars) {
         $currentEl = null;
 
-        $elId = $this->db->getRootPageId($this->getName(), ipGetCurrentLanguage()->getId());
+        $elId = $this->db->getRootPageId($this->getName(), ipContent()->getCurrentLanguage()->getId());
         if ($elId) {
             if (sizeof($urlVars) == 0) {
                 return $this->getFirstPage($elId, 1);
