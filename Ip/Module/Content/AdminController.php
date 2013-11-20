@@ -555,7 +555,7 @@ class AdminController extends \Ip\Controller
             'errorMessage' => $errorMessage
         );
 
-        // TODOX use jsonrpc response
+        // TODO use jsonrpc response
         return new \Ip\Response\Json($data);
     }
 

@@ -41,13 +41,6 @@ class System{
         ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
         ipAddJavascript(\Ip\Config::coreModuleUrl('Content/public/widgets.js'));
 
-        // TODOX Mangirdas has some ideas how to rename tinymce files
-        // TODOX load only for management mode
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/paste_preprocess.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/min.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/med.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/max.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Config/public/tinymce/table.js'));
 
         // TODOX move to more appropriate place
         $response = \Ip\ServiceLocator::getResponse();
