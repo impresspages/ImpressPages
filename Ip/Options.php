@@ -17,7 +17,7 @@ class Options
         if (!isset($parts[1])) {
             throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
         }
-        return \Ip\ServiceLocator::getStorage()->get('Config', $parts[0] . '.' . $parts[1], $defaultValue);
+        return \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $parts[1], $defaultValue);
     }
 
     public function setOption($key, $value)
@@ -26,7 +26,7 @@ class Options
         if (!isset($parts[1])) {
             throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
         }
-        \Ip\ServiceLocator::getStorage()->set('Config', $parts[0] . '.' . $parts[1], $value);
+        \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $parts[1], $value);
     }
 
     /**
@@ -47,7 +47,7 @@ class Options
 
     function getAllOptions()
     {
-        $optionValues = \Ip\ServiceLocator::getStorage()->getAll('Config');
+        $optionValues = \Ip\ServiceLocator::storage()->getAll('Config');
         $options = array();
         foreach ($optionValues as $option) {
             $options[$option['key']] = $option['value'];
