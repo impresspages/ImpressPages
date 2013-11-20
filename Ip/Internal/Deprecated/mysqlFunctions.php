@@ -7,7 +7,7 @@ function ip_deprecated_mysql_query($query)
     global $ip_deprecated_mysql_last_rs, $ip_deprecated_mysql_error;
 
     try {
-        $pdo = Db::getConnection();
+        $pdo = ipDb()->getConnection();
         $ip_deprecated_mysql_last_rs = $pdo->query($query);
         $ip_deprecated_mysql_error = null;
         return $ip_deprecated_mysql_last_rs;
@@ -20,7 +20,7 @@ function ip_deprecated_mysql_query($query)
 
 function ip_deprecated_mysql_real_escape_string($unescaped_string)
 {
-    $pdo = Db::getConnection();
+    $pdo = ipDb()->getConnection();
     $result = trim($pdo->quote($unescaped_string), "'");
 
     return $result;
@@ -52,7 +52,7 @@ function ip_deprecated_mysql_num_rows($result)
 
 function ip_deprecated_mysql_insert_id()
 {
-    $pdo = Db::getConnection();
+    $pdo = ipDb()->getConnection();
     return $pdo->lastInsertId();
 }
 

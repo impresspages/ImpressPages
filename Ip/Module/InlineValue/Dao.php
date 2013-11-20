@@ -100,7 +100,7 @@ class Dao
         $this->lastValueScope = $scope;
 
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 value
@@ -138,7 +138,7 @@ class Dao
         $this->lastValueScope = $scope;
 
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 value
@@ -170,7 +170,7 @@ class Dao
         $scope->settype(Entity\Scope::SCOPE_GLOBAL);
         $this->lastValueScope = $scope;
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 value
@@ -197,7 +197,7 @@ class Dao
     // SET
     public function setPageValue($key, $languageId, $zoneName, $pageId, $value)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
                 `'.DB_PREF.'m_inline_value_page`
@@ -228,7 +228,7 @@ class Dao
 
     public function setLanguageValue($key, $languageId, $value)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
                 `'.DB_PREF.'m_inline_value_language`
@@ -253,7 +253,7 @@ class Dao
 
     public function setGlobalValue($key, $value)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
                 `'.DB_PREF.'m_inline_value_global`
@@ -277,7 +277,7 @@ class Dao
     // DELETE
     public function deletePageValue($key, $zoneName, $pageId)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
                 `'.DB_PREF.'m_inline_value_page`
@@ -300,7 +300,7 @@ class Dao
 
     public function deleteLanguageValue($key, $languageId)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
                 `'.DB_PREF.'m_inline_value_language`
@@ -321,7 +321,7 @@ class Dao
 
     public function deleteGlobalValue($key)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
                 `'.DB_PREF.'m_inline_value_global`

@@ -121,7 +121,7 @@ class ReflectionModel
 
     private function storeReflectionRecord($file, $reflection, $transformFingerprint)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = "
         INSERT INTO
           ".DB_PREF."m_administrator_repository_reflection
@@ -146,7 +146,7 @@ class ReflectionModel
 
     private function getReflectionRecord($file, $transformFingerprint)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = "
         SELECT
           reflection
@@ -174,7 +174,7 @@ class ReflectionModel
 
     private function getReflections($file)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = "
         SELECT
           reflection
@@ -197,7 +197,7 @@ class ReflectionModel
 
     private function removeReflectionRecords($file)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = "
         DELETE FROM
           ".DB_PREF."m_administrator_repository_reflection

@@ -23,7 +23,7 @@ class LanguageModel{
         $originalLanguage = self::getLanguageById($languageId);
         $originalUrl = ipConfig()->baseUrl($originalLanguage['url']) . '/';
 
-        \Ip\Db::update(DB_PREF . 'language', $data, $condition);
+        ipDb()->update(DB_PREF . 'language', $data, $condition);
 
         $newUrl = ipConfig()->baseUrl($data['url']) . '/';
 
@@ -109,7 +109,7 @@ class LanguageModel{
         $params = array (
             'id' => $id
         );
-        $result = \Ip\Db::fetchRow($sql, $params);
+        $result = ipDb()->fetchRow($sql, $params);
         return $result;
     }
 
@@ -124,7 +124,7 @@ class LanguageModel{
         $params = array (
             'url' => $url
         );
-        $result = \Ip\Db::fetchRow($sql, $params);
+        $result = ipDb()->fetchRow($sql, $params);
         return $result;
     }
 
@@ -139,7 +139,7 @@ class LanguageModel{
             ORDER BY
                 `row_number`";
         $params = array ();
-        $result = \Ip\Db::fetchAll($sql, $params);
+        $result = ipDb()->fetchAll($sql, $params);
         return $result;
     }
 

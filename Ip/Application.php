@@ -218,7 +218,7 @@ class Application {
 
         }
 
-        \Ip\Db::disconnect();
+        ipDb()->disconnect();
         ipDispatcher()->notify('site.databaseDisconnect');
     }
 
