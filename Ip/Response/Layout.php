@@ -50,7 +50,7 @@ class Layout extends \Ip\Response {
 
     protected function chooseLayout()
     {
-        if (\Ip\ServiceLocator::getRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
             $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
             $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));

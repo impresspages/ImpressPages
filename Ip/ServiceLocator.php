@@ -129,7 +129,7 @@ class ServiceLocator
     /**
      * @return \Ip\Request
      */
-    public static function getRequest()
+    public static function request()
     {
         return end(self::$requests);
     }

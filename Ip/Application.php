@@ -87,7 +87,7 @@ class Application {
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
-            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::getRequest()->getPost()));
+            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::request()->getPost()));
             $data = array(
                 'status' => 'error'
             );

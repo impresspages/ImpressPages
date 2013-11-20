@@ -166,7 +166,7 @@ abstract class Zone{
             return null;
         }
 
-        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::getRequest()->getQuery());
+        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::request()->getQuery());
         return $this->currentPage;
     }
 
