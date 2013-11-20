@@ -9,7 +9,8 @@ namespace Ip\Event;
 
 
 class OrderPaid extends \Ip\Event{
-    
+
+    // TODOX delete this class
     const ORDER_PAID = 'global.orderPaid';
 
 
