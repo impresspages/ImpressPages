@@ -17,9 +17,8 @@ class System{
             ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
         }
 
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $dispatcher->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
-        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
+        ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
     }
     
     public static function urlChanged (\Ip\Event\UrlChanged $event)
