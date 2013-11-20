@@ -9,11 +9,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="<?php echo  ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') ?>" type="text/css" rel="stylesheet" media="screen" />
+    <?php ipAddPluginAsset('Assets','fonts/font-awesome/font-awesome.css'); ?>
+    <?php ipAddPluginAsset('Assets','css/bootstrap/bootstrap.css'); ?>
+    <?php ipAddPluginAsset('Assets','css/bootstrap/bootstrap.js'); ?>
 
     <?php ipPrintHead() ?>
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 <body class="manage">

@@ -40,7 +40,7 @@ class Select extends Field{
         }
 $answer = 
 '
-<select '.$this->getAttributesStr($doctype).' id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="ipmControlSelect '.implode(' ',$this->getClasses()).'" '.$this->getValidationAttributesStr($doctype).' >
+<select '.$this->getAttributesStr($doctype).' id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="form-control '.implode(' ',$this->getClasses()).'" '.$this->getValidationAttributesStr($doctype).' >
 '.$options.'
 </select>
 ';
