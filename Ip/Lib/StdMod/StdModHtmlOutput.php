@@ -128,10 +128,10 @@ class StdModHtmlOutput{
         else
         $disabledStr = ' ';
 
-        $this->html .= '<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
-        $this->html .= '<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
+        $this->html .= '<script src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
+        $this->html .= '<script src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
         $this->html .= '<input id="'.htmlspecialchars($name).'" autocomplete="off" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" value="'.htmlspecialchars($value).'"/>
-    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',true,24,false)"><img src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/images/cal.gif') . '"" border="0"/></a>' ;
+    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',true,24,false)"><img src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/images/cal.gif') . '"" border="0"/></a>' ;
     }
 
     function date($name, $value = '', $disabled = false){
@@ -142,10 +142,10 @@ class StdModHtmlOutput{
         else
         $disabledStr = ' ';
 
-        $this->html .= '<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
-        $this->html .= '<script src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
+        $this->html .= '<script src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
+        $this->html .= '<script src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/datetimepicker_css.js') . '"></script>' ;
         $this->html .= '<input id="'.htmlspecialchars($name).'" autocomplete="off" '.$disabledStr.' class="stdMod" name="'.htmlspecialchars($name).'" value="'.htmlspecialchars($value).'"/>
-    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',false,24,false)"><img src="' . \Ip\Config::oldModuleUrl('developer/std_mod/calendar/images/cal.gif') . '"" border="0"/></a>' ;
+    <a href="javascript: NewCssCal(\''.htmlspecialchars($name).'\',\'yyyymmdd\',\'dropdown\',false,24,false)"><img src="' . ipGetConfig()->oldModuleUrl('developer/std_mod/calendar/images/cal.gif') . '"" border="0"/></a>' ;
     }
 
     function textarea($name, $value = '', $disabled = false){

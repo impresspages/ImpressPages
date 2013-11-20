@@ -12,7 +12,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
     {
 //        parent::setup();
 //        $config = include __DIR__ . '/ipConfig-default.php';
-//        \Ip\Config::init($config);
+//        ipGetConfig()->init($config);
     }
 
 //    public function testRenderHomepage()
@@ -74,12 +74,12 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        $session->visit(\Ip\Config::baseUrl('someNonExistentPage'));
+        $session->visit(ipGetConfig()->baseUrl('someNonExistentPage'));
 
         $this->assertEquals(404, $session->getStatusCode());
 
         \PhpUnit\Helper\TestEnvironment::initCode();
-        $session->visit(\Ip\Config::baseUrl('en/'));
+        $session->visit(ipGetConfig()->baseUrl('en/'));
 
         $page = $session->getPage();
 

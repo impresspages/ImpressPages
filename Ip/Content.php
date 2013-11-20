@@ -66,12 +66,12 @@ class Content {
                     $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
-                if (!$layout || !is_file(\Ip\Config::themeFile($layout))) {
+                if (!$layout || !is_file(ipGetConfig()->themeFile($layout))) {
                     $layout = $zone->getLayout();
                 }
 
             }
-            if (!is_file(\Ip\Config::themeFile($layout))) {
+            if (!is_file(ipGetConfig()->themeFile($layout))) {
                 $layout = 'main.php';
             }
 
@@ -372,7 +372,6 @@ class Content {
 
     public function generateSlot($name, $params = array())
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
         $content = null;
         $data = array (
             'slotName' => $name,
@@ -380,14 +379,12 @@ class Content {
         );
 
         //dispatch event
-        $event = new \Ip\Event($this, 'site.generateSlot', $data);
-        $processed = $dispatcher->notifyUntil($event);
-        if (!$processed) {
-            $event = new \Ip\Event($this, 'site.generateSlot.' . $name, $data);
-            $processed = $dispatcher->notifyUntil($event);
+        $content = ipDispatcher()->job('site.generateSlot', $data);
+        if (!$content) {
+            $content = ipDispatcher()->job('site.generateSlot.' . $name, $data);
         }
-        if ($processed && $event->issetValue('content')) {
-            $content = $event->getValue('content');
+
+        if ($content) {
             if (is_object($content) && method_exists($content, 'render')) {
                 $content = $content->render();
             }
@@ -512,9 +509,9 @@ class Content {
     public function usedUrl($folderName){
 
         $systemDirs = array();
-        $systemDirs[\Ip\Config::getRaw('PLUGIN_DIR')] = 1;
-        $systemDirs[\Ip\Config::getRaw('THEME_DIR')] = 1;
-        $systemDirs[\Ip\Config::getRaw('FILE_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('PLUGIN_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('THEME_DIR')] = 1;
+        $systemDirs[ipGetConfig()->getRaw('FILE_DIR')] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){

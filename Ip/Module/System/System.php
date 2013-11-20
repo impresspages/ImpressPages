@@ -14,12 +14,11 @@ class System{
 
     public function init(){
         if (\Ip\ServiceLocator::getContent()->isManagementState()) {
-            ipAddJavascript(\Ip\Config::coreModuleUrl('System/public/system.js'), 0);
+            ipAddJavascript(ipGetConfig()->coreModuleUrl('System/public/system.js'), 0);
         }
 
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-        $dispatcher->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
-        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->bind(\Ip\Event\UrlChanged::URL_CHANGED, __NAMESPACE__ .'\System::urlChanged');
+        ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
     }
     
     public static function urlChanged (\Ip\Event\UrlChanged $event)
@@ -67,12 +66,12 @@ class System{
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                if (\Ip\Config::getRaw('ERRORS_SEND')) {
+                if (ipGetConfig()->getRaw('ERRORS_SEND')) {
                     $queue = new \Ip\Module\Email\Module();
                     $queue->addEmail(
                         ipGetOption('Config.websiteEmail'),
                         ipGetOption('Config.websiteTitle'),
-                        \Ip\Config::getRaw('ERRORS_SEND'),
+                        ipGetConfig()->getRaw('ERRORS_SEND'),
                         '',
                         ipGetOption('Config.websiteTitle'),
                         $message,

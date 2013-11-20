@@ -86,7 +86,7 @@ class Language{
     }
 
     /**
-     *
+     * Language URL partial
      * @return string
      *
      */
@@ -122,6 +122,21 @@ class Language{
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Generate link to the language. Returns link to home page if multilingual option is turned off
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+
+        if (ipGetOption('Config.multilingual')) {
+            return ipGetConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($this->getId())->getUrl()).'/');
+        } else {
+            return ipGetConfig()->baseUrl('');
         }
     }
 }

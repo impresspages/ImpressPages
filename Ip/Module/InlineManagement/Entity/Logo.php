@@ -57,7 +57,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['imageOrig']) && file_exists(\Ip\Config::baseFile($data['imageOrig']))) {
+        if (!empty($data['imageOrig']) && file_exists(ipGetConfig()->baseFile($data['imageOrig']))) {
             $this->imageOrig = $data['imageOrig'];
 
             if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {

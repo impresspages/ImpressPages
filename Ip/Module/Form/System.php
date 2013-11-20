@@ -11,7 +11,7 @@ class System
 {
     public function init()
     {
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(\Ip\Config::coreModuleUrl('Form/assets/form.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipGetConfig()->coreModuleUrl('Form/assets/form.js'));
     }
 }

@@ -21,34 +21,37 @@ class Application {
 
     public function init()
     {
+        require_once(__DIR__ . '/ServiceLocator.php');
+
         $config = require ($this->configPath);
         require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
-        \Ip\Config::init($config);
+        $config = new \Ip\Config($config);
+        \Ip\ServiceLocator::setConfig($config);
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
 
 
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Sugar.php';
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
-        require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
+        require_once $config->getCore('CORE_DIR') . 'Ip/Sugar.php';
+        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
+        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
 
         if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-            session_name(\Ip\Config::getRaw('SESSION_NAME'));
+            session_name($config->getRaw('SESSION_NAME'));
             session_start();
         }
 
 
 
-        mb_internal_encoding(\Ip\Config::getRaw('CHARSET'));
-        date_default_timezone_set(\Ip\Config::getRaw('timezone')); //PHP 5 requires timezone to be set.
+        mb_internal_encoding($config->getRaw('CHARSET'));
+        date_default_timezone_set($config->getRaw('timezone')); //PHP 5 requires timezone to be set.
 
-        if (\Ip\Config::isDevelopmentEnvironment()){
+        if ($config->isDevelopmentEnvironment()){
             error_reporting(E_ALL|E_STRICT);
             ini_set('display_errors', '1');
         } else {
@@ -75,12 +78,11 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', \ip\Config::getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipGetConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipGetConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
         \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.afterInit', null));
-
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
@@ -88,7 +90,7 @@ class Application {
             $data = array(
                 'status' => 'error'
             );
-            if (\Ip\Config::isDevelopmentEnvironment()) {
+            if (ipGetConfig()->isDevelopmentEnvironment()) {
                 $data['errors'] = array(
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
@@ -112,7 +114,7 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(\Ip\Config::baseUrl('') . 'admin');
+            return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('') . 'admin');
         }
 
 
@@ -195,8 +197,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, \Ip\Config::baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, \Ip\Config::baseUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipGetConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipGetConfig()->baseUrl(''));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);
@@ -218,7 +220,7 @@ class Application {
         }
 
         \Ip\Db::disconnect();
-        $dispatcher->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
+        ipDispatcher()->notify(new \Ip\Event($this, 'site.databaseDisconnect', null));
     }
 
     /**

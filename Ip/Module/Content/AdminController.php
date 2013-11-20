@@ -11,7 +11,7 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        header('location: ' . \Ip\Config::baseUrl('', array('cms_action' => 'manage')));
+        header('location: ' . ipGetConfig()->baseUrl('', array('cms_action' => 'manage')));
     }
 
     public function getSitemapInList()
@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
 
-        $answer .= '<li><a href="' . \Ip\Config::baseUrl('') . '">Home</a></li>' . "\n";
+        $answer .= '<li><a href="' . ipGetConfig()->baseUrl('') . '">Home</a></li>' . "\n";
 
         $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
 
@@ -555,7 +555,7 @@ class AdminController extends \Ip\Controller
             'errorMessage' => $errorMessage
         );
 
-        // TODOX use jsonrpc response
+        // TODO use jsonrpc response
         return new \Ip\Response\Json($data);
     }
 
