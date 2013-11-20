@@ -37,7 +37,7 @@ class Layout extends \Ip\Response {
         }
         $layout = $this->getLayout();
 
-        if ($layout[0] == 'C') { // todox: fix Windows machines
+        if ($layout[0] == 'C' || $layout[0] == '/') { // todox: fix Windows machines
             $viewFile = $layout;
         } else {
             $viewFile = ipConfig()->themeFile($layout);
