@@ -4,12 +4,12 @@
 
  *
  */
-namespace Ip\Module\Content\Widget;
+namespace Ip\Module\Content\Widget\IpSeparator;
 
 
 
 
-class IpSeparator extends \Ip\Module\Content\Widget{
+class Controller extends \Ip\Module\Content\WidgetController{
 
 
     public function getTitle() {

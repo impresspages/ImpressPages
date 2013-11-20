@@ -14,8 +14,8 @@ class System{
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->bind('contentManagement.collectWidgets', __NAMESPACE__ .'\System::collectWidgets');
-        $dispatcher->bind('site.afterInit', __NAMESPACE__ .'\System::initWidgets');
+        $dispatcher->bind('contentManagement.collectWidgets', array($this, 'collectWidgets'));
+        $dispatcher->bind('site.afterInit', array($this, 'initWidgets'));
 
         $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
 
@@ -64,84 +64,52 @@ class System{
         }
     }
     
-    public static function collectWidgets(EventWidget $event){
-        $widgetDirs = self::_getWidgetDirs();
+    public function collectWidgets($widgets)
+    {
+
+        $widgets['IpTitle'] = new \Ip\Module\Content\Widget\IpTitle\Controller('IpTitle', 'Content', 1);
+        $widgets['IpText'] = new \Ip\Module\Content\Widget\IpText\Controller('IpText', 'Content', 1);
+        $widgets['IpSeparator'] = new \Ip\Module\Content\Widget\IpSeparator\Controller('IpSeparator', 'Content', 1);
+        $widgets['IpTextImage'] = new \Ip\Module\Content\Widget\IpTextImage\Controller('IpTextImage', 'Content', 1);
+        $widgets['IpImage'] = new \Ip\Module\Content\Widget\IpImage\Controller('IpImage', 'Content', 1);
+        $widgets['IpImageGallery'] = new \Ip\Module\Content\Widget\IpImageGallery\Controller('IpImageGallery', 'Content', 1);
+        $widgets['IpLogoGallery'] = new \Ip\Module\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
+        $widgets['IpFile'] = new \Ip\Module\Content\Widget\IpFile\Controller('IpFile', 'Content', 1);
+        $widgets['IpTable'] = new \Ip\Module\Content\Widget\IpTable\Controller('IpTable', 'Content', 1);
+        $widgets['IpHtml'] = new \Ip\Module\Content\Widget\IpHtml\Controller('IpHtml', 'Content', 1);
+        $widgets['IpFaq'] = new \Ip\Module\Content\Widget\IpFaq\Controller('IpFaq', 'Content', 1);
+        $widgets['IpColumns'] = new \Ip\Module\Content\Widget\IpColumns\Controller('IpColumns', 'Content', 1);
+        $widgets['IpForm'] = new \Ip\Module\Content\Widget\IpForm\Controller('IpForm', 'Content', 1);
+
+
+        $widgetDirs = $this->getPluginWidgetDirs();
         foreach ($widgetDirs as $widgetDirRecord) {
-
             $widgetKey = $widgetDirRecord['widgetKey'];
-
-            
-            //register widget if widget controller exists
-            $widgetPhpFile = $widgetDirRecord['dir'].$widgetDirRecord['widgetKey'].'.php';
-            if (file_exists($widgetPhpFile) && is_file($widgetPhpFile)) {
-                require_once($widgetPhpFile);
-                if ($widgetDirRecord['core']) {
-                    eval('$widget = new \\Ip\\Module\\'.$widgetDirRecord['module'].'\\'.Model::WIDGET_DIR.'\\'.$widgetKey.'($widgetKey, $widgetDirRecord[\'module\'], $widgetDirRecord[\'core\']);');
-                } else {
-                    eval('$widget = new \\Plugin\\'.$widgetDirRecord['module'].'\\'.Model::WIDGET_DIR.'\\'.$widgetKey.'($widgetKey, $widgetDirRecord[\'module\'], $widgetDirRecord[\'core\']);');
-                }
-                $event->addWidget($widget);
+            $widgetClass = '\\Plugin\\' . $widgetDirRecord['module'] . '\\' . Model::WIDGET_DIR . '\\' . $widgetKey . '\\Controller';
+            if (class_exists($widgetClass)) {
+                $widget = new $widgetClass($widgetKey, $widgetDirRecord['module'], 0);
             } else {
                 $widget = new Widget($widgetKey, $widgetDirRecord['module'], $widgetDirRecord['core']);
-                $event->addWidget($widget);
             }
-
+            $widgets[$widgetDirRecord['widgetKey']] = $widget;
         }
+        return $widgets;
     }
-    
-    public static function initWidgets () {
 
-        //widget JS and CSS are included automatically only in administration state
-        if (!\Ip\ServiceLocator::getContent()->isManagementState()) {
-            return;
-        }
-
-        $widgetDirs = self::_getWidgetDirs();
-        foreach($widgetDirs as $widgetRecord) {
-            
-            $widgetDir = $widgetRecord['dir'];
-            $widgetKey = $widgetRecord['widgetKey'];
-
-            // TODOX refactor according to new module structure
-            // $themeDir = ipConfig()->getCore('THEME_DIR').THEME.'/modules/'.$widgetRecord['module'].'/'.Model::WIDGET_DIR.'/';
-            
-            
-            //scan for js and css files required for widget management
-            if (\Ip\ServiceLocator::getContent()->isManagementState()) {
-                $publicResourcesDir = $widgetDir.Widget::PUBLIC_DIR;
-                // TODOX refactor according to new module structure
-                // $publicResourcesThemeDir = $themeDir.$widgetKey.'/'.Widget::PUBLIC_DIR;
-                self::includeResources($publicResourcesDir); // self::includeResources($publicResourcesDir, $publicResourcesThemeDir);
-                // self::includeResources($publicResourcesThemeDir);
-            }
-        }
-    }
-    
-    private static function _getWidgetDirs() {
+    private function getPluginWidgetDirs()
+    {
         $answer = array();
-        $modules = \Ip\Module\Plugins\Model::getModules();
-        foreach ($modules as $module) {
-            $answer = array_merge($answer, self::findModuleWidgets($module, 1));
-        }
-
         $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
-            $answer = array_merge($answer, self::findModuleWidgets($plugin, 0));
+            $answer = array_merge($answer, self::findPluginWidgets($plugin, 0));
         }
-
-
-
-
         return $answer;
     }
 
-    private static function findModuleWidgets($moduleName, $core)
+
+    function findPluginWidgets($moduleName)
     {
-        if ($core) {
-            $widgetDir = ipConfig()->coreModuleFile($moduleName . '/' . Model::WIDGET_DIR.'/');
-        } else {
-            $widgetDir = ipConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
-        }
+        $widgetDir = ipConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
         if (!is_dir($widgetDir)) {
             return array();
         }
@@ -158,20 +126,47 @@ class System{
             }
             if (isset ($answer[(string)$widgetFolder])) {
                 $log = \Ip\ServiceLocator::getLog();
-                $log->log('standard', 'content_management', 'duplicatedWidget', $widgetFolder);
+                $log->log('Content', 'duplicated widget', 'Widget name ' . $widgetFolder);
             }
             $answer[] = array (
                 'module' => $moduleName,
-                'core' => $core,
-                'dir' => $widgetDir.$widgetFolder.'/',
+                'dir' => $widgetDir . $widgetFolder.'/',
                 'widgetKey' => $widgetFolder
             );
         }
         return $answer;
     }
 
-    public static function includeResources($resourcesFolder, $overrideFolder = null){
+    public function initWidgets () {
+        //TODO cache found assets to decrease file system usage
+        $widgets = Service::getAvailableWidgets();
 
+        foreach ($widgets as $widget) {
+            $this->addWidgetAssets($widget, 1);
+        }
+        if (ipIsManagementState()) {
+            foreach ($widgets as $widget) {
+                $this->addWidgetAssets($widget, 0);
+            }
+        }
+
+    }
+
+    private function addWidgetAssets(\Ip\Module\Content\WidgetController $widget, $core)
+    {
+        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::PREVIEW_DIR . '/';
+        if ($core) {
+            $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
+        } else {
+            $widgetPublicDir = ipConfig()->pluginFile($pluginAssetsPath);
+        }
+
+
+        $this->includeResources($widgetPublicDir);
+    }
+
+
+    private function includeResources($resourcesFolder){
         if (is_dir(ipConfig()->baseFile($resourcesFolder))) {
             $files = scandir(ipConfig()->baseFile($resourcesFolder));
             if ($files === false) {
@@ -181,24 +176,14 @@ class System{
             
             foreach ($files as $fileKey => $file) {
                 if (is_dir(ipConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(ipConfig()->baseFile($resourcesFolder.$file), ipConfig()->baseFile($overrideFolder.$file));
+                    self::includeResources(ipConfig()->baseFile($resourcesFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
-                    //overriden js version exists
-                    if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddJavascript(ipConfig()->baseUrl($overrideFolder.'/'.$file));
-                    } else {
-                        ipAddJavascript(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
-                    }
+                    ipAddJavascript(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
-                    //overriden css version exists
-                    if (file_exists($overrideFolder.'/'.$file)){
-                        ipAddCss(ipConfig()->baseUrl($overrideFolder.'/'.$file));
-                    } else {
-                        ipAddCss(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
-                    }
+                    ipAddCss(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
                 }
             }
         }
