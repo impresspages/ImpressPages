@@ -239,7 +239,7 @@ class Request
         $controllerClass = $this->defaultControllerClass;
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
 
-        $firstChar = substr(ipGetRequest()->getRelativePath(), 0, 1);
+        $firstChar = substr(ipRequest()->getRelativePath(), 0, 1);
         if ($firstChar !== '?' && $firstChar != '') {
             $this->controllerClass = $controllerClass;
             $this->controllerAction = $action;

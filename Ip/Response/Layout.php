@@ -155,7 +155,7 @@ class Layout extends \Ip\Response {
 
         $inDesignPreview = false;
 
-        $data = ipGetRequest()->getRequest();
+        $data = ipRequest()->getRequest();
 
         if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
             $config = \Ip\Module\Design\ConfigModel::instance();

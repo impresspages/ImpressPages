@@ -52,7 +52,7 @@ class AdminController extends \Ip\Controller{
 
     public function activate ()
     {
-        $post = ipGetRequest()->getPost();
+        $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }
@@ -87,7 +87,7 @@ class AdminController extends \Ip\Controller{
 
     public function deactivate ()
     {
-        $post = ipGetRequest()->getPost();
+        $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }
@@ -122,7 +122,7 @@ class AdminController extends \Ip\Controller{
 
     public function remove ()
     {
-        $post = ipGetRequest()->getPost();
+        $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
             throw new \Ip\CoreException("Missing parameter");
         }

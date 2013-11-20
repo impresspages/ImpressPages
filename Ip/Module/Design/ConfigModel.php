@@ -40,7 +40,7 @@ class ConfigModel{
      */
     public function getConfigValue($themeName, $name, $default = null)
     {
-        $data = ipGetRequest()->getRequest();
+        $data = ipRequest()->getRequest();
         $config = $this->getLiveConfig();
         if (isset($config[$name])) {
 
@@ -97,7 +97,7 @@ class ConfigModel{
 
     public function getAllConfigValues($theme)
     {
-        $data = ipGetRequest()->getRequest();
+        $data = ipRequest()->getRequest();
         $config = $this->getLiveConfig();
         if (!empty($config)) {
             if (isset($data['restoreDefault'])) {
@@ -287,7 +287,7 @@ class ConfigModel{
 
     protected function getLiveConfig()
     {
-        $data = ipGetRequest()->getRequest();
+        $data = ipRequest()->getRequest();
         if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
             return $data['ipDesign']['pCfg'];
         }

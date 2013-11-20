@@ -217,7 +217,7 @@ function ipIsManagementState()
     return \Ip\ServiceLocator::getContent()->isManagementState();
 }
 
-function ipGetRequest()
+function ipRequest()
 {
     return \Ip\ServiceLocator::getRequest();
 }
