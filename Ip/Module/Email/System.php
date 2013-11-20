@@ -14,13 +14,13 @@ class System {
         ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
     }
 
-    public function executeCron(\Ip\Event $e)
+    public function executeCron($info)
     {
-        if($e->getValue('firstTimeThisMonth') || $e->getValue('test')) {
+        if ($info['firstTimeThisMonth'] || $info['test']) {
             Db::deleteOld(720);
         }
 
-        if($e->getValue('firstTimeThisHour') || $e->getValue('test')){
+        if ($info['firstTimeThisHour'] || $info['test']) {
             $queue = new Module();
             $queue->send();
         }

@@ -85,21 +85,27 @@ function ipAddJavascript($file, $stage = 1)
 function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
-    if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipConfig()->pluginUrl($plugin . DIRECTORY_SEPARATOR . \Ip\Application::ASSET_DIR . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+    if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
+        if (method_exists($response, 'addJavascript')) {
+            $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+        }
+    } else { // todox: make more foolproof checking
+        if (method_exists($response, 'addCss')) {
+            $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+        }
     }
 }
 
 function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::getResponse();
-    if (strtolower(substr($file, -3)) == '.js') {
+    if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
-    } else {
-        if (method_exists($response, 'addJavascript')) {
-            $response->addCss(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . DIRECTORY_SEPARATOR . $file), $attributes, $priority, $cacheFix);
+    } else { // todox: make more foolproof checking
+        if (method_exists($response, 'addCss')) {
+            $response->addCss(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }

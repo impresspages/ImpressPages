@@ -6,7 +6,7 @@
 ?>
 <footer class="clearfix">
     <div class="col_12">
-        <?php echo $this->generateManagedString('themeName', 'p', __('Theme "Blank"', 'theme-Blank'), 'left'); ?>
+        <?php echo $this->generateManagedString('themeName', 'p', __('Theme "Blank"', 'theme-Blank'), 'left'); // Todox: too much of escaping ?>
         <?php
         $_slogan = sprintf(__('Drag & drop with %s', 'theme-Blank'), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'theme-Blank') . '</a>');
         ?>
