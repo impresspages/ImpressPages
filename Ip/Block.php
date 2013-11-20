@@ -23,12 +23,9 @@ class Block
             'blockName' => $this->name,
         );
 
-        $event = new \Ip\Event($this, 'site.generateBlock', $data);
+        $content = ipDispatcher()->job('site.generateBlock', $data);
 
-        $processed = \Ip\ServiceLocator::getDispatcher()->notifyUntil($event);
-
-        if ($processed && $event->issetValue('content')) {
-            $content = $event->getValue('content');
+        if ($content) {
             if (is_object($content) && method_exists($content, 'render')) {
                 $content = $content->render();
             }
@@ -81,7 +78,7 @@ class Block
      */
     public function exampleContentFrom($filename)
     {
-        $this->exampleContent = \Ip\View::create(\Ip\Config::themeFile($filename));
+        $this->exampleContent = \Ip\View::create(ipGetConfig()->themeFile($filename));
         return $this;
     }
 

@@ -16,11 +16,12 @@ $tmp = explode('/install/', $_SERVER['REQUEST_URI'], 2);
 $config['BASE_URL'] = 'http://' . $_SERVER['HTTP_HOST'] . $tmp[0] . '/';
 
 require_once dirname(__DIR__) . '/Ip/Config.php';
-\Ip\Config::init($config);
+//TODOX create an object
+ipGetConfig()->init($config);
 
-$core = \Ip\Config::getCore('CORE_DIR');
+$core = ipGetConfig()->getCore('CORE_DIR');
 
-require_once \Ip\Config::getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+require_once ipGetConfig()->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
 
 $installation = new \Ip\Module\Install\Application();
 $installation->run();

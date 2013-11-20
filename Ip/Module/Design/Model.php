@@ -31,7 +31,7 @@ class Model
 
     protected function getThemePluginDir()
     {
-        return \Ip\Config::themeFile('plugins/');
+        return ipGetConfig()->themeFile('plugins/');
     }
 
 
@@ -39,7 +39,7 @@ class Model
     public function getThemePlugins()
     {
         //TODOX refactor to new plugins
-        if (!is_dir(\Ip\Config::baseFile($this->getThemePluginDir()))) {
+        if (!is_dir(ipGetConfig()->baseFile($this->getThemePluginDir()))) {
             return array();
         }
 
@@ -47,7 +47,7 @@ class Model
 
         $groups = scandir($this->getThemePluginDir());
         foreach ($groups as $group) {
-            $groupDir = \Ip\Config::baseFile($this->getThemePluginDir() . $group);
+            $groupDir = ipGetConfig()->baseFile($this->getThemePluginDir() . $group);
             if (is_dir($groupDir) && $group[0] != '.') {//don't add slash before is_dir check as it throws open basedir error
                 $groupDir .= '/';
                 $plugins = scandir($groupDir);
@@ -71,8 +71,8 @@ class Model
     {
         //refactor to new plugins
         // TODOX Plugin dir
-        $toDir = \Ip\Config::baseFile(PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/');
-        $fromDir = \Ip\Config::baseFile($this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/');
+        $toDir = ipGetConfig()->baseFile(PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/');
+        $fromDir = ipGetConfig()->baseFile($this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/');
 
         if (is_dir($toDir)) {
             throw new \Exception('This plugin has been already installed');
@@ -135,7 +135,7 @@ class Model
                 $cleanDirs[] = trim($line);
             }
         }
-        $cleanDirs = array_merge($cleanDirs, array(\Ip\Config::getCore('THEME_DIR')));
+        $cleanDirs = array_merge($cleanDirs, array(ipGetConfig()->getCore('THEME_DIR')));
         return $cleanDirs;
     }
 
@@ -175,7 +175,7 @@ class Model
 
     public function isThemeAvailable($name)
     {
-        return is_dir(\Ip\Config::themeFile('', $name));
+        return is_dir(ipGetConfig()->themeFile('', $name));
     }
 
 
@@ -189,12 +189,12 @@ class Model
 
         //TODOX new way of doing.
         $configModel = new \Ip\Module\Config\Model();
-        $configModel->changeConfigurationConstantValue('THEME', \Ip\Config::theme(), $theme->getName());
-        $configModel->changeConfigurationConstantValue('THEME_DIR', \Ip\Config::getRaw('THEME_DIR'), $theme->getPath());
-        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', \Ip\Config::getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
+        $configModel->changeConfigurationConstantValue('THEME', ipGetConfig()->theme(), $theme->getName());
+        $configModel->changeConfigurationConstantValue('THEME_DIR', ipGetConfig()->getRaw('THEME_DIR'), $theme->getPath());
+        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipGetConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
-        $parametersFile = \Ip\Config::themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
+        $parametersFile = ipGetConfig()->themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
         if (file_exists($parametersFile)) {
             //TODOX new type of parameters
 
@@ -239,8 +239,8 @@ class Model
     public function getTheme($name, $dir = null)
     {
         if ($dir) {
-            $currentThemeDir = \Ip\Config::getCore('THEME_DIR');
-            \Ip\Config::_changeCore('THEME_DIR', $dir);
+            $currentThemeDir = ipGetConfig()->getCore('THEME_DIR');
+            ipGetConfig()->_changeCore('THEME_DIR', $dir);
         }
 
         $metadata = new ThemeMetadata();
@@ -248,11 +248,11 @@ class Model
         if ($dir) {
             $metadata->setPath($dir);
         } else {
-            $metadata->setPath(\Ip\Config::getRaw('THEME_DIR'));
+            $metadata->setPath(ipGetConfig()->getRaw('THEME_DIR'));
         }
 
         //old type config
-        $themeIniFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.ini', $name);
+        $themeIniFile = ipGetConfig()->themeFile(self::INSTALL_DIR . 'theme.ini', $name);
         if (file_exists($themeIniFile)) {
             $iniConfig = $this->parseThemeIni($themeIniFile);
         } else {
@@ -260,11 +260,11 @@ class Model
         }
 
         //new type config
-        $themeJsonFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'Theme.json', $name);
+        $themeJsonFile = ipGetConfig()->themeFile(self::INSTALL_DIR . 'Theme.json', $name);
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $themeJsonFile = \Ip\Config::themeFile(self::INSTALL_DIR . 'theme.json', $name);
+            $themeJsonFile = ipGetConfig()->themeFile(self::INSTALL_DIR . 'theme.json', $name);
             if (file_exists($themeJsonFile)) {
                 $jsonConfig = $this->parseThemeJson($themeJsonFile);
             } else {
@@ -306,7 +306,7 @@ class Model
         $theme = new Theme($metadata);
 
         if ($dir) {
-            \Ip\Config::_changeCore('THEME_DIR', $currentThemeDir);
+            ipGetConfig()->_changeCore('THEME_DIR', $currentThemeDir);
         }
 
         return $theme;

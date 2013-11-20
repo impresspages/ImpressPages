@@ -17,19 +17,19 @@ class Template {
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipGetConfig()->coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipGetConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipPrintHead(false).'
     '.ipPrintJavascript(false).'
-    <script type="text/javascript" src="' . \Ip\Config::coreModuleUrl('Assets/assets/js/default.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/languageProperties.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
-    <script type="text/javascript" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/assets/languageProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
+    <script type="text/javascript" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
 <body>
 '.$content.'
@@ -227,7 +227,7 @@ class Template {
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
             <label for="typeRedirect" class="small">'.__('Redirect to external page', 'ipAdmin').'</label><br/>
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-            <img class="linkList" id="internalLinkingIcon" src="' . \Ip\Config::coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
+            <img class="linkList" id="internalLinkingIcon" src="' . ipGetConfig()->coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
         <p class="field">
             <label for="generalVisible">'.__('RSS', 'ipAdmin').'</label>
