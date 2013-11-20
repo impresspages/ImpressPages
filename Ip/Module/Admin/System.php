@@ -8,11 +8,11 @@ class System {
 
     public function init()
     {
-        $relativePath = ipGetRequest()->getRelativePath();
+        $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::getRequest();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
-            \Ip\ServiceLocator::getResponse()->setLayout(ipGetConfig()->coreModuleFile('/Admin/View/layout.php'));
+            \Ip\ServiceLocator::getResponse()->setLayout(ipConfig()->coreModuleFile('/Admin/View/layout.php'));
             $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
         }
 
@@ -26,7 +26,7 @@ class System {
             ipAddJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
-        $getVariables = ipGetRequest()->getRequest();
+        $getVariables = ipRequest()->getRequest();
         if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }
@@ -37,10 +37,10 @@ class System {
     {
 
         if (!self::$disablePanel && (\Ip\ServiceLocator::getContent()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
-            ipAddCss(ipGetConfig()->coreModuleUrl('Admin/Public/admin.css'));
+            ipAddCss(ipConfig()->coreModuleUrl('Admin/Public/admin.css'));
 
-            ipAddJavascript(ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-            ipAddJavascript(ipGetConfig()->coreModuleUrl('Admin/Public/admin.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/admin.js'));
 
             ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }
@@ -65,7 +65,7 @@ class System {
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
             $curModTitle = $curModule; //TODOX translation
-            $curModUrl = ipGetConfig()->baseUrl('', array('aa' => $curModule . '.index'));
+            $curModUrl = ipConfig()->baseUrl('', array('aa' => $curModule . '.index'));
         }
 
 
@@ -92,9 +92,9 @@ class System {
     {
         $toolbarHtml = $this->getAdminToolbarHtml();
 
-        $code = '    <link href="' . ipGetConfig()->coreModuleUrl('Admin/Public/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= '    <link href="' . ipGetConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
+        $code = '    <link href="' . ipConfig()->coreModuleUrl('Admin/Public/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code .= '    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
         $code .= '   <script type="text/javascript"> var ipAdminToolbar = ' . json_encode($toolbarHtml) . ';</script>' . "\n";
         $code .= '   <script type="text/javascript" src="' . $config->coreModuleUrl() . 'Admin/Public/admin.js" ></script>' . "\n";
         $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);

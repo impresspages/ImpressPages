@@ -322,7 +322,7 @@ class StandardModule {
                                     echo "
               <html>
                 <head>
-                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
@@ -335,7 +335,7 @@ class StandardModule {
                                     echo "
               <html>
                 <head>
-                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
@@ -465,7 +465,7 @@ class StandardModule {
                         $answer = "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">
@@ -490,7 +490,7 @@ class StandardModule {
                         $answer = "
           <html>
             <head>
-              <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+              <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
             </head>
             <body>
               <script type=\"text/javascript\">
@@ -537,7 +537,7 @@ class StandardModule {
                                     echo "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">                  
@@ -550,7 +550,7 @@ class StandardModule {
                                     echo "
             <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">                  
@@ -619,7 +619,7 @@ class StandardModule {
                         $answer = "
               <html>
               <head>
-                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
               </head>
               <body>
                 <script type=\"text/javascript\">
@@ -637,7 +637,7 @@ class StandardModule {
                         $answer = "
                <html>
                <head>
-                 <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipGetConfig()->getRaw('CHARSET')."\" />
+                 <meta http-equiv=\"Content-Type\" content=\"text/html; charset=".ipConfig()->getRaw('CHARSET')."\" />
                </head>
                <body>
                  <script type=\"text/javascript\">
@@ -853,20 +853,20 @@ class StandardModule {
     
     <script type="text/javascript">
         var ip = {
-            baseUrl : '.json_encode(ipGetConfig()->baseUrl('')).',
-            themeDir : '.json_encode(ipGetConfig()->getRaw('THEME_DIR')).',
-            theme : ' . json_encode(ipGetConfig()->theme()) . ',
+            baseUrl : '.json_encode(ipConfig()->baseUrl('')).',
+            themeDir : '.json_encode(ipConfig()->getRaw('THEME_DIR')).',
+            theme : ' . json_encode(ipConfig()->theme()) . ',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
             revisionId : '.json_encode(null).',
         };
     </script>
     
-    <script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
-    <script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
-    <script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
-    <script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
-    <script src="' . ipGetConfig()->baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
+    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
+    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
+    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
+    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
+    <script src="' . ipConfig()->baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.ipPrintHead(false).'
 </head>
 	 
@@ -891,13 +891,13 @@ class StandardModule {
       </script>
       <!-- display loading until page is loaded-->		
 		
-		<link href="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
-		<script src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/scripts.js') . '"></script>
-		<script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
-		<script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/windowsize.js') .'" ></script>
-		<script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/mouse.js'). '" ></script>
-		<script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/positioning.js') .'" ></script>
-		<script src="' . ipGetConfig()->coreModuleUrl('Assets/assets/js/default.js') . '" ></script>
+		<link href="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
+		<script src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/scripts.js') . '"></script>
+		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
+		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/windowsize.js') .'" ></script>
+		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/mouse.js'). '" ></script>
+		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/positioning.js') .'" ></script>
+		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '" ></script>
 		
 		';
 
@@ -953,9 +953,9 @@ class StandardModule {
     function printRoad() {
         $answer = '<div id="backtrace_path">';
         if($this->level > 0 && $this->level > $this->treeDepth)
-        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/atgal.png') . '" alt=""></a>';
+        $answer .= '<a href="'.$this->generateUrlBack().'"><img class="backtrace_path_img" src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/atgal.png') . '" alt=""></a>';
         else
-        $answer .= '<a><img class="backtrace_path_img" src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/atgal_disabled.png') . '" alt=""></a>';
+        $answer .= '<a><img class="backtrace_path_img" src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/atgal_disabled.png') . '" alt=""></a>';
         $answer .= $this->road;
         $answer .= '</div>';
         return $answer;
@@ -1309,12 +1309,12 @@ class StandardModule {
 					<option value="100000">100000</option>
 				 </select>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage-1, $this->currentArea->rowsPerPage).'" title="'.__('Previous page', 'ipAdmin').'">
-					<img src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.__('Previous page', 'ipAdmin').'">
+					<img src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/previous_page.png') . '" title="'.__('Previous page', 'ipAdmin').'">
 				 </a>
 				 <input id="std_mod_pages_current_id" class="page_number" type="text" name="std_mod_pages_current" value="'.($this->currentArea->currentPage+1).'" />
 				 <span class="page_number_n">/ '.$this->pagesCount.'</span>
 				 <a href="'.$this->generateUrlPage($this->currentArea->currentPage+1, $this->currentArea->rowsPerPage).'" title="'.__('Next page', 'ipAdmin').'">
-					<img src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.__('Next page', 'ipAdmin').'">
+					<img src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/next_page.png') . '" title="'.__('Next page', 'ipAdmin').'">
 				 </a>
 			 </div>
 			</form>
@@ -1579,9 +1579,9 @@ class StandardModule {
 					<div id="std_mod_new_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img 
-								onmouseover="this.src=\'' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
-								onmouseout="this.src=\'' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
-							src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
+							src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.__('New record', 'ipAdmin').'
 						</div>
 						<div id="std_mod_new_popup_body" class="management">'.$this->printNew($this->errors).'</div>
@@ -1599,9 +1599,9 @@ class StandardModule {
 					<div id="std_mod_search_popup_border" class="popup_border">
 						<div class="popup_head">
 							<img
-								onmouseover="this.src=\'' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
-								onmouseout="this.src=\'' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
-							src="' . ipGetConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
+								onmouseover="this.src=\'' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close_hover.gif') . '\'"
+								onmouseout="this.src=\'' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '\'"
+							src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/popup_close.gif') . '" style="cursor: pointer; float: right;" onclick="std_mod_hide_popups()">
 							'.__('Search', 'ipAdmin').'
 						</div>
 						<div id="std_mod_search_popup_body" class="management">'.$this->printSearchFields($this->currentArea, $this->level).'</div>

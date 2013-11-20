@@ -78,8 +78,8 @@ class Application {
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipGetConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipGetConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
         ipDispatcher()->notify('site.afterInit');
@@ -90,7 +90,7 @@ class Application {
             $data = array(
                 'status' => 'error'
             );
-            if (ipGetConfig()->isDevelopmentEnvironment()) {
+            if (ipConfig()->isDevelopmentEnvironment()) {
                 $data['errors'] = array(
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
@@ -114,7 +114,7 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipGetConfig()->baseUrl('') . 'admin');
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl('') . 'admin');
         }
 
 
@@ -195,8 +195,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipGetConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, ipGetConfig()->baseUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);

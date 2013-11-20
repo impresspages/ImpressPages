@@ -64,8 +64,8 @@ class ReflectionModel
         $reflections = $this->getReflections($file);
         $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
-            if (file_exists(ipGetConfig()->baseFile($reflection['reflection']))) {
-                unlink(ipGetConfig()->baseFile($reflection['reflection']));
+            if (file_exists(ipConfig()->baseFile($reflection['reflection']))) {
+                unlink(ipConfig()->baseFile($reflection['reflection']));
             }
         }
 
@@ -109,7 +109,7 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
-        $reflection = ipGetConfig()->getRaw('FILE_DIR') . \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, ipGetConfig()->fileDirFile(''));
+        $reflection = ipConfig()->getRaw('FILE_DIR') . \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, ipConfig()->fileDirFile(''));
         $transform->transform($file, $reflection);
 
         $transformFingerprint = $transform->getFingerprint();

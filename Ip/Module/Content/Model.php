@@ -228,8 +228,8 @@ class Model{
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
         if ($managementState) {
-            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipGetConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $previewHtml);
-            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipGetConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $previewHtml);
+            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $previewHtml);
+            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $previewHtml);
         }
         
         $data = array (
@@ -655,7 +655,7 @@ class Model{
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
     public static function getThemeLayouts($theme = null, $includeHidden = false) {
-        $themeDir = ipGetConfig()->themeFile('', $theme);
+        $themeDir = ipConfig()->themeFile('', $theme);
 
         $files = scandir($themeDir);
         $layouts = array();

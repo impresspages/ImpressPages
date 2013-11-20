@@ -45,9 +45,9 @@ class Module{
         if($files)
         foreach($files as $key => $file){
             $new_name = 'contact_form_'.rand();
-            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipGetConfig()->temporaryFile(''));
-            if (copy($file['real_name'], ipGetConfig()->temporaryFile($new_name))) {
-                $cached_files[] = ipGetConfig()->temporaryFile($new_name);
+            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipConfig()->temporaryFile(''));
+            if (copy($file['real_name'], ipConfig()->temporaryFile($new_name))) {
+                $cached_files[] = ipConfig()->temporaryFile($new_name);
                 $cached_file_names[] = $file['required_name'];
                 $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                 if($tmpMimeType == null)
@@ -62,7 +62,7 @@ class Module{
         $cachedFileNamesStr = implode("\n", $cached_file_names);
         $cachedFileMimeTypesStr = implode("\n", $cached_file_mime_types);
          
-        $email = str_replace('src="'. ipGetConfig()->baseUrl(''), 'src="', $email);
+        $email = str_replace('src="'. ipConfig()->baseUrl(''), 'src="', $email);
          
         Db::addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $cachedFilesStr, $cachedFileNamesStr, $cachedFileMimeTypesStr);
     }
@@ -107,7 +107,7 @@ class Module{
                     $mail->AddReplyTo($email['from'],$email['from_name']);
                      
                     $mail->WordWrap = 50;                              // set word wrap
-                    $mail->CharSet = ipGetConfig()->getRaw('CHARSET');
+                    $mail->CharSet = ipConfig()->getRaw('CHARSET');
                     $mail->Subject  =  $email['subject'];
 
                     /*	foreach($this->posted_files as $file){

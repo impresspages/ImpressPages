@@ -9,4 +9,4 @@
  */
 ?>
 
-<img width="1px" height="1px" style="border: none;" src="<?php echo ipGetConfig()->baseUrl() . '?pa=Cron&' . ipGetOption('Config.cronPassword') ?>" alt=""/>
+<img width="1px" height="1px" style="border: none;" src="<?php echo ipConfig()->baseUrl() . '?pa=Cron&' . ipGetOption('Config.cronPassword') ?>" alt=""/>

@@ -66,12 +66,12 @@ class Content {
                     $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
-                if (!$layout || !is_file(ipGetConfig()->themeFile($layout))) {
+                if (!$layout || !is_file(ipConfig()->themeFile($layout))) {
                     $layout = $zone->getLayout();
                 }
 
             }
-            if (!is_file(ipGetConfig()->themeFile($layout))) {
+            if (!is_file(ipConfig()->themeFile($layout))) {
                 $layout = 'main.php';
             }
 
@@ -432,8 +432,8 @@ class Content {
         }
         $revision = null;
         if (\Ip\ServiceLocator::getContent()->isManagementState()){
-            if (ipGetRequest()->getQuery('cms_revision')) {
-                $revisionId = ipGetRequest()->getQuery('cms_revision');
+            if (ipRequest()->getQuery('cms_revision')) {
+                $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
@@ -509,9 +509,9 @@ class Content {
     public function usedUrl($folderName){
 
         $systemDirs = array();
-        $systemDirs[ipGetConfig()->getRaw('PLUGIN_DIR')] = 1;
-        $systemDirs[ipGetConfig()->getRaw('THEME_DIR')] = 1;
-        $systemDirs[ipGetConfig()->getRaw('FILE_DIR')] = 1;
+        $systemDirs[ipConfig()->getRaw('PLUGIN_DIR')] = 1;
+        $systemDirs[ipConfig()->getRaw('THEME_DIR')] = 1;
+        $systemDirs[ipConfig()->getRaw('FILE_DIR')] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){

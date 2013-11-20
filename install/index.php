@@ -17,11 +17,11 @@ $config['BASE_URL'] = 'http://' . $_SERVER['HTTP_HOST'] . $tmp[0] . '/';
 
 require_once dirname(__DIR__) . '/Ip/Config.php';
 //TODOX create an object
-ipGetConfig()->init($config);
+ipConfig()->init($config);
 
-$core = ipGetConfig()->getCore('CORE_DIR');
+$core = ipConfig()->getCore('CORE_DIR');
 
-require_once ipGetConfig()->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+require_once ipConfig()->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
 
 $installation = new \Ip\Module\Install\Application();
 $installation->run();

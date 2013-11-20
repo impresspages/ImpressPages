@@ -40,7 +40,7 @@ class Url {
 
         /*generates link to first page of current language*/
         // get parameter for cms management
-        if (ipGetRequest()->getQuery('cms_action') == 'manage') {
+        if (ipRequest()->getQuery('cms_action') == 'manage') {
             if ($getVars == null) {
                 $getVars = array('cms_action' => 'manage');
             } else {
@@ -50,9 +50,9 @@ class Url {
         // get parameter for cms management
 
         if (ipGetOption('Config.multilingual')) {
-            $answer = ipGetConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($languageId)->getUrl()).'/');
+            $answer = ipConfig()->baseUrl(urlencode(\Ip\ServiceLocator::getContent()->getLanguageById($languageId)->getUrl()).'/');
         } else {
-            $answer = ipGetConfig()->baseUrl('');
+            $answer = ipConfig()->baseUrl('');
         }
 
         if ($zoneName != null){
