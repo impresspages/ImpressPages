@@ -4,12 +4,12 @@
 
  *
  */
-namespace Plugin\FullTinyMCE\Widget;
+namespace Plugin\FullTinyMCE\Widget\IpRichText;
 
 
 
 
-class IpRichText extends \Ip\Module\Content\Widget{
+class Controller extends \Ip\Module\Content\WidgetController{
 
 
     public function getTitle() {

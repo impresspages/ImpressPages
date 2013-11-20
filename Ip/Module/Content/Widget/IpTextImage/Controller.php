@@ -4,11 +4,11 @@
 
  *
  */
-namespace Ip\Module\Content\Widget;
+namespace Ip\Module\Content\Widget\IpTextImage;
 
 
 
-class IpTextImage extends \Ip\Module\Content\Widget{
+class Controller extends \Ip\Module\Content\WidgetController{
 
     public function getTitle() {
         return __('Text with image', 'ipAdmin');
