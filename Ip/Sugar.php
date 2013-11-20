@@ -6,7 +6,7 @@
 
 function ipGetOption($option, $defaultValue = null)
 {
-    return \Ip\ServiceLocator::getOptions()->getOption($option, $defaultValue);
+    return \Ip\ServiceLocator::options()->getOption($option, $defaultValue);
 }
 
 /**
@@ -20,7 +20,7 @@ function ipConfig()
 
 function ipSetOption($option, $value)
 {
-    \Ip\ServiceLocator::getOptions()->setOption($option, $value);
+    \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
 function ipGetBreadcrumb()
