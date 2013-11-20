@@ -14,7 +14,7 @@ function ipGetOption($option, $defaultValue = null)
  */
 function ipConfig()
 {
-    return \Ip\ServiceLocator::getConfig();
+    return \Ip\ServiceLocator::config();
 }
 
 

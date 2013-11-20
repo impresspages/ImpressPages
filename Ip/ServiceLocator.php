@@ -47,7 +47,7 @@ class ServiceLocator
     /**
      * @return \Ip\Config
      */
-    public static function getConfig()
+    public static function config()
     {
         return self::$config;
     }
