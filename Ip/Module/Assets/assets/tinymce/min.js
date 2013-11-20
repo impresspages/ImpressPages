@@ -1,6 +1,6 @@
 ipTinyMceConfigMin = {
     // Location of TinyMCE script
-    script_url : ip.baseUrl + ip.libraryDir + 'js/tiny_mce/tiny_mce.js',
+    script_url : ip.baseUrl + 'Ip/Module/Assets/assets/js/tiny_mce/tiny_mce.js',
     
     theme : "advanced",
     plugins : "paste,inlinepopups,iplink,autoresize",
@@ -15,7 +15,7 @@ ipTinyMceConfigMin = {
     theme_advanced_resize_horizontal : false,
     valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
     width : '100%',
-    content_css : ip.themeDir + ip.theme + "/ip_content.css",
+    //content_css : ip.themeDir + ip.theme + "/ip_content.css",
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
     forced_root_block : "p",
 
