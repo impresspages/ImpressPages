@@ -292,7 +292,7 @@ class Db {
      * @return bool whether layout was changed or not
      */
     private static function changePageLayout($groupName, $moduleName, $pageId, $newLayout) {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
 
         $sql = 'SELECT `layout`
                 FROM `' . DB_PREF . 'page_layout`

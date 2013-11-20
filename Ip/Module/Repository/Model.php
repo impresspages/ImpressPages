@@ -48,7 +48,7 @@ class Model{
 
     
     public static function bindFile($file, $module, $instanceId) {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = "
         INSERT INTO
             `".DB_PREF."m_administrator_repository_file`
@@ -73,7 +73,7 @@ class Model{
     }
 
     public static function unbindFile($file, $module, $instanceId) {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         
         $sql = "
         DELETE FROM
@@ -139,7 +139,7 @@ class Model{
             `fileName` = :file
         ";
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $q = $dbh->prepare($sql);
         $q->execute(array(
             'file' => $file
@@ -165,7 +165,7 @@ class Model{
      */
     public function findFiles($module, $instanceId = null)
     {
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
                 *

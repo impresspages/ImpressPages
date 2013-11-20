@@ -142,7 +142,7 @@ class ContentDb {
                     AND module_name = :moduleName
                     AND `page_id`   = :pageId';
 
-        $dbh = \Ip\Db::getConnection();
+        $dbh = ipDb()->getConnection();
         $q = $dbh->prepare($sql);
         $params = array(
             'groupName' => $groupName,

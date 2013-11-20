@@ -36,7 +36,7 @@ class Storage {
         );
 
 
-        $value = \Ip\Db::fetchValue($sql, $params);
+        $value = ipDb()->fetchValue($sql, $params);
 
         if ($value === null) {
             return $defaultValue;
@@ -73,7 +73,7 @@ class Storage {
             ':value' => $value
         );
 
-        \Ip\Db::execute($sql, $params);
+        ipDb()->execute($sql, $params);
     }
 
     /**
@@ -98,7 +98,7 @@ class Storage {
             ':plugin' => $plugin
         );
 
-        return \Ip\Db::fetchAll($sql, $params);
+        return ipDb()->fetchAll($sql, $params);
     }
 
 }
