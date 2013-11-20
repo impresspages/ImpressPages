@@ -23,7 +23,7 @@ class System
             ipAddJavascript(ipConfig()->coreModuleUrl('InlineManagement/public/inlineManagementText.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('InlineManagement/public/inlineManagementImage.js'));
 
-            $response = \Ip\ServiceLocator::getResponse();
+            $response = \Ip\ServiceLocator::response();
             if (method_exists($response, 'addJavascriptContent')) {
                 $response->addJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
             }

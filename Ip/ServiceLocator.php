@@ -146,7 +146,7 @@ class ServiceLocator
     /**
      * @return \Ip\Response
      */
-    public static function getResponse()
+    public static function response()
     {
         return end(self::$responses);
     }
