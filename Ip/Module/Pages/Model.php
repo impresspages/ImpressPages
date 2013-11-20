@@ -42,8 +42,7 @@ class Model {
 
         Db::deletePage($id);
 
-        $event = new \Ip\Event\PageDeleted(null, $zone->getName(), $id);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
+        \Ip\ServiceLocator::getDispatcher()->notify('site.pageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
     }
 
 

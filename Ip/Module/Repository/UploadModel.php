@@ -81,10 +81,10 @@ class UploadModel{
         //security check
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
-        $event = new Event\ForbiddenExtensions($this);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
-        $disallow = $event->getForbiddenExtensions();
-        if (in_array($fileExtension, $disallow)) {
+        $forbiddenExtensions = array('htaccess', 'htpasswd', 'php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
+        $forbiddenExtensions = \Ip\ServiceLocator::getDispatcher()->notify('repository.forbiddenExtensions', $forbiddenExtensions);
+
+        if (in_array($fileExtension, $forbiddenExtensions)) {
             //security risk
             throw new UploadException("Files with extension (.".$fileExtension.") are not permitted for security reasons.", UploadException::FORBIDDEN_FILE_EXTENSION);
         }

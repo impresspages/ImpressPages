@@ -29,7 +29,7 @@ class LanguageModel{
         $newUrl = ipGetConfig()->baseUrl($data['url']) . '/';
 
         if ($originalUrl != $newUrl){
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged(null, $originalUrl, $newUrl));
+            \Ip\ServiceLocator::getDispatcher()->notify('site.urlChanged', array('oldUrl' => $originalUrl, 'newUrl' => $newUrl));
         }
     }
 
@@ -55,8 +55,7 @@ class LanguageModel{
         if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
             $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
             $newUrl = BASE_URL.$tmpLanguage['url'].'/';
-            \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event\UrlChanged($this, $oldUrl, $newUrl));
-
+            \Ip\ServiceLocator::getDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 
