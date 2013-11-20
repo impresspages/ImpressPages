@@ -53,7 +53,7 @@ class BrowserModel{
     {
         $answer = array();
 
-        $iterator = new \DirectoryIterator(ipGetConfig()->repositoryFile(''));
+        $iterator = new \DirectoryIterator(ipConfig()->repositoryFile(''));
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
@@ -84,7 +84,7 @@ class BrowserModel{
 
     private function getFileData($fileName)
     {
-        $file = ipGetConfig()->repositoryFile($fileName);
+        $file = ipConfig()->repositoryFile($fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new Exception("File doesn't exist ".$file);
         }
@@ -92,7 +92,7 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
-        $relativeRepositoryDir = ipGetConfig()->getRaw('FILE_REPOSITORY_DIR');
+        $relativeRepositoryDir = ipConfig()->getRaw('FILE_REPOSITORY_DIR');
         $data = array(
             'fileName' => $fileName,
             'dir' => $relativeRepositoryDir,
@@ -125,7 +125,7 @@ class BrowserModel{
             }
         }
 
-        return ipGetConfig()->coreModuleUrl('Repository/public/admin/icons/general.png');
+        return ipConfig()->coreModuleUrl('Repository/public/admin/icons/general.png');
     }
 
     

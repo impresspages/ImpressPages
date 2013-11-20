@@ -20,7 +20,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         // Create and use database if it doesn't exist:
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         unset($config['db']['database']);
-        ipGetConfig()->_setRaw('db', $config['db']);
+        ipConfig()->_setRaw('db', $config['db']);
 
         $tempDbName = 'ip_test_create' . date('md_Hi_') . rand(1, 100);
 
@@ -37,7 +37,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         unset($config['db']['database']);
-        ipGetConfig()->_setRaw('db', $config['db']);
+        ipConfig()->_setRaw('db', $config['db']);
 
         Model::createAndUseDatabase($tempDbName);
 
@@ -57,7 +57,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
         unset($config['db']['database']);
-        ipGetConfig()->_setRaw('db', $config['db']);
+        ipConfig()->_setRaw('db', $config['db']);
 
         $tempDbName = 'ip_test_install' . date('md_Hi_') . rand(1, 100);
         Model::createAndUseDatabase($tempDbName);

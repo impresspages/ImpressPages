@@ -41,7 +41,7 @@ class ZoneModel{
 
 
     private static function makeUrl($languageUrl, $zoneUrl){
-        $answer = ipGetConfig()->baseUrl(urlencode($languageUrl).'/'.urlencode($zoneUrl).'/');
+        $answer = ipConfig()->baseUrl(urlencode($languageUrl).'/'.urlencode($zoneUrl).'/');
         return $answer;
     }
 

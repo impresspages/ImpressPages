@@ -31,6 +31,6 @@ class Zone404 extends \Ip\Zone {
     }
     
     public function getLayout() {
-        return is_file(ipGetConfig()->themeFile('404.php')) ? '404.php' : 'main.php';
+        return is_file(ipConfig()->themeFile('404.php')) ? '404.php' : 'main.php';
     }
 }

@@ -249,7 +249,7 @@ class AdminController extends \Ip\Controller{
 
 
         //STORE IMAGE LOGO
-        if (isset($_POST['newImage']) && is_file(ipGetConfig()->baseFile($_POST['newImage']))) {
+        if (isset($_POST['newImage']) && is_file(ipConfig()->baseFile($_POST['newImage']))) {
 
 
             //remove old image
@@ -381,11 +381,11 @@ class AdminController extends \Ip\Controller{
 
 
         //STORE IMAGE
-        if (isset($_POST['newImage']) && is_file(ipGetConfig()->baseFile($_POST['newImage']))) {
+        if (isset($_POST['newImage']) && is_file(ipConfig()->baseFile($_POST['newImage']))) {
 
 
             //remove old image
-            if ($image->getImageOrig() && is_file(ipGetConfig()->baseFile($image->getImageOrig()))) {
+            if ($image->getImageOrig() && is_file(ipConfig()->baseFile($image->getImageOrig()))) {
                 if ($sameScope) { //otherwise we need to leave image for original scope
                     \Ip\Module\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
@@ -396,7 +396,7 @@ class AdminController extends \Ip\Controller{
             $image->setImageOrig($_POST['newImage']);
         } else {
             if (!$sameScope) { //duplicate original image if we are resaving it in different scope
-                if ($image->getImageOrig() && is_file(ipGetConfig()->baseFile($image->getImageOrig()))) {
+                if ($image->getImageOrig() && is_file(ipConfig()->baseFile($image->getImageOrig()))) {
                     \Ip\Module\Repository\Model::bindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                     $image->setImageOrig($image->getImageOrig());
                 }
@@ -540,7 +540,7 @@ class AdminController extends \Ip\Controller{
                     break;
             }
             if ($image) {
-                if ($image->getImageOrig() && is_file(ipGetConfig()->baseFile($image->getImageOrig()))) {
+                if ($image->getImageOrig() && is_file(ipConfig()->baseFile($image->getImageOrig()))) {
                     \Ip\Module\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
                 }
             }
