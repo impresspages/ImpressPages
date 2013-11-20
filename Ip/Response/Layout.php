@@ -216,7 +216,7 @@ class Layout extends \Ip\Response {
             'ipZoneName' => ipGetCurrentZone() ? ipGetCurrentZone()->getName() : null,
             'ipPageId' => ipGetCurrentPage() ?ipGetCurrentPage()->getId() : null,
             'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::getApplication()->getSecurityToken(),
+            'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );

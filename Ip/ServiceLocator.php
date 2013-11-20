@@ -81,7 +81,7 @@ class ServiceLocator
     /**
      * @return \Ip\Application
      */
-    public static function getApplication()
+    public static function application()
     {
         global $application;
         return $application;
