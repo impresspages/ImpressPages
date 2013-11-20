@@ -995,7 +995,7 @@ class AdminController extends \Ip\Controller
         $page = $pageZone->getPage($pageId);
         $newUrl = $page->getLink(true);
 
-        \Ip\ServiceLocator::getDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+        ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         //report url change
 
 
@@ -1034,7 +1034,7 @@ class AdminController extends \Ip\Controller
             'newPosition' => $destinationPosition,
         );
 
-        \Ip\ServiceLocator::getDispatcher()->notify('site.pageMoved', $eventData);
+        ipDispatcher()->notify('site.pageMoved', $eventData);
 
         $children = ipGetZone($zoneName)->getPages($languageId, $pageId);
         foreach ($children as $key => $child) {

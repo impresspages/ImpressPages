@@ -49,8 +49,6 @@ class UploadModel{
      */
     public function handlePlupload($secureFolder)
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-
         if (!$secureFolder && !isset($_SESSION['backend_session']['userId'])) {
             throw new UploadException("Try to upload image to temporary directory without permission.", UploadException::NO_PERMISSION);
         }
@@ -82,7 +80,7 @@ class UploadModel{
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
         $forbiddenExtensions = array('htaccess', 'htpasswd', 'php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
-        $forbiddenExtensions = \Ip\ServiceLocator::getDispatcher()->notify('repository.forbiddenExtensions', $forbiddenExtensions);
+        $forbiddenExtensions = ipDispatcher()->notify('repository.forbiddenExtensions', $forbiddenExtensions);
 
         if (in_array($fileExtension, $forbiddenExtensions)) {
             //security risk

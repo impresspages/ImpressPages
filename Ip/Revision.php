@@ -102,7 +102,7 @@ class Revision{
 
         $revisionId = ip_deprecated_mysql_insert_id();
 
-        \Ip\ServiceLocator::getDispatcher()->notify('site.createdRevision', array('revisionId' => $revisionId));
+        ipDispatcher()->notify('site.createdRevision', array('revisionId' => $revisionId));
 
         return $revisionId;
     }
@@ -133,7 +133,7 @@ class Revision{
         $eventData = array(
             'revisionId' => $revisionId,
         );
-        \Ip\ServiceLocator::getDispatcher()->notify('site.publishRevision', $eventData);
+        ipDispatcher()->notify('site.publishRevision', $eventData);
         
 
     }
@@ -164,7 +164,7 @@ class Revision{
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        \Ip\ServiceLocator::getDispatcher()->notify('site.duplicatedRevision', $eventData);
+        ipDispatcher()->notify('site.duplicatedRevision', $eventData);
 
         return $newRevisionId;
     }
@@ -208,11 +208,13 @@ class Revision{
             throw new CoreException('Can\'t find old revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
         }
 
+        $dispatcher = ipDispatcher();
+
         while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
             $eventData = array(
                 'revisionId' => $lock['revisionId'],
             );
-            \Ip\ServiceLocator::getDispatcher()->notify('site.removeRevision', $eventData);
+            $dispatcher->notify('site.removeRevision', $eventData);
         }
 
         $sql = "
