@@ -228,7 +228,7 @@ function ipIsManagementState()
 
 function ipRequest()
 {
-    return \Ip\ServiceLocator::getRequest();
+    return \Ip\ServiceLocator::request();
 }
 
 function __($text, $domain)

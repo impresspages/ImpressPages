@@ -45,7 +45,7 @@ class Content {
      */
     public function isManagementState(){
         $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && \Ip\ServiceLocator::getRequest()->getQuery('cms_action', 0) === 'manage');
+        return ($backendLoggedIn && \Ip\ServiceLocator::request()->getQuery('cms_action', 0) === 'manage');
     }
 
 
@@ -274,7 +274,7 @@ class Content {
 
     private function parseUrl()
     {
-        $path = \Ip\ServiceLocator::getRequest()->getRelativePath();
+        $path = \Ip\ServiceLocator::request()->getRelativePath();
         $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
         if ($urlVars[0] == '') {
             array_shift($urlVars);

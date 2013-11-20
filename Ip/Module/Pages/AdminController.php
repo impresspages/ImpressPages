@@ -371,7 +371,7 @@ class AdminController extends \Ip\Controller
 
     public function getZoneProperties() {
 
-        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+        $params = \Ip\ServiceLocator::request()->getRequest();
 
         if (empty($params['zoneName'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -419,7 +419,7 @@ class AdminController extends \Ip\Controller
 
     public function getLanguageProperties() {
 
-        $params = \Ip\ServiceLocator::getRequest()->getRequest();
+        $params = \Ip\ServiceLocator::request()->getRequest();
 
         if (empty($params['languageId'])) {
             throw new \Ip\CoreException("Missing required parameter");
@@ -455,7 +455,7 @@ class AdminController extends \Ip\Controller
 
     public function saveZoneProperties()
     {
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
         $params = $request->getPost();
 
@@ -513,7 +513,7 @@ class AdminController extends \Ip\Controller
 
     public function saveLanguageProperties()
     {
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
         $params = $request->getPost();
 

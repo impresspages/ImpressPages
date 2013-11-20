@@ -143,7 +143,7 @@ class AdminController extends \Ip\Controller
      */
     public function installTheme()
     {
-        $request = ServiceLocator::getRequest();
+        $request = ServiceLocator::request();
         $request->mustBePost();
 
         $themeName = $request->getPost('themeName');

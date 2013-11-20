@@ -9,7 +9,7 @@ class System {
     public function init()
     {
         $relativePath = ipRequest()->getRelativePath();
-        $request = \Ip\ServiceLocator::getRequest();
+        $request = \Ip\ServiceLocator::request();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
             \Ip\ServiceLocator::getResponse()->setLayout(ipConfig()->coreModuleFile('/Admin/View/layout.php'));
@@ -50,7 +50,7 @@ class System {
 
     protected function getAdminToolbarHtml()
     {
-        $requestData = \Ip\ServiceLocator::getRequest()->getRequest();
+        $requestData = \Ip\ServiceLocator::request()->getRequest();
         $curModTitle = '';
         $curModUrl = '';
         $helpUrl = 'http://www.impresspages.org/help2';
