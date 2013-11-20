@@ -259,7 +259,7 @@ function ipDispatcher()
  */
 function ipDb()
 {
-    return \Ip\ServiceLocator::getDb();
+    return \Ip\ServiceLocator::db();
 }
 
 //function _n($singular, $plural, $number, $domain)
