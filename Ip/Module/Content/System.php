@@ -57,9 +57,9 @@ class System{
     }
 
 
-    public function executeCron(\Ip\Event $e)
+    public function executeCron($info)
     {
-        if ($e->getValue('firstTimeThisDay') || $e->getValue('test')) {
+        if ($info['firstTimeThisDay'] || $info['test']) {
             Model::deleteUnusedWidgets();
         }
     }
@@ -234,19 +234,19 @@ class System{
     }
 
     
-    public static function duplicatedRevision (\Ip\Event $event) {
-        Model::duplicateRevision($event->getValue('basedOn'), $event->getValue('newRevisionId'));
+    public static function duplicatedRevision($info)
+    {
+        Model::duplicateRevision($info['basedOn'], $info['newRevisionId']);
     }
 
     
-    public static function removeRevision (\Ip\Event $event) {
-        $revisionId = $event->getValue('revisionId');
-        Model::removeRevision($revisionId);
+    public static function removeRevision ($info) {
+        Model::removeRevision($info['revisionId']);
     }
     
-    public static function publishRevision (\Ip\Event $event) {
-        $revisionId = $event->getValue('revisionId');
-        Model::clearCache($revisionId);
+    public static function publishRevision($info)
+    {
+        Model::clearCache($info['revisionId']);
     }
 
     public static function pageDeleted($info)

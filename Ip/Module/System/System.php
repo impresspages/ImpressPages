@@ -26,9 +26,9 @@ class System{
         \Ip\Internal\DbSystem::replaceUrls($info['oldUrl'], $info['newUrl']);
     }
     
-    public function executeCron(\Ip\Event $e)
+    public function executeCron($info)
     {
-        if ($e->getValue('firstTimeThisDay') || $e->getValue('test')) {
+        if ($info['firstTimeThisDay'] || $info['test']) {
             if (ipGetOption('Config.keepOldRevision') != 0) {
                 \Ip\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }
