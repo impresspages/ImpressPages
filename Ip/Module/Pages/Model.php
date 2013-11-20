@@ -42,7 +42,7 @@ class Model {
 
         Db::deletePage($id);
 
-        \Ip\ServiceLocator::getDispatcher()->notify('site.pageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
+        ipDispatcher()->notify('site.pageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
     }
 
 

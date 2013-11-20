@@ -361,7 +361,7 @@ class Model{
             return self::$widgetObjects;
         }
 
-        self::$widgetObjects = \Ip\ServiceLocator::getDispatcher()->filter('contentManagement.collectWidgets', array());
+        self::$widgetObjects = ipDispatcher()->filter('contentManagement.collectWidgets', array());
 
         return self::$widgetObjects;
     }

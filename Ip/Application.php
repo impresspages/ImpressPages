@@ -183,8 +183,6 @@ class Application {
 
     public function close()
     {
-        $dispatcher = \Ip\ServiceLocator::getDispatcher();
-
         /*
          Automatic execution of cron.
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.

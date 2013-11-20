@@ -178,9 +178,9 @@ class Response
          * TODOX send event if status is 404
 
         $event = new \Ip\Event($this, 'site.beforeError404', null);
-        \Ip\ServiceLocator::getDispatcher()->notify($event);
+        ipDispatcher()->notify($event);
         if (!$event->getProcessed()) {
-        \Ip\ServiceLocator::getDispatcher()->notify(new \Ip\Event($this, 'site.error404', null));
+        ipDispatcher()->notify(new \Ip\Event($this, 'site.error404', null));
         }
         
          **/
