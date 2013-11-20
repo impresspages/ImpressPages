@@ -57,39 +57,56 @@ class Template {
         var textCopy = \''.addslashes(__('Copy', 'ipAdmin')).'\';
         var textPaste = \''.addslashes($parametersMod->getValue('Pages.paste')).'\';
     </script>
-    <div>
-    	<div id="sideBar" class="ui-widget-content ui-resizable">
-    		<div id="controlls">
+    <div class="ip">
+        <div id="sideBar" class="ui-widget-content ui-resizable">
+            <div id="controlls">
                 <ul>
-                    <button id="buttonNewPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
-                    	<span class="ui-button-icon-primary ui-icon ui-icon-document"></span>
-                    	<span class="ui-button-text">'.__('New page', 'ipAdmin').'</span>
+                    <button id="buttonNewPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
+                        <i class="icon-file-alt"></i>
+                        '.__('New page', 'ipAdmin').'
                     </button>
-                    <button id="buttonDeletePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
-                    	<span class="ui-button-icon-primary ui-icon ui-icon-trash"></span>
-                    	<span class="ui-button-text">'.__('Delete', 'ipAdmin').'</span>
+                    <button id="buttonDeletePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
+                        <i class="icon-trash"></i>
+                        '.__('Delete', 'ipAdmin').'
                     </button>
-                    <button id="buttonCopyPage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
-                    	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
-                    	<span class="ui-button-text">'.__('Copy', 'ipAdmin').'</span>
+                    <button id="buttonCopyPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
+                        <i class="icon-copy"></i>
+                        '.__('Copy', 'ipAdmin').'
                     </button>
-                    <button id="buttonPastePage" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary ui-state-disabled" role="button" aria-disabled="false">
-                    	<span class="ui-button-icon-primary ui-icon ui-icon-copy"></span>
-                    	<span class="ui-button-text">'.htmlspecialchars($parametersMod->getValue('Pages.paste')).'</span>
+                    <button id="buttonPastePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
+                        <i class="icon-paste"></i>
+                        '.__('Paste', 'ipAdmin').'
                     </button>
                 </ul>    
-    		</div>
-    		<div id="tree"> </div>
-    		<div class="clear"><!-- --></div>
-    	</div>
-    	<div id="pageProperties" class="ui-widget-content"></div>
-    </div>	
-	<div id="createPageForm" title="'.__('New page', 'ipAdmin').'">
-		<form id="formCreatePage">
-            <label for="createPageButtonTitle">'.__('Button title', 'ipAdmin').'</label>
-            <input id="createPageButtonTitle" name="buttonTitle" value="" />
-		</form>
-	</div>    	
+            </div>
+            <div id="tree"> </div>
+            <div class="clear"><!-- --></div>
+        </div>
+        <div id="pageProperties" class="ui-widget-content"></div>
+
+        <div class="modal fade" id="createPageForm" tabindex="-1" role="dialog" aria-labelledby="createPageFormLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="createPageFormLabel">'.__('New page', 'ipAdmin').'</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="createPageButtonTitle">'.__('Button title', 'ipAdmin').'</label>
+                                <input type="text" class="form-control" id="createPageButtonTitle" name="buttonTitle" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">'.__('Cancel', 'ipAdmin').'</button>
+                        <button type="button" class="btn btn-primary ipsSubmit">'.__('Submit', 'ipAdmin').'</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="treePopup"></div>
 ';
         return $answer;

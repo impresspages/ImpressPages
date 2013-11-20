@@ -1,4 +1,4 @@
-<div class="ip ipsContent" >
+<div class="ipsContent" >
     <ul class="tabs">
         <?php foreach ($tabs as $tabKey => $tab) { ?>
             <li>
