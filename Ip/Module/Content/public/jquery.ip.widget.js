@@ -64,7 +64,7 @@
                 
                 
                 // mange action
-                $this.delegate('.ipWidget .ipActionWidgetManage', 'click', function(event) {
+                $this.on('click', '.ipActionWidgetManage', function(event) {
                 	if ( $(event.target).closest('.ipWidget')[0] != $this[0])
                 		return; // not for me
                     event.preventDefault();
@@ -75,9 +75,8 @@
                 		return; // not for me
                     $(this).ipWidget('manage');
                 });
-
-                // save acion
-                $this.delegate('.ipWidget .ipActionWidgetSave', 'click', function(event) {
+                // save action
+                $this.on('click', '.ipActionWidgetSave', function(event) {
                     if ( $(event.target).closest('.ipWidget')[0] != $this[0])
                 		return; // not for me
                     event.preventDefault();
@@ -90,7 +89,7 @@
                 });
 
                 // cancel acion
-                $this.delegate('.ipWidget .ipActionWidgetCancel', 'click', function(event) {
+                $this.on('click', '.ipActionWidgetCancel', function(event) {
                     if ( $(event.target).closest('.ipWidget')[0] != $this[0])
                 		return; // not for me
                     event.preventDefault();
