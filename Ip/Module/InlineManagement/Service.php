@@ -137,7 +137,7 @@ class Service
             $defaultValue = ipConfig()->coreModuleFile('InlineManagement/public/empty.gif');
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipGetCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (
