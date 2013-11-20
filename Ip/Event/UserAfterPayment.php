@@ -24,6 +24,7 @@ namespace Ip\Event;
  */
 class UserAfterPayment extends \Ip\Event{
 
+    // TODOX remove this event class
     const USER_AFTER_PAYMENT = 'global.userAfterPayment';
     const STATUS_ERROR = 1;
     const STATUS_PENDING = 2;
