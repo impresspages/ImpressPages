@@ -23,4 +23,10 @@ class Slot {
     {
         return \Ip\Module\Languages\Model::generateLanguageList();
     }
+
+    public static function logo()
+    {
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
+        return $inlineManagementService->generateManagedLogo();
+    }
 }

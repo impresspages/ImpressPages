@@ -1037,8 +1037,8 @@ class AdminController extends \Ip\Controller
         ipDispatcher()->notify('site.pageMoved', $eventData);
 
         $children = ipContent()->getZone($zoneName)->getPages($languageId, $pageId);
-        foreach ($children as $key => $child) {
-            self::_notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
+        foreach ($children as $child) {
+            self::notifyPageMove($child->getId(), $languageId, $zoneName, $pageId, $position, $destinationLanguageId, $destinationZoneName, $pageId, $position);
         }
     }
 
@@ -1360,7 +1360,7 @@ class AdminController extends \Ip\Controller
 
         $baseDir = ipConfig()->baseFile('');
         $baseUrl = ipConfig()->baseUrl('');
-        
+
         foreach($widgets as &$widget){
             //TODOX create new widget object
             eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');

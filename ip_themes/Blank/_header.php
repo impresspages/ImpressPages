@@ -18,7 +18,7 @@
 <body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
-        <?php echo $this->generateManagedLogo(); ?>
+        <?php echo ipSlot('Ip.logo') ?>
         <div class="right">
             <span class="currentPage"><?php echo ipContent()->getCurrentPage()->getButtonTitle() ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>

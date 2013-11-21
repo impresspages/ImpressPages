@@ -7,13 +7,8 @@
 namespace Ip\Internal\Deprecated;
 
 class Url {
-    protected $otherZones = null;
-    protected $langauges = null;
+    static $otherZones = null;
 
-    protected static function init()
-    {
-        self::$languages = \Ip\Internal\ContentDb::getLanguages(true);
-    }
 
 
     /**

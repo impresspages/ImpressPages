@@ -14,9 +14,11 @@ $(document).ready(function () {
 var ipModuleForm = new function () {
     "use strict";
     this.init = function () {
+        alert($('.ipsModuleForm .ipsFileContainer').length );
         //if interactive file upload input found, load file upload javascript
-        if ($('.ipsModuleForm .ipmFileContainer').length && (typeof(plupload) === "undefined")) {
+        if ($('.ipsModuleForm .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
             //TODOX new path
+            alert(ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.full.js');
             $('body').append($('<script type="text/javascript" src="' + ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.full.js"></script>'));
             $('body').append($('<script type="text/javascript" src="' + ip.baseUrl + ip.moduleDir + 'developer/form/public/file.js"></script>'));
         }
