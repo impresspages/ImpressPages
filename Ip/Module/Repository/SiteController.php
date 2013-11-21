@@ -26,10 +26,9 @@ class SiteController extends \Ip\Controller{
     public function upload()
     {
 
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
             //upload to secure publicly not accessible folder.
-            if ($parametersMod->getValue('Repository.allow_anonymous_uploads')) {
+            if (ipGetOption('Config.allowAnonymousUploads', 1)) {
                 //do nothing. Anonymous uploads are allowed to secure folder
             } else {
                 throw new \Exception('Anonymous uploads are not enabled. You can enable them in config.');
@@ -49,7 +48,7 @@ class SiteController extends \Ip\Controller{
 
             switch($e->getCode()){
                 case UploadException::FORBIDDEN_FILE_EXTENSION:
-                    $message = $parametersMod->getValue("Form.file_type");
+                    $message = __('Incorrect file type.', 'ipAdmin');
                     ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
                     break;
                 case UploadException::FAILED_TO_MOVE_UPLOADED_FILE:
@@ -58,7 +57,7 @@ class SiteController extends \Ip\Controller{
                 case UploadException::OUTPUT_STREAM_ERROR:
                 default:
                     ipLog()->error('Repository.fileUploadError', array('plugin' => 'Repository', 'exception' => $e));
-                    $message = $parametersMod->getValue("Form.server");
+                    $message = __('Can\'t store uploaded file. Please check server configuration.', 'ipAdmin');
                     break;
 
             }
