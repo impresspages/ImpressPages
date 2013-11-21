@@ -138,17 +138,7 @@ class AdminController extends \Ip\Controller
     {
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
-
-        $data['layout'] = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModuleGroup(),
-            $zone->getAssociatedModule(),
-            $page->getId()
-        );
-
-        if (!$data['layout']) {
-            $data['layout'] = $data['defaultLayout'];
-        }
-
+        $data['layout'] = \Ip\Module\Content\Service::getPageLayout($page);
         return \Ip\View::create('view/page_options_design.php', $data)->render();
     }
 
