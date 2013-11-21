@@ -33,7 +33,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
 
 <li class="<?php echo implode(' ', $css) ?>">
     <?php if ($href) { ?><a <?php echo $href ?> title="<?php addslashes($menuItem->getPageTitle()) ?>"><?php } ?>
-        <?php echo $this->esc($menuItem->getTitle()) ?>
+        <?php echo ipEsc($menuItem->getTitle()) ?>
         <?php if ($href) { ?></a><?php } ?>
     <?php if ($menuItem->getChildren()){ ?>
         <?php echo $this->subview('bootstrapNav.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>
