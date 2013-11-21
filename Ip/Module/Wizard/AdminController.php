@@ -24,7 +24,7 @@ class AdminController extends \Ip\Controller{
             'content' => $content
         );
 
-        // TODOX JsonRpc
+        // TODO JsonRpc
         return new \Ip\Response\Json($data);
     }
 

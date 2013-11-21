@@ -159,7 +159,7 @@ class AdminController extends \Ip\Controller
             return JsonRpc::error($e->getMessage());
         }
 
-        // TODOX jsonrpc
+        // TODO jsonrpc
         return new \Ip\Response\Json(array('status' => 'success'));
     }
 
