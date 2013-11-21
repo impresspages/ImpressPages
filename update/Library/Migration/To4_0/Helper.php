@@ -14,7 +14,7 @@ class Helper
 
     public function __construct($cf, $conn)
     {
-        $this->dbPref = $cf['DB_PREF'];
+        $this->dbPref = $cf['db']['tablePrefix'];
         $this->conn = $conn;
         Db::init($this->conn);
     }

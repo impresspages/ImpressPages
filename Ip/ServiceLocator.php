@@ -58,12 +58,12 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Module\Log\Module
+     * @return \Psr\Log\LoggerInterface
      */
     public static function log()
     {
         if (self::$log== null) {
-            self::$log= new \Ip\Module\Log\Module();
+            self::$log= new \Ip\Module\Log\Logger();
         }
         return self::$log;
     }
