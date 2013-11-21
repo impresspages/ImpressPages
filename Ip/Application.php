@@ -147,8 +147,10 @@ class Application {
 
     public function modulesInit(){
         //init core modules
+
+        //TODO hardcode system modules
         $coreModules = \Ip\Module\Plugins\Model::getModules();
-        foreach($coreModules as $module) {
+        foreach ($coreModules as $module) {
             $systemClass = '\\Ip\\Module\\'.$module.'\\System';
             if(class_exists($systemClass)) {
                 $system = new $systemClass();
@@ -157,7 +159,18 @@ class Application {
                 }
             }
         }
-        //TODOX init plugins
+
+        $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
+        foreach ($plugins as $plugin) {
+            $systemClass = '\\Plugin\\' . $plugin . '\\System';
+            if (class_exists($systemClass)) {
+                $system = new $systemClass();
+                if (method_exists($system, 'init')) {
+                    $system->init();
+                }
+            }
+        }
+
     }
 
 
