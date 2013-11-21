@@ -3,10 +3,11 @@
         <?php echo $this->esc($field->getLabel()); ?>
     </label>
     <?php echo $field->render($this->getDoctype()); ?>
+    <div class="help-error"></div>
 <?php if($field->getNote()) { ?>
-    <p class="help-block"><?php echo $field->getNote(); ?></p>
+    <div class="help-block"><?php echo $field->getNote(); ?></div>
 <?php } ?>
 <?php if($field->getHint()) { ?>
-    <p class="help-block"><?php echo $field->getHint(); ?></p>
+    <div class="help-hint"><?php echo $field->getHint(); ?></div>
 <?php } ?>
 </div>

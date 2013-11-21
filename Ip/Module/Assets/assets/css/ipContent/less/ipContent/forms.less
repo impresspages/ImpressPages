@@ -139,7 +139,7 @@
         overflow: auto; // hiding scrolls if not necessary
     }
     .form-group {
-        margin-bottom: @ipFormFieldSpace; // double space for global errors
+        margin-bottom: @ipFormFieldSpace;
         position: relative; // to position inner elements respectively to the field
         .clearfix;
         &:last-child {
@@ -152,8 +152,6 @@
     .checkbox {
         display: block;
         min-height: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
         padding-left: 20px;
         vertical-align: middle;
     }
@@ -209,22 +207,12 @@
     .has-error .checkbox,
     .has-error .radio-inline,
     .has-error .checkbox-inline {
-        color: #b94a48;
+        color: @ipErrorColor;
     }
     .has-error .form-control {
-        border-color: #b94a48;
+        border-color: @ipErrorColor;
         -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    }
-    .has-error .form-control:focus {
-        border-color: #953b39;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-    }
-    .has-error .input-group-addon {
-        color: #b94a48;
-        border-color: #b94a48;
-        background-color: #f2dede;
     }
     .form-control-static {
         margin-bottom: 0;
@@ -330,7 +318,6 @@
     }
 
     // add ons
-
     .help-hint { // to be shown on hover
         background-color: @ipBorderColor;
         color: #fff;
@@ -343,43 +330,45 @@
         width: 50%;
         z-index: 1;
     }
-
+    .help-error {
+        background-color: @ipErrorColor;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; // for max-width to make sense
+        color: #fff;
+        display: none;
+        font-size: @ipFontSizeSmall;
+        max-width: @ipFormInputMaxWidth; // to be the same size as controls
+        padding: 4px 10px 2px;
+        width: 100%;
+    }
+    .has-error .help-error {
+        display: block;
+    }
     .form-group:hover .help-hint { // hint is shown only on hover
         display: block;
     }
+    .captcha {
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    }
+    .form-group.type-blank {
+        margin-bottom: 0; // removing from flow
+        label {
+            display: none;
+        }
+        .help-error {
+            margin-bottom: @ipFormFieldSpace; // keeping space when visible
+        }
+    }
+    .form-group.type-submit {
+        label {
+            display: none;
+        }
+    }
 /*
-
-    .ipmType-blank { // if blank we'll remove it from the flow
-        margin: -(@ipFormFieldSpace) 0 0;
-        position: absolute;
-    }
-
-    .ipmControlBlank {
-        height: 0;
-        margin: 0;
-        padding: 0;
-        visibility: hidden;
-        width: 0;
-    }
-
-    .ipmType-confirm .ipmControlCheckbox {
-        float: left;
-    }
-    .ipmCheckboxText {
-        margin-left: 25px;
-    }
-
-    .ipmType-captcha .ipmControl img {
-        display: block;
-        max-width: 100%;
-    }
-
-
-    // errors
-    .ipmControlError {
-        border-color: @ipErrorColor;
-    }
-
     .ipmFileContainer {
         .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
             width: 0;
@@ -440,8 +429,5 @@
 }
 
 .ipmErrorMessage { // this object is created globally next to each invalid field
-    background-color: @ipErrorColor;
-    color: #fff;
-    font-size: @ipFontSizeSmall;
-    padding: 4px 10px 2px;
+    display: none !important; // hiding as we add that message inline
 }
