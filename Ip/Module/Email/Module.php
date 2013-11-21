@@ -14,7 +14,7 @@
 namespace Ip\Module\Email;
 
 /** @private */
-
+require_once(ipConfig()->baseFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
 /**
  * Class to send emails. Typically all emails should be send trouht this class.
  * @package ImpressPages
@@ -136,12 +136,12 @@ class Module{
                     if($email['html']){
                         $mail->IsHTML(true);// send as HTML
                          
-                        $h2t = new \Ip\Internal\Text\Html2text($email['email'], false);
+                        $h2t = new \Ip\Internal\Text\Html2Text($email['email'], false);
                         //$mail->Body = $email['email'];
                         $mail->MsgHTML($email['email']);
                         $mail->AltBody  =  $h2t->get_text();
                     }else{
-                        /*$h2t = new \Ip\Internal\Text\Html2text($content, false);
+                        /*$h2t = new \Ip\Internal\Text\Html2Text($content, false);
                          $mail->Body  =  $h2t->get_text();*/
                         $mail->Body = $email['email'];
                     }

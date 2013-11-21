@@ -16,9 +16,9 @@ class Controller extends \Ip\Module\Content\WidgetController{
         return __('Contact form', 'ipAdmin');
     }
     
-    public function post ($instanceId, $postData, $data) {
-        
-        
+    public function post ($instanceId, $data) {
+        $postData = ipRequest()->getPost();
+
         $form = $this->createForm($instanceId, $data);
         $errors = $form->validate($postData);
         
@@ -35,7 +35,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
             );
         }
 
-        // TODOX use JsonRpc
+        // TODO use JsonRpc
         return new \Ip\Response\Json($data);
     }
     
