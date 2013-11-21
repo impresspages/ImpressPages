@@ -87,7 +87,7 @@ class Application {
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
-            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::request()->getPost()));
+            ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
                 'status' => 'error'
             );
@@ -96,7 +96,7 @@ class Application {
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
             }
-            // TODOX JSONRPC
+            // TODO JSONRPC
             $response = new \Ip\Response();
             $response->addHeader('Content-type: text/json; charset=utf-8');
             $response->setContent(json_encode($data));
@@ -225,8 +225,7 @@ class Application {
                 }
 
                 if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
-                    $log = \Ip\ServiceLocator::log();
-                    $log->log('Cron', 'Failed fake cron', $fakeCronAnswer);
+                    ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
                 }
             }
 

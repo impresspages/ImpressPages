@@ -194,7 +194,7 @@ abstract class Field{
     public function getValidationAttributesStr($doctype) {
         $attributesStr = '';
         foreach($this->getValidators() as $validator) {
-            $tmpArgs = $validator->jtoolsArgs();
+            $tmpArgs = $validator->validatorAttributes();
             if ($tmpArgs != '') {
                 $attributesStr .= ' '.$tmpArgs;
             }

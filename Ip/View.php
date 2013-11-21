@@ -220,8 +220,7 @@ class View implements \Ip\Response\ResponseInterface
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            $log = \Ip\ServiceLocator::log();
-            $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            ipLog()->error('View.toStringException: Exception in View::__toString() method.', array('exception' => $e, 'view' => $this->file));
 
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
@@ -406,30 +405,7 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    /**
-     * @param string $menuKey any unique string that identifies this menu within this theme.
-     * @param string | \Ip\Menu\Item[] $items zone name as string or array of menu items
-     * @param string $viewFile absolute or relative
-     */
-    public function generateMenu($menuKey, $items, $viewFile = null)
-    {
-        //TODOX create sugar method
-        if(is_string($items)) {
-            $items = \Ip\Menu\Helper::getZoneItems($items);
-        }
-        $data = array(
-            'menuKey' => $menuKey,
-            'items' => $items,
-            'depth' => 1
-        );
 
-        if ($viewFile === null) {
-            $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
-        }
-        $viewFile = self::findView($viewFile);
-        $view = self::create($viewFile, $data);
-        return $view->render();
-    }
 
     public function getThemeOption($name, $default = null)
     {

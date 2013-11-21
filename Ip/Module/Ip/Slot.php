@@ -29,4 +29,19 @@ class Slot {
         $inlineManagementService = new \Ip\Module\InlineManagement\Service();
         return $inlineManagementService->generateManagedLogo();
     }
+
+    public static function menu($items)
+    {
+        if (is_string($items)) {
+            $items = \Ip\Menu\Helper::getZoneItems($items);
+        }
+        $data = array(
+            'items' => $items,
+            'depth' => 1
+        );
+
+        $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+        $view = \Ip\View::create($viewFile, $data);
+        return $view->render();
+    }
 }

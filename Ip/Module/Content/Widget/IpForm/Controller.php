@@ -217,8 +217,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Module\Content\Exception $e) {
-                    $log = \Ip\ServiceLocator::log();
-                    $log->log('standard/content_management', 'create field', $e->getMessage());
+                    ipLog()->error('IpFormWidget.failedAddField: Widget failed to add field.', array('widget' => 'IpForm', 'exception' => $e, 'fieldData' => $fieldData));
                 }
                 
             }
