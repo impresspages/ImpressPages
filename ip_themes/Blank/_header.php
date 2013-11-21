@@ -24,8 +24,7 @@
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php
-                    //first argument is unique name of this menu within your theme. Choose anything you like. Next argument is zone name. They don't have to be equal.
-                    echo $this->generateMenu('top', 'menu1');
+                    echo ipSlot('Ip.menu', 'menu1');
                 ?>
                 <div class="languages">
                     <?php echo $this->generateSlot('Ip.languages'); ?>
@@ -33,6 +32,6 @@
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo $this->generateSlot('ipSearch'); ?>
+            <?php echo ipSlot('Search'); //TODOX review ?>
         </div>
     </header>
