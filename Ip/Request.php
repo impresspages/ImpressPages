@@ -7,7 +7,6 @@
 
 namespace Ip;
 
-//TODOX move outside Internal
 /**
  *
  * Class to get information about current request

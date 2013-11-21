@@ -15,7 +15,7 @@ namespace Ip;
  * This class is responsable to generate the content and tell all information about the page of website.
  *
  */
-//TODOX renamet o Page
+
 class Page{
     /** int - unique number of element in that zone. */
     protected $id;
