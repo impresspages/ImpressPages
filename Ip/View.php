@@ -98,14 +98,7 @@ class View implements \Ip\Response\ResponseInterface
         return htmlspecialchars($text, ENT_QUOTES);
     }
     
-    /**
-     * Escape and echo parameter
-     * @param string $parameterKey
-     */    
-    public function escPar($parameterKey, $variables = null){
-        //TODOX remove all instances
-        return $this->esc($this->par($parameterKey), $variables);
-    }
+
 
     public function par($parameterKey, $variables = null){
         return $parameterKey; //TODOX remove all instances

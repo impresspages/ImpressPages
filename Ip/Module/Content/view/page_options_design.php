@@ -1,8 +1,6 @@
 <form id="formLayout">
     <p class="field">
-        <label for="pageLayout"><?php echo $this->escPar(
-                'standard/menu_management/admin_translations/page_layout'
-            ); ?></label>
+        <label for="pageLayout"><?php echo __('Layout', 'ipAdmin'); ?></label>
         <?php if (count($layouts) > 1) { ?>
             <select name="layout" id="pageLayout">
                 <?php foreach ($layouts as $layoutFile) { ?>
