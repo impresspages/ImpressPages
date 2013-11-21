@@ -6,7 +6,7 @@ namespace Plugin\Test;
 class System {
     public function init()
     {
-        ipDispatcher()->bind('Application.sendResponse', array($this, 'replaceResponse'));
+        //ipDispatcher()->bind('Application.sendResponse', array($this, 'replaceResponse'));
     }
 
     public function replaceResponse($response) {
