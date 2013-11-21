@@ -37,7 +37,7 @@ function ipSetLayoutVariable($name, $value)
     if (method_exists($response, 'setLayoutVariable')) {
         $response->setLayoutVariable($name, $value);
     } else {
-        ipLog('Core', 'Response method has no method setLayoutVariable');
+        ipLog()->error('Response.cantSetLayoutVariable: Response method has no method setLayoutVariable', array('response' => $response));
     }
 }
 
@@ -93,7 +93,7 @@ function ipAddJavascriptVariable($name, $value)
     if (method_exists($response, 'addJavascriptVariable')) {
         $response->addJavascriptVariable($name, $value);
     } else {
-        ipLog('Core', 'Response method has no method addJavascriptVariable');
+        ipLog()->error('Response.cantAddJavascriptVariable: Response method has no method addJavascriptVariable', array('response' => $response));
     }
 }
 
@@ -105,14 +105,14 @@ function ipAddCss($file, $stage = 1)
     if (method_exists($response, 'addCss')) {
         $response->addCss($file, $stage);
     } else {
-        ipLog('Core', 'Response method has no method addCss');
+        ipLog()->error('Respose.cantAddCss: Response method has no addCss method', array('response' => $response));
     }
 
 }
 
-function ipLog($module, $message, $severity = 0, $debugInfo = null)
+function ipLog()
 {
-    //TODOX
+    return \Ip\ServiceLocator::log();
 }
 
 /**
@@ -151,7 +151,7 @@ function ipSetLayout($file)
     if (method_exists($response, 'setLayout')) {
         $response->setLayout($file);
     } else {
-        ipLog('Core', 'Response method has no method setLayout');
+        ipLog()->error('Response.cantSetLayout: Response has no setLayout method', array('response' => $response));
     }
 }
 
@@ -161,7 +161,7 @@ function ipGetLayout()
     if (method_exists($response, 'getLayout')) {
         $response->getLayout();
     } else {
-        ipLog('Core', 'Response method has no method getLayout');
+        ipLog()->error('Response.cantGetLayout: Response method has no method getLayout', array('response' => $response));
     }
 }
 
