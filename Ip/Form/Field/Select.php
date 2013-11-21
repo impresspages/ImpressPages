@@ -90,7 +90,7 @@ $answer =
             if (get_class($validator) == 'Ip\Form\Validator\Required') {
                 continue;
             }
-            $tmpArgs = $validator->jtoolsArgs();
+            $tmpArgs = $validator->validatorAttributes();
             if ($tmpArgs != '') {
                 $attributesStr .= ' '.$tmpArgs;
             }
