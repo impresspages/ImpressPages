@@ -375,12 +375,6 @@ class View implements \Ip\Response\ResponseInterface
         return ipSlot($name);
     }
 
-    public function generateManagedLogo($cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedLogo($cssClass);
-    }
-
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
         $inlineManagementService = new \Ip\Module\InlineManagement\Service();

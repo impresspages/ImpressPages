@@ -112,7 +112,7 @@
                         var fileId = $file.data('fileId');
 
                         /* Seems that removeFile method is used just for files that are not started to be upload
-                        var uploader = $this.closest('.ipmFileContainer').data('ipFormFile').uploader;
+                        var uploader = $this.closest('.ipsFileContainer').data('ipFormFile').uploader;
                         var uploaderFile = uploader.getFile(fileId)
                         uploader.removeFile(uploaderFile);
                         */
@@ -194,4 +194,4 @@
 })(jQuery);
 
 
-$('.ipsModuleForm .ipmFileContainer').ipFormFile();
+$('.ipsModuleForm .ipsFileContainer').ipFormFile();
