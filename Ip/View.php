@@ -405,30 +405,7 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    /**
-     * @param string $menuKey any unique string that identifies this menu within this theme.
-     * @param string | \Ip\Menu\Item[] $items zone name as string or array of menu items
-     * @param string $viewFile absolute or relative
-     */
-    public function generateMenu($menuKey, $items, $viewFile = null)
-    {
-        //TODOX create sugar method
-        if(is_string($items)) {
-            $items = \Ip\Menu\Helper::getZoneItems($items);
-        }
-        $data = array(
-            'menuKey' => $menuKey,
-            'items' => $items,
-            'depth' => 1
-        );
 
-        if ($viewFile === null) {
-            $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
-        }
-        $viewFile = self::findView($viewFile);
-        $view = self::create($viewFile, $data);
-        return $view->render();
-    }
 
     public function getThemeOption($name, $default = null)
     {
