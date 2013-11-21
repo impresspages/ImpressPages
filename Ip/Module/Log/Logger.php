@@ -32,10 +32,6 @@ class Logger extends \Psr\Log\AbstractLogger
             'context' => json_encode($context),
         );
 
-        if (!empty($context['plugin'])) {
-            $row['plugin'] = $context['plugin'];
-        }
-
         ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
     }
 }
