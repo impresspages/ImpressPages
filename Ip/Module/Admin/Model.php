@@ -117,18 +117,18 @@ class Model{
         $log = \Ip\ServiceLocator::log();
         if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
+            ipLog()->warning('Admin login suspended for `{user}` from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
         } else {
             $id = $this->userId($username, $pass);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
                 \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
 
-                $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                ipLog()->info('Admin `{user}` logged in from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
                 return true;
             } else {
                 $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                $log->log('system', 'backend login incorrect', $username.'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                ipLog()->info('Incorrect admin `{user}` login attempt from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
                 return false;
             }
         }
