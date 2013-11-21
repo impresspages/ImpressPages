@@ -18,7 +18,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.actStartUpdate').live('click', startUpdate);
+    $('body').on('click', '.actStartUpdate', startUpdate);
 });
 
 
