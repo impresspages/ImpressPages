@@ -110,9 +110,9 @@ function ipAddCss($file, $stage = 1)
 
 }
 
-function ipLog($module, $message, $severity = 0, $debugInfo = null)
+function ipLog()
 {
-    //TODOX
+    return \Ip\ServiceLocator::log();
 }
 
 /**

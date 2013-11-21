@@ -87,7 +87,7 @@ class Application {
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
-            ipLog('ImpressPages Core', 'Possible CSRF attack. ' . serialize(\Ip\ServiceLocator::request()->getPost()));
+            ipLog()->error('Possible CSRF attack.', array('post' => ipRequest()->getPost(), 'plugin' => 'Core'));
             $data = array(
                 'status' => 'error'
             );
@@ -96,7 +96,7 @@ class Application {
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
                 );
             }
-            // TODOX JSONRPC
+            // TODO JSONRPC
             $response = new \Ip\Response();
             $response->addHeader('Content-type: text/json; charset=utf-8');
             $response->setContent(json_encode($data));
