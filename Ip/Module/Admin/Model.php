@@ -112,23 +112,25 @@ class Model{
             return false;
     }
 
-    public function login($username, $pass)
+    public function login($username, $password)
     {
-        $log = \Ip\ServiceLocator::log();
-        if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+        $ip = ipRequest()->getServer('REMOTE_ADDR');
+
+        // TODOX use events for that
+        if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
+            ipLog()->warning('Admin.loginSuspended: {username} from {ip}', array('username' => $username, 'ip' => $ip));
         } else {
-            $id = $this->userId($username, $pass);
+            $id = $this->userId($username, $password);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
                 \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
 
-                $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return true;
             } else {
                 $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                $log->log('system', 'backend login incorrect', $username.'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return false;
             }
         }
@@ -142,6 +144,9 @@ class Model{
 
     protected function incorrectLoginCount($userName)
     {
+        return 0;
+
+        // TODOX do it through storage and not here
         /*
          0 - success
          1 - incorrect login
