@@ -16,75 +16,76 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
 
     global $parametersMod;
-    $message = '';
+    $type = 'php.';
     switch ($errno) {
         case E_USER_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_USER_NOTICE:
-            $message .= 'NOTICE ';
+            $type .= 'NOTICE';
             break;
         case E_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_NOTICE:
-            $message .= 'NOTICE ';
+            $type .= 'NOTICE';
             break;
         case E_CORE_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_COMPILE_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_USER_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_PARSE:
-            $message .= 'PARSE ';
+            $type .= 'PARSE';
             break;
         case E_CORE_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_COMPILE_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         default:
-            $message .= 'UNKNOWN EXCEPTION ';
+            $type .= 'UNKNOWN_EXCEPTION';
             break;
     }
 
+    var_dump(func_get_args());
+    exit();
 
-    $message = $message.' '.$errstr.' in '.$errfile.' on line '.$errline.'';
-    if ($log){ //if log module not initialized yet, it will only throw new error. So, use it only if it is initialized
-        $log->log('system', 'error', $message);
-    }
+    // TODOX ensure that log will be used only if log system is active
+    ipLog()->error($type . ': ' . $errstr . ' in {file} on {line}', array('file' => $errfile, 'line' => $errline));
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
-        throw new \Ip\PhpException($message, $errno);
+        throw new \Ip\PhpException($type, $errno);
     }
-    if($log && ipConfig()->getRaw('ERRORS_SEND')){
-        $logsCount = $log->lastLogsCount(60, 'system/error');
-        if($logsCount <= 9){
-            if($logsCount == 9)
-            $message .= '
-
-Error emails count has reached the limit. See logs for more errors.';
-
-            $queue = new \Ip\Module\Email\Module();
-            if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-            else
-            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-            $queue->send();
-
-
-            $log->log('system/error', 'Sent e-mail to '.ipConfig()->getRaw('ERRORS_SEND'), $message);
-        }
-    }
+    // TODOX log errors and send notifications
+//    if($log && ipConfig()->getRaw('ERRORS_SEND')){
+//        $logsCount = $log->lastLogsCount(60, 'system/error');
+//        if($logsCount <= 9){
+//            if($logsCount == 9)
+//            $message .= '
+//
+//Error emails count has reached the limit. See logs for more errors.';
+//
+//            $queue = new \Ip\Module\Email\Module();
+//            if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
+//            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
+//            else
+//            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
+//            $queue->send();
+//
+//
+//            $log->log('system/error', 'Sent e-mail to '.ipConfig()->getRaw('ERRORS_SEND'), $message);
+//        }
+//    }
 
 
     restore_error_handler();

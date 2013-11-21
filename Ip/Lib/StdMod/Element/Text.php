@@ -11,6 +11,7 @@ class Text extends Element{ //data element in area
     var $regExpression;
     var $regExpressionError;
     var $maxLength;
+    protected $filterPreviewValue;
 
     function __construct($variables){
         if(!isset($variables['order'])){
@@ -94,12 +95,21 @@ class Text extends Element{ //data element in area
         }
     }
 
+    function setPreviewValueFilter($callable)
+    {
+        $this->filterPreviewValue = $callable;
+    }
 
     function previewValue($record, $area){
 
         $answer = mb_substr($record[$this->dbField], 0, $this->previewLength);
         $answer = htmlspecialchars($answer);
         $answer = \Ip\Internal\Text\String::mb_wordwrap($answer, 10, "&#x200B;", 1);
+
+        if ($this->filterPreviewValue) {
+            $filter = $this->filterPreviewValue;
+            $answer = $filter($answer, array('record' => $record, 'area' => $area));
+        }
         return $answer;
 
     }
