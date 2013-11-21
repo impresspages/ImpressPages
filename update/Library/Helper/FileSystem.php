@@ -152,7 +152,7 @@ class FileSystem
      */
     public function clean($dir) {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \Exception("Directory doesn't exist: ".$dir);
+            throw new \IpUpdate\Library\UpdateException("Directory doesn't exist: ".$dir, \IpUpdate\Library\UpdateException::UNKNOWN);
         }
 
         if ($handle = opendir($dir)) {
@@ -174,7 +174,7 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \Exception("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
+            throw new \IpUpdate\Library\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."", \IpUpdate\Library\UpdateException::UNKNOWN);
         }
 
         $dir_handle=opendir($source);

@@ -212,7 +212,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         $sql = "SELECT * FROM ".$this->dbPref."m_content_management_widget WHERE 1";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            throw new \Exception($sql . " " . mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql . " " . mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
         while($lock = mysql_fetch_assoc($rs)){
             $this->bindToRepository($lock);
@@ -362,7 +362,7 @@ to style forms.</p>
 
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
         if($lock = mysql_fetch_assoc($rs)) {
@@ -386,7 +386,7 @@ to style forms.</p>
 
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
     }

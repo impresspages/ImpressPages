@@ -28,7 +28,7 @@
     "Content.widgetTextImageBigHeight": 600,
 
 
-    "Design.themeDirs": '',
+    "Design.themeDirs": "",
     "Email.hourlyLimit": 100
 
 }
