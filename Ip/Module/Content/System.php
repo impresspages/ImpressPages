@@ -210,7 +210,7 @@ class System{
         $typeEmail = $parametersMod->getValue('Form.type_email');
         $typeTextarea = $parametersMod->getValue('Form.type_textarea');
         $typeSelect = $parametersMod->getValue('Form.type_select');
-        $typeConfirm = $parametersMod->getValue('Form.type_confirm');
+        $typeCheckbox = $parametersMod->getValue('Form.type_checkbox');
         $typeRadio = $parametersMod->getValue('Form.type_radio');
         $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
         $typeFile = $parametersMod->getValue('Form.type_file');
@@ -219,7 +219,7 @@ class System{
         $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
         $fieldTypes['IpTextarea']= new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
         $fieldTypes['IpSelect']= new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $fieldTypes['IpConfirm']= new FieldType('IpConfirm', '\Ip\Form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $fieldTypes['IpCheckbox']= new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
         $fieldTypes['IpRadio']= new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
         $fieldTypes['IpCaptcha']= new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['IpFile']= new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
