@@ -44,7 +44,6 @@ class element_email extends \Library\Php\StandardModule\Element{ //data element 
     }
 
     function preview_value($value){
-        global $parametersMod;
         global $cms;
         return '<span style="cursor:pointer;" onclick="window.open(\''.$cms->generateWorkerUrl($cms->curModId, 'action=preview&record_id='.((int)$value)).'\',\'mywindow\',\'width=700,height=800,resizable=yes,scrollbars=yes,location=no,directories=no,menubar=no,copyhistory=no\')">'.__('Preview', 'ipAdmin').'</span>';
     }

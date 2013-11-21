@@ -177,7 +177,7 @@ class View implements \Ip\Response\ResponseInterface
     public function __toString()
     {
         try {
-        $content = $this->render();
+            $content = $this->render();
         } catch (\Exception $e) {
             /*
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
@@ -188,8 +188,7 @@ class View implements \Ip\Response\ResponseInterface
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
             } else {
-                // TODOX return appropriate string
-                throw $e;
+                return '';
             }
         }
 

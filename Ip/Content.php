@@ -7,7 +7,7 @@
 
 namespace Ip;
 
-//TODOX move to Content service
+
 use Guzzle\Parser\ParserRegistry;
 
 /**
