@@ -46,6 +46,16 @@ class AdminController extends \Ip\Controller
         $element->disabledOnUpdate = true;
         $element->previewLength = 200;
         $element->searchable = true;
+        $element->setPreviewValueFilter(function($value, $info) {
+                $context = json_decode($info['record']['context'], true);
+
+                $replace = array();
+                foreach ($context as $key => $val) {
+                    $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
+                }
+
+                return strtr($value, $replace);
+            });
         $elements[] = $element;
 
         $element = new \Ip\Lib\StdMod\Element\Text(array(
@@ -57,6 +67,12 @@ class AdminController extends \Ip\Controller
         $element->disabledOnUpdate = true;
         $element->searchable = true;
         $element->previewLength = 200;
+        $element->setPreviewValueFilter(function($value, $info) {
+                $context = json_decode($info['record']['context'], true);
+                unset($context['plugin']);
+                return var_export($context, true);
+            });
+
         $elements[] = $element;
 
         $area0 = new \Ip\Lib\StdMod\Area();
