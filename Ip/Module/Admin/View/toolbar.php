@@ -14,7 +14,14 @@
 
             <span class="ipmMenuTitle"><?php _e('Menu', 'ipAdmin') ?></span>
             <?php
-                echo $this->generateMenu('admin_navigation', $menuItems, 'bootstrapNav.php');
+
+                $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+                $data = array(
+                    'items' => $menuItems,
+                    'depth' => 1
+                );
+                $view = \Ip\View::create($viewFile, $data);
+                echo $view->render();
                 //TODOX in this way anyone who can access menu config, can change this menu to anything :| secure somehow
             ?>
             <ul>
