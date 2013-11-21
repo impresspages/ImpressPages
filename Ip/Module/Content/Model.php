@@ -229,12 +229,12 @@ class Model{
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
         
-        $data = array (
+        $variables = array (
             'html' => $previewHtml,
             'widgetRecord' => $widgetRecord,
             'managementState' => $managementState
         );
-        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
+        $answer = \Ip\View::create('view/widget_preview.php', $variables)->render();
         return $answer;
     }
 

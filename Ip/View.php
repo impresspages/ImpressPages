@@ -22,7 +22,8 @@ class View implements \Ip\Response\ResponseInterface
     const DOCTYPE_HTML4_TRANSITIONAL = 5;
     const DOCTYPE_HTML4_FRAMESET = 6;
     const DOCTYPE_HTML5 = 7;
-    
+
+    const OVERRIDE_DIR = 'override';
         
     private $file;
     private $data;
@@ -294,32 +295,43 @@ class View implements \Ip\Response\ResponseInterface
     }
     
     private static function findFile($file, $sourceFile) {
-        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
-            $file = dirname($sourceFile).'/'.$file;
-        }
-
-
-        $moduleView = ''; //relative link to view according to modules root.
-
-
-        // TODOX Plugin dir
-
-        if ($moduleView != '') {
-            // TODOX override module views according to new structure
-//            if (file_exists(ipConfig()->themeFile('modules/'.$moduleView))) {
-//                return ipConfig()->themeFile('modules/'.$moduleView);
-//            }
-
-            // TODOX Plugin dir
-
-
-
-        } else {
+        if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             if (file_exists($file)) {
                 return $file;
             } else {
                 return false;
             }
+        }
+
+
+        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
+            $file = dirname($sourceFile).'/'.$file;
+        }
+
+        if (strpos($file, ipConfig()->baseFile('')) === 0) {
+            //core dir
+            $relativeFile = substr($file, strlen(ipConfig()->baseFile('')));
+        } elseif (strpos($file, ipConfig()->pluginFile('')) === 0) {
+            //plugin dir
+            $relativeFile = substr($file, strlen(ipConfig()->pluginFile('')));
+        } elseif (strpos($file, ipConfig()->themeFile('')) === 0) {
+            //theme dir
+            $relativeFile = substr($file, strlen(ipConfig()->themeFile('')));
+        }
+
+
+        $fileInThemeDir = ipConfig()->themeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
+        if (is_file($fileInThemeDir)) {
+            //found view in theme.
+            return $fileInThemeDir;
+        }
+
+
+        if (file_exists($file)) {
+            //found file in original location
+            return $file;
+        } else {
+            return false;
         }
 
         return false;
