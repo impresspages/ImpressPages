@@ -60,7 +60,7 @@ class Model{
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
         foreach($revisions as $revision) {
-            $managementUrls[] = $currentPageLink . '&cms_revision=' . $revision['revisionId'];
+            $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
         }
 
         $revision = \Ip\ServiceLocator::content()->getRevision();

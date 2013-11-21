@@ -42,7 +42,7 @@
     <?php if(!$manageableRevision){ ?>
             <div class="ipAdminWidgetsDisable">
                 <p>
-                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); echo date("Y-m-d H:i", $currentRevision['created']) ?>
+                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
                     <a href="#" class="ipActionPublish"><?php _e('Publish this revision', 'ipAdmin') ?></a>
                     <a href="#" class="ipActionSave"><?php _e('Duplicate and edit this revision', 'ipAdmin') ?></a>
                 </p>

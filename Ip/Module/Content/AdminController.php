@@ -454,7 +454,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
+            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'?cms_revision='.$newRevisionId
         );
 
         return new \Ip\Response\Json($data);
