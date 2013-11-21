@@ -61,13 +61,13 @@ DROP TABLE IF EXISTS `ip_cms_log`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `module` varchar(255) NOT NULL COMMENT 'module group and name',
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(255) DEFAULT NULL,
-  `value_str` mediumtext,
-  `value_int` int(11) DEFAULT NULL,
-  `value_float` float DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `level` varchar(255) NOT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `context` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `time` (`time`),
+  KEY `message` (`message`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
