@@ -85,11 +85,11 @@
                         $file.addClass('ipgHide');
                     }
                 });
-                $this.find('.ipmBrowserSearch .icon-search').removeClass('icon-search').addClass('icon-remove');
+                $this.find('.ipmBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
             } else {
                 // show all files if term doesn't exist
                 $files.removeClass('ipgHide');
-                $this.find('.ipmBrowserSearch .icon-remove').removeClass('icon-remove').addClass('icon-search');
+                $this.find('.ipmBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
             }
 
             // loop all lists
@@ -134,22 +134,22 @@
 
         _addFileData : function($file, data) {
             // icon
-            var iconClass = 'icon-file-alt';
+            var iconClass = 'fa fa-file-o';
             switch (data.ext) {
                 case 'gif':
                 case 'jpeg':
                 case 'jpg':
                 case 'png':
-                    iconClass = 'icon-picture';
+                    iconClass = 'fa fa-picture-o';
                     break;
                 case 'pdf':
-                    iconClass = 'icon-print';
+                    iconClass = 'fa fa-print';
                     break;
                 case 'txt':
-                    iconClass = 'icon-file-text-alt';
+                    iconClass = 'fa fa-file-text-o';
                     break;
                 case 'exe':
-                    iconClass = 'icon-windows';
+                    iconClass = 'fa fa-windows';
                     break;
                 case '7z':
                 case 'apk':
@@ -163,7 +163,7 @@
                 case 'tar.gz':
                 case 'tgz':
                 case 'zip':
-                    iconClass = 'icon-archive';
+                    iconClass = 'fa fa-archive';
                     break;
                 case 'aac':
                 case 'cda':
@@ -173,7 +173,7 @@
                 case 'ogg':
                 case 'wav':
                 case 'wma':
-                    iconClass = 'icon-music';
+                    iconClass = 'fa fa-music';
                     break;
                 case 'aaf':
                 case 'avi':
@@ -184,7 +184,7 @@
                 case 'mpg':
                 case 'mov':
                 case 'wmv':
-                    iconClass = 'icon-film';
+                    iconClass = 'fa fa-film';
                     break;
             }
             $file.find('i').addClass(iconClass);

@@ -62,19 +62,19 @@ class Template {
             <div id="controlls">
                 <ul>
                     <button id="buttonNewPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-file-alt"></i>
+                        <i class="fa fa-file-o"></i>
                         '.__('New page', 'ipAdmin').'
                     </button>
                     <button id="buttonDeletePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-trash"></i>
+                        <i class="fa fa-trash-o"></i>
                         '.__('Delete', 'ipAdmin').'
                     </button>
                     <button id="buttonCopyPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-copy"></i>
+                        <i class="fa fa-copy"></i>
                         '.__('Copy', 'ipAdmin').'
                     </button>
                     <button id="buttonPastePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-paste"></i>
+                        <i class="fa fa-paste"></i>
                         '.__('Paste', 'ipAdmin').'
                     </button>
                 </ul>    

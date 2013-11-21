@@ -53,10 +53,11 @@
 .ipAdminToolbar .ipmAdminAction:hover {
     color: #fff;
 }
-.ipAdminToolbar .ipmMenu li .icon-stack .icon-stack-base,
-.ipAdminToolbar .ipmAdminAction .icon-stack .icon-stack-base {
+.ipAdminToolbar .ipmMenu li .fa-stack .fa-stack-2x,
+.ipAdminToolbar .ipmAdminAction .fa-stack .fa-stack-2x {
     color: #444653;
     font-size: 1.5em;
+    line-height: 1.33em;
     text-shadow: none;
 }
 .ipAdminToolbar .ipmMenu {

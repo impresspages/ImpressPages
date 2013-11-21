@@ -28,7 +28,7 @@ body {
     margin-top: 10px;
     text-align: right;
 }
-.ipModuleDesign .ipmSelectedTheme .icon-ok {
+.ipModuleDesign .ipmSelectedTheme .fa-check {
     color: #92c131;
 }
 .ipModuleDesign .ipmOtherThemes {

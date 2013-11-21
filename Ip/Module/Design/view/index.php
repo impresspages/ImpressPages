@@ -19,7 +19,7 @@
             <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo $this->esc($contentManagementText); ?></a>
         </div>
         <h2>
-            <i class="icon-ok"></i>
+            <i class="fa fa-check"></i>
             <?php echo $this->esc($theme->getTitle()); ?>
             <small>(<?php echo $this->esc($theme->getVersion()); ?>)</small>
         </h2>
@@ -95,7 +95,7 @@
     </div>
 
     <div class="ipmPreview ipsPreview ipgHide">
-        <button type="button" class="btn ipmPreviewClose ipsPreviewClose"><i class="icon-remove"></i></button>
+        <button type="button" class="btn ipmPreviewClose ipsPreviewClose"><i class="fa fa-times"></i></button>
         <iframe class="ipsFrame" src="" frameborder="0"></iframe>
     </div>
 </div>

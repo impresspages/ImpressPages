@@ -21,9 +21,9 @@
                 <li>
                     <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>">
                         <?php _e('Logout', 'ipAdmin') ?>
-                        <span class="icon-stack">
-                            <i class="icon-sign-blank icon-stack-base"></i>
-                            <i class="icon-remove icon-light"></i>
+                        <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-times fa-stack-1x"></i>
                         </span>
                     </a>
                 </li>
@@ -37,16 +37,16 @@
 
         <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Logout', 'ipAdmin') ?>
-            <span class="icon-stack">
-                <i class="icon-sign-blank icon-stack-base"></i>
-                <i class="icon-remove icon-light"></i>
+            <span class="fa-stack">
+                <i class="fa fa-square fa-stack-2x"></i>
+                <i class="fa fa-times fa-stack-1x"></i>
             </span>
         </a>
         <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Help', 'ipAdmin') ?>
-            <span class="icon-stack">
-                <i class="icon-sign-blank icon-stack-base"></i>
-                <i class="icon-question icon-light"></i>
+            <span class="fa-stack">
+                <i class="fa fa-square fa-stack-2x"></i>
+                <i class="fa fa-question fa-stack-1x"></i>
             </span>
         </a>
     </div>
