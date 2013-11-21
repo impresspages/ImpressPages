@@ -28,7 +28,7 @@ class Helper
         $content = file_get_contents($configFile);
         $values = json_decode($content, true);
         if (!is_array($values)) {
-            throw new \UpdateException("Can't parse configuration file: " . $configFile);
+            throw new \IpUpdate\Library\UpdateException("Can't parse configuration file: " . $configFile, \IpUpdate\Library\UpdateException::SQL);
         }
         foreach ($values as $key => $value) {
             $this->SetOption($key, $value);
@@ -40,7 +40,7 @@ class Helper
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \UpdateException("Option key must have plugin name separated by dot.");
+            throw new \IpUpdate\Library\UpdateException("Option key must have plugin name separated by dot.", \IpUpdate\Library\UpdateException::SQL);
         }
         $this->setValue('Config', $parts[0] . '.' . $parts[1], $value);
     }
