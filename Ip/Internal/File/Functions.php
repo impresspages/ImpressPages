@@ -12,17 +12,19 @@ class Functions{
 
     /**
      * Check if file is in one of publicly accessible directories.
+     *
+     * @param string $fileName absolute file name
      */
     public static function isFileInPublicDir($fileName)
     {
         $fileName = realpath(ipConfig()->baseFile($fileName));
+        //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
         $publicDirs = array(
-            ipConfig()->fileDirFile(''),
-            ipConfig()->temporaryFile(''),
-            ipConfig()->repositoryFile(''),
+            realpath(ipConfig()->fileDirFile('')),
+            realpath(ipConfig()->temporaryFile('')),
+            realpath(ipConfig()->repositoryFile('')),
         );
         foreach ($publicDirs as $publicDir) {
-            //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
             if (strpos($fileName, $publicDir) === 0) {
                 return true;
             }
