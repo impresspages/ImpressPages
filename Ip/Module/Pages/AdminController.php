@@ -1137,28 +1137,6 @@ class AdminController extends \Ip\Controller
     }
 
 
-    /**
-     *
-     * Array of pages and subpages
-     * @param array $pages
-     */
-    public function createPagesRecursion ($targetPageId, $pages) {
-        foreach ($pages as $pageKey => $page) {
-
-            $newPageId = Db::insertPage($targetPageId, $page);
-            if ($newPageId == false) {
-                return;
-            }
-
-            foreach ($page['widgets'] as $widgetKey => $widget) {
-                Model::addWidget($targetId = $newPageId, $widget['data'], $widget);
-            }
-
-            if (! empty($page['subpages'])) {
-                self::_createPagesRecursion($newPageId, $page['subpages']);
-            }
-        }
-    }
 
     /**
      * Remove page from session as open one.
