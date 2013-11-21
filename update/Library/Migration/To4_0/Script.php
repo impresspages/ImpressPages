@@ -11,6 +11,9 @@ use IpUpdate\Library\UpdateException;
 class Script extends \IpUpdate\Library\Migration\General
 {
     private $conn;
+    /**
+     * @var \PDO
+     */
     private $dbh;
     private $dbPref;
     private $cf; // config
@@ -24,7 +27,7 @@ class Script extends \IpUpdate\Library\Migration\General
         $dbh = $db->connect($cf);
         $this->dbh = $dbh;
 
-        $this->dbPref = $cf['DB_PREF'];
+        $this->dbPref = $cf['db']['tablePrefix'];
 
         $this->createPluginTable();
 
@@ -42,6 +45,8 @@ class Script extends \IpUpdate\Library\Migration\General
         //TODOX replace administrator/search zone with Search zone in zones list
 
         $this->createStorageTable();
+
+        $this->migrateLogTable();
     }
 
 
@@ -80,7 +85,31 @@ class Script extends \IpUpdate\Library\Migration\General
         $q->execute();
     }
 
+    protected function migrateLogTable()
+    {
+        $sql = "SHOW FIELDS FROM `{$this->dbPref}log` WHERE `Field` = 'context'";
+        $q = $this->dbh->prepare($sql);
+        $q->execute();
+        if ($q->fetchAll()) {
+            return false; // Table is already updated
+        }
 
+        $q = $this->dbh->prepare("DROP TABLE IF EXISTS `{$this->dbPref}log`");
+        $q->execute();
+
+        $sql = "CREATE TABLE IF NOT EXISTS `{$this->dbPref}log` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          `level` varchar(255) NOT NULL,
+          `message` varchar(255) DEFAULT NULL,
+          `context` mediumtext,
+          PRIMARY KEY (`id`),
+          KEY `time` (`time`),
+          KEY `message` (`message`)
+        ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;";
+        $q = $this->dbh->prepare($sql);
+        $q->execute();
+    }
 
     /**
      * (non-PHPdoc)
