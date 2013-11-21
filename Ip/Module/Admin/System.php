@@ -27,6 +27,7 @@ class System {
         }
 
         $getVariables = ipRequest()->getRequest();
+        $getVariables['safeMode'] = $getVariables['safeMode'];
         if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }
