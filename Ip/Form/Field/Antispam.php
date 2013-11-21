@@ -28,9 +28,6 @@
  * try so hard.
  * 
  * If you know any better ways, please contribute on GitHub.
- * 
- * 
- * @author Mangirdas
  *
  */
 namespace Ip\Form\Field;

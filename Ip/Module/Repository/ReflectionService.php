@@ -39,9 +39,6 @@ namespace Ip\Module\Repository;
  *     //do something
  * }
  *
- *
- * @author Mangirdas
- *
  */
 class ReflectionService
 {

@@ -7,13 +7,6 @@
 
 namespace Ip\Module\Pages;
 
-
-
-/**
- *
- * @author Mangirdas Skripka
- *
- */
 class Remotes
 {
     /**

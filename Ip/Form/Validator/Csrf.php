@@ -10,7 +10,6 @@ namespace Ip\Form\Validator;
 /**  
  * 
  * 'Check' antispam field validator
- * @author Mangirdas
  *
  */
 
