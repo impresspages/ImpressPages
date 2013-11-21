@@ -129,23 +129,6 @@ class View implements \Ip\Response\ResponseInterface
         return $this->data;
     }
 
-    /**
-     * 
-     * Set view data
-     * @param array $data
-     * @deprecated
-     */
-    public function setData($data) {
-        $this->setVariables($data);
-    }
-
-    /**
-     * @return array
-     * @deprecated
-     */
-    public function getData() {
-        return $this->getVariables();
-    }
 
     public function setVariable($name, $value)
     {

@@ -163,7 +163,7 @@ class Form{
         if (!$view) {
             $view = \Ip\View::create('Form/view/form.php');
         }
-        $view->setData(array('form' => $this));
+        $view->setVariables(array('form' => $this));
         return $view->render();
     }
 
