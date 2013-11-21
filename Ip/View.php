@@ -374,23 +374,7 @@ class View implements \Ip\Response\ResponseInterface
         return ipSlot($name);
     }
 
-    public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
-    }
 
-    public function generateManagedText($key, $tag = 'div', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
-    }
 
 
     /**

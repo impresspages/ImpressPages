@@ -6,11 +6,11 @@
 ?>
 <footer class="clearfix">
     <div class="col_12">
-        <?php echo $this->generateManagedString('themeName', 'p', __('Theme "Blank"', 'theme-Blank'), 'left'); // Todox: too much of escaping ?>
+        <?php echo ipSlot('Ip.string', array('id' => 'themeName', 'tag' => 'p', 'default' => _e('Theme "Blank"', 'theme-Blank'), 'css' => 'left')) ?>
         <?php
         $_slogan = sprintf(__('Drag & drop with %s', 'theme-Blank'), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'theme-Blank') . '</a>');
         ?>
-        <?php echo $this->generateManagedText('slogan', 'div', $_slogan, 'right'); ?>
+        <?php echo ipSlot('Ip.text', array ('id' => 'slogan', 'tag' => 'div', 'default' => $_slogan, 'css' => 'right')); ?>
     </div>
 </footer>
 </div>

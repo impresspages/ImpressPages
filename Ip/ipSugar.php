@@ -230,6 +230,7 @@ function ipDb()
     return \Ip\ServiceLocator::db();
 }
 
+//TODOX ask Algimantas if this is still used
 //function _n($singular, $plural, $number, $domain)
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
