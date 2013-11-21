@@ -16,9 +16,9 @@ class AdminController extends \Ip\Controller
         $elements = array();
 
         $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'module'
+            'dbField' => 'plugin'
         ));
-        $element->title = __('Module', 'ipAdmin');
+        $element->title = __('Plugin', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
@@ -38,45 +38,25 @@ class AdminController extends \Ip\Controller
 
 
         $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'name'
+            'dbField' => 'message'
         ));
-        $element->title = __('Name', 'ipAdmin');
+        $element->title = __('Message', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
+        $element->previewLength = 200;
         $element->searchable = true;
         $elements[] = $element;
 
         $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'value_str'
+            'dbField' => 'context'
         ));
-        $element->title = __('Value string', 'ipAdmin');
+        $element->title = __('context', 'ipAdmin');
         $element->showOnList = true;
         $element->disabledOnInsert = true;
         $element->disabledOnUpdate = true;
         $element->searchable = true;
-        $element->previewLength = 1000;
-        $elements[] = $element;
-
-
-        $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'value_int'
-        ));
-        $element->title = __('Value integer', 'ipAdmin');
-        $element->showPnList = true;
-        $element->disabledOnInsert = true;
-        $element->disabledOnUpdate = true;
-        $element->searchable = true;
-        $elements[] = $element;
-
-        $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'value_float'
-        ));
-        $element->title = __('Value float', 'ipAdmin');
-        $element->showOnList = true;
-        $element->disabledOnInsert = true;
-        $element->disabledOnUpdate = true;
-        $element->searchable = true;
+        $element->previewLength = 200;
         $elements[] = $element;
 
         $area0 = new \Ip\Lib\StdMod\Area();
