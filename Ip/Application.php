@@ -179,6 +179,7 @@ class Application {
      */
     public function handleResponse(\Ip\Response $response)
     {
+        $response = ipDispatcher()->filter('Application.sendResponse', $response);
         $response->send();
     }
 
