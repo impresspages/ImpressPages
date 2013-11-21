@@ -34,16 +34,18 @@ class Script extends \IpUpdate\Library\Migration\General
         $helper = new Helper($cf, $this->conn);
         $helper->import(__DIR__ . '/options.json');
 
-        //TODOX remove modules and permissions: sitemap, modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue, system
+        //TODOX
+        /*
+        remove modules and permissions: sitemap, modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue, system
 
-        //TODOX update zones to new associated plugins
+        update zones to new associated plugins
 
-        //TODOX remove newsletter zone
+        remove newsletter zone
 
-        //TODOX remove sitemap zone
-        //TODOX communit/user zone to user zone
-        //TODOX replace administrator/search zone with Search zone in zones list
-
+        remove sitemap zone
+        communit/user zone to user zone
+        replace administrator/search zone with Search zone in zones list
+        */
         $this->createStorageTable();
 
         $this->migrateLogTable();
