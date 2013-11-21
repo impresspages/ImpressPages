@@ -16,17 +16,6 @@ class AdminController extends \Ip\Controller
         $elements = array();
 
         $element = new \Ip\Lib\StdMod\Element\Text(array(
-            'dbField' => 'plugin'
-        ));
-        $element->title = __('Plugin', 'ipAdmin');
-        $element->showOnList = true;
-        $element->disabledOnInsert = true;
-        $element->disabledOnUpdate = true;
-        $element->searchable = true;
-        $elements[] = $element;
-
-
-        $element = new \Ip\Lib\StdMod\Element\Text(array(
             'dbField' => 'time'
         ));
         $element->title = __('Time', 'ipAdmin');
@@ -51,7 +40,9 @@ class AdminController extends \Ip\Controller
 
                 $replace = array();
                 foreach ($context as $key => $val) {
-                    $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
+                    if (is_string($val) || is_numeric($val)) {
+                        $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
+                    }
                 }
 
                 return strtr($value, $replace);
@@ -69,7 +60,6 @@ class AdminController extends \Ip\Controller
         $element->previewLength = 200;
         $element->setPreviewValueFilter(function($value, $info) {
                 $context = json_decode($info['record']['context'], true);
-                unset($context['plugin']);
                 return var_export($context, true);
             });
 

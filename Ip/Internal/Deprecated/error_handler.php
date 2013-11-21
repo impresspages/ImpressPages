@@ -16,55 +16,55 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
 
     global $parametersMod;
-    $message = '';
+    $type = 'php.';
     switch ($errno) {
         case E_USER_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_USER_NOTICE:
-            $message .= 'NOTICE ';
+            $type .= 'NOTICE';
             break;
         case E_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_NOTICE:
-            $message .= 'NOTICE ';
+            $type .= 'NOTICE';
             break;
         case E_CORE_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_COMPILE_WARNING:
-            $message .= 'WARNING ';
+            $type .= 'WARNING';
             break;
         case E_USER_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_PARSE:
-            $message .= 'PARSE ';
+            $type .= 'PARSE';
             break;
         case E_CORE_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         case E_COMPILE_ERROR:
-            $message .= 'ERROR ';
+            $type .= 'ERROR';
             break;
         default:
-            $message .= 'UNKNOWN EXCEPTION ';
+            $type .= 'UNKNOWN_EXCEPTION';
             break;
     }
 
-
-    $message = $message.' '.$errstr.' in '.$errfile.' on line '.$errline.'';
+    var_dump(func_get_args());
+    exit();
 
     // TODOX ensure that log will be used only if log system is active
-    ipLog()->error($message, array('errorName' => 'ErrorHandler.phpError'));
+    ipLog()->error($type . ': ' . $errstr . ' in {file} on {line}', array('file' => $errfile, 'line' => $errline));
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
-        throw new \Ip\PhpException($message, $errno);
+        throw new \Ip\PhpException($type, $errno);
     }
     // TODOX log errors and send notifications
 //    if($log && ipConfig()->getRaw('ERRORS_SEND')){
