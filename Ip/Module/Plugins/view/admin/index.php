@@ -1,4 +1,4 @@
-<div class="ip ipModulePlugins">
+<div class="ipModulePlugins">
     <?php foreach ($plugins as $plugin){ ?>
         <div class="panel panel-default" data-pluginname="<?php echo $this->esc($plugin['name']) ?>">
             <div class="panel-heading"><?php echo $this->esc($plugin['title']) ?></div>
