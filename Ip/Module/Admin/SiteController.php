@@ -25,9 +25,9 @@ class SiteController extends \Ip\Controller{
         if (empty($errors)) {
             $ip = ipRequest()->getServer('REMOTE_ADDR');
             if (Model::instance()->login($username, ipRequest()->getPost('password'))) {
-                ipLog()->info('Admin {username} logged in from IP {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             } else {
-                ipLog()->info('Admin {username} login incorrect.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+                ipLog()->info('Admin.loginIncorrect: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 ipDispatcher()->notify('Admin.loginIncorrect', array('username' => $username, 'ip' => $ip));
                 $errors['password'] =  __('Incorrect username or password', 'ipAdmin');
             }

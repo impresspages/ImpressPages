@@ -87,7 +87,7 @@ class Application {
 
         if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
-            ipLog()->error('Possible CSRF attack.', array('post' => ipRequest()->getPost(), 'plugin' => 'Core'));
+            ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
                 'status' => 'error'
             );
@@ -211,7 +211,7 @@ class Application {
                 }
 
                 if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
-                    ipLog()->error('Failed fake cron', array('plugin' => 'Cron', 'result' => $fakeCronAnswer));
+                    ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
                 }
             }
 

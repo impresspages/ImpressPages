@@ -51,7 +51,7 @@ class AdminController extends \Ip\Controller{
     {
         ipRequest()->mustBePost();
 
-        ipLog()->info('Cache was cleared.', array('plugin' => 'System'));
+        ipLog()->info('System.cacheCleared');
         $module = new Module;
         $cachedUrl = \Ip\Internal\DbSystem::getSystemVariable('cached_base_url'); // get system variable
         $module->clearCache($cachedUrl);
