@@ -31,14 +31,12 @@ class PublicController extends \Ip\Controller
 
     public function index()
     {
-        $log = \Ip\ServiceLocator::log();
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
-            $log->log('Cron', 'incorrect cron password');
-            throw new \Ip\CoreException('Incorrect cron password');
+            ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
         }
 
         \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionStart', time());
-        $log->log('Cron', 'start');
+        ipLog()->info('Cron.started');
         $data = array(
             'firstTimeThisYear' => $this->firstTimeThisYear,
             'firstTimeThisMonth' => $this->firstTimeThisMonth,
@@ -51,8 +49,8 @@ class PublicController extends \Ip\Controller
 
         ipDispatcher()->notify('Cron.execute', $data);
 
-        $log->log('Cron', 'end');
         \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionEnd', time());
+        ipLog()->info('Cron.finished');
 
         $response = new \Ip\Response();
         $response->setContent(__('OK', 'ipAdmin'));
@@ -68,15 +66,19 @@ class PublicController extends \Ip\Controller
         $this->firstTimeThisHour = true;
         $this->lastTime = null;
 
-        $lastExecutionEnd = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart', NULL);
+        $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionEnd', NULL);
+        $lastExecutionStart = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart', NULL);
+        if ($lastExecution < $lastExecutionStart) { // if last cron execution failed to finish
+            $lastExecution = $lastExecutionStart;
+        }
 
-        if (!$lastExecutionEnd && !(ipRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
-            $this->firstTimeThisYear = date('Y') != date('Y', $lastExecutionEnd);
-            $this->firstTimeThisMonth = date('Y-m') != date('Y-m', $lastExecutionEnd);
-            $this->firstTimeThisWeek = date('Y-w') != date('Y-w', $lastExecutionEnd);
-            $this->firstTimeThisDay = date('Y-m-d') != date('Y-m-d', $lastExecutionEnd);
-            $this->firstTimeThisHour = date('Y-m-d H') != date('Y-m-d H', $lastExecutionEnd);
-            $this->lastTime = $lastExecutionEnd;
+        if (!$lastExecution && !(ipRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
+            $this->firstTimeThisYear = date('Y') != date('Y', $lastExecution);
+            $this->firstTimeThisMonth = date('Y-m') != date('Y-m', $lastExecution);
+            $this->firstTimeThisWeek = date('Y-w') != date('Y-w', $lastExecution);
+            $this->firstTimeThisDay = date('Y-m-d') != date('Y-m-d', $lastExecution);
+            $this->firstTimeThisHour = date('Y-m-d H') != date('Y-m-d H', $lastExecution);
+            $this->lastTime = $lastExecution;
         }
     }
 
