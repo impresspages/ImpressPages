@@ -14,6 +14,28 @@ class Logger extends \Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
+        // TODOX check if connected to database
+        if (!is_string($message)) { // Probably programmer made a mistake, used Logger::log($message, $context)
+            $row = array(
+                'level' => \Psr\Log\LogLevel::ERROR,
+                'message' => 'Code uses ipLog()->log() without giving $level info.',
+                'context' => json_encode(array('args' => func_get_args())),
+            );
 
+            ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
+            return;
+        }
+
+        $row = array(
+            'level' => $level,
+            'message' => $message,
+            'context' => json_encode($context),
+        );
+
+        if (!empty($context['plugin'])) {
+            $row['plugin'] = $context['plugin'];
+        }
+
+        ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
     }
 }

@@ -58,33 +58,34 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
 
 
     $message = $message.' '.$errstr.' in '.$errfile.' on line '.$errline.'';
-    if ($log){ //if log module not initialized yet, it will only throw new error. So, use it only if it is initialized
-        $log->log('system', 'error', $message);
-    }
+
+    // TODOX ensure that log will be used only if log system is active
+    ipLog()->error($message, array('plugin' => 'Core', 'context' => 'ErrorHandler'));
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
         throw new \Ip\PhpException($message, $errno);
     }
-    if($log && ipConfig()->getRaw('ERRORS_SEND')){
-        $logsCount = $log->lastLogsCount(60, 'system/error');
-        if($logsCount <= 9){
-            if($logsCount == 9)
-            $message .= '
-
-Error emails count has reached the limit. See logs for more errors.';
-
-            $queue = new \Ip\Module\Email\Module();
-            if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-            else
-            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-            $queue->send();
-
-
-            $log->log('system/error', 'Sent e-mail to '.ipConfig()->getRaw('ERRORS_SEND'), $message);
-        }
-    }
+    // TODOX log errors and send notifications
+//    if($log && ipConfig()->getRaw('ERRORS_SEND')){
+//        $logsCount = $log->lastLogsCount(60, 'system/error');
+//        if($logsCount <= 9){
+//            if($logsCount == 9)
+//            $message .= '
+//
+//Error emails count has reached the limit. See logs for more errors.';
+//
+//            $queue = new \Ip\Module\Email\Module();
+//            if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
+//            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
+//            else
+//            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
+//            $queue->send();
+//
+//
+//            $log->log('system/error', 'Sent e-mail to '.ipConfig()->getRaw('ERRORS_SEND'), $message);
+//        }
+//    }
 
 
     restore_error_handler();
