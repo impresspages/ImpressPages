@@ -12,19 +12,24 @@ class SiteController extends \Ip\Controller{
         $errors = $validateForm->validate(ipRequest()->getPost());
 
         if (empty($errors)) {
-            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
-                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-                \Ip\Internal\Db::log('system', 'backend login suspended', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
-            }
+            // TODOX do it through filter and don't use log
+//            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+//                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
+//                ipLog()->notice('Admin login `{username}` suspended. IP: {ip}', array('username' => ipRequest()->getPost('login'), 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+//            }
 
         }
 
+        $username = ipRequest()->getPost('login');
+
         if (empty($errors)) {
-            if (Model::instance()->login(ipRequest()->getPost('login'), ipRequest()->getPost('password'))) {
-                \Ip\Internal\Db::log('system', 'backend login', ipRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+            $ip = ipRequest()->getServer('REMOTE_ADDR');
+            if (Model::instance()->login($username, ipRequest()->getPost('password'))) {
+                ipLog()->info('Admin {username} logged in from IP {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
             } else {
-                \Ip\Internal\Db::log('system', 'backend login incorrect', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
-                $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
+                ipLog()->info('Admin {username} login incorrect.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+                ipDispatcher()->notify('Admin.loginIncorrect', array('username' => $username, 'ip' => $ip));
+                $errors['password'] =  __('Incorrect username or password', 'ipAdmin');
             }
         }
 

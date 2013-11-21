@@ -112,22 +112,25 @@ class Model{
             return false;
     }
 
-    public function login($username, $pass)
+    public function login($username, $password)
     {
-        if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+        $ip = ipRequest()->getServer('REMOTE_ADDR');
+
+        // TODOX use events for that
+        if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            ipLog()->warning('Admin login suspended for `{user}` from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
+            ipLog()->warning('Admin login suspended for `{username}` from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
         } else {
-            $id = $this->userId($username, $pass);
+            $id = $this->userId($username, $password);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
                 \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
 
-                ipLog()->info('Admin `{user}` logged in from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
+                ipLog()->info('Admin `{username}` logged in from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
                 return true;
             } else {
                 $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                ipLog()->info('Incorrect admin `{user}` login attempt from {ip}.', array('plugin' => 'Admin', 'user' => $username, 'ip' => $_SERVER['REMOTE_ADDR']));
+                ipLog()->info('Incorrect admin `{username}` login attempt from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
                 return false;
             }
         }
@@ -141,6 +144,9 @@ class Model{
 
     protected function incorrectLoginCount($userName)
     {
+        return 0;
+
+        // TODOX do it through storage and not here
         /*
          0 - success
          1 - incorrect login
