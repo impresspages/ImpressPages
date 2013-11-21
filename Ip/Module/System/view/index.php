@@ -14,7 +14,7 @@
 echo $this->subview('header.php')->render();
 ?>
 <div class="content">
-    <h1>ImpressPages CMS <?php echo $this->esc($version); ?></h1>
+    <h1>ImpressPages CMS <?php echo ipEsc($version); ?></h1>
 </div>
 <div class="content">
     <h1><?php _e('Cache', 'ipAdmin') ?></h1>

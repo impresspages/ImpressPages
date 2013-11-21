@@ -4,7 +4,7 @@
         <?php if (count($layouts) > 1) { ?>
             <select name="layout" id="pageLayout">
                 <?php foreach ($layouts as $layoutFile) { ?>
-                    <option value="<?php echo $this->esc($layoutFile) ?>"
+                    <option value="<?php echo ipEsc($layoutFile) ?>"
                             <?php if ($layoutFile == $layout) { ?>selected="selected"<?php } ?>>
                         <?php echo $layoutFile ?> <?php if ($layoutFile == $defaultLayout) { ?>(default)<?php } ?>
                     </option>

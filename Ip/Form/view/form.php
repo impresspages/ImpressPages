@@ -6,7 +6,7 @@
         <?php foreach ($page->getFieldsets() as $fieldsetKey => $fieldset) { ?>
         <fieldset>
             <?php if ($fieldset->getLabel()) { ?>
-                <legend><?php echo $this->esc($fieldset->getLabel()); ?></legend>
+                <legend><?php echo ipEsc($fieldset->getLabel()); ?></legend>
             <?php } ?>
             <?php foreach ($fieldset->getFields() as $fieldKey => $field) { ?>
                 <?php 

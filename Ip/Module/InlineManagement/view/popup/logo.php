@@ -16,7 +16,7 @@
             <ul>
                 <li class="ipmDefaultFont"><?php _e('Default', 'ipAdmin') ?>,</li>
                 <?php if (isset($availableFonts) && is_array($availableFonts)) foreach($availableFonts as $font) { ?>
-                    <li><?php echo $this->esc($font) ?></li>
+                    <li><?php echo ipEsc($font) ?></li>
                 <?php } ?>
             </ul>
         </div>

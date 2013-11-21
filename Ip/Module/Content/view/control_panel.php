@@ -29,7 +29,7 @@
     ?>
                         <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                             <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.$this->esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
+                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.ipEsc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
                             </a>
                         </li>
     <?php } ?>

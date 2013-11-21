@@ -4,7 +4,7 @@
     <?php _e('Image assignment type', 'ipAdmin') ?>
     <select class="ipaType">
         <?php foreach ($types as $key => $type){ ?>
-            <option value="<?php echo $this->esc($type['value']) ?>" <?php echo !empty($type['selected']) ? 'selected="selected"' : '' ?>><?php echo $this->esc($type['title']) ?></option>
+            <option value="<?php echo ipEsc($type['value']) ?>" <?php echo !empty($type['selected']) ? 'selected="selected"' : '' ?>><?php echo ipEsc($type['title']) ?></option>
         <?php } ?>
     </select>
     <?php if (isset($showRemoveLink) && $showRemoveLink) { ?>
