@@ -211,8 +211,7 @@ class Application {
                 }
 
                 if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
-                    $log = \Ip\ServiceLocator::log();
-                    $log->log('Cron', 'Failed fake cron', $fakeCronAnswer);
+                    ipLog()->error('Failed fake cron', array('plugin' => 'Cron', 'result' => $fakeCronAnswer));
                 }
             }
 

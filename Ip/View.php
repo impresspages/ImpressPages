@@ -220,8 +220,7 @@ class View implements \Ip\Response\ResponseInterface
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            $log = \Ip\ServiceLocator::log();
-            $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            ipLog()->error('Exception in View::__toString() method', array('exception' => $e, 'view' => $this->file));
 
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";

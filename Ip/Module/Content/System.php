@@ -134,8 +134,7 @@ class System{
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                $log = \Ip\ServiceLocator::log();
-                $log->log('Content', 'duplicated widget', 'Widget name ' . $widgetFolder);
+                ipLog()->warning('Duplicate widget `{widget}`.', array('plugin' => 'Content', 'widget' => $widgetFolder));
             }
             $answer[] = array (
                 'module' => $moduleName,
