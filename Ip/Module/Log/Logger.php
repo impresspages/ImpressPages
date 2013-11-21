@@ -1,6 +1,6 @@
 <?php
 
-namespace Ip;
+namespace Ip\Module\Log;
 
 class Logger extends \Psr\Log\AbstractLogger
 {
@@ -14,6 +14,6 @@ class Logger extends \Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        
+
     }
 }
