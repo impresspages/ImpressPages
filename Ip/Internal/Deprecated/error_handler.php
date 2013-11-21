@@ -60,7 +60,7 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $message = $message.' '.$errstr.' in '.$errfile.' on line '.$errline.'';
 
     // TODOX ensure that log will be used only if log system is active
-    ipLog()->error($message, array('plugin' => 'Core', 'context' => 'ErrorHandler'));
+    ipLog()->error($message, array('errorName' => 'ErrorHandler.phpError'));
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();

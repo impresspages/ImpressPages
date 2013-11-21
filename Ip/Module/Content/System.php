@@ -134,7 +134,7 @@ class System{
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                ipLog()->warning('Duplicate widget `{widget}`.', array('plugin' => 'Content', 'widget' => $widgetFolder));
+                ipLog()->warning('Content.duplicateWidget: {widget}', array('plugin' => 'Content', 'widget' => $widgetFolder));
             }
             $answer[] = array (
                 'module' => $moduleName,

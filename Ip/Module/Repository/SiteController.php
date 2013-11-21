@@ -50,14 +50,14 @@ class SiteController extends \Ip\Controller{
             switch($e->getCode()){
                 case UploadException::FORBIDDEN_FILE_EXTENSION:
                     $message = $parametersMod->getValue("Form.file_type");
-                    ipLog()->info('Upload failed. ' . $e->getMessage(), array('plugin' => 'Repository'));
+                    ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
                     break;
                 case UploadException::FAILED_TO_MOVE_UPLOADED_FILE:
                 case UploadException::NO_PERMISSION:
                 case UploadException::INPUT_STREAM_ERROR:
                 case UploadException::OUTPUT_STREAM_ERROR:
                 default:
-                    ipLog()->error('File upload error.', array('plugin' => 'Repository', 'exception' => $e));
+                    ipLog()->error('Repository.fileUploadError', array('plugin' => 'Repository', 'exception' => $e));
                     $message = $parametersMod->getValue("Form.server");
                     break;
 

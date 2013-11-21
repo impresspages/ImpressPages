@@ -32,11 +32,11 @@ class PublicController extends \Ip\Controller
     public function index()
     {
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
-            ipLog()->notice('Incorrect cron password from ip `{ip}`.', array('plugin' => 'Cron', 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
         }
 
         \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionStart', time());
-        ipLog()->info('Cron started.', array('plugin' => 'Cron'));
+        ipLog()->info('Cron.started');
         $data = array(
             'firstTimeThisYear' => $this->firstTimeThisYear,
             'firstTimeThisMonth' => $this->firstTimeThisMonth,
@@ -50,7 +50,7 @@ class PublicController extends \Ip\Controller
         ipDispatcher()->notify('Cron.execute', $data);
 
         \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionEnd', time());
-        ipLog()->info('Cron finished.', array('plugin' => 'Cron'));
+        ipLog()->info('Cron.finished');
 
         $response = new \Ip\Response();
         $response->setContent(__('OK', 'ipAdmin'));

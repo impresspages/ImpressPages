@@ -119,18 +119,18 @@ class Model{
         // TODOX use events for that
         if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            ipLog()->warning('Admin login suspended for `{username}` from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+            ipLog()->warning('Admin.loginSuspended: {username} from {ip}', array('username' => $username, 'ip' => $ip));
         } else {
             $id = $this->userId($username, $password);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
                 \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
 
-                ipLog()->info('Admin `{username}` logged in from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return true;
             } else {
                 $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                ipLog()->info('Incorrect admin `{username}` login attempt from {ip}.', array('plugin' => 'Admin', 'username' => $username, 'ip' => $ip));
+                ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return false;
             }
         }
