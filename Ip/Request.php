@@ -240,6 +240,9 @@ class Request
 
         $firstChar = substr(ipRequest()->getRelativePath(), 0, 1);
         if ($firstChar !== '?' && $firstChar != '') {
+            if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
+                throw new \Ip\CoreException('Controller action can be requested only at website root.');
+            }
             $this->controllerClass = $controllerClass;
             $this->controllerAction = $action;
             $this->controllerType = $controllerType;

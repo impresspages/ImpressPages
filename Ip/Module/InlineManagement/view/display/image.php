@@ -1,1 +1,1 @@
-<img class="<?php echo $this->esc($cssClass) ?>" src="<?php echo ipConfig()->baseUrl($this->esc($value)) ?>" alt="" />
+<img class="<?php echo $this->esc($cssClass) ?>" src="<?php echo $this->esc($value) ?>" alt="" />

@@ -53,12 +53,11 @@
             data.key = $this.data('ipInlineManagementText').key;
             data.defaultValue = $this.data('ipInlineManagementText').defaultValue;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
+
 
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._refreshResponse,
@@ -106,13 +105,12 @@
                 }
             );
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
+
 
             //SAVE
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._confirmResponse,
