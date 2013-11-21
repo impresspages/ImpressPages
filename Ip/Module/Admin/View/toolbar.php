@@ -22,7 +22,6 @@
                 );
                 $view = \Ip\View::create($viewFile, $data);
                 echo $view->render();
-                //TODOX in this way anyone who can access menu config, can change this menu to anything :| secure somehow
             ?>
             <ul>
                 <li>
