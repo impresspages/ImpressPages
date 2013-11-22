@@ -285,7 +285,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new \Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error());
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
     }

@@ -44,4 +44,86 @@ class Slot {
         $view = \Ip\View::create($viewFile, $data);
         return $view->render();
     }
+
+
+    public static function text ($params)
+    {
+        $tag = 'div';
+        $defaultValue = '';
+        $cssClass = '';
+        if (empty($params['id'])) {
+            throw new \Ip\CoreException("Ip.text slot requires parameter 'id'");
+        }
+        $key = $params['id'];
+
+        if (isset($params['tag'])) {
+            $tag = $params['tag'];
+        }
+
+        if (isset($params['default'])) {
+            $defaultValue = $params['default'];
+        }
+
+        if (isset($params['class'])) {
+            $cssClass = $params['class'];
+        }
+
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
+        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
+    }
+
+    public static function string($params)
+    {
+        $tag = 'p';
+        $defaultValue = '';
+        $cssClass = '';
+        if (empty($params['id'])) {
+            throw new \Ip\CoreException("Ip.string slot requires parameter 'id'");
+        }
+        $key = $params['id'];
+
+        if (isset($params['tag'])) {
+            $tag = $params['tag'];
+        }
+
+        if (isset($params['default'])) {
+            $defaultValue = $params['default'];
+        }
+
+        if (isset($params['class'])) {
+            $cssClass = $params['class'];
+        }
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
+        return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
+    }
+
+    public static function image($params)
+    {
+        $options = array();
+        $defaultValue = '';
+        $cssClass = '';
+        if (empty($params['id'])) {
+            throw new \Ip\CoreException("Ip.image slot requires parameter 'id'");
+        }
+        $key = $params['id'];
+
+        if (isset($params['default'])) {
+            $defaultValue = $params['default'];
+        }
+
+        if (isset($params['width'])) {
+            $options['width'] = $params['width'];
+        }
+        if (isset($params['height'])) {
+            $options['height'] = $params['height'];
+        }
+
+        if (isset($params['class'])) {
+            $cssClass = $params['class'];
+        }
+
+        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
+        return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
+    }
+
 }

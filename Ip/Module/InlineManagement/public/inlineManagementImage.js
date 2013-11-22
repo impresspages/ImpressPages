@@ -46,12 +46,9 @@
             data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementImage').key;
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
-
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._openPopupResponse,
@@ -174,11 +171,9 @@
             data.key = $this.data('ipInlineManagementImage').key;
 
             //SAVE
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._removeResponse,
@@ -268,13 +263,12 @@
                 }
             }
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
+
 
             //SAVE
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._confirmResponse,

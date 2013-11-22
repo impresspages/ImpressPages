@@ -10,12 +10,10 @@ namespace Ip\Module\Repository;
 /**
  *
  * Centralized repository to store files. Often the same image needs to be used by many
- * modules / widgets. This class handles these dependences. Use this module to add new files to global
+ * modules / widgets. This class handles these dependencies. Use this module to add new files to global
  * files repository. Bind new modules to already existing files. When the file is not bind to any module,
- * it is automatically removed. So bind to existing files, undbind from them and don't whorry if some other
+ * it is automatically removed. So bind to existing files, unbind from them and don't worry if some other
  * modules uses the same files. This class will take care.
- *
- * @author Mangirdas
  *
  */
 class UploadModel{

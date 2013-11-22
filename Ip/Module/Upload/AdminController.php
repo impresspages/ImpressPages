@@ -20,7 +20,7 @@ class AdminController extends \Ip\Controller
             "html" => $html
         );
 
-        // TODOX JsonRpc
+        // TODO JsonRpc
         return new \Ip\Response\Json($result);
     }
 
@@ -33,7 +33,7 @@ class AdminController extends \Ip\Controller
             "html" => $html
         );
 
-        // TODOX JsonRpc
+        // TODO JsonRpc
         return new \Ip\Response\Json($result);
     }
 

@@ -23,7 +23,7 @@ abstract class Validator{
     /**
      * Jquery tools compatible validation arguments
      */
-    public function jtoolsArgs() {
+    public function validatorAttributes() {
         return '';
     }
     

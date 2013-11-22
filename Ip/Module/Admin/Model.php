@@ -116,7 +116,7 @@ class Model{
     {
         $ip = ipRequest()->getServer('REMOTE_ADDR');
 
-        // TODOX use events for that
+        // TODO use events for that
         if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
             ipLog()->warning('Admin.loginSuspended: {username} from {ip}', array('username' => $username, 'ip' => $ip));
@@ -146,7 +146,7 @@ class Model{
     {
         return 0;
 
-        // TODOX do it through storage and not here
+        // TODO do it through storage and not here
         /*
          0 - success
          1 - incorrect login

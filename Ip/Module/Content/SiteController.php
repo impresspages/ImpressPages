@@ -33,7 +33,7 @@ class SiteController extends \Ip\Controller{
             }
 
             // TODOX Trello #133 remove $post parameter
-            return $widgetObject->post($instanceId, ipRequest()->getPost(), $widgetRecord['data']);
+            return $widgetObject->post($instanceId, $widgetRecord['data']);
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }

@@ -11,7 +11,7 @@ class PublicController extends \Ip\Controller
     public function index()
     {
         $currentPage = ipContent()->getCurrentPage();
-        //TODOX set page specific layout
+
         if (
             ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
             $currentPage->getType() === 'error404'
@@ -26,6 +26,8 @@ class PublicController extends \Ip\Controller
         ipContent()->setBlockContent('main', $currentPage->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
+        } else {
+            ipSetLayout(Service::getPageLayout($currentPage));
         }
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/content.js'));

@@ -23,7 +23,7 @@ class Db
             $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (PDOException $e) {
-            throw new \Exception($e->getMessage());
+            throw new \IpUpdate\Library\UpdateException($e->getMessage(), \IpUpdate\Library\UpdateException::SQL);
         }
     }
 

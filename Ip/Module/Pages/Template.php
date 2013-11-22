@@ -258,11 +258,7 @@ class Template {
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
             <img class="linkList" id="internalLinkingIcon" src="' . ipConfig()->coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
-        <p class="field">
-            <label for="generalVisible">'.__('RSS', 'ipAdmin').'</label>
-            <input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
-        </p>
-        
+
         <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
 
 </form>

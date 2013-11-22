@@ -22,7 +22,8 @@ class View implements \Ip\Response\ResponseInterface
     const DOCTYPE_HTML4_TRANSITIONAL = 5;
     const DOCTYPE_HTML4_FRAMESET = 6;
     const DOCTYPE_HTML5 = 7;
-    
+
+    const OVERRIDE_DIR = 'override';
         
     private $file;
     private $data;
@@ -83,29 +84,9 @@ class View implements \Ip\Response\ResponseInterface
         return $answer;
     }
     
-    /**
-     * Escape and echo text
-     * @param string $text
-     */
-    //TODOX remove. use ipEsc()
-    public function esc($text, $variables = null){
-        if (!empty($variables) && is_array($variables)) {
-            foreach($variables as $variableKey => $variableValue) {
-                $text = str_replace('[[' . $variableKey . ']]', $variableValue, $text);
-            }
-            
-        }
-        return htmlspecialchars($text, ENT_QUOTES);
-    }
+
     
-    /**
-     * Escape and echo parameter
-     * @param string $parameterKey
-     */    
-    public function escPar($parameterKey, $variables = null){
-        //TODOX remove all instances
-        return $this->esc($this->par($parameterKey), $variables);
-    }
+
 
     public function par($parameterKey, $variables = null){
         return $parameterKey; //TODOX remove all instances
@@ -149,23 +130,6 @@ class View implements \Ip\Response\ResponseInterface
         return $this->data;
     }
 
-    /**
-     * 
-     * Set view data
-     * @param array $data
-     * @deprecated
-     */
-    public function setData($data) {
-        $this->setVariables($data);
-    }
-
-    /**
-     * @return array
-     * @deprecated
-     */
-    public function getData() {
-        return $this->getVariables();
-    }
 
     public function setVariable($name, $value)
     {
@@ -214,7 +178,7 @@ class View implements \Ip\Response\ResponseInterface
     public function __toString()
     {
         try {
-        $content = $this->render();
+            $content = $this->render();
         } catch (\Exception $e) {
             /*
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
@@ -225,8 +189,7 @@ class View implements \Ip\Response\ResponseInterface
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
             } else {
-                // TODOX return appropriate string
-                throw $e;
+                return '';
             }
         }
 
@@ -332,32 +295,43 @@ class View implements \Ip\Response\ResponseInterface
     }
     
     private static function findFile($file, $sourceFile) {
-        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
-            $file = dirname($sourceFile).'/'.$file;
-        }
-
-
-        $moduleView = ''; //relative link to view according to modules root.
-
-
-        // TODOX Plugin dir
-
-        if ($moduleView != '') {
-            // TODOX override module views according to new structure
-//            if (file_exists(ipConfig()->themeFile('modules/'.$moduleView))) {
-//                return ipConfig()->themeFile('modules/'.$moduleView);
-//            }
-
-            // TODOX Plugin dir
-
-
-
-        } else {
+        if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             if (file_exists($file)) {
                 return $file;
             } else {
                 return false;
             }
+        }
+
+
+        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
+            $file = dirname($sourceFile).'/'.$file;
+        }
+
+        if (strpos($file, ipConfig()->baseFile('')) === 0) {
+            //core dir
+            $relativeFile = substr($file, strlen(ipConfig()->baseFile('')));
+        } elseif (strpos($file, ipConfig()->pluginFile('')) === 0) {
+            //plugin dir
+            $relativeFile = substr($file, strlen(ipConfig()->pluginFile('')));
+        } elseif (strpos($file, ipConfig()->themeFile('')) === 0) {
+            //theme dir
+            $relativeFile = substr($file, strlen(ipConfig()->themeFile('')));
+        }
+
+
+        $fileInThemeDir = ipConfig()->themeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
+        if (is_file($fileInThemeDir)) {
+            //found view in theme.
+            return $fileInThemeDir;
+        }
+
+
+        if (file_exists($file)) {
+            //found file in original location
+            return $file;
+        } else {
+            return false;
         }
 
         return false;
@@ -374,23 +348,7 @@ class View implements \Ip\Response\ResponseInterface
         return ipSlot($name);
     }
 
-    public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
-    }
 
-    public function generateManagedText($key, $tag = 'div', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
-    }
 
 
     /**
