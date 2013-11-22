@@ -49,9 +49,9 @@ class System{
         ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/optionsBox.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        ipAddCss(ipConfig()->coreModuleUrl('Design/public/optionsBox.css'));
+        ipAddCss(ipConfig()->coreModuleUrl('Design/assets/optionsBox.css'));
         if (file_exists(ipConfig()->themeFile(Model::INSTALL_DIR.'Options.js'))) {
             ipAddJavascript(ipConfig()->themeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(ipConfig()->themeFile(Model::INSTALL_DIR.'options.js'))) {

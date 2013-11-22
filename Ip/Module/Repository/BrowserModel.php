@@ -123,7 +123,7 @@ class BrowserModel{
             }
         }
 
-        return ipConfig()->coreModuleUrl('Repository/public/admin/icons/general.png');
+        return ipConfig()->coreModuleUrl('Repository/assets/admin/icons/general.png');
     }
 
     

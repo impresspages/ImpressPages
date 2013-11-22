@@ -14,7 +14,7 @@ class System{
 
     public function init(){
         if (\Ip\ServiceLocator::content()->isManagementState()) {
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/public/system.js'), 0);
+            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/system.js'), 0);
         }
 
         ipDispatcher()->bind('site.urlChanged', __NAMESPACE__ .'\System::urlChanged');

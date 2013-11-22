@@ -39,7 +39,7 @@ class System{
         
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/widgets.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widgets.js'));
 
 
         // TODOX move to more appropriate place
