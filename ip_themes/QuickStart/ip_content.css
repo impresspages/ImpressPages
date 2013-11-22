@@ -1,7 +1,7 @@
 /*
 In order to show ImpressPages widgets well, we use default ip_content.css.
 */
-//TODOX this will fail if Ip dir is moved
+
 @import '../../Ip/Module/Assets/assets/css/ipContent/ip_content.css';
 
 /*

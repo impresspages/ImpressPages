@@ -14,8 +14,14 @@
 
             <span class="ipmMenuTitle"><?php _e('Menu', 'ipAdmin') ?></span>
             <?php
-                echo $this->generateMenu('admin_navigation', $menuItems, 'bootstrapNav.php');
-                //TODOX in this way anyone who can access menu config, can change this menu to anything :| secure somehow
+
+                $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+                $data = array(
+                    'items' => $menuItems,
+                    'depth' => 1
+                );
+                $view = \Ip\View::create($viewFile, $data);
+                echo $view->render();
             ?>
             <ul>
                 <li>
@@ -30,7 +36,7 @@
             </ul>
         </div>
         <?php if ($curModTitle) { ?>
-            <a href="<?php echo $this->esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent ipmMobileHide"><?php echo $this->esc($curModTitle) ?></a>
+            <a href="<?php echo ipEsc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent ipmMobileHide"><?php echo ipEsc($curModTitle) ?></a>
         <?php } ?>
 
 
@@ -42,7 +48,7 @@
                 <i class="fa fa-times fa-stack-1x"></i>
             </span>
         </a>
-        <a target="_blank" href="<?php echo $this->esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
+        <a target="_blank" href="<?php echo ipEsc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Help', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>

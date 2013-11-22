@@ -29,7 +29,7 @@
     ?>
                         <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                             <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.$this->esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
+                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.ipEsc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
                             </a>
                         </li>
     <?php } ?>
@@ -42,7 +42,7 @@
     <?php if(!$manageableRevision){ ?>
             <div class="ipAdminWidgetsDisable">
                 <p>
-                    <?php echo $this->escPar('Content.older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
+                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
                     <a href="#" class="ipActionPublish"><?php _e('Publish this revision', 'ipAdmin') ?></a>
                     <a href="#" class="ipActionSave"><?php _e('Duplicate and edit this revision', 'ipAdmin') ?></a>
                 </p>

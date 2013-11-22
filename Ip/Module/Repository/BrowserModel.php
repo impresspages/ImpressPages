@@ -10,8 +10,6 @@ namespace Ip\Module\Repository;
 /**
  * 
  * Functions required by files repository browser
- * 
- * @author Mangirdas
  *
  */
 class BrowserModel{

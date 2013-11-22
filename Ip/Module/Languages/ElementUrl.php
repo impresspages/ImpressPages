@@ -10,7 +10,6 @@ namespace Ip\Module\Languages;
 class ElementUrl extends \Ip\Lib\StdMod\Element\Text{
 
     function checkField($prefix, $action, $area){
-        global $parametersMod;
 
 
         switch ($action){

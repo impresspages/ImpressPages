@@ -33,21 +33,6 @@ class View{
         $this->data = $data;
     }
     
-    /**
-     * 
-     * Create new view object with the same doctype, but different view file and data
-     * Use it to include another view file within the view
-     * @param string $file
-     * @param array $data
-     */
-    public function subview($file, $data = array())
-    {
-        $foundFile = self::findView($file);
-        self::checkData($data);
-        $view = new \Ip\View($foundFile, $data);
-        $view->setDoctype($this->getDoctype());
-        return $view;
-    }
 
 
     public static function create($file, $data = array())

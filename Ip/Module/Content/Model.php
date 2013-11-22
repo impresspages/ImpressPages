@@ -60,7 +60,7 @@ class Model{
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
         foreach($revisions as $revision) {
-            $managementUrls[] = $currentPageLink . '&cms_revision=' . $revision['revisionId'];
+            $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
         }
 
         $revision = \Ip\ServiceLocator::content()->getRevision();
@@ -229,12 +229,12 @@ class Model{
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
         
-        $data = array (
+        $variables = array (
             'html' => $previewHtml,
             'widgetRecord' => $widgetRecord,
             'managementState' => $managementState
         );
-        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
+        $answer = \Ip\View::create('view/widget_preview.php', $variables)->render();
         return $answer;
     }
 

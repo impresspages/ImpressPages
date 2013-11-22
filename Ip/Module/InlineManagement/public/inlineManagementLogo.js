@@ -53,12 +53,11 @@
             data.securityToken = ip.securityToken;
             data.cssClass = $this.data('cssclass');
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
+
 
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._popupContentResponse,
@@ -286,13 +285,12 @@
                 }
             }
 
-            var urlParts = window.location.href.split('#');
-            var postUrl = urlParts[0];
+
 
             //SAVE
             $.ajax({
                 type : 'POST',
-                url : postUrl,
+                url : ip.baseUrl,
                 data : data,
                 context : $this,
                 success : methods._confirmResponse,

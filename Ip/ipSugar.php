@@ -9,6 +9,12 @@ function ipGetOption($option, $defaultValue = null)
     return \Ip\ServiceLocator::options()->getOption($option, $defaultValue);
 }
 
+
+function ipSetOption($option, $value)
+{
+    \Ip\ServiceLocator::options()->setOption($option, $value);
+}
+
 /**
  * @return \Ip\Config
  */
@@ -18,10 +24,6 @@ function ipConfig()
 }
 
 
-function ipSetOption($option, $value)
-{
-    \Ip\ServiceLocator::options()->setOption($option, $value);
-}
 
 /**
  * @return \Ip\Content
@@ -105,7 +107,7 @@ function ipAddCss($file, $stage = 1)
     if (method_exists($response, 'addCss')) {
         $response->addCss($file, $stage);
     } else {
-        ipLog()->error('Respose.cantAddCss: Response method has no addCss method', array('response' => $response));
+        ipLog()->error('Response.cantAddCss: Response method has no addCss method', array('response' => $response));
     }
 
 }
@@ -230,6 +232,7 @@ function ipDb()
     return \Ip\ServiceLocator::db();
 }
 
+//TODOX ask Algimantas if this is still used
 //function _n($singular, $plural, $number, $domain)
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);

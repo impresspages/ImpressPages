@@ -76,7 +76,7 @@ class Update
             $answer = $lock['value'];
             return $answer;
         } else {
-            throw new Exception("Can't find installation version ".$sql);
+            throw new \IpUpdate\Library\UpdateException("Can't find installation version ".$sql, \IpUpdate\Library\UpdateException::SQL);
         }
     }
     
@@ -397,7 +397,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $q->execute($params);
         
         if ($this->getCurrentVersion() != $version){
-            throw new \Exception("Can't update system version to: ".$version);
+            throw new \IpUpdate\Library\UpdateException("Can't update system version to: ".$version, \IpUpdate\Library\UpdateException::UNKNOWN);
         }
     }
 

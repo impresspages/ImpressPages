@@ -19,7 +19,7 @@ class Required extends Validator {
         }
     }
 
-    public function jtoolsArgs() {
+    public function validatorAttributes() {
         return 'required="required"';
     }
 
