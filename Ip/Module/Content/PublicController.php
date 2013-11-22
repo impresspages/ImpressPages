@@ -23,7 +23,6 @@ class PublicController extends \Ip\Controller
             return new \Ip\Response\Redirect($currentPage->getLink());
         }
 
-        ipContent()->setBlockContent('main', $currentPage->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             ipSetLayout(ipConfig()->coreModuleFile('Admin/view/safeModeLayout.php'));
         } else {
@@ -37,6 +36,8 @@ class PublicController extends \Ip\Controller
         } else {
             ipAddJavascriptVariable('ipContentShowEditButton', 1);
         }
+
+        return $currentPage->generateContent();
     }
 
     private function initManagement()
