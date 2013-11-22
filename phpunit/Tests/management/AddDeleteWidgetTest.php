@@ -64,10 +64,6 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
-        $ipActions->addWidget('IpRichText');
-        $this->assertNoErrors();
-        $ipActions->cancelWidget();
-        $this->assertNoErrors();
         $ipActions->addWidget('IpFaq');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
