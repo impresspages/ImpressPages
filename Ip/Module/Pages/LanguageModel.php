@@ -134,13 +134,9 @@ class LanguageModel{
                 *
             FROM
                 `".DB_PREF."zone`
-            WHERE
-                1
             ORDER BY
                 `row_number`";
-        $params = array ();
-        $result = ipDb()->fetchAll($sql, $params);
-        return $result;
+        return ipDb()->fetchAll($sql);
     }
 
     private function deleteRootZoneElement($language) {

@@ -98,7 +98,7 @@ class Dispatcher
             return $value;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
+        if (!isset($this->sortedHandlers[$eventName])) {
             ksort($this->handlers[$eventName]);
             $this->sortedHandlers[$eventName] = true;
         }
@@ -120,7 +120,7 @@ class Dispatcher
             return null;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
+        if (!isset($this->sortedHandlers[$eventName])) {
             ksort($this->handlers[$eventName]);
             $this->sortedHandlers[$eventName] = true;
         }
@@ -145,7 +145,7 @@ class Dispatcher
             return null;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
+        if (!isset($this->sortedHandlers[$eventName])) {
             ksort($this->handlers[$eventName]);
             $this->sortedHandlers[$eventName] = true;
         }

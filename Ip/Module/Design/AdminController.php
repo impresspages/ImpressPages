@@ -22,12 +22,12 @@ class AdminController extends \Ip\Controller
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
         ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/options.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/market.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/design.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/pluginInstall.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Design/public/design.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/public/market.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/options.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/market.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/design.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/pluginInstall.js'));
+        ipAddCss(ipConfig()->coreModuleUrl('Design/assets/design.css'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/market.js'));
 
 
 

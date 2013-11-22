@@ -14,7 +14,6 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
     private $urlBeforeUpdate;
 
     function __construct() {
-        global $parametersMod;
         parent::__construct(
         array(
             'dbTable' => 'language',
@@ -133,7 +132,6 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
     }
 
     function allowDelete($id) {
-        global $parametersMod;
 
         $dbMenuManagement = new \Ip\Module\Pages\Db();
 
