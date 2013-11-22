@@ -16,9 +16,12 @@
     <div class="loginTitle">
         <h1><?php _e('Login', 'ipAdmin') ?></h1>
     </div>
-    <?php echo $loginForm->render() ?>
+    <div class="ip">
+        <?php echo $loginForm->render() ?>
+    </div>
 </div>
 <div class="loginFooter">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
+
 <?php ipPrintJavascript() ?>
 </body>
 </html>
