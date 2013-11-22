@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
   `modify_track2` timestamp NULL DEFAULT NULL,
   `modify_track3` timestamp NULL DEFAULT NULL,
   `modify_frequency` int(11) DEFAULT NULL,
-  `rss` tinyint(1) NOT NULL DEFAULT '0',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cached_html` mediumtext,
   `cached_text` mediumtext COMMENT 'mainly for search purposes',
@@ -176,22 +175,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file' AUTO_INCREMENT=1 ;
 
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_m_administrator_rss`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_rss` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `language_id` int(11) DEFAULT NULL,
-  `zone_key` varchar(255) DEFAULT NULL,
-  `element_id` int(11) DEFAULT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `rss` mediumtext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
 

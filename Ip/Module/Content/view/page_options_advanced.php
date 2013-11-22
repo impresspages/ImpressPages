@@ -34,12 +34,5 @@
         <span>Please use "Menu Management" tab for internal linkig options</span>
         <br />
     </p>
-    <p class="field">
-        <label for="ipContentManagementRss">
-            <?php _e('RSS', 'ipAdmin')?>
-        </label>
-        <input id="ipContentManagementRss" class="stdModBox" type="checkbox" name="rss" <?php echo $element->getRSS() ? 'checked="yes"' : '' ?> />
-        <br />
-    </p>
 
 </form>

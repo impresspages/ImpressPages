@@ -25,7 +25,7 @@ class PublicController extends \Ip\Controller
 
         ipContent()->setBlockContent('main', $currentPage->generateContent());
         if (\Ip\Module\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
+            ipSetLayout(ipConfig()->coreModuleFile('Admin/view/safeModeLayout.php'));
         } else {
             ipSetLayout(Service::getPageLayout($currentPage));
         }
@@ -51,14 +51,14 @@ class PublicController extends \Ip\Controller
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/ipContentManagement.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.block.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.widget.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/exampleContent.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/drag.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/ipContentManagement.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.contentManagement.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.pageOptions.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.widgetbutton.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.block.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.widget.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/exampleContent.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/drag.js'));
 
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
@@ -77,7 +77,7 @@ class PublicController extends \Ip\Controller
         ipAddJavascript(ipConfig()->coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
-        ipAddCss(ipConfig()->coreModuleUrl('Content/public/widgets.css'));
+        ipAddCss(ipConfig()->coreModuleUrl('Content/assets/widgets.css'));
         ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
     }

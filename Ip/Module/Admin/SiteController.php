@@ -77,15 +77,15 @@ class SiteController extends \Ip\Controller{
 
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/assets/login.js'));
 
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipConfig()->coreMOduleFile('Admin/View/login.php'));
+        $response->setLayout(ipConfig()->coreMOduleFile('Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
-        $view = \Ip\View::create('View/login.php', $variables);
+        $view = \Ip\View::create('view/login.php', $variables);
         return $view;
     }
 

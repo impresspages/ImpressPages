@@ -259,8 +259,8 @@ class SiteController extends \Ip\Controller
 
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = ipConfig()->baseFile('');
-        $config['BASE_URL'] = ipConfig()->baseUrl('');
+        $config['BASE_DIR'] = ipConfig()->getRaw('BASE_DIR');
+        $config['BASE_URL'] = ipConfig()->getRaw('BASE_URL');
         $config['ERRORS_SEND'] = $_POST['email'];
         $config['timezone'] = $timezone;
         $config['db'] = $_SESSION['db'];

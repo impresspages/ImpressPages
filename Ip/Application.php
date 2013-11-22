@@ -121,12 +121,19 @@ class Application {
 
 
         $action = $request->getControllerAction();
+        if (!$controller instanceof \Ip\Controller) {
+            throw new \Ip\CoreException($controllerClass.".php must extend \\Ip\\Controller class.");
+        }
+
         $controller->init();
         $controllerAnswer = $controller->$action();
 
-        if (is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
+        if (empty($controllerAnswer) || is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
             if ($controllerAnswer instanceof \Ip\View) {
                 $controllerAnswer = $controllerAnswer->render();
+            }
+            if (empty($controllerAnswer)) {
+                $controllerAnswer = '';
             }
             \Ip\ServiceLocator::response()->setContent($controllerAnswer);
             \Ip\ServiceLocator::removeRequest();
