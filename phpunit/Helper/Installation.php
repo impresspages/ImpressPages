@@ -95,7 +95,7 @@ class Installation
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
         $config['BASE_DIR'] = $this->getInstallationDir();
-        $config['BASE_URL'] = $this->getInstallationUrl();
+        $config['BASE_URL'] = substr($this->getInstallationUrl(), strlen('http://'));
         $config['timezone'] = $this->getSiteTimeZone();
         $config['db'] = array(
             'hostname' => $this->getDbHost(),
