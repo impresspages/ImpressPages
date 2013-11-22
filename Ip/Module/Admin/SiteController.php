@@ -77,7 +77,7 @@ class SiteController extends \Ip\Controller{
 
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/assets/login.js'));
 
 
 

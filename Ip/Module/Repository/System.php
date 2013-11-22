@@ -15,13 +15,13 @@ class System{
         if (\Ip\ServiceLocator::content()->isManagementState()) {
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/public/admin/ipRepository.js'));
-            ipAddCss(ipConfig()->coreModuleUrl('Repository/public/admin/repository.css'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepository.js'));
+            ipAddCss(ipConfig()->coreModuleUrl('Repository/assets/admin/repository.css'));
             ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/public/admin/ipRepositoryUploader.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/public/admin/ipRepositoryAll.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/public/admin/ipRepositoryBuy.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/public/market.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryUploader.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryAll.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryBuy.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/market.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
