@@ -7,6 +7,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class File extends Field
 {
     
@@ -20,7 +22,12 @@ class File extends Field
             'inputName' => $this->getName()
         );
 
-        $view = \Ip\View::create('../view/field/File.php', $data);
+        if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+            $viewFile = 'adminView/file.php';
+        } else {
+            $viewFile = 'publicView/file.php';
+        }
+        $view = \Ip\View::create($viewFile, $data);
 
         return $view->render();
     }
@@ -66,8 +73,12 @@ class File extends Field
             foreach($values[$valueKey]['file'] as $key => $file) {
                 $uploadModel = \Ip\Module\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
-                    $parametersMod = \Ip\ServiceLocator::getParametersMod();
-                    return $parametersMod->getValue("Form.file_upload_session");
+                    if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+                        $error = _s('Session has ended. Please remove and re-upload files.', 'ipAdmin');
+                    } else {
+                        $error = _s('Session has ended. Please remove and re-upload files.', 'ipPublic');
+                    }
+                    return $error;
                 }
             }
         }

@@ -22,7 +22,7 @@ class Fieldset
      * Add field to last fielset. Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(Field\Field $field)
+    public function addField(\Ip\Form\Field $field)
     {
         $this->fields[] = $field;
     }

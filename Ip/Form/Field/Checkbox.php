@@ -9,6 +9,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Checkbox extends Field{
 
     protected $checked = null;

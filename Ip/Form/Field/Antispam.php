@@ -33,6 +33,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Antispam extends Field{
     
     public function __construct($options = array()) {

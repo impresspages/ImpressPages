@@ -52,7 +52,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
 
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if ($field->getType() == \Ip\Form\Field\Field::TYPE_REGULAR) {
+            if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }

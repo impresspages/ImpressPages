@@ -11,10 +11,10 @@
             <?php foreach ($fieldset->getFields() as $fieldKey => $field) { ?>
                 <?php 
                     switch ($field->getLayout()) {
-                        case \Ip\Form\Field\Field::LAYOUT_DEFAULT:
-                            echo $this->subview('field.php', array('field' => $field))->render()."\n";
+                        case \Ip\Form\Field::LAYOUT_DEFAULT:
+                            echo $this->subview('field.php', array('field' => $field, 'environment' => $environment))->render()."\n";
                             break;
-                        case \Ip\Form\Field\Field::LAYOUT_BLANK:
+                        case \Ip\Form\Field::LAYOUT_BLANK:
                         default:
                             echo $field->render($this->getDoctype())."\n";
                             break;
