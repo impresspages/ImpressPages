@@ -7,6 +7,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Captcha extends Field{
     private $catpchaInit;
     

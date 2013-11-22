@@ -20,6 +20,8 @@ class Page
         $this->fieldsets = array();
     }
 
+
+
     public function addFieldset($fieldset)
     {
         $this->fieldsets[] = $fieldset;
@@ -30,7 +32,7 @@ class Page
      * Add field to last fielset. Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(Field\Field $field)
+    public function addField(\Ip\Form\Field $field)
     {
         if (count($this->fieldsets) == 0) {
             $this->addFieldset(new Fieldset());

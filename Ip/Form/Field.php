@@ -4,7 +4,7 @@
  *
  */
 
-namespace Ip\Form\Field;
+namespace Ip\Form;
 
 
 abstract class Field{
@@ -27,6 +27,7 @@ abstract class Field{
     protected $validators;
     protected $attributes;
     protected $classes; // CSS classes to be added to input field
+    protected $environment;
     
     public function __construct($options = array()) {
         $this->validators = array();
@@ -75,9 +76,28 @@ abstract class Field{
         
         
     }
-    
+
+    /**
+     * @param $doctype \Ip\View doctype constant
+     * @return string
+     */
     public abstract function render($doctype);
-    
+
+    /**
+     * Set form environment. Depending on that public or admin translations and layout will be chosen.
+     * ImpressPages tries to detect environment automatically based on current controller. You can set manually the right mode if needed.
+     * @param $environment
+     */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
+
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
     public function __toString() {
         return $this->render(ipConfig()->getRaw('DEFAULT_DOCTYPE'));
     }

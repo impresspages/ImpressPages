@@ -11,6 +11,8 @@ class Form
 {
     const METHOD_POST = 'post';
     const METHOD_GET = 'get';
+    const ENVIRONMENT_ADMIN = 'admin';
+    const ENVIRONMENT_PUBLIC = 'public';
 
     /**
      * @var $pages Page[]
@@ -20,6 +22,7 @@ class Form
     protected $action;
     protected $attributes;
     protected $classes;
+    protected $environment;
 
     public function __construct()
     {
@@ -29,8 +32,29 @@ class Form
         $this->pages = array();
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $this->setEnvironment(self::ENVIRONMENT_ADMIN);
+        } else {
+            $this->setEnvironment(self::ENVIRONMENT_PUBLIC);
+        }
+
 
         $this->addCsrfCheck();
+    }
+
+    /**
+     * Set form environment. Depending on that public or admin translations and layout will be chosen.
+     * ImpressPages tries to detect environment automatically based on current controller. You can set manually the right mode if needed.
+     * @param $environment
+     */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
+
+    public function getEnvironment()
+    {
+        return $this->environment;
     }
 
     /**
@@ -102,11 +126,17 @@ class Form
         return $answer;
     }
 
+    /**
+     * @param \Ip\Form\Page $page
+     */
     public function addPage(\Ip\Form\Page $page)
     {
         $this->pages[] = $page;
     }
 
+    /**
+     * @param \Ip\Form\Fieldset $fieldset
+     */
     public function addFieldset(\Ip\Form\Fieldset $fieldset)
     {
         if (count($this->pages) == 0) {
@@ -120,16 +150,17 @@ class Form
      * Add field to last fielset. Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(\Ip\Form\Field\Field $field)
+    public function addField(Form\Field $field)
     {
         if (count($this->pages) == 0) {
-            $this->addPage(new \Ip\Form\Page());
+            $this->addPage(new \Ip\Form\Page($this));
         }
         end($this->pages)->addField($field);
     }
 
     /**
      * Return all pages
+     * @return \Ip\Form\Page[]
      */
     public function getPages()
     {
@@ -154,12 +185,18 @@ class Form
         }
     }
 
+    /**
+     * @return string
+     */
     public function getMethod()
     {
         return $this->method;
     }
 
 
+    /**
+     * @param string $action
+     */
     public function setAction($action)
     {
         $this->action = $action;
@@ -170,15 +207,51 @@ class Form
         return $this->action;
     }
 
+    /**
+     * @param View $view
+     * @return string
+     */
     public function render(\Ip\View $view = null)
     {
         if (!$view) {
-            $view = \Ip\View::create('Form/view/form.php');
+            if ($this->getEnvironment() == self::ENVIRONMENT_ADMIN) {
+                $view = \Ip\View::create('Form/adminView/form.php');
+            } else {
+                $view = \Ip\View::create('Form/publicView/form.php');
+            }
         }
-        $view->setVariables(array('form' => $this));
+        $view->setVariables(
+            array(
+                'form' => $this,
+                'environment' => $this->getEnvironment()
+            )
+        );
+
+        $fields = $this->getFields();
+        foreach($fields as $field) {
+            $field->setEnvironment($this->getEnvironment());
+        }
+
         return $view->render();
     }
 
+
+    /**
+     * @return \Ip\Form\Fieldset[]
+     */
+    public function getFieldsets()
+    {
+        $pages = $this->getPages();
+        $fieldsets = array();
+        foreach ($pages as $page) {
+            $fieldsets = array_merge($fieldsets, $page->getFieldsets());
+        }
+        return $fieldsets;
+    }
+
+    /**
+     * @return \Ip\Form\Field[]
+     */
     public function getFields()
     {
         $pages = $this->getPages();
@@ -191,7 +264,7 @@ class Form
 
     /**
      * @param $name
-     * @return \Ip\Form\Field\Field
+     * @return \Ip\Form\Field
      */
     public function getField($name)
     {
