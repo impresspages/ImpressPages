@@ -51,11 +51,11 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/View/layout.php';
+            $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/view/layout.php';
             $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
             $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
-            $this->layout = '/Admin/View/safeModeLayout.php';
+            $this->layout = '/Admin/view/safeModeLayout.php';
         } else {
             $this->layout = 'main.php';
         }
