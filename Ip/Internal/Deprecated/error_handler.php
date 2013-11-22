@@ -56,15 +56,12 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
             break;
     }
 
-    var_dump(func_get_args());
-    exit();
-
     // TODOX ensure that log will be used only if log system is active
-    ipLog()->error($type . ': ' . $errstr . ' in {file} on {line}', array('file' => $errfile, 'line' => $errline));
+    ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
-        throw new \Ip\PhpException($type, $errno);
+        throw new \Ip\PhpException("{$errstr} in {$errfile}:{$errline}", $errno);
     }
     // TODOX log errors and send notifications
 //    if($log && ipConfig()->getRaw('ERRORS_SEND')){
