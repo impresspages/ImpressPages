@@ -106,7 +106,7 @@
                     $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipmFileName').text(file.name);
-                    $newFile.find('.ipmRemove').click(function(e){
+                    $newFile.find('.ipsRemove').click(function(e){
                         var $this = $(this);
                         var $file = $this.closest('.ipmFile');
                         var fileId = $file.data('fileId');
@@ -129,7 +129,7 @@
         _uploadProgress : function(up, file) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
-            $file.find('.ipmFileProgressValue').width(Math.round($file.find('.ipmFileProgress').width() * file.percent / 100));
+            $file.find('.ipmFileProgressValue').width(file.percent + '%');
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
