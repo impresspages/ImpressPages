@@ -49,7 +49,7 @@
                     if (options.defaultImage) {
                         defaultImage = options.defaultImage;
                     } else {
-                        defaultImage = ip.moduleDir + 'developer/upload/img/empty.gif';
+                        defaultImage = ip.moduleDir + 'Upload/assets/empty.gif';
                     }
                     
                     var curImage;
