@@ -17,10 +17,10 @@ class System{
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.tooltip.js'),2);
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.ui.overlay.js'),2);
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.toolbox.expose.js'),2);
-            ipAddJavascript(ipConfig()->coreModuleUrl('Wizard/public/jquery.simulate.js'),2);
+            ipAddJavascript(ipConfig()->coreModuleUrl('Wizard/assets/jquery.simulate.js'),2);
             // loading module's elements
-            ipAddCss(ipConfig()->coreModuleUrl('Wizard/public/wizard.css'),2);
-            ipAddJavascript(ipConfig()->coreModuleUrl('Wizard/public/wizard.js'),2);
+            ipAddCss(ipConfig()->coreModuleUrl('Wizard/assets/wizard.css'),2);
+            ipAddJavascript(ipConfig()->coreModuleUrl('Wizard/assets/wizard.js'),2);
         }
     }
 }
