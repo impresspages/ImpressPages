@@ -222,7 +222,7 @@ class Model
         foreach ($sql_list as $sql) {
             try {
                 ipDb()->execute($sql);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $errors[] = preg_replace("/[\n\r]/", '', $sql . ' ' . Db::getConnection()->errorInfo());
             }
         }
@@ -248,7 +248,7 @@ class Model
 
         foreach ($sql_list as $sql) {
             try {
-                Db()->execute($sql);
+                ipDb()->execute($sql);
             } catch (Exception $e) {
                 $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
             }
