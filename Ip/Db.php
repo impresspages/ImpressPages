@@ -76,7 +76,7 @@ class Db
     public function fetchValue($sql, $params = array())
     {
         try {
-            $query = $this->pdoConnection->prepare($sql . " LIMIT 1");
+            $query = $this->getConnection()->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -91,7 +91,7 @@ class Db
     public function fetchRow($sql, $params = array())
     {
         try {
-            $query = $this->pdoConnection->prepare($sql . " LIMIT 1");
+            $query = $this->getConnection()->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -108,7 +108,7 @@ class Db
     public function fetchAll($sql, $params = array())
     {
         try {
-            $query = $this->pdoConnection->prepare($sql);
+            $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -132,7 +132,7 @@ class Db
     public function execute($sql, $params = array())
     {
         try {
-            $query = $this->pdoConnection->prepare($sql);
+            $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -148,7 +148,7 @@ class Db
     public function fetchColumn($sql, $params = array())
     {
         try {
-            $query = $this->pdoConnection->prepare($sql);
+            $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
@@ -180,7 +180,7 @@ class Db
         $sql = substr($sql, 0, -2);
 
         if ($this->execute($sql, $params)) {
-            $lastInsertId = $this->pdoConnection->lastInsertId();
+            $lastInsertId = $this->getConnection()->lastInsertId();
             if ($lastInsertId === '0') { // for tables that do not have auto increment id
                 return true;
             }
