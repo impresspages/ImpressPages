@@ -9,7 +9,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss(ipConfig()->coreModuleUrl('Config/public/admin.css'));
+    ipAddCss(ipConfig()->coreModuleUrl('Config/assets/admin.css'));
     ipPrintHead();
     ?>
 </head>

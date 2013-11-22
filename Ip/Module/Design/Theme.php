@@ -33,7 +33,7 @@ class Theme
         if ($this->thumbnail) {
             $image = ipConfig()->baseUrl($this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail);
         } else {
-            $image = ipConfig()->coreModuleUrl('Design/public/theme.png');
+            $image = ipConfig()->coreModuleUrl('Design/assets/theme.png');
         }
         return $image;
     }

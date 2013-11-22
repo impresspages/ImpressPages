@@ -40,9 +40,9 @@ class AdminController extends \Ip\Controller{
         ipAddCss(ipConfig()->coreModuleUrl('Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/public/update.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/update.js'));
         }
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/public/clearCache.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/clearCache.js'));
 
         return $content;
     }
