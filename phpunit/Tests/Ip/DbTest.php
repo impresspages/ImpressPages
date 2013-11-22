@@ -21,8 +21,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         ipDb()->disconnect();
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
-        //TODOX create object
-        ipConfig()->init($config);
+        $ipConfig = new \Ip\Config($config);
+        \Ip\ServiceLocator::setConfig($ipConfig);
 
         $this->assertNotEmpty(ipConfig()->getRaw('db'));
 
