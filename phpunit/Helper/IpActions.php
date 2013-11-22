@@ -35,7 +35,7 @@ class IpActions
      */
     public function login()
     {
-        $this->testCase->open($this->installation->getInstallationUrl().'admin.php');
+        $this->testCase->open($this->installation->getInstallationUrl().'admin/');
         $loggedIn = true;
 
         try  {
@@ -44,8 +44,8 @@ class IpActions
             $loggedIn = false;
         }
         if (!$loggedIn) {
-            $this->testCase->type('css=.ipmControlInput[name=login]', $this->installation->getAdminLogin());
-            $this->testCase->type('css=.ipmControlInput[name=password]', $this->installation->getAdminPass());
+            $this->testCase->type('css=.form-control[name=login]', $this->installation->getAdminLogin());
+            $this->testCase->type('css=.form-control[name=password]', $this->installation->getAdminPass());
             $this->testCase->clickAndWait('css=.ipsLoginButton');
         }
         $this->testCase->waitForElementPresent('css=.ipActionPublish');
