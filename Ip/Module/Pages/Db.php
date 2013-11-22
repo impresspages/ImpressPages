@@ -27,7 +27,6 @@ class Db {
     public static function getZones () {
 
 
-        global $parametersMod;
 
         $managedZones = array();
         $zones = ipContent()->getZones();
@@ -73,13 +72,6 @@ class Db {
 
     
         trigger_error("Can't find zone element ".$sql." ".ip_deprecated_mysql_error());
-    }
-
-    public static function getAutoRssZones() {
-        global $parametersMod;
-        
-        $answer = explode("\n",$parametersMod->getValue('Pages.auto_rss_zones'));
-        return $answer;
     }
 
 
@@ -243,9 +235,6 @@ class Db {
 
         if (isset($params['visible']))
         $values[] =  'visible = \''.ip_deprecated_mysql_real_escape_string($params['visible']).'\'';
-
-        if (isset($params['rss']))
-        $values[] =  'rss = \''.ip_deprecated_mysql_real_escape_string($params['rss']).'\'';
 
         if (isset($params['parentId']))
         $values[] =  'parent = \''.ip_deprecated_mysql_real_escape_string($params['parentId']).'\'';
@@ -425,9 +414,6 @@ class Db {
 
         if (isset($params['visible']))
         $values .= ', visible = \''.ip_deprecated_mysql_real_escape_string((int)$params['visible']).'\'';
-
-        if (isset($params['rss']))
-        $values .= ', rss = \''.ip_deprecated_mysql_real_escape_string((int)$params['rss']).'\'';
 
         if (isset($params['cached_html']))
         $values .= ', `cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';

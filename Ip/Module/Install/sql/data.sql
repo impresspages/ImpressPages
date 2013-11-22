@@ -1,19 +1,19 @@
 
 
-INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `rss`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
-(1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2009-07-19 10:24:20', NULL, NULL, 'default', NULL),
-(3, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
-(4, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
-(66, 0, 3, 'Page1', 1, '', 'Page1', '', '', 'page1', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(67, 1, 3, 'Page2', 2, '', 'Page2', '', '', 'page2', '', '2012-01-22 00:00:00', '2009-08-10 13:34:27', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(68, 2, 3, 'Page3', 3, '', 'Page3', '', '', 'page3', '', '2012-01-22 00:00:00', '2009-08-10 14:01:21', '2009-08-10 14:01:21', '2009-08-09 00:00:00', 1508174, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(69, 3, 3, 'Page4', 4, '', 'Page4', '', '', 'page4', '', '2012-01-22 00:00:00', '2009-08-10 14:12:21', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(70, 4, 3, 'Page5', 5, '', 'Page5', '', '', 'page5', '', '2012-01-22 00:00:00', '2009-08-10 14:17:18', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(71, 0, 67, 'Subpage', 1, '', 'Subpage example', '', '', 'subpage', 'a:0:{}', '2012-01-22 00:00:00', '2009-08-10 13:36:39', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(64, 0, 1, 'Home', 1, '', 'Home', '', '', 'home', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
-(65, 1, 1, 'Lorem ipsum', 1, '', 'Lorem ipsum', '', '', 'lorem-ipsum', '', '2012-01-22 00:00:00', '2009-08-10 00:43:10', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(72, 0, 4, 'Example page', 1, '', 'Example page', '', '', 'examplepage', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(73, 0, 4, 'Example page2', 2, '', 'Example page', '', '', 'examplepage2', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, 0, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', '');
+INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
+(1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:20', NULL, NULL, 'default', NULL),
+(3, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
+(4, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
+(66, 0, 3, 'Page1', 1, '', 'Page1', '', '', 'page1', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(67, 1, 3, 'Page2', 2, '', 'Page2', '', '', 'page2', '', '2012-01-22 00:00:00', '2009-08-10 13:34:27', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(68, 2, 3, 'Page3', 3, '', 'Page3', '', '', 'page3', '', '2012-01-22 00:00:00', '2009-08-10 14:01:21', '2009-08-10 14:01:21', '2009-08-09 00:00:00', 1508174, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(69, 3, 3, 'Page4', 4, '', 'Page4', '', '', 'page4', '', '2012-01-22 00:00:00', '2009-08-10 14:12:21', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(70, 4, 3, 'Page5', 5, '', 'Page5', '', '', 'page5', '', '2012-01-22 00:00:00', '2009-08-10 14:17:18', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(71, 0, 67, 'Subpage', 1, '', 'Subpage example', '', '', 'subpage', 'a:0:{}', '2012-01-22 00:00:00', '2009-08-10 13:36:39', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(64, 0, 1, 'Home', 1, '', 'Home', '', '', 'home', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
+(65, 1, 1, 'Lorem ipsum', 1, '', 'Lorem ipsum', '', '', 'lorem-ipsum', '', '2012-01-22 00:00:00', '2009-08-10 00:43:10', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(72, 0, 4, 'Example page', 1, '', 'Example page', '', '', 'examplepage', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
+(73, 0, 4, 'Example page2', 2, '', 'Example page', '', '', 'examplepage2', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', '');
 
 
 -- Dumping data for table--
@@ -51,7 +51,6 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (332, 324, 5, 'configuration', 0, 'Configuration', 1, '1.00', 1),
 (333, 324, 4, 'seo', 1, 'SEO', 1, '1.00', 1),
 (348, 323, 3, 'log', 1, 'Log', 1, '1.00', 1),
-(351, 323, 0, 'rss', 0, 'RSS', 0, '1.00', 1),
 (353, 323, 0, 'email_queue', 1, 'E-mail queue', 1, '1.00', 1),
 (356, 323, 0, 'search', 0, 'Search', 0, '1.00', 1),
 (358, 323, 0, 'sitemap', 1, 'Sitemap', 0, '1.00', 1),
@@ -124,7 +123,6 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 (106, 5, 'menu2', 'main.php', 'Menu2', '', 'Content'),
 (110, 6, 'menu3', 'main.php', 'Menu3', '', 'Content'),
 (93, 7, 'search', 'main.php', 'Search', 'administrator', 'search'),
-(100, 8, 'rss', '', 'RSS', 'administrator', 'rss'),
 (108, 9, 'sitemap', 'main.php', 'Sitemap', 'administrator', 'sitemap'),
 (109, 10, 'newsletter', 'main.php', 'Newsletter', 'community', 'newsletter');
 
@@ -134,8 +132,6 @@ INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `
 (627, '', '', 'Newsletter', 'newsletter', 109, 344, NULL),
 (626, '', '', 'Sitemap', 'sitemap', 108, 384, NULL),
 (625, '', '', 'Sitemap', 'sitemap', 108, 344, NULL),
-(624, '', '', 'RSS', 'rss', 100, 384, NULL),
-(623, '', '', 'RSS', 'rss', 100, 344, NULL),
 (622, '', '', 'Search', 'search', 93, 384, NULL),
 (621, '', '', 'Search', 'search', 93, 344, NULL),
 (620, '', '', 'Menu2', 'menu2', 106, 384, NULL),
