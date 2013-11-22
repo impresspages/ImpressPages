@@ -82,10 +82,10 @@ class SiteController extends \Ip\Controller{
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipConfig()->coreMOduleFile('Admin/View/login.php'));
+        $response->setLayout(ipConfig()->coreMOduleFile('Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
-        $view = \Ip\View::create('View/login.php', $variables);
+        $view = \Ip\View::create('view/login.php', $variables);
         return $view;
     }
 
