@@ -362,7 +362,6 @@ class AdminController extends \Ip\Controller
 
         $answer['page']['type'] = $page->getType();
         $answer['page']['redirectURL'] = $page->getRedirectUrl() . '';
-        $answer['page']['rss'] = $page->getRss();
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
@@ -393,7 +392,6 @@ class AdminController extends \Ip\Controller
         }
         $zoneData = $zones[$zoneName];
 
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $answer = array();
 
         $title = __('SEO', 'ipAdmin');
@@ -738,7 +736,6 @@ class AdminController extends \Ip\Controller
      * Create new page
      */
     public function createPage () {
-        global $parametersMod;
 
         $answer = array();
 
@@ -808,13 +805,7 @@ class AdminController extends \Ip\Controller
         $data['url'] = Db::makeUrl($buttonTitle);
         $data['createdOn'] = date("Y-m-d");
         $data['lastModified'] = date("Y-m-d");
-        $data['visible'] = !$parametersMod->getValue('Pages.hide_new_pages');
-
-        $autoRssZones = Db::getAutoRssZones();
-        $data['rss'] = in_array($zone->getName(), $autoRssZones);
-        if($data['rss'] === '') {
-            $data['rss'] = 0;
-        }
+        $data['visible'] = !ipGetOption('Pages.hideNewPages');
 
 
 
