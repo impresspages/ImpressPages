@@ -4161,3 +4161,34 @@
         display: none !important;
     }
 }
+
+/* ImpressPages extensions */
+.ip .form-group:last-child {
+    margin-bottom: 0;
+}
+.ip .form-group.type-blank {
+    margin-bottom: 0;
+}
+.ip .form-group.type-blank label {
+     display: none;
+ }
+.ip .form-group.type-blank .help-error {
+    margin-bottom: 15px;
+}
+.ip .form-group.type-submit label {
+    display: none;
+}
+.ip .help-error {
+    background-color: #b94a48;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff;
+    display: none;
+    font-size: 11px;
+    padding: 4px 10px 2px;
+    width: 100%;
+}
+.ip .has-error .help-error {
+    display: block;
+}
