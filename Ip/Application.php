@@ -133,7 +133,7 @@ class Application {
                 $controllerAnswer = $controllerAnswer->render();
             }
             if (empty($controllerAnswer)) {
-                $controllerAnswer = '';
+                $controllerAnswer = NULL;
             }
             \Ip\ServiceLocator::response()->setContent($controllerAnswer);
             \Ip\ServiceLocator::removeRequest();
