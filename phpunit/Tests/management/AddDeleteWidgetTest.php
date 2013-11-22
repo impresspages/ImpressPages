@@ -55,11 +55,6 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
-// TODOX add this test somewhere else
-//        $ipActions->addWidget('IpNewsletter');
-//        $this->assertNoErrors();
-//        $ipActions->cancelWidget();
-//        $this->assertNoErrors();
         $ipActions->addWidget('IpHtml');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
