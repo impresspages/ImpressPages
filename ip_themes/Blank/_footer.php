@@ -20,8 +20,9 @@
     ipPrintJavascript();
 ?>
 
+<?php
 //TODOX remove this test image
-<?php echo ipSlot('Ip.image', array(
+echo ipSlot('Ip.image', array(
         'id' => 'test2',
         'default' => 'http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_cms_logo.png',
         'width' => 200,
