@@ -26,7 +26,6 @@ class Model{
         $modules = \Ip\Module\Plugins\Model::getModules();
         foreach($modules as $module) {
             $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
-            //echo $controllerClass; exit;
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
@@ -38,7 +37,19 @@ class Model{
         }
 
 
+        $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
 
+        foreach($plugins as $plugin) {
+            $controllerClass = '\\Plugin\\' . $plugin . '\\AdminController';
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
+                continue;
+            }
+            $moduleItem = new \Ip\Menu\Item();
+            $moduleItem->setTitle($plugin);
+            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin.'.index')));
+            $moduleItem->setUrl(ipConfig()->baseUrl('', array('aa' => $plugin . '.index')));
+            $answer[] = $moduleItem;
+        }
 
         return $answer;
     }
