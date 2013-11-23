@@ -34,7 +34,10 @@ class PublicController extends \Ip\Controller
         if (ipIsManagementState()) {
             $this->initManagement();
         } else {
-            ipAddJavascriptVariable('ipContentShowEditButton', 1);
+            if (\Ip\Module\Admin\Backend::userId()) {
+                //user has access to the backend
+                ipAddJavascriptVariable('ipContentShowEditButton', 1);
+            }
         }
 
         return $currentPage->generateContent();

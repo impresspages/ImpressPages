@@ -67,7 +67,7 @@ class File extends Field
      * @param string $valueKey This value key could not exist in values array.
      * @return string return string on error or false on success
      */
-    public function validate($values, $valueKey)
+    public function validate($values, $valueKey, $environment)
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             foreach($values[$valueKey]['file'] as $key => $file) {
@@ -82,7 +82,7 @@ class File extends Field
                 }
             }
         }
-        return parent::validate($values, $valueKey);
+        return parent::validate($values, $valueKey, $environment);
     }
 
 

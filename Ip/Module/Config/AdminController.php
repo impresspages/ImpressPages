@@ -47,8 +47,9 @@ class AdminController extends \Ip\Controller{
         }
 
         $emailValidator = new \Ip\Form\Validator\Email();
-        if ($fieldName === 'websiteEmail' && $emailValidator->validate(array('value' => $value), 'value') !== false) {
-            $this->returnError("Invalid value");
+        $error = $emailValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        if ($fieldName === 'websiteEmail' && $error !== false) {
+            $this->returnError($error);
             return;
         }
 

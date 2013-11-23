@@ -152,14 +152,21 @@ abstract class Field{
      */
     /**
      * Validate field
-     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
+     * @param array $data all data posted. Usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
      * @param string $valueKey This value key could not exist in values array.
-     * @return string return string on error or false on success
+     * @return string string on error or false on success
      */
-    public function validate($values, $valueKey) {
+
+    /**
+     * @param $values
+     * @param $valueKey
+     * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
+     * @return bool | string
+     */
+    public function validate($values, $valueKey, $environment) {
         $validators = $this->getValidators();
         foreach($validators as $validator) {
-            $error = $validator->validate($values, $valueKey);
+            $error = $validator->validate($values, $valueKey, $environment);
             if ($error) {
                 return $error;
             }
