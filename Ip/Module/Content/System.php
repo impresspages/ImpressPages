@@ -205,14 +205,14 @@ class System{
     {
         global $parametersMod;
         
-        $typeText = $parametersMod->getValue('Form.type_text');
-        $typeEmail = $parametersMod->getValue('Form.type_email');
-        $typeTextarea = $parametersMod->getValue('Form.type_textarea');
-        $typeSelect = $parametersMod->getValue('Form.type_select');
-        $typeCheckbox = $parametersMod->getValue('Form.type_checkbox');
-        $typeRadio = $parametersMod->getValue('Form.type_radio');
-        $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
-        $typeFile = $parametersMod->getValue('Form.type_file');
+        $typeText = _s('Text', 'ipAdmin');
+        $typeEmail = _s('Email', 'ipAdmin');
+        $typeTextarea = _s('Textarea', 'ipAdmin');
+        $typeSelect = _s('Select', 'ipAdmin');
+        $typeCheckbox = _s('Checkbox', 'ipAdmin');
+        $typeRadio = _s('Radio', 'ipAdmin');
+        $typeCaptcha = _s('Captcha', 'ipAdmin');
+        $typeFile = _s('File', 'ipAdmin');
 
         $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
