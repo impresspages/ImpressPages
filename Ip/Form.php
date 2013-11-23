@@ -100,7 +100,7 @@ class Form
         $fields = $this->getFields();
         $errors = array();
         foreach ($fields as $field) {
-            $error = $field->validate($data, $field->getName());
+            $error = $field->validate($data, $field->getName(), $this->getEnvironment());
             if ($error !== false) {
                 $errors[$field->getValidationInputName()] = $error;
             }
@@ -339,8 +339,7 @@ class Form
     /**
      *
      * Store form data to the database
-     * Keep notice, that this method does not do the validation of data.
-     * So please validate submited data before writing to the database.*
+     * So please validate submitted data before writing to the database.
      * @param string $table where data should be stored
      * @param array $data posted or in the other way collected data
      * @param array $additionalData additional data that hasn't been posted, but is required to be inserted
