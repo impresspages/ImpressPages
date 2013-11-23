@@ -232,14 +232,36 @@ class Request
         return $this->controllerClass;
     }
 
+    /**
+     * @return bool true if current url is pointing to website root or one of the languages
+     */
+    protected function isWebsiteRoot()
+    {
+        $relativePath = ipRequest()->getRelativePath();
+        if (ipGetOption('Config.multilingual')) {
+            $urlParts = explode('/', $relativePath);
+            if (!empty($urlParts[1])) {
+                return false;
+            }
+            return true;
+        } else {
+            $firstChar = substr($relativePath, 0, 1);
+            if ($firstChar !== '?' && $firstChar != '') {
+                return FALSE;
+            } else {
+                return TRUE;
+            }
+        }
+    }
+
     protected function parseControllerAction()
     {
         $action = $this->defaultControllerAction;
         $controllerClass = $this->defaultControllerClass;
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
 
-        $firstChar = substr(ipRequest()->getRelativePath(), 0, 1);
-        if ($firstChar !== '?' && $firstChar != '') {
+
+        if (!$this->isWebsiteRoot()) {
             if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
                 throw new \Ip\CoreException('Controller action can be requested only at website root.');
             }
@@ -248,7 +270,6 @@ class Request
             $this->controllerType = $controllerType;
             return; //default controller to display page content.
         }
-
 
         if (sizeof($this->getRequest()) > 0) {
             $actionString = null;

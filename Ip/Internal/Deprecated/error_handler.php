@@ -15,7 +15,6 @@
 function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
 
-    global $parametersMod;
     $type = 'php.';
     switch ($errno) {
         case E_USER_WARNING:
@@ -56,33 +55,14 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
             break;
     }
 
-    // TODOX ensure that log will be used only if log system is active
-    ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
+    if (class_exists('Ip\Module\Log\Logger')) {
+        ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
+    }
 
     if(ipConfig()->getRaw('ERRORS_SHOW')){
         restore_error_handler();
-        throw new \Ip\PhpException("{$errstr} in {$errfile}:{$errline}", $errno);
+        throw new \Exception("{$errstr} in {$errfile}:{$errline}", $errno);
     }
-    // TODOX log errors and send notifications
-//    if($log && ipConfig()->getRaw('ERRORS_SEND')){
-//        $logsCount = $log->lastLogsCount(60, 'system/error');
-//        if($logsCount <= 9){
-//            if($logsCount == 9)
-//            $message .= '
-//
-//Error emails count has reached the limit. See logs for more errors.';
-//
-//            $queue = new \Ip\Module\Email\Module();
-//            if($parametersMod) //if parameters module not initialized yet, it will only throw new one error. So, use it only if it is initialized
-//            $queue->addEmail(ipGetOption('Config.websiteEmail'), ipGetOption('Config.websiteEmail'), ERRORS_SEND, '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-//            else
-//            $queue->addEmail(ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->getRaw('ERRORS_SEND'), '', ipConfig()->baseUrl('')." ERROR", $message, false, true);
-//            $queue->send();
-//
-//
-//            $log->log('system/error', 'Sent e-mail to '.ipConfig()->getRaw('ERRORS_SEND'), $message);
-//        }
-//    }
 
 
     restore_error_handler();
