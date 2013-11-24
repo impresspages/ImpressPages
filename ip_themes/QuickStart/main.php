@@ -2,7 +2,7 @@
 <html<?php echo $this->htmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss(ipConfig()->themeUrl('ip_content.css'));
+    ipAddCss(ipConfig()->themeUrl('ipContent.css'));
     ipAddCss(ipConfig()->themeUrl('theme.css'));
     ipPrintHead();
     ?>
