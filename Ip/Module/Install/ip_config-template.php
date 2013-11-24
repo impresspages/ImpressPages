@@ -40,7 +40,7 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    /*OK*/'THEME_DIR' => 'ip_themes/', //themes directory
+    /*OK*/'THEME_DIR' => 'Themes/', //themes directory
     // END BACKEND
 
     // FRONTEND

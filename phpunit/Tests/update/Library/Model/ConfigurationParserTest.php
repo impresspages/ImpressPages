@@ -29,7 +29,7 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         // END GLOBAL
 
         // BACKEND
-        $this->assertEquals($configuration['THEME_DIR'], 'ip_themes/'); //themes directory
+        $this->assertEquals($configuration['THEME_DIR'], 'Themes/'); //themes directory
         // END BACKEND
 
         // FRONTEND

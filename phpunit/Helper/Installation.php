@@ -490,7 +490,7 @@ class Installation
             'Ip',
             'file',
             'install',
-            'ip_themes',
+            'Themes',
             'update',
         );
 

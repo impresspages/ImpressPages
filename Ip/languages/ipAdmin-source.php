@@ -320,7 +320,7 @@ return array (
   'Pages.default_layout_label' => 'default',
   'Pages.page_layout_instructions' => 'If you want to hide some layout from this list, add underscore before filename (for example _simple.php).',
   'Pages.page_design_confirm_notification' => 'Changes will be visible after page refresh. Site visitors will see the new layout after you click Confirm.',
-  'Pages.page_layout_add_layout_instructions' => 'You have only one layout in your theme. If you wish to add more layouts, please,<ol>    <li>find main.php in your theme directory (for example, ip_themes/main.php);</li>    <li>copy and paste it under new name (for example, simple.php);</li>   <li>come here and select it;</li>   <li>modify it according to your needs.</li></ol>',
+  'Pages.page_layout_add_layout_instructions' => 'You have only one layout in your theme. If you wish to add more layouts, please,<ol>    <li>find main.php in your theme directory (for example, Themes/main.php);</li>    <li>copy and paste it under new name (for example, simple.php);</li>   <li>come here and select it;</li>   <li>modify it according to your needs.</li></ol>',
   'User.login' => 'Login',
   'User.email' => 'E-mail',
   'User.password' => 'Password',
