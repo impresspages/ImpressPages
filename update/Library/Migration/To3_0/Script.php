@@ -196,7 +196,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function addNewCSS($cf)
     {
-        $cssFile = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css';
+        $cssFile = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ipContent.css';
         if(!file_exists($cssFile)) {
             return;
         }
@@ -330,7 +330,7 @@ class Script extends \IpUpdate\Library\Migration\General{
            </p>
        ';
 
-        if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css')) {
+        if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ipContent.css')) {
             $note .=
                 '
                <p>"Contact Form" widget now has file input type which comes with its own CSS rules.
