@@ -40,7 +40,6 @@ class Template {
     }
 
     public static function content ($data) {
-        global $parametersMod;
         $answer = '';
 
         $answer .=
@@ -50,12 +49,12 @@ class Template {
         var deleteConfirmText= \''.addslashes(__('Do you really want to delete?', 'ipAdmin')).'\';
 
         var textSave = \''.addslashes(__('Save', 'ipAdmin')).'\';
-        var textCancel = \''.addslashes($parametersMod->getValue('Pages.cancel')).'\';
+        var textCancel = \''.addslashes(__('Cancel', 'ipAdmin')).'\';
         var textDelete = \''.addslashes(__('Delete', 'ipAdmin')).'\';
         var textEdit = \''.addslashes(__('Edit', 'ipAdmin')).'\';
         var textNewPage = \''.addslashes(__('New page', 'ipAdmin')).'\';
         var textCopy = \''.addslashes(__('Copy', 'ipAdmin')).'\';
-        var textPaste = \''.addslashes($parametersMod->getValue('Pages.paste')).'\';
+        var textPaste = \''.addslashes(__('Paste', 'ipAdmin')).'\';
     </script>
     <div class="ip">
         <div id="sideBar" class="ui-widget-content ui-resizable">
@@ -114,7 +113,6 @@ class Template {
 
 
     public static function generatePageProperties ($tabs) {
-        global $parametersMod;
         $answer = '';
 
         $tabsList = '';
@@ -156,7 +154,6 @@ class Template {
 
 
     public static function generateTabGeneral () {
-        global $parametersMod;
         $answer = '';
         $element = new \Ip\Page('null', 'left');
         $answer .=
@@ -193,7 +190,6 @@ class Template {
     }
 
     public static function generateTabSEO () {
-        global $parametersMod;
 
         $answer = '';
         $element = new \Ip\Page('null', 'left');
@@ -228,7 +224,6 @@ class Template {
     }
 
     public static function generateTabAdvanced () {
-        global $parametersMod;
         $element = new \Ip\Page('null', 'left');
 
         $answer = '';
