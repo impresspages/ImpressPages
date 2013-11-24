@@ -37,9 +37,13 @@ class View implements \Ip\Response\ResponseInterface
      * @param int $languageId language in which to render the view. Current language by default
      */
     public static function create($file, $data = array(), $languageId = null) {
-        $foundFile = self::findView($file);
+        if (DIRECTORY_SEPARATOR != '/') {
+            $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+        }
+        $foundFile = self::findFile($file);
         self::checkData($data);
-        return new \Ip\View($foundFile, $data, $languageId = null);
+
+        return new \Ip\View($foundFile, $data, $languageId);
     }
 
 
@@ -71,7 +75,7 @@ class View implements \Ip\Response\ResponseInterface
      * @param array $data associative array of data to pass to the view
      */
     public function subview($file, $data = array()) {
-        $foundFile = self::findView($file);
+        $foundFile = self::findFile($file);
         self::checkData($data);
         $view = new \Ip\View($foundFile, $data);
         $view->setDoctype($this->getDoctype());
@@ -270,71 +274,52 @@ class View implements \Ip\Response\ResponseInterface
        
     }
 
-    /**
-     * @param $file
-     * @return bool|string
-     * @throws CoreException
-     */
-    private static function findView($file) {
-        $backtrace = debug_backtrace();
-        if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-            throw new CoreException("Can't find caller", CoreException::VIEW);
-        }
 
-        $sourceFile = $backtrace[1]['file'];
-        if (DIRECTORY_SEPARATOR != '/') {
-            $sourceFile = str_replace(DIRECTORY_SEPARATOR, '/', $sourceFile);
-        }
-
-
-        $foundFile = self::findFile($file, $sourceFile);
-        if ($foundFile === false) {
-            throw new CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', CoreException::VIEW);
-        }    
-        return $foundFile;
-    }
     
-    private static function findFile($file, $sourceFile) {
+    private static function findFile($file) {
+
+        //make $file absolute
+        if ($file == 'view/widget_preview.php') {
+            $test = 1;
+        } else {
+            $test = 0;
+        }
+
         if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
-            if (file_exists($file)) {
-                return $file;
-            } else {
-                return false;
+            $absoluteFile = $file;
+        } else {
+            $backtrace = debug_backtrace();
+            if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
+                throw new CoreException("Can't find caller", CoreException::VIEW);
             }
+            $absoluteFile = dirname($backtrace[1]['file']) . DIRECTORY_SEPARATOR . $file;
         }
 
 
-        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
-            $file = dirname($sourceFile).'/'.$file;
-        }
-
-        if (strpos($file, ipConfig()->baseFile('')) === 0) {
+        if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
             //core dir
-            $relativeFile = substr($file, strlen(ipConfig()->baseFile('')));
-        } elseif (strpos($file, ipConfig()->pluginFile('')) === 0) {
+            $basePath = ipConfig()->baseFile('');
+        } elseif (strpos($absoluteFile, ipConfig()->pluginFile('')) === 0) {
             //plugin dir
-            $relativeFile = substr($file, strlen(ipConfig()->pluginFile('')));
-        } elseif (strpos($file, ipConfig()->themeFile('')) === 0) {
+            $basePath = ipConfig()->pluginFile('');
+        } elseif (strpos($absoluteFile, ipConfig()->themeFile('')) === 0) {
             //theme dir
-            $relativeFile = substr($file, strlen(ipConfig()->themeFile('')));
+            $basePath = ipConfig()->themeFile('');
         }
-
+        $relativeFile = substr($absoluteFile, strlen($basePath));
 
         $fileInThemeDir = ipConfig()->themeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
         if (is_file($fileInThemeDir)) {
-            //found view in theme.
+            //found file in theme.
             return $fileInThemeDir;
         }
 
-
-        if (file_exists($file)) {
+        if (file_exists($basePath . $relativeFile)) {
             //found file in original location
-            return $file;
+            return $basePath . DIRECTORY_SEPARATOR . $relativeFile;
         } else {
-            return false;
+            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', CoreException::VIEW);
         }
-
-        return false;
     }
 
 
@@ -358,6 +343,7 @@ class View implements \Ip\Response\ResponseInterface
      */
     public function formatPrice($price, $currency)
     {
+        //TODOX move formatPrice to sugar methods
         $helper = \Library\Php\Ecommerce\Helper::instance();
         return $helper->formatPrice($price, $currency, $this->getLanguageId());
     }
