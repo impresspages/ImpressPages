@@ -167,10 +167,10 @@ class AdminController extends \Ip\Controller{
 
         $types = array();
 
-        $scopePageTitle = $parametersMod->getValue('InlineManagement.assign_to_page');
-        $scopeParentPageTitle = $parametersMod->getValue('InlineManagement.assign_to_parent_page');
-        $scopeLanguageTitle = $parametersMod->getValue('InlineManagement.assign_to_language');
-        $scopeAllPagesTitle = $parametersMod->getValue('InlineManagement.assign_to_all_pages');
+        $scopePageTitle = _s('Current page and sub-pages', 'ipAdmin');
+        $scopeParentPageTitle = _s('Page "[[page]]" and all sub-pages', 'ipAdmin');
+        $scopeLanguageTitle = _s('All [[language]] pages', 'ipAdmin');
+        $scopeAllPagesTitle = _s('All pages', 'ipAdmin');
 
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
