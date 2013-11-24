@@ -6,6 +6,8 @@
  */
 namespace Ip\Module\Content;
 
+use Ip\WidgetController;
+
 class System{
 
 
@@ -160,7 +162,7 @@ class System{
 
     }
 
-    private function addWidgetAssets(\Ip\Module\Content\WidgetController $widget, $core)
+    private function addWidgetAssets(\Ip\WidgetController $widget, $core)
     {
         $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
         if ($core) {
