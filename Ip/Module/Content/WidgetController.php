@@ -15,20 +15,22 @@ class WidgetController{
      * @var boolean - true if widget is installed by default
      */
     var $core;
-    const PREVIEW_DIR = 'view';
+    const VIEW_DIR = 'view';
     const MANAGEMENT_DIR = 'admin';
-    const PUBLIC_DIR = 'public';
+
+    private $widgetDir;
+    private $widgetAssetsDir;
 
     public function __construct($name, $moduleName, $core = false) {
         $this->name = $name;
         $this->moduleName = $moduleName;
         $this->core = $core;
 
-        if ($core) {
-            $this->widgetDir = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
-        } else {
-            $this->widgetDir = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/');
-        }
+        $s = DIRECTORY_SEPARATOR;
+
+
+        $this->widgetDir = $moduleName . $s . Model::WIDGET_DIR . $s . $this->name . $s;
+        $this->widgetAssetsDir = $moduleName . $s . \ip\Application::ASSET_DIR . $s . Model::WIDGET_DIR . $s . $this->name . $s;
     }
 
     public function getTitle() {
@@ -52,60 +54,58 @@ class WidgetController{
     }
     
     public function getIcon() {
-        if (file_exists($this->widgetDir . self::PUBLIC_DIR . '/icon.png')) {
-            if ($this->core) {
-                return ipConfig()->coreModuleUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
-            } else {
-                return ipConfig()->pluginUrl($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name.'/' . self::PUBLIC_DIR . '/icon.png');
+        if ($this->core) {
+            if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
+                return ipConfig()->coreModuleUrl($this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            return ipConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
+            if (file_exists(ipConfig()->pluginFile($this->widgetAssetsDir . 'icon.png'))) {
+                return ipConfig()->pluginUrl($this->widgetAssetsDir . 'icon.png');
+            }
+
         }
+
+        return ipConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
     }
 
     public function getLayouts() {
-        global $parametersMod;
 
         $views = array();
 
         try {
 
             //collect default view files
-            $layoutsDir = ipConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR);
-            if (!file_exists($layoutsDir) || !is_dir($layoutsDir)) {
-                throw new Exception('Layouts directory does not exist', Exception::NO_LAYOUTS);
+            if ($this->core) {
+                $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+            } else {
+                $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
             }
 
-            $availableViewFiles = scandir(ipConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR));
-            foreach ($availableViewFiles as $viewKey => $viewFile) {
-                if (is_file(ipConfig()->baseFile($this->widgetDir.self::PREVIEW_DIR.'/'.$viewFile)) && substr($viewFile, -4) == '.php') {
+
+            if (!is_dir($layoutsDir)) {
+                throw new Exception('Layouts directory does not exist. ' . $layoutsDir, Exception::NO_LAYOUTS);
+            }
+
+            $availableViewFiles = scandir($layoutsDir);
+            foreach ($availableViewFiles as $viewFile) {
+                if (is_file($layoutsDir . $viewFile) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
-
-            // TODOX make it according to new module structure
-            //collect overriden theme view files
-//            $themeViewsFolder = ipConfig()->themeFile('modules/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR);
-//            if (file_exists($themeViewsFolder) && is_dir($themeViewsFolder)){
-//                $availableViewFiles = scandir($themeViewsFolder);
-//                foreach ($availableViewFiles as $viewKey => $viewFile) {
-//                    if (is_file($themeViewsFolder.'/'.$viewFile) && substr($viewFile, -4) == '.php') {
-//                        $views[substr($viewFile, 0, -4)] = 1;
-//                    }
-//                }
-//            }
+            //collect overridden theme view files
+            $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
+            if (is_dir($themeViewsFolder)){
+                $availableViewFiles = scandir($themeViewsFolder);
+                foreach ($availableViewFiles as $viewFile) {
+                    if (is_file($themeViewsFolder . DIRECTORY_SEPARATOR . $viewFile) && substr($viewFile, -4) == '.php') {
+                        $views[substr($viewFile, 0, -4)] = 1;
+                    }
+                }
+            }
 
             $layouts = array();
             foreach ($views as $viewKey => $view) {
-                if ($parametersMod->exist('standard', $this->moduleName, 'admin_translations', 'layout_'.$viewKey)) {
-                    $translation = $parametersMod->getValue($this->moduleGroup, $this->moduleName, 'admin_translations', 'layout_'.$viewKey);
-                } else {
-                    if ($viewKey == 'default') {
-                        $translation = $parametersMod->getValue('Content.layout_default');
-                    } else {
-                        $translation = $viewKey;
-                    }
-                }
+                $translation = _s('Layout_' . $viewKey, $this->getModuleName());
                 $layouts[] = array('name' => $viewKey, 'title' => $translation);
             }
 
@@ -113,7 +113,7 @@ class WidgetController{
                 throw new Exception('No layouts', Exception::NO_LAYOUTS);
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $e) {throw $e;
             $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('Content.layout_default'));
         }
 
@@ -202,7 +202,7 @@ class WidgetController{
                 $answer = \Ip\View::create($adminView, $data)->render();
             }
         } catch (\Ip\CoreException $e){
-            echo $e->getMessage();
+            return $e->getMessage();
             //do nothing. Administration view does not exist
         }
         return $answer;
@@ -213,11 +213,11 @@ class WidgetController{
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::PREVIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             }
-        } catch (\Ip\CoreException $e){
+        } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,

@@ -162,7 +162,7 @@ class System{
 
     private function addWidgetAssets(\Ip\Module\Content\WidgetController $widget, $core)
     {
-        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::PREVIEW_DIR . '/';
+        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
         if ($core) {
             $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
         } else {
@@ -203,8 +203,7 @@ class System{
      */
     public static function collectFieldTypes($fieldTypes, $info = NULL)
     {
-        global $parametersMod;
-        
+
         $typeText = _s('Text', 'ipAdmin');
         $typeEmail = _s('Email', 'ipAdmin');
         $typeTextarea = _s('Textarea', 'ipAdmin');
