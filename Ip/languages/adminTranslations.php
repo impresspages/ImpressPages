@@ -1116,7 +1116,7 @@ $parameter["Pages.page_design_confirm_notification"] = "Changes will be visible 
 
 $parameter["Pages.page_layout_add_layout_instructions"] = "You have only one layout in your theme. If you wish to add more layouts, please,"
     . "<ol>"
-    . "    <li>find main.php in your theme directory (for example, Themes/main.php);</li>"
+    . "    <li>find main.php in your theme directory (for example, Theme/main.php);</li>"
     . "    <li>copy and paste it under new name (for example, simple.php);</li>"
     . "   <li>come here and select it;</li>"
     . "   <li>modify it according to your needs.</li>"

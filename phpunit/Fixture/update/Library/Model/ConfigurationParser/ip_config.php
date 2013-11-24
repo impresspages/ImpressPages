@@ -30,7 +30,7 @@ return array(
     // END GLOBAL
       
     // BACKEND
-      'THEME_DIR' => 'Themes/',
+      'THEME_DIR' => 'Theme/',
     // END BACKEND
     
     // FRONTEND

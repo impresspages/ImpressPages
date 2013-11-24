@@ -24,7 +24,7 @@
 //TODOX remove this test image
 echo ipSlot('Ip.image', array(
         'id' => 'test2',
-        'default' => 'http://cdn.impresspages.org/Themes/impresspages/img/impresspages_cms_logo.png',
+        'default' => 'http://cdn.impresspages.org/Theme/impresspages/img/impresspages_cms_logo.png',
         'width' => 200,
         'height' => 300,
         'class' => 'super'
