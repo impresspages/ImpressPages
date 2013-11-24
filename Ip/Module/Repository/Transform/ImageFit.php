@@ -22,10 +22,9 @@ class ImageFit extends Image
      */
     public function __construct($width, $height, $quality = null, $forced = false)
     {
-        global $parametersMod;
         if ($quality === null)
         {
-            $quality = $parametersMod->getValue('Config.default_image_quality');
+            $quality = ipGetOption('Config.defaultImageQuality');
         }
 
         $this->width = $width;

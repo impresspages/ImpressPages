@@ -6,6 +6,7 @@
     "Config.keepOldRevision": "3",
     "Config.cronPassword": "randomCronPassword",
 
+    "Config.defaultImageQuality": 80,
 
 
     "Content.widgetImageGalleryQuality": 90,
