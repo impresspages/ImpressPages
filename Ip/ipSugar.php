@@ -157,6 +157,14 @@ function ipSetLayout($file)
     }
 }
 
+/**
+ * @return \Ip\Response | \Ip\Response\Layout
+ */
+function ipResponse()
+{
+    return \Ip\ServiceLocator::response();
+}
+
 function ipGetLayout()
 {
     $response = \Ip\ServiceLocator::response();

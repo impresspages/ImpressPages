@@ -40,6 +40,13 @@ class PublicController extends \Ip\Controller
             }
         }
 
+
+        $response = ipResponse();
+        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
+        $response->setKeywords(ipContent()->getKeywords());
+        $response->setTitle(ipContent()->getTitle());
+
+
         return $currentPage->generateContent();
     }
 
