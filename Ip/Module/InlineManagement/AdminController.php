@@ -155,7 +155,6 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupImage()
     {
-        global $parametersMod;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }

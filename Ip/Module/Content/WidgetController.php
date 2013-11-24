@@ -72,50 +72,47 @@ class WidgetController{
 
         $views = array();
 
-        try {
 
-            //collect default view files
-            if ($this->core) {
-                $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
-            } else {
-                $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+        //collect default view files
+        if ($this->core) {
+            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+        } else {
+            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+        }
+
+
+        if (!is_dir($layoutsDir)) {
+            throw new Exception('Layouts directory does not exist. ' . $layoutsDir, Exception::NO_LAYOUTS);
+        }
+
+        $availableViewFiles = scandir($layoutsDir);
+        foreach ($availableViewFiles as $viewFile) {
+            if (is_file($layoutsDir . $viewFile) && substr($viewFile, -4) == '.php') {
+                $views[substr($viewFile, 0, -4)] = 1;
             }
-
-
-            if (!is_dir($layoutsDir)) {
-                throw new Exception('Layouts directory does not exist. ' . $layoutsDir, Exception::NO_LAYOUTS);
-            }
-
-            $availableViewFiles = scandir($layoutsDir);
+        }
+        //collect overridden theme view files
+        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
+        if (is_dir($themeViewsFolder)){
+            $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
-                if (is_file($layoutsDir . $viewFile) && substr($viewFile, -4) == '.php') {
+                if (is_file($themeViewsFolder . DIRECTORY_SEPARATOR . $viewFile) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
-            //collect overridden theme view files
-            $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
-            if (is_dir($themeViewsFolder)){
-                $availableViewFiles = scandir($themeViewsFolder);
-                foreach ($availableViewFiles as $viewFile) {
-                    if (is_file($themeViewsFolder . DIRECTORY_SEPARATOR . $viewFile) && substr($viewFile, -4) == '.php') {
-                        $views[substr($viewFile, 0, -4)] = 1;
-                    }
-                }
-            }
-
-            $layouts = array();
-            foreach ($views as $viewKey => $view) {
-                $translation = _s('Layout_' . $viewKey, $this->getModuleName());
-                $layouts[] = array('name' => $viewKey, 'title' => $translation);
-            }
-
-            if (empty($layouts)) {
-                throw new Exception('No layouts', Exception::NO_LAYOUTS);
-            }
-
-        } catch (Exception $e) {throw $e;
-            $layouts[] = array('name' => 'default', 'title' => $parametersMod->getValue('Content.layout_default'));
         }
+
+        $layouts = array();
+        foreach ($views as $viewKey => $view) {
+            $translation = _s('Layout_' . $viewKey, $this->getModuleName());
+            $layouts[] = array('name' => $viewKey, 'title' => $translation);
+        }
+
+        if (empty($layouts)) {
+            throw new Exception('No layouts', Exception::NO_LAYOUTS);
+        }
+
+
 
 
         return $layouts;
