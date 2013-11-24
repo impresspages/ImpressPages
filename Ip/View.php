@@ -318,7 +318,13 @@ class View implements \Ip\Response\ResponseInterface
             //found file in original location
             return $basePath . DIRECTORY_SEPARATOR . $relativeFile;
         } else {
-            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', CoreException::VIEW);
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
+            } else {
+                $source = '';
+            }
+            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
         }
     }
 
