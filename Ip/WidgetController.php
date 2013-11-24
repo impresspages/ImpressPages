@@ -4,8 +4,11 @@
  *
  *
  */
-namespace Ip\Module\Content;
+namespace Ip;
 
+
+use Ip\Module\Content\Exception;
+use Ip\Module\Content\Model;
 
 class WidgetController{
     var $name;
