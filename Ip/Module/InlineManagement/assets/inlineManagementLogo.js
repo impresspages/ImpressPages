@@ -192,7 +192,7 @@
 
             $this.hide();
 
-            if ($this.data('typeSelectText').attr("checked") != undefined) {
+            if ($this.data('typeSelectText').is(':checked')) {
                 $this.data('previewImage').hide();
                 $this.data('previewText').show();
                 $this.data('previewText').find('a').text($this.data('logoText').val());
@@ -213,7 +213,7 @@
         _updateType : function() {
             var $this = this;
             var $popup = $('.ipModuleInlineManagementPopup.ipmLogo');
-            if ($this.data('typeSelectText').attr("checked") != undefined) {
+            if ($this.data('typeSelectText').is(':checked')) {
                 $this.data('textManagement').show();
                 $this.data('imageManagement').hide();
             } else {
@@ -252,7 +252,7 @@
 
             data.cssClass = $this.data('ipInlineManagementLogo').cssClass;
 
-            if ($this.data('typeSelectText').attr("checked") != undefined) {
+            if ($this.data('typeSelectText').is(':checked')) {
                 data.type = 'text';
             } else {
                 data.type = 'image';
