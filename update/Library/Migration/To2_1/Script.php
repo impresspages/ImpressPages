@@ -228,7 +228,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 <p>You are updating from 2.0 or older.
 IpForm widget has been introduced since then.
 You need manually replace your current ipContent.css and 960.css files
- (Themes/lt_pagan/) to ones from downloaded archive.
+ (Theme/lt_pagan/) to ones from downloaded archive.
  If you have made some changes to original files, please replicate those changes on new files.
 </p>
 <p>If you are using other theme, you need manually tweak your CSS

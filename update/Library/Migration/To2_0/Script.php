@@ -50,7 +50,7 @@ class Script extends \IpUpdate\Library\Migration\General{
     <P><span style="color: red;manual font-weight: bold">ATTENTION</span></P>
     <p>You are updating from 2.0rc2 or older.
     You need manually add these lines to your theme
-    layout file (Themes/lt_pagan/main.php) before <b>generateJavascript()</b> line:
+    layout file (Theme/lt_pagan/main.php) before <b>generateJavascript()</b> line:
     </p>
     <pre>
     &lt;?php
