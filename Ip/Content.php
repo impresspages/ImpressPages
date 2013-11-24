@@ -44,7 +44,7 @@ class Content {
      *
      */
     public function isManagementState(){
-        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
+        $backendLoggedIn = !empty($_SESSION['backend_session']['userId']);
         return $backendLoggedIn && \Ip\Module\Content\Service::isManagementMode();
     }
 
@@ -66,7 +66,7 @@ class Content {
                     $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
-                if (!$layout || !is_file(ipConfig()->themeFile($layout))) {
+                if (!$layout && $zone->getLayout()) {
                     $layout = $zone->getLayout();
                 }
 
