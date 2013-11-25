@@ -110,12 +110,12 @@ class AdminController extends \Ip\Controller
         $themes = ipRequest()->getPost('themes');
 
         if (!is_writable(ipConfig()->getCore('THEME_DIR'))) {
-            return JsonRpc::error(_s('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin'), 777);
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin', false), 777);
         }
 
         try {
             if (!is_array($themes)) {
-                return JsonRpc::error(_s('Download failed: invalid parameters', 'ipAdmin'), 101);
+                return JsonRpc::error(__('Download failed: invalid parameters', 'ipAdmin', false), 101);
             }
 
             if (function_exists('set_time_limit')) {
@@ -132,7 +132,7 @@ class AdminController extends \Ip\Controller
         } catch (\Ip\CoreException $e) {
             return JsonRpc::error($e->getMessage(), $e->getCode());
         } catch (\Exception $e) {
-            return JsonRpc::error(_s('Unknown error. Please see logs.', 'ipAdmin'), 987);
+            return JsonRpc::error(__('Unknown error. Please see logs.', 'ipAdmin', false), 987);
         }
 
         return JsonRpc::result(array('themes' => $themes));

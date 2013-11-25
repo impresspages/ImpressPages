@@ -36,7 +36,7 @@
             </ul>
         </div>
         <?php if ($curModTitle) { ?>
-            <a href="<?php echo ipEsc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent ipmMobileHide"><?php echo ipEsc($curModTitle) ?></a>
+            <a href="<?php echo esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent ipmMobileHide"><?php echo esc($curModTitle) ?></a>
         <?php } ?>
 
 
@@ -48,7 +48,7 @@
                 <i class="fa fa-times fa-stack-1x"></i>
             </span>
         </a>
-        <a target="_blank" href="<?php echo ipEsc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
+        <a target="_blank" href="<?php echo esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Help', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>

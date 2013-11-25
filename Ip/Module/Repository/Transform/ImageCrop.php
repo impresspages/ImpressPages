@@ -28,10 +28,9 @@ class ImageCrop extends Image
      */
     public function __construct($x1, $y1, $x2, $y2, $widthDest, $heightDest, $quality = null)
     {
-        global $parametersMod;
         if ($quality === null)
         {
-            $quality = $parametersMod->getValue('Config.default_image_quality');
+            $quality = ipGetOption('Config.defaultImageQuality');
         }
 
         list($x1, $y1, $x2, $y2) = $this->fixSourceRatio($x1, $y1, $x2, $y2, $widthDest, $heightDest);

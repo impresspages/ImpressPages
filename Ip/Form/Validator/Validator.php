@@ -17,8 +17,9 @@ abstract class Validator{
      * 
      * @param array $values
      * @param string $valueKey - key value to be validated
+     * @param string $environment - \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Fomr::ENVIRONEMNT_PUBLIC
      */
-    public abstract function validate($values, $valueKey);
+    public abstract function validate($values, $valueKey, $environment);
 
     /**
      * Jquery tools compatible validation arguments

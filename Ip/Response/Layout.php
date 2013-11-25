@@ -26,6 +26,20 @@ class Layout extends \Ip\Response {
 
     private $layoutVariables = array();
 
+    private $title;
+    private $keywords;
+    private $description;
+    private $favicon;
+    private $charset;
+
+
+    public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
+    {
+        $this->setFavicon(ipConfig()->baseUrl('favicon.ico'));
+        $this->setCharset(ipConfig()->getRaw('CHARSET'));
+        parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
+    }
+
 
     public function send()
     {
@@ -185,11 +199,11 @@ class Layout extends \Ip\Response {
 
 
         $data = array (
-            'title' => \Ip\ServiceLocator::content()->gettitle(),
-            'keywords' => \Ip\ServiceLocator::content()->getKeywords(),
-            'description' => \Ip\ServiceLocator::content()->getDescription(),
-            'favicon' => ipConfig()->baseUrl('favicon.ico'),
-            'charset' => ipConfig()->getRaw('CHARSET'),
+            'title' => $this->getTitle(),
+            'keywords' => $this->getKeywords(),
+            'description' => $this->getDescription(),
+            'favicon' => $this->getFavicon(),
+            'charset' => $this->getCharset(),
             'css' => $cssFiles
         );
 
@@ -232,6 +246,46 @@ class Layout extends \Ip\Response {
     public function getLayoutVariables()
     {
         return $this->layoutVariables;
+    }
+
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function setTitle($title){
+        $this->title = $title;
+    }
+
+    public function getKeywords(){
+        return $this->keywords;
+    }
+
+    public function setKeywords($keywords){
+        $this->keywords = $keywords;
+    }
+
+    public function getDescription(){
+        return $this->description;
+    }
+
+    public function setDescription($description){
+        $this->description = $description;
+    }
+
+    public function getFavicon(){
+        return $this->favicon;
+    }
+
+    public function setFavicon($favicon){
+        $this->favicon = $favicon;
+    }
+
+    public function getCharset(){
+        return $this->charset;
+    }
+
+    public function setCharset($charset){
+        $this->charset = $charset;
     }
 
 }

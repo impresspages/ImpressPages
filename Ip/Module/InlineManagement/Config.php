@@ -16,8 +16,7 @@ class Config
      */
     public function getAvailableFonts()
     {
-        global $parametersMod;
-        $fontsString = $parametersMod->getValue('InlineManagement.available_fonts');
+        $fontsString = ipGetOption('Config.availableFonts');
 
         $tmpFonts = explode("\n", $fontsString);
         $fonts = array();

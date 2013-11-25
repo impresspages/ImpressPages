@@ -7,11 +7,20 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Color extends Field{
     
     public function render($doctype) {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
-        return '<input data-confirmtext=\''.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'admin_translations', 'confirm')).'\' data-canceltext=\''.htmlspecialchars($parametersMod->getValue('standard', 'configuration', 'admin_translations', 'cancel')).'\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+            $confirmText = __('Confirm', 'ipAdmin');
+            $cancelText = __('Cancel', 'ipAdmin');
+        } else {
+            $confirmText = __('Confirm', 'ipPublic');
+            $cancelText = __('Cancel', 'ipPublic');
+        }
+
+        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
 
     /**

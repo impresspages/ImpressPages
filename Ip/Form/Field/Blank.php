@@ -6,6 +6,8 @@
 
 namespace Ip\Form\Field;
 
+use Ip\Form\Field;
+
 
 /**
  * Empty field. Common usage is to display global form error. 

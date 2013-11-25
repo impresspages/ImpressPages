@@ -12,30 +12,43 @@ class PublicController extends \Ip\Controller
     {
         $currentPage = ipContent()->getCurrentPage();
 
-        if (
-            ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
-            $currentPage->getType() === 'error404'
-        ) {
-            return new \Ip\Response\PageNotFound();
-        }
-
+        //redirect if needed
         if (in_array($currentPage->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
             return new \Ip\Response\Redirect($currentPage->getLink());
         }
 
+        //change layout if safe mode
         if (\Ip\Module\Admin\Service::isSafeMode()) {
             ipSetLayout(ipConfig()->coreModuleFile('Admin/view/safeModeLayout.php'));
         } else {
             ipSetLayout(Service::getPageLayout($currentPage));
         }
 
+        //initialize management
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/content.js'));
-
         if (ipIsManagementState()) {
             $this->initManagement();
         } else {
-            ipAddJavascriptVariable('ipContentShowEditButton', 1);
+            if (\Ip\Module\Admin\Backend::userId()) {
+                //user has access to the backend
+                ipAddJavascriptVariable('ipContentShowEditButton', 1);
+            }
         }
+
+        //show error404 page if needed
+        if (
+            ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
+            $currentPage instanceof \Ip\Page404
+        ) {
+            return new \Ip\Response\PageNotFound();
+        }
+
+        //show page content
+        $response = ipResponse();
+        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
+        $response->setKeywords(ipContent()->getKeywords());
+        $response->setTitle(ipContent()->getTitle());
+
 
         return $currentPage->generateContent();
     }

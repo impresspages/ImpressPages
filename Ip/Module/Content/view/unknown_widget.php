@@ -6,7 +6,7 @@
         $tmpData['state'] = 'preview';
         echo \Ip\View::create('widget_data.php', array('widgetInstance' => $tmpData))->render();
 
-        echo $this->par('Content.missing_widget', array('widgetName' => ipEsc($widgetRecord['name'])));
+        echo $this->par('Content.missing_widget', array('widgetName' => esc($widgetRecord['name'])));
     }
 ?>
 </div>
