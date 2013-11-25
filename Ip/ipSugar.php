@@ -179,7 +179,7 @@ function ipGetLayout()
  * @param string $string
  * @param string $esc html|attr|textarea|js|url|urlRaw or false
  */
-function ipEsc($text, $esc = 'html')
+function esc($text, $esc = 'html')
 {
     return htmlspecialchars($text, ENT_QUOTES);
 }

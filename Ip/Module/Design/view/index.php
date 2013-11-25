@@ -7,7 +7,7 @@
 
     <div class="ipmSelectedTheme">
         <div class="ipmThemePreview">
-            <img src="<?php echo ipEsc($theme->getThumbnailUrl()); ?>" alt="<?php echo ipEsc($theme->getTitle()); ?>" />
+            <img src="<?php echo esc($theme->getThumbnailUrl()); ?>" alt="<?php echo esc($theme->getTitle()); ?>" />
         </div>
 
         <div class="ipmThemeActions">
@@ -16,25 +16,25 @@
                 <a href="#" class="btn btn-primary ipsOpenOptions"><?php _e('Options', 'ipAdmin'); ?></a>
                 <br/><br/>
             <?php } ?>
-            <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo ipEsc($contentManagementText); ?></a>
+            <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo esc($contentManagementText); ?></a>
         </div>
         <h2>
             <i class="fa fa-check"></i>
-            <?php echo ipEsc($theme->getTitle()); ?>
-            <small>(<?php echo ipEsc($theme->getVersion()); ?>)</small>
+            <?php echo esc($theme->getTitle()); ?>
+            <small>(<?php echo esc($theme->getVersion()); ?>)</small>
         </h2>
         <div class="ipmPlugins">
             <?php if ($pluginNote) { ?>
             <div class="alert alert-block">
-                <?php echo ipEsc($pluginNote); ?>
+                <?php echo esc($pluginNote); ?>
             </div>
             <?php } ?>
             <dl class="dl-horizontal">
                 <?php foreach ($plugins as $key => $plugin ) {?>
                     <dt><?php echo $key == 0 ? __('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
                     <dd>
-                        <?php echo ipEsc($plugin->getModuleTitle()); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo ipEsc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo ipEsc($plugin->getModuleGroupKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
+                        <?php echo esc($plugin->getModuleTitle()); ?>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo esc($plugin->getModuleGroupKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>
@@ -60,14 +60,14 @@
                     ?>
                             <li>
                                 <div class="ipmThemePreview">
-                                    <img src="<?php echo ipEsc($localTheme->getThumbnailUrl()); ?>" alt="<?php echo ipEsc($localTheme->getTitle()); ?>" />
+                                    <img src="<?php echo esc($localTheme->getThumbnailUrl()); ?>" alt="<?php echo esc($localTheme->getTitle()); ?>" />
                                 </div>
                                 <span class="ipmThemeTitle">
-                                    <?php echo ipEsc($localTheme->getTitle()); ?>
-                                    <small>(<?php echo ipEsc($localTheme->getVersion()); ?>)</small>
+                                    <?php echo esc($localTheme->getTitle()); ?>
+                                    <small>(<?php echo esc($localTheme->getVersion()); ?>)</small>
                                 </span>
                                 <div class="ipmThemeActions">
-                                    <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo ipEsc($localTheme->getName()) ?>'>
+                                    <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo esc($localTheme->getName()) ?>'>
                                         <?php _e('Install', 'ipAdmin'); ?>
                                     </a>
                                 </div>
@@ -87,7 +87,7 @@
             <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
             <div id="ipModuleThemeMarketAll">
-                <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo ipEsc($marketUrl) ?>">
+                <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo esc($marketUrl) ?>">
                     <!-- <iframe name="easyXDM*" /> -->
                 </div>
             </div>

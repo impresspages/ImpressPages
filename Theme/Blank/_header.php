@@ -20,7 +20,7 @@
     <header class="clearfix col_12">
         <?php echo ipSlot('Ip.logo') ?>
         <div class="right">
-            <span class="currentPage"><?php echo ipEsc(ipContent()->getCurrentPage()->getButtonTitle()) ?></span>
+            <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getButtonTitle()) ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php
