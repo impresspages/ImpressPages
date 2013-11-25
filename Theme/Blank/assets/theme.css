@@ -520,7 +520,7 @@ body {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
-  border-radius: 4px;
+  border-radius: 3px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -546,7 +546,7 @@ body {
   height: 10px;
   overflow: hidden;
   background-color: #f5f5f5;
-  border-radius: 4px;
+  border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
@@ -577,41 +577,6 @@ body {
   -ms-animation: progress-bar-stripes 2s linear infinite;
   -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
-}
-.ipModuleForm .close {
-  float: right;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-}
-.ipModuleForm .close:hover,
-.ipModuleForm .close:focus {
-  color: #000000;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-.ipModuleForm button.close {
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
-}
-.ipModuleForm .well {
-  min-height: 20px;
-  padding: 9px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }
 .ipModuleForm .help-hint {
   background-color: #747474;
@@ -657,6 +622,50 @@ body {
   margin-bottom: 20px;
 }
 .ipModuleForm .form-group.type-submit label {
+  display: none;
+}
+.ipModuleForm .ipmFile {
+  min-height: 20px;
+  padding: 0.5em;
+  margin-top: 5px;
+  background-color: #a7a7a7;
+  border: 1px solid #747474;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  max-width: 380px;
+  position: relative;
+}
+.ipModuleForm .ipmFile .close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+.ipModuleForm .ipmFile .close:hover,
+.ipModuleForm .ipmFile .close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.ipModuleForm .ipmFile button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+.ipModuleForm .ipmFile .ipmUploadError {
+  color: #b80000;
+  font-size: 12px;
+}
+.ipModuleForm .ipmFileTemplate {
   display: none;
 }
 @-webkit-keyframes progress-bar-stripes {
@@ -3086,7 +3095,7 @@ body {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
-  border-radius: 4px;
+  border-radius: 3px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -3112,7 +3121,7 @@ body {
   height: 10px;
   overflow: hidden;
   background-color: #f5f5f5;
-  border-radius: 4px;
+  border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
@@ -3143,41 +3152,6 @@ body {
   -ms-animation: progress-bar-stripes 2s linear infinite;
   -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
-}
-.ipModuleSearch .close {
-  float: right;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-}
-.ipModuleSearch .close:hover,
-.ipModuleSearch .close:focus {
-  color: #000000;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-.ipModuleSearch button.close {
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
-}
-.ipModuleSearch .well {
-  min-height: 20px;
-  padding: 9px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }
 .ipModuleSearch .help-hint {
   background-color: #747474;
@@ -3223,6 +3197,50 @@ body {
   margin-bottom: 20px;
 }
 .ipModuleSearch .form-group.type-submit label {
+  display: none;
+}
+.ipModuleSearch .ipmFile {
+  min-height: 20px;
+  padding: 0.5em;
+  margin-top: 5px;
+  background-color: #a7a7a7;
+  border: 1px solid #747474;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  max-width: 380px;
+  position: relative;
+}
+.ipModuleSearch .ipmFile .close {
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+.ipModuleSearch .ipmFile .close:hover,
+.ipModuleSearch .ipmFile .close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.ipModuleSearch .ipmFile button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+.ipModuleSearch .ipmFile .ipmUploadError {
+  color: #b80000;
+  font-size: 12px;
+}
+.ipModuleSearch .ipmFileTemplate {
   display: none;
 }
 .ipModuleSearch .ipmPage {
