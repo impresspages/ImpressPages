@@ -35,7 +35,7 @@ class Application {
 
 
 
-        require_once $config->getCore('CORE_DIR') . 'Ip/ipSugar.php'; //TODOX ask Algimantas why
+        require_once $config->getCore('CORE_DIR') . 'Ip/Functions.php';
         require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
         require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
 
