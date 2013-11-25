@@ -22,7 +22,7 @@ class Zone404 extends \Ip\Zone {
 
     
     public function findPage($urlVars, $getVars) {
-        return new Page(null, $this->getName());
+        return new Page404(null, $this->getName());
     }
 
     public function getCurrentPage()
