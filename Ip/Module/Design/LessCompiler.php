@@ -175,7 +175,7 @@ class LessCompiler
             return false;
         }
 
-        $cssFile = ipConfig()->coreModuleUrl('Assets/assets/css/ipContent/ip_content.css');
+        $cssFile = ipConfig()->coreModuleUrl('Assets/assets/css/ipContent/ipContent.css');
         $lastBuildTime = filemtime($cssFile);
 
         $hasChanged = false;

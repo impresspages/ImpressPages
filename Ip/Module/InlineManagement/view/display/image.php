@@ -1,1 +1,1 @@
-<img class="<?php echo ipEsc($cssClass) ?>" src="<?php echo ipEsc($value) ?>" alt="" />
+<img class="<?php echo esc($cssClass) ?>" src="<?php echo esc($value) ?>" alt="" />

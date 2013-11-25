@@ -6,6 +6,8 @@
  */
 namespace Ip\Module\Content;
 
+use Ip\WidgetController;
+
 class System{
 
 
@@ -160,9 +162,9 @@ class System{
 
     }
 
-    private function addWidgetAssets(\Ip\Module\Content\WidgetController $widget, $core)
+    private function addWidgetAssets(\Ip\WidgetController $widget, $core)
     {
-        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::PREVIEW_DIR . '/';
+        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
         if ($core) {
             $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
         } else {
@@ -203,16 +205,15 @@ class System{
      */
     public static function collectFieldTypes($fieldTypes, $info = NULL)
     {
-        global $parametersMod;
-        
-        $typeText = $parametersMod->getValue('Form.type_text');
-        $typeEmail = $parametersMod->getValue('Form.type_email');
-        $typeTextarea = $parametersMod->getValue('Form.type_textarea');
-        $typeSelect = $parametersMod->getValue('Form.type_select');
-        $typeCheckbox = $parametersMod->getValue('Form.type_checkbox');
-        $typeRadio = $parametersMod->getValue('Form.type_radio');
-        $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
-        $typeFile = $parametersMod->getValue('Form.type_file');
+
+        $typeText = __('Text', 'ipAdmin', false);
+        $typeEmail = __('Email', 'ipAdmin', false);
+        $typeTextarea = __('Textarea', 'ipAdmin', false);
+        $typeSelect = __('Select', 'ipAdmin', false);
+        $typeCheckbox = __('Checkbox', 'ipAdmin', false);
+        $typeRadio = __('Radio', 'ipAdmin', false);
+        $typeCaptcha = __('Captcha', 'ipAdmin', false);
+        $typeFile = __('File', 'ipAdmin', false);
 
         $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);

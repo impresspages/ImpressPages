@@ -9,7 +9,7 @@ namespace Ip\Module\Content\Widget\IpForm;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
@@ -52,7 +52,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
 
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if ($field->getType() == \Ip\Form\Field\Field::TYPE_REGULAR) {
+            if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
@@ -250,7 +250,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => _s('Content.widget_contact_form.send', 'ipPublic')
+        	'defaultValue' => __('Content.widget_contact_form.send', 'ipPublic', false)
         ));
         $form->addField($field);
         

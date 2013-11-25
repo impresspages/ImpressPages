@@ -7,6 +7,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Password extends Field{
     
     public function render($doctype) {

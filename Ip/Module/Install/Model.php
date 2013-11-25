@@ -152,7 +152,7 @@ class Model
             $table[] = '<span class="correct">' . __('Yes', 'ipInstall') . '</span>';
 
 
-        $table[] = '<b>/ip_themes/</b> ' . __('writable', 'ipInstall');
+        $table[] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
         if (!Helper::isDirectoryWritable(dirname(ipConfig()->themeFile('')))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_themes'] = 1;
@@ -325,7 +325,7 @@ class Model
                 'comment' => 'Plugins directory',
             ),
             'THEME_DIR' => array(
-                'value' => 'ip_themes/',
+                'value' => 'Theme/',
                 'comment' => 'themes directory',
             ),
             // END BACKEND

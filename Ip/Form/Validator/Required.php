@@ -10,10 +10,15 @@ namespace Ip\Form\Validator;
 
 class Required extends Validator {
 
-    public function validate($values, $valueKey) {
+    public function validate($values, $valueKey, $environment) {
         if (!array_key_exists($valueKey, $values) || in_array($values[$valueKey], array(null, false, '', array()), true)) {
-            $parametersMod = \Ip\ServiceLocator::getParametersMod();
-            return $parametersMod->getValue("Form.required");
+            if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
+                $errorText = __('Required field', 'ipAdmin');
+            } else {
+                $errorText = __('Required field', 'ipPublic');
+            }
+
+            return $errorText;
         } else {
             return false;
         }

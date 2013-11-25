@@ -25,10 +25,9 @@ class ImageCropCenter extends Image
      */
     public function __construct($widthDest, $heightDest, $quality = null)
     {
-        global $parametersMod;
         if ($quality === null)
         {
-            $quality = $parametersMod->getValue('Config.default_image_quality');
+            $quality = ipGetOption('Config.defaultImageQuality');
         }
         $this->widthDest = $widthDest;
         $this->heightDest = $heightDest;

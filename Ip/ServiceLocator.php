@@ -62,7 +62,7 @@ class ServiceLocator
      */
     public static function log()
     {
-        if (self::$log== null) {
+        if (self::$log == null) {
             self::$log= new \Ip\Module\Log\Logger();
         }
         return self::$log;

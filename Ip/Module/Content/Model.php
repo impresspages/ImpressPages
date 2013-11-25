@@ -367,7 +367,7 @@ class Model{
      *
      * Enter description here ...
      * @param unknown_type $widgetName
-     * @return \Ip\Module\Content\WidgetController
+     * @return \Ip\WidgetController
      */
     public static function getWidgetObject($widgetName) {
         $widgetObjects = self::getAvailableWidgetObjects();

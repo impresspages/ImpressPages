@@ -7,8 +7,10 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Captcha extends Field{
-    private $catpchaInit;
+    private $captchaInit;
     
     public function __construct($options = array()) {
         $this->captchaInit = array(
@@ -49,7 +51,6 @@ class Captcha extends Field{
     }
     
     public function render($doctype) {
-        $attributesStr = '';
 
         $captcha = new \Ip\Lib\HnCaptcha\HnCaptcha($this->captchaInit, TRUE);
         
@@ -76,7 +77,7 @@ class Captcha extends Field{
         return self::TYPE_SYSTEM;
     }    
     
-    public function validate($values, $valueKey) {
+    public function validate($values, $valueKey, $environment) {
 
         if (!isset($values[$this->getName()]['id']) || !isset($values[$this->getName()]['code'])) {
             return ''; //that means error. We just don't have the text
@@ -95,7 +96,7 @@ class Captcha extends Field{
             return ''; //that means error. We just don't have the text
         }
         
-        return parent::validate($values, $valueKey);
+        return parent::validate($values, $valueKey, $environment);
     }    
 
     public function getValidationInputName() {

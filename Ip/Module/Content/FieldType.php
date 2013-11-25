@@ -38,7 +38,7 @@ class FieldType{
      * 
      * Create field that could be used in form class.
      * @param array $fieldData will be passed to field constructor
-     * @return \Ip\Form\Field\Field
+     * @return \Ip\Form\Field
      */
     public function createField($fieldData) {
         if (!isset($fieldData['label'])) {

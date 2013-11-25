@@ -155,7 +155,6 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupImage()
     {
-        global $parametersMod;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
@@ -167,10 +166,10 @@ class AdminController extends \Ip\Controller{
 
         $types = array();
 
-        $scopePageTitle = $parametersMod->getValue('InlineManagement.assign_to_page');
-        $scopeParentPageTitle = $parametersMod->getValue('InlineManagement.assign_to_parent_page');
-        $scopeLanguageTitle = $parametersMod->getValue('InlineManagement.assign_to_language');
-        $scopeAllPagesTitle = $parametersMod->getValue('InlineManagement.assign_to_all_pages');
+        $scopePageTitle = __('Current page and sub-pages', 'ipAdmin', false);
+        $scopeParentPageTitle = __('Page "[[page]]" and all sub-pages', 'ipAdmin', false);
+        $scopeLanguageTitle = __('All [[language]] pages', 'ipAdmin', false);
+        $scopeAllPagesTitle = __('All pages', 'ipAdmin', false);
 
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {

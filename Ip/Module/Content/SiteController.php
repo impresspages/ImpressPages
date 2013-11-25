@@ -32,7 +32,6 @@ class SiteController extends \Ip\Controller{
                 return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
             }
 
-            // TODOX Trello #133 remove $post parameter
             return $widgetObject->post($instanceId, $widgetRecord['data']);
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());

@@ -26,7 +26,7 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    'THEME_DIR' => 'ip_themes/',
+    'THEME_DIR' => 'Theme/',
     // END BACKEND
 
     // FRONTEND
