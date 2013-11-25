@@ -20,7 +20,7 @@ class PageNotFound extends \Ip\Response\Layout {
         }
         $this->addHeader('HTTP/1.0 404 Not Found');
         $this->setStatusCode(404);
-        ipContent()->setBlockContent('main', $content);
+        $this->setContent($content);
         parent::__construct($content);
     }
 
