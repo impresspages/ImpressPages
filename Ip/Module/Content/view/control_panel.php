@@ -29,7 +29,7 @@
     ?>
                         <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                             <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.ipEsc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
+                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
                             </a>
                         </li>
     <?php } ?>
@@ -58,7 +58,7 @@
                         <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
                             <a href="#">
                                 <span class="ipaTitle"><span><?php echo htmlspecialchars($widget->getTitle()); ?></span></span>
-                                <img src="<?php echo ipEsc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
+                                <img src="<?php echo esc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
                             </a>
                         </div>
                     </li>
