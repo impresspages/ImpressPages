@@ -106,7 +106,7 @@ class Content {
 
     /**
      *
-     * @param $zoneName Name of zone you wish to get
+     * @param $zoneName
      * @return \Ip\Zone
      *
      */
@@ -274,6 +274,15 @@ class Content {
 
     private function parseUrl()
     {
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            //admin pages don't have zones
+            $firstLanguageData = Internal\ContentDb::getFirstLanguage();
+            $this->languageUrl = $firstLanguageData['url'];
+            $this->currentZoneName = false;
+            return;
+        }
+
+
         $path = \Ip\ServiceLocator::request()->getRelativePath();
         $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
         if ($urlVars[0] == '') {
@@ -437,21 +446,20 @@ class Content {
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
-            if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
-                if (!$this->getCurrentPage()) {
-                    $this->revision = false;
-                    return false;
+            if ($this->getCurrentPage()) {
+                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+                    $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                    if ($revision['published']) {
+                        $revision = $this->duplicateRevision($revision['revisionId']);
+                    }
                 }
-                $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
-                if ($revision['published']) {
-                    $revision = $this->duplicateRevision($revision['revisionId']);
-                }
+            } else {
+                $revision = false;
             }
-
         } else {
-            $currentElement = $this->getCurrentPage();
-            if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentElement->getId());
+            $currentPage = $this->getCurrentPage();
+            if ($currentPage) {
+                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentPage->getId());
             }
 
         }
@@ -472,9 +480,9 @@ class Content {
 
 
     /**
-     *
-     * @return array Each element in array is an Element
-     *
+     * @param null $zoneName
+     * @param null $pageId
+     * @return \Ip\Page[]
      */
     public function getBreadcrumb($zoneName = null, $pageId = null){
         if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
@@ -486,13 +494,19 @@ class Content {
             if (!$zone) {
                 return array();
             }
-            return $zone->getBreadcrumb();
+            $breadcrumb = $zone->getBreadcrumb();
         } else {
             $zone = $this->getZone($zoneName);
             if (!$zone) {
                 return array();
             }
-            return $zone->getBreadcrumb($pageId);
+            $breadcrumb = $zone->getBreadcrumb($pageId);
+        }
+
+        if (is_array($breadcrumb)) {
+            return $breadcrumb;
+        } else {
+            return array();
         }
 
     }
