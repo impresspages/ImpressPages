@@ -25,7 +25,7 @@ var ip = {
                     ' ',
                     array_map(
                         function ($sKey, $sValue) {
-                            return ipEsc($sKey) . '="' . ipEsc($sValue) . '"';
+                            return esc($sKey) . '="' . esc($sValue) . '"';
                         },
                         array_keys($record['attributes']),
                         array_values($record['attributes'])

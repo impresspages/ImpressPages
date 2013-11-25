@@ -5,7 +5,7 @@
         <input type="text" class="ipAdminInput ipaFieldLabel" name="label" value="" />
         <select class="ipaFieldType">
             <?php foreach($fieldTypes as $fieldType) { ?>
-                <option value="<?php echo ipEsc($fieldType['key']); ?>"><?php echo ipEsc($fieldType['title']); ?></option>
+                <option value="<?php echo esc($fieldType['key']); ?>"><?php echo esc($fieldType['title']); ?></option>
             <?php } ?>
         </select>
         <input type="checkbox" class="ipaFieldRequired" />

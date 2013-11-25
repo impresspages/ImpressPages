@@ -175,11 +175,6 @@ function ipGetLayout()
     }
 }
 
-function ipEsc($text)
-{
-    return htmlspecialchars($text, ENT_QUOTES);
-}
-
 /**
  * @param $block
  * @return \Ip\Block
@@ -209,21 +204,6 @@ function ipRequest()
     return \Ip\ServiceLocator::request();
 }
 
-function __($text, $domain)
-{
-    return htmlentities(\Ip\Translator::translate($text, $domain), (ENT_COMPAT), 'UTF-8');
-}
-
-function _e($text, $domain)
-{
-    echo __($text, $domain);
-}
-
-function _s($text, $domain)
-{
-    return \Ip\Translator::translate($text, $domain);
-}
-
 /**
  * @return \Ip\Dispatcher
  */
@@ -238,6 +218,69 @@ function ipDispatcher()
 function ipDb()
 {
     return \Ip\ServiceLocator::db();
+}
+
+/**
+ * @param string $string
+ * @param string $esc html|attr|textarea|url|urlRaw|raw or false
+ */
+function esc($string, $esc = 'html')
+{
+    if (!$esc) {
+        return $string;
+    }
+
+    if ('html' == $esc) {
+        return escHtml($string);
+    } elseif ('attr' == $esc) {
+        return escAttr($string);
+    } elseif ('url' == $esc) {
+        return escUrl($string);
+    } elseif ('urlRaw' == $esc || 'urlraw' == $esc) {
+        return escUrlRaw($string);
+    } elseif ('textarea' == $string) {
+        return escTextarea($string);
+    }
+
+    throw new \Ip\CoreException('Unknown escape method: {$esc}');
+}
+
+
+function escHtml($string)
+{
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}
+
+function escTextarea($value)
+{
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+
+function escAttr($value)
+{
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+}
+
+function escUrl($url)
+{
+    // TODOX implement
+    throw new \Ip\CoreException('Not implemented yet.');
+}
+
+function escUrlRaw($url)
+{
+    // TODOX implement
+    throw new \Ip\CoreException('Not implemented yet.');
+}
+
+function __($text, $domain, $esc = 'html')
+{
+    return esc(\Ip\Translator::translate($text, $domain), $esc);
+}
+
+function _e($text, $domain, $esc = 'html')
+{
+    echo __($text, $domain, $esc);
 }
 
 //TODOX ask Algimantas if this is still used
