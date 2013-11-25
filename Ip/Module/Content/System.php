@@ -206,14 +206,14 @@ class System{
     public static function collectFieldTypes($fieldTypes, $info = NULL)
     {
 
-        $typeText = _s('Text', 'ipAdmin');
-        $typeEmail = _s('Email', 'ipAdmin');
-        $typeTextarea = _s('Textarea', 'ipAdmin');
-        $typeSelect = _s('Select', 'ipAdmin');
-        $typeCheckbox = _s('Checkbox', 'ipAdmin');
-        $typeRadio = _s('Radio', 'ipAdmin');
-        $typeCaptcha = _s('Captcha', 'ipAdmin');
-        $typeFile = _s('File', 'ipAdmin');
+        $typeText = __('Text', 'ipAdmin', false);
+        $typeEmail = __('Email', 'ipAdmin', false);
+        $typeTextarea = __('Textarea', 'ipAdmin', false);
+        $typeSelect = __('Select', 'ipAdmin', false);
+        $typeCheckbox = __('Checkbox', 'ipAdmin', false);
+        $typeRadio = __('Radio', 'ipAdmin', false);
+        $typeCaptcha = __('Captcha', 'ipAdmin', false);
+        $typeFile = __('File', 'ipAdmin', false);
 
         $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);

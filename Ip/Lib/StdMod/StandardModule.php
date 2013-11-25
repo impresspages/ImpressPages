@@ -339,7 +339,7 @@ class StandardModule {
                 </head>
                 <body>
                   <script type=\"text/javascript\">                  
-                    alert('".addslashes(_s('Impossible to insert the record', 'ipAdmin'))."');
+                    alert('".__('Impossible to insert the record', 'ipAdmin', 'js')."');
                   </script>
                  </body>
                </html>
@@ -554,7 +554,7 @@ class StandardModule {
               </head>
               <body>
                 <script type=\"text/javascript\">                  
-                  alert('".addslashes(_s('Impossible to update the record', 'ipAdmin'))."');
+                  alert('".__('Impossible to update the record', 'ipAdmin', 'js')."');
                 </script>
                </body>
              </html>
@@ -1017,7 +1017,7 @@ class StandardModule {
                 if(method_exists($area, 'lastError')) {
                     echo "alert('".addslashes($area->lastError('delete'))."');";
                 }else {
-                    echo "alert('".addslashes(_s('Impossible to delete the record', 'ipAdmin'))."');";
+                    echo "alert('".__('Impossible to delete the record', 'ipAdmin', 'js')."');";
                 }
                 return false;
             }
