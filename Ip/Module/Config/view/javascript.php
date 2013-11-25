@@ -1,6 +1,7 @@
 <script>
 var ip = {
     baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
+    languageId : <?php echo json_encode($ipLanguageId) ?>,
     languageUrl : <?php echo json_encode($ipLanguageUrl) ?>,
     themeDir : <?php echo json_encode($ipThemeDir) ?>,
     theme : <?php echo json_encode($ipTheme) ?>,
