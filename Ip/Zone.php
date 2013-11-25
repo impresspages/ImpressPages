@@ -129,6 +129,7 @@ abstract class Zone{
      */
 
     public function getRoadToPage($pageId=null){
+        //TODOX this function likely can be replaced by getBreadcrumb or vice versa
 
         $pages = array();
         if($pageId !== null)
@@ -200,23 +201,14 @@ abstract class Zone{
      */
 
     public function getBreadcrumb($pageId = null){
-        if (ipContent()->getCurrentZone()&& ipContent()->getCurrentZone()->getName() == $this->name) {
-            if ($pageId == null) {
-                if ($this->breadcrumb) {
-                    return $this->breadcrumb;
-                } else {
-                    if($this->getCurrentPage()){
-                        $this->breadcrumb = $this->getRoadToPage($this->getCurrentPage()->getId());
-                        return $this->breadcrumb;
-                    } else {
-                        return array();
-                    }
-                }
-            } else {
-                return $this->getRoadToPage($pageId);
+        if ($pageId === null) {
+            $currentPage = $this->getCurrentPage();
+            if (!$currentPage) {
+                return array();
             }
+            $pageId = $currentPage->getId();
         }
-        return array();
+        return $this->getRoadToPage($pageId);
     }
 
     /**
