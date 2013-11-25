@@ -175,7 +175,11 @@ function ipGetLayout()
     }
 }
 
-function ipEsc($text)
+/**
+ * @param string $string
+ * @param string $esc html|attr|textarea|js|url|urlRaw or false
+ */
+function ipEsc($text, $esc = 'html')
 {
     return htmlspecialchars($text, ENT_QUOTES);
 }
@@ -209,16 +213,6 @@ function ipRequest()
     return \Ip\ServiceLocator::request();
 }
 
-function __($text, $domain)
-{
-    return htmlentities(\Ip\Translator::translate($text, $domain), (ENT_COMPAT), 'UTF-8');
-}
-
-function _e($text, $domain)
-{
-    echo __($text, $domain);
-}
-
 function _s($text, $domain)
 {
     return \Ip\Translator::translate($text, $domain);
@@ -238,6 +232,23 @@ function ipDispatcher()
 function ipDb()
 {
     return \Ip\ServiceLocator::db();
+}
+
+function escHtml($string) {}
+function escTextarea($value) {}
+function escAttr($value) {}
+function escJs($string) {}
+function escUrl($url) {}
+function escUrlRaw($url){}
+
+function __($text, $domain, $esc = 'html')
+{
+    return htmlentities(\Ip\Translator::translate($text, $domain), (ENT_COMPAT), 'UTF-8');
+}
+
+function _e($text, $domain, $esc = 'html')
+{
+    echo __($text, $domain, $esc);
 }
 
 //TODOX ask Algimantas if this is still used
