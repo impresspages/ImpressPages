@@ -107,7 +107,7 @@ class WidgetController{
 
         $layouts = array();
         foreach ($views as $viewKey => $view) {
-            $translation = _s('Layout_' . $viewKey, $this->getModuleName());
+            $translation = __('Layout_' . $viewKey, $this->getModuleName(), false);
             $layouts[] = array('name' => $viewKey, 'title' => $translation);
         }
 

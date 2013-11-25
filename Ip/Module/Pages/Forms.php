@@ -39,7 +39,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => _s('Title', 'ipAdmin'),
+                'label' => __('Title', 'ipAdmin', false),
                 'defaultValue' => $title
             ));
         $form->addField($field);
@@ -47,7 +47,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'url', //html "name" attribute
-                'label' => _s('URL', 'ipAdmin'),
+                'label' => __('URL', 'ipAdmin', false),
                 'defaultValue' => $url
             ));
         $form->addField($field);
@@ -55,7 +55,7 @@ class Forms {
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'keywords', //html "name" attribute
-                'label' => _s('Keywords', 'ipAdmin'),
+                'label' => __('Keywords', 'ipAdmin', false),
                 'defaultValue' => $keywords
             ));
         $form->addField($field);
@@ -63,7 +63,7 @@ class Forms {
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'description', //html "name" attribute
-                'label' => _s('Description', 'ipAdmin'),
+                'label' => __('Description', 'ipAdmin', false),
                 'defaultValue' => $description
             ));
         $form->addField($field);

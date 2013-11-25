@@ -16,29 +16,17 @@ class System{
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->bind('contentManagement.collectWidgets', array($this, 'collectWidgets'));
-        $dispatcher->bind('site.afterInit', array($this, 'initWidgets'));
+        $dispatcher->addEventListener('site.afterInit', array($this, 'initWidgets'));
+        $dispatcher->addEventListener('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+        $dispatcher->addEventListener('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
+        $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
+        $dispatcher->addEventListener('Cron.execute', array($this, 'executeCron'));
+        $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
+        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
 
-        $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+        $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
+        $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
-        $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
-
-        $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
-
-        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
-
-
-        $dispatcher->bind('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
-
-        $dispatcher->bind('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
-
-
-
-        //IpForm widget
-        $dispatcher->bind('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
-
-        
-        
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widgets.js'));
@@ -57,7 +45,7 @@ class System{
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
 
-        $dispatcher->bind('Admin.login', array($this, 'adminLogin'));
+        $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
 
 
     }
@@ -206,14 +194,14 @@ class System{
     public static function collectFieldTypes($fieldTypes, $info = NULL)
     {
 
-        $typeText = _s('Text', 'ipAdmin');
-        $typeEmail = _s('Email', 'ipAdmin');
-        $typeTextarea = _s('Textarea', 'ipAdmin');
-        $typeSelect = _s('Select', 'ipAdmin');
-        $typeCheckbox = _s('Checkbox', 'ipAdmin');
-        $typeRadio = _s('Radio', 'ipAdmin');
-        $typeCaptcha = _s('Captcha', 'ipAdmin');
-        $typeFile = _s('File', 'ipAdmin');
+        $typeText = __('Text', 'ipAdmin', false);
+        $typeEmail = __('Email', 'ipAdmin', false);
+        $typeTextarea = __('Textarea', 'ipAdmin', false);
+        $typeSelect = __('Select', 'ipAdmin', false);
+        $typeCheckbox = __('Checkbox', 'ipAdmin', false);
+        $typeRadio = __('Radio', 'ipAdmin', false);
+        $typeCaptcha = __('Captcha', 'ipAdmin', false);
+        $typeFile = __('File', 'ipAdmin', false);
 
         $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);

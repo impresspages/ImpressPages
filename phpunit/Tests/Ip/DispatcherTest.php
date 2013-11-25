@@ -31,7 +31,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterString()
     {
-        ipDispatcher()->bind('TestEvent1', function ($value, $data) {
+        ipDispatcher()->addFilterListener('TestEvent1', function ($value, $data) {
                 return $value . '!';
             }
         );
@@ -42,7 +42,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterTwoHandlers()
     {
-        ipDispatcher()->bind('TestEvent2', function ($result, $data) {
+        ipDispatcher()->addFilterListener('TestEvent2', function ($result, $data) {
                 return 'TestEvent: ' . $result;
             }
         );
@@ -55,8 +55,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
             return $defaultResult;
         };
 
-        ipDispatcher()->bind('TestEvent3', $addItemHandler);
-        ipDispatcher()->bind('TestEvent3', $addItemHandler);
+        ipDispatcher()->addFilterListener('TestEvent3', $addItemHandler);
+        ipDispatcher()->addFilterListener('TestEvent3', $addItemHandler);
 
         $result = $result = ipDispatcher()->filter('TestEvent3', array('Dog'), 'Cat');
 
@@ -74,7 +74,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 //        $this->assertEquals(NULL, $result);
 //
 //        // Bind event:
-//        ipDispatcher()->bind('TestJob', function ($data) {
+//        ipDispatcher()->addJobListener('TestJob', function ($data) {
 //                return $data;
 //            }
 //        );
