@@ -17,8 +17,8 @@ class System{
             ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/system.js'), 0);
         }
 
-        ipDispatcher()->bind('site.urlChanged', __NAMESPACE__ .'\System::urlChanged');
-        ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->addEventListener('site.urlChanged', __NAMESPACE__ .'\System::urlChanged');
+        ipDispatcher()->addEventListener('Cron.execute', array($this, 'executeCron'));
     }
     
     public static function urlChanged($info)

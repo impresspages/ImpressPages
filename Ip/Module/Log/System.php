@@ -10,7 +10,7 @@ class System {
 
     public function init()
     {
-        ipDispatcher()->bind('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->addEventListener('Cron.execute', array($this, 'executeCron'));
     }
 
     public function executeCron($info)
