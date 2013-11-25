@@ -14,7 +14,7 @@ class PublicController extends \Ip\Controller
 
         if (
             ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
-            !$currentPage
+            $currentPage instanceof \Ip\Page404
         ) {
             return new \Ip\Response\PageNotFound();
         }
