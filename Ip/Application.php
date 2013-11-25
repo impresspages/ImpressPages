@@ -231,7 +231,7 @@ class Application {
                     $fakeCronAnswer = $this->handleRequest($request)->getContent();
                 }
 
-                if ($fakeCronAnswer != _s('OK', 'ipAdmin')) {
+                if ($fakeCronAnswer != __('OK', 'ipAdmin', false)) {
                     ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
                 }
             }

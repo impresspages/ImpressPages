@@ -177,11 +177,15 @@ function ipGetLayout()
 
 /**
  * @param string $string
- * @param string $esc html|attr|textarea|js|url|urlRaw or false
+ * @param string $esc html|attr|textarea|js|url|urlRaw|raw or false
  */
-function esc($text, $esc = 'html')
+function esc($string, $esc = 'html')
 {
-    return htmlspecialchars($text, ENT_QUOTES);
+    if (!$esc) {
+        return $string;
+    }
+
+    return htmlspecialchars($string, ENT_QUOTES);
 }
 
 /**
@@ -211,11 +215,6 @@ function ipIsManagementState()
 function ipRequest()
 {
     return \Ip\ServiceLocator::request();
-}
-
-function _s($text, $domain)
-{
-    return \Ip\Translator::translate($text, $domain);
 }
 
 /**

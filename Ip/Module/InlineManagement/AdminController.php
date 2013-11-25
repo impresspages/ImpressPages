@@ -166,10 +166,10 @@ class AdminController extends \Ip\Controller{
 
         $types = array();
 
-        $scopePageTitle = _s('Current page and sub-pages', 'ipAdmin');
-        $scopeParentPageTitle = _s('Page "[[page]]" and all sub-pages', 'ipAdmin');
-        $scopeLanguageTitle = _s('All [[language]] pages', 'ipAdmin');
-        $scopeAllPagesTitle = _s('All pages', 'ipAdmin');
+        $scopePageTitle = __('Current page and sub-pages', 'ipAdmin', false);
+        $scopeParentPageTitle = __('Page "[[page]]" and all sub-pages', 'ipAdmin', false);
+        $scopeLanguageTitle = __('All [[language]] pages', 'ipAdmin', false);
+        $scopeAllPagesTitle = __('All pages', 'ipAdmin', false);
 
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
