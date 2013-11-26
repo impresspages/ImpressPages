@@ -10,10 +10,34 @@ function ipGetOption($option, $defaultValue = null)
 }
 
 
+function ipGetOptionLang($option, $languageId, $defaultValue = null)
+{
+    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId, $defaultValue);
+}
+
+
 function ipSetOption($option, $value)
 {
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
+
+function ipSetOptionLang($option, $value, $languageId)
+{
+    \Ip\ServiceLocator::options()->setOptionLang($option, $languageId, $value);
+}
+
+function ipRemoveOption($option)
+{
+    return \Ip\ServiceLocator::options()->removeOption($option);
+}
+
+function ipRemoveOptionLang($option, $languageId)
+{
+    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId);
+}
+
+
+
 
 /**
  * @return \Ip\Config

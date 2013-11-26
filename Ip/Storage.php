@@ -101,4 +101,28 @@ class Storage {
         return ipDb()->fetchAll($sql, $params);
     }
 
+    /**
+     * @param $pluginName
+     * @param $key
+     */
+    public function remove($pluginName, $key)
+    {
+        $sql = '
+            DELETE FROM
+                `'.DB_PREF.'storage`
+            WHERE
+                `plugin` = :plugin
+                AND
+                `key` = :key
+        ';
+
+        $params = array (
+            ':plugin' => $pluginName,
+            ':key' => $key
+        );
+
+        ipDb()->execute($sql, $params);
+
+    }
+
 }
