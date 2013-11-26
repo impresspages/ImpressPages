@@ -20,7 +20,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'websiteTitle', //html "name" attribute
-                'defaultValue' => ipGetOption('Config.websiteTitle'),
+                'defaultValue' => ipGetOptionLang('Config.websiteTitle', ipContent()->getCurrentLanguage()->getId()),
                 'label' => __('Website title', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('Used as a sender name in emails and as default website logo.', 'Config')
             ));
