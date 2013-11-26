@@ -9,7 +9,7 @@ namespace Ip\Module\Content;
 class PublicController extends \Ip\Controller
 {
     public function index()
-    {return 'test';
+    {//return 'test';//todox remove
         $currentPage = ipContent()->getCurrentPage();
 
         //redirect if needed

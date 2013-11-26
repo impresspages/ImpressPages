@@ -8,7 +8,7 @@ return array(
     // DB
     'db' => array(
         'hostname' => 'localhost',
-        'username' => 'root',
+        'username' => 'rootc',
         'password' => 'maskas',
         'database' => '4.x',
         'tablePrefix' => 'ip3_',
