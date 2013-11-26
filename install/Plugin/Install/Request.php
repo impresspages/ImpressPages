@@ -1,9 +1,9 @@
 <?php
-namespace Plugin\Setup;
+namespace Plugin\Install;
 
 class Request extends \Ip\Request {
     protected $defaultControllerAction = 'index';
-    protected $defaultControllerClass = '\\Plugin\\Setup\\PublicController';
+    protected $defaultControllerClass = '\\Plugin\\Install\\PublicController';
 
     protected function parseControllerAction()
     {

@@ -42,26 +42,36 @@ class Application {
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
     }
 
-    public function prepareEnvironment()
+    public function prepareEnvironment($options = array())
     {
-        //TODOX decide if separate option for error setting is needed
-        require_once ipConfig()->coreFile('Ip/Internal/Deprecated/error_handler.php');
-        if (ipConfig()->isDevelopmentEnvironment()){
-            error_reporting(E_ALL|E_STRICT);
-            ini_set('display_errors', '1');
-        } else {
-            ini_set('display_errors', '0');
-        }
-        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-            session_name(ipConfig()->getRaw('SESSION_NAME'));
-            session_start();
+        //TODOX decide if separate option for error setting in config is needed
+        if (empty($options['skipErrorHandler'])) {
+            require_once ipConfig()->coreFile('Ip/Internal/Deprecated/error_handler.php');
         }
 
+        if (empty($options['skipError'])) {
+            if (ipConfig()->isDevelopmentEnvironment()){
+                error_reporting(E_ALL|E_STRICT);
+                ini_set('display_errors', '1');
+            } else {
+                ini_set('display_errors', '0');
+            }
+        }
 
-        mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
-        date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+        if (empty($options['skipSession'])) {
+            if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+                session_name(ipConfig()->getRaw('SESSION_NAME'));
+                session_start();
+            }
+        }
 
+        if (empty($options['skipEncoding'])) {
+            mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
+        }
 
+        if (empty($options['skipTimezone'])) {
+            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+        }
     }
 
 
@@ -98,8 +108,8 @@ class Application {
 
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
-            ipDispatcher()->notify('site.afterInit');
         }
+        ipDispatcher()->notify('site.afterInit');
 
         //check for CSRF attach
         if (empty($options['skipScrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
@@ -201,7 +211,7 @@ class Application {
 
     public function run($options = array())
     {
-        $this->prepareEnvironment();
+        $this->prepareEnvironment($options);
         $request = new \Ip\Request();
         $request->setGet($_GET);
         $request->setPost($_POST);

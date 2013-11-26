@@ -3,12 +3,17 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Module\Install;
+namespace Plugin\Install;
 
 
 
-class SiteController extends \Ip\Controller
+class PublicController extends \Ip\Controller
 {
+    public function index ()
+    {
+        return $this->step0();
+    }
+
     public function step0()
     {
         $selected_language = (isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en');
@@ -91,8 +96,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
         $js = array(
-            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipConfig()->coreModuleUrl('Install/assets/js/step3.js')
+            ipConfig()->pluginUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->pluginUrl('Install/assets/js/step3.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -132,8 +137,8 @@ class SiteController extends \Ip\Controller
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
         $js = array(
-            ipConfig()->coreModuleUrl('Install/assets/js/ModuleInstall.js'),
-            ipConfig()->coreModuleUrl('Install/assets/js/step4.js')
+            ipConfig()->pluginUrl('Install/assets/js/ModuleInstall.js'),
+            ipConfig()->pluginUrl('Install/assets/js/step4.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
