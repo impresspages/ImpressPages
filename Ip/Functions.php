@@ -312,3 +312,23 @@ function _e($text, $domain, $esc = 'html')
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
 //}
+
+
+function ipFile($path)
+{
+    static $basePath = '';
+    if (!$basePath) {
+        $basePath = \Ip\Config::baseFile('');
+    }
+
+    $overrides = \Ip\Config::getRaw('FILE_OVERRIDES');
+    if ($overrides) {
+        foreach ($overrides as $prefix => $newPath) {
+            if (strpos($path, $prefix)) {
+                return str_replace($prefix, $newPath, $path, 1);
+            }
+        }
+    }
+
+    return $basePath . $path;
+}
