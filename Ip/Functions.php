@@ -332,3 +332,22 @@ function ipFile($path)
 
     return $basePath . $path;
 }
+
+function ipUrl($path)
+{
+    static $baseUrl = '';
+    if (!$baseUrl) {
+        $baseUrl = ipConfig()->baseFile('');
+    }
+
+    $overrides = ipConfig()->getRaw('URL_OVERRIDES');
+    if ($overrides) {
+        foreach ($overrides as $prefix => $newPath) {
+            if (strpos($path, $prefix) === 0) {
+                return substr_replace($path, $newPath, 0, strlen($prefix));
+            }
+        }
+    }
+
+    return $baseUrl . $path;
+}
