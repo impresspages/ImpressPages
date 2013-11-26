@@ -53,7 +53,11 @@ class AdminController extends \Ip\Controller{
             return;
         }
 
-        ipSetOption('Config.' . $fieldName, $value);
+        if ($fieldName == 'websiteTitle') {
+            ipSetOptionLang('Config.' . $fieldName, $value, ipContent()->getCurrentLanguage()->getId());
+        } else {
+            ipSetOption('Config.' . $fieldName, $value);
+        }
 
 
         return new \Ip\Response\Json(array(1));
