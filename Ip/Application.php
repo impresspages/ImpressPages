@@ -46,7 +46,6 @@ class Application {
         }
 
 
-
         mb_internal_encoding($config->getRaw('CHARSET'));
         date_default_timezone_set($config->getRaw('timezone')); //PHP 5 requires timezone to be set.
 
@@ -59,22 +58,28 @@ class Application {
     }
 
 
+    public function executeController($callable)
+    {
+
+    }
+
     /**
      * @param Request $request
-     * @param boold $subrequest
+     * @param bool $subrequest
      * @return Response
      * @throws CoreException
      */
     public function handleRequest(\Ip\Request $request, $subrequest = true)
     {
+
         \Ip\ServiceLocator::addRequest($request);
 
         if (!$subrequest) { // Do not fix magic quotoes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
+
         $language = ipContent()->getCurrentLanguage();
         $languageCode = $language->getCode();
-
         \Ip\Translator::init($languageCode);
         \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
         \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
