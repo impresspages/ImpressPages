@@ -26,6 +26,11 @@ class Autoloader {
             return true;
         }
 
+        if (file_exists(ipConfig()->pluginFile($fileName))) {
+            require_once ipConfig()->pluginFile($fileName);
+            return true;
+        }
+
         $vendorFile = ipConfig()->coreFile('Ip' . DIRECTORY_SEPARATOR . 'Internal' . DIRECTORY_SEPARATOR . 'Vendor' . DIRECTORY_SEPARATOR . $fileName);
         if (file_exists($vendorFile)) {
             require_once $vendorFile;

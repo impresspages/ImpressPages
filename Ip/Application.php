@@ -34,34 +34,36 @@ class Application {
 
 
         require_once $config->coreFile('Ip/Functions.php');
-        require_once $config->coreFile('Ip/Internal/Deprecated/error_handler.php');
+
+
         require_once $config->coreFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
+    }
 
-        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-            session_name($config->getRaw('SESSION_NAME'));
-            session_start();
-        }
-
-
-        mb_internal_encoding($config->getRaw('CHARSET'));
-        date_default_timezone_set($config->getRaw('timezone')); //PHP 5 requires timezone to be set.
-
-        if ($config->isDevelopmentEnvironment()){
+    public function prepareEnvironment()
+    {
+        //TODOX decide if separate option for error setting is needed
+        require_once ipConfig()->coreFile('Ip/Internal/Deprecated/error_handler.php');
+        if (ipConfig()->isDevelopmentEnvironment()){
             error_reporting(E_ALL|E_STRICT);
             ini_set('display_errors', '1');
         } else {
             ini_set('display_errors', '0');
         }
+        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+            session_name(ipConfig()->getRaw('SESSION_NAME'));
+            session_start();
+        }
+
+
+        mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
+        date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+
+
     }
 
-
-    public function executeController($callable)
-    {
-
-    }
 
     protected function initTranslations($languageCode)
     {
@@ -80,7 +82,6 @@ class Application {
     {
 
         \Ip\ServiceLocator::addRequest($request);
-
         if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
@@ -142,7 +143,6 @@ class Application {
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\CoreException($controllerClass.".php must extend \\Ip\\Controller class.");
         }
-
         $controller->init();
         $controllerAnswer = $controller->$action();
 
@@ -199,14 +199,18 @@ class Application {
     }
 
 
-    public function run()
+    public function run($options = array())
     {
+        $this->prepareEnvironment();
         $request = new \Ip\Request();
         $request->setGet($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
-        $response = $this->handleRequest($request, array(), false);
+
+
+
+        $response = $this->handleRequest($request, $options, false);
         $this->handleResponse($response);
         $this->close();
     }

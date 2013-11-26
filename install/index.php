@@ -16,16 +16,20 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
 
 require_once(__DIR__ . '/../Ip/Application.php');
 
-try {
     $application = new \Ip\Application(__DIR__ . '/ip_config.php');
     $application->init();
-    $application->run();
-} catch (\Exception $e) {
-    if (isset($log)) {
-        $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
-    }
-    throw $e;
-}
+    $application->prepareEnvironment();
+    $options = array(
+        'skipModuleInit' => 1,
+        'translationsLanguageCode' => 'en'
+    );
+    $request = new \Plugin\Setup\Request();
+    $request->setGet($_GET);
+    $request->setPost($_POST);
+    $request->setServer($_SERVER);
+    $request->setRequest($_REQUEST);
+    $response = $application->handleRequest($request, $options);
+    $response->send();
 
 
 //$config = require dirname(__DIR__) . '/Ip/Module/Install/ip_config-template.php';

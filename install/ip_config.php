@@ -18,8 +18,8 @@ return array(
     // GLOBAL
     'BASE_DIR' => '', //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     'CORE_DIR' => '..',
-    'BASE_URL' => '', //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    'FILE_DIR' => 'file', //uploded files directory
+    'BASE_URL' => getParentUrl(), //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
+    'FILE_DIR' => 'file', //uploaded files directory
     'TMP_FILE_DIR' => 'file/tmp', //temporary files directory
     'FILE_REPOSITORY_DIR' => 'file/repository', //files repository.
     'SECURE_DIR' => 'file/secure', //directory not accessible from the Internet
@@ -32,7 +32,7 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    'PLUGIN_DIR' => 'Plugin', //plugins directory
+    'PLUGIN_DIR' => '', //plugins directory
     'THEME_DIR' => 'Theme', //themes directory
 
     // END BACKEND
@@ -48,3 +48,19 @@ return array(
 
 
 );
+
+function getParentUrl() {
+    $pageURL = 'http';
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+    $pageURL .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+    } else {
+        $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    }
+
+    $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+    $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+
+    return $pageURL;
+}
