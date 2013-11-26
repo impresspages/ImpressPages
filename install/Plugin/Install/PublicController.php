@@ -35,7 +35,12 @@ class PublicController extends \Ip\Controller
 
         $content = \Ip\View::create('view/step0.php', $data)->render();
 
-        return $this->applyLayout($content);
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        \Ip\ServiceLocator::setResponse($response);
+        return $response;
+//        return $this->applyLayout($content);
     }
 
     public function step1()
