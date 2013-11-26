@@ -39,7 +39,7 @@ class System{
                 'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
             );
 
-            $validatorJs = \Ip\View::create(ipConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $validatorJs = \Ip\View::create(ipFile('Ip/Module/Config/jquerytools/validator.js'), $data)->render();
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
@@ -154,7 +154,7 @@ class System{
     {
         $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
         if ($core) {
-            $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
+            $widgetPublicDir = ipFile('Ip/Module/' . $pluginAssetsPath);
         } else {
             $widgetPublicDir = ipConfig()->pluginFile($pluginAssetsPath);
         }

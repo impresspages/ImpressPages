@@ -57,7 +57,7 @@ class WidgetController{
 
     public function getIcon() {
         if ($this->core) {
-            if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
+            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
                 return ipConfig()->coreModuleUrl($this->widgetAssetsDir . 'icon.png');
             }
         } else {
@@ -77,7 +77,7 @@ class WidgetController{
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::VIEW_DIR . '/');
         } else {
             $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . '/');
         }
@@ -187,7 +187,7 @@ class WidgetController{
         $answer = '';
         try {
             if ($this->core ) {
-                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             } else {
                 $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             }
@@ -205,7 +205,7 @@ class WidgetController{
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
                 $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             }

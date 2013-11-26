@@ -15,7 +15,7 @@
             <span class="ipmMenuTitle"><?php _e('Menu', 'ipAdmin') ?></span>
             <?php
 
-                $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+                $viewFile = ipFile('Ip/Module/Config/view/menu.php');
                 $data = array(
                     'items' => $menuItems,
                     'depth' => 1

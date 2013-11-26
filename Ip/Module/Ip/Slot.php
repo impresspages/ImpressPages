@@ -40,7 +40,7 @@ class Slot {
             'depth' => 1
         );
 
-        $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+        $viewFile = ipFile('Ip/Module/Config/view/menu.php');
         $view = \Ip\View::create($viewFile, $data);
         return $view->render();
     }
