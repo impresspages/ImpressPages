@@ -11,6 +11,12 @@ var validatorConfig = {
             $control.parents('.form-group')
                 .addClass('has-error')
                 .find('.help-error').html(this.messages.join(' '));
+            if (this.messages.join('') == '') {
+                //hide error if no error text present
+                $control.parents('.form-group').find('.help-error').hide()
+            } else {
+                $control.parents('.form-group').find('.help-error').show()
+            }
         });
     },
     'onSuccess' : function(e, valids) {
