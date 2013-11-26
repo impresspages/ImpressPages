@@ -29,11 +29,10 @@ class WidgetController{
         $this->moduleName = $moduleName;
         $this->core = $core;
 
-        $s = DIRECTORY_SEPARATOR;
+        $ds = '/';
 
-
-        $this->widgetDir = $moduleName . $s . Model::WIDGET_DIR . $s . $this->name . $s;
-        $this->widgetAssetsDir = $moduleName . $s . \ip\Application::ASSET_DIR . $s . Model::WIDGET_DIR . $s . $this->name . $s;
+        $this->widgetDir = $moduleName . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
+        $this->widgetAssetsDir = $moduleName . $ds . \ip\Application::ASSET_DIR . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
     }
 
     public function getTitle() {
@@ -55,7 +54,7 @@ class WidgetController{
     public function getCore() {
         return $this->core;
     }
-    
+
     public function getIcon() {
         if ($this->core) {
             if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
@@ -78,9 +77,9 @@ class WidgetController{
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . '/');
         } else {
-            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . DIRECTORY_SEPARATOR);
+            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . '/');
         }
 
 
@@ -99,7 +98,7 @@ class WidgetController{
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
-                if (is_file($themeViewsFolder . DIRECTORY_SEPARATOR . $viewFile) && substr($viewFile, -4) == '.php') {
+                if (is_file($themeViewsFolder . '/' . $viewFile) && substr($viewFile, -4) == '.php') {
                     $views[substr($viewFile, 0, -4)] = 1;
                 }
             }
@@ -115,9 +114,6 @@ class WidgetController{
             throw new Exception('No layouts', Exception::NO_LAYOUTS);
         }
 
-
-
-
         return $layouts;
     }
 
@@ -129,8 +125,6 @@ class WidgetController{
         return false; //by default all widgets are visible; 
     }
 
-    
-    
     /**
      *
      *
@@ -189,7 +183,6 @@ class WidgetController{
 
     }
 
-
     public function managementHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
@@ -207,7 +200,6 @@ class WidgetController{
         }
         return $answer;
     }
-
 
     public function previewHtml($instanceId, $data, $layout) {
         $answer = '';
@@ -234,7 +226,7 @@ class WidgetController{
     public function dataForJs($data) {
         return $data;
     }
-    
+
     /**
      * This method is called when widget options has been changed.
      * Do any maintenance job needed.
