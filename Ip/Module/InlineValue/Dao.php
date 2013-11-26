@@ -25,15 +25,16 @@ class Dao
     // GET
     public function getValue($key, $languageId, $zoneName, $pageId)
     {
-
         //Find value in breadcrumb
         if ($pageId === null) {
             //we can't get breadcrumb if page id is null
             $breadcrumb = array();
         } else {
-            $breadcrumb = ipContent()->getBreadcrumb();
+            $breadcrumb = ipContent()->getBreadcrumb($zoneName, $pageId);
+            //var_dump($breadcrumb);exit;
         }
         $breadcrumb = array_reverse($breadcrumb);
+
 
         foreach ($breadcrumb as $position => $element) {
             $value = $this->getPageValue($key, $languageId, $zoneName, $element->getId());

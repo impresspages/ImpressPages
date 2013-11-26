@@ -305,6 +305,14 @@ class View implements \Ip\Response\ResponseInterface
         } elseif (strpos($absoluteFile, ipConfig()->themeFile('')) === 0) {
             //theme dir
             $basePath = ipConfig()->themeFile('');
+        } else {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
+            } else {
+                $source = '';
+            }
+            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
         }
         $relativeFile = substr($absoluteFile, strlen($basePath));
 

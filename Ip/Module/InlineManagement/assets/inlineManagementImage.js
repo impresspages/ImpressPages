@@ -45,6 +45,9 @@
             data.aa = 'InlineManagement.getManagementPopupImage';
             data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementImage').key;
+            data.zoneName = ip.zoneName;
+            data.pageId = ip.pageId;
+            data.languageId = ip.languageId;
 
             $.ajax({
                 type : 'POST',
@@ -166,7 +169,9 @@
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
             data.securityToken = ip.securityToken;
-
+            data.zoneName = ip.zoneName;
+            data.pageId = ip.pageId;
+            data.languageId = ip.languageId;
 
             data.key = $this.data('ipInlineManagementImage').key;
 
@@ -234,6 +239,10 @@
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
             data.type = $popup.find('.ipaType').val();
+            data.zoneName = ip.zoneName;
+            data.pageId = ip.pageId;
+            data.languageId = ip.languageId;
+
 
             //IMAGE
             var ipUploadImage = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');

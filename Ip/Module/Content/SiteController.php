@@ -16,7 +16,7 @@ class SiteController extends \Ip\Controller{
         $instanceId = ipRequest()->getPost('instanceId');
 
         if (!$instanceId) {
-            return \Ip\Response\JsonRpc::error('Mising instanceId POST variable');
+            return \Ip\Response\JsonRpc::error('Missing instanceId POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
