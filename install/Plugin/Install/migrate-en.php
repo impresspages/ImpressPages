@@ -69,7 +69,7 @@ return array(
 
     'IP_FINISH_MESSAGE' => '
 <p>
-<a href="../../../install">Front page</a>
+<a href="../../">Front page</a>
 </p>
 <p>
 <a href="../admin.php">Administration page</a><br /><br />

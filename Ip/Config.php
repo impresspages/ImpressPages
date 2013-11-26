@@ -12,6 +12,7 @@ class Config
     protected $core = array();
     protected $protocol = null;
     protected $corePath = null;
+    protected $pluginUrl = null;
 
     public function __construct($config)
     {
@@ -37,19 +38,26 @@ class Config
             //$this->rawConfig['BASE_DIR'] = __DIR__
         }
 
+        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") { // TODOX fix error
+            $this->protocol = 'https://';
+        } else {
+            $this->protocol = 'http://';
+        }
+
         if ($this->rawConfig['CORE_DIR']) {
             $this->corePath = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['CORE_DIR'];
         } else {
             $this->corePath = $this->rawConfig['BASE_DIR'];
         }
 
+        if ($this->rawConfig['PLUGIN_DIR']) {
+            $this->pluginUrl = $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['PLUGIN_DIR'];
+        } else {
+            $this->pluginUrl = $this->protocol . $this->rawConfig['BASE_URL'];
+        }
+
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
 
-        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") { // TODOX fix error
-            $this->protocol = 'https://';
-        } else {
-            $this->protocol = 'http://';
-        }
 //TODOX ask Algimantas if this comment is still useful
 //        $relativeDirs = array(
 //            'fileDir',
@@ -187,7 +195,7 @@ class Config
 
     public function pluginUrl($path)
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/' . $path;
+        return $this->pluginUrl . '/Plugin/' . $path;
     }
 
     public function theme()

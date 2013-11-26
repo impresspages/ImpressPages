@@ -160,6 +160,7 @@ function ipPrintJavascript($print = true)
  * @param bool $print false - return instead of print
  * @return string
  */
+//TODOX remove $print parameters. People can use long syntax if they want the response
 function ipPrintHead($print = true)
 {
     $head = \Ip\ServiceLocator::response()->generateHead();

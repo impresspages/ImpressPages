@@ -28,19 +28,17 @@ class View implements \Ip\Response\ResponseInterface
     private $file;
     private $data;
     private $doctype;
-    private $languageId;
 
     /**
      * Construct view object using specified file and date
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    public static function create($file, $data = array(), $languageId = null) {
+    public static function create($file, $data = array()) {
         $foundFile = self::findFile($file);
         self::checkData($data);
 
-        return new \Ip\View($foundFile, $data, $languageId);
+        return new \Ip\View($foundFile, $data);
     }
 
 
@@ -50,16 +48,11 @@ class View implements \Ip\Response\ResponseInterface
      * @internal
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    private function __construct($file, $data = array(), $languageId = null) {
+    private function __construct($file, $data = array()) {
         $this->file = $file;
         $this->data = $data;
-        if ($languageId == null) {
-            $this->languageId = ipContent()->getCurrentLanguage()->getId();
-        } else {
-            $this->languageId = $languageId;
-        }
+
         eval('$this->doctype = self::'. ipConfig()->getRaw('DEFAULT_DOCTYPE').';');
     }
     
@@ -85,7 +78,7 @@ class View implements \Ip\Response\ResponseInterface
     }
     
 
-    
+
 
 
     public function par($parameterKey, $variables = null){
@@ -99,14 +92,14 @@ class View implements \Ip\Response\ResponseInterface
                 return '';
             }
         }
-        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
+        $value = '1';//$parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
 
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
                 $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
             }
         }
-        
+
         return $value;
     }
 
@@ -204,14 +197,8 @@ class View implements \Ip\Response\ResponseInterface
         return $this->doctype;
     }
     
-    public function setLanguageId ($languageId) {
-        $this->languageId = $languageId;
-    }
-    
-    public function getLanguageId () {
-        return $this->languageId;
-    }    
-    
+
+    //TODOX refactor to sugar method
     public function doctypeDeclaration($doctype = null) {
         if ($doctype === null) {
             $doctype = $this->getDoctype();
@@ -243,7 +230,7 @@ class View implements \Ip\Response\ResponseInterface
         }
     }
     
-    
+    //TODOX refactor to sugar method
     public function htmlAttributes($doctype = null) {
         $content = \Ip\ServiceLocator::content();
         if ($doctype === null) {
