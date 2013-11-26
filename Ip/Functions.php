@@ -318,14 +318,14 @@ function ipFile($path)
 {
     static $basePath = '';
     if (!$basePath) {
-        $basePath = \Ip\Config::baseFile('');
+        $basePath = ipConfig()->baseFile('');
     }
 
-    $overrides = \Ip\Config::getRaw('FILE_OVERRIDES');
+    $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
     if ($overrides) {
         foreach ($overrides as $prefix => $newPath) {
-            if (strpos($path, $prefix)) {
-                return str_replace($prefix, $newPath, $path, 1);
+            if (strpos($path, $prefix) === 0) {
+                return substr_replace($path, $newPath, 0, strlen($prefix));
             }
         }
     }

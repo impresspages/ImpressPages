@@ -19,7 +19,7 @@ class Captcha extends Field{
               'tempfolder'     => ipConfig()->temporaryFile(''),
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-              'TTF_folder'     => ipConfig()->coreModuleFile('Assets/assets/fonts/HnCaptcha/'),
+              'TTF_folder'     => ipFile('Ip/Module/Assets/assets/fonts/HnCaptcha/'),
         
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!

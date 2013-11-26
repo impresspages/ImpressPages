@@ -19,7 +19,7 @@ class PublicController extends \Ip\Controller
 
         //change layout if safe mode
         if (\Ip\Module\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipConfig()->coreModuleFile('Admin/view/safeModeLayout.php'));
+            ipSetLayout(ipFile('Ip/Module/Admin/view/safeModeLayout.php'));
         } else {
             ipSetLayout(Service::getPageLayout($currentPage));
         }

@@ -12,8 +12,11 @@ class Config
     protected $core = array();
     protected $protocol = null;
 
+    public $count = 0;
+
     public function __construct($config)
     {
+
         $this->rawConfig = $config;
 
         // TODOX remove
@@ -50,16 +53,19 @@ class Config
 
     public function coreModuleUrl($path)
     {
+        $this->count++;
         return $this->protocol . $this->rawConfig['BASE_URL'] . 'Ip/Module/' . $path;
     }
 
     public function coreModuleFile($path)
     {
+        $this->count++;
         return $this->rawConfig['BASE_DIR'] . 'Ip/Module/' . $path;
     }
 
     public function getRaw($name)
     {
+        $this->count++;
         return array_key_exists($name, $this->rawConfig) ? $this->rawConfig[$name] : null;
     }
 
@@ -71,6 +77,7 @@ class Config
 
     public function getCore($name)
     {
+        $this->count++;
         return $this->core[$name];
     }
 
@@ -82,31 +89,39 @@ class Config
 
     public function libraryUrl($path)
     {
+        $this->count++;
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['LIBRARY_DIR'] . $path;
     }
 
     public function libraryFile($path)
     {
+        $this->count++;
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['LIBRARY_DIR'] . $path;
     }
 
     public function temporaryFile($path)
     {
+        $this->count++;
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['TMP_FILE_DIR'] . $path;
     }
 
     public function temporarySecureFile($path)
     {
+        $this->count++;
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['TMP_SECURE_DIR'] . $path;
     }
 
     public function themeUrl($path)
     {
+        $this->count++;
+
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['THEME_DIR'] . $this->rawConfig['THEME'] . '/' . $path;
     }
 
     public function themeFile($path, $theme = null)
     {
+        $this->count++;
+
         if (!$theme) {
             $theme = $this->rawConfig['THEME'];
         }
@@ -116,11 +131,15 @@ class Config
 
     public function coreUrl($path)
     {
+        $this->count++;
+
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['CORE_DIR'] . $path;
     }
 
     public function coreFile($path)
     {
+        $this->count++;
+
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['CORE_DIR'] . $path;
     }
 
@@ -128,11 +147,15 @@ class Config
 
     public function fileDirFile($path)
     {
+        $this->count++;
+
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['FILE_DIR'] . $path;
     }
 
     public function repositoryFile($path)
     {
+        $this->count++;
+
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['FILE_REPOSITORY_DIR'] . $path;
     }
 
@@ -143,6 +166,8 @@ class Config
 
     public function baseUrl($path, $query = array(), $querySeparator = '&')
     {
+        $this->count++;
+
         $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
         if ($query) {
             $url .= '?' . http_build_query($query, null, $querySeparator);
@@ -153,16 +178,22 @@ class Config
 
     public function baseFile($path)
     {
+        $this->count++;
+
         return $this->rawConfig['BASE_DIR'] . $path;
     }
 
     public function pluginFile($path)
     {
+        $this->count++;
+
         return $this->rawConfig['BASE_DIR'] . $this->rawConfig['PLUGIN_DIR'] . $path;
     }
 
     public function pluginUrl($path)
     {
+        $this->count++;
+
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['PLUGIN_DIR'] . $path;
     }
 

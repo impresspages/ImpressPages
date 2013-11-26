@@ -59,7 +59,7 @@ class Application
             $language = 'en';
 
             // TODOX more intelligent check
-            if (isset($_GET['lang']) && file_exists(ipConfig()->coreModuleFile('Install/languages/' . $_GET['lang'] . '.php'))) {
+            if (isset($_GET['lang']) && file_exists(ipFile('Ip/Module/Install/languages/' . $_GET['lang'] . '.php'))) {
                 $_SESSION['installation_language'] = $_GET['lang'];
                 $language = $_GET['lang'];
             } elseif (isset($_SESSION['installation_language'])) {
@@ -67,7 +67,7 @@ class Application
             }
 
             \Ip\Translator::init($language);
-            \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
+            \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/Module/Install/languages'), '%s.php', 'ipInstall');
             \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
             \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
             $application = new \Ip\Application();
