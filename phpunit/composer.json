@@ -1,4 +1,5 @@
 {
+    "prefer-dist": true,
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "phpunit/dbunit": ">=1.2",
