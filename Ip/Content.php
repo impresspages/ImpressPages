@@ -152,6 +152,9 @@ class Content {
 
     public function getCurrentPage()
     {
+        if ($this->currentPage === null) {
+            $this->parseUrl();
+        }
         return $this->currentPage;
     }
 
@@ -300,7 +303,6 @@ class Content {
             $this->currentLanguage = $languages[0];
             $this->languageUrl = $this->currentLanguage->getUrl();
         }
-
         //find zone
         $zonesData = $this->getZonesData();
 

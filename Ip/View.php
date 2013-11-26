@@ -37,9 +37,6 @@ class View implements \Ip\Response\ResponseInterface
      * @param int $languageId language in which to render the view. Current language by default
      */
     public static function create($file, $data = array(), $languageId = null) {
-        if (DIRECTORY_SEPARATOR != '/') {
-            $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
-        }
         $foundFile = self::findFile($file);
         self::checkData($data);
 
@@ -276,14 +273,7 @@ class View implements \Ip\Response\ResponseInterface
 
     
     private static function findFile($file) {
-
         //make $file absolute
-        if ($file == 'view/widget_preview.php') {
-            $test = 1;
-        } else {
-            $test = 0;
-        }
-
         if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $absoluteFile = $file;
         } else {

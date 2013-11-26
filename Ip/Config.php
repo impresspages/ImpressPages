@@ -11,6 +11,7 @@ class Config
     protected $rawConfig = array();
     protected $core = array();
     protected $protocol = null;
+    protected $corePath = null;
 
     public function __construct($config)
     {
@@ -27,6 +28,8 @@ class Config
             } else {
                 $this->rawConfig['BASE_URL'] = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
             }
+            //var_dump($_SERVER);
+            var_dump($_GET);
         }
 
         if ($this->rawConfig['BASE_DIR'] == '') {
@@ -34,6 +37,11 @@ class Config
             //$this->rawConfig['BASE_DIR'] = __DIR__
         }
 
+        if ($this->rawConfig['CORE_DIR']) {
+            $this->corePath = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['CORE_DIR'];
+        } else {
+            $this->corePath = $this->rawConfig['BASE_DIR'];
+        }
 
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
 
@@ -62,13 +70,13 @@ class Config
 
 
     public function coreModuleUrl($path)
-    {
+    {//echo $this->protocol . $this->rawConfig['BASE_URL']; exit;
         return $this->protocol . $this->rawConfig['BASE_URL'] . '/Ip/Module/' . $path;
     }
 
     public function coreModuleFile($path)
     {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['CORE_DIR'] . '/Ip/Module/' . $path;
+        return $this->corePath . '/Ip/Module/' . $path;
     }
 
     public function getRaw($name)
@@ -129,6 +137,7 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'] . '/' . $theme . '/' . $path;
     }
 
+    //TODOX remove
     public function coreUrl($path)
     {
         return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
@@ -136,7 +145,7 @@ class Config
 
     public function coreFile($path)
     {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
+        return $this->corePath . '/' . $path;
     }
 
 

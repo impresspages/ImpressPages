@@ -63,31 +63,45 @@ class Application {
 
     }
 
+    protected function initTranslations($languageCode)
+    {
+        \Ip\Translator::init($languageCode);
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+    }
+
     /**
      * @param Request $request
      * @param bool $subrequest
      * @return Response
      * @throws CoreException
      */
-    public function handleRequest(\Ip\Request $request, $subrequest = true)
+    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
 
         \Ip\ServiceLocator::addRequest($request);
 
-        if (!$subrequest) { // Do not fix magic quotoes for internal requests because php didn't touched it
+        if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
 
-        $language = ipContent()->getCurrentLanguage();
-        $languageCode = $language->getCode();
-        \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+        if (empty($options['skipTranslationsInit'])) {
+            if (!empty($options['translationsLanguageCode'])) {
+                $languageCode = $options['translationsLanguageCode'];
+            } else {
+                $language = ipContent()->getCurrentLanguage();
+                $languageCode = $language->getCode();
+            }
+            $this->initTranslations($languageCode);
+        }
 
-        $this->modulesInit();
-        ipDispatcher()->notify('site.afterInit');
+        if (empty($options['skipModuleInit'])) {
+            $this->modulesInit();
+            ipDispatcher()->notify('site.afterInit');
+        }
 
-        if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
+        //check for CSRF attach
+        if (empty($options['skipScrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
@@ -112,8 +126,6 @@ class Application {
             throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
         }
 
-        $controller = new $controllerClass();
-
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
@@ -123,6 +135,10 @@ class Application {
 
 
         $action = $request->getControllerAction();
+
+
+
+        $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\CoreException($controllerClass.".php must extend \\Ip\\Controller class.");
         }
@@ -190,7 +206,7 @@ class Application {
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
-        $response = $this->handleRequest($request, false);
+        $response = $this->handleRequest($request, array(), false);
         $this->handleResponse($response);
         $this->close();
     }
