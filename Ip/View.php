@@ -56,11 +56,10 @@ class View implements \Ip\Response\ResponseInterface
      * @param int $languageId language in which to render the view. Current language by default
      */
     private function __construct($file, $data = array(), $languageId = null) {
-        $content = \Ip\ServiceLocator::content();
         $this->file = $file;
         $this->data = $data;
         if ($languageId == null) {
-            $this->languageId = $content->getCurrentLanguage()->getId();
+            $this->languageId = ipContent()->getCurrentLanguage()->getId();
         } else {
             $this->languageId = $languageId;
         }

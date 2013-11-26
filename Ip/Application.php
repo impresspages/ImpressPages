@@ -22,22 +22,20 @@ class Application {
 
     public function init()
     {
-        require_once(__DIR__ . '/ServiceLocator.php');
-
         $config = require ($this->configPath);
-        require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
+        require_once dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $config['CORE_DIR'] . '/Ip/Config.php';
         $config = new \Ip\Config($config);
+        require_once(__DIR__ . '/ServiceLocator.php');
         \Ip\ServiceLocator::setConfig($config);
 
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+        require_once $config->coreFile('Ip/Internal/Autoloader.php');
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
 
-
-        require_once $config->getCore('CORE_DIR') . 'Ip/Functions.php';
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
+        require_once $config->coreFile('Ip/Functions.php');
+        require_once $config->coreFile('Ip/Internal/Deprecated/error_handler.php');
+        require_once $config->coreFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
@@ -74,13 +72,12 @@ class Application {
         if (!$subrequest) { // Do not fix magic quotoes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
-
         $language = ipContent()->getCurrentLanguage();
         $languageCode = $language->getCode();
 
         \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
 
         $this->modulesInit();
         ipDispatcher()->notify('site.afterInit');
