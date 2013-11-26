@@ -115,6 +115,8 @@ class Config
     {
         $this->count++;
 
+        return ipUrl('Theme/' . $this->rawConfig['THEME'] . '/' . $path);
+
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['THEME_DIR'] . $this->rawConfig['THEME'] . '/' . $path;
     }
 
@@ -132,6 +134,8 @@ class Config
     public function coreUrl($path)
     {
         $this->count++;
+
+        return ipUrl('Ip/' . $path);
 
         return $this->protocol . $this->rawConfig['BASE_URL'] . $this->rawConfig['CORE_DIR'] . $path;
     }
@@ -168,8 +172,10 @@ class Config
     {
         $this->count++;
 
-        $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
+        // $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
+        $url = ipUrl($path);
         if ($query) {
+
             $url .= '?' . http_build_query($query, null, $querySeparator);
         }
 

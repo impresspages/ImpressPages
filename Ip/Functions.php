@@ -337,7 +337,8 @@ function ipUrl($path)
 {
     static $baseUrl = '';
     if (!$baseUrl) {
-        $baseUrl = ipConfig()->baseFile('');
+        $baseUrl = 'http://' . ipConfig()->getRaw('BASE_URL');
+        // $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
     }
 
     $overrides = ipConfig()->getRaw('URL_OVERRIDES');
