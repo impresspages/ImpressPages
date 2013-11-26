@@ -109,6 +109,7 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
+        //TODOX store relative to reflections dir
         $reflection = ipConfig()->getRaw('FILE_DIR') . \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, ipConfig()->fileDirFile(''));
         $transform->transform($file, $reflection);
 
