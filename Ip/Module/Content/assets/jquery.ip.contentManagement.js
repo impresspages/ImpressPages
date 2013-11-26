@@ -236,7 +236,11 @@
                 postData.aa = 'Content.savePage';
                 postData.securityToken = ip.securityToken;
                 postData.revisionId = ip.revisionId;
-
+                if (data.publishAfterSave) {
+                    postData.publish = 1;
+                } else {
+                    postData.publish = 0;
+                }
 
                 $.ajax({
                     type : 'POST',
@@ -253,25 +257,7 @@
             var $this = $(this);
             var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
-                if (data.publishAfterSave) {
-                    var postData = Object();
-                    postData.aa = 'Content.publishPage';
-                    postData.securityToken = ip.securityToken;
-                    postData.revisionId = response.newRevisionId;
-
-                    $.ajax({
-                        type : 'POST',
-                        url : ip.baseUrl,
-                        data : postData,
-                        context : $this,
-                        success : methods._publishPageResponse,
-                        dataType : 'json'
-                    });
-                
-                
-                } else {
-                    window.location.href = response.newRevisionUrl;
-                }
+                window.location.href = response.newRevisionUrl;
             } else {
                 var tmpData = $this.data('ipContentManagement');
                 tmpData.saving = false;

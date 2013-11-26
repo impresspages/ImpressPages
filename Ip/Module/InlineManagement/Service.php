@@ -128,12 +128,32 @@ class Service
 
     public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
+        if (isset($options['languageId'])) {
+            $languageId = $options['languageId'];
+        } else {
+            $languageId = ipContent()->getCurrentLanguage()->getId();
+        }
+
+        if (isset($options['zoneName'])) {
+            $zoneName = $options['zoneName'];
+        } else {
+            $zoneName = ipContent()->getCurrentZone()->getName();
+        }
+
+        if (isset($options['pageId'])) {
+            $pageId = $options['pageId'];
+        } else {
+            $pageId = ipContent()->getCurrentPage()->getId();
+        }
+
+
 
         if ($defaultValue === null) {
             $defaultValue = ipConfig()->coreModuleFile('InlineManagement/assets/empty.gif');
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
+
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (
