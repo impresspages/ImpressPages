@@ -16,7 +16,7 @@ class System {
             $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
         }
 
-        ipDispatcher()->bind('site.afterInit', array($this, 'initAdmin'));
+        ipDispatcher()->addEventListener('site.afterInit', array($this, 'initAdmin'));
 
         if (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');

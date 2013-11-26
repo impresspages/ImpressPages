@@ -12,7 +12,7 @@ class System{
 
     public function init()
     {
-        ipDispatcher()->bind('site.clearCache', array($this, 'clearCacheEvent'));
+        ipDispatcher()->addEventListener('site.clearCache', array($this, 'clearCacheEvent'));
 
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {
@@ -26,10 +26,8 @@ class System{
             }
         }
 
-        ipDispatcher()->bind('site.beforeError404', array($this, 'catchError404'));
-
-
-
+        // TODOX remove
+        ipDispatcher()->addFilterListener('site.beforeError404', array($this, 'catchError404'));
     }
 
 
