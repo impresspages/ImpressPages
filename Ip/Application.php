@@ -232,6 +232,7 @@ class Application {
     public function handleResponse(\Ip\Response $response)
     {
         $response = ipDispatcher()->filter('Application.sendResponse', $response);
+        ipDispatcher()->notify('Application.sendResponse', array('response' => $response));
         $response->send();
     }
 
