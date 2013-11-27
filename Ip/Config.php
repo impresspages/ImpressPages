@@ -157,6 +157,10 @@ class Config
     }
 
 
+    public function fileUrl($path)
+    {
+        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
+    }
 
     public function fileDirFile($path)
     {

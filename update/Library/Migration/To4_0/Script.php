@@ -50,10 +50,10 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->migrateLogTable();
 
-        $this->moveReflectionsToDedicatedFolder();
+        $this->refactorReflections();
     }
 
-    protected function moveReflectionsToDedicatedFolder()
+    protected function refactorReflections()
     {
         //remove all reflection files
         $dbh = $this->dbh;
@@ -79,16 +79,29 @@ class Script extends \IpUpdate\Library\Migration\General
 
 
         //remove all reflection records
-        $dbh = $this->dbh;
         $sql = "
         DELETE FROM
             `{$this->dbPref}m_administrator_repository_reflection`
         WHERE
           1
         ";
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
+        //update widgets data to point relative path in repository
+        $sql = "
+        UPDATE
+            `{$this->dbPref}m_content_management_widget`
+        SET
+           `data` = REPLACE(`data`, 'file\\\\/repository\\\\/', '')
+        WHERE
+           1
+        ";
 
         $q = $dbh->prepare($sql);
         $q->execute();
+
+
 
     }
 

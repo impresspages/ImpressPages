@@ -7,8 +7,8 @@ foreach ($images as $imageKey => $image) {
     $curTitle = isset($image['title']) ? $image['title'] : '';
 ?>
     <li>
-        <a href="<?php echo esc(ipConfig()->baseUrl($curImageBig)) ?>" title="<?php echo esc($curTitle); ?>">
-            <img src="<?php echo esc(ipConfig()->baseUrl($curImage)) ?>" alt="<?php echo esc($curTitle); ?>" />
+        <a href="<?php echo esc($curImageBig) ?>" title="<?php echo esc($curTitle); ?>">
+            <img src="<?php echo esc($curImage) ?>" alt="<?php echo esc($curTitle); ?>" />
         </a>
     </li>
 <?php } ?>
