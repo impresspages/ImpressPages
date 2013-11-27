@@ -190,7 +190,7 @@
             $file.find('i').addClass(iconClass);
             // thumbnail
             $file.find('img')
-                .attr('src', data.preview)
+                .attr('src', data.previewUrl)
                 .attr('alt', data.fileName)
                 .attr('title', data.fileName);
             // filename

@@ -53,7 +53,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
 
         var container = $this.find('.ipWidget_ipLogoGallery_container');
         for(var index in files) {
-            container.ipWidget_ipLogoGallery_container('addLogo', files[index].file, '', '');
+            container.ipWidget_ipLogoGallery_container('addLogo', files[index].fileName, '', '');
         }
 
     }
@@ -122,7 +122,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
                     logoWidth : options.logoWidth,
                     logoHeight : options.logoHeight
                 });
-                
+
                 for (var i in logos) {
                     var coordinates = new Object();
                     coordinates.cropX1 = logos[i]['cropX1'];
@@ -257,7 +257,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             logoOptions.enableFraming = false;
             logoOptions.enableUnderscale = true;
             logoOptions.autosizeType = 'fit';
-            
+
             $this.find('.ipaLogo').ipUploadImage(logoOptions);
             
             
