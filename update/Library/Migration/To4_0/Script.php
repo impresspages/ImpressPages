@@ -49,6 +49,47 @@ class Script extends \IpUpdate\Library\Migration\General
         $this->createStorageTable();
 
         $this->migrateLogTable();
+
+        $this->moveReflectionsToDedicatedFolder();
+    }
+
+    protected function moveReflectionsToDedicatedFolder()
+    {
+        //remove all reflection files
+        $dbh = $this->dbh;
+        $sql = "
+        SELECT
+            `reflection`
+        FROM
+            `{$this->dbPref}m_administrator_repository_reflection`
+        WHERE
+          1
+        ";
+
+        $q = $dbh->prepare($sql);
+        $result = $q->fetchAll();
+        foreach ($result as $reflection) {
+            $oldDir = $this->cf['BASE_DIR'];
+            if (substr($oldDir, -1) != '/') {
+                $oldDir .= '/';
+            }
+            $fileName = basename($reflection['reflection']);
+            rm ($oldDir . $fileName);
+        }
+
+
+        //remove all reflection records
+        $dbh = $this->dbh;
+        $sql = "
+        DELETE FROM
+            `{$this->dbPref}m_administrator_repository_reflection`
+        WHERE
+          1
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
     }
 
 
