@@ -28,7 +28,7 @@ class Controller extends \Ip\WidgetController{
 
         $newData['images'] = array(); //we will create new images array.
 
-        foreach($postData['images'] as $imageKey => $image){
+        foreach($postData['images'] as $image){
             if (!isset($image['title']) || !isset($image['fileName']) || !isset($image['status'])){ //check if all require data present
                 continue;
             }
@@ -36,7 +36,7 @@ class Controller extends \Ip\WidgetController{
             switch($image['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(ipConfig()->baseFile($image['fileName']))) {
+                    if (!file_exists(ipConfig()->repositoryFile($image['fileName']))) {
                         break;
                     }
 
