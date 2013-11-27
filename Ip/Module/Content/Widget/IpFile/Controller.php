@@ -26,8 +26,9 @@ class Controller extends \Ip\WidgetController{
                 if (isset($file['title']) && isset($file['fileName']) && isset($file['status'])){ //check if all require data present
                     switch($file['status']){
                         case 'new':
-                            if (file_exists(ipConfig()->baseFile($file['fileName']))) {
+                            if (file_exists(ipConfig()->repositoryFile($file['fileName']))) {
 
+                                //TODOX rename standard/content_management to Content
                                 \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
                                 
                                 if ($file['title'] == '') {
@@ -70,6 +71,25 @@ class Controller extends \Ip\WidgetController{
         return $newData;
     }
 
+    public function previewHtml($instanceId, $data, $layout) {
+        if (!is_array($data['files'])) {
+            $data['files'] = array();
+        }
+        $newData = array();
+        foreach($data['files'] as $file) {
+            if (!isset($file['fileName'])) {
+                continue;
+            }
+
+            $newFile = array();
+            $newFile['url'] = ipConfig()->repositoryUrl($file['fileName']);
+            $newFile['path'] = ipConfig()->repositoryFile($file['fileName']);
+            $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];
+            $newData['files'][] = $newFile;
+        }
+        return parent::previewHtml($instanceId, $newData, $layout);
+    }
+
     
     private function _findExistingFile ($fileName, $allFiles) {
 
@@ -94,7 +114,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
         
-        foreach($data['files'] as $fileKey => $file) {
+        foreach($data['files'] as $file) {
             if (isset($file['fileName']) && $file['fileName']) {
                 \Ip\Module\Repository\Model::unbindFile($file['fileName'], 'standard/content_management', $widgetId);
             }
