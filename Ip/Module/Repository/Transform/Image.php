@@ -26,15 +26,15 @@ abstract class Image extends Base
         switch ($mime) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
-                $image = imagecreatefromjpeg(ipConfig()->baseFile($imageFile));
+                $image = imagecreatefromjpeg($imageFile);
                 break;
             case IMAGETYPE_GIF:
-                $image = imagecreatefromgif(ipConfig()->baseFile($imageFile));
+                $image = imagecreatefromgif($imageFile);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
             case IMAGETYPE_PNG:
-                $image = imagecreatefrompng(ipConfig()->baseFile($imageFile));
+                $image = imagecreatefrompng($imageFile);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -79,10 +79,10 @@ abstract class Image extends Base
      * @return bool true on success
      */
     protected function getMemoryNeeded($imageFile){
-        if (!file_exists(ipConfig()->baseFile($imageFile))) {
+        if (!file_exists($imageFile)) {
             return 0;
         }
-        $imageInfo = getimagesize(ipConfig()->baseFile($imageFile));
+        $imageInfo = getimagesize($imageFile);
         if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;
         }
@@ -126,7 +126,7 @@ abstract class Image extends Base
      * @throws \Ip\Module\Repository\TransformException
      */
     protected function savePng($image, $fileName, $compression) {
-        if (!imagepng($image, ipConfig()->baseFile($fileName), $compression)) {
+        if (!imagepng($image, $fileName, $compression)) {
             throw new \Ip\Module\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Module\Repository\TransformException::WRITE_PERMISSION);
         }
         return true;
@@ -144,7 +144,7 @@ abstract class Image extends Base
      * @throws \Ip\Module\Repository\TransformException
      */
     protected function getMimeType($imageFile) {
-        $imageInfo = getimagesize(ipConfig()->baseFile($imageFile));
+        $imageInfo = getimagesize($imageFile);
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
         } else {

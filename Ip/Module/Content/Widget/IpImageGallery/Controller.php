@@ -224,7 +224,7 @@ class Controller extends \Ip\WidgetController{
 
                 }
                 try {
-                    $curImage['imageSmall'] = $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall);
+                    $curImage['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
                 } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
