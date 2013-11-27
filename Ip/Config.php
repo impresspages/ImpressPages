@@ -172,6 +172,11 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
     }
 
+    public function repositoryUrl($path)
+    {
+        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
+    }
+
     public function isDevelopmentEnvironment()
     {
         return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);

@@ -90,13 +90,11 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
-        $relativeRepositoryDir = ipConfig()->getRaw('FILE_REPOSITORY_DIR');
         $data = array(
             'fileName' => $fileName,
-            'dir' => $relativeRepositoryDir,
-            'file' => $fileName,
             'ext' => $ext,
-            'preview' => $this->createPreview($fileName),
+            'previewUrl' => $this->createPreview($fileName),
+            'originalUrl' => ipConfig()->repositoryUrl($fileName),
             'modified' => filemtime($file)
         );
         return $data;
