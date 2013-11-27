@@ -1,16 +1,10 @@
 <?php if (isset($files) && is_array($files)) { ?>
 <ul>
-<?php
-    foreach ($files as $fileKey => $file) {
-        $curFilePath = isset($file['fileName']) ? $file['fileName'] : '';
-        $curFileName = basename($curFilePath);
-        $curFileSize = $curFilePath && is_file(ipConfig()->baseFile($curFilePath)) ? filesize(ipConfig()->baseFile($curFilePath)) : '';
-        $curTitle = isset($file['title']) ? $file['title'] : '';
-?>
+<?php foreach ($files as $fileKey => $file) { ?>
     <li>
-        <a href="<?php echo htmlspecialchars(ipConfig()->baseUrl($curFilePath)) ?>"
-           title="<?php echo htmlspecialchars($curFileName) . ($curFileSize ? ' ('.$curFileSize.'b)' : ''); ?>">
-            <?php echo htmlspecialchars($curTitle); ?>
+        <a href="<?php echo esc($file['url']) ?>"
+           title="<?php echo esc($file['title']) ?>">
+            <?php echo esc($file['title']); ?>
         </a>
     </li>
 <?php } ?>
