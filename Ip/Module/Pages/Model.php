@@ -7,8 +7,6 @@
  */
 namespace Ip\Module\Pages;
 
-require_once ipConfig()->libraryFile('php/file/upload_file.php');
-require_once ipConfig()->libraryFile('php/file/upload_image.php');
 
 class Model {
 

@@ -271,6 +271,10 @@ class View implements \Ip\Response\ResponseInterface
             $absoluteFile = dirname($backtrace[1]['file']) . DIRECTORY_SEPARATOR . $file;
         }
 
+        if (DIRECTORY_SEPARATOR == '\\') {
+            // Replace windows paths
+            $absoluteFile = str_replace('\\', '/', $absoluteFile);
+        }
 
         if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
             //core dir
