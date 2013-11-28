@@ -168,6 +168,7 @@ class Application {
             return \Ip\ServiceLocator::response();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
+            \Ip\ServiceLocator::setResponse($controllerAnswer);
             return $controllerAnswer;
         } elseif ($controllerAnswer === NULL) {
             $response = \Ip\ServiceLocator::response();
