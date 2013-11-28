@@ -25,6 +25,7 @@ class Model{
             "Form",
             "Cron",
             "Ip",
+            "Translations"
         );
     }
 
