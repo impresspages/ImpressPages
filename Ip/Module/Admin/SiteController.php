@@ -48,8 +48,11 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
+
         if (ipRequest()->getPost('ajax', 1)) {
-            return new \Ip\Response\Json($answer);
+            $response =  new \Ip\Response\Json($answer);
+            $response->addHeader('location: ' . $redirectUrl);
+            return $response;
         } else {
             //MultiSite autologin
             return new \Ip\Response\Redirect($redirectUrl);
