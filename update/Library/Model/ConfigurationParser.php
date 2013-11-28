@@ -29,7 +29,7 @@ class ConfigurationParser
 
                 $configSource = file_get_contents($installationDir.'/../ip_config.php');
             } else {
-                throw new Exception("Can't find configuration file. Installation dir: ".$installationDir);
+                throw new \IpUpdate\Library\UpdateException("Can't find configuration file. Installation dir: ".$installationDir, \IpUpdate\Library\UpdateException::UNKNOWN);
             }
         }
         

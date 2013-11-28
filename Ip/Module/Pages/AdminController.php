@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         $app = \Ip\ServiceLocator::application();
         $data = array (
             'securityToken' =>  $app->getSecurityToken(),
-            'imageDir' => ipConfig()->coreUrl('Ip/Module/Pages/img/')
+            'imageDir' => ipConfig()->coreModuleFile('Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
@@ -362,7 +362,6 @@ class AdminController extends \Ip\Controller
 
         $answer['page']['type'] = $page->getType();
         $answer['page']['redirectURL'] = $page->getRedirectUrl() . '';
-        $answer['page']['rss'] = $page->getRss();
 
         $answer['html'] = Template::generatePageProperties($tabs);
 
@@ -393,7 +392,6 @@ class AdminController extends \Ip\Controller
         }
         $zoneData = $zones[$zoneName];
 
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         $answer = array();
 
         $title = __('SEO', 'ipAdmin');
@@ -738,7 +736,6 @@ class AdminController extends \Ip\Controller
      * Create new page
      */
     public function createPage () {
-        global $parametersMod;
 
         $answer = array();
 
@@ -808,13 +805,7 @@ class AdminController extends \Ip\Controller
         $data['url'] = Db::makeUrl($buttonTitle);
         $data['createdOn'] = date("Y-m-d");
         $data['lastModified'] = date("Y-m-d");
-        $data['visible'] = !$parametersMod->getValue('Pages.hide_new_pages');
-
-        $autoRssZones = Db::getAutoRssZones();
-        $data['rss'] = in_array($zone->getName(), $autoRssZones);
-        if($data['rss'] === '') {
-            $data['rss'] = 0;
-        }
+        $data['visible'] = !ipGetOption('Pages.hideNewPages');
 
 
 
@@ -1137,28 +1128,6 @@ class AdminController extends \Ip\Controller
     }
 
 
-    /**
-     *
-     * Array of pages and subpages
-     * @param array $pages
-     */
-    public function createPagesRecursion ($targetPageId, $pages) {
-        foreach ($pages as $pageKey => $page) {
-
-            $newPageId = Db::insertPage($targetPageId, $page);
-            if ($newPageId == false) {
-                return;
-            }
-
-            foreach ($page['widgets'] as $widgetKey => $widget) {
-                Model::addWidget($targetId = $newPageId, $widget['data'], $widget);
-            }
-
-            if (! empty($page['subpages'])) {
-                self::_createPagesRecursion($newPageId, $page['subpages']);
-            }
-        }
-    }
 
     /**
      * Remove page from session as open one.
@@ -1249,201 +1218,5 @@ class AdminController extends \Ip\Controller
         }
         return $answer;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    /* from backend_worker.php*/
-
-
-    public function getLanguages()
-    {
-        if (!$this->_adminAccess()) {
-            return;
-        }
-        $answer = array (
-            'response' => ModelTree::getLanguages(),
-            'status' => 'success'
-        );
-        return new \Ip\Response\Json($answer);
-    }
-
-    public function getZones()
-    {
-        if (!$this->_adminAccess()) {
-            return;
-        }
-        if (!isset ($_REQUEST['includeNonManagedZones'])) {
-            trigger_error('Required parameters is not set');
-            return;
-        }
-        $answer = array (
-            'response' => ModelTree::getZones($_REQUEST['includeNonManagedZones']),
-            'status' => 'success'
-        );
-        return new \Ip\Response\Json($answer);
-    }
-
-    public function getZonePages()
-    {
-        if (!$this->_adminAccess()) {
-            return;
-        }
-        if (!isset ($_REQUEST['languageId'])) {
-            trigger_error('Language id is not set');
-            return;
-        }
-        if (!isset ($_REQUEST['zoneName'])) {
-            trigger_error('Zone name is not set');
-            return;
-        }
-        $answer = array (
-            'response' => ModelTree::getZonePages($_REQUEST['languageId'], $_REQUEST['zoneName']),
-            'status' => 'success'
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
-
-    public function getPages()
-    {
-        if (!$this->_adminAccess()) {
-            return;
-        }
-
-        if (!isset($_REQUEST['parentId'])) {
-            trigger_error('Parent ID is not set');
-            return;
-        }
-        $answer = array (
-            'response' => ModelTree::getPages($_REQUEST['parentId']),
-            'status' => 'success'
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
-
-    public function getData()
-    {
-        if (!$this->_adminAccess()) {
-            return;
-        }
-        if (!isset($_REQUEST['pageId'])) {
-            trigger_error('Page ID is not set');
-            return;
-        }
-        $pageId = (int)$_REQUEST['pageId'];
-
-        $pages = array($this->_getPageDataRecursion($pageId));
-
-        $data = array (
-            'status' => 'success',
-            'response' => $pages
-        );
-        return new \Ip\Response\Json($data);
-    }
-
-
-    private function _getPageDataRecursion($pageId) {
-
-        $page = Db::getPage($pageId);
-
-        $widgets = Db::pageWidgets($page['id']);
-
-        $baseDir = ipConfig()->baseFile('');
-        $baseUrl = ipConfig()->baseUrl('');
-        
-        foreach($widgets as &$widget){
-            //TODOX create new widget object
-            eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
-            $widget['data'] = $widgetObject->getData($widget['module_id']);
-
-            switch ($widget['group_key'].'/'.$widget['module_key']) {
-                case 'text_photos/photo':
-                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
-                    $widget['data']['photo_big'] = str_replace($baseDir, $baseUrl, $widget['data']['photo_big']);
-                    break;
-                case 'text_photos/text_photo':
-                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
-                    $widget['data']['photo_big'] = str_replace($baseDir, $baseUrl, $widget['data']['photo_big']);
-                    break;
-                case 'misc/file':
-                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
-                    break;
-                case 'misc/video':
-                    $widget['data']['photo'] = str_replace($baseDir, $baseUrl, $widget['data']['photo']);
-                    break;
-                case 'text_photos/logo_gallery':
-                    foreach($widget['data']['logos'] as $logoKey => $logo){
-                        $tmpValues = array();
-                        $logo['logo'] = str_replace($baseDir, $baseUrl, $logo['logo']);
-                    }
-                    break;
-                case 'text_photos/photo_gallery':
-                    foreach($widget['data']['photos'] as $photoKey => $photo){
-                        $tmpValues = array();
-                        $photo['photo'] = str_replace($baseDir, $baseUrl, $photo['photo']);
-                        $photo['photo_big'] = str_replace($baseDir, $baseUrl, $photo['photo_big']);
-                    }
-                    break;
-            }
-
-
-        }
-        $page['widgets'] = $widgets;
-
-        $page['subpages'] = array();
-        $subpages = Db::pageChildren($pageId);
-        foreach ($subpages as $key => $subpage) {
-            $page['subpages'][] = $this->_getPageDataRecursion($subpage['id']);
-        }
-
-        return $page;
-    }
-
-    private function _adminAccess () {
-        if (!isset($_REQUEST['username'])) {
-            return false;
-        }
-        if (!isset($_REQUEST['password'])) {
-            return false;
-        }
-
-        //check log in
-        if(isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
-
-            if(\Ip\Internal\Db::incorrectLoginCount($_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
-                \Ip\Internal\Db::log('system', 'backend login suspended (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 2);
-                return false;
-            } else {
-                $id = \Ip\Internal\Db::userId($_REQUEST['username'], $_REQUEST['password']);
-                if($id !== false) {
-                    $module = \Ip\Internal\Deprecated\Db::getModule(null, $groupName = 'standard', $moduleName = 'menu_management');
-                    if (\Ip\Internal\Db::allowedModule($moduleId = $module['id'], $userId = $id)) {
-                        \Ip\Internal\Db::log('system', 'backend login (menu management)', $_REQUEST['username'].' ('.$_SERVER['REMOTE_ADDR'].')', 0);
-                        return true;
-                    } else {
-                        \Ip\Internal\Db::log('system', 'this user is not allowed to access menu management module', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
-                        return false;
-                    }
-                } else {
-                    \Ip\Internal\Db::log('system', 'backend login incorrect (menu management)', $_REQUEST['username'].'('.$_SERVER['REMOTE_ADDR'].')', 1);
-                    return false;
-                }
-            }
-        }
-        //check log in
-        return false;
-    }
-
-
 
 }

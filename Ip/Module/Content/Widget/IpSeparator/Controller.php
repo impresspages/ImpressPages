@@ -9,7 +9,7 @@ namespace Ip\Module\Content\Widget\IpSeparator;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {

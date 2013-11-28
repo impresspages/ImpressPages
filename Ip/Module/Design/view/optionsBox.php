@@ -2,7 +2,7 @@
     <div class="modal-dialog ipsDialog">
         <div class="modal-content">
             <div class="modal-header ipsDragHandler">
-                <h4 class="modal-title"><i class="icon-cogs"></i> <?php _e('Theme options', 'ipAdmin') ?></h4>
+                <h4 class="modal-title"><i class="fa fa-cogs"></i> <?php _e('Theme options', 'ipAdmin') ?></h4>
             </div>
             <div class="ipsBody ipmBody">
                 <div class="ipgHide ipsReload alert alert-block">

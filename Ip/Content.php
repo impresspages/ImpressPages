@@ -7,7 +7,7 @@
 
 namespace Ip;
 
-//TODOX move to Content service
+
 use Guzzle\Parser\ParserRegistry;
 
 /**
@@ -44,8 +44,8 @@ class Content {
      *
      */
     public function isManagementState(){
-        $backendLoggedIn = isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
-        return ($backendLoggedIn && \Ip\ServiceLocator::request()->getQuery('cms_action', 0) === 'manage');
+        $backendLoggedIn = !empty($_SESSION['backend_session']['userId']);
+        return $backendLoggedIn && \Ip\Module\Content\Service::isManagementMode();
     }
 
 
@@ -66,7 +66,7 @@ class Content {
                     $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
                 }
 
-                if (!$layout || !is_file(ipConfig()->themeFile($layout))) {
+                if (!$layout && $zone->getLayout()) {
                     $layout = $zone->getLayout();
                 }
 
@@ -87,33 +87,21 @@ class Content {
     public function getCurrentLanguage()
     {
         if (!$this->currentLanguage) {
-            $languageUrl = $this->getLanguageUrl();
-            $languages = $this->getLanguages();
-            $this->currentLanguage = $languages[0];
-            foreach ($languages as $language) {
-                if ($language->getUrl() == $languageUrl) {
-                    $this->currentLanguage = $language;
-                    break;
-                }
-            }
-            if (!$this->currentLanguage) {
-                $this->currentLanguage = $languages[0];
-            }
-
+            $this->parseUrl();
         }
         return $this->currentLanguage;
     }
 
     /**
      *
-     * @param $zoneName Name of zone you wish to get
+     * @param $zoneName
      * @return \Ip\Zone
      *
      */
     public function getZone($zoneName)
     {
-        if ($zoneName === '') {
-            return new \Ip\Zone404(null, null);
+        if ($zoneName === '404') {
+            return new \Ip\Zone404(array('name' => '404'));
         }
 
         if (isset($this->zones[$zoneName])) {
@@ -165,10 +153,7 @@ class Content {
     public function getCurrentPage()
     {
         if ($this->currentPage === null) {
-            $this->currentPage = $this->getCurrentZone()->getCurrentPage();
-            if ($this->currentPage === null) {
-                $this->currentPage = new \Ip\Page404(1, '');
-            }
+            $this->parseUrl();
         }
         return $this->currentPage;
     }
@@ -177,7 +162,7 @@ class Content {
 
     /**
      *
-     * @return array - all website languages. Each element is an object Language
+     * @return \Ip\Language[] - all website languages. Each element is an object Language
      *
      */
     public function getLanguages()
@@ -192,6 +177,8 @@ class Content {
         return $this->languages;
     }
 
+
+    //TODOX rename to getLanguage
     /**
      *
      * @return \Ip\Language
@@ -274,6 +261,18 @@ class Content {
 
     private function parseUrl()
     {
+        $languages = $this->getLanguages();
+
+        //check if admin
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            //admin pages don't have zones
+            $this->currentLanguage = $languages[0];
+            $this->languageUrl = $this->currentLanguage->getUrl();
+            $this->currentZoneName = false;
+            return;
+        }
+
+        //find language
         $path = \Ip\ServiceLocator::request()->getRelativePath();
         $urlVars = explode('/', rtrim(parse_url($path, PHP_URL_PATH), '/'));
         if ($urlVars[0] == '') {
@@ -283,19 +282,29 @@ class Content {
         for ($i=0; $i< sizeof($urlVars); $i++){
             $urlVars[$i] = urldecode($urlVars[$i]);
         }
-        if (ipGetOption('Config.multilingual')) {
-            $this->languageUrl = urldecode(array_shift($urlVars));
-            if ($this->languageUrl == '') {
-                $firstLanguageData = Internal\ContentDb::getFirstLanguage();
-                $this->languageUrl = $firstLanguageData['url'];
+        if (ipGetOption('Config.multilingual') && !empty($urlVars[0])) {
+            $languageUrl = urldecode(array_shift($urlVars));
+            $this->urlVars = $urlVars;
+            foreach ($languages as $language) {
+                if ($language->getUrl() == $languageUrl) {
+                    $this->currentLanguage = $language;
+                    $this->languageUrl = $languageUrl;
+                    break;
+                }
+            }
+            //language not found. Set current language as first language from the database and set current zone to '' which means error 404
+            if (!$this->currentLanguage) {
+                $this->currentLanguage = $languages[0];
+                $this->languageUrl = $this->currentLanguage->getId();
+                $this->currentZoneName = '';
+                return;
             }
         } else {
-            $firstLanguageData = Internal\ContentDb::getFirstLanguage();
-            $this->languageUrl = $firstLanguageData['url'];
+            $this->currentLanguage = $languages[0];
+            $this->languageUrl = $this->currentLanguage->getUrl();
         }
-
+        //find zone
         $zonesData = $this->getZonesData();
-
         if (count($urlVars)) {
             $potentialZoneUrl = urldecode($urlVars[0]);
             foreach ($zonesData as $zoneData) {
@@ -303,6 +312,7 @@ class Content {
                     $this->zoneUrl = $potentialZoneUrl;
                     $this->currentZoneName = $zoneData['name'];
                     array_shift($urlVars);
+                    $this->urlVars = $urlVars;
                     break;
                 }
             }
@@ -331,8 +341,24 @@ class Content {
         }
 
 
+        //find current page
 
-        $this->urlVars = $urlVars;
+        $zone = $this->getZone($this->currentZoneName);
+
+        if ($zone) {
+            $currentPage = $zone->getCurrentPage();
+        } else {
+            $currentPage = false;
+        }
+
+        if ($currentPage) {
+            $this->currentPage = $currentPage;
+        } else {
+            $this->currentZoneName = '404';
+            $this->currentPage = $this->currentPage = new \Ip\Page404(1, '404');
+        }
+
+
     }
 
 
@@ -430,28 +456,27 @@ class Content {
         if ($this->revision !== null) {
             return $this->revision;
         }
-        $revision = null;
+        $revision = false;
         if (\Ip\ServiceLocator::content()->isManagementState()){
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
-            if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
-                if (!$this->getCurrentPage()) {
-                    $this->revision = false;
-                    return false;
+            if ($this->getCurrentPage()) {
+                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
+                    $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                    if ($revision['published']) {
+                        $revision = $this->duplicateRevision($revision['revisionId']);
+                    }
                 }
-                $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
-                if ($revision['published']) {
-                    $revision = $this->duplicateRevision($revision['revisionId']);
-                }
+            } else {
+                $revision = false;
             }
-
         } else {
-            $currentElement = $this->getCurrentPage();
-            if ($currentElement) {
-                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentElement->getId());
+            $currentPage = $this->getCurrentPage();
+            if ($currentPage) {
+                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentPage->getId());
             }
 
         }
@@ -472,9 +497,9 @@ class Content {
 
 
     /**
-     *
-     * @return array Each element in array is an Element
-     *
+     * @param null $zoneName
+     * @param null $pageId
+     * @return \Ip\Page[]
      */
     public function getBreadcrumb($zoneName = null, $pageId = null){
         if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
@@ -486,13 +511,19 @@ class Content {
             if (!$zone) {
                 return array();
             }
-            return $zone->getBreadcrumb();
+            $breadcrumb = $zone->getBreadcrumb();
         } else {
             $zone = $this->getZone($zoneName);
             if (!$zone) {
                 return array();
             }
-            return $zone->getBreadcrumb($pageId);
+            $breadcrumb = $zone->getBreadcrumb($pageId);
+        }
+
+        if (is_array($breadcrumb)) {
+            return $breadcrumb;
+        } else {
+            return array();
         }
 
     }

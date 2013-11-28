@@ -56,7 +56,7 @@ function IpWidget_IpImageGallery(widgetObject) {
 
         var container = $this.find('.ipWidget_ipImageGallery_container');
         for(var index in files) {
-            container.ipWidget_ipImageGallery_container('addImage', files[index].file, '', 'new');
+            container.ipWidget_ipImageGallery_container('addImage', files[index].fileName, '', 'new');
         }
     }
 

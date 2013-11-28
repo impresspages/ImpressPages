@@ -1,1 +1,1 @@
-<<?php echo $tag ?> class="<?php echo $cssClass ?>"><?php echo nl2br($this->esc($value)) ?></<?php echo $tag ?>>
+<<?php echo $tag ?> class="<?php echo $cssClass ?>"><?php echo nl2br(esc($value)) ?></<?php echo $tag ?>>

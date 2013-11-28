@@ -109,10 +109,6 @@ class Service
             $curValue = $defaultValue;
         }
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $curValue);
-            $curValue = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $curValue);
-        }
 
         $data = array (
             'defaultValue' => $defaultValue,
@@ -132,12 +128,32 @@ class Service
 
     public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
-
-        if ($defaultValue === null) {
-            $defaultValue = ipConfig()->coreModuleFile('InlineManagement/public/empty.gif');
+        if (isset($options['languageId'])) {
+            $languageId = $options['languageId'];
+        } else {
+            $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+        if (isset($options['zoneName'])) {
+            $zoneName = $options['zoneName'];
+        } else {
+            $zoneName = ipContent()->getCurrentZone()->getName();
+        }
+
+        if (isset($options['pageId'])) {
+            $pageId = $options['pageId'];
+        } else {
+            $pageId = ipContent()->getCurrentPage()->getId();
+        }
+
+
+
+        if ($defaultValue === null) {
+            $defaultValue = ipConfig()->coreModuleFile('InlineManagement/assets/empty.gif');
+        }
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
+
         $image = new Entity\Image($imageStr, $defaultValue);
 
         $data = array (

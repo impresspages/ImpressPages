@@ -148,7 +148,6 @@ class Zone extends \Ip\Zone {
         $newPage->setLastModified($dbPage['last_modified']);
         $newPage->setCreatedOn($dbPage['created_on']);
         $newPage->setModifyFrequency($dbPage['modify_frequency']);
-        $newPage->setRss($dbPage['rss']);
         $newPage->setVisible($dbPage['visible']);
         if($firstLevel)
         $newPage->setParentId(null);

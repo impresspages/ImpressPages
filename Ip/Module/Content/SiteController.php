@@ -16,7 +16,7 @@ class SiteController extends \Ip\Controller{
         $instanceId = ipRequest()->getPost('instanceId');
 
         if (!$instanceId) {
-            return \Ip\Response\JsonRpc::error('Mising instanceId POST variable');
+            return \Ip\Response\JsonRpc::error('Missing instanceId POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
@@ -32,8 +32,7 @@ class SiteController extends \Ip\Controller{
                 return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
             }
 
-            // TODOX Trello #133 remove $post parameter
-            return $widgetObject->post($instanceId, ipRequest()->getPost(), $widgetRecord['data']);
+            return $widgetObject->post($instanceId, $widgetRecord['data']);
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }

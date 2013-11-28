@@ -3,7 +3,7 @@
         <label for="generalButtonTitle">
             <?php _e('Button title', 'ipAdmin')?>
         </label>
-        <input id="generalButtonTitle" name="buttonTitle" value="<?php echo $this->esc($element->getButtonTitle()) ?>" />
+        <input id="generalButtonTitle" name="buttonTitle" value="<?php echo esc($element->getButtonTitle()) ?>" />
         <br />
     </p>
     <p class="field">
@@ -18,7 +18,7 @@
             <?php _e('Created on', 'ipAdmin') ?>
         </label>
         <span class="error" id="createdOnError"></span> <input id="generalCreatedOn" name="createdOn"
-            value="<?php echo $this->esc(substr($element->getCreatedOn(), 0, 10)) ?>" /><br />
+            value="<?php echo esc(substr($element->getCreatedOn(), 0, 10)) ?>" /><br />
     </p>
     <p class="field">
         <label for="lastModifiedError">
@@ -26,6 +26,6 @@
         </label>
         <span class="error" id="lastModifiedError">
         </span>
-        <input id="generalLastModified" name="lastModified" value="<?php echo $this->esc(substr($element->getLastModified(), 0, 10)) ?>" /><br />
+        <input id="generalLastModified" name="lastModified" value="<?php echo esc(substr($element->getLastModified(), 0, 10)) ?>" /><br />
     </p>
 </form>

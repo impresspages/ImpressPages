@@ -23,6 +23,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 
         $this->setBrowser('*firefox'); //*googlechrome (can't manipulate file input)
         $this->setBrowserUrl(TEST_TMP_URL);
+        $this->setTimeout(10);
 //        $driver = $this->getDriver(array('*firefox'));
     }
     

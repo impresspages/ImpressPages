@@ -11,7 +11,14 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        header('location: ' . ipConfig()->baseUrl('', array('cms_action' => 'manage')));
+        \Ip\Module\Content\Service::setManagementMode(1);
+        header('location: ' . ipConfig()->baseUrl(''));
+    }
+
+    public function setManagementMode()
+    {
+        Service::setManagementMode(intval(ipRequest()->getPost('value', 1)));
+        return new \Ip\Response\Json(array(1));
     }
 
     public function getSitemapInList()
@@ -49,9 +56,6 @@ class AdminController extends \Ip\Controller
 
 
         $answer .= '<ul>' . "\n";
-
-        $answer = str_replace('?cms_action=manage', '', $answer);
-        $answer = str_replace('&cms_action=manage', '', $answer);
 
         return new \Ip\Response($answer);
     }
@@ -134,17 +138,7 @@ class AdminController extends \Ip\Controller
     {
         $data['defaultLayout'] = $zone->getLayout();
         $data['layouts'] = \Ip\Module\Content\Model::getThemeLayouts();
-
-        $data['layout'] = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModuleGroup(),
-            $zone->getAssociatedModule(),
-            $page->getId()
-        );
-
-        if (!$data['layout']) {
-            $data['layout'] = $data['defaultLayout'];
-        }
-
+        $data['layout'] = \Ip\Module\Content\Service::getPageLayout($page);
         return \Ip\View::create('view/page_options_design.php', $data)->render();
     }
 
@@ -160,7 +154,7 @@ class AdminController extends \Ip\Controller
             !isset($_POST['revisionId']) ||
             !isset($_POST['managementState'])
         ) {
-            return $this->_errorAnswer('Mising POST variable');
+            return $this->_errorAnswer('Missing POST variable');
         }
 
         $instanceId = $_POST['instanceId'];
@@ -174,7 +168,7 @@ class AdminController extends \Ip\Controller
 
         if (!$record)
         {
-            return $this->_errorAnswer('Unknown instance '.$instanaceId);
+            return $this->_errorAnswer('Unknown instance ' . $instanceId);
         }
 
         Model::deleteInstance($instanceId);
@@ -207,7 +201,7 @@ class AdminController extends \Ip\Controller
             !isset($_POST['blockName']) ||
             !isset($_POST['revisionId'])
         ) {
-            return $this->_errorAnswer('Mising POST variable');
+            return $this->_errorAnswer('Missing POST variable');
         }
 
         $widgetName = $_POST['widgetName'];
@@ -273,7 +267,7 @@ class AdminController extends \Ip\Controller
     public function manageWidget() {
 
         if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Mising POST variable');
+            return $this->_errorAnswer('Missing POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
@@ -324,7 +318,7 @@ class AdminController extends \Ip\Controller
     public function cancelWidget() {
 
         if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Mising POST variable');
+            return $this->_errorAnswer('Missing POST variable');
         }
         $instanceId = $_POST['instanceId'];
 
@@ -362,12 +356,12 @@ class AdminController extends \Ip\Controller
 
     public function updateWidget(){
         if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Mising POST variable instanceId');
+            return $this->_errorAnswer('Missing POST variable instanceId');
         }
         $instanceId = $_POST['instanceId'];
 
         if (!isset($_POST['layout'])) {
-            return $this->_errorAnswer('Mising POST variable layout');
+            return $this->_errorAnswer('Missing POST variable layout');
         }
         $layout = $_POST['layout'];
 
@@ -406,7 +400,7 @@ class AdminController extends \Ip\Controller
     public function deleteWidget() {
 
         if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Mising instanceId POST variable');
+            return $this->_errorAnswer('Missing instanceId POST variable');
         }
         $instanceId = (int)$_POST['instanceId'];
 
@@ -425,19 +419,28 @@ class AdminController extends \Ip\Controller
     public function savePage () {
 
         if (!isset($_POST['revisionId'])) {
-            return $this->_errorAnswer('Mising revisionId POST variable');
+            return $this->_errorAnswer('Missing revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
 
-        if (isset($_POST['pageOptions'])){
-            $pageOptions = $_POST['pageOptions'];
-        }
+        $publish = !empty($_POST['publish']);
+
+
 
         $revision = \Ip\Revision::getRevision($revisionId);
 
         if (!$revision) {
             return $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
         }
+
+
+        if ($publish) {
+            $pageOptions = array();
+            $pageOptions['lastModified'] = date("Y-m-d");
+            \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+            \Ip\Revision::publishRevision($revisionId);
+        }
+
 
         $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
 
@@ -450,7 +453,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'&cms_revision='.$newRevisionId
+            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'?cms_revision='.$newRevisionId
         );
 
         return new \Ip\Response\Json($data);
@@ -460,13 +463,13 @@ class AdminController extends \Ip\Controller
 
     public function savePageOptions () {
         if (empty($_POST['revisionId'])) {
-            return $this->_errorAnswer('Mising revisionId POST variable');
+            return $this->_errorAnswer('Missing revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
 
 
         if (empty($_POST['pageOptions'])){
-            return $this->_errorAnswer('Mising pageOptions POST variable');
+            return $this->_errorAnswer('Missing pageOptions POST variable');
         }
         $pageOptions = $_POST['pageOptions'];
 
@@ -510,41 +513,6 @@ class AdminController extends \Ip\Controller
 
         return new \Ip\Response\Json($data);
 
-    }
-
-    public function publishPage () {
-
-        if (!isset($_POST['revisionId'])) {
-            return $this->_errorAnswer('Mising revisionId POST variable');
-        }
-        $revisionId = $_POST['revisionId'];
-        $revision = \Ip\Revision::getRevision($revisionId);
-
-
-
-        $pageOptions = array();
-        $pageOptions['lastModified'] = date("Y-m-d");
-        \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-
-
-        \Ip\Revision::publishRevision($revisionId);
-
-
-        $zone = ipContent()->getZone($revision['zoneName']);
-        $page = $zone->getPage($revision['pageId']);
-        $lastRevision = \Ip\Revision::getLastRevision($revision['zoneName'], $revision['pageId']);
-        if ($lastRevision['revisionId'] == $revision['revisionId']) {
-            $newRevisionUrl = $page->getLink() . '?cms_action=manage'; //we publish the last revision. We will not specify revision id. Then CMS will create new revision.
-        } else {
-            $newRevisionUrl = $page->getLink().'?cms_action=manage&cms_revision='.$lastRevision['revisionId'];
-        }
-        $data = array (
-            'status' => 'success',
-            'action' => '_publishPageResponse',
-            'newRevisionUrl' => $newRevisionUrl
-        );
-
-        return new \Ip\Response\Json($data);
     }
 
 

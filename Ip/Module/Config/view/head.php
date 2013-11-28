@@ -15,7 +15,7 @@
             ' ',
             array_map(
                 function ($sKey, $sValue) {
-                    return ipEsc($sKey) . '="' . ipEsc($sValue) . '"';
+                    return esc($sKey) . '="' . esc($sValue) . '"';
                 },
                 array_keys($file['attributes']),
                 array_values($file['attributes'])

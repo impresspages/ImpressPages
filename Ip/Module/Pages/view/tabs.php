@@ -2,7 +2,7 @@
     <ul class="tabs">
         <?php foreach ($tabs as $tabKey => $tab) { ?>
             <li>
-                <a href="#propertiesTabs-<?php echo ($tabKey + 1) ?>"><?php echo $this->esc($tab['title']) ?></a>
+                <a href="#propertiesTabs-<?php echo ($tabKey + 1) ?>"><?php echo esc($tab['title']) ?></a>
             </li>
         <?php } ?>
     </ul>

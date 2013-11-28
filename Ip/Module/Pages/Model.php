@@ -7,8 +7,6 @@
  */
 namespace Ip\Module\Pages;
 
-require_once ipConfig()->libraryFile('php/file/upload_file.php');
-require_once ipConfig()->libraryFile('php/file/upload_image.php');
 
 class Model {
 
@@ -95,13 +93,6 @@ class Model {
         \Ip\Revision::duplicateRevision($oldRevision['revisionId'], $destinationZoneName, $targetId, 1);
     }
 
-
-    public static function getWidgetData ($widget) {
-        //TODOX create new widget object
-        eval ('$widgetObject = new \\Modules\\standard\\content_management\\Widgets\\'.$widget['group_key'].'\\'.$widget['module_key'].'\\Module(); ');
-        $answer = $widgetObject->getData($widget['module_id']);
-        return $answer;
-    }
 
     public static function addWidget($targetId, $widgetData, $widget){
 

@@ -16,7 +16,7 @@ ipTinyMceConfigMin = {
 //    theme_advanced_resize_horizontal : false,
 //    valid_elements : "@[class|style],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
 //    width : '100%',
-//    //content_css : ip.themeDir + ip.theme + "/ip_content.css",
+//    //content_css : ip.themeDir + ip.theme + "/ipContent.css",
     theme_advanced_styles : "Text=;Caption=caption;Signature=signature;Note=note;Button=button",
     forced_root_block : "p"
 //

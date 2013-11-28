@@ -135,7 +135,7 @@ class Model
                 $cleanDirs[] = trim($line);
             }
         }
-        $cleanDirs = array_merge($cleanDirs, array(ipConfig()->getCore('THEME_DIR')));
+        $cleanDirs = array_merge($cleanDirs, array(ipConfig()->themeFile('')));
         return $cleanDirs;
     }
 
@@ -239,7 +239,7 @@ class Model
     public function getTheme($name, $dir = null)
     {
         if ($dir) {
-            $currentThemeDir = ipConfig()->getCore('THEME_DIR');
+            $currentThemeDir = ipConfig()->themeFile('');
             ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 

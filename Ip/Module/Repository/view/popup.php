@@ -34,7 +34,7 @@
                     <div class="ipmBrowserSearch">
                         <form class="ipmForm" action="">
                             <input type="text" class="ipAdminInput ipmTerm" value="" placeholder="">
-                            <button type="submit" class="ipmButton"><i class="icon-search"></i></button>
+                            <button type="submit" class="ipmButton"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <span class="ipmTitle"><?php _e('Selected:', 'ipAdmin') ?> <strong class="ipmSelectionCount"></strong></span>
                     <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php _e('Confirm', 'ipAdmin') ?></a>
                     <a class="ipAdminButton ipaSelectionCancel" href="#"><?php _e('Cancel', 'ipAdmin') ?></a>
-                    <a class="ipAdminButton ipaSelectionDelete" href="#"><?php _e('Delete', 'ipAdmin'); ?> <i class="icon-trash"></i></a>
+                    <a class="ipAdminButton ipaSelectionDelete" href="#"><?php _e('Delete', 'ipAdmin'); ?> <i class="fa fa-trash-o"></i></a>
                 </div>
             </div>
             <?php // hidden templates for dynamic elements ?>

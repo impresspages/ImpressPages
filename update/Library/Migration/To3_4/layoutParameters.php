@@ -33,7 +33,7 @@ $parameterType ['standard']['menu_management']['admin_translations']['page_desig
 $parameterTitle['standard']['menu_management']['admin_translations']['page_layout_add_layout_instructions'] = 'How to add custom page layout';
 $parameterValue['standard']['menu_management']['admin_translations']['page_layout_add_layout_instructions'] = 'You have only one layout in your theme. If you wish to add more layouts, please,'
     . '<ol>'
-    . '    <li>find main.php in your theme directory (for example, ip_themes/main.php);</li>'
+    . '    <li>find main.php in your theme directory (for example, Theme/main.php);</li>'
     . '    <li>copy and paste it under new name (for example, simple.php);</li>'
     . '   <li>come here and select it;</li>'
     . '   <li>modify it according to your needs.</li>'

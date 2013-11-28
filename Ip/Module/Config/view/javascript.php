@@ -1,7 +1,9 @@
 <script>
 var ip = {
     baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
+    languageId : <?php echo json_encode($ipLanguageId) ?>,
     languageUrl : <?php echo json_encode($ipLanguageUrl) ?>,
+    repositoryUrl : <?php echo json_encode($ipRepositoryUrl) ?>,
     themeDir : <?php echo json_encode($ipThemeDir) ?>,
     theme : <?php echo json_encode($ipTheme) ?>,
     zoneName : <?php echo json_encode($ipZoneName) ?>,
@@ -24,7 +26,7 @@ var ip = {
                     ' ',
                     array_map(
                         function ($sKey, $sValue) {
-                            return ipEsc($sKey) . '="' . ipEsc($sValue) . '"';
+                            return esc($sKey) . '="' . esc($sValue) . '"';
                         },
                         array_keys($record['attributes']),
                         array_values($record['attributes'])

@@ -16,25 +16,38 @@ namespace Ip;
 class Dispatcher
 {
 
-    protected $handlers;
+    protected $eventListeners = array();
+    protected $filterListeners = array();
+    protected $jobListeners = array();
 
     /**
      * @var array stores info which handlers are sorted
      */
-    protected $sortedHandlers;
-    protected $initCompleted = false;
+    protected $sortedEventListeners = array();
+    protected $sortedFilterListeners = array();
+    protected $sortedJobListeners = array();
 
+    protected $initCompleted = false;
 
     public function __construct()
     {
-        $this->handlers = array();
-        $this->sortedHandlers = array();
-        $this->bind('site.afterInit', array($this, 'registerInit'));
+        $this->addEventListener('site.afterInit', array($this, 'registerInit'));
     }
 
     public function registerInit()
     {
         $this->initCompleted = true;
+    }
+
+    protected function callableError($callable)
+    {
+        $backtrace = debug_backtrace();
+        if (isset($backtrace[1]['file']) && $backtrace[1]['line']) {
+            $errorMessage = "Incorrect callable " . $callable . " (Error source: " . ($backtrace[1]['file']) . " line: " . ($backtrace[1]['line']) . " ) ";
+        } else {
+            $errorMessage = "Incorrect callable " . $callable;
+        }
+        throw new CoreException($errorMessage, CoreException::EVENT);
     }
 
     /**
@@ -47,21 +60,72 @@ class Dispatcher
     public function bind($eventName, $callable, $priority = 10)
     {
         if (!is_callable($callable)) {
-            $backtrace = debug_backtrace();
-            if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                $errorMessage = "Incorrect callable " . $callable . " (Error source: " . ($backtrace[0]['file']) . " line: " . ($backtrace[0]['line']) . " ) ";
-            } else {
-                $errorMessage = "Incorrect callable " . $callable;
-            }
-            throw new CoreException($errorMessage, CoreException::EVENT);
+            $this->callableError($callable);
         }
 
-        if (!isset($this->handlers[$eventName][$priority])) {
-            $this->handlers[$eventName][$priority] = array();
+        if (!isset($this->eventListeners[$eventName][$priority])) {
+            $this->eventListeners[$eventName][$priority] = array();
         }
 
-        $this->handlers[$eventName][$priority][] = $callable;
-        unset($this->sortedHandlers[$eventName]);
+        $this->eventListeners[$eventName][$priority][] = $callable;
+        unset($this->sortedEventListeners[$eventName]);
+    }
+
+    /**
+     * @param string $action Eg. module_name.event_name
+     * @param callable $callable
+     * @throws CoreException
+     */
+    public function addEventListener($name, $callable, $priority = 10)
+    {
+        if (!is_callable($callable)) {
+            $this->callableError($callable);
+        }
+
+        if (!isset($this->eventListeners[$name][$priority])) {
+            $this->eventListeners[$name][$priority] = array();
+        }
+
+        $this->eventListeners[$name][$priority][] = $callable;
+        unset($this->sortedEventListeners[$name]);
+    }
+
+    /**
+     * @param string $action Eg. module_name.event_name
+     * @param callable $callable
+     * @throws CoreException
+     */
+    public function addFilterListener($name, $callable, $priority = 10)
+    {
+        if (!is_callable($callable)) {
+            $this->callableError($callable);
+        }
+
+        if (!isset($this->filterListeners[$name][$priority])) {
+            $this->filterListeners[$name][$priority] = array();
+        }
+
+        $this->filterListeners[$name][$priority][] = $callable;
+        unset($this->sortedFilterListeners[$name]);
+    }
+
+    /**
+     * @param string $action Eg. module_name.event_name
+     * @param callable $callable
+     * @throws CoreException
+     */
+    public function addJobListener($name, $callable, $priority = 10)
+    {
+        if (!is_callable($callable)) {
+            $this->callableError($callable);
+        }
+
+        if (!isset($this->jobListeners[$name][$priority])) {
+            $this->jobListeners[$name][$priority] = array();
+        }
+
+        $this->jobListeners[$name][$priority][] = $callable;
+        unset($this->sortedJobListeners[$name]);
     }
 
     /**
@@ -73,10 +137,10 @@ class Dispatcher
      */
     public function bindSlot($slot, $callable, $priority = 10)
     {
-        $this->bind('site.generateSlot.' . $slot, $callable, $priority);
+        $this->addJobListener('site.generateSlot.' . $slot, $callable, $priority);
     }
 
-    private function check($eventName)
+    private function checkInitCompleted($eventName)
     {
         if (!$this->initCompleted && $eventName != 'site.afterInit') {
             $backtrace = debug_backtrace();
@@ -92,69 +156,69 @@ class Dispatcher
 
     public function filter($eventName, $value, $data = array())
     {
-        $this->check($eventName);
+        $this->checkInitCompleted($eventName);
 
-        if (!isset($this->handlers[$eventName])) {
+        if (!isset($this->filterListeners[$eventName])) {
             return $value;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
-            ksort($this->handlers[$eventName]);
-            $this->sortedHandlers[$eventName] = true;
+        if (!isset($this->sortedFilterListeners[$eventName])) {
+            ksort($this->filterListeners[$eventName]);
+            $this->sortedFilterListeners[$eventName] = true;
         }
 
         do {
-            foreach (current($this->handlers[$eventName]) as $callable) {
+            foreach (current($this->filterListeners[$eventName]) as $callable) {
                 $value = call_user_func($callable, $value, $data);
             }
-        } while (next($this->handlers[$eventName]) !== false);
+        } while (next($this->filterListeners[$eventName]) !== false);
 
         return $value;
     }
 
     public function job($eventName, $data = array())
     {
-        $this->check($eventName);
+        $this->checkInitCompleted($eventName);
 
-        if (!isset($this->handlers[$eventName])) {
+        if (!isset($this->jobListeners[$eventName])) {
             return null;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
-            ksort($this->handlers[$eventName]);
-            $this->sortedHandlers[$eventName] = true;
+        if (!isset($this->sortedJobListeners[$eventName])) {
+            ksort($this->jobListeners[$eventName]);
+            $this->sortedJobListeners[$eventName] = true;
         }
 
         do {
-            foreach (current($this->handlers[$eventName]) as $callable) {
+            foreach (current($this->jobListeners[$eventName]) as $callable) {
                 $result = call_user_func($callable, $data);
                 if ($result !== null) {
                     return $result;
                 }
             }
-        } while (next($this->handlers[$eventName]) !== false);
+        } while (next($this->jobListeners[$eventName]) !== false);
 
         return null;
     }
 
     public function notify($eventName, $data = array())
     {
-        $this->check($eventName);
+        $this->checkInitCompleted($eventName);
 
-        if (!isset($this->handlers[$eventName])) {
+        if (!isset($this->eventListeners[$eventName])) {
             return null;
         }
 
-        if (isset($this->sortedHandlers[$eventName])) {
-            ksort($this->handlers[$eventName]);
-            $this->sortedHandlers[$eventName] = true;
+        if (!isset($this->sortedEventListeners[$eventName])) {
+            ksort($this->eventListeners[$eventName]);
+            $this->sortedEventListeners[$eventName] = true;
         }
 
         do {
-            foreach (current($this->handlers[$eventName]) as $callable) {
+            foreach (current($this->eventListeners[$eventName]) as $callable) {
                 call_user_func($callable, $data);
             }
-        } while (next($this->handlers[$eventName]) !== false);
+        } while (next($this->eventListeners[$eventName]) !== false);
     }
 
 }

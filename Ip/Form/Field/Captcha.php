@@ -7,8 +7,10 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Captcha extends Field{
-    private $catpchaInit;
+    private $captchaInit;
     
     public function __construct($options = array()) {
         $this->captchaInit = array(
@@ -49,7 +51,6 @@ class Captcha extends Field{
     }
     
     public function render($doctype) {
-        $attributesStr = '';
 
         $captcha = new \Ip\Lib\HnCaptcha\HnCaptcha($this->captchaInit, TRUE);
         
@@ -76,10 +77,17 @@ class Captcha extends Field{
         return self::TYPE_SYSTEM;
     }    
     
-    public function validate($values, $valueKey) {
+    public function validate($values, $valueKey, $environment) {
+
+        if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
+            $errorText = __('The characters you entered didn\'t match', 'ipAdmin', false);
+        } else {
+            $errorText = __('The characters you entered didn\'t match', 'ipPublic', false);
+        }
+
 
         if (!isset($values[$this->getName()]['id']) || !isset($values[$this->getName()]['code'])) {
-            return ''; //that means error. We just don't have the text
+            return $errorText;
         }
         $code = $values[$this->getName()]['code'];
         $id = $values[$this->getName()]['id'];
@@ -87,15 +95,15 @@ class Captcha extends Field{
         $captcha = new \Ip\Lib\HnCaptcha\HnCaptcha($this->captchaInit, TRUE);
 
         if (!isset($_SESSION['developer']['form']['field']['captcha'][$id]['public_key'])) {
-            return ''; //that means error. We just don't have the text
+            return $errorText;
         }
 
         $realCode = strtolower($captcha->generate_private($_SESSION['developer']['form']['field']['captcha'][$id]['public_key']));
         if(strtolower($code)!== $realCode){
-            return ''; //that means error. We just don't have the text
+            return $errorText;
         }
         
-        return parent::validate($values, $valueKey);
+        return parent::validate($values, $valueKey, $environment);
     }    
 
     public function getValidationInputName() {

@@ -42,14 +42,14 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipGetConfig()->baseUrl('')); // update system variable
+        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipConfig()->baseUrl('')); // update system variable
 
         $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
         \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
 
         // TODO move somewhere
-        if (ipGetConfig()->baseUrl('') != $cachedUrl) {
-            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipGetConfig()->baseUrl('')));
+        if (ipConfig()->baseUrl('') != $cachedUrl) {
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipconfig()->baseUrl('')));
         }
         ipDispatcher()->notify('site.clearCache');
     }

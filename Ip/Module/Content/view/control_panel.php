@@ -9,7 +9,7 @@
                 </div>
             </div>
             <a href="#" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
-            <a href="<?php echo str_replace('cms_action=manage', '', \Ip\Internal\UrlHelper::getCurrentUrl()); ?>" target="_blank" class="ipAdminButton ipaPreview ipActionPreview" title="<?php _e('Preview', 'ipAdmin') ?>"><span>&nbsp;</span></a>
+            <a href="<?php echo \Ip\Internal\UrlHelper::getCurrentUrl(); ?>" target="_blank" class="ipAdminButton ipaPreview ipsPreview" title="<?php _e('Preview', 'ipAdmin') ?>"><span>&nbsp;</span></a>
             <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
                 <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
@@ -29,7 +29,7 @@
     ?>
                         <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                             <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.$this->esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
+                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['created']); echo $revision['published'] ? ' '.esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
                             </a>
                         </li>
     <?php } ?>
@@ -42,7 +42,7 @@
     <?php if(!$manageableRevision){ ?>
             <div class="ipAdminWidgetsDisable">
                 <p>
-                    <?php echo $this->escPar('Content.older_revision_preview', array ('date' => date("Y-m-d H:i", $currentRevision['created']))) ?>
+                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['created']) ?>
                     <a href="#" class="ipActionPublish"><?php _e('Publish this revision', 'ipAdmin') ?></a>
                     <a href="#" class="ipActionSave"><?php _e('Duplicate and edit this revision', 'ipAdmin') ?></a>
                 </p>
@@ -58,7 +58,7 @@
                         <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="ipActionWidgetButton">
                             <a href="#">
                                 <span class="ipaTitle"><span><?php echo htmlspecialchars($widget->getTitle()); ?></span></span>
-                                <img src="<?php echo ipEsc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
+                                <img src="<?php echo esc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
                             </a>
                         </div>
                     </li>

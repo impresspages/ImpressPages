@@ -27,7 +27,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
 }
 ?><li class="<?php echo implode(' ', $css) ?>">
     <a <?php echo $href ?> title="<?php addslashes($menuItem->getPageTitle()) ?>">
-        <?php echo $this->esc($menuItem->getTitle()) ?>
+        <?php echo esc($menuItem->getTitle()) ?>
     </a>
     <?php if ($menuItem->getChildren()){ ?>
         <?php echo $this->subview('menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>

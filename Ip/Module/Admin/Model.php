@@ -26,7 +26,6 @@ class Model{
         $modules = \Ip\Module\Plugins\Model::getModules();
         foreach($modules as $module) {
             $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
-            //echo $controllerClass; exit;
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
@@ -38,7 +37,19 @@ class Model{
         }
 
 
+        $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
 
+        foreach($plugins as $plugin) {
+            $controllerClass = '\\Plugin\\' . $plugin . '\\AdminController';
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
+                continue;
+            }
+            $moduleItem = new \Ip\Menu\Item();
+            $moduleItem->setTitle($plugin);
+            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin.'.index')));
+            $moduleItem->setUrl(ipConfig()->baseUrl('', array('aa' => $plugin . '.index')));
+            $answer[] = $moduleItem;
+        }
 
         return $answer;
     }
@@ -112,21 +123,25 @@ class Model{
             return false;
     }
 
-    public function login($username, $pass)
+    public function login($username, $password)
     {
-        $log = \Ip\ServiceLocator::log();
-        if($this->incorrectLoginCount($username.'('.$_SERVER['REMOTE_ADDR'].')') > 2) {
+        $ip = ipRequest()->getServer('REMOTE_ADDR');
+
+        // TODO use events for that
+        if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
             $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            $log->log('system', 'backend login suspended', $username.'('.$_SERVER['REMOTE_ADDR'].')', 2);
-        }else {
-            $id = $this->userId($username, $pass);
+            ipLog()->warning('Admin.loginSuspended: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+        } else {
+            $id = $this->userId($username, $password);
             if($id !== false) {
                 $_SESSION['backend_session']['userId'] = $id;
-                $log->log('system', 'backend login', $username.' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+                \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
+
+                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return true;
             } else {
                 $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                $log->log('system', 'backend login incorrect', $username.'('.$_SERVER['REMOTE_ADDR'].')', 1);
+                ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
                 return false;
             }
         }
@@ -140,6 +155,9 @@ class Model{
 
     protected function incorrectLoginCount($userName)
     {
+        return 0;
+
+        // TODO do it through storage and not here
         /*
          0 - success
          1 - incorrect login

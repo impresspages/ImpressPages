@@ -9,16 +9,16 @@ namespace Ip\Module\Content\Widget\IpForm;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
         return __('Contact form', 'ipAdmin');
     }
     
-    public function post ($instanceId, $postData, $data) {
-        
-        
+    public function post ($instanceId, $data) {
+        $postData = ipRequest()->getPost();
+
         $form = $this->createForm($instanceId, $data);
         $errors = $form->validate($postData);
         
@@ -35,7 +35,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
             );
         }
 
-        // TODOX use JsonRpc
+        // TODO use JsonRpc
         return new \Ip\Response\Json($data);
     }
     
@@ -52,7 +52,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
 
         foreach($form->getFields() as $fieldKey => $field) {
             
-            if ($field->getType() == \Ip\Form\Field\Field::TYPE_REGULAR) {
+            if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
@@ -217,8 +217,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Module\Content\Exception $e) {
-                    $log = \Ip\ServiceLocator::log();
-                    $log->log('standard/content_management', 'create field', $e->getMessage());
+                    ipLog()->error('IpFormWidget.failedAddField: Widget failed to add field.', array('widget' => 'IpForm', 'exception' => $e, 'fieldData' => $fieldData));
                 }
                 
             }
@@ -251,7 +250,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => _s('Content.widget_contact_form.send', 'ipPublic')
+        	'defaultValue' => __('Content.widget_contact_form.send', 'ipPublic', false)
         ));
         $form->addField($field);
         

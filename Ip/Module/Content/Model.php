@@ -60,7 +60,7 @@ class Model{
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
         foreach($revisions as $revision) {
-            $managementUrls[] = $currentPageLink . '&cms_revision=' . $revision['revisionId'];
+            $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
         }
 
         $revision = \Ip\ServiceLocator::content()->getRevision();
@@ -228,17 +228,13 @@ class Model{
 
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
-        if ($managementState) {
-            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?\?([^\\\"]*)(?=\\\")/", '$0&cms_action=manage', $previewHtml);
-            $previewHtml = preg_replace("/".str_replace(array('/', ':'), array('\\/', '\\:'), ipConfig()->baseUrl(''))."([^\\\"\\'\>\<\?]*)?(?=\\\")/", '$0?cms_action=manage', $previewHtml);
-        }
         
-        $data = array (
+        $variables = array (
             'html' => $previewHtml,
             'widgetRecord' => $widgetRecord,
             'managementState' => $managementState
         );
-        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
+        $answer = \Ip\View::create('view/widget_preview.php', $variables)->render();
         return $answer;
     }
 
@@ -371,7 +367,7 @@ class Model{
      *
      * Enter description here ...
      * @param unknown_type $widgetName
-     * @return \Ip\Module\Content\WidgetController
+     * @return \Ip\WidgetController
      */
     public static function getWidgetObject($widgetName) {
         $widgetObjects = self::getAvailableWidgetObjects();

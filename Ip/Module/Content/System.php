@@ -6,6 +6,8 @@
  */
 namespace Ip\Module\Content;
 
+use Ip\WidgetController;
+
 class System{
 
 
@@ -14,32 +16,20 @@ class System{
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->bind('contentManagement.collectWidgets', array($this, 'collectWidgets'));
-        $dispatcher->bind('site.afterInit', array($this, 'initWidgets'));
+        $dispatcher->addEventListener('site.afterInit', array($this, 'initWidgets'));
+        $dispatcher->addEventListener('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+        $dispatcher->addEventListener('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
+        $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
+        $dispatcher->addEventListener('Cron.execute', array($this, 'executeCron'));
+        $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
+        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
 
-        $dispatcher->bind('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
+        $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
+        $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
-        $dispatcher->bind('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
-
-        $dispatcher->bind('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
-
-        $dispatcher->bind('Cron.execute', array($this, 'executeCron'));
-
-
-        $dispatcher->bind('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
-
-        $dispatcher->bind('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
-
-
-
-        //IpForm widget
-        $dispatcher->bind('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
-
-        
-        
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/widgets.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widgets.js'));
 
 
         // TODOX move to more appropriate place
@@ -55,6 +45,14 @@ class System{
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
 
+        $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
+
+
+    }
+
+    public function adminLogin($data)
+    {
+        Service::setManagementMode(1);
     }
 
 
@@ -126,8 +124,7 @@ class System{
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                $log = \Ip\ServiceLocator::log();
-                $log->log('Content', 'duplicated widget', 'Widget name ' . $widgetFolder);
+                ipLog()->warning('Content.duplicateWidget: {widget}', array('plugin' => 'Content', 'widget' => $widgetFolder));
             }
             $answer[] = array (
                 'module' => $moduleName,
@@ -153,9 +150,9 @@ class System{
 
     }
 
-    private function addWidgetAssets(\Ip\Module\Content\WidgetController $widget, $core)
+    private function addWidgetAssets(\Ip\WidgetController $widget, $core)
     {
-        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::PREVIEW_DIR . '/';
+        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
         if ($core) {
             $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
         } else {
@@ -196,25 +193,24 @@ class System{
      */
     public static function collectFieldTypes($fieldTypes, $info = NULL)
     {
-        global $parametersMod;
-        
-        $typeText = $parametersMod->getValue('Form.type_text');
-        $typeEmail = $parametersMod->getValue('Form.type_email');
-        $typeTextarea = $parametersMod->getValue('Form.type_textarea');
-        $typeSelect = $parametersMod->getValue('Form.type_select');
-        $typeConfirm = $parametersMod->getValue('Form.type_confirm');
-        $typeRadio = $parametersMod->getValue('Form.type_radio');
-        $typeCaptcha = $parametersMod->getValue('Form.type_captcha');
-        $typeFile = $parametersMod->getValue('Form.type_file');
 
-        $fieldTypes[]= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
-        $fieldTypes[]= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
-        $fieldTypes[]= new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
-        $fieldTypes[]= new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $fieldTypes[]= new FieldType('IpConfirm', '\Ip\Form\Field\Confirm', $typeConfirm, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
-        $fieldTypes[]= new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $fieldTypes[]= new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
-        $fieldTypes[]= new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
+        $typeText = __('Text', 'ipAdmin', false);
+        $typeEmail = __('Email', 'ipAdmin', false);
+        $typeTextarea = __('Textarea', 'ipAdmin', false);
+        $typeSelect = __('Select', 'ipAdmin', false);
+        $typeCheckbox = __('Checkbox', 'ipAdmin', false);
+        $typeRadio = __('Radio', 'ipAdmin', false);
+        $typeCaptcha = __('Captcha', 'ipAdmin', false);
+        $typeFile = __('File', 'ipAdmin', false);
+
+        $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
+        $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
+        $fieldTypes['IpTextarea']= new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
+        $fieldTypes['IpSelect']= new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $fieldTypes['IpCheckbox']= new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
+        $fieldTypes['IpRadio']= new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
+        $fieldTypes['IpCaptcha']= new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
+        $fieldTypes['IpFile']= new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
 
         return $fieldTypes;
     }

@@ -5,18 +5,17 @@ Feature: Translation
 
   Scenario: Creating a theme that can be translatable
     Given current locale is "lt"
-    And current theme is "Blank"
-    And theme file "languages\lt_LT.php" contains
+    And current theme is "SampleTheme"
+    And theme file "languages\lt.php" contains
     """
     <?php return array(
       'title' => 'Pavadinimas'
     );
     """
     When I do nothing
-    Then __("title", "myTheme") should return "Pavadinimas"
+    Then __("title", "theme-SampleTheme") should return "Pavadinimas"
 
   Scenario: ImpressPages messages
     Given I want to translate ImpressPages
     When
     Then messages should be translated using xliff
-

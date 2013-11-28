@@ -39,6 +39,7 @@ class Helper {
         return ipDispatcher()->job('global.getProduct', $data);
     }
 
+    //TODOX make sugar method
     /**
      * @param int $price in cents
      * @param string $currency three letter currency code

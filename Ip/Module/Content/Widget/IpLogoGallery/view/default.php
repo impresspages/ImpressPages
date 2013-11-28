@@ -8,11 +8,11 @@ foreach ($logos as $logoKey => $logo) {
 ?>
     <li>
         <?php if ($curLink ) { ?>
-        <a href="<?php echo htmlspecialchars($curLink); ?>" title="<?php echo htmlspecialchars($curTitle); ?>" <?php if ($this->getDoctype() != \Ip\View::DOCTYPE_HTML4_STRICT && stripos($curLink, '#') !== 0) { ?>target="_blank"<?php } ?>>
-            <img src="<?php echo htmlspecialchars(ipConfig()->baseUrl($curLogo)) ?>" alt="<?php echo htmlspecialchars($curTitle); ?>" />
+        <a href="<?php echo esc($curLink); ?>" title="<?php echo esc($curTitle); ?>" <?php if ($this->getDoctype() != \Ip\View::DOCTYPE_HTML4_STRICT && stripos($curLink, '#') !== 0) { ?>target="_blank"<?php } ?>>
+            <img src="<?php echo esc($curLogo) ?>" alt="<?php echo esc($curTitle); ?>" />
         </a>
         <?php } else { ?>
-        <img src="<?php echo htmlspecialchars(ipConfig()->baseUrl($curLogo)) ?>" alt="<?php echo htmlspecialchars($curTitle); ?>" />
+        <img src="<?php echo esc($curLogo) ?>" alt="<?php echo esc($curTitle); ?>" />
         <?php } ?>
     </li>
 <?php } ?>

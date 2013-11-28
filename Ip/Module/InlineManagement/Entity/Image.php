@@ -58,7 +58,7 @@ class Image
                     $this->getRequiredWidth(),
                     $this->getRequiredHeight()
                 );
-                $this->image = $reflectionService->getReflection($this->getImageOrig(), null, $transform);
+                $this->image = ipConfig()->baseUrl($reflectionService->getReflection($this->getImageOrig(), null, $transform));
 
 
             }

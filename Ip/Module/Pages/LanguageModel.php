@@ -48,10 +48,9 @@ class LanguageModel{
 
 
     private function afterUpdate($id) {
-        global $parametersMod;
 
         $tmpLanguage = self::getLanguageById($id);
-        if($tmpLanguage['url'] != $this->urlBeforeUpdate && $parametersMod->getValue('standard', 'languages', 'options', 'multilingual')) {
+        if($tmpLanguage['url'] != $this->urlBeforeUpdate && ipGetOption('Config.multilingual')) {
             $oldUrl = BASE_URL.$this->urlBeforeUpdate.'/';
             $newUrl = BASE_URL.$tmpLanguage['url'].'/';
             ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
@@ -134,13 +133,9 @@ class LanguageModel{
                 *
             FROM
                 `".DB_PREF."zone`
-            WHERE
-                1
             ORDER BY
                 `row_number`";
-        $params = array ();
-        $result = ipDb()->fetchAll($sql, $params);
-        return $result;
+        return ipDb()->fetchAll($sql);
     }
 
     private function deleteRootZoneElement($language) {

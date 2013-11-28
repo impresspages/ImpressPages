@@ -18,19 +18,19 @@ class Template {
     '.ipPrintHead(false).'
     <link href="' . ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipConfig()->coreModuleUrl('Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipConfig()->coreModuleUrl('Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipPrintJavascript(false).'
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/languageProperties.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.cookie.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.hotkeys.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.jstree.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/assets/pages.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/assets/zoneProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/assets/languageProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/assets/layout.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
 <body>
 '.$content.'
@@ -40,7 +40,6 @@ class Template {
     }
 
     public static function content ($data) {
-        global $parametersMod;
         $answer = '';
 
         $answer .=
@@ -50,31 +49,31 @@ class Template {
         var deleteConfirmText= \''.addslashes(__('Do you really want to delete?', 'ipAdmin')).'\';
 
         var textSave = \''.addslashes(__('Save', 'ipAdmin')).'\';
-        var textCancel = \''.addslashes($parametersMod->getValue('Pages.cancel')).'\';
+        var textCancel = \''.addslashes(__('Cancel', 'ipAdmin')).'\';
         var textDelete = \''.addslashes(__('Delete', 'ipAdmin')).'\';
         var textEdit = \''.addslashes(__('Edit', 'ipAdmin')).'\';
         var textNewPage = \''.addslashes(__('New page', 'ipAdmin')).'\';
         var textCopy = \''.addslashes(__('Copy', 'ipAdmin')).'\';
-        var textPaste = \''.addslashes($parametersMod->getValue('Pages.paste')).'\';
+        var textPaste = \''.addslashes(__('Paste', 'ipAdmin')).'\';
     </script>
     <div class="ip">
         <div id="sideBar" class="ui-widget-content ui-resizable">
             <div id="controlls">
                 <ul>
                     <button id="buttonNewPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-file-alt"></i>
+                        <i class="fa fa-file-o"></i>
                         '.__('New page', 'ipAdmin').'
                     </button>
                     <button id="buttonDeletePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-trash"></i>
+                        <i class="fa fa-trash-o"></i>
                         '.__('Delete', 'ipAdmin').'
                     </button>
                     <button id="buttonCopyPage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-copy"></i>
+                        <i class="fa fa-copy"></i>
                         '.__('Copy', 'ipAdmin').'
                     </button>
                     <button id="buttonPastePage" class="btn btn-default" disabled="disabled" role="button" aria-disabled="false">
-                        <i class="icon-paste"></i>
+                        <i class="fa fa-paste"></i>
                         '.__('Paste', 'ipAdmin').'
                     </button>
                 </ul>    
@@ -114,7 +113,6 @@ class Template {
 
 
     public static function generatePageProperties ($tabs) {
-        global $parametersMod;
         $answer = '';
 
         $tabsList = '';
@@ -156,7 +154,6 @@ class Template {
 
 
     public static function generateTabGeneral () {
-        global $parametersMod;
         $answer = '';
         $element = new \Ip\Page('null', 'left');
         $answer .=
@@ -193,7 +190,6 @@ class Template {
     }
 
     public static function generateTabSEO () {
-        global $parametersMod;
 
         $answer = '';
         $element = new \Ip\Page('null', 'left');
@@ -228,7 +224,6 @@ class Template {
     }
 
     public static function generateTabAdvanced () {
-        global $parametersMod;
         $element = new \Ip\Page('null', 'left');
 
         $answer = '';
@@ -256,13 +251,9 @@ class Template {
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
             <label for="typeRedirect" class="small">'.__('Redirect to external page', 'ipAdmin').'</label><br/>
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-            <img class="linkList" id="internalLinkingIcon" src="' . ipConfig()->coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
+            <img class="linkList" id="internalLinkingIcon" src="' . ipConfig()->coreModuleUrl('Pages/img/list.gif') . '" /><br />
         </p>
-        <p class="field">
-            <label for="generalVisible">'.__('RSS', 'ipAdmin').'</label>
-            <input id="generalVisible" class="stdModBox" type="checkbox" name="rss" '.($element->getRSS() ? 'checked="yes"' : '' ).' /><br />
-        </p>
-        
+
         <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />
 
 </form>

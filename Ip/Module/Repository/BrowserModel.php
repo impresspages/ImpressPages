@@ -10,8 +10,6 @@ namespace Ip\Module\Repository;
 /**
  * 
  * Functions required by files repository browser
- * 
- * @author Mangirdas
  *
  */
 class BrowserModel{
@@ -92,13 +90,11 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
-        $relativeRepositoryDir = ipConfig()->getRaw('FILE_REPOSITORY_DIR');
         $data = array(
             'fileName' => $fileName,
-            'dir' => $relativeRepositoryDir,
-            'file' => $relativeRepositoryDir . $fileName,
             'ext' => $ext,
-            'preview' => $this->createPreview($relativeRepositoryDir . $fileName),
+            'previewUrl' => $this->createPreview($fileName),
+            'originalUrl' => ipConfig()->repositoryUrl($fileName),
             'modified' => filemtime($file)
         );
         return $data;
@@ -115,17 +111,15 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
-
         if (in_array($ext, $this->supportedImageExtensions)) {
             $reflectionService = ReflectionService::instance();
             $transform = new Transform\ImageFit(140, 140, null, TRUE);
             $reflection = $reflectionService->getReflection($file, $baseName, $transform);
             if ($reflection){
-                return $reflection;
+                return ipConfig()->fileUrl($reflection);
             }
         }
-
-        return ipConfig()->coreModuleUrl('Repository/public/admin/icons/general.png');
+        return ipConfig()->coreModuleUrl('Repository/assets/admin/icons/general.png');
     }
 
     

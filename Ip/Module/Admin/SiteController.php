@@ -12,26 +12,31 @@ class SiteController extends \Ip\Controller{
         $errors = $validateForm->validate(ipRequest()->getPost());
 
         if (empty($errors)) {
-            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
-                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-                \Ip\Internal\Db::log('system', 'backend login suspended', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 2);
-            }
+            // TODOX do it through filter and don't use log
+//            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
+//                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
+//                ipLog()->notice('Admin login `{username}` suspended. IP: {ip}', array('username' => ipRequest()->getPost('login'), 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+//            }
 
         }
+
+        $username = ipRequest()->getPost('login');
 
         if (empty($errors)) {
-            if (Model::instance()->login(ipRequest()->getPost('login'), ipRequest()->getPost('password'))) {
-                \Ip\Internal\Db::log('system', 'backend login', ipRequest()->getPost('login').' ('.$_SERVER['REMOTE_ADDR'].')', 0);
+            $ip = ipRequest()->getServer('REMOTE_ADDR');
+            if (Model::instance()->login($username, ipRequest()->getPost('password'))) {
+                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             } else {
-                \Ip\Internal\Db::log('system', 'backend login incorrect', ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')', 1);
-                $errors['password'] =  __('Incorrect name or password', 'ipAdmin');
+                ipLog()->info('Admin.loginIncorrect: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+                ipDispatcher()->notify('Admin.loginIncorrect', array('username' => $username, 'ip' => $ip));
+                $errors['password'] =  __('Incorrect username or password', 'ipAdmin');
             }
         }
 
 
 
-
-        $redirectUrl = ipConfig()->baseUrl('', array('cms_action' => 'manage'));
+        //TODOX replace with url to first module;
+        $redirectUrl = ipConfig()->baseUrl('');
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -66,20 +71,21 @@ class SiteController extends \Ip\Controller{
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl('', array('cms_action' => 'manage')));
+            \Ip\Module\Content\Service::setManagementMode(1);
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl(''));
         }
 
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/login.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/assets/login.js'));
 
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipConfig()->coreMOduleFile('Admin/View/login.php'));
+        $response->setLayout(ipConfig()->coreMOduleFile('Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
-        $view = \Ip\View::create('View/login.php', $variables);
+        $view = \Ip\View::create('view/login.php', $variables);
         return $view;
     }
 

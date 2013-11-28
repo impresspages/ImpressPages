@@ -32,7 +32,6 @@ class Logo
      */
     public function __construct($data, $defaultLogo = null)
     {
-        global $parametersMod;
         if(is_string($data)) {
             $data = $this->parseStr($data);
         }

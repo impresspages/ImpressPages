@@ -12,11 +12,11 @@ class System {
         $request = \Ip\ServiceLocator::request();
 
         if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
-            \Ip\ServiceLocator::response()->setLayout(ipConfig()->coreModuleFile('/Admin/View/layout.php'));
+            \Ip\ServiceLocator::response()->setLayout(ipConfig()->coreModuleFile('/Admin/view/layout.php'));
             $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
         }
 
-        ipDispatcher()->bind('site.afterInit', array($this, 'initAdmin'));
+        ipDispatcher()->addEventListener('site.afterInit', array($this, 'initAdmin'));
 
         if (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
@@ -27,6 +27,9 @@ class System {
         }
 
         $getVariables = ipRequest()->getRequest();
+        if (isset($getVariables['safeMode'])) {
+            $getVariables['safeMode'] = $getVariables['safeMode'];
+        }
         if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
             Model::setSafeMode($getVariables['safemode']);
         }
@@ -37,10 +40,10 @@ class System {
     {
 
         if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
-            ipAddCss(ipConfig()->coreModuleUrl('Admin/Public/admin.css'));
+            ipAddCss(ipConfig()->coreModuleUrl('Admin/assets/admin.css'));
 
             ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Admin/Public/admin.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Admin/assets/admin.js'));
 
             ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }
@@ -58,7 +61,7 @@ class System {
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
             $curModule = $parts[0];
-        } elseif (!empty($requestData['cms_action']) && $requestData['cms_action'] == 'manage') {
+        } elseif (\Ip\Module\Content\Service::isManagementMode()) {
             $curModule = "Content";
         }
 
@@ -76,7 +79,7 @@ class System {
             'curModUrl' => $curModUrl,
             'helpUrl' => $helpUrl
         );
-        $html = \Ip\View::create('View/toolbar.php', $data)->render();
+        $html = \Ip\View::create('view/toolbar.php', $data)->render();
         return $html;
     }
 
@@ -92,11 +95,11 @@ class System {
     {
         $toolbarHtml = $this->getAdminToolbarHtml();
 
-        $code = '    <link href="' . ipConfig()->coreModuleUrl('Admin/Public/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code = '    <link href="' . ipConfig()->coreModuleUrl('Admin/assets/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
         $code .= '    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
         $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
         $code .= '   <script type="text/javascript"> var ipAdminToolbar = ' . json_encode($toolbarHtml) . ';</script>' . "\n";
-        $code .= '   <script type="text/javascript" src="' . $config->coreModuleUrl() . 'Admin/Public/admin.js" ></script>' . "\n";
+        $code .= '   <script type="text/javascript" src="' . $config->coreModuleUrl() . 'Admin/assets/admin.js" ></script>' . "\n";
         $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);
 
         if ($newHtml == $html) {

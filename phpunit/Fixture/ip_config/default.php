@@ -15,7 +15,7 @@ return array(
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
     'CORE_DIR' => '',
-    'BASE_URL' => 'http://localhost/',
+    'BASE_URL' => 'localhost/',
     'FILE_DIR' => 'phpunit/tmp/file/',
     'TMP_FILE_DIR' => 'phpunit/tmp/file/tmp/',
     'FILE_REPOSITORY_DIR' => 'phpunit/tmp/file/repository/',
@@ -26,7 +26,7 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    'THEME_DIR' => 'ip_themes/',
+    'THEME_DIR' => 'Theme/',
     // END BACKEND
 
     // FRONTEND

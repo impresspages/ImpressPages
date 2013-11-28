@@ -88,17 +88,6 @@ class Page extends \Ip\Page {
                 $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
                 break;
             case 'redirect':
-                if(\Ip\ServiceLocator::content()->isManagementState()) {
-                    if(strpos($this->redirectUrl, ipConfig()->baseUrl('')) === 0) {
-                        if(strpos($this->redirectUrl, 'cms_action=manage') === false) {
-                            if(strpos($this->redirectUrl, '?') === false) {
-                                $this->redirectUrl .= '?cms_action=manage';
-                            } else {
-                                $this->redirectUrl .= '&cms_action=manage';
-                            }
-                        }
-                    }
-                }
                 $this->link = $this->redirectUrl;
                 break;
             case 'inactive':

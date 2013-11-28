@@ -36,10 +36,7 @@ class Db
         }
 
         $query->execute();
-        // TODOX check if $query->fetchColumn() would do
-        $result = $query->fetchAll(\PDO::FETCH_NUM);
-
-        return $result ? $result[0][0] : null;
+        return $query->fetchColumn(0);
     }
 
     public static function fetchRow($sql, $params = array())

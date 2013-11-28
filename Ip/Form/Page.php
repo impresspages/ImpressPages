@@ -7,29 +7,33 @@
 namespace Ip\Form;
 
 
-
-
-class Page{
+class Page
+{
     /**
      * @var Fieldset[]
      */
     protected $fieldsets;
     protected $label;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->fieldsets = array();
     }
-    
-    public function addFieldset($fieldset) {
+
+
+
+    public function addFieldset($fieldset)
+    {
         $this->fieldsets[] = $fieldset;
     }
-    
+
     /**
-     * 
+     *
      * Add field to last fielset. Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(Field\Field  $field) {
+    public function addField(\Ip\Form\Field $field)
+    {
         if (count($this->fieldsets) == 0) {
             $this->addFieldset(new Fieldset());
         }
@@ -41,39 +45,43 @@ class Page{
      * @param string $fieldName
      * @return int removed fields count
      */
-    public function removeField($fieldName) {
+    public function removeField($fieldName)
+    {
         $count = 0;
-        foreach($this->fieldsets as $key => $fieldset) {
+        foreach ($this->fieldsets as $key => $fieldset) {
             $count += $fieldset->removeField($fieldName);
         }
         return $count;
     }
-    
+
     /**
-     * 
+     *
      * Return all fieldset
      * @return Fieldset[]
      */
-    public function getFieldsets() {
+    public function getFieldsets()
+    {
         return $this->fieldsets;
     }
-    
-    
+
+
     /**
      * Return all fields (from all fieldsets in one level array)
      */
-    public function getFields() {
+    public function getFields()
+    {
         $fieldsets = $this->getFieldsets();
         $fields = array();
         foreach ($fieldsets as $fieldset) {
             $fields = array_merge($fields, $fieldset->getFields());
         }
         return $fields;
-    }    
-    
-    public function getField($name) {
+    }
+
+    public function getField($name)
+    {
         $allFields = $this->getFields();
-        foreach($allFields as $key => $field) {
+        foreach ($allFields as $key => $field) {
             if ($field->getName() == $name) {
                 return $field;
             }
@@ -82,11 +90,13 @@ class Page{
     }
 
 
-    public function getLabel() {
+    public function getLabel()
+    {
         return $this->label;
     }
 
-    public function setLabel($label) {
+    public function setLabel($label)
+    {
         $this->label = $label;
     }
 

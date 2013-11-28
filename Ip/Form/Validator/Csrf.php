@@ -10,13 +10,12 @@ namespace Ip\Form\Validator;
 /**  
  * 
  * 'Check' antispam field validator
- * @author Mangirdas
  *
  */
 
 class Csrf extends Validator {
     
-    public function validate($values, $valueKey) {
+    public function validate($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
             return 'error';
         }
@@ -24,8 +23,12 @@ class Csrf extends Validator {
         $session = \Ip\ServiceLocator::application();
 
         if ($values[$valueKey] != $session->getSecurityToken()) {
-            $parametersMod = \Ip\ServiceLocator::getParametersMod();
-            return $parametersMod->getValue("Form.xss");
+            if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
+                $errorText = __('Session has expired. Please refresh the page.', 'ipAdmin');
+            } else {
+                $errorText = __('Session has expired. Please refresh the page.', 'ipPublic');
+            }
+            $errorText;
         } else {
             return false;
         }
