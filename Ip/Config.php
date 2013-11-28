@@ -58,9 +58,11 @@ class Config
 
 
         if ($this->rawConfig['PLUGIN_DIR']) {
-            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'];
+            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
+            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
         } else {
-            $this->pluginUrl = $this->protocol . $this->cdnUrl;
+            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/Plugin';
+            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/Plugin';
         }
 
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
@@ -206,7 +208,7 @@ class Config
 
     public function pluginFile($path)
     {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/' . $path;
+        return $this->pluginDir . '/' . $path;
     }
 
     public function pluginUrl($path)

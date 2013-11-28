@@ -26,8 +26,8 @@ class Autoloader {
             return true;
         }
 
-        if (file_exists(ipConfig()->pluginFile($fileName))) {
-            require_once ipConfig()->pluginFile($fileName);
+        if (file_exists(ipConfig()->pluginFile('/../' . $fileName))) {
+            require_once ipConfig()->pluginFile('/../' . $fileName);
             return true;
         }
 
