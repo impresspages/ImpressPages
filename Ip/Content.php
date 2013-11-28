@@ -305,7 +305,6 @@ class Content {
         }
         //find zone
         $zonesData = $this->getZonesData();
-
         if (count($urlVars)) {
             $potentialZoneUrl = urldecode($urlVars[0]);
             foreach ($zonesData as $zoneData) {
@@ -343,8 +342,15 @@ class Content {
 
 
         //find current page
+
         $zone = $this->getZone($this->currentZoneName);
-        $currentPage = $zone->getCurrentPage();
+
+        if ($zone) {
+            $currentPage = $zone->getCurrentPage();
+        } else {
+            $currentPage = false;
+        }
+
         if ($currentPage) {
             $this->currentPage = $currentPage;
         } else {
