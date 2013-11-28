@@ -81,20 +81,6 @@ class Db {
 
     }
 
-    public static function createRootZoneElement($language) {
-        $firstLanguage = \Ip\Internal\ContentDb::getFirstLanguage();
-        $zones = \Ip\Internal\ContentDb::getZones($firstLanguage['id']);
-        foreach($zones as $key => $zone) {
-            $sql2 = "insert into `".DB_PREF."zone_parameter` set
-        language_id = '".ip_deprecated_mysql_real_escape_string($language)."',
-        zone_id = '".$zone['id']."',
-        title = '".ip_deprecated_mysql_real_escape_string(Db::newUrl($language, $zone['title']))."',
-        url = '".ip_deprecated_mysql_real_escape_string(Db::newUrl($language, $zone['url']))."'";
-            $rs2 = ip_deprecated_mysql_query($sql2);
-            if(!$rs2)
-            trigger_error($sql2." ".ip_deprecated_mysql_error());
-        }
-    }
 
 
     public static function newUrl($language, $url = 'zone') {
