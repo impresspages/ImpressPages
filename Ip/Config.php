@@ -50,10 +50,17 @@ class Config
             $this->corePath = $this->rawConfig['BASE_DIR'];
         }
 
-        if ($this->rawConfig['PLUGIN_DIR']) {
-            $this->pluginUrl = $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['PLUGIN_DIR'];
+        if (empty($this->rawConfig['CDN_URL'])) {
+            $this->cdnUrl = $this->rawConfig['BASE_URL'];
         } else {
-            $this->pluginUrl = $this->protocol . $this->rawConfig['BASE_URL'];
+            $this->cdnUrl = $this->rawConfig['CDN_URL'];
+        }
+
+
+        if ($this->rawConfig['PLUGIN_DIR']) {
+            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'];
+        } else {
+            $this->pluginUrl = $this->protocol . $this->cdnUrl;
         }
 
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
@@ -79,7 +86,7 @@ class Config
 
     public function coreModuleUrl($path)
     {//echo $this->protocol . $this->rawConfig['BASE_URL']; exit;
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/Ip/Module/' . $path;
+        return $this->protocol . $this->cdnUrl . '/Ip/Module/' . $path;
     }
 
     public function coreModuleFile($path)
@@ -133,7 +140,7 @@ class Config
 
     public function themeUrl($path)
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['THEME_DIR'] . '/' . $this->rawConfig['THEME'] . '/' . $path;
+        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['THEME_DIR'] . '/' . $this->rawConfig['THEME'] . '/' . $path;
     }
 
     public function themeFile($path, $theme = null)
@@ -148,7 +155,7 @@ class Config
     //TODOX remove
     public function coreUrl($path)
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
+        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
     }
 
     public function coreFile($path)
@@ -159,7 +166,7 @@ class Config
 
     public function fileUrl($path)
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
+        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
     }
 
     public function fileDirFile($path)
@@ -174,7 +181,7 @@ class Config
 
     public function repositoryUrl($path)
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
+        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
     }
 
     public function isDevelopmentEnvironment()
