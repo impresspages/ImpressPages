@@ -16,33 +16,27 @@ class Forms {
         $form->addClass('ipsConfigForm');
 
 
-        //TODOX make multilingual create ipGetOptionLang function
-        $field = new \Ip\Form\Field\Text(
+        $field = new FieldOptionTextLang(
             array(
+                'optionName' => 'Config.websiteTitle',
                 'name' => 'websiteTitle', //html "name" attribute
-                'defaultValue' => ipGetOptionLang('Config.websiteTitle', ipContent()->getCurrentLanguage()->getId()),
                 'label' => __('Website title', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('Used as a sender name in emails and as default website logo.', 'Config')
             ));
         $field->addClass('ipsAutoSave');
-        $field->addClass('ips' . $field->getName());
-        $field->addAttribute('data-fieldname', $field->getName());
-        $field->addAttribute('data-autosavetype', 'input');
         $form->addField($field);
 
 
-        //TODOX make multilingual create ipGetOptionLang function
-        $field = new \Ip\Form\Field\Email(
+        $field = new FieldOptionTextLang(
             array(
+                'optionName' => 'Config.websiteEmail',
                 'name' => 'websiteEmail', //html "name" attribute
                 'defaultValue' => ipGetOption('Config.websiteEmail'),
                 'label' => __('Website email', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('Email address used as a sender to send emails on behalf of the website.', 'Config')
             ));
+        $field->addValidator('Email');
         $field->addClass('ipsAutoSave');
-        $field->addClass('ips' . $field->getName());
-        $field->addAttribute('data-fieldname', $field->getName());
-        $field->addAttribute('data-autosavetype', 'input');
         $form->addField($field);
 
 
@@ -55,9 +49,9 @@ class Forms {
                 'text' => __('Cron URL: ', 'ipAdmin') . '<span class="ipsUrl"></span>'
             ));
         $field->addClass('ipsAutoSave');
-        $field->addClass('ips' . $field->getName());
+        $field->addAttribute('data-fieldid',  $field->getName());
+        $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
-        $field->addAttribute('data-autosavetype', 'checkbox');
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
@@ -68,9 +62,9 @@ class Forms {
                 'hint' => __('Protect cron from being abusively executed by the strangers.', 'Config')
             ));
         $field->addClass('ipsAutoSave');
-        $field->addClass('ips' . $field->getName());
+        $field->addAttribute('data-fieldid',  $field->getName());
+        $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
-        $field->addAttribute('data-autosavetype', 'input');
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Number(
@@ -80,9 +74,9 @@ class Forms {
                 'label' => __('Days to keep old content revisions', 'Config'), //field label that will be displayed next to input field
             ));
         $field->addClass('ipsAutoSave');
-        $field->addClass('ips' . $field->getName());
+        $field->addAttribute('data-fieldid',  $field->getName());
+        $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
-        $field->addAttribute('data-autosavetype', 'number');
         $form->addField($field);
 
 

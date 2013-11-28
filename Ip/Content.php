@@ -162,7 +162,7 @@ class Content {
 
     /**
      *
-     * @return array - all website languages. Each element is an object Language
+     * @return \Ip\Language[] - all website languages. Each element is an object Language
      *
      */
     public function getLanguages()
