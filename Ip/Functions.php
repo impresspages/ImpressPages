@@ -283,7 +283,7 @@ function escTextarea($value)
 
 function escAttr($value)
 {
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
 function escUrl($url)
