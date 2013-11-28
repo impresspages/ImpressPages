@@ -14,7 +14,7 @@ class System
         ipAddJQuery();
 
         //Form init
-        ipAddJavascript(ipConfig()->coreModuleUrl('Form/assets/form.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/form/form.js'));
 
         ipAddJavascriptVariable('Form_pluploadJsFile', ipConfig()->coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
         ipAddJavascriptVariable('Form_fileFieldJs', ipConfig()->coreModuleUrl('Assets/assets/form/file.js'));
