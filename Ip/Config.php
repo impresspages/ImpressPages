@@ -211,7 +211,7 @@ class Config
 
     public function pluginUrl($path)
     {
-        return $this->pluginUrl . '/Plugin/' . $path;
+        return $this->pluginUrl . '/' . $path;
     }
 
     public function theme()
