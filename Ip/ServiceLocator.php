@@ -153,6 +153,15 @@ class ServiceLocator
     }
 
     /**
+     * @param Response $response
+     */
+    public static function setResponse(\Ip\Response $response)
+    {
+        end(self::$responses);
+        self::$responses[] = $response;
+    }
+
+    /**
      * @return \Ip\Db
      */
     public static function db()

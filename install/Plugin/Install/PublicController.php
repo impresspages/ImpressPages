@@ -38,9 +38,7 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
-        \Ip\ServiceLocator::setResponse($response);
         return $response;
-//        return $this->applyLayout($content);
     }
 
     public function step1()
