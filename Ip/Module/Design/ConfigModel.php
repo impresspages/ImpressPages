@@ -309,9 +309,6 @@ class ConfigModel{
             return false;
         }
 
-        if (!\Ip\Module\Admin\Backend::userHasPermission(\Ip\Module\Admin\Backend::userId(), 'standard', 'design')) {
-            return false;
-        }
 
         return true;
     }

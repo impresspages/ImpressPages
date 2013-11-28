@@ -275,7 +275,7 @@ function editPageResponse(response) {
         return;
     }
 
-    document.location = response.link + '?cms_action=manage';
+    document.location = response.link;
 
 }
 
@@ -554,7 +554,6 @@ function updatePageFormResponse(response) {
         $('#formSEO input[name="url"]').val(response.page.url);
         $('#formAdvanced input[name="type"][name="type"][value="' + response.page.type + '"]').attr('checked', 1);
         $('#formAdvanced input[name="redirectURL"]').val(response.page.redirectURL);
-        $('#formAdvanced input[name="rss"]').attr('checked', response.page.rss == 1 ? true : false);
 
         $("#pageProperties form").bind("submit", function () {
             updatePage();
@@ -589,7 +588,6 @@ function updatePage() {
     data.url = $('#formSEO input[name="url"]').val();
     data.type = $('#formAdvanced input:checked[name="type"]').val();
     data.redirectURL = $('#formAdvanced input[name="redirectURL"]').val();
-    data.rss = $('#formAdvanced input[name="rss"]').attr('checked') ? 1 : 0;
     data.layout = $('#formLayout select[name="layout"]').val();
 
     data.aa = 'Pages.updatePage';

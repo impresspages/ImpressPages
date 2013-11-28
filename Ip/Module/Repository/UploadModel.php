@@ -10,12 +10,10 @@ namespace Ip\Module\Repository;
 /**
  *
  * Centralized repository to store files. Often the same image needs to be used by many
- * modules / widgets. This class handles these dependences. Use this module to add new files to global
+ * modules / widgets. This class handles these dependencies. Use this module to add new files to global
  * files repository. Bind new modules to already existing files. When the file is not bind to any module,
- * it is automatically removed. So bind to existing files, undbind from them and don't whorry if some other
+ * it is automatically removed. So bind to existing files, unbind from them and don't worry if some other
  * modules uses the same files. This class will take care.
- *
- * @author Mangirdas
  *
  */
 class UploadModel{
@@ -80,7 +78,7 @@ class UploadModel{
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
         $forbiddenExtensions = array('htaccess', 'htpasswd', 'php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
-        $forbiddenExtensions = ipDispatcher()->notify('repository.forbiddenExtensions', $forbiddenExtensions);
+        $forbiddenExtensions = ipDispatcher()->filter('repository.forbiddenExtensions', $forbiddenExtensions);
 
         if (in_array($fileExtension, $forbiddenExtensions)) {
             //security risk

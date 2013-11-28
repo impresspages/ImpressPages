@@ -22,12 +22,12 @@ class AdminController extends \Ip\Controller
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
         ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/options.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/market.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/design.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/public/pluginInstall.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Design/public/design.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/public/market.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/options.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/market.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/design.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/pluginInstall.js'));
+        ipAddCss(ipConfig()->coreModuleUrl('Design/assets/design.css'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/market.js'));
 
 
 
@@ -109,13 +109,13 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $themes = ipRequest()->getPost('themes');
 
-        if (!is_writable(ipConfig()->getCore('THEME_DIR'))) {
-            return JsonRpc::error(_s('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin'), 777);
+        if (!is_writable(ipConfig()->themeFile(''))) {
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin', false), 777);
         }
 
         try {
             if (!is_array($themes)) {
-                return JsonRpc::error(_s('Download failed: invalid parameters', 'ipAdmin'), 101);
+                return JsonRpc::error(__('Download failed: invalid parameters', 'ipAdmin', false), 101);
             }
 
             if (function_exists('set_time_limit')) {
@@ -132,7 +132,7 @@ class AdminController extends \Ip\Controller
         } catch (\Ip\CoreException $e) {
             return JsonRpc::error($e->getMessage(), $e->getCode());
         } catch (\Exception $e) {
-            return JsonRpc::error(_s('Unknown error. Please see logs.', 'ipAdmin'), 987);
+            return JsonRpc::error(__('Unknown error. Please see logs.', 'ipAdmin', false), 987);
         }
 
         return JsonRpc::result(array('themes' => $themes));
@@ -159,7 +159,7 @@ class AdminController extends \Ip\Controller
             return JsonRpc::error($e->getMessage());
         }
 
-        // TODOX jsonrpc
+        // TODO jsonrpc
         return new \Ip\Response\Json(array('status' => 'success'));
     }
 

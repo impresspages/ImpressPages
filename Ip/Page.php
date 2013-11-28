@@ -15,7 +15,7 @@ namespace Ip;
  * This class is responsable to generate the content and tell all information about the page of website.
  *
  */
-//TODOX renamet o Page
+
 class Page{
     /** int - unique number of element in that zone. */
     protected $id;
@@ -37,8 +37,6 @@ class Page{
     protected $createdOn;
     /** integer - average amount of days between changes */
     protected $modifyFrequency;
-    /** bool - true if page should be placed on rss feed and false if not */
-    protected $rss;
     /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
     protected $priority;
     /** int - id of parent Element or null. Parents can be only elements from the same zone*/
@@ -213,11 +211,6 @@ class Page{
     public function getModifyFrequency(){return $this->modifyFrequency;}
     /** @param $modifyFrequency int represents average amount of days between changes */
     public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}
-
-    /** @return bool */
-    public function getRss(){return $this->rss; }
-    /** @param $rss bool */
-    public function setRss($rss){$this->rss=$rss;}
 
     /** @return float */
     public function getPriority(){return $this->priority;}

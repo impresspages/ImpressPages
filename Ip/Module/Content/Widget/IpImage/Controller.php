@@ -9,7 +9,7 @@ namespace Ip\Module\Content\Widget\IpImage;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
@@ -22,7 +22,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
-        if (isset($postData['newImage']) && is_file(ipConfig()->baseFile($postData['newImage']))) {
+        if (isset($postData['newImage']) && is_file(ipConfig()->repositoryFile($postData['newImage']))) {
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
@@ -112,7 +112,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
                         $requiredWidth,
                         $requiredHeight
                     );
-                    $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                    $data['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
                 }
             }
         }

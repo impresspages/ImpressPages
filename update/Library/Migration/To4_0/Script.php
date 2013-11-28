@@ -11,6 +11,9 @@ use IpUpdate\Library\UpdateException;
 class Script extends \IpUpdate\Library\Migration\General
 {
     private $conn;
+    /**
+     * @var \PDO
+     */
     private $dbh;
     private $dbPref;
     private $cf; // config
@@ -24,24 +27,82 @@ class Script extends \IpUpdate\Library\Migration\General
         $dbh = $db->connect($cf);
         $this->dbh = $dbh;
 
-        $this->dbPref = $cf['DB_PREF'];
+        $this->dbPref = $cf['db']['tablePrefix'];
 
         $this->createPluginTable();
 
         $helper = new Helper($cf, $this->conn);
         $helper->import(__DIR__ . '/options.json');
 
-        //TODOX remove modules and permissions: sitemap, modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue, system
+        //TODOX
+        /*
+        remove modules and permissions: sitemap, modules, newsletter, newsletter_subscribers, design, menu_management, log, email_queue, system
 
-        //TODOX update zones to new associated plugins
+        update zones to new associated plugins
 
-        //TODOX remove newsletter zone
+        remove newsletter zone
 
-        //TODOX remove sitemap zone
-        //TODOX communit/user zone to user zone
-        //TODOX replace administrator/search zone with Search zone in zones list
-
+        remove sitemap zone
+        communit/user zone to user zone
+        replace administrator/search zone with Search zone in zones list
+        */
         $this->createStorageTable();
+
+        $this->migrateLogTable();
+
+        $this->refactorReflections();
+    }
+
+    protected function refactorReflections()
+    {
+        //remove all reflection files
+        $dbh = $this->dbh;
+        $sql = "
+        SELECT
+            `reflection`
+        FROM
+            `{$this->dbPref}m_administrator_repository_reflection`
+        WHERE
+          1
+        ";
+
+        $q = $dbh->prepare($sql);
+        $result = $q->fetchAll();
+        foreach ($result as $reflection) {
+            $oldDir = $this->cf['BASE_DIR'];
+            if (substr($oldDir, -1) != '/') {
+                $oldDir .= '/';
+            }
+            $fileName = basename($reflection['reflection']);
+            rm ($oldDir . $fileName);
+        }
+
+
+        //remove all reflection records
+        $sql = "
+        DELETE FROM
+            `{$this->dbPref}m_administrator_repository_reflection`
+        WHERE
+          1
+        ";
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
+        //update widgets data to point relative path in repository
+        $sql = "
+        UPDATE
+            `{$this->dbPref}m_content_management_widget`
+        SET
+           `data` = REPLACE(`data`, 'file\\\\/repository\\\\/', '')
+        WHERE
+           1
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
+
+
     }
 
 
@@ -80,7 +141,31 @@ class Script extends \IpUpdate\Library\Migration\General
         $q->execute();
     }
 
+    protected function migrateLogTable()
+    {
+        $sql = "SHOW FIELDS FROM `{$this->dbPref}log` WHERE `Field` = 'context'";
+        $q = $this->dbh->prepare($sql);
+        $q->execute();
+        if ($q->fetchAll()) {
+            return false; // Table is already updated
+        }
 
+        $q = $this->dbh->prepare("DROP TABLE IF EXISTS `{$this->dbPref}log`");
+        $q->execute();
+
+        $sql = "CREATE TABLE IF NOT EXISTS `{$this->dbPref}log` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          `level` varchar(255) NOT NULL,
+          `message` varchar(255) DEFAULT NULL,
+          `context` mediumtext,
+          PRIMARY KEY (`id`),
+          KEY `time` (`time`),
+          KEY `message` (`message`)
+        ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;";
+        $q = $this->dbh->prepare($sql);
+        $q->execute();
+    }
 
     /**
      * (non-PHPdoc)

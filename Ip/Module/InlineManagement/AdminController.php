@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             'status' => 'success',
-            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(),
+            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(), //TODOX current language is not accessible in admin
             'html' => $html
         );
         return new \Ip\Response\Json($data);
@@ -155,22 +155,34 @@ class AdminController extends \Ip\Controller{
 
     public function getManagementPopupImage()
     {
-        global $parametersMod;
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
         }
         $key = $_POST['key'];
 
+        if (!isset($_POST['languageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $languageId = $_POST['languageId'];
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+        if (!isset($_POST['zoneName'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $zoneName = $_POST['zoneName'];
+
+        if (!isset($_POST['pageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $pageId = $_POST['pageId'];
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
         $scope = $this->dao->getLastOperationScope();
-
         $types = array();
 
-        $scopePageTitle = $parametersMod->getValue('InlineManagement.assign_to_page');
-        $scopeParentPageTitle = $parametersMod->getValue('InlineManagement.assign_to_parent_page');
-        $scopeLanguageTitle = $parametersMod->getValue('InlineManagement.assign_to_language');
-        $scopeAllPagesTitle = $parametersMod->getValue('InlineManagement.assign_to_all_pages');
+        $scopePageTitle = __('Current page and sub-pages', 'ipAdmin', false);
+        $scopeParentPageTitle = __('Page "[[page]]" and all sub-pages', 'ipAdmin', false);
+        $scopeLanguageTitle = __('All [[language]] pages', 'ipAdmin', false);
+        $scopeAllPagesTitle = __('All pages', 'ipAdmin', false);
 
         $types[Scope::SCOPE_PAGE] = array('title' => $scopePageTitle, 'value' => Scope::SCOPE_PAGE);
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
@@ -186,7 +198,7 @@ class AdminController extends \Ip\Controller{
             $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
 
-        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getCurrentLanguage()->getTitle(), $scopeLanguageTitle);
+        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getLanguageById($languageId)->getAbbreviation(), $scopeLanguageTitle);
         $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 
@@ -373,7 +385,22 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+        if (!isset($_POST['languageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $languageId = $_POST['languageId'];
+
+        if (!isset($_POST['zoneName'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $zoneName = $_POST['zoneName'];
+
+        if (!isset($_POST['pageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $pageId = $_POST['pageId'];
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
         $image = new Entity\Image($imageStr);
         $scope = $this->dao->getLastOperationScope();
 
@@ -424,13 +451,13 @@ class AdminController extends \Ip\Controller{
             switch($type) {
                 case Scope::SCOPE_PAGE:
                     //this always should return false. But just in case JS part would change, we implement it.
-                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+                    $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
                     break;
                 case Scope::SCOPE_PARENT_PAGE:
                     trigger_error("developer/inline_management", "Unexpected situation"); //there is no option to save to parent if $sameScope is true.
                     break;
                 case Scope::SCOPE_LANGUAGE:
-                    $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId());
+                    $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, $languageId);
                     break;
                 case Scope::SCOPE_GLOBAL:
                     $oldImageStr = $this->dao->getGlobalValue(Dao::PREFIX_IMAGE, $key);
@@ -450,13 +477,13 @@ class AdminController extends \Ip\Controller{
 
         switch($type) {
             case Scope::SCOPE_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId(), $image->getValueStr());
+                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId, $image->getValueStr());
                 break;
             case Scope::SCOPE_PARENT_PAGE:
                 $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId(), $scope->getZoneName(), $scope->getPageId(), $image->getValueStr());
                 break;
             case Scope::SCOPE_LANGUAGE:
-                $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), $image->getValueStr());
+                $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, $languageId, $image->getValueStr());
                 break;
             case Scope::SCOPE_GLOBAL:
             default:
@@ -467,6 +494,9 @@ class AdminController extends \Ip\Controller{
 
 
         $inlineManagementService = new Service();
+        $options['languageId'] = $languageId;
+        $options['pageId'] = $pageId;
+        $options['zoneName'] = $zoneName;
         $newHtml = $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
 
         $data = array(
@@ -501,18 +531,35 @@ class AdminController extends \Ip\Controller{
             $options = $_POST['options'];
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
+
+        if (!isset($_POST['languageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $languageId = $_POST['languageId'];
+
+        if (!isset($_POST['zoneName'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $zoneName = $_POST['zoneName'];
+
+        if (!isset($_POST['pageId'])) {
+            throw new \Exception("Required parameter not set");
+        }
+        $pageId = $_POST['pageId'];
+
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $languageId);
         if ($imageStr) {
             $image = new Entity\Image($imageStr);
             $scope = $this->dao->getLastOperationScope();
             $this->removeImageRecord($image, $key, $scope);
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, ipContent()->getCurrentLanguage()->getId(), ipContent()->getCurrentZone()->getName(), ipContent()->getCurrentPage()->getId());
-        $image = new Entity\Image($imageStr);
-
 
         $inlineManagementService = new Service();
+        $options['languageId'] = $languageId;
+        $options['pageId'] = $pageId;
+        $options['zoneName'] = $zoneName;
+
         $newHtml = $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
 
 

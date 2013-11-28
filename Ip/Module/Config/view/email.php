@@ -1,23 +1,23 @@
 <h1 style="font-family: Trebuchet MS, Verdana, Tahoma; font-size: 28px; color: #00a8da;">
-<?php echo $this->esc(isset($title) ? $title : ''); ?>
+<?php echo esc(isset($title) ? $title : ''); ?>
 </h1>
 <p><?php echo (isset($content) ? $content : ''); ?></p>
 <p style="border-top: 1px dotted #7db113; height: 1px; font-size: 1px;"> </p>
 <p>
 <?php if (isset($email)) { ?>
-    <?php echo $this->esc(isset($name) ? $name : ''); ?>
+    <?php echo esc(isset($name) ? $name : ''); ?>
 <?php } ?>
 <?php if (isset($telephone)) { ?>
     <br />
-    <?php echo $this->esc($telephone); ?>
+    <?php echo esc($telephone); ?>
 <?php } ?>
 <?php if (isset($email)) { ?>
     <br />
-    <?php echo $this->esc($email); ?>
+    <?php echo esc($email); ?>
 <?php } ?>
 <?php if (isset($unsubscribeLink)) { ?>
     <br />
-    <a href="<?php echo $this->esc($unsubscribeLink) ?>"><?php echo $this->esc(isset($unsubscribeText) ? $unsubscribeText : $unsubscribeLink); ?></a>
+    <a href="<?php echo esc($unsubscribeLink) ?>"><?php echo esc(isset($unsubscribeText) ? $unsubscribeText : $unsubscribeLink); ?></a>
 <?php } ?>
 </p>
 <p> </p>

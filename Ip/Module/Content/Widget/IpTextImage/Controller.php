@@ -8,7 +8,7 @@ namespace Ip\Module\Content\Widget\IpTextImage;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
         return __('Text with image', 'ipAdmin');
@@ -23,7 +23,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
         $newData['text'] = $postData['text'];
         $newData['title'] = $postData['title'];
 
-        if (isset($postData['newImage']) && is_file(ipConfig()->baseFile($postData['newImage']))) {
+        if (isset($postData['newImage']) && is_file(ipConfig()->repositoryFile($postData['newImage']))) {
 
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
@@ -84,7 +84,7 @@ class Controller extends \Ip\Module\Content\WidgetController{
                         $requiredHeight
                     );
                     try {
-                        $data['imageSmall'] = $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall);
+                        $data['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
                     } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }

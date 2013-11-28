@@ -15,7 +15,7 @@ class AdminController extends \Ip\Controller{
     {
 
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Config/public/config.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Config/assets/config.js'));
 
         $form = Forms::getForm();
         $data = array (
@@ -47,12 +47,27 @@ class AdminController extends \Ip\Controller{
         }
 
         $emailValidator = new \Ip\Form\Validator\Email();
-        if ($fieldName === 'websiteEmail' && $emailValidator->validate(array('value' => $value), 'value') !== false) {
-            $this->returnError("Invalid value");
-            return;
+        $error = $emailValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        if ($fieldName === 'websiteEmail' && $error !== false) {
+            return $this->returnError($error);
         }
 
-        ipSetOption('Config.' . $fieldName, $value);
+        $numberValidator = new \Ip\Form\Validator\Number();
+        $error = $numberValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        if ($fieldName === 'keepOldRevision' && ($error !== false || $value == '')) { //if user enters some text, browser sends empty message and $error becomes false. We have to check that.
+            return $this->returnError($numberValidator->validate(array('value' => 'for sure incorrect value'), 'value', \Ip\Form::ENVIRONMENT_ADMIN)); //this is to get original Number error message instead of hardcoding text once again
+        }
+
+
+        if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {
+            if (!isset($post['languageId'])) {
+                throw new \Exception('Missing required parameter');
+            }
+            $languageId = $post['languageId'];
+            ipSetOptionLang('Config.' . $fieldName, $value, $languageId);
+        } else {
+            ipSetOption('Config.' . $fieldName, $value);
+        }
 
 
         return new \Ip\Response\Json(array(1));

@@ -58,12 +58,12 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Module\Log\Module
+     * @return \Psr\Log\LoggerInterface
      */
     public static function log()
     {
-        if (self::$log== null) {
-            self::$log= new \Ip\Module\Log\Module();
+        if (self::$log == null) {
+            self::$log= new \Ip\Module\Log\Logger();
         }
         return self::$log;
     }
@@ -103,6 +103,7 @@ class ServiceLocator
 
     /**
      * Add new request to HMVC queue
+     * Used by Application. Never add requests manually.
      * @param $request
      */
     public static function addRequest($request)
@@ -149,6 +150,15 @@ class ServiceLocator
     public static function response()
     {
         return end(self::$responses);
+    }
+
+    /**
+     * @param Response $response
+     */
+    public static function setResponse(\Ip\Response $response)
+    {
+        end(self::$responses);
+        self::$responses[] = $response;
     }
 
     /**

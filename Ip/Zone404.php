@@ -10,27 +10,35 @@ use Ip\Page404;
 use Ip\Page;
 
 class Zone404 extends \Ip\Zone {
-    
-    
+
+    protected $page;
+
     public function getPages($language = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false){
         return array($this->getCurrentPage());
     }
 
     public function getPage($pageId) {
-        return false;
+        return $this->page();
     }
 
     
     public function findPage($urlVars, $getVars) {
-        return new Page(null, $this->getName());
+        return $this->page();
     }
 
     public function getCurrentPage()
     {
-        return new Page404(1, $this->getName());
+        return $this->page();
     }
     
     public function getLayout() {
         return is_file(ipConfig()->themeFile('404.php')) ? '404.php' : 'main.php';
+    }
+
+    private function page() {
+        if ($this->page === null) {
+            $this->page = new Page404(1, $this->getName());
+        }
+        return $this->page;
     }
 }

@@ -7,6 +7,8 @@
 namespace Ip\Form\Field;
 
 
+use Ip\Form\Field;
+
 class Email extends Field{
     
     public function __construct($options = array()) {

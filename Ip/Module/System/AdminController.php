@@ -40,20 +40,18 @@ class AdminController extends \Ip\Controller{
         ipAddCss(ipConfig()->coreModuleUrl('Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/public/update.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/update.js'));
         }
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/public/clearCache.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/clearCache.js'));
 
         return $content;
     }
 
     public function clearCache()
     {
-        $log = \Ip\ServiceLocator::log();
-
         ipRequest()->mustBePost();
 
-        $log->log('administrator/system', 'Cache was cleared');
+        ipLog()->info('System.cacheCleared');
         $module = new Module;
         $cachedUrl = \Ip\Internal\DbSystem::getSystemVariable('cached_base_url'); // get system variable
         $module->clearCache($cachedUrl);
@@ -65,6 +63,7 @@ class AdminController extends \Ip\Controller{
 
         $_SESSION['modules']['administrator']['system']['notes'][] = __('Cache was cleared.', 'ipAdmin');
 
+        // TODO JSONRPC
         $answer = array(
             'jsonrpc' => '2.0',
             'result' => array(

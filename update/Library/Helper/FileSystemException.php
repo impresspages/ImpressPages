@@ -10,7 +10,7 @@ namespace IpUpdate\Library\Helper;
 /**
  * Update process error
  */
-class FileSystemException extends \Exception
+class FileSystemException extends \IpUpdate\Library\UpdateException
 {
     // Redefine the exception so message isn't optional
     public function __construct($message, $code, \Exception $previous = null) {

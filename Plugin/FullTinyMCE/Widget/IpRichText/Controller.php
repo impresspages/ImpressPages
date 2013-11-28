@@ -9,7 +9,7 @@ namespace Plugin\FullTinyMCE\Widget\IpRichText;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {

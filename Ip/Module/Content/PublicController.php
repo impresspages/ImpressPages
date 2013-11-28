@@ -11,26 +11,46 @@ class PublicController extends \Ip\Controller
     public function index()
     {
         $currentPage = ipContent()->getCurrentPage();
-        //TODOX set page specific layout
-        if (
-            ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
-            $currentPage->getType() === 'error404'
-        ) {
-            return new \Ip\Response\PageNotFound();
-        }
 
+        //redirect if needed
         if (in_array($currentPage->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
             return new \Ip\Response\Redirect($currentPage->getLink());
         }
 
-        ipContent()->setBlockContent('main', $currentPage->generateContent());
+        //change layout if safe mode
         if (\Ip\Module\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipConfig()->coreModuleFile('Admin/View/safeModeLayout.php'));
+            ipSetLayout(ipConfig()->coreModuleFile('Admin/view/safeModeLayout.php'));
+        } else {
+            ipSetLayout(Service::getPageLayout($currentPage));
         }
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        //initialize management
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/content.js'));
+        if (ipIsManagementState()) {
             $this->initManagement();
+        } else {
+            if (\Ip\Module\Admin\Backend::userId()) {
+                //user has access to the backend
+                ipAddJavascriptVariable('ipContentShowEditButton', 1);
+            }
         }
+
+        //show error404 page if needed
+        if (
+            ipContent()->getLanguageUrl() != ipContent()->getCurrentLanguage()->getUrl() ||
+            $currentPage instanceof \Ip\Page404
+        ) {
+            return new \Ip\Response\PageNotFound();
+        }
+
+        //show page content
+        $response = ipResponse();
+        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
+        $response->setKeywords(ipContent()->getKeywords());
+        $response->setTitle(ipContent()->getTitle());
+
+
+        return $currentPage->generateContent();
     }
 
     private function initManagement()
@@ -45,14 +65,14 @@ class PublicController extends \Ip\Controller
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/ipContentManagement.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.contentManagement.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.pageOptions.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.widgetbutton.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.block.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/jquery.ip.widget.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/exampleContent.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/public/drag.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/ipContentManagement.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.contentManagement.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.pageOptions.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.widgetbutton.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.block.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/jquery.ip.widget.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/exampleContent.js'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/drag.js'));
 
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
@@ -72,8 +92,8 @@ class PublicController extends \Ip\Controller
         ipAddJavascript(ipConfig()->coreModuleUrl('Upload/assets/jquery.ip.uploadImage.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
-        ipAddCss(ipConfig()->coreModuleUrl('Content/public/widgets.css'));
-        ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
+        ipAddCss(ipConfig()->coreModuleUrl('Content/assets/widgets.css'));
+        ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
     }
 

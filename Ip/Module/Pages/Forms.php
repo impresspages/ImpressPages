@@ -11,7 +11,6 @@ namespace Ip\Module\Pages;
 class Forms {
     public static function zoneSeoForm($languageId, $zoneName, $title = null, $url = null, $keywords = null, $description = null)
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Ip\Form();
 
@@ -40,7 +39,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => $parametersMod->getValue('standard','seo','admin_translations','title'),
+                'label' => __('Title', 'ipAdmin', false),
                 'defaultValue' => $title
             ));
         $form->addField($field);
@@ -48,7 +47,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'url', //html "name" attribute
-                'label' => $parametersMod->getValue('standard','seo','admin_translations','url'),
+                'label' => __('URL', 'ipAdmin', false),
                 'defaultValue' => $url
             ));
         $form->addField($field);
@@ -56,7 +55,7 @@ class Forms {
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'keywords', //html "name" attribute
-                'label' => $parametersMod->getValue('standard','seo','admin_translations','keywords'),
+                'label' => __('Keywords', 'ipAdmin', false),
                 'defaultValue' => $keywords
             ));
         $form->addField($field);
@@ -64,7 +63,7 @@ class Forms {
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'description', //html "name" attribute
-                'label' => $parametersMod->getValue('standard','seo','admin_translations','description'),
+                'label' => __('Description', 'ipAdmin', false),
                 'defaultValue' => $description
             ));
         $form->addField($field);
@@ -85,7 +84,6 @@ class Forms {
 
     public static function languageForm($languageId, $visible, $title, $abbreviation, $url, $code, $textDirection)
     {
-        $parametersMod = \Ip\ServiceLocator::getParametersMod();
         //create form object
         $form = new \Ip\Form();
 

@@ -9,7 +9,7 @@ namespace Ip\Module\Content\Widget\IpTitle;
 
 
 
-class Controller extends \Ip\Module\Content\WidgetController{
+class Controller extends \Ip\WidgetController{
 
     public function managementHtml($instanceId, $data, $layout) {
         $curUrl = ipRequest()->getUrl();

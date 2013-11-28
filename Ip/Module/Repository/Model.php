@@ -14,8 +14,6 @@ namespace Ip\Module\Repository;
  * files repository. Bind new modules to already existing files. When the file is not bind to any module,
  * it is automatically removed. So bind to existing files, undbind from them and don't whorry if some other
  * modules uses the same files. This class will take care.
- * 
- * @author Mangirdas
  *
  */
 class Model{

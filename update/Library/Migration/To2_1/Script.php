@@ -212,7 +212,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         $sql = "SELECT * FROM ".$this->dbPref."m_content_management_widget WHERE 1";
         $rs = mysql_query($sql, $this->conn);
         if (!$rs) {
-            throw new \Exception($sql . " " . mysql_error());
+            throw new \IpUpdate\Library\UpdateException($sql . " " . mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
         while($lock = mysql_fetch_assoc($rs)){
             $this->bindToRepository($lock);
@@ -227,8 +227,8 @@ class Script extends \IpUpdate\Library\Migration\General{
 <P><span style="color: red;">ATTENTION</span></P>
 <p>You are updating from 2.0 or older.
 IpForm widget has been introduced since then.
-You need manually replace your current ip_content.css and 960.css files
- (ip_themes/lt_pagan/) to ones from downloaded archive.
+You need manually replace your current ipContent.css and 960.css files
+ (Theme/lt_pagan/) to ones from downloaded archive.
  If you have made some changes to original files, please replicate those changes on new files.
 </p>
 <p>If you are using other theme, you need manually tweak your CSS
@@ -362,7 +362,7 @@ to style forms.</p>
 
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
         if($lock = mysql_fetch_assoc($rs)) {
@@ -386,7 +386,7 @@ to style forms.</p>
 
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), Exception::DB);
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
     }

@@ -22,23 +22,23 @@ class View implements \Ip\Response\ResponseInterface
     const DOCTYPE_HTML4_TRANSITIONAL = 5;
     const DOCTYPE_HTML4_FRAMESET = 6;
     const DOCTYPE_HTML5 = 7;
-    
+
+    const OVERRIDE_DIR = 'override';
         
     private $file;
     private $data;
     private $doctype;
-    private $languageId;
 
     /**
      * Construct view object using specified file and date
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    public static function create($file, $data = array(), $languageId = null) {
-        $foundFile = self::findView($file);
+    public static function create($file, $data = array()) {
+        $foundFile = self::findFile($file);
         self::checkData($data);
-        return new \Ip\View($foundFile, $data, $languageId = null);
+
+        return new \Ip\View($foundFile, $data);
     }
 
 
@@ -48,17 +48,11 @@ class View implements \Ip\Response\ResponseInterface
      * @internal
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    private function __construct($file, $data = array(), $languageId = null) {
-        $content = \Ip\ServiceLocator::content();
+    private function __construct($file, $data = array()) {
         $this->file = $file;
         $this->data = $data;
-        if ($languageId == null) {
-            $this->languageId = $content->getCurrentLanguage()->getId();
-        } else {
-            $this->languageId = $languageId;
-        }
+
         eval('$this->doctype = self::'. ipConfig()->getRaw('DEFAULT_DOCTYPE').';');
     }
     
@@ -70,7 +64,7 @@ class View implements \Ip\Response\ResponseInterface
      * @param array $data associative array of data to pass to the view
      */
     public function subview($file, $data = array()) {
-        $foundFile = self::findView($file);
+        $foundFile = self::findFile($file);
         self::checkData($data);
         $view = new \Ip\View($foundFile, $data);
         $view->setDoctype($this->getDoctype());
@@ -83,29 +77,9 @@ class View implements \Ip\Response\ResponseInterface
         return $answer;
     }
     
-    /**
-     * Escape and echo text
-     * @param string $text
-     */
-    //TODOX remove. use ipEsc()
-    public function esc($text, $variables = null){
-        if (!empty($variables) && is_array($variables)) {
-            foreach($variables as $variableKey => $variableValue) {
-                $text = str_replace('[[' . $variableKey . ']]', $variableValue, $text);
-            }
-            
-        }
-        return htmlspecialchars($text, ENT_QUOTES);
-    }
-    
-    /**
-     * Escape and echo parameter
-     * @param string $parameterKey
-     */    
-    public function escPar($parameterKey, $variables = null){
-        //TODOX remove all instances
-        return $this->esc($this->par($parameterKey), $variables);
-    }
+
+
+
 
     public function par($parameterKey, $variables = null){
         return $parameterKey; //TODOX remove all instances
@@ -118,14 +92,14 @@ class View implements \Ip\Response\ResponseInterface
                 return '';
             }
         }
-        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
+        $value = '1';//$parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
 
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
                 $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
             }
         }
-        
+
         return $value;
     }
 
@@ -149,23 +123,6 @@ class View implements \Ip\Response\ResponseInterface
         return $this->data;
     }
 
-    /**
-     * 
-     * Set view data
-     * @param array $data
-     * @deprecated
-     */
-    public function setData($data) {
-        $this->setVariables($data);
-    }
-
-    /**
-     * @return array
-     * @deprecated
-     */
-    public function getData() {
-        return $this->getVariables();
-    }
 
     public function setVariable($name, $value)
     {
@@ -214,20 +171,18 @@ class View implements \Ip\Response\ResponseInterface
     public function __toString()
     {
         try {
-        $content = $this->render();
+            $content = $this->render();
         } catch (\Exception $e) {
             /*
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            $log = \Ip\ServiceLocator::log();
-            $log->log('system', 'exception in __toString method', $e->getMessage().' '.$e->getFile().' '.$e->getLine());
+            ipLog()->error('View.toStringException: Exception in View::__toString() method.', array('exception' => $e, 'view' => $this->file));
 
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
             } else {
-                // TODOX return appropriate string
-                throw $e;
+                return '';
             }
         }
 
@@ -242,14 +197,8 @@ class View implements \Ip\Response\ResponseInterface
         return $this->doctype;
     }
     
-    public function setLanguageId ($languageId) {
-        $this->languageId = $languageId;
-    }
-    
-    public function getLanguageId () {
-        return $this->languageId;
-    }    
-    
+
+    //TODOX refactor to sugar method
     public function doctypeDeclaration($doctype = null) {
         if ($doctype === null) {
             $doctype = $this->getDoctype();
@@ -281,7 +230,7 @@ class View implements \Ip\Response\ResponseInterface
         }
     }
     
-    
+    //TODOX refactor to sugar method
     public function htmlAttributes($doctype = null) {
         $content = \Ip\ServiceLocator::content();
         if ($doctype === null) {
@@ -308,60 +257,63 @@ class View implements \Ip\Response\ResponseInterface
        
     }
 
-    /**
-     * @param $file
-     * @return bool|string
-     * @throws CoreException
-     */
-    private static function findView($file) {
-        $backtrace = debug_backtrace();
-        if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-            throw new CoreException("Can't find caller", CoreException::VIEW);
-        }
 
-        $sourceFile = $backtrace[1]['file'];
-        if (DIRECTORY_SEPARATOR != '/') {
-            $sourceFile = str_replace(DIRECTORY_SEPARATOR, '/', $sourceFile);
-        }
-
-
-        $foundFile = self::findFile($file, $sourceFile);
-        if ($foundFile === false) {
-            throw new CoreException('Can\'t find view file \''.$file. '\' (Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )', CoreException::VIEW);
-        }    
-        return $foundFile;
-    }
     
-    private static function findFile($file, $sourceFile) {
-        if (strpos($file, ipConfig()->baseFile('')) !== 0) {
-            $file = dirname($sourceFile).'/'.$file;
-        }
-
-
-        $moduleView = ''; //relative link to view according to modules root.
-
-
-        // TODOX Plugin dir
-
-        if ($moduleView != '') {
-            // TODOX override module views according to new structure
-//            if (file_exists(ipConfig()->themeFile('modules/'.$moduleView))) {
-//                return ipConfig()->themeFile('modules/'.$moduleView);
-//            }
-
-            // TODOX Plugin dir
-
-
-
+    private static function findFile($file) {
+        //make $file absolute
+        if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
+            $absoluteFile = $file;
         } else {
-            if (file_exists($file)) {
-                return $file;
-            } else {
-                return false;
+            $backtrace = debug_backtrace();
+            if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
+                throw new CoreException("Can't find caller", CoreException::VIEW);
             }
+            $absoluteFile = dirname($backtrace[1]['file']) . DIRECTORY_SEPARATOR . $file;
         }
 
-        return false;
+        if (DIRECTORY_SEPARATOR == '\\') {
+            // Replace windows paths
+            $absoluteFile = str_replace('\\', '/', $absoluteFile);
+        }
+
+        if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
+            //core dir
+            $basePath = ipConfig()->baseFile('');
+        } elseif (strpos($absoluteFile, ipConfig()->pluginFile('')) === 0) {
+            //plugin dir
+            $basePath = ipConfig()->pluginFile('');
+        } elseif (strpos($absoluteFile, ipConfig()->themeFile('')) === 0) {
+            //theme dir
+            $basePath = ipConfig()->themeFile('');
+        } else {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
+            } else {
+                $source = '';
+            }
+            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
+        }
+        $relativeFile = substr($absoluteFile, strlen($basePath));
+
+        $fileInThemeDir = ipConfig()->themeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
+        if (is_file($fileInThemeDir)) {
+            //found file in theme.
+            return $fileInThemeDir;
+        }
+
+        if (file_exists($basePath . $relativeFile)) {
+            //found file in original location
+            return $basePath . DIRECTORY_SEPARATOR . $relativeFile;
+        } else {
+            $backtrace = debug_backtrace();
+            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
+                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
+            } else {
+                $source = '';
+            }
+            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
+        }
     }
 
 
@@ -375,29 +327,7 @@ class View implements \Ip\Response\ResponseInterface
         return ipSlot($name);
     }
 
-    public function generateManagedLogo($cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedLogo($cssClass);
-    }
 
-    public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedText($key, $tag = 'div', $defaultValue = null, $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
-    }
-
-    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
-    {
-        $inlineManagementService = new \Ip\Module\InlineManagement\Service();
-        return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
-    }
 
 
     /**
@@ -407,35 +337,13 @@ class View implements \Ip\Response\ResponseInterface
      */
     public function formatPrice($price, $currency)
     {
+        //TODOX move formatPrice to sugar methods
         $helper = \Library\Php\Ecommerce\Helper::instance();
         return $helper->formatPrice($price, $currency, $this->getLanguageId());
     }
 
 
-    /**
-     * @param string $menuKey any unique string that identifies this menu within this theme.
-     * @param string | \Ip\Menu\Item[] $items zone name as string or array of menu items
-     * @param string $viewFile absolute or relative
-     */
-    public function generateMenu($menuKey, $items, $viewFile = null)
-    {
-        //TODOX create sugar method
-        if(is_string($items)) {
-            $items = \Ip\Menu\Helper::getZoneItems($items);
-        }
-        $data = array(
-            'menuKey' => $menuKey,
-            'items' => $items,
-            'depth' => 1
-        );
 
-        if ($viewFile === null) {
-            $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
-        }
-        $viewFile = self::findView($viewFile);
-        $view = self::create($viewFile, $data);
-        return $view->render();
-    }
 
     public function getThemeOption($name, $default = null)
     {

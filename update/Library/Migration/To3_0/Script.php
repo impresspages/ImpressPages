@@ -196,7 +196,7 @@ class Script extends \IpUpdate\Library\Migration\General{
 
     private function addNewCSS($cf)
     {
-        $cssFile = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css';
+        $cssFile = $cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ipContent.css';
         if(!file_exists($cssFile)) {
             return;
         }
@@ -330,7 +330,7 @@ class Script extends \IpUpdate\Library\Migration\General{
            </p>
        ';
 
-        if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ip_content.css')) {
+        if (file_exists($cf['BASE_DIR'].$cf['THEME_DIR'].$cf['THEME'].'/ipContent.css')) {
             $note .=
                 '
                <p>"Contact Form" widget now has file input type which comes with its own CSS rules.
@@ -578,7 +578,7 @@ class Script extends \IpUpdate\Library\Migration\General{
         //delete operation limited to one, because there might exist many files bind to the same instance of the same module. For example: gallery widget adds the same photo twice.
         $rs = mysql_query($sql, $this->conn);
         if (!$rs){
-            throw new \Exception('Can\'t bind new instance to the file '.$sql.' '.mysql_error());
+            throw new \IpUpdate\Library\UpdateException('Can\'t bind new instance to the file '.$sql.' '.mysql_error(), \IpUpdate\Library\UpdateException::SQL);
         }
 
         if (file_exists($this->cf['BASE_DIR'].$file)){

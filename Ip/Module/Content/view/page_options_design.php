@@ -1,12 +1,10 @@
 <form id="formLayout">
     <p class="field">
-        <label for="pageLayout"><?php echo $this->escPar(
-                'standard/menu_management/admin_translations/page_layout'
-            ); ?></label>
+        <label for="pageLayout"><?php echo __('Layout', 'ipAdmin'); ?></label>
         <?php if (count($layouts) > 1) { ?>
             <select name="layout" id="pageLayout">
                 <?php foreach ($layouts as $layoutFile) { ?>
-                    <option value="<?php echo $this->esc($layoutFile) ?>"
+                    <option value="<?php echo esc($layoutFile) ?>"
                             <?php if ($layoutFile == $layout) { ?>selected="selected"<?php } ?>>
                         <?php echo $layoutFile ?> <?php if ($layoutFile == $defaultLayout) { ?>(default)<?php } ?>
                     </option>
