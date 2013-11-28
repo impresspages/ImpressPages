@@ -107,15 +107,6 @@ class Config
         $this->rawConfig[$name] = $value;
     }
 
-    /**
-     * TODOX remove
-     * @param $name
-     * @return mixed
-     */
-    public function getCore($name)
-    {
-        return $this->core[$name];
-    }
 
     public function _changeCore($name, $value)
     {
