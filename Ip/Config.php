@@ -115,11 +115,6 @@ class Config
     }
 
 
-    //TODOX REMOVE
-    public function libraryFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . $this->rawConfig['LIBRARY_DIR'] . $path;
-    }
 
     public function temporaryFile($path)
     {
