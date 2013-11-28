@@ -29,8 +29,6 @@ class Config
             } else {
                 $this->rawConfig['BASE_URL'] = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
             }
-            //var_dump($_SERVER);
-            var_dump($_GET);
         }
 
         if ($this->rawConfig['BASE_DIR'] == '') {

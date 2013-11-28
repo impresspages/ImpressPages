@@ -49,7 +49,7 @@
 
                     $this.data('ipWidget', data);
 
-                    if (data.state == IP_WIDGET_STATE_MANAGEMENT) {
+                    if (data.state == IP_WIDGET_STATE_MANAGEMENT || true) {
                         var widgetName = data.name;
                         if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                             var $content = $this.find('.ipaBody');
@@ -209,7 +209,7 @@
                     var widgetPluginObject;
                     eval('widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
                     $this.data('ipWidget').status = IP_WIDGET_STATE_SAVE_PROGRESS;
-                    widgetPluginObject.prepareData();
+                    widgetPluginObject.preparedWidgetData();
                 } else {
                     var widgetInputs = $this.find('.ipaBody').find(':input');
                     var data = Object();
@@ -241,7 +241,7 @@
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('ipWidget').instanceId;
                 data.widgetData = widgetData;
-                data.layout = $this.find('.ipaLayouts').val();
+                data.layout = 'default'; //TODOX reimplement layouts$this.find('.ipaLayouts').val();
 
                 $.ajax({
                     type: 'POST',
@@ -256,27 +256,27 @@
         },
 
         _saveDataResponse: function (response) {
-            return this.each(function () {
-                var $this = $(this);
-                var $newWidget = $(response.previewHtml);
-                $($newWidget).insertAfter($this);
-                $newWidget.trigger('reinitRequired.ipWidget');
-                $newWidget.trigger('statePreview.ipWidget', {
-                    'instanceId': response.instanceId
-                });
-
-                // init any new blocks the widget may have created
-                $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-
-                var tmpData = $newWidget.data('ipWidget');
-                tmpData.state = IP_WIDGET_STATE_PREVIEW;
-                $newWidget.data('ipWidget', tmpData);
-
-                var instanceId = $(this).data('ipWidget').instanceId;
-                $this.trigger('removeSaveJob.ipContentManagement', ['widget_' + instanceId]);
-                $this.remove();
-
-            });
+//            return this.each(function () {
+//                var $this = $(this);
+//                var $newWidget = $(response.previewHtml);
+//                $($newWidget).insertAfter($this);
+//                $newWidget.trigger('reinitRequired.ipWidget');
+//                $newWidget.trigger('statePreview.ipWidget', {
+//                    'instanceId': response.instanceId
+//                });
+//
+//                // init any new blocks the widget may have created
+//                $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+//
+//                var tmpData = $newWidget.data('ipWidget');
+//                tmpData.state = IP_WIDGET_STATE_PREVIEW;
+//                $newWidget.data('ipWidget', tmpData);
+//
+//                var instanceId = $(this).data('ipWidget').instanceId;
+//                $this.trigger('removeSaveJob.ipContentManagement', ['widget_' + instanceId]);
+//                $this.remove();
+//
+//            });
         },
 
         cancel: function () {

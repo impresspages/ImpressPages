@@ -17,7 +17,21 @@ function IpWidget_IpText(widgetObject) {
         //this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
 
         //this.widgetObject.find('h1.ipwTitle').attr('contenteditable', 'true');
-        this.widgetObject.find('.ipsContent').attr('contenteditable', 'true');
+
+var customTinyMceConfig = ipTinyMceConfigMin;
+        customTinyMceConfig.setup = function(ed) {ed.on('change', function(e) {
+            console.log('change ' + time() );
+
+//                console.log('the event object '+e);
+//                console.log('the editor object '+ed);
+//                console.log('the content '+ed.getContent());
+            });
+            };
+
+        this.widgetObject.find('.ipsContent').tinymce(ipTinyMceConfigMin);
+
+//setInterval($.proxy(prepareData, this), 3000);
+
 
 
             //$('.ipWidget-IpText .ipsContent').tinymce(ipTinyMceConfigMin);
@@ -25,14 +39,13 @@ function IpWidget_IpText(widgetObject) {
     }
 
     function prepareData() {
-
         var data = Object();
 
-        data.text = this.widgetObject.find('textarea').html();
+        data.text = this.widgetObject.find('.ipsContent').html();
         $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
     }
 
-    
+
 
 };
 
