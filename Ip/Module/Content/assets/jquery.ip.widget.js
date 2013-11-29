@@ -12,8 +12,8 @@
         init: function (options) {
 
             return this.each(function () {
-
                 var $this = $(this);
+                $this.save = function(data){$(this).ipWidget('save', data);};
                 var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
@@ -22,53 +22,19 @@
                     var widgetName = $this.data('widgetname');
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                         var widgetPluginObject;
-                        eval('widgetPluginObject = new IpWidget_' + widgetName + '($this);');
+                        eval('widgetPluginObject = new IpWidget_' + widgetName + '();');
                         if (widgetPluginObject.init) {
-                            widgetPluginObject.init();
+                            widgetPluginObject.init($this);
                         }
 
-                        var widgetContext = this;
-//                        $this.on('focusin', function() {
-//                            console.log('Widget focusIn: ' + $this.data('widgetname'));
-//                            var autosaveInterval = setInterval($.proxy(function() {$(this).ipWidget('save')}, widgetContext), 1000);
-//                            $this.data('widgetautosaveinterval', autosaveInterval);
-//                            if (widgetPluginObject.focusIn) {
-//                                $.proxy(widgetPluginObject.focusIn, widgetPluginObject)
-//                            }
-//                        });
-//                        $this.on('focusout', function() {
-//                            console.log('Widget focusOut: ' + $this.data('widgetname'));
-//                            clearInterval($this.data('widgetautosaveinterval'));
-//                            if (widgetPluginObject.focusOut) {
-//                                $.proxy(widgetPluginObject.focusOut, widgetPluginObject)
-//                            }
-//                        });
                     }
                 }
             });
         },
 
 
-        save: function () {
-            return this.each(function () {
-                console.log('save init');
-                var $this = $(this);
-                var widgetName = $this.data('widgetname');
-                var widgetPluginObject = null;
-                eval('widgetPluginObject = new IpWidget_' + widgetName + '($this);');
-                var newData = widgetPluginObject.getSaveData();
-                var curData = $this.data('widgetdata');
-                if (JSON.stringify(newData) != JSON.stringify(curData)) {
-                    console.log('Save widget data ' + JSON.stringify(newData));
-                    curData = newData;
-                    $this.data('widgetdata', newData);
-                    $(this).ipWidget('_saveData', newData);
-                }
-            });
-        },
 
-
-        _saveData: function (widgetData) {
+        save: function (widgetData) {
 
             return this.each(function () {
                 var $this = $(this);
@@ -112,3 +78,27 @@
     };
 
 })(jQuery);
+
+
+//(function ($) {
+//$.fn.save = function (method) {
+//    var methods = {
+//        init: function (options) {
+//
+//            return this.each(function () {
+//                var $this = $(this);
+//                $this.ipWidget('save');
+//            });
+//        }
+//    };
+//    if (methods[method]) {
+//        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+//    } else if (typeof method === 'object' || !method) {
+//        return methods.init.apply(this, arguments);
+//    } else {
+//        $.error('Method ' + method + ' does not exist on jQuery.ipWidget');
+//    }
+//
+//};
+//
+//})(jQuery);
