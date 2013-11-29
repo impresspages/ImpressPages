@@ -43,7 +43,23 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
+
+        if (ipConfig()->getRaw('DEBUG_MODE')) {
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpColumns.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFaq.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFile.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpForm.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpHtml.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImage.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImageGallery.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTable.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpText.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTextImage.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTitle.js'));
+        } else {
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
+        }
+
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
 
