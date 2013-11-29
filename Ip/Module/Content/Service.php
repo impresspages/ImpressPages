@@ -99,7 +99,6 @@ class Service
         } catch (Exception $e) {
             return self::_errorAnswer($e);
         }
-
         return $instanceId;
 
     }
@@ -143,9 +142,7 @@ class Service
         $data['pageTitle'] = $pageTitle;
 
         if (!is_null($url)) {
-            $data['url'] = Db::makeUrl($url);
-        } else {
-            $data['url'] = 'url';
+            $data['url'] = \Ip\Module\Pages\Db::makeUrl($url);
         }
 
         $data['createdOn'] = date("Y-m-d");
