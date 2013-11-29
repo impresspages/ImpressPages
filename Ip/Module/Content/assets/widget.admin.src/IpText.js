@@ -10,12 +10,7 @@ function IpWidget_IpText(widgetObject) {
 
     this.init = function() {
         var instance = this;
-
         var instanceData = this.widgetObject.data('ipWidget');
-        //this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
-
-        //this.widgetObject.find('h1.ipwTitle').attr('contenteditable', 'true');
-
         var customTinyMceConfig = ipTinyMceConfigMin;
         customTinyMceConfig.setup = function(ed) {ed.on('change', function(e) {
             $.proxy(function(){
