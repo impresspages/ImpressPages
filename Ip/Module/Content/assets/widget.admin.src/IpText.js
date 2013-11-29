@@ -9,6 +9,8 @@ function IpWidget_IpText(widgetObject) {
     this.widgetObject = widgetObject;
 
 
+    var saveInterval = null;
+
     this.manageInit = function() {
 
         var instanceData = this.widgetObject.data('ipWidget');
@@ -45,18 +47,20 @@ var customTinyMceConfig = ipTinyMceConfigMin;
 
     this.focusOut = function()
     {
+        //clearInterval(saveInterval);
         console.log('focusout');
     }
 
 
-
-
-    this.prepareData = function() {
+    this.getSaveData = function() {
+        console.log('IpText save');
         var data = Object();
 
         data.text = this.widgetObject.find('.ipsContent').html();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        return data;
+
     }
+
 
 
 

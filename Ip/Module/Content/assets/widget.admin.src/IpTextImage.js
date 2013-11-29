@@ -8,40 +8,45 @@ function IpWidget_IpTextImage(widgetObject) {
     this.widgetObject = widgetObject;
 
     this.prepareData = prepareData;
-    this.manageInit = manageInit;
-    
+
     this.addError = addError;
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
-        var options = new Object;
-
-        if (instanceData.data.imageOriginal) {
-            options.image = instanceData.data.imageOriginal;
-        }
-        if (instanceData.data.cropX1) {
-            options.cropX1 = instanceData.data.cropX1;
-        }
-        if (instanceData.data.cropY1) {
-            options.cropY1 = instanceData.data.cropY1;
-        }
-        if (instanceData.data.cropX2) {
-            options.cropX2 = instanceData.data.cropX2;
-        }
-        if (instanceData.data.cropY2) {
-            options.cropY2 = instanceData.data.cropY2;
-        }
-        
-        options.enableChangeHeight = true;
-        options.enableChangeWidth = false;
-        options.enableUnderscale = true;
-
-        this.widgetObject.find('.ipaImage').ipUploadImage(options);
-        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
-        
-        
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
+    this.manageInit = function() {
+        this.widgetObject.find('.ipwText').tinymce(ipTinyMceConfigMin);
     }
+
+
+
+//    function manageInit() {
+//        var instanceData = this.widgetObject.data('ipWidget');
+//        var options = new Object;
+//
+//        if (instanceData.data.imageOriginal) {
+//            options.image = instanceData.data.imageOriginal;
+//        }
+//        if (instanceData.data.cropX1) {
+//            options.cropX1 = instanceData.data.cropX1;
+//        }
+//        if (instanceData.data.cropY1) {
+//            options.cropY1 = instanceData.data.cropY1;
+//        }
+//        if (instanceData.data.cropX2) {
+//            options.cropX2 = instanceData.data.cropX2;
+//        }
+//        if (instanceData.data.cropY2) {
+//            options.cropY2 = instanceData.data.cropY2;
+//        }
+//
+//        options.enableChangeHeight = true;
+//        options.enableChangeWidth = false;
+//        options.enableUnderscale = true;
+//
+//        this.widgetObject.find('.ipaImage').ipUploadImage(options);
+//        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+//
+//
+//        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
+//    }
     
 
 
