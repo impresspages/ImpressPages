@@ -296,6 +296,14 @@ img {
 	margin-right: 6px;
 }
 
+.label .description{
+    font-size:9px;
+    margin-top:6px;
+    padding-left:6px;
+    font-weight:normal;
+	font-style:italic;
+}
+
 .search input,.search select,.search textarea {
 	border: 1px solid #c0c0c0;
 	margin: 2px;
@@ -313,6 +321,27 @@ img {
 .search input.stdModBox,.search input.knob,.search input.stdModRadio,.search input.stdModFile
 	{
 	width: auto;
+}
+
+ select.stdMod, textarea.stdMod, input.stdMod, input.stdModFile, input.stdModPassword {
+	width:500px;
+    background: linear-gradient(#EAEAEA, #FFFFFF 10%) repeat scroll 0 0 / 100% auto #FFFFFF;
+	border-color: #B3B3B3;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px 5px 5px 5px;
+	margin:6px 6px 6px 6px;
+}
+
+ select.stdMod:hover, textarea.stdMod:hover, input.stdMod:hover, input.stdModPassword:hover {
+ 	border-color: #9A9A9A;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+ select.stdMod:focus, textarea.stdMod:focus, input.stdMod:focus, input.stdModPassword:focus {
+	border-color: #3C64C8 #3C64C8 #3C64C8;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
 }
 
 .search .calendar_icon {
