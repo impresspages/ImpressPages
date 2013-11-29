@@ -176,8 +176,8 @@ class std_mod_html_output{
 
         $this->html .=
     '
-             <input autocomplete="off" '.$disabled_str.' type="password" name="'.$name.'" value="'.htmlspecialchars($value).'"/><br />
-             <input autocomplete="off" '.$disabled_str.' type="password" name="'.$name.'_confirm" value="'.htmlspecialchars($value2).'"/>
+             <input autocomplete="off" '.$disabled_str.' class="stdModPassword" type="password" name="'.$name.'" value="'.htmlspecialchars($value).'"/><br />
+             <input autocomplete="off" '.$disabled_str.' class="stdModPassword" type="password" name="'.$name.'_confirm" value="'.htmlspecialchars($value2).'"/>
        
     ';      
 

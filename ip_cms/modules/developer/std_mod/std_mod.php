@@ -1152,7 +1152,7 @@ class StandardModule {
             else
             $tmpError = '';
             if($value->visibleOnUpdate)
-            $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br><br>";
+            $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$value->title.$value->description.'</span><br /><p style="display: none;" id="std_mod_update_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area)."<br><br>";
             /*else
              $answer .= $tmpError.$value->printFieldUpdate('i_n_'.$key, $lock, $area);*/
         }
@@ -1232,7 +1232,7 @@ class StandardModule {
                 $tmpError = '';
 
                 if($element->visibleOnInsert)
-                $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$element->title.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea)."<br><br>";
+                $answer .= '<a name="std_mod_anchor_i_n_'.$key.'"></a><span class="label bolder">'.$element->title.$element->description.'</span><br /><p style="display: none;" id="std_mod_new_f_error_i_n_'.$key.'" class="error"></p>'.$tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea)."<br><br>";
                 else
                 $answer .= $tmpError.$element->printFieldNew('i_n_'.$key,$this->upArea->parentId, $this->currentArea);
             }

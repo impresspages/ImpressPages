@@ -12,7 +12,8 @@ abstract class Element { //data element in area
     function __construct($variables = array()) {
         $this->title = 'Untitled';
         $this->required = false;
-        $this->searchable = false;
+		$this->description = '';
+		$this->searchable = false;
         $this->showOnList = false;
         $this->defaultValue = null;
         $this->order = false;
@@ -33,7 +34,14 @@ abstract class Element { //data element in area
                 case 'required':
                     $this->required = $value;
                     break;
-                case 'searchable':
+				case 'description':
+                    if ($value == ""){
+                        $this->description = $value;
+                    } else {
+                        $this->description = "<br /><span class='description'>".$value."</span>";
+                    }
+                    break;
+				case 'searchable':
                     $this->searchable = $value;
                     break;
                 case 'showOnList':
