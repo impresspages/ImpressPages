@@ -8,61 +8,41 @@
 (function ($) {
     "use strict";
 
-    var autosaveInterval = null;
-    var curData = null;
-
     var methods = {
         init: function (options) {
 
             return this.each(function () {
 
                 var $this = $(this);
-                var data = $this.data('ipWidget');
+                var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
-                    // initialize data array
-                    var data = Object();
+                    $this.data('ipWidgetInit', Object());
 
-                    $this.prepend(options.widgetControlls);
-
-                    //parse widget record data
-                    var instanceDataInput = $this.find('.ipAdminWidgetData');
-                    if (instanceDataInput) {
-                        data = $.parseJSON(instanceDataInput.val());
-                        if (!data) {
-                            data = Object();
-                        }
-
-                        if (!data.data) {
-                            data.data = new Array(); //widgets don't need to worry if data variable is null or not. It is always an array
-                        }
-                    } else {
-                        data = new Array();
-                        data.data = new Array();  //widgets don't need to worry if data variable is null or not. It is always an array
-                    }
-
-                    $this.data('ipWidget', data);
-
-                    var widgetName = data.name;
+                    var widgetName = $this.data('widgetname');
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
-                        var $content = $this.find('.ipaBody');
                         var widgetPluginObject;
-                        eval('widgetPluginObject = new IpWidget_' + widgetName + '($this, $content);');
-                        widgetPluginObject.manageInit();
+                        eval('widgetPluginObject = new IpWidget_' + widgetName + '($this);');
+                        if (widgetPluginObject.init) {
+                            widgetPluginObject.init();
+                        }
 
                         var widgetContext = this;
-                        if (widgetPluginObject.focusIn) {
-                            $this.on('focusin', function() {
-                                autosaveInterval = setInterval($.proxy(function() {$(this).ipWidget('save')}, widgetContext), 3000);
-                                $.proxy(widgetPluginObject.focusIn, widgetPluginObject)
-                            });
-                        }
-                        if (widgetPluginObject.focusOut) {
-                            $this.on('focusout', function() {
-                                clearInterval(autosaveInterval);
-                                $.proxy(widgetPluginObject.focusOut, widgetPluginObject)
-                            });
-                        }
+//                        $this.on('focusin', function() {
+//                            console.log('Widget focusIn: ' + $this.data('widgetname'));
+//                            var autosaveInterval = setInterval($.proxy(function() {$(this).ipWidget('save')}, widgetContext), 1000);
+//                            $this.data('widgetautosaveinterval', autosaveInterval);
+//                            if (widgetPluginObject.focusIn) {
+//                                $.proxy(widgetPluginObject.focusIn, widgetPluginObject)
+//                            }
+//                        });
+//                        $this.on('focusout', function() {
+//                            console.log('Widget focusOut: ' + $this.data('widgetname'));
+//                            clearInterval($this.data('widgetautosaveinterval'));
+//                            if (widgetPluginObject.focusOut) {
+//                                $.proxy(widgetPluginObject.focusOut, widgetPluginObject)
+//                            }
+//                        });
                     }
                 }
             });
@@ -71,14 +51,19 @@
 
         save: function () {
             return this.each(function () {
+                console.log('save init');
                 var $this = $(this);
-
-                var widgetName = $this.data('ipWidget').name;
+                var widgetName = $this.data('widgetname');
                 var widgetPluginObject = null;
                 eval('widgetPluginObject = new IpWidget_' + widgetName + '($this);');
-                var widgetData = widgetPluginObject.getSaveData();
-                $(this).ipWidget('_saveData', widgetData);
-
+                var newData = widgetPluginObject.getSaveData();
+                var curData = $this.data('widgetdata');
+                if (JSON.stringify(newData) != JSON.stringify(curData)) {
+                    console.log('Save widget data ' + JSON.stringify(newData));
+                    curData = newData;
+                    $this.data('widgetdata', newData);
+                    $(this).ipWidget('_saveData', newData);
+                }
             });
         },
 
@@ -90,7 +75,7 @@
                 var data = Object();
                 data.aa = 'Content.updateWidget';
                 data.securityToken = ip.securityToken;
-                data.instanceId = $this.data('ipWidget').instanceId;
+                data.instanceId = $this.data('widgetinstanceid');
                 data.widgetData = widgetData;
                 data.layout = 'default'; //TODOX reimplement layouts$this.find('.ipaLayouts').val();
 

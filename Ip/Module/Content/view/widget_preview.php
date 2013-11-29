@@ -1,11 +1,10 @@
-<div <?php echo $managementState ? 'id="ipWidget-'.$widgetRecord['instanceId'].'"' : '' ?> class="ipWidget ipPreviewWidget ipWidget-<?php echo $widgetRecord['name']; ?> ipLayout-<?php echo $widgetRecord['layout']; ?>">
-<?php
-    if ($managementState){
-        $tmpData = $widgetRecord;
-        //unset($tmpData['data']); //data is removed because it will constantly change during management process
-        $tmpData['state'] = 'preview';
-        echo \Ip\View::create('widget_data.php', array('widgetInstance' => $tmpData))->render();
-    }
-?>
+<div
+    <?php if ($managementState){ ?>
+        data-widgetdata="<?php echo esc(json_encode($widgetData), 'attr'); ?>"
+        data-widgetname="<?php echo esc($widgetName, 'attr'); ?>"
+        data-widgetinstanceid="<?php echo esc($widgetInstanceId, 'attr'); ?>"
+    <?php } ?>
+    class="ipWidget ipPreviewWidget  ipWidget-<?php echo $widgetName; ?> ipLayout-<?php echo $widgetLayout; ?>">
+<?php //TODOX remove ipPreviewWidget class. It is redundant ?>
 <?php echo $html; ?>
 </div>
