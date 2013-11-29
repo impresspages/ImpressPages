@@ -59,6 +59,13 @@
                             data.state = IP_WIDGET_STATE_MANAGEMENT;
                             $this.data('ipWidget', data);
                             widgetPluginObject.manageInit();
+                            $this.on('focusin', function(){console.log('test');});
+                            if (widgetPluginObject.focusIn) {
+                                $this.on('focusin', widgetPluginObject.focusIn);
+                            }
+                            if (widgetPluginObject.focusOut) {
+                                $this.on('focusout', widgetPluginObject.focusOut);
+                            }
                         }
                     }
 

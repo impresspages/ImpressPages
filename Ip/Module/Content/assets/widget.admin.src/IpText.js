@@ -8,11 +8,9 @@ function IpWidget_IpText(widgetObject) {
     "use strict";
     this.widgetObject = widgetObject;
 
-    this.manageInit = manageInit;
-    this.prepareData = prepareData;
 
+    this.manageInit = function() {
 
-    function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
         //this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
 
@@ -20,7 +18,7 @@ function IpWidget_IpText(widgetObject) {
 
 var customTinyMceConfig = ipTinyMceConfigMin;
         customTinyMceConfig.setup = function(ed) {ed.on('change', function(e) {
-            console.log('change ' + time() );
+            //console.log('change ' + time() );
 
 //                console.log('the event object '+e);
 //                console.log('the editor object '+ed);
@@ -38,7 +36,22 @@ var customTinyMceConfig = ipTinyMceConfigMin;
 
     }
 
-    function prepareData() {
+    this.focusIn = function()
+    {
+        console.log('focusin');
+    }
+
+
+
+    this.focusOut = function()
+    {
+        console.log('focusout');
+    }
+
+
+
+
+    this.prepareData = function() {
         var data = Object();
 
         data.text = this.widgetObject.find('.ipsContent').html();
