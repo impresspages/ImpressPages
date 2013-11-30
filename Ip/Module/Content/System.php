@@ -104,7 +104,7 @@ class System{
             if (class_exists($widgetClass)) {
                 $widget = new $widgetClass($widgetKey, $widgetDirRecord['module'], 0);
             } else {
-                $widget = new Widget($widgetKey, $widgetDirRecord['module'], $widgetDirRecord['core']);
+                $widget = new \Ip\Widget($widgetKey, $widgetDirRecord['module'], $widgetDirRecord['core']);
             }
             $widgets[$widgetDirRecord['widgetKey']] = $widget;
         }
