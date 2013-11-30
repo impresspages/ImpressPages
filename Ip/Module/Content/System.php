@@ -168,7 +168,7 @@ class System{
 
     private function addWidgetAssets(\Ip\WidgetController $widget, $core)
     {
-        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::VIEW_DIR . '/';
+        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::LAYOUT_DIR . '/';
         if ($core) {
             $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
         } else {

@@ -242,6 +242,7 @@ class Model{
         return $answer;
     }
 
+    //TODOX remove
     public static function generateWidgetManagement($instanceId) {
         $widgetRecord = self::getWidgetFullRecord($instanceId);
         return self::_generateWidgetManagement($widgetRecord);
@@ -356,6 +357,9 @@ class Model{
 
     }
 
+    /**
+     * @return \Ip\WidgetController[]
+     */
     public static function getAvailableWidgetObjects() {
 
         if (self::$widgetObjects !== null) {

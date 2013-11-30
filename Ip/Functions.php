@@ -67,7 +67,7 @@ function ipSetLayoutVariable($name, $value)
     }
 }
 
-//TODOX remove
+
 function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::response();
@@ -89,6 +89,23 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
         }
     }
 }
+
+function ipAddPluginJs($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
+{
+    $response = \Ip\ServiceLocator::response();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+    }
+}
+
+function ipAddPluginCss($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
+{
+    $response = \Ip\ServiceLocator::response();
+    if (method_exists($response, 'addCss')) {
+        $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+    }
+}
+
 
 function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix = true)
 {

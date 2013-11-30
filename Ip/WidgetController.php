@@ -18,8 +18,13 @@ class WidgetController{
      * @var boolean - true if widget is installed by default
      */
     var $core;
-    const VIEW_DIR = 'view';
+    const LAYOUT_DIR = 'layout';
+
+    //TODOX
     const MANAGEMENT_DIR = 'admin';
+
+    //TODOX
+    const SNIPPET_VIEW = 'snippet.php';
 
     private $widgetDir;
     private $widgetAssetsDir;
@@ -43,6 +48,7 @@ class WidgetController{
         return $this->name;
     }
 
+    //TODOX remove
     public function getModuleGroup() {
         return $this->moduleGroup;
     }
@@ -51,7 +57,7 @@ class WidgetController{
         return $this->moduleName;
     }
 
-    public function getCore() {
+    public function isCore() {
         return $this->core;
     }
 
@@ -77,9 +83,9 @@ class WidgetController{
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::LAYOUT_DIR . '/');
         } else {
-            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::LAYOUT_DIR . '/');
         }
 
 
@@ -94,7 +100,7 @@ class WidgetController{
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
+        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -172,7 +178,7 @@ class WidgetController{
 
     /**
      * 
-     * Delete widget. This method is executed before actuall deletion of widget.
+     * Delete widget. This method is executed before actual deletion of widget.
      * It is used to remove widget data (photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
      * if your widget does not upload files or add new records to the database manually.
@@ -183,6 +189,26 @@ class WidgetController{
 
     }
 
+
+    public function adminSnippets()
+    {
+        $answer = '';
+        try {
+            if ($this->core ) {
+                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+            } else {
+                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+            }
+            if (is_file($adminView)) {
+                $answer = \Ip\View::create($adminView)->render();
+            }
+        } catch (\Ip\CoreException $e){
+            return $e->getMessage();
+        }
+        return $answer;
+    }
+
+    //TODOX remove
     public function managementHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
@@ -201,13 +227,14 @@ class WidgetController{
         return $answer;
     }
 
+    //TODOX rename to generateHtml or something.
     public function previewHtml($instanceId, $data, $layout) {
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
@@ -215,7 +242,7 @@ class WidgetController{
                     'widgetName' => $this->name,
                     'layout' => $layout
                 );
-                $answer = \Ip\View::create('view/unknown_widget_layout.php', $tmpData)->render();
+                $answer = \Ip\View::create(ipConfig()->coreModuleFile('Content/view/unknown_widget_layout.php'), $tmpData)->render();
             } else {
                 $answer = '';
             }
