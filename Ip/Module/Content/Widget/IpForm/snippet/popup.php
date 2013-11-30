@@ -15,7 +15,7 @@
         </div>
         <div class="ipaFieldOptionsPopup"></div>
     </div>
-    <a href="#" class="ipAdminButton ipaFieldAdd">Add new</a>
+    <a href="#" class="ipAdminButton ipaFieldAdd"><?php echo __('Add new', 'ipAdmin') ?></a>
     <div class="ipaOptions">
         <label class="ipAdminLabel"><?php __('Thank you message', 'ipAdmin'); ?></label>
         <textarea class="ipWidgetIpFormSuccess"><?php echo isset($success) ? esc($success, 'textarea') : ''; ?></textarea>

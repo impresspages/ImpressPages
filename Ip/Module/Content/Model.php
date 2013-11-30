@@ -12,6 +12,7 @@ class Model{
     static private $widgetObjects = null;
     const DEFAULT_LAYOUT = 'default';
     const WIDGET_DIR = 'Widget';
+    const SNIPPET_DIR = 'snippet';
 
     public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);

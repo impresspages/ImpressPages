@@ -18,6 +18,12 @@ var ipContent = new function() {
                 ipContent.setManagementMode(1);
             });
         }
+console.log(ipWidgetSnippets);
+        if ("undefined" !== typeof(ipWidgetSnippets)) {
+            $.each(ipWidgetSnippets, function( index, value ) {
+                $('body').append(value);
+            });
+        }
     };
 
     this.setManagementMode = function(mode) {
