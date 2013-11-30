@@ -192,20 +192,23 @@ class WidgetController{
 
     public function adminSnippets()
     {
-        $answer = '';
-        try {
-            if ($this->core ) {
-                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
-            } else {
-                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
-            }
-            if (is_file($adminView)) {
-                $answer = \Ip\View::create($adminView)->render();
-            }
-        } catch (\Ip\CoreException $e){
-            return $e->getMessage();
-        }
-        return $answer;
+
+        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+//        $answer = '';
+//        try {
+//            if ($this->core ) {
+//                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+//            } else {
+//                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+//            }
+//            if (is_file($adminView)) {
+//                $answer = \Ip\View::create($adminView)->render();
+//            }
+//        } catch (\Ip\CoreException $e){
+//            return $e->getMessage();
+//        }
+//        return $answer;
+        return array();
     }
 
     //TODOX remove

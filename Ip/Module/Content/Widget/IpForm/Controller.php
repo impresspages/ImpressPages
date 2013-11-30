@@ -38,7 +38,28 @@ class Controller extends \Ip\WidgetController{
         // TODO use JsonRpc
         return new \Ip\Response\Json($data);
     }
-    
+
+    public function adminSnippets()
+    {
+        $snippets = array();
+
+        $fieldObjects = Model::getAvailableFieldTypes();
+
+        $fieldTypes = array ();
+        foreach($fieldObjects as $fieldObject){
+            $fieldTypes[] = array(
+                'key' => $fieldObject->getKey(),
+                'title' => $fieldObject->getTitle()
+            );
+        }
+        usort($fieldTypes, array($this, 'sortFieldTypes'));
+        $data['fieldTypes'] = $fieldTypes;
+
+        $snippets[] = \Ip\View::create('snippet/popup.php', $data)->render();        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+        return $snippets;
+
+    }
+
     public function sendEmail ($form, $postData, $data) {
 
         $contentData = array();
@@ -259,7 +280,7 @@ class Controller extends \Ip\WidgetController{
         return $form;
     }
     
-    private function sortFieldTypes($a, $b) {
+    protected function sortFieldTypes($a, $b) {
         return strcasecmp($a['title'], $b['title']);
     }
 }
