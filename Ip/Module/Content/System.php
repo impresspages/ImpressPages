@@ -116,7 +116,7 @@ class System{
         $answer = array();
         $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
-            $answer = array_merge($answer, self::findPluginWidgets($plugin, 0));
+            $answer = array_merge($answer, self::findPluginWidgets($plugin));
         }
         return $answer;
     }
