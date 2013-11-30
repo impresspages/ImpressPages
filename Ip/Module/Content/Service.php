@@ -9,6 +9,10 @@ namespace Ip\Module\Content;
 
 
 class Service{
+
+    /**
+     * @return \Ip\WidgetController[]
+     */
     public static function getAvailableWidgets()
     {
         return Model::getAvailableWidgetObjects();

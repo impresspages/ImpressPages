@@ -55,6 +55,23 @@ class PublicController extends \Ip\Controller
 
     private function initManagement()
     {
+        $widgets = Service::getAvailableWidgets();
+        foreach($widgets as $widget) {
+//            if (!$widget->isCore()) { //core widgets js is included manually
+//                $adminJsDir =  Model::WIDGET_DIR . '/' . $widget->getName();
+//                $widgetDir
+//                if (is_dir(ipConfig()->pluginFile(\Ip\Application::ASSET_DIR . '/' . $adminJsDir))) {
+//                    $availableViewFiles = scandir($layoutsDir);
+//                    foreach ($availableViewFiles as $viewFile) {
+//                        if (is_file($layoutsDir . $viewFile) && substr($viewFile, -4) == '.php') {
+//                            ipAddPluginJs($widget->getModuleName(), $widget->'');
+//                        }
+//                    }
+//
+//
+//                }
+//            }
+        }
 
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/paste_preprocess.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/min.js'));
