@@ -83,11 +83,17 @@ class PublicController extends \Ip\Controller
         }
 
 
+
+
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/paste_preprocess.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/min.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/med.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/max.js'));
         ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/tinymce/table.js'));
+
+        ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.css'));
+        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.js'));
+
 
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());

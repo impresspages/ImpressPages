@@ -49,6 +49,9 @@ class System{
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFaq.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFile.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpForm.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormContainer.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormField.js'));
+            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormOptions.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpHtml.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImage.js'));
             ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImageGallery.js'));

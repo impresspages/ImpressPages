@@ -139,7 +139,7 @@ class Controller extends \Ip\WidgetController{
         
     }
     
-    
+    //TODOX remove
     public function managementHtml($instanceId, $data, $layout) {
         $fieldObjects = Model::getAvailableFieldTypes();
         
@@ -164,7 +164,9 @@ class Controller extends \Ip\WidgetController{
         if (!isset($data['success'])) {
             $data['success'] = '';
         }
-        
+
+
+
         return parent::previewHtml($instanceId, $data, $layout);
     }
     
@@ -184,7 +186,7 @@ class Controller extends \Ip\WidgetController{
             );
         }
         $data['fieldTypes'] = $fieldTypes;
-        
+
         if (empty($data['fields'])) {
             $data['fields'] = array();
             $data['fields'][] = array (
@@ -193,9 +195,9 @@ class Controller extends \Ip\WidgetController{
                 'options' => array()
             );
         }
-        
-        
-        
+
+
+
         return $data;
     }    
     

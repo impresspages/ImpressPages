@@ -67,7 +67,7 @@ function ipSetLayoutVariable($name, $value)
     }
 }
 
-
+//TODOX rename to ipAddJs
 function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::response();

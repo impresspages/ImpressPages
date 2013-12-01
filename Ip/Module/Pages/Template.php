@@ -17,12 +17,12 @@ class Template {
 <head>
     '.ipPrintHead(false).'
     <link href="' . ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . ipConfig()->coreModuleUrl('Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . ipConfig()->coreModuleUrl('Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipPrintJavascript(false).'
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js') . '"></script>
+    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.js') . '"></script>
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.cookie.js') . '"></script>
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.hotkeys.js') . '"></script>
     <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Pages/jstree/jquery.jstree.js') . '"></script>
