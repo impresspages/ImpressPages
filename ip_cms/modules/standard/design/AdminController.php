@@ -115,7 +115,7 @@ class AdminController extends \Ip\Controller
 
         $themes = $request->getPost('themes');
 
-        if (!is_writable(BASE_DIR.THEME_DIR)) {
+        if (!is_writable($installDir = Model::instance()->getThemeInstallDir())) {
             $error = array('jsonrpc' => '2.0', 'error' => array('code' => 777, 'message' => $parametersMod->getValue('standard', 'design', 'admin_translations', 'theme_write_error')), 'id' => null);
             $this->returnJson($error);
             return;
