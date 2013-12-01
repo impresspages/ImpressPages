@@ -20,11 +20,12 @@
                     $this.data('ipWidgetInit', Object());
 
                     var widgetName = $this.data('widgetname');
+                    var data = $this.data('widgetdata');
                     if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
                         var widgetPluginObject;
                         eval('widgetPluginObject = new IpWidget_' + widgetName + '();');
                         if (widgetPluginObject.init) {
-                            widgetPluginObject.init($this);
+                            widgetPluginObject.init($this, data);
                         }
 
                     }

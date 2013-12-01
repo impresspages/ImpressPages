@@ -229,6 +229,7 @@ class Model{
 
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
 
         $variables = array (
             'managementState' => $managementState,
