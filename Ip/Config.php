@@ -125,7 +125,7 @@ class Config
     }
 
     //TODOX remove
-    public function coreUrl($path)
+    public function __coreUrl($path)
     {
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
     }
