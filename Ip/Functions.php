@@ -336,9 +336,15 @@ function ipFile($path)
 
 function ipUrl($path)
 {
-    static $baseUrl = '';
+    static $baseUrl = ''; // TODOX does not work with internal requests
     if (!$baseUrl) {
-        $baseUrl = 'http://' . ipConfig()->getRaw('BASE_URL');
+
+        if (ipRequest()->getServer('HTTPS') == "on") {
+            $baseUrl = 'https://' . ipConfig()->getRaw('BASE_URL');
+        } else {
+            $baseUrl = 'http://' . ipConfig()->getRaw('BASE_URL');
+        }
+
         // $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
     }
 
