@@ -278,10 +278,10 @@ class View implements \Ip\Response\ResponseInterface
 
         if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
             //core dir
-            $basePath = ipConfig()->baseFile('');
-        } elseif (strpos($absoluteFile, ipConfig()->pluginFile('')) === 0) {
+            $basePath = ipFile('');
+        } elseif (strpos($absoluteFile, ipFile('Plugin/')) === 0) {
             //plugin dir
-            $basePath = ipConfig()->pluginFile('');
+            $basePath = ipFile('Plugin/');
         } elseif (strpos($absoluteFile, ipConfig()->themeFile('')) === 0) {
             //theme dir
             $basePath = ipConfig()->themeFile('');
