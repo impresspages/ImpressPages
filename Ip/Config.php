@@ -75,7 +75,7 @@ class Config
         return $this->protocol . $this->cdnUrl . '/Ip/Module/' . $path;
     }
 
-    public function coreModuleFile($path)
+    public function __coreModuleFile($path)
     {
         return $this->corePath . '/Ip/Module/' . $path;
     }

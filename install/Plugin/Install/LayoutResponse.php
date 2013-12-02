@@ -69,7 +69,7 @@ class LayoutResponse extends \Ip\Response\Layout
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -96,6 +96,6 @@ class LayoutResponse extends \Ip\Response\Layout
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
 }
