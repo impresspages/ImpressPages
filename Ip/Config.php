@@ -141,7 +141,7 @@ class Config
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
     }
 
-    public function fileDirFile($path)
+    public function __fileDirFile($path)
     {
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
     }

@@ -125,7 +125,7 @@ class ReflectionModel
         $relativeDestination = date('Y/m/d/') . $desiredName;
         $relativeDestination = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestination, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
 
-        $absoluteDestinationDir = dirname(ipConfig()->fileDirFile($relativeDestination));
+        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestination));
         if (!is_dir($absoluteDestinationDir)) {
             mkdir($absoluteDestinationDir, 0777, $recursive = true);
         }

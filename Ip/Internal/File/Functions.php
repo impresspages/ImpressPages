@@ -20,9 +20,9 @@ class Functions{
         $fileName = realpath(ipConfig()->baseFile($fileName));
         //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
         $publicDirs = array(
-            realpath(ipConfig()->fileDirFile('')),
+            realpath(ipFile('file/')),
             realpath(ipFile('file/tmp/')),
-            realpath(ipConfig()->repositoryFile('')),
+            realpath(ipFile('file/repository')),
         );
         foreach ($publicDirs as $publicDir) {
             if (strpos($fileName, $publicDir) === 0) {
