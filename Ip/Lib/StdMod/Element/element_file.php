@@ -35,7 +35,7 @@ class ElementFile extends Element{ //data element in area
         $this->tmpFiles = array();
         $this->extensions = array();
 
-        $this->destDir = ipConfig()->fileDirFile('');
+        $this->destDir = ipFile('file/');
 
         foreach ($variables as $name => $value) {
             switch ($name){

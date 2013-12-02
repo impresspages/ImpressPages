@@ -145,7 +145,7 @@ class Model
 
         $table[] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
 
-        if (!Helper::isDirectoryWritable(ipConfig()->fileDirFile(''))) {
+        if (!Helper::isDirectoryWritable(ipFile('file/'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_file'] = 1;
         } else
