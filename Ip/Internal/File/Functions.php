@@ -21,7 +21,7 @@ class Functions{
         //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
         $publicDirs = array(
             realpath(ipConfig()->fileDirFile('')),
-            realpath(ipConfig()->temporaryFile('')),
+            realpath(ipFile('file/tmp/')),
             realpath(ipConfig()->repositoryFile('')),
         );
         foreach ($publicDirs as $publicDir) {
@@ -130,7 +130,7 @@ class Functions{
     {
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
-        if (!copy(ipConfig()->temporaryFile($relativePath), $destinationDir . $newBasename)) {
+        if (!copy(ipFile('file/tmp/' . $relativePath), $destinationDir . $newBasename)) {
             trigger_error("Can't copy file from " . htmlspecialchars(ipConfig()->themeFile('') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
         }
 

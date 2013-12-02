@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller{
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
 
-        $temporaryDir = str_replace('/', DIRECTORY_SEPARATOR, rtrim(ipConfig()->temporaryFile(''), '/\\')); // for Windows compatibility
+        $temporaryDir = str_replace('/', DIRECTORY_SEPARATOR, rtrim(ipFile('file/tmp/'), '/\\')); // for Windows compatibility
 
         foreach ($files as $key => $file) {
             if (realpath($file['dir']) != $temporaryDir) {

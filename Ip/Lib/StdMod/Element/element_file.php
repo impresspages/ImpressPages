@@ -127,7 +127,7 @@ class ElementFile extends Element{ //data element in area
             $uploadFile->allowOnly($this->extensions);
         }
         if(isset($_FILES[$prefix])){
-            $error = $uploadFile->upload($prefix, ipConfig()->temporaryFile(''));
+            $error = $uploadFile->upload($prefix, ipFile('file/tmp/'));
             if($error == UPLOAD_ERR_OK){
                 $this->memFile = $uploadFile->fileName;
                 return null;
