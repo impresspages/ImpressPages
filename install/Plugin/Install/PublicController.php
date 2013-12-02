@@ -18,7 +18,13 @@ class PublicController extends \Ip\Controller
 
     public function index ()
     {
-        return $this->step0();
+        if (isset($_GET['step'])) {
+            $step = (int)$_GET['step'];
+        } else {
+            $step = 0;
+        }
+        $method = 'step' . $step;
+        return $this->$method();
     }
 
     public function step0()
@@ -71,19 +77,22 @@ class PublicController extends \Ip\Controller
             return $pageURL;
         }
 
-        return $this->applyLayout($content);
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function step2()
     {
-        // TODOX Algimantas: what this is for?
-        $license = file_get_contents(ipFile('ip_license.html'));
-
         Model::completeStep(2);
 
         $content = \Ip\View::create('view/step2.php');
 
-        return $this->applyLayout($content);
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function step3()
@@ -110,7 +119,10 @@ class PublicController extends \Ip\Controller
             ipFileUrl('Plugin/Install/assets/js/step3.js')
         );
 
-        return $this->applyLayout($content, array('requiredJs' => $js));
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function step4()
@@ -151,18 +163,23 @@ class PublicController extends \Ip\Controller
             ipFileUrl('Plugin/Install/assets/js/step4.js')
         );
 
-        return $this->applyLayout($content, array('requiredJs' => $js));
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function step5()
     {
         $SESSION['step'] = 5;
         $content = \Ip\View::create('view/step5.php')->render();
-        $html = $this->applyLayout($content)->render();
 
         unset($_SESSION['step']);
 
-        return $html;
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function createDatabase()

@@ -153,7 +153,7 @@ class Model
 
 
         $table[] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
-        if (!Helper::isDirectoryWritable(dirname(ipThemeFile('')))) {
+        if (!Helper::isDirectoryWritable(ipFile('Theme'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_themes'] = 1;
         } else
