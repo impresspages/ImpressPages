@@ -12,7 +12,7 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         \Ip\Module\Content\Service::setManagementMode(1);
-        header('location: ' . ipFileUrl(''));
+        header('location: ' . ipHomeUrl());
     }
 
     public function setManagementMode()
@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
 
-        $answer .= '<li><a href="' . ipFileUrl('') . '">Home</a></li>' . "\n";
+        $answer .= '<li><a href="' . ipHomeUrl() . '">Home</a></li>' . "\n";
 
         $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
 
