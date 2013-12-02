@@ -201,7 +201,7 @@ class Controller extends \Ip\WidgetController{
                         true
                     );
                     try {
-                        $curLogo['logoSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall));
+                        $curLogo['logoSmall'] = ipUrl('file/' . $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall));
                         $curLogo['logoUrl'] = ipConfig()->repositoryUrl($curLogo['logoSmall']);
                     } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing

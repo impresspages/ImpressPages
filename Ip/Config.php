@@ -136,7 +136,7 @@ class Config
     }
 
 
-    public function fileUrl($path)
+    public function __fileUrl($path)
     {
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
     }

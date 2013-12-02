@@ -84,7 +84,7 @@ class Controller extends \Ip\WidgetController{
                         $requiredHeight
                     );
                     try {
-                        $data['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
+                        $data['imageSmall'] = ipUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
                     } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }
