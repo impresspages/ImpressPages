@@ -20,7 +20,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
     {
         $repository = \Ip\Module\Repository\Model::instance();
 
-        $file = ipConfig()->getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
+        $file = 'file/repository/impresspages.png';
 
         copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipFile('file/repository/impresspages.png'));
 
