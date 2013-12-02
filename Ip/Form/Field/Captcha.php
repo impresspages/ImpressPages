@@ -61,7 +61,7 @@ class Captcha extends Field{
         <div class="captcha">
         <input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
         <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
-        <img src="'.ipUrl($captcha->get_filename_url()).'" alt="Captcha"/>
+        <img src="'.ipFileUrl($captcha->get_filename_url()).'" alt="Captcha"/>
         </div>
         ';
     }

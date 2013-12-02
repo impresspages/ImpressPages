@@ -35,7 +35,7 @@ class Layout extends \Ip\Response {
 
     public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
     {
-        $this->setFavicon(ipUrl('favicon.ico'));
+        $this->setFavicon(ipFileUrl('favicon.ico'));
         $this->setCharset(ipConfig()->getRaw('CHARSET'));
         parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
     }
@@ -66,8 +66,8 @@ class Layout extends \Ip\Response {
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->layout = ipFile('Ip/Module/Admin/view/layout.php');
-            $this->addCss(ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css'));
-            $this->addJavascript(ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.js'));
+            $this->addCss(ipFileUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css'));
+            $this->addJavascript(ipFileUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/view/safeModeLayout.php';
         } else {
@@ -222,11 +222,11 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipUrl(''),
+            'ipBaseUrl' => ipFileUrl(''),
             'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipTheme' => ipConfig()->getRaw('THEME'),
-            'ipRepositoryUrl' => ipUrl('file/repository/'),
+            'ipRepositoryUrl' => ipFileUrl('file/repository/'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
             'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,

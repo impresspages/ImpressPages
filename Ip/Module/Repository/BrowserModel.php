@@ -94,7 +94,7 @@ class BrowserModel{
             'fileName' => $fileName,
             'ext' => $ext,
             'previewUrl' => $this->createPreview($fileName),
-            'originalUrl' => ipUrl('file/repository/' . $fileName),
+            'originalUrl' => ipFileUrl('file/repository/' . $fileName),
             'modified' => filemtime($file)
         );
         return $data;
@@ -116,10 +116,10 @@ class BrowserModel{
             $transform = new Transform\ImageFit(140, 140, null, TRUE);
             $reflection = $reflectionService->getReflection($file, $baseName, $transform);
             if ($reflection){
-                return ipUrl('file/' . $reflection);
+                return ipFileUrl('file/' . $reflection);
             }
         }
-        return ipUrl('Ip/Module/Repository/assets/admin/icons/general.png');
+        return ipFileUrl('Ip/Module/Repository/assets/admin/icons/general.png');
     }
 
     

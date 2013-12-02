@@ -27,9 +27,9 @@ class System{
         $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
         $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/widgets.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
 
         // TODOX move to more appropriate place
@@ -43,7 +43,7 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/widget.admin.min.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.min.js'));
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
 
@@ -178,10 +178,10 @@ class System{
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
-                    ipAddJavascript(ipUrl($resourcesFolder.'/'.$file));
+                    ipAddJavascript(ipFileUrl($resourcesFolder.'/'.$file));
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
-                    ipAddCss(ipUrl($resourcesFolder.'/'.$file));
+                    ipAddCss(ipFileUrl($resourcesFolder.'/'.$file));
                 }
             }
         }

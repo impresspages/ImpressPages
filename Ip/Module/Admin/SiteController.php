@@ -36,7 +36,7 @@ class SiteController extends \Ip\Controller{
 
 
         //TODOX replace with url to first module;
-        $redirectUrl = ipUrl('');
+        $redirectUrl = ipFileUrl('');
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -59,7 +59,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        return new \Ip\Response\Redirect(ipUrl('admin/'));
+        return new \Ip\Response\Redirect(ipFileUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -72,12 +72,12 @@ class SiteController extends \Ip\Controller{
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
             \Ip\Module\Content\Service::setManagementMode(1);
-            return new \Ip\Response\Redirect(ipUrl(''));
+            return new \Ip\Response\Redirect(ipFileUrl(''));
         }
 
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Admin/assets/login.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Admin/assets/login.js'));
 
 
 

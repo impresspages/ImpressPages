@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="<?php echo ipUrl('Ip/Module/Admin/assets/backend/login/login.css') ?>">
-    <link rel="stylesheet" href="<?php echo ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css') ?>">
-    <link rel="shortcut icon" href="<?php echo ipUrl('favicon.ico') ?>">
+    <link rel="stylesheet" href="<?php echo ipFileUrl('Ip/Module/Admin/assets/backend/login/login.css') ?>">
+    <link rel="stylesheet" href="<?php echo ipFileUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css') ?>">
+    <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico') ?>">
 </head>
 <body>
 
 
-<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo ipUrl('Ip/Module/Admin/assets/backend/login/logo.png') ?>"></a>
+<a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo ipFileUrl('Ip/Module/Admin/assets/backend/login/logo.png') ?>"></a>
 <div class="verticalAlign"></div>
 <div class="login">
     <div class="loginTitle">

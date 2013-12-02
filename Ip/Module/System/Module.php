@@ -19,14 +19,14 @@ class Module
     public function updateRobotsTxt($oldUrl)
     {
         $robotsFile = 'robots.txt';
-        if ($oldUrl != ipUrl('') && file_exists($robotsFile)) { //update robots.txt file.
+        if ($oldUrl != ipFileUrl('') && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach ($data as $dataKey => $dataVal) {
                 $tmpVal = $dataVal;
                 $tmpVal = trim($tmpVal);
 
-                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipUrl('sitemap.php'), $tmpVal);
+                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipFileUrl('sitemap.php'), $tmpVal);
                 $newData .= $tmpVal . "\n";
             }
             if (is_writable($robotsFile)) {
@@ -42,14 +42,14 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipUrl('')); // update system variable
+        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipFileUrl('')); // update system variable
 
         $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
         \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
 
         // TODO move somewhere
-        if (ipUrl('') != $cachedUrl) {
-            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipUrl('')));
+        if (ipFileUrl('') != $cachedUrl) {
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipFileUrl('')));
         }
         ipDispatcher()->notify('site.clearCache');
     }
@@ -76,7 +76,7 @@ class Module
 //                }
 //            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_REFERER, ipUrl(''));
+            curl_setopt($ch, CURLOPT_REFERER, ipFileUrl(''));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);

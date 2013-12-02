@@ -82,7 +82,7 @@ class Controller extends \Ip\WidgetController{
             }
 
             $newFile = array();
-            $newFile['url'] = ipUrl('file/repository/' . $file['fileName']);
+            $newFile['url'] = ipFileUrl('file/repository/' . $file['fileName']);
             $newFile['path'] = ipFile('file/repository/' . $file['fileName']);
             $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];
             $newData['files'][] = $newFile;

@@ -35,9 +35,9 @@ class Url {
 
 
         if (ipGetOption('Config.multilingual')) {
-            $answer = ipUrl(urlencode(\Ip\ServiceLocator::content()->getLanguageById($languageId)->getUrl()).'/');
+            $answer = ipFileUrl(urlencode(\Ip\ServiceLocator::content()->getLanguageById($languageId)->getUrl()).'/');
         } else {
-            $answer = ipUrl('');
+            $answer = ipFileUrl('');
         }
 
         if ($zoneName != null){

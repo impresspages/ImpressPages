@@ -242,7 +242,7 @@ class Model
         // TODOX execute multiple statements
         //$all_sql = utf8_encode($all_sql);
         $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("[[[[base_url]]]]", ipUrl(''), $all_sql);
+        $all_sql = str_replace("[[[[base_url]]]]", ipFileUrl(''), $all_sql);
         $sql_list = explode("-- Dumping data for table--", $all_sql);
 
 
@@ -364,7 +364,7 @@ Disallow: /admin.php
 Disallow: /ip_config.php
 Disallow: /ip_license.html
 Disallow: /readme.md
-Sitemap: '. ipUrl('sitemap.php');
+Sitemap: '. ipFileUrl('sitemap.php');
 
         file_put_contents($filename, $content);
     }

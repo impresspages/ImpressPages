@@ -36,7 +36,7 @@ $Config['Enabled'] = true ;
 
 
 // Path to user files relative to the document root.
-$Config['UserFilesPath'] = ipUrl('');//'/';//dirname(__file__).'/../../../../../../../';//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
+$Config['UserFilesPath'] = ipFileUrl('');//'/';//dirname(__file__).'/../../../../../../../';//'/home/hero/apache-tomcat-5.5.25/webapps/yoscua/tiny_mce/plugins/simplebrowser/assets/' ;
 
 // Fill the following value it you prefer to specify the absolute path for the
 // user files directory. Useful if you are using a virtual directory, symbolic
@@ -119,7 +119,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 //$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'] . ipConfig()->getRaw('MANUAL_DIR');
 //$manualRepositoryPath = $Config['UserFilesPath'] . ipConfig()->getRaw('MANUAL_DIR');
 $manualRepositoryAbsolutePath = ipFile('file/manual/');
-$manualRepositoryPath = ipUrl('file/manual/');
+$manualRepositoryPath = ipFileUrl('file/manual/');
 if (!file_exists($manualRepositoryAbsolutePath) || !is_dir($manualRepositoryAbsolutePath)) {
     mkdir($manualRepositoryAbsolutePath);
 }

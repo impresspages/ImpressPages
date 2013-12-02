@@ -19,7 +19,7 @@ class ModelTree {
 
         $answer[] = array(
             'id' => self::$websiteId,
-            'title' => ipUrl('')
+            'title' => ipFileUrl('')
         );
 
         $remotes = Remotes::getRemotes();

@@ -25,7 +25,7 @@ class PublicController extends \Ip\Controller
         }
 
         //initialize management
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/content.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/content.js'));
         if (ipIsManagementState()) {
             $this->initManagement();
         } else {
@@ -56,42 +56,42 @@ class PublicController extends \Ip\Controller
     private function initManagement()
     {
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/tinymce/paste_preprocess.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/tinymce/min.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/tinymce/med.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/tinymce/max.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/tinymce/table.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/paste_preprocess.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/min.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/med.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/max.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/table.js'));
 
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/ipContentManagement.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/jquery.ip.contentManagement.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/jquery.ip.pageOptions.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/jquery.ip.widgetbutton.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/jquery.ip.block.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/jquery.ip.widget.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/exampleContent.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Content/assets/drag.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/ipContentManagement.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.contentManagement.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.pageOptions.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.widgetbutton.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.block.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.widget.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/exampleContent.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/drag.js'));
 
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(ipUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.css'));
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/tiny_mce/jquery.tinymce.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/tiny_mce/jquery.tinymce.js'));
 
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/plupload/plupload.full.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/plupload/plupload.browserplus.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/plupload/plupload.gears.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.full.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.browserplus.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.gears.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js'));
 
 
-        ipAddJavascript(ipUrl('Ip/Module/Upload/assets/jquery.ip.uploadImage.js'));
-        ipAddJavascript(ipUrl('Ip/Module/Upload/assets/jquery.ip.uploadFile.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Upload/assets/jquery.ip.uploadImage.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Upload/assets/jquery.ip.uploadFile.js'));
 
-        ipAddCss(ipUrl('Ip/Module/Content/assets/widgets.css'));
+        ipAddCss(ipFileUrl('Ip/Module/Content/assets/widgets.css'));
         ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
     }

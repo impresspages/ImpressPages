@@ -40,10 +40,10 @@ class System {
     {
 
         if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
-            ipAddCss(ipUrl('Ip/Module/Admin/assets/admin.css'));
+            ipAddCss(ipFileUrl('Ip/Module/Admin/assets/admin.css'));
 
-            ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
-            ipAddJavascript(ipUrl('Ip/Module/Admin/assets/admin.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Admin/assets/admin.js'));
 
             ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }
@@ -95,9 +95,9 @@ class System {
     {
         $toolbarHtml = $this->getAdminToolbarHtml();
 
-        $code = '    <link href="' . ipUrl('Ip/Module/Admin/assets/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= '    <link href="' . ipUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipUrl('Ip/Module/Assets/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
+        $code = '    <link href="' . ipFileUrl('Ip/Module/Admin/assets/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code .= '    <link href="' . ipFileUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
+        $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipFileUrl('Ip/Module/Assets/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
         $code .= '   <script type="text/javascript"> var ipAdminToolbar = ' . json_encode($toolbarHtml) . ';</script>' . "\n";
         $code .= '   <script type="text/javascript" src="' . $config->coreModuleUrl() . 'Admin/assets/admin.js" ></script>' . "\n";
         $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);
