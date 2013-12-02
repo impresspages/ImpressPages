@@ -36,14 +36,14 @@ class Application
 
             $language = 'en';
             // TODOX more intelligent check
-            if (isset($_GET['lang']) && file_exists(ipConfig()->pluginFile('Install/languages/' . $_GET['lang'] . '.php'))) {
+            if (isset($_GET['lang']) && file_exists(ipFile('Plugin/Install/languages/' . $_GET['lang'] . '.php'))) {
                 $_SESSION['installation_language'] = $_GET['lang'];
                 $language = $_GET['lang'];
             } elseif (isset($_SESSION['installation_language'])) {
                 $language = $_SESSION['installation_language'];
             }
             \Ip\Translator::init($language);
-            \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->pluginFile('Install/languages'), '%s.php', 'ipInstall');
+            \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Plugin/Install/languages'), '%s.php', 'ipInstall');
             \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
             \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
 

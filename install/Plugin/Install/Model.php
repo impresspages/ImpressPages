@@ -210,7 +210,7 @@ class Model
 
     public static function createDatabaseStructure($database, $tablePrefix)
     {
-        $all_sql = file_get_contents(ipConfig()->pluginFile('Install/sql/structure.sql'));
+        $all_sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
 
         $all_sql = str_replace("[[[[database]]]]", $database, $all_sql);
         $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $tablePrefix, $all_sql);
@@ -234,12 +234,12 @@ class Model
     {
         $errors = array();
 
-        // TODOX Algimantas: why so complicated?
-        $sqlFile = ipConfig()->pluginFile("Install/sql/data.sql");
+        $sqlFile = ipFile('Plugin/Install/sql/data.sql');
         $fh = fopen($sqlFile, 'r');
         $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);
 
+        // TODOX execute multiple statements
         //$all_sql = utf8_encode($all_sql);
         $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
         $all_sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(''), $all_sql);
