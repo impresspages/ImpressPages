@@ -25,7 +25,6 @@ return array(
     // GLOBAL
     /*OK*/'BASE_DIR' => '', //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     /*OK*/'BASE_URL' => 'http://localhost/', //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    /*OK*/'MANUAL_DIR' => 'file/manual/', //Used for TinyMCE file browser and others tools where user manually controls all files.
     /*OK*/'PLUGIN_DIR' => 'Plugin/',
 
     /*OK*/'DEVELOPMENT_ENVIRONMENT' => 1, //displays error and debug information. Change to 0 before deployment to production server

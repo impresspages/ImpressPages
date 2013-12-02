@@ -114,8 +114,12 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 		
 */
 
-$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'] . ipConfig()->getRaw('MANUAL_DIR');
-$manualRepositoryPath = $Config['UserFilesPath'] . ipConfig()->getRaw('MANUAL_DIR');
+
+// TODOX allow to change that through task
+//$manualRepositoryAbsolutePath = $Config['UserFilesAbsolutePath'] . ipConfig()->getRaw('MANUAL_DIR');
+//$manualRepositoryPath = $Config['UserFilesPath'] . ipConfig()->getRaw('MANUAL_DIR');
+$manualRepositoryAbsolutePath = ipFile('file/manual/');
+$manualRepositoryPath = ipUrl('file/manual/');
 if (!file_exists($manualRepositoryAbsolutePath) || !is_dir($manualRepositoryAbsolutePath)) {
     mkdir($manualRepositoryAbsolutePath);
 }

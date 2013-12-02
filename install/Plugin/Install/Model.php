@@ -273,10 +273,6 @@ class Model
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'MANUAL_DIR' => array(
-                'value' => 'file/manual/',
-                'comment' => 'Used for TinyMCE file browser and others tools where user manually controls all files.',
-            ),
             'PLUGIN_DIR' => array(
                 'value' => 'Plugin/',
                 'comment' => 'A place for plugins',

@@ -115,7 +115,6 @@ class Config
             // GLOBAL
             'BASE_DIR' => '', //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
             'BASE_URL' => '', //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-            'MANUAL_DIR' => 'file/manual/', //Used for TinyMCE file browser and others tools where user manually controls all files.
 
             'DEVELOPMENT_ENVIRONMENT' => 1, //displays error and debug information. Change to 0 before deployment to production server
             'ERRORS_SHOW' => 1,  //0 if you don't wish to display errors on the page
