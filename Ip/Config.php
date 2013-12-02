@@ -146,12 +146,12 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
     }
 
-    public function repositoryFile($path)
+    public function __repositoryFile($path)
     {
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
     }
 
-    public function repositoryUrl($path)
+    public function __repositoryUrl($path)
     {
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
     }
