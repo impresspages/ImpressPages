@@ -207,7 +207,7 @@ function IpWidget_IpFile(widgetObject) {
                 $this.find('.ipaFileTitle').val(data.title);
             }
             
-            $this.find('.ipaFileLink').attr('href', ip.repositoryUrl + data.fileName);
+            $this.find('.ipaFileLink').attr('href', ipFileUrl('file/repository/' + data.fileName));
             $this.find('.ipaFileRemove').bind('click', function(event){
                 event.preventDefault();
                 $this = $(this);
