@@ -276,7 +276,7 @@ class View implements \Ip\Response\ResponseInterface
             $absoluteFile = str_replace('\\', '/', $absoluteFile);
         }
 
-        if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
+        if (strpos($absoluteFile, ipFile('')) === 0) {
             //core dir
             $basePath = ipFile('');
         } elseif (strpos($absoluteFile, ipFile('Plugin/')) === 0) {

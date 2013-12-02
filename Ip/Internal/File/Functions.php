@@ -17,7 +17,7 @@ class Functions{
      */
     public static function isFileInPublicDir($fileName)
     {
-        $fileName = realpath(ipConfig()->baseFile($fileName));
+        $fileName = realpath(ipFile($fileName));
         //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
         $publicDirs = array(
             realpath(ipFile('file/')),

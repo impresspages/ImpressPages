@@ -16,7 +16,7 @@ class ParametersMod
     {
         $parameterValue = array(); // in order to silence IDE :)
         require ipFile('Ip/Module/Install/parameters.php');
-        require ipConfig()->baseFile('update/Library/Migration/To3_0/newParameters.php');
+        require ipFile('update/Library/Migration/To3_0/newParameters.php');
         $this->parameters = $parameterValue;
     }
 

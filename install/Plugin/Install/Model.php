@@ -33,11 +33,11 @@ class Model
             $error['mod_pdo'] = 1;
         }
 
-        if (!file_exists(ipConfig()->baseFile('.htaccess'))) {
+        if (!file_exists(ipFile('.htaccess'))) {
             $error['htaccess'] = 1;
         }
 
-        if (file_exists(ipConfig()->baseFile('index.html'))) {
+        if (file_exists(ipFile('index.html'))) {
             $error['index.html'] = 1;
         }
 
@@ -162,7 +162,7 @@ class Model
 
         $table[] = '<b>/ip_config.php</b> ' . __('writable', 'ipInstall');
 
-        if (!is_writable(ipConfig()->baseFile('ip_config.php'))) {
+        if (!is_writable(ipFile('ip_config.php'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_config'] = 1;
         } else
@@ -170,7 +170,7 @@ class Model
 
 
         $table[] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
-        if (!is_writable(ipConfig()->baseFile('robots.txt'))) {
+        if (!is_writable(ipFile('robots.txt'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_robots'] = 1;
         } else

@@ -70,7 +70,7 @@ class PublicController extends \Ip\Controller
     public function step2()
     {
         // TODOX Algimantas: what this is for?
-        $license = file_get_contents(ipConfig()->baseFile('ip_license.html'));
+        $license = file_get_contents(ipFile('ip_license.html'));
 
         Model::completeStep(2);
 
@@ -274,13 +274,13 @@ class PublicController extends \Ip\Controller
         $config['db'] = $_SESSION['db'];
 
         try {
-            Model::writeConfigFile($config, ipConfig()->baseFile('ip_config.php'));
+            Model::writeConfigFile($config, ipFile('ip_config.php'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/ip_config.php"', 'ipInstall', false));
         }
 
         try {
-            Model::writeRobotsFile(ipConfig()->baseFile('robots.txt'));
+            Model::writeRobotsFile(ipFile('robots.txt'));
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'ipInstall', false));
         }
