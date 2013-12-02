@@ -29,37 +29,11 @@ class Config
             } else {
                 $this->rawConfig['BASE_URL'] = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
             }
-            //var_dump($_SERVER);
-            var_dump($_GET);
         }
 
         if ($this->rawConfig['BASE_DIR'] == '') {
             $this->rawConfig['BASE_DIR'] = dirname($_SERVER['SCRIPT_FILENAME']);
-            //$this->rawConfig['BASE_DIR'] = __DIR__
         }
-
-        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") { // TODOX fix error
-            $this->protocol = 'https://';
-        } else {
-            $this->protocol = 'http://';
-        }
-
-        if (empty($this->rawConfig['CDN_URL'])) {
-            $this->cdnUrl = $this->rawConfig['BASE_URL'];
-        } else {
-            $this->cdnUrl = $this->rawConfig['CDN_URL'];
-        }
-
-
-//        if ($this->rawConfig['PLUGIN_DIR']) {
-//            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
-//            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
-//        } else {
-//            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/Plugin';
-//            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/Plugin';
-//        }
-
-//        $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
     }
 
     public function getRaw($name)
