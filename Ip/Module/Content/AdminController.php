@@ -145,7 +145,8 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function moveWidget() {
+    public function moveWidget()
+    {
 
 
         if (!isset($_POST['instanceId']) ||
@@ -192,7 +193,8 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function createWidget() {
+    public function createWidget()
+    {
 
 
 
@@ -264,7 +266,11 @@ class AdminController extends \Ip\Controller
 
     }
 
-    public function manageWidget() {
+
+
+    //TODOX remove.
+    public function manageWidget()
+    {
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable');
@@ -313,9 +319,9 @@ class AdminController extends \Ip\Controller
     }
 
 
-
-
-    public function cancelWidget() {
+    //TODOX remove
+    public function cancelWidget()
+    {
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable');
