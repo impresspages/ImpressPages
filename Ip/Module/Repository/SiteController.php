@@ -190,7 +190,7 @@ class SiteController extends \Ip\Controller{
         }
 
         $niceFileName = $cleanTitle.$ext;
-        $destinationDir = ipConfig()->repositoryFile('');
+        $destinationDir = ipFile('file/repository/');
         $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
         copy(ipFile('file/tmp/' . $tmpFilename), $destinationDir . $destinationFileName);
@@ -269,7 +269,7 @@ class SiteController extends \Ip\Controller{
         }
         
         $realFile = realpath($file);
-        if (strpos($realFile, ipConfig()->repositoryFile('')) !== 0) {
+        if (strpos($realFile, ipFile('file/repository/')) !== 0) {
             return false;
         }
 

@@ -36,7 +36,7 @@ class Controller extends \Ip\WidgetController{
             switch($image['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(ipConfig()->repositoryFile($image['fileName']))) {
+                    if (!file_exists(ipFile('file/repository/' . $image['fileName']))) {
                         break;
                     }
 

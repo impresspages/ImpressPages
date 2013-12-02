@@ -26,7 +26,7 @@ class Controller extends \Ip\WidgetController{
                 if (isset($file['title']) && isset($file['fileName']) && isset($file['status'])){ //check if all require data present
                     switch($file['status']){
                         case 'new':
-                            if (file_exists(ipConfig()->repositoryFile($file['fileName']))) {
+                            if (file_exists(ipFile('file/repository/' . $file['fileName']))) {
 
                                 //TODOX rename standard/content_management to Content
                                 \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
@@ -82,8 +82,8 @@ class Controller extends \Ip\WidgetController{
             }
 
             $newFile = array();
-            $newFile['url'] = ipConfig()->repositoryUrl($file['fileName']);
-            $newFile['path'] = ipConfig()->repositoryFile($file['fileName']);
+            $newFile['url'] = ipUrl('file/repository/' . $file['fileName']);
+            $newFile['path'] = ipFile('file/repository/' . $file['fileName']);
             $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];
             $newData['files'][] = $newFile;
         }

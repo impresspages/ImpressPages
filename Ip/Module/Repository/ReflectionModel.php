@@ -82,7 +82,7 @@ class ReflectionModel
 
     private function createReflection($source, $desiredName, Transform\Base $transform)
     {
-        $absoluteSource = realpath(ipConfig()->repositoryFile($source));
+        $absoluteSource = realpath(ipFile('file/repository/' . $source));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
         }
@@ -93,7 +93,7 @@ class ReflectionModel
             return false;
         }
 
-        if (strpos($absoluteSource, ipConfig()->repositoryFile('')) !== 0) {
+        if (strpos($absoluteSource, ipFile('file/repository/')) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
 
