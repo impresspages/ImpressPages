@@ -17,7 +17,7 @@
         <?php echo ipBlock('main')->render(); ?>
     </div>
     <?php
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
         ipAddJavascript(ipConfig()->themeUrl('theme.js'));
         ipPrintJavascript();
     ?>

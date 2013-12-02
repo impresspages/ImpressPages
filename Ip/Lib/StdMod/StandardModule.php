@@ -862,10 +862,10 @@ class StandardModule {
         };
     </script>
     
-    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
-    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
-    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js') . '"></script>
-    <script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
+    <script src="' . ipUrl('Ip/Module/Assets/assets/js/default.js') . '"></script>
+    <script src="' . ipUrl('Ip/Module/Assets/assets/js/tabs.js') . '"></script>
+    <script src="' . ipUrl('Ip/Module/Assets/assets/js/jquery.js') . '"></script>
+    <script src="' . ipUrl('Ip/Module/Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . ipConfig()->baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.ipPrintHead(false).'
 </head>
@@ -893,11 +893,11 @@ class StandardModule {
 		
 		<link href="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/style.css') . '" type="text/css" rel="stylesheet" media="screen">
 		<script src="' . ipConfig()->coreUrl('Ip/Lib/StdMod/design/scripts.js') . '"></script>
-		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/tabs.js') . '"></script>
-		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/windowsize.js') .'" ></script>
-		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/mouse.js'). '" ></script>
-		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/positioning.js') .'" ></script>
-		<script src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '" ></script>
+		<script src="' . ipUrl('Ip/Module/Assets/assets/js/tabs.js') . '"></script>
+		<script src="' . ipUrl('Ip/Module/Assets/assets/js/windowsize.js') .'" ></script>
+		<script src="' . ipUrl('Ip/Module/Assets/assets/js/mouse.js'). '" ></script>
+		<script src="' . ipUrl('Ip/Module/Assets/assets/js/positioning.js') .'" ></script>
+		<script src="' . ipUrl('Ip/Module/Assets/assets/js/default.js') . '" ></script>
 		
 		';
 

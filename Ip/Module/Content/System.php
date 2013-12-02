@@ -27,9 +27,9 @@ class System{
         $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
         $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widgets.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Content/assets/widgets.js'));
 
 
         // TODOX move to more appropriate place
@@ -43,7 +43,7 @@ class System{
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Content/assets/widget.admin.min.js'));
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
 
