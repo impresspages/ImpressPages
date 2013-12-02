@@ -1,4 +1,1 @@
-<?php
-/* Default style is the same as level1 */
-echo \Ip\View::create('level1.php', $this->getVariables())->render();
-?>
+<h1 <?php echo isset($id) ? 'id="'.esc($id).'"': '' ?> class="ipwTitle"><?php echo !empty($title) ? esc($title) : '&nbsp;'; ?></h1>
