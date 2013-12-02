@@ -51,13 +51,13 @@ class Config
         }
 
 
-        if ($this->rawConfig['PLUGIN_DIR']) {
-            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
-            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
-        } else {
-            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/Plugin';
-            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/Plugin';
-        }
+//        if ($this->rawConfig['PLUGIN_DIR']) {
+//            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
+//            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['PLUGIN_DIR'] . '/Plugin';
+//        } else {
+//            $this->pluginUrl = $this->protocol . $this->cdnUrl . '/Plugin';
+//            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/Plugin';
+//        }
 
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
     }
@@ -123,7 +123,6 @@ class Config
 
             // BACKEND
             'CONFIG_DIR' => 'ip_configs/', //modules configuration directory
-            'PLUGIN_DIR' => 'Plugin/', //plugins directory
             'THEME_DIR' => 'Theme/', //themes directory
 
             // END BACKEND

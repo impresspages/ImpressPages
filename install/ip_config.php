@@ -25,7 +25,6 @@ return array(
     // END GLOBAL
 
     // BACKEND
-    'PLUGIN_DIR' => '', //plugins directory
     'THEME_DIR' => 'Theme', //themes directory
 
     // END BACKEND

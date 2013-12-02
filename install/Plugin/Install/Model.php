@@ -273,10 +273,6 @@ class Model
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'PLUGIN_DIR' => array(
-                'value' => 'Plugin/',
-                'comment' => 'A place for plugins',
-            ),
             'DEVELOPMENT_ENVIRONMENT' => array(
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',

@@ -71,8 +71,8 @@ class Model
     {
         //refactor to new plugins
         // TODOX Plugin dir
-        $toDir = ipFile(PLUGIN_DIR . $pluginGroup . '/' . $pluginName . '/');
-        $fromDir = ipFile($this->getThemePluginDir() . $pluginGroup . '/' . $pluginName . '/');
+        $toDir = ipFile('Plugin/' . $pluginName . '/');
+        $fromDir = ipFile('Plugin/' . $pluginName . '/');
 
         if (is_dir($toDir)) {
             throw new \Exception('This plugin has been already installed');
@@ -88,18 +88,13 @@ class Model
             throw new \Exception('Can\'t read plugin configuration file.');
         }
 
-        if (!is_writable(BASE_DIR . PLUGIN_DIR)) {
+        if (!is_writable(ipFile('Plugin/'))) {
             throw new \Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
         }
 
-        if (!is_dir(BASE_DIR . PLUGIN_DIR . $pluginGroup)) {
-            mkdir(BASE_DIR . PLUGIN_DIR . $pluginGroup);
-        }
         $helper = Helper::instance();
         $helper->cpDir($fromDir, $toDir);
         \Modules\developer\modules\Service::installPlugin($pluginGroup, $pluginName);
-
-
     }
 
     /**
